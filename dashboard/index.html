@@ -1318,7 +1318,12 @@
 
     function initThumbnailCanvas() {
       thumbnailBgImage.onload = () => drawThumbnailCanvas();
-      thumbnailBgImage.src = "https://images.unsplash.com/photo-1518495973542-4542c06a5843?q=80&w=1280&auto=format&fit=crop";
+      thumbnailBgImage.onerror = () => {
+        // 이미지 로드 실패 시에도 아름다운 앰비언트 그라데이션으로 렌더링
+        drawThumbnailCanvas();
+      };
+      // 고즈넉한 비 내리는 창가와 따뜻한 조명(Warm bokeh & rain window) 고화질 감성 이미지
+      thumbnailBgImage.src = "https://images.unsplash.com/photo-1515694346937-94d85e41e6f0?q=80&w=1280&auto=format&fit=crop";
     }
 
     function generateAiThumbnailBg() {
@@ -1345,58 +1350,131 @@
       newImg.src = aiUrl;
     }
 
+    // 세로 텍스트 스마트 다단(Multi-column) 분할 헬퍼
+    function splitIntoVerticalColumns(text, maxPerCol = 8) {
+      const trimmed = (text || '').trim();
+      if (!trimmed) return [];
+      if (trimmed.length <= maxPerCol) return [trimmed];
+
+      const words = trimmed.split(/\s+/);
+      if (words.length === 1) {
+        const mid = Math.ceil(trimmed.length / 2);
+        return [trimmed.slice(0, mid), trimmed.slice(mid)];
+      }
+
+      const col1Words = [];
+      const col2Words = [];
+      const targetHalf = trimmed.length / 2;
+      let curLen = 0;
+
+      for (let i = 0; i < words.length; i++) {
+        const w = words[i];
+        if (curLen + w.length <= targetHalf + 1 || col1Words.length === 0) {
+          col1Words.push(w);
+          curLen += w.length + 1;
+        } else {
+          col2Words.push(w);
+        }
+      }
+
+      if (col2Words.length === 0 && col1Words.length > 1) {
+        col2Words.push(col1Words.pop());
+      }
+
+      return [col1Words.join(' '), col2Words.join(' ')];
+    }
+
     function drawThumbnailCanvas() {
       const canvas = document.getElementById('thumbnail-canvas');
       const ctx = canvas.getContext('2d');
       const mainTitle = document.getElementById('thumb-main-title').value || "오늘 하루도 참 고생 많으셨어요";
-      const subTitle = document.getElementById('thumb-sub-title').value || "432Hz 힐링 피아노 · 깊은 수면";
+      const subTitle = document.getElementById('thumb-sub-title').value || "432Hz 힐링 피아노 · 깊은 수면을 위한 따뜻한 쉼표";
       const dim = Number(document.getElementById('thumb-dim').value) || 0.45;
 
-      // 1. Draw Background Image
-      ctx.drawImage(thumbnailBgImage, 0, 0, canvas.width, canvas.height);
+      // 1. Draw Background Image (or gradient fallback)
+      if (thumbnailBgImage.complete && thumbnailBgImage.naturalWidth > 0) {
+        ctx.drawImage(thumbnailBgImage, 0, 0, canvas.width, canvas.height);
+      } else {
+        // Fallback Dark Cinematic Gradient
+        const baseGrad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+        baseGrad.addColorStop(0, '#0a101d');
+        baseGrad.addColorStop(0.5, '#151d30');
+        baseGrad.addColorStop(1, '#070b14');
+        ctx.fillStyle = baseGrad;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+      }
 
-      // 2. Dark Vignette & Gradient Overlay
+      // 2. Dark Vignette & Gradient Overlay for Contrast
       const grad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-      grad.addColorStop(0, `rgba(7, 10, 18, ${dim * 0.8})`);
-      grad.addColorStop(0.5, `rgba(7, 10, 18, ${dim})`);
-      grad.addColorStop(1, `rgba(7, 10, 18, ${dim * 1.2})`);
+      grad.addColorStop(0, `rgba(7, 10, 18, ${dim * 0.75})`);
+      grad.addColorStop(0.4, `rgba(7, 10, 18, ${dim})`);
+      grad.addColorStop(1, `rgba(7, 10, 18, ${dim * 1.25})`);
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // 3. Draw Vertical Text ('한걸음씩' 시그니처 세로 명조체)
+      // 3. Draw Smart Multi-column Vertical Text (전통 서적 세로쓰기: 오른쪽 1열 ➔ 왼쪽 2열)
+      const columns = splitIntoVerticalColumns(mainTitle, 8);
+      const numCols = columns.length;
+      const maxColLen = Math.max(...columns.map(c => c.length), 1);
+
       ctx.save();
-      ctx.font = 'bold 52px "Nanum Myeongjo", serif';
+      // 글자 수 및 다단 여부에 따른 동적 폰트 스케일링
+      let fontSize = 48;
+      let stepY = 56;
+      let colGap = 72;
+
+      if (numCols === 1) {
+        fontSize = maxColLen > 7 ? 42 : 48;
+        stepY = fontSize + 12;
+      } else {
+        fontSize = maxColLen > 8 ? 38 : 44;
+        stepY = fontSize + 10;
+        colGap = fontSize * 1.65; // 열 간격
+      }
+
+      ctx.font = `bold ${fontSize}px "Nanum Myeongjo", serif`;
       ctx.fillStyle = '#ffffff';
-      ctx.shadowColor = 'rgba(0, 0, 0, 0.85)';
-      ctx.shadowBlur = 16;
+      ctx.shadowColor = 'rgba(0, 0, 0, 0.9)';
+      ctx.shadowBlur = 18;
       ctx.shadowOffsetX = 3;
       ctx.shadowOffsetY = 3;
 
-      const chars = mainTitle.split('');
-      const startX = canvas.width - 200;
-      let startY = 120;
-      for (let ch of chars) {
-        ctx.fillText(ch, startX, startY);
-        startY += 62;
-      }
+      // 캔버스 우측에서부터 왼쪽으로 열 배치 (시집 표지 감성)
+      const baseRightX = numCols === 1 ? canvas.width - 180 : canvas.width - 150;
+      const startY = Math.max(90, Math.min(140, (canvas.height - (maxColLen * stepY)) / 2));
+
+      columns.forEach((colText, colIdx) => {
+        // colIdx === 0 은 가장 오른쪽 열, colIdx === 1 은 그 왼쪽 열
+        const colX = baseRightX - (colIdx * colGap);
+        let curY = startY;
+
+        for (let ch of colText.split('')) {
+          if (ch === ' ') {
+            curY += stepY * 0.55; // 공백은 살짝 좁게 띄움
+          } else {
+            ctx.fillText(ch, colX, curY);
+            curY += stepY;
+          }
+        }
+      });
       ctx.restore();
 
-      // 4. Draw Channel Signature Badge
+      // 4. Draw Channel Signature Badge (상단 좌측)
       ctx.save();
       ctx.font = 'bold 24px "Noto Sans KR", sans-serif';
       ctx.fillStyle = '#34d399';
-      ctx.shadowColor = 'rgba(0, 0, 0, 0.9)';
-      ctx.shadowBlur = 8;
-      ctx.fillText('한걸음씩  ·  432Hz Healing', 80, 100);
+      ctx.shadowColor = 'rgba(0, 0, 0, 0.95)';
+      ctx.shadowBlur = 10;
+      ctx.fillText('한걸음씩  ·  432Hz Healing', 80, 95);
       ctx.restore();
 
-      // 5. Draw Horizontal Subtitle at Bottom
+      // 5. Draw Horizontal Subtitle at Bottom (하단 좌측)
       ctx.save();
-      ctx.font = '500 28px "Noto Sans KR", sans-serif';
+      ctx.font = '500 26px "Noto Sans KR", sans-serif';
       ctx.fillStyle = '#f1f5f9';
-      ctx.shadowColor = 'rgba(0, 0, 0, 0.9)';
-      ctx.shadowBlur = 10;
-      ctx.fillText(subTitle, 80, canvas.height - 80);
+      ctx.shadowColor = 'rgba(0, 0, 0, 0.95)';
+      ctx.shadowBlur = 12;
+      ctx.fillText(subTitle, 80, canvas.height - 75);
       ctx.restore();
     }
 
