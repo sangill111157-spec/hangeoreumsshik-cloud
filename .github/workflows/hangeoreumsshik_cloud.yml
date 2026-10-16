@@ -75,6 +75,16 @@ jobs:
             fi
           fi
 
+      - name: Restore Secrets from Base64
+        env:
+          G_TOKEN_PICKLE_B64: ${{ secrets.G_TOKEN_PICKLE_B64 }}
+          G_TOKEN_BOOSTER_B64: ${{ secrets.G_TOKEN_BOOSTER_B64 }}
+          G_YT_TOKEN_B64: ${{ secrets.G_YT_TOKEN_B64 }}
+          G_CLIENT_SECRET_B64: ${{ secrets.G_CLIENT_SECRET_B64 }}
+          G_DOTENV_B64: ${{ secrets.G_DOTENV_B64 }}
+        run: |
+          python restore_secrets.py
+
       - name: Execute Automation Script
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
