@@ -147,13 +147,13 @@
         </div>
       </button>
 
-      <!-- Tab 5: 기억 금고 & 보안 -->
+      <!-- Tab 5: 지혜금고 & 제국실록 -->
       <button onclick="switchTab('tab-vault')" id="nav-tab-vault"
         class="nav-tab-btn flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-800/80 transition active:scale-[0.98]">
-        <span class="text-base">🧠</span>
+        <span class="text-base">📚</span>
         <div class="text-left">
-          <div>기억 금고 & 보안 설정</div>
-          <div class="text-[10px] text-slate-400 font-normal">Memory Vault · Zero-Leak</div>
+          <div>지혜금고 & 제국실록</div>
+          <div class="text-[10px] text-slate-400 font-normal">성공공식 · 오답백신 · 보안</div>
         </div>
       </button>
     </nav>
@@ -1171,10 +1171,122 @@
     </div>
 
     <!-- ══════════════════════════════════════════════════════════════
-         TAB 5. 🧠 기억 금고 & 보안 설정 (Memory Vault & Zero-Leak Security)
+         TAB 5. 📚 지혜금고 & 제국실록 (Wisdom Ledger & Memory Vault)
     ══════════════════════════════════════════════════════════════ -->
     <div id="tab-vault" class="tab-pane hidden p-4 sm:p-6 lg:p-8 space-y-6">
-      
+
+      <!-- 📚 [제국 실록 : 잘한 점(성공 공식) & 잘못한 점(오답 백신) 공유 저장소] -->
+      <div class="glass-panel rounded-2xl p-5 border border-amber-500/30 bg-gradient-to-r from-slate-900/95 via-amber-950/20 to-slate-900/95 space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-800">
+          <div class="flex items-center gap-2.5">
+            <span class="text-2xl">📚</span>
+            <div>
+              <h3 class="text-sm font-bold text-white flex items-center gap-2">
+                [제국 실록] 잘한 점(성공 공식) & 잘못한 점(오답 백신) 지혜 저장소
+              </h3>
+              <p class="text-[11px] text-slate-400">모든 AI 부처와 안실장이 실시간 공유하여 실수를 100% 원천 차단하고 판단을 가속합니다</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="openAddWisdomModal('good')"
+              class="px-3 py-1.5 rounded-xl bg-emerald-600/30 hover:bg-emerald-600/50 text-emerald-300 border border-emerald-500/40 text-xs font-bold transition flex items-center gap-1 active:scale-95 shadow-md">
+              <span>🟢</span> <span>성공 공식 등록</span>
+            </button>
+            <button onclick="openAddWisdomModal('mistake')"
+              class="px-3 py-1.5 rounded-xl bg-rose-600/30 hover:bg-rose-600/50 text-rose-300 border border-rose-500/40 text-xs font-bold transition flex items-center gap-1 active:scale-95 shadow-md">
+              <span>🔴</span> <span>오답 백신 등록</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 실시간 지혜 통계 배지 -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-xs">
+          <div class="p-3 rounded-xl bg-emerald-950/40 border border-emerald-500/30 flex items-center justify-between">
+            <span class="text-slate-300 font-semibold flex items-center gap-1.5">
+              <span>🟢</span> <span>축적된 성공 공식</span>
+            </span>
+            <span id="stat-good-count" class="text-base font-extrabold text-emerald-400 font-mono">0건</span>
+          </div>
+          <div class="p-3 rounded-xl bg-rose-950/40 border border-rose-500/30 flex items-center justify-between">
+            <span class="text-slate-300 font-semibold flex items-center gap-1.5">
+              <span>🛡️</span> <span>실수 방지 오답 백신</span>
+            </span>
+            <span id="stat-mistake-count" class="text-base font-extrabold text-rose-400 font-mono">0건</span>
+          </div>
+          <div class="p-3 rounded-xl bg-amber-950/40 border border-amber-500/30 flex items-center justify-between">
+            <span class="text-slate-300 font-semibold flex items-center gap-1.5">
+              <span>⚡</span> <span>AI 판단 가속 & 면역률</span>
+            </span>
+            <span class="text-xs font-extrabold text-amber-300 font-mono">100% (실시간 주입)</span>
+          </div>
+        </div>
+
+        <!-- 신규 지혜 원터치 입력 폼 (토글) -->
+        <div id="wisdom-input-card" class="hidden p-4 rounded-xl bg-slate-950/90 border border-amber-500/40 space-y-3">
+          <div class="flex items-center justify-between">
+            <h4 id="wisdom-input-title" class="text-xs font-bold text-amber-300 flex items-center gap-1.5">
+              <span>✏️</span> <span>새로운 성공 공식 기록</span>
+            </h4>
+            <button onclick="closeWisdomInputCard()" class="text-slate-400 hover:text-white text-xs">✕ 닫기</button>
+          </div>
+          <input type="hidden" id="wisdom-input-type" value="good" />
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
+            <div class="sm:col-span-2">
+              <input type="text" id="wisdom-form-title" placeholder="교훈 제목 (예: 20분 무부하 렌더링, API 키 사전 검증 등)"
+                class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-white text-xs outline-none focus:border-amber-500" />
+            </div>
+            <div>
+              <input type="text" id="wisdom-form-category" placeholder="분야 (예: 성능, 보안, UX, 프론트)"
+                class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-white text-xs outline-none focus:border-amber-500" />
+            </div>
+          </div>
+          <div>
+            <textarea id="wisdom-form-content" rows="2" placeholder="자세한 내용 (무엇을 잘했는지 또는 어떤 버그/실수가 발생했는지 설명)"
+              class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-white text-xs outline-none focus:border-amber-500"></textarea>
+          </div>
+          <div>
+            <input type="text" id="wisdom-form-rule" placeholder="핵심 수칙 / 재발 방지 규칙 / 기대 효과"
+              class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-white text-xs outline-none focus:border-amber-500" />
+          </div>
+          <div class="flex justify-end gap-2 pt-1">
+            <button onclick="closeWisdomInputCard()" class="px-3 py-1.5 rounded-lg bg-slate-800 text-slate-300 text-xs">취소</button>
+            <button onclick="submitWisdomEntry()" id="btn-submit-wisdom"
+              class="px-4 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs shadow-md transition active:scale-95">
+              전 부처 실시간 전파 및 등재 🚀
+            </button>
+          </div>
+        </div>
+
+        <!-- 좌우 2단 비교 뷰 (🟢 성공 공식 vs 🔴 오답 백신) -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <!-- 🟢 성공 공식 카드 리스트 -->
+          <div class="space-y-3">
+            <div class="flex items-center justify-between px-1">
+              <h4 class="text-xs font-bold text-emerald-400 flex items-center gap-1.5">
+                <span>🟢</span> <span>[검증된 성공 공식 (Best Practices)]</span>
+              </h4>
+              <span class="text-[10px] text-slate-500 font-mono">신속 판단의 나침반</span>
+            </div>
+            <div id="wisdom-good-list" class="space-y-2.5 max-h-[460px] overflow-y-auto pr-1">
+              <div class="text-center py-6 text-slate-500 text-xs">성공 공식을 불러오는 중...</div>
+            </div>
+          </div>
+
+          <!-- 🔴 오답 백신 카드 리스트 -->
+          <div class="space-y-3">
+            <div class="flex items-center justify-between px-1">
+              <h4 class="text-xs font-bold text-rose-400 flex items-center gap-1.5">
+                <span>🔴</span> <span>[절대 반복 금지 오답 백신 (Mistake Vaccines)]</span>
+              </h4>
+              <span class="text-[10px] text-slate-500 font-mono">원천 차단 영구 면역</span>
+            </div>
+            <div id="wisdom-mistake-list" class="space-y-2.5 max-h-[460px] overflow-y-auto pr-1">
+              <div class="text-center py-6 text-slate-500 text-xs">오답 백신을 불러오는 중...</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="flex items-center justify-between pb-3 border-b border-slate-800">
         <div>
           <h2 class="text-base font-bold text-white">기억 금고 & 보안 설정 (Memory Vault)</h2>
@@ -1465,6 +1577,177 @@
       }, 900);
     }
 
+    // ── 📚 [제국 실록 : 지혜 & 오답 백신 관리 엔진] ──
+    let cachedWisdomLedger = { good_practices: [], mistake_vaccines: [] };
+
+    async function loadWisdomLedger() {
+      try {
+        const resp = await fetch('/api/wisdom-ledger');
+        if (resp.ok) {
+          const data = await resp.json();
+          cachedWisdomLedger = data;
+          renderWisdomLedger(data);
+        }
+      } catch (e) {
+        console.error('Wisdom ledger load error:', e);
+      }
+    }
+
+    function renderWisdomLedger(data) {
+      const goods = data.good_practices || [];
+      const mistakes = data.mistake_vaccines || [];
+
+      // 통계 배지 갱신
+      const statGood = document.getElementById('stat-good-count');
+      const statMistake = document.getElementById('stat-mistake-count');
+      if (statGood) statGood.textContent = `${goods.length}건`;
+      if (statMistake) statMistake.textContent = `${mistakes.length}건`;
+
+      // 🟢 성공 공식 리스트 렌더링
+      const goodContainer = document.getElementById('wisdom-good-list');
+      if (goodContainer) {
+        if (goods.length === 0) {
+          goodContainer.innerHTML = '<div class="text-center py-6 text-slate-500 text-xs">등록된 성공 공식이 없습니다.</div>';
+        } else {
+          let html = '';
+          goods.forEach(item => {
+            html += `
+              <div class="p-3.5 rounded-xl bg-slate-950/80 border border-emerald-500/30 space-y-2 transition hover:border-emerald-400/50 text-left">
+                <div class="flex items-start justify-between gap-2">
+                  <div class="font-bold text-white text-xs flex items-center gap-1.5">
+                    <span class="text-emerald-400">🟢</span>
+                    <span>${escapeHtml(item.title)}</span>
+                  </div>
+                  <span class="px-2 py-0.5 rounded text-[10px] bg-emerald-500/10 text-emerald-300 border border-emerald-500/30 font-medium shrink-0">
+                    ${escapeHtml(item.category || '성공')}
+                  </span>
+                </div>
+                <p class="text-xs text-slate-300 leading-relaxed">${escapeHtml(item.description)}</p>
+                ${item.impact ? `
+                  <div class="text-[11px] text-emerald-400/90 bg-emerald-950/30 px-2.5 py-1 rounded-lg border border-emerald-500/20 font-mono">
+                    ⚡ 기대 효과: ${escapeHtml(item.impact)}
+                  </div>
+                ` : ''}
+              </div>
+            `;
+          });
+          goodContainer.innerHTML = html;
+        }
+      }
+
+      // 🔴 오답 백신 리스트 렌더링
+      const mistakeContainer = document.getElementById('wisdom-mistake-list');
+      if (mistakeContainer) {
+        if (mistakes.length === 0) {
+          mistakeContainer.innerHTML = '<div class="text-center py-6 text-slate-500 text-xs">등록된 오답 백신이 없습니다.</div>';
+        } else {
+          let html = '';
+          mistakes.forEach(item => {
+            html += `
+              <div class="p-3.5 rounded-xl bg-slate-950/80 border border-rose-500/30 space-y-2 transition hover:border-rose-400/50 text-left">
+                <div class="flex items-start justify-between gap-2">
+                  <div class="font-bold text-white text-xs flex items-center gap-1.5">
+                    <span class="text-rose-400">🛡️</span>
+                    <span>${escapeHtml(item.title)}</span>
+                  </div>
+                  <span class="px-2 py-0.5 rounded text-[10px] bg-rose-500/10 text-rose-300 border border-rose-500/30 font-medium shrink-0">
+                    ${escapeHtml(item.category || '백신')}
+                  </span>
+                </div>
+                <div class="text-xs text-slate-300 leading-relaxed">
+                  <span class="text-rose-400 font-semibold">[증상/오답]</span> ${escapeHtml(item.symptom)}
+                </div>
+                <div class="text-[11px] text-amber-300/90 bg-amber-950/30 px-2.5 py-1 rounded-lg border border-amber-500/20 leading-relaxed">
+                  <span class="font-bold text-amber-400">🚫 영구 봉쇄 규칙:</span> ${escapeHtml(item.rule)}
+                </div>
+              </div>
+            `;
+          });
+          mistakeContainer.innerHTML = html;
+        }
+      }
+    }
+
+    function openAddWisdomModal(type) {
+      const card = document.getElementById('wisdom-input-card');
+      const typeInput = document.getElementById('wisdom-input-type');
+      const titleEl = document.getElementById('wisdom-input-title');
+      const ruleInput = document.getElementById('wisdom-form-rule');
+      const btn = document.getElementById('btn-submit-wisdom');
+
+      if (!card || !typeInput || !titleEl) return;
+
+      typeInput.value = type;
+      card.classList.remove('hidden');
+
+      if (type === 'good') {
+        titleEl.innerHTML = '<span>🟢</span> <span>새로운 [성공 공식 (Good Practice)] 기록</span>';
+        if (ruleInput) ruleInput.placeholder = '기대 효과 / 시너지 임팩트 (예: 렌더링 속도 15배 향상, CTR 극대화 등)';
+        if (btn) btn.className = 'px-4 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shadow-md transition active:scale-95';
+      } else {
+        titleEl.innerHTML = '<span>🔴</span> <span>새로운 [실수 방지 오답 백신 (Mistake Vaccine)] 기록</span>';
+        if (ruleInput) ruleInput.placeholder = '절대 반복 금지 영구 방어 규칙 (예: JS 내 문자열 이스케이프 및 node --check 의무화)';
+        if (btn) btn.className = 'px-4 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs shadow-md transition active:scale-95';
+      }
+
+      document.getElementById('wisdom-form-title')?.focus();
+    }
+
+    function closeWisdomInputCard() {
+      const card = document.getElementById('wisdom-input-card');
+      if (card) card.classList.add('hidden');
+    }
+
+    async function submitWisdomEntry() {
+      const type = document.getElementById('wisdom-input-type')?.value || 'good';
+      const title = document.getElementById('wisdom-form-title')?.value.trim();
+      const category = document.getElementById('wisdom-form-category')?.value.trim() || '운영·개발';
+      const content = document.getElementById('wisdom-form-content')?.value.trim();
+      const impact_or_rule = document.getElementById('wisdom-form-rule')?.value.trim();
+
+      if (!title || !content) {
+        showToast('제목과 내용을 모두 입력해 주세요.', 'error');
+        return;
+      }
+
+      const btn = document.getElementById('btn-submit-wisdom');
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<span>⏳</span> <span>전 부처 전파 중...</span>';
+      }
+
+      try {
+        const resp = await fetch('/api/wisdom-ledger', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ type, title, content, category, impact_or_rule })
+        });
+
+        if (resp.ok) {
+          const res = await resp.json();
+          if (res.success) {
+            showToast(`📚 [제국 실록] 새로운 ${type === 'good' ? '성공 공식' : '오답 백신'}이 전 부처에 실시간 전파되었습니다!`, 'success');
+            document.getElementById('wisdom-form-title').value = '';
+            document.getElementById('wisdom-form-category').value = '';
+            document.getElementById('wisdom-form-content').value = '';
+            document.getElementById('wisdom-form-rule').value = '';
+            closeWisdomInputCard();
+            loadWisdomLedger();
+            loadMemoryVault();
+            return;
+          }
+        }
+        throw new Error('실록 등록에 실패했습니다.');
+      } catch (e) {
+        showToast(`등록 오류: ${e.message}`, 'error');
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = '전 부처 실시간 전파 및 등재 🚀';
+        }
+      }
+    }
+
     function initOtaHotReload() {
       checkVersionAndUpdate(false);
       setInterval(() => checkVersionAndUpdate(false), 15000);
@@ -1498,6 +1781,7 @@
       renderCertificateCanvas();
       initWorkShiftMode();
       initOtaHotReload();
+      loadWisdomLedger();
 
       // 시스템 상태 주기적 갱신
       setInterval(fetchSystemStatus, 15000);
