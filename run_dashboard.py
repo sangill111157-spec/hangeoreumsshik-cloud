@@ -485,17 +485,30 @@ class DashboardHandler(SimpleHTTPRequestHandler):
     def log_message(self, format, *args):
         pass
 
+def get_local_wifi_ip() -> str:
+    """동일 Wi-Fi 공유기 내 스마트폰 접속용 로컬 IP 확인"""
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    try:
+        s.connect(('8.8.8.8', 80))
+        return s.getsockname()[0]
+    except Exception:
+        return '127.0.0.1'
+    finally:
+        s.close()
+
 def main():
     if not DASHBOARD_DIR.exists():
         print(f"❌ 오류: 대시보드 폴더를 찾을 수 없습니다: {DASHBOARD_DIR}")
         sys.exit(1)
 
     port = find_available_port(DEFAULT_PORT)
-    server_address = ('127.0.0.1', port)
+    # 0.0.0.0 바인딩: PC 로컬 및 동일 Wi-Fi 스마트폰 접속 허용
+    server_address = ('0.0.0.0', port)
     httpd = ThreadingHTTPServer(server_address, DashboardHandler)
 
     gh_token = get_github_token()
     sec = get_local_secrets()
+    wifi_ip = get_local_wifi_ip()
 
     masked_gh = f"{gh_token[:4]}***{gh_token[-3:]}" if len(gh_token) > 8 else "미감지"
     masked_gemini = f"{sec['gemini_key'][:4]}***{sec['gemini_key'][-3:]}" if len(sec['gemini_key']) > 8 else "미감지"
@@ -504,8 +517,9 @@ def main():
     print("═" * 74)
     print(" 🏛️  한걸음씩 만능 AI 국가 OS (Omni-Nexus v2.0) 서버 가동 중")
     print("═" * 74)
-    print(f" 🌐 로컬 접속 주소: http://127.0.0.1:{port}")
-    print(f" 📦 관제 대상 저장소: {REPO_NAME}")
+    print(f" 💻 PC 로컬 접속     : http://127.0.0.1:{port}")
+    print(f" 📱 스마트폰(Wi-Fi)   : http://{wifi_ip}:{port}")
+    print(f" 📦 관제 대상 저장소  : {REPO_NAME}")
     print(" ── 보안 키 자동 주입 상태 ──")
     print(f"  • GitHub CLI Token : {masked_gh} (자동 주입 준비 완료)")
     print(f"  • Gemini API Key    : {masked_gemini} (자동 주입 준비 완료)")
@@ -519,6 +533,13 @@ def main():
     print("═" * 74)
     print(" 🛑 서버를 종료하시려면 콘솔에서 Ctrl + C 를 누르세요.")
     print("═" * 74)
+
+    # 기본 브라우저 자동 오픈
+    try:
+        import webbrowser
+        webbrowser.open(f"http://127.0.0.1:{port}")
+    except Exception:
+        pass
 
     try:
         httpd.serve_forever()
