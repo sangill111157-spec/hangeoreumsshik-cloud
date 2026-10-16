@@ -198,7 +198,7 @@
       <div class="flex items-center gap-2">
         <button onclick="openEmpireCouncilModal()" class="p-2 sm:px-3 sm:py-1 rounded-lg bg-gradient-to-r from-amber-600/30 to-purple-600/30 hover:from-amber-600/50 hover:to-purple-600/50 text-amber-300 border border-amber-500/40 text-xs flex items-center gap-1.5 transition font-bold shadow-lg shadow-amber-500/10">
           <span>🏛️</span>
-          <span class="hidden sm:inline">7대 부처 어전회의</span>
+          <span class="hidden sm:inline">8대 부처 어전회의</span>
         </button>
         <button onclick="refreshAll()" class="p-2 sm:px-3 sm:py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 text-xs flex items-center gap-1.5 transition">
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
@@ -215,6 +215,55 @@
          TAB 1. 🎛️ 통합 관제 사령부 (Command & Cloud Hub)
     ══════════════════════════════════════════════════════════════ -->
     <div id="tab-command" class="tab-pane p-4 sm:p-6 lg:p-8 space-y-6">
+
+      <!-- 📋 [제0원: 만능 총무원] 대표님 3조 2교대 근무 케어 & 살림 점검 보드 -->
+      <div class="glass-panel rounded-2xl p-5 border border-cyan-500/30 bg-gradient-to-r from-slate-900/90 via-cyan-950/20 to-slate-900/90 space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div class="flex items-center gap-2.5">
+            <span class="text-xl">📋</span>
+            <div>
+              <h3 class="text-sm font-bold text-white flex items-center gap-2">
+                [제0원: 만능 총무원] 대표님 3조 2교대 수면 케어 & 제국 살림 점검
+              </h3>
+              <p class="text-[11px] text-slate-400">교대근무 수면 보호 · 알림 자동 무음 제어 · 디지털 창고(용량/음원/API) 살림 장부</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="runGeneralAffairsClean()" id="btn-ga-clean"
+              class="px-3.5 py-1.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs transition active:scale-95 shrink-0 flex items-center gap-1.5 shadow-md shadow-cyan-600/30">
+              <span>🧹</span>
+              <span>총무팀: 디스크 청소 & 살림 점검</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 3조 2교대 3단 선택 스위치 -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-xs">
+          <button type="button" onclick="setWorkShiftMode('day')" id="shift-btn-day"
+            class="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800 text-slate-300 hover:text-white flex items-center justify-center gap-2 font-semibold transition active:scale-98">
+            <span>☀️</span>
+            <span>주간근무 (07:00~19:00)</span>
+          </button>
+          <button type="button" onclick="setWorkShiftMode('night')" id="shift-btn-night"
+            class="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800 text-slate-300 hover:text-white flex items-center justify-center gap-2 font-semibold transition active:scale-98">
+            <span>🌙</span>
+            <span>야간근무 (오전취침 보호)</span>
+          </button>
+          <button type="button" onclick="setWorkShiftMode('off')" id="shift-btn-off"
+            class="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800 text-slate-300 hover:text-white flex items-center justify-center gap-2 font-semibold transition active:scale-98">
+            <span>🏠</span>
+            <span>휴무 · 가족시간 (세 딸과 쉼표)</span>
+          </button>
+        </div>
+
+        <!-- 총무팀장의 실시간 케어 브리핑 카드 -->
+        <div id="work-shift-care-box" class="p-3.5 rounded-xl bg-cyan-950/40 border border-cyan-500/30 text-xs text-cyan-200 flex items-start gap-2.5">
+          <span class="text-base shrink-0">💌</span>
+          <p id="work-shift-care-text" class="leading-relaxed">
+            총무팀 상태를 확인하고 있습니다...
+          </p>
+        </div>
+      </div>
       
       <!-- 🛡️ [제1원: 안전보안·자율법무원] 실시간 컴플라이언스 & Zero-Leak 신호등 -->
       <div class="glass-panel rounded-2xl p-5 border border-indigo-500/30 bg-gradient-to-r from-slate-900/90 via-indigo-950/20 to-slate-900/90 space-y-4">
@@ -997,6 +1046,20 @@
                 class="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 text-white text-xs outline-none focus:border-amber-500" />
             </div>
 
+            <!-- 교장 선생님(수여권자) 직함 및 성함 커스텀 입력칸 -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <div>
+                <label class="block font-semibold text-slate-300 mb-1">교장(수여권자) 직함</label>
+                <input type="text" id="cert-principal-title" value="한걸음씩 미래 AI 인성학교장" placeholder="예: 한걸음씩 미래 AI 인성학교장"
+                  class="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 text-white text-xs outline-none focus:border-amber-500" />
+              </div>
+              <div>
+                <label class="block font-semibold text-slate-300 mb-1">교장(수여권자) 성명</label>
+                <input type="text" id="cert-principal-name" value="안 성 일" placeholder="예: 안 성 일"
+                  class="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 text-white text-xs outline-none focus:border-amber-500" />
+              </div>
+            </div>
+
             <div>
               <label class="block font-semibold text-slate-300 mb-1">이수 덕목 및 과정명</label>
               <select id="cert-course-type" class="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 text-white text-xs">
@@ -1196,7 +1259,7 @@
     </div>
   </div>
 
-  <!-- 🏛️ 7대 부처 합동 AI 어전회의 모달 (Empire Council Modal) -->
+  <!-- 🏛️ 8대 부처 합동 AI 어전회의 모달 (Empire Council Modal) -->
   <div id="council-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden flex items-center justify-center p-4">
     <div class="glass-panel w-full max-w-2xl max-h-[85vh] rounded-2xl p-6 border border-amber-500/40 shadow-2xl relative flex flex-col space-y-4">
       <button onclick="closeEmpireCouncilModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white p-1 text-base">✕</button>
@@ -1207,10 +1270,10 @@
         </div>
         <div>
           <h3 class="text-base font-bold text-white flex items-center gap-2">
-            〈한걸음씩 AI 제국〉 7대 부처 합동 자율 진화 어전회의
+            〈한걸음씩 AI 제국〉 8대 부처 합동 자율 진화 어전회의
           </h3>
           <p class="text-xs text-slate-400">
-            법무·개발·나눔·인성학교·미디어·재무·전략사령탑 7개 기관 합동 진단 및 오늘의 지혜로운 한걸음
+            총무·법무·개발·나눔·인성학교·미디어·재무·전략사령탑 8대 기관 합동 진단 및 대표님 케어 리포트
           </p>
         </div>
       </div>
@@ -1219,7 +1282,7 @@
       <div id="council-content-body" class="flex-1 overflow-y-auto pr-1 text-xs text-slate-200 space-y-3 leading-relaxed whitespace-pre-wrap">
         <div class="py-8 text-center text-slate-400 space-y-2">
           <div class="inline-block animate-spin text-2xl">⏳</div>
-          <p>7대 부처 장관들의 실시간 진단과 제언을 종합하고 있습니다...</p>
+          <p>8대 부처 장관들의 실시간 진단과 제언을 종합하고 있습니다...</p>
         </div>
       </div>
 
@@ -1284,6 +1347,7 @@
       initThumbnailCanvas();
       runComplianceAudit(true);
       renderCertificateCanvas();
+      initWorkShiftMode();
 
       // 시스템 상태 주기적 갱신
       setInterval(fetchSystemStatus, 15000);
@@ -2544,6 +2608,82 @@
       return String(s).replace(/'/g, "\\'").replace(/"/g, '\\"').replace(/\n/g, '\\n');
     }
 
+    // ── 📋 [제0원: 만능 총무원] 대표님 3조 2교대 케어 & 제국 살림 청소 ──
+    const WORK_SHIFT_CONFIG = {
+      day: {
+        title: '☀️ 주간근무 (07:00 ~ 19:00)',
+        briefing: '현재 대표님 주간근무(07:00~19:00) 모드입니다. 총무팀이 현장 안전근무를 기원하며, 낮 시간대 제국 자동화 시스템을 최대 성능 모드로 가동하고 모든 모니터링을 실시간 지원합니다.'
+      },
+      night: {
+        title: '🌙 야간근무 (오전취침 보호)',
+        briefing: '현재 대표님 야간근무 모드입니다. 총무팀이 내일 오전 11:30 이후 취침 시간 동안 비긴급 알림을 무음 모드로 보호하고, 노트북 백그라운드 자원을 최소화로 유지합니다.'
+      },
+      off: {
+        title: '🏠 휴무 · 가족시간 (세 딸과 쉼표)',
+        briefing: '현재 대표님 휴무 및 소중한 가족 시간입니다! 세 공주님(수아·윤아·서아)과의 행복하고 편안한 시간에 온전히 집중하실 수 있도록 긴급 호출을 제외한 일체 백그라운드 알림을 정숙 모드로 전환합니다.'
+      }
+    };
+
+    function setWorkShiftMode(mode) {
+      if (!WORK_SHIFT_CONFIG[mode]) mode = 'night';
+      localStorage.setItem('omni_work_shift_mode', mode);
+
+      const cfg = WORK_SHIFT_CONFIG[mode];
+      const careText = document.getElementById('work-shift-care-text');
+      if (careText) careText.textContent = cfg.briefing;
+
+      // 버튼 하이라이트
+      ['day', 'night', 'off'].forEach(m => {
+        const btn = document.getElementById(`shift-btn-${m}`);
+        if (!btn) return;
+        if (m === mode) {
+          btn.className = 'p-2.5 rounded-xl bg-cyan-600/30 border-2 border-cyan-400 text-cyan-200 flex items-center justify-center gap-2 font-bold transition shadow-lg shadow-cyan-500/20 active:scale-98';
+        } else {
+          btn.className = 'p-2.5 rounded-xl bg-slate-950/80 border border-slate-800 text-slate-400 hover:text-white flex items-center justify-center gap-2 font-medium transition active:scale-98';
+        }
+      });
+
+      showToast(`📋 총무팀 케어 모드: [${cfg.title}] 적용 완료!`, 'info');
+    }
+
+    function initWorkShiftMode() {
+      const saved = localStorage.getItem('omni_work_shift_mode') || 'night';
+      setWorkShiftMode(saved);
+    }
+
+    async function runGeneralAffairsClean() {
+      const btn = document.getElementById('btn-ga-clean');
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<span>🧹</span><span>총무팀 청소 및 장부 점검 중...</span>';
+      }
+
+      try {
+        const resp = await fetch('/api/general-affairs-clean', { method: 'POST' });
+        if (resp.ok) {
+          const res = await resp.json();
+          if (res.success) {
+            const careText = document.getElementById('work-shift-care-text');
+            if (careText) {
+              const currentMode = localStorage.getItem('omni_work_shift_mode') || 'night';
+              const modeCfg = WORK_SHIFT_CONFIG[currentMode] || WORK_SHIFT_CONFIG.night;
+              careText.innerHTML = `<strong>${escapeHtml(modeCfg.briefing)}</strong><br><br><span class="text-cyan-300 font-mono font-bold">📊 [총무팀 살림 점검 장부]</span><br>${escapeHtml(res.briefing).replace(/\n/g, '<br>')}`;
+            }
+            showToast(`🧹 총무팀 점검 완료! (여유: ${res.disk_free_gb}GB, 음원: ${res.suno_count}곡, 임시정리: ${res.cleaned_count}건)`, 'success');
+            return;
+          }
+        }
+        throw new Error('총무팀 청소 API 응답 실패');
+      } catch (e) {
+        showToast(`총무팀 점검 실패: ${e.message}`, 'error');
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = '<span>🧹</span><span>총무팀: 디스크 청소 & 살림 점검</span>';
+        }
+      }
+    }
+
     // ── 🛡️ [제1원: 안전보안·자율법무원] 실시간 컴플라이언스 감사 ──
     async function runComplianceAudit(isSilent = false) {
       const btn = document.getElementById('btn-run-audit');
@@ -2619,8 +2759,8 @@
       container.innerHTML = `
         <div class="py-12 text-center text-slate-400 space-y-3">
           <div class="inline-block animate-spin text-3xl">🏛️</div>
-          <p class="font-semibold text-white">7대 부처 장관들의 어전회의 합동 브리핑을 조율하고 있습니다...</p>
-          <p class="text-[11px] text-slate-500">법무 · 개발 · 나눔 · 인성학교 · 미디어 · 재무 · 최고전략사령탑</p>
+          <p class="font-semibold text-white">8대 부처 장관들의 어전회의 합동 브리핑을 조율하고 있습니다...</p>
+          <p class="text-[11px] text-slate-500">총무 · 법무 · 개발 · 나눔 · 인성학교 · 미디어 · 재무 · 최고전략사령탑</p>
         </div>
       `;
 
@@ -2638,7 +2778,7 @@
                 ${escapeHtml(res.text).replace(/&lt;br&gt;/g, '<br>').replace(/\n/g, '<br>')}
               </div>
             `;
-            showToast('🏛️ 7대 부처 합동 AI 어전회의가 성공적으로 소집되었습니다!', 'success');
+            showToast('🏛️ 8대 부처 합동 AI 어전회의가 성공적으로 소집되었습니다!', 'success');
             return;
           }
         }
@@ -2657,8 +2797,8 @@
         showToast('회의록이 아직 준비되지 않았습니다.', 'error');
         return;
       }
-      const ok = await sendTelegramMessage(`🏛️ *[한걸음씩 AI 제국 7대 부처 합동 어전회의]*\n\n${lastCouncilReportText}`);
-      if (ok) showToast('📱 텔레그램으로 어전회의록이 전송되었습니다!', 'success');
+      const ok = await sendTelegramMessage(`🏛️ *[한걸음씩 AI 제국 8대 부처 합동 어전회의]*\n\n${lastCouncilReportText}`);
+      if (ok) showToast('📱 텔레그램으로 8대 부처 어전회의록이 전송되었습니다!', 'success');
     }
 
     function copyCouncilContent() {
@@ -2825,11 +2965,15 @@
       ctx.restore();
 
       // 9. Principal Signature & Name
+      const principalTitle = (document.getElementById('cert-principal-title')?.value || '한걸음씩 미래 AI 인성학교장').trim();
+      const principalName = (document.getElementById('cert-principal-name')?.value || '안  성  일').trim();
+      const principalFull = `${principalTitle}   ${principalName}`;
+
       ctx.save();
       ctx.textAlign = 'center';
-      ctx.font = 'bold 26px "Nanum Myeongjo", serif';
+      ctx.font = 'bold 24px "Nanum Myeongjo", serif';
       ctx.fillStyle = '#ffffff';
-      ctx.fillText('한걸음씩 미래 AI 인성학교 교장   안  성  일', w / 2 - 30, 685);
+      ctx.fillText(principalFull, w / 2 - 30, 685);
       ctx.restore();
 
       // 10. Official Red & Gold Stamp (전통 사각 직인 Canvas 그래픽)
