@@ -25,7 +25,7 @@ SCOUT_CATEGORIES = {
     'education': {
         'name': '🎓 인성 웹게임·에듀테크',
         'query': '"educational game" OR "kids game" OR "learning game" stars:>40',
-        'focus': '수아·윤아·서아를 위한 웹 캔버스 인성 퀴즈, 대화형 도덕/예절 게임, 브라우저 로컬 구동'
+        'focus': '이은솔·이송효·이해상을 위한 웹 캔버스 인성 퀴즈, 대화형 도덕/예절 게임, 브라우저 로컬 구동'
     },
     'quant': {
         'name': '📈 퀀트·NVDA 분석',
@@ -158,7 +158,7 @@ def build_default_adaptation_plan(repo: dict, category_key: str) -> str:
     elif category_key == 'education':
         return (
             f"💡 [제2원 개조안] '{name}'의 대화형 웹 캔버스 인터랙션을 추출하여, "
-            f"우리 대시보드 4번 탭(AI 인성학교)에 세 딸(수아·윤아·서아) 전용 '오늘의 미덕 실천 퀴즈 웹게임'으로 브라우저 단독 탑재합니다."
+            f"우리 대시보드 4번 탭(AI 인성학교)에 세 딸(이은솔 수석·이송효 선임·이해상 주니어 자문위원) 전용 '오늘의 미덕 실천 퀴즈 웹게임'으로 브라우저 단독 탑재합니다."
         )
     elif category_key == 'quant':
         return (
@@ -191,7 +191,7 @@ def generate_adaptation_plan_with_gemini(repo: dict, category_key: str, gemini_c
         f"• 탐사 분야: {cat_info['name']} (제국 포커스: {cat_info['focus']})\n\n"
         f"[우리 제국의 현재 인프라]\n"
         f"1. 8시간 수면·명상 음악(FFmpeg 초경량 루프, Suno 음원 창고 30곡, 노트북 저전력 가동)\n"
-        f"2. 세 딸(수아 중3, 윤아 중1, 서아 초5)을 위한 올바른 AI 인성학교 & 수료 인증원\n"
+        f"2. 세 딸(이은솔 중3 수석 자문위원, 이송효 중1 선임 자문위원, 이해상 초5 주니어 자문위원)을 위한 올바른 AI 인성학교 & 수료 인증원\n"
         f"3. NVDA 퀀트 트레이딩 분석 & 텔레그램 모바일 원격 관제\n"
         f"4. 8대 부처 통합 사령부(Omni-Nexus) 웹 대시보드\n\n"
         f"[지시사항]\n"
@@ -247,7 +247,7 @@ def get_rea_deep_dive_analysis(gemini_caller=None) -> dict:
         ],
         "strategies_3pillars": [
             {
-                "target": "🎓 세 딸 인성학교 웹게임 고도화",
+                "target": "🎓 세 딸(이은솔·이송효·이해상) 인성학교 웹게임 고도화",
                 "focus": "인기 웹 미니게임 반응 구조 역설계",
                 "detail": "상용 게임들의 실시간 피드백 루프(파티클 축하 효과, 사운드 타이밍, 감정 점수 증감)를 역설계하여, 〈마음 편의점〉 및 인성 밸런스 게임을 상용 인디게임급의 재미와 몰입감으로 업그레이드!"
             },
@@ -273,9 +273,9 @@ def get_rea_deep_dive_analysis(gemini_caller=None) -> dict:
             f"[기술 개요]\n"
             f"• 저장소: {rea_meta['repo_name']} (Star {rea_meta['stars']}, MIT 라이선스)\n"
             f"• 핵심: 5단계 에이전트 역설계 스킬 & 클린룸 재창조\n"
-            f"• 3대 적용 분야: 세 딸 인성학교 웹게임 고도화, NVDA/금융 초고속 상황판 최적화, 힐링 오디오/파티클 비주얼라이저 이식\n"
+            f"• 3대 적용 분야: 세 딸(이은솔·이송효·이해상) 인성학교 웹게임 고도화, NVDA/금융 초고속 상황판 최적화, 힐링 오디오/파티클 비주얼라이저 이식\n"
             f"• 제1원 준법 원칙: 외부 코드 복제 제로, 원리 학습 후 100% 우리만의 독창적 코드로 재창조\n\n"
-            f"대표님께 이 혁신 기술을 보고하는 형식으로, 우리 제국에 가져올 엄청난 시너지와 각오를 2~3문장의 명쾌하고 웅장하며 즐거운 한국어로 브리핑해 주세요!"
+            f"이상일 대표님께 이 혁신 기술을 보고하는 형식으로, 우리 제국에 가져올 엄청난 시너지와 각오를 2~3문장의 명쾌하고 웅장하며 즐거운 한국어로 브리핑해 주세요!"
         )
         try:
             ai_briefing = gemini_caller(prompt)
@@ -283,14 +283,116 @@ def get_rea_deep_dive_analysis(gemini_caller=None) -> dict:
             pass
 
     rea_meta["ai_briefing"] = ai_briefing or (
-        "🚀 대표님! 전 세계 개발자들을 열광시킨 REA의 '5단계 클린룸 역설계 기법'을 전격 확보했습니다! "
+        "🚀 이상일 대표님! 전 세계 개발자들을 열광시킨 REA의 '5단계 클린룸 역설계 기법'을 전격 확보했습니다! "
         "제1원 자율법무팀의 철통 보안 아래 외부 코드는 단 한 줄도 베끼지 않고 오직 정밀한 원리와 수학 공식만을 흡수하여, "
-        "우리 세 딸 인성학교 웹게임과 사령부 퀀트 엔진, 8시간 힐링 파티클 비주얼라이저를 세계 최고 수준으로 즉시 도약시키겠습니다!"
+        "우리 세 딸(이은솔·이송효·이해상) 인성학교 웹게임과 사령부 퀀트 엔진, 8시간 힐링 파티클 비주얼라이저를 세계 최고 수준으로 즉시 도약시키겠습니다!"
     )
 
     return {
         "success": True,
         "rea": rea_meta
+    }
+
+# 3대 GitHub 슈퍼 트렌드 사전 정의 데이터
+SUPER_TREND_PRESETS = {
+    'artcraft': {
+        'id': 'artcraft',
+        'badge': '🔥 쇼츠 #1 (J8Wz2fQ39Rk)',
+        'title': 'ArtCraft (storytold/photocraft) — Rust 기반 무료 포토샵·프리미어·모션그래픽 13종 통합 스위트',
+        'repo_name': 'storytold/photocraft',
+        'youtube_url': 'https://youtu.be/J8Wz2fQ39Rk',
+        'stars': '38,500+',
+        'license_badge': '🟢 안전 (MIT / Apache 2.0 라이선스)',
+        'summary': '어도비(Adobe) 월 정액 구독료를 0원으로 만드는 Rust/WebAssembly 기반 초경량 크리에이티브 13종 스위트. 레이어 편집, 비디오 컷편집, 이펙트 모션을 단일 엔진에서 지원.',
+        'key_features': [
+            'Rust 언어 기반 고성능 메모리 안전성 및 CPU 무부하 그래픽 처리',
+            '포토샵(PSD), 프리미어(비디오 시퀀스), 모션 이펙트 13대 도구 무료 통합',
+            'WebAssembly(Wasm) 브라우저 무설치 구동 및 로컬 네이티브 빌드 동시 지원'
+        ],
+        'empire_absorption': [
+            '🎨 [비주얼 스튜디오 연동]: 썸네일 캔버스에 ArtCraft의 Rust 블렌딩 모드 수식을 접목해 포토샵 수준의 고급 필터 효과 구현',
+            '🎬 [8시간 렌더러 최적화]: FFmpeg -c copy 연결 전후 타이틀 모션 생성에 접목해 노트북 발열/소음 0dB 보장',
+            '💰 [비용 절감 & 프라이버시]: 어도비 유료 구독 없이 100% 독립 로컬 작업 환경 구축'
+        ],
+        'default_briefing': '👑 이상일 대표님! 유튜브 쇼츠 #1에서 발굴된 ArtCraft는 어도비 13종 프로그램을 완벽 대체하는 괴물급 오픈소스입니다! 우리 힐링 비주얼 캔버스와 8시간 렌더러에 이식하여 구독료 0원, CPU 0%의 최강 미디어 제국을 완성하겠습니다!'
+    },
+    'ai10': {
+        'id': 'ai10',
+        'badge': '🏆 쇼츠 #2 (_zuysTgqoF0)',
+        'title': '2026 GitHub AI 10선 (민둥이 @Mindung-EasyAI 발굴: Karpathy Skills · MemPalace · Hermes · MS Qlib)',
+        'repo_name': 'Mindung-EasyAI/Top10-OpenSource-AI-2026',
+        'youtube_url': 'https://youtube.com/shorts/_zuysTgqoF0',
+        'stars': '합계 180,000+',
+        'license_badge': '🟢 안전 (MIT License 전원 준수)',
+        'summary': '2026년 GitHub에서 가장 뜨겁게 폭발한 10대 AI 오픈소스 정수. 안드레이 카파시의 초경량 스킬셋부터 자가학습 에이전트, 뇌 모방 장기 기억, 퀀트 투자까지 총망라.',
+        'key_features': [
+            'Karpathy Skills (llm.c): 외부 라이브러리 의존성 없는 초경량 C/Python AI 구현의 극치',
+            'MemPalace: 인간 기억의 궁전 기법을 모방한 에이전트 영구 장기 기억 보존 기술',
+            'Hermes-Agent: 실수 발생 시 스스로 지침을 개정하여 오답을 극복하는 자율 진화 엔진',
+            'MS Qlib: 인공지능 기반 주식 퀀트 팩터 발굴 및 고속 백테스팅 프레임워크 (NVDA 분석 최적)'
+        ],
+        'empire_absorption': [
+            '🧠 [안실장 기억 궁전]: 우리 memory_vault.json을 MemPalace 인덱싱 구조로 고도화하여 영구 맥락 기억 보장',
+            '🛡️ [지혜실록 자율 백신]: Hermes의 자가교정 알고리즘을 wisdom_ledger.json에 연동하여 실수 원천 차단',
+            '📈 [NVDA 퀀트 정밀화]: MS Qlib의 모멘텀/변동성 팩터를 사령부 퀀트 엔진에 이식해 승률 극대화'
+        ],
+        'default_briefing': '👑 이상일 대표님! 민둥이 쇼츠(_zuysTgqoF0)가 엄선한 2026 GitHub 10선은 우리 제국 시스템에 딱 들어맞는 퍼즐 조각입니다! Karpathy의 경량 철학과 MemPalace의 장기기억, MS Qlib 퀀트를 우리 안실장 두뇌와 NVDA 엔진에 즉시 흡수하겠습니다!'
+    },
+    'manim': {
+        'id': 'manim',
+        'badge': '🎬 모션 그래픽 TOP 1',
+        'title': 'Manim (3b1b/manim ⭐95.1k) & Motion Canvas (⭐15k) & iart-ai/motion-skills',
+        'repo_name': '3b1b/manim',
+        'youtube_url': 'https://github.com/3b1b/manim',
+        'stars': '95,100+ (MIT)',
+        'license_badge': '🟢 안전 (MIT License)',
+        'summary': '유튜브 3Blue1Brown이 탄생시킨 전 세계 최고 명성의 프로그래머블 수학·과학 모션 그래픽 엔진 Manim과 브라우저 네이티브 60fps 절차적 애니메이션 툴킷 Motion Canvas.',
+        'key_features': [
+            '정밀한 수학적 곡선, 베지어 패스, 벡터 필드, 스펙트럼 파동의 절차적 렌더링',
+            'Web Canvas / WebGL 60fps 부드러운 하드웨어 가속 인터랙션 지원',
+            '글자 하나하나가 살아 숨쉬는 한글 세로 명조체 텍스트 애니메이션 및 나침반 레이더 시각화'
+        ],
+        'empire_absorption': [
+            '🎹 [비주얼 캔버스 60fps LIVE]: 432Hz 황금 오디오 스펙트럼 파형과 시집 세로 명조체 타이핑 모션을 60fps 캔버스에 실시간 구현',
+            '🧭 [인성학교 4Q 나침반]: Manim 스타일의 기하학적 네온 펄스 레이더 차트로 4대 덕목(경우·공경·공감·나눔)을 수학적 아름다움으로 표현',
+            '📜 [디지털 수료증 특수 효과]: 골드 엠블럼 회전과 빛살 굴절 모션으로 글로벌 위상을 시각적으로 압도'
+        ],
+        'default_briefing': '👑 이상일 대표님! 9.5만 스타의 전설 Manim과 Motion Canvas 기술을 우리 대시보드 캔버스에 전격 장착했습니다! 432Hz 오디오 파형이 60fps로 요동치고, 대표님의 따뜻한 시구가 한 글자씩 살아 숨쉬며 화면을 채웁니다!'
+    }
+}
+
+def get_super_trend_preset_analysis(preset_id: str, gemini_caller=None) -> dict:
+    """3대 슈퍼 트렌드 프리셋 정밀 분석 데이터 및 Gemini 실시간 브리핑 반환"""
+    preset = SUPER_TREND_PRESETS.get(preset_id)
+    if not preset:
+        preset = SUPER_TREND_PRESETS['artcraft']
+
+    briefing = preset['default_briefing']
+    if gemini_caller:
+        prompt = (
+            f"당신은 '한걸음씩 AI 제국'의 제2원(글로벌 오픈소스 탐사단장) 수석 아키텍트입니다.\n"
+            f"리더이신 이상일 대표님께 다음 슈퍼 트렌드 오픈소스에 대한 정밀 분석과 제국 무기화 전략을 보고하십시오.\n\n"
+            f"[오픈소스 정보]\n"
+            f"• 제목: {preset['title']}\n"
+            f"• 배지: {preset['badge']}\n"
+            f"• 저장소: {preset['repo_name']} (Star: {preset['stars']})\n"
+            f"• 핵심 요약: {preset['summary']}\n"
+            f"• 제국 흡수 전략: {', '.join(preset['empire_absorption'])}\n\n"
+            f"이상일 대표님과 세 따님(이은솔 수석 자문위원, 이송효 선임 자문위원, 이해상 주니어 자문위원)을 모시는 깍듯하고 유쾌하며 자신감 넘치는 어조로 2~3문장의 브리핑을 작성해 주세요."
+        )
+        try:
+            res = gemini_caller(prompt)
+            if res and len(res.strip()) > 10:
+                briefing = res.strip()
+        except Exception:
+            pass
+
+    return {
+        'success': True,
+        'preset': {
+            **preset,
+            'ai_briefing': briefing
+        }
     }
 
 def run_daily_cloud_scout(out_dir: str = "./cloud_output") -> str:

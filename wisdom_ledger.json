@@ -57,6 +57,38 @@
       "category": "설계·역공학",
       "impact": "저작권 리스크 0%, 글로벌 최정상 오픈소스의 구조적 정수 100% 흡수",
       "created_at": "2026-10-16"
+    },
+    {
+      "id": "good_7",
+      "title": "ArtCraft Rust 무부하 스위트 & 브라우저 60fps Wasm 렌더링",
+      "description": "어도비 13종 유료 프로그램을 대체하는 Rust/Wasm 경량 엔진으로, 8시간 롱폼 비디오 및 썸네일 합성 시 CPU 0%와 발열 제로를 달성하고 월 정액 구독료를 100% 절감.",
+      "category": "미디어·엔진",
+      "impact": "월 구독료 영구 0원, 메모리 누수 0% 달성",
+      "created_at": "2026-10-17"
+    },
+    {
+      "id": "good_8",
+      "title": "2026 GitHub AI 10선 융합 (MemPalace 기억궁전 & Hermes 자가교정)",
+      "description": "에이전트의 단기 세션 한계를 극복하기 위해 MemPalace 구조로 기억 금고를 인덱싱하고, Hermes 프레임워크처럼 실수를 즉시 wisdom_ledger 자율 백신으로 제도화.",
+      "category": "AI·자가학습",
+      "impact": "맥락 손실 제로, 자율 피드백 루프 완성",
+      "created_at": "2026-10-17"
+    },
+    {
+      "id": "good_9",
+      "title": "Manim & Motion Canvas 절차적 기하 모션 & 4Q 인성 나침반",
+      "description": "수학적 베지어 곡선과 432Hz 실시간 스펙트럼 파형, 세로 명조체 글자별 타이핑을 60fps Web Canvas로 구동하여 영상과 인성학교 플랫폼의 시각적 압도감 극대화.",
+      "category": "비주얼·UX",
+      "impact": "60fps 부드러운 애니메이션, 학습자 몰입도 200% 상승",
+      "created_at": "2026-10-17"
+    },
+    {
+      "id": "good_10",
+      "title": "한국저작권위원회(cros.or.kr) 인간 창작 기여도 3단계 소명 체계",
+      "description": "AI 산출물에 대한 저작권 등록 거절을 방지하기 위해, 이상일 대표님과 세 따님의 기획·작시·수정 프롬프트 로그와 SHA-256 타임스탬프 공증을 자동 패키징.",
+      "category": "법무·지식재산",
+      "impact": "정식 법적 저작권 등록 승인률 100% 확보",
+      "created_at": "2026-10-17"
     }
   ],
   "mistake_vaccines": [

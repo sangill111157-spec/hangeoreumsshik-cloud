@@ -234,6 +234,73 @@
     ══════════════════════════════════════════════════════════════ -->
     <div id="tab-command" class="tab-pane p-4 sm:p-6 lg:p-8 space-y-6">
 
+      <!-- 👑 [특무대: '이상일 비전 클론' 자율 트렌드 헌팅 & 무한 융합팀] -->
+      <div class="glass-panel rounded-2xl p-5 border border-amber-500/50 bg-gradient-to-r from-slate-900/95 via-amber-950/30 to-slate-900/95 shadow-xl shadow-amber-950/20 space-y-4">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-3 border-b border-amber-500/30">
+          <div class="flex items-center gap-3">
+            <span class="text-2xl p-2 rounded-xl bg-amber-500/20 text-amber-300 border border-amber-500/40 shrink-0">👑</span>
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="px-2 py-0.5 rounded text-[10px] font-black bg-gradient-to-r from-amber-400 to-yellow-300 text-slate-950 tracking-wider uppercase">Supreme Commander Mode</span>
+                <h3 class="text-sm font-black text-white">
+                  [특무대: '이상일 비전 클론' 자율 트렌드 헌팅 & 무한 융합팀]
+                </h3>
+              </div>
+              <p class="text-[11px] text-amber-200/80 mt-0.5">
+                이상일 대표님의 직관·혜안을 100% 클론 ➔ 유튜브·GitHub 트렌드 포착 즉시 5단계 연쇄 융합(힐링음악+인성학교+NVDA+무부하) 가동!
+              </p>
+            </div>
+          </div>
+          <span class="px-3 py-1 rounded-full bg-amber-500/10 text-amber-300 border border-amber-500/30 text-xs font-bold shrink-0">
+            🦅 5단계 연쇄 융합 파이프라인
+          </span>
+        </div>
+
+        <!-- 🔗 유튜브 쇼츠/영상 URL 직통 분석기 인풋바 -->
+        <div class="p-3.5 rounded-xl bg-slate-950/90 border border-slate-800 space-y-2.5">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <label class="text-xs font-bold text-slate-200 flex items-center gap-1.5">
+              <span>🔗</span>
+              <span>유튜브 쇼츠 / 롱폼 영상 URL 직통 분석기</span>
+            </label>
+            <div class="flex items-center gap-1.5 flex-wrap">
+              <span class="text-[10px] text-slate-400">발굴 쇼츠 즉시 입력:</span>
+              <button type="button" onclick="setYoutubeSampleUrl('https://youtu.be/J8Wz2fQ39Rk')"
+                class="px-2 py-0.5 rounded bg-purple-950/70 hover:bg-purple-900 border border-purple-500/40 text-purple-300 text-[10px] font-semibold transition">
+                🔥 쇼츠 #1 (ArtCraft 13종)
+              </button>
+              <button type="button" onclick="setYoutubeSampleUrl('https://youtube.com/shorts/_zuysTgqoF0')"
+                class="px-2 py-0.5 rounded bg-amber-950/70 hover:bg-amber-900 border border-amber-500/40 text-amber-300 text-[10px] font-semibold transition">
+                🏆 쇼츠 #2 (2026 AI 10선)
+              </button>
+            </div>
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-2">
+            <input type="text" id="youtube-url-input" placeholder="https://youtube.com/shorts/_zuysTgqoF0 또는 영상 링크 붙여넣기..."
+              value="https://youtube.com/shorts/_zuysTgqoF0"
+              class="flex-1 px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs outline-none focus:border-amber-400 font-mono" />
+            <button type="button" onclick="runVisionCloneYoutubeAnalysis()" id="btn-run-vision-clone"
+              class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 hover:from-amber-400 hover:to-yellow-300 text-slate-950 font-black text-xs transition active:scale-95 shrink-0 flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20">
+              <span>🧠</span>
+              <span>[🧠 '이상일 대표님 모드'로 트렌드 발굴 & 5단계 연쇄 융합 가동]</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 5단계 연쇄 융합 진행 안내 배너 -->
+        <div class="grid grid-cols-2 sm:grid-cols-5 gap-2 text-center text-[10px] font-semibold">
+          <div class="p-2 rounded-lg bg-amber-950/30 border border-amber-500/30 text-amber-300">① 🦅 매의 눈 포착</div>
+          <div class="p-2 rounded-lg bg-indigo-950/30 border border-indigo-500/30 text-indigo-300">② 🔗 꼬리에 꼬리를 무는 연쇄 융합</div>
+          <div class="p-2 rounded-lg bg-pink-950/30 border border-pink-500/30 text-pink-300">③ 👁️👂❤️ 오감 감성 점검</div>
+          <div class="p-2 rounded-lg bg-cyan-950/30 border border-cyan-500/30 text-cyan-300">④ 🛡️📜 법무·저작권·총무 빈틈 방어</div>
+          <div class="p-2 rounded-lg bg-emerald-950/30 border border-emerald-500/30 text-emerald-300 col-span-2 sm:col-span-1">⑤ 🚀 원클릭 제국 무기화</div>
+        </div>
+
+        <!-- 비전 클론 결과 컨테이너 -->
+        <div id="vision-clone-results" class="hidden space-y-3"></div>
+      </div>
+
       <!-- 📋 [제0원: 만능 총무원] 대표님 3조 2교대 근무 케어 & 살림 점검 보드 -->
       <div class="glass-panel rounded-2xl p-5 border border-cyan-500/30 bg-gradient-to-r from-slate-900/90 via-cyan-950/20 to-slate-900/90 space-y-4">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
@@ -344,6 +411,56 @@
         </div>
       </div>
 
+      <!-- 📜 [제1원 산하: 지식재산권 & 글로벌 저작권 등기청 (cros.or.kr 정식 연계)] -->
+      <div class="glass-panel rounded-2xl p-5 border border-indigo-500/40 bg-gradient-to-r from-slate-900/95 via-blue-950/20 to-slate-900/95 space-y-4 shadow-lg shadow-indigo-950/20">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-indigo-500/30">
+          <div class="flex items-center gap-3">
+            <span class="text-2xl p-2 rounded-xl bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 shrink-0">📜</span>
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="px-2 py-0.5 rounded text-[10px] font-black bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 uppercase font-mono">cros.or.kr Compliance</span>
+                <h3 class="text-sm font-bold text-white">
+                  [제1원 산하: 지식재산권 & 글로벌 저작권 등기청]
+                </h3>
+              </div>
+              <p class="text-[11px] text-slate-300 mt-0.5">
+                저작권자: <b>이상일</b> 대표님 | 공동 기획·검수 자문위원단: <b>이은솔(중3) · 이송효(중1) · 이해상(초5)</b>
+              </p>
+            </div>
+          </div>
+          <button type="button" onclick="generateCopyrightDossier()" id="btn-gen-copyright"
+            class="px-4 py-2 rounded-xl bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-500 hover:to-blue-500 text-white font-bold text-xs transition active:scale-95 shrink-0 flex items-center gap-1.5 shadow-md shadow-indigo-600/30">
+            <span>📜</span>
+            <span>한국저작권위원회 정식 등기 서류 & 인간 기여도 로그 발급</span>
+          </button>
+        </div>
+
+        <!-- 저작권 등기 대상 선택 및 정보 카드 -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+          <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
+            <span class="text-[10px] text-slate-400 block mb-1">등록 권리자 (100% 영구 각인)</span>
+            <div class="font-bold text-white text-xs">이상일 (Principal Sang-Il Lee)</div>
+            <p class="text-[10px] text-indigo-300 mt-0.5">직인: 한걸음씩 미래AI인성학교장 이상일 인</p>
+          </div>
+          <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
+            <span class="text-[10px] text-slate-400 block mb-1">공동 기획·검수 자문위원단</span>
+            <div class="font-bold text-white text-xs">이은솔 · 이송효 · 이해상</div>
+            <p class="text-[10px] text-pink-300 mt-0.5">수석(중3) · 선임(중1) · 주니어(초5) 자문위원</p>
+          </div>
+          <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
+            <span class="text-[10px] text-slate-400 block mb-1">등기 대상 저작물 선택</span>
+            <select id="copyright-work-select" class="w-full mt-0.5 px-2 py-1 bg-slate-900 border border-slate-700 rounded text-xs text-white outline-none focus:border-indigo-400">
+              <option value="program">컴퓨터프로그램: 한걸음씩 만능 AI 국가 OS (Omni-Nexus v2.0)</option>
+              <option value="music">음악저작물: 432Hz 치유 피아노 & 숙면 8시간 음원 30수</option>
+              <option value="literary">어문저작물: 세로 명조체 힐링 시집 및 4대 인성 교재</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- 저작권 등기 서류 및 SHA-256 증명서 결과 영역 (기본 hidden) -->
+        <div id="copyright-results-container" class="hidden space-y-3"></div>
+      </div>
+
       <!-- 🔭 [제2원 특임대: 글로벌 GitHub 오픈소스 일일 답사 & 흡수단] -->
       <div class="glass-panel rounded-2xl p-5 border border-purple-500/30 bg-gradient-to-r from-slate-900/90 via-purple-950/20 to-slate-900/90 space-y-4">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
@@ -390,6 +507,66 @@
 
         <!-- REA 정밀 분석 결과 표시 영역 (기본 hidden) -->
         <div id="rea-results-container" class="hidden space-y-3"></div>
+
+        <!-- 🌟 [오늘 발굴! 3대 GitHub 슈퍼 트렌드 스페셜 분석 프리셋] -->
+        <div class="p-3.5 rounded-xl bg-slate-950/80 border border-purple-500/40 space-y-2.5">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-purple-300 flex items-center gap-1.5">
+              <span>🌟</span>
+              <span>오늘 이상일 대표님 발굴 3대 GitHub 슈퍼 트렌드 프리셋 (원클릭 정밀 해부)</span>
+            </span>
+            <span class="text-[10px] text-purple-400 font-mono">2026 Super Scouts</span>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+            <!-- Preset 1: ArtCraft 13종 -->
+            <button type="button" onclick="runSuperPresetAnalysis('artcraft')" id="btn-preset-artcraft"
+              class="p-2.5 rounded-xl bg-purple-950/50 hover:bg-purple-900/70 border border-purple-500/50 text-left transition active:scale-98 flex flex-col justify-between group">
+              <div class="flex items-center justify-between mb-1">
+                <span class="px-1.5 py-0.5 rounded text-[9px] font-black bg-purple-500/30 text-purple-300 border border-purple-500/40 uppercase">Shorts #1</span>
+                <span class="text-[10px] text-slate-400 font-mono">★38.5k MIT</span>
+              </div>
+              <div class="text-xs font-bold text-white group-hover:text-purple-300 line-clamp-1">
+                ArtCraft (photocraft)
+              </div>
+              <p class="text-[10px] text-slate-400 mt-1 line-clamp-2">
+                Rust 기반 무료 포토샵·프리미어·모션 13종. 어도비 월 구독료 0원화 & CPU 0%!
+              </p>
+            </button>
+
+            <!-- Preset 2: 2026 AI 10선 -->
+            <button type="button" onclick="runSuperPresetAnalysis('ai10')" id="btn-preset-ai10"
+              class="p-2.5 rounded-xl bg-amber-950/50 hover:bg-amber-900/70 border border-amber-500/50 text-left transition active:scale-98 flex flex-col justify-between group">
+              <div class="flex items-center justify-between mb-1">
+                <span class="px-1.5 py-0.5 rounded text-[9px] font-black bg-amber-500/30 text-amber-300 border border-amber-500/40 uppercase">Shorts #2</span>
+                <span class="text-[10px] text-slate-400 font-mono">★180k+ MIT</span>
+              </div>
+              <div class="text-xs font-bold text-white group-hover:text-amber-300 line-clamp-1">
+                2026 GitHub AI 10선
+              </div>
+              <p class="text-[10px] text-slate-400 mt-1 line-clamp-2">
+                Karpathy Skills · MemPalace 기억궁전 · Hermes 자율교정 · MS Qlib 퀀트 총집결!
+              </p>
+            </button>
+
+            <!-- Preset 3: Manim 60fps -->
+            <button type="button" onclick="runSuperPresetAnalysis('manim')" id="btn-preset-manim"
+              class="p-2.5 rounded-xl bg-cyan-950/50 hover:bg-cyan-900/70 border border-cyan-500/50 text-left transition active:scale-98 flex flex-col justify-between group">
+              <div class="flex items-center justify-between mb-1">
+                <span class="px-1.5 py-0.5 rounded text-[9px] font-black bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 uppercase">Motion #1</span>
+                <span class="text-[10px] text-slate-400 font-mono">★95.1k MIT</span>
+              </div>
+              <div class="text-xs font-bold text-white group-hover:text-cyan-300 line-clamp-1">
+                Manim & Motion Canvas
+              </div>
+              <p class="text-[10px] text-slate-400 mt-1 line-clamp-2">
+                432Hz 실시간 스펙트럼 파형 & 세로 명조체 글자별 타이핑 60fps LIVE 모션!
+              </p>
+            </button>
+          </div>
+        </div>
+
+        <!-- 3대 슈퍼 트렌드 프리셋 결과 영역 (기본 hidden) -->
+        <div id="super-presets-results-container" class="hidden space-y-3"></div>
 
         <!-- 4대 답사 분야 선택 버튼 -->
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
@@ -479,7 +656,7 @@
         <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800/80 text-xs space-y-1.5">
           <div class="font-semibold text-slate-300 flex items-center gap-1.5">
             <span>👨‍👧‍👧</span>
-            <span>세 딸(수아·윤아·서아)과 함께 선정한 이번 달 나눔 후보지:</span>
+            <span>세 딸(이은솔·이송효·이해상)과 함께 선정한 이번 달 나눔 후보지:</span>
           </div>
           <div class="grid grid-cols-1 md:grid-cols-3 gap-2 text-[11px]">
             <div class="p-2 rounded-lg bg-emerald-950/30 border border-emerald-500/20 text-emerald-200 flex items-center justify-between">
@@ -908,7 +1085,31 @@
           <!-- Canvas Preview (7 Cols) -->
           <div class="lg:col-span-7 flex flex-col items-center justify-center bg-slate-950 rounded-xl p-3 border border-slate-800">
             <canvas id="thumbnail-canvas" width="1280" height="720" class="w-full max-w-xl rounded-lg shadow-2xl border border-slate-800"></canvas>
-            <span class="text-[10px] text-slate-500 mt-2">1280x720 유튜브 최적화 실시간 렌더링 캔버스 (REA 파티클 & 2열 세로 명조체 실시간 합성)</span>
+            <div class="w-full max-w-xl mt-2.5 p-3 rounded-xl bg-slate-900/90 border border-cyan-500/30 flex flex-col sm:flex-row items-center justify-between gap-2.5">
+              <div class="flex items-center gap-2">
+                <span class="text-base p-1.5 rounded-lg bg-cyan-500/20 text-cyan-300">🎬</span>
+                <div>
+                  <div class="text-xs font-bold text-white flex items-center gap-1.5">
+                    <span>Manim 스타일 60fps 모션 그래픽 LIVE</span>
+                    <span id="motion-live-badge" class="px-1.5 py-0.2 rounded text-[9px] bg-slate-800 text-slate-400 font-mono">대기중</span>
+                  </div>
+                  <p class="text-[10px] text-slate-400">432Hz 황금 오디오 스펙트럼 + 세로 명조체 한 글자씩 타이핑 애니메이션</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-2">
+                <button type="button" onclick="toggleMotionGraphicsLive()" id="btn-toggle-motion"
+                  class="px-3 py-1.5 rounded-lg bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-bold text-xs transition active:scale-95 flex items-center gap-1.5 shadow-md shadow-cyan-600/30">
+                  <span id="motion-btn-icon">▶️</span>
+                  <span id="motion-btn-text">60fps LIVE 재생</span>
+                </button>
+                <button type="button" onclick="toggleHealingSound432()" id="btn-toggle-sound"
+                  class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-semibold flex items-center gap-1">
+                  <span id="sound-btn-icon">🔇</span>
+                  <span>432Hz 치유음</span>
+                </button>
+              </div>
+            </div>
+            <span class="text-[10px] text-slate-500 mt-1">1280x720 유튜브 최적화 실시간 렌더링 캔버스 (REA 파티클 · 432Hz 스펙트럼 · 2열 세로 명조체 실시간 합성)</span>
           </div>
         </div>
 
@@ -1079,6 +1280,80 @@
         </div>
       </div>
 
+      <!-- 🌍 [글로벌 K-인성 에듀테크]: 5대 국가·언어 문화 초현지화 스위치 & Manim 스타일 4Q 인성 나침반 -->
+      <div class="glass-panel rounded-2xl p-5 border border-purple-500/30 bg-gradient-to-r from-slate-900/95 via-purple-950/20 to-slate-900/95 space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-purple-500/30">
+          <div class="flex items-center gap-3">
+            <span class="text-2xl p-2 rounded-xl bg-purple-500/20 text-purple-300 border border-purple-500/30 shrink-0">🌍</span>
+            <div>
+              <h3 class="text-sm font-bold text-white flex items-center gap-2">
+                <span>글로벌 K-인성 에듀테크 넘사벽 플랫폼 (Global Virtues & Manim 4Q Radar)</span>
+                <span class="px-2 py-0.5 rounded text-[10px] bg-purple-500/20 text-purple-300 border border-purple-500/30 font-semibold font-mono">Global v2.0</span>
+              </h3>
+              <p class="text-[11px] text-slate-300 mt-0.5">
+                전 세계 5대 문화권 초현지화 지원 ➔ Manim 수학적 60fps 기하 펄스로 살아 숨쉬는 4대 덕목(경우·공경·공감·나눔) 시각화!
+              </p>
+            </div>
+          </div>
+          <!-- 5대 국가 언어 스위치 버튼들 -->
+          <div class="flex items-center gap-1.5 flex-wrap">
+            <button type="button" onclick="setGlobalLang('KR', this)" class="global-lang-btn px-2.5 py-1.5 rounded-xl bg-purple-600 text-white font-bold text-xs border border-purple-400 shadow-sm transition active:scale-95">
+              🇰🇷 한국 (KR)
+            </button>
+            <button type="button" onclick="setGlobalLang('US', this)" class="global-lang-btn px-2.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-semibold text-xs border border-slate-700 transition active:scale-95">
+              🇺🇸 USA (EN)
+            </button>
+            <button type="button" onclick="setGlobalLang('JP', this)" class="global-lang-btn px-2.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-semibold text-xs border border-slate-700 transition active:scale-95">
+              🇯🇵 日本 (JP)
+            </button>
+            <button type="button" onclick="setGlobalLang('ES', this)" class="global-lang-btn px-2.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-semibold text-xs border border-slate-700 transition active:scale-95">
+              🇪🇸 España (ES)
+            </button>
+            <button type="button" onclick="setGlobalLang('SG', this)" class="global-lang-btn px-2.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-semibold text-xs border border-slate-700 transition active:scale-95">
+              🌏 Singapore (SG)
+            </button>
+          </div>
+        </div>
+
+        <!-- Manim 스타일 4Q 인성 나침반 레이더 캔버스 & 설명 그리드 -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-center">
+          <div class="lg:col-span-6 flex flex-col items-center justify-center p-3 rounded-xl bg-slate-950/80 border border-slate-800">
+            <canvas id="compass-radar-canvas" width="460" height="420" class="w-full max-w-[420px] rounded-lg"></canvas>
+            <span class="text-[10px] text-purple-300/80 mt-1.5 font-mono">Manim-inspired 60fps Geometric Neon Pulse Radar</span>
+          </div>
+          <div class="lg:col-span-6 space-y-3 text-xs">
+            <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
+              <div class="font-bold text-white flex items-center justify-between">
+                <span id="lang-radar-title">🧭 4Q 인성 나침반 핵심 축 & 글로벌 가치</span>
+                <span class="text-emerald-400 font-mono font-bold">Comprehensive Score: 98/100</span>
+              </div>
+              <ul class="mt-2 space-y-1.5 text-[11px] text-slate-300">
+                <li class="flex items-center justify-between">
+                  <span>⚖️ <b>경우 (Propriety / 礼節)</b> : 인간과 AI의 올바른 경계와 예의</span>
+                  <span class="text-cyan-400 font-mono">98점</span>
+                </li>
+                <li class="flex items-center justify-between">
+                  <span>🙇 <b>공경 (Respect / 敬愛)</b> : 어른과 생명, 역사에 대한 존중</span>
+                  <span class="text-purple-400 font-mono">96점</span>
+                </li>
+                <li class="flex items-center justify-between">
+                  <span>❤️ <b>공감 (Empathy / 共感)</b> : 타인의 아픔을 이해하고 품는 마음</span>
+                  <span class="text-pink-400 font-mono">99점</span>
+                </li>
+                <li class="flex items-center justify-between">
+                  <span>🤝 <b>나눔 (Sharing / 分かち合い)</b> : 재정헌법 10% 상생 실천</span>
+                  <span class="text-amber-400 font-mono">97점</span>
+                </li>
+              </ul>
+            </div>
+            <div class="p-3 rounded-xl bg-purple-950/40 border border-purple-500/30 text-purple-200 text-[11px] leading-relaxed">
+              💡 <b>세 딸 자문위원단 코멘트</b>: 
+              <span id="lang-advisor-comment">"경우와 공경, 공감과 나눔이 조화를 이룰 때 비로소 진정한 차세대 글로벌 AI 리더로 우뚝 섭니다. 이 4Q 나침반은 우리 아이들의 영혼을 지켜주는 든든한 등대입니다."</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- Controls: Virtue & Age Selector -->
       <div class="glass-panel rounded-2xl p-5 border border-pink-500/20 space-y-4">
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
@@ -1163,7 +1438,7 @@
                 [제4원: 정식 인증원] 올바른 AI & 인성 리더 정식 수료 인증서 실시간 발급소
               </h3>
               <p class="text-[11px] text-slate-400">
-                세 딸(수아·윤아·서아)과 청소년을 위한 고품격 금장 디지털 수료증 (고유 인증 번호 & 교장 직인 날인)
+                세 딸(이은솔·이송효·이해상)과 글로벌 청소년을 위한 고품격 금장 디지털 수료증 (고유 인증 번호 & 교장 직인 날인)
               </p>
             </div>
           </div>
@@ -1177,25 +1452,25 @@
           <!-- Left: Input Controls (5 Cols) -->
           <div class="lg:col-span-5 space-y-3.5">
             <div>
-              <label class="block font-semibold text-slate-300 mb-1">학생 이름 (세 딸 빠른 선택)</label>
+              <label class="block font-semibold text-slate-300 mb-1">학생 이름 (세 딸 자문위원단 빠른 선택)</label>
               <div class="flex flex-wrap gap-1.5 mb-2">
-                <button type="button" onclick="setCertStudent('안수아', '중학교 3학년')" class="px-2.5 py-1 rounded-lg bg-purple-950/60 hover:bg-purple-900 text-purple-300 border border-purple-500/40 text-[11px] font-semibold transition">
-                  👧 첫째 수아 (중3)
+                <button type="button" onclick="setCertStudent('이은솔', '중학교 3학년 (수석 자문위원)')" class="px-2.5 py-1 rounded-lg bg-purple-950/60 hover:bg-purple-900 text-purple-300 border border-purple-500/40 text-[11px] font-semibold transition">
+                  👧 첫째 이은솔 (중3, 수석)
                 </button>
-                <button type="button" onclick="setCertStudent('안윤아', '중학교 1학년')" class="px-2.5 py-1 rounded-lg bg-pink-950/60 hover:bg-pink-900 text-pink-300 border border-pink-500/40 text-[11px] font-semibold transition">
-                  👧 둘째 윤아 (중1)
+                <button type="button" onclick="setCertStudent('이송효', '중학교 1학년 (선임 자문위원)')" class="px-2.5 py-1 rounded-lg bg-pink-950/60 hover:bg-pink-900 text-pink-300 border border-pink-500/40 text-[11px] font-semibold transition">
+                  👧 둘째 이송효 (중1, 선임)
                 </button>
-                <button type="button" onclick="setCertStudent('안서아', '초등학교 5학년')" class="px-2.5 py-1 rounded-lg bg-emerald-950/60 hover:bg-emerald-900 text-emerald-300 border border-emerald-500/40 text-[11px] font-semibold transition">
-                  👧 셋째 서아 (초5)
+                <button type="button" onclick="setCertStudent('이해상', '초등학교 5학년 (주니어 자문위원)')" class="px-2.5 py-1 rounded-lg bg-emerald-950/60 hover:bg-emerald-900 text-emerald-300 border border-emerald-500/40 text-[11px] font-semibold transition">
+                  👧 셋째 이해상 (초5, 주니어)
                 </button>
               </div>
-              <input type="text" id="cert-student-name" value="안서아" placeholder="학생 성명 입력"
+              <input type="text" id="cert-student-name" value="이해상" placeholder="학생 성명 입력"
                 class="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 text-white text-xs outline-none focus:border-amber-500" />
             </div>
 
             <div>
               <label class="block font-semibold text-slate-300 mb-1">소속 / 학년</label>
-              <input type="text" id="cert-student-grade" value="초등학교 5학년" placeholder="예: 중학교 3학년"
+              <input type="text" id="cert-student-grade" value="초등학교 5학년 (주니어 자문위원)" placeholder="예: 중학교 3학년 (수석 자문위원)"
                 class="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 text-white text-xs outline-none focus:border-amber-500" />
             </div>
 
@@ -1208,7 +1483,7 @@
               </div>
               <div>
                 <label class="block font-semibold text-slate-300 mb-1">교장(수여권자) 성명</label>
-                <input type="text" id="cert-principal-name" value="안 성 일" placeholder="예: 안 성 일"
+                <input type="text" id="cert-principal-name" value="이 상 일" placeholder="예: 이 상 일"
                   class="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 text-white text-xs outline-none focus:border-amber-500" />
               </div>
             </div>
@@ -3394,7 +3669,7 @@
       },
       off: {
         title: '🏠 휴무 · 가족시간 (세 딸과 쉼표)',
-        briefing: '현재 대표님 휴무 및 소중한 가족 시간입니다! 세 공주님(수아·윤아·서아)과의 행복하고 편안한 시간에 온전히 집중하실 수 있도록 긴급 호출을 제외한 일체 백그라운드 알림을 정숙 모드로 전환합니다.'
+        briefing: '현재 대표님 휴무 및 소중한 가족 시간입니다! 세 공주님(이은솔·이송효·이해상)과의 행복하고 편안한 시간에 온전히 집중하실 수 있도록 긴급 호출을 제외한 일체 백그라운드 알림을 정숙 모드로 전환합니다.'
       }
     };
 
@@ -3963,13 +4238,15 @@
       const canvas = document.getElementById('cert-canvas');
       if (!canvas) return;
       const ctx = canvas.getContext('2d');
-      const name = (document.getElementById('cert-student-name').value || '안서아').trim();
-      const grade = (document.getElementById('cert-student-grade').value || '초등학교 5학년').trim();
+      const name = (document.getElementById('cert-student-name').value || '이해상').trim();
+      const grade = (document.getElementById('cert-student-grade').value || '초등학교 5학년 (주니어 자문위원)').trim();
       const courseSelect = document.getElementById('cert-course-type');
       const courseText = courseSelect ? courseSelect.options[courseSelect.selectedIndex].text : '4대 전수 덕목 (경우 · 공경 · 공감 · 나눔) & AI 윤리';
 
       const w = canvas.width;  // 1200
       const h = canvas.height; // 850
+
+      const langPack = GLOBAL_LANG_PACKS[currentGlobalLang] || GLOBAL_LANG_PACKS.KR;
 
       // 1. Background Royal Navy Gradient
       const bgGrad = ctx.createLinearGradient(0, 0, w, h);
@@ -4010,7 +4287,6 @@
       ctx.strokeRect(45, 45, w - 90, h - 90);
 
       // Corner Ornaments
-      const cornerSize = 40;
       const corners = [
         [45, 45],
         [w - 45, 45],
@@ -4030,42 +4306,42 @@
       ctx.textAlign = 'center';
       ctx.fillStyle = '#fbbf24';
       ctx.font = 'bold 18px "Noto Sans KR", sans-serif';
-      ctx.letterSpacing = '6px';
-      ctx.fillText('한 걸 음 씩   미 래   A I   인 성 학 교', w / 2, 95);
+      ctx.letterSpacing = '5px';
+      ctx.fillText(langPack.certHeader, w / 2, 95);
 
       ctx.fillStyle = '#94a3b8';
-      ctx.font = '12px "Noto Sans KR", sans-serif';
+      ctx.font = '12px "Inter", sans-serif';
       ctx.letterSpacing = '2px';
-      ctx.fillText('ACADEMY OF MORAL AI & HUMAN VIRTUES · OFFICIAL CERTIFICATION', w / 2, 118);
+      ctx.fillText('ACADEMY OF MORAL AI & HUMAN VIRTUES · OFFICIAL GLOBAL CERTIFICATION', w / 2, 118);
 
-      // 4. Main Certificate Title (Nanum Myeongjo Style)
-      ctx.font = 'bold 44px "Nanum Myeongjo", serif';
+      // 4. Main Certificate Title
+      ctx.font = 'bold 42px "Nanum Myeongjo", serif';
       ctx.fillStyle = goldGrad;
       ctx.shadowColor = 'rgba(245, 158, 11, 0.4)';
       ctx.shadowBlur = 12;
-      ctx.fillText('올바른 AI & 인성 리더 정식 수료 인증서', w / 2, 185);
+      ctx.fillText(langPack.certTitle, w / 2, 185);
       ctx.restore();
 
-      // 5. Certificate Unique ID & Badge
-      const certId = `HGS-CERT-2026-${(Math.abs(name.split('').reduce((a,c)=>a+c.charCodeAt(0), 1234)) % 9000 + 1000)}`;
+      // 5. Certificate Unique ID & Global Verification Badge
+      const certId = `HGS-GLOBAL-2026-${(Math.abs(name.split('').reduce((a,c)=>a+c.charCodeAt(0), 1234)) % 9000 + 1000)}`;
       ctx.save();
       ctx.textAlign = 'right';
       ctx.font = '13px "Courier New", monospace';
       ctx.fillStyle = '#cbd5e1';
-      ctx.fillText(`인증 등록 번호: ${certId}`, w - 75, 235);
+      ctx.fillText(`Official Cert ID: ${certId}`, w - 75, 235);
       ctx.restore();
 
-      // 6. Student Information Box
+      // 6. Student Information Box (한·영 병기)
       ctx.save();
       ctx.textAlign = 'left';
       ctx.font = 'bold 22px "Noto Sans KR", sans-serif';
       ctx.fillStyle = '#ffffff';
-      ctx.fillText(`성    명 :   ${name}`, 120, 275);
+      ctx.fillText(`${langPack.certNameLabel} :   ${name}`, 120, 275);
       
-      ctx.font = '16px "Noto Sans KR", sans-serif';
+      ctx.font = '15px "Noto Sans KR", sans-serif';
       ctx.fillStyle = '#cbd5e1';
-      ctx.fillText(`소    속 :   ${grade}`, 120, 310);
-      ctx.fillText(`이수 과정 :   ${courseText}`, 120, 345);
+      ctx.fillText(`${langPack.certGradeLabel} :   ${grade}`, 120, 310);
+      ctx.fillText(`${langPack.certCourseLabel} :   ${courseText}`, 120, 345);
       ctx.restore();
 
       // Horizontal separator
@@ -4081,52 +4357,58 @@
       // 7. Official Certification Statement Body (기품 있는 본문)
       ctx.save();
       ctx.textAlign = 'center';
-      ctx.font = '19px "Nanum Myeongjo", serif';
+      ctx.font = '18px "Nanum Myeongjo", serif';
       ctx.fillStyle = '#f8fafc';
       ctx.shadowColor = 'rgba(0, 0, 0, 0.8)';
       ctx.shadowBlur = 6;
 
-      const line1 = "위 사람은 한걸음씩 미래 AI 인성학교가 주관하는 올바른 AI 윤리와";
-      const line2 = "인성 4대 덕목(경우·어른 공경·친구 공감·따뜻한 나눔) 교육 과정을 성실히 이수하였으며,";
-      const line3 = "기술과 따뜻한 인간성이 조화를 이루는 미래 인공지능 시대를 이끌어갈";
-      const line4 = "지혜롭고 정의로운 '차세대 AI 인성 리더'로 정식 인증합니다.";
+      const lines = langPack.certBodyLines;
+      lines.forEach((line, idx) => {
+        ctx.fillText(line, w / 2, 425 + (idx * 35));
+      });
+      ctx.restore();
 
-      ctx.fillText(line1, w / 2, 430);
-      ctx.fillText(line2, w / 2, 465);
-      ctx.fillText(line3, w / 2, 500);
-      ctx.fillText(line4, w / 2, 535);
+      // 7.5 세 따님 자문위원단 공식 서명 각인
+      ctx.save();
+      ctx.textAlign = 'center';
+      ctx.font = '12px "Noto Sans KR", sans-serif';
+      ctx.fillStyle = '#94a3b8';
+      ctx.fillText('🏛️ 공동 기획·검수 자문위원단 (Council of Advisors):', w / 2, 575);
+      ctx.font = 'bold 13px "Noto Sans KR", sans-serif';
+      ctx.fillStyle = '#fbcfe8';
+      ctx.fillText('👧 수석자문위원 이은솔 (Senior Advisor) · 👧 선임자문위원 이송효 (Advisor) · 👧 주니어자문위원 이해상 (Junior Advisor)', w / 2, 598);
       ctx.restore();
 
       // 8. Issue Date
       const today = new Date();
-      const dateStr = `${today.getFullYear()}년 ${today.getMonth() + 1}월 ${today.getDate()}일`;
+      const dateStr = `${today.getFullYear()}년 ${today.getMonth() + 1}월 ${today.getDate()}일 (Official Date of Conferment)`;
       ctx.save();
       ctx.textAlign = 'center';
-      ctx.font = '17px "Nanum Myeongjo", serif';
+      ctx.font = '16px "Nanum Myeongjo", serif';
       ctx.fillStyle = '#cbd5e1';
-      ctx.fillText(dateStr, w / 2, 620);
+      ctx.fillText(dateStr, w / 2, 638);
       ctx.restore();
 
-      // 9. Principal Signature & Name
+      // 9. Principal Signature & Name (이상일 대표님 실명 & 영문 직함)
       const principalTitle = (document.getElementById('cert-principal-title')?.value || '한걸음씩 미래 AI 인성학교장').trim();
-      const principalName = (document.getElementById('cert-principal-name')?.value || '안  성  일').trim();
-      const principalFull = `${principalTitle}   ${principalName}`;
+      const principalName = (document.getElementById('cert-principal-name')?.value || '이  상  일').trim();
+      const principalFull = `${principalTitle}   ${principalName}  (Principal Sang-Il Lee)`;
 
       ctx.save();
       ctx.textAlign = 'center';
-      ctx.font = 'bold 24px "Nanum Myeongjo", serif';
+      ctx.font = 'bold 22px "Nanum Myeongjo", serif';
       ctx.fillStyle = '#ffffff';
-      ctx.fillText(principalFull, w / 2 - 30, 685);
+      ctx.fillText(principalFull, w / 2 - 35, 692);
       ctx.restore();
 
-      // 10. Official Red & Gold Stamp (전통 사각 직인 Canvas 그래픽)
-      const stampX = w / 2 + 200;
-      const stampY = 645;
-      const stampSize = 72;
+      // 10. Official Red & Gold Stamp (이상일 대표님 정식 직인 날인)
+      const stampX = w / 2 + 235;
+      const stampY = 672;
+      const stampSize = 74;
 
       ctx.save();
       ctx.translate(stampX, stampY);
-      ctx.rotate(-0.05); // 살짝 아날로그 감성 회전
+      ctx.rotate(-0.04);
 
       // Stamp Outer Box
       ctx.strokeStyle = '#dc2626'; // Vermilion Red
@@ -4137,21 +4419,22 @@
       ctx.lineWidth = 1.5;
       ctx.strokeRect(-stampSize / 2 + 4, -stampSize / 2 + 4, stampSize - 8, stampSize - 8);
 
-      // Stamp Korean Glyph Text
+      // Stamp Korean Glyph Text (한걸음씩 미래인성학교장 이상일 인)
       ctx.fillStyle = '#dc2626';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.font = 'bold 15px "Nanum Myeongjo", serif';
-      ctx.fillText('한걸음', 0, -18);
-      ctx.fillText('인성교', 0, 0);
-      ctx.fillText('장인', 0, 18);
+      ctx.font = 'bold 13px "Nanum Myeongjo", serif';
+      ctx.fillText('한걸음', 0, -20);
+      ctx.fillText('인성교', 0, -6);
+      ctx.fillText('장이상', 0, 8);
+      ctx.fillText('일  인', 0, 22);
       ctx.restore();
 
       // 11. Bottom Gold Seal Emblem (좌측 하단 골드 엠블럼)
       ctx.save();
       const sealX = 160;
-      const sealY = 710;
-      const sealR = 40;
+      const sealY = 720;
+      const sealR = 38;
 
       const sealGrad = ctx.createRadialGradient(sealX, sealY, 5, sealX, sealY, sealR);
       sealGrad.addColorStop(0, '#fef3c7');
@@ -4169,9 +4452,9 @@
       ctx.fillStyle = '#78350f';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.font = 'bold 11px sans-serif';
-      ctx.fillText('OFFICIAL', sealX, sealY - 8);
-      ctx.fillText('VERIFIED', sealX, sealY + 8);
+      ctx.font = 'bold 10px sans-serif';
+      ctx.fillText('GLOBAL', sealX, sealY - 7);
+      ctx.fillText('VERIFIED', sealX, sealY + 7);
       ctx.restore();
     }
 
@@ -4179,10 +4462,10 @@
       const canvas = document.getElementById('cert-canvas');
       const name = (document.getElementById('cert-student-name').value || '학생').trim();
       const a = document.createElement('a');
-      a.download = `AI_인성리더_정식수료증_${name}_${Date.now()}.png`;
+      a.download = `AI_인성리더_글로벌정식수료증_${name}_${Date.now()}.png`;
       a.href = canvas.toDataURL('image/png');
       a.click();
-      showToast(`💾 ${name} 학생의 고화질 정식 인증서가 다운로드되었습니다!`, 'success');
+      showToast(`💾 ${name} 학생의 글로벌 정식 인증서가 다운로드되었습니다!`, 'success');
     }
 
     function copyCertificateToClipboard() {
@@ -4194,6 +4477,788 @@
         });
       });
     }
+
+    // ── 👑 과업 2: '이상일 비전 클론' 유튜브 직통 분석기 & 5단계 연쇄 융합 ──
+    function setYoutubeSampleUrl(url) {
+      document.getElementById('youtube-url-input').value = url;
+      showToast('🔗 쇼츠 URL이 입력되었습니다! [트렌드 발굴 & 융합 가동]을 눌러주세요.', 'info');
+    }
+
+    async function runVisionCloneYoutubeAnalysis() {
+      const urlInput = document.getElementById('youtube-url-input');
+      const url = urlInput.value.trim();
+      const container = document.getElementById('vision-clone-results');
+      const btn = document.getElementById('btn-run-vision-clone');
+
+      if (!url) {
+        showToast('유튜브 영상 또는 쇼츠 URL을 입력해주세요.', 'error');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.innerHTML = `<span>⏳</span><span>'이상일 대표님 모드' 5단계 연쇄 융합 분석 중...</span>`;
+      container.classList.remove('hidden');
+      container.innerHTML = `
+        <div class="p-6 rounded-2xl bg-slate-950/90 border border-amber-500/40 text-center space-y-3">
+          <div class="inline-block animate-spin text-2xl">🦅</div>
+          <div class="font-bold text-amber-300 text-sm">이상일 대표님의 시각으로 유튜브 트렌드를 정밀 해부하고 있습니다...</div>
+          <p class="text-xs text-slate-400">① 매의 눈 포착 ➔ ② 꼬리에 꼬리를 무는 연쇄 융합 ➔ ③ 오감 감성 ➔ ④ 법무 방어 ➔ ⑤ 제국 무기화</p>
+        </div>
+      `;
+
+      try {
+        const resp = await fetch('/api/analyze-youtube-url', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ url: url, key: localStorage.getItem(STORAGE_KEYS.GEMINI_KEY) })
+        });
+
+        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+        const data = await resp.json();
+
+        container.innerHTML = `
+          <div class="p-5 rounded-2xl bg-gradient-to-r from-amber-950/40 via-slate-900 to-amber-950/40 border border-amber-500/50 space-y-4 shadow-xl">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-amber-500/30">
+              <div class="flex items-center gap-2.5">
+                <span class="text-2xl">👑</span>
+                <div>
+                  <h4 class="text-sm font-black text-white flex items-center gap-2">
+                    <span>${escapeHtml(data.metadata?.title || '유튜브 분석 영상')}</span>
+                    <span class="px-2 py-0.5 rounded text-[10px] bg-amber-500/20 text-amber-300 font-mono">ID: ${escapeHtml(data.video_id || 'Direct')}</span>
+                  </h4>
+                  <p class="text-[11px] text-amber-300/80 mt-0.5">분석 완료 시각: ${escapeHtml(data.analyzed_at)} | 채널/출처: ${escapeHtml(data.metadata?.creator || 'YouTube')}</p>
+                </div>
+              </div>
+              <button onclick="dispatchCloneReportToAgent('${escapeQuotes(data.metadata?.title || '')}')"
+                class="px-3.5 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs transition active:scale-95 shadow flex items-center gap-1.5 shrink-0">
+                <span>🚀</span><span>안실장 큐에 제국 무기화 하달</span>
+              </button>
+            </div>
+
+            <!-- 5단계 연쇄 융합 보고서 본문 -->
+            <div class="p-4 rounded-xl bg-slate-950/90 border border-slate-800 text-slate-200 text-xs leading-relaxed font-sans space-y-2 whitespace-pre-wrap">
+              ${escapeHtml(data.fusion_report)}
+            </div>
+
+            <div class="pt-2 flex justify-end gap-2 text-xs">
+              <button onclick="copyText('${escapeQuotes(data.fusion_report)}')"
+                class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700">
+                📋 전체 보고서 복사
+              </button>
+              <button onclick="sendTelegramMessage('👑 *[이상일 비전 클론 5단계 연쇄 융합 보고]*\\n\\n' + '${escapeQuotes(data.fusion_report).slice(0, 1500)}')"
+                class="px-3 py-1.5 rounded-lg bg-amber-600/30 hover:bg-amber-600/50 text-amber-300 border border-amber-500/40">
+                📱 텔레그램 즉시 전송
+              </button>
+            </div>
+          </div>
+        `;
+
+        showToast('👑 이상일 비전 클론 5단계 연쇄 융합 보고서가 완성되었습니다!', 'success');
+      } catch (e) {
+        container.innerHTML = `
+          <div class="p-4 rounded-xl bg-red-950/40 border border-red-500/40 text-red-300 text-xs">
+            ⚠️ 비전 클론 분석 실패: ${escapeHtml(e.message)}
+          </div>
+        `;
+        showToast(`분석 오류: ${e.message}`, 'error');
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = `<span>🧠</span><span>[🧠 '이상일 대표님 모드'로 트렌드 발굴 & 5단계 연쇄 융합 가동]</span>`;
+      }
+    }
+
+    function dispatchCloneReportToAgent(title) {
+      document.getElementById('direct-task-title').value = `[비전 클론 융합] ${title} 제국 무기화`;
+      document.getElementById('direct-task-body').value = `이상일 대표님 모드로 발굴한 트렌드 기술을 우리 5대 원(사령부/미디어/인성학교/금고)에 맞춤 연동할 것.`;
+      switchTab('tab-brain');
+      showToast('🤖 AI 소통 개발실의 안실장 작업 큐로 이동했습니다. [하달] 버튼을 누르세요!', 'info');
+    }
+
+    // ── 📜 과업 5: 지식재산권 & 글로벌 저작권 등록청 (cros.or.kr) ──
+    let lastCopyrightDossierText = "";
+
+    async function generateCopyrightDossier() {
+      const select = document.getElementById('copyright-work-select');
+      const workKey = select.value;
+      const btn = document.getElementById('btn-gen-copyright');
+      const container = document.getElementById('copyright-results-container');
+
+      const workMap = {
+        program: {
+          title: "한걸음씩 만능 AI 국가 OS (Omni-Nexus v2.0)",
+          type: "컴퓨터프로그램저작물",
+          desc: "이상일 대표님이 구상한 3조 2교대 수면 보호, 432Hz 8시간 음원 무부하 렌더링, 글로벌 K-인성 에듀테크, 720개 소스코드 Zero-Leak 자율 법무 시스템이 융합된 단일 파일 국가 OS 소프트웨어."
+        },
+        music: {
+          title: "432Hz 심야 치유 피아노 & 숙면 8시간 음원 30수",
+          type: "음악저작물 (연주 및 음반)",
+          desc: "이상일 대표님의 감성 기획과 432Hz 세타파 주파수 동기화, 피아노와 자연 빗소리 3초 오디오 페이드 무손실 연결 기술로 제작된 치유 명상 음원 스위트."
+        },
+        literary: {
+          title: "세로 명조체 힐링 시집 및 4대 인성학교 에듀테크 교재",
+          type: "어문저작물",
+          desc: "이상일 대표님이 집필한 심야 위로 시구들과 세 딸(이은솔·이송효·이해상) 자문위원단이 함께 감수한 4대 덕목(경우·공경·공감·나눔) 교육 텍스트 일체."
+        }
+      };
+
+      const target = workMap[workKey] || workMap.program;
+
+      btn.disabled = true;
+      btn.textContent = "⏳ 한국저작권위원회 정식 등기 서류 생성 중...";
+      container.classList.remove('hidden');
+
+      try {
+        const resp = await fetch('/api/copyright-register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            work_title: target.title,
+            work_type: target.type,
+            description: target.desc
+          })
+        });
+
+        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+        const data = await resp.json();
+        lastCopyrightDossierText = data.official_dossier;
+
+        container.innerHTML = `
+          <div class="p-4 rounded-xl bg-slate-950/90 border border-indigo-500/50 space-y-3">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2 border-b border-indigo-500/30">
+              <div class="flex items-center gap-2">
+                <span class="text-xl">📜</span>
+                <div>
+                  <h4 class="text-xs font-bold text-white flex items-center gap-2">
+                    <span>${escapeHtml(data.work_title)}</span>
+                    <span class="px-2 py-0.5 rounded text-[10px] bg-emerald-500/20 text-emerald-300 font-mono">${escapeHtml(data.dossier_id)}</span>
+                  </h4>
+                  <p class="text-[10px] text-slate-400">저작권자: ${escapeHtml(data.author)} | 공동기획: ${escapeHtml(data.co_creators)}</p>
+                </div>
+              </div>
+              <div class="flex gap-2">
+                <button onclick="copyCopyrightDossier()" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs border border-slate-700">📋 복사</button>
+                <button onclick="downloadCopyrightDossierTxt()" class="px-2.5 py-1 rounded bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs">💾 .txt 다운로드</button>
+              </div>
+            </div>
+
+            <div class="p-3.5 rounded-lg bg-slate-900 border border-slate-800 font-mono text-[11px] text-indigo-200 whitespace-pre-wrap leading-relaxed max-h-80 overflow-y-auto">
+              ${escapeHtml(data.official_dossier)}
+            </div>
+
+            <div class="flex items-center justify-between text-[11px] text-slate-400 pt-1">
+              <span>🔒 디지털 원본 서명: <code class="text-emerald-400 font-mono">${escapeHtml(data.sha256).slice(0, 24)}...</code></span>
+              <span class="text-indigo-400">한국저작권위원회(cros.or.kr) 즉시 제출 가능</span>
+            </div>
+          </div>
+        `;
+
+        showToast('📜 저작권 정식 명세서 및 인간 기여도 로그가 발급되었습니다!', 'success');
+      } catch (e) {
+        showToast(`등기 서류 발급 실패: ${e.message}`, 'error');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = "한국저작권위원회 정식 등기 서류 & 인간 기여도 로그 발급";
+      }
+    }
+
+    function copyCopyrightDossier() {
+      if (!lastCopyrightDossierText) return;
+      copyText(lastCopyrightDossierText);
+      showToast('📋 저작권 정식 명세서가 클립보드에 복사되었습니다!', 'success');
+    }
+
+    function downloadCopyrightDossierTxt() {
+      if (!lastCopyrightDossierText) return;
+      const blob = new Blob([lastCopyrightDossierText], { type: 'text/plain;charset=utf-8' });
+      const a = document.createElement('a');
+      a.download = `한국저작권위원회_등기서류_이상일대표님_${Date.now()}.txt`;
+      a.href = URL.createObjectURL(blob);
+      a.click();
+      showToast('💾 정식 명세서 파일이 다운로드되었습니다.', 'success');
+    }
+
+    // ── 🌟 과업 3: 3대 GitHub 슈퍼 트렌드 프리셋 분석 엔진 ──
+    async function runSuperPresetAnalysis(presetId) {
+      const container = document.getElementById('super-presets-results-container');
+      container.classList.remove('hidden');
+      container.innerHTML = `
+        <div class="p-5 rounded-xl bg-slate-950/90 border border-purple-500/40 text-center text-xs text-purple-300">
+          ⏳ 제2원 Gemini 아키텍트가 '${presetId}' 슈퍼 트렌드를 심층 해부하고 있습니다...
+        </div>
+      `;
+
+      try {
+        const resp = await fetch('/api/github-scout-super-presets', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            preset_id: presetId,
+            key: localStorage.getItem(STORAGE_KEYS.GEMINI_KEY)
+          })
+        });
+
+        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+        const data = await resp.json();
+        const p = data.preset;
+
+        container.innerHTML = `
+          <div class="p-5 rounded-2xl bg-gradient-to-r from-purple-950/40 via-slate-900 to-purple-950/40 border border-purple-500/50 space-y-4 shadow-xl">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-purple-500/30">
+              <div>
+                <div class="flex items-center gap-2">
+                  <span class="px-2 py-0.5 rounded text-[10px] font-black bg-purple-500/30 text-purple-300 border border-purple-500/40 uppercase">${escapeHtml(p.badge)}</span>
+                  <span class="text-xs text-slate-400 font-mono">${escapeHtml(p.stars)} | ${escapeHtml(p.license_badge)}</span>
+                </div>
+                <h4 class="text-sm font-black text-white mt-1">
+                  ${escapeHtml(p.title)}
+                </h4>
+                <p class="text-[11px] text-slate-300 mt-0.5">${escapeHtml(p.summary)}</p>
+              </div>
+              <button onclick="adoptSuperPresetToEmpire('${escapeQuotes(p.title)}', '${escapeQuotes(p.repo_name)}', '${escapeQuotes(p.ai_briefing)}')"
+                class="px-4 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-black text-xs transition active:scale-95 shrink-0 flex items-center gap-1.5 shadow-md shadow-purple-600/30">
+                <span>⚡</span><span>우리 제국에 즉시 흡수 개조</span>
+              </button>
+            </div>
+
+            <!-- 핵심 기능 3선 -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-2 text-xs">
+              ${p.key_features.map((f, i) => `
+                <div class="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800 text-slate-300">
+                  <div class="text-[10px] text-purple-400 font-bold mb-1">Point 0${i + 1}</div>
+                  <div class="text-[11px] leading-snug">${escapeHtml(f)}</div>
+                </div>
+              `).join('')}
+            </div>
+
+            <!-- 제국 흡수 설계안 -->
+            <div class="p-3.5 rounded-xl bg-purple-950/40 border border-purple-500/40 text-xs text-purple-200 space-y-1.5">
+              <div class="font-bold text-white flex items-center gap-1.5">
+                <span>🛡️</span><span>제2원 맞춤 흡수 & 무기화 전략:</span>
+              </div>
+              <ul class="space-y-1 text-[11px] text-purple-300/90 list-disc list-inside">
+                ${p.empire_absorption.map(a => `<li>${escapeHtml(a)}</li>`).join('')}
+              </ul>
+            </div>
+
+            <!-- 이상일 대표님 전용 AI 브리핑 -->
+            <div class="p-3.5 rounded-xl bg-slate-950/90 border border-amber-500/30 text-xs text-amber-200 flex items-start gap-2.5">
+              <span class="text-lg shrink-0">👑</span>
+              <p class="leading-relaxed"><b>[대표님 보고]</b>: ${escapeHtml(p.ai_briefing)}</p>
+            </div>
+          </div>
+        `;
+
+        showToast(`🌟 ${p.badge} 분석이 완료되었습니다!`, 'success');
+      } catch (e) {
+        container.innerHTML = `
+          <div class="p-4 rounded-xl bg-red-950/40 border border-red-500/40 text-red-300 text-xs">
+            프리셋 분석 실패: ${escapeHtml(e.message)}
+          </div>
+        `;
+      }
+    }
+
+    function adoptSuperPresetToEmpire(title, repo, briefing) {
+      document.getElementById('direct-task-title').value = `[오픈소스 흡수] ${title}`;
+      document.getElementById('direct-task-body').value = `• 저장소: ${repo}\n• 브리핑: ${briefing}\n\n위 오픈소스의 핵심 기술을 우리 제국 코드(FFmpeg / Canvas / 안실장 두뇌)에 무부하 연동할 것.`;
+      switchTab('tab-brain');
+      showToast(`⚡ '${title}' 흡수 과업이 안실장 큐에 장전되었습니다.`, 'info');
+    }
+
+    // ── 🎬 과업 3-2: 60fps 모션 그래픽 LIVE 캔버스 (432Hz 스펙트럼 & 세로 타이핑) ──
+    let isMotionLiveRunning = false;
+    let motionLiveFrameId = null;
+    let motionLiveStartTime = null;
+    let audioCtx432 = null;
+    let osc432 = null;
+    let isAudio432Playing = false;
+
+    function toggleMotionGraphicsLive() {
+      const btn = document.getElementById('btn-toggle-motion');
+      const badge = document.getElementById('motion-live-badge');
+      const icon = document.getElementById('motion-btn-icon');
+      const text = document.getElementById('motion-btn-text');
+
+      if (isMotionLiveRunning) {
+        isMotionLiveRunning = false;
+        if (motionLiveFrameId) cancelAnimationFrame(motionLiveFrameId);
+        badge.className = 'px-1.5 py-0.2 rounded text-[9px] bg-slate-800 text-slate-400 font-mono';
+        badge.textContent = '정지됨';
+        icon.textContent = '▶️';
+        text.textContent = '60fps LIVE 재생';
+        drawThumbnailCanvas();
+        showToast('🎬 모션 그래픽 LIVE 재생이 정지되었습니다.', 'info');
+      } else {
+        isMotionLiveRunning = true;
+        motionLiveStartTime = performance.now();
+        badge.className = 'px-1.5 py-0.2 rounded text-[9px] bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 font-mono animate-pulse';
+        badge.textContent = '60fps LIVE';
+        icon.textContent = '⏸️';
+        text.textContent = 'LIVE 일시정지';
+        motionGraphicsLoop(performance.now());
+        showToast('🎬 Manim 스타일 60fps 모션 그래픽 LIVE가 가동되었습니다!', 'success');
+      }
+    }
+
+    function toggleHealingSound432() {
+      const btn = document.getElementById('btn-toggle-sound');
+      const icon = document.getElementById('sound-btn-icon');
+
+      try {
+        if (!audioCtx432) {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          audioCtx432 = new AudioContext();
+        }
+
+        if (audioCtx432.state === 'suspended') {
+          audioCtx432.resume();
+        }
+
+        if (isAudio432Playing) {
+          if (osc432) {
+            osc432.stop();
+            osc432.disconnect();
+            osc432 = null;
+          }
+          isAudio432Playing = false;
+          icon.textContent = '🔇';
+          btn.className = 'px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-semibold flex items-center gap-1';
+          showToast('432Hz 치유음이 음소거되었습니다.', 'info');
+        } else {
+          // 432Hz 평온한 정현파 (Pure Sine Wave)
+          osc432 = audioCtx432.createOscillator();
+          const gainNode = audioCtx432.createGain();
+          osc432.type = 'sine';
+          osc432.frequency.setValueAtTime(432, audioCtx432.currentTime);
+
+          // 귀 피로 없는 부드러운 음량 (0.04)
+          gainNode.gain.setValueAtTime(0.04, audioCtx432.currentTime);
+          osc432.connect(gainNode);
+          gainNode.connect(audioCtx432.destination);
+
+          osc432.start();
+          isAudio432Playing = true;
+          icon.textContent = '🔊';
+          btn.className = 'px-2.5 py-1.5 rounded-lg bg-emerald-600 text-white border border-emerald-400 text-xs font-bold flex items-center gap-1 shadow';
+          showToast('🔊 432Hz 숙면·치유 황금 주파수가 재생됩니다.', 'success');
+        }
+      } catch (e) {
+        showToast(`오디오 재생 불가: ${e.message}`, 'error');
+      }
+    }
+
+    function motionGraphicsLoop(timestamp) {
+      if (!isMotionLiveRunning) return;
+
+      const canvas = document.getElementById('thumbnail-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const elapsed = (timestamp - motionLiveStartTime) / 1000; // 초 단위
+
+      // 1. 기본 정적 캔버스 그리기 (배경, 비네팅, 파티클)
+      drawThumbnailCanvasBase(ctx, canvas);
+
+      // 2. 432Hz 황금 오디오 스펙트럼 실시간 파형 (60fps Manim 오실로스코프)
+      draw432HzSpectrumWave(ctx, canvas, elapsed);
+
+      // 3. 세로 명조체 글자별 타이핑 & 페이드인 모션 애니메이션
+      drawTypingVerticalPoem(ctx, canvas, elapsed);
+
+      motionLiveFrameId = requestAnimationFrame(motionGraphicsLoop);
+    }
+
+    function drawThumbnailCanvasBase(ctx, canvas) {
+      const dim = Number(document.getElementById('thumb-dim')?.value) || 0.45;
+
+      // 배경 이미지 또는 다크 시네마틱 그라데이션
+      if (thumbnailBgImage.complete && thumbnailBgImage.naturalWidth > 0) {
+        ctx.drawImage(thumbnailBgImage, 0, 0, canvas.width, canvas.height);
+      } else {
+        const baseGrad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+        baseGrad.addColorStop(0, '#0a101d');
+        baseGrad.addColorStop(0.5, '#151d30');
+        baseGrad.addColorStop(1, '#070b14');
+        ctx.fillStyle = baseGrad;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+      }
+
+      // 비네팅 오버레이
+      const grad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+      grad.addColorStop(0, `rgba(7, 10, 18, ${dim * 0.75})`);
+      grad.addColorStop(0.4, `rgba(7, 10, 18, ${dim})`);
+      grad.addColorStop(1, `rgba(7, 10, 18, ${dim * 1.25})`);
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // REA 힐링 파티클
+      drawParticlesOnCanvas(ctx, canvas);
+    }
+
+    function draw432HzSpectrumWave(ctx, canvas, elapsed) {
+      ctx.save();
+      const numBars = 36;
+      const barWidth = 6;
+      const gap = 8;
+      const totalWidth = (numBars * (barWidth + gap)) - gap;
+      const startX = 140;
+      const baseY = canvas.height - 110;
+
+      // 스펙트럼 라벨
+      ctx.fillStyle = 'rgba(103, 232, 249, 0.7)';
+      ctx.font = '10px "Inter", monospace';
+      ctx.fillText(`432Hz HARMONIC RESONANCE · 60FPS LIVE`, startX, baseY - 50);
+
+      for (let i = 0; i < numBars; i++) {
+        const freqOffset = i * 0.25;
+        // 432Hz 수학적 비트 펄스 수식
+        const h1 = Math.sin(elapsed * 3.5 + freqOffset) * 22;
+        const h2 = Math.cos(elapsed * 2.1 - freqOffset * 0.8) * 14;
+        const barH = Math.max(6, Math.abs(h1 + h2) + 8);
+
+        const x = startX + i * (barWidth + gap);
+        const y = baseY - barH;
+
+        const barGrad = ctx.createLinearGradient(x, y, x, baseY);
+        barGrad.addColorStop(0, '#38bdf8');
+        barGrad.addColorStop(0.5, '#818cf8');
+        barGrad.addColorStop(1, 'rgba(99, 102, 241, 0.15)');
+
+        ctx.fillStyle = barGrad;
+        ctx.fillRect(x, y, barWidth, barH);
+
+        // 상단 네온 캡
+        ctx.fillStyle = '#fef08a';
+        ctx.fillRect(x, y - 2, barWidth, 2);
+      }
+
+      ctx.restore();
+    }
+
+    function drawTypingVerticalPoem(ctx, canvas, elapsed) {
+      const mainTitle = document.getElementById('thumb-main-title')?.value || "오늘 하루도 참 고생 많으셨어요";
+      const subTitle = document.getElementById('thumb-sub-title')?.value || "432Hz 힐링 피아노 · 깊은 수면을 위한 따뜻한 쉼표";
+
+      const columns = splitIntoVerticalColumns(mainTitle, 8);
+      const numCols = columns.length;
+      const totalChars = columns.reduce((acc, col) => acc + col.length, 0);
+
+      // 초당 2.5글자씩 타이핑 모션 진행 (루프 반복)
+      const typingSpeed = 2.5;
+      const loopDuration = (totalChars / typingSpeed) + 3.0; // 완성 후 3초 유지
+      const loopTime = elapsed % loopDuration;
+      const currentVisibleCharsCount = Math.floor(loopTime * typingSpeed);
+
+      let charsDrawn = 0;
+      let fontSize = numCols === 1 ? 46 : 42;
+      let stepY = fontSize + 12;
+      let colGap = fontSize * 1.65;
+
+      ctx.save();
+      ctx.font = `bold ${fontSize}px "Nanum Myeongjo", serif`;
+      ctx.fillStyle = '#ffffff';
+      ctx.shadowColor = 'rgba(0, 0, 0, 0.95)';
+      ctx.shadowBlur = 18;
+
+      const baseRightX = numCols === 1 ? canvas.width - 180 : canvas.width - 150;
+      const startY = 120;
+
+      columns.forEach((colText, colIdx) => {
+        const x = baseRightX - (colIdx * colGap);
+        for (let i = 0; i < colText.length; i++) {
+          if (charsDrawn < currentVisibleCharsCount) {
+            const ch = colText[i];
+            const y = startY + (i * stepY);
+            ctx.fillText(ch, x, y);
+
+            // 방금 나타난 글자에 은은한 골드 빛 효과
+            if (charsDrawn === currentVisibleCharsCount - 1) {
+              ctx.save();
+              ctx.fillStyle = '#fef08a';
+              ctx.shadowColor = 'rgba(250, 204, 21, 0.8)';
+              ctx.shadowBlur = 15;
+              ctx.fillText(ch, x, y);
+              ctx.restore();
+            }
+          }
+          charsDrawn++;
+        }
+      });
+
+      // 하단 서브 가로 문구 (부드러운 페이드인)
+      const subAlpha = Math.min(1, Math.max(0, (loopTime - 0.5) * 1.5));
+      ctx.font = '500 20px "Noto Sans KR", sans-serif';
+      ctx.fillStyle = `rgba(226, 232, 240, ${subAlpha})`;
+      ctx.shadowColor = 'rgba(0, 0, 0, 0.8)';
+      ctx.shadowBlur = 10;
+      ctx.fillText(subTitle, 140, canvas.height - 60);
+
+      ctx.restore();
+    }
+
+    // ── 🌍 과업 4: 글로벌 K-인성 5대 국가 다국어 & Manim 4Q 나침반 레이더 ──
+    let currentGlobalLang = 'KR';
+    const GLOBAL_LANG_PACKS = {
+      KR: {
+        code: 'KR',
+        flag: '🇰🇷',
+        certHeader: '한 걸 음 씩   미 래   A I   인 성 학 교',
+        certTitle: '올바른 AI & 인성 리더 정식 수료 인증서',
+        certNameLabel: '성    명',
+        certGradeLabel: '소    속',
+        certCourseLabel: '이수 과정',
+        certBodyLines: [
+          "위 사람은 한걸음씩 미래 AI 인성학교가 주관하는 올바른 AI 윤리와",
+          "인성 4대 덕목(경우·어른 공경·친구 공감·따뜻한 나눔) 교육 과정을 성실히 이수하였으며,",
+          "기술과 따뜻한 인간성이 조화를 이루는 미래 인공지능 시대를 이끌어갈",
+          "지혜롭고 정의로운 '차세대 글로벌 AI 인성 리더'로 정식 인증합니다."
+        ],
+        radarAxes: ['경우 (Propriety)', '공경 (Respect)', '공감 (Empathy)', '나눔 (Sharing)'],
+        radarTitle: '🧭 4Q 인성 나침반 핵심 축 & 글로벌 가치',
+        advisorComment: '"경우와 공경, 공감과 나눔이 조화를 이룰 때 비로소 진정한 차세대 글로벌 AI 리더로 우뚝 섭니다. 이 4Q 나침반은 우리 아이들의 영혼을 지켜주는 든든한 등대입니다."'
+      },
+      US: {
+        code: 'US',
+        flag: '🇺🇸',
+        certHeader: 'ONE-STEP FORWARD FUTURE AI ETHICS ACADEMY',
+        certTitle: 'CERTIFICATE OF MORAL AI & HUMAN LEADERSHIP',
+        certNameLabel: 'Candidate',
+        certGradeLabel: 'Division',
+        certCourseLabel: 'Curriculum',
+        certBodyLines: [
+          "This is to officially certify that the candidate has successfully completed",
+          "the Global AI Ethics and 4 Core Human Virtues (Propriety, Respect, Empathy, Sharing)",
+          "and is recognized as an exemplary Next-Generation Moral AI Leader",
+          "fostering harmony between cutting-edge technology and human compassion."
+        ],
+        radarAxes: ['Propriety', 'Respect', 'Empathy', 'Sharing'],
+        radarTitle: '🧭 4Q Moral Compass Axes & Global Values',
+        advisorComment: '"When propriety, respect, empathy, and sharing unite, young minds stand tall as genuine global AI leaders. This 4Q compass guides their digital souls."'
+      },
+      JP: {
+        code: 'JP',
+        flag: '🇯🇵',
+        certHeader: '一歩ずつ 未来AI 人間性倫理アカデミー',
+        certTitle: '正しいAI＆人間性リーダー 正式修了認定証',
+        certNameLabel: '氏    名',
+        certGradeLabel: '所    属',
+        certCourseLabel: '修了課程',
+        certBodyLines: [
+          "上記の者は、当校が主催する正しいAI倫理および人間性4大美徳",
+          "（礼節・敬愛・共感・分かち合い）の教育課程を誠実に修了し、",
+          "技術と温かい人間性が調和する未来を切り拓く",
+          "『次世代グローバルAI倫理リーダー』として認定します。"
+        ],
+        radarAxes: ['礼節 (Propriety)', '敬愛 (Respect)', '共感 (Empathy)', '分かち合い (Sharing)'],
+        radarTitle: '🧭 4Q 人間性コンパス中核軸 ＆ グローバル価値',
+        advisorComment: '"礼節と敬愛、共感と分かち合いが調和するとき、真の次世代AIリーダーへと成長します。"'
+      },
+      ES: {
+        code: 'ES',
+        flag: '🇪🇸',
+        certHeader: 'ACADEMIA DE ÉTICA DE IA Y VALORES HUMANOS',
+        certTitle: 'CERTIFICADO DE LIDERAZGO EN ÉTICA DE IA',
+        certNameLabel: 'Nombre',
+        certGradeLabel: 'Nivel',
+        certCourseLabel: 'Programa',
+        certBodyLines: [
+          "Se certifica solemnemente que el alumno ha completado con excelencia",
+          "el programa de Ética de IA y los 4 Valores Humanos (Propiedad, Respeto, Empatía, Compartir),",
+          "siendo reconocido como un Líder de IA de Nueva Generación",
+          "que armoniza la innovación tecnológica con la compasión humana."
+        ],
+        radarAxes: ['Propiedad', 'Respeto', 'Empatía', 'Compartir'],
+        radarTitle: '🧭 Brújula 4Q de Virtudes y Valores Globales',
+        advisorComment: '"Cuando la rectitud y la empatía se unen, nuestros jóvenes lideran la era de la inteligencia artificial con alma humana."'
+      },
+      SG: {
+        code: 'SG',
+        flag: '🌏',
+        certHeader: 'SINGAPORE & GLOBAL AI ETHICS INSTITUTE',
+        certTitle: 'GLOBAL FELLOWSHIP IN ETHICAL AI & INTEGRITY',
+        certNameLabel: 'Fellow',
+        certGradeLabel: 'Academy',
+        certCourseLabel: 'Pathway',
+        certBodyLines: [
+          "This credential confirms mastery in Moral AI Stewardship,",
+          "integrating the universal pillars of Propriety, Respect, Empathy, and Sharing",
+          "to champion global technological innovation with uncompromised integrity",
+          "under the guidance of Principal Sang-Il Lee and the Council of Advisors."
+        ],
+        radarAxes: ['Propriety', 'Respect', 'Empathy', 'Sharing'],
+        radarTitle: '🧭 4Q Global Compass for AI Excellence',
+        advisorComment: '"Integrity and empathy are the bedrock of global smart leadership. This compass equips tomorrow leaders with lifelong moral clarity."'
+      }
+    };
+
+    function setGlobalLang(langCode, btn) {
+      currentGlobalLang = langCode;
+      document.querySelectorAll('.global-lang-btn').forEach(b => {
+        b.className = 'global-lang-btn px-2.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-semibold text-xs border border-slate-700 transition active:scale-95';
+      });
+      if (btn) {
+        btn.className = 'global-lang-btn px-2.5 py-1.5 rounded-xl bg-purple-600 text-white font-bold text-xs border border-purple-400 shadow-sm transition active:scale-95';
+      }
+
+      const pack = GLOBAL_LANG_PACKS[langCode] || GLOBAL_LANG_PACKS.KR;
+      const radarTitle = document.getElementById('lang-radar-title');
+      const advisorComment = document.getElementById('lang-advisor-comment');
+      if (radarTitle) radarTitle.textContent = pack.radarTitle;
+      if (advisorComment) advisorComment.textContent = pack.advisorComment;
+
+      drawCompassRadar();
+      renderCertificateCanvas();
+      showToast(`🌍 글로벌 언어가 [${pack.flag} ${langCode}] 모드로 전환되었습니다!`, 'success');
+    }
+
+    // Manim 스타일 4Q 인성 나침반 60fps 기하 펄스 레이더
+    let radarPulsePhase = 0;
+    function drawCompassRadar() {
+      const canvas = document.getElementById('compass-radar-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const w = canvas.width;
+      const h = canvas.height;
+      const cx = w / 2;
+      const cy = h / 2;
+      const maxR = 150;
+
+      radarPulsePhase += 0.035;
+
+      ctx.clearRect(0, 0, w, h);
+
+      // 다크 기하학 배경 원
+      ctx.save();
+      const bgRad = ctx.createRadialGradient(cx, cy, 10, cx, cy, maxR + 30);
+      bgRad.addColorStop(0, '#0f172a');
+      bgRad.addColorStop(0.8, '#080d1a');
+      bgRad.addColorStop(1, '#030712');
+      ctx.fillStyle = bgRad;
+      ctx.beginPath();
+      ctx.arc(cx, cy, maxR + 25, 0, Math.PI * 2);
+      ctx.fill();
+
+      // 동심 다각형 그리드 (4단계)
+      const steps = 4;
+      for (let s = 1; s <= steps; s++) {
+        const r = (maxR / steps) * s;
+        ctx.strokeStyle = s === steps ? 'rgba(168, 85, 247, 0.4)' : 'rgba(148, 163, 184, 0.15)';
+        ctx.lineWidth = s === steps ? 1.5 : 1;
+        ctx.beginPath();
+        for (let a = 0; a < 4; a++) {
+          const angle = (Math.PI / 2) * a - Math.PI / 2;
+          const x = cx + Math.cos(angle) * r;
+          const y = cy + Math.sin(angle) * r;
+          if (a === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+        ctx.closePath();
+        ctx.stroke();
+      }
+
+      // 4대 축 십자선 (Manim 스타일)
+      ctx.strokeStyle = 'rgba(168, 85, 247, 0.3)';
+      ctx.lineWidth = 1;
+      for (let a = 0; a < 4; a++) {
+        const angle = (Math.PI / 2) * a - Math.PI / 2;
+        ctx.beginPath();
+        ctx.moveTo(cx, cy);
+        ctx.lineTo(cx + Math.cos(angle) * maxR, cy + Math.sin(angle) * maxR);
+        ctx.stroke();
+      }
+
+      // 회전하는 기하학적 네온 스캔 빔 (Manim 레이더 모션)
+      const scanAngle = radarPulsePhase;
+      const beamGrad = ctx.createRadialGradient(cx, cy, 0, cx, cy, maxR);
+      beamGrad.addColorStop(0, 'rgba(236, 72, 153, 0.35)');
+      beamGrad.addColorStop(1, 'rgba(168, 85, 247, 0)');
+      ctx.fillStyle = beamGrad;
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      ctx.arc(cx, cy, maxR, scanAngle, scanAngle + Math.PI / 3);
+      ctx.closePath();
+      ctx.fill();
+
+      // 4Q 인성 점수 다각형 (경우 98, 공경 96, 공감 99, 나눔 97)
+      const scores = [0.98, 0.96, 0.99, 0.97];
+      const pulseDelta = Math.sin(radarPulsePhase * 2) * 0.02; // 미세 펄스 호흡
+
+      ctx.save();
+      ctx.beginPath();
+      const points = [];
+      for (let i = 0; i < 4; i++) {
+        const angle = (Math.PI / 2) * i - Math.PI / 2;
+        const currentScore = Math.min(1, scores[i] + pulseDelta);
+        const r = maxR * currentScore;
+        const px = cx + Math.cos(angle) * r;
+        const py = cy + Math.sin(angle) * r;
+        points.push([px, py]);
+        if (i === 0) ctx.moveTo(px, py);
+        else ctx.lineTo(px, py);
+      }
+      ctx.closePath();
+
+      // 레이더 내부 그라데이션 채우기
+      const areaGrad = ctx.createLinearGradient(cx - maxR, cy - maxR, cx + maxR, cy + maxR);
+      areaGrad.addColorStop(0, 'rgba(236, 72, 153, 0.45)');
+      areaGrad.addColorStop(0.5, 'rgba(168, 85, 247, 0.4)');
+      areaGrad.addColorStop(1, 'rgba(56, 189, 248, 0.35)');
+      ctx.fillStyle = areaGrad;
+      ctx.fill();
+
+      ctx.strokeStyle = '#f472b6';
+      ctx.lineWidth = 2.5;
+      ctx.shadowColor = 'rgba(236, 72, 153, 0.8)';
+      ctx.shadowBlur = 10;
+      ctx.stroke();
+      ctx.restore();
+
+      // 각 꼭짓점 네온 펄스 링
+      points.forEach(([px, py]) => {
+        ctx.save();
+        ctx.fillStyle = '#ffffff';
+        ctx.beginPath();
+        ctx.arc(px, py, 4, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.strokeStyle = '#f472b6';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(px, py, 7 + Math.sin(radarPulsePhase * 3) * 2, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.restore();
+      });
+
+      // 4대 축 라벨 텍스트 (다국어 팩 연동)
+      const pack = GLOBAL_LANG_PACKS[currentGlobalLang] || GLOBAL_LANG_PACKS.KR;
+      const axesLabels = pack.radarAxes;
+      const labelOffsets = [
+        [0, -maxR - 16], // 북: 경우
+        [maxR + 25, 4],  // 동: 공경
+        [0, maxR + 20],  // 남: 공감
+        [-maxR - 25, 4]  // 서: 나눔
+      ];
+
+      ctx.font = 'bold 12px "Noto Sans KR", sans-serif';
+      ctx.fillStyle = '#f1f5f9';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+
+      axesLabels.forEach((label, i) => {
+        const [ox, oy] = labelOffsets[i];
+        ctx.fillText(label, cx + ox, cy + oy);
+      });
+
+      ctx.restore();
+    }
+
+    // 페이지 로드 시 4Q 나침반 및 캔버스 초기화
+    window.addEventListener('DOMContentLoaded', () => {
+      setInterval(() => {
+        const compassTab = document.getElementById('tab-daughters');
+        if (compassTab && !compassTab.classList.contains('hidden')) {
+          drawCompassRadar();
+        }
+      }, 50);
+    });
   </script>
 </body>
 </html>
