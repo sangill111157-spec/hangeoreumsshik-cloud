@@ -91,9 +91,12 @@ def get_local_secrets() -> dict:
                     if not line or line.startswith("#") or "=" not in line:
                         continue
                     k, v = line.split("=", 1)
-                    k, v = k.strip(), v.strip().strip('"').strip("'")
-                    if not secrets["gemini_key"] and k in ("GEMINI_API_KEY", "GEMINI_FREE_KEY", "GOOGLE_API_KEY"):
+                    # Gemini API 유효 키 우선 수집 (Google Cloud AIzaSy... 키 최우선)
+                    if k in ("GEMINI_API_KEY", "GEMINI_FREE_KEY", "GOOGLE_API_KEY", "YOUTUBE_API_KEY") and v.startswith("AIzaSy"):
                         secrets["gemini_key"] = v
+                    elif not secrets["gemini_key"] and k in ("GEMINI_API_KEY", "GEMINI_FREE_KEY", "GOOGLE_API_KEY"):
+                        secrets["gemini_key"] = v
+
                     if not secrets["telegram_token"] and k in ("TELEGRAM_BOT_TOKEN", "TELEGRAM_TOKEN"):
                         secrets["telegram_token"] = v
                     if not secrets["telegram_chat_id"] and k in ("TELEGRAM_CHAT_ID", "CHAT_ID"):
@@ -298,6 +301,55 @@ def find_available_port(start_port: int = 8501) -> int:
         port += 1
     return start_port
 
+def call_gemini_server_side(prompt: str, user_key: str = None) -> dict:
+    """Gemini REST API 백엔드 프록시 (gemini-2.5-flash -> 2.0-flash -> 1.5-flash 자동 폴백)"""
+    sec = get_local_secrets()
+    api_key = (user_key or sec.get("gemini_key") or "").strip()
+    if not api_key:
+        return {"error": "서버에 GEMINI_API_KEY가 설정되어 있지 않습니다.", "success": False}
+
+    models = ["gemini-2.5-flash", "gemini-2.0-flash", "gemini-1.5-flash"]
+    last_err = ""
+    system_instruction = (
+        "[시스템 지침: 너는 '한걸음씩 만능 AI 국가 OS'의 총괄 수석 비서 '안실장'이다. "
+        "대표님께 언제나 예의 바르고 깍듯하면서도 유쾌하고 친절하게 한국어로 답변하라. "
+        "모바일(통근버스 5G) 화면에서도 한눈에 읽기 편하도록 문단을 깔끔하게 나누고 이모지를 적절히 활용하여 명쾌하고 스마트하게 안내하라.]\n\n"
+        f"대표님 말씀: {prompt}"
+    )
+
+    payload = {
+        "contents": [
+            {
+                "role": "user",
+                "parts": [{"text": system_instruction}]
+            }
+        ]
+    }
+    payload_bytes = json.dumps(payload).encode("utf-8")
+
+    for m in models:
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/{m}:generateContent?key={api_key}"
+        req = urllib.request.Request(
+            url,
+            data=payload_bytes,
+            headers={"Content-Type": "application/json"}
+        )
+        try:
+            with urllib.request.urlopen(req, timeout=15) as resp:
+                res_data = json.loads(resp.read().decode("utf-8"))
+                text = res_data.get("candidates", [{}])[0].get("content", {}).get("parts", [{}])[0].get("text", "")
+                if text:
+                    return {"text": text, "model": m, "success": True}
+        except urllib.error.HTTPError as e:
+            err_body = e.read().decode("utf-8", errors="ignore")
+            last_err = f"HTTP {e.code} ({m}): {err_body}"
+            continue
+        except Exception as e:
+            last_err = f"Error ({m}): {str(e)}"
+            continue
+
+    return {"error": f"모든 모델 호출 실패: {last_err}", "success": False}
+
 class DashboardHandler(SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=str(DASHBOARD_DIR), **kwargs)
@@ -488,6 +540,38 @@ class DashboardHandler(SimpleHTTPRequestHandler):
                 self.send_response(500)
                 self.end_headers()
                 self.wfile.write(json.dumps({"error": str(e)}).encode('utf-8'))
+                return
+
+        # 3. Gemini REST API 백엔드 프록시 (스마트폰 무키 접속 및 400 원천 방지)
+        if self.path == '/api/chat':
+            length = int(self.headers.get('Content-Length', 0))
+            raw_body = self.rfile.read(length)
+            try:
+                data = json.loads(raw_body.decode('utf-8')) if raw_body else {}
+                prompt = (data.get("prompt") or "").strip()
+                user_key = (data.get("key") or "").strip()
+
+                if not prompt:
+                    self.send_response(400)
+                    self.send_header("Content-Type", "application/json; charset=utf-8")
+                    self.end_headers()
+                    self.wfile.write(json.dumps({"error": "질문 내용이 비어있습니다."}).encode('utf-8'))
+                    return
+
+                res = call_gemini_server_side(prompt, user_key=user_key if user_key else None)
+                resp_bytes = json.dumps(res).encode('utf-8')
+                status = 200 if res.get("success", False) else 500
+                self.send_response(status)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.send_header("Content-Length", str(len(resp_bytes)))
+                self.end_headers()
+                self.wfile.write(resp_bytes)
+                return
+            except Exception as e:
+                self.send_response(500)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.end_headers()
+                self.wfile.write(json.dumps({"error": str(e), "success": False}).encode('utf-8'))
                 return
 
         self.send_response(404)

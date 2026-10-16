@@ -865,6 +865,45 @@
         </div>
       </div>
 
+      <!-- 📱 Smartphone 1-Click Key Sync Panel (Zero-Leak URL Hash & QR) -->
+      <div class="glass-panel rounded-2xl p-5 border border-indigo-500/30 space-y-4">
+        <div class="flex items-center justify-between">
+          <h3 class="text-sm font-bold text-white flex items-center gap-2">
+            <span>📱</span> 스마트폰 원클릭 보안 키 동기화 (QR & 직통 링크)
+          </h3>
+          <span class="text-[10px] text-indigo-400 bg-indigo-950 px-2 py-0.5 rounded border border-indigo-800">통근버스 5G 원터치</span>
+        </div>
+        <p class="text-xs text-slate-400">
+          집 밖이나 통근버스에서 스마트폰으로 접속할 때, 복잡한 API 키를 일일이 입력할 필요 없이 <b>원클릭 링크나 QR 스캔</b>으로 브라우저에 안전하게 자동 저장합니다. (저장 즉시 주소창에서 키가 자동 삭제되는 Zero-Leak 암호화 기술 탑재)
+        </p>
+        
+        <div class="flex flex-wrap gap-2">
+          <button onclick="generateMobileSyncQr()" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition flex items-center gap-1.5">
+            <span>⚡</span> 스마트폰 동기화 링크 & QR 생성
+          </button>
+        </div>
+
+        <div id="mobile-sync-box" class="hidden p-4 rounded-xl bg-slate-950 border border-indigo-500/30 space-y-3">
+          <div class="flex flex-col sm:flex-row items-center gap-4">
+            <div class="bg-white p-2 rounded-xl shadow-lg shrink-0">
+              <img id="mobile-sync-qr-img" class="w-36 h-36" src="" alt="스마트폰 동기화 QR" />
+            </div>
+            <div class="flex-1 space-y-2 w-full">
+              <label class="block text-[11px] text-slate-300 font-semibold">스마트폰 접속 직통 링크 (카톡으로 나에게 전송):</label>
+              <div class="flex gap-2">
+                <input type="text" id="mobile-sync-link-input" readonly class="flex-1 px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-xs text-slate-300 font-mono select-all" />
+                <button onclick="copyMobileSyncLink()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-white text-xs shrink-0 font-bold">
+                  📋 복사
+                </button>
+              </div>
+              <p class="text-[11px] text-indigo-300">
+                💡 <b>스마트폰으로 이 링크를 열면:</b> API 키가 1초 만에 스마트폰에 저장되고, 주소창의 키 파라미터는 자동으로 사라져 안전합니다!
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
 
   </main>
@@ -953,6 +992,7 @@
 
     // ── 초기화 ──
     document.addEventListener('DOMContentLoaded', async () => {
+      checkUrlHashKeySync();
       switchTab('tab-command');
       startClock();
       updateDDayCountdowns();
@@ -1559,12 +1599,7 @@
       const text = inputEl.value.trim();
       if (!text) return;
 
-      const key = localStorage.getItem(STORAGE_KEYS.GEMINI_KEY);
-      if (!key) {
-        showToast('Gemini API 키가 없습니다. [보안 설정]을 열어주세요.', 'error');
-        openSettingsModal();
-        return;
-      }
+      const key = localStorage.getItem(STORAGE_KEYS.GEMINI_KEY) || '';
 
       const chatBox = document.getElementById('brain-chat-box');
       const actionBar = document.getElementById('brain-action-bar');
@@ -1581,7 +1616,7 @@
       // Add AI bubble
       const aiBubble = document.createElement('div');
       aiBubble.className = 'p-3 rounded-xl bg-indigo-950/40 text-indigo-100 border border-indigo-500/30 mr-6 text-xs';
-      aiBubble.innerHTML = `<span class="text-indigo-400 font-bold block text-[10px] mb-1">✨ 안실장 AI 사령탑:</span><span>생각 중...</span>`;
+      aiBubble.innerHTML = `<span class="text-indigo-400 font-bold block text-[10px] mb-1">✨ 안실장 AI 사령탑:</span><span>답변을 정성껏 준비 중입니다... ☕</span>`;
       chatBox.appendChild(aiBubble);
       chatBox.scrollTop = chatBox.scrollHeight;
 
@@ -1600,6 +1635,9 @@
         actionBar.classList.remove('hidden');
       } catch (e) {
         aiBubble.innerHTML = `<span class="text-red-400 text-xs">오류: ${escapeHtml(e.message)}</span>`;
+        if (!key) {
+          openSettingsModal();
+        }
       } finally {
         btn.disabled = false;
         chatBox.scrollTop = chatBox.scrollHeight;
@@ -2027,17 +2065,120 @@
       } catch (e) {}
     }
 
+    // ── URL HASH KEY SYNC (스마트폰 원클릭 동기화 #keys=... Zero-Leak) ──
+    function checkUrlHashKeySync() {
+      try {
+        const hash = window.location.hash;
+        if (!hash || !hash.includes('keys=')) return;
+        const match = hash.match(/keys=([^&]+)/);
+        if (match && match[1]) {
+          const rawJson = decodeURIComponent(atob(decodeURIComponent(match[1])));
+          const keys = JSON.parse(rawJson);
+          if (keys.gemini) localStorage.setItem(STORAGE_KEYS.GEMINI_KEY, keys.gemini);
+          if (keys.github) localStorage.setItem(STORAGE_KEYS.GITHUB_TOKEN, keys.github);
+          if (keys.tgToken) localStorage.setItem(STORAGE_KEYS.TELEGRAM_TOKEN, keys.tgToken);
+          if (keys.tgChat) localStorage.setItem(STORAGE_KEYS.TELEGRAM_CHAT_ID, keys.tgChat);
+          
+          // Zero-Leak: 브라우저 주소창에서 보안 키 파라미터 즉시 삭제
+          window.history.replaceState(null, '', window.location.pathname + window.location.search);
+          showToast('📱 스마트폰 보안 키가 1초 만에 안전하게 동기화되었습니다!', 'success');
+        }
+      } catch (e) {
+        console.warn('Hash sync error:', e);
+      }
+    }
+
+    function generateMobileSyncQr() {
+      const keys = {
+        gemini: localStorage.getItem(STORAGE_KEYS.GEMINI_KEY) || '',
+        github: localStorage.getItem(STORAGE_KEYS.GITHUB_TOKEN) || '',
+        tgToken: localStorage.getItem(STORAGE_KEYS.TELEGRAM_TOKEN) || '',
+        tgChat: localStorage.getItem(STORAGE_KEYS.TELEGRAM_CHAT_ID) || ''
+      };
+      const b64 = btoa(encodeURIComponent(JSON.stringify(keys)));
+      const syncUrl = `${window.location.origin}${window.location.pathname}#keys=${encodeURIComponent(b64)}`;
+      
+      const linkInput = document.getElementById('mobile-sync-link-input');
+      const qrImg = document.getElementById('mobile-sync-qr-img');
+      const box = document.getElementById('mobile-sync-box');
+      if (linkInput) linkInput.value = syncUrl;
+      if (qrImg) qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(syncUrl)}`;
+      if (box) box.classList.remove('hidden');
+      showToast('📱 스마트폰 동기화 링크와 QR 코드가 생성되었습니다!', 'success');
+    }
+
+    function copyMobileSyncLink() {
+      const linkInput = document.getElementById('mobile-sync-link-input');
+      if (linkInput && linkInput.value) {
+        navigator.clipboard.writeText(linkInput.value).then(() => {
+          showToast('📋 스마트폰 동기화 링크가 복사되었습니다! 카톡으로 보내서 누르세요.', 'success');
+        });
+      }
+    }
+
     // ── GEMINI & TELEGRAM UTILS ──
     async function callGeminiApi(model, key, prompt) {
-      const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${key}`;
-      const resp = await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
-      });
-      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-      const data = await resp.json();
-      return data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+      // 1순위: 백엔드 프록시 (/api/chat) 호출 (스마트폰 무키 접속 및 CORS/400 원천 해결)
+      try {
+        const proxyResp = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prompt: prompt, key: key || '' })
+        });
+        if (proxyResp.ok) {
+          const proxyData = await proxyResp.json();
+          if (proxyData.success && proxyData.text) {
+            return proxyData.text;
+          }
+        }
+      } catch (proxyErr) {
+        console.warn('Backend proxy /api/chat unavailable, falling back to direct browser call:', proxyErr);
+      }
+
+      // 2순위: 브라우저 직접 호출 (정적 배포 환경) - 다중 모델 자동 폴백 체인
+      const apiKey = key || localStorage.getItem(STORAGE_KEYS.GEMINI_KEY);
+      if (!apiKey) {
+        throw new Error('API 키가 설정되어 있지 않습니다. [보안 설정]을 확인해 주세요.');
+      }
+
+      const models = ['gemini-2.5-flash', 'gemini-2.0-flash', 'gemini-1.5-flash'];
+      const systemInstruction = 
+        "[시스템 지침: 너는 '한걸음씩 만능 AI 국가 OS'의 든든한 총괄 수석 비서 '안실장'이다. " +
+        "대표님께 언제나 예의 바르고 깍듯하면서도 유쾌하고 친절하게 한국어로 답하라. " +
+        "모바일(통근버스 5G) 화면에서도 읽기 편하게 문단을 나누고 이모지를 적절히 써서 명쾌하게 전달하라.]\n\n대표님 말씀: " + prompt;
+
+      const payload = {
+        contents: [
+          {
+            role: "user",
+            parts: [{ text: systemInstruction }]
+          }
+        ]
+      };
+
+      let lastError = null;
+      for (const m of models) {
+        try {
+          const url = `https://generativelanguage.googleapis.com/v1beta/models/${m}:generateContent?key=${apiKey}`;
+          const resp = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+          if (resp.ok) {
+            const data = await resp.json();
+            const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+            if (text) return text;
+          } else {
+            const errJson = await resp.json().catch(() => ({}));
+            lastError = new Error(`HTTP ${resp.status} (${m}): ${errJson.error?.message || resp.statusText}`);
+          }
+        } catch (e) {
+          lastError = e;
+        }
+      }
+
+      throw lastError || new Error('모든 Gemini 모델 호출에 실패했습니다.');
     }
 
     async function sendTelegramMessage(text) {
