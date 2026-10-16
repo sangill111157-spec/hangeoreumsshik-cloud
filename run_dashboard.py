@@ -26,6 +26,8 @@ import urllib.parse
 from pathlib import Path
 from datetime import datetime
 import hashlib
+import base64
+import re
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 
 # 콘솔 UTF-8 출력 보장
@@ -891,6 +893,132 @@ def register_copyright_dossier(data: dict) -> dict:
         "registered_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     }
 
+# ══════════════════════════════════════════════════════════════
+# 15. 5G 원격 터널(Cloudflare) 자동 점검·복구 & 텔레그램 브리핑 데몬
+# ══════════════════════════════════════════════════════════════
+CURRENT_TUNNEL_URL = ""
+TUNNEL_PROCESS = None
+TUNNEL_LOCK = threading.Lock()
+ACTIVE_PORT = DEFAULT_PORT
+
+def generate_key_sync_hash() -> str:
+    """스마트폰 원클릭 보안 키 자동 주입 (#keys=... Base64 JSON) 생성"""
+    try:
+        sec = get_local_secrets()
+        gh_token = get_github_token()
+        payload = {
+            "gemini": sec.get("gemini_key", ""),
+            "github": gh_token,
+            "tgToken": sec.get("telegram_token", ""),
+            "tgChat": sec.get("telegram_chat_id", "")
+        }
+        raw_json = json.dumps(payload, ensure_ascii=False)
+        b64 = base64.b64encode(raw_json.encode('utf-8')).decode('ascii')
+        return f"#keys={urllib.parse.quote(b64)}"
+    except Exception as e:
+        return ""
+
+def send_tunnel_telegram_notification(tunnel_url: str):
+    """터널 개통 즉시 대표님 텔레그램으로 5G 원격 접속 링크 자동 발송"""
+    try:
+        from control_tower_bot import send_briefing
+    except ImportError:
+        return
+
+    key_hash = generate_key_sync_hash()
+    live_link = f"{tunnel_url}/{key_hash}"
+    gh_pages_link = f"https://sangill111157-spec.github.io/hangeoreumsshik-cloud/dashboard/{key_hash}"
+
+    msg = (
+        "👑 *[이상일 대표님 스마트폰 5G 사령부 원격 접속 링크 복구 완료]*\n\n"
+        "대표님, 퇴근길 5G 및 외부 모바일에서도 1초 만에 사령부에 직통 접속하실 수 있도록 3중 무중단 접속망을 복구했습니다!\n\n"
+        f"⚡ *1. 5G 실시간 원격 터널 (로컬 PC 직통)*:\n{live_link}\n\n"
+        f"🏛️ *2. 24시간 불사 영구 고정 주소 (GitHub Pages)*:\n{gh_pages_link}\n\n"
+        "💡 *Zero-Leak 안내*: 위 링크를 누르시면 모든 보안 키가 1초 만에 스마트폰에 자동 주입되어 '추가 설정 없이' 즉시 가동됩니다."
+    )
+    send_briefing(task_name="5G 사령부 원격 터널 복구", status="SUCCESS", message=msg)
+
+def start_cloudflare_tunnel(port: int, force_restart: bool = False):
+    """Cloudflare Quick Tunnel을 백그라운드로 기동하고 URL을 감지하여 텔레그램으로 전송"""
+    global CURRENT_TUNNEL_URL, TUNNEL_PROCESS, ACTIVE_PORT
+    ACTIVE_PORT = port
+    with TUNNEL_LOCK:
+        cloudflared_path = BASE_DIR / "cloudflared.exe"
+        if not cloudflared_path.exists():
+            where_cmd = shutil.which("cloudflared")
+            if where_cmd:
+                cloudflared_path = Path(where_cmd)
+            else:
+                print("⚠️ [터널 알림] cloudflared.exe를 찾을 수 없습니다.")
+                return
+
+        if TUNNEL_PROCESS is not None:
+            if force_restart:
+                try:
+                    TUNNEL_PROCESS.terminate()
+                    TUNNEL_PROCESS.wait(timeout=3)
+                except Exception:
+                    pass
+                TUNNEL_PROCESS = None
+            elif TUNNEL_PROCESS.poll() is None and CURRENT_TUNNEL_URL:
+                print(f"⚡ [터널 상태] 기존 5G 원격 터널 정상 가동 중: {CURRENT_TUNNEL_URL}")
+                return
+
+        cmd = [str(cloudflared_path), "tunnel", "--url", f"http://127.0.0.1:{port}"]
+        creationflags = subprocess.CREATE_NO_WINDOW if os.name == 'nt' else 0
+        try:
+            proc = subprocess.Popen(
+                cmd,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+                text=True,
+                encoding='utf-8',
+                errors='ignore',
+                creationflags=creationflags
+            )
+            TUNNEL_PROCESS = proc
+        except Exception as e:
+            print(f"❌ [터널 기동 실패]: {e}")
+            return
+
+    # URL 추출 및 스트림 소비 스레드
+    def _read_tunnel_stream(process):
+        global CURRENT_TUNNEL_URL
+        found_url = None
+        for line in process.stdout:
+            if not found_url:
+                m = re.search(r"https://[a-zA-Z0-9\-]+\.trycloudflare\.com", line)
+                if m:
+                    found_url = m.group(0)
+                    CURRENT_TUNNEL_URL = found_url
+                    print(f"🚀 [5G 터널 개통 완료]: {found_url}")
+                    # 최근 터널 정보 저장
+                    try:
+                        info_file = BASE_DIR / "latest_tunnel_info.json"
+                        info_file.write_text(json.dumps({
+                            "tunnel_url": found_url,
+                            "port": port,
+                            "opened_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                        }, ensure_ascii=False, indent=2), encoding="utf-8")
+                    except Exception:
+                        pass
+                    # 텔레그램 자동 발송
+                    send_tunnel_telegram_notification(found_url)
+        process.wait()
+
+    reader_thread = threading.Thread(target=_read_tunnel_stream, args=(proc,), daemon=True)
+    reader_thread.start()
+
+def tunnel_guardian_loop(port: int):
+    """30초 주기 터널 프로세스 감시 및 자동 부활 데몬"""
+    import time
+    while True:
+        time.sleep(30)
+        global TUNNEL_PROCESS
+        if TUNNEL_PROCESS is None or TUNNEL_PROCESS.poll() is not None:
+            print("🔄 [터널 감시자] 터널 단절 감지 - 5G 원격 터널 즉시 자동 재기동 착수...")
+            start_cloudflare_tunnel(port, force_restart=True)
+
 class DashboardHandler(SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=str(DASHBOARD_DIR), **kwargs)
@@ -912,6 +1040,29 @@ class DashboardHandler(SimpleHTTPRequestHandler):
                 "repo": REPO_NAME
             }
             body = json.dumps(payload).encode("utf-8")
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Cache-Control", "no-store")
+            self.end_headers()
+            self.wfile.write(body)
+            return
+
+        # 1-1. 5G 원격 터널 상태 및 3중 접속 링크 (GET /api/tunnel-status)
+        if path == '/api/tunnel-status':
+            key_hash = generate_key_sync_hash()
+            live_link = f"{CURRENT_TUNNEL_URL}/{key_hash}" if CURRENT_TUNNEL_URL else ""
+            gh_pages_link = f"https://sangill111157-spec.github.io/hangeoreumsshik-cloud/dashboard/{key_hash}"
+            is_alive = TUNNEL_PROCESS is not None and TUNNEL_PROCESS.poll() is None
+            payload = {
+                "success": True,
+                "tunnel_url": CURRENT_TUNNEL_URL,
+                "is_alive": is_alive,
+                "live_link": live_link,
+                "gh_pages_link": gh_pages_link,
+                "status": "RUNNING" if is_alive else "STOPPED"
+            }
+            body = json.dumps(payload, ensure_ascii=False).encode('utf-8')
             self.send_response(200)
             self.send_header("Content-Type", "application/json; charset=utf-8")
             self.send_header("Content-Length", str(len(body)))
@@ -1487,6 +1638,17 @@ class DashboardHandler(SimpleHTTPRequestHandler):
                 self.wfile.write(json.dumps({"error": str(e), "success": False}).encode('utf-8'))
                 return
 
+        # 15. 터널 강제 재기동 및 텔레그램 링크 재발송 (POST /api/restart-tunnel)
+        if self.path == '/api/restart-tunnel':
+            threading.Thread(target=start_cloudflare_tunnel, args=(ACTIVE_PORT, True), daemon=True).start()
+            resp = json.dumps({"success": True, "message": "5G 원격 터널 재기동이 시작되었습니다."}).encode('utf-8')
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Content-Length", str(len(resp)))
+            self.end_headers()
+            self.wfile.write(resp)
+            return
+
         self.send_response(404)
         self.end_headers()
 
@@ -1542,6 +1704,10 @@ def main():
     print(" 🛑 서버를 종료하시려면 콘솔에서 Ctrl + C 를 누르세요.")
     print("═" * 74)
 
+    # 5G 원격 터널 자동 기동 및 데몬 감시자 스레드 시작
+    threading.Thread(target=start_cloudflare_tunnel, args=(port,), daemon=True).start()
+    threading.Thread(target=tunnel_guardian_loop, args=(port,), daemon=True).start()
+
     # 기본 브라우저 자동 오픈
     try:
         import webbrowser
@@ -1553,6 +1719,11 @@ def main():
         httpd.serve_forever()
     except KeyboardInterrupt:
         print("\n\n👋 Omni-Nexus v2.0 서버를 안전하게 종료했습니다.")
+        if TUNNEL_PROCESS is not None:
+            try:
+                TUNNEL_PROCESS.terminate()
+            except Exception:
+                pass
         httpd.server_close()
 
 if __name__ == "__main__":
