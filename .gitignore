@@ -1,0 +1,78 @@
+# ══════════════════════════════════════════════════════════════
+# 한걸음씩 & NVDA 트레이딩 보안 .gitignore
+# ══════════════════════════════════════════════════════════════
+
+# 1. 시크릿 및 인증 키 (절대 유출 금지)
+.env
+*.env
+.env.*
+*.pickle
+*.json
+!package.json
+!package-lock.json
+!tsconfig.json
+*_secret*
+*_token*
+credentials*
+client_secrets*
+token.pickle
+telegram_setup.json
+
+# 2. 미디어 및 렌더링 출력 파일 (대용량 바이너리 차단)
+*.mp4
+*.mp3
+*.wav
+*.aac
+*.avi
+*.mkv
+*.ass
+*.srt
+output/
+output_*/
+cloud_output/
+test_*/
+assets/
+
+# 3. 파이썬 임시 파일 및 가상환경
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# 4. OS 및 에디터 임시 파일
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
+*.bak
+*~
+
+# 5. 로그 및 플래그 파일
+logs/
+*.log
+*.flag

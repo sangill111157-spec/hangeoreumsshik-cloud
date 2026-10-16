@@ -1,0 +1,9 @@
+# 한걸음씩 & NVDA 트레이딩 클라우드 자동화 의존성
+google-api-python-client>=2.100.0
+google-auth>=2.20.0
+google-auth-oauthlib>=1.0.0
+google-auth-httplib2>=0.1.0
+gspread>=5.10.0
+python-dotenv>=1.0.0
+requests>=2.31.0
+urllib3>=1.26.0
