@@ -43,6 +43,11 @@ try:
 except ImportError:
     LegalSecurityGuardian = None
 
+try:
+    import github_scout_adapter
+except ImportError:
+    github_scout_adapter = None
+
 TASK_FILE = BASE_DIR / "NEXT_TASK_FOR_ANTIGRAVITY.md"
 MEMORY_VAULT_FILE = BASE_DIR / "memory_vault.json"
 
@@ -681,6 +686,83 @@ class DashboardHandler(SimpleHTTPRequestHandler):
             try:
                 res = clean_general_affairs()
                 resp_bytes = json.dumps(res, ensure_ascii=False).encode('utf-8')
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.send_header("Content-Length", str(len(resp_bytes)))
+                self.end_headers()
+                self.wfile.write(resp_bytes)
+                return
+            except Exception as e:
+                self.send_response(500)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.end_headers()
+                self.wfile.write(json.dumps({"error": str(e), "success": False}).encode('utf-8'))
+                return
+
+        # 6. 제2원 글로벌 오픈소스 탐사 & 흡수단 (GitHub Daily Scout)
+        if self.path == '/api/github-scout':
+            length = int(self.headers.get('Content-Length', 0))
+            raw_body = self.rfile.read(length) if length > 0 else b'{}'
+            try:
+                data = json.loads(raw_body.decode('utf-8')) if raw_body else {}
+                cat = data.get('category', 'audio')
+                limit = int(data.get('limit', 3))
+                gh_token = get_github_token()
+
+                if github_scout_adapter:
+                    scout_res = github_scout_adapter.scout_github_repositories(cat, limit=limit, github_token=gh_token)
+                    # 각 저장소별 제2원 맞춤 개조 설계안 생성 (Gemini 호출)
+                    gem_caller = lambda p: call_gemini_server_side(p).get('text')
+                    for repo in scout_res.get('repositories', []):
+                        plan = github_scout_adapter.generate_adaptation_plan_with_gemini(repo, cat, gem_caller)
+                        repo['adaptation_plan'] = plan
+                else:
+                    scout_res = {'success': False, 'error': 'Scout module not found'}
+
+                resp_bytes = json.dumps(scout_res, ensure_ascii=False).encode('utf-8')
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.send_header("Content-Length", str(len(resp_bytes)))
+                self.end_headers()
+                self.wfile.write(resp_bytes)
+                return
+            except Exception as e:
+                self.send_response(500)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.end_headers()
+                self.wfile.write(json.dumps({"error": str(e), "success": False}).encode('utf-8'))
+                return
+
+        # 7. 제2원 오픈소스 맞춤 개조·흡수 안실장 큐 등록
+        if self.path == '/api/adopt-opensource':
+            length = int(self.headers.get('Content-Length', 0))
+            raw_body = self.rfile.read(length) if length > 0 else b'{}'
+            try:
+                data = json.loads(raw_body.decode('utf-8')) if raw_body else {}
+                repo_name = data.get('repo_name', '오픈소스 기술')
+                html_url = data.get('html_url', '')
+                category_name = data.get('category_name', '오픈소스')
+                plan = data.get('adaptation_plan', '')
+                stars = data.get('stars', 0)
+                lic_badge = data.get('license_badge', '')
+
+                task_title = f"오픈소스 흡수 개조: {repo_name} (★{stars})"
+                task_body = (
+                    f"• 분야: {category_name}\n"
+                    f"• 저장소: {html_url}\n"
+                    f"• 라이선스: {lic_badge}\n\n"
+                    f"📋 [우리 제국 맞춤 개조·흡수 하달 설계안]\n"
+                    f"{plan}\n\n"
+                    f"※ 대표님 하달 사항: 위 오픈소스의 핵심 장점과 코드를 답사하여 우리 시스템에 최적화된 형태로 개조 및 연동할 것."
+                )
+
+                res = record_dispatch_task(task_title, task_body, category="오픈소스흡수")
+                resp_bytes = json.dumps({
+                    "success": True,
+                    "task": res,
+                    "message": f"'{repo_name}' 기술이 안실장 직통 작업 큐 및 기억 금고에 성공적으로 접수되었습니다!"
+                }, ensure_ascii=False).encode('utf-8')
+
                 self.send_response(200)
                 self.send_header("Content-Type", "application/json; charset=utf-8")
                 self.send_header("Content-Length", str(len(resp_bytes)))

@@ -326,6 +326,57 @@
         </div>
       </div>
 
+      <!-- 🔭 [제2원 특임대: 글로벌 GitHub 오픈소스 일일 답사 & 흡수단] -->
+      <div class="glass-panel rounded-2xl p-5 border border-purple-500/30 bg-gradient-to-r from-slate-900/90 via-purple-950/20 to-slate-900/90 space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div class="flex items-center gap-2.5">
+            <span class="text-xl">🔭</span>
+            <div>
+              <h3 class="text-sm font-bold text-white flex items-center gap-2">
+                [제2원 특임대: 글로벌 GitHub 오픈소스 일일 답사 & 흡수단]
+              </h3>
+              <p class="text-[11px] text-slate-400">선구자들의 오픈소스를 실시간 답사하여 우리 제국 맞춤형 도구로 개조·흡수</p>
+            </div>
+          </div>
+          <button onclick="runGitHubScout()" id="btn-run-scout"
+            class="px-3.5 py-1.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs transition active:scale-95 shrink-0 flex items-center gap-1.5 shadow-md shadow-purple-600/30">
+            <span>🔭</span>
+            <span>전 세계 GitHub 보물 답사 시작</span>
+          </button>
+        </div>
+
+        <!-- 4대 답사 분야 선택 버튼 -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+          <button type="button" onclick="setScoutCategory('audio')" id="scout-cat-audio"
+            class="p-2 rounded-xl bg-purple-600/30 border border-purple-400 text-purple-200 flex items-center justify-center gap-1.5 font-bold transition">
+            <span>🎵</span>
+            <span>힐링 오디오·FFmpeg</span>
+          </button>
+          <button type="button" onclick="setScoutCategory('education')" id="scout-cat-education"
+            class="p-2 rounded-xl bg-slate-950/80 border border-slate-800 text-slate-400 hover:text-white flex items-center justify-center gap-1.5 font-medium transition">
+            <span>🎓</span>
+            <span>인성 웹게임·에듀테크</span>
+          </button>
+          <button type="button" onclick="setScoutCategory('quant')" id="scout-cat-quant"
+            class="p-2 rounded-xl bg-slate-950/80 border border-slate-800 text-slate-400 hover:text-white flex items-center justify-center gap-1.5 font-medium transition">
+            <span>📈</span>
+            <span>퀀트·NVDA 분석</span>
+          </button>
+          <button type="button" onclick="setScoutCategory('agent')" id="scout-cat-agent"
+            class="p-2 rounded-xl bg-slate-950/80 border border-slate-800 text-slate-400 hover:text-white flex items-center justify-center gap-1.5 font-medium transition">
+            <span>🤖</span>
+            <span>초경량 AI 자동화</span>
+          </button>
+        </div>
+
+        <!-- 답사 결과 오픈소스 카드 컨테이너 -->
+        <div id="scout-results-container" class="space-y-3">
+          <div class="p-4 rounded-xl bg-slate-950/60 border border-slate-800/80 text-center text-xs text-slate-400">
+            버튼을 누르면 GitHub 공식 API를 통해 전 세계 검증된 오픈소스를 실시간 탐사하고, 제2원 Gemini 아키텍트가 우리 제국 맞춤 개조안을 브리핑합니다.
+          </div>
+        </div>
+      </div>
+
       <!-- 🌳 [제3원: 상생 나눔원] 세상에 전하는 선한 영향력 & 나눔 온도계 -->
       <div class="glass-panel rounded-2xl p-5 border border-emerald-500/30 bg-gradient-to-r from-slate-900/90 via-emerald-950/20 to-slate-900/90 space-y-4">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2 border-b border-slate-800/80">
@@ -2680,6 +2731,189 @@
         if (btn) {
           btn.disabled = false;
           btn.innerHTML = '<span>🧹</span><span>총무팀: 디스크 청소 & 살림 점검</span>';
+        }
+      }
+    }
+
+    // ── 🔭 [제2원 특임대: 글로벌 GitHub 오픈소스 일일 답사 & 흡수단] ──
+    let currentScoutCategory = 'audio';
+    let lastScoutedRepositories = [];
+
+    const SCOUT_CATEGORY_NAMES = {
+      audio: '🎵 힐링 오디오·FFmpeg',
+      education: '🎓 인성 웹게임·에듀테크',
+      quant: '📈 퀀트·NVDA 분석',
+      agent: '🤖 초경량 AI 자동화'
+    };
+
+    function setScoutCategory(cat) {
+      currentScoutCategory = cat;
+      ['audio', 'education', 'quant', 'agent'].forEach(c => {
+        const btn = document.getElementById(`scout-cat-${c}`);
+        if (!btn) return;
+        if (c === cat) {
+          btn.className = 'p-2 rounded-xl bg-purple-600/30 border border-purple-400 text-purple-200 flex items-center justify-center gap-1.5 font-bold transition';
+        } else {
+          btn.className = 'p-2 rounded-xl bg-slate-950/80 border border-slate-800 text-slate-400 hover:text-white flex items-center justify-center gap-1.5 font-medium transition';
+        }
+      });
+    }
+
+    async function runGitHubScout() {
+      const btn = document.getElementById('btn-run-scout');
+      const container = document.getElementById('scout-results-container');
+      const catName = SCOUT_CATEGORY_NAMES[currentScoutCategory] || currentScoutCategory;
+
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<span>⏳</span><span>GitHub 전 세계 보물 탐사 중...</span>';
+      }
+
+      container.innerHTML = `
+        <div class="py-8 text-center text-slate-400 space-y-2">
+          <div class="inline-block animate-spin text-2xl">🔭</div>
+          <p class="font-semibold text-white">[${escapeHtml(catName)}] 분야 GitHub 공식 REST API 실시간 탐사 및 Gemini 맞춤 개조안을 수립 중입니다...</p>
+        </div>
+      `;
+
+      try {
+        const resp = await fetch('/api/github-scout', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ category: currentScoutCategory, limit: 3 })
+        });
+
+        if (resp.ok) {
+          const res = await resp.json();
+          if (res.success && res.repositories && res.repositories.length > 0) {
+            lastScoutedRepositories = res.repositories;
+            let html = '';
+            res.repositories.forEach((repo, idx) => {
+              const stars = Number(repo.stars || 0).toLocaleString();
+              const forks = Number(repo.forks || 0).toLocaleString();
+              const licBadge = repo.license?.badge || '⚪ 라이선스 점검필요';
+              const plan = repo.adaptation_plan || '';
+
+              html += `
+                <div class="p-4 rounded-xl bg-slate-950/90 border border-purple-500/30 space-y-3 transition hover:border-purple-400/50 text-left">
+                  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                    <div class="flex items-center gap-2">
+                      <span class="text-base">📦</span>
+                      <a href="${escapeHtml(repo.html_url)}" target="_blank" rel="noopener noreferrer"
+                        class="text-sm font-bold text-purple-300 hover:text-purple-200 underline flex items-center gap-1">
+                        <span>${escapeHtml(repo.full_name)}</span>
+                        <span class="text-[10px]">↗</span>
+                      </a>
+                    </div>
+                    <div class="flex items-center gap-2 text-xs">
+                      <span class="px-2 py-0.5 rounded bg-amber-500/10 text-amber-300 border border-amber-500/30 font-semibold font-mono">
+                        ★ ${stars}
+                      </span>
+                      <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700 font-semibold font-mono">
+                        🍴 ${forks}
+                      </span>
+                      <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700">
+                        ${escapeHtml(repo.language || 'Code')}
+                      </span>
+                    </div>
+                  </div>
+
+                  <p class="text-xs text-slate-300 leading-relaxed">
+                    ${escapeHtml(repo.description)}
+                  </p>
+
+                  <div class="text-[11px] text-slate-400">
+                    <span class="font-semibold text-slate-300">라이선스:</span>
+                    <span class="ml-1">${escapeHtml(licBadge)}</span>
+                  </div>
+
+                  <!-- 제2원 맞춤 개조안 -->
+                  <div class="p-3 rounded-lg bg-purple-950/40 border border-purple-500/20 text-xs text-purple-200 leading-relaxed font-sans">
+                    <div class="font-bold text-purple-300 mb-1 flex items-center gap-1.5">
+                      <span>💡</span>
+                      <span>[제2원 Gemini 아키텍트 맞춤 개조·흡수안]</span>
+                    </div>
+                    <div>${escapeHtml(plan).replace(/\n/g, '<br>')}</div>
+                  </div>
+
+                  <!-- 안실장 직통 하달 버튼 -->
+                  <div class="pt-1 flex justify-end">
+                    <button type="button" onclick="adoptOpenSource(${idx})" id="btn-adopt-${idx}"
+                      class="px-3 py-1.5 rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-xs transition active:scale-95 flex items-center gap-1.5 shadow-md shadow-purple-600/20">
+                      <span>⚙️</span>
+                      <span>우리 시스템에 맞게 개조·흡수 하달</span>
+                    </button>
+                  </div>
+                </div>
+              `;
+            });
+
+            container.innerHTML = html;
+            showToast(`🔭 [${catName}] 분야 오픈소스 ${res.repositories.length}건 답사 및 맞춤 개조안 수립 완료!`, 'success');
+            return;
+          }
+        }
+        throw new Error('오픈소스 답사 결과를 가져오지 못했습니다.');
+      } catch (e) {
+        container.innerHTML = `
+          <div class="p-4 rounded-xl bg-red-950/40 border border-red-500/40 text-red-300 text-xs text-center">
+            오픈소스 탐사 중 오류 발생: ${escapeHtml(e.message)}
+          </div>
+        `;
+        showToast(`답사 실패: ${e.message}`, 'error');
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = '<span>🔭</span><span>전 세계 GitHub 보물 답사 시작</span>';
+        }
+      }
+    }
+
+    async function adoptOpenSource(idx) {
+      const repo = lastScoutedRepositories[idx];
+      if (!repo) {
+        showToast('저장소 정보를 찾을 수 없습니다.', 'error');
+        return;
+      }
+
+      const btn = document.getElementById(`btn-adopt-${idx}`);
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<span>⏳</span><span>안실장 큐 접수 중...</span>';
+      }
+
+      try {
+        const resp = await fetch('/api/adopt-opensource', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            repo_name: repo.full_name,
+            html_url: repo.html_url,
+            category_name: SCOUT_CATEGORY_NAMES[currentScoutCategory] || currentScoutCategory,
+            adaptation_plan: repo.adaptation_plan || '',
+            stars: repo.stars,
+            license_badge: repo.license?.badge || ''
+          })
+        });
+
+        if (resp.ok) {
+          const res = await resp.json();
+          if (res.success) {
+            if (btn) {
+              btn.className = 'px-3 py-1.5 rounded-lg bg-emerald-700 text-emerald-100 font-bold text-xs flex items-center gap-1.5';
+              btn.innerHTML = '<span>✅</span><span>안실장 큐 접수 완료!</span>';
+            }
+            showToast(`📋 '${repo.full_name}' 기술이 안실장 직통 작업 큐(NEXT_TASK_FOR_ANTIGRAVITY.md & 기억 금고)에 하달되었습니다!`, 'success');
+            loadMemoryVault();
+            return;
+          }
+        }
+        throw new Error('접수 요청 실패');
+      } catch (e) {
+        showToast(`하달 오류: ${e.message}`, 'error');
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = '<span>⚙️</span><span>우리 시스템에 맞게 개조·흡수 하달</span>';
         }
       }
     }
