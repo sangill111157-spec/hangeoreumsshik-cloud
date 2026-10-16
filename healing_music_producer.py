@@ -230,11 +230,55 @@ def extract_shorts(
     log(f"✨ 세로 쇼츠 완성! -> {output_shorts} ({output_shorts.stat().st_size / (1024*1024):.1f} MB)")
     return True
 
+def ensure_fallback_assets(loop_video: Path, ambient_audio: Path, temp_dir: Path) -> tuple[Path, Path]:
+    """배경 영상이나 앰비언트 오디오가 없을 경우 기본 에셋 또는 FFmpeg 생성 에셋 제공"""
+    final_loop = loop_video
+    final_ambient = ambient_audio
+
+    # 1. 루프 영상 확인
+    if not final_loop or not final_loop.exists():
+        candidates = [Path("./assets/loop.mp4"), Path("../assets/loop.mp4")]
+        found = next((c for c in candidates if c.exists()), None)
+        if found:
+            final_loop = found
+        else:
+            temp_dir.mkdir(parents=True, exist_ok=True)
+            fallback_loop = temp_dir / "fallback_loop.mp4"
+            if not fallback_loop.exists():
+                log("기본 배경 루프 영상 생성 중 (1080p 다크 시네마틱 10초)...")
+                subprocess.run([
+                    "ffmpeg", "-y", "-f", "lavfi",
+                    "-i", "color=c=0x0a101d:s=1920x1080:d=10:r=30",
+                    "-vf", "drawtext=font='Malgun Gothic':text='한걸음씩  ·  432Hz Healing Music':fontcolor=white@0.4:fontsize=28:x=(w-text_w)/2:y=h-80",
+                    "-c:v", "libx264", "-pix_fmt", "yuv420p", str(fallback_loop)
+                ], capture_output=True, check=True)
+            final_loop = fallback_loop
+
+    # 2. 앰비언트 오디오 확인
+    if not final_ambient or not final_ambient.exists():
+        candidates = [Path("./assets/rain.mp3"), Path("./assets/ambient.mp3"), Path("../assets/rain.mp3")]
+        found = next((c for c in candidates if c.exists()), None)
+        if found:
+            final_ambient = found
+        else:
+            temp_dir.mkdir(parents=True, exist_ok=True)
+            fallback_ambient = temp_dir / "fallback_rain.mp3"
+            if not fallback_ambient.exists():
+                log("기본 빗소리 앰비언트 생성 중 (핑크 노이즈 10초)...")
+                subprocess.run([
+                    "ffmpeg", "-y", "-f", "lavfi",
+                    "-i", "anoisesrc=d=10:c=pink:r=44100:a=0.08",
+                    "-c:a", "libmp3lame", "-b:a", "192k", str(fallback_ambient)
+                ], capture_output=True, check=True)
+            final_ambient = fallback_ambient
+
+    return final_loop, final_ambient
+
 def run_pipeline(
-    loop_video: Path,
-    piano_audio: Path,
-    ambient_audio: Path,
-    output_dir: Path,
+    loop_video: Path = None,
+    piano_audio: Path = None,
+    ambient_audio: Path = None,
+    output_dir: Path = Path("./output_healing"),
     total_hours: int = 8,
     ambient_vol: float = 0.25,
     shorts_text: str = "오늘 하루도 수고 많으셨어요."
@@ -249,10 +293,26 @@ def run_pipeline(
 
     output_dir.mkdir(parents=True, exist_ok=True)
 
+    # 에셋 폴백 보장
+    loop_video, ambient_audio = ensure_fallback_assets(loop_video, ambient_audio, output_dir / "assets")
+
+    if not piano_audio or not piano_audio.exists():
+        log(f"❌ 오류: 메인 피아노(오디오) 음원 파일을 찾을 수 없습니다: {piano_audio}")
+        return False
+
     ass_path = output_dir / "healing_story.ass"
     master_path = output_dir / "master_block_20m.mp4"
     longform_path = output_dir / f"final_{total_hours}hours_deepsleep.mp4"
     shorts_path = output_dir / "final_shorts_25s.mp4"
+
+    log("==================================================")
+    log("🚀 [한걸음씩] 힐링 음악 롱폼 & 쇼츠 프로덕션 파이프라인 가동")
+    log(f" • 피아노(메인) : {piano_audio}")
+    log(f" • 배경 루프    : {loop_video}")
+    log(f" • 앰비언트     : {ambient_audio} (볼륨: {ambient_vol})")
+    log(f" • 출력 경로    : {output_dir}")
+    log(f" • 목표 시간    : {total_hours}시간")
+    log("==================================================")
 
     # 1. 감성 자막 파일 생성
     generate_ass_subtitle(ass_path)
@@ -301,9 +361,9 @@ def run_pipeline(
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="한걸음씩 힐링 음악 롱폼 & 쇼츠 렌더링 엔진")
-    parser.add_argument("--loop", type=str, help="배경 시네마틱 루프 영상 경로 (MP4)")
-    parser.add_argument("--piano", type=str, help="메인 피아노 음원 경로 (MP3/WAV)")
-    parser.add_argument("--ambient", type=str, help="배경 앰비언트 음원 경로 (MP3/WAV)")
+    parser.add_argument("--piano", type=str, required=True, help="메인 피아노 음원 경로 (MP3/WAV)")
+    parser.add_argument("--loop", type=str, default=None, help="배경 시네마틱 루프 영상 경로 (MP4)")
+    parser.add_argument("--ambient", type=str, default=None, help="배경 앰비언트 음원 경로 (MP3/WAV)")
     parser.add_argument("--outdir", type=str, default="./output_healing", help="출력 디렉터리")
     parser.add_argument("--hours", type=int, default=8, help="롱폼 영상 목표 재생 시간 (시간 단위)")
     parser.add_argument("--ambient-vol", type=float, default=0.25, help="자연음 볼륨 (0.0 ~ 1.0)")
@@ -311,15 +371,10 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    if not args.loop or not args.piano or not args.ambient:
-        print("사용법 예시:")
-        print("python healing_music_producer.py --loop loop.mp4 --piano piano.mp3 --ambient rain.mp3 --hours 8")
-        sys.exit(1)
-
     run_pipeline(
-        loop_video=Path(args.loop),
         piano_audio=Path(args.piano),
-        ambient_audio=Path(args.ambient),
+        loop_video=Path(args.loop) if args.loop else None,
+        ambient_audio=Path(args.ambient) if args.ambient else None,
         output_dir=Path(args.outdir),
         total_hours=args.hours,
         ambient_vol=args.ambient_vol,
