@@ -390,9 +390,20 @@ class DashboardHandler(SimpleHTTPRequestHandler):
             self.wfile.write(body)
             return
 
-        # 루트
-        if path == '/' or path == '':
-            self.path = '/index.html'
+        # 루트 및 index.html 요청 시 항상 최신 파일 서빙 (캐시 방지 헤더 강제 주입)
+        if path in ('/', '/index.html', ''):
+            html_file = DASHBOARD_DIR / "index.html"
+            if html_file.exists():
+                data = html_file.read_bytes()
+                self.send_response(200)
+                self.send_header("Content-Type", "text/html; charset=utf-8")
+                self.send_header("Content-Length", str(len(data)))
+                self.send_header("Cache-Control", "no-cache, no-store, must-revalidate, max-age=0")
+                self.send_header("Pragma", "no-cache")
+                self.send_header("Expires", "0")
+                self.end_headers()
+                self.wfile.write(data)
+                return
 
         return super().do_GET()
 
