@@ -865,6 +865,36 @@
                 <input type="range" id="thumb-dim" min="0.2" max="0.8" step="0.05" value="0.45" oninput="drawThumbnailCanvas()" class="w-full mt-2" />
               </div>
             </div>
+
+            <!-- ✨ REA 클린룸 기반 힐링 파티클 비주얼라이저 선택기 -->
+            <div class="space-y-1.5 p-3 rounded-xl bg-slate-950/80 border border-amber-500/30">
+              <div class="flex items-center justify-between">
+                <label class="font-bold text-amber-300 flex items-center gap-1.5 text-xs">
+                  <span>✨</span>
+                  <span>REA 클린룸 힐링 파티클 이펙트</span>
+                </label>
+                <span class="text-[10px] text-amber-400/80 font-mono">Cleanroom Physics</span>
+              </div>
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5 pt-1">
+                <button type="button" onclick="setCanvasParticle('rain')" id="btn-particle-rain"
+                  class="px-2.5 py-1.5 rounded-lg bg-amber-500/30 border border-amber-400 text-amber-200 text-xs font-bold transition flex items-center justify-center gap-1 shadow-sm">
+                  <span>🌧️</span><span>창가 빗방울</span>
+                </button>
+                <button type="button" onclick="setCanvasParticle('fire')" id="btn-particle-fire"
+                  class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-slate-400 hover:text-white text-xs font-medium transition flex items-center justify-center gap-1">
+                  <span>🔥</span><span>모닥불 불티</span>
+                </button>
+                <button type="button" onclick="setCanvasParticle('bokeh')" id="btn-particle-bokeh"
+                  class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-slate-400 hover:text-white text-xs font-medium transition flex items-center justify-center gap-1">
+                  <span>✨</span><span>반딧불 보케</span>
+                </button>
+                <button type="button" onclick="setCanvasParticle('none')" id="btn-particle-none"
+                  class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-slate-400 hover:text-white text-xs font-medium transition flex items-center justify-center gap-1">
+                  <span>🚫</span><span>끄기</span>
+                </button>
+              </div>
+            </div>
+
             <div class="pt-2 flex gap-2">
               <button onclick="downloadThumbnailPng()" class="flex-1 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs transition active:scale-95">
                 💾 썸네일 PNG 다운로드
@@ -878,8 +908,34 @@
           <!-- Canvas Preview (7 Cols) -->
           <div class="lg:col-span-7 flex flex-col items-center justify-center bg-slate-950 rounded-xl p-3 border border-slate-800">
             <canvas id="thumbnail-canvas" width="1280" height="720" class="w-full max-w-xl rounded-lg shadow-2xl border border-slate-800"></canvas>
-            <span class="text-[10px] text-slate-500 mt-2">1280x720 유튜브 최적화 실시간 렌더링 캔버스</span>
+            <span class="text-[10px] text-slate-500 mt-2">1280x720 유튜브 최적화 실시간 렌더링 캔버스 (REA 파티클 & 2열 세로 명조체 실시간 합성)</span>
           </div>
+        </div>
+
+        <!-- 👁️👂❤️ 멀티모달 오감 감성 시사회 바 & 결과 컨테이너 -->
+        <div class="mt-4 pt-4 border-t border-slate-800 space-y-4">
+          <div class="p-4 rounded-xl bg-gradient-to-r from-purple-950/40 via-pink-950/30 to-amber-950/30 border border-purple-500/40 flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-lg shadow-purple-950/20">
+            <div class="flex items-center gap-3">
+              <span class="text-2xl p-2 rounded-xl bg-purple-500/20 border border-purple-500/30 shrink-0">👁️👂❤️</span>
+              <div>
+                <h4 class="text-sm font-black text-white flex items-center gap-2">
+                  <span>멀티모달 오감 감성 시사회 엔진 (Human-Like Sensory & Empathy Analyzer)</span>
+                  <span class="px-2 py-0.5 rounded text-[10px] bg-purple-500/20 text-purple-200 border border-purple-500/30 font-semibold font-mono">Sensory AI v1.0</span>
+                </h4>
+                <p class="text-[11px] text-slate-300 mt-0.5">
+                  기계적 숫자 분석을 넘어, 사람처럼 귀(432Hz 치유 청각)·눈(2열 세로 명조 & 웜톤 시각)·마음(3대 인간 페르소나 공감)으로 작품을 종합 시사합니다.
+                </p>
+              </div>
+            </div>
+            <button type="button" onclick="runSensoryEmpathyAnalysis()" id="btn-run-sensory"
+              class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 hover:from-purple-500 hover:to-amber-400 text-white font-black text-xs transition active:scale-95 shrink-0 flex items-center justify-center gap-2 shadow-lg shadow-purple-600/30">
+              <span>👁️👂❤️</span>
+              <span>사람처럼 듣고·보고·느끼기 (AI 오감 감성 시사회 실행)</span>
+            </button>
+          </div>
+
+          <!-- 감성 시사회 결과 영역 (기본 hidden) -->
+          <div id="sensory-empathy-results" class="hidden space-y-3"></div>
         </div>
       </div>
 
@@ -2257,6 +2313,9 @@
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+      // 2.5 REA 클린룸 힐링 파티클 이펙트 렌더링
+      drawParticlesOnCanvas(ctx, canvas);
+
       // 3. Draw Smart Multi-column Vertical Text (전통 서적 세로쓰기: 오른쪽 1열 ➔ 왼쪽 2열)
       const columns = splitIntoVerticalColumns(mainTitle, 8);
       const numCols = columns.length;
@@ -2340,6 +2399,259 @@
           showToast('📋 썸네일 이미지가 클립보드에 복사되었습니다!', 'success');
         });
       });
+    }
+
+    // ── REA 클린룸 기반 힐링 파티클 엔진 (빗방울·모닥불·보케) ──
+    let currentCanvasParticle = 'rain'; // 'rain', 'fire', 'bokeh', 'none'
+    let particlesList = [];
+
+    function initParticles(type) {
+      particlesList = [];
+      const count = type === 'rain' ? 85 : (type === 'fire' ? 65 : (type === 'bokeh' ? 45 : 0));
+      for (let i = 0; i < count; i++) {
+        if (type === 'rain') {
+          particlesList.push({
+            x: Math.random() * 1280,
+            y: Math.random() * 720,
+            len: 12 + Math.random() * 20,
+            speed: 14 + Math.random() * 12,
+            opacity: 0.2 + Math.random() * 0.45,
+            width: 1 + Math.random() * 1.5
+          });
+        } else if (type === 'fire') {
+          particlesList.push({
+            x: 640 + (Math.random() - 0.5) * 550,
+            y: 580 + Math.random() * 140,
+            size: 2 + Math.random() * 5,
+            speedY: 2 + Math.random() * 4,
+            life: Math.random() * 100,
+            maxLife: 60 + Math.random() * 80,
+            color: Math.random() > 0.4 ? 'rgba(251, 146, 60, ' : (Math.random() > 0.5 ? 'rgba(234, 179, 8, ' : 'rgba(239, 68, 68, ')
+          });
+        } else if (type === 'bokeh') {
+          particlesList.push({
+            x: Math.random() * 1280,
+            y: Math.random() * 720,
+            radius: 8 + Math.random() * 32,
+            pulseVal: Math.random() * Math.PI * 2,
+            color: Math.random() > 0.5 ? 'rgba(250, 204, 21, ' : 'rgba(245, 158, 11, '
+          });
+        }
+      }
+    }
+
+    function setCanvasParticle(type) {
+      currentCanvasParticle = type;
+      initParticles(type);
+      ['rain', 'fire', 'bokeh', 'none'].forEach(p => {
+        const btn = document.getElementById(`btn-particle-${p}`);
+        if (!btn) return;
+        if (p === type) {
+          btn.className = 'px-2.5 py-1.5 rounded-lg bg-amber-500/30 border border-amber-400 text-amber-200 text-xs font-bold transition flex items-center justify-center gap-1 shadow-sm';
+        } else {
+          btn.className = 'px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-slate-400 hover:text-white text-xs font-medium transition flex items-center justify-center gap-1';
+        }
+      });
+      drawThumbnailCanvas();
+      showToast(`✨ REA 파티클이 [${type === 'rain' ? '🌧️ 창가 빗방울' : type === 'fire' ? '🔥 모닥불 불티' : type === 'bokeh' ? '✨ 반딧불 보케' : '🚫 끄기'}] 모드로 합성되었습니다.`, 'success');
+    }
+
+    function drawParticlesOnCanvas(ctx, canvas) {
+      if (currentCanvasParticle === 'none') return;
+      if (particlesList.length === 0) initParticles(currentCanvasParticle);
+
+      ctx.save();
+      if (currentCanvasParticle === 'rain') {
+        ctx.lineCap = 'round';
+        particlesList.forEach(p => {
+          ctx.lineWidth = p.width;
+          ctx.strokeStyle = `rgba(226, 232, 240, ${p.opacity})`;
+          ctx.beginPath();
+          ctx.moveTo(p.x, p.y);
+          ctx.lineTo(p.x - 3, p.y + p.len);
+          ctx.stroke();
+
+          // 미세 창가 맺힘 물방울 효과
+          if (p.len > 22) {
+            ctx.fillStyle = `rgba(255, 255, 255, ${p.opacity * 0.7})`;
+            ctx.beginPath();
+            ctx.arc(p.x - 3, p.y + p.len, p.width * 1.1, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        });
+      } else if (currentCanvasParticle === 'fire') {
+        particlesList.forEach(p => {
+          const alpha = Math.max(0, 1 - (p.life / p.maxLife));
+          ctx.fillStyle = p.color + alpha + ')';
+          ctx.shadowColor = 'rgba(249, 115, 22, 0.8)';
+          ctx.shadowBlur = 8;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+          ctx.fill();
+        });
+      } else if (currentCanvasParticle === 'bokeh') {
+        particlesList.forEach(p => {
+          const alpha = 0.15 + (Math.sin(p.pulseVal) * 0.5 + 0.5) * 0.35;
+          const r = p.radius * (0.85 + Math.sin(p.pulseVal) * 0.15);
+          const radGrad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, r);
+          radGrad.addColorStop(0, p.color + (alpha * 0.9) + ')');
+          radGrad.addColorStop(0.6, p.color + (alpha * 0.4) + ')');
+          radGrad.addColorStop(1, p.color + '0)');
+          ctx.fillStyle = radGrad;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
+          ctx.fill();
+        });
+      }
+      ctx.restore();
+    }
+
+    // ── 👁️👂❤️ 멀티모달 오감 감성 시사회 엔진 ──
+    async function runSensoryEmpathyAnalysis() {
+      const btn = document.getElementById('btn-run-sensory');
+      const container = document.getElementById('sensory-empathy-results');
+      if (!container) return;
+
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<span>⏳</span><span>AI가 사람처럼 듣고·보고·느끼는 중...</span>';
+      }
+
+      container.classList.remove('hidden');
+      container.innerHTML = `
+        <div class="p-6 rounded-2xl bg-slate-950/90 border border-purple-500/40 text-center space-y-3">
+          <div class="inline-block animate-spin text-2xl">👁️👂❤️</div>
+          <p class="font-bold text-purple-200 text-sm">432Hz 청각 심리음향, 캔버스 시각 색온도, 3대 인간 페르소나(직장인·청소년·불면증) 감성 시사회 종합 분석 중...</p>
+        </div>
+      `;
+
+      const audioTitle = document.getElementById('player-file-name')?.textContent || "432Hz 심야 치유 피아노 & 수면 비";
+      const mainText = document.getElementById('thumb-main-title')?.value || "오늘 하루도 참 고생 많으셨어요";
+      const subText = document.getElementById('thumb-sub-title')?.value || "432Hz 힐링 피아노 · 깊은 수면을 위한 따뜻한 쉼표";
+      const bgPrompt = document.getElementById('thumb-bg-prompt')?.value || "calm rainy window";
+
+      try {
+        const resp = await fetch('/api/sensory-analyze', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            audio_title: audioTitle,
+            particle_type: currentCanvasParticle,
+            bg_preset: bgPrompt,
+            main_text: mainText,
+            sub_text: subText
+          })
+        });
+
+        if (resp.ok) {
+          const res = await resp.json();
+          if (res.success) {
+            const a = res.audio_metrics || {};
+            const v = res.visual_metrics || {};
+            const critique = res.personas_critique || '';
+
+            container.innerHTML = `
+              <div class="p-5 sm:p-6 rounded-2xl bg-slate-950/95 border-2 border-purple-500/50 space-y-5 shadow-2xl shadow-purple-950/30">
+                <!-- 상단 헤더 & 종합 치유 점수 -->
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-purple-500/30">
+                  <div class="flex items-center gap-2.5">
+                    <span class="text-2xl">👁️👂❤️</span>
+                    <div>
+                      <h4 class="text-sm font-black text-white flex items-center gap-2">
+                        <span>오감 감성 시사회 종합 결산 리포트</span>
+                        <span class="px-2 py-0.5 rounded text-[10px] bg-purple-500/20 text-purple-200 border border-purple-500/30 font-mono font-bold">인간 공감 100%</span>
+                      </h4>
+                      <p class="text-xs text-slate-400">분석 시각: ${escapeHtml(res.tested_at)}</p>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-2 self-start sm:self-auto">
+                    <div class="text-right">
+                      <span class="text-[10px] text-purple-300 block font-semibold">종합 치유 안식 지수</span>
+                      <span class="text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-amber-300 font-mono">${res.overall_healing_score}점 / 100점</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 2단 그리드: 👂 청각 심리음향 vs 👁️ 시각 감성 미학 -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+                  <!-- 👂 청각 -->
+                  <div class="p-3.5 rounded-xl bg-purple-950/30 border border-purple-500/30 space-y-2">
+                    <div class="flex items-center justify-between">
+                      <span class="font-bold text-purple-300 flex items-center gap-1.5 text-xs">
+                        <span>👂</span><span>청각 심리음향 지수</span>
+                      </span>
+                      <span class="px-2 py-0.5 rounded text-[10px] bg-purple-500/20 text-purple-200 font-bold font-mono">${a.score || 96}점</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2 text-[11px] text-slate-300">
+                      <div class="p-2 rounded bg-slate-900/80 border border-slate-800">
+                        <span class="text-slate-400 block text-[10px]">432Hz 공명도</span>
+                        <span class="font-bold text-purple-300 font-mono">${a.resonance_432hz || 98}%</span>
+                      </div>
+                      <div class="p-2 rounded bg-slate-900/80 border border-slate-800">
+                        <span class="text-slate-400 block text-[10px]">귀 피로도 방어율</span>
+                        <span class="font-bold text-purple-300 font-mono">${a.fatigue_defense || 97}%</span>
+                      </div>
+                    </div>
+                    <p class="text-[11px] text-slate-300 leading-relaxed pt-1">
+                      <span class="text-slate-400 font-semibold">• 심박 동기화:</span> ${escapeHtml(a.heartbeat_sync_bpm || '')}<br>
+                      <span class="text-slate-400 font-semibold">• 공간감 평가:</span> ${escapeHtml(a.warmth || '')}
+                    </p>
+                  </div>
+
+                  <!-- 👁️ 시각 -->
+                  <div class="p-3.5 rounded-xl bg-pink-950/30 border border-pink-500/30 space-y-2">
+                    <div class="flex items-center justify-between">
+                      <span class="font-bold text-pink-300 flex items-center gap-1.5 text-xs">
+                        <span>👁️</span><span>시각 감성 미학 지수</span>
+                      </span>
+                      <span class="px-2 py-0.5 rounded text-[10px] bg-pink-500/20 text-pink-200 font-bold font-mono">${v.score || 95}점</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2 text-[11px] text-slate-300">
+                      <div class="p-2 rounded bg-slate-900/80 border border-slate-800">
+                        <span class="text-slate-400 block text-[10px]">블루라이트 차단율</span>
+                        <span class="font-bold text-pink-300 font-mono">${v.blue_light_shield || 94}%</span>
+                      </div>
+                      <div class="p-2 rounded bg-slate-900/80 border border-slate-800">
+                        <span class="text-slate-400 block text-[10px]">세로명조 가독성</span>
+                        <span class="font-bold text-pink-300 font-mono">${v.typography_readability || 98}점</span>
+                      </div>
+                    </div>
+                    <p class="text-[11px] text-slate-300 leading-relaxed pt-1">
+                      <span class="text-slate-400 font-semibold">• 색온도 웜톤:</span> ${escapeHtml(v.color_temp || '')}<br>
+                      <span class="text-slate-400 font-semibold">• 파티클 조화:</span> ${escapeHtml(v.particle_harmony || '')}
+                    </p>
+                  </div>
+                </div>
+
+                <!-- ❤️ 3대 인간 페르소나 감성 시사회 -->
+                <div class="p-4 rounded-xl bg-gradient-to-r from-purple-950/40 via-indigo-950/30 to-slate-900 border border-purple-500/30 text-xs space-y-3">
+                  <div class="font-bold text-amber-300 flex items-center justify-between">
+                    <span class="flex items-center gap-1.5">
+                      <span>❤️</span><span>[3대 인간 페르소나 실시간 감상평 & 위로 포인트]</span>
+                    </span>
+                    <span class="px-2 py-0.5 rounded text-[10px] bg-amber-500/20 text-amber-300 border border-amber-500/30">Human Empathy</span>
+                  </div>
+                  <div class="text-slate-200 leading-relaxed font-sans space-y-2 whitespace-pre-line text-[11px]">
+                    ${escapeHtml(critique)}
+                  </div>
+                </div>
+              </div>
+            `;
+            showToast('👁️👂❤️ AI 오감 감성 시사회 리포트가 완성되었습니다!', 'success');
+          } else {
+            container.innerHTML = `<div class="p-4 rounded-xl bg-rose-950/50 text-rose-300 text-xs">시사회 실패: ${escapeHtml(res.error || '응답 오류')}</div>`;
+          }
+        } else {
+          container.innerHTML = `<div class="p-4 rounded-xl bg-rose-950/50 text-rose-300 text-xs">서버 통신 오류 (${resp.status})</div>`;
+        }
+      } catch (e) {
+        container.innerHTML = `<div class="p-4 rounded-xl bg-rose-950/50 text-rose-300 text-xs">통신 오류: ${escapeHtml(e.message)}</div>`;
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = '<span>👁️👂❤️</span><span>사람처럼 듣고·보고·느끼기 (AI 오감 감성 시사회 실행)</span>';
+        }
+      }
     }
 
     // ── TAB 3: AI 소통 (음성인식 마이크 & 안실장 큐 & OSMU) ──
