@@ -950,9 +950,11 @@
 
     // ── 초기화 ──
     document.addEventListener('DOMContentLoaded', async () => {
+      switchTab('tab-command');
       startClock();
       updateDDayCountdowns();
       setInterval(updateDDayCountdowns, 60000);
+      calculateFinance();
 
       await detectAndInjectLocalConfig();
       fetchWorkflowRuns(true);
@@ -1739,37 +1741,38 @@
 
     function exportHeartGameHtml() {
       if (!currentEpisodeData) return;
-      const htmlContent = `<!DOCTYPE html>
-<html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>마음 편의점 | ${escapeHtml(currentEpisodeData.title)}</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-slate-950 text-slate-100 min-h-screen p-4 flex items-center justify-center font-sans">
-  <div class="max-w-md w-full bg-slate-900 p-6 rounded-3xl border border-pink-500/30 shadow-2xl space-y-5">
-    <div class="flex justify-between items-center">
-      <span class="text-2xl">🏪</span>
-      <span class="text-xs font-bold text-pink-400 bg-pink-950/60 px-3 py-1 rounded-full border border-pink-500/40">세 딸 인성 밸런스 게임</span>
-    </div>
-    <h2 class="text-lg font-bold text-white">${escapeHtml(currentEpisodeData.title)}</h2>
-    <div class="p-4 rounded-2xl bg-slate-950/80 border border-slate-800 text-sm text-slate-300 leading-relaxed">
-      ${escapeHtml(currentEpisodeData.situation)}
-    </div>
-    <div class="space-y-3">
-      ${currentEpisodeData.choices.map((c, i) => `
-        <button onclick="alert('${escapeQuotes(c.outcomeTitle)}\\n\\n${escapeQuotes(c.outcomeDesc)}') "
-          class="w-full p-4 rounded-2xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-left text-sm text-white font-medium transition">
-          <span class="text-xs text-pink-400 font-bold block mb-1">선택지 ${c.id}</span>
-          ${escapeHtml(c.text)}
-        </button>
-      `).join('')}
-    </div>
-    <p class="text-[11px] text-center text-slate-500">사랑하는 아빠가 세 딸을 위해 만든 마음 편의점 💕</p>
-  </div>
-</body>
-</html>`;
+      const tailwindTag = '<scr' + 'ipt src="https://cdn.tailwindcss.com"></scr' + 'ipt>';
+      const htmlContent = '<!DOCTYPE html>\n' +
+'<html lang="ko">\n' +
+'<head>\n' +
+'  <meta charset="UTF-8">\n' +
+'  <meta name="viewport" content="width=device-width, initial-scale=1.0">\n' +
+'  <title>마음 편의점 | ' + escapeHtml(currentEpisodeData.title) + '</title>\n' +
+'  ' + tailwindTag + '\n' +
+'</head>\n' +
+'<body class="bg-slate-950 text-slate-100 min-h-screen p-4 flex items-center justify-center font-sans">\n' +
+'  <div class="max-w-md w-full bg-slate-900 p-6 rounded-3xl border border-pink-500/30 shadow-2xl space-y-5">\n' +
+'    <div class="flex justify-between items-center">\n' +
+'      <span class="text-2xl">🏪</span>\n' +
+'      <span class="text-xs font-bold text-pink-400 bg-pink-950/60 px-3 py-1 rounded-full border border-pink-500/40">세 딸 인성 밸런스 게임</span>\n' +
+'    </div>\n' +
+'    <h2 class="text-lg font-bold text-white">' + escapeHtml(currentEpisodeData.title) + '</h2>\n' +
+'    <div class="p-4 rounded-2xl bg-slate-950/80 border border-slate-800 text-sm text-slate-300 leading-relaxed">\n' +
+'      ' + escapeHtml(currentEpisodeData.situation) + '\n' +
+'    </div>\n' +
+'    <div class="space-y-3">\n' +
+      currentEpisodeData.choices.map((c, i) =>
+'        <button onclick="alert(\'' + escapeQuotes(c.outcomeTitle) + '\\n\\n' + escapeQuotes(c.outcomeDesc) + '\')" ' +
+'          class="w-full p-4 rounded-2xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-left text-sm text-white font-medium transition">\n' +
+'          <span class="text-xs text-pink-400 font-bold block mb-1">선택지 ' + c.id + '</span>\n' +
+'          ' + escapeHtml(c.text) + '\n' +
+'        </button>'
+      ).join('\n') + '\n' +
+'    </div>\n' +
+'    <p class="text-[11px] text-center text-slate-500">사랑하는 아빠가 세 딸을 위해 만든 마음 편의점 💕</p>\n' +
+'  </div>\n' +
+'</body>\n' +
+'</html>';
 
       const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
       const a = document.createElement('a');
