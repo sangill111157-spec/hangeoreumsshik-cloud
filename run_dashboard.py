@@ -96,6 +96,14 @@ DEFAULT_WISDOM_LEDGER = {
             "category": "법무·보안",
             "impact": "계정 정지 및 라이선스 위반 리스크 0%",
             "created_at": "2026-10-16"
+        },
+        {
+            "id": "good_6",
+            "title": "REA 클린룸 벤치마킹 기법 (5단계 역설계 & 자체 재창조)",
+            "description": "외부 우수 서비스(REA 등)의 아키텍처·상태관리·인터랙션 원리를 5단계로 분해(Deconstruct)하여 구조를 학습한 뒤, 제1원(자율법무팀) 기준에 맞춰 단순 복제 없이 100% 우리만의 독창적 코드로 재창조(Rebuild)한다.",
+            "category": "설계·역공학",
+            "impact": "저작권 리스크 0%, 글로벌 최정상 오픈소스의 구조적 정수 100% 흡수",
+            "created_at": "2026-10-16"
         }
     ],
     "mistake_vaccines": [
@@ -971,6 +979,29 @@ class DashboardHandler(SimpleHTTPRequestHandler):
                     scout_res = {'success': False, 'error': 'Scout module not found'}
 
                 resp_bytes = json.dumps(scout_res, ensure_ascii=False).encode('utf-8')
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.send_header("Content-Length", str(len(resp_bytes)))
+                self.end_headers()
+                self.wfile.write(resp_bytes)
+                return
+            except Exception as e:
+                self.send_response(500)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.end_headers()
+                self.wfile.write(json.dumps({"error": str(e), "success": False}).encode('utf-8'))
+                return
+
+        # 6-2. 제2원 REA (Reverse Engineer Anything) 특급 정밀 분석 (POST /api/github-scout-rea)
+        if self.path == '/api/github-scout-rea':
+            try:
+                if github_scout_adapter and hasattr(github_scout_adapter, 'get_rea_deep_dive_analysis'):
+                    gem_caller = lambda p: call_gemini_server_side(p).get('text')
+                    rea_res = github_scout_adapter.get_rea_deep_dive_analysis(gemini_caller=gem_caller)
+                else:
+                    rea_res = {'success': False, 'error': 'REA analysis module not available'}
+
+                resp_bytes = json.dumps(rea_res, ensure_ascii=False).encode('utf-8')
                 self.send_response(200)
                 self.send_header("Content-Type", "application/json; charset=utf-8")
                 self.send_header("Content-Length", str(len(resp_bytes)))
