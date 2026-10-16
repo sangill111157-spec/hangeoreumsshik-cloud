@@ -196,6 +196,13 @@
         </span>
       </div>
       <div class="flex items-center gap-2">
+        <!-- OTA 실시간 자동 동기화 배지 -->
+        <div id="ota-version-badge" onclick="checkVersionAndUpdate(true)" title="클릭하여 즉시 업데이트 확인"
+          class="cursor-pointer px-2 sm:px-2.5 py-1 rounded-lg bg-emerald-950/60 hover:bg-emerald-900 border border-emerald-500/40 text-emerald-300 text-xs flex items-center gap-1.5 transition font-mono font-semibold">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span id="ota-version-text">v3.1 Auto-Sync</span>
+        </div>
+
         <button onclick="openEmpireCouncilModal()" class="p-2 sm:px-3 sm:py-1 rounded-lg bg-gradient-to-r from-amber-600/30 to-purple-600/30 hover:from-amber-600/50 hover:to-purple-600/50 text-amber-300 border border-amber-500/40 text-xs flex items-center gap-1.5 transition font-bold shadow-lg shadow-amber-500/10">
           <span>🏛️</span>
           <span class="hidden sm:inline">8대 부처 어전회의</span>
@@ -209,6 +216,17 @@
           <span class="hidden sm:inline">보안 설정</span>
         </button>
       </div>
+    </div>
+
+    <!-- OTA 업데이트 플로팅 알림 배너 (타이핑 보호 모드) -->
+    <div id="ota-update-banner" class="hidden bg-gradient-to-r from-amber-600 via-purple-600 to-indigo-600 px-4 py-2 text-white text-xs font-bold flex items-center justify-between sticky top-14 z-40 shadow-xl transition animate-pulse">
+      <div class="flex items-center gap-2">
+        <span class="text-base">✨</span>
+        <span>새로운 제국 업데이트가 도착했습니다! (현재 작업 중인 글이 보호되고 있습니다)</span>
+      </div>
+      <button onclick="applyUpdateImmediately()" class="px-3 py-1 rounded-lg bg-white text-slate-900 hover:bg-amber-100 font-extrabold text-xs shadow-md transition active:scale-95">
+        터치하여 즉시 적용 🚀
+      </button>
     </div>
 
     <!-- ══════════════════════════════════════════════════════════════
@@ -1381,6 +1399,86 @@
     let currentEpisodeData = null;
     let cachedVault = [];
 
+    // ── 🔄 [OTA Hot-Reload 무인 자동 업데이트 엔진] ──
+    let currentVersionHash = null;
+    let isOtaUpdating = false;
+
+    function isUserTyping() {
+      const activeEl = document.activeElement;
+      if (!activeEl) return false;
+      const tag = activeEl.tagName.toLowerCase();
+      if (tag === 'input' || tag === 'textarea' || activeEl.isContentEditable) {
+        return true;
+      }
+      return false;
+    }
+
+    async function checkVersionAndUpdate(isManual = false) {
+      if (isOtaUpdating) return;
+      try {
+        const resp = await fetch('/api/version', { cache: 'no-store' });
+        if (resp.ok) {
+          const data = await resp.json();
+          if (data.success && data.version_hash) {
+            const vBadge = document.getElementById('ota-version-text');
+            if (vBadge) {
+              vBadge.textContent = `${data.version || 'v3.1'} [${data.git_commit || 'Auto'}]`;
+            }
+
+            if (!currentVersionHash) {
+              currentVersionHash = data.version_hash;
+              if (isManual) showToast(`🟢 현재 최신 버전입니다: ${data.version_hash}`, 'info');
+              return;
+            }
+
+            if (currentVersionHash !== data.version_hash) {
+              currentVersionHash = data.version_hash;
+              handleNewVersionDetected();
+            } else if (isManual) {
+              showToast(`🟢 현재 최신 버전입니다 (${data.version_hash})`, 'success');
+            }
+          }
+        }
+      } catch (e) {
+        if (isManual) showToast(`버전 확인 실패: ${e.message}`, 'error');
+      }
+    }
+
+    function handleNewVersionDetected() {
+      if (isUserTyping()) {
+        const banner = document.getElementById('ota-update-banner');
+        if (banner) banner.classList.remove('hidden');
+        showToast('✨ 새 업데이트 도착! 작성 중인 내용을 저장 후 상단 배너를 터치하세요.', 'info');
+      } else {
+        applyUpdateImmediately();
+      }
+    }
+
+    function applyUpdateImmediately() {
+      if (isOtaUpdating) return;
+      isOtaUpdating = true;
+      showToast('✨ 새 버전 업데이트가 감지되어 자동으로 적용합니다! 🚀', 'success');
+      setTimeout(() => {
+        const url = new URL(window.location.href);
+        url.searchParams.set('_v', Date.now());
+        window.location.href = url.toString();
+      }, 900);
+    }
+
+    function initOtaHotReload() {
+      checkVersionAndUpdate(false);
+      setInterval(() => checkVersionAndUpdate(false), 15000);
+
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') {
+          checkVersionAndUpdate(false);
+        }
+      });
+      window.addEventListener('focus', () => {
+        checkVersionAndUpdate(false);
+      });
+    }
+
     // ── 초기화 ──
     document.addEventListener('DOMContentLoaded', async () => {
       checkUrlHashKeySync();
@@ -1399,6 +1497,7 @@
       runComplianceAudit(true);
       renderCertificateCanvas();
       initWorkShiftMode();
+      initOtaHotReload();
 
       // 시스템 상태 주기적 갱신
       setInterval(fetchSystemStatus, 15000);

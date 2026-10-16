@@ -25,6 +25,7 @@ import urllib.request
 import urllib.parse
 from pathlib import Path
 from datetime import datetime
+import hashlib
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 
 # 콘솔 UTF-8 출력 보장
@@ -58,6 +59,44 @@ RENDER_STATUS = {
     "finished_at": "",
     "message": "대기 중"
 }
+
+def get_system_version_info() -> dict:
+    """대시보드 및 백엔드 실시간 버전 해시 산출 (OTA Hot-Reload 무인 자동 갱신용)"""
+    git_hash = "unknown"
+    try:
+        r = subprocess.run(["git", "rev-parse", "--short", "HEAD"], cwd=str(BASE_DIR), capture_output=True, text=True, timeout=2)
+        if r.returncode == 0:
+            git_hash = r.stdout.strip()
+    except Exception:
+        pass
+
+    html_file = DASHBOARD_DIR / "index.html"
+    py_file = BASE_DIR / "run_dashboard.py"
+
+    html_mtime = int(html_file.stat().st_mtime) if html_file.exists() else 0
+    py_mtime = int(py_file.stat().st_mtime) if py_file.exists() else 0
+
+    html_hash = "0"
+    if html_file.exists():
+        try:
+            content = html_file.read_bytes()
+            html_hash = hashlib.sha256(content).hexdigest()[:8]
+        except Exception:
+            pass
+
+    combined = f"{git_hash}_{html_hash}_{html_mtime}_{py_mtime}"
+    version_hash = hashlib.md5(combined.encode('utf-8')).hexdigest()[:12]
+
+    return {
+        "success": True,
+        "version": "v3.1-OTA",
+        "version_hash": f"{git_hash}-{version_hash}",
+        "git_commit": git_hash,
+        "html_hash": html_hash,
+        "html_mtime": html_mtime,
+        "py_mtime": py_mtime,
+        "server_time": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    }
 
 def get_github_token() -> str:
     """GitHub CLI 또는 환경변수에서 PAT 토큰 자동 추출"""
@@ -530,6 +569,19 @@ class DashboardHandler(SimpleHTTPRequestHandler):
             self.wfile.write(body)
             return
 
+        # 7. OTA 무인 자동 업데이트 버전 확인 (/api/version)
+        if path == '/api/version':
+            ver_info = get_system_version_info()
+            body = json.dumps(ver_info, ensure_ascii=False).encode("utf-8")
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Cache-Control", "no-cache, no-store, must-revalidate, max-age=0")
+            self.send_header("Pragma", "no-cache")
+            self.end_headers()
+            self.wfile.write(body)
+            return
+
         # 루트 및 index.html 요청 시 항상 최신 파일 서빙 (캐시 방지 헤더 강제 주입)
         if path in ('/', '/index.html', ''):
             html_file = DASHBOARD_DIR / "index.html"
@@ -761,6 +813,41 @@ class DashboardHandler(SimpleHTTPRequestHandler):
                     "success": True,
                     "task": res,
                     "message": f"'{repo_name}' 기술이 안실장 직통 작업 큐 및 기억 금고에 성공적으로 접수되었습니다!"
+                }, ensure_ascii=False).encode('utf-8')
+
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.send_header("Content-Length", str(len(resp_bytes)))
+                self.end_headers()
+                self.wfile.write(resp_bytes)
+                return
+            except Exception as e:
+                self.send_response(500)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.end_headers()
+                self.wfile.write(json.dumps({"error": str(e), "success": False}).encode('utf-8'))
+                return
+
+        # 8. 원격 저장소 자율 동기화 및 핫리로드 트리거 (POST /api/self-update)
+        if self.path == '/api/self-update':
+            try:
+                proc = subprocess.run(
+                    ["git", "pull", "origin", "main"],
+                    cwd=str(BASE_DIR),
+                    capture_output=True,
+                    text=True,
+                    timeout=20
+                )
+                stdout = proc.stdout.strip()
+                stderr = proc.stderr.strip()
+                success = (proc.returncode == 0)
+                ver_info = get_system_version_info()
+
+                resp_bytes = json.dumps({
+                    "success": success,
+                    "message": "Git pull 동기화 성공! 최신 버전이 적용되었습니다." if success else f"Git pull 실패: {stderr}",
+                    "stdout": stdout,
+                    "version_info": ver_info
                 }, ensure_ascii=False).encode('utf-8')
 
                 self.send_response(200)
