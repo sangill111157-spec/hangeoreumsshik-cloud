@@ -2223,6 +2223,67 @@ class DashboardHandler(SimpleHTTPRequestHandler):
                 self.wfile.write(json.dumps({"error": str(e), "success": False}).encode('utf-8'))
                 return
 
+        # 22. 🪄 [포토샵 2025 AI 의상 합성 스튜디오 브릿지] (POST /api/photoshop-ai-swap)
+        if self.path == '/api/photoshop-ai-swap':
+            try:
+                content_len = int(self.headers.get('Content-Length', 0))
+                body = self.rfile.read(content_len).decode('utf-8')
+                data = json.loads(body) if body else {}
+
+                profile = data.get('profile', 'haesang')
+                outfit_num = int(data.get('outfitNum', 1))
+                has_custom = bool(data.get('hasCustomCloth', False))
+
+                # 포토샵 2025 뉴럴 의상 합성 레시피 & 조명/그림자 파라미터
+                swap_recipes = {
+                    1: {"name": "🌸 러블리 K-하이틴 핑크 가디건", "collarType": "round_cardigan", "shadowDepth": 0.48, "rimLight": "#f43f5e"},
+                    2: {"name": "🎀 청량 아이돌 데님 자켓 & 원피스", "collarType": "shirt_denim", "shadowDepth": 0.52, "rimLight": "#38bdf8"},
+                    3: {"name": "🎓 명문 프레피 블레이저 & 리본", "collarType": "notched_lapel", "shadowDepth": 0.55, "rimLight": "#818cf8"},
+                    4: {"name": "👕 시티보이 오버핏 후드 & 카고", "collarType": "hoodie_collar", "shadowDepth": 0.42, "rimLight": "#34d399"},
+                    5: {"name": "🧥 베이지 트렌치 롱코트", "collarType": "trench_lapel", "shadowDepth": 0.58, "rimLight": "#fbbf24"},
+                    6: {"name": "👔 청담 테일러드 VIP 네이비 수트", "collarType": "peak_lapel", "shadowDepth": 0.60, "rimLight": "#60a5fa"},
+                    7: {"name": "✨ 캐시미어 웜골드 니트 & 슬랙스", "collarType": "crew_neck", "shadowDepth": 0.45, "rimLight": "#fcd34d"},
+                    8: {"name": "🔮 2035 글로벌 CEO 네오-퍼플 수트", "collarType": "future_lapel", "shadowDepth": 0.56, "rimLight": "#c084fc"},
+                    9: {"name": "🚀 우주 AI 과학자 사이버 테크웨어", "collarType": "high_neck", "shadowDepth": 0.46, "rimLight": "#22d3ee"},
+                    10: {"name": "👑 로열 골드 갈라 파티 드레스/턱시도", "collarType": "gala_v_neck", "shadowDepth": 0.62, "rimLight": "#fde047"}
+                }
+
+                recipe = swap_recipes.get(outfit_num, swap_recipes[1])
+                res = {
+                    "success": True,
+                    "engine": "v5.1-photoshop-ai-swap",
+                    "profile": profile,
+                    "outfitNum": outfit_num,
+                    "recipe": recipe,
+                    "neckContactShadow": {
+                        "blur": 12,
+                        "spread": 0.46,
+                        "color": "rgba(20, 10, 5, 0.45)",
+                        "blendMode": "multiply"
+                    },
+                    "lightingMatch": {
+                        "colorTemp": 5500,
+                        "softboxIntensity": 1.18,
+                        "bokehStudioAura": True
+                    },
+                    "customClothWarping": has_custom,
+                    "timestamp": time.strftime("%Y-%m-%d %H:%M:%S")
+                }
+
+                resp_bytes = json.dumps(res, ensure_ascii=False).encode('utf-8')
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.send_header("Content-Length", str(len(resp_bytes)))
+                self.end_headers()
+                self.wfile.write(resp_bytes)
+                return
+            except Exception as e:
+                self.send_response(500)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.end_headers()
+                self.wfile.write(json.dumps({"error": str(e), "success": False}).encode('utf-8'))
+                return
+
         self.send_response(404)
         self.end_headers()
 

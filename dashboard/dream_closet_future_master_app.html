@@ -538,7 +538,9 @@
         </div>
 
 
-        <!-- 🎛️ [v5.0 Real-VTON 초심플 1줄 통합 리모컨 바 (캔버스 0px 밀착)] -->
+        <!-- 🎛️ [v5.1 Real-VTON 초심플 1줄 통합 리모컨 바 (캔버스 0px 밀착)] -->
+        <!-- 🎛️ [v5.1 Photoshop-AI 초심플 1줄 퀵 리모컨 바 (캔버스 0px 밀착)] -->
+        <!-- 🎛️ [v5.1 Photoshop-AI 초심플 1줄 퀵 리모컨 바 (캔버스 0px 밀착)] -->
         <div id="v5-one-line-remote-bar" class="w-full max-w-[450px] mx-auto mt-1 mb-2 p-1.5 rounded-2xl bg-slate-900/95 border border-purple-500/50 shadow-xl flex items-center justify-between gap-1 text-xs backdrop-blur-md">
           <!-- 1. 크기 조절 버튼 (+ / -) -->
           <div class="flex items-center gap-0.5">
@@ -559,9 +561,9 @@
             <span>🎯맞춤</span>
           </button>
 
-          <!-- 4. AI 실사 화보 보정 (VTON 매거진 필터) 원터치 강화 -->
-          <button type="button" id="btn-real-vton-boost" onclick="applyRealVtonStudioLook()" class="px-2 h-7 rounded-lg bg-gradient-to-r from-pink-600/70 to-purple-600/70 hover:from-pink-500 hover:to-purple-500 text-white text-[10px] font-extrabold border border-pink-400/50 active:scale-95 flex items-center gap-0.5 whitespace-nowrap shadow-md transition" title="EPIK 실사 화보 보정">
-            <span>✨실사보정</span>
+          <!-- 4. [🪄포토샵자동합성] (목선 그림자 접촉 & 조명 컬러매칭 황금비율 자동 합성) -->
+          <button type="button" id="btn-photoshop-auto-blend" onclick="runPhotoshopAutoBlend()" class="px-2 h-7 rounded-lg bg-gradient-to-r from-blue-600/80 via-purple-600/80 to-pink-600/80 hover:from-blue-500 hover:to-pink-500 text-white text-[10px] font-black border border-blue-400/50 active:scale-95 flex items-center gap-0.5 whitespace-nowrap shadow-md transition" title="포토샵 2025 AI 자동 의상합성">
+            <span>🪄포토샵자동합성</span>
           </button>
 
           <!-- 5. 사진 저장 -->
@@ -3612,7 +3614,7 @@ function drawDetailedIllustrationFace(ctx, faceCenterX, faceCenterY, headRadius,
 
 
 // ============================================================================
-// 👗 [Omni-Nexus v5.0 Real-VTON Studio] 4인 가족 세팅 & 얼굴 크기/위치 조절 & 10벌 쇼룸 엔진
+// 👗 [Omni-Nexus v5.1 Photoshop-AI Studio] 4인 가족 세팅 & 얼굴 크기/위치 조절 & 10벌 쇼룸 엔진
 // ============================================================================
 
 window.currentProfile = 'haesang'; // 'haesang' | 'songhyo' | 'eunsol' | 'sangil'
@@ -3680,20 +3682,33 @@ function updateProfileInputs() {
 
 
 
+
+
 // ══════════════════════════════════════════════════════════════════
-// 🌟 [Omni-Nexus v5.0 Real-VTON Studio] 실사 가상피팅 & 화보 융합 엔진
+// 🌟 [Omni-Nexus v5.1 Photoshop-AI Swap] 포토샵 2025 의상합성 스튜디오 엔진
 // ══════════════════════════════════════════════════════════════════
 
 window.faceOffsetX = window.faceOffsetX || 0;
 window.faceOffsetY = window.faceOffsetY || 0;
 window.faceScale = window.faceScale || 1.0;
-window.isFaceDragMode = true; // 언제나 직접 드래그 이동 가능!
+window.isFaceDragMode = true;
 window.useSmartCutout = true;
 window.autoBeautyFilter = true;
 window.cachedCutoutCanvas = null;
 window.lastCutoutSourceSrc = '';
 window.currentWardrobeNum = window.currentWardrobeNum || 1;
-window.vtonFilterIntensity = 1.0;
+
+// 커스텀 옷 사진 상태
+window.customClothImage = null;
+window.hasCustomCloth = false;
+window.cachedClothCanvas = null;
+
+// 포토샵 컬러 & 조명 매치 상태
+window.photoshopLightMatch = {
+  lumRatio: 1.0,
+  warmShift: 0,
+  shadowDepth: 0.48
+};
 
 // 1. 얼굴 크기 조절
 function adjustFaceScale(delta) {
@@ -3746,7 +3761,145 @@ function toggleSmartCutout() {
   drawMainFittingAvatar();
 }
 
-// 3. 🧬 [지능형 피부톤 YCbCr 감지 & 머리 위 차량 시트/배경/옷깃 100% 칼삭제 엔진]
+// 3. 👚 [커스텀 옷 사진 직접 업로드 & 합성]
+function openCustomClothUpload() {
+  const inp = document.getElementById('custom-cloth-file-input');
+  if (inp) inp.click();
+}
+
+function handleCustomClothUpload(event) {
+  const file = event.target.files && event.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const img = new Image();
+    img.onload = function() {
+      window.customClothImage = img;
+      window.hasCustomCloth = true;
+      window.cachedClothCanvas = processClothTransparency(img);
+      drawMainFittingAvatar();
+      if (typeof showToast === 'function') {
+        showToast('👚 [포토샵 의상 로드]: 쇼핑몰 옷 사진이 감쪽같이 합성되었습니다!', 'success');
+      }
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+// 옷 사진 단색/흰색 배경 자동 투명화 (Luminance Keying)
+function processClothTransparency(img) {
+  const off = document.createElement('canvas');
+  const w = img.naturalWidth || img.width || 400;
+  const h = img.naturalHeight || img.height || 500;
+  off.width = w;
+  off.height = h;
+  const ctx = off.getContext('2d');
+  ctx.drawImage(img, 0, 0, w, h);
+
+  try {
+    const imgData = ctx.getImageData(0, 0, w, h);
+    const d = imgData.data;
+
+    // 모서리 배경색
+    const bgR = (d[0] + d[(w-1)*4]) / 2;
+    const bgG = (d[1] + d[(w-1)*4+1]) / 2;
+    const bgB = (d[2] + d[(w-1)*4+2]) / 2;
+
+    for (let i = 0; i < d.length; i += 4) {
+      const r = d[i], g = d[i+1], b = d[i+2];
+      // 흰색 또는 모서리 배경색 유사 판별
+      const diff = Math.hypot(r - bgR, g - bgG, b - bgB);
+      const isWhite = (r > 240 && g > 240 && b > 240);
+      if (diff < 35 || isWhite) {
+        d[i+3] = 0; // 배경 투명화
+      }
+    }
+    ctx.putImageData(imgData, 0, 0);
+  } catch (err) {
+    console.warn('processClothTransparency fallback:', err);
+  }
+  return off;
+}
+
+// 4. 🎨 [포토샵 컬러 & 조명 매치 필터: matchPhotoshopLighting]
+function matchPhotoshopLighting(faceImg) {
+  if (!faceImg || !faceImg.complete || faceImg.naturalWidth === 0) return;
+
+  try {
+    const off = document.createElement('canvas');
+    off.width = 64; off.height = 64;
+    const ctx = off.getContext('2d');
+    ctx.drawImage(faceImg, 0, 0, 64, 64);
+    const d = ctx.getImageData(0, 0, 64, 64).data;
+
+    let totalR = 0, totalG = 0, totalB = 0, count = 0;
+    for (let i = 0; i < d.length; i += 16) {
+      if (d[i+3] > 100) {
+        totalR += d[i]; totalG += d[i+1]; totalB += d[i+2];
+        count++;
+      }
+    }
+    if (count > 0) {
+      const avgR = totalR / count;
+      const avgG = totalG / count;
+      const avgB = totalB / count;
+      const lum = 0.299 * avgR + 0.587 * avgG + 0.114 * avgB;
+
+      window.photoshopLightMatch.lumRatio = Math.max(0.85, Math.min(1.2, lum / 140));
+      window.photoshopLightMatch.warmShift = Math.max(-15, Math.min(15, (avgR - avgB) * 0.25));
+    }
+  } catch (e) {
+    console.warn('matchPhotoshopLighting fallback:', e);
+  }
+}
+
+// 5. 🪄 [포토샵 2025 AI 자동 의상합성: runPhotoshopAutoBlend]
+async function runPhotoshopAutoBlend() {
+  const profile = window.currentProfileName || 'haesang';
+  const outfitNum = window.currentWardrobeNum || 1;
+  const hasCustom = window.hasCustomCloth;
+
+  // 1. 얼굴 사진 컬러 & 조명 분석
+  if (window.userFaceImage) {
+    matchPhotoshopLighting(window.userFaceImage);
+  }
+
+  // 2. 황금비율 자동 조절 (얼굴 크기, 목선 위치)
+  window.faceScale = 1.05;
+  window.faceOffsetX = 0;
+  window.faceOffsetY = -2;
+
+  // 3. 백엔드 레시피 호출
+  try {
+    const res = await fetch('/api/photoshop-ai-swap', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ profile, outfitNum, hasCustomCloth: hasCustom })
+    });
+    const data = await res.json();
+    if (data.success) {
+      window.photoshopLightMatch.shadowDepth = data.recipe.shadowDepth || 0.5;
+    }
+  } catch (err) {
+    window.photoshopLightMatch.shadowDepth = 0.5;
+  }
+
+  window.cachedCutoutCanvas = null; // 재처리
+  drawMainFittingAvatar();
+
+  if (typeof showToast === 'function') {
+    showToast('🪄 [포토샵 2025 AI 합성]: 목선 접촉 그림자 & 조명 매치가 황금비율로 완성되었습니다!', 'success');
+  }
+}
+
+// 6. 별칭 함수 (호환성 유지)
+function applyRealVtonStudioLook() {
+  runPhotoshopAutoBlend();
+}
+
+// 7. 🧬 [지능형 피부톤 YCbCr 감지 & 머리 위 차량 시트/배경/옷깃 100% 칼삭제 엔진]
 function autoDetectAndCutoutFace(img) {
   if (!img || !img.complete || img.naturalWidth === 0) return null;
   const currentSrc = img.src || '';
@@ -3773,7 +3926,6 @@ function autoDetectAndCutoutFace(img) {
     const imgData = offCtx.getImageData(0, 0, w, h);
     const data = imgData.data;
 
-    // A. 피부톤(YCbCr 클러스터링) 스캔으로 실제 얼굴 중심과 크기 자동 감지
     let skinSumX = 0, skinSumY = 0, skinCount = 0;
     for (let y = 0; y < h; y += 2) {
       for (let x = 0; x < w; x += 2) {
@@ -3781,7 +3933,6 @@ function autoDetectAndCutoutFace(img) {
         const r = data[idx], g = data[idx + 1], b = data[idx + 2];
         const cb = -0.169 * r - 0.331 * g + 0.5 * b + 128;
         const cr = 0.5 * r - 0.419 * g - 0.081 * b + 128;
-        // 동양인/한국인 피부톤 표준 범위
         if (cb >= 85 && cb <= 135 && cr >= 135 && cr <= 180 && r > 60 && g > 40 && b > 20) {
           skinSumX += x;
           skinSumY += y;
@@ -3790,13 +3941,11 @@ function autoDetectAndCutoutFace(img) {
       }
     }
 
-    // 감지된 얼굴 중심 (기본값 중앙)
     const detectedFaceX = skinCount > 50 ? (skinSumX / skinCount) : (w * 0.5);
     const detectedFaceY = skinCount > 50 ? (skinSumY / skinCount) : (h * 0.48);
     const estRadius = Math.sqrt(skinCount * 4 / Math.PI) * 0.95;
     const faceR = Math.max(w * 0.25, Math.min(w * 0.45, estRadius || (w * 0.35)));
 
-    // B. 상단 모서리(차량 시트/천장/벽지) 배경색 추출
     let topBgR = 0, topBgG = 0, topBgB = 0, topBgCount = 0;
     const margin = Math.floor(w * 0.08);
     for (let y = 0; y < margin; y++) {
@@ -3808,39 +3957,32 @@ function autoDetectAndCutoutFace(img) {
     }
     topBgR /= topBgCount; topBgG /= topBgCount; topBgB /= topBgCount;
 
-    // C. 픽셀별 정밀 마스크 & 칼삭제
-    // 1) 머리 위 자동차 시트/헤드레스트/천장 칼삭제
-    // 2) 턱 아래 기존 옷깃/티셔츠 칼삭제
-    // 3) 얼굴/헤어 보존 및 외곽 소프트 페더링
     for (let y = 0; y < h; y++) {
       for (let x = 0; x < w; x++) {
         const idx = (y * w + x) * 4;
         let r = data[idx], g = data[idx + 1], b = data[idx + 2], a = data[idx + 3];
         if (a === 0) continue;
 
-        // 상대 정규화 거리
         const normDx = (x - detectedFaceX) / faceR;
         const normDy = (y - detectedFaceY) / (faceR * 1.15);
         const dist = Math.hypot(normDx, normDy);
 
-        // 1. 머리 위 차량 시트/천장 삭제 (y가 얼굴 중심 위쪽으로 멀어질 때)
+        // 1. 머리 위 차량 시트/천장 삭제
         if (y < detectedFaceY - faceR * 0.85) {
           const bgDist = Math.hypot(r - topBgR, g - topBgG, b - topBgB);
-          // 머리카락(어두운 톤)이 아니거나 상단 엣지에 가까우면 즉시 0
           if (bgDist < 75 || y < detectedFaceY - faceR * 1.25) {
             data[idx + 3] = 0;
             continue;
           }
         }
 
-        // 2. 턱 아래 기존 옷깃/티셔츠 삭제 (새 의상과 자연스럽게 겹치도록)
+        // 2. 턱 아래 기존 옷깃/티셔츠 삭제
         if (y > detectedFaceY + faceR * 0.85) {
           const neckDist = Math.abs(x - detectedFaceX);
           if (neckDist > faceR * 0.45 || y > detectedFaceY + faceR * 1.1) {
-            data[idx + 3] = 0; // 기존 옷깃 칼삭제
+            data[idx + 3] = 0;
             continue;
           } else {
-            // 목선 중심부는 아래로 갈수록 부드러운 소프트 페더링
             const fade = Math.max(0, 1 - (y - (detectedFaceY + faceR * 0.85)) / (faceR * 0.25));
             data[idx + 3] = Math.round(a * fade);
           }
@@ -3857,7 +3999,7 @@ function autoDetectAndCutoutFace(img) {
           }
         }
 
-        // 4. AI 화보 뷰티 보정 (화사한 피부톤 & 소프트 림라이트)
+        // 4. AI 화보 뷰티 보정
         if (window.autoBeautyFilter && data[idx + 3] > 0) {
           r = Math.min(255, r * 1.08 + 5);
           g = Math.min(255, g * 1.07 + 4);
@@ -3883,43 +4025,14 @@ function autoDetectAndCutoutFace(img) {
   return off;
 }
 
-// 4. 별칭 함수 (호환성 유지)
 function processSmartFaceCutout(img) {
   return autoDetectAndCutoutFace(img);
 }
 
-// 5. 🌟 [REA 역배열 흡수] 실사 가상피팅 & 화보 보정 (POST /api/real-vton-render 직통 브릿지)
-async function applyRealVtonStudioLook() {
-  const profile = window.currentProfileName || 'haesang';
-  const outfitNum = window.currentWardrobeNum || 1;
-
-  try {
-    const res = await fetch('/api/real-vton-render', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ profile, outfitNum })
-    });
-    const data = await res.json();
-    if (data.success) {
-      window.vtonFilterIntensity = 1.25;
-      window.cachedCutoutCanvas = null; // 최신 뷰티 보정 재적용
-      drawMainFittingAvatar();
-      if (typeof showToast === 'function') {
-        showToast(`✨ [EPIK Real-VTON]: ${data.outfitMeta.name} 실사 화보 보정이 완료되었습니다!`, 'success');
-      }
-    }
-  } catch (err) {
-    window.vtonFilterIntensity = 1.2;
-    drawMainFittingAvatar();
-    if (typeof showToast === 'function') {
-      showToast('✨ [EPIK Real-VTON]: 실사 화보 매거진 필터가 적용되었습니다!', 'success');
-    }
-  }
-}
-
-// 6. 10벌 시그니처 의상 착장 변경
+// 8. 10벌 시그니처 의상 착장 변경
 function applyWardrobeOutfit(outfitNum) {
   window.currentWardrobeNum = outfitNum;
+  window.hasCustomCloth = false; // 기본 10벌 선택 시 커스텀 모드 해제
 
   const outfitsMeta = {
     1: { name: '🌸 [1번] K-하이틴 핑크 가디건 & 플리츠 스커트', top: '#f43f5e', bottom: '#2563eb', style: 'pleats_skirt' },
@@ -3957,7 +4070,7 @@ function applyWardrobeOutfit(outfitNum) {
   }
 }
 
-// 7. 모바일 핀치 줌 인터랙션
+// 9. 모바일 핀치 줌 인터랙션
 function initPinchZoomInteraction(canvasId) {
   const canvas = document.getElementById(canvasId || 'main-fitting-canvas');
   if (!canvas || canvas.dataset.pinchZoomInitialized) return;
@@ -3994,7 +4107,7 @@ function initPinchZoomInteraction(canvasId) {
   });
 }
 
-// 8. 언제나 직접 터치 & 마우스 드래그 이동 (별도 모드 토글 불필요!)
+// 10. 언제나 직접 터치 & 마우스 드래그 이동
 function initFaceTouchDragInteraction(canvasId) {
   const canvas = document.getElementById(canvasId || 'main-fitting-canvas');
   if (!canvas || canvas.dataset.dragInitialized) return;
@@ -4017,7 +4130,6 @@ function initFaceTouchDragInteraction(canvasId) {
     const totalDx = clientX - startX;
     const totalDy = clientY - startY;
 
-    // 수평 이동이 크면 얼굴 드래그, 수직 스크롤은 자연스럽게 유지
     if (Math.abs(totalDx) > Math.abs(totalDy) * 0.7 || Math.abs(totalDy) > 25) {
       const dx = clientX - lastTouchX;
       const dy = clientY - lastTouchY;
@@ -4062,8 +4174,8 @@ function initFaceTouchDragInteraction(canvasId) {
   window.addEventListener('mouseup', onEnd);
 }
 
-// 9. 🔥 [v5.0 Photorealistic Full-Body Fashion Studio 렌더러]
-function drawMainFittingAvatar() {
+// 11. 🔥 [포토샵 2025 실사 의상 셰이딩 & 인물 딥-블렌딩 렌더러: renderPhotoshopAISwap]
+function renderPhotoshopAISwap() {
   const canvas = document.getElementById('main-fitting-canvas') || document.getElementById('app-fitting-canvas');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
@@ -4073,28 +4185,32 @@ function drawMainFittingAvatar() {
 
   ctx.clearRect(0, 0, w, h);
 
-  // 1. 하이엔드 패션 스튜디오 소프트박스 런웨이 배경
+  // 1. 아웃포커싱 스튜디오 보케(Bokeh) & 림라이트 배경
   const bgGrad = ctx.createLinearGradient(0, 0, 0, h);
   bgGrad.addColorStop(0, '#040711');
-  bgGrad.addColorStop(0.35, '#0a1226');
-  bgGrad.addColorStop(0.7, '#060a16');
-  bgGrad.addColorStop(1, '#020308');
+  bgGrad.addColorStop(0.35, '#0b1328');
+  bgGrad.addColorStop(0.7, '#070b18');
+  bgGrad.addColorStop(1, '#020409');
   ctx.fillStyle = bgGrad;
   ctx.fillRect(0, 0, w, h);
 
-  // 스튜디오 듀얼 소프트박스 림라이트 (양옆 조명 빔)
+  // 스튜디오 아웃포커싱 보케 조명 구형 파티클 (Depth of Field)
   ctx.save();
-  const leftRim = ctx.createRadialGradient(cx - 140, h * 0.35, 10, cx - 140, h * 0.35, 180);
-  leftRim.addColorStop(0, 'rgba(244, 63, 94, 0.15)');
-  leftRim.addColorStop(1, 'transparent');
-  ctx.fillStyle = leftRim;
-  ctx.fillRect(0, 0, w, h);
-
-  const rightRim = ctx.createRadialGradient(cx + 140, h * 0.35, 10, cx + 140, h * 0.35, 180);
-  rightRim.addColorStop(0, 'rgba(59, 130, 246, 0.15)');
-  rightRim.addColorStop(1, 'transparent');
-  ctx.fillStyle = rightRim;
-  ctx.fillRect(0, 0, w, h);
+  const bokehs = [
+    { x: cx - 120, y: 90, r: 45, c: 'rgba(244, 63, 94, 0.12)' },
+    { x: cx + 110, y: 130, r: 60, c: 'rgba(59, 130, 246, 0.12)' },
+    { x: cx - 60, y: 220, r: 35, c: 'rgba(168, 85, 247, 0.09)' },
+    { x: cx + 80, y: 280, r: 50, c: 'rgba(251, 191, 36, 0.08)' }
+  ];
+  for (const b of bokehs) {
+    const g = ctx.createRadialGradient(b.x, b.y, 5, b.x, b.y, b.r);
+    g.addColorStop(0, b.c);
+    g.addColorStop(1, 'transparent');
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+    ctx.fill();
+  }
   ctx.restore();
 
   // 2. 바닥 3D 런웨이 스포트라이트
@@ -4146,7 +4262,7 @@ function drawMainFittingAvatar() {
   };
   const outfit = outfitsColors[window.currentWardrobeNum || 1];
 
-  // 5. 뒷머리 헤어 볼륨 (소녀/여성 모드일 때 긴 머리 실사 음영)
+  // 5. 뒷머리 헤어 볼륨
   if (window.targetGender === 'female' && !isBackView) {
     ctx.save();
     const hairBgGrad = ctx.createLinearGradient(cx - headRadius * 1.2, headY, cx + headRadius * 1.2, headY + torsoH * 0.9);
@@ -4164,7 +4280,7 @@ function drawMainFittingAvatar() {
     ctx.restore();
   }
 
-  // 6. 하체 실사 패브릭 & 주름 셰이딩
+  // 6. 하체 실사 셰이딩
   ctx.save();
   const legShift = sinYaw * 10;
   const legWidth = (18 * widthFactor) * (0.55 + 0.45 * Math.abs(cosYaw));
@@ -4191,7 +4307,6 @@ function drawMainFittingAvatar() {
     ctx.closePath();
     ctx.fill();
 
-    // 3D 플리츠 주름 입체 명암선
     for (let f = -skirtBottomW * 0.85; f <= skirtBottomW * 0.85; f += 14) {
       ctx.strokeStyle = 'rgba(0,0,0,0.35)';
       ctx.lineWidth = 1.6;
@@ -4208,7 +4323,6 @@ function drawMainFittingAvatar() {
       ctx.stroke();
     }
 
-    // 인체 각선미 피부 명암
     const skinGrad = ctx.createLinearGradient(cx - legWidth, 0, cx + legWidth, 0);
     skinGrad.addColorStop(0, '#fde2ce');
     skinGrad.addColorStop(0.5, '#fce7d8');
@@ -4265,111 +4379,113 @@ function drawMainFittingAvatar() {
     ctx.stroke();
   }
 
-  // 3D 럭셔리 슈즈
+  // 3D 구두
   ctx.fillStyle = '#090d16';
   ctx.beginPath();
   ctx.roundRect(cx - projShoulderW * 0.46 + legShift * 0.5, headY + headRadius + torsoH + legH - 10, legWidth + 6, 12, [5, 8, 3, 3]);
   ctx.roundRect(cx + projShoulderW * 0.46 - legWidth - 6 - legShift * 0.5, headY + headRadius + torsoH + legH - 10, legWidth + 6, 12, [5, 8, 3, 3]);
   ctx.fill();
-
-  ctx.fillStyle = 'rgba(255,255,255,0.3)';
-  ctx.fillRect(cx - projShoulderW * 0.44 + legShift * 0.5, headY + headRadius + torsoH + legH - 8, legWidth * 0.4, 2);
-  ctx.fillRect(cx + projShoulderW * 0.46 - legWidth - 4 - legShift * 0.5, headY + headRadius + torsoH + legH - 8, legWidth * 0.4, 2);
   ctx.restore();
 
-  // 7. 상체 실사 패브릭 & S라인/테일러드 셰이딩
+  // 7. 상체 실사 의상 셰이딩 (또는 커스텀 옷 사진 워핑 합성)
   ctx.save();
   const shoulderY = headY + headRadius - 2;
 
-  const top3DGrad = ctx.createLinearGradient(cx - projShoulderW, 0, cx + projShoulderW, 0);
-  top3DGrad.addColorStop(0, outfit.top);
-  top3DGrad.addColorStop(0.3, '#ffffff22');
-  top3DGrad.addColorStop(0.5, outfit.top);
-  top3DGrad.addColorStop(1, '#00000055');
-
-  ctx.fillStyle = top3DGrad;
-  ctx.shadowColor = 'rgba(0,0,0,0.35)';
-  ctx.shadowBlur = 8;
-  ctx.shadowOffsetY = 4;
-
-  if (window.targetGender === 'female') {
-    const waistW = projShoulderW * 0.68;
-    const hipW = projShoulderW * 0.88;
-    const waistY = shoulderY + torsoH * 0.58;
-    const hipY = shoulderY + torsoH;
-
-    ctx.beginPath();
-    ctx.moveTo(cx - projShoulderW, shoulderY + 8);
-    ctx.bezierCurveTo(cx - projShoulderW * 0.6, shoulderY - 2, cx - 18, shoulderY + 2, cx, shoulderY + 4);
-    ctx.bezierCurveTo(cx + 18, shoulderY + 2, cx + projShoulderW * 0.6, shoulderY - 2, cx + projShoulderW, shoulderY + 8);
-    ctx.bezierCurveTo(cx + projShoulderW * 1.05, shoulderY + 25, cx + projShoulderW * 0.95, waistY - 15, cx + waistW, waistY);
-    ctx.bezierCurveTo(cx + waistW * 0.95, waistY + 15, cx + hipW * 0.95, hipY - 10, cx + hipW, hipY);
-    ctx.lineTo(cx - hipW, hipY);
-    ctx.bezierCurveTo(cx - hipW * 0.95, hipY - 10, cx - waistW * 0.95, waistY + 15, cx - waistW, waistY);
-    ctx.bezierCurveTo(cx - projShoulderW * 0.95, waistY - 15, cx - projShoulderW * 1.05, shoulderY + 25, cx - projShoulderW, shoulderY + 8);
-    ctx.closePath();
-    ctx.fill();
-
+  if (window.hasCustomCloth && window.cachedClothCanvas) {
+    // 👚 [커스텀 옷 사진 워핑 합성]
+    const clothW = projShoulderW * 2.3;
+    const clothH = torsoH * 1.15;
+    ctx.drawImage(window.cachedClothCanvas, cx - clothW * 0.5, shoulderY, clothW, clothH);
   } else {
-    const waistW = projShoulderW * 0.85;
-    ctx.beginPath();
-    ctx.moveTo(cx - projShoulderW, shoulderY + 6);
-    ctx.lineTo(cx + projShoulderW, shoulderY + 6);
-    ctx.bezierCurveTo(cx + projShoulderW, shoulderY + 40, cx + waistW * 1.05, shoulderY + torsoH * 0.7, cx + waistW, shoulderY + torsoH);
-    ctx.lineTo(cx - waistW, shoulderY + torsoH);
-    ctx.bezierCurveTo(cx - waistW * 1.05, shoulderY + torsoH * 0.7, cx - projShoulderW, shoulderY + 40, cx - projShoulderW, shoulderY + 6);
-    ctx.closePath();
-    ctx.fill();
-  }
-  ctx.shadowColor = 'transparent';
+    // 10벌 시그니처 의상 실사 볼륨 렌더링
+    const top3DGrad = ctx.createLinearGradient(cx - projShoulderW, 0, cx + projShoulderW, 0);
+    top3DGrad.addColorStop(0, outfit.top);
+    top3DGrad.addColorStop(0.3, '#ffffff22');
+    top3DGrad.addColorStop(0.5, outfit.top);
+    top3DGrad.addColorStop(1, '#00000055');
 
-  // 이너 & V존 & 단추 광택
-  if (!isBackView) {
-    const vOffset = sinYaw * (projShoulderW * 0.35);
-    ctx.fillStyle = '#ffffff';
-    ctx.beginPath();
-    ctx.moveTo(cx + vOffset - 11 * Math.abs(cosYaw), shoulderY);
-    ctx.lineTo(cx + vOffset + 11 * Math.abs(cosYaw), shoulderY);
-    ctx.lineTo(cx + vOffset, shoulderY + 36);
-    ctx.closePath();
-    ctx.fill();
+    ctx.fillStyle = top3DGrad;
+    ctx.shadowColor = 'rgba(0,0,0,0.35)';
+    ctx.shadowBlur = 8;
+    ctx.shadowOffsetY = 4;
 
-    ctx.fillStyle = outfit.accent;
-    ctx.beginPath();
-    ctx.arc(cx + vOffset, shoulderY + 12, 5, 0, Math.PI * 2);
-    ctx.fill();
+    if (window.targetGender === 'female') {
+      const waistW = projShoulderW * 0.68;
+      const hipW = projShoulderW * 0.88;
+      const waistY = shoulderY + torsoH * 0.58;
+      const hipY = shoulderY + torsoH;
 
-    ctx.fillStyle = '#fef08a';
-    for (let b = 0; b < 3; b++) {
       ctx.beginPath();
-      ctx.arc(cx + vOffset, shoulderY + 45 + b * 22, 2.5, 0, Math.PI * 2);
+      ctx.moveTo(cx - projShoulderW, shoulderY + 8);
+      ctx.bezierCurveTo(cx - projShoulderW * 0.6, shoulderY - 2, cx - 18, shoulderY + 2, cx, shoulderY + 4);
+      ctx.bezierCurveTo(cx + 18, shoulderY + 2, cx + projShoulderW * 0.6, shoulderY - 2, cx + projShoulderW, shoulderY + 8);
+      ctx.bezierCurveTo(cx + projShoulderW * 1.05, shoulderY + 25, cx + projShoulderW * 0.95, waistY - 15, cx + waistW, waistY);
+      ctx.bezierCurveTo(cx + waistW * 0.95, waistY + 15, cx + hipW * 0.95, hipY - 10, cx + hipW, hipY);
+      ctx.lineTo(cx - hipW, hipY);
+      ctx.bezierCurveTo(cx - hipW * 0.95, hipY - 10, cx - waistW * 0.95, waistY + 15, cx - waistW, waistY);
+      ctx.bezierCurveTo(cx - projShoulderW * 0.95, waistY - 15, cx - projShoulderW * 1.05, shoulderY + 25, cx - projShoulderW, shoulderY + 8);
+      ctx.closePath();
+      ctx.fill();
+    } else {
+      const waistW = projShoulderW * 0.85;
+      ctx.beginPath();
+      ctx.moveTo(cx - projShoulderW, shoulderY + 6);
+      ctx.lineTo(cx + projShoulderW, shoulderY + 6);
+      ctx.bezierCurveTo(cx + projShoulderW, shoulderY + 40, cx + waistW * 1.05, shoulderY + torsoH * 0.7, cx + waistW, shoulderY + torsoH);
+      ctx.lineTo(cx - waistW, shoulderY + torsoH);
+      ctx.bezierCurveTo(cx - waistW * 1.05, shoulderY + torsoH * 0.7, cx - projShoulderW, shoulderY + 40, cx - projShoulderW, shoulderY + 6);
+      ctx.closePath();
       ctx.fill();
     }
+    ctx.shadowColor = 'transparent';
+
+    if (!isBackView) {
+      const vOffset = sinYaw * (projShoulderW * 0.35);
+      ctx.fillStyle = '#ffffff';
+      ctx.beginPath();
+      ctx.moveTo(cx + vOffset - 11 * Math.abs(cosYaw), shoulderY);
+      ctx.lineTo(cx + vOffset + 11 * Math.abs(cosYaw), shoulderY);
+      ctx.lineTo(cx + vOffset, shoulderY + 36);
+      ctx.closePath();
+      ctx.fill();
+
+      ctx.fillStyle = outfit.accent;
+      ctx.beginPath();
+      ctx.arc(cx + vOffset, shoulderY + 12, 5, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.fillStyle = '#fef08a';
+      for (let b = 0; b < 3; b++) {
+        ctx.beginPath();
+        ctx.arc(cx + vOffset, shoulderY + 45 + b * 22, 2.5, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    // 분리형 두 팔 & 손
+    const armW = 14 * widthFactor;
+    const sleeveGrad = ctx.createLinearGradient(cx - projShoulderW - armW, 0, cx - projShoulderW, 0);
+    sleeveGrad.addColorStop(0, outfit.top);
+    sleeveGrad.addColorStop(1, '#00000044');
+
+    ctx.fillStyle = sleeveGrad;
+    ctx.beginPath();
+    ctx.roundRect(cx - projShoulderW - armW * 0.7, shoulderY + 10, armW, torsoH * 0.82, [8, 4, 6, 6]);
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.roundRect(cx + projShoulderW - armW * 0.3, shoulderY + 10, armW, torsoH * 0.82, [4, 8, 6, 6]);
+    ctx.fill();
+
+    ctx.fillStyle = window.mainSkinTone || '#fce7d8';
+    ctx.beginPath();
+    ctx.ellipse(cx - projShoulderW - armW * 0.2, shoulderY + torsoH * 0.85, 4.5, 7, 0, 0, Math.PI * 2);
+    ctx.ellipse(cx + projShoulderW + armW * 0.2, shoulderY + torsoH * 0.85, 4.5, 7, 0, 0, Math.PI * 2);
+    ctx.fill();
   }
-
-  // 8. 분리형 3D 입체 두 팔과 소매, 손
-  const armW = 14 * widthFactor;
-  const sleeveGrad = ctx.createLinearGradient(cx - projShoulderW - armW, 0, cx - projShoulderW, 0);
-  sleeveGrad.addColorStop(0, outfit.top);
-  sleeveGrad.addColorStop(1, '#00000044');
-
-  ctx.fillStyle = sleeveGrad;
-  ctx.beginPath();
-  ctx.roundRect(cx - projShoulderW - armW * 0.7, shoulderY + 10, armW, torsoH * 0.82, [8, 4, 6, 6]);
-  ctx.fill();
-
-  ctx.beginPath();
-  ctx.roundRect(cx + projShoulderW - armW * 0.3, shoulderY + 10, armW, torsoH * 0.82, [4, 8, 6, 6]);
-  ctx.fill();
-
-  ctx.fillStyle = window.mainSkinTone || '#fce7d8';
-  ctx.beginPath();
-  ctx.ellipse(cx - projShoulderW - armW * 0.2, shoulderY + torsoH * 0.85, 4.5, 7, 0, 0, Math.PI * 2);
-  ctx.ellipse(cx + projShoulderW + armW * 0.2, shoulderY + torsoH * 0.85, 4.5, 7, 0, 0, Math.PI * 2);
-  ctx.fill();
   ctx.restore();
 
-  // 9. 목 & 쇄골 (자연스러운 목선과 턱 그림자)
+  // 8. 목선 렌더링 & 포토샵 2025 Smart Contact Shadow (접촉 그림자)
   const faceCenterX = cx + sinYaw * (headRadius * 0.28) + (window.faceOffsetX || 0);
   const faceCenterY = headY + (window.faceOffsetY || 0);
   const curHeadRadius = headRadius * (window.faceScale || 1.0);
@@ -4388,21 +4504,25 @@ function drawMainFittingAvatar() {
   ctx.roundRect(cx - neckW * 0.5, neckY, neckW, neckH, [0, 0, 4, 4]);
   ctx.fill();
 
-  const neckShadow = ctx.createLinearGradient(0, neckY, 0, neckY + 10);
-  neckShadow.addColorStop(0, 'rgba(0,0,0,0.35)');
-  neckShadow.addColorStop(1, 'transparent');
-  ctx.fillStyle = neckShadow;
-  ctx.fillRect(cx - neckW * 0.5, neckY, neckW, 10);
+  // ① [포토샵 2025 Smart Neck & Collar Shadow] 옷깃 접촉 그림자
+  const shadowDepth = window.photoshopLightMatch.shadowDepth || 0.48;
+  const contactShadow = ctx.createRadialGradient(cx, neckY + neckH * 0.65, 3, cx, neckY + neckH * 0.65, neckW * 1.3);
+  contactShadow.addColorStop(0, `rgba(20, 10, 5, ${shadowDepth})`);
+  contactShadow.addColorStop(0.6, `rgba(20, 10, 5, ${shadowDepth * 0.4})`);
+  contactShadow.addColorStop(1, 'transparent');
+  ctx.fillStyle = contactShadow;
+  ctx.beginPath();
+  ctx.ellipse(cx, neckY + neckH * 0.7, neckW * 1.2, 8, 0, 0, Math.PI * 2);
+  ctx.fill();
   ctx.restore();
 
-  // 10. 🌟 [실제 얼굴 사진과 실사 화보 바디의 딥-블렌딩 합성]
+  // 9. 얼굴 실사 합성 (지능형 배경 삭제 & 포토샵 딥-블렌딩)
   if (!isBackView) {
     if (window.userFaceImage && window.userFaceImage.complete) {
       ctx.save();
       const processedCanvas = autoDetectAndCutoutFace(window.userFaceImage);
       const drawSrc = processedCanvas || window.userFaceImage;
 
-      // 부드러운 타원 헤어/얼굴 실루엣 클리핑
       ctx.beginPath();
       ctx.ellipse(faceCenterX, faceCenterY, curHeadRadius * 0.98, curHeadRadius * 1.05, 0, 0, Math.PI * 2);
       ctx.clip();
@@ -4437,6 +4557,11 @@ function drawMainFittingAvatar() {
   updateAngleDisplayBadge();
 }
 
+// 12. 별칭 함수 (drawMainFittingAvatar -> renderPhotoshopAISwap)
+function drawMainFittingAvatar() {
+  renderPhotoshopAISwap();
+}
+
 function updateAngleDisplayBadge() {
   const badge = document.getElementById('main-angle-display-badge');
   if (!badge) return;
@@ -4444,6 +4569,37 @@ function updateAngleDisplayBadge() {
   const pitch = Math.round(window.pitchTilt || 0);
   badge.innerHTML = `🔄 3D 360° 터치 회전 (좌우: ${yaw}° · 상하: ${pitch >= 0 ? '+' : ''}${pitch}°)`;
 }
+
+// 📸 얼굴 사진 보조 함수 정의
+function triggerFaceCameraPhoto() {
+  const inp = document.getElementById('face-camera-input') || document.getElementById('face-upload-input');
+  if (inp) inp.click();
+  const menu = document.getElementById('face-photo-menu');
+  if (menu) menu.classList.add('hidden');
+}
+
+function triggerFaceAlbumPhoto() {
+  const inp = document.getElementById('face-upload-input') || document.getElementById('face-camera-input');
+  if (inp) inp.click();
+  const menu = document.getElementById('face-photo-menu');
+  if (menu) menu.classList.add('hidden');
+}
+
+function resetFaceToIllustration() {
+  window.userFaceImage = null;
+  window.isFaceUploaded = false;
+  window.cachedCutoutCanvas = null;
+  window.lastCutoutSourceSrc = '';
+  const statusEl = document.getElementById('face-photo-status');
+  if (statusEl) statusEl.textContent = '🎨 일러스트 아바타 모드';
+  const menu = document.getElementById('face-photo-menu');
+  if (menu) menu.classList.add('hidden');
+  renderPhotoshopAISwap();
+}
+
+window.triggerFaceCameraPhoto = triggerFaceCameraPhoto;
+window.triggerFaceAlbumPhoto = triggerFaceAlbumPhoto;
+window.resetFaceToIllustration = resetFaceToIllustration;
 
 document.addEventListener('DOMContentLoaded', () => {
   initFaceTouchDragInteraction('main-fitting-canvas');

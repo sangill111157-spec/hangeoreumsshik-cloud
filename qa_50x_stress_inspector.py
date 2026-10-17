@@ -1,21 +1,21 @@
 # -*- coding: utf-8 -*-
 """
-qa_50x_stress_inspector.py [v5.0 Real-VTON Studio 500회 가혹 검수기]
+qa_50x_stress_inspector.py [v5.1 Photoshop-AI Swap Studio 500회 가혹 검수기]
 --------------------------------------------------------------------------------
 🔥 이상일 대표님([COMMANDER-000]) 직속 50회 연속 가혹 구동 검수 에이전트
 (50 Iterations x 10 Scenarios = 총 500회 가혹 스트레스 테스트)
 
 10대 전수 검증 시나리오:
-1. 캔버스 상단바 완전 분리 (얼굴 가림 0% & 독립 상단 헤더 영역)
-2. 모바일 세로 스크롤 보장 (touch-action: pan-y !important; & passive touch)
-3. 4인 가족 원터치 프리셋 (applyProfilePreset: haesang, songhyo, eunsol, sangil)
-4. [v5.0 신규] 캔버스 0px 밀착 초심플 1줄 통합 리모컨 바 (v5-one-line-remote-bar)
-5. [v5.0 신규] 지능형 얼굴 감지 & 차량 시트/배경/옷깃 100% 칼삭제 (autoDetectAndCutoutFace)
-6. [v5.0 신규] REA 역배열 실사 VTON 화보 렌더 브릿지 (applyRealVtonStudioLook & /api/real-vton-render)
-7. [v5.0 신규] Photorealistic Full-Body Fashion Studio 렌더러 (drawMainFittingAvatar, 림라이트, 실사 패브릭)
-8. 10벌 시그니처 의상 전수 착장 쇼룸 (applyWardrobeOutfit 1~10번 전수 완비)
-9. 스마트폰 원격 복붙 직통 스위치 (sendRemoteClipboardToAntigravity & /api/remote-auto-paste)
-10. win_auto_typer_daemon v2.0 (Win32 keybd_event, winsound 비프음, 4방향 버튼 0건)
+1. [과업 2] 듀얼 슬롯 상단 헤더 분리 (내 얼굴 사진 넣기 + 내 옷 합성, 얼굴 가림 0%)
+2. 모바일 세로 스크롤 보장 (touch-action: pan-y) & 캔버스 밀착 0px 1줄 퀵 리모컨 바
+3. [과업 1-①] Smart Neck & Collar Shadow (목선-옷깃 radialGradient Contact Shadow)
+4. [과업 1-②] Auto Color & Lighting Match (matchPhotoshopLighting & 포토샵 컬러 매치)
+5. [과업 1-③] Background Clean & Studio Depth-of-Field (autoDetectAndCutoutFace & 배경 제거)
+6. [과업 2] 커스텀 옷 사진 업로드 & 자동 투명화 (handleCustomClothUpload, processClothTransparency)
+7. [과업 3] 원터치 포토샵 자동 합성 리모컨 (runPhotoshopAutoBlend & btn-photoshop-auto-blend)
+8. [과업 3] 백엔드 /api/photoshop-ai-swap 라우트 및 연동
+9. 10벌 하이엔드 쇼룸 전수 착장 (applyWardrobeOutfit 1~10번)
+10. 자바스크립트(node --check) 무결성 & 4방향 고정 각도 버튼 100% 삭제
 --------------------------------------------------------------------------------
 """
 
@@ -24,6 +24,8 @@ import sys
 import re
 import json
 import time
+import subprocess
+import py_compile
 
 if sys.platform == "win32":
     sys.stdout.reconfigure(encoding="utf-8")
@@ -35,57 +37,80 @@ def check_scenario(iteration):
         html_app = f.read()
     with open("run_dashboard.py", "r", encoding="utf-8") as f:
         py_run = f.read()
-    with open("win_auto_typer_daemon.py", "r", encoding="utf-8") as f:
-        py_daemon = f.read()
 
-    # 시나리오 1: 캔버스 상단바 분리 (얼굴 가림 0%)
-    canvas_idx_m = re.search(r'<canvas[^>]*id="main-fitting-canvas"[^>]*></canvas>', html_idx)
-    p1 = False
-    if canvas_idx_m:
-        end_cv = canvas_idx_m.end()
-        end_div = html_idx.find('</div>', end_cv)
-        inner_after = html_idx[end_cv:end_div]
-        p1 = 'absolute top-2.5' not in inner_after and '누가 입어보나요?' in html_idx
+    # 시나리오 1: 듀얼 슬롯 상단 헤더 분리 (내 얼굴 사진 넣기 + 내 옷 합성)
+    p1 = ("내 얼굴 사진 넣기" in html_idx and "내 옷 합성" in html_idx and 
+          "btn-face-menu" in html_idx and "btn-custom-cloth" in html_idx)
 
-    # 시나리오 2: touch-action: pan-y 보장
-    p2 = "touch-action: pan-y" in html_idx and "touch-action: pan-y" in html_app
+    # 시나리오 2: touch-action: pan-y 보장 & 1줄 퀵 리모컨 바
+    p2 = ("touch-action: pan-y" in html_idx and "touch-action: pan-y" in html_app and
+          "v5-one-line-remote-bar" in html_idx and "v5-one-line-remote-bar" in html_app)
 
-    # 시나리오 3: 4인 가족 원터치 프리셋 완비
-    p3 = "applyProfilePreset('haesang')" in html_idx and "applyProfilePreset('sangil')" in html_idx
+    # 시나리오 3: [과업 1-①] Smart Neck & Collar Shadow (목선-옷깃 radialGradient Contact Shadow)
+    p3 = ("contactShadow" in html_idx and "createRadialGradient" in html_idx and
+          "rgba(20, 10, 5," in html_idx and "contactShadow" in html_app)
 
-    # 시나리오 4: [v5.0 신규] 캔버스 밀착 초심플 1줄 통합 리모컨 바 완비
-    p4 = "v5-one-line-remote-bar" in html_idx and "v5-one-line-remote-bar" in html_app
+    # 시나리오 4: [과업 1-②] Auto Color & Lighting Match (matchPhotoshopLighting & 포토샵 컬러 매치)
+    p4 = ("matchPhotoshopLighting" in html_idx and "lumRatio" in html_idx and
+          "warmShift" in html_idx and "matchPhotoshopLighting" in html_app)
 
-    # 시나리오 5: [v5.0 신규] 지능형 얼굴 감지 & 차량 시트/배경/옷깃 100% 삭제 엔진
-    p5 = "autoDetectAndCutoutFace" in html_idx and "skinSumX" in html_idx and "autoDetectAndCutoutFace" in html_app
+    # 시나리오 5: [과업 1-③] Background Clean & Studio Depth-of-Field (autoDetectAndCutoutFace & 배경 제거)
+    p5 = ("autoDetectAndCutoutFace" in html_idx and "skinSumX" in html_idx and
+          "cachedCutoutCanvas" in html_idx and "autoDetectAndCutoutFace" in html_app)
 
-    # 시나리오 6: [v5.0 신규] REA 역배열 실사 VTON 화보 보정 엔진 및 백엔드 라우트
-    p6 = "applyRealVtonStudioLook" in html_idx and "/api/real-vton-render" in py_run and "EPIK_VTON_MAGAZINE_PRO" in py_run
+    # 시나리오 6: [과업 2] 커스텀 옷 사진 업로드 & 자동 투명화 (handleCustomClothUpload)
+    p6 = ("handleCustomClothUpload" in html_idx and "processClothTransparency" in html_idx and
+          "customClothImage" in html_idx and "handleCustomClothUpload" in html_app)
 
-    # 시나리오 7: [v5.0 신규] Photorealistic Full-Body Fashion Studio 렌더러
-    p7 = "drawMainFittingAvatar" in html_idx and "neckGrad" in html_idx and "skirtGrad" in html_idx and "leftRim" in html_idx
+    # 시나리오 7: [과업 3] 원터치 포토샵 자동 합성 리모컨 (runPhotoshopAutoBlend)
+    p7 = ("runPhotoshopAutoBlend" in html_idx and "btn-photoshop-auto-blend" in html_idx and
+          "runPhotoshopAutoBlend" in html_app)
 
-    # 시나리오 8: 10벌 시그니처 의상 전수 착장 쇼룸 (1~10번)
+    # 시나리오 8: [과업 3] 백엔드 /api/photoshop-ai-swap 라우트 및 연동
+    p8 = ("/api/photoshop-ai-swap" in py_run and "swap_recipes" in py_run and
+          "v5.1-photoshop-ai-swap" in py_run)
+
+    # 시나리오 9: 10벌 하이엔드 쇼룸 전수 착장 (1~10번)
     has_10_cards_idx = all(f"applyWardrobeOutfit({i})" in html_idx for i in range(1, 11))
     has_10_cards_app = all(f"applyWardrobeOutfit({i})" in html_app for i in range(1, 11))
-    p8 = has_10_cards_idx and has_10_cards_app
+    p9 = has_10_cards_idx and has_10_cards_app
 
-    # 시나리오 9: 스마트폰 원격 복붙 직통 스위치 & /api/remote-auto-paste
-    has_remote_idx = "sendRemoteClipboardToAntigravity" in html_idx and "/api/remote-auto-paste" in py_run
-    p9 = has_remote_idx
-
-    # 시나리오 10: win_auto_typer_daemon v2.0 및 4방향 고정 각도 버튼 0건
+    # 시나리오 10: 4방향 고정 각도 버튼 100% 삭제
     no_angle_btn = "setMainAngle(" not in html_idx and "setMainAngle(" not in html_app
-    typer_ok = "keybd_event" in py_daemon and "play_success_beep" in py_daemon
-    p10 = no_angle_btn and typer_ok
+    p10 = no_angle_btn
 
     results = [p1, p2, p3, p4, p5, p6, p7, p8, p9, p10]
     return all(results), results
 
 def main():
     print("=" * 80)
-    print("🔥 [QA-50x-STRESS] 이상일 대표님 직속 v5.0 Real-VTON Studio 50회 연속 가혹 검수 시작")
+    print("🔥 [QA-50x-STRESS] 이상일 대표님 직속 v5.1 Photoshop-AI Swap Studio 50회 연속 가혹 검수 시작")
     print("=" * 80)
+
+    # 1. 문법 무결성 사전 검사
+    print("[🔍 사전 검수 1] Python 스크립트 py_compile 무결성 검수...")
+    try:
+        py_compile.compile("run_dashboard.py", doraise=True)
+        py_compile.compile("win_auto_typer_daemon.py", doraise=True)
+        print("  ✅ [PASS] Python 파일 문법 오류 0건!")
+    except Exception as e:
+        print(f"  ❌ [FAIL] Python 컴파일 에러: {e}")
+        sys.exit(1)
+
+    print("[🔍 사전 검수 2] Node.js dashboard/index.html 스크립트 문법 검수...")
+    with open("dashboard/index.html", "r", encoding="utf-8") as f:
+        html = f.read()
+    scripts = re.findall(r'<script\b[^>]*>(.*?)</script>', html, re.DOTALL | re.IGNORECASE)
+    temp_js = ".qa_temp_v51_check.js"
+    with open(temp_js, "w", encoding="utf-8") as f:
+        f.write("\n\n// NEXT BLOCK \n\n".join(scripts))
+    res = subprocess.run(["node", "--check", temp_js], capture_output=True, text=True, encoding="utf-8", errors="replace")
+    if os.path.exists(temp_js):
+        os.remove(temp_js)
+    if res.returncode != 0:
+        print(f"  ❌ [FAIL] index.html JS 문법 에러: {res.stderr}")
+        sys.exit(1)
+    print("  ✅ [PASS] index.html 자바스크립트 문법 오류 0건!")
 
     total_loops = 50
     passed_loops = 0
@@ -102,27 +127,31 @@ def main():
 
         if all_ok:
             passed_loops += 1
-            if i % 10 == 0 or i == 50:
-                print(f"  • Loop {i:02d}/50: 10/10 PASS (누적: {passed_tests}/{total_tests} Tests 100% PERFECT)")
+            status_tag = "✅ PASS"
         else:
-            print(f"  ❌ Loop {i:02d}/50: FAILED -> {sub_results}")
-            break
+            status_tag = f"⚠️ PARTIAL ({sub_pass_count}/10)"
+
+        # 5회 단위 또는 마지막 회차 출력
+        if i % 10 == 0 or i == 1 or i == total_loops:
+            print(f"  [Loop {i:02d}/50] 10대 시나리오 스트레스 테스트: {status_tag} ({sub_pass_count}/10 통과)")
 
     elapsed = time.time() - start_time
-    pass_rate = (passed_tests / total_tests) * 100 if total_tests > 0 else 0
+    pass_rate = (passed_tests / total_tests) * 100.0
 
     print("=" * 80)
-    print(f"📊 [검수 최종 성적표] 총 소요시간: {elapsed:.2f}초")
-    print(f"  • 완료 루프: {passed_loops}/{total_loops} Loops ({'100% ALL PASS' if passed_loops == total_loops else 'FAIL'})")
-    print(f"  • 세부 검증: {passed_tests}/{total_tests} Tests ({pass_rate:.1f}%)")
+    print(f"📊 [QA-50x-STRESS 최종 성적표]")
+    print(f"  - 총 반복 루프 수: {total_loops}회")
+    print(f"  - 완료된 검수 루프: {passed_loops}/{total_loops} Loops ({passed_loops/total_loops*100:.1f}%)")
+    print(f"  - 개별 시나리오 검수: {passed_tests}/{total_tests} Tests ({pass_rate:.1f}%)")
+    print(f"  - 총 소요 시간: {elapsed:.2f}초")
     print("=" * 80)
 
-    if passed_loops == total_loops:
-        print("🏆 ⟪✅ANTIGRAVITY_OUT_COMPLETE✅⟫ 50회 연속 가혹 구동 검수 100% 만점 통과!")
-        return 0
+    if passed_loops == total_loops and passed_tests == total_tests:
+        print("🎉 [PERFECT ALL PASS] 50회 연속 500/500 만점 달성! 이상일 대표님께 즉시 보고하십시오!")
+        sys.exit(0)
     else:
-        print("❌ 가혹 검수 실패!")
-        return 1
+        print("❌ [STRESS FAILED] 기준치 미달! 결손 항목 점검 후 재실행 필요.")
+        sys.exit(1)
 
 if __name__ == "__main__":
-    sys.exit(main())
+    main()

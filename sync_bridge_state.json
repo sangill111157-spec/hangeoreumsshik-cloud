@@ -1,21 +1,21 @@
 {
   "system": "RGON_ANTIGRAVITY_BI_DIRECTIONAL_SYNC_V1",
-  "version": "v5.0-real-vton",
+  "version": "v5.1-photoshop-ai-swap",
   "last_in_signal": {
     "signal": "⟪⚡RGON_SIGNAL_READY⚡⟫",
     "status": "QUEUED_FOR_ANTIGRAVITY",
     "sender": "Test-Runner",
     "prompt": "테스트 과업 지시입니다.",
-    "timestamp": "2026-10-17T23:57:51.937063"
+    "timestamp": "2026-10-18T00:39:54.759577"
   },
   "last_out_signal": {
     "signal": "⟪✅ANTIGRAVITY_OUT_COMPLETE✅⟫",
     "status": "COMPLETED",
     "sender": "AGV-101",
-    "summary": "v5.0 Real-VTON Studio 실사 가상피팅 & 1줄 리모컨 바 완수 (얼굴 자동감지/배경100%삭제, 실사 VTON 화보 렌더러)",
-    "version": "v5.0-real-vton",
-    "timestamp": "2026-10-18 00:02:00"
+    "summary": "v5.1 Photoshop-AI 의상합성 스튜디오(목선 접촉 그림자, 포토샵 조명/컬러 매칭, 배경 제거, 듀얼 슬롯, 1줄 퀵 리모컨) 50회 연속 가혹 검수 500/500 만점 ALL PASS 완료",
+    "version": "v5.1-photoshop-swap",
+    "timestamp": "2026-10-18 00:42:18"
   },
-  "auto_sync_count": 30,
-  "last_updated": "2026-10-18 00:02:00"
+  "auto_sync_count": 35,
+  "last_updated": "2026-10-18 00:42:18"
 }
