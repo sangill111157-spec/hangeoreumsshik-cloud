@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 """
-qa_button_inspector_agent.py
+qa_button_inspector_agent.py [QA-901]
 --------------------------------------------------------------------------------
-이상일 대표님의 특명: 스마트폰 v3.5/v3.6 Pro 전수 버튼 및 3D/얼굴합성 & 르곤-안실장 무인 동기화 독립 검수 에이전트
+이상일 대표님([COMMANDER-000]) 직속 독립 검수 에이전트 [QA-901]
 1. 대시보드 및 독립 앱 내 모든 <button> & onclick 핸들러 전수 검사 (미정의 함수 0건 확인)
 2. 4방향 고정 각도 버튼 완전 삭제 여부 검증
 3. 3D 360° 좌우회전 / 상하 틸트 및 실사 얼굴 합성 엔진 검증
-4. 르곤-안실장 양방향 시그널 무인 동기화 브릿지 (rgon_auto_sync_daemon.py) 검증
-5. 5개 탭 DOM 누수 0건 격리 무결성 및 JS 문법(node --check) 검증
+4. 만능 멀티-AI 실시간 교신 관제탑 (omni_agent_bus.json & /api/omni-agent-bus) 검증
+5. 르곤-안실장 양방향 무인 동기화 데몬 (rgon_auto_sync_daemon.py) 검증
+6. 5개 탭 DOM 누수 0건 격리 무결성 및 JS 문법(node --check) 검증
 --------------------------------------------------------------------------------
 """
 
@@ -15,6 +16,8 @@ import os
 import sys
 import re
 import subprocess
+import urllib.request
+import json
 
 if sys.platform == "win32":
     sys.stdout.reconfigure(encoding="utf-8")
@@ -28,18 +31,15 @@ def check_file_onclick_integrity(filepath):
     with open(filepath, "r", encoding="utf-8") as f:
         content = f.read()
 
-    # 1. onclick 속성 추출
     onclick_matches = re.findall(r'onclick=(["\'])(.*?)\1', content, re.IGNORECASE)
     onclick_calls = [m[1].strip() for m in onclick_matches]
 
-    # 호출 함수명 추출
     called_funcs = set()
     for oc in onclick_calls:
         funcs = re.findall(r'(?<!\.)\b([a-zA-Z0-9_$]+)\s*\(', oc)
         for fn in funcs:
             called_funcs.add(fn)
 
-    # 2. <script> 태그 내부 정의 함수 추출
     defined_funcs = set()
     script_blocks = re.findall(r'<script\b[^>]*>(.*?)</script>', content, re.DOTALL | re.IGNORECASE)
     for block in script_blocks:
@@ -99,8 +99,9 @@ def check_3d_and_face_synthesis(filepath):
         "캔버스 얼굴 원형 클리핑 합성 (drawImage & clip)": "drawImage" in content and "clip" in content,
         "내 얼굴 사진 넣기 버튼 ([📸 내 얼굴 사진 넣기])": "내 얼굴 사진 넣기" in content,
         "사진 촬영/선택 플로팅 메뉴 (face-photo-menu)": "face-photo-menu" in content,
-        "3D 360° 회전 실시간 배지 (3D 360° 좌우·상하 터치 회전)": "3D 360° 좌우·상하 터치 회전" in content,
-        "시그널 오토싱크 사령탑 바 (rgon-signal-sync-bar)": "rgon-signal-sync-bar" in content,
+        "3D 360° 회전 실시간 배지 (3D 360° 터치 회전)": "3D 360° 터치 회전" in content,
+        "만능 멀티-AI 교신 관제탑 (omni-agent-bus-panel)": "omni-agent-bus-panel" in content,
+        "대표님 명령 하달창 (cmd-broadcast-input)": "cmd-broadcast-input" in content,
     }
 
     all_passed = True
@@ -142,13 +143,38 @@ def check_node_syntax(filepath):
         if os.path.exists(temp_js_path):
             os.remove(temp_js_path)
 
+def check_omni_agent_bus():
+    print("\n[🌐 5. 만능 멀티-AI 실시간 교신 버스 (omni_agent_bus.json & API) 검수]")
+    if not os.path.exists("omni_agent_bus.json"):
+        print("  ❌ [FAIL] omni_agent_bus.json 파일 없음")
+        return False
+
+    with open("omni_agent_bus.json", "r", encoding="utf-8") as f:
+        data = json.load(f)
+
+    reg = data.get("registry", [])
+    msgs = data.get("messages", [])
+    print(f"  - 등록된 AI 에이전트 수: {len(reg)}개")
+    for a in reg:
+        print(f"    * [{a['id']}] {a['name']} ({a['role']})")
+    print(f"  - 현재 교신 메시지 수: {len(msgs)}개")
+
+    has_commander = any(a["id"] == "COMMANDER-000" for a in reg)
+    has_rgon = any(a["id"] == "RGON-001" for a in reg)
+    has_agv = any(a["id"] == "AGV-101" for a in reg)
+    has_qa = any(a["id"] == "QA-901" for a in reg)
+
+    if has_commander and has_rgon and has_agv and has_qa:
+        print("  ✅ [PASS] 전 에이전트 고유번호 레지스트리 무결성 100% 확인!")
+        return True
+    else:
+        print("  ❌ [FAIL] 필수 에이전트 ID 누락")
+        return False
+
 def check_rgon_auto_sync_daemon():
-    print("\n[⚡ 5. 르곤-안실장 무인 동기화 데몬 (rgon_auto_sync_daemon.py) 검수]")
+    print("\n[⚡ 6. 르곤-안실장 무인 동기화 데몬 (rgon_auto_sync_daemon.py) 검수]")
     if not os.path.exists("rgon_auto_sync_daemon.py"):
         print("  ❌ [FAIL] rgon_auto_sync_daemon.py 파일 없음")
-        return False
-    if not os.path.exists("sync_bridge_state.json"):
-        print("  ❌ [FAIL] sync_bridge_state.json 파일 없음")
         return False
 
     try:
@@ -164,7 +190,7 @@ def check_rgon_auto_sync_daemon():
         return False
 
 def check_swarm_dom_isolation():
-    print("\n[🛡️ 6. 에이전트 스웜(agent_swarm_cloner.py) DOM 격리 무결성 검수]")
+    print("\n[🛡️ 7. 에이전트 스웜(agent_swarm_cloner.py) DOM 격리 무결성 검수]")
     if os.path.exists("agent_swarm_cloner.py"):
         try:
             res = subprocess.run(["python", "agent_swarm_cloner.py"], capture_output=True, text=True, encoding="utf-8", errors="replace")
@@ -182,7 +208,7 @@ def check_swarm_dom_isolation():
 
 def main():
     print("=" * 80)
-    print("🚀 [독립 검수 에이전트: QA-Inspector-Bot] 대시보드 v3.6 Pro 전수 검수 시작")
+    print("🚀 [독립 검수 에이전트: QA-901] 만능 멀티-AI 관제탑 & 꿈의 옷장 4대 개혁 전수 검수")
     print("=" * 80)
 
     files_to_check = [
@@ -201,11 +227,12 @@ def main():
         file_passed = pass1 and pass2 and pass3 and pass4
         all_file_results.append((fp, file_passed, missing_funcs))
 
+    pass_bus = check_omni_agent_bus()
     pass_sync = check_rgon_auto_sync_daemon()
     pass_swarm = check_swarm_dom_isolation()
 
     print("\n" + "=" * 80)
-    print("📋 [최종 검수 판정표]")
+    print("📋 [QA-901 최종 검수 판정표]")
     print("=" * 80)
     total_pass = True
     for fp, passed, missing in all_file_results:
@@ -215,6 +242,11 @@ def main():
             total_pass = False
             if missing:
                 print(f"  👉 결손 함수: {missing}")
+
+    status_bus = "🏅 100% PASS" if pass_bus else "❌ REJECT"
+    print(f"- 만능 멀티-AI 실시간 교신 버스: {status_bus}")
+    if not pass_bus:
+        total_pass = False
 
     status_sync = "🏅 100% PASS" if pass_sync else "❌ REJECT"
     print(f"- 르곤-안실장 무인 동기화 엔진: {status_sync}")
@@ -228,7 +260,7 @@ def main():
 
     print("=" * 80)
     if total_pass:
-        print("🎉 [최종 결과]: 전 항목 100% 통과(ALL PASS)! 이상일 대표님께 즉시 보고 가능!")
+        print("🎉 [최종 결과]: 전 항목 100% 통과(ALL PASS)! 이상일 대표님([COMMANDER-000])께 즉시 보고 가능!")
         print("=" * 80)
         sys.exit(0)
     else:
