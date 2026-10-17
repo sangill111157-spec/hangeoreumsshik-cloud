@@ -221,7 +221,7 @@
         <div id="ota-version-badge" onclick="checkVersionAndUpdate(true)" title="클릭하여 즉시 업데이트 확인"
           class="cursor-pointer px-2 sm:px-2.5 py-1 rounded-lg bg-emerald-950/60 hover:bg-emerald-900 border border-emerald-500/40 text-emerald-300 text-xs flex items-center gap-1.5 transition font-mono font-semibold">
           <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-          <span id="ota-version-text">v3.1 Auto-Sync</span>
+          <span id="ota-version-text" class="font-bold text-amber-300">v3.3 Minimal [보이스스튜디오]</span>
         </div>
 
         <button onclick="openEmpireCouncilModal()" class="p-2 sm:px-3 sm:py-1 rounded-lg bg-gradient-to-r from-amber-600/30 to-purple-600/30 hover:from-amber-600/50 hover:to-purple-600/50 text-amber-300 border border-amber-500/40 text-xs flex items-center gap-1.5 transition font-bold shadow-lg shadow-amber-500/10">
@@ -1889,7 +1889,7 @@
           if (data.success && data.version_hash) {
             const vBadge = document.getElementById('ota-version-text');
             if (vBadge) {
-              vBadge.textContent = `${data.version || 'v3.1'} [${data.git_commit || 'Auto'}]`;
+              vBadge.textContent = `${data.version || 'v3.3 Minimal'} [보이스스튜디오]`;
             }
 
             if (!currentVersionHash) {

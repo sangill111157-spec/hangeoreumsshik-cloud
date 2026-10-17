@@ -287,7 +287,7 @@ def get_system_version_info() -> dict:
 
     return {
         "success": True,
-        "version": "v3.1-OTA",
+        "version": "v3.3-Minimal",
         "version_hash": f"{git_hash}-{version_hash}",
         "git_commit": git_hash,
         "html_hash": html_hash,
