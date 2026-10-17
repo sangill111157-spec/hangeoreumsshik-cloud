@@ -2133,6 +2133,44 @@ class DashboardHandler(SimpleHTTPRequestHandler):
                 self.wfile.write(json.dumps({"error": str(e), "success": False}).encode('utf-8'))
                 return
 
+        # 20. 📲 스마트폰 원격 복붙 ➔ 노트북 안실장 1초 직통 주입 (POST /api/remote-auto-paste)
+        if self.path == '/api/remote-auto-paste':
+            try:
+                content_len = int(self.headers.get('Content-Length', 0))
+                body = self.rfile.read(content_len).decode('utf-8')
+                data = json.loads(body)
+                prompt_text = data.get('text', '').strip()
+
+                if not prompt_text:
+                    res = {"success": False, "error": "전송할 텍스트가 비어있습니다."}
+                else:
+                    daemon_script = BASE_DIR / "win_auto_typer_daemon.py"
+                    subprocess.Popen(
+                        [sys.executable, str(daemon_script), "--remote-trigger"],
+                        stdin=subprocess.PIPE,
+                        creationflags=subprocess.CREATE_NO_WINDOW if sys.platform == 'win32' else 0
+                    ).communicate(input=prompt_text.encode('utf-8'), timeout=5)
+
+                    res = {
+                        "success": True,
+                        "message": "노트북 안실장에게 명령이 1초 만에 자동 전송 및 타건되었습니다!",
+                        "length": len(prompt_text)
+                    }
+
+                resp_bytes = json.dumps(res, ensure_ascii=False).encode('utf-8')
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.send_header("Content-Length", str(len(resp_bytes)))
+                self.end_headers()
+                self.wfile.write(resp_bytes)
+                return
+            except Exception as e:
+                self.send_response(500)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.end_headers()
+                self.wfile.write(json.dumps({"error": str(e), "success": False}).encode('utf-8'))
+                return
+
         self.send_response(404)
         self.end_headers()
 
