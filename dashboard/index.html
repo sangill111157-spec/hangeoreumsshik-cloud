@@ -1347,1091 +1347,372 @@
          TAB 4. 🎓 제4원: 올바른 AI 교육 육성 학교 & 정식 인증원 (Character & AI Ethics Academy)
     ══════════════════════════════════════════════════════════════ -->
     <div id="tab-daughters" class="tab-pane hidden p-4 sm:p-6 lg:p-8 space-y-6">
-      
-      <!-- Top Banner -->
-      <div class="rounded-2xl bg-gradient-to-r from-purple-950/60 via-slate-900/80 to-pink-950/50 p-5 border border-purple-500/30 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-xl bg-purple-500/20 text-purple-300 border border-purple-500/30 flex items-center justify-center text-xl">
-            🎓
-          </div>
+
+    <!-- 👗 [한걸음씩 상생나눔 제1호 무료 앱: 꿈의 옷장 (Ultra-Simple Minimal Luxury v3.3)] -->
+    <div class="max-w-4xl mx-auto space-y-4 font-sans text-slate-100 pb-16">
+
+      <!-- 👑 [Top Compact Header] (애플/토스 스타일 1줄 미니멀 헤더) -->
+      <div class="flex items-center justify-between px-3 py-2.5 rounded-2xl bg-slate-900/80 border border-slate-800 backdrop-blur-md">
+        <div class="flex items-center gap-2.5">
+          <span class="text-2xl p-1.5 rounded-xl bg-purple-600/30 text-purple-300 border border-purple-500/30">👗</span>
           <div>
-            <h2 class="text-base font-bold text-white">[제4원: 올바른 AI 인성학교 & 정식 인증원]</h2>
-            <p class="text-xs text-slate-400">세 딸(중3·중1·초5)과 청소년을 위한 4대 덕목 밸런스 게임 & 〈올바른 AI & 인성 리더 정식 인증서〉 발급소</p>
+            <div class="flex items-center gap-2">
+              <h3 class="text-sm sm:text-base font-black text-white tracking-tight">꿈의 옷장 <span class="text-xs font-normal text-slate-400">Dream Closet</span></h3>
+              <span onclick="forceBustMobileCache()" class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-400/20 text-amber-300 border border-amber-400/40 cursor-pointer hover:bg-amber-400/30 transition" title="터치 시 캐시 즉시 갱신">
+                v3.3 Minimal
+              </span>
+            </div>
+            <p class="text-[10px] text-slate-400 hidden sm:block">창안자: <b>이상일</b> 대표님 · 공동기획: <b>은솔·송효·해상</b> · 0원 상생나눔</p>
           </div>
         </div>
-        <div class="flex items-center gap-2">
-          <span class="px-3 py-1 rounded-full bg-purple-500/10 text-purple-400 border border-purple-500/30 text-xs font-semibold">
-            경우 · 공경 · 공감 · 나눔
-          </span>
-          <span class="px-3 py-1 rounded-full bg-pink-500/10 text-pink-400 border border-pink-500/30 text-xs font-semibold">
-            올바른 AI 윤리
-          </span>
+
+        <div class="flex items-center gap-1.5">
+          <button type="button" onclick="unlockMainFreePass()" class="px-2.5 py-1.5 rounded-xl bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 border border-amber-400/40 text-xs font-bold transition flex items-center gap-1 active:scale-95">
+            <span>⚡</span><span class="hidden sm:inline">프리패스</span>
+          </button>
+          <button type="button" onclick="registerDreamClosetCopyright()" class="p-1.5 sm:px-2.5 sm:py-1.5 rounded-xl bg-purple-600/20 hover:bg-purple-600/30 text-purple-300 border border-purple-500/30 text-xs font-medium transition active:scale-95" title="저작권 등기">
+            <span>📜</span><span class="hidden sm:inline">등기</span>
+          </button>
+          <a href="/api/download-dream-closet-app" download="dream_closet_future_master_app.html" class="p-1.5 sm:px-2.5 sm:py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-medium transition active:scale-95" title="앱 다운로드">
+            <span>📲</span><span class="hidden sm:inline">앱받기</span>
+          </a>
         </div>
       </div>
 
-      
-      <!-- 👗 [한걸음씩 상생나눔 제1호 무료 앱: 꿈의 옷장 (초격차 5대 마스터 모듈)] -->
-      <div class="glass-panel rounded-2xl p-5 border border-pink-500/50 bg-gradient-to-r from-slate-900/95 via-pink-950/20 to-slate-900/95 shadow-xl shadow-pink-950/20 space-y-5">
-        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-3 border-b border-pink-500/30">
-          <div class="flex items-center gap-3">
-            <span class="text-3xl p-2 rounded-2xl bg-gradient-to-tr from-pink-500 to-purple-600 text-white shadow-lg shadow-pink-500/30 shrink-0">👗</span>
+
+      <!-- 🎧 [Zone 1. 상단 1줄 Voice Bar] (ChatGPT Voice / 인스타 스토리형 원형 아이콘 바) -->
+      <div class="p-3 rounded-2xl bg-slate-900/60 border border-slate-800/80 backdrop-blur-md space-y-2">
+        <div class="flex items-center justify-between gap-2 overflow-x-auto no-scrollbar py-0.5">
+          <!-- 5대 성우 원형 아이콘 (터치 즉시 0.01초 Neural MP3 재생!) -->
+          <div class="flex items-center gap-2 sm:gap-3 shrink-0" id="voice-circle-bar">
+            <!-- 1. 디자이너 -->
+            <button type="button" onclick="selectStudioVoiceMinimal('designer')" id="mini-v-designer" class="flex flex-col items-center gap-1 group transition active:scale-90">
+              <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-full p-0.5 bg-gradient-to-tr from-amber-400 to-purple-600 shadow-md shadow-purple-900/40 transition ring-2 ring-amber-400">
+                <div class="w-full h-full rounded-full bg-slate-900 flex items-center justify-center text-lg sm:text-xl">👩🎨</div>
+              </div>
+              <span class="text-[10px] font-bold text-amber-300">디자이너</span>
+            </button>
+
+            <!-- 2. 하이틴 -->
+            <button type="button" onclick="selectStudioVoiceMinimal('highteen')" id="mini-v-highteen" class="flex flex-col items-center gap-1 group transition active:scale-90 opacity-70 hover:opacity-100">
+              <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-full p-0.5 bg-slate-800 transition">
+                <div class="w-full h-full rounded-full bg-slate-900 flex items-center justify-center text-lg sm:text-xl">💖</div>
+              </div>
+              <span class="text-[10px] text-slate-400">하이틴</span>
+            </button>
+
+            <!-- 3. 젠틀맨 -->
+            <button type="button" onclick="selectStudioVoiceMinimal('gentleman')" id="mini-v-gentleman" class="flex flex-col items-center gap-1 group transition active:scale-90 opacity-70 hover:opacity-100">
+              <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-full p-0.5 bg-slate-800 transition">
+                <div class="w-full h-full rounded-full bg-slate-900 flex items-center justify-center text-lg sm:text-xl">🤵</div>
+              </div>
+              <span class="text-[10px] text-slate-400">젠틀맨</span>
+            </button>
+
+            <!-- 4. 힐링DJ -->
+            <button type="button" onclick="selectStudioVoiceMinimal('dj')" id="mini-v-dj" class="flex flex-col items-center gap-1 group transition active:scale-90 opacity-70 hover:opacity-100">
+              <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-full p-0.5 bg-slate-800 transition">
+                <div class="w-full h-full rounded-full bg-slate-900 flex items-center justify-center text-lg sm:text-xl">🌙</div>
+              </div>
+              <span class="text-[10px] text-slate-400">힐링DJ</span>
+            </button>
+
+            <!-- 5. 2035나 -->
+            <button type="button" onclick="selectStudioVoiceMinimal('future')" id="mini-v-future" class="flex flex-col items-center gap-1 group transition active:scale-90 opacity-70 hover:opacity-100">
+              <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-full p-0.5 bg-slate-800 transition">
+                <div class="w-full h-full rounded-full bg-slate-900 flex items-center justify-center text-lg sm:text-xl">🚀</div>
+              </div>
+              <span class="text-[10px] text-slate-400">2035나</span>
+            </button>
+          </div>
+
+          <!-- 음성 액션 버튼 (미리듣기 / 마이크 / 튜닝) -->
+          <div class="flex items-center gap-1.5 shrink-0 pl-2 border-l border-slate-800">
+            <button type="button" onclick="playSelectedStudioVoice('')" id="btn-quick-play-voice" class="w-9 h-9 rounded-xl bg-purple-600/30 hover:bg-purple-600/50 text-purple-200 border border-purple-500/40 flex items-center justify-center text-base transition active:scale-95" title="성우 목소리 듣기">
+              <span id="voice-play-icon">🔊</span>
+            </button>
+            <button type="button" onclick="toggleMainVoiceSTT()" id="main-btn-mic-stt" class="w-9 h-9 rounded-xl bg-pink-600/30 hover:bg-pink-600/50 text-pink-200 border border-pink-500/40 flex items-center justify-center text-base transition active:scale-95" title="마이크로 말하기">
+              🎙️
+            </button>
+            <button type="button" onclick="toggleVoiceTuningBar()" class="w-9 h-9 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 flex items-center justify-center text-xs transition active:scale-95" title="톤/속도 조절">
+              🎛️
+            </button>
+          </div>
+        </div>
+
+        <!-- 미니 튜닝 바 (기본 숨김, 🎛️ 누를 때만 펼쳐짐) -->
+        <div id="voice-tuning-bar" class="hidden pt-2 border-t border-slate-800/80 grid grid-cols-2 gap-3 text-xs">
+          <div>
+            <div class="flex justify-between text-[11px] text-slate-400 mb-1">
+              <span>톤(Pitch)</span><span id="voice-pitch-label" class="text-amber-300">0Hz</span>
+            </div>
+            <input type="range" id="voice-pitch-slider" min="-15" max="15" value="0" step="1" oninput="updateStudioVoiceSettings('')" class="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-amber-400">
+          </div>
+          <div>
+            <div class="flex justify-between text-[11px] text-slate-400 mb-1">
+              <span>속도(Speed)</span><span id="voice-rate-label" class="text-amber-300">1.0x</span>
+            </div>
+            <input type="range" id="voice-rate-slider" min="0.8" max="1.3" value="1.0" step="0.05" oninput="updateStudioVoiceSettings('')" class="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-amber-400">
+          </div>
+        </div>
+      </div>
+
+
+      <!-- 👗 [Zone 2. 중앙 메인 Canvas] (지그재그·제페토 스타일 시원한 풀뷰 피팅 캔버스) -->
+      <div class="p-3.5 sm:p-5 rounded-3xl bg-slate-900/50 border border-slate-800/80 shadow-2xl relative space-y-3">
+
+        <!-- 캔버스 상단 세그먼트 (각도 & 모드) -->
+        <div class="flex items-center justify-between flex-wrap gap-2 text-xs">
+          <!-- 4방향 각도 -->
+          <div class="flex items-center gap-1 p-1 rounded-xl bg-slate-950/80 border border-slate-800">
+            <button type="button" onclick="setMainAngle(0)" id="main-angle-btn-0" class="px-2.5 py-1 rounded-lg bg-purple-600 text-white font-bold text-[11px] transition">정면</button>
+            <button type="button" onclick="setMainAngle(90)" id="main-angle-btn-90" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white text-[11px] transition">좌측</button>
+            <button type="button" onclick="setMainAngle(180)" id="main-angle-btn-180" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white text-[11px] transition">후면</button>
+            <button type="button" onclick="setMainAngle(270)" id="main-angle-btn-270" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white text-[11px] transition">우측</button>
+          </div>
+
+          <!-- 모드 전환 (피팅 / 2035미래 / 가족룩) -->
+          <div class="flex items-center gap-1 p-1 rounded-xl bg-slate-950/80 border border-slate-800">
+            <button type="button" onclick="switchMainFittingSubTab('fitting')" id="tab-sub-fitting" class="px-2.5 py-1 rounded-lg bg-purple-600 text-white font-bold text-[11px] transition">피팅</button>
+            <button type="button" onclick="switchMainFittingSubTab('future')" id="tab-sub-future" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white text-[11px] transition">🔮 2035</button>
+            <button type="button" onclick="switchMainFittingSubTab('family')" id="tab-sub-family" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white text-[11px] transition">👨‍👧‍👧 가족룩</button>
+          </div>
+
+          <!-- 내 얼굴 합성 인풋 -->
+          <label class="px-2.5 py-1 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 text-[11px] cursor-pointer transition flex items-center gap-1 active:scale-95">
+            <span>📸</span><span>내 얼굴</span>
+            <input type="file" id="main-face-upload" accept="image/*" class="hidden">
+          </label>
+        </div>
+
+        <!-- 👑 풀뷰 캔버스 뷰포트 -->
+        <div class="w-full max-w-[420px] mx-auto aspect-[3/4] max-h-[460px] rounded-2xl bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 border border-slate-800 shadow-inner relative overflow-hidden flex items-center justify-center">
+          <canvas id="main-fitting-canvas" width="450" height="600" class="w-full h-full object-contain"></canvas>
+
+          <!-- 캔버스 오버레이 자막 바 -->
+          <div class="absolute bottom-2.5 left-2.5 right-2.5 px-3 py-1.5 rounded-xl bg-slate-950/85 backdrop-blur-md border border-slate-800/80 flex items-center justify-between text-[11px] text-slate-300 shadow-md">
+            <span id="main-look-label" class="font-medium truncate">👔 화이트 베이직 & 슬림 데님</span>
+            <span id="main-angle-label" class="font-mono text-purple-400 shrink-0 ml-2">0° FRONT</span>
+          </div>
+        </div>
+
+        <!-- 캔버스 하단: 가로 스크롤 원터치 룩 캡슐 바 -->
+        <div class="space-y-1.5 pt-1">
+          <div class="flex items-center justify-between text-[11px] text-slate-400 px-1">
+            <span>원터치 스타일 코디</span>
+            <span class="text-purple-300 text-[10px]">가로로 밀어서 선택 ➔</span>
+          </div>
+          <div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1 text-xs">
+            <button type="button" onclick="applyQuickLook('basic')" class="px-3.5 py-1.5 rounded-full bg-purple-600/30 hover:bg-purple-600/50 text-white border border-purple-400/50 font-bold shrink-0 transition active:scale-95">
+              #기본캐주얼
+            </button>
+            <button type="button" onclick="applyQuickLook('highteen')" class="px-3.5 py-1.5 rounded-full bg-pink-600/20 hover:bg-pink-600/40 text-pink-200 border border-pink-500/30 font-bold shrink-0 transition active:scale-95">
+              #하이틴룩
+            </button>
+            <button type="button" onclick="applyQuickLook('suit')" class="px-3.5 py-1.5 rounded-full bg-amber-600/20 hover:bg-amber-600/40 text-amber-200 border border-amber-500/30 font-bold shrink-0 transition active:scale-95">
+              #청담VIP수트
+            </button>
+            <button type="button" onclick="applyQuickLook('future_ceo')" class="px-3.5 py-1.5 rounded-full bg-purple-600/20 hover:bg-purple-600/40 text-purple-200 border border-purple-500/30 font-bold shrink-0 transition active:scale-95">
+              #2035글로벌CEO
+            </button>
+            <button type="button" onclick="applyQuickLook('family')" class="px-3.5 py-1.5 rounded-full bg-emerald-600/20 hover:bg-emerald-600/40 text-emerald-200 border border-emerald-500/30 font-bold shrink-0 transition active:scale-95">
+              #가족시밀러룩
+            </button>
+            <button type="button" onclick="applyQuickLook('reform_0')" class="px-3.5 py-1.5 rounded-full bg-cyan-600/20 hover:bg-cyan-600/40 text-cyan-200 border border-cyan-500/30 font-bold shrink-0 transition active:scale-95">
+              #0원옷장리폼
+            </button>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- 🎮 [Zone 3. 하단 액션 Bar] (듀오링고 스타일 인성 해금 진행 바 & 팝업 퀴즈) -->
+      <div class="p-3.5 rounded-2xl bg-gradient-to-r from-purple-950/40 via-slate-900/80 to-slate-950 border border-purple-500/30 space-y-2.5">
+        <div class="flex items-center justify-between flex-wrap gap-2">
+          <div class="flex items-center gap-2">
+            <span class="text-xl">🌱</span>
             <div>
-              <div class="flex items-center gap-2 flex-wrap">
-                <span class="px-2 py-0.5 rounded text-[10px] font-black bg-gradient-to-r from-amber-400 to-pink-500 text-slate-950 font-outfit uppercase">Free 0 KRW · Global Masterpiece</span>
-                <h3 class="text-base font-black text-white">
-                  〈한걸음씩 상생나눔 제1호 무료 앱 : 꿈의 옷장 (Dream Closet)〉
-                </h3>
+              <div class="text-xs font-bold text-white flex items-center gap-1.5">
+                <span>인성 해금 상태:</span>
+                <span id="main-step-title" class="text-amber-300 font-extrabold">Step 3. 나눔과 공존 마스터</span>
               </div>
-              <p class="text-[11px] text-pink-200/90 mt-0.5">
-                창안자: <b>이상일</b> 대표님 | 공동 기획·검수: <b>이은솔(중3)·이송효(중1)·이해상(초5)</b> | 10년 초격차 미래지향 에듀-패션테크
-              </p>
+              <p class="text-[10px] text-slate-400">드라마틱 상황극 퀴즈를 풀고 특별 코디와 목소리를 해금하세요!</p>
             </div>
           </div>
-          <!-- Action Buttons Bar -->
-          <div class="flex items-center gap-1.5 flex-wrap">
-            <button type="button" onclick="unlockMainFreePass()" class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-amber-400 hover:to-yellow-300 text-slate-950 font-black text-xs shadow-md transition active:scale-95 flex items-center gap-1">
-              <span>⚡</span>
-              <span>[대표님 프리패스 전체 해금]</span>
-            </button>
-            <a href="/api/download-dream-closet-app" download="dream_closet_future_master_app.html" class="px-3 py-1.5 rounded-xl bg-purple-600/30 hover:bg-purple-600/50 text-purple-200 border border-purple-500/40 text-xs font-bold transition flex items-center gap-1">
-              <span>📲</span>
-              <span>독립 앱(.html) 다운로드</span>
-            </a>
-            <button type="button" onclick="registerDreamClosetCopyright()" class="px-2.5 py-1.5 rounded-xl bg-pink-600/30 hover:bg-pink-600/50 text-pink-200 border border-pink-500/40 text-xs font-bold transition flex items-center gap-1">
-              <span>📜</span>
-              <span>1초 저작권 등기</span>
-            </button>
-          </div>
+          <button type="button" onclick="toggleQuizPopup()" id="btn-toggle-quiz" class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-bold text-xs shadow-md shadow-purple-900/40 transition active:scale-95 flex items-center gap-1">
+            <span>🎓</span><span>인성 퀴즈 풀기</span>
+          </button>
         </div>
 
-        <!-- 🎛️ 4단계 인성 어드벤처 & 음성 해금 진행도 바 -->
-        
-        <!-- 🎧🔥 [5대 하이엔드 성우 & 트렌디 보이스 스튜디오 (모바일 최적화 골드/퍼플 네온 박스)] -->
-        <div class="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-purple-950/80 via-slate-900/95 to-amber-950/70 border-2 border-amber-400/80 shadow-2xl shadow-purple-900/40 space-y-3.5 my-3 relative overflow-hidden">
-          <div class="absolute -right-10 -top-10 w-32 h-32 bg-amber-500/10 rounded-full blur-2xl pointer-events-none"></div>
-          
-          <div class="flex items-center justify-between flex-wrap gap-2 pb-2.5 border-b border-amber-500/30">
-            <div class="flex items-center gap-2.5">
-              <span class="text-2xl p-2 rounded-xl bg-gradient-to-tr from-amber-400 to-pink-500 text-slate-950 font-black shadow-lg shadow-amber-500/30">🎧</span>
-              <div>
-                <div class="flex items-center gap-2 flex-wrap">
-                  <h4 class="font-black text-white text-sm sm:text-base tracking-wide flex items-center gap-1.5">
-                    〈5대 하이엔드 성우 & 트렌디 보이스 스튜디오〉
-                  </h4>
-                  <span class="px-2 py-0.5 rounded-full text-[10px] font-black bg-amber-400 text-slate-950 uppercase tracking-wider animate-pulse">
-                    v3.2 초고음질 Neural MP3 탑재
-                  </span>
-                </div>
-                <p class="text-[11px] text-amber-200/90 mt-0.5">
-                  기계음 0%! 5G 스마트폰·오프라인에서도 0.01초 만에 방송국 성우의 실제 사람 목소리가 터져 나옵니다.
-                </p>
-              </div>
-            </div>
-            <div class="flex items-center gap-2">
-              <span id="voice-active-badge" class="px-2.5 py-1 rounded-xl bg-purple-600/40 border border-purple-400/50 text-purple-200 font-bold text-xs">
-                현재 성우: 👩🎨 청담 디자이너
-              </span>
-            </div>
-          </div>
-
-          <!-- 5대 성우 선택 큼직한 모바일 터치 버튼 그리드 -->
-          <div class="grid grid-cols-1 sm:grid-cols-5 gap-2 sm:gap-2.5" id="voice-persona-buttons">
-            <button type="button" onclick="selectStudioVoice('', 'designer')" id="btn-voice-designer" class="p-3 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 border-2 border-amber-300 text-left transition transform scale-[1.02] shadow-lg shadow-purple-900/50 flex sm:flex-col items-center sm:items-start justify-between">
-              <div class="flex items-center sm:block gap-2">
-                <span class="text-xl">👩🎨</span>
-                <div>
-                  <div class="text-xs font-black text-white">1. 청담 디자이너</div>
-                  <div class="text-[10px] text-amber-200">우아·품격 여성</div>
-                </div>
-              </div>
-              <span class="text-[10px] font-bold text-amber-300">선택됨 ✓</span>
-            </button>
-
-            <button type="button" onclick="selectStudioVoice('', 'highteen')" id="btn-voice-highteen" class="p-3 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-700 text-left transition hover:scale-[1.01] flex sm:flex-col items-center sm:items-start justify-between">
-              <div class="flex items-center sm:block gap-2">
-                <span class="text-xl">💖</span>
-                <div>
-                  <div class="text-xs font-black text-slate-200">2. 하이틴 언니</div>
-                  <div class="text-[10px] text-pink-300">발랄·힙한 MZ</div>
-                </div>
-              </div>
-              <span class="text-[10px] font-bold text-slate-400">선택</span>
-            </button>
-
-            <button type="button" onclick="selectStudioVoice('', 'gentleman')" id="btn-voice-gentleman" class="p-3 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-700 text-left transition hover:scale-[1.01] flex sm:flex-col items-center sm:items-start justify-between">
-              <div class="flex items-center sm:block gap-2">
-                <span class="text-xl">🤵</span>
-                <div>
-                  <div class="text-xs font-black text-slate-200">3. 젠틀맨 테일러</div>
-                  <div class="text-[10px] text-amber-300">중후·신사 남성</div>
-                </div>
-              </div>
-              <span class="text-[10px] font-bold text-slate-400">선택</span>
-            </button>
-
-            <button type="button" onclick="selectStudioVoice('', 'dj')" id="btn-voice-dj" class="p-3 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-700 text-left transition hover:scale-[1.01] flex sm:flex-col items-center sm:items-start justify-between">
-              <div class="flex items-center sm:block gap-2">
-                <span class="text-xl">🌙</span>
-                <div>
-                  <div class="text-xs font-black text-slate-200">4. 심야 힐링 DJ</div>
-                  <div class="text-[10px] text-cyan-300">따뜻·위로 감성</div>
-                </div>
-              </div>
-              <span class="text-[10px] font-bold text-slate-400">선택</span>
-            </button>
-
-            <button type="button" onclick="selectStudioVoice('', 'future')" id="btn-voice-future" class="p-3 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-700 text-left transition hover:scale-[1.01] flex sm:flex-col items-center sm:items-start justify-between">
-              <div class="flex items-center sm:block gap-2">
-                <span class="text-xl">🚀</span>
-                <div>
-                  <div class="text-xs font-black text-slate-200">5. 2035 미래의 나</div>
-                  <div class="text-[10px] text-emerald-300">당당한 리더</div>
-                </div>
-              </div>
-              <span class="text-[10px] font-bold text-slate-400">선택</span>
-            </button>
-          </div>
-
-          <!-- 🔊 큼직한 고음질 재생 버튼 (메인 액션) -->
-          <div class="pt-1">
-            <button type="button" onclick="playSelectedStudioVoice('')" id="btn-play-voice-main" class="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-amber-400 via-pink-500 to-purple-600 hover:from-amber-300 hover:via-pink-400 hover:to-purple-500 text-slate-950 font-black text-sm sm:text-base shadow-xl shadow-pink-500/25 flex items-center justify-center gap-2 transition active:scale-98">
-              <span id="voice-play-icon" class="text-xl">🔊</span>
-              <span id="voice-play-text">[선택한 성우 목소리 지금 바로 들어보기 (초고음질 Neural MP3 재생)]</span>
-            </button>
-          </div>
-
-          <!-- 세부 튜닝 컨트롤러 (Pitch / Speed) -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-slate-800/80 text-xs">
-            <div class="space-y-1">
-              <div class="flex justify-between text-slate-300 text-[11px]">
-                <span>목소리 톤 (Pitch)</span>
-                <span id="voice-pitch-label" class="text-amber-300 font-bold">기본 (0Hz)</span>
-              </div>
-              <input type="range" id="voice-pitch-slider" min="-15" max="15" value="0" step="1" oninput="updateStudioVoiceSettings('')" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-amber-400">
-              <div class="flex justify-between text-[10px] text-slate-500">
-                <span>차분하게</span>
-                <span>발랄하게</span>
-              </div>
-            </div>
-            <div class="space-y-1">
-              <div class="flex justify-between text-slate-300 text-[11px]">
-                <span>말하기 속도 (Speed)</span>
-                <span id="voice-rate-label" class="text-amber-300 font-bold">기본 (1.0x)</span>
-              </div>
-              <input type="range" id="voice-rate-slider" min="0.8" max="1.3" value="1.0" step="0.05" oninput="updateStudioVoiceSettings('')" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-amber-400">
-              <div class="flex justify-between text-[10px] text-slate-500">
-                <span>여유롭게 (0.8x)</span>
-                <span>리드미컬하게 (1.3x)</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-
-        <div class="p-4 rounded-xl bg-slate-950/80 border border-purple-500/30 space-y-2.5">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-bold text-purple-200 flex items-center gap-1.5">
-              <span>🎮</span>
-              <span>인성 시네마 퀴즈 & 양방향 보이스 해금 단계</span>
-            </span>
-            <span id="main-unlock-badge" class="px-2.5 py-0.5 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/40 text-[10px] font-mono font-bold">
-              Lv.0 입문자 (데일리 오픈)
-            </span>
-          </div>
-          <div class="w-full bg-slate-900 rounded-full h-2 overflow-hidden border border-slate-800">
-            <div id="main-unlock-progress-bar" class="h-full bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-400 transition-all duration-500" style="width: 25%"></div>
-          </div>
-          <div class="grid grid-cols-4 gap-1.5 text-center text-[10px]">
-            <button type="button" onclick="selectMainStep(0)" id="main-step-btn-0" class="p-1.5 rounded-xl bg-purple-600/40 border border-purple-400 font-bold text-white">
-              🌱 Lv.0 입문
-            </button>
-            <button type="button" onclick="selectMainStep(1)" id="main-step-btn-1" class="p-1.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-400">
-              🌿 Step 1 (EQ)
-            </button>
-            <button type="button" onclick="selectMainStep(2)" id="main-step-btn-2" class="p-1.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-400">
-              🌳 Step 2 (MQ)
-            </button>
-            <button type="button" onclick="selectMainStep(3)" id="main-step-btn-3" class="p-1.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-400">
-              👑 Step 3 (CQ)
-            </button>
-          </div>
-        </div>
-
-        <!-- 🕹️ 인성 시네마 퀴즈 & 보이스 확언 패널 -->
-        <div class="p-4 rounded-xl bg-slate-950/90 border border-pink-500/30 space-y-3">
+        <!-- 듀오링고 스타일 팝업 퀴즈 카드 (기본 숨김) -->
+        <div id="quiz-popup-card" class="hidden p-4 rounded-xl bg-slate-950/95 border border-purple-500/40 space-y-3 transition-all animate-fadeIn">
           <div class="flex items-center justify-between pb-2 border-b border-slate-800">
-            <div class="flex items-center gap-2">
-              <span id="main-quiz-icon" class="text-xl">🌿</span>
-              <h4 id="main-quiz-title" class="text-xs sm:text-sm font-bold text-white">Step 1. 공감 드라마 퀴즈 (EQ): 축제 날 친구의 찢어진 옷</h4>
+            <!-- 4단계 스텝 탭 -->
+            <div class="flex items-center gap-1">
+              <button type="button" onclick="selectMainStep(0)" id="main-step-tab-0" class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-800 text-slate-400">Lv.0</button>
+              <button type="button" onclick="selectMainStep(1)" id="main-step-tab-1" class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-800 text-slate-400">Step 1</button>
+              <button type="button" onclick="selectMainStep(2)" id="main-step-tab-2" class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-800 text-slate-400">Step 2</button>
+              <button type="button" onclick="selectMainStep(3)" id="main-step-tab-3" class="px-2 py-0.5 rounded text-[10px] font-bold bg-purple-600 text-white">Step 3</button>
             </div>
-            <span id="main-quiz-reward" class="text-[10px] text-pink-300 font-mono">보상: K-하이틴 룩 + RGB 스캐너 + 디자이너 TTS</span>
-          </div>
-          <div id="main-quiz-story" class="p-3 rounded-xl bg-slate-900/80 border border-slate-800 text-xs text-slate-200 leading-relaxed">
-            학교 축제 무대 직전, 단짝 친구의 무대 의상이 찢어져 울고 있습니다. 내게는 집에 가려 챙겨둔 멋진 오버핏 여분 자켓이 하나 있습니다. 어떻게 하시겠습니까?
-          </div>
-          <div id="main-quiz-choices" class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs"></div>
-
-          <!-- 🎙️ 스피치 확언 & 양방향 보이스 인터랙션 바 -->
-          <div class="p-3 rounded-xl bg-gradient-to-r from-pink-950/40 to-purple-950/40 border border-pink-500/30 flex flex-col sm:flex-row items-center justify-between gap-3">
-            <div class="flex items-center gap-2.5">
-              <button type="button" id="main-btn-mic-stt" onclick="toggleMainVoiceSTT()" class="w-9 h-9 rounded-xl bg-pink-600 hover:bg-pink-500 text-white flex items-center justify-center text-base shadow-md transition active:scale-95 shrink-0">
-                🎙️
-              </button>
-              <div>
-                <div class="text-xs font-bold text-white flex items-center gap-1.5">
-                  <span>양방향 보이스 소통 & 긍정 확언 스피치</span>
-                  <span id="main-voice-tag" class="px-1.5 py-0.2 rounded text-[9px] bg-pink-500/20 text-pink-300 border border-pink-500/30">음성 대화 준비</span>
-                </div>
-                <p id="main-voice-transcript" class="text-[11px] text-pink-200 mt-0.5">
-                  마이크를 누르고 <b>"수트 입혀줘"</b> 또는 <b>"나는 세상에서 가장 소중하고 따뜻한 사람입니다!"</b>라고 말씀해 보세요!
-                </p>
-              </div>
-            </div>
-            <div class="flex items-center gap-1.5 shrink-0">
-              <button type="button" onclick="triggerMainAffirmationSuccess()" class="px-3 py-1.5 rounded-xl bg-pink-600 hover:bg-pink-500 text-white text-xs font-bold transition active:scale-95">
-                ✨ 원터치 긍정 확언
-              </button>
-            
-        <!-- 🎧🔥 [5대 하이엔드 성우 & 트렌디 보이스 스튜디오 (모바일 최적화 골드/퍼플 네온 박스)] -->
-        <div class="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-purple-950/80 via-slate-900/95 to-amber-950/70 border-2 border-amber-400/80 shadow-2xl shadow-purple-900/40 space-y-3.5 my-3 relative overflow-hidden">
-          <div class="absolute -right-10 -top-10 w-32 h-32 bg-amber-500/10 rounded-full blur-2xl pointer-events-none"></div>
-          
-          <div class="flex items-center justify-between flex-wrap gap-2 pb-2.5 border-b border-amber-500/30">
-            <div class="flex items-center gap-2.5">
-              <span class="text-2xl p-2 rounded-xl bg-gradient-to-tr from-amber-400 to-pink-500 text-slate-950 font-black shadow-lg shadow-amber-500/30">🎧</span>
-              <div>
-                <div class="flex items-center gap-2 flex-wrap">
-                  <h4 class="font-black text-white text-sm sm:text-base tracking-wide flex items-center gap-1.5">
-                    〈5대 하이엔드 성우 & 트렌디 보이스 스튜디오〉
-                  </h4>
-                  <span class="px-2 py-0.5 rounded-full text-[10px] font-black bg-amber-400 text-slate-950 uppercase tracking-wider animate-pulse">
-                    v3.2 초고음질 Neural MP3 탑재
-                  </span>
-                </div>
-                <p class="text-[11px] text-amber-200/90 mt-0.5">
-                  기계음 0%! 5G 스마트폰·오프라인에서도 0.01초 만에 방송국 성우의 실제 사람 목소리가 터져 나옵니다.
-                </p>
-              </div>
-            </div>
-            <div class="flex items-center gap-2">
-              <span id="c3_voice-active-badge" class="px-2.5 py-1 rounded-xl bg-purple-600/40 border border-purple-400/50 text-purple-200 font-bold text-xs">
-                현재 성우: 👩🎨 청담 디자이너
-              </span>
-            </div>
+            <button type="button" onclick="toggleQuizPopup()" class="text-slate-400 hover:text-white text-base">✕</button>
           </div>
 
-          <!-- 5대 성우 선택 큼직한 모바일 터치 버튼 그리드 -->
-          <div class="grid grid-cols-1 sm:grid-cols-5 gap-2 sm:gap-2.5" id="c3_voice-persona-buttons">
-            <button type="button" onclick="selectStudioVoice('c3_', 'designer')" id="c3_btn-voice-designer" class="p-3 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 border-2 border-amber-300 text-left transition transform scale-[1.02] shadow-lg shadow-purple-900/50 flex sm:flex-col items-center sm:items-start justify-between">
-              <div class="flex items-center sm:block gap-2">
-                <span class="text-xl">👩🎨</span>
-                <div>
-                  <div class="text-xs font-black text-white">1. 청담 디자이너</div>
-                  <div class="text-[10px] text-amber-200">우아·품격 여성</div>
-                </div>
-              </div>
-              <span class="text-[10px] font-bold text-amber-300">선택됨 ✓</span>
-            </button>
-
-            <button type="button" onclick="selectStudioVoice('c3_', 'highteen')" id="c3_btn-voice-highteen" class="p-3 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-700 text-left transition hover:scale-[1.01] flex sm:flex-col items-center sm:items-start justify-between">
-              <div class="flex items-center sm:block gap-2">
-                <span class="text-xl">💖</span>
-                <div>
-                  <div class="text-xs font-black text-slate-200">2. 하이틴 언니</div>
-                  <div class="text-[10px] text-pink-300">발랄·힙한 MZ</div>
-                </div>
-              </div>
-              <span class="text-[10px] font-bold text-slate-400">선택</span>
-            </button>
-
-            <button type="button" onclick="selectStudioVoice('c3_', 'gentleman')" id="c3_btn-voice-gentleman" class="p-3 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-700 text-left transition hover:scale-[1.01] flex sm:flex-col items-center sm:items-start justify-between">
-              <div class="flex items-center sm:block gap-2">
-                <span class="text-xl">🤵</span>
-                <div>
-                  <div class="text-xs font-black text-slate-200">3. 젠틀맨 테일러</div>
-                  <div class="text-[10px] text-amber-300">중후·신사 남성</div>
-                </div>
-              </div>
-              <span class="text-[10px] font-bold text-slate-400">선택</span>
-            </button>
-
-            <button type="button" onclick="selectStudioVoice('c3_', 'dj')" id="c3_btn-voice-dj" class="p-3 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-700 text-left transition hover:scale-[1.01] flex sm:flex-col items-center sm:items-start justify-between">
-              <div class="flex items-center sm:block gap-2">
-                <span class="text-xl">🌙</span>
-                <div>
-                  <div class="text-xs font-black text-slate-200">4. 심야 힐링 DJ</div>
-                  <div class="text-[10px] text-cyan-300">따뜻·위로 감성</div>
-                </div>
-              </div>
-              <span class="text-[10px] font-bold text-slate-400">선택</span>
-            </button>
-
-            <button type="button" onclick="selectStudioVoice('c3_', 'future')" id="c3_btn-voice-future" class="p-3 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-700 text-left transition hover:scale-[1.01] flex sm:flex-col items-center sm:items-start justify-between">
-              <div class="flex items-center sm:block gap-2">
-                <span class="text-xl">🚀</span>
-                <div>
-                  <div class="text-xs font-black text-slate-200">5. 2035 미래의 나</div>
-                  <div class="text-[10px] text-emerald-300">당당한 리더</div>
-                </div>
-              </div>
-              <span class="text-[10px] font-bold text-slate-400">선택</span>
-            </button>
+          <!-- 상황극 질문 & 선택지 -->
+          <div id="main-quiz-container" class="space-y-2.5">
+            <!-- Dynamic quiz content -->
           </div>
 
-          <!-- 🔊 큼직한 고음질 재생 버튼 (메인 액션) -->
-          <div class="pt-1">
-            <button type="button" onclick="playSelectedStudioVoice('c3_')" id="c3_btn-play-voice-main" class="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-amber-400 via-pink-500 to-purple-600 hover:from-amber-300 hover:via-pink-400 hover:to-purple-500 text-slate-950 font-black text-sm sm:text-base shadow-xl shadow-pink-500/25 flex items-center justify-center gap-2 transition active:scale-98">
-              <span id="c3_voice-play-icon" class="text-xl">🔊</span>
-              <span id="c3_voice-play-text">[선택한 성우 목소리 지금 바로 들어보기 (초고음질 Neural MP3 재생)]</span>
+          <!-- 긍정 확언 원터치 버튼 -->
+          <div class="pt-2 border-t border-slate-800 flex items-center justify-between text-xs">
+            <span class="text-[11px] text-slate-400">스피치 미션: 긍정 확언 선서</span>
+            <button type="button" onclick="triggerMainAffirmationSuccess()" class="px-3 py-1 rounded-lg bg-pink-600 hover:bg-pink-500 text-white font-bold text-xs transition active:scale-95">
+              ✨ 긍정 확언 완료
             </button>
-          </div>
-
-          <!-- 세부 튜닝 컨트롤러 (Pitch / Speed) -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-slate-800/80 text-xs">
-            <div class="space-y-1">
-              <div class="flex justify-between text-slate-300 text-[11px]">
-                <span>목소리 톤 (Pitch)</span>
-                <span id="c3_voice-pitch-label" class="text-amber-300 font-bold">기본 (0Hz)</span>
-              </div>
-              <input type="range" id="c3_voice-pitch-slider" min="-15" max="15" value="0" step="1" oninput="updateStudioVoiceSettings('c3_')" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-amber-400">
-              <div class="flex justify-between text-[10px] text-slate-500">
-                <span>차분하게</span>
-                <span>발랄하게</span>
-              </div>
-            </div>
-            <div class="space-y-1">
-              <div class="flex justify-between text-slate-300 text-[11px]">
-                <span>말하기 속도 (Speed)</span>
-                <span id="c3_voice-rate-label" class="text-amber-300 font-bold">기본 (1.0x)</span>
-              </div>
-              <input type="range" id="c3_voice-rate-slider" min="0.8" max="1.3" value="1.0" step="0.05" oninput="updateStudioVoiceSettings('c3_')" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-amber-400">
-              <div class="flex justify-between text-[10px] text-slate-500">
-                <span>여유롭게 (0.8x)</span>
-                <span>리드미컬하게 (1.3x)</span>
-              </div>
-            </div>
           </div>
         </div>
+      </div>
 
+
+      <!-- 🗂️ [토스(Toss) 스타일 하단 4대 접이식 서랍 (Drawer)] -->
+      <div class="space-y-2 pt-2">
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+          <!-- 서랍 1: 체형/컬러 -->
+          <button type="button" onclick="toggleDrawer('body')" id="btn-drawer-body" class="p-2.5 rounded-xl bg-slate-900/70 hover:bg-slate-800 border border-slate-800 text-left transition flex items-center gap-2">
+            <span class="text-lg">📏</span>
+            <div>
+              <div class="text-xs font-bold text-slate-200">체형·컬러</div>
+              <div class="text-[10px] text-slate-400">비율/퍼스널컬러</div>
             </div>
-          </div>
+          </button>
+
+          <!-- 서랍 2: VOC 건의함 -->
+          <button type="button" onclick="toggleDrawer('voc')" id="btn-drawer-voc" class="p-2.5 rounded-xl bg-slate-900/70 hover:bg-slate-800 border border-slate-800 text-left transition flex items-center gap-2">
+            <span class="text-lg">💬</span>
+            <div>
+              <div class="text-xs font-bold text-slate-200">전담팀 VOC</div>
+              <div class="text-[10px] text-slate-400">4대AI 자동패치</div>
+            </div>
+          </button>
+
+          <!-- 서랍 3: 앱 배포/설치 -->
+          <button type="button" onclick="toggleDrawer('deploy')" id="btn-drawer-deploy" class="p-2.5 rounded-xl bg-slate-900/70 hover:bg-slate-800 border border-slate-800 text-left transition flex items-center gap-2">
+            <span class="text-lg">📲</span>
+            <div>
+              <div class="text-xs font-bold text-slate-200">앱 설치·배포</div>
+              <div class="text-[10px] text-slate-400">PWA/무심사배포</div>
+            </div>
+          </button>
+
+          <!-- 서랍 4: 4Q 인성/인증서 -->
+          <button type="button" onclick="toggleDrawer('cert')" id="btn-drawer-cert" class="p-2.5 rounded-xl bg-slate-900/70 hover:bg-slate-800 border border-slate-800 text-left transition flex items-center gap-2">
+            <span class="text-lg">🎓</span>
+            <div>
+              <div class="text-xs font-bold text-slate-200">4Q·인증서</div>
+              <div class="text-[10px] text-slate-400">수료증/인재차트</div>
+            </div>
+          </button>
         </div>
 
-        <!-- 👗 4방향 캔버스 피팅 룸 & 스타일 스위트 -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
-
-          <!-- Left: 4방향 캔버스 피팅룸 (7 Cols) -->
-          <div class="lg:col-span-7 p-4 rounded-xl bg-slate-950/80 border border-purple-500/30 space-y-3 flex flex-col items-center">
-            <div class="w-full flex items-center justify-between">
+        <!-- 서랍 1 내용: 체형/퍼스널 컬러 -->
+        <div id="drawer-body" class="hidden p-4 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-3">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+            <h5 class="text-xs font-bold text-white flex items-center gap-1.5"><span>📏</span> 체형 비율 및 퍼스널 컬러 스캐너</h5>
+            <button type="button" onclick="toggleDrawer('body')" class="text-slate-400 hover:text-white text-xs">닫기 ✕</button>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+            <div class="space-y-2">
+              <div>
+                <div class="flex justify-between text-[11px] text-slate-400 mb-1">
+                  <span>키 (Height)</span><span id="main-height-val" class="text-purple-300 font-bold">168cm</span>
+                </div>
+                <input type="range" id="main-slider-height" min="140" max="195" value="168" oninput="updateMainAvatarProportions()" class="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-purple-500">
+              </div>
+              <div>
+                <div class="flex justify-between text-[11px] text-slate-400 mb-1">
+                  <span>몸무게 (Weight)</span><span id="main-weight-val" class="text-purple-300 font-bold">62kg</span>
+                </div>
+                <input type="range" id="main-slider-weight" min="40" max="110" value="62" oninput="updateMainAvatarProportions()" class="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-purple-500">
+              </div>
+            </div>
+            <div class="space-y-2">
+              <span class="text-[11px] text-slate-400 block">피부톤 RGB 스캐너</span>
               <div class="flex items-center gap-2">
-                <span class="text-lg">🪞</span>
-                <span class="text-xs font-bold text-white">4방향 실시간 캔버스 피팅룸</span>
-              </div>
-              <div class="flex items-center gap-1">
-                <button type="button" onclick="setMainAngle(0)" id="main-angle-btn-0" class="px-2 py-0.5 rounded bg-purple-600 text-white font-bold text-[10px]">정면 (0°)</button>
-                <button type="button" onclick="setMainAngle(90)" id="main-angle-btn-90" class="px-2 py-0.5 rounded bg-slate-900 text-slate-300 text-[10px]">좌측 (90°)</button>
-                <button type="button" onclick="setMainAngle(180)" id="main-angle-btn-180" class="px-2 py-0.5 rounded bg-slate-900 text-slate-300 text-[10px]">후면 (180°)</button>
-                <button type="button" onclick="setMainAngle(270)" id="main-angle-btn-270" class="px-2 py-0.5 rounded bg-slate-900 text-slate-300 text-[10px]">우측 (270°)</button>
+                <button type="button" onclick="updateMainSkinTone('#fbe3d5')" class="w-8 h-8 rounded-full border border-white/20 bg-[#fbe3d5] shadow-sm hover:scale-110 transition" title="화사한 웜톤"></button>
+                <button type="button" onclick="updateMainSkinTone('#f4cfb8')" class="w-8 h-8 rounded-full border border-white/20 bg-[#f4cfb8] shadow-sm hover:scale-110 transition" title="내추럴 뉴트럴"></button>
+                <button type="button" onclick="updateMainSkinTone('#e0ac82')" class="w-8 h-8 rounded-full border border-white/20 bg-[#e0ac82] shadow-sm hover:scale-110 transition" title="건강한 태닝톤"></button>
+                <button type="button" onclick="updateMainSkinTone('#8d5524')" class="w-8 h-8 rounded-full border border-white/20 bg-[#8d5524] shadow-sm hover:scale-110 transition" title="딥 브라운"></button>
               </div>
             </div>
-
-            <div class="w-full max-w-[380px] aspect-[3/4] rounded-2xl bg-slate-950 border border-slate-800 shadow-2xl relative overflow-hidden flex items-center justify-center">
-              <canvas id="main-fitting-canvas" width="450" height="600" class="w-full h-full object-contain"></canvas>
-              <div class="absolute bottom-2 left-2 right-2 px-3 py-1.5 rounded-xl bg-slate-950/85 backdrop-blur-md border border-slate-800 flex items-center justify-between text-[10px] text-slate-300">
-                <span id="main-look-label">👔 현재 의상: 화이트 베이직 & 슬림 데님</span>
-                <span id="main-angle-label" class="font-mono text-purple-400">0° FRONT</span>
-              </div>
-            </div>
-
-            <div class="w-full grid grid-cols-3 gap-2 text-xs pt-1">
-              <div>
-                <div class="flex justify-between text-[11px] text-slate-300 mb-1">
-                  <span>키</span><span id="main-val-height" class="font-mono text-pink-400">172 cm</span>
-                </div>
-                <input type="range" id="main-input-height" min="150" max="190" value="172" oninput="updateMainAvatarProportions()" class="w-full accent-pink-500 cursor-pointer" />
-              </div>
-              <div>
-                <div class="flex justify-between text-[11px] text-slate-300 mb-1">
-                  <span>체중</span><span id="main-val-weight" class="font-mono text-purple-400">62 kg</span>
-                </div>
-                <input type="range" id="main-input-weight" min="40" max="95" value="62" oninput="updateMainAvatarProportions()" class="w-full accent-purple-500 cursor-pointer" />
-              </div>
-              <div>
-                <div class="flex justify-between text-[11px] text-slate-300 mb-1">
-                  <span>핏 비율</span><span id="main-val-fit" class="font-mono text-cyan-400">3:7 황금핏</span>
-                </div>
-                <input type="range" id="main-input-fit" min="1" max="3" value="2" oninput="updateMainAvatarProportions()" class="w-full accent-cyan-500 cursor-pointer" />
-              </div>
-            </div>
-          </div>
-
-          <!-- Right: 3대 미래지향 스페셜 모드 (5 Cols) -->
-          <div class="lg:col-span-5 space-y-3.5">
-            <div class="grid grid-cols-3 gap-1.5 p-1 rounded-xl bg-slate-900 border border-slate-800 text-[11px] font-bold text-center">
-              <button type="button" onclick="switchMainFittingSubTab('timemachine')" id="main-subtab-btn-timemachine" class="py-1.5 rounded-lg bg-purple-600 text-white shadow-sm transition">
-                🔮 2035 타임머신
-              </button>
-              <button type="button" onclick="switchMainFittingSubTab('family')" id="main-subtab-btn-family" class="py-1.5 rounded-lg text-slate-400 hover:text-white transition">
-                👨‍👩‍👧‍👦 가족 시밀러룩
-              </button>
-              <button type="button" onclick="switchMainFittingSubTab('zerocost')" id="main-subtab-btn-zerocost" class="py-1.5 rounded-lg text-slate-400 hover:text-white transition">
-                ♻️ 0원 리폼처방
-              </button>
-            </div>
-
-            <!-- SubTab 1: 🔮 타임머신 2035 -->
-            <div id="main-subtab-pane-timemachine" class="p-3.5 rounded-xl bg-slate-950/80 border border-purple-500/30 space-y-2.5 text-xs">
-              <div class="flex items-center justify-between">
-                <span class="font-bold text-purple-300 flex items-center gap-1">
-                  <span>🔮</span> 10년 뒤 성공한 2035년의 나
-                </span>
-                <span class="text-[10px] text-pink-400 font-mono">Future Self</span>
-              </div>
-              <p class="text-[11px] text-slate-300 leading-relaxed">
-                미래의 성공 직업을 입어보고, <b>2035년의 나</b>가 나에게 들려주는 <b>음성 응원 편지</b>를 들어보세요!
-              </p>
-              <div class="grid grid-cols-2 gap-2">
-                <button type="button" onclick="applyMainFutureLook('ceo')" class="p-2.5 rounded-xl bg-purple-950/60 hover:bg-purple-900 border border-purple-500/40 text-left transition active:scale-95">
-                  <div class="font-bold text-white">👑 글로벌 CEO</div>
-                  <div class="text-[10px] text-slate-400 mt-0.5">청담 하이엔드 수트</div>
-                </button>
-                <button type="button" onclick="applyMainFutureLook('scientist')" class="p-2.5 rounded-xl bg-cyan-950/60 hover:bg-cyan-900 border border-cyan-500/40 text-left transition active:scale-95">
-                  <div class="font-bold text-white">🚀 우주 AI 과학자</div>
-                  <div class="text-[10px] text-slate-400 mt-0.5">사이버 테크웨어</div>
-                </button>
-                <button type="button" onclick="applyMainFutureLook('artist')" class="p-2.5 rounded-xl bg-pink-950/60 hover:bg-pink-900 border border-pink-500/40 text-left transition active:scale-95">
-                  <div class="font-bold text-white">🎨 미디어 아티스트</div>
-                  <div class="text-[10px] text-slate-400 mt-0.5">아방가르드 룩</div>
-                </button>
-                <button type="button" onclick="applyMainFutureLook('diplomat')" class="p-2.5 rounded-xl bg-amber-950/60 hover:bg-amber-900 border border-amber-500/40 text-left transition active:scale-95">
-                  <div class="font-bold text-white">🕊️ 평화 외교관 리더</div>
-                  <div class="text-[10px] text-slate-400 mt-0.5">모던 한복 블레이저</div>
-                </button>
-              </div>
-              <button type="button" onclick="playMainFutureSelfVoiceLetter()" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-md shadow-purple-600/30 transition active:scale-95">
-                <span>💖 [2035년 미래의 내가 읽어주는 음성 편지 듣기]</span>
-              </button>
-            </div>
-
-            <!-- SubTab 2: 👨‍👩‍👧‍👦 가족 시밀러룩 -->
-            <div id="main-subtab-pane-family" class="hidden p-3.5 rounded-xl bg-slate-950/80 border border-pink-500/30 space-y-2.5 text-xs">
-              <div class="flex items-center justify-between">
-                <span class="font-bold text-pink-300 flex items-center gap-1">
-                  <span>👨‍👩‍👧‍👦</span> 가족 & 세 자매 하모니 시밀러룩
-                </span>
-                <span class="text-[10px] text-emerald-400 font-mono">Harmony 99.8%</span>
-              </div>
-              <p class="text-[11px] text-slate-300 leading-relaxed">
-                <b>이상일 대표님 + 첫째 이은솔 + 둘째 이송효 + 셋째 이해상</b> 4인의 아바타가 나란히 선 패밀리 팔레트를 시뮬레이션합니다.
-              </p>
-              <div class="space-y-1.5">
-                <button type="button" onclick="applyMainFamilyPalette('navy_gold')" class="w-full p-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left flex items-center justify-between transition">
-                  <span>👑 로열 네이비 & 샴페인 골드 (품격 클래식)</span>
-                  <span class="w-3.5 h-3.5 rounded-full bg-blue-900 border border-amber-400"></span>
-                </button>
-                <button type="button" onclick="applyMainFamilyPalette('warm_beige')" class="w-full p-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left flex items-center justify-between transition">
-                  <span>🌸 파스텔 웜 베이지 & 크림 (따스한 온기)</span>
-                  <span class="w-3.5 h-3.5 rounded-full bg-amber-200 border border-orange-300"></span>
-                </button>
-              </div>
-              <button type="button" onclick="renderMainFamilySimilarLookCanvas()" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition active:scale-95 shadow-md">
-                <span>👨‍👩‍👧‍👦 4인 가족 시밀러룩 캔버스 렌더링</span>
-              </button>
-            </div>
-
-            <!-- SubTab 3: ♻️ 0원 옷장 리폼 -->
-            <div id="main-subtab-pane-zerocost" class="hidden p-3.5 rounded-xl bg-slate-950/80 border border-cyan-500/30 space-y-2 text-xs">
-              <div class="flex items-center justify-between">
-                <span class="font-bold text-cyan-300 flex items-center gap-1">
-                  <span>♻️</span> 돈 안 드는 '내 옷장 0원 리폼' 처방
-                </span>
-                <span class="text-[10px] text-cyan-400 font-mono">Cost: 0 KRW</span>
-              </div>
-              <div class="space-y-1.5">
-                <div class="p-2 rounded-xl bg-slate-900 border border-slate-800">
-                  <div class="font-bold text-cyan-200 text-[11px]">1. 황금 3:7 프렌치 턱인 (Tuck-in)</div>
-                  <p class="text-[10px] text-slate-400">티셔츠 앞 3cm만 벨트 라인 안쪽으로 살짝 넣으면 다리가 10cm 길어 보입니다.</p>
-                </div>
-                <div class="p-2 rounded-xl bg-slate-900 border border-slate-800">
-                  <div class="font-bold text-purple-200 text-[11px]">2. 소매 2단 프렌치 롤업</div>
-                  <p class="text-[10px] text-slate-400">소매를 크게 한 번 접고 끝만 얇게 다시 접어 손목 라인을 드러내면 시티보이 룩 완성!</p>
-                </div>
-              </div>
-            </div>
-
-            <!-- 퍼스널 컬러 RGB 스캐너 -->
-            <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800 space-y-1.5 text-xs">
-              <div class="flex items-center justify-between">
-                <span class="font-bold text-slate-200 flex items-center gap-1">
-                  <span>🎨</span> 퍼스널 컬러 RGB 스캐너
-                </span>
-                <span id="main-skin-tone-tag" class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40">
-                  웜톤 웜베이지 (Spring Warm)
-                </span>
-              </div>
-              <div class="flex items-center gap-2">
-                <input type="color" id="main-skin-color-picker" value="#f8d9c2" onchange="updateMainSkinTone(this.value)" class="w-7 h-7 rounded cursor-pointer bg-transparent border-0" />
-                <span class="text-[11px] text-slate-400">얼굴 톤을 선택하시면 찰떡 맞춤 컬러를 자동 추천합니다.</span>
-              </div>
-            </div>
-
           </div>
         </div>
 
-        <!-- 🛡️ 앱 전담 초격차 관리팀 & VOC 자율 진화 건의함 -->
-        <div class="p-4 rounded-xl bg-slate-950/90 border border-purple-500/40 space-y-3">
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2.5 border-b border-slate-800">
-            <div class="flex items-center gap-2">
-              <span class="text-xl">🛡️</span>
-              <div>
-                <h4 class="text-xs sm:text-sm font-bold text-white flex items-center gap-1.5">
-                  <span>꿈의 옷장 전담 초격차 관리 & VOC 자율 버전업 특무대</span>
-                  <span class="px-1.5 py-0.2 rounded text-[9px] bg-purple-500/30 text-purple-200 border border-purple-500/40 font-mono">Continuous Care</span>
-                </h4>
-                <p class="text-[10px] text-purple-300 mt-0.5">사용자 의견 수렴 ➔ 4대 AI 유닛 분석 ➔ 자율 무중단 패치 및 버전업 실시간 반영</p>
-              </div>
-            </div>
-            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 self-start sm:self-center">
-              🟢 4대 AI 유닛 가동 중
-            </span>
+        <!-- 서랍 2 내용: 전담팀 VOC 건의함 -->
+        <div id="drawer-voc" class="hidden p-4 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-3">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+            <h5 class="text-xs font-bold text-white flex items-center gap-1.5"><span>💬</span> 초격차 관리팀 직통 VOC 건의함 (자율 패치)</h5>
+            <button type="button" onclick="toggleDrawer('voc')" class="text-slate-400 hover:text-white text-xs">닫기 ✕</button>
           </div>
-
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center text-xs">
-            <div class="p-2 rounded-xl bg-slate-900 border border-purple-500/30">
-              <div class="font-bold text-white text-[11px]">👂 VOC 경청팀</div>
-              <div class="text-[9px] text-purple-300">피드백 실시간 청취</div>
-            </div>
-            <div class="p-2 rounded-xl bg-slate-900 border border-cyan-500/30">
-              <div class="font-bold text-white text-[11px]">🔧 UX 패치팀</div>
-              <div class="text-[9px] text-cyan-300">0.05초 즉시 최적화</div>
-            </div>
-            <div class="p-2 rounded-xl bg-slate-900 border border-pink-500/30">
-              <div class="font-bold text-white text-[11px]">🚀 초격차 R&D팀</div>
-              <div class="text-[9px] text-pink-300">10년 선행 기술 연구</div>
-            </div>
-            <div class="p-2 rounded-xl bg-slate-900 border border-emerald-500/30">
-              <div class="font-bold text-white text-[11px]">⚡ OTA 배포팀</div>
-              <div class="text-[9px] text-emerald-300">무심사 1초 핫픽스</div>
-            </div>
-          </div>
-
-          <!-- VOC 입력 바 -->
-          <div class="space-y-1.5 text-xs">
-            <div class="flex flex-col sm:flex-row gap-2">
-              <input type="text" id="main-voc-input" placeholder="불편한 점이나 추가되었으면 하는 신규 코디/퀴즈 아이디어를 적어주세요..."
-                class="flex-1 px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs outline-none focus:border-pink-500" />
-              <button type="button" onclick="submitMainAppVoc()"
-                class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-bold text-xs transition active:scale-95 shrink-0 flex items-center justify-center gap-1 shadow-md">
-                <span>🚀 건의 접수 & 자율 패치</span>
+          <div class="space-y-2">
+            <div class="flex gap-2">
+              <input type="text" id="main-app-voc-input" placeholder="불편한 점이나 원하는 코디, 퀴즈 아이디어를 적어주세요!" class="flex-1 px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white placeholder-slate-500">
+              <button type="button" onclick="submitMainAppVoc()" class="px-3.5 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs shrink-0 transition">
+                제출
               </button>
             </div>
-            <div id="main-voc-result" class="hidden p-2.5 rounded-xl bg-purple-950/40 border border-purple-500/40 text-[11px] text-purple-200"></div>
+            <div id="main-voc-response-box" class="hidden p-3 rounded-xl bg-purple-950/30 border border-purple-500/30 text-xs text-purple-200">
+              <!-- AI 브리핑 출력 -->
+            </div>
           </div>
         </div>
 
-        <!-- 📲 구글 스토어 무심사 3대 직통 배포 센터 -->
-        <div class="p-4 rounded-xl bg-slate-950/80 border border-cyan-500/30 space-y-3">
-          <div class="flex items-center justify-between pb-2 border-b border-slate-800">
-            <div class="flex items-center gap-2">
-              <span class="text-xl">📲</span>
-              <div>
-                <h4 class="text-xs sm:text-sm font-bold text-white">구글 스토어 무심사 3대 직통 배포 센터 & Play 계정 복구 가이드</h4>
-                <p class="text-[10px] text-cyan-300 mt-0.5">심사 0초! 카카오톡/문자 즉시 전송 · 홈 화면 추가 · APK 변환 매뉴얼</p>
-              </div>
-            </div>
+        <!-- 서랍 3 내용: 앱 설치 및 배포 -->
+        <div id="drawer-deploy" class="hidden p-4 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-3">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+            <h5 class="text-xs font-bold text-white flex items-center gap-1.5"><span>📲</span> 무심사 직통 배포 센터 & Google Play 계정 복구</h5>
+            <button type="button" onclick="toggleDrawer('deploy')" class="text-slate-400 hover:text-white text-xs">닫기 ✕</button>
           </div>
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-xs">
-            <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 flex flex-col justify-between space-y-2">
-              <div>
-                <div class="font-bold text-purple-300">💾 1. 독립 실행 웹앱 (.html)</div>
-                <p class="text-[10px] text-slate-400 mt-0.5">인터넷 없이도 100% 돌아가는 All-in-One 단일 파일 다운로드.</p>
-              </div>
-              <a href="/api/download-dream-closet-app" download="dream_closet_future_master_app.html" class="w-full py-1.5 rounded-lg bg-purple-600/30 hover:bg-purple-600/50 text-purple-200 border border-purple-500/40 font-bold text-center transition">
-                다운로드 (.html)
-              </a>
+            <a href="/api/download-dream-closet-app" download="dream_closet_future_master_app.html" class="p-3 rounded-xl bg-slate-950 hover:bg-slate-800 border border-slate-700 flex flex-col items-center justify-center text-center gap-1 transition">
+              <span class="text-xl">📁</span>
+              <span class="font-bold text-white">단독 웹앱(.html) 다운로드</span>
+              <span class="text-[10px] text-slate-400">카톡 전송 시 1초 만에 실행</span>
+            </a>
+            <div class="p-3 rounded-xl bg-slate-950 border border-slate-700 flex flex-col items-center justify-center text-center gap-1">
+              <span class="text-xl">📱</span>
+              <span class="font-bold text-white">홈 화면에 추가 (PWA)</span>
+              <span class="text-[10px] text-slate-400">브라우저 메뉴 ➔ 홈화면 추가</span>
             </div>
-            <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 flex flex-col justify-between space-y-2">
-              <div>
-                <div class="font-bold text-pink-300">📱 2. 스마트폰 홈 화면 1초 설치</div>
-                <p class="text-[10px] text-slate-400 mt-0.5">스마트폰 브라우저 메뉴에서 [홈 화면에 추가] 누르면 앱 설치 완료.</p>
-              </div>
-              <button type="button" onclick="copyAppShareLinkFromDashboard()" class="w-full py-1.5 rounded-lg bg-pink-600/30 hover:bg-pink-600/50 text-pink-200 border border-pink-500/40 font-bold transition">
-                직통 링크 복사
-              </button>
-            </div>
-            <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 flex flex-col justify-between space-y-2">
-              <div>
-                <div class="font-bold text-cyan-300">🛡️ 3. Google Play 계정 복구</div>
-                <p class="text-[10px] text-slate-400 mt-0.5">계정(lee sangill, ID: 8519115145103880120) 신원 인증 & APK 변환.</p>
-              </div>
-              <button type="button" onclick="openGooglePlayGuideModal()" class="w-full py-1.5 rounded-lg bg-cyan-600/30 hover:bg-cyan-600/50 text-cyan-200 border border-cyan-500/40 font-bold transition">
-                복구 매뉴얼 열기
-              </button>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-
-      <!-- 🌍 [글로벌 K-인성 에듀테크]: 5대 국가·언어 문화 초현지화 스위치 & Manim 스타일 4Q 인성 나침반 -->
-      <div class="glass-panel rounded-2xl p-5 border border-purple-500/30 bg-gradient-to-r from-slate-900/95 via-purple-950/20 to-slate-900/95 space-y-4">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-purple-500/30">
-          <div class="flex items-center gap-3">
-            <span class="text-2xl p-2 rounded-xl bg-purple-500/20 text-purple-300 border border-purple-500/30 shrink-0">🌍</span>
-            <div>
-              <h3 class="text-sm font-bold text-white flex items-center gap-2">
-                <span>글로벌 K-인성 에듀테크 넘사벽 플랫폼 (Global Virtues & Manim 4Q Radar)</span>
-                <span class="px-2 py-0.5 rounded text-[10px] bg-purple-500/20 text-purple-300 border border-purple-500/30 font-semibold font-mono">Global v2.0</span>
-              </h3>
-              <p class="text-[11px] text-slate-300 mt-0.5">
-                전 세계 5대 문화권 초현지화 지원 ➔ Manim 수학적 60fps 기하 펄스로 살아 숨쉬는 4대 덕목(경우·공경·공감·나눔) 시각화!
-              </p>
-            </div>
-          </div>
-          <!-- 5대 국가 언어 스위치 버튼들 -->
-          <div class="flex items-center gap-1.5 flex-wrap">
-            <button type="button" onclick="setGlobalLang('KR', this)" class="global-lang-btn px-2.5 py-1.5 rounded-xl bg-purple-600 text-white font-bold text-xs border border-purple-400 shadow-sm transition active:scale-95">
-              🇰🇷 한국 (KR)
-            </button>
-            <button type="button" onclick="setGlobalLang('US', this)" class="global-lang-btn px-2.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-semibold text-xs border border-slate-700 transition active:scale-95">
-              🇺🇸 USA (EN)
-            </button>
-            <button type="button" onclick="setGlobalLang('JP', this)" class="global-lang-btn px-2.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-semibold text-xs border border-slate-700 transition active:scale-95">
-              🇯🇵 日本 (JP)
-            </button>
-            <button type="button" onclick="setGlobalLang('ES', this)" class="global-lang-btn px-2.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-semibold text-xs border border-slate-700 transition active:scale-95">
-              🇪🇸 España (ES)
-            </button>
-            <button type="button" onclick="setGlobalLang('SG', this)" class="global-lang-btn px-2.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-semibold text-xs border border-slate-700 transition active:scale-95">
-              🌏 Singapore (SG)
+            <button type="button" onclick="openGooglePlayGuideModal()" class="p-3 rounded-xl bg-slate-950 hover:bg-slate-800 border border-slate-700 flex flex-col items-center justify-center text-center gap-1 transition">
+              <span class="text-xl">🛡️</span>
+              <span class="font-bold text-white">Google Play 복구 매뉴얼</span>
+              <span class="text-[10px] text-slate-400">ID: 8519115145103880120</span>
             </button>
           </div>
         </div>
 
-        <!-- Manim 스타일 4Q 인성 나침반 레이더 캔버스 & 설명 그리드 -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-center">
-          <div class="lg:col-span-6 flex flex-col items-center justify-center p-3 rounded-xl bg-slate-950/80 border border-slate-800">
-            <canvas id="compass-radar-canvas" width="460" height="420" class="w-full max-w-[420px] rounded-lg"></canvas>
-            <span class="text-[10px] text-purple-300/80 mt-1.5 font-mono">Manim-inspired 60fps Geometric Neon Pulse Radar</span>
+        <!-- 서랍 4 내용: 4Q 인성학교 & 수료 인증서 -->
+        <div id="drawer-cert" class="hidden p-4 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-3">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+            <h5 class="text-xs font-bold text-white flex items-center gap-1.5"><span>🎓</span> 글로벌 4Q 인재 균형 레이더 & 수료증 발급소</h5>
+            <button type="button" onclick="toggleDrawer('cert')" class="text-slate-400 hover:text-white text-xs">닫기 ✕</button>
           </div>
-          <div class="lg:col-span-6 space-y-3 text-xs">
-            <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
-              <div class="font-bold text-white flex items-center justify-between">
-                <span id="lang-radar-title">🧭 4Q 인성 나침반 핵심 축 & 글로벌 가치</span>
-                <span class="text-emerald-400 font-mono font-bold">Comprehensive Score: 98/100</span>
-              </div>
-              <ul class="mt-2 space-y-1.5 text-[11px] text-slate-300">
-                <li class="flex items-center justify-between">
-                  <span>⚖️ <b>경우 (Propriety / 礼節)</b> : 인간과 AI의 올바른 경계와 예의</span>
-                  <span class="text-cyan-400 font-mono">98점</span>
-                </li>
-                <li class="flex items-center justify-between">
-                  <span>🙇 <b>공경 (Respect / 敬愛)</b> : 어른과 생명, 역사에 대한 존중</span>
-                  <span class="text-purple-400 font-mono">96점</span>
-                </li>
-                <li class="flex items-center justify-between">
-                  <span>❤️ <b>공감 (Empathy / 共感)</b> : 타인의 아픔을 이해하고 품는 마음</span>
-                  <span class="text-pink-400 font-mono">99점</span>
-                </li>
-                <li class="flex items-center justify-between">
-                  <span>🤝 <b>나눔 (Sharing / 分かち合い)</b> : 재정헌법 10% 상생 실천</span>
-                  <span class="text-amber-400 font-mono">97점</span>
-                </li>
-              </ul>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+            <div class="flex flex-col items-center justify-center p-3 rounded-xl bg-slate-950 border border-slate-800">
+              <span class="text-[11px] text-purple-300 font-bold mb-2">글로벌 4Q 균형 인재 레이더</span>
+              <canvas id="compass-radar-canvas" width="220" height="220" class="w-[200px] h-[200px]"></canvas>
             </div>
-            <div class="p-3 rounded-xl bg-purple-950/40 border border-purple-500/30 text-purple-200 text-[11px] leading-relaxed">
-              💡 <b>세 딸 자문위원단 코멘트</b>: 
-              <span id="lang-advisor-comment">"경우와 공경, 공감과 나눔이 조화를 이룰 때 비로소 진정한 차세대 글로벌 AI 리더로 우뚝 섭니다. 이 4Q 나침반은 우리 아이들의 영혼을 지켜주는 든든한 등대입니다."</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Controls: Virtue & Age Selector -->
-      <div class="glass-panel rounded-2xl p-5 border border-pink-500/20 space-y-4">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
-          <!-- 4대 덕목 -->
-          <div class="sm:col-span-2">
-            <label class="block font-semibold text-slate-300 mb-1.5">인성 4대 덕목 선택</label>
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
-              <button onclick="selectVirtue('courtesy', this)" class="virtue-btn p-2 rounded-lg bg-pink-950/60 text-pink-300 border border-pink-500/50 font-semibold text-center">
-                🌸 경우 (예의)
-              </button>
-              <button onclick="selectVirtue('respect', this)" class="virtue-btn p-2 rounded-lg bg-slate-900 text-slate-300 border border-slate-800 font-semibold text-center">
-                🌾 어른 공경
-              </button>
-              <button onclick="selectVirtue('empathy', this)" class="virtue-btn p-2 rounded-lg bg-slate-900 text-slate-300 border border-slate-800 font-semibold text-center">
-                🤝 친구 공감
-              </button>
-              <button onclick="selectVirtue('sharing', this)" class="virtue-btn p-2 rounded-lg bg-slate-900 text-slate-300 border border-slate-800 font-semibold text-center">
-                🎁 따뜻한 나눔
-              </button>
-            </div>
-          </div>
-
-          <!-- 대상 연령 -->
-          <div>
-            <label class="block font-semibold text-slate-300 mb-1.5">대상 딸 선택</label>
-            <select id="game-target-daughter" class="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 text-white text-xs">
-              <option value="first">첫째 (중학교 3학년)</option>
-              <option value="second">둘째 (중학교 1학년)</option>
-              <option value="third" selected>셋째 (초등학교 5학년)</option>
-            </select>
-          </div>
-
-          <!-- Generate Button -->
-          <div class="flex items-end">
-            <button onclick="generateGameEpisode()" id="btn-gen-episode"
-              class="w-full py-2.5 rounded-xl bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white font-bold text-xs transition active:scale-95 flex items-center justify-center gap-1.5 shadow-lg shadow-pink-600/20">
-              <span>🎮 새 에피소드 생성</span>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Live Game Simulator Screen -->
-      <div id="game-simulator-container" class="glass-panel rounded-2xl p-6 border border-slate-800 space-y-5">
-        <div class="flex items-center justify-between pb-3 border-b border-slate-800">
-          <div class="flex items-center gap-2">
-            <span class="text-xl">🏪</span>
-            <h3 id="sim-title" class="text-sm font-bold text-white">마음 편의점 : 에피소드를 생성해 주세요</h3>
-          </div>
-          <div class="flex items-center gap-3">
-            <span class="text-xs text-pink-400 font-bold">온기 포인트: <span id="sim-warmth-points">100</span> Heart</span>
-            <button onclick="exportHeartGameHtml()" id="btn-export-game" class="hidden px-3 py-1 rounded-lg bg-pink-600/20 hover:bg-pink-600/40 text-pink-300 border border-pink-500/30 text-xs font-semibold">
-              📲 독립 웹게임 내보내기 (.html)
-            </button>
-          </div>
-        </div>
-
-        <!-- Situation Box -->
-        <div id="sim-situation-box" class="p-4 rounded-xl bg-slate-900/80 border border-slate-800 text-xs text-slate-200 leading-relaxed min-h-[80px]">
-          위에서 덕목을 고르고 [새 에피소드 생성]을 누르면, 세 딸의 눈높이에 맞춘 흥미진진한 밸런스 상황극이 펼쳐집니다!
-        </div>
-
-        <!-- 3 Choices Grid -->
-        <div id="sim-choices-container" class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
-          <!-- Choices will be rendered here -->
-        </div>
-
-        <!-- Outcome / Feedback Modal Box -->
-        <div id="sim-outcome-box" class="hidden p-4 rounded-xl bg-pink-950/40 border border-pink-500/40 text-xs text-pink-200 space-y-2">
-          <h4 id="sim-outcome-title" class="font-bold text-white text-sm"></h4>
-          <p id="sim-outcome-desc" class="leading-relaxed"></p>
-        </div>
-      </div>
-
-      <!-- 📜 [제4원: 올바른 AI & 인성 리더 정식 수료 인증서 실시간 발급기] -->
-      <div class="glass-panel rounded-2xl p-6 border border-amber-500/30 bg-gradient-to-r from-slate-900/95 via-purple-950/20 to-slate-900/95 space-y-5">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-800">
-          <div class="flex items-center gap-3">
-            <span class="text-2xl">📜</span>
-            <div>
-              <h3 class="text-sm font-bold text-white flex items-center gap-2">
-                [제4원: 정식 인증원] 올바른 AI & 인성 리더 정식 수료 인증서 실시간 발급소
-              </h3>
-              <p class="text-[11px] text-slate-400">
-                세 딸(이은솔·이송효·이해상)과 글로벌 청소년을 위한 고품격 금장 디지털 수료증 (고유 인증 번호 & 교장 직인 날인)
-              </p>
-            </div>
-          </div>
-          <span class="px-3 py-1 rounded-full bg-amber-500/10 text-amber-300 border border-amber-500/30 text-xs font-bold shrink-0">
-            🏛️ 한걸음씩 미래 AI 인성학교
-          </span>
-        </div>
-
-        <!-- Certificate Controls Grid -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 text-xs">
-          <!-- Left: Input Controls (5 Cols) -->
-          <div class="lg:col-span-5 space-y-3.5">
-            <div>
-              <label class="block font-semibold text-slate-300 mb-1">학생 이름 (세 딸 자문위원단 빠른 선택)</label>
-              <div class="flex flex-wrap gap-1.5 mb-2">
-                <button type="button" onclick="setCertStudent('이은솔', '중학교 3학년 (수석 자문위원)')" class="px-2.5 py-1 rounded-lg bg-purple-950/60 hover:bg-purple-900 text-purple-300 border border-purple-500/40 text-[11px] font-semibold transition">
-                  👧 첫째 이은솔 (중3, 수석)
-                </button>
-                <button type="button" onclick="setCertStudent('이송효', '중학교 1학년 (선임 자문위원)')" class="px-2.5 py-1 rounded-lg bg-pink-950/60 hover:bg-pink-900 text-pink-300 border border-pink-500/40 text-[11px] font-semibold transition">
-                  👧 둘째 이송효 (중1, 선임)
-                </button>
-                <button type="button" onclick="setCertStudent('이해상', '초등학교 5학년 (주니어 자문위원)')" class="px-2.5 py-1 rounded-lg bg-emerald-950/60 hover:bg-emerald-900 text-emerald-300 border border-emerald-500/40 text-[11px] font-semibold transition">
-                  👧 셋째 이해상 (초5, 주니어)
-                </button>
-              </div>
-              <input type="text" id="cert-student-name" value="이해상" placeholder="학생 성명 입력"
-                class="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 text-white text-xs outline-none focus:border-amber-500" />
-            </div>
-
-            <div>
-              <label class="block font-semibold text-slate-300 mb-1">소속 / 학년</label>
-              <input type="text" id="cert-student-grade" value="초등학교 5학년 (주니어 자문위원)" placeholder="예: 중학교 3학년 (수석 자문위원)"
-                class="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 text-white text-xs outline-none focus:border-amber-500" />
-            </div>
-
-            <!-- 교장 선생님(수여권자) 직함 및 성함 커스텀 입력칸 -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-              <div>
-                <label class="block font-semibold text-slate-300 mb-1">교장(수여권자) 직함</label>
-                <input type="text" id="cert-principal-title" value="한걸음씩 미래 AI 인성학교장" placeholder="예: 한걸음씩 미래 AI 인성학교장"
-                  class="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 text-white text-xs outline-none focus:border-amber-500" />
-              </div>
-              <div>
-                <label class="block font-semibold text-slate-300 mb-1">교장(수여권자) 성명</label>
-                <input type="text" id="cert-principal-name" value="이 상 일" placeholder="예: 이 상 일"
-                  class="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 text-white text-xs outline-none focus:border-amber-500" />
-              </div>
-            </div>
-
-            <div>
-              <label class="block font-semibold text-slate-300 mb-1">이수 덕목 및 과정명</label>
-              <select id="cert-course-type" class="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 text-white text-xs">
-                <option value="all">4대 전수 덕목 (경우 · 어른 공경 · 친구 공감 · 따뜻한 나눔) & AI 윤리</option>
-                <option value="courtesy">경우(예의)와 올바른 AI 소통 리더십</option>
-                <option value="respect">어른 공경과 디지털 세대 공존 윤리</option>
-                <option value="empathy">친구 공감과 따뜻한 인공지능 활용법</option>
-                <option value="sharing">따뜻한 나눔과 10% 상생 실천가</option>
-              </select>
-            </div>
-
-            <div class="pt-2 flex flex-col gap-2">
-              <button onclick="renderCertificateCanvas()" id="btn-render-cert"
-                class="w-full py-2.5 rounded-xl bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-white font-bold text-xs transition active:scale-95 shadow-lg shadow-amber-600/20 flex items-center justify-center gap-1.5">
-                <span>📜 정식 수료 인증서 실시간 렌더링</span>
-              </button>
-              <div class="grid grid-cols-2 gap-2">
-                <button onclick="downloadCertificatePng()" class="py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-semibold flex items-center justify-center gap-1">
-                  <span>💾</span> 고화질 PNG 저장
-                </button>
-                <button onclick="copyCertificateToClipboard()" class="py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-semibold flex items-center justify-center gap-1">
-                  <span>📋</span> 이미지 복사
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Right: Canvas Preview (7 Cols) -->
-          <div class="lg:col-span-7 flex flex-col items-center justify-center bg-slate-950/80 p-3 rounded-2xl border border-slate-800">
-            <div class="w-full max-w-[620px] aspect-[1200/850] relative overflow-hidden rounded-xl shadow-2xl border border-amber-500/20 bg-slate-950 flex items-center justify-center">
-              <canvas id="cert-canvas" width="1200" height="850" class="w-full h-full object-contain"></canvas>
-            </div>
-            <p class="text-[11px] text-slate-400 mt-2">
-              ✨ 1200 x 850 고해상도 인증서가 브라우저에서 100% 실시간 합성됩니다.
-            </p>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- ══════════════════════════════════════════════════════════════
-         TAB 5. 📚 지혜금고 & 제국실록 (Wisdom Ledger & Memory Vault)
-    ══════════════════════════════════════════════════════════════ -->
-    <div id="tab-vault" class="tab-pane hidden p-4 sm:p-6 lg:p-8 space-y-6">
-
-      <!-- 📚 [제국 실록 : 잘한 점(성공 공식) & 잘못한 점(오답 백신) 공유 저장소] -->
-      <div class="glass-panel rounded-2xl p-5 border border-amber-500/30 bg-gradient-to-r from-slate-900/95 via-amber-950/20 to-slate-900/95 space-y-4">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-800">
-          <div class="flex items-center gap-2.5">
-            <span class="text-2xl">📚</span>
-            <div>
-              <h3 class="text-sm font-bold text-white flex items-center gap-2">
-                [제국 실록] 잘한 점(성공 공식) & 잘못한 점(오답 백신) 지혜 저장소
-              </h3>
-              <p class="text-[11px] text-slate-400">모든 AI 부처와 안실장이 실시간 공유하여 실수를 100% 원천 차단하고 판단을 가속합니다</p>
-            </div>
-          </div>
-          <div class="flex items-center gap-2">
-            <button onclick="openAddWisdomModal('good')"
-              class="px-3 py-1.5 rounded-xl bg-emerald-600/30 hover:bg-emerald-600/50 text-emerald-300 border border-emerald-500/40 text-xs font-bold transition flex items-center gap-1 active:scale-95 shadow-md">
-              <span>🟢</span> <span>성공 공식 등록</span>
-            </button>
-            <button onclick="openAddWisdomModal('mistake')"
-              class="px-3 py-1.5 rounded-xl bg-rose-600/30 hover:bg-rose-600/50 text-rose-300 border border-rose-500/40 text-xs font-bold transition flex items-center gap-1 active:scale-95 shadow-md">
-              <span>🔴</span> <span>오답 백신 등록</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- 실시간 지혜 통계 배지 -->
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-xs">
-          <div class="p-3 rounded-xl bg-emerald-950/40 border border-emerald-500/30 flex items-center justify-between">
-            <span class="text-slate-300 font-semibold flex items-center gap-1.5">
-              <span>🟢</span> <span>축적된 성공 공식</span>
-            </span>
-            <span id="stat-good-count" class="text-base font-extrabold text-emerald-400 font-mono">0건</span>
-          </div>
-          <div class="p-3 rounded-xl bg-rose-950/40 border border-rose-500/30 flex items-center justify-between">
-            <span class="text-slate-300 font-semibold flex items-center gap-1.5">
-              <span>🛡️</span> <span>실수 방지 오답 백신</span>
-            </span>
-            <span id="stat-mistake-count" class="text-base font-extrabold text-rose-400 font-mono">0건</span>
-          </div>
-          <div class="p-3 rounded-xl bg-amber-950/40 border border-amber-500/30 flex items-center justify-between">
-            <span class="text-slate-300 font-semibold flex items-center gap-1.5">
-              <span>⚡</span> <span>AI 판단 가속 & 면역률</span>
-            </span>
-            <span class="text-xs font-extrabold text-amber-300 font-mono">100% (실시간 주입)</span>
-          </div>
-        </div>
-
-        <!-- 신규 지혜 원터치 입력 폼 (토글) -->
-        <div id="wisdom-input-card" class="hidden p-4 rounded-xl bg-slate-950/90 border border-amber-500/40 space-y-3">
-          <div class="flex items-center justify-between">
-            <h4 id="wisdom-input-title" class="text-xs font-bold text-amber-300 flex items-center gap-1.5">
-              <span>✏️</span> <span>새로운 성공 공식 기록</span>
-            </h4>
-            <button onclick="closeWisdomInputCard()" class="text-slate-400 hover:text-white text-xs">✕ 닫기</button>
-          </div>
-          <input type="hidden" id="wisdom-input-type" value="good" />
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
-            <div class="sm:col-span-2">
-              <input type="text" id="wisdom-form-title" placeholder="교훈 제목 (예: 20분 무부하 렌더링, API 키 사전 검증 등)"
-                class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-white text-xs outline-none focus:border-amber-500" />
-            </div>
-            <div>
-              <input type="text" id="wisdom-form-category" placeholder="분야 (예: 성능, 보안, UX, 프론트)"
-                class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-white text-xs outline-none focus:border-amber-500" />
-            </div>
-          </div>
-          <div>
-            <textarea id="wisdom-form-content" rows="2" placeholder="자세한 내용 (무엇을 잘했는지 또는 어떤 버그/실수가 발생했는지 설명)"
-              class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-white text-xs outline-none focus:border-amber-500"></textarea>
-          </div>
-          <div>
-            <input type="text" id="wisdom-form-rule" placeholder="핵심 수칙 / 재발 방지 규칙 / 기대 효과"
-              class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-white text-xs outline-none focus:border-amber-500" />
-          </div>
-          <div class="flex justify-end gap-2 pt-1">
-            <button onclick="closeWisdomInputCard()" class="px-3 py-1.5 rounded-lg bg-slate-800 text-slate-300 text-xs">취소</button>
-            <button onclick="submitWisdomEntry()" id="btn-submit-wisdom"
-              class="px-4 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs shadow-md transition active:scale-95">
-              전 부처 실시간 전파 및 등재 🚀
-            </button>
-          </div>
-        </div>
-
-        <!-- 좌우 2단 비교 뷰 (🟢 성공 공식 vs 🔴 오답 백신) -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          <!-- 🟢 성공 공식 카드 리스트 -->
-          <div class="space-y-3">
-            <div class="flex items-center justify-between px-1">
-              <h4 class="text-xs font-bold text-emerald-400 flex items-center gap-1.5">
-                <span>🟢</span> <span>[검증된 성공 공식 (Best Practices)]</span>
-              </h4>
-              <span class="text-[10px] text-slate-500 font-mono">신속 판단의 나침반</span>
-            </div>
-            <div id="wisdom-good-list" class="space-y-2.5 max-h-[460px] overflow-y-auto pr-1">
-              <div class="text-center py-6 text-slate-500 text-xs">성공 공식을 불러오는 중...</div>
-            </div>
-          </div>
-
-          <!-- 🔴 오답 백신 카드 리스트 -->
-          <div class="space-y-3">
-            <div class="flex items-center justify-between px-1">
-              <h4 class="text-xs font-bold text-rose-400 flex items-center gap-1.5">
-                <span>🔴</span> <span>[절대 반복 금지 오답 백신 (Mistake Vaccines)]</span>
-              </h4>
-              <span class="text-[10px] text-slate-500 font-mono">원천 차단 영구 면역</span>
-            </div>
-            <div id="wisdom-mistake-list" class="space-y-2.5 max-h-[460px] overflow-y-auto pr-1">
-              <div class="text-center py-6 text-slate-500 text-xs">오답 백신을 불러오는 중...</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="flex items-center justify-between pb-3 border-b border-slate-800">
-        <div>
-          <h2 class="text-base font-bold text-white">기억 금고 & 보안 설정 (Memory Vault)</h2>
-          <p class="text-xs text-slate-400">저장된 모든 영감, Suno 프롬프트, 안실장 지시 내역 및 Zero-Leak 보안 관리</p>
-        </div>
-        <button onclick="loadMemoryVault()" class="text-xs text-emerald-400 hover:text-emerald-300">새로고침</button>
-      </div>
-
-      <!-- Vault Search & List -->
-      <div class="glass-panel rounded-2xl p-5 border border-slate-800 space-y-4">
-        <div class="flex gap-2">
-          <input type="text" id="vault-search-input" placeholder="기억 금고 검색 (키워드 입력)..." oninput="filterVaultMemories()"
-            class="flex-1 px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 text-white text-xs outline-none focus:border-emerald-500" />
-        </div>
-        <div id="vault-memories-list" class="space-y-2.5 max-h-[380px] overflow-y-auto text-xs text-slate-400">
-          기억 데이터를 불러오는 중...
-        </div>
-      </div>
-
-      <!-- Zero-Leak Security Credentials Panel -->
-      <div class="glass-panel rounded-2xl p-5 border border-emerald-500/30 space-y-4">
-        <div class="flex items-center justify-between">
-          <h3 class="text-sm font-bold text-white flex items-center gap-2">
-            <span>🔐</span> Zero-Leak 브라우저 금고 설정
-          </h3>
-          <span class="text-[10px] text-emerald-400 bg-emerald-950 px-2 py-0.5 rounded border border-emerald-800">100% 브라우저 내부 보관</span>
-        </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-          <div>
-            <label class="block font-semibold text-slate-300 mb-1">GitHub PAT Token</label>
-            <input type="password" id="vault-gh-token" class="w-full px-3 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-white font-mono" />
-          </div>
-          <div>
-            <label class="block font-semibold text-slate-300 mb-1">Gemini API Key</label>
-            <input type="password" id="vault-gemini-key" class="w-full px-3 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-white font-mono" />
-          </div>
-          <div>
-            <label class="block font-semibold text-slate-300 mb-1">Telegram Bot Token</label>
-            <input type="password" id="vault-tg-token" class="w-full px-3 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-white font-mono" />
-          </div>
-          <div>
-            <label class="block font-semibold text-slate-300 mb-1">Telegram Chat ID</label>
-            <input type="text" id="vault-tg-chat-id" class="w-full px-3 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-white font-mono" />
-          </div>
-        </div>
-        <div class="pt-2 flex justify-end gap-2">
-          <button onclick="saveVaultSettings()" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition">
-            보안 설정 저장
-          </button>
-        </div>
-      </div>
-
-      <!-- 📱 Smartphone 1-Click Key Sync Panel (Zero-Leak URL Hash & QR) -->
-      <div class="glass-panel rounded-2xl p-5 border border-indigo-500/30 space-y-4">
-        <div class="flex items-center justify-between">
-          <h3 class="text-sm font-bold text-white flex items-center gap-2">
-            <span>📱</span> 스마트폰 원클릭 보안 키 동기화 (QR & 직통 링크)
-          </h3>
-          <span class="text-[10px] text-indigo-400 bg-indigo-950 px-2 py-0.5 rounded border border-indigo-800">통근버스 5G 원터치</span>
-        </div>
-        <p class="text-xs text-slate-400">
-          집 밖이나 통근버스에서 스마트폰으로 접속할 때, 복잡한 API 키를 일일이 입력할 필요 없이 <b>원클릭 링크나 QR 스캔</b>으로 브라우저에 안전하게 자동 저장합니다. (저장 즉시 주소창에서 키가 자동 삭제되는 Zero-Leak 암호화 기술 탑재)
-        </p>
-        
-        <div class="flex flex-wrap gap-2">
-          <button onclick="generateMobileSyncQr()" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition flex items-center gap-1.5">
-            <span>⚡</span> 스마트폰 동기화 링크 & QR 생성
-          </button>
-        </div>
-
-        <div id="mobile-sync-box" class="hidden p-4 rounded-xl bg-slate-950 border border-indigo-500/30 space-y-3">
-          <div class="flex flex-col sm:flex-row items-center gap-4">
-            <div class="bg-white p-2 rounded-xl shadow-lg shrink-0">
-              <img id="mobile-sync-qr-img" class="w-36 h-36" src="" alt="스마트폰 동기화 QR" />
-            </div>
-            <div class="flex-1 space-y-2 w-full">
-              <label class="block text-[11px] text-slate-300 font-semibold">스마트폰 접속 직통 링크 (카톡으로 나에게 전송):</label>
-              <div class="flex gap-2">
-                <input type="text" id="mobile-sync-link-input" readonly class="flex-1 px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-xs text-slate-300 font-mono select-all" />
-                <button onclick="copyMobileSyncLink()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-white text-xs shrink-0 font-bold">
-                  📋 복사
-                </button>
-              </div>
-              <p class="text-[11px] text-indigo-300">
-                💡 <b>스마트폰으로 이 링크를 열면:</b> API 키가 1초 만에 스마트폰에 저장되고, 주소창의 키 파라미터는 자동으로 사라져 안전합니다!
-              </p>
+            <div class="flex flex-col items-center justify-center p-3 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
+              <span class="text-[11px] text-amber-300 font-bold">한걸음씩 품격 마스터 정식 수료증</span>
+              <canvas id="cert-canvas" width="280" height="190" class="w-full max-w-[260px] rounded-lg border border-slate-700 shadow-md"></canvas>
             </div>
           </div>
         </div>
       </div>
 
     </div>
+    <!-- 👗 [꿈의 옷장 Ultra-Simple Minimal End] -->
+
+  </div>
 
   </main>
 

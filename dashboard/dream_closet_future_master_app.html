@@ -42,479 +42,333 @@
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
   </style>
 </head>
-<body class="min-h-screen bg-slate-950 text-slate-100 flex flex-col justify-between selection:bg-pink-500 selection:text-white">
 
-  <!-- 🌟 Top Header -->
-  <header class="sticky top-0 z-50 glass-card border-b border-purple-500/30 px-4 py-3 bg-slate-950/90 flex items-center justify-between">
-    <div class="flex items-center gap-2.5">
-      <span class="text-2xl p-1.5 rounded-xl bg-gradient-to-tr from-pink-500 to-purple-600 text-white shadow-md shadow-pink-500/30">👗</span>
-      <div>
-        <div class="flex items-center gap-1.5">
-          <span class="px-1.5 py-0.5 rounded text-[9px] font-black bg-gradient-to-r from-amber-400 to-pink-500 text-slate-950 uppercase font-outfit">Free Forever 0원</span>
-          <h1 class="text-xs sm:text-sm font-black text-white tracking-tight">꿈의 옷장 (Dream Closet)</h1>
+<body class="bg-slate-950 text-slate-100 min-h-screen p-3 sm:p-6 antialiased selection:bg-purple-500 selection:text-white">
+
+  <!-- 👑 [Ultra-Simple Minimal Luxury v3.3 Container] -->
+  <div class="max-w-4xl mx-auto space-y-4 pb-16">
+
+    <!-- 👑 Top Minimal Header -->
+    <div class="flex items-center justify-between px-3.5 py-2.5 rounded-2xl bg-slate-900/80 border border-slate-800 backdrop-blur-md">
+      <div class="flex items-center gap-2.5">
+        <span class="text-2xl p-1.5 rounded-xl bg-purple-600/30 text-purple-300 border border-purple-500/30">👗</span>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="text-sm sm:text-base font-black text-white tracking-tight">꿈의 옷장 <span class="text-xs font-normal text-slate-400">Dream Closet</span></h1>
+            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-400/20 text-amber-300 border border-amber-400/40">
+              v3.3 Minimal
+            </span>
+          </div>
+          <p class="text-[10px] text-slate-400 hidden sm:block">창안자: <b>이상일</b> 대표님 · 0원 무료 상생나눔</p>
         </div>
-        <p class="text-[10px] text-pink-300 font-medium">한걸음씩 상생나눔 제1호 에듀-패션테크 마스터 앱</p>
+      </div>
+
+      <div class="flex items-center gap-1.5">
+        <button type="button" onclick="unlockFreePass()" class="px-2.5 py-1.5 rounded-xl bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 border border-amber-400/40 text-xs font-bold transition flex items-center gap-1 active:scale-95">
+          <span>⚡</span><span class="hidden sm:inline">프리패스</span>
+        </button>
+        <button type="button" onclick="registerCopyright()" class="p-1.5 sm:px-2.5 sm:py-1.5 rounded-xl bg-purple-600/20 hover:bg-purple-600/30 text-purple-300 border border-purple-500/30 text-xs font-medium transition active:scale-95" title="저작권 등기">
+          <span>📜</span><span class="hidden sm:inline">등기</span>
+        </button>
       </div>
     </div>
-    <div class="flex items-center gap-1.5">
-      <button type="button" onclick="unlockAllFeaturesFreePass()" class="px-2.5 py-1 rounded-lg bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-amber-400 hover:to-yellow-300 text-slate-950 font-black text-[11px] shadow-sm transition active:scale-95 flex items-center gap-1">
-        <span>⚡</span>
-        <span class="hidden sm:inline">대표님 프리패스</span>
-        <span>전체 해금</span>
-      </button>
-      <button type="button" onclick="speakText('반갑습니다! 한걸음씩 상생나눔 꿈의 옷장 AI 수석 디자이너입니다. 오늘 어떤 멋진 모습을 찾고 싶으신가요?')" class="p-2 rounded-lg bg-purple-950/80 hover:bg-purple-900 border border-purple-500/40 text-purple-300 text-xs transition">
-        🔊
-      </button>
-    </div>
-  </header>
 
-  <!-- 🌟 Main Content Container -->
-  <main class="flex-1 max-w-5xl w-full mx-auto p-3 sm:p-5 space-y-5">
 
-    <!-- 👑 제국 상생나눔 헌장 배너 -->
-    <div class="glass-card rounded-2xl p-4 border border-pink-500/40 bg-gradient-to-r from-slate-950 via-pink-950/30 to-purple-950/40 space-y-2">
-      <div class="flex items-center justify-between flex-wrap gap-2">
-        <div class="flex items-center gap-2">
-          <span class="text-lg">🏛️</span>
-          <span class="text-xs font-bold text-pink-200">창안자: <b>이상일</b> 대표님 (Principal Sang-Il Lee) | 공동 기획·검수: <b>이은솔·이송효·이해상</b></span>
+    <!-- 🎧 [Zone 1. 상단 1줄 Voice Bar] (ChatGPT Voice / 인스타 스토리형 원형 아이콘 바) -->
+    <div class="p-3 rounded-2xl bg-slate-900/60 border border-slate-800/80 backdrop-blur-md space-y-2">
+      <div class="flex items-center justify-between gap-2 overflow-x-auto no-scrollbar py-0.5">
+        <!-- 5대 성우 원형 아이콘 (터치 즉시 0.01초 Neural MP3 재생!) -->
+        <div class="flex items-center gap-2 sm:gap-3 shrink-0" id="voice-circle-bar">
+          <button type="button" onclick="selectStudioVoiceMinimalApp('designer')" id="mini-v-designer" class="flex flex-col items-center gap-1 group transition active:scale-90">
+            <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-full p-0.5 bg-gradient-to-tr from-amber-400 to-purple-600 shadow-md shadow-purple-900/40 ring-2 ring-amber-400">
+              <div class="w-full h-full rounded-full bg-slate-900 flex items-center justify-center text-lg sm:text-xl">👩🎨</div>
+            </div>
+            <span class="text-[10px] font-bold text-amber-300">디자이너</span>
+          </button>
+
+          <button type="button" onclick="selectStudioVoiceMinimalApp('highteen')" id="mini-v-highteen" class="flex flex-col items-center gap-1 group transition active:scale-90 opacity-70 hover:opacity-100">
+            <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-full p-0.5 bg-slate-800">
+              <div class="w-full h-full rounded-full bg-slate-900 flex items-center justify-center text-lg sm:text-xl">💖</div>
+            </div>
+            <span class="text-[10px] text-slate-400">하이틴</span>
+          </button>
+
+          <button type="button" onclick="selectStudioVoiceMinimalApp('gentleman')" id="mini-v-gentleman" class="flex flex-col items-center gap-1 group transition active:scale-90 opacity-70 hover:opacity-100">
+            <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-full p-0.5 bg-slate-800">
+              <div class="w-full h-full rounded-full bg-slate-900 flex items-center justify-center text-lg sm:text-xl">🤵</div>
+            </div>
+            <span class="text-[10px] text-slate-400">젠틀맨</span>
+          </button>
+
+          <button type="button" onclick="selectStudioVoiceMinimalApp('dj')" id="mini-v-dj" class="flex flex-col items-center gap-1 group transition active:scale-90 opacity-70 hover:opacity-100">
+            <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-full p-0.5 bg-slate-800">
+              <div class="w-full h-full rounded-full bg-slate-900 flex items-center justify-center text-lg sm:text-xl">🌙</div>
+            </div>
+            <span class="text-[10px] text-slate-400">힐링DJ</span>
+          </button>
+
+          <button type="button" onclick="selectStudioVoiceMinimalApp('future')" id="mini-v-future" class="flex flex-col items-center gap-1 group transition active:scale-90 opacity-70 hover:opacity-100">
+            <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-full p-0.5 bg-slate-800">
+              <div class="w-full h-full rounded-full bg-slate-900 flex items-center justify-center text-lg sm:text-xl">🚀</div>
+            </div>
+            <span class="text-[10px] text-slate-400">2035나</span>
+          </button>
         </div>
-        <span class="px-2.5 py-0.5 rounded-full bg-pink-500/20 text-pink-300 border border-pink-500/40 text-[10px] font-bold">
-          과금 0원 · 가치 100배 · 10년 초격차
-        </span>
-      </div>
-      <p class="text-[11px] text-slate-300 leading-relaxed">
-        "지루한 시험 대신 <b>드라마틱 인성 퀴즈</b>와 <b>음성 긍정 확언</b>, <b>0원 옷장 리폼</b>, <b>성공한 미래의 나(Future Self)</b>를 체험하여 누구나 돈 한 푼 안 들이고 세상에서 가장 당당한 리더로 성장합니다."
-      </p>
-    </div>
 
-    <!-- 🎛️ 4단계 인성 어드벤처 & 음성 해금 진행도 바 -->
-    <div class="glass-card rounded-2xl p-4 border border-purple-500/30 space-y-3">
-      <div class="flex items-center justify-between">
-        <span class="text-xs font-bold text-purple-200 flex items-center gap-1.5">
-          <span>🎮</span>
-          <span>인성 시네마 퀴즈 & 양방향 보이스 해금 단계</span>
-        </span>
-        <span id="unlock-badge" class="px-2.5 py-0.5 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/40 text-[10px] font-mono font-bold">
-          Lv.0 입문자 (데일리 오픈)
-        </span>
-      </div>
-      <!-- Progress Bar -->
-      <div class="w-full bg-slate-900 rounded-full h-2.5 overflow-hidden border border-slate-800">
-        <div id="unlock-progress-bar" class="h-full bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-400 transition-all duration-500" style="width: 25%"></div>
-      </div>
-      <!-- 4단계 아이콘 네비 -->
-      <div class="grid grid-cols-4 gap-1.5 text-center text-[10px]">
-        <button type="button" onclick="selectStep(0)" id="step-btn-0" class="p-1.5 rounded-xl bg-purple-600/40 border border-purple-400 font-bold text-white">
-          🌱 Lv.0 입문
-        </button>
-        <button type="button" onclick="selectStep(1)" id="step-btn-1" class="p-1.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-400">
-          🌿 Step 1 (EQ)
-        </button>
-        <button type="button" onclick="selectStep(2)" id="step-btn-2" class="p-1.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-400">
-          🌳 Step 2 (MQ)
-        </button>
-        <button type="button" onclick="selectStep(3)" id="step-btn-3" class="p-1.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-400">
-          👑 Step 3 (CQ)
-        </button>
-      </div>
-    </div>
-
-    <!-- 🕹️ 인터랙티브 퀴즈 & 확언 미션 패널 -->
-    <div id="quiz-panel" class="glass-card rounded-2xl p-4 sm:p-5 border border-pink-500/30 space-y-4">
-      <div class="flex items-center justify-between pb-2 border-b border-slate-800">
-        <div class="flex items-center gap-2">
-          <span id="quiz-icon" class="text-xl">🌿</span>
-          <h2 id="quiz-title" class="text-xs sm:text-sm font-bold text-white">Step 1. 공감 드라마 퀴즈 (EQ): 축제 날 친구의 찢어진 옷</h2>
-        </div>
-        <span id="quiz-reward-preview" class="text-[10px] text-pink-300 font-mono">보상: K-하이틴 룩 + 피부톤 스캐너 + 디자이너 TTS</span>
-      </div>
-      <div id="quiz-story" class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 text-xs text-slate-200 leading-relaxed">
-        학교 축제 밴드 공연 직전, 단짝 친구의 무대 의상이 찢어져 울고 있습니다. 내게는 집에 가려 챙겨둔 멋진 오버핏 여분 자켓이 하나 있습니다. 어떻게 하시겠습니까?
-      </div>
-      <div id="quiz-choices" class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
-        <button type="button" onclick="answerQuiz(0)" class="p-3 rounded-xl bg-purple-950/40 hover:bg-purple-900/60 border border-purple-500/30 text-left transition active:scale-98">
-          1. 즉시 내 여분 자켓을 친구에게 입혀주고 함께 손잡고 무대에 오른다. (공감 & 배려)
-        </button>
-        <button type="button" onclick="answerQuiz(1)" class="p-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-left text-slate-400 transition active:scale-98">
-          2. 안타깝지만 내 순서가 다가오니 옷을 빌려주지 않고 먼저 리허설을 간다.
-        </button>
-        <button type="button" onclick="answerQuiz(2)" class="p-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-left text-slate-400 transition active:scale-98">
-          3. 선생님께 말씀만 드리고 무대 뒤에서 혼자 기다린다.
-        </button>
-      </div>
-
-      <!-- 🎙️ 스피치 확언 / 음성 인터랙션 바 -->
-      <div id="voice-affirmation-box" class="p-3.5 rounded-xl bg-gradient-to-r from-pink-950/40 to-purple-950/40 border border-pink-500/40 flex flex-col sm:flex-row items-center justify-between gap-3">
-        <div class="flex items-center gap-2.5">
-          <button type="button" id="btn-mic-stt" onclick="toggleVoiceSTT()" class="w-10 h-10 rounded-xl bg-pink-600 hover:bg-pink-500 text-white flex items-center justify-center text-lg shadow-md transition active:scale-95 shrink-0">
+        <!-- 음성 액션 버튼 -->
+        <div class="flex items-center gap-1.5 shrink-0 pl-2 border-l border-slate-800">
+          <button type="button" onclick="playSelectedStudioVoice('')" class="w-9 h-9 rounded-xl bg-purple-600/30 hover:bg-purple-600/50 text-purple-200 border border-purple-500/40 flex items-center justify-center text-base transition active:scale-95" title="성우 목소리 듣기">
+            <span id="voice-play-icon">🔊</span>
+          </button>
+          <button type="button" onclick="toggleVoiceSTT()" id="btn-mic-stt" class="w-9 h-9 rounded-xl bg-pink-600/30 hover:bg-pink-600/50 text-pink-200 border border-pink-500/40 flex items-center justify-center text-base transition active:scale-95" title="마이크로 말하기">
             🎙️
           </button>
+          <button type="button" onclick="toggleVoiceTuningBarApp()" class="w-9 h-9 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 flex items-center justify-center text-xs transition active:scale-95" title="톤/속도 조절">
+            🎛️
+          </button>
+        </div>
+      </div>
+
+      <!-- 미니 튜닝 바 (🎛️ 누를 때만 토글) -->
+      <div id="voice-tuning-bar-app" class="hidden pt-2 border-t border-slate-800/80 grid grid-cols-2 gap-3 text-xs">
+        <div>
+          <div class="flex justify-between text-[11px] text-slate-400 mb-1">
+            <span>톤(Pitch)</span><span id="voice-pitch-label" class="text-amber-300">0Hz</span>
+          </div>
+          <input type="range" id="voice-pitch-slider" min="-15" max="15" value="0" step="1" oninput="updateStudioVoiceSettings('')" class="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-amber-400">
+        </div>
+        <div>
+          <div class="flex justify-between text-[11px] text-slate-400 mb-1">
+            <span>속도(Speed)</span><span id="voice-rate-label" class="text-amber-300">1.0x</span>
+          </div>
+          <input type="range" id="voice-rate-slider" min="0.8" max="1.3" value="1.0" step="0.05" oninput="updateStudioVoiceSettings('')" class="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-amber-400">
+        </div>
+      </div>
+    </div>
+
+
+    <!-- 👗 [Zone 2. 중앙 메인 Canvas] (지그재그·제페토 스타일 시원한 풀뷰 피팅 캔버스) -->
+    <div class="p-3.5 sm:p-5 rounded-3xl bg-slate-900/50 border border-slate-800/80 shadow-2xl relative space-y-3">
+      <div class="flex items-center justify-between flex-wrap gap-2 text-xs">
+        <div class="flex items-center gap-1 p-1 rounded-xl bg-slate-950/80 border border-slate-800">
+          <button type="button" onclick="setAngle(0)" id="angle-btn-0" class="px-2.5 py-1 rounded-lg bg-purple-600 text-white font-bold text-[11px] transition">정면</button>
+          <button type="button" onclick="setAngle(90)" id="angle-btn-90" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white text-[11px] transition">좌측</button>
+          <button type="button" onclick="setAngle(180)" id="angle-btn-180" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white text-[11px] transition">후면</button>
+          <button type="button" onclick="setAngle(270)" id="angle-btn-270" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white text-[11px] transition">우측</button>
+        </div>
+
+        <div class="flex items-center gap-1 p-1 rounded-xl bg-slate-950/80 border border-slate-800">
+          <button type="button" onclick="switchFittingSubTab('fitting')" id="tab-sub-fitting" class="px-2.5 py-1 rounded-lg bg-purple-600 text-white font-bold text-[11px] transition">피팅</button>
+          <button type="button" onclick="switchFittingSubTab('future')" id="tab-sub-future" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white text-[11px] transition">🔮 2035</button>
+          <button type="button" onclick="switchFittingSubTab('family')" id="tab-sub-family" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white text-[11px] transition">👨‍👧‍👧 가족룩</button>
+        </div>
+
+        <label class="px-2.5 py-1 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 text-[11px] cursor-pointer transition flex items-center gap-1 active:scale-95">
+          <span>📸</span><span>내 얼굴</span>
+          <input type="file" id="face-upload" accept="image/*" class="hidden">
+        </label>
+      </div>
+
+      <!-- 풀뷰 캔버스 -->
+      <div class="w-full max-w-[420px] mx-auto aspect-[3/4] max-h-[460px] rounded-2xl bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 border border-slate-800 shadow-inner relative overflow-hidden flex items-center justify-center">
+        <canvas id="app-fitting-canvas" width="450" height="600" class="w-full h-full object-contain"></canvas>
+        <div class="absolute bottom-2.5 left-2.5 right-2.5 px-3 py-1.5 rounded-xl bg-slate-950/85 backdrop-blur-md border border-slate-800/80 flex items-center justify-between text-[11px] text-slate-300 shadow-md">
+          <span id="canvas-look-label" class="font-medium truncate">👔 화이트 베이직 & 슬림 데님</span>
+          <span id="canvas-angle-label" class="font-mono text-purple-400 shrink-0 ml-2">0° FRONT</span>
+        </div>
+      </div>
+
+      <!-- 원터치 스타일 캡슐 가로 스크롤 -->
+      <div class="space-y-1.5 pt-1">
+        <div class="flex items-center justify-between text-[11px] text-slate-400 px-1">
+          <span>원터치 스타일 코디</span>
+          <span class="text-purple-300 text-[10px]">가로로 밀어서 선택 ➔</span>
+        </div>
+        <div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1 text-xs">
+          <button type="button" onclick="applyQuickLookApp('basic')" class="px-3.5 py-1.5 rounded-full bg-purple-600/30 hover:bg-purple-600/50 text-white border border-purple-400/50 font-bold shrink-0 transition active:scale-95">
+            #기본캐주얼
+          </button>
+          <button type="button" onclick="applyQuickLookApp('highteen')" class="px-3.5 py-1.5 rounded-full bg-pink-600/20 hover:bg-pink-600/40 text-pink-200 border border-pink-500/30 font-bold shrink-0 transition active:scale-95">
+            #하이틴룩
+          </button>
+          <button type="button" onclick="applyQuickLookApp('suit')" class="px-3.5 py-1.5 rounded-full bg-amber-600/20 hover:bg-amber-600/40 text-amber-200 border border-amber-500/30 font-bold shrink-0 transition active:scale-95">
+            #청담VIP수트
+          </button>
+          <button type="button" onclick="applyQuickLookApp('future_ceo')" class="px-3.5 py-1.5 rounded-full bg-purple-600/20 hover:bg-purple-600/40 text-purple-200 border border-purple-500/30 font-bold shrink-0 transition active:scale-95">
+            #2035글로벌CEO
+          </button>
+          <button type="button" onclick="applyQuickLookApp('family')" class="px-3.5 py-1.5 rounded-full bg-emerald-600/20 hover:bg-emerald-600/40 text-emerald-200 border border-emerald-500/30 font-bold shrink-0 transition active:scale-95">
+            #가족시밀러룩
+          </button>
+          <button type="button" onclick="applyQuickLookApp('reform_0')" class="px-3.5 py-1.5 rounded-full bg-cyan-600/20 hover:bg-cyan-600/40 text-cyan-200 border border-cyan-500/30 font-bold shrink-0 transition active:scale-95">
+            #0원옷장리폼
+          </button>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- 🎮 [Zone 3. 하단 액션 Bar] (듀오링고 스타일 인성 해금 진행 바 & 팝업 퀴즈) -->
+    <div class="p-3.5 rounded-2xl bg-gradient-to-r from-purple-950/40 via-slate-900/80 to-slate-950 border border-purple-500/30 space-y-2.5">
+      <div class="flex items-center justify-between flex-wrap gap-2">
+        <div class="flex items-center gap-2">
+          <span class="text-xl">🌱</span>
           <div>
             <div class="text-xs font-bold text-white flex items-center gap-1.5">
-              <span>양방향 보이스 소통 & 긍정 확언 스피치</span>
-              <span id="voice-level-tag" class="px-1.5 py-0.2 rounded text-[9px] bg-pink-500/20 text-pink-300 border border-pink-500/30">음성 1단계 대기</span>
+              <span>인성 해금 상태:</span>
+              <span id="step-title" class="text-amber-300 font-extrabold">Step 3. 나눔과 공존 마스터</span>
             </div>
-            <p id="voice-transcript-text" class="text-[11px] text-pink-200 mt-0.5">
-              마이크를 누르고 <b>"나는 세상에서 가장 소중하고 따뜻한 사람입니다!"</b> 또는 <b>"수트 입혀줘"</b>라고 말씀해 보세요!
-            </p>
+            <p class="text-[10px] text-slate-400">드라마틱 퀴즈를 풀고 특별 코디와 목소리를 해금하세요!</p>
           </div>
         </div>
-        <button type="button" onclick="triggerAffirmationSuccess()" class="px-3.5 py-2 rounded-xl bg-pink-600 hover:bg-pink-500 text-white text-xs font-bold transition active:scale-95 shrink-0">
-          ✨ 원터치 긍정 확언 완료
+        <button type="button" onclick="toggleQuizPopupApp()" id="btn-toggle-quiz-app" class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-bold text-xs shadow-md shadow-purple-900/40 transition active:scale-95 flex items-center gap-1">
+          <span>🎓</span><span>인성 퀴즈 풀기</span>
         </button>
       </div>
-    </div>
 
-    <!-- 👗 4방향 캔버스 피팅 룸 & 스타일 스위트 -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
-
-      <!-- Left: 4-Direction Fitting Canvas (7 Cols) -->
-      <div class="lg:col-span-7 glass-card rounded-2xl p-4 sm:p-5 border border-purple-500/30 space-y-3 flex flex-col items-center">
-        <div class="w-full flex items-center justify-between">
-          <div class="flex items-center gap-2">
-            <span class="text-lg">🪞</span>
-            <span class="text-xs font-bold text-white">4방향 실시간 캔버스 피팅룸</span>
-          </div>
-          <!-- 4방향 앵글 탭 -->
+      <!-- 팝업 퀴즈 카드 -->
+      <div id="quiz-popup-card-app" class="hidden p-4 rounded-xl bg-slate-950/95 border border-purple-500/40 space-y-3 transition-all">
+        <div class="flex items-center justify-between pb-2 border-b border-slate-800">
           <div class="flex items-center gap-1">
-            <button type="button" onclick="setAngle(0)" id="angle-btn-0" class="px-2 py-1 rounded bg-purple-600 text-white font-bold text-[10px]">정면 (0°)</button>
-            <button type="button" onclick="setAngle(90)" id="angle-btn-90" class="px-2 py-1 rounded bg-slate-900 text-slate-300 text-[10px]">좌측 (90°)</button>
-            <button type="button" onclick="setAngle(180)" id="angle-btn-180" class="px-2 py-1 rounded bg-slate-900 text-slate-300 text-[10px]">후면 (180°)</button>
-            <button type="button" onclick="setAngle(270)" id="angle-btn-270" class="px-2 py-1 rounded bg-slate-900 text-slate-300 text-[10px]">우측 (270°)</button>
+            <button type="button" onclick="selectStep(0)" id="step-tab-0" class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-800 text-slate-400">Lv.0</button>
+            <button type="button" onclick="selectStep(1)" id="step-tab-1" class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-800 text-slate-400">Step 1</button>
+            <button type="button" onclick="selectStep(2)" id="step-tab-2" class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-800 text-slate-400">Step 2</button>
+            <button type="button" onclick="selectStep(3)" id="step-tab-3" class="px-2 py-0.5 rounded text-[10px] font-bold bg-purple-600 text-white">Step 3</button>
           </div>
+          <button type="button" onclick="toggleQuizPopupApp()" class="text-slate-400 hover:text-white text-base">✕</button>
         </div>
 
-        <!-- 캔버스 프레임 -->
-        <div class="w-full max-w-[420px] aspect-[3/4] rounded-2xl bg-slate-950 border border-slate-800 shadow-2xl relative overflow-hidden flex items-center justify-center group">
-          <canvas id="app-fitting-canvas" width="450" height="600" class="w-full h-full object-contain"></canvas>
-          <!-- 오버레이 안내 -->
-          <div class="absolute bottom-2 left-2 right-2 px-3 py-1.5 rounded-xl bg-slate-950/80 backdrop-blur-md border border-slate-800 flex items-center justify-between text-[10px] text-slate-300">
-            <span id="canvas-look-label">👔 현재 의상: 화이트 베이직 & 슬림 데님</span>
-            <span id="canvas-angle-label" class="font-mono text-purple-400">Angle: 0° FRONT</span>
-          </div>
+        <div id="quiz-container" class="space-y-2.5">
+          <!-- Quiz options injected here -->
         </div>
 
-        <!-- 슬라이더 컨트롤러: 키 / 몸무게 / 체형 -->
-        <div class="w-full grid grid-cols-3 gap-2.5 pt-1 text-xs">
-          <div>
-            <div class="flex justify-between text-[11px] text-slate-300 mb-1">
-              <span>키</span><span id="val-height" class="font-mono text-pink-400">172 cm</span>
-            </div>
-            <input type="range" id="input-height" min="150" max="190" value="172" oninput="updateAvatarProportions()" class="w-full accent-pink-500 cursor-pointer" />
-          </div>
-          <div>
-            <div class="flex justify-between text-[11px] text-slate-300 mb-1">
-              <span>체중</span><span id="val-weight" class="font-mono text-purple-400">62 kg</span>
-            </div>
-            <input type="range" id="input-weight" min="40" max="95" value="62" oninput="updateAvatarProportions()" class="w-full accent-purple-500 cursor-pointer" />
-          </div>
-          <div>
-            <div class="flex justify-between text-[11px] text-slate-300 mb-1">
-              <span>핏 비율</span><span id="val-fit" class="font-mono text-cyan-400">3:7 황금핏</span>
-            </div>
-            <input type="range" id="input-fit" min="1" max="3" value="2" oninput="updateAvatarProportions()" class="w-full accent-cyan-500 cursor-pointer" />
-          </div>
+        <div class="pt-2 border-t border-slate-800 flex items-center justify-between text-xs">
+          <span class="text-[11px] text-slate-400">스피치 미션: 긍정 확언 선서</span>
+          <button type="button" onclick="triggerAffirmationSuccess()" class="px-3 py-1 rounded-lg bg-pink-600 hover:bg-pink-500 text-white font-bold text-xs transition active:scale-95">
+            ✨ 긍정 확언 완료
+          </button>
         </div>
       </div>
+    </div>
 
-      <!-- Right: 3대 미래지향 스페셜 모드 & 코디 셀렉터 (5 Cols) -->
-      <div class="lg:col-span-5 space-y-4">
 
-        <!-- 3대 스페셜 모드 탭 스위치 -->
-        <div class="grid grid-cols-3 gap-1.5 p-1 rounded-xl bg-slate-900 border border-slate-800 text-[11px] font-bold">
-          <button type="button" onclick="switchFittingSubTab('timemachine')" id="subtab-btn-timemachine" class="py-1.5 rounded-lg bg-purple-600 text-white shadow-sm transition">
-            🔮 2035 타임머신
-          </button>
-          <button type="button" onclick="switchFittingSubTab('family')" id="subtab-btn-family" class="py-1.5 rounded-lg text-slate-400 hover:text-white transition">
-            👨‍👩‍👧‍👦 가족 시밀러룩
-          </button>
-          <button type="button" onclick="switchFittingSubTab('zerocost')" id="subtab-btn-zerocost" class="py-1.5 rounded-lg text-slate-400 hover:text-white transition">
-            ♻️ 0원 리폼처방
-          </button>
+    <!-- 🗂️ [토스 스타일 하단 4대 접이식 서랍 (Drawer)] -->
+    <div class="space-y-2 pt-2">
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+        <button type="button" onclick="toggleDrawerApp('body')" id="btn-drawer-body-app" class="p-2.5 rounded-xl bg-slate-900/70 hover:bg-slate-800 border border-slate-800 text-left transition flex items-center gap-2">
+          <span class="text-lg">📏</span>
+          <div>
+            <div class="text-xs font-bold text-slate-200">체형·컬러</div>
+            <div class="text-[10px] text-slate-400">비율/퍼스널컬러</div>
+          </div>
+        </button>
+
+        <button type="button" onclick="toggleDrawerApp('voc')" id="btn-drawer-voc-app" class="p-2.5 rounded-xl bg-slate-900/70 hover:bg-slate-800 border border-slate-800 text-left transition flex items-center gap-2">
+          <span class="text-lg">💬</span>
+          <div>
+            <div class="text-xs font-bold text-slate-200">전담팀 VOC</div>
+            <div class="text-[10px] text-slate-400">4대AI 자동패치</div>
+          </div>
+        </button>
+
+        <button type="button" onclick="toggleDrawerApp('deploy')" id="btn-drawer-deploy-app" class="p-2.5 rounded-xl bg-slate-900/70 hover:bg-slate-800 border border-slate-800 text-left transition flex items-center gap-2">
+          <span class="text-lg">📲</span>
+          <div>
+            <div class="text-xs font-bold text-slate-200">스토어·복구</div>
+            <div class="text-[10px] text-slate-400">GooglePlay 복구</div>
+          </div>
+        </button>
+
+        <button type="button" onclick="toggleDrawerApp('cert')" id="btn-drawer-cert-app" class="p-2.5 rounded-xl bg-slate-900/70 hover:bg-slate-800 border border-slate-800 text-left transition flex items-center gap-2">
+          <span class="text-lg">🎓</span>
+          <div>
+            <div class="text-xs font-bold text-slate-200">인증서</div>
+            <div class="text-[10px] text-slate-400">수료증 발급</div>
+          </div>
+        </button>
+      </div>
+
+      <!-- 서랍 1: 체형/컬러 -->
+      <div id="drawer-body-app" class="hidden p-4 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-3">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+          <h5 class="text-xs font-bold text-white flex items-center gap-1.5"><span>📏</span> 체형 비율 및 피부톤 설정</h5>
+          <button type="button" onclick="toggleDrawerApp('body')" class="text-slate-400 hover:text-white text-xs">닫기 ✕</button>
         </div>
-
-        <!-- SubTab 1: 🔮 타임머신 2035 미래의 나 -->
-        <div id="subtab-pane-timemachine" class="glass-card rounded-2xl p-4 border border-purple-500/30 space-y-3 text-xs">
-          <div class="flex items-center justify-between">
-            <span class="font-bold text-purple-300 flex items-center gap-1">
-              <span>🔮</span> 10년 뒤 성공한 2035년의 나
-            </span>
-            <span class="text-[10px] text-pink-400 font-mono">Future Self Mode</span>
-          </div>
-          <p class="text-[11px] text-slate-300 leading-relaxed">
-            내가 꿈꾸는 미래의 직업을 선택하면, 10년 뒤의 내가 입고 있는 성공 룩을 렌더링하고 나에게 <b>음성 응원 편지</b>를 들려줍니다!
-          </p>
-          <div class="grid grid-cols-2 gap-2">
-            <button type="button" onclick="applyFutureLook('ceo')" class="p-2.5 rounded-xl bg-purple-950/60 hover:bg-purple-900 border border-purple-500/40 text-left transition active:scale-95">
-              <div class="font-bold text-white">👑 글로벌 CEO</div>
-              <div class="text-[10px] text-slate-400 mt-0.5">청담 하이엔드 수트 & 골드 타이</div>
-            </button>
-            <button type="button" onclick="applyFutureLook('scientist')" class="p-2.5 rounded-xl bg-cyan-950/60 hover:bg-cyan-900 border border-cyan-500/40 text-left transition active:scale-95">
-              <div class="font-bold text-white">🚀 우주 AI 과학자</div>
-              <div class="text-[10px] text-slate-400 mt-0.5">네온 사이버 테크웨어 & 스마트 코트</div>
-            </button>
-            <button type="button" onclick="applyFutureLook('artist')" class="p-2.5 rounded-xl bg-pink-950/60 hover:bg-pink-900 border border-pink-500/40 text-left transition active:scale-95">
-              <div class="font-bold text-white">🎨 세계적 미디어 아티스트</div>
-              <div class="text-[10px] text-slate-400 mt-0.5">아방가르드 린넨 자켓 & 실크 머플러</div>
-            </button>
-            <button type="button" onclick="applyFutureLook('diplomat')" class="p-2.5 rounded-xl bg-amber-950/60 hover:bg-amber-900 border border-amber-500/40 text-left transition active:scale-95">
-              <div class="font-bold text-white">🕊️ 평화 외교관 리더</div>
-              <div class="text-[10px] text-slate-400 mt-0.5">전통 모던 한복 블레이저</div>
-            </button>
-          </div>
-          <!-- 미래의 내가 들려주는 음성 편지 재생 버튼 -->
-          <button type="button" onclick="playFutureSelfVoiceLetter()" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-md shadow-purple-600/30 transition active:scale-95">
-            <span>💖 [2035년 미래의 내가 읽어주는 음성 편지 듣기]</span>
-          </button>
-        </div>
-
-        <!-- SubTab 2: 👨‍👩‍👧‍👦 가족 & 세 자매 하모니 시밀러룩 -->
-        <div id="subtab-pane-family" class="hidden glass-card rounded-2xl p-4 border border-pink-500/30 space-y-3 text-xs">
-          <div class="flex items-center justify-between">
-            <span class="font-bold text-pink-300 flex items-center gap-1">
-              <span>👨‍👩‍👧‍👦</span> 가족 & 세 자매 하모니 시밀러룩
-            </span>
-            <span class="text-[10px] text-emerald-400 font-mono">Harmony Score 99.8%</span>
-          </div>
-          <p class="text-[11px] text-slate-300 leading-relaxed">
-            <b>이상일 대표님 + 첫째 이은솔 + 둘째 이송효 + 셋째 이해상</b> 4인의 아바타가 나란히 서서 완벽하게 어우러지는 패밀리 팔레트를 시뮬레이션합니다!
-          </p>
-          <div class="space-y-1.5">
-            <button type="button" onclick="applyFamilyPalette('navy_gold')" class="w-full p-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left flex items-center justify-between transition">
-              <span>👑 로열 네이비 & 샴페인 골드 (품격 클래식)</span>
-              <span class="w-4 h-4 rounded-full bg-blue-900 border border-amber-400"></span>
-            </button>
-            <button type="button" onclick="applyFamilyPalette('warm_beige')" class="w-full p-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left flex items-center justify-between transition">
-              <span>🌸 파스텔 웜 베이지 & 크림 (따스한 온기)</span>
-              <span class="w-4 h-4 rounded-full bg-amber-200 border border-orange-300"></span>
-            </button>
-            <button type="button" onclick="applyFamilyPalette('forest_sage')" class="w-full p-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left flex items-center justify-between transition">
-              <span>🌲 포레스트 세이지 그린 & 아이보리 (자연 힐링)</span>
-              <span class="w-4 h-4 rounded-full bg-emerald-800 border border-emerald-300"></span>
-            </button>
-          </div>
-          <button type="button" onclick="renderFamilySimilarLookCanvas()" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition active:scale-95 shadow-md">
-            <span>👨‍👩‍👧‍👦 4인 가족 시밀러룩 캔버스 합성</span>
-          </button>
-        </div>
-
-        <!-- SubTab 3: ♻️ 0원 옷장 리폼 스타일링 처방 -->
-        <div id="subtab-pane-zerocost" class="hidden glass-card rounded-2xl p-4 border border-cyan-500/30 space-y-3 text-xs">
-          <div class="flex items-center justify-between">
-            <span class="font-bold text-cyan-300 flex items-center gap-1">
-              <span>♻️</span> 돈 안 드는 '내 옷장 0원 리폼' 처방
-            </span>
-            <span class="text-[10px] text-cyan-400 font-mono">Cost: 0 KRW</span>
-          </div>
-          <p class="text-[11px] text-slate-300 leading-relaxed">
-            새 옷을 사지 않아도 기본 흰 티, 셔츠, 청바지만으로 명품 핏을 연출하는 디자이너 시크릿 처방전입니다!
-          </p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
           <div class="space-y-2">
-            <div class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 space-y-1">
-              <div class="font-bold text-cyan-200">1. 황금 3:7 프렌치 턱인 (Tuck-in)</div>
-              <p class="text-[11px] text-slate-400">티셔츠 앞부분 3cm만 벨트 라인 안쪽으로 자연스럽게 넣고 양옆을 빼면 다리가 10cm 길어 보입니다.</p>
+            <div>
+              <div class="flex justify-between text-[11px] text-slate-400 mb-1">
+                <span>키 (Height)</span><span id="height-val" class="text-purple-300 font-bold">168cm</span>
+              </div>
+              <input type="range" id="slider-height" min="140" max="195" value="168" oninput="updateAvatarProportions()" class="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-purple-500">
             </div>
-            <div class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 space-y-1">
-              <div class="font-bold text-purple-200">2. 소매 2단 프렌치 롤업 & 시계 포인트</div>
-              <p class="text-[11px] text-slate-400">소매를 크게 한 번 접고 끝부분만 얇게 다시 접어 손목 라인을 드러내면 세련된 시티보이 룩 완성!</p>
-            </div>
-            <div class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 space-y-1">
-              <div class="font-bold text-pink-200">3. 톤온톤 컬러 그라데이션 레이어드</div>
-              <p class="text-[11px] text-slate-400">같은 계열의 진한 색과 연한 색을 겹쳐 입으면 30만 원 상당의 디자이너 룩 분위기를 연출합니다.</p>
+            <div>
+              <div class="flex justify-between text-[11px] text-slate-400 mb-1">
+                <span>몸무게 (Weight)</span><span id="weight-val" class="text-purple-300 font-bold">62kg</span>
+              </div>
+              <input type="range" id="slider-weight" min="40" max="110" value="62" oninput="updateAvatarProportions()" class="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-purple-500">
             </div>
           </div>
-        </div>
-
-        <!-- 🎨 피부톤 RGB 스캐너 위젯 -->
-        <div class="glass-card rounded-2xl p-3.5 border border-slate-800 space-y-2 text-xs">
-          <div class="flex items-center justify-between">
-            <span class="font-bold text-slate-200 flex items-center gap-1">
-              <span>🎨</span> 퍼스널 컬러 RGB 스캐너
-            </span>
-            <span id="skin-tone-tag" class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40">
-              웜톤 웜베이지 (Spring Warm)
-            </span>
-          </div>
-          <div class="flex items-center gap-2">
-            <input type="color" id="skin-color-picker" value="#f8d9c2" onchange="updateSkinToneColor(this.value)" class="w-8 h-8 rounded cursor-pointer bg-transparent border-0" />
-            <span class="text-[11px] text-slate-400">얼굴 톤을 선택하시면 가장 잘 어울리는 의상 컬러를 자동 추천합니다.</span>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- 🛡️ 앱 전담 초격차 관리팀 & VOC 자율 진화 건의함 -->
-    <div class="glass-card rounded-2xl p-4 sm:p-5 border border-purple-500/40 space-y-4">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-800">
-        <div class="flex items-center gap-2.5">
-          <span class="text-xl p-2 rounded-xl bg-purple-500/20 text-purple-300 border border-purple-500/40">🛡️</span>
-          <div>
-            <div class="flex items-center gap-1.5">
-              <span class="px-1.5 py-0.5 rounded text-[9px] font-black bg-purple-500/30 text-purple-200 border border-purple-500/40 font-mono">App Care Team</span>
-              <h3 class="text-sm font-black text-white">꿈의 옷장 전담 초격차 관리 & VOC 자율 버전업 특무대</h3>
+          <div class="space-y-2">
+            <span class="text-[11px] text-slate-400 block">피부톤 RGB 스캐너</span>
+            <div class="flex items-center gap-2">
+              <button type="button" onclick="updateSkinTone('#fbe3d5')" class="w-8 h-8 rounded-full border border-white/20 bg-[#fbe3d5] shadow-sm hover:scale-110 transition" title="화사한 웜톤"></button>
+              <button type="button" onclick="updateSkinTone('#f4cfb8')" class="w-8 h-8 rounded-full border border-white/20 bg-[#f4cfb8] shadow-sm hover:scale-110 transition" title="내추럴 뉴트럴"></button>
+              <button type="button" onclick="updateSkinTone('#e0ac82')" class="w-8 h-8 rounded-full border border-white/20 bg-[#e0ac82] shadow-sm hover:scale-110 transition" title="건강한 태닝톤"></button>
+              <button type="button" onclick="updateSkinTone('#8d5524')" class="w-8 h-8 rounded-full border border-white/20 bg-[#8d5524] shadow-sm hover:scale-110 transition" title="딥 브라운"></button>
             </div>
-            <p class="text-[11px] text-purple-200/80 mt-0.5">
-              사용자 의견(VOC) 즉시 수렴 ➔ 4대 AI 유닛 분석 ➔ 24시간 자율 무중단 패치 및 버전업 실시간 반영!
-            </p>
           </div>
-        </div>
-        <div class="flex items-center gap-2">
-          <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
-            🟢 4대 AI 유닛 실시간 가동 중
-          </span>
         </div>
       </div>
 
-      <!-- 4대 AI 전담 유닛 상태 카드 -->
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center text-xs">
-        <div class="p-2.5 rounded-xl bg-slate-900/90 border border-purple-500/30">
-          <div class="text-base mb-0.5">👂</div>
-          <div class="font-bold text-white text-[11px]">VOC 경청팀</div>
-          <div class="text-[10px] text-purple-300">사용자 피드백 수집</div>
+      <!-- 서랍 2: VOC 건의함 -->
+      <div id="drawer-voc-app" class="hidden p-4 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-3">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+          <h5 class="text-xs font-bold text-white flex items-center gap-1.5"><span>💬</span> 초격차 관리팀 직통 VOC 건의함</h5>
+          <button type="button" onclick="toggleDrawerApp('voc')" class="text-slate-400 hover:text-white text-xs">닫기 ✕</button>
         </div>
-        <div class="p-2.5 rounded-xl bg-slate-900/90 border border-cyan-500/30">
-          <div class="text-base mb-0.5">🔧</div>
-          <div class="font-bold text-white text-[11px]">UX 패치팀</div>
-          <div class="text-[10px] text-cyan-300">0.05초 즉시 최적화</div>
-        </div>
-        <div class="p-2.5 rounded-xl bg-slate-900/90 border border-pink-500/30">
-          <div class="text-base mb-0.5">🚀</div>
-          <div class="font-bold text-white text-[11px]">초격차 R&D팀</div>
-          <div class="text-[10px] text-pink-300">10년 선행 기술 도입</div>
-        </div>
-        <div class="p-2.5 rounded-xl bg-slate-900/90 border border-emerald-500/30">
-          <div class="text-base mb-0.5">⚡</div>
-          <div class="font-bold text-white text-[11px]">OTA 배포팀</div>
-          <div class="text-[10px] text-emerald-300">무심사 1초 핫픽스</div>
+        <div class="space-y-2">
+          <div class="flex gap-2">
+            <input type="text" id="app-voc-input" placeholder="바라는 점이나 코디 아이디어를 적어주세요!" class="flex-1 px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white placeholder-slate-500">
+            <button type="button" onclick="submitAppVoc()" class="px-3.5 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs shrink-0 transition">
+              제출
+            </button>
+          </div>
+          <div id="voc-response-box" class="hidden p-3 rounded-xl bg-purple-950/30 border border-purple-500/30 text-xs text-purple-200">
+            <!-- AI 브리핑 출력 -->
+          </div>
         </div>
       </div>
 
-      <!-- VOC 입력 & 직통 건의함 -->
-      <div class="p-3.5 rounded-xl bg-slate-950/80 border border-slate-800 space-y-2 text-xs">
-        <label class="font-bold text-slate-200 flex items-center gap-1.5">
-          <span>💬</span>
-          <span>사용자 불편사항 · 신규 코디 · 퀴즈 아이디어 1초 직통 건의함 (VOC Box)</span>
-        </label>
-        <div class="flex flex-col sm:flex-row gap-2">
-          <input type="text" id="voc-input" placeholder="불편한 점이나 추가되었으면 하는 코디/퀴즈를 자유롭게 적어주세요..."
-            class="flex-1 px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs outline-none focus:border-pink-500" />
-          <button type="button" onclick="submitAppVoc()" id="btn-submit-voc"
-            class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-bold text-xs transition active:scale-95 shrink-0 flex items-center justify-center gap-1.5 shadow-md">
-            <span>🚀 건의 접수 & 자율 패치</span>
-          </button>
+      <!-- 서랍 3: Google Play 복구 -->
+      <div id="drawer-deploy-app" class="hidden p-4 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-3">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+          <h5 class="text-xs font-bold text-white flex items-center gap-1.5"><span>🛡️</span> Google Play 개발자 계정 복구 가이드</h5>
+          <button type="button" onclick="toggleDrawerApp('deploy')" class="text-slate-400 hover:text-white text-xs">닫기 ✕</button>
         </div>
-        <!-- VOC 결과 표시 영역 -->
-        <div id="voc-result-box" class="hidden p-3 rounded-xl bg-purple-950/40 border border-purple-500/40 text-[11px] text-purple-200 space-y-1"></div>
-      </div>
-    </div>
-
-    <!-- 📲 구글 스토어 무심사 3대 직통 배포 센터 & 계정 복구 가이드 -->
-    <div class="glass-card rounded-2xl p-4 sm:p-5 border border-cyan-500/30 space-y-4">
-      <div class="flex items-center justify-between pb-3 border-b border-slate-800">
-        <div class="flex items-center gap-2.5">
-          <span class="text-xl p-2 rounded-xl bg-cyan-500/20 text-cyan-300 border border-cyan-500/40">📲</span>
-          <div>
-            <h3 class="text-sm font-black text-white">구글 스토어 무심사 3대 직통 배포 센터</h3>
-            <p class="text-[11px] text-cyan-200/80 mt-0.5">심사 대기 0초! 카카오톡/문자 원클릭 전달 & 스마트폰 홈 화면 1초 설치</p>
-          </div>
-        </div>
-        <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/40">
-          No Store Approval Required
-        </span>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
-        <!-- 1. 독립 실행형 HTML 앱 다운로드 -->
-        <div class="p-3.5 rounded-xl bg-slate-950/80 border border-purple-500/30 flex flex-col justify-between space-y-2">
-          <div>
-            <div class="font-bold text-purple-300 flex items-center gap-1">
-              <span>💾</span> 1. 단일 파일 웹앱 (.html)
-            </div>
-            <p class="text-[11px] text-slate-400 mt-1">인터넷 없이도 100% 돌아가는 올인원 단일 HTML 파일로 즉시 소장.</p>
-          </div>
-          <button type="button" onclick="downloadCurrentAppHtml()" class="w-full py-2 rounded-xl bg-purple-600/30 hover:bg-purple-600/50 text-purple-200 border border-purple-500/40 font-bold transition">
-            📲 독립 웹앱 파일 다운로드
-          </button>
-        </div>
-
-        <!-- 2. PWA 홈 화면 추가 -->
-        <div class="p-3.5 rounded-xl bg-slate-950/80 border border-pink-500/30 flex flex-col justify-between space-y-2">
-          <div>
-            <div class="font-bold text-pink-300 flex items-center gap-1">
-              <span>📱</span> 2. 스마트폰 홈 화면 1초 설치
-            </div>
-            <p class="text-[11px] text-slate-400 mt-1">브라우저 메뉴에서 [홈 화면에 추가]를 누르면 정식 앱처럼 아이콘 생성.</p>
-          </div>
-          <button type="button" onclick="copyAppShareLink()" class="w-full py-2 rounded-xl bg-pink-600/30 hover:bg-pink-600/50 text-pink-200 border border-pink-500/40 font-bold transition">
-            📋 모바일 직통 공유 링크 복사
-          </button>
-        </div>
-
-        <!-- 3. Google Play 계정 복구 가이드 -->
-        <div class="p-3.5 rounded-xl bg-slate-950/80 border border-cyan-500/30 flex flex-col justify-between space-y-2">
-          <div>
-            <div class="font-bold text-cyan-300 flex items-center gap-1">
-              <span>🛡️</span> 3. Google Play 계정 복구 가이드
-            </div>
-            <p class="text-[11px] text-slate-400 mt-1">계정(lee sangill, ID: 8519115145103880120) 3단계 본인 인증 및 APK 빌드 매뉴얼.</p>
-          </div>
-          <button type="button" onclick="showGooglePlayGuideModal()" class="w-full py-2 rounded-xl bg-cyan-600/30 hover:bg-cyan-600/50 text-cyan-200 border border-cyan-500/40 font-bold transition">
-            📖 계정 복구 & APK 매뉴얼 열기
+        <div class="text-xs text-slate-300 space-y-2">
+          <p>• 계정명: <b>lee sangill</b> | ID: <code class="text-amber-300">8519115145103880120</code></p>
+          <button type="button" onclick="openGooglePlayGuideModal()" class="w-full py-2.5 rounded-xl bg-cyan-600/30 hover:bg-cyan-600/50 text-cyan-200 border border-cyan-500/40 font-bold transition">
+            3단계 신원 인증 복구 상세 매뉴얼 보기
           </button>
         </div>
       </div>
-    </div>
 
-  </main>
-
-  <!-- 🌟 Footer -->
-  <footer class="glass-card border-t border-purple-500/30 px-4 py-4 text-center text-xs text-slate-400 space-y-1">
-    <div>
-      <span class="font-bold text-white">한걸음씩 상생나눔 제1호 무료 앱 : 꿈의 옷장</span> | 창안자: <b>이상일</b> 대표님
-    </div>
-    <div class="text-[10px] text-slate-500">
-      저작권자: 이상일 (Principal Sang-Il Lee) | 공동 기획·검수: 이은솔 · 이송효 · 이해상 | 직인: [한걸음씩 미래AI인성학교장 이상일 인]
-    </div>
-  </footer>
-
-  <!-- 📖 Google Play 계정 복구 모달 -->
-  <div id="play-guide-modal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
-    <div class="max-w-lg w-full glass-card rounded-2xl p-5 border border-cyan-500/50 space-y-4 max-h-[85vh] overflow-y-auto">
-      <div class="flex items-center justify-between pb-2 border-b border-slate-800">
-        <h4 class="font-bold text-white text-sm flex items-center gap-2">
-          <span>🛡️</span> Google Play 개발자 계정 신원 인증 복구 매뉴얼
-        </h4>
-        <button type="button" onclick="closeGooglePlayGuideModal()" class="text-slate-400 hover:text-white text-lg">✕</button>
-      </div>
-      <div class="text-xs text-slate-300 space-y-3 leading-relaxed">
-        <div class="p-3 rounded-xl bg-slate-900 border border-slate-800">
-          <div class="font-bold text-cyan-300 mb-1">■ 대상 계정 정보</div>
-          <div>• 개발자명: <b>lee sangill</b></div>
-          <div>• 개발자 계정 ID: <code class="text-amber-300">8519115145103880120</code></div>
+      <!-- 서랍 4: 인증서 -->
+      <div id="drawer-cert-app" class="hidden p-4 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-3 text-center">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+          <h5 class="text-xs font-bold text-white flex items-center gap-1.5"><span>🎓</span> 품격 마스터 인증서</h5>
+          <button type="button" onclick="toggleDrawerApp('cert')" class="text-slate-400 hover:text-white text-xs">닫기 ✕</button>
         </div>
-        <div class="space-y-1.5">
-          <div class="font-bold text-white">■ 3단계 본인 인증 복구 절차:</div>
-          <ol class="list-decimal pl-4 space-y-1 text-slate-300">
-            <li><b>Play Console 접속</b>: Google Play Console 로그인 후 상단 붉은색 [신원 확인 완료] 배너 클릭.</li>
-            <li><b>서류 제출</b>: 주민등록증 또는 운전면허증 사진(빛 반사 없이 선명한 파일) 업로드. 등록된 개발자명(lee sangill)과 신분증의 영문/한글 이름이 일치해야 합니다.</li>
-            <li><b>DUNS 번호 확인</b>: 개인 개발자인 경우 별도 DUNS 없이 신분증 + 주소 증명(주민등록등본/통신사 청구서 3개월 이내)으로 48시간 내 승인 완료.</li>
-          </ol>
-        </div>
-        <div class="p-3 rounded-xl bg-purple-950/40 border border-purple-500/40">
-          <div class="font-bold text-purple-300 mb-1">■ 무심사 APK 변환 (Bubblewrap TWA):</div>
-          <p class="text-[11px] text-slate-300">
-            Node.js 환경에서 <code>npx @bubblewrap/cli build</code> 명령어로 본 웹앱 주소를 넣으면 1분 만에 구글 플레이 업로드용 <code>.aab</code> 및 스마트폰 설치용 <code>.apk</code> 파일이 자동 생성됩니다!
-          </p>
+        <div class="p-3 rounded-xl bg-slate-950 border border-slate-800">
+          <p class="text-xs text-amber-300 font-bold mb-1">HGS-STYLE-CERT-2026-001</p>
+          <p class="text-[11px] text-slate-300">이상일 대표님의 한걸음씩 나눔 품격 마스터 인증이 완료되었습니다.</p>
         </div>
       </div>
-      <button type="button" onclick="closeGooglePlayGuideModal()" class="w-full py-2.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs transition">
-        확인 및 닫기
-      </button>
     </div>
+
   </div>
 
-  <!-- 🌟 Client Logic Scripts -->
   <script>
     // ── Global State ──
     let currentStep = 0; // 0: Lv0, 1: Step1(EQ), 2: Step2(MQ), 3: Step3(CQ)
