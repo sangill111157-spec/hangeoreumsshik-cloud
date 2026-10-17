@@ -82,3 +82,6 @@ $RECYCLE.BIN/
 logs/
 *.log
 *.flag
+
+!dashboard/audio/*.mp3
+!dashboard/audio/*.json
