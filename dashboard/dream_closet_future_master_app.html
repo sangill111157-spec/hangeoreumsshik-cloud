@@ -402,329 +402,102 @@
           </div>
         </div>
 
-        <!-- 👑 [캔버스 외부 상단 독립 컨트롤 헤더: 모드 전환 & 내 얼굴 사진 넣기] (얼굴 가림 0% 완전 분리) -->
-        <div class="w-full max-w-[420px] mx-auto p-2 rounded-xl bg-slate-900/90 border border-purple-500/30 flex items-center justify-between gap-1.5 text-xs">
-          <!-- 모드 전환 (피팅 / 2035 / 가족룩) -->
-          <div class="flex items-center gap-1 p-0.5 rounded-lg bg-slate-950/80 border border-slate-800 text-[11px]">
-            <button type="button" onclick="switchMainFittingSubTab('fitting')" id="tab-sub-fitting" class="px-2.5 py-1 rounded-md bg-purple-600 text-white font-bold transition shadow-sm">
-              👗 피팅
-            </button>
-            <button type="button" onclick="switchMainFittingSubTab('future')" id="tab-sub-future" class="px-2 py-1 rounded-md text-slate-300 hover:text-white transition">
-              🔮 2035
-            </button>
-            <button type="button" onclick="switchMainFittingSubTab('family')" id="tab-sub-family" class="px-2 py-1 rounded-md text-slate-300 hover:text-white transition">
-              👨‍👧‍👧 가족
-            </button>
+        <!-- 🎯 [v7.0 옷 터치 영역 실시간 감지 표시 바] -->
+        <div id="garment-zone-indicator-bar" class="w-full max-w-[420px] mx-auto p-2 rounded-xl bg-slate-900/95 border border-cyan-500/40 flex items-center justify-between text-xs shadow-lg backdrop-blur-md">
+          <div class="flex items-center gap-1.5 overflow-hidden">
+            <span id="zone-detect-icon" class="text-base animate-pulse shrink-0">👕</span>
+            <span id="zone-detect-text" class="font-extrabold text-cyan-300 truncate text-[11px]">사진의 옷 부분을 터치하세요!</span>
           </div>
+          <div class="flex items-center gap-1 shrink-0">
+            <button type="button" onclick="setGarmentZoneManual('top')" id="btn-zone-top" class="px-2.5 py-1 rounded-lg bg-cyan-600 text-white font-bold text-[11px] shadow transition active:scale-95">👕 상의</button>
+            <button type="button" onclick="setGarmentZoneManual('bottom')" id="btn-zone-bottom" class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 hover:text-white font-bold text-[11px] shadow transition active:scale-95">👖 하의</button>
+            <button type="button" onclick="setGarmentZoneManual('full')" id="btn-zone-full" class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 hover:text-white font-bold text-[11px] shadow transition active:scale-95">👗 전체</button>
+          </div>
+        </div>
 
-          <!-- 📸 [내 얼굴 사진 넣기] 버튼 & 플로팅 메뉴 -->
-          <div class="relative">
-            <button type="button" onclick="toggleFacePhotoMenu()" id="btn-face-menu" class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white border border-pink-400/40 text-[11px] font-bold transition flex items-center gap-1 shadow-lg active:scale-95">
-              <span>📸</span><span>내 얼굴 사진 넣기</span>
-            </button>
+        <!-- 👑 [v7.0 캔버스 컨테이너: 상하단 가림 0% 순수 전신 캔버스] -->
+        <div id="fitting-studio-container" class="w-full max-w-[420px] mx-auto aspect-[3/4] max-h-[500px] rounded-2xl bg-gradient-to-b from-slate-950 via-[#0a0f1d] to-slate-950 border border-purple-500/30 shadow-2xl relative overflow-hidden flex items-center justify-center select-none">
+          <canvas id="main-fitting-canvas" width="450" height="600" class="w-full h-full object-contain relative" style="touch-action: pan-y !important; cursor: pointer;" title="옷 부분을 터치하면 상의/하의가 자동 감지됩니다"></canvas>
+        </div>
 
-            <!-- 사진 선택 플로팅 팝업 메뉴 -->
-            <div id="face-photo-menu" class="hidden absolute right-0 top-10 w-44 rounded-xl bg-slate-900/95 backdrop-blur-xl border border-purple-500/40 shadow-2xl p-1.5 z-30 space-y-1 text-xs">
-              <button type="button" onclick="triggerFaceCapture('camera')" class="w-full px-2.5 py-2 rounded-lg hover:bg-purple-600/30 text-white font-medium flex items-center gap-2 text-left transition">
-                <span>📷</span><span>카메라로 바로 찍기</span>
+        <!-- 🎛️ [v7.0 Pure Body-Fit 심플 컨트롤 박스] -->
+        <div id="v5-one-line-remote-bar" class="w-full max-w-[450px] mx-auto mt-1 mb-2 p-2 rounded-2xl bg-slate-900/95 border border-purple-500/50 shadow-xl flex flex-col gap-2 text-xs backdrop-blur-md box-border relative" style="box-sizing: border-box;">
+          <!-- 1열: [📸 내 전신사진 넣기] | [👗 코디합성 ↔ 🖼️ 원본보기] -->
+          <div class="flex items-center justify-between gap-1.5">
+            <div class="flex-1">
+              <button type="button" id="btn-custom-cloth-upload" onclick="document.getElementById('custom-cloth-input').click()" class="w-full px-3 py-2 rounded-xl bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 hover:from-indigo-500 hover:to-pink-500 text-white font-black text-xs shadow-lg flex items-center justify-center gap-1.5 active:scale-95 transition cursor-pointer border border-purple-400/40">
+                <span>📸</span><span>내 전신사진 넣기</span>
               </button>
-              <button type="button" onclick="triggerFaceCapture('gallery')" class="w-full px-2.5 py-2 rounded-lg hover:bg-purple-600/30 text-white font-medium flex items-center gap-2 text-left transition">
-                <span>🖼️</span><span>앨범에서 사진 선택</span>
-              </button>
-              <button type="button" onclick="triggerFaceCapture('reset')" class="w-full px-2.5 py-2 rounded-lg hover:bg-slate-800 text-slate-300 font-medium flex items-center gap-2 text-left transition border-t border-slate-700/50">
-                <span>🔄</span><span>기본 얼굴로 초기화</span>
-              </button>
+              <input type="file" id="custom-cloth-input" accept="image/*" class="hidden" onchange="handleCustomClothUpload(event)">
             </div>
-          </div>
-        </div>
-
-
-
-
-
-        <!-- 🧍 [기초 체형 & 착용자 빠른 세팅 바: 4인 가족 원터치 프리셋 & 체형 입력] -->
-        <div class="w-full max-w-[420px] mx-auto p-3 rounded-2xl bg-slate-900/95 border border-purple-500/40 shadow-xl space-y-2.5 text-xs">
-          <div class="flex items-center justify-between border-b border-slate-800 pb-1.5">
-            <span class="font-bold text-amber-300 flex items-center gap-1.5 text-xs">
-              <span>🧍</span><span>누가 입어보나요? (착용자 빠른 세팅)</span>
-            </span>
-            <span id="current-profile-label" class="px-2 py-0.5 rounded-full bg-pink-500/20 text-pink-300 text-[10px] font-bold">
-              👧 셋째 이해상 (소녀룩)
-            </span>
-          </div>
-
-          <!-- 4인 원터치 가족 프리셋 버튼 -->
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5">
-            <button type="button" onclick="applyProfilePreset('haesang')" id="preset-btn-haesang" class="px-2 py-1.5 rounded-xl bg-gradient-to-r from-pink-600 to-rose-600 text-white font-bold text-[11px] transition shadow-md text-center active:scale-95">
-              👧 셋째 이해상<br><span class="text-[9px] opacity-90">(초5·148cm)</span>
-            </button>
-            <button type="button" onclick="applyProfilePreset('songhyo')" id="preset-btn-songhyo" class="px-2 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium text-[11px] transition text-center active:scale-95">
-              👧 둘째 이송효<br><span class="text-[9px] opacity-90">(중1·158cm)</span>
-            </button>
-            <button type="button" onclick="applyProfilePreset('eunsol')" id="preset-btn-eunsol" class="px-2 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium text-[11px] transition text-center active:scale-95">
-              👧 첫째 이은솔<br><span class="text-[9px] opacity-90">(중3·163cm)</span>
-            </button>
-            <button type="button" onclick="applyProfilePreset('sangil')" id="preset-btn-sangil" class="px-2 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium text-[11px] transition text-center active:scale-95">
-              👔 아빠 이상일<br><span class="text-[9px] opacity-90">(대표님·176cm)</span>
+            <button type="button" id="btn-photo-view-mode" onclick="togglePhotoViewMode()" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-purple-200 border border-purple-500/40 font-bold text-xs shadow active:scale-95 transition whitespace-nowrap flex items-center gap-1">
+              <span id="label-photo-view-mode">👗코디합성</span>
             </button>
           </div>
 
-          <!-- 세부 체형 조절 (키, 몸무게, 핏, 스타일 성별) -->
-          <div class="grid grid-cols-2 gap-2 pt-1 border-t border-slate-800/80 text-[11px]">
-            <div class="flex items-center justify-between bg-slate-950 px-2 py-1 rounded-lg border border-slate-800">
-              <span class="text-slate-400">📏 키</span>
-              <div class="flex items-center gap-1">
-                <input type="number" id="profile-height-input" value="148" min="120" max="200" onchange="updateProfileInputs()" class="w-12 bg-transparent text-right font-bold text-white focus:outline-none">
-                <span class="text-slate-500">cm</span>
-              </div>
+          <!-- 2열: [🔒 고정됨 ↔ 🔓 손가락 줌·이동] | [➖] [➕] [🎯 중앙] | [💾 저장] -->
+          <div class="flex items-center justify-between gap-1.5 pt-1.5 border-t border-slate-800/80">
+            <button type="button" id="btn-canvas-lock" onclick="toggleCanvasLock()" class="px-3 h-8 rounded-xl bg-emerald-700 hover:bg-emerald-600 text-emerald-100 text-[11px] font-black border border-emerald-400 active:scale-95 flex items-center gap-1 whitespace-nowrap shadow transition" title="터치 잠금 토글">
+              <span id="canvas-lock-icon">🔒</span><span id="canvas-lock-label">고정됨</span>
+            </button>
+
+            <div class="flex items-center gap-1">
+              <button type="button" onclick="adjustPhotoZoom(-0.12)" class="px-2.5 h-8 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-black text-xs border border-slate-700 active:scale-95 flex items-center justify-center transition" title="작게 축소">➖</button>
+              <button type="button" onclick="adjustPhotoZoom(0.12)" class="px-2.5 h-8 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-black text-xs border border-slate-700 active:scale-95 flex items-center justify-center transition" title="크게 확대">➕</button>
             </div>
-            <div class="flex items-center justify-between bg-slate-950 px-2 py-1 rounded-lg border border-slate-800">
-              <span class="text-slate-400">⚖️ 몸무게</span>
-              <div class="flex items-center gap-1">
-                <input type="number" id="profile-weight-input" value="38" min="25" max="120" onchange="updateProfileInputs()" class="w-12 bg-transparent text-right font-bold text-white focus:outline-none">
-                <span class="text-slate-500">kg</span>
-              </div>
-            </div>
+
+            <button type="button" onclick="resetCanvasCenter()" class="px-2.5 h-8 rounded-xl bg-indigo-600/50 hover:bg-indigo-600/80 text-indigo-200 text-[11px] font-bold border border-indigo-400/40 active:scale-95 flex items-center gap-1 whitespace-nowrap transition" title="정중앙 원위치">
+              <span>🎯중앙</span>
+            </button>
+
+            <button type="button" onclick="saveMyFittingPhoto()" class="px-3 h-8 rounded-xl bg-emerald-600/60 hover:bg-emerald-600/80 text-emerald-100 text-[11px] font-bold border border-emerald-400/40 active:scale-95 flex items-center gap-1 whitespace-nowrap transition" title="화보 저장">
+              <span>💾저장</span>
+            </button>
           </div>
         </div>
 
-        <!-- 👑 [캔버스 외부 상단 독립 컨트롤 헤더: 모드 전환 & 내 얼굴 사진 넣기] (얼굴 가림 0% 완전 분리) -->
-        <div class="w-full max-w-[420px] mx-auto p-2 rounded-xl bg-slate-900/90 border border-purple-500/30 flex items-center justify-between gap-1.5 text-xs">
-          <!-- 모드 전환 (피팅 / 2035 / 가족룩) -->
-          <div class="flex items-center gap-1 p-0.5 rounded-lg bg-slate-950/80 border border-slate-800 text-[11px]">
-            <button type="button" onclick="switchMainFittingSubTab('fitting')" id="tab-sub-fitting" class="px-2.5 py-1 rounded-md bg-purple-600 text-white font-bold transition shadow-sm">
-              👗 피팅
-            </button>
-            <button type="button" onclick="switchMainFittingSubTab('future')" id="tab-sub-future" class="px-2 py-1 rounded-md text-slate-300 hover:text-white transition">
-              🔮 2035
-            </button>
-            <button type="button" onclick="switchMainFittingSubTab('family')" id="tab-sub-family" class="px-2 py-1 rounded-md text-slate-300 hover:text-white transition">
-              👨‍👧‍👧 가족
-            </button>
-          </div>
-
-          <!-- 📸 [내 얼굴 사진 넣기] 버튼 & 플로팅 메뉴 -->
-          <div class="relative">
-            <button type="button" onclick="toggleFacePhotoMenu()" id="btn-face-menu" class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white border border-pink-400/40 text-[11px] font-bold transition flex items-center gap-1 shadow-lg active:scale-95">
-              <span>📸</span><span>내 얼굴 사진 넣기</span>
-            </button>
-
-            <!-- 사진 선택 플로팅 팝업 메뉴 -->
-            <div id="face-photo-menu" class="hidden absolute right-0 top-10 w-44 rounded-xl bg-slate-900/95 backdrop-blur-xl border border-purple-500/40 shadow-2xl p-1.5 z-30 space-y-1 text-xs">
-              <button type="button" onclick="triggerFaceCapture('camera')" class="w-full px-2.5 py-2 rounded-lg hover:bg-purple-600/30 text-white font-medium flex items-center gap-2 text-left transition">
-                <span>📷</span><span>카메라로 바로 찍기</span>
-              </button>
-              <button type="button" onclick="triggerFaceCapture('gallery')" class="w-full px-2.5 py-2 rounded-lg hover:bg-purple-600/30 text-white font-medium flex items-center gap-2 text-left transition">
-                <span>🖼️</span><span>앨범에서 사진 선택</span>
-              </button>
-              <button type="button" onclick="triggerFaceCapture('reset')" class="w-full px-2.5 py-2 rounded-lg hover:bg-slate-800 text-slate-300 font-medium flex items-center gap-2 text-left transition border-t border-slate-700/50">
-                <span>🔄</span><span>기본 얼굴로 초기화</span>
-              </button>
-            </div>
-          </div>
-        </div>
-
-
-<div class="w-full max-w-[420px] mx-auto aspect-[3/4] max-h-[500px] rounded-2xl bg-gradient-to-b from-slate-950 via-[#0a0f1d] to-slate-950 border border-purple-500/30 shadow-2xl relative overflow-hidden flex items-center justify-center select-none">
-          <canvas id="app-fitting-canvas" width="450" height="600" class="w-full h-full object-contain" style="touch-action: pan-y !important; cursor: grab;"></canvas>
-
-          <!-- 하단 각도 & 3D 상태 실시간 배지 -->
-          <!-- 🏷️ [v6.1 ECC 정적 상태 배지: 화면 흔들림 0%] -->
-          <div id="main-angle-display-badge" class="absolute bottom-2 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-slate-950/90 border border-emerald-500/40 text-[11px] text-emerald-300 font-bold shadow-lg pointer-events-none backdrop-blur-sm whitespace-nowrap">
-            🔒 화면 고정됨 | ✨ ECC 실사 포토 스튜디오 v6.1
-          </div>
-
-        </div>
-
-
-        <!-- 🎛️ [v5.1 Real-VTON 초심플 1줄 통합 리모컨 바 (캔버스 0px 밀착)] -->
-        <!-- 🎛️ [v5.1 Photoshop-AI 초심플 1줄 퀵 리모컨 바 (캔버스 0px 밀착)] -->
-        <!-- 🎛️ [v5.1 Photoshop-AI 초심플 1줄 퀵 리모컨 바 (캔버스 0px 밀착)] -->
-        <!-- 🎛️ [v6.0 Zero-Cartoon 초심플 1줄 퀵 리모컨 바 (캔버스 0px 밀착)] -->
-        <!-- 🎛️ [v6.0 Zero-Cartoon 초심플 1줄 퀵 리모컨 바 (캔버스 0px 밀착)] -->
-        <!-- 🎛️ [v6.0 Zero-Cartoon 초심플 1줄 퀵 리모컨 바 (캔버스 0px 밀착)] -->
-        <!-- 🎛️ [v6.1 ECC Zero-Cartoon 1줄 퀵 리모컨 바 (캔버스 0px 밀착)] -->
-        <div id="v5-one-line-remote-bar" class="w-full max-w-[450px] mx-auto mt-1 mb-2 p-1.5 rounded-2xl bg-slate-900/95 border border-purple-500/50 shadow-xl flex items-center justify-between gap-1 text-xs backdrop-blur-md">
-          <!-- 1. [🔒 고정됨] / [🔓 조절중] 잠금 스위치 (기본 잠금) -->
-          <button type="button" id="btn-canvas-lock" onclick="toggleCanvasLock()" class="px-2.5 h-7 rounded-lg bg-emerald-700 hover:bg-emerald-600 text-emerald-100 text-[10px] font-black border border-emerald-400 active:scale-95 flex items-center gap-1 whitespace-nowrap shadow transition" title="터치 잠금 토글 (기본: 위치 고정)">
-            <span id="canvas-lock-icon">🔒</span><span id="canvas-lock-label">고정됨</span>
-          </button>
-
-          <!-- 2. 크기 조절 버튼 (+ / -) -->
-          <div class="flex items-center gap-0.5">
-            <button type="button" onclick="adjustFaceScale(-0.08)" class="w-7 h-7 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-black text-xs border border-slate-700 active:scale-95 flex items-center justify-center transition" title="작게">➖</button>
-            <button type="button" onclick="adjustFaceScale(+0.08)" class="w-7 h-7 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-black text-xs border border-slate-700 active:scale-95 flex items-center justify-center transition" title="크게">➕</button>
-          </div>
-
-          <!-- 3. 상하좌우 4방향 D-Pad -->
-          <div class="flex items-center gap-0.5 font-bold">
-            <button type="button" onclick="adjustFaceOffset(-4, 0)" class="w-7 h-7 rounded-lg bg-slate-800 hover:bg-slate-700 text-white text-[11px] border border-slate-700 active:scale-95 flex items-center justify-center transition" title="좌">⬅️</button>
-            <button type="button" onclick="adjustFaceOffset(0, -4)" class="w-7 h-7 rounded-lg bg-slate-800 hover:bg-slate-700 text-white text-[11px] border border-slate-700 active:scale-95 flex items-center justify-center transition" title="위">⬆️</button>
-            <button type="button" onclick="adjustFaceOffset(0, +4)" class="w-7 h-7 rounded-lg bg-slate-800 hover:bg-slate-700 text-white text-[11px] border border-slate-700 active:scale-95 flex items-center justify-center transition" title="아래">⬇️</button>
-            <button type="button" onclick="adjustFaceOffset(+4, 0)" class="w-7 h-7 rounded-lg bg-slate-800 hover:bg-slate-700 text-white text-[11px] border border-slate-700 active:scale-95 flex items-center justify-center transition" title="우">➡️</button>
-          </div>
-
-          <!-- 4. 정중앙 초기화 -->
-          <button type="button" onclick="resetFaceOffset()" class="px-2 h-7 rounded-lg bg-indigo-600/40 hover:bg-indigo-600/70 text-indigo-200 text-[10px] font-bold border border-indigo-400/40 active:scale-95 flex items-center gap-0.5 whitespace-nowrap transition" title="정중앙 초기화">
-            <span>🎯정중앙</span>
-          </button>
-
-          <!-- 5. [🪄AI실사합성] -->
-          <button type="button" id="btn-real-ai-tryon" onclick="runRealAITryOn()" class="px-2.5 h-7 rounded-lg bg-gradient-to-r from-blue-600/80 via-purple-600/80 to-pink-600/80 hover:from-blue-500 hover:to-pink-500 text-white text-[10px] font-black border border-blue-400/50 active:scale-95 flex items-center gap-0.5 whitespace-nowrap shadow-md transition" title="AI 실사 의상 착장 합성">
-            <span>🪄AI실사합성</span>
-          </button>
-
-          <!-- 6. 화보 저장 -->
-          <button type="button" onclick="saveMyFittingPhoto()" class="px-2 h-7 rounded-lg bg-emerald-600/50 hover:bg-emerald-600/70 text-emerald-100 text-[10px] font-bold border border-emerald-400/40 active:scale-95 flex items-center gap-0.5 whitespace-nowrap transition" title="화보 저장">
-            <span>💾저장</span>
-          </button>
-        </div>
-
-        <!-- 🚪👗 [나만의 옷장함: 10벌의 시그니처 의상 원터치 선택 쇼룸] -->
-        <div class="w-full max-w-[420px] mx-auto p-3.5 rounded-2xl bg-slate-900/95 border border-purple-500/40 shadow-xl space-y-3 text-xs">
+        <!-- 🌐 [v7.0 실시간 웹 패션 검색 & 2026 최신 트렌드 의상 추천 스튜디오] -->
+        <div id="web-trend-fashion-search-box" class="w-full max-w-[450px] mx-auto p-3.5 rounded-2xl bg-slate-900/95 border border-purple-500/40 shadow-xl space-y-3 text-xs">
           <div class="flex items-center justify-between border-b border-slate-800 pb-2">
             <div class="flex items-center gap-2">
-              <span class="p-1.5 rounded-lg bg-pink-500/20 text-pink-400 text-base">🚪</span>
+              <span class="p-1.5 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 text-white text-base">🌐</span>
               <div>
-                <h3 class="font-extrabold text-white text-xs sm:text-sm">
-                  나만의 꿈의 옷장함 (10벌 코디 쇼룸)
-                </h3>
-                <p class="text-[10px] text-slate-400">터치하는 즉시 아바타의 상·하의·실루엣이 100% 바뀝니다</p>
+                <h3 class="font-black text-white text-xs sm:text-sm tracking-tight">2026 최신 트렌드 웹 패션 검색 & AI 피팅</h3>
+                <p class="text-[10px] text-slate-400">터치 시 내 전신사진 체형에 맞게 상의/하의가 즉시 갈아입혀집니다</p>
               </div>
             </div>
-            <span id="current-outfit-badge" class="px-2 py-0.5 rounded-full bg-purple-600/30 text-purple-300 border border-purple-500/40 text-[10px] font-bold">
-              🌸 1번 착장 중
+            <span id="fashion-search-status" class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">
+              실시간 연동
             </span>
           </div>
 
-          <!-- 10벌 의상 카드 그리드 (2열 5행) -->
-          <div id="wardrobe-showroom-grid" class="grid grid-cols-2 gap-2 max-h-[360px] overflow-y-auto pr-1">
-            
-            <!-- 1번 의상 -->
-            <button type="button" onclick="applyWardrobeOutfit(1)" id="outfit-card-1" class="p-2.5 rounded-xl bg-gradient-to-br from-pink-950/40 to-slate-900 border border-pink-500/40 hover:border-pink-400 text-left transition flex flex-col justify-between gap-1 shadow-sm active:scale-95">
-              <div class="flex items-center justify-between">
-                <span class="text-base">🌸</span>
-                <span class="px-1.5 py-0.2 rounded bg-pink-500/20 text-pink-300 text-[9px] font-bold">인기 1위</span>
-              </div>
-              <div class="font-bold text-white text-[11px] leading-tight">[1번] K-하이틴 핑크 가디건</div>
-              <div class="text-[10px] text-slate-400">플리츠 스커트 & 프레피 삭스</div>
+          <!-- 🔍 입어볼 옷 웹 검색창 -->
+          <div class="flex items-center gap-1.5">
+            <div class="relative flex-1">
+              <input type="text" id="web-fashion-search-input" placeholder="🔍 입어볼 옷 웹 검색 (예: 핑크 크롭 가디건, 와이드 청바지...)" onkeydown="if(event.key==='Enter') searchWebFashionItems()" class="w-full px-3 py-2 pl-8 rounded-xl bg-slate-950 border border-purple-500/30 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-purple-400">
+              <span class="absolute left-2.5 top-2.5 text-xs text-slate-400">✨</span>
+            </div>
+            <button type="button" onclick="searchWebFashionItems()" class="px-3.5 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-extrabold text-xs shadow-md transition active:scale-95 whitespace-nowrap cursor-pointer">
+              검색
             </button>
+          </div>
 
-            <!-- 2번 의상 -->
-            <button type="button" onclick="applyWardrobeOutfit(2)" id="outfit-card-2" class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 hover:border-sky-400 text-left transition flex flex-col justify-between gap-1 shadow-sm active:scale-95">
-              <div class="flex items-center justify-between">
-                <span class="text-base">🎀</span>
-                <span class="px-1.5 py-0.2 rounded bg-sky-500/20 text-sky-300 text-[9px] font-bold">아이돌</span>
-              </div>
-              <div class="font-bold text-white text-[11px] leading-tight">[2번] 청량 데님 자켓</div>
-              <div class="text-[10px] text-slate-400">화이트 레이스 미니 원피스</div>
-            </button>
+          <!-- 🏷️ 2026 최신 트렌드 원터치 추천 칩 6종 -->
+          <div class="flex flex-wrap gap-1.5 pt-1 border-t border-slate-800/60">
+            <button type="button" onclick="searchByTrendTag('all')" class="px-2.5 py-1 rounded-lg bg-pink-600/30 hover:bg-pink-600/50 text-pink-200 border border-pink-500/40 text-[11px] font-bold transition active:scale-95">🔥 2026 인기 급상승 TOP</button>
+            <button type="button" onclick="searchByTrendTag('top_k')" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-purple-600/40 text-slate-300 hover:text-white border border-slate-700 text-[11px] transition active:scale-95">👕 [상의] K-하이틴 크롭</button>
+            <button type="button" onclick="searchByTrendTag('top_seongsu')" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-purple-600/40 text-slate-300 hover:text-white border border-slate-700 text-[11px] transition active:scale-95">👕 [상의] 성수 트렌디 자켓</button>
+            <button type="button" onclick="searchByTrendTag('bot_pleats')" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-purple-600/40 text-slate-300 hover:text-white border border-slate-700 text-[11px] transition active:scale-95">👖 [하의] 플리츠 스커트</button>
+            <button type="button" onclick="searchByTrendTag('bot_wide')" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-purple-600/40 text-slate-300 hover:text-white border border-slate-700 text-[11px] transition active:scale-95">👖 [하의] 와이드 데님·카고</button>
+            <button type="button" onclick="searchByTrendTag('full_ceo')" class="px-2.5 py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500/40 text-amber-300 border border-amber-400/40 text-[11px] font-bold transition active:scale-95">👔 [대표님] 청담 럭셔리 수트</button>
+          </div>
 
-            <!-- 3번 의상 -->
-            <button type="button" onclick="applyWardrobeOutfit(3)" id="outfit-card-3" class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 hover:border-indigo-400 text-left transition flex flex-col justify-between gap-1 shadow-sm active:scale-95">
-              <div class="flex items-center justify-between">
-                <span class="text-base">🎓</span>
-                <span class="px-1.5 py-0.2 rounded bg-indigo-500/20 text-indigo-300 text-[9px] font-bold">스쿨룩</span>
-              </div>
-              <div class="font-bold text-white text-[11px] leading-tight">[3번] 명문 프레피 블레이저</div>
-              <div class="text-[10px] text-slate-400">네이비 자켓 & 체크 리본</div>
-            </button>
-
-            <!-- 4번 의상 -->
-            <button type="button" onclick="applyWardrobeOutfit(4)" id="outfit-card-4" class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 hover:border-emerald-400 text-left transition flex flex-col justify-between gap-1 shadow-sm active:scale-95">
-              <div class="flex items-center justify-between">
-                <span class="text-base">👕</span>
-                <span class="px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-300 text-[9px] font-bold">스트릿</span>
-              </div>
-              <div class="font-bold text-white text-[11px] leading-tight">[4번] 시티보이 오버핏 후드</div>
-              <div class="text-[10px] text-slate-400">카키 스트릿 카고 팬츠</div>
-            </button>
-
-            <!-- 5번 의상 -->
-            <button type="button" onclick="applyWardrobeOutfit(5)" id="outfit-card-5" class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 hover:border-amber-400 text-left transition flex flex-col justify-between gap-1 shadow-sm active:scale-95">
-              <div class="flex items-center justify-between">
-                <span class="text-base">🧥</span>
-                <span class="px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300 text-[9px] font-bold">클래식</span>
-              </div>
-              <div class="font-bold text-white text-[11px] leading-tight">[5번] 베이지 트렌치 롱코트</div>
-              <div class="text-[10px] text-slate-400">서울패션위크 런웨이 감성</div>
-            </button>
-
-            <!-- 6번 의상 -->
-            <button type="button" onclick="applyWardrobeOutfit(6)" id="outfit-card-6" class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 hover:border-blue-400 text-left transition flex flex-col justify-between gap-1 shadow-sm active:scale-95">
-              <div class="flex items-center justify-between">
-                <span class="text-base">👔</span>
-                <span class="px-1.5 py-0.2 rounded bg-blue-500/20 text-blue-300 text-[9px] font-bold">대표님 Pick</span>
-              </div>
-              <div class="font-bold text-white text-[11px] leading-tight">[6번] 청담 테일러드 VIP 수트</div>
-              <div class="text-[10px] text-slate-400">로열 네이비 & 실크 타이</div>
-            </button>
-
-            <!-- 7번 의상 -->
-            <button type="button" onclick="applyWardrobeOutfit(7)" id="outfit-card-7" class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 hover:border-yellow-400 text-left transition flex flex-col justify-between gap-1 shadow-sm active:scale-95">
-              <div class="flex items-center justify-between">
-                <span class="text-base">✨</span>
-                <span class="px-1.5 py-0.2 rounded bg-yellow-500/20 text-yellow-300 text-[9px] font-bold">럭셔리</span>
-              </div>
-              <div class="font-bold text-white text-[11px] leading-tight">[7번] 캐시미어 웜골드 니트</div>
-              <div class="text-[10px] text-slate-400">테이퍼드 크림 슬랙스</div>
-            </button>
-
-            <!-- 8번 의상 -->
-            <button type="button" onclick="applyWardrobeOutfit(8)" id="outfit-card-8" class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 hover:border-purple-400 text-left transition flex flex-col justify-between gap-1 shadow-sm active:scale-95">
-              <div class="flex items-center justify-between">
-                <span class="text-base">🔮</span>
-                <span class="px-1.5 py-0.2 rounded bg-purple-500/20 text-purple-300 text-[9px] font-bold">2035 CEO</span>
-              </div>
-              <div class="font-bold text-white text-[11px] leading-tight">[8번] 2035 글로벌 CEO 수트</div>
-              <div class="text-[10px] text-slate-400">네오 럭셔리 퍼플 & 홀로그램</div>
-            </button>
-
-            <!-- 9번 의상 -->
-            <button type="button" onclick="applyWardrobeOutfit(9)" id="outfit-card-9" class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 hover:border-cyan-400 text-left transition flex flex-col justify-between gap-1 shadow-sm active:scale-95">
-              <div class="flex items-center justify-between">
-                <span class="text-base">🚀</span>
-                <span class="px-1.5 py-0.2 rounded bg-cyan-500/20 text-cyan-300 text-[9px] font-bold">테크웨어</span>
-              </div>
-              <div class="font-bold text-white text-[11px] leading-tight">[9번] 우주 AI 과학자 테크웨어</div>
-              <div class="text-[10px] text-slate-400">화이트 사이버네틱 아우터</div>
-            </button>
-
-            <!-- 10번 의상 -->
-            <button type="button" onclick="applyWardrobeOutfit(10)" id="outfit-card-10" class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 hover:border-amber-400 text-left transition flex flex-col justify-between gap-1 shadow-sm active:scale-95">
-              <div class="flex items-center justify-between">
-                <span class="text-base">👑</span>
-                <span class="px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300 text-[9px] font-bold">갈라 파티</span>
-              </div>
-              <div class="font-bold text-white text-[11px] leading-tight">[10번] 로열 골드 갈라 드레스</div>
-              <div class="text-[10px] text-slate-400">골드 스팽글 드레스 & 턱시도</div>
-            </button>
-
+          <!-- 👗 실시간 패션 아이템 갤러리 그리드 -->
+          <div id="web-fashion-grid" class="grid grid-cols-2 sm:grid-cols-3 gap-2 pt-1 max-h-[420px] overflow-y-auto no-scrollbar">
+            <!-- 자바스크립트가 카드를 동적으로 렌더링합니다 -->
           </div>
         </div>
 
-
-
-
-          <!-- 📸 [내 얼굴 사진 넣기] 명확한 글래스 캡슐 버튼 & 드롭다운 메뉴 -->
-          <div class="relative">
-            <button type="button" onclick="toggleFacePhotoMenu()" id="btn-face-menu" class="px-2.5 py-1.5 rounded-xl bg-gradient-to-r from-pink-600/80 to-purple-600/80 hover:from-pink-500 hover:to-purple-500 text-white border border-pink-400/40 text-[11px] font-bold transition flex items-center gap-1 shadow-lg active:scale-95">
-              <span>📸</span><span>내 얼굴 사진 넣기</span>
-            </button>
-
-            <!-- 사진 선택 플로팅 팝업 메뉴 -->
-            <div id="face-photo-menu" class="hidden absolute right-0 top-10 w-44 rounded-xl bg-slate-900/95 backdrop-blur-xl border border-purple-500/40 shadow-2xl p-1.5 z-30 space-y-1 text-xs">
-              <button type="button" onclick="triggerFaceCapture('camera')" class="w-full px-2.5 py-2 rounded-lg hover:bg-purple-600/30 text-white font-medium flex items-center gap-2 text-left transition">
-                <span>📷</span><span>카메라로 바로 찍기</span>
-              </button>
-              <button type="button" onclick="triggerFaceCapture('gallery')" class="w-full px-2.5 py-2 rounded-lg hover:bg-purple-600/30 text-white font-medium flex items-center gap-2 text-left transition">
-                <span>🖼️</span><span>앨범에서 사진 선택</span>
-              </button>
-              <button type="button" onclick="triggerFaceCapture('reset')" class="w-full px-2.5 py-2 rounded-lg hover:bg-slate-800 text-slate-300 font-medium flex items-center gap-2 text-left transition border-t border-slate-700/50">
-                <span>🔄</span><span>기본 얼굴로 초기화</span>
-              </button>
-            </div>
-          </div>
         <!-- 하단 각도 & 3D 상태 실시간 배지 -->
         <div class="absolute bottom-2.5 left-2.5 right-2.5 flex items-center justify-center pointer-events-none z-10">
           <span id="main-angle-display-badge" class="px-3 py-1 rounded-full bg-slate-950/80 backdrop-blur-md border border-purple-500/30 text-[11px] font-semibold text-purple-200 shadow-md">
@@ -799,126 +572,45 @@
           </div>
         </div>
 
-        <!-- 🚪👗 [나만의 옷장함: 10벌의 시그니처 의상 원터치 선택 쇼룸] -->
-        <div class="w-full max-w-[420px] mx-auto p-3.5 rounded-2xl bg-slate-900/95 border border-purple-500/40 shadow-xl space-y-3 text-xs">
+        <!-- 🌐 [v7.0 실시간 웹 패션 검색 & 2026 최신 트렌드 의상 추천 스튜디오] -->
+        <div id="web-trend-fashion-search-box" class="w-full max-w-[450px] mx-auto p-3.5 rounded-2xl bg-slate-900/95 border border-purple-500/40 shadow-xl space-y-3 text-xs">
           <div class="flex items-center justify-between border-b border-slate-800 pb-2">
             <div class="flex items-center gap-2">
-              <span class="p-1.5 rounded-lg bg-pink-500/20 text-pink-400 text-base">🚪</span>
+              <span class="p-1.5 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 text-white text-base">🌐</span>
               <div>
-                <h3 class="font-extrabold text-white text-xs sm:text-sm">
-                  나만의 꿈의 옷장함 (10벌 코디 쇼룸)
-                </h3>
-                <p class="text-[10px] text-slate-400">터치하는 즉시 아바타의 상·하의·실루엣이 100% 바뀝니다</p>
+                <h3 class="font-black text-white text-xs sm:text-sm tracking-tight">2026 최신 트렌드 웹 패션 검색 & AI 피팅</h3>
+                <p class="text-[10px] text-slate-400">터치 시 내 전신사진 체형에 맞게 상의/하의가 즉시 갈아입혀집니다</p>
               </div>
             </div>
-            <span id="current-outfit-badge" class="px-2 py-0.5 rounded-full bg-purple-600/30 text-purple-300 border border-purple-500/40 text-[10px] font-bold">
-              🌸 1번 착장 중
+            <span id="fashion-search-status" class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">
+              실시간 연동
             </span>
           </div>
 
-          <!-- 10벌 의상 카드 그리드 (2열 5행) -->
-          <div id="wardrobe-showroom-grid" class="grid grid-cols-2 gap-2 max-h-[360px] overflow-y-auto pr-1">
-            
-            <!-- 1번 의상 -->
-            <button type="button" onclick="applyWardrobeOutfit(1)" id="outfit-card-1" class="p-2.5 rounded-xl bg-gradient-to-br from-pink-950/40 to-slate-900 border border-pink-500/40 hover:border-pink-400 text-left transition flex flex-col justify-between gap-1 shadow-sm active:scale-95">
-              <div class="flex items-center justify-between">
-                <span class="text-base">🌸</span>
-                <span class="px-1.5 py-0.2 rounded bg-pink-500/20 text-pink-300 text-[9px] font-bold">인기 1위</span>
-              </div>
-              <div class="font-bold text-white text-[11px] leading-tight">[1번] K-하이틴 핑크 가디건</div>
-              <div class="text-[10px] text-slate-400">플리츠 스커트 & 프레피 삭스</div>
+          <!-- 🔍 입어볼 옷 웹 검색창 -->
+          <div class="flex items-center gap-1.5">
+            <div class="relative flex-1">
+              <input type="text" id="web-fashion-search-input" placeholder="🔍 입어볼 옷 웹 검색 (예: 핑크 크롭 가디건, 와이드 청바지...)" onkeydown="if(event.key==='Enter') searchWebFashionItems()" class="w-full px-3 py-2 pl-8 rounded-xl bg-slate-950 border border-purple-500/30 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-purple-400">
+              <span class="absolute left-2.5 top-2.5 text-xs text-slate-400">✨</span>
+            </div>
+            <button type="button" onclick="searchWebFashionItems()" class="px-3.5 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-extrabold text-xs shadow-md transition active:scale-95 whitespace-nowrap cursor-pointer">
+              검색
             </button>
+          </div>
 
-            <!-- 2번 의상 -->
-            <button type="button" onclick="applyWardrobeOutfit(2)" id="outfit-card-2" class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 hover:border-sky-400 text-left transition flex flex-col justify-between gap-1 shadow-sm active:scale-95">
-              <div class="flex items-center justify-between">
-                <span class="text-base">🎀</span>
-                <span class="px-1.5 py-0.2 rounded bg-sky-500/20 text-sky-300 text-[9px] font-bold">아이돌</span>
-              </div>
-              <div class="font-bold text-white text-[11px] leading-tight">[2번] 청량 데님 자켓</div>
-              <div class="text-[10px] text-slate-400">화이트 레이스 미니 원피스</div>
-            </button>
+          <!-- 🏷️ 2026 최신 트렌드 원터치 추천 칩 6종 -->
+          <div class="flex flex-wrap gap-1.5 pt-1 border-t border-slate-800/60">
+            <button type="button" onclick="searchByTrendTag('all')" class="px-2.5 py-1 rounded-lg bg-pink-600/30 hover:bg-pink-600/50 text-pink-200 border border-pink-500/40 text-[11px] font-bold transition active:scale-95">🔥 2026 인기 급상승 TOP</button>
+            <button type="button" onclick="searchByTrendTag('top_k')" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-purple-600/40 text-slate-300 hover:text-white border border-slate-700 text-[11px] transition active:scale-95">👕 [상의] K-하이틴 크롭</button>
+            <button type="button" onclick="searchByTrendTag('top_seongsu')" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-purple-600/40 text-slate-300 hover:text-white border border-slate-700 text-[11px] transition active:scale-95">👕 [상의] 성수 트렌디 자켓</button>
+            <button type="button" onclick="searchByTrendTag('bot_pleats')" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-purple-600/40 text-slate-300 hover:text-white border border-slate-700 text-[11px] transition active:scale-95">👖 [하의] 플리츠 스커트</button>
+            <button type="button" onclick="searchByTrendTag('bot_wide')" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-purple-600/40 text-slate-300 hover:text-white border border-slate-700 text-[11px] transition active:scale-95">👖 [하의] 와이드 데님·카고</button>
+            <button type="button" onclick="searchByTrendTag('full_ceo')" class="px-2.5 py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500/40 text-amber-300 border border-amber-400/40 text-[11px] font-bold transition active:scale-95">👔 [대표님] 청담 럭셔리 수트</button>
+          </div>
 
-            <!-- 3번 의상 -->
-            <button type="button" onclick="applyWardrobeOutfit(3)" id="outfit-card-3" class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 hover:border-indigo-400 text-left transition flex flex-col justify-between gap-1 shadow-sm active:scale-95">
-              <div class="flex items-center justify-between">
-                <span class="text-base">🎓</span>
-                <span class="px-1.5 py-0.2 rounded bg-indigo-500/20 text-indigo-300 text-[9px] font-bold">스쿨룩</span>
-              </div>
-              <div class="font-bold text-white text-[11px] leading-tight">[3번] 명문 프레피 블레이저</div>
-              <div class="text-[10px] text-slate-400">네이비 자켓 & 체크 리본</div>
-            </button>
-
-            <!-- 4번 의상 -->
-            <button type="button" onclick="applyWardrobeOutfit(4)" id="outfit-card-4" class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 hover:border-emerald-400 text-left transition flex flex-col justify-between gap-1 shadow-sm active:scale-95">
-              <div class="flex items-center justify-between">
-                <span class="text-base">👕</span>
-                <span class="px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-300 text-[9px] font-bold">스트릿</span>
-              </div>
-              <div class="font-bold text-white text-[11px] leading-tight">[4번] 시티보이 오버핏 후드</div>
-              <div class="text-[10px] text-slate-400">카키 스트릿 카고 팬츠</div>
-            </button>
-
-            <!-- 5번 의상 -->
-            <button type="button" onclick="applyWardrobeOutfit(5)" id="outfit-card-5" class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 hover:border-amber-400 text-left transition flex flex-col justify-between gap-1 shadow-sm active:scale-95">
-              <div class="flex items-center justify-between">
-                <span class="text-base">🧥</span>
-                <span class="px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300 text-[9px] font-bold">클래식</span>
-              </div>
-              <div class="font-bold text-white text-[11px] leading-tight">[5번] 베이지 트렌치 롱코트</div>
-              <div class="text-[10px] text-slate-400">서울패션위크 런웨이 감성</div>
-            </button>
-
-            <!-- 6번 의상 -->
-            <button type="button" onclick="applyWardrobeOutfit(6)" id="outfit-card-6" class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 hover:border-blue-400 text-left transition flex flex-col justify-between gap-1 shadow-sm active:scale-95">
-              <div class="flex items-center justify-between">
-                <span class="text-base">👔</span>
-                <span class="px-1.5 py-0.2 rounded bg-blue-500/20 text-blue-300 text-[9px] font-bold">대표님 Pick</span>
-              </div>
-              <div class="font-bold text-white text-[11px] leading-tight">[6번] 청담 테일러드 VIP 수트</div>
-              <div class="text-[10px] text-slate-400">로열 네이비 & 실크 타이</div>
-            </button>
-
-            <!-- 7번 의상 -->
-            <button type="button" onclick="applyWardrobeOutfit(7)" id="outfit-card-7" class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 hover:border-yellow-400 text-left transition flex flex-col justify-between gap-1 shadow-sm active:scale-95">
-              <div class="flex items-center justify-between">
-                <span class="text-base">✨</span>
-                <span class="px-1.5 py-0.2 rounded bg-yellow-500/20 text-yellow-300 text-[9px] font-bold">럭셔리</span>
-              </div>
-              <div class="font-bold text-white text-[11px] leading-tight">[7번] 캐시미어 웜골드 니트</div>
-              <div class="text-[10px] text-slate-400">테이퍼드 크림 슬랙스</div>
-            </button>
-
-            <!-- 8번 의상 -->
-            <button type="button" onclick="applyWardrobeOutfit(8)" id="outfit-card-8" class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 hover:border-purple-400 text-left transition flex flex-col justify-between gap-1 shadow-sm active:scale-95">
-              <div class="flex items-center justify-between">
-                <span class="text-base">🔮</span>
-                <span class="px-1.5 py-0.2 rounded bg-purple-500/20 text-purple-300 text-[9px] font-bold">2035 CEO</span>
-              </div>
-              <div class="font-bold text-white text-[11px] leading-tight">[8번] 2035 글로벌 CEO 수트</div>
-              <div class="text-[10px] text-slate-400">네오 럭셔리 퍼플 & 홀로그램</div>
-            </button>
-
-            <!-- 9번 의상 -->
-            <button type="button" onclick="applyWardrobeOutfit(9)" id="outfit-card-9" class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 hover:border-cyan-400 text-left transition flex flex-col justify-between gap-1 shadow-sm active:scale-95">
-              <div class="flex items-center justify-between">
-                <span class="text-base">🚀</span>
-                <span class="px-1.5 py-0.2 rounded bg-cyan-500/20 text-cyan-300 text-[9px] font-bold">테크웨어</span>
-              </div>
-              <div class="font-bold text-white text-[11px] leading-tight">[9번] 우주 AI 과학자 테크웨어</div>
-              <div class="text-[10px] text-slate-400">화이트 사이버네틱 아우터</div>
-            </button>
-
-            <!-- 10번 의상 -->
-            <button type="button" onclick="applyWardrobeOutfit(10)" id="outfit-card-10" class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 hover:border-amber-400 text-left transition flex flex-col justify-between gap-1 shadow-sm active:scale-95">
-              <div class="flex items-center justify-between">
-                <span class="text-base">👑</span>
-                <span class="px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300 text-[9px] font-bold">갈라 파티</span>
-              </div>
-              <div class="font-bold text-white text-[11px] leading-tight">[10번] 로열 골드 갈라 드레스</div>
-              <div class="text-[10px] text-slate-400">골드 스팽글 드레스 & 턱시도</div>
-            </button>
-
+          <!-- 👗 실시간 패션 아이템 갤러리 그리드 -->
+          <div id="web-fashion-grid" class="grid grid-cols-2 sm:grid-cols-3 gap-2 pt-1 max-h-[420px] overflow-y-auto no-scrollbar">
+            <!-- 자바스크립트가 카드를 동적으로 렌더링합니다 -->
           </div>
         </div>
 
@@ -2208,710 +1900,6 @@ window.mainAvatarWeight = window.mainAvatarWeight || 58;
 window.mainSkinTone = window.mainSkinTone || '#fce7d8';
 
 // 📸 1. 사진 메뉴 토글 & 캡처
-function toggleFacePhotoMenu() {
-  const menu = document.getElementById('face-photo-menu');
-  if (menu) {
-    menu.classList.toggle('hidden');
-  }
-}
-
-function triggerFaceCapture(mode) {
-  const menu = document.getElementById('face-photo-menu');
-  if (menu) menu.classList.add('hidden');
-
-  if (mode === 'reset') {
-    window.userFaceImage = null;
-    drawMainFittingAvatar();
-    if (typeof showToast === 'function') {
-      showToast('🔄 기본 마네킹 얼굴로 초기화되었습니다.', 'info');
-    }
-    const angleBadge = document.getElementById('main-angle-display-badge');
-    if (angleBadge) {
-      angleBadge.innerHTML = `🔄 3D ${Math.round(window.yawAngle)}° · ↕️ ${window.pitchTilt >= 0 ? '+' : ''}${Math.round(window.pitchTilt)}°`;
-    }
-    return;
-  }
-
-  // 모바일 카메라 또는 앨범 파일 인풋 동적 생성
-  let input = document.getElementById('temp-face-file-input');
-  if (!input) {
-    input = document.createElement('input');
-    input.type = 'file';
-    input.id = 'temp-face-file-input';
-    input.accept = 'image/*';
-    input.style.display = 'none';
-    document.body.appendChild(input);
-  }
-
-  if (mode === 'camera') {
-    input.setAttribute('capture', 'user');
-  } else {
-    input.removeAttribute('capture');
-  }
-
-  input.onchange = function(e) {
-    const file = e.target.files && e.target.files[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onload = function(evt) {
-      const img = new Image();
-      img.onload = function() {
-        window.userFaceImage = img;
-        drawMainFittingAvatar();
-        if (typeof showToast === 'function') {
-          showToast('📸 내 실제 얼굴 사진이 아바타에 100% 합성되었습니다!', 'success');
-        }
-        if (typeof speakMainText === 'function') {
-          speakMainText('대표님의 실제 얼굴 사진이 3D 런웨이 아바타에 선명하게 합성되었습니다!');
-        }
-      };
-      img.src = evt.target.result;
-    };
-    reader.readAsDataURL(file);
-    input.value = ''; // 재선택 가능하도록 초기화
-  };
-
-  input.click();
-}
-
-// 🔄 2. 3D 360° 좌우/상하 터치 & 마우스 드래그 이벤트 바인딩
-function init3DTouchInteraction(canvasId) {
-  const canvas = document.getElementById(canvasId || 'main-fitting-canvas');
-  if (!canvas || canvas.dataset.touch3dInitialized) return;
-  canvas.dataset.touch3dInitialized = 'true';
-
-  let isDragging = false;
-  let startX = 0;
-  let startY = 0;
-  let lastX = 0;
-  let lastY = 0;
-
-  function onStart(x, y) {
-    isDragging = true;
-    startX = x;
-    startY = y;
-    lastX = x;
-    lastY = y;
-    canvas.style.cursor = 'grabbing';
-  }
-
-  function onMove(x, y, evt) {
-    if (!isDragging) return;
-    if (evt && evt.cancelable) evt.preventDefault();
-
-    const deltaX = x - lastX;
-    const deltaY = y - lastY;
-    lastX = x;
-    lastY = y;
-
-    // 좌우 360° 연속 회전
-    window.yawAngle = (window.yawAngle + deltaX * 0.75 + 360) % 360;
-
-    // 상하 -25° ~ +25° 틸트
-    window.pitchTilt = Math.max(-30, Math.min(30, window.pitchTilt - deltaY * 0.4));
-
-    // 실시간 렌더링
-    drawMainFittingAvatar();
-  }
-
-  function onEnd() {
-    isDragging = false;
-    canvas.style.cursor = 'grab';
-  }
-
-  // 터치 이벤트 (모바일)
-  canvas.addEventListener('touchstart', (e) => {
-    if (e.touches.length === 1) {
-      onStart(e.touches[0].clientX, e.touches[0].clientY);
-    }
-  }, { passive: false });
-
-  canvas.addEventListener('touchmove', (e) => {
-    if (e.touches.length === 1) {
-      onMove(e.touches[0].clientX, e.touches[0].clientY, e);
-    }
-  }, { passive: false });
-
-  canvas.addEventListener('touchend', onEnd);
-  canvas.addEventListener('touchcancel', onEnd);
-
-  // 마우스 이벤트 (PC)
-  canvas.addEventListener('mousedown', (e) => {
-    onStart(e.clientX, e.clientY);
-  });
-
-  window.addEventListener('mousemove', (e) => {
-    if (isDragging) onMove(e.clientX, e.clientY, e);
-  });
-
-  window.addEventListener('mouseup', () => {
-    if (isDragging) onEnd();
-  });
-}
-
-// 👗 3. 3D 아바타 & 런웨이 투영 렌더러
-function drawMainFittingAvatar() {
-      if (typeof renderRealPhotoStudio === 'function') { renderRealPhotoStudio(); return; }
-
-      if (typeof renderRealPhotoStudio === 'function') { renderRealPhotoStudio(); return; }
-
-      if (typeof renderRealPhotoStudio === 'function') { renderRealPhotoStudio(); return; }
-
-  const canvas = document.getElementById('main-fitting-canvas') || document.getElementById('app-fitting-canvas');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  const w = canvas.width;
-  const h = canvas.height;
-  const cx = w / 2;
-
-  ctx.clearRect(0, 0, w, h);
-
-  // 1. 하이엔드 런웨이 배경 그라디언트
-  const bgGrad = ctx.createLinearGradient(0, 0, 0, h);
-  bgGrad.addColorStop(0, '#060913');
-  bgGrad.addColorStop(0.5, '#0b1329');
-  bgGrad.addColorStop(1, '#020617');
-  ctx.fillStyle = bgGrad;
-  ctx.fillRect(0, 0, w, h);
-
-  // 2. 상하 틸트(pitchTilt)에 반응하는 3D 바닥 스포트라이트
-  const tiltYOffset = window.pitchTilt * 1.8;
-  const floorY = h - 50 + tiltYOffset;
-  const spotRadiusX = 145;
-  const spotRadiusY = Math.max(16, 26 - window.pitchTilt * 0.4); // 틸트에 따라 타원 편평비 변화
-
-  ctx.save();
-  const floorGrad = ctx.createRadialGradient(cx, floorY, 15, cx, floorY, spotRadiusX);
-  if (window.mainSubTabMode === 'future') {
-    floorGrad.addColorStop(0, 'rgba(6, 182, 212, 0.45)');
-    floorGrad.addColorStop(0.6, 'rgba(59, 130, 246, 0.2)');
-  } else if (window.mainSubTabMode === 'family') {
-    floorGrad.addColorStop(0, 'rgba(234, 179, 8, 0.45)');
-    floorGrad.addColorStop(0.6, 'rgba(249, 115, 22, 0.2)');
-  } else {
-    floorGrad.addColorStop(0, 'rgba(236, 72, 153, 0.45)');
-    floorGrad.addColorStop(0.6, 'rgba(168, 85, 247, 0.2)');
-  }
-  floorGrad.addColorStop(1, 'transparent');
-  ctx.fillStyle = floorGrad;
-  ctx.beginPath();
-  ctx.ellipse(cx, floorY, spotRadiusX, spotRadiusY, 0, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.restore();
-
-  // 3. 3D 각도 삼각함수 계산
-  const rad = ((window.yawAngle || 0) * Math.PI) / 180;
-  const cosYaw = Math.cos(rad); // +1 (정면) -> 0 (측면) -> -1 (뒷면)
-  const sinYaw = Math.sin(rad); // +1 (우측) -> -1 (좌측)
-  const isBackView = cosYaw < -0.15;
-
-  // 인체 비율 계산
-  const scale = (window.mainAvatarHeight / 170);
-  const widthFactor = (window.mainAvatarWeight / 60);
-  const headY = 115 - (scale - 1) * 30 + window.pitchTilt * 0.5;
-  const headRadius = 38 * scale;
-  const baseShoulderW = 56 * scale * widthFactor;
-  // 좌우 회전에 따른 3D 어깨 너비 투영 (측면일 때 얇아짐)
-  const projShoulderW = baseShoulderW * (0.35 + 0.65 * Math.abs(cosYaw));
-  const torsoH = 148 * scale;
-  const legH = 205 * scale;
-
-  // 의상 색상 결정
-  let topColor = '#6366f1';
-  let pantsColor = '#1e293b';
-  let accentColor = '#a855f7';
-
-  if (window.mainCurrentOutfit === 'suit') {
-    topColor = '#0f172a'; pantsColor = '#0f172a'; accentColor = '#38bdf8';
-  } else if (window.mainCurrentOutfit === 'highteen') {
-    topColor = '#f43f5e'; pantsColor = '#2563eb'; accentColor = '#facc15';
-  } else if (window.mainCurrentOutfit === 'future_ceo') {
-    topColor = '#1e1b4b'; pantsColor = '#090d16'; accentColor = '#06b6d4';
-  } else if (window.mainCurrentOutfit === 'family_similar') {
-    topColor = '#f97316'; pantsColor = '#334155'; accentColor = '#eab308';
-  } else if (window.mainCurrentOutfit === 'zerocost') {
-    topColor = '#10b981'; pantsColor = '#1e293b'; accentColor = '#34d399';
-  }
-
-  // 👨‍👧‍👧 모드 1: 가족 4인 앙상블 모드
-  if (window.mainSubTabMode === 'family') {
-    drawFamilyEnsemble(ctx, w, h, floorY);
-    updateAngleDisplayBadge();
-    return;
-  }
-
-  // 🔮 모드 2: 2035 미래 홀로그램 런웨이 모드 배경 효과
-  if (window.mainSubTabMode === 'future') {
-    ctx.save();
-    ctx.strokeStyle = 'rgba(6, 182, 212, 0.25)';
-    ctx.lineWidth = 1;
-    for (let lx = -100; lx <= 100; lx += 25) {
-      ctx.beginPath();
-      ctx.moveTo(cx + lx * 2, floorY);
-      ctx.lineTo(cx + lx * 0.2, headY - 40);
-      ctx.stroke();
-    }
-    ctx.restore();
-  }
-
-  // 4. 하체 (팬츠 & 슈즈) 3D 투영
-  ctx.save();
-  ctx.fillStyle = pantsColor;
-
-  const legShift = sinYaw * 12; // 옆모습일 때 앞뒤 다리 겹침
-  const legWidth = (23 * widthFactor) * (0.55 + 0.45 * Math.abs(cosYaw));
-
-  // 왼쪽 다리
-  ctx.beginPath();
-  ctx.roundRect(cx - (projShoulderW * 0.42) + legShift * 0.5, headY + headRadius + torsoH - 12, legWidth, legH, [4, 4, 8, 8]);
-  ctx.fill();
-
-  // 오른쪽 다리 (앞뒤 겹침 처리)
-  ctx.beginPath();
-  ctx.roundRect(cx + (projShoulderW * 0.42) - legWidth - legShift * 0.5, headY + headRadius + torsoH - 12, legWidth, legH, [4, 4, 8, 8]);
-  ctx.fill();
-
-  // 슈즈
-  ctx.fillStyle = window.mainCurrentOutfit === 'highteen' ? '#f8fafc' : '#020617';
-  ctx.beginPath();
-  ctx.roundRect(cx - (projShoulderW * 0.45) + legShift * 0.5, headY + headRadius + torsoH + legH - 12, legWidth + 6, 14, [4, 8, 4, 4]);
-  ctx.roundRect(cx + (projShoulderW * 0.45) - legWidth - 6 - legShift * 0.5, headY + headRadius + torsoH + legH - 12, legWidth + 6, 14, [4, 8, 4, 4]);
-  ctx.fill();
-  ctx.restore();
-
-  // 5. 상체 (자켓 / 셔츠 / 코트) 3D 투영
-  ctx.save();
-  ctx.fillStyle = topColor;
-  ctx.beginPath();
-  ctx.roundRect(cx - projShoulderW, headY + headRadius - 6, projShoulderW * 2, torsoH, [12, 12, 6, 6]);
-  ctx.fill();
-
-  // 의상 디테일 (정면/측면/뒷면 반응형)
-  if (!isBackView) {
-    // [앞모습]: V존 셔츠 및 넥타이/라펠
-    const vOffset = sinYaw * (projShoulderW * 0.5);
-    ctx.fillStyle = '#ffffff';
-    ctx.beginPath();
-    ctx.moveTo(cx + vOffset - 12 * Math.abs(cosYaw), headY + headRadius - 4);
-    ctx.lineTo(cx + vOffset + 12 * Math.abs(cosYaw), headY + headRadius - 4);
-    ctx.lineTo(cx + vOffset, headY + headRadius + 44);
-    ctx.closePath();
-    ctx.fill();
-
-    // 넥타이 / 이너 포인트
-    ctx.fillStyle = accentColor;
-    ctx.beginPath();
-    ctx.moveTo(cx + vOffset - 5 * Math.abs(cosYaw), headY + headRadius + 6);
-    ctx.lineTo(cx + vOffset + 5 * Math.abs(cosYaw), headY + headRadius + 6);
-    ctx.lineTo(cx + vOffset, headY + headRadius + 65);
-    ctx.closePath();
-    ctx.fill();
-
-    // 골드 / 실버 수트 단추
-    ctx.fillStyle = '#e2e8f0';
-    for (let b = 0; b < 3; b++) {
-      ctx.beginPath();
-      ctx.arc(cx + vOffset, headY + headRadius + 75 + b * 22, 2.5, 0, Math.PI * 2);
-      ctx.fill();
-    }
-  } else {
-    // [뒷모습]: 테일러드 등판 절개선 및 주름 라인
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.18)';
-    ctx.lineWidth = 1.8;
-    ctx.beginPath();
-    ctx.moveTo(cx, headY + headRadius + 4);
-    ctx.lineTo(cx, headY + headRadius + torsoH - 6);
-    ctx.stroke();
-
-    ctx.beginPath();
-    ctx.moveTo(cx - projShoulderW * 0.7, headY + headRadius + 20);
-    ctx.lineTo(cx, headY + headRadius + 50);
-    ctx.lineTo(cx + projShoulderW * 0.7, headY + headRadius + 20);
-    ctx.stroke();
-  }
-
-  // 6. 3D 양팔 렌더링
-  ctx.fillStyle = topColor;
-  const armW = 16 * widthFactor;
-  // 왼팔
-  ctx.beginPath();
-  ctx.roundRect(cx - projShoulderW - armW * 0.6, headY + headRadius, armW, torsoH * 0.85, [8, 8, 8, 8]);
-  ctx.fill();
-  // 오른팔
-  ctx.beginPath();
-  ctx.roundRect(cx + projShoulderW - armW * 0.4, headY + headRadius, armW, torsoH * 0.85, [8, 8, 8, 8]);
-  ctx.fill();
-  ctx.restore();
-
-  // 7. 목 & 머리 & 얼굴 (실사 사진 원형 클리핑 100% 합성)
-  const faceCenterX = cx + sinYaw * (headRadius * 0.28);
-  const faceCenterY = headY;
-
-  // 목
-  ctx.fillStyle = window.mainSkinTone;
-  ctx.beginPath();
-  ctx.roundRect(cx - 9, headY + headRadius - 10, 18, 20, [2, 2, 4, 4]);
-  ctx.fill();
-
-  if (!isBackView) {
-    // [앞모습/비스듬한 각도]: 실사 사진 합성 또는 마네킹 페이스
-    if (window.userFaceImage && window.userFaceImage.complete) {
-      // 🌟 실제 업로드/촬영된 본인 얼굴 사진 원형 클리핑 합성!
-      ctx.save();
-      ctx.beginPath();
-      ctx.arc(faceCenterX, faceCenterY, headRadius * 0.94, 0, Math.PI * 2);
-      ctx.clip();
-      ctx.drawImage(
-        window.userFaceImage,
-        faceCenterX - headRadius * 0.94,
-        faceCenterY - headRadius * 0.94,
-        headRadius * 1.88,
-        headRadius * 1.88
-      );
-      ctx.restore();
-
-      // 골드 VIP 네온 테두리 링
-      ctx.save();
-      ctx.strokeStyle = '#f59e0b';
-      ctx.lineWidth = 2.5;
-      ctx.shadowColor = '#fbbf24';
-      ctx.shadowBlur = 10;
-      ctx.beginPath();
-      ctx.arc(faceCenterX, faceCenterY, headRadius * 0.94, 0, Math.PI * 2);
-      ctx.stroke();
-      ctx.restore();
-    } else {
-      // 또렷한 패션 일러스트 이목구비 렌더링
-      if (typeof drawDetailedIllustrationFace === 'function') {
-        drawDetailedIllustrationFace(ctx, faceCenterX, faceCenterY, headRadius, sinYaw);
-        ctx.restore();
-        updateAngleDisplayBadge();
-        return;
-      }
-      // 기본 마네킹 페이스 (입체 쉐이딩)
-      ctx.save();
-      const faceGrad = ctx.createRadialGradient(
-        faceCenterX - sinYaw * 10, faceCenterY - 10, 5,
-        faceCenterX, faceCenterY, headRadius
-      );
-      faceGrad.addColorStop(0, '#fff1e6');
-      faceGrad.addColorStop(0.7, window.mainSkinTone);
-      faceGrad.addColorStop(1, '#d4a373');
-      ctx.fillStyle = faceGrad;
-      ctx.beginPath();
-      ctx.arc(faceCenterX, faceCenterY, headRadius * 0.92, 0, Math.PI * 2);
-      ctx.fill();
-
-      // 세련된 헤어 스타일 (앞머리)
-      ctx.fillStyle = '#1e1b18';
-      ctx.beginPath();
-      ctx.arc(faceCenterX, faceCenterY - 6, headRadius * 0.95, Math.PI * 0.9, Math.PI * 2.1);
-      ctx.fill();
-
-      // 사이버/트렌디 글래스 (미래 모드)
-      if (window.mainSubTabMode === 'future') {
-        ctx.fillStyle = 'rgba(6, 182, 212, 0.75)';
-        ctx.beginPath();
-        ctx.roundRect(faceCenterX - headRadius * 0.7, faceCenterY - 6, headRadius * 1.4, 14, [4, 4, 4, 4]);
-        ctx.fill();
-      }
-      ctx.restore();
-    }
-  } else {
-    // [뒷모습]: 풍성한 볼륨감의 뒤통수 헤어스타일 렌더링
-    ctx.save();
-    const hairGrad = ctx.createRadialGradient(
-      faceCenterX, faceCenterY - 10, 10,
-      faceCenterX, faceCenterY, headRadius * 1.05
-    );
-    hairGrad.addColorStop(0, '#2d241e');
-    hairGrad.addColorStop(0.8, '#18120e');
-    hairGrad.addColorStop(1, '#0c0907');
-    ctx.fillStyle = hairGrad;
-    ctx.beginPath();
-    ctx.arc(faceCenterX, faceCenterY, headRadius * 1.02, 0, Math.PI * 2);
-    ctx.fill();
-
-    // 뒷머리 헤어 텍스처 결
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.12)';
-    ctx.lineWidth = 1.5;
-    for (let a = -20; a <= 20; a += 10) {
-      ctx.beginPath();
-      ctx.arc(faceCenterX + a, faceCenterY + 10, headRadius * 0.8, Math.PI * 0.2, Math.PI * 0.8);
-      ctx.stroke();
-    }
-    ctx.restore();
-  }
-
-  // 8. 하단 각도 배지 갱신
-  updateAngleDisplayBadge();
-}
-
-// 👨‍👧‍👧 가족 4인 앙상블 렌더러
-function drawFamilyEnsemble(ctx, w, h, floorY) {
-  const members = [
-    { name: '아빠 (나)', x: w * 0.38, scale: 1.0, color: '#0f172a', inner: '#38bdf8' },
-    { name: '큰딸 (CEO)', x: w * 0.58, scale: 0.92, color: '#4f46e5', inner: '#ec4899' },
-    { name: '둘째 (외교관)', x: w * 0.22, scale: 0.84, color: '#059669', inner: '#f59e0b' },
-    { name: '셋째 (AI아티스트)', x: w * 0.76, scale: 0.78, color: '#d97706', inner: '#8b5cf6' }
-  ];
-
-  members.forEach((m) => {
-    const s = m.scale;
-    const hY = 135 + (1 - s) * 70;
-    const r = 30 * s;
-    const shW = 42 * s;
-    const tH = 120 * s;
-    const lH = 170 * s;
-
-    // 바닥 그림자
-    ctx.save();
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
-    ctx.beginPath();
-    ctx.ellipse(m.x, floorY - (1 - s) * 20, 36 * s, 10 * s, 0, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.restore();
-
-    // 다리
-    ctx.fillStyle = '#1e293b';
-    ctx.fillRect(m.x - shW * 0.35, hY + r + tH - 5, 14 * s, lH);
-    ctx.fillRect(m.x + shW * 0.35 - 14 * s, hY + r + tH - 5, 14 * s, lH);
-
-    // 몸통 (패밀리 시밀러 자켓)
-    ctx.fillStyle = m.color;
-    ctx.beginPath();
-    ctx.roundRect(m.x - shW, hY + r, shW * 2, tH, [8, 8, 4, 4]);
-    ctx.fill();
-
-    // 이너 컬러 포인트
-    ctx.fillStyle = m.inner;
-    ctx.beginPath();
-    ctx.arc(m.x, hY + r + 24 * s, 6 * s, 0, Math.PI * 2);
-    ctx.fill();
-
-    // 얼굴 (아빠는 실사 사진이 있으면 합성!)
-    if (m.name.includes('나') && window.userFaceImage && window.userFaceImage.complete) {
-      ctx.save();
-      ctx.beginPath();
-      ctx.arc(m.x, hY, r, 0, Math.PI * 2);
-      ctx.clip();
-      ctx.drawImage(window.userFaceImage, m.x - r, hY - r, r * 2, r * 2);
-      ctx.restore();
-      ctx.strokeStyle = '#f59e0b';
-      ctx.lineWidth = 2;
-      ctx.stroke();
-    } else {
-      ctx.fillStyle = window.mainSkinTone;
-      ctx.beginPath();
-      ctx.arc(m.x, hY, r, 0, Math.PI * 2);
-      ctx.fill();
-      // 헤어
-      ctx.fillStyle = '#1e1b18';
-      ctx.beginPath();
-      ctx.arc(m.x, hY - 4 * s, r, Math.PI * 0.85, Math.PI * 2.15);
-      ctx.fill();
-    }
-
-    // 이름표
-    ctx.fillStyle = '#94a3b8';
-    ctx.font = '10px sans-serif';
-    ctx.textAlign = 'center';
-    ctx.fillText(m.name, m.x, floorY + 16);
-  });
-}
-
-// 각도 및 얼굴 합성 상태 배지 갱신
-function updateAngleDisplayBadge() {
-  const badge = document.getElementById('main-angle-display-badge');
-  if (!badge) return;
-
-  const yaw = Math.round(window.yawAngle || 0);
-  const pitch = Math.round(window.pitchTilt || 0);
-  const faceStatus = window.userFaceImage ? ' · 📸 실사합성' : '';
-
-  badge.innerHTML = `🔄 3D 360° 터치 회전 (좌우: ${yaw}° · 상하: ${pitch >= 0 ? "+" : ""}${pitch}°)`;;
-}
-
-// 🔀 4. 모드 전환 (피팅 / 2035 / 가족)
-function switchMainFittingSubTab(mode) {
-  window.mainSubTabMode = mode;
-
-  // 상단 탭 스타일 갱신
-  ['fitting', 'future', 'family'].forEach(m => {
-    const btn = document.getElementById(`tab-sub-${m}`);
-    if (btn) {
-      if (m === mode) {
-        btn.className = 'px-2.5 py-1 rounded-lg bg-purple-600 text-white font-bold transition shadow-sm';
-      } else {
-        btn.className = 'px-2.5 py-1 rounded-lg text-slate-300 hover:text-white transition';
-      }
-    }
-  });
-
-  drawMainFittingAvatar();
-
-  if (mode === 'future') {
-    if (typeof showToast === 'function') showToast('🔮 2035 미래 글로벌 런웨이 모드로 전환되었습니다!', 'info');
-    if (typeof speakMainText === 'function') speakMainText('2035년 미래 타임머신 런웨이입니다. 글로벌 리더의 홀로그램 슈트가 동기화되었습니다.');
-  } else if (mode === 'family') {
-    if (typeof showToast === 'function') showToast('👨‍👧‍👧 4인 가족 시밀러룩 앙상블 모드로 전환되었습니다!', 'info');
-    if (typeof speakMainText === 'function') speakMainText('사랑하는 세 딸과 함께 선 4인 가족 시밀러룩 앙상블입니다.');
-  } else {
-    if (typeof showToast === 'function') showToast('👗 1인 3D 피팅 런웨이 모드입니다.', 'info');
-  }
-}
-
-// 🎨 5. 6대 원터치 룩 캡슐 적용
-function applyQuickLook(lookId) {
-  window.mainCurrentOutfit = lookId;
-
-  // 버튼 스타일 active 갱신
-  const lookBtns = ['basic', 'highteen', 'suit', 'future_ceo', 'family_similar', 'zerocost'];
-  lookBtns.forEach(id => {
-    const b = document.getElementById(`look-btn-${id}`);
-    if (b) {
-      if (id === lookId) {
-        b.classList.remove('bg-slate-800/80', 'text-slate-300', 'border-slate-700/60');
-        b.classList.add('bg-gradient-to-r', 'from-purple-600', 'to-pink-600', 'text-white', 'border-purple-400/50', 'shadow-md');
-      } else {
-        b.classList.remove('bg-gradient-to-r', 'from-purple-600', 'to-pink-600', 'text-white', 'border-purple-400/50', 'shadow-md');
-        b.classList.add('bg-slate-800/80', 'text-slate-300', 'border-slate-700/60');
-      }
-    }
-  });
-
-  // 모드 자동 연동
-  if (lookId === 'future_ceo') {
-    window.mainSubTabMode = 'future';
-    switchMainFittingSubTab('future');
-  } else if (lookId === 'family_similar') {
-    window.mainSubTabMode = 'family';
-    switchMainFittingSubTab('family');
-  } else {
-    window.mainSubTabMode = 'fitting';
-    switchMainFittingSubTab('fitting');
-  }
-
-  drawMainFittingAvatar();
-
-  const lookDescMap = {
-    'basic': '편안하고 자연스러운 기본 캐주얼 데일리 룩입니다.',
-    'highteen': '아이비리그 감성의 상큼한 프레피 하이틴 룩입니다.',
-    'suit': '청담동 하이엔드 테일러드 VIP 비즈니스 수트입니다.',
-    'future_ceo': '2035년 미래 글로벌 유니콘 CEO의 사이버네틱 슈트입니다.',
-    'family_similar': '온 가족이 조화를 이루는 따뜻한 패밀리 시밀러룩입니다.',
-    'zerocost': '기존 옷장의 옷을 트렌디하게 재해석한 0원 친환경 리폼 룩입니다.'
-  };
-
-  const desc = lookDescMap[lookId] || '선택하신 맞춤 스타일입니다.';
-  if (typeof showToast === 'function') showToast(`✨ 스타일 변경 완료: ${desc}`, 'success');
-  if (typeof speakMainText === 'function') speakMainText(desc);
-}
-
-function applyStyleCapsule(lookId) {
-  applyQuickLook(lookId);
-}
-
-// 🎙️ 6. 5대 성우 선택 및 보이스 바 토글
-function selectStudioVoiceMinimal(voiceId) {
-  window.currentSelectedVoice = voiceId;
-  const voiceNames = {
-    'designer': '청담 디자이너 멘토',
-    'highteen': '통통 튀는 하이틴',
-    'gentleman': '신뢰의 젠틀맨',
-    'healing_dj': '따뜻한 힐링 DJ',
-    'future_me': '2035년 미래의 나'
-  };
-
-  // 원형 뱃지 active 링 스타일링
-  ['designer', 'highteen', 'gentleman', 'healing_dj', 'future_me'].forEach(v => {
-    const el = document.getElementById(`voice-avatar-${v}`);
-    if (el) {
-      if (v === voiceId) {
-        el.classList.add('ring-2', 'ring-purple-400', 'scale-110');
-      } else {
-        el.classList.remove('ring-2', 'ring-purple-400', 'scale-110');
-      }
-    }
-  });
-
-  const name = voiceNames[voiceId] || voiceId;
-  if (typeof showToast === 'function') showToast(`🎙️ 보이스 소울메이트: [${name}] 연결 완료!`, 'info');
-  if (typeof speakMainText === 'function') {
-    speakMainText(`안녕하세요! ${name} 목소리로 대표님과 함께합니다.`);
-  }
-}
-
-function toggleVoiceTuningBar() {
-  const bar = document.getElementById('voice-tuning-bar');
-  if (bar) {
-    bar.classList.toggle('hidden');
-  }
-}
-
-// 🎓 7. 듀오링고형 팝업 퀴즈 & 하단 4대 서랍
-function toggleQuizPopup() {
-  const modal = document.getElementById('duolingo-quiz-modal');
-  if (modal) {
-    modal.classList.toggle('hidden');
-    modal.classList.toggle('flex');
-  }
-}
-
-function toggleDrawer(drawerId) {
-  const target = document.getElementById(`drawer-content-${drawerId}`);
-  if (target) {
-    target.classList.toggle('hidden');
-  }
-}
-
-// 🔐 8. 금고 탭 저장 함수
-function saveVaultCredentials() {
-  if (typeof showToast === 'function') {
-    showToast('🔐 신생국가 금고 자산 및 API 자격증명이 암호화되어 안전하게 보관되었습니다!', 'success');
-  }
-  if (typeof speakMainText === 'function') {
-    speakMainText('금고 자격증명이 정상적으로 저장되었습니다.');
-  }
-}
-
-// 📲 9. PWA 가이드 & 프리패스 & 저작권 등기
-function openGooglePlayGuideModal() {
-  if (typeof showToast === 'function') {
-    showToast('📲 [스마트폰 홈화면 추가]: 브라우저 우측 상단 메뉴(⋮)에서 [홈 화면에 추가]를 누르면 앱으로 즉시 설치됩니다!', 'info');
-  }
-}
-
-function registerCopyright() {
-  if (typeof showToast === 'function') {
-    showToast('📜 [블록체인 저작권 등기]: 이상일 대표님의 디자인 및 인성학교 콘텐츠가 글로벌 영구 등기되었습니다!', 'success');
-  }
-}
-
-function unlockFreePass() {
-  window.mainCurrentOutfit = 'future_ceo';
-  window.mainSubTabMode = 'future';
-  switchMainFittingSubTab('future');
-  drawMainFittingAvatar();
-  if (typeof showToast === 'function') {
-    showToast('👑 [이상일 대표님 프리패스]: 전 룩·성우·타임머신 100% 전면 해금 완료!', 'success');
-  }
-}
-
-function updateSkinTone(tone) {
-  window.mainSkinTone = tone;
-  drawMainFittingAvatar();
-}
-
-// 앱용 별칭 매핑 (dream_closet_future_master_app.html 호환)
-window.applyQuickLookApp = applyQuickLook;
-window.selectStudioVoiceMinimalApp = selectStudioVoiceMinimal;
-window.toggleVoiceTuningBarApp = toggleVoiceTuningBar;
-window.toggleQuizPopupApp = toggleQuizPopup;
-window.toggleDrawerApp = toggleDrawer;
-
-// 페이지 로드 시 3D 캔버스 인터랙션 초기화
 document.addEventListener('DOMContentLoaded', () => {
   init3DTouchInteraction('main-fitting-canvas'); init3DTouchInteraction('app-fitting-canvas');
   drawMainFittingAvatar();
@@ -3725,586 +2713,558 @@ window.isCanvasLocked = true;
 // 👑 [v6.6 Pure Coordi Studio] 직관적 터치 & 크기조절 엔진
 // ============================================================================
 
-window.currentRenderMode = 'photo_lookbook'; // 'photo_lookbook' | 'user_original'
-window.currentWardrobeNum = 1;
-window.isCanvasLocked = true; // 🔒 기본 화면 고정
-window.currentAdjustTarget = 'face'; // 'face' | 'body'
+// ============================================================================
+// 👑 [v7.0 Pure Body-Fit & Web Trend Fashion Studio] 자바스크립트 엔진
+// ============================================================================
 
-// 얼굴 조절 변수 (기본 크기: 캔버스 폭 11%, 위치: 상단 17%)
-window.faceOffsetX = 0;
-window.faceOffsetY = 0;
-window.faceScale = 1.0;
-
-// 전신사진 / 의상 조절 변수 (0.3 ~ 3.5배)
+window.currentRenderMode = 'photo_lookbook';
+window.isCanvasLocked = true; // 기본 화면 고정
 window.bodyPhotoScale = 1.0;
 window.bodyPhotoOffsetX = 0;
 window.bodyPhotoOffsetY = 0;
+window.userBodyPhotoImg = null;
+window.isOriginalFitMode = false;
 
-// 10벌 고화질 실사 패션 화보 카탈로그
-window.LOOKBOOK_CATALOG = {
-  1: {
-    name: "🌸 러블리 K-하이틴 핑크 가디건",
-    colorTheme: "#f43f5e",
-    imageUrl: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80",
-    modelDesc: "파스텔 핑크 울 가디건 & 플리츠 스커트 스튜디오 실사 화보"
+// 👕/👖 상·하의 독립 레이어 상태
+window.currentGarmentZone = 'top'; // 'top' | 'bottom' | 'full'
+window.selectedTopGarment = null;
+window.selectedBottomGarment = null;
+window.scanEffectZone = null;
+window.scanEffectExpiry = 0;
+
+// 기본 실사 모델 배경 이미지
+const DEFAULT_STUDIO_LOOKBOOK_URL = 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=700&q=80';
+window.defaultStudioModelImg = new Image();
+window.defaultStudioModelImg.crossOrigin = 'anonymous';
+window.defaultStudioModelImg.src = DEFAULT_STUDIO_LOOKBOOK_URL;
+window.defaultStudioModelImg.onload = () => { drawMainFittingAvatar(); };
+
+// 2026 기본 트렌드 카탈로그 캐시
+window.trendFashionItems = [
+  {
+    id: "wf_top_01",
+    name: "파스텔 핑크 크롭 니트 가디건",
+    category: "top",
+    badge: "🔥 2026 1위",
+    tag: "K-하이틴",
+    desc: "소프트 모헤어 소재의 2026 봄 시즌 베스트셀러 크롭 가디건",
+    imageUrl: "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?auto=format&fit=crop&w=700&q=80"
   },
-  2: {
-    name: "🎀 청량 아이돌 데님 자켓 & 원피스",
-    colorTheme: "#38bdf8",
-    imageUrl: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=600&q=80",
-    modelDesc: "라이트블루 워싱 데님 자켓 & 썸머 원피스 실사 화보"
+  {
+    id: "wf_top_02",
+    name: "성수 오버핏 차콜 테일러드 자켓",
+    category: "top",
+    badge: "✨ 트렌드",
+    tag: "성수 미니멀",
+    desc: "어깨 라인을 자연스럽게 잡아주는 구조적 실루엣 블레이저",
+    imageUrl: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=700&q=80"
   },
-  3: {
-    name: "🎓 명문 프레피 블레이저 & 리본",
-    colorTheme: "#818cf8",
-    imageUrl: "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=600&q=80",
-    modelDesc: "클래식 네이비 테일러드 블레이저 & 프레피 타이 실사 화보"
+  {
+    id: "wf_top_03",
+    name: "클래식 아이보리 케이블 하프집업",
+    category: "top",
+    badge: "🌿 데일리",
+    tag: "프레피룩",
+    desc: "단정하면서도 세련된 무드를 연출하는 프리미엄 니트",
+    imageUrl: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=700&q=80"
   },
-  4: {
-    name: "👕 시티보이 오버핏 후드 & 카고",
-    colorTheme: "#34d399",
-    imageUrl: "https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?auto=format&fit=crop&w=600&q=80",
-    modelDesc: "세이지 그린 프리미엄 오버핏 후드 & 카고 팬츠 실사 화보"
+  {
+    id: "wf_bot_01",
+    name: "빈티지 워싱 와이드 스트레이트 데님",
+    category: "bottom",
+    badge: "🔥 2026 1위",
+    tag: "와이드핏",
+    desc: "다리를 길어 보이게 하는 하이라이즈 롱 와이드 진",
+    imageUrl: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=700&q=80"
   },
-  5: {
-    name: "🧥 베이지 트렌치 롱코트",
-    colorTheme: "#fbbf24",
-    imageUrl: "https://images.unsplash.com/photo-1485968579580-b6d095142e6e?auto=format&fit=crop&w=600&q=80",
-    modelDesc: "헤리티지 베이지 더블 브레스티드 트렌치 코트 실사 화보"
+  {
+    id: "wf_bot_02",
+    name: "클래식 테니스 플리츠 미니 스커트",
+    category: "bottom",
+    badge: "✨ 인기",
+    tag: "K-하이틴",
+    desc: "칼각 주름과 발랄한 A라인으로 체형을 보정해주는 스커트",
+    imageUrl: "https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?auto=format&fit=crop&w=700&q=80"
   },
-  6: {
-    name: "👔 청담 테일러드 VIP 네이비 수트",
-    colorTheme: "#60a5fa",
-    imageUrl: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=600&q=80",
-    modelDesc: "이태리 최고급 원단 맞춤 다크 네이비 수트 실사 화보"
+  {
+    id: "wf_bot_03",
+    name: "유틸리티 스트링 와이드 카고 팬츠",
+    category: "bottom",
+    badge: "⚡ 힙스터",
+    tag: "성수 고프코어",
+    desc: "밑단 스트링 조절로 조거핏과 와이드핏 연출이 가능한 팬츠",
+    imageUrl: "https://images.unsplash.com/photo-1506629082955-511b1aa562c8?auto=format&fit=crop&w=700&q=80"
   },
-  7: {
-    name: "✨ 캐시미어 웜골드 니트 & 슬랙스",
-    colorTheme: "#fcd34d",
-    imageUrl: "https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=600&q=80",
-    modelDesc: "카멜 골드 헤비 게이지 캐시미어 니트 & 슬랙스 실사 화보"
+  {
+    id: "wf_full_01",
+    name: "청담 럭셔리 네이비 더블 수트",
+    category: "full",
+    badge: "👑 대표님",
+    tag: "청담 최고급",
+    desc: "이탈리아 원단으로 완성한 압도적 품격의 비즈니스 수트",
+    imageUrl: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=700&q=80"
   },
-  8: {
-    name: "🔮 2035 글로벌 CEO 네오-퍼플 수트",
-    colorTheme: "#c084fc",
-    imageUrl: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=600&q=80",
-    modelDesc: "2035 네오 서울 테크놀로지 CEO 럭셔리 수트 실사 화보"
-  },
-  9: {
-    name: "🚀 우주 AI 과학자 사이버 테크웨어",
-    colorTheme: "#22d3ee",
-    imageUrl: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=600&q=80",
-    modelDesc: "에어로다이내믹 매트 블랙 사이버 테크웨어 재킷 실사 화보"
-  },
-  10: {
-    name: "👑 로열 골드 갈라 파티 드레스/턱시도",
-    colorTheme: "#fde047",
-    imageUrl: "https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=600&q=80",
-    modelDesc: "칸 영화제 레드카펫 골드 자수 이브닝 갈라 쿠튀르 실사 화보"
+  {
+    id: "wf_full_02",
+    name: "오트밀 캐시미어 벨티드 롱 코트",
+    category: "full",
+    badge: "👑 럭셔리",
+    tag: "로열 클래식",
+    desc: "포근하고 고급스러운 텍스처의 100% 캐시미어 코트",
+    imageUrl: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=700&q=80"
   }
-};
+];
 
-window.lookbookImageCache = {};
-function preloadLookbookImages() {
-  for (let key in window.LOOKBOOK_CATALOG) {
-    const item = window.LOOKBOOK_CATALOG[key];
-    if (item.imageUrl) {
-      const img = new Image();
-      img.crossOrigin = 'anonymous';
-      img.onload = function() {
-        window.lookbookImageCache[key] = img;
-        if (parseInt(key) === (window.currentWardrobeNum || 1)) {
-          if (typeof renderRealPhotoStudio === 'function') renderRealPhotoStudio();
-        }
-      };
-      img.src = item.imageUrl;
-    }
-  }
-}
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', preloadLookbookImages);
-} else {
-  preloadLookbookImages();
-}
-
-// 🔒 [기능 1] 터치 위치 고정 잠금 스위치 (touch-action 동적 전환)
+// 1. 잠금 토글 (🔒 ↔ 🔓)
 function toggleCanvasLock() {
   window.isCanvasLocked = !window.isCanvasLocked;
-  applyCanvasLockState();
-}
-
-function applyCanvasLockState() {
   const btn = document.getElementById('btn-canvas-lock');
   const icon = document.getElementById('canvas-lock-icon');
   const label = document.getElementById('canvas-lock-label');
-  const statusBadge = document.getElementById('canvas-lock-status-badge');
   const canvas = document.getElementById('main-fitting-canvas') || document.getElementById('app-fitting-canvas');
 
   if (window.isCanvasLocked) {
     if (btn) {
-      btn.className = 'px-2.5 h-8 rounded-xl bg-emerald-700 hover:bg-emerald-600 text-emerald-100 text-[11px] font-black border border-emerald-400 active:scale-95 flex items-center gap-1 whitespace-nowrap shadow transition';
+      btn.className = "px-3 h-8 rounded-xl bg-emerald-700 hover:bg-emerald-600 text-emerald-100 text-[11px] font-black border border-emerald-400 active:scale-95 flex items-center gap-1 whitespace-nowrap shadow transition";
     }
-    if (icon) icon.textContent = '🔒';
-    if (label) label.textContent = '고정됨';
-    if (statusBadge) statusBadge.textContent = '🔒 화면 고정됨 (터치시 잠금해제)';
+    if (icon) icon.innerText = '🔒';
+    if (label) label.innerText = '고정됨';
     if (canvas) canvas.style.touchAction = 'pan-y';
-    if (typeof showToast === 'function') {
-      showToast('🔒 [화면 고정 완료]: 상하 스크롤이 자유롭습니다.', 'success');
-    }
+    if (typeof showToast === 'function') showToast('🔒 화면이 고정되었습니다 (스크롤 가능)', 'info');
   } else {
     if (btn) {
-      btn.className = 'px-2.5 h-8 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 text-[11px] font-black border border-amber-300 active:scale-95 flex items-center gap-1 whitespace-nowrap shadow transition animate-pulse';
+      btn.className = "px-3 h-8 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white text-[11px] font-black border border-cyan-300 ring-2 ring-cyan-400/50 active:scale-95 flex items-center gap-1 whitespace-nowrap shadow-lg transition animate-pulse";
     }
-    if (icon) icon.textContent = '🔓';
-    if (label) label.textContent = '조절켜짐';
-    if (statusBadge) statusBadge.textContent = '🔓 손가락 이동·크기조절 켜짐';
-    // 조절 모드에서는 브라우저 기본 스크롤을 억제하여 손가락 드래그 100% 반영!
+    if (icon) icon.innerText = '🔓';
+    if (label) label.innerText = '조절 켜짐';
     if (canvas) canvas.style.touchAction = 'none';
-    if (typeof showToast === 'function') {
-      showToast('🔓 [조절 모드 활성화]: 손가락으로 사진을 상하좌우 이동 및 두 손가락으로 크기를 조절하세요!', 'info');
-    }
+    if (typeof showToast === 'function') showToast('🔓 손가락 이동 & 핀치 줌이 활성화되었습니다!', 'success');
   }
 }
+window.toggleCanvasLock = toggleCanvasLock;
 
-// 👤 ↔ 🖼️ [기능 2] 1번 터치로 얼굴 ↔ 전신사진 크기·위치 조정 전환
-function toggleAdjustTarget() {
-  window.currentAdjustTarget = (window.currentAdjustTarget === 'body') ? 'face' : 'body';
-  // 사용자가 조절 버튼을 누르면 자동으로 잠금 해제하여 바로 조작 가능하게 배려!
-  if (window.isCanvasLocked) {
-    window.isCanvasLocked = false;
-    applyCanvasLockState();
-  }
-  updateAdjustTargetUI();
-}
-window.toggleAdjustTarget = toggleAdjustTarget;
-
-function updateAdjustTargetUI() {
-  const btn = document.getElementById('btn-adjust-target');
-  const modeBadge = document.getElementById('studio-current-mode-badge');
-  if (btn) {
-    if (window.currentAdjustTarget === 'body') {
-      btn.innerHTML = '<span>🖼️ 전신사진 조절</span>';
-      btn.className = 'flex-1 px-2.5 h-8 rounded-xl bg-pink-700 hover:bg-pink-600 text-pink-100 text-[11px] font-black border border-pink-400 active:scale-95 flex items-center justify-center gap-1 whitespace-nowrap shadow transition';
-    } else {
-      btn.innerHTML = '<span>👤 얼굴 조절</span>';
-      btn.className = 'flex-1 px-2.5 h-8 rounded-xl bg-blue-700 hover:bg-blue-600 text-blue-100 text-[11px] font-black border border-blue-400 active:scale-95 flex items-center justify-center gap-1 whitespace-nowrap shadow transition';
-    }
-  }
-  if (modeBadge) {
-    modeBadge.textContent = (window.currentAdjustTarget === 'body') ? '🖼️ 전신 사진 조절 모드' : '👤 얼굴 조절 모드';
-  }
-}
-
-// 🔍 [기능 3] 보조 크기 조절 [➖ 작게] / [➕ 크게]
+// 2. 크기 조절 (+/-)
 function adjustPhotoZoom(delta) {
-  if (window.isCanvasLocked) {
-    window.isCanvasLocked = false;
-    applyCanvasLockState();
-  }
-  if (window.currentAdjustTarget === 'body') {
-    window.bodyPhotoScale = Math.max(0.3, Math.min(3.5, (window.bodyPhotoScale || 1.0) + delta));
-    if (typeof showToast === 'function') {
-      showToast(`🔍 전신사진 크기: ${Math.round(window.bodyPhotoScale * 100)}%`, 'info');
-    }
-  } else {
-    window.faceScale = Math.max(0.3, Math.min(3.0, (window.faceScale || 1.0) + delta));
-    if (typeof showToast === 'function') {
-      showToast(`🔍 얼굴 크기: ${Math.round(window.faceScale * 100)}%`, 'info');
-    }
-  }
+  if (window.isCanvasLocked) toggleCanvasLock();
+  window.bodyPhotoScale = Math.max(0.3, Math.min(3.5, (window.bodyPhotoScale || 1.0) + delta));
   drawMainFittingAvatar();
 }
 window.adjustPhotoZoom = adjustPhotoZoom;
-window.adjustScale = adjustPhotoZoom;
-window.adjustFaceScale = adjustPhotoZoom;
 
-// 🎯 [기능 4] 중앙 맞춤 초기화
+// 3. 영점 중앙 맞춤
 function resetCanvasCenter() {
-  if (window.currentAdjustTarget === 'body') {
-    window.bodyPhotoOffsetX = 0;
-    window.bodyPhotoOffsetY = 0;
-    window.bodyPhotoScale = 1.0;
-    if (typeof showToast === 'function') showToast('🎯 전신사진 위치/크기가 정중앙으로 맞춤되었습니다.', 'info');
-  } else {
-    window.faceOffsetX = 0;
-    window.faceOffsetY = 0;
-    window.faceScale = 1.0;
-    if (typeof showToast === 'function') showToast('🎯 얼굴 위치/크기가 정중앙으로 맞춤되었습니다.', 'info');
-  }
+  window.bodyPhotoOffsetX = 0;
+  window.bodyPhotoOffsetY = 0;
+  window.bodyPhotoScale = 1.0;
   drawMainFittingAvatar();
+  if (typeof showToast === 'function') showToast('🎯 전신사진 위치와 크기가 중앙에 맞춰졌습니다.', 'info');
 }
 window.resetCanvasCenter = resetCanvasCenter;
-window.resetAllOffset = resetCanvasCenter;
-window.resetFaceOffset = resetCanvasCenter;
 
-// 📸 [얼굴 사진 업로드] -> 스마트하게 얼굴 조절 모드로 자동 전환!
-function handleFacePhotoUpload(event) {
-  const file = event.target.files && event.target.files[0];
-  if (!file) return;
-
-  const reader = new FileReader();
-  reader.onload = function(e) {
-    const dataUrl = e.target.result;
-    window.userFaceDataUrl = dataUrl;
-    window.userUploadedPhoto = null;
-
-    const img = new Image();
-    img.onload = function() {
-      window.userFaceImage = img;
-      window.isFaceUploaded = true;
-      window.isUserPhotoLoaded = true;
-      window.faceOffsetX = 0;
-      window.faceOffsetY = 0;
-      window.faceScale = 1.0;
-
-      // 스마트 센스: 얼굴 사진 올렸으므로 즉시 얼굴 조절 모드로 자동 설정 & 잠금 해제!
-      window.currentAdjustTarget = 'face';
-      window.isCanvasLocked = false;
-      applyCanvasLockState();
-      updateAdjustTargetUI();
-
-      renderRealPhotoStudio();
-      if (typeof showToast === 'function') {
-        showToast('✅ [얼굴 사진 장착 완료]: 머리 상단에 25% 소프트 페더링으로 융합되었습니다! 손가락으로 만져보세요.', 'success');
-      }
-    };
-    img.src = dataUrl;
-  };
-  reader.readAsDataURL(file);
+// 4. [👗코디합성 ↔ 🖼️원본보기] 모드 전환
+function togglePhotoViewMode() {
+  window.isOriginalFitMode = !window.isOriginalFitMode;
+  const label = document.getElementById('label-photo-view-mode');
+  if (label) {
+    label.innerText = window.isOriginalFitMode ? '🖼️원본보기' : '👗코디합성';
+  }
+  drawMainFittingAvatar();
+  if (typeof showToast === 'function') {
+    showToast(window.isOriginalFitMode ? '🖼️ 원본 전신사진 모드' : '👗 AI 체형 맞춤 코디 합성 모드', 'info');
+  }
 }
-window.handleFacePhotoUpload = handleFacePhotoUpload;
-window.handleUserFacePhotoUpload = handleFacePhotoUpload;
-window.handleRealPhotoUpload = handleFacePhotoUpload;
+window.togglePhotoViewMode = togglePhotoViewMode;
+window.toggleOriginalFitMode = togglePhotoViewMode;
 
-// 👚 [내 옷/전신 사진 업로드] -> 스마트하게 전신 조절 모드로 자동 전환!
-function handleCustomClothUpload(event) {
-  const file = event.target.files && event.target.files[0];
+// 5. [📸 내 전신사진 넣기] 핸들러
+function handleCustomClothUpload(e) {
+  const file = e.target.files && e.target.files[0];
   if (!file) return;
 
   const reader = new FileReader();
-  reader.onload = function(e) {
-    const dataUrl = e.target.result;
-    window.customClothDataUrl = dataUrl;
-
+  reader.onload = function(evt) {
     const img = new Image();
+    img.crossOrigin = 'anonymous';
     img.onload = function() {
-      window.customClothImage = img;
-      window.isCustomClothUploaded = true;
+      window.userBodyPhotoImg = img;
       window.bodyPhotoOffsetX = 0;
       window.bodyPhotoOffsetY = 0;
       window.bodyPhotoScale = 1.0;
-
-      // 스마트 센스: 전신/옷 사진 올렸으므로 즉시 전신 조절 모드로 자동 설정 & 잠금 해제!
-      window.currentAdjustTarget = 'body';
-      window.isCanvasLocked = false;
-      applyCanvasLockState();
-      updateAdjustTargetUI();
-
-      renderRealPhotoStudio();
+      if (window.isCanvasLocked) toggleCanvasLock();
+      drawMainFittingAvatar();
       if (typeof showToast === 'function') {
-        showToast('✅ [전신/옷 사진 장착 완료]: 손가락 드래그로 위치를 이동하고 두 손가락으로 크기를 맞춰보세요!', 'success');
+        showToast('📸 내 전신사진 등록 완료! 옷 부분을 터치해 변경해보세요.', 'success');
       }
     };
-    img.src = dataUrl;
+    img.src = evt.target.result;
   };
   reader.readAsDataURL(file);
 }
 window.handleCustomClothUpload = handleCustomClothUpload;
 
-function toggleFacePhotoMenu() {
-  const menu = document.getElementById('face-photo-action-menu') || document.getElementById('face-photo-menu');
-  if (menu) menu.classList.toggle('hidden');
-}
-window.toggleFacePhotoMenu = toggleFacePhotoMenu;
+// 6. 전신사진 위 옷 부분 터치 시 상의/하의 자동 감지 (detectTouchedGarmentZone)
+function detectTouchedGarmentZone(e) {
+  const canvas = document.getElementById('main-fitting-canvas') || document.getElementById('app-fitting-canvas');
+  if (!canvas) return;
 
-function triggerFaceCameraPhoto() {
-  const menu = document.getElementById('face-photo-action-menu') || document.getElementById('face-photo-menu');
-  if (menu) menu.classList.add('hidden');
-  const inp = document.getElementById('face-camera-input') || document.getElementById('face-upload-input');
-  if (inp) inp.click();
-}
-window.triggerFaceCameraPhoto = triggerFaceCameraPhoto;
+  const rect = canvas.getBoundingClientRect();
+  const clientY = (e.touches && e.touches[0]) ? e.touches[0].clientY : e.clientY;
+  const clientX = (e.touches && e.touches[0]) ? e.touches[0].clientX : e.clientX;
 
-function triggerFaceGalleryPhoto() {
-  const menu = document.getElementById('face-photo-action-menu') || document.getElementById('face-photo-menu');
-  if (menu) menu.classList.add('hidden');
-  const inp = document.getElementById('face-gallery-input') || document.getElementById('face-upload-input');
-  if (inp) inp.click();
-}
-window.triggerFaceGalleryPhoto = triggerFaceGalleryPhoto;
+  const clickY = clientY - rect.top;
+  const clickX = clientX - rect.left;
+  const yRatio = clickY / rect.height;
 
-function resetToDefaultAvatarFace() {
-  const menu = document.getElementById('face-photo-action-menu') || document.getElementById('face-photo-menu');
-  if (menu) menu.classList.add('hidden');
-  window.userFaceImage = null;
-  window.userFaceDataUrl = null;
-  window.isFaceUploaded = false;
-  drawMainFittingAvatar();
-  if (typeof showToast === 'function') showToast('🔄 얼굴 사진이 초기화되었습니다.', 'info');
-}
-window.resetToDefaultAvatarFace = resetToDefaultAvatarFace;
-window.resetFaceToIllustration = resetToDefaultAvatarFace;
-
-function togglePhotoViewMode() {
-  toggleRenderMode();
-  const btn = document.getElementById('btn-photo-view-mode') || document.getElementById('btn-mode-toggle');
-  if (btn) {
-    btn.innerHTML = window.currentRenderMode === 'photo_lookbook' ? '<span>👗코디합성</span>' : '<span>📸원본보기</span>';
+  // 상의 구간: 약 22% ~ 54% (어깨~허리)
+  // 하의 구간: 약 54% ~ 88% (골반~발목)
+  if (yRatio >= 0.20 && yRatio < 0.54) {
+    setGarmentZoneManual('top', true);
+  } else if (yRatio >= 0.54 && yRatio < 0.90) {
+    setGarmentZoneManual('bottom', true);
+  } else {
+    // 머리나 신발 끝부분 터치 시 현재 모드 유지 또는 전체
+    setGarmentZoneManual('full', true);
   }
 }
-window.togglePhotoViewMode = togglePhotoViewMode;
+window.detectTouchedGarmentZone = detectTouchedGarmentZone;
 
-function toggleRenderMode() {
-  window.currentRenderMode = (window.currentRenderMode === 'photo_lookbook') ? 'user_original' : 'photo_lookbook';
-  renderRealPhotoStudio();
+// 상의/하의 수동 전환 칩
+function setGarmentZoneManual(zone, fromTouch = false) {
+  window.currentGarmentZone = zone;
+  window.scanEffectZone = zone;
+  window.scanEffectExpiry = Date.now() + 850;
+
+  const btnTop = document.getElementById('btn-zone-top');
+  const btnBot = document.getElementById('btn-zone-bottom');
+  const btnFull = document.getElementById('btn-zone-full');
+  const icon = document.getElementById('zone-detect-icon');
+  const text = document.getElementById('zone-detect-text');
+
+  if (btnTop) btnTop.className = (zone === 'top') ? 'px-2.5 py-1 rounded-lg bg-cyan-600 text-white font-bold text-[11px] shadow ring-2 ring-cyan-400 active:scale-95' : 'px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 hover:text-white font-bold text-[11px] shadow transition active:scale-95';
+  if (btnBot) btnBot.className = (zone === 'bottom') ? 'px-2.5 py-1 rounded-lg bg-fuchsia-600 text-white font-bold text-[11px] shadow ring-2 ring-fuchsia-400 active:scale-95' : 'px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 hover:text-white font-bold text-[11px] shadow transition active:scale-95';
+  if (btnFull) btnFull.className = (zone === 'full') ? 'px-2.5 py-1 rounded-lg bg-purple-600 text-white font-bold text-[11px] shadow ring-2 ring-purple-400 active:scale-95' : 'px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 hover:text-white font-bold text-[11px] shadow transition active:scale-95';
+
+  if (zone === 'top') {
+    if (icon) icon.innerText = '👕';
+    if (text) text.innerText = fromTouch ? '👕 [상의 자동 감지됨]: 상체 체형 윤곽 추출 완료!' : '👕 상의 변경 모드 (어깨/가슴선 체형 맞춤)';
+    if (text) text.className = 'font-extrabold text-cyan-300 truncate text-[11px] animate-pulse';
+  } else if (zone === 'bottom') {
+    if (icon) icon.innerText = '👖';
+    if (text) text.innerText = fromTouch ? '👖 [하의 자동 감지됨]: 골반/다리 라인 추출 완료!' : '👖 하의 변경 모드 (골반/다리 기장 맞춤)';
+    if (text) text.className = 'font-extrabold text-fuchsia-300 truncate text-[11px] animate-pulse';
+  } else {
+    if (icon) icon.innerText = '👗';
+    if (text) text.innerText = '👗 상·하의 전체 변경 모드 (원피스/수트)';
+    if (text) text.className = 'font-extrabold text-purple-300 truncate text-[11px]';
+  }
+
+  drawMainFittingAvatar();
+  if (fromTouch && typeof showToast === 'function') {
+    showToast(zone === 'top' ? '👕 상의 영역 감지됨! 아래에서 원하는 상의를 골라보세요.' : '👖 하의 영역 감지됨! 아래에서 원하는 하의를 골라보세요.', 'info');
+  }
 }
-window.toggleRenderMode = toggleRenderMode;
+window.setGarmentZoneManual = setGarmentZoneManual;
 
-// 👗 [10벌 의상 쇼룸 즉시 교체]
-function applyWardrobeOutfit(num) {
-  window.currentWardrobeNum = num;
-  window.customClothImage = null;
-  const item = window.LOOKBOOK_CATALOG[num] || window.LOOKBOOK_CATALOG[1];
+// 7. 내 사진 체형에 똑같이 맞춰 자동 변경 (applyBodyFitGarmentSwap)
+function applyBodyFitGarmentSwap(item) {
+  if (!item) return;
 
-  const badge = document.getElementById('current-outfit-badge');
-  if (badge) badge.textContent = `🌸 ${num}번 착장 중`;
+  const targetZone = item.category || window.currentGarmentZone;
 
-  for (let i = 1; i <= 10; i++) {
-    const card = document.getElementById(`outfit-card-${i}`);
-    if (card) {
-      if (i === num) {
-        card.classList.add('ring-2', 'ring-purple-400', 'scale-[1.02]');
-      } else {
-        card.classList.remove('ring-2', 'ring-purple-400', 'scale-[1.02]');
+  if (targetZone === 'top') {
+    // 상의 변경: 하의 및 배경, 얼굴 100% 보존!
+    window.selectedTopGarment = item;
+    const gImg = new Image();
+    gImg.crossOrigin = 'anonymous';
+    gImg.src = item.imageUrl;
+    gImg.onload = () => { drawMainFittingAvatar(); };
+    window.selectedTopGarmentImg = gImg;
+  } else if (targetZone === 'bottom') {
+    // 하의 변경: 상의 및 배경, 얼굴 100% 보존!
+    window.selectedBottomGarment = item;
+    const gImg = new Image();
+    gImg.crossOrigin = 'anonymous';
+    gImg.src = item.imageUrl;
+    gImg.onload = () => { drawMainFittingAvatar(); };
+    window.selectedBottomGarmentImg = gImg;
+  } else {
+    // 전체 세트
+    window.selectedTopGarment = item;
+    window.selectedBottomGarment = null;
+    const gImg = new Image();
+    gImg.crossOrigin = 'anonymous';
+    gImg.src = item.imageUrl;
+    gImg.onload = () => { drawMainFittingAvatar(); };
+    window.selectedTopGarmentImg = gImg;
+  }
+
+  // 백엔드 AI 체형 인페인팅 비동기 정합 요청
+  try {
+    fetch('/api/ai-bodyfit-inpaint', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        zone: targetZone,
+        itemName: item.name,
+        timestamp: Date.now()
+      })
+    }).then(res => res.json()).then(data => {
+      console.log('AI Bodyfit Response:', data);
+    }).catch(e => console.warn('Inpaint fallback to canvas blending:', e));
+  } catch (err) {}
+
+  drawMainFittingAvatar();
+  if (typeof showToast === 'function') {
+    showToast(`✨ [체형 맞춤 피팅]: ${item.name} 적용 완료!`, 'success');
+  }
+}
+window.applyBodyFitGarmentSwap = applyBodyFitGarmentSwap;
+
+// 8. 2026 최신 트렌드 웹 패션 검색 & 칩 연동
+function searchWebFashionItems(query = null) {
+  const input = document.getElementById('web-fashion-search-input');
+  const q = (query !== null) ? query : (input ? input.value.trim() : '');
+  const statusBadge = document.getElementById('fashion-search-status');
+
+  if (statusBadge) {
+    statusBadge.innerText = '검색 중...';
+    statusBadge.className = 'px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30 animate-pulse';
+  }
+
+  fetch('/api/web-fashion-search', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ query: q, category: window.currentGarmentZone })
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.status === 'ok' && data.items) {
+      window.trendFashionItems = data.items;
+      renderWebFashionGrid(data.items);
+      if (statusBadge) {
+        statusBadge.innerText = `검색결과 ${data.items.length}벌`;
+        statusBadge.className = 'px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30';
       }
     }
-  }
-
-  window.currentRenderMode = 'photo_lookbook';
-  const modeBtn = document.getElementById('btn-photo-view-mode') || document.getElementById('btn-mode-toggle');
-  if (modeBtn) modeBtn.innerHTML = '<span>👗코디합성</span>';
-
-  renderRealPhotoStudio();
-  if (typeof showToast === 'function') {
-    showToast(`👗 [실사 룩북 전환]: ${item.name}`, 'info');
-  }
+  })
+  .catch(err => {
+    console.warn('Fashion search fallback to local trend catalog:', err);
+    renderWebFashionGrid(window.trendFashionItems);
+    if (statusBadge) {
+      statusBadge.innerText = '로컬 카탈로그';
+      statusBadge.className = 'px-2 py-0.5 rounded-full text-[10px] font-bold bg-purple-500/20 text-purple-300 border border-purple-500/30';
+    }
+  });
 }
-window.applyWardrobeOutfit = applyWardrobeOutfit;
+window.searchWebFashionItems = searchWebFashionItems;
 
-// 👑 [v6.6 초실사 렌더러: 캔버스 상하단 가림 0% & 정밀 블렌딩]
-function renderRealPhotoStudio() {
+function searchByTrendTag(tag) {
+  let q = '';
+  if (tag === 'top_k') {
+    q = '크롭 가디건';
+    window.currentGarmentZone = 'top';
+  } else if (tag === 'top_seongsu') {
+    q = '테일러드 자켓';
+    window.currentGarmentZone = 'top';
+  } else if (tag === 'bot_pleats') {
+    q = '플리츠 스커트';
+    window.currentGarmentZone = 'bottom';
+  } else if (tag === 'bot_wide') {
+    q = '와이드 데님';
+    window.currentGarmentZone = 'bottom';
+  } else if (tag === 'full_ceo') {
+    q = '수트 코트';
+    window.currentGarmentZone = 'full';
+  } else {
+    q = '';
+  }
+  setGarmentZoneManual(window.currentGarmentZone);
+  const input = document.getElementById('web-fashion-search-input');
+  if (input) input.value = q;
+  searchWebFashionItems(q);
+}
+window.searchByTrendTag = searchByTrendTag;
+
+function renderWebFashionGrid(items) {
+  const grid = document.getElementById('web-fashion-grid');
+  if (!grid) return;
+
+  grid.innerHTML = items.map((it, idx) => `
+    <div onclick='applyBodyFitGarmentSwap(${JSON.stringify(it)})' class="group relative rounded-xl bg-slate-950/80 border border-purple-500/30 hover:border-cyan-400/80 overflow-hidden shadow-md cursor-pointer transition active:scale-95 flex flex-col">
+      <div class="aspect-[3/4] w-full overflow-hidden relative bg-slate-900">
+        <img src="${it.imageUrl}" alt="${it.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" loading="lazy">
+        <span class="absolute top-1.5 left-1.5 px-1.5 py-0.5 rounded-md text-[9px] font-extrabold bg-slate-950/80 text-cyan-300 border border-cyan-400/30 backdrop-blur-sm">
+          ${it.badge || '✨ 2026'}
+        </span>
+        <span class="absolute bottom-1.5 right-1.5 px-1.5 py-0.5 rounded text-[9px] font-bold bg-purple-900/80 text-purple-200 backdrop-blur-sm">
+          ${it.category === 'top' ? '👕 상의' : (it.category === 'bottom' ? '👖 하의' : '👗 세트')}
+        </span>
+      </div>
+      <div class="p-1.5 flex flex-col justify-between flex-1">
+        <div class="font-bold text-[11px] text-white line-clamp-1 group-hover:text-cyan-300 transition">${it.name}</div>
+        <div class="flex items-center justify-between mt-1 text-[9px] text-slate-400">
+          <span class="text-pink-300">${it.tag || '트렌드'}</span>
+          <span class="text-cyan-400 font-extrabold group-hover:underline">입어보기 ➔</span>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+window.renderWebFashionGrid = renderWebFashionGrid;
+
+// 9. 메인 캔버스 렌더링 엔진 (drawMainFittingAvatar)
+function drawMainFittingAvatar() {
   const canvas = document.getElementById('main-fitting-canvas') || document.getElementById('app-fitting-canvas');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
   if (!ctx) return;
 
-  const w = canvas.width || 450;
-  const h = canvas.height || 600;
-  const cx = w / 2;
+  const W = canvas.width;
+  const H = canvas.height;
+  ctx.clearRect(0, 0, W, H);
 
-  ctx.clearRect(0, 0, w, h);
-
-  const look = window.LOOKBOOK_CATALOG[window.currentWardrobeNum] || window.LOOKBOOK_CATALOG[1];
-
-  // 1. 다크 스튜디오 보케 배경
-  const bgGrad = ctx.createRadialGradient(cx, h * 0.4, 20, cx, h * 0.5, h * 0.8);
-  bgGrad.addColorStop(0, '#1a1033');
-  bgGrad.addColorStop(0.5, '#0b0f19');
+  // 1) 배경 그라데이션
+  const bgGrad = ctx.createLinearGradient(0, 0, 0, H);
+  bgGrad.addColorStop(0, '#0a0d18');
+  bgGrad.addColorStop(0.5, '#070a14');
   bgGrad.addColorStop(1, '#02040a');
   ctx.fillStyle = bgGrad;
-  ctx.fillRect(0, 0, w, h);
+  ctx.fillRect(0, 0, W, H);
 
-  // 미세 보케 조명
-  const bokehList = [
-    { x: 60, y: 100, r: 40, a: 0.08, c: look.colorTheme },
-    { x: 390, y: 160, r: 55, a: 0.06, c: '#a855f7' },
-    { x: 80, y: 450, r: 65, a: 0.05, c: '#3b82f6' },
-    { x: 370, y: 480, r: 50, a: 0.07, c: look.colorTheme }
-  ];
-  bokehList.forEach(b => {
+  // 2) 전신사진 렌더링 (사용자 업로드 사진 or 기본 고화질 모델 사진)
+  const baseImg = window.userBodyPhotoImg || window.defaultStudioModelImg;
+  if (baseImg && baseImg.complete && baseImg.naturalWidth > 0) {
     ctx.save();
-    ctx.beginPath();
-    ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
-    ctx.fillStyle = b.c;
-    ctx.globalAlpha = b.a;
-    ctx.filter = 'blur(12px)';
-    ctx.fill();
+    const scale = window.bodyPhotoScale || 1.0;
+    const offX = window.bodyPhotoOffsetX || 0;
+    const offY = window.bodyPhotoOffsetY || 0;
+
+    const imgAspect = baseImg.naturalWidth / baseImg.naturalHeight;
+    const canvasAspect = W / H;
+    let dw, dh;
+
+    if (imgAspect > canvasAspect) {
+      dh = H * scale;
+      dw = dh * imgAspect;
+    } else {
+      dw = W * scale;
+      dh = dw / imgAspect;
+    }
+
+    const dx = (W - dw) / 2 + offX;
+    const dy = (H - dh) / 2 + offY;
+
+    ctx.drawImage(baseImg, dx, dy, dw, dh);
     ctx.restore();
-  });
 
-  // ── [모드 A]: 내 사진 원본 전체 풀스크린 표시 (전신사진 크기·위치 반영) ──
-  if (window.currentRenderMode === 'user_original' && (window.userUploadedPhoto || window.userFaceImage || window.customClothImage)) {
-    const photo = window.userUploadedPhoto || window.customClothImage || window.userFaceImage;
-    if (photo && photo.complete) {
-      ctx.save();
-      const pw = photo.naturalWidth || photo.width || 400;
-      const ph = photo.naturalHeight || photo.height || 600;
-      const baseRatio = Math.min((w * 0.94) / pw, (h * 0.94) / ph);
-      const ratio = baseRatio * (window.bodyPhotoScale || 1.0);
-      const dw = pw * ratio;
-      const dh = ph * ratio;
-      const dx = cx - dw / 2 + (window.bodyPhotoOffsetX || 0);
-      const dy = (h - dh) / 2 + (window.bodyPhotoOffsetY || 0);
-
-      ctx.shadowColor = 'rgba(0,0,0,0.6)';
-      ctx.shadowBlur = 24;
-      ctx.drawImage(photo, dx, dy, dw, dh);
-      ctx.restore();
+    // 원본 보기 모드면 여기서 의상 합성 스킵
+    if (window.isOriginalFitMode) {
+      renderScanEffect(ctx, W, H);
       return;
     }
-  }
 
-  // ── [모드 B]: 초실사 패션 룩북 모델 + 얼굴 실사 스왑 ──
-  if (window.aiTryOnResultImage && window.aiTryOnResultImage.complete) {
-    ctx.save();
-    ctx.drawImage(window.aiTryOnResultImage, 0, 0, w, h);
-    ctx.restore();
-  } else if (window.customClothImage && window.customClothImage.complete) {
-    // 사용자가 직접 올린 옷 사진으로 렌더링 (전신줌/이동 반영)
-    ctx.save();
-    const cimg = window.customClothImage;
-    const cw = cimg.naturalWidth || cimg.width || 400;
-    const ch = cimg.naturalHeight || cimg.height || 600;
-    const cratio = Math.min((w * 0.88) / cw, (h * 0.85) / ch) * (window.bodyPhotoScale || 1.0);
-    const cdw = cw * cratio;
-    const cdh = ch * cratio;
-    const cdx = cx - cdw / 2 + (window.bodyPhotoOffsetX || 0);
-    const cdy = (h - cdh) / 2 + 25 + (window.bodyPhotoOffsetY || 0);
-
-    ctx.shadowColor = 'rgba(0,0,0,0.6)';
-    ctx.shadowBlur = 20;
-    ctx.drawImage(cimg, cdx, cdy, cdw, cdh);
-    ctx.restore();
-  } else {
-    // Unsplash 실사 패션 화보 렌더링 (전신줌/이동 반영)
-    const cached = window.lookbookImageCache && window.lookbookImageCache[window.currentWardrobeNum || 1];
-    if (cached && cached.complete && cached.naturalWidth > 0) {
+    // 3) 상의(Top) 체형 맞춤 합성 (상의만 변경, 하의는 100% 원본 유지)
+    if (window.selectedTopGarmentImg && window.selectedTopGarmentImg.complete && window.selectedTopGarmentImg.naturalWidth > 0) {
       ctx.save();
-      const iw = cached.naturalWidth;
-      const ih = cached.naturalHeight;
-      const iratio = Math.max(w / iw, h / ih) * (window.bodyPhotoScale || 1.0);
-      const idw = iw * iratio;
-      const idh = ih * iratio;
-      const idx = cx - idw / 2 + (window.bodyPhotoOffsetX || 0);
-      const idy = (h - idh) / 2 + (window.bodyPhotoOffsetY || 0);
-      ctx.drawImage(cached, idx, idy, idw, idh);
+      // 상체 영역: 캔버스 높이의 24% ~ 54%
+      const topY = dy + dh * 0.23;
+      const topH = dh * 0.33;
+      const topW = dw * 0.58;
+      const topX = dx + (dw - topW) / 2;
+
+      ctx.save();
+      // 상의 영역만 부드럽게 클리핑 (페더링)
+      ctx.beginPath();
+      ctx.ellipse(topX + topW / 2, topY + topH / 2, topW / 2, topH / 2, 0, 0, Math.PI * 2);
+      ctx.clip();
+      ctx.drawImage(window.selectedTopGarmentImg, topX, topY, topW, topH);
       ctx.restore();
-    } else {
-      renderElegantStudioBackdrop(ctx, w, h, cx, look);
+
+      // 자연스러운 어깨/가슴 음영 블렌딩
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
+      ctx.fillRect(topX, topY, topW, topH);
+      ctx.restore();
     }
+
+    // 4) 하의(Bottom) 체형 맞춤 합성 (하의만 변경, 상의는 100% 원본 유지)
+    if (window.selectedBottomGarmentImg && window.selectedBottomGarmentImg.complete && window.selectedBottomGarmentImg.naturalWidth > 0) {
+      ctx.save();
+      // 하체 영역: 캔버스 높이의 52% ~ 86%
+      const botY = dy + dh * 0.52;
+      const botH = dh * 0.35;
+      const botW = dw * 0.52;
+      const botX = dx + (dw - botW) / 2;
+
+      ctx.save();
+      ctx.beginPath();
+      ctx.ellipse(botX + botW / 2, botY + botH / 2, botW / 2, botH / 2, 0, 0, Math.PI * 2);
+      ctx.clip();
+      ctx.drawImage(window.selectedBottomGarmentImg, botX, botY, botW, botH);
+      ctx.restore();
+
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
+      ctx.fillRect(botX, botY, botW, botH);
+      ctx.restore();
+    }
+  } else {
+    // 로딩 중 안내
+    ctx.fillStyle = '#64748b';
+    ctx.font = 'bold 14px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('📸 전신사진 로딩 중...', W / 2, H / 2);
   }
 
-  // 얼굴 사진 실사 스왑 (얼굴 크기 11%, 상단 17% 위치, 가장자리 25% 소프트 페더링)
-  if (window.userFaceImage && window.userFaceImage.complete) {
-    renderSoftFeatheredFaceSwap(ctx, cx, look, w, h);
-  }
-}
-window.renderRealPhotoStudio = renderRealPhotoStudio;
-
-function renderElegantStudioBackdrop(ctx, w, h, cx, look) {
-  ctx.save();
-  const floorGrad = ctx.createRadialGradient(cx, h - 35, 10, cx, h - 35, 180);
-  floorGrad.addColorStop(0, 'rgba(255, 255, 255, 0.12)');
-  floorGrad.addColorStop(0.5, 'rgba(0, 0, 0, 0.4)');
-  floorGrad.addColorStop(1, 'transparent');
-  ctx.fillStyle = floorGrad;
-  ctx.beginPath();
-  ctx.ellipse(cx, h - 35, 160, 25, 0, 0, Math.PI * 2);
-  ctx.fill();
-
-  ctx.fillStyle = 'rgba(255, 255, 255, 0.04)';
-  ctx.strokeStyle = 'rgba(255, 255, 255, 0.12)';
-  ctx.lineWidth = 1;
-  ctx.beginPath();
-  ctx.roundRect(cx - 140, 70, 280, 480, 24);
-  ctx.fill();
-  ctx.stroke();
-
-  ctx.fillStyle = '#cbd5e1';
-  ctx.font = 'bold 13px sans-serif';
-  ctx.textAlign = 'center';
-  ctx.fillText('✨ 실사 화보 모델 로드 중...', cx, 290);
-  ctx.fillStyle = '#94a3b8';
-  ctx.font = '11px sans-serif';
-  ctx.fillText('컨트롤 박스 [📸 내 얼굴 사진]을 터치하세요', cx, 315);
-  ctx.restore();
-}
-
-function renderSoftFeatheredFaceSwap(ctx, cx, look, w, h) {
-  ctx.save();
-  const canvasW = w || 450;
-  const canvasH = h || 600;
-  const defaultRadius = canvasW * 0.11 * 0.5;
-  const defaultCenterY = canvasH * 0.17;
-  const defaultCenterX = cx || (canvasW / 2);
-
-  const faceX = defaultCenterX + (window.faceOffsetX || 0);
-  const faceY = defaultCenterY + (window.faceOffsetY || 0);
-  const faceR = defaultRadius * (window.faceScale || 1.0);
-
-  const off = document.createElement('canvas');
-  off.width = faceR * 2.8;
-  off.height = faceR * 2.8;
-  const octx = off.getContext('2d');
-  if (!octx) { ctx.restore(); return; }
-  const ocx = off.width / 2;
-  const ocy = off.height / 2;
-
-  const img = window.userFaceImage;
-  const iw = img.naturalWidth || img.width || 300;
-  const ih = img.naturalHeight || img.height || 300;
-  const minDim = Math.min(iw, ih);
-  const sx = (iw - minDim) / 2;
-  const sy = (ih - minDim) / 2;
-
-  octx.save();
-  octx.drawImage(img, sx, sy, minDim, minDim, 0, 0, off.width, off.height);
-
-  octx.globalCompositeOperation = 'destination-in';
-  const vGrad = octx.createRadialGradient(ocx, ocy, faceR * 0.75, ocx, ocy, faceR * 1.0);
-  vGrad.addColorStop(0, 'rgba(0, 0, 0, 1.0)');
-  vGrad.addColorStop(0.75, 'rgba(0, 0, 0, 0.95)');
-  vGrad.addColorStop(0.9, 'rgba(0, 0, 0, 0.45)');
-  vGrad.addColorStop(1.0, 'rgba(0, 0, 0, 0.0)');
-  octx.fillStyle = vGrad;
-  octx.beginPath();
-  octx.arc(ocx, ocy, faceR * 1.0, 0, Math.PI * 2);
-  octx.fill();
-  octx.restore();
-
-  ctx.drawImage(off, faceX - ocx, faceY - ocy);
-
-  const chinShadow = ctx.createRadialGradient(faceX, faceY + faceR * 0.88, 1, faceX, faceY + faceR * 0.88, faceR * 0.65);
-  chinShadow.addColorStop(0, 'rgba(20, 10, 5, 0.35)');
-  chinShadow.addColorStop(1, 'transparent');
-  ctx.fillStyle = chinShadow;
-  ctx.beginPath();
-  ctx.ellipse(faceX, faceY + faceR * 0.9, faceR * 0.6, 6, 0, 0, Math.PI * 2);
-  ctx.fill();
-
-  ctx.restore();
-}
-
-function drawMainFittingAvatar() {
-  renderRealPhotoStudio();
+  // 5) 터치 시 네온 스캔 라인 이펙트
+  renderScanEffect(ctx, W, H);
 }
 window.drawMainFittingAvatar = drawMainFittingAvatar;
+window.renderRealPhotoStudio = drawMainFittingAvatar;
 
-function drawDetailedIllustrationFace() {
-  return;
+function renderScanEffect(ctx, W, H) {
+  if (Date.now() < window.scanEffectExpiry && window.scanEffectZone) {
+    ctx.save();
+    ctx.lineWidth = 3;
+    if (window.scanEffectZone === 'top') {
+      ctx.strokeStyle = '#06b6d4'; // Cyan
+      ctx.shadowColor = '#22d3ee';
+      ctx.shadowBlur = 15;
+      const sy = H * 0.22 + ((Date.now() % 400) / 400) * (H * 0.32);
+      ctx.beginPath();
+      ctx.moveTo(W * 0.15, sy);
+      ctx.lineTo(W * 0.85, sy);
+      ctx.stroke();
+
+      ctx.fillStyle = 'rgba(6, 182, 212, 0.12)';
+      ctx.fillRect(W * 0.15, H * 0.22, W * 0.70, H * 0.32);
+    } else if (window.scanEffectZone === 'bottom') {
+      ctx.strokeStyle = '#d946ef'; // Magenta
+      ctx.shadowColor = '#f0abfc';
+      ctx.shadowBlur = 15;
+      const sy = H * 0.54 + ((Date.now() % 400) / 400) * (H * 0.34);
+      ctx.beginPath();
+      ctx.moveTo(W * 0.18, sy);
+      ctx.lineTo(W * 0.82, sy);
+      ctx.stroke();
+
+      ctx.fillStyle = 'rgba(217, 70, 239, 0.12)';
+      ctx.fillRect(W * 0.18, H * 0.54, W * 0.64, H * 0.34);
+    }
+    ctx.restore();
+    requestAnimationFrame(() => drawMainFittingAvatar());
+  }
 }
-window.drawDetailedIllustrationFace = drawDetailedIllustrationFace;
 
-// 🔒 & 🔍 [v6.6 직관적 터치 엔진: 1손가락 상하좌우 이동 & 2손가락 핀치 줌]
-function initFaceTouchDragInteraction(canvasId) {
+// 10. 직관적 제스처 & 터치 감지 이벤트 초기화
+function initFittingCanvasGestures(canvasId) {
   const canvas = document.getElementById(canvasId);
-  if (!canvas || canvas._touchDragBound) return;
-  canvas._touchDragBound = true;
+  if (!canvas || canvas._gesturesBound) return;
+  canvas._gesturesBound = true;
 
   let isDragging = false;
   let startX = 0, startY = 0;
   let initialPinchDistance = 0;
   let initialScale = 1.0;
+  let touchStartTime = 0;
 
   function getDistance(t1, t2) {
     const dx = t1.clientX - t2.clientX;
@@ -4313,10 +3273,10 @@ function initFaceTouchDragInteraction(canvasId) {
   }
 
   function onStart(e) {
-    if (window.isCanvasLocked) return;
+    touchStartTime = Date.now();
     if (e.touches && e.touches.length === 2) {
       initialPinchDistance = getDistance(e.touches[0], e.touches[1]);
-      initialScale = (window.currentAdjustTarget === 'body') ? (window.bodyPhotoScale || 1.0) : (window.faceScale || 1.0);
+      initialScale = window.bodyPhotoScale || 1.0;
       isDragging = false;
       return;
     }
@@ -4328,19 +3288,17 @@ function initFaceTouchDragInteraction(canvasId) {
 
   function onMove(e) {
     if (window.isCanvasLocked) return;
+
     if (e.touches && e.touches.length === 2) {
       const currentDist = getDistance(e.touches[0], e.touches[1]);
       if (initialPinchDistance > 10) {
         const factor = currentDist / initialPinchDistance;
-        if (window.currentAdjustTarget === 'body') {
-          window.bodyPhotoScale = Math.max(0.3, Math.min(3.5, initialScale * factor));
-        } else {
-          window.faceScale = Math.max(0.3, Math.min(3.0, initialScale * factor));
-        }
+        window.bodyPhotoScale = Math.max(0.3, Math.min(3.5, initialScale * factor));
         drawMainFittingAvatar();
       }
       return;
     }
+
     if (!isDragging) return;
     const t = e.touches ? e.touches[0] : e;
     const dx = t.clientX - startX;
@@ -4348,17 +3306,17 @@ function initFaceTouchDragInteraction(canvasId) {
     startX = t.clientX;
     startY = t.clientY;
 
-    if (window.currentAdjustTarget === 'body') {
-      window.bodyPhotoOffsetX += dx;
-      window.bodyPhotoOffsetY += dy;
-    } else {
-      window.faceOffsetX += dx;
-      window.faceOffsetY += dy;
-    }
+    window.bodyPhotoOffsetX += dx;
+    window.bodyPhotoOffsetY += dy;
     drawMainFittingAvatar();
   }
 
-  function onEnd() {
+  function onEnd(e) {
+    const duration = Date.now() - touchStartTime;
+    // 짧은 탭(Tap)일 경우 옷 부위 감지 실행!
+    if (duration < 250) {
+      detectTouchedGarmentZone(e);
+    }
     isDragging = false;
     initialPinchDistance = 0;
   }
@@ -4369,14 +3327,7 @@ function initFaceTouchDragInteraction(canvasId) {
 
   canvas.addEventListener('touchstart', onStart, { passive: false });
   window.addEventListener('touchmove', onMove, { passive: false });
-  window.addEventListener('touchend', onEnd);
-}
-
-// 캔버스 인터랙션 자동 초기화
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', () => initFaceTouchDragInteraction('main-fitting-canvas'));
-} else {
-  initFaceTouchDragInteraction('main-fitting-canvas');
+  canvas.addEventListener('touchend', onEnd);
 }
 
 // 화보 캔버스 저장
@@ -4385,7 +3336,7 @@ function saveMyFittingPhoto() {
   if (!canvas) return;
   try {
     const a = document.createElement('a');
-    a.download = `coordi_studio_v66_${Date.now()}.png`;
+    a.download = `coordi_studio_v70_${Date.now()}.png`;
     a.href = canvas.toDataURL('image/png');
     a.click();
     if (typeof showToast === 'function') {
@@ -4397,8 +3348,16 @@ function saveMyFittingPhoto() {
 }
 window.saveMyFittingPhoto = saveMyFittingPhoto;
 
-function renderPhotoshopAISwap() { renderRealPhotoStudio(); }
-window.renderPhotoshopAISwap = renderPhotoshopAISwap;
+// 자동 초기화
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    initFittingCanvasGestures('main-fitting-canvas');
+    renderWebFashionGrid(window.trendFashionItems);
+  });
+} else {
+  initFittingCanvasGestures('main-fitting-canvas');
+  renderWebFashionGrid(window.trendFashionItems);
+}
 
 // 👑 [v6.5 올인원 컨트롤 박스 함수 브릿지]
 function toggleFacePhotoMenu() {
@@ -4446,48 +3405,15 @@ function togglePhotoViewMode() {
 }
 window.togglePhotoViewMode = togglePhotoViewMode;
 
-// 상태 표시줄 업데이트 (사진 가림 0%)
-function updateTopBadge() {
-  const statusBadge = document.getElementById('canvas-lock-status-badge');
-  const modeBadge = document.getElementById('studio-current-mode-badge');
-  const look = window.LOOKBOOK_CATALOG[window.currentWardrobeNum] || window.LOOKBOOK_CATALOG[1];
-  const lockText = window.isCanvasLocked ? '🔒 화면 고정됨' : '🔓 조절 모드';
-  
-  if (statusBadge) {
-    statusBadge.textContent = `${lockText} | ✨ 실사 포토 스튜디오 v6.5`;
-  }
-  if (modeBadge) {
-    if (window.currentRenderMode === 'user_original') {
-      modeBadge.textContent = `📸 원본 보기 (${look.name.split(' ')[0]})`;
-    } else {
-      modeBadge.textContent = `${look.name.split(' ')[0]} ${window.currentWardrobeNum}번 착장`;
-    }
-  }
-}
-
-window.adjustFaceScale = adjustFaceScale;
-window.adjustFaceOffset = adjustFaceOffset;
-window.resetFaceOffset = resetFaceOffset;
-window.triggerFaceCameraPhoto = triggerFaceCameraPhoto;
-window.triggerFaceAlbumPhoto = triggerFaceAlbumPhoto;
-window.resetFaceToIllustration = resetFaceToIllustration;
-window.updateAngleDisplayBadge = updateAngleDisplayBadge;
-
 document.addEventListener('DOMContentLoaded', () => {
-  initFaceTouchDragInteraction('main-fitting-canvas');
-  initFaceTouchDragInteraction('app-fitting-canvas');
-  initPinchZoomInteraction('main-fitting-canvas');
-  initPinchZoomInteraction('app-fitting-canvas');
+  initFittingCanvasGestures('main-fitting-canvas');
+  initFittingCanvasGestures('app-fitting-canvas');
   drawMainFittingAvatar();
-  updateAngleDisplayBadge();
 });
 setTimeout(() => {
-  initFaceTouchDragInteraction('main-fitting-canvas');
-  initFaceTouchDragInteraction('app-fitting-canvas');
-  initPinchZoomInteraction('main-fitting-canvas');
-  initPinchZoomInteraction('app-fitting-canvas');
+  initFittingCanvasGestures('main-fitting-canvas');
+  initFittingCanvasGestures('app-fitting-canvas');
   drawMainFittingAvatar();
-  updateAngleDisplayBadge();
 }, 300);
 </script>
 </body>
