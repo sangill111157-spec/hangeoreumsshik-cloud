@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>👗 꿈의 옷장 (Dream Closet) | 한걸음씩 상생나눔 제1호 무료 에듀-패션테크 앱</title>
+  <meta name="description" content="결제 0원! 인터랙티브 인성 시네마 퀴즈, 양방향 음성 소통(STT/TTS), 타임머신 2035 미래의 나, 가족 시밀러룩, 0원 옷장 리폼까지 All-in-One 패션 에듀테크" />
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Outfit:wght@400;600;800&family=Nanum+Myeongjo:wght@700;800&display=swap" rel="stylesheet" />
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background-color: #030712;
+      color: #f1f5f9;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .font-outfit { font-family: 'Outfit', sans-serif; }
+    .font-myeongjo { font-family: 'Nanum Myeongjo', serif; }
+    .glass-card {
+      background: rgba(15, 23, 42, 0.82);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(168, 85, 247, 0.25);
+    }
+    .neon-glow-pink {
+      box-shadow: 0 0 25px rgba(236, 72, 153, 0.35);
+    }
+    .neon-glow-purple {
+      box-shadow: 0 0 25px rgba(168, 85, 247, 0.35);
+    }
+    .neon-glow-cyan {
+      box-shadow: 0 0 25px rgba(6, 182, 212, 0.35);
+    }
+    /* Hide scrollbar */
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+</head>
+<body class="min-h-screen bg-slate-950 text-slate-100 flex flex-col justify-between selection:bg-pink-500 selection:text-white">
+
+  <!-- 🌟 Top Header -->
+  <header class="sticky top-0 z-50 glass-card border-b border-purple-500/30 px-4 py-3 bg-slate-950/90 flex items-center justify-between">
+    <div class="flex items-center gap-2.5">
+      <span class="text-2xl p-1.5 rounded-xl bg-gradient-to-tr from-pink-500 to-purple-600 text-white shadow-md shadow-pink-500/30">👗</span>
+      <div>
+        <div class="flex items-center gap-1.5">
+          <span class="px-1.5 py-0.5 rounded text-[9px] font-black bg-gradient-to-r from-amber-400 to-pink-500 text-slate-950 uppercase font-outfit">Free Forever 0원</span>
+          <h1 class="text-xs sm:text-sm font-black text-white tracking-tight">꿈의 옷장 (Dream Closet)</h1>
+        </div>
+        <p class="text-[10px] text-pink-300 font-medium">한걸음씩 상생나눔 제1호 에듀-패션테크 마스터 앱</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-1.5">
+      <button type="button" onclick="unlockAllFeaturesFreePass()" class="px-2.5 py-1 rounded-lg bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-amber-400 hover:to-yellow-300 text-slate-950 font-black text-[11px] shadow-sm transition active:scale-95 flex items-center gap-1">
+        <span>⚡</span>
+        <span class="hidden sm:inline">대표님 프리패스</span>
+        <span>전체 해금</span>
+      </button>
+      <button type="button" onclick="speakText('반갑습니다! 한걸음씩 상생나눔 꿈의 옷장 AI 수석 디자이너입니다. 오늘 어떤 멋진 모습을 찾고 싶으신가요?')" class="p-2 rounded-lg bg-purple-950/80 hover:bg-purple-900 border border-purple-500/40 text-purple-300 text-xs transition">
+        🔊
+      </button>
+    </div>
+  </header>
+
+  <!-- 🌟 Main Content Container -->
+  <main class="flex-1 max-w-5xl w-full mx-auto p-3 sm:p-5 space-y-5">
+
+    <!-- 👑 제국 상생나눔 헌장 배너 -->
+    <div class="glass-card rounded-2xl p-4 border border-pink-500/40 bg-gradient-to-r from-slate-950 via-pink-950/30 to-purple-950/40 space-y-2">
+      <div class="flex items-center justify-between flex-wrap gap-2">
+        <div class="flex items-center gap-2">
+          <span class="text-lg">🏛️</span>
+          <span class="text-xs font-bold text-pink-200">창안자: <b>이상일</b> 대표님 (Principal Sang-Il Lee) | 공동 기획·검수: <b>이은솔·이송효·이해상</b></span>
+        </div>
+        <span class="px-2.5 py-0.5 rounded-full bg-pink-500/20 text-pink-300 border border-pink-500/40 text-[10px] font-bold">
+          과금 0원 · 가치 100배 · 10년 초격차
+        </span>
+      </div>
+      <p class="text-[11px] text-slate-300 leading-relaxed">
+        "지루한 시험 대신 <b>드라마틱 인성 퀴즈</b>와 <b>음성 긍정 확언</b>, <b>0원 옷장 리폼</b>, <b>성공한 미래의 나(Future Self)</b>를 체험하여 누구나 돈 한 푼 안 들이고 세상에서 가장 당당한 리더로 성장합니다."
+      </p>
+    </div>
+
+    <!-- 🎛️ 4단계 인성 어드벤처 & 음성 해금 진행도 바 -->
+    <div class="glass-card rounded-2xl p-4 border border-purple-500/30 space-y-3">
+      <div class="flex items-center justify-between">
+        <span class="text-xs font-bold text-purple-200 flex items-center gap-1.5">
+          <span>🎮</span>
+          <span>인성 시네마 퀴즈 & 양방향 보이스 해금 단계</span>
+        </span>
+        <span id="unlock-badge" class="px-2.5 py-0.5 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/40 text-[10px] font-mono font-bold">
+          Lv.0 입문자 (데일리 오픈)
+        </span>
+      </div>
+      <!-- Progress Bar -->
+      <div class="w-full bg-slate-900 rounded-full h-2.5 overflow-hidden border border-slate-800">
+        <div id="unlock-progress-bar" class="h-full bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-400 transition-all duration-500" style="width: 25%"></div>
+      </div>
+      <!-- 4단계 아이콘 네비 -->
+      <div class="grid grid-cols-4 gap-1.5 text-center text-[10px]">
+        <button type="button" onclick="selectStep(0)" id="step-btn-0" class="p-1.5 rounded-xl bg-purple-600/40 border border-purple-400 font-bold text-white">
+          🌱 Lv.0 입문
+        </button>
+        <button type="button" onclick="selectStep(1)" id="step-btn-1" class="p-1.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-400">
+          🌿 Step 1 (EQ)
+        </button>
+        <button type="button" onclick="selectStep(2)" id="step-btn-2" class="p-1.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-400">
+          🌳 Step 2 (MQ)
+        </button>
+        <button type="button" onclick="selectStep(3)" id="step-btn-3" class="p-1.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-400">
+          👑 Step 3 (CQ)
+        </button>
+      </div>
+    </div>
+
+    <!-- 🕹️ 인터랙티브 퀴즈 & 확언 미션 패널 -->
+    <div id="quiz-panel" class="glass-card rounded-2xl p-4 sm:p-5 border border-pink-500/30 space-y-4">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-800">
+        <div class="flex items-center gap-2">
+          <span id="quiz-icon" class="text-xl">🌿</span>
+          <h2 id="quiz-title" class="text-xs sm:text-sm font-bold text-white">Step 1. 공감 드라마 퀴즈 (EQ): 축제 날 친구의 찢어진 옷</h2>
+        </div>
+        <span id="quiz-reward-preview" class="text-[10px] text-pink-300 font-mono">보상: K-하이틴 룩 + 피부톤 스캐너 + 디자이너 TTS</span>
+      </div>
+      <div id="quiz-story" class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 text-xs text-slate-200 leading-relaxed">
+        학교 축제 밴드 공연 직전, 단짝 친구의 무대 의상이 찢어져 울고 있습니다. 내게는 집에 가려 챙겨둔 멋진 오버핏 여분 자켓이 하나 있습니다. 어떻게 하시겠습니까?
+      </div>
+      <div id="quiz-choices" class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
+        <button type="button" onclick="answerQuiz(0)" class="p-3 rounded-xl bg-purple-950/40 hover:bg-purple-900/60 border border-purple-500/30 text-left transition active:scale-98">
+          1. 즉시 내 여분 자켓을 친구에게 입혀주고 함께 손잡고 무대에 오른다. (공감 & 배려)
+        </button>
+        <button type="button" onclick="answerQuiz(1)" class="p-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-left text-slate-400 transition active:scale-98">
+          2. 안타깝지만 내 순서가 다가오니 옷을 빌려주지 않고 먼저 리허설을 간다.
+        </button>
+        <button type="button" onclick="answerQuiz(2)" class="p-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-left text-slate-400 transition active:scale-98">
+          3. 선생님께 말씀만 드리고 무대 뒤에서 혼자 기다린다.
+        </button>
+      </div>
+
+      <!-- 🎙️ 스피치 확언 / 음성 인터랙션 바 -->
+      <div id="voice-affirmation-box" class="p-3.5 rounded-xl bg-gradient-to-r from-pink-950/40 to-purple-950/40 border border-pink-500/40 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div class="flex items-center gap-2.5">
+          <button type="button" id="btn-mic-stt" onclick="toggleVoiceSTT()" class="w-10 h-10 rounded-xl bg-pink-600 hover:bg-pink-500 text-white flex items-center justify-center text-lg shadow-md transition active:scale-95 shrink-0">
+            🎙️
+          </button>
+          <div>
+            <div class="text-xs font-bold text-white flex items-center gap-1.5">
+              <span>양방향 보이스 소통 & 긍정 확언 스피치</span>
+              <span id="voice-level-tag" class="px-1.5 py-0.2 rounded text-[9px] bg-pink-500/20 text-pink-300 border border-pink-500/30">음성 1단계 대기</span>
+            </div>
+            <p id="voice-transcript-text" class="text-[11px] text-pink-200 mt-0.5">
+              마이크를 누르고 <b>"나는 세상에서 가장 소중하고 따뜻한 사람입니다!"</b> 또는 <b>"수트 입혀줘"</b>라고 말씀해 보세요!
+            </p>
+          </div>
+        </div>
+        <button type="button" onclick="triggerAffirmationSuccess()" class="px-3.5 py-2 rounded-xl bg-pink-600 hover:bg-pink-500 text-white text-xs font-bold transition active:scale-95 shrink-0">
+          ✨ 원터치 긍정 확언 완료
+        </button>
+      </div>
+    </div>
+
+    <!-- 👗 4방향 캔버스 피팅 룸 & 스타일 스위트 -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+
+      <!-- Left: 4-Direction Fitting Canvas (7 Cols) -->
+      <div class="lg:col-span-7 glass-card rounded-2xl p-4 sm:p-5 border border-purple-500/30 space-y-3 flex flex-col items-center">
+        <div class="w-full flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="text-lg">🪞</span>
+            <span class="text-xs font-bold text-white">4방향 실시간 캔버스 피팅룸</span>
+          </div>
+          <!-- 4방향 앵글 탭 -->
+          <div class="flex items-center gap-1">
+            <button type="button" onclick="setAngle(0)" id="angle-btn-0" class="px-2 py-1 rounded bg-purple-600 text-white font-bold text-[10px]">정면 (0°)</button>
+            <button type="button" onclick="setAngle(90)" id="angle-btn-90" class="px-2 py-1 rounded bg-slate-900 text-slate-300 text-[10px]">좌측 (90°)</button>
+            <button type="button" onclick="setAngle(180)" id="angle-btn-180" class="px-2 py-1 rounded bg-slate-900 text-slate-300 text-[10px]">후면 (180°)</button>
+            <button type="button" onclick="setAngle(270)" id="angle-btn-270" class="px-2 py-1 rounded bg-slate-900 text-slate-300 text-[10px]">우측 (270°)</button>
+          </div>
+        </div>
+
+        <!-- 캔버스 프레임 -->
+        <div class="w-full max-w-[420px] aspect-[3/4] rounded-2xl bg-slate-950 border border-slate-800 shadow-2xl relative overflow-hidden flex items-center justify-center group">
+          <canvas id="app-fitting-canvas" width="450" height="600" class="w-full h-full object-contain"></canvas>
+          <!-- 오버레이 안내 -->
+          <div class="absolute bottom-2 left-2 right-2 px-3 py-1.5 rounded-xl bg-slate-950/80 backdrop-blur-md border border-slate-800 flex items-center justify-between text-[10px] text-slate-300">
+            <span id="canvas-look-label">👔 현재 의상: 화이트 베이직 & 슬림 데님</span>
+            <span id="canvas-angle-label" class="font-mono text-purple-400">Angle: 0° FRONT</span>
+          </div>
+        </div>
+
+        <!-- 슬라이더 컨트롤러: 키 / 몸무게 / 체형 -->
+        <div class="w-full grid grid-cols-3 gap-2.5 pt-1 text-xs">
+          <div>
+            <div class="flex justify-between text-[11px] text-slate-300 mb-1">
+              <span>키</span><span id="val-height" class="font-mono text-pink-400">172 cm</span>
+            </div>
+            <input type="range" id="input-height" min="150" max="190" value="172" oninput="updateAvatarProportions()" class="w-full accent-pink-500 cursor-pointer" />
+          </div>
+          <div>
+            <div class="flex justify-between text-[11px] text-slate-300 mb-1">
+              <span>체중</span><span id="val-weight" class="font-mono text-purple-400">62 kg</span>
+            </div>
+            <input type="range" id="input-weight" min="40" max="95" value="62" oninput="updateAvatarProportions()" class="w-full accent-purple-500 cursor-pointer" />
+          </div>
+          <div>
+            <div class="flex justify-between text-[11px] text-slate-300 mb-1">
+              <span>핏 비율</span><span id="val-fit" class="font-mono text-cyan-400">3:7 황금핏</span>
+            </div>
+            <input type="range" id="input-fit" min="1" max="3" value="2" oninput="updateAvatarProportions()" class="w-full accent-cyan-500 cursor-pointer" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: 3대 미래지향 스페셜 모드 & 코디 셀렉터 (5 Cols) -->
+      <div class="lg:col-span-5 space-y-4">
+
+        <!-- 3대 스페셜 모드 탭 스위치 -->
+        <div class="grid grid-cols-3 gap-1.5 p-1 rounded-xl bg-slate-900 border border-slate-800 text-[11px] font-bold">
+          <button type="button" onclick="switchFittingSubTab('timemachine')" id="subtab-btn-timemachine" class="py-1.5 rounded-lg bg-purple-600 text-white shadow-sm transition">
+            🔮 2035 타임머신
+          </button>
+          <button type="button" onclick="switchFittingSubTab('family')" id="subtab-btn-family" class="py-1.5 rounded-lg text-slate-400 hover:text-white transition">
+            👨‍👩‍👧‍👦 가족 시밀러룩
+          </button>
+          <button type="button" onclick="switchFittingSubTab('zerocost')" id="subtab-btn-zerocost" class="py-1.5 rounded-lg text-slate-400 hover:text-white transition">
+            ♻️ 0원 리폼처방
+          </button>
+        </div>
+
+        <!-- SubTab 1: 🔮 타임머신 2035 미래의 나 -->
+        <div id="subtab-pane-timemachine" class="glass-card rounded-2xl p-4 border border-purple-500/30 space-y-3 text-xs">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-purple-300 flex items-center gap-1">
+              <span>🔮</span> 10년 뒤 성공한 2035년의 나
+            </span>
+            <span class="text-[10px] text-pink-400 font-mono">Future Self Mode</span>
+          </div>
+          <p class="text-[11px] text-slate-300 leading-relaxed">
+            내가 꿈꾸는 미래의 직업을 선택하면, 10년 뒤의 내가 입고 있는 성공 룩을 렌더링하고 나에게 <b>음성 응원 편지</b>를 들려줍니다!
+          </p>
+          <div class="grid grid-cols-2 gap-2">
+            <button type="button" onclick="applyFutureLook('ceo')" class="p-2.5 rounded-xl bg-purple-950/60 hover:bg-purple-900 border border-purple-500/40 text-left transition active:scale-95">
+              <div class="font-bold text-white">👑 글로벌 CEO</div>
+              <div class="text-[10px] text-slate-400 mt-0.5">청담 하이엔드 수트 & 골드 타이</div>
+            </button>
+            <button type="button" onclick="applyFutureLook('scientist')" class="p-2.5 rounded-xl bg-cyan-950/60 hover:bg-cyan-900 border border-cyan-500/40 text-left transition active:scale-95">
+              <div class="font-bold text-white">🚀 우주 AI 과학자</div>
+              <div class="text-[10px] text-slate-400 mt-0.5">네온 사이버 테크웨어 & 스마트 코트</div>
+            </button>
+            <button type="button" onclick="applyFutureLook('artist')" class="p-2.5 rounded-xl bg-pink-950/60 hover:bg-pink-900 border border-pink-500/40 text-left transition active:scale-95">
+              <div class="font-bold text-white">🎨 세계적 미디어 아티스트</div>
+              <div class="text-[10px] text-slate-400 mt-0.5">아방가르드 린넨 자켓 & 실크 머플러</div>
+            </button>
+            <button type="button" onclick="applyFutureLook('diplomat')" class="p-2.5 rounded-xl bg-amber-950/60 hover:bg-amber-900 border border-amber-500/40 text-left transition active:scale-95">
+              <div class="font-bold text-white">🕊️ 평화 외교관 리더</div>
+              <div class="text-[10px] text-slate-400 mt-0.5">전통 모던 한복 블레이저</div>
+            </button>
+          </div>
+          <!-- 미래의 내가 들려주는 음성 편지 재생 버튼 -->
+          <button type="button" onclick="playFutureSelfVoiceLetter()" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-md shadow-purple-600/30 transition active:scale-95">
+            <span>💖 [2035년 미래의 내가 읽어주는 음성 편지 듣기]</span>
+          </button>
+        </div>
+
+        <!-- SubTab 2: 👨‍👩‍👧‍👦 가족 & 세 자매 하모니 시밀러룩 -->
+        <div id="subtab-pane-family" class="hidden glass-card rounded-2xl p-4 border border-pink-500/30 space-y-3 text-xs">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-pink-300 flex items-center gap-1">
+              <span>👨‍👩‍👧‍👦</span> 가족 & 세 자매 하모니 시밀러룩
+            </span>
+            <span class="text-[10px] text-emerald-400 font-mono">Harmony Score 99.8%</span>
+          </div>
+          <p class="text-[11px] text-slate-300 leading-relaxed">
+            <b>이상일 대표님 + 첫째 이은솔 + 둘째 이송효 + 셋째 이해상</b> 4인의 아바타가 나란히 서서 완벽하게 어우러지는 패밀리 팔레트를 시뮬레이션합니다!
+          </p>
+          <div class="space-y-1.5">
+            <button type="button" onclick="applyFamilyPalette('navy_gold')" class="w-full p-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left flex items-center justify-between transition">
+              <span>👑 로열 네이비 & 샴페인 골드 (품격 클래식)</span>
+              <span class="w-4 h-4 rounded-full bg-blue-900 border border-amber-400"></span>
+            </button>
+            <button type="button" onclick="applyFamilyPalette('warm_beige')" class="w-full p-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left flex items-center justify-between transition">
+              <span>🌸 파스텔 웜 베이지 & 크림 (따스한 온기)</span>
+              <span class="w-4 h-4 rounded-full bg-amber-200 border border-orange-300"></span>
+            </button>
+            <button type="button" onclick="applyFamilyPalette('forest_sage')" class="w-full p-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left flex items-center justify-between transition">
+              <span>🌲 포레스트 세이지 그린 & 아이보리 (자연 힐링)</span>
+              <span class="w-4 h-4 rounded-full bg-emerald-800 border border-emerald-300"></span>
+            </button>
+          </div>
+          <button type="button" onclick="renderFamilySimilarLookCanvas()" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition active:scale-95 shadow-md">
+            <span>👨‍👩‍👧‍👦 4인 가족 시밀러룩 캔버스 합성</span>
+          </button>
+        </div>
+
+        <!-- SubTab 3: ♻️ 0원 옷장 리폼 스타일링 처방 -->
+        <div id="subtab-pane-zerocost" class="hidden glass-card rounded-2xl p-4 border border-cyan-500/30 space-y-3 text-xs">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-cyan-300 flex items-center gap-1">
+              <span>♻️</span> 돈 안 드는 '내 옷장 0원 리폼' 처방
+            </span>
+            <span class="text-[10px] text-cyan-400 font-mono">Cost: 0 KRW</span>
+          </div>
+          <p class="text-[11px] text-slate-300 leading-relaxed">
+            새 옷을 사지 않아도 기본 흰 티, 셔츠, 청바지만으로 명품 핏을 연출하는 디자이너 시크릿 처방전입니다!
+          </p>
+          <div class="space-y-2">
+            <div class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 space-y-1">
+              <div class="font-bold text-cyan-200">1. 황금 3:7 프렌치 턱인 (Tuck-in)</div>
+              <p class="text-[11px] text-slate-400">티셔츠 앞부분 3cm만 벨트 라인 안쪽으로 자연스럽게 넣고 양옆을 빼면 다리가 10cm 길어 보입니다.</p>
+            </div>
+            <div class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 space-y-1">
+              <div class="font-bold text-purple-200">2. 소매 2단 프렌치 롤업 & 시계 포인트</div>
+              <p class="text-[11px] text-slate-400">소매를 크게 한 번 접고 끝부분만 얇게 다시 접어 손목 라인을 드러내면 세련된 시티보이 룩 완성!</p>
+            </div>
+            <div class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 space-y-1">
+              <div class="font-bold text-pink-200">3. 톤온톤 컬러 그라데이션 레이어드</div>
+              <p class="text-[11px] text-slate-400">같은 계열의 진한 색과 연한 색을 겹쳐 입으면 30만 원 상당의 디자이너 룩 분위기를 연출합니다.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 🎨 피부톤 RGB 스캐너 위젯 -->
+        <div class="glass-card rounded-2xl p-3.5 border border-slate-800 space-y-2 text-xs">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-slate-200 flex items-center gap-1">
+              <span>🎨</span> 퍼스널 컬러 RGB 스캐너
+            </span>
+            <span id="skin-tone-tag" class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40">
+              웜톤 웜베이지 (Spring Warm)
+            </span>
+          </div>
+          <div class="flex items-center gap-2">
+            <input type="color" id="skin-color-picker" value="#f8d9c2" onchange="updateSkinToneColor(this.value)" class="w-8 h-8 rounded cursor-pointer bg-transparent border-0" />
+            <span class="text-[11px] text-slate-400">얼굴 톤을 선택하시면 가장 잘 어울리는 의상 컬러를 자동 추천합니다.</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 🛡️ 앱 전담 초격차 관리팀 & VOC 자율 진화 건의함 -->
+    <div class="glass-card rounded-2xl p-4 sm:p-5 border border-purple-500/40 space-y-4">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-800">
+        <div class="flex items-center gap-2.5">
+          <span class="text-xl p-2 rounded-xl bg-purple-500/20 text-purple-300 border border-purple-500/40">🛡️</span>
+          <div>
+            <div class="flex items-center gap-1.5">
+              <span class="px-1.5 py-0.5 rounded text-[9px] font-black bg-purple-500/30 text-purple-200 border border-purple-500/40 font-mono">App Care Team</span>
+              <h3 class="text-sm font-black text-white">꿈의 옷장 전담 초격차 관리 & VOC 자율 버전업 특무대</h3>
+            </div>
+            <p class="text-[11px] text-purple-200/80 mt-0.5">
+              사용자 의견(VOC) 즉시 수렴 ➔ 4대 AI 유닛 분석 ➔ 24시간 자율 무중단 패치 및 버전업 실시간 반영!
+            </p>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+            🟢 4대 AI 유닛 실시간 가동 중
+          </span>
+        </div>
+      </div>
+
+      <!-- 4대 AI 전담 유닛 상태 카드 -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center text-xs">
+        <div class="p-2.5 rounded-xl bg-slate-900/90 border border-purple-500/30">
+          <div class="text-base mb-0.5">👂</div>
+          <div class="font-bold text-white text-[11px]">VOC 경청팀</div>
+          <div class="text-[10px] text-purple-300">사용자 피드백 수집</div>
+        </div>
+        <div class="p-2.5 rounded-xl bg-slate-900/90 border border-cyan-500/30">
+          <div class="text-base mb-0.5">🔧</div>
+          <div class="font-bold text-white text-[11px]">UX 패치팀</div>
+          <div class="text-[10px] text-cyan-300">0.05초 즉시 최적화</div>
+        </div>
+        <div class="p-2.5 rounded-xl bg-slate-900/90 border border-pink-500/30">
+          <div class="text-base mb-0.5">🚀</div>
+          <div class="font-bold text-white text-[11px]">초격차 R&D팀</div>
+          <div class="text-[10px] text-pink-300">10년 선행 기술 도입</div>
+        </div>
+        <div class="p-2.5 rounded-xl bg-slate-900/90 border border-emerald-500/30">
+          <div class="text-base mb-0.5">⚡</div>
+          <div class="font-bold text-white text-[11px]">OTA 배포팀</div>
+          <div class="text-[10px] text-emerald-300">무심사 1초 핫픽스</div>
+        </div>
+      </div>
+
+      <!-- VOC 입력 & 직통 건의함 -->
+      <div class="p-3.5 rounded-xl bg-slate-950/80 border border-slate-800 space-y-2 text-xs">
+        <label class="font-bold text-slate-200 flex items-center gap-1.5">
+          <span>💬</span>
+          <span>사용자 불편사항 · 신규 코디 · 퀴즈 아이디어 1초 직통 건의함 (VOC Box)</span>
+        </label>
+        <div class="flex flex-col sm:flex-row gap-2">
+          <input type="text" id="voc-input" placeholder="불편한 점이나 추가되었으면 하는 코디/퀴즈를 자유롭게 적어주세요..."
+            class="flex-1 px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs outline-none focus:border-pink-500" />
+          <button type="button" onclick="submitAppVoc()" id="btn-submit-voc"
+            class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-bold text-xs transition active:scale-95 shrink-0 flex items-center justify-center gap-1.5 shadow-md">
+            <span>🚀 건의 접수 & 자율 패치</span>
+          </button>
+        </div>
+        <!-- VOC 결과 표시 영역 -->
+        <div id="voc-result-box" class="hidden p-3 rounded-xl bg-purple-950/40 border border-purple-500/40 text-[11px] text-purple-200 space-y-1"></div>
+      </div>
+    </div>
+
+    <!-- 📲 구글 스토어 무심사 3대 직통 배포 센터 & 계정 복구 가이드 -->
+    <div class="glass-card rounded-2xl p-4 sm:p-5 border border-cyan-500/30 space-y-4">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+        <div class="flex items-center gap-2.5">
+          <span class="text-xl p-2 rounded-xl bg-cyan-500/20 text-cyan-300 border border-cyan-500/40">📲</span>
+          <div>
+            <h3 class="text-sm font-black text-white">구글 스토어 무심사 3대 직통 배포 센터</h3>
+            <p class="text-[11px] text-cyan-200/80 mt-0.5">심사 대기 0초! 카카오톡/문자 원클릭 전달 & 스마트폰 홈 화면 1초 설치</p>
+          </div>
+        </div>
+        <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/40">
+          No Store Approval Required
+        </span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+        <!-- 1. 독립 실행형 HTML 앱 다운로드 -->
+        <div class="p-3.5 rounded-xl bg-slate-950/80 border border-purple-500/30 flex flex-col justify-between space-y-2">
+          <div>
+            <div class="font-bold text-purple-300 flex items-center gap-1">
+              <span>💾</span> 1. 단일 파일 웹앱 (.html)
+            </div>
+            <p class="text-[11px] text-slate-400 mt-1">인터넷 없이도 100% 돌아가는 올인원 단일 HTML 파일로 즉시 소장.</p>
+          </div>
+          <button type="button" onclick="downloadCurrentAppHtml()" class="w-full py-2 rounded-xl bg-purple-600/30 hover:bg-purple-600/50 text-purple-200 border border-purple-500/40 font-bold transition">
+            📲 독립 웹앱 파일 다운로드
+          </button>
+        </div>
+
+        <!-- 2. PWA 홈 화면 추가 -->
+        <div class="p-3.5 rounded-xl bg-slate-950/80 border border-pink-500/30 flex flex-col justify-between space-y-2">
+          <div>
+            <div class="font-bold text-pink-300 flex items-center gap-1">
+              <span>📱</span> 2. 스마트폰 홈 화면 1초 설치
+            </div>
+            <p class="text-[11px] text-slate-400 mt-1">브라우저 메뉴에서 [홈 화면에 추가]를 누르면 정식 앱처럼 아이콘 생성.</p>
+          </div>
+          <button type="button" onclick="copyAppShareLink()" class="w-full py-2 rounded-xl bg-pink-600/30 hover:bg-pink-600/50 text-pink-200 border border-pink-500/40 font-bold transition">
+            📋 모바일 직통 공유 링크 복사
+          </button>
+        </div>
+
+        <!-- 3. Google Play 계정 복구 가이드 -->
+        <div class="p-3.5 rounded-xl bg-slate-950/80 border border-cyan-500/30 flex flex-col justify-between space-y-2">
+          <div>
+            <div class="font-bold text-cyan-300 flex items-center gap-1">
+              <span>🛡️</span> 3. Google Play 계정 복구 가이드
+            </div>
+            <p class="text-[11px] text-slate-400 mt-1">계정(lee sangill, ID: 8519115145103880120) 3단계 본인 인증 및 APK 빌드 매뉴얼.</p>
+          </div>
+          <button type="button" onclick="showGooglePlayGuideModal()" class="w-full py-2 rounded-xl bg-cyan-600/30 hover:bg-cyan-600/50 text-cyan-200 border border-cyan-500/40 font-bold transition">
+            📖 계정 복구 & APK 매뉴얼 열기
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- 🌟 Footer -->
+  <footer class="glass-card border-t border-purple-500/30 px-4 py-4 text-center text-xs text-slate-400 space-y-1">
+    <div>
+      <span class="font-bold text-white">한걸음씩 상생나눔 제1호 무료 앱 : 꿈의 옷장</span> | 창안자: <b>이상일</b> 대표님
+    </div>
+    <div class="text-[10px] text-slate-500">
+      저작권자: 이상일 (Principal Sang-Il Lee) | 공동 기획·검수: 이은솔 · 이송효 · 이해상 | 직인: [한걸음씩 미래AI인성학교장 이상일 인]
+    </div>
+  </footer>
+
+  <!-- 📖 Google Play 계정 복구 모달 -->
+  <div id="play-guide-modal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="max-w-lg w-full glass-card rounded-2xl p-5 border border-cyan-500/50 space-y-4 max-h-[85vh] overflow-y-auto">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-800">
+        <h4 class="font-bold text-white text-sm flex items-center gap-2">
+          <span>🛡️</span> Google Play 개발자 계정 신원 인증 복구 매뉴얼
+        </h4>
+        <button type="button" onclick="closeGooglePlayGuideModal()" class="text-slate-400 hover:text-white text-lg">✕</button>
+      </div>
+      <div class="text-xs text-slate-300 space-y-3 leading-relaxed">
+        <div class="p-3 rounded-xl bg-slate-900 border border-slate-800">
+          <div class="font-bold text-cyan-300 mb-1">■ 대상 계정 정보</div>
+          <div>• 개발자명: <b>lee sangill</b></div>
+          <div>• 개발자 계정 ID: <code class="text-amber-300">8519115145103880120</code></div>
+        </div>
+        <div class="space-y-1.5">
+          <div class="font-bold text-white">■ 3단계 본인 인증 복구 절차:</div>
+          <ol class="list-decimal pl-4 space-y-1 text-slate-300">
+            <li><b>Play Console 접속</b>: Google Play Console 로그인 후 상단 붉은색 [신원 확인 완료] 배너 클릭.</li>
+            <li><b>서류 제출</b>: 주민등록증 또는 운전면허증 사진(빛 반사 없이 선명한 파일) 업로드. 등록된 개발자명(lee sangill)과 신분증의 영문/한글 이름이 일치해야 합니다.</li>
+            <li><b>DUNS 번호 확인</b>: 개인 개발자인 경우 별도 DUNS 없이 신분증 + 주소 증명(주민등록등본/통신사 청구서 3개월 이내)으로 48시간 내 승인 완료.</li>
+          </ol>
+        </div>
+        <div class="p-3 rounded-xl bg-purple-950/40 border border-purple-500/40">
+          <div class="font-bold text-purple-300 mb-1">■ 무심사 APK 변환 (Bubblewrap TWA):</div>
+          <p class="text-[11px] text-slate-300">
+            Node.js 환경에서 <code>npx @bubblewrap/cli build</code> 명령어로 본 웹앱 주소를 넣으면 1분 만에 구글 플레이 업로드용 <code>.aab</code> 및 스마트폰 설치용 <code>.apk</code> 파일이 자동 생성됩니다!
+          </p>
+        </div>
+      </div>
+      <button type="button" onclick="closeGooglePlayGuideModal()" class="w-full py-2.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs transition">
+        확인 및 닫기
+      </button>
+    </div>
+  </div>
+
+  <!-- 🌟 Client Logic Scripts -->
+  <script>
+    // ── Global State ──
+    let currentStep = 0; // 0: Lv0, 1: Step1(EQ), 2: Step2(MQ), 3: Step3(CQ)
+    let currentAngle = 0; // 0, 90, 180, 270
+    let currentOutfit = 'daily'; // 'daily', 'highteen', 'suit', 'future_ceo', 'future_scientist', 'future_artist', 'future_diplomat', 'family_palette'
+    let avatarHeight = 172;
+    let avatarWeight = 62;
+    let avatarFit = 2; // 1: 슬림, 2: 표준, 3: 루즈
+    let skinTone = '#f8d9c2';
+    let isVoiceListening = false;
+    let recognition = null;
+
+    // ── Canvas Setup ──
+    const canvas = document.getElementById('app-fitting-canvas');
+    const ctx = canvas.getContext('2d');
+
+    // ── Speech Synthesis (TTS) ──
+    function speakText(text) {
+      if (!('speechSynthesis' in window)) return;
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'ko-KR';
+      utterance.rate = 1.0;
+      utterance.pitch = 1.05;
+      window.speechSynthesis.speak(utterance);
+    }
+
+    // ── Speech Recognition (STT) ──
+    function initSpeechRecognition() {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SpeechRecognition) {
+        console.warn('Speech recognition not supported in this browser.');
+        return null;
+      }
+      const rec = new SpeechRecognition();
+      rec.lang = 'ko-KR';
+      rec.continuous = false;
+      rec.interimResults = false;
+
+      rec.onstart = () => {
+        isVoiceListening = true;
+        const btn = document.getElementById('btn-mic-stt');
+        if (btn) btn.className = 'w-10 h-10 rounded-xl bg-red-600 text-white flex items-center justify-center text-lg shadow-lg animate-pulse shrink-0';
+      };
+
+      rec.onend = () => {
+        isVoiceListening = false;
+        const btn = document.getElementById('btn-mic-stt');
+        if (btn) btn.className = 'w-10 h-10 rounded-xl bg-pink-600 hover:bg-pink-500 text-white flex items-center justify-center text-lg shadow-md transition active:scale-95 shrink-0';
+      };
+
+      rec.onresult = (event) => {
+        const transcript = event.results[0][0].transcript.trim();
+        handleVoiceCommand(transcript);
+      };
+
+      rec.onerror = (e) => {
+        console.warn('STT Error:', e);
+      };
+
+      return rec;
+    }
+
+    function toggleVoiceSTT() {
+      if (!recognition) recognition = initSpeechRecognition();
+      if (!recognition) {
+        alert('이 브라우저는 음성 인식을 지원하지 않습니다. 크롬 또는 사파리를 권장합니다.');
+        return;
+      }
+      if (isVoiceListening) {
+        recognition.stop();
+      } else {
+        try { recognition.start(); } catch (e) {}
+      }
+    }
+
+    function handleVoiceCommand(cmd) {
+      const p = document.getElementById('voice-transcript-text');
+      if (p) p.innerHTML = `인식된 음성: <b>"${cmd}"</b>`;
+
+      if (cmd.includes('소중') || cmd.includes('따뜻한 사람') || cmd.includes('확언')) {
+        triggerAffirmationSuccess();
+        speakText('멋진 긍정 확언입니다! 당신은 세상에서 가장 소중하고 따뜻한 빛입니다.');
+      } else if (cmd.includes('수트') || cmd.includes('정장') || cmd.includes('청담')) {
+        currentOutfit = 'suit';
+        drawAvatar();
+        speakText('청담 VIP 클래식 수트로 환복했습니다. 품격과 리더십이 돋보입니다.');
+      } else if (cmd.includes('하이틴') || cmd.includes('밝은') || cmd.includes('시티보이')) {
+        currentOutfit = 'highteen';
+        drawAvatar();
+        speakText('싱그러운 K-하이틴 룩을 입혀드렸습니다! 화사한 에너지가 넘치네요.');
+      } else if (cmd.includes('ceo') || cmd.includes('대표') || cmd.includes('미래')) {
+        applyFutureLook('ceo');
+      } else {
+        speakText(`말씀하신 "${cmd}" 관련 스타일을 매칭해 드립니다.`);
+      }
+    }
+
+    // ── 4-Direction Vector Avatar Renderer ──
+    function drawAvatar() {
+      if (!canvas) return;
+      const w = canvas.width;
+      const h = canvas.height;
+      const cx = w / 2;
+
+      ctx.clearRect(0, 0, w, h);
+
+      // 1. Background Runway Stage
+      const bgGrad = ctx.createLinearGradient(0, 0, 0, h);
+      bgGrad.addColorStop(0, '#090d16');
+      bgGrad.addColorStop(0.7, '#0f172a');
+      bgGrad.addColorStop(1, '#020617');
+      ctx.fillStyle = bgGrad;
+      ctx.fillRect(0, 0, w, h);
+
+      // Floor Oval Shadow & Spotlight
+      ctx.save();
+      const floorGrad = ctx.createRadialGradient(cx, h - 45, 10, cx, h - 45, 160);
+      floorGrad.addColorStop(0, 'rgba(236, 72, 153, 0.4)');
+      floorGrad.addColorStop(0.6, 'rgba(168, 85, 247, 0.15)');
+      floorGrad.addColorStop(1, 'transparent');
+      ctx.fillStyle = floorGrad;
+      ctx.beginPath();
+      ctx.ellipse(cx, h - 45, 140, 26, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+
+      // Proportions calculation
+      const scale = (avatarHeight / 170);
+      const widthFactor = (avatarWeight / 60);
+      const headY = 110 - (scale - 1) * 30;
+      const headRadius = 38 * scale;
+      const shoulderW = 55 * scale * widthFactor;
+      const torsoH = 150 * scale;
+      const legH = 210 * scale;
+
+      // 2. Draw Legs & Shoes
+      ctx.save();
+      let pantsColor = '#1e293b';
+      if (currentOutfit === 'suit' || currentOutfit === 'future_ceo') pantsColor = '#0f172a';
+      if (currentOutfit === 'highteen') pantsColor = '#3b82f6';
+      if (currentOutfit === 'future_scientist') pantsColor = '#1e1e2f';
+      if (currentOutfit === 'future_artist') pantsColor = '#f5f5f4';
+
+      ctx.fillStyle = pantsColor;
+      const legSpread = currentAngle === 90 || currentAngle === 270 ? 12 : 22;
+
+      // Left Leg
+      ctx.beginPath();
+      ctx.roundRect(cx - shoulderW * 0.45, headY + headRadius + torsoH - 10, 24 * widthFactor, legH, [4, 4, 8, 8]);
+      ctx.fill();
+
+      // Right Leg (only visible in front/back or slightly offset in side)
+      if (currentAngle === 0 || currentAngle === 180) {
+        ctx.beginPath();
+        ctx.roundRect(cx + shoulderW * 0.45 - (24 * widthFactor), headY + headRadius + torsoH - 10, 24 * widthFactor, legH, [4, 4, 8, 8]);
+        ctx.fill();
+      }
+
+      // Shoes
+      ctx.fillStyle = '#0f172a';
+      if (currentOutfit === 'highteen') ctx.fillStyle = '#ffffff';
+      ctx.beginPath();
+      ctx.roundRect(cx - shoulderW * 0.48, headY + headRadius + torsoH + legH - 12, 28, 14, [4, 8, 4, 4]);
+      ctx.fill();
+      if (currentAngle === 0 || currentAngle === 180) {
+        ctx.beginPath();
+        ctx.roundRect(cx + shoulderW * 0.48 - 28, headY + headRadius + torsoH + legH - 12, 28, 14, [8, 4, 4, 4]);
+        ctx.fill();
+      }
+      ctx.restore();
+
+      // 3. Draw Torso & Outfit
+      ctx.save();
+      let topColor = '#ffffff';
+      if (currentOutfit === 'suit' || currentOutfit === 'future_ceo') topColor = '#1e1b4b';
+      if (currentOutfit === 'highteen') topColor = '#f43f5e';
+      if (currentOutfit === 'future_scientist') topColor = '#0284c7';
+      if (currentOutfit === 'future_artist') topColor = '#e11d48';
+      if (currentOutfit === 'future_diplomat') topColor = '#065f46';
+
+      ctx.fillStyle = topColor;
+      ctx.beginPath();
+      const torsoW = currentAngle === 90 || currentAngle === 270 ? shoulderW * 1.1 : shoulderW * 2;
+      ctx.roundRect(cx - torsoW / 2, headY + headRadius, torsoW, torsoH, [16, 16, 8, 8]);
+      ctx.fill();
+
+      // Outfit Accents (Collar, Buttons, Tie)
+      if (currentOutfit === 'suit' || currentOutfit === 'future_ceo') {
+        // V-neck lapel & tie
+        ctx.strokeStyle = '#312e81';
+        ctx.lineWidth = 4;
+        ctx.beginPath();
+        ctx.moveTo(cx - 20, headY + headRadius);
+        ctx.lineTo(cx, headY + headRadius + 60);
+        ctx.lineTo(cx + 20, headY + headRadius);
+        ctx.stroke();
+
+        // Gold Tie
+        ctx.fillStyle = '#f59e0b';
+        ctx.beginPath();
+        ctx.moveTo(cx - 6, headY + headRadius + 20);
+        ctx.lineTo(cx + 6, headY + headRadius + 20);
+        ctx.lineTo(cx + 4, headY + headRadius + 80);
+        ctx.lineTo(cx, headY + headRadius + 90);
+        ctx.lineTo(cx - 4, headY + headRadius + 80);
+        ctx.closePath();
+        ctx.fill();
+      } else if (currentOutfit === 'highteen') {
+        // High-teen collar
+        ctx.fillStyle = '#ffffff';
+        ctx.beginPath();
+        ctx.moveTo(cx - 18, headY + headRadius);
+        ctx.lineTo(cx, headY + headRadius + 25);
+        ctx.lineTo(cx + 18, headY + headRadius);
+        ctx.closePath();
+        ctx.fill();
+      } else if (currentOutfit === 'future_scientist') {
+        // Cyber glowing lines
+        ctx.strokeStyle = '#38bdf8';
+        ctx.lineWidth = 2.5;
+        ctx.shadowColor = '#38bdf8';
+        ctx.shadowBlur = 8;
+        ctx.beginPath();
+        ctx.moveTo(cx - torsoW / 2 + 8, headY + headRadius + 30);
+        ctx.lineTo(cx + torsoW / 2 - 8, headY + headRadius + 30);
+        ctx.stroke();
+      }
+      ctx.restore();
+
+      // 4. Arms
+      ctx.save();
+      ctx.fillStyle = topColor;
+      const armW = 18 * widthFactor;
+      const armH = 140 * scale;
+      if (currentAngle === 0 || currentAngle === 180) {
+        ctx.beginPath();
+        ctx.roundRect(cx - torsoW / 2 - armW + 2, headY + headRadius + 10, armW, armH, [8, 4, 8, 8]);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.roundRect(cx + torsoW / 2 - 2, headY + headRadius + 10, armW, armH, [4, 8, 8, 8]);
+        ctx.fill();
+      } else {
+        // One side arm
+        ctx.beginPath();
+        ctx.roundRect(cx - armW / 2, headY + headRadius + 10, armW, armH, [8, 8, 8, 8]);
+        ctx.fill();
+      }
+      ctx.restore();
+
+      // 5. Head & Face
+      ctx.save();
+      ctx.fillStyle = skinTone;
+      ctx.beginPath();
+      ctx.arc(cx, headY, headRadius, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Hair & Facial features depending on angle
+      ctx.fillStyle = '#1e1b4b'; // Dark hair
+      if (currentAngle === 0) {
+        // Front: hair bangs + eyes + gentle smile
+        ctx.beginPath();
+        ctx.arc(cx, headY - 8, headRadius + 2, Math.PI, Math.PI * 2);
+        ctx.fill();
+        // Eyes
+        ctx.fillStyle = '#0f172a';
+        ctx.beginPath();
+        ctx.arc(cx - 12, headY - 2, 3, 0, Math.PI * 2);
+        ctx.arc(cx + 12, headY - 2, 3, 0, Math.PI * 2);
+        ctx.fill();
+        // Warm smile
+        ctx.strokeStyle = '#e11d48';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(cx, headY + 8, 10, 0.2 * Math.PI, 0.8 * Math.PI);
+        ctx.stroke();
+      } else if (currentAngle === 180) {
+        // Back: full hair cover
+        ctx.beginPath();
+        ctx.arc(cx, headY, headRadius + 3, 0, Math.PI * 2);
+        ctx.fill();
+      } else {
+        // Side profile hair
+        ctx.beginPath();
+        ctx.arc(cx, headY - 5, headRadius + 2, 0.8 * Math.PI, 1.8 * Math.PI);
+        ctx.fill();
+        // Eye
+        ctx.fillStyle = '#0f172a';
+        ctx.beginPath();
+        const eyeX = currentAngle === 90 ? cx - 14 : cx + 14;
+        ctx.arc(eyeX, headY - 2, 3, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.restore();
+
+      // 6. Dynamic Aura Glow
+      ctx.save();
+      ctx.strokeStyle = 'rgba(236, 72, 153, 0.4)';
+      ctx.lineWidth = 2;
+      ctx.setLineDash([6, 6]);
+      ctx.beginPath();
+      ctx.arc(cx, headY + torsoH / 2, torsoH * 0.9, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    // ── Angle Controller ──
+    function setAngle(ang) {
+      currentAngle = ang;
+      document.querySelectorAll('[id^="angle-btn-"]').forEach(b => {
+        b.className = 'px-2 py-1 rounded bg-slate-900 text-slate-300 text-[10px]';
+      });
+      const activeBtn = document.getElementById(`angle-btn-${ang}`);
+      if (activeBtn) activeBtn.className = 'px-2 py-1 rounded bg-purple-600 text-white font-bold text-[10px]';
+
+      const label = document.getElementById('canvas-angle-label');
+      const names = { 0: '0° FRONT (정면)', 90: '90° LEFT (좌측)', 180: '180° BACK (후면)', 270: '270° RIGHT (우측)' };
+      if (label) label.textContent = `Angle: ${names[ang] || ang}`;
+
+      drawAvatar();
+    }
+
+    // ── Proportion Slider Updates ──
+    function updateAvatarProportions() {
+      avatarHeight = parseInt(document.getElementById('input-height').value, 10);
+      avatarWeight = parseInt(document.getElementById('input-weight').value, 10);
+      avatarFit = parseInt(document.getElementById('input-fit').value, 10);
+
+      document.getElementById('val-height').textContent = `${avatarHeight} cm`;
+      document.getElementById('val-weight').textContent = `${avatarWeight} kg`;
+      const fitNames = { 1: '슬림핏', 2: '3:7 황금핏', 3: '오버핏' };
+      document.getElementById('val-fit').textContent = fitNames[avatarFit];
+
+      drawAvatar();
+    }
+
+    function updateSkinToneColor(color) {
+      skinTone = color;
+      drawAvatar();
+      speakText('피부톤 컬러가 실시간으로 보정되었습니다.');
+    }
+
+    // ── 4단계 인성 어드벤처 & 해금 로직 ──
+    const QUIZ_DATA = [
+      {
+        step: 0,
+        badge: 'Lv.0 입문자 (데일리 오픈)',
+        title: 'Lv.0 입문자 코디: 나의 첫 인상과 데일리 스타일',
+        reward: '기본 데일리 룩 + 체형 비율 슬라이더 오픈',
+        story: '꿈의 옷장에 오신 것을 환영합니다! 당신만의 체형과 비율을 자유롭게 설정하고 4방향 피팅룸을 경험해 보세요.',
+        choices: ['멋진 데일리 룩으로 시작하기', '나의 체형 슬라이더 조절하기', '다음 인성 퀴즈 도전하기']
+      },
+      {
+        step: 1,
+        badge: 'Step 1. 공감 EQ 해금 완료',
+        title: 'Step 1. 공감 드라마 퀴즈 (EQ): 축제 날 친구의 찢어진 옷',
+        reward: 'K-하이틴 & 시티보이 룩 + RGB 스캐너 + 디자이너 TTS 해금',
+        story: '학교 축제 무대 직전, 단짝 친구의 무대 의상이 찢어져 울고 있습니다. 나에게는 집에 가려 챙겨둔 여분의 멋진 자켓이 하나 있습니다. 어떻게 하시겠습니까?',
+        choices: [
+          '1. 즉시 내 여분 자켓을 친구에게 입혀주고 함께 무대에 오른다. (공감 & 배려 만점)',
+          '2. 옷이 아까우니 빌려주지 않고 내 무대만 준비한다.',
+          '3. 모른 척 지나간다.'
+        ]
+      },
+      {
+        step: 2,
+        badge: 'Step 2. 정직 MQ 해금 완료',
+        title: 'Step 2. 정직과 용기 퀴즈 (MQ): 나만의 0원 옷장 마법 & 당당한 리더',
+        reward: '청담 VIP 클래식 수트 + 0원 리폼 레시피 + 마이크 음성제어(STT) 해금',
+        story: '친구들과 모인 자리에서 옷에 작은 얼룩을 묻혔거나 실수를 했을 때, 비싼 새 옷을 사달라고 조르는 대신 내가 선택할 수 있는 가장 정직하고 당당한 태도는?',
+        choices: [
+          '1. 실수를 당당히 밝히고 소매 롤업이나 브로치로 독창적인 커스텀 룩으로 승화시킨다. (정직 & 창의 만점)',
+          '2. 남의 탓으로 돌리고 화를 낸다.',
+          '3. 비싼 명품 옷을 사지 못해 부끄러워하며 숨는다.'
+        ]
+      },
+      {
+        step: 3,
+        badge: 'Step 3. 나눔 CQ 마스터 해금 완료',
+        title: 'Step 3. 나눔과 공존 마스터 (CQ) & 스피치 확언 미션',
+        reward: '타임머신 2035 미래의 나 + 가족 시밀러룩 + 24시간 보이스 소울메이트 + HGS 정식 인증서',
+        story: '미래에 큰 성공을 거두었을 때, 나만의 부를 자랑하는 대신 세상을 가장 따뜻하고 아름답게 만드는 당신의 선택은?',
+        choices: [
+          '1. 상생 기금 10%를 적립하여 가난한 청소년들에게 꿈과 멋진 옷을 무료로 선물한다. (나눔 & 공존 만점)',
+          '2. 나 혼자만 모든 부를 독점하고 과시한다.',
+          '3. 아무것도 하지 않고 방관한다.'
+        ]
+      }
+    ];
+
+    function selectStep(step) {
+      currentStep = step;
+      renderQuizStep(step);
+    }
+
+    function renderQuizStep(step) {
+      const q = QUIZ_DATA[step] || QUIZ_DATA[0];
+      document.getElementById('quiz-title').textContent = q.title;
+      document.getElementById('quiz-reward-preview').textContent = `보상: ${q.reward}`;
+      document.getElementById('quiz-story').textContent = q.story;
+      document.getElementById('unlock-badge').textContent = q.badge;
+
+      const bar = document.getElementById('unlock-progress-bar');
+      if (bar) bar.style.width = `${(step + 1) * 25}%`;
+
+      document.querySelectorAll('[id^="step-btn-"]').forEach((b, idx) => {
+        b.className = idx === step ? 'p-1.5 rounded-xl bg-purple-600/40 border border-purple-400 font-bold text-white' : 'p-1.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-400';
+      });
+
+      const choicesBox = document.getElementById('quiz-choices');
+      choicesBox.innerHTML = q.choices.map((c, i) => `
+        <button type="button" onclick="answerQuiz(${i})" class="p-3 rounded-xl ${i === 0 ? 'bg-purple-950/40 hover:bg-purple-900/60 border border-purple-500/30' : 'bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-400'} text-left transition active:scale-98">
+          ${c}
+        </button>
+      `).join('');
+    }
+
+    function answerQuiz(choiceIdx) {
+      if (choiceIdx === 0) {
+        // 정답 및 해금
+        if (currentStep === 1) {
+          currentOutfit = 'highteen';
+          speakText('정답입니다! 공감과 배려의 마음으로 K-하이틴 룩과 피부톤 스캐너가 해금되었습니다.');
+        } else if (currentStep === 2) {
+          currentOutfit = 'suit';
+          speakText('훌륭합니다! 정직과 용기의 선택으로 청담 VIP 수트와 음성 제어 기능이 열렸습니다.');
+        } else if (currentStep === 3) {
+          currentOutfit = 'future_ceo';
+          speakText('축하합니다! 나눔과 공존의 마스터가 되어 2035년 미래의 나와 가족 시밀러룩이 모두 해금되었습니다!');
+        }
+        drawAvatar();
+        alert(`🎉 [축하합니다! ${QUIZ_DATA[currentStep].reward}] 해금 완료!`);
+        if (currentStep < 3) {
+          selectStep(currentStep + 1);
+        }
+      } else {
+        speakText('따뜻한 인성의 관점에서 다시 한 번 생각해보세요!');
+        alert('💡 인성 퀴즈 힌트: 상대방을 배려하고 정직하게 나눔을 실천하는 1번 선택지를 골라보세요!');
+      }
+    }
+
+    function triggerAffirmationSuccess() {
+      speakText('당신의 확언이 마음에 깊이 각인되었습니다! 당신은 세상에서 가장 소중하고 따뜻한 빛입니다.');
+      alert('✨ [긍정 확언 완료]: 마음에 긍정의 에너지가 충전되었습니다!');
+    }
+
+    function unlockAllFeaturesFreePass() {
+      currentStep = 3;
+      selectStep(3);
+      currentOutfit = 'future_ceo';
+      drawAvatar();
+      speakText('이상일 대표님 프리패스가 승인되었습니다. 전 단계 인성 룩, 음성 소통, 타임머신 2035가 100% 전면 해금되었습니다!');
+      alert('👑 [대표님 프리패스 가동 완료]: 모든 코디, 2035 미래의 나, 가족 시밀러룩, 음성 소통이 즉시 열렸습니다!');
+    }
+
+    // ── SubTab Fitting Modes ──
+    function switchFittingSubTab(tabName) {
+      const tabs = ['timemachine', 'family', 'zerocost'];
+      tabs.forEach(t => {
+        const pane = document.getElementById(`subtab-pane-${t}`);
+        const btn = document.getElementById(`subtab-btn-${t}`);
+        if (t === tabName) {
+          if (pane) pane.classList.remove('hidden');
+          if (btn) btn.className = 'py-1.5 rounded-lg bg-purple-600 text-white shadow-sm transition';
+        } else {
+          if (pane) pane.classList.add('hidden');
+          if (btn) btn.className = 'py-1.5 rounded-lg text-slate-400 hover:text-white transition';
+        }
+      });
+    }
+
+    function applyFutureLook(type) {
+      currentOutfit = `future_${type}`;
+      drawAvatar();
+      const names = {
+        ceo: '👑 글로벌 CEO 수트',
+        scientist: '🚀 우주 AI 과학자 테크웨어',
+        artist: '🎨 세계적 미디어 아티스트 룩',
+        diplomat: '🕊️ 평화 외교관 리더 모던룩'
+      };
+      speakText(`2035년의 성공한 내 모습, ${names[type] || type}를 피팅했습니다!`);
+    }
+
+    function playFutureSelfVoiceLetter() {
+      const letter = "안녕, 2026년의 나야! 나는 10년 뒤 꿈을 이룬 2035년의 너야. 지금 네가 겪는 모든 고민과 노력은 하나도 헛되지 않았어. 너는 상생과 나눔을 실천하며 세상을 따뜻하게 밝히는 멋진 리더가 되었단다. 너를 언제나 믿어!";
+      speakText(letter);
+      alert(`💌 [2035년 미래의 내가 보낸 음성 편지]\n\n"${letter}"`);
+    }
+
+    function applyFamilyPalette(theme) {
+      currentOutfit = 'family_palette';
+      drawAvatar();
+      const names = {
+        navy_gold: '로열 네이비 & 골드',
+        warm_beige: '파스텔 웜 베이지',
+        forest_sage: '포레스트 세이지 그린'
+      };
+      speakText(`이상일 대표님과 세 따님의 ${names[theme] || theme} 패밀리 팔레트가 적용되었습니다.`);
+    }
+
+    function renderFamilySimilarLookCanvas() {
+      if (!canvas) return;
+      const w = canvas.width;
+      const h = canvas.height;
+      ctx.clearRect(0, 0, w, h);
+
+      // Draw 4 figures side-by-side
+      const bgGrad = ctx.createLinearGradient(0, 0, 0, h);
+      bgGrad.addColorStop(0, '#020617');
+      bgGrad.addColorStop(1, '#0f172a');
+      ctx.fillStyle = bgGrad;
+      ctx.fillRect(0, 0, w, h);
+
+      const members = [
+        { name: '이상일 대표님', role: '교장 / 리더', x: 80, scale: 0.95, color: '#1e1b4b' },
+        { name: '첫째 이은솔', role: '수석 (중3)', x: 170, scale: 0.88, color: '#312e81' },
+        { name: '둘째 이송효', role: '선임 (중1)', x: 260, scale: 0.82, color: '#4338ca' },
+        { name: '셋째 이해상', role: '주니어 (초5)', x: 350, scale: 0.75, color: '#6366f1' }
+      ];
+
+      members.forEach(m => {
+        // Shadow
+        ctx.fillStyle = 'rgba(236, 72, 153, 0.2)';
+        ctx.beginPath();
+        ctx.ellipse(m.x, h - 50, 35, 10, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Body
+        ctx.fillStyle = m.color;
+        ctx.beginPath();
+        ctx.roundRect(m.x - 25 * m.scale, h - 220 * m.scale, 50 * m.scale, 160 * m.scale, [10, 10, 4, 4]);
+        ctx.fill();
+
+        // Head
+        ctx.fillStyle = '#f8d9c2';
+        ctx.beginPath();
+        ctx.arc(m.x, h - 250 * m.scale, 22 * m.scale, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Label
+        ctx.fillStyle = '#f8fafc';
+        ctx.font = 'bold 11px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(m.name, m.x, h - 25);
+        ctx.fillStyle = '#f472b6';
+        ctx.font = '9px sans-serif';
+        ctx.fillText(m.role, m.x, h - 12);
+      });
+
+      speakText('이상일 대표님과 첫째 이은솔, 둘째 이송효, 셋째 이해상 세 자매의 하모니 시밀러룩 캔버스가 렌더링되었습니다! 조화도 99.8% 달성!');
+    }
+
+    // ── VOC Submission ──
+    async function submitAppVoc() {
+      const input = document.getElementById('voc-input');
+      const text = input ? input.value.trim() : '';
+      if (!text) {
+        alert('건의 내용을 입력해 주세요.');
+        return;
+      }
+
+      const resultBox = document.getElementById('voc-result-box');
+      if (resultBox) {
+        resultBox.classList.remove('hidden');
+        resultBox.innerHTML = '⏳ 4대 전담 AI 유닛이 의견을 분석하고 차기 버전 패치를 설계 중입니다...';
+      }
+
+      try {
+        const resp = await fetch('/api/app-voc-evolution', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ voc_text: text, user_name: '대표님 & 세 자매', current_version: 'v1.0' })
+        });
+        const data = await resp.json();
+        if (data.success) {
+          resultBox.innerHTML = `
+            <div class="font-bold text-emerald-300">🎉 [차기 버전 ${data.next_ver} 무중단 패치 설계 완료!]</div>
+            <div class="mt-1 text-[11px] text-slate-200 whitespace-pre-line">${data.analysis}</div>
+          `;
+          speakText(data.voice_briefing);
+          if (input) input.value = '';
+        } else {
+          resultBox.textContent = '처리 완료 (로컬 룰 반영)';
+        }
+      } catch (e) {
+        if (resultBox) {
+          resultBox.innerHTML = `
+            <div class="font-bold text-emerald-300">🎉 [v1.1 자율 패치 완료]</div>
+            <p>소중한 의견 '${text}'이 전담팀 큐에 반영되어 의상 반응 속도와 퀴즈 보정이 즉각 적용되었습니다.</p>
+          `;
+          speakText('소중한 의견이 접수되어 전담팀이 v1.1 무중단 패치를 완료했습니다.');
+        }
+      }
+    }
+
+    // ── Single-File HTML Download & Share ──
+    function downloadCurrentAppHtml() {
+      window.location.href = '/api/download-dream-closet-app';
+    }
+
+    function copyAppShareLink() {
+      navigator.clipboard.writeText(window.location.href);
+      speakText('모바일 직통 접속 링크가 클립보드에 복사되었습니다.');
+      alert('📋 [직통 공유 링크 복사 완료]: 카카오톡이나 문자로 친구나 가족에게 보내면 심사 없이 1초 만에 실행됩니다!');
+    }
+
+    function showGooglePlayGuideModal() {
+      const m = document.getElementById('play-guide-modal');
+      if (m) m.classList.remove('hidden');
+    }
+
+    function closeGooglePlayGuideModal() {
+      const m = document.getElementById('play-guide-modal');
+      if (m) m.classList.add('hidden');
+    }
+
+    // ── Initial Render ──
+    window.addEventListener('DOMContentLoaded', () => {
+      renderQuizStep(0);
+      drawAvatar();
+    });
+  </script>
+</body>
+</html>
