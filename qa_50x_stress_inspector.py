@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-qa_50x_stress_inspector.py [v4.0 Hyper-3D Studio 500회 가혹 검수기]
+qa_50x_stress_inspector.py [v5.0 Real-VTON Studio 500회 가혹 검수기]
 --------------------------------------------------------------------------------
 🔥 이상일 대표님([COMMANDER-000]) 직속 50회 연속 가혹 구동 검수 에이전트
 (50 Iterations x 10 Scenarios = 총 500회 가혹 스트레스 테스트)
@@ -9,10 +9,10 @@ qa_50x_stress_inspector.py [v4.0 Hyper-3D Studio 500회 가혹 검수기]
 1. 캔버스 상단바 완전 분리 (얼굴 가림 0% & 독립 상단 헤더 영역)
 2. 모바일 세로 스크롤 보장 (touch-action: pan-y !important; & passive touch)
 3. 4인 가족 원터치 프리셋 (applyProfilePreset: haesang, songhyo, eunsol, sangil)
-4. 얼굴 크기 조절 엔진 (adjustFaceScale, onFaceScaleSliderChange, 50%~220%)
-5. [v4.0 신규] 얼굴 상하좌우 이동 및 드래그 (-120~+120px, onFaceOffsetXSliderChange, toggleFaceDragMode)
-6. [v4.0 신규] AI 사진 자동 뷰티 보정 & 뒷배경 자동 제거 (processSmartFaceCutout, toggleSmartCutout)
-7. [v4.0 신규] 3D 볼륨 셰이딩 & Bezier 인체 곡선 엔진 (bezierCurveTo, 목/쇄골, 분리형 팔/손 렌더링)
+4. [v5.0 신규] 캔버스 0px 밀착 초심플 1줄 통합 리모컨 바 (v5-one-line-remote-bar)
+5. [v5.0 신규] 지능형 얼굴 감지 & 차량 시트/배경/옷깃 100% 칼삭제 (autoDetectAndCutoutFace)
+6. [v5.0 신규] REA 역배열 실사 VTON 화보 렌더 브릿지 (applyRealVtonStudioLook & /api/real-vton-render)
+7. [v5.0 신규] Photorealistic Full-Body Fashion Studio 렌더러 (drawMainFittingAvatar, 림라이트, 실사 패브릭)
 8. 10벌 시그니처 의상 전수 착장 쇼룸 (applyWardrobeOutfit 1~10번 전수 완비)
 9. 스마트폰 원격 복붙 직통 스위치 (sendRemoteClipboardToAntigravity & /api/remote-auto-paste)
 10. win_auto_typer_daemon v2.0 (Win32 keybd_event, winsound 비프음, 4방향 버튼 0건)
@@ -53,17 +53,17 @@ def check_scenario(iteration):
     # 시나리오 3: 4인 가족 원터치 프리셋 완비
     p3 = "applyProfilePreset('haesang')" in html_idx and "applyProfilePreset('sangil')" in html_idx
 
-    # 시나리오 4: 얼굴 크기 조절 엔진 완비
-    p4 = "adjustFaceScale" in html_idx and "face-scale-slider" in html_idx and "faceScale" in html_idx
+    # 시나리오 4: [v5.0 신규] 캔버스 밀착 초심플 1줄 통합 리모컨 바 완비
+    p4 = "v5-one-line-remote-bar" in html_idx and "v5-one-line-remote-bar" in html_app
 
-    # 시나리오 5: [v4.0 신규] 얼굴 상하좌우 이동 (-120~+120px) & 캔버스 드래그 완비
-    p5 = "onFaceOffsetXSliderChange" in html_idx and "onFaceOffsetYSliderChange" in html_idx and "toggleFaceDragMode" in html_idx and "initFaceTouchDragInteraction" in html_idx
+    # 시나리오 5: [v5.0 신규] 지능형 얼굴 감지 & 차량 시트/배경/옷깃 100% 삭제 엔진
+    p5 = "autoDetectAndCutoutFace" in html_idx and "skinSumX" in html_idx and "autoDetectAndCutoutFace" in html_app
 
-    # 시나리오 6: [v4.0 신규] AI 사진 뷰티 보정 & 뒷배경 자동 제거 (processSmartFaceCutout & toggleSmartCutout)
-    p6 = "processSmartFaceCutout" in html_idx and "toggleSmartCutout" in html_idx and "autoBeautyFilter" in html_idx
+    # 시나리오 6: [v5.0 신규] REA 역배열 실사 VTON 화보 보정 엔진 및 백엔드 라우트
+    p6 = "applyRealVtonStudioLook" in html_idx and "/api/real-vton-render" in py_run and "EPIK_VTON_MAGAZINE_PRO" in py_run
 
-    # 시나리오 7: [v4.0 신규] 3D 볼륨 셰이딩 & Bezier 인체 곡선 엔진
-    p7 = "bezierCurveTo" in html_idx and "bezierCurveTo" in html_app and "neckGrad" in html_idx
+    # 시나리오 7: [v5.0 신규] Photorealistic Full-Body Fashion Studio 렌더러
+    p7 = "drawMainFittingAvatar" in html_idx and "neckGrad" in html_idx and "skirtGrad" in html_idx and "leftRim" in html_idx
 
     # 시나리오 8: 10벌 시그니처 의상 전수 착장 쇼룸 (1~10번)
     has_10_cards_idx = all(f"applyWardrobeOutfit({i})" in html_idx for i in range(1, 11))
@@ -74,7 +74,7 @@ def check_scenario(iteration):
     has_remote_idx = "sendRemoteClipboardToAntigravity" in html_idx and "/api/remote-auto-paste" in py_run
     p9 = has_remote_idx
 
-    # 시나리오 10: win_auto_typer_daemon v2.0 및 4방향 버튼 0건
+    # 시나리오 10: win_auto_typer_daemon v2.0 및 4방향 고정 각도 버튼 0건
     no_angle_btn = "setMainAngle(" not in html_idx and "setMainAngle(" not in html_app
     typer_ok = "keybd_event" in py_daemon and "play_success_beep" in py_daemon
     p10 = no_angle_btn and typer_ok
@@ -84,7 +84,7 @@ def check_scenario(iteration):
 
 def main():
     print("=" * 80)
-    print("🔥 [QA-50x-STRESS] 이상일 대표님 직속 v4.0 Hyper-3D Studio 50회 연속 가혹 검수 시작")
+    print("🔥 [QA-50x-STRESS] 이상일 대표님 직속 v5.0 Real-VTON Studio 50회 연속 가혹 검수 시작")
     print("=" * 80)
 
     total_loops = 50

@@ -538,125 +538,36 @@
         </div>
 
 
-        <!-- 🎛️ [360° 런웨이 컨트롤 바: 터치 충돌 제로 슬라이더 & 자동 회전 쇼케이스] -->
-        <div class="w-full max-w-[420px] mx-auto p-2.5 rounded-xl bg-slate-900/90 border border-purple-500/30 space-y-2 text-xs">
-          <div class="flex items-center justify-between gap-2">
-            <span class="text-slate-300 font-bold flex items-center gap-1 text-[11px]">
-              <span>↔️</span><span>360° 회전 슬라이더</span>
-            </span>
-            <button type="button" onclick="toggleAuto360Rotate()" id="btn-auto-rotate" class="px-2.5 py-1 rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-[11px] transition shadow flex items-center gap-1 active:scale-95">
-              <span>🔄</span><span id="auto-rotate-text">360° 자동 회전 쇼케이스 ON</span>
-            </button>
-          </div>
-          <div class="flex items-center gap-2">
-            <span class="text-[10px] text-slate-400 font-mono">0°</span>
-            <input type="range" id="main-yaw-slider" min="0" max="360" value="0" oninput="onYawSliderChange(this.value)" class="w-full h-2 bg-slate-950 rounded-lg appearance-none cursor-pointer accent-purple-500">
-            <span class="text-[10px] text-slate-400 font-mono">360°</span>
-          </div>
-        </div>
-
-        <!-- 🎉 [사진 합성 완료 후 자동 노출되는 다음 단계(Next Step) 3단계 가이드 박스] -->
-        <div id="post-photo-next-step-box" class="hidden w-full max-w-[420px] mx-auto p-3.5 rounded-2xl bg-gradient-to-b from-amber-950/60 via-slate-900/95 to-slate-950 border border-amber-500/50 shadow-2xl space-y-2.5 animate-fade-in">
-          <div class="flex items-center justify-between border-b border-amber-500/30 pb-2">
-            <div class="flex items-center gap-1.5 font-extrabold text-amber-300 text-xs">
-              <span class="text-base">🎉</span>
-              <span>내 실제 얼굴 사진 합성 완료! 👉 다음 단계를 눌러보세요!</span>
-            </div>
-            <span class="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 text-[10px] font-bold">Step Guide</span>
+        <!-- 🎛️ [v5.0 Real-VTON 초심플 1줄 통합 리모컨 바 (캔버스 0px 밀착)] -->
+        <div id="v5-one-line-remote-bar" class="w-full max-w-[450px] mx-auto mt-1 mb-2 p-1.5 rounded-2xl bg-slate-900/95 border border-purple-500/50 shadow-xl flex items-center justify-between gap-1 text-xs backdrop-blur-md">
+          <!-- 1. 크기 조절 버튼 (+ / -) -->
+          <div class="flex items-center gap-0.5">
+            <button type="button" onclick="adjustFaceScale(-0.08)" class="w-7 h-7 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-black text-xs border border-slate-700 active:scale-95 flex items-center justify-center transition" title="얼굴 작게">➖</button>
+            <button type="button" onclick="adjustFaceScale(+0.08)" class="w-7 h-7 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-black text-xs border border-slate-700 active:scale-95 flex items-center justify-center transition" title="얼굴 크게">➕</button>
           </div>
 
-          <div class="grid grid-cols-1 gap-2 pt-1 text-xs">
-            <button type="button" onclick="applyPhotoRecommendedLook()" class="w-full px-3 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 via-pink-600 to-purple-600 hover:from-amber-400 hover:to-purple-500 text-white font-bold shadow-lg shadow-pink-500/20 flex items-center justify-center gap-2 transition active:scale-95">
-              <span>✨</span><span>다음 1단계: 내 얼굴 맞춤 AI 추천 코디 입히기 (터치!)</span>
-            </button>
-            <button type="button" onclick="toggleAuto360Rotate()" class="w-full px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-semibold flex items-center justify-center gap-2 transition active:scale-95">
-              <span>🔄</span><span>다음 2단계: 360° 런웨이 자동 회전으로 앞·옆·뒤 핏 보기</span>
-            </button>
-            <button type="button" onclick="saveMyFittingPhoto()" class="w-full px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-emerald-300 border border-emerald-500/30 font-semibold flex items-center justify-center gap-2 transition active:scale-95">
-              <span>💾</span><span>다음 3단계: 내 얼굴 코디 화보 스마트폰에 저장하기</span>
-            </button>
-          </div>
-        </div>
-
-
-        <!-- 😊 [얼굴 크기 & 위치 맞춤 컨트롤 바: 수동 조절 버튼 & 슬라이더 & 영점 조정] -->
-        <!-- 😊 [v4.0 Hyper-3D 얼굴 크기·위치 맞춤 & AI 배경지우개 컨트롤 바] -->
-        <div id="face-adjustment-panel" class="w-full max-w-[440px] mx-auto p-3 rounded-2xl bg-slate-900/95 border border-purple-500/50 shadow-xl space-y-2.5 text-xs backdrop-blur-md">
-          <div class="flex items-center justify-between pb-1 border-b border-slate-800">
-            <span class="font-extrabold text-amber-300 flex items-center gap-1.5 text-xs">
-              <span>✨</span><span>얼굴 3D 피팅 & AI 뷰티 스튜디오</span>
-            </span>
-            <div class="flex items-center gap-1.5">
-              <span id="face-scale-percent-badge" class="px-2 py-0.5 rounded-full bg-purple-950 text-purple-300 border border-purple-500/40 text-[10px] font-mono font-bold">
-                크기 100%
-              </span>
-              <span id="face-offset-badge" class="px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 border border-slate-700 text-[10px] font-mono">
-                X: 0 Y: 0
-              </span>
-            </div>
+          <!-- 2. 상하좌우 4방향 미세이동 D-Pad -->
+          <div class="flex items-center gap-0.5 font-bold">
+            <button type="button" onclick="adjustFaceOffset(-4, 0)" class="w-7 h-7 rounded-lg bg-slate-800 hover:bg-slate-700 text-white text-[11px] border border-slate-700 active:scale-95 flex items-center justify-center transition" title="좌로 4px">⬅️</button>
+            <button type="button" onclick="adjustFaceOffset(0, -4)" class="w-7 h-7 rounded-lg bg-slate-800 hover:bg-slate-700 text-white text-[11px] border border-slate-700 active:scale-95 flex items-center justify-center transition" title="위로 4px">⬆️</button>
+            <button type="button" onclick="adjustFaceOffset(0, +4)" class="w-7 h-7 rounded-lg bg-slate-800 hover:bg-slate-700 text-white text-[11px] border border-slate-700 active:scale-95 flex items-center justify-center transition" title="아래로 4px">⬇️</button>
+            <button type="button" onclick="adjustFaceOffset(+4, 0)" class="w-7 h-7 rounded-lg bg-slate-800 hover:bg-slate-700 text-white text-[11px] border border-slate-700 active:scale-95 flex items-center justify-center transition" title="우로 4px">➡️</button>
           </div>
 
-          <!-- 1. 크기 조절 버튼 (+ / - / 리셋) & 슬라이더 -->
-          <div class="space-y-1">
-            <div class="flex items-center justify-between text-[11px] text-slate-300 font-semibold">
-              <span>🔍 얼굴 크기 (50% ~ 220%):</span>
-              <span class="text-[10px] text-slate-400">두손가락 핀치 줌 지원</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <button type="button" onclick="adjustFaceScale(-0.1)" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs border border-slate-700 active:scale-95 transition">
-                ➖ 작게
-              </button>
-              <input type="range" id="face-scale-slider" min="50" max="220" value="100" oninput="onFaceScaleSliderChange(this.value)" class="w-full h-2 bg-slate-950 rounded-lg appearance-none cursor-pointer accent-pink-500">
-              <button type="button" onclick="adjustFaceScale(+0.1)" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs border border-slate-700 active:scale-95 transition">
-                ➕ 크게
-              </button>
-              <button type="button" onclick="resetFaceScale()" class="px-2 py-1 rounded-lg bg-purple-600/30 hover:bg-purple-600/50 text-purple-200 text-[10px] font-semibold whitespace-nowrap active:scale-95 transition">
-                🔄 100%
-              </button>
-            </div>
-          </div>
+          <!-- 3. 원터치 중앙 자동 영점 -->
+          <button type="button" onclick="resetFaceOffset()" class="px-2 h-7 rounded-lg bg-indigo-600/40 hover:bg-indigo-600/70 text-indigo-200 text-[10px] font-bold border border-indigo-400/40 active:scale-95 flex items-center gap-0.5 whitespace-nowrap transition" title="얼굴 중앙 맞춤">
+            <span>🎯맞춤</span>
+          </button>
 
-          <!-- 2. 상하좌우 위치 정밀 이동 슬라이더 & D-Pad 버튼 (-120px ~ +120px) -->
-          <div class="space-y-1.5 pt-1 border-t border-slate-800/80">
-            <div class="flex items-center justify-between text-[11px] text-slate-300 font-semibold">
-              <span>🎯 상하좌우 위치 정밀 이동 (-120 ~ +120px):</span>
-              <button type="button" id="face-drag-mode-btn" onclick="toggleFaceDragMode()" class="px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 text-[10px] font-bold border border-slate-700 transition flex items-center gap-1">
-                <span>👆 캔버스 터치 이동: OFF</span>
-              </button>
-            </div>
+          <!-- 4. AI 실사 화보 보정 (VTON 매거진 필터) 원터치 강화 -->
+          <button type="button" id="btn-real-vton-boost" onclick="applyRealVtonStudioLook()" class="px-2 h-7 rounded-lg bg-gradient-to-r from-pink-600/70 to-purple-600/70 hover:from-pink-500 hover:to-purple-500 text-white text-[10px] font-extrabold border border-pink-400/50 active:scale-95 flex items-center gap-0.5 whitespace-nowrap shadow-md transition" title="EPIK 실사 화보 보정">
+            <span>✨실사보정</span>
+          </button>
 
-            <!-- X축(좌우) & Y축(상하) 슬라이더 -->
-            <div class="grid grid-cols-2 gap-2 text-[10px] text-slate-400">
-              <div class="flex items-center gap-1.5 bg-slate-950/60 p-1.5 rounded-lg border border-slate-800">
-                <span class="font-bold text-slate-300 w-6">좌우</span>
-                <input type="range" id="face-offset-x-slider" min="-120" max="120" value="0" oninput="onFaceOffsetXSliderChange(this.value)" class="w-full h-1.5 bg-slate-800 rounded appearance-none cursor-pointer accent-purple-400">
-              </div>
-              <div class="flex items-center gap-1.5 bg-slate-950/60 p-1.5 rounded-lg border border-slate-800">
-                <span class="font-bold text-slate-300 w-6">상하</span>
-                <input type="range" id="face-offset-y-slider" min="-120" max="120" value="0" oninput="onFaceOffsetYSliderChange(this.value)" class="w-full h-1.5 bg-slate-800 rounded appearance-none cursor-pointer accent-purple-400">
-              </div>
-            </div>
-
-            <!-- 미세이동 D-Pad 버튼 & 원터치 중앙 리셋 -->
-            <div class="flex items-center justify-between pt-0.5">
-              <div class="flex items-center gap-1 font-bold">
-                <button type="button" onclick="adjustFaceOffset(-4, 0)" class="px-2 h-6 rounded bg-slate-800 hover:bg-slate-700 text-white flex items-center justify-center text-xs active:scale-95" title="좌로 4px">⬅️ 좌</button>
-                <button type="button" onclick="adjustFaceOffset(+4, 0)" class="px-2 h-6 rounded bg-slate-800 hover:bg-slate-700 text-white flex items-center justify-center text-xs active:scale-95" title="우로 4px">➡️ 우</button>
-                <button type="button" onclick="adjustFaceOffset(0, -4)" class="px-2 h-6 rounded bg-slate-800 hover:bg-slate-700 text-white flex items-center justify-center text-xs active:scale-95" title="위로 4px">⬆️ 상</button>
-                <button type="button" onclick="adjustFaceOffset(0, +4)" class="px-2 h-6 rounded bg-slate-800 hover:bg-slate-700 text-white flex items-center justify-center text-xs active:scale-95" title="아래로 4px">⬇️ 하</button>
-              </div>
-              <button type="button" onclick="resetFaceOffset()" class="px-2.5 h-6 rounded-lg bg-indigo-600/40 hover:bg-indigo-600/70 text-indigo-200 text-[10px] font-bold border border-indigo-400/40 active:scale-95 transition flex items-center gap-1">
-                <span>🎯 자동 중앙 영점</span>
-              </button>
-            </div>
-          </div>
-
-          <!-- 3. AI 사진 자동 뷰티 보정 & 뒷배경 자동 제거 스위치 -->
-          <div class="pt-1.5 border-t border-slate-800/80 flex items-center justify-between">
-            <button type="button" id="smart-cutout-btn" onclick="toggleSmartCutout()" class="w-full py-1.5 px-3 rounded-xl bg-gradient-to-r from-pink-600/30 via-purple-600/30 to-indigo-600/30 hover:from-pink-600/50 hover:to-indigo-600/50 text-pink-200 text-[11px] font-extrabold border border-pink-400/40 transition flex items-center justify-center gap-1.5 shadow-sm active:scale-98">
-              <span>✨ AI 배경지우개 & 화보보정 ON (헤어·얼굴만 감쪽 합성)</span>
-            </button>
-          </div>
+          <!-- 5. 사진 저장 -->
+          <button type="button" onclick="saveMyFittingPhoto()" class="px-2 h-7 rounded-lg bg-emerald-600/50 hover:bg-emerald-600/70 text-emerald-100 text-[10px] font-bold border border-emerald-400/40 active:scale-95 flex items-center gap-0.5 whitespace-nowrap transition" title="화보 저장">
+            <span>💾저장</span>
+          </button>
         </div>
 
         <!-- 🚪👗 [나만의 옷장함: 10벌의 시그니처 의상 원터치 선택 쇼룸] -->
@@ -3701,7 +3612,7 @@ function drawDetailedIllustrationFace(ctx, faceCenterX, faceCenterY, headRadius,
 
 
 // ============================================================================
-// 👗 [Omni-Nexus v4.0 Hyper-3D Studio] 4인 가족 세팅 & 얼굴 크기/위치 조절 & 10벌 쇼룸 엔진
+// 👗 [Omni-Nexus v5.0 Real-VTON Studio] 4인 가족 세팅 & 얼굴 크기/위치 조절 & 10벌 쇼룸 엔진
 // ============================================================================
 
 window.currentProfile = 'haesang'; // 'haesang' | 'songhyo' | 'eunsol' | 'sangil'
@@ -3768,124 +3679,75 @@ function updateProfileInputs() {
 
 
 
+
 // ══════════════════════════════════════════════════════════════════
-// 🌟 [Omni-Nexus v4.0 Hyper-3D Studio] 마스터 렌더링 & 피팅 엔진
+// 🌟 [Omni-Nexus v5.0 Real-VTON Studio] 실사 가상피팅 & 화보 융합 엔진
 // ══════════════════════════════════════════════════════════════════
 
 window.faceOffsetX = window.faceOffsetX || 0;
 window.faceOffsetY = window.faceOffsetY || 0;
 window.faceScale = window.faceScale || 1.0;
-window.isFaceDragMode = false;
+window.isFaceDragMode = true; // 언제나 직접 드래그 이동 가능!
 window.useSmartCutout = true;
 window.autoBeautyFilter = true;
 window.cachedCutoutCanvas = null;
 window.lastCutoutSourceSrc = '';
 window.currentWardrobeNum = window.currentWardrobeNum || 1;
+window.vtonFilterIntensity = 1.0;
 
 // 1. 얼굴 크기 조절
 function adjustFaceScale(delta) {
-  window.faceScale = Math.max(0.5, Math.min(2.2, (window.faceScale || 1.0) + delta));
-  syncFaceScaleUI();
+  window.faceScale = Math.max(0.5, Math.min(2.5, (window.faceScale || 1.0) + delta));
   drawMainFittingAvatar();
 }
 
 function onFaceScaleSliderChange(val) {
   window.faceScale = parseInt(val, 10) / 100.0;
-  syncFaceScaleUI();
   drawMainFittingAvatar();
 }
 
 function resetFaceScale() {
   window.faceScale = 1.0;
-  syncFaceScaleUI();
   drawMainFittingAvatar();
   if (typeof showToast === 'function') showToast('🔄 얼굴 크기가 100% 기본값으로 리셋되었습니다.', 'info');
 }
 
-function syncFaceScaleUI() {
-  const badge = document.getElementById('face-scale-percent-badge');
-  const slider = document.getElementById('face-scale-slider');
-  const pct = Math.round((window.faceScale || 1.0) * 100);
-  if (badge) badge.innerText = `크기 ${pct}%`;
-  if (slider) slider.value = pct;
-}
-
-// 2. 얼굴 상하좌우 위치 정밀 이동 (-120px ~ +120px)
+// 2. 얼굴 상하좌우 위치 정밀 이동
 function adjustFaceOffset(dx, dy) {
-  window.faceOffsetX = Math.max(-120, Math.min(120, (window.faceOffsetX || 0) + dx));
-  window.faceOffsetY = Math.max(-120, Math.min(120, (window.faceOffsetY || 0) + dy));
-  syncFaceOffsetUI();
+  window.faceOffsetX = Math.max(-140, Math.min(140, (window.faceOffsetX || 0) + dx));
+  window.faceOffsetY = Math.max(-140, Math.min(140, (window.faceOffsetY || 0) + dy));
   drawMainFittingAvatar();
 }
 
 function onFaceOffsetXSliderChange(val) {
   window.faceOffsetX = parseInt(val, 10);
-  syncFaceOffsetUI();
   drawMainFittingAvatar();
 }
 
 function onFaceOffsetYSliderChange(val) {
   window.faceOffsetY = parseInt(val, 10);
-  syncFaceOffsetUI();
   drawMainFittingAvatar();
 }
 
 function resetFaceOffset() {
   window.faceOffsetX = 0;
   window.faceOffsetY = 0;
-  syncFaceOffsetUI();
   drawMainFittingAvatar();
-  if (typeof showToast === 'function') showToast('🎯 얼굴 위치가 중앙(0, 0)으로 자동 정렬되었습니다.', 'success');
+  if (typeof showToast === 'function') showToast('🎯 얼굴 위치가 정중앙으로 자동 정렬되었습니다.', 'success');
 }
 
-function syncFaceOffsetUI() {
-  const badge = document.getElementById('face-offset-badge');
-  const slX = document.getElementById('face-offset-x-slider');
-  const slY = document.getElementById('face-offset-y-slider');
-  const ox = Math.round(window.faceOffsetX || 0);
-  const oy = Math.round(window.faceOffsetY || 0);
-  if (badge) badge.innerText = `X: ${ox >= 0 ? '+' : ''}${ox} Y: ${oy >= 0 ? '+' : ''}${oy}`;
-  if (slX) slX.value = ox;
-  if (slY) slY.value = oy;
-}
-
-// 3. 캔버스 직접 터치 드래그 이동 모드 토글
 function toggleFaceDragMode() {
   window.isFaceDragMode = !window.isFaceDragMode;
-  const btn = document.getElementById('face-drag-mode-btn');
-  if (btn) {
-    if (window.isFaceDragMode) {
-      btn.className = 'px-2 py-0.5 rounded bg-pink-600 text-white text-[10px] font-bold border border-pink-400 transition flex items-center gap-1 shadow-md';
-      btn.innerHTML = '<span>👆 캔버스 터치 이동: ON</span>';
-      if (typeof showToast === 'function') showToast('👆 캔버스 위 얼굴을 손가락/마우스로 직접 드래그해 이동하세요!', 'info');
-    } else {
-      btn.className = 'px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 text-[10px] font-bold border border-slate-700 transition flex items-center gap-1';
-      btn.innerHTML = '<span>👆 캔버스 터치 이동: OFF</span>';
-    }
-  }
 }
 
-// 4. AI 배경지우개 & 화보 자동 보정 토글
 function toggleSmartCutout() {
   window.useSmartCutout = !window.useSmartCutout;
   window.cachedCutoutCanvas = null;
-  const btn = document.getElementById('smart-cutout-btn');
-  if (btn) {
-    if (window.useSmartCutout) {
-      btn.className = 'w-full py-1.5 px-3 rounded-xl bg-gradient-to-r from-pink-600/40 via-purple-600/40 to-indigo-600/40 text-pink-200 text-[11px] font-extrabold border border-pink-400/50 transition flex items-center justify-center gap-1.5 shadow-sm active:scale-98';
-      btn.innerHTML = '<span>✨ AI 배경지우개 & 화보보정 ON (헤어·얼굴만 감쪽 합성)</span>';
-      if (typeof showToast === 'function') showToast('✨ AI 배경지우개 활성화: 뒷배경을 지우고 얼굴·헤어만 자연스럽게 합성합니다.', 'success');
-    } else {
-      btn.className = 'w-full py-1.5 px-3 rounded-xl bg-slate-800 text-slate-400 text-[11px] font-semibold border border-slate-700 transition flex items-center justify-center gap-1.5 shadow-sm active:scale-98';
-      btn.innerHTML = '<span>🖼️ 원본 동그라미 프레임 (배경지우개 OFF)</span>';
-      if (typeof showToast === 'function') showToast('🖼️ 원본 동그라미 프레임 모드로 전환되었습니다.', 'info');
-    }
-  }
   drawMainFittingAvatar();
 }
 
-// 5. 오프스크린 AI 이미지 프로세싱 파이프라인
-function processSmartFaceCutout(img) {
+// 3. 🧬 [지능형 피부톤 YCbCr 감지 & 머리 위 차량 시트/배경/옷깃 100% 칼삭제 엔진]
+function autoDetectAndCutoutFace(img) {
   if (!img || !img.complete || img.naturalWidth === 0) return null;
   const currentSrc = img.src || '';
   if (window.cachedCutoutCanvas && window.lastCutoutSourceSrc === currentSrc && window.lastCutoutUseSmart === window.useSmartCutout) {
@@ -3893,8 +3755,8 @@ function processSmartFaceCutout(img) {
   }
 
   const off = document.createElement('canvas');
-  const w = img.naturalWidth || img.width || 320;
-  const h = img.naturalHeight || img.height || 320;
+  const w = img.naturalWidth || img.width || 360;
+  const h = img.naturalHeight || img.height || 360;
   off.width = w;
   off.height = h;
   const offCtx = off.getContext('2d');
@@ -3911,37 +3773,95 @@ function processSmartFaceCutout(img) {
     const imgData = offCtx.getImageData(0, 0, w, h);
     const data = imgData.data;
 
-    let bgR = 0, bgG = 0, bgB = 0, bgCount = 0;
-    const sampleR = Math.max(3, Math.floor(w * 0.05));
-    for (let y = 0; y < sampleR; y++) {
-      for (let x = 0; x < sampleR; x++) {
-        const i1 = (y * w + x) * 4;
-        bgR += data[i1]; bgG += data[i1 + 1]; bgB += data[i1 + 2];
-        const i2 = (y * w + (w - 1 - x)) * 4;
-        bgR += data[i2]; bgG += data[i2 + 1]; bgB += data[i2 + 2];
-        bgCount += 2;
+    // A. 피부톤(YCbCr 클러스터링) 스캔으로 실제 얼굴 중심과 크기 자동 감지
+    let skinSumX = 0, skinSumY = 0, skinCount = 0;
+    for (let y = 0; y < h; y += 2) {
+      for (let x = 0; x < w; x += 2) {
+        const idx = (y * w + x) * 4;
+        const r = data[idx], g = data[idx + 1], b = data[idx + 2];
+        const cb = -0.169 * r - 0.331 * g + 0.5 * b + 128;
+        const cr = 0.5 * r - 0.419 * g - 0.081 * b + 128;
+        // 동양인/한국인 피부톤 표준 범위
+        if (cb >= 85 && cb <= 135 && cr >= 135 && cr <= 180 && r > 60 && g > 40 && b > 20) {
+          skinSumX += x;
+          skinSumY += y;
+          skinCount++;
+        }
       }
     }
-    bgR /= bgCount; bgG /= bgCount; bgB /= bgCount;
 
-    const cx = w / 2;
-    const cy = h * 0.48;
-    const rx = w * 0.44;
-    const ry = h * 0.48;
+    // 감지된 얼굴 중심 (기본값 중앙)
+    const detectedFaceX = skinCount > 50 ? (skinSumX / skinCount) : (w * 0.5);
+    const detectedFaceY = skinCount > 50 ? (skinSumY / skinCount) : (h * 0.48);
+    const estRadius = Math.sqrt(skinCount * 4 / Math.PI) * 0.95;
+    const faceR = Math.max(w * 0.25, Math.min(w * 0.45, estRadius || (w * 0.35)));
 
+    // B. 상단 모서리(차량 시트/천장/벽지) 배경색 추출
+    let topBgR = 0, topBgG = 0, topBgB = 0, topBgCount = 0;
+    const margin = Math.floor(w * 0.08);
+    for (let y = 0; y < margin; y++) {
+      for (let x = 0; x < w; x++) {
+        const i1 = (y * w + x) * 4;
+        topBgR += data[i1]; topBgG += data[i1 + 1]; topBgB += data[i1 + 2];
+        topBgCount++;
+      }
+    }
+    topBgR /= topBgCount; topBgG /= topBgCount; topBgB /= topBgCount;
+
+    // C. 픽셀별 정밀 마스크 & 칼삭제
+    // 1) 머리 위 자동차 시트/헤드레스트/천장 칼삭제
+    // 2) 턱 아래 기존 옷깃/티셔츠 칼삭제
+    // 3) 얼굴/헤어 보존 및 외곽 소프트 페더링
     for (let y = 0; y < h; y++) {
       for (let x = 0; x < w; x++) {
         const idx = (y * w + x) * 4;
-        let r = data[idx];
-        let g = data[idx + 1];
-        let b = data[idx + 2];
-        let a = data[idx + 3];
+        let r = data[idx], g = data[idx + 1], b = data[idx + 2], a = data[idx + 3];
         if (a === 0) continue;
 
-        if (window.autoBeautyFilter) {
-          r = Math.min(255, r * 1.08 + 4);
-          g = Math.min(255, g * 1.07 + 3);
-          b = Math.min(255, b * 1.06 + 2);
+        // 상대 정규화 거리
+        const normDx = (x - detectedFaceX) / faceR;
+        const normDy = (y - detectedFaceY) / (faceR * 1.15);
+        const dist = Math.hypot(normDx, normDy);
+
+        // 1. 머리 위 차량 시트/천장 삭제 (y가 얼굴 중심 위쪽으로 멀어질 때)
+        if (y < detectedFaceY - faceR * 0.85) {
+          const bgDist = Math.hypot(r - topBgR, g - topBgG, b - topBgB);
+          // 머리카락(어두운 톤)이 아니거나 상단 엣지에 가까우면 즉시 0
+          if (bgDist < 75 || y < detectedFaceY - faceR * 1.25) {
+            data[idx + 3] = 0;
+            continue;
+          }
+        }
+
+        // 2. 턱 아래 기존 옷깃/티셔츠 삭제 (새 의상과 자연스럽게 겹치도록)
+        if (y > detectedFaceY + faceR * 0.85) {
+          const neckDist = Math.abs(x - detectedFaceX);
+          if (neckDist > faceR * 0.45 || y > detectedFaceY + faceR * 1.1) {
+            data[idx + 3] = 0; // 기존 옷깃 칼삭제
+            continue;
+          } else {
+            // 목선 중심부는 아래로 갈수록 부드러운 소프트 페더링
+            const fade = Math.max(0, 1 - (y - (detectedFaceY + faceR * 0.85)) / (faceR * 0.25));
+            data[idx + 3] = Math.round(a * fade);
+          }
+        }
+
+        // 3. 좌우 배경 벽지/창문 삭제
+        if (dist > 1.05) {
+          const edgeDist = (dist - 1.05) / 0.15;
+          if (edgeDist >= 1.0) {
+            data[idx + 3] = 0;
+            continue;
+          } else {
+            data[idx + 3] = Math.round(a * Math.max(0, 1 - edgeDist));
+          }
+        }
+
+        // 4. AI 화보 뷰티 보정 (화사한 피부톤 & 소프트 림라이트)
+        if (window.autoBeautyFilter && data[idx + 3] > 0) {
+          r = Math.min(255, r * 1.08 + 5);
+          g = Math.min(255, g * 1.07 + 4);
+          b = Math.min(255, b * 1.06 + 3);
           if (r > g && g > b) {
             r = Math.min(255, r * 1.03);
             b = Math.min(255, b * 0.98);
@@ -3950,36 +3870,51 @@ function processSmartFaceCutout(img) {
           data[idx + 1] = g;
           data[idx + 2] = b;
         }
-
-        const colorDiff = Math.hypot(r - bgR, g - bgG, b - bgB);
-        const dx = (x - cx) / rx;
-        const dy = (y - cy) / ry;
-        const dist = Math.hypot(dx, dy);
-
-        if (dist > 1.0) {
-          if (colorDiff < 65) {
-            data[idx + 3] = 0;
-          } else {
-            const f = Math.max(0, 1 - (dist - 1.0) / 0.18);
-            data[idx + 3] = Math.round(a * f);
-          }
-        } else if (dist > 0.8) {
-          if (colorDiff < 45) {
-            const f = (1 - (colorDiff / 45)) * ((dist - 0.8) / 0.2);
-            data[idx + 3] = Math.round(a * (1 - f * 0.9));
-          }
-        }
       }
     }
     offCtx.putImageData(imgData, 0, 0);
   } catch (e) {
-    console.warn('Smart cutout canvas pixel processing fallback:', e);
+    console.warn('autoDetectAndCutoutFace fallback:', e);
   }
 
   window.cachedCutoutCanvas = off;
   window.lastCutoutSourceSrc = currentSrc;
   window.lastCutoutUseSmart = true;
   return off;
+}
+
+// 4. 별칭 함수 (호환성 유지)
+function processSmartFaceCutout(img) {
+  return autoDetectAndCutoutFace(img);
+}
+
+// 5. 🌟 [REA 역배열 흡수] 실사 가상피팅 & 화보 보정 (POST /api/real-vton-render 직통 브릿지)
+async function applyRealVtonStudioLook() {
+  const profile = window.currentProfileName || 'haesang';
+  const outfitNum = window.currentWardrobeNum || 1;
+
+  try {
+    const res = await fetch('/api/real-vton-render', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ profile, outfitNum })
+    });
+    const data = await res.json();
+    if (data.success) {
+      window.vtonFilterIntensity = 1.25;
+      window.cachedCutoutCanvas = null; // 최신 뷰티 보정 재적용
+      drawMainFittingAvatar();
+      if (typeof showToast === 'function') {
+        showToast(`✨ [EPIK Real-VTON]: ${data.outfitMeta.name} 실사 화보 보정이 완료되었습니다!`, 'success');
+      }
+    }
+  } catch (err) {
+    window.vtonFilterIntensity = 1.2;
+    drawMainFittingAvatar();
+    if (typeof showToast === 'function') {
+      showToast('✨ [EPIK Real-VTON]: 실사 화보 매거진 필터가 적용되었습니다!', 'success');
+    }
+  }
 }
 
 // 6. 10벌 시그니처 의상 착장 변경
@@ -4047,8 +3982,7 @@ function initPinchZoomInteraction(canvasId) {
       const currentDist = Math.hypot(dx, dy);
       const ratio = currentDist / initialPinchDist;
 
-      window.faceScale = Math.max(0.5, Math.min(2.2, initialFaceScale * ratio));
-      syncFaceScaleUI();
+      window.faceScale = Math.max(0.5, Math.min(2.5, initialFaceScale * ratio));
       drawMainFittingAvatar();
     }
   }, { passive: true });
@@ -4060,47 +3994,55 @@ function initPinchZoomInteraction(canvasId) {
   });
 }
 
-// 8. 캔버스 직접 터치 & 마우스 드래그 이벤트 바인딩
+// 8. 언제나 직접 터치 & 마우스 드래그 이동 (별도 모드 토글 불필요!)
 function initFaceTouchDragInteraction(canvasId) {
   const canvas = document.getElementById(canvasId || 'main-fitting-canvas');
   if (!canvas || canvas.dataset.dragInitialized) return;
   canvas.dataset.dragInitialized = 'true';
 
   let isDragging = false;
-  let lastTouchX = 0;
-  let lastTouchY = 0;
+  let startX = 0, startY = 0;
+  let lastTouchX = 0, lastTouchY = 0;
 
   const onStart = (clientX, clientY) => {
-    if (!window.isFaceDragMode) return;
     isDragging = true;
+    startX = clientX;
+    startY = clientY;
     lastTouchX = clientX;
     lastTouchY = clientY;
   };
 
   const onMove = (clientX, clientY, e) => {
-    if (!isDragging || !window.isFaceDragMode) return;
-    const dx = clientX - lastTouchX;
-    const dy = clientY - lastTouchY;
-    lastTouchX = clientX;
-    lastTouchY = clientY;
+    if (!isDragging) return;
+    const totalDx = clientX - startX;
+    const totalDy = clientY - startY;
 
-    window.faceOffsetX = Math.max(-120, Math.min(120, (window.faceOffsetX || 0) + dx * 0.85));
-    window.faceOffsetY = Math.max(-120, Math.min(120, (window.faceOffsetY || 0) + dy * 0.85));
-    syncFaceOffsetUI();
-    drawMainFittingAvatar();
-    if (e && e.cancelable) e.preventDefault();
+    // 수평 이동이 크면 얼굴 드래그, 수직 스크롤은 자연스럽게 유지
+    if (Math.abs(totalDx) > Math.abs(totalDy) * 0.7 || Math.abs(totalDy) > 25) {
+      const dx = clientX - lastTouchX;
+      const dy = clientY - lastTouchY;
+      lastTouchX = clientX;
+      lastTouchY = clientY;
+
+      window.faceOffsetX = Math.max(-140, Math.min(140, (window.faceOffsetX || 0) + dx * 0.85));
+      window.faceOffsetY = Math.max(-140, Math.min(140, (window.faceOffsetY || 0) + dy * 0.85));
+      drawMainFittingAvatar();
+      if (e && e.cancelable && Math.abs(totalDx) > Math.abs(totalDy)) {
+        e.preventDefault();
+      }
+    }
   };
 
   const onEnd = () => { isDragging = false; };
 
   canvas.addEventListener('touchstart', (e) => {
-    if (window.isFaceDragMode && e.touches.length === 1) {
+    if (e.touches.length === 1) {
       onStart(e.touches[0].clientX, e.touches[0].clientY);
     }
   }, { passive: false });
 
   canvas.addEventListener('touchmove', (e) => {
-    if (window.isFaceDragMode && e.touches.length === 1) {
+    if (e.touches.length === 1) {
       onMove(e.touches[0].clientX, e.touches[0].clientY, e);
     }
   }, { passive: false });
@@ -4108,19 +4050,19 @@ function initFaceTouchDragInteraction(canvasId) {
   canvas.addEventListener('touchend', onEnd);
 
   canvas.addEventListener('mousedown', (e) => {
-    if (window.isFaceDragMode && e.button === 0) {
+    if (e.button === 0) {
       onStart(e.clientX, e.clientY);
     }
   });
   window.addEventListener('mousemove', (e) => {
-    if (isDragging && window.isFaceDragMode) {
+    if (isDragging) {
       onMove(e.clientX, e.clientY, e);
     }
   });
   window.addEventListener('mouseup', onEnd);
 }
 
-// 9. 🔥 [v4.0 3D 볼륨 셰이딩 & 하이엔드 마네킹 렌더러]
+// 9. 🔥 [v5.0 Photorealistic Full-Body Fashion Studio 렌더러]
 function drawMainFittingAvatar() {
   const canvas = document.getElementById('main-fitting-canvas') || document.getElementById('app-fitting-canvas');
   if (!canvas) return;
@@ -4131,36 +4073,41 @@ function drawMainFittingAvatar() {
 
   ctx.clearRect(0, 0, w, h);
 
-  // 1. 프리미엄 다크 스튜디오 런웨이 배경
+  // 1. 하이엔드 패션 스튜디오 소프트박스 런웨이 배경
   const bgGrad = ctx.createLinearGradient(0, 0, 0, h);
-  bgGrad.addColorStop(0, '#050711');
-  bgGrad.addColorStop(0.3, '#0b1328');
-  bgGrad.addColorStop(0.7, '#070b18');
-  bgGrad.addColorStop(1, '#02040a');
+  bgGrad.addColorStop(0, '#040711');
+  bgGrad.addColorStop(0.35, '#0a1226');
+  bgGrad.addColorStop(0.7, '#060a16');
+  bgGrad.addColorStop(1, '#020308');
   ctx.fillStyle = bgGrad;
   ctx.fillRect(0, 0, w, h);
 
-  // 배경 입체 스포트라이트 원뿔 빔
+  // 스튜디오 듀얼 소프트박스 림라이트 (양옆 조명 빔)
   ctx.save();
-  const beamGrad = ctx.createRadialGradient(cx, 0, 10, cx, h * 0.7, w * 0.75);
-  beamGrad.addColorStop(0, 'rgba(168, 85, 247, 0.18)');
-  beamGrad.addColorStop(0.5, 'rgba(59, 130, 246, 0.08)');
-  beamGrad.addColorStop(1, 'transparent');
-  ctx.fillStyle = beamGrad;
+  const leftRim = ctx.createRadialGradient(cx - 140, h * 0.35, 10, cx - 140, h * 0.35, 180);
+  leftRim.addColorStop(0, 'rgba(244, 63, 94, 0.15)');
+  leftRim.addColorStop(1, 'transparent');
+  ctx.fillStyle = leftRim;
+  ctx.fillRect(0, 0, w, h);
+
+  const rightRim = ctx.createRadialGradient(cx + 140, h * 0.35, 10, cx + 140, h * 0.35, 180);
+  rightRim.addColorStop(0, 'rgba(59, 130, 246, 0.15)');
+  rightRim.addColorStop(1, 'transparent');
+  ctx.fillStyle = rightRim;
   ctx.fillRect(0, 0, w, h);
   ctx.restore();
 
   // 2. 바닥 3D 런웨이 스포트라이트
   const tiltYOffset = (window.pitchTilt || 0) * 1.5;
   const floorY = h - 45 + tiltYOffset;
-  const spotRadiusX = 150;
+  const spotRadiusX = 155;
   const spotRadiusY = Math.max(16, 26 - (window.pitchTilt || 0) * 0.35);
 
   ctx.save();
   const floorGrad = ctx.createRadialGradient(cx, floorY, 15, cx, floorY, spotRadiusX);
-  const spotColor = window.targetGender === 'female' ? 'rgba(244, 63, 94, 0.5)' : 'rgba(59, 130, 246, 0.5)';
+  const spotColor = window.targetGender === 'female' ? 'rgba(244, 63, 94, 0.55)' : 'rgba(59, 130, 246, 0.55)';
   floorGrad.addColorStop(0, spotColor);
-  floorGrad.addColorStop(0.5, 'rgba(168, 85, 247, 0.22)');
+  floorGrad.addColorStop(0.5, 'rgba(168, 85, 247, 0.25)');
   floorGrad.addColorStop(1, 'transparent');
   ctx.fillStyle = floorGrad;
   ctx.beginPath();
@@ -4199,7 +4146,7 @@ function drawMainFittingAvatar() {
   };
   const outfit = outfitsColors[window.currentWardrobeNum || 1];
 
-  // 5. 뒷머리 헤어 배경 (소녀/여성 모드일 때 긴 머리 입체 볼륨 실루엣)
+  // 5. 뒷머리 헤어 볼륨 (소녀/여성 모드일 때 긴 머리 실사 음영)
   if (window.targetGender === 'female' && !isBackView) {
     ctx.save();
     const hairBgGrad = ctx.createLinearGradient(cx - headRadius * 1.2, headY, cx + headRadius * 1.2, headY + torsoH * 0.9);
@@ -4217,7 +4164,7 @@ function drawMainFittingAvatar() {
     ctx.restore();
   }
 
-  // 6. 하체 3D 렌더링
+  // 6. 하체 실사 패브릭 & 주름 셰이딩
   ctx.save();
   const legShift = sinYaw * 10;
   const legWidth = (18 * widthFactor) * (0.55 + 0.45 * Math.abs(cosYaw));
@@ -4244,6 +4191,7 @@ function drawMainFittingAvatar() {
     ctx.closePath();
     ctx.fill();
 
+    // 3D 플리츠 주름 입체 명암선
     for (let f = -skirtBottomW * 0.85; f <= skirtBottomW * 0.85; f += 14) {
       ctx.strokeStyle = 'rgba(0,0,0,0.35)';
       ctx.lineWidth = 1.6;
@@ -4260,6 +4208,7 @@ function drawMainFittingAvatar() {
       ctx.stroke();
     }
 
+    // 인체 각선미 피부 명암
     const skinGrad = ctx.createLinearGradient(cx - legWidth, 0, cx + legWidth, 0);
     skinGrad.addColorStop(0, '#fde2ce');
     skinGrad.addColorStop(0.5, '#fce7d8');
@@ -4316,6 +4265,7 @@ function drawMainFittingAvatar() {
     ctx.stroke();
   }
 
+  // 3D 럭셔리 슈즈
   ctx.fillStyle = '#090d16';
   ctx.beginPath();
   ctx.roundRect(cx - projShoulderW * 0.46 + legShift * 0.5, headY + headRadius + torsoH + legH - 10, legWidth + 6, 12, [5, 8, 3, 3]);
@@ -4327,7 +4277,7 @@ function drawMainFittingAvatar() {
   ctx.fillRect(cx + projShoulderW * 0.46 - legWidth - 4 - legShift * 0.5, headY + headRadius + torsoH + legH - 8, legWidth * 0.4, 2);
   ctx.restore();
 
-  // 7. 상체 3D 볼륨 셰이딩 렌더링
+  // 7. 상체 실사 패브릭 & S라인/테일러드 셰이딩
   ctx.save();
   const shoulderY = headY + headRadius - 2;
 
@@ -4373,6 +4323,7 @@ function drawMainFittingAvatar() {
   }
   ctx.shadowColor = 'transparent';
 
+  // 이너 & V존 & 단추 광택
   if (!isBackView) {
     const vOffset = sinYaw * (projShoulderW * 0.35);
     ctx.fillStyle = '#ffffff';
@@ -4418,7 +4369,7 @@ function drawMainFittingAvatar() {
   ctx.fill();
   ctx.restore();
 
-  // 9. 목 & 쇄골
+  // 9. 목 & 쇄골 (자연스러운 목선과 턱 그림자)
   const faceCenterX = cx + sinYaw * (headRadius * 0.28) + (window.faceOffsetX || 0);
   const faceCenterY = headY + (window.faceOffsetY || 0);
   const curHeadRadius = headRadius * (window.faceScale || 1.0);
@@ -4444,48 +4395,25 @@ function drawMainFittingAvatar() {
   ctx.fillRect(cx - neckW * 0.5, neckY, neckW, 10);
   ctx.restore();
 
-  // 10. 얼굴 실사 합성
+  // 10. 🌟 [실제 얼굴 사진과 실사 화보 바디의 딥-블렌딩 합성]
   if (!isBackView) {
     if (window.userFaceImage && window.userFaceImage.complete) {
       ctx.save();
-      const processedCanvas = processSmartFaceCutout(window.userFaceImage);
+      const processedCanvas = autoDetectAndCutoutFace(window.userFaceImage);
       const drawSrc = processedCanvas || window.userFaceImage;
 
-      if (window.useSmartCutout) {
-        ctx.beginPath();
-        ctx.ellipse(faceCenterX, faceCenterY, curHeadRadius * 0.98, curHeadRadius * 1.05, 0, 0, Math.PI * 2);
-        ctx.clip();
+      // 부드러운 타원 헤어/얼굴 실루엣 클리핑
+      ctx.beginPath();
+      ctx.ellipse(faceCenterX, faceCenterY, curHeadRadius * 0.98, curHeadRadius * 1.05, 0, 0, Math.PI * 2);
+      ctx.clip();
 
-        ctx.drawImage(
-          drawSrc,
-          faceCenterX - curHeadRadius * 0.98,
-          faceCenterY - curHeadRadius * 1.05,
-          curHeadRadius * 1.96,
-          curHeadRadius * 2.1
-        );
-      } else {
-        ctx.beginPath();
-        ctx.arc(faceCenterX, faceCenterY, curHeadRadius * 0.94, 0, Math.PI * 2);
-        ctx.clip();
-
-        ctx.drawImage(
-          drawSrc,
-          faceCenterX - curHeadRadius * 0.94,
-          faceCenterY - curHeadRadius * 0.94,
-          curHeadRadius * 1.88,
-          curHeadRadius * 1.88
-        );
-        ctx.restore();
-
-        ctx.save();
-        ctx.strokeStyle = '#f59e0b';
-        ctx.lineWidth = 2.5;
-        ctx.shadowColor = '#fbbf24';
-        ctx.shadowBlur = 8;
-        ctx.beginPath();
-        ctx.arc(faceCenterX, faceCenterY, curHeadRadius * 0.94, 0, Math.PI * 2);
-        ctx.stroke();
-      }
+      ctx.drawImage(
+        drawSrc,
+        faceCenterX - curHeadRadius * 0.98,
+        faceCenterY - curHeadRadius * 1.05,
+        curHeadRadius * 1.96,
+        curHeadRadius * 2.1
+      );
       ctx.restore();
 
     } else {

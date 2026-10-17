@@ -1,21 +1,21 @@
 {
   "system": "RGON_ANTIGRAVITY_BI_DIRECTIONAL_SYNC_V1",
-  "version": "v4.0-hyper-3d",
+  "version": "v5.0-real-vton",
   "last_in_signal": {
     "signal": "⟪⚡RGON_SIGNAL_READY⚡⟫",
     "status": "QUEUED_FOR_ANTIGRAVITY",
     "sender": "Test-Runner",
     "prompt": "테스트 과업 지시입니다.",
-    "timestamp": "2026-10-17T23:15:03.473474"
+    "timestamp": "2026-10-17T23:57:51.937063"
   },
   "last_out_signal": {
     "signal": "⟪✅ANTIGRAVITY_OUT_COMPLETE✅⟫",
     "status": "COMPLETED",
     "sender": "AGV-101",
-    "summary": "v4.0 Hyper-3D Studio 비주얼 대혁명 완수 (얼굴 드래그/슬라이더, AI 배경제거, 3D 볼륨 렌더러)",
-    "version": "v4.0-hyper-3d",
-    "timestamp": "2026-10-17 23:15:40"
+    "summary": "v5.0 Real-VTON Studio 실사 가상피팅 & 1줄 리모컨 바 완수 (얼굴 자동감지/배경100%삭제, 실사 VTON 화보 렌더러)",
+    "version": "v5.0-real-vton",
+    "timestamp": "2026-10-18 00:02:00"
   },
-  "auto_sync_count": 27,
-  "last_updated": "2026-10-17 23:15:40"
+  "auto_sync_count": 30,
+  "last_updated": "2026-10-18 00:02:00"
 }
