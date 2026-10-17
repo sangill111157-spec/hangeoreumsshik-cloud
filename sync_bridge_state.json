@@ -1,0 +1,21 @@
+{
+  "system": "RGON_ANTIGRAVITY_BI_DIRECTIONAL_SYNC_V1",
+  "version": "v3.6-pro",
+  "last_in_signal": {
+    "signal": "⟪⚡RGON_SIGNAL_READY⚡⟫",
+    "status": "QUEUED_FOR_ANTIGRAVITY",
+    "sender": "Test-Runner",
+    "prompt": "테스트 과업 지시입니다.",
+    "timestamp": "2026-10-17T20:57:11.094670"
+  },
+  "last_out_signal": {
+    "signal": "⟪✅ANTIGRAVITY_OUT_COMPLETE✅⟫",
+    "status": "COMPLETED",
+    "sender": "Antigravity-IDE",
+    "summary": "📸 실사 얼굴 원형 클리핑 100% 합성, 🔄 4방향 버튼 완전 삭제 & 3D 360도 연속 회전/틸트 런웨이, 🔘 전 버튼 수리 및 ⚡ 르곤-안실장 양방향 무인 동기화 엔진 완벽 가동",
+    "version": "v3.6-pro",
+    "timestamp": "2026-10-17T20:57:41.463396"
+  },
+  "auto_sync_count": 7,
+  "last_updated": "2026-10-17T20:57:41.463396"
+}

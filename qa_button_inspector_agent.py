@@ -2,11 +2,12 @@
 """
 qa_button_inspector_agent.py
 --------------------------------------------------------------------------------
-이상일 대표님의 특명: 스마트폰 v3.5 Pro 전수 버튼 및 3D/얼굴합성 독립 검수 에이전트
+이상일 대표님의 특명: 스마트폰 v3.5/v3.6 Pro 전수 버튼 및 3D/얼굴합성 & 르곤-안실장 무인 동기화 독립 검수 에이전트
 1. 대시보드 및 독립 앱 내 모든 <button> & onclick 핸들러 전수 검사 (미정의 함수 0건 확인)
 2. 4방향 고정 각도 버튼 완전 삭제 여부 검증
 3. 3D 360° 좌우회전 / 상하 틸트 및 실사 얼굴 합성 엔진 검증
-4. 5개 탭 DOM 누수 0건 격리 무결성 및 JS 문법(node --check) 검증
+4. 르곤-안실장 양방향 시그널 무인 동기화 브릿지 (rgon_auto_sync_daemon.py) 검증
+5. 5개 탭 DOM 누수 0건 격리 무결성 및 JS 문법(node --check) 검증
 --------------------------------------------------------------------------------
 """
 
@@ -31,10 +32,9 @@ def check_file_onclick_integrity(filepath):
     onclick_matches = re.findall(r'onclick=(["\'])(.*?)\1', content, re.IGNORECASE)
     onclick_calls = [m[1].strip() for m in onclick_matches]
 
-    # 호출 함수명 추출 (점 앞의 메서드 제외: e.g. obj.method() -> method 제외)
+    # 호출 함수명 추출
     called_funcs = set()
     for oc in onclick_calls:
-        # 점이 붙지 않은 순수 함수 호출 추출: (?<!\.)\b([a-zA-Z0-9_$]+)\s*\(
         funcs = re.findall(r'(?<!\.)\b([a-zA-Z0-9_$]+)\s*\(', oc)
         for fn in funcs:
             called_funcs.add(fn)
@@ -43,17 +43,13 @@ def check_file_onclick_integrity(filepath):
     defined_funcs = set()
     script_blocks = re.findall(r'<script\b[^>]*>(.*?)</script>', content, re.DOTALL | re.IGNORECASE)
     for block in script_blocks:
-        # function funcName(...)
         for fn in re.findall(r'function\s+([a-zA-Z0-9_$]+)\s*\(', block):
             defined_funcs.add(fn)
-        # var/let/const/window.funcName = ...
         for fn in re.findall(r'(?:var|let|const|window\.)\s*([a-zA-Z0-9_$]+)\s*=\s*', block):
             defined_funcs.add(fn)
-        # async function funcName(...)
         for fn in re.findall(r'async\s+function\s+([a-zA-Z0-9_$]+)\s*\(', block):
             defined_funcs.add(fn)
 
-    # 표준 브라우저 빌트인 제외
     standard_builtins = {
         'alert', 'confirm', 'prompt', 'preventDefault', 'stopPropagation',
         'open', 'close', 'focus', 'blur', 'print', 'scrollTo', 'scrollBy',
@@ -79,7 +75,6 @@ def check_angle_buttons_removal(filepath):
     with open(filepath, "r", encoding="utf-8") as f:
         content = f.read()
 
-    # setMainAngle(0), setMainAngle(90) 등의 버튼 태그가 HTML 상에 남아있는지 검사
     button_fixed_angles = re.findall(r'<button[^>]*setMainAngle\(\s*\d+\s*\)[^>]*>', content, re.IGNORECASE)
     if button_fixed_angles:
         print(f"  ❌ [FAIL] 4방향 고정 각도 버튼이 아직 남아있음 ({len(button_fixed_angles)}개):")
@@ -104,6 +99,8 @@ def check_3d_and_face_synthesis(filepath):
         "캔버스 얼굴 원형 클리핑 합성 (drawImage & clip)": "drawImage" in content and "clip" in content,
         "내 얼굴 사진 넣기 버튼 ([📸 내 얼굴 사진 넣기])": "내 얼굴 사진 넣기" in content,
         "사진 촬영/선택 플로팅 메뉴 (face-photo-menu)": "face-photo-menu" in content,
+        "3D 360° 회전 실시간 배지 (3D 360° 좌우·상하 터치 회전)": "3D 360° 좌우·상하 터치 회전" in content,
+        "시그널 오토싱크 사령탑 바 (rgon-signal-sync-bar)": "rgon-signal-sync-bar" in content,
     }
 
     all_passed = True
@@ -145,12 +142,32 @@ def check_node_syntax(filepath):
         if os.path.exists(temp_js_path):
             os.remove(temp_js_path)
 
+def check_rgon_auto_sync_daemon():
+    print("\n[⚡ 5. 르곤-안실장 무인 동기화 데몬 (rgon_auto_sync_daemon.py) 검수]")
+    if not os.path.exists("rgon_auto_sync_daemon.py"):
+        print("  ❌ [FAIL] rgon_auto_sync_daemon.py 파일 없음")
+        return False
+    if not os.path.exists("sync_bridge_state.json"):
+        print("  ❌ [FAIL] sync_bridge_state.json 파일 없음")
+        return False
+
+    try:
+        res = subprocess.run(["python", "rgon_auto_sync_daemon.py", "--test-sync"], capture_output=True, text=True, encoding="utf-8", errors="replace")
+        if "100% 통과" in res.stdout or "PASS" in res.stdout:
+            print("  ✅ [PASS] 르곤이 시그널 IN/OUT 양방향 무인 동기화 엔진 100% 정상 가동!")
+            return True
+        else:
+            print(f"  ❌ [FAIL] 데몬 자가검증 실패:\n{res.stdout}\n{res.stderr}")
+            return False
+    except Exception as e:
+        print(f"  ❌ [FAIL] 실행 에러: {e}")
+        return False
+
 def check_swarm_dom_isolation():
-    print("\n[🛡️ 5. 에이전트 스웜(agent_swarm_cloner.py) DOM 격리 무결성 검수]")
+    print("\n[🛡️ 6. 에이전트 스웜(agent_swarm_cloner.py) DOM 격리 무결성 검수]")
     if os.path.exists("agent_swarm_cloner.py"):
         try:
             res = subprocess.run(["python", "agent_swarm_cloner.py"], capture_output=True, text=True, encoding="utf-8", errors="replace")
-            print(res.stdout.strip())
             if "'success': True" in res.stdout and res.stdout.count("'status': 'PASS'") >= 5:
                 print("  ✅ [PASS] 5개 탭 DOM 완전 격리 및 누수 0건 검증 완료!")
                 return True
@@ -165,7 +182,7 @@ def check_swarm_dom_isolation():
 
 def main():
     print("=" * 80)
-    print("🚀 [독립 검수 에이전트: QA-Inspector-Bot] 대시보드 v3.5 Pro 전수 검수 시작")
+    print("🚀 [독립 검수 에이전트: QA-Inspector-Bot] 대시보드 v3.6 Pro 전수 검수 시작")
     print("=" * 80)
 
     files_to_check = [
@@ -184,7 +201,8 @@ def main():
         file_passed = pass1 and pass2 and pass3 and pass4
         all_file_results.append((fp, file_passed, missing_funcs))
 
-    pass5 = check_swarm_dom_isolation()
+    pass_sync = check_rgon_auto_sync_daemon()
+    pass_swarm = check_swarm_dom_isolation()
 
     print("\n" + "=" * 80)
     print("📋 [최종 검수 판정표]")
@@ -198,9 +216,14 @@ def main():
             if missing:
                 print(f"  👉 결손 함수: {missing}")
 
-    status5 = "🏅 100% PASS" if pass5 else "❌ REJECT"
-    print(f"- 5개 탭 DOM 누수 격리 무결성: {status5}")
-    if not pass5:
+    status_sync = "🏅 100% PASS" if pass_sync else "❌ REJECT"
+    print(f"- 르곤-안실장 무인 동기화 엔진: {status_sync}")
+    if not pass_sync:
+        total_pass = False
+
+    status_swarm = "🏅 100% PASS" if pass_swarm else "❌ REJECT"
+    print(f"- 5개 탭 DOM 누수 격리 무결성: {status_swarm}")
+    if not pass_swarm:
         total_pass = False
 
     print("=" * 80)

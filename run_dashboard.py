@@ -1212,6 +1212,25 @@ class DashboardHandler(SimpleHTTPRequestHandler):
         path = parsed.path
         query = urllib.parse.parse_qs(parsed.query)
 
+        # ⚡ 르곤-안실장 OUT 시그널 조회 (GET /api/signal-sync-out)
+        if path == '/api/signal-sync-out':
+            state_file = BASE_DIR / "sync_bridge_state.json"
+            if state_file.exists():
+                try:
+                    with open(state_file, "r", encoding="utf-8") as f:
+                        data = json.load(f)
+                except Exception:
+                    data = {"status": "ok", "last_out_signal": {}}
+            else:
+                data = {"status": "ok", "last_out_signal": {}}
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json; charset=utf-8')
+            self.send_header('Access-Control-Allow-Origin', '*')
+            self.end_headers()
+            self.wfile.write(json.dumps(data, ensure_ascii=False).encode('utf-8'))
+            return
+
+
         # 1. 설정 자동 주입
         if path == '/api/config':
             gh_token = get_github_token()
@@ -1419,6 +1438,56 @@ class DashboardHandler(SimpleHTTPRequestHandler):
         return super().do_GET()
 
     def do_POST(self):
+
+        # ⚡ 르곤이 IN 시그널 수신 & 작업 자동 주입 (POST /api/signal-sync-in)
+        if self.path == '/api/signal-sync-in':
+            length = int(self.headers.get('Content-Length', 0))
+            raw_body = self.rfile.read(length)
+            try:
+                data = json.loads(raw_body.decode('utf-8'))
+                raw_prompt = data.get("prompt", "")
+                sender = data.get("sender", "Gemini-4-Argon")
+                
+                import rgon_auto_sync_daemon
+                rgon_auto_sync_daemon.handle_in_signal(raw_prompt, sender=sender)
+                
+                resp = {
+                    "status": "ok",
+                    "message": "⚡ 르곤이 시그널이 성공적으로 캐치되어 안실장 작업 큐에 자동 주입되었습니다!",
+                    "signal": "⟪⚡RGON_SIGNAL_READY⚡⟫"
+                }
+            except Exception as e:
+                resp = {"status": "error", "message": str(e)}
+            
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json; charset=utf-8')
+            self.send_header('Access-Control-Allow-Origin', '*')
+            self.end_headers()
+            self.wfile.write(json.dumps(resp, ensure_ascii=False).encode('utf-8'))
+            return
+
+        # ⚡ 안실장 OUT 시그널 기록 (POST /api/signal-sync-out)
+        if self.path == '/api/signal-sync-out':
+            length = int(self.headers.get('Content-Length', 0))
+            raw_body = self.rfile.read(length)
+            try:
+                data = json.loads(raw_body.decode('utf-8'))
+                summary = data.get("summary", "안실장 작업 완료")
+                version = data.get("version", "v3.6-pro")
+                
+                import rgon_auto_sync_daemon
+                rgon_auto_sync_daemon.handle_out_signal(summary, version=version)
+                resp = {"status": "ok", "message": "안실장 OUT 시그널이 동기화되었습니다.", "signal": "⟪✅ANTIGRAVITY_OUT_COMPLETE✅⟫"}
+            except Exception as e:
+                resp = {"status": "error", "message": str(e)}
+                
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json; charset=utf-8')
+            self.send_header('Access-Control-Allow-Origin', '*')
+            self.end_headers()
+            self.wfile.write(json.dumps(resp, ensure_ascii=False).encode('utf-8'))
+            return
+
         # 1. Suno 렌더링
         if self.path == '/api/render-suno':
             length = int(self.headers.get('Content-Length', 0))
