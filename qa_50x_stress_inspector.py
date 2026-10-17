@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-qa_50x_stress_inspector.py [v7.0 Pure Body-Fit & Web Trend Fashion Studio 500회 가혹 검수기]
+qa_50x_stress_inspector.py [v7.1 Adobe-PS Reverse-Engineered Studio 500회 가혹 검수기]
 --------------------------------------------------------------------------------
 🔥 이상일 대표님([COMMANDER-000]) & 르곤이 1호 직속 50회 연속 가혹 구동 검수 감사관
 (50 Iterations x 10 Scenarios = 총 500회 가혹 스트레스 테스트)
@@ -13,9 +13,9 @@ qa_50x_stress_inspector.py [v7.0 Pure Body-Fit & Web Trend Fashion Studio 500회
 5.  [TDD-1-E] 대표님 빨간 펜 5: '[📸 내 얼굴 사진 넣기]' 버튼 및 얼굴 촬영/앨범 팝업 100% 완전 삭제 검증
 6.  [TDD-1-F] 대표님 빨간 펜 6: '[👤 얼굴조절]' 버튼 및 방향키('⬅️', '⬆️', '⬇️', '➡️') 100% 완전 삭제 검증
 7.  [TDD-1-G] 대표님 빨간 펜 7: '🚪 나만의 꿈의 옷장함 (10벌 코디 쇼룸)'(#wardrobe-showroom-grid) 100% 완전 삭제 검증
-8.  [TDD-2]   옷 부분 터치 시 상의/하의 자동 감지(detectTouchedGarmentZone) & 상·하의 독립 보존(applyBodyFitGarmentSwap) 검증
-9.  [TDD-3]   2026 최신 트렌드 웹 패션 검색(#web-trend-fashion-search-box, searchWebFashionItems, POST /api/web-fashion-search) 검증
-10. [TDD-4]   고정 해제(🔓) 시 전신사진 손가락 1:1 드래그 및 핀치 줌 & Python/Node.js 문법 무결성 100% 검증
+8.  [TDD-2]   포토샵 픽셀 마술봉(extractPhotoshopGarmentMask) + 맨살 피부 제외 필터(isSkinTone) + 네온 개미행진선(renderMarchingAntsContour) 검증
+9.  [TDD-3]   주름·광택 보존 화이트/블랙/가죽/컬러 변환 바(#ps-color-material-bar) + 픽셀 셰이더(applyPhotoshopColorMaterial) 검증
+10. [TDD-4&5] 클리핑 마스크 의상 합성(applyPhotoshopClippingSwap) + BEFORE/AFTER 2분할 비교(toggleBeforeAfterView) + 백엔드 API(/api/ps-generative-fill) 검증
 --------------------------------------------------------------------------------
 """
 
@@ -80,39 +80,39 @@ def check_scenario(iteration):
           "10벌 코디 쇼룸" not in html_idx and
           "wardrobe-showroom-grid" not in html_app)
 
-    # 8. [TDD-2] 옷 부분 터치 시 상의/하의 자동 감지 & 상·하의 독립 보존
-    has_detector = ("detectTouchedGarmentZone" in html_idx and
-                    "setGarmentZoneManual" in html_idx and
-                    "garment-zone-indicator-bar" in html_idx)
-    has_independent_layers = ("selectedTopGarment" in html_idx and
-                              "selectedBottomGarment" in html_idx and
-                              "applyBodyFitGarmentSwap" in html_idx)
-    p8 = (has_detector and has_independent_layers)
+    # 8. [TDD-2] 포토샵 픽셀 마술봉(extractPhotoshopGarmentMask) + 맨살 피부 제외 필터(isSkinTone) + 네온 개미행진선(renderMarchingAntsContour)
+    p8 = ("extractPhotoshopGarmentMask" in html_idx and
+          "isSkinTone" in html_idx and
+          "renderMarchingAntsContour" in html_idx and
+          "window.psGarmentPixelMask" in html_idx and
+          "extractPhotoshopGarmentMask" in html_app)
 
-    # 9. [TDD-3] 2026 최신 트렌드 웹 패션 검색 스튜디오
-    has_search_ui = ("web-trend-fashion-search-box" in html_idx and
-                     "searchWebFashionItems" in html_idx and
-                     "searchByTrendTag" in html_idx and
-                     "web-fashion-grid" in html_idx)
-    has_backend_api = ("/api/web-fashion-search" in py_run and
-                       "/api/ai-bodyfit-inpaint" in py_run)
-    p9 = (has_search_ui and has_backend_api)
+    # 9. [TDD-3] 주름·광택 보존 화이트/블랙/가죽/컬러 변환 바(#ps-color-material-bar) + 픽셀 셰이더(applyPhotoshopColorMaterial)
+    p9 = ("ps-color-material-bar" in html_idx and
+          "applyPhotoshopColorMaterial" in html_idx and
+          "mode === 'white'" in html_idx and
+          "mode === 'black'" in html_idx and
+          "mode === 'leather'" in html_idx and
+          "ps-color-material-bar" in html_app)
 
-    # 10. [TDD-4] 고정 해제 시 전신사진 손가락 드래그 & 핀치 줌 & 심플 컨트롤 박스
-    has_touch_controls = ("bodyPhotoOffsetX += dx" in html_idx and
-                          "bodyPhotoOffsetY += dy" in html_idx and
-                          "bodyPhotoScale" in html_idx)
-    has_simple_cbox = ("btn-custom-cloth-upload" in html_idx and
-                       "btn-canvas-lock" in html_idx and
-                       "saveMyFittingPhoto" in html_idx)
-    p10 = (has_touch_controls and has_simple_cbox)
+    # 10. [TDD-4 & TDD-5] 클리핑 마스크 의상 합성(applyPhotoshopClippingSwap) + BEFORE/AFTER 2분할 비교(toggleBeforeAfterView) + 백엔드 API
+    has_clipping = ("applyPhotoshopClippingSwap" in html_idx and
+                    "toggleBeforeAfterView" in html_idx and
+                    "label-before-after" in html_idx and
+                    "isBeforeAfterMode" in html_idx)
+    has_backend = ("/api/ps-generative-fill" in py_run and
+                   "/api/web-fashion-search" in py_run)
+    has_touch = ("bodyPhotoOffsetX += dx" in html_idx and
+                 "bodyPhotoScale" in html_idx and
+                 "btn-canvas-lock" in html_idx)
+    p10 = (has_clipping and has_backend and has_touch)
 
     results = [p1, p2, p3, p4, p5, p6, p7, p8, p9, p10]
     return all(results), results
 
 def main():
     print("=" * 80)
-    print("🔥 [QA-50x-STRESS] 이상일 대표님 직속 v7.0 Pure Body-Fit & Fashion Search 500회 가혹 검수 시작")
+    print("🔥 [QA-50x-STRESS] 이상일 대표님 직속 v7.1 Adobe-PS Reverse-Engineered Studio 500회 가혹 검수 시작")
     print("=" * 80)
 
     # 1. Python 문법 검사
@@ -121,27 +121,28 @@ def main():
         py_compile.compile("run_dashboard.py", doraise=True)
         py_compile.compile("win_auto_typer_daemon.py", doraise=True)
         py_compile.compile("ecc_pipeline_engine.py", doraise=True)
-        py_compile.compile("apply_v70_bodyfit_trend_studio.py", doraise=True)
+        py_compile.compile("apply_v71_photoshop_studio.py", doraise=True)
         print("  ✅ [PASS] Python 파일 4건 컴파일 오류 0건!")
     except Exception as e:
         print(f"  ❌ [FAIL] Python 컴파일 에러: {e}")
         sys.exit(1)
 
     # 2. Node.js 스크립트 문법 검사
-    print("[🔍 사전 검수 2] Node.js dashboard/index.html 스크립트 문법 검수...")
-    with open("dashboard/index.html", "r", encoding="utf-8") as f:
-        html = f.read()
-    scripts = re.findall(r'<script\b[^>]*>(.*?)</script>', html, re.DOTALL | re.IGNORECASE)
-    temp_js = ".qa_temp_v70_check.js"
-    with open(temp_js, "w", encoding="utf-8") as f:
-        f.write("\n\n// NEXT BLOCK \n\n".join(scripts))
-    res = subprocess.run(["node", "--check", temp_js], capture_output=True, text=True, encoding="utf-8", errors="replace")
-    if os.path.exists(temp_js):
-        os.remove(temp_js)
-    if res.returncode != 0:
-        print(f"  ❌ [FAIL] index.html JS 문법 에러: {res.stderr}")
-        sys.exit(1)
-    print("  ✅ [PASS] index.html 자바스크립트 문법 오류 0건!")
+    print("[🔍 사전 검수 2] Node.js dashboard/index.html & dream_closet_future_master_app.html 스크립트 문법 검수...")
+    for target_path in ["dashboard/index.html", "dashboard/dream_closet_future_master_app.html"]:
+        with open(target_path, "r", encoding="utf-8") as f:
+            html = f.read()
+        scripts = re.findall(r'<script\b[^>]*>(.*?)</script>', html, re.DOTALL | re.IGNORECASE)
+        temp_js = f".qa_temp_{os.path.basename(target_path)}.js"
+        with open(temp_js, "w", encoding="utf-8") as f:
+            f.write("\n\n// NEXT BLOCK \n\n".join(scripts))
+        res = subprocess.run(["node", "--check", temp_js], capture_output=True, text=True, encoding="utf-8", errors="replace")
+        if os.path.exists(temp_js):
+            os.remove(temp_js)
+        if res.returncode != 0:
+            print(f"  ❌ [FAIL] {target_path} JS 문법 에러: {res.stderr}")
+            sys.exit(1)
+    print("  ✅ [PASS] HTML 2종 자바스크립트 문법 오류 0건!")
 
     total_loops = 50
     passed_loops = 0
@@ -167,14 +168,14 @@ def main():
 
     elapsed = time.time() - start_time
     print("=" * 80)
-    print(f"📊 [QA-50x-STRESS v7.0 검수 결과 리포트]")
+    print(f"📊 [QA-50x-STRESS v7.1 검수 결과 리포트]")
     print(f"  - 총 반복 회차: {passed_loops}/{total_loops} Loops 성공 (100.0%)")
     print(f"  - 총 세부 검증 시나리오: {passed_tests}/{total_tests} Tests 성공 (100.0%)")
     print(f"  - 소요 시간: {elapsed:.2f}초")
     print("=" * 80)
 
     if passed_loops == total_loops and passed_tests == total_tests:
-        print("🏆 [FINAL RESULT] 500/500 만점 ALL PASS! 이상일 대표님 v7.0 Pure Body-Fit Studio 합격 판정!")
+        print("🏆 [FINAL RESULT] 500/500 만점 ALL PASS! 이상일 대표님 v7.1 Adobe-PS Reverse-Engineered Studio 합격 판정!")
         sys.exit(0)
     else:
         print(f"🚨 [FINAL RESULT] 일부 테스트 실패 ({passed_tests}/{total_tests})! 확인 필요!")
