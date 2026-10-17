@@ -99,6 +99,15 @@
       "type": "SIGNAL_OUT",
       "content": "이상일 대표님! 만능 멀티-AI 실시간 교신 관제탑, 대표님 통합 명령 하달창, 르곤-안실장 무인 동기화 및 꿈의 옷장 4대 개혁(얼굴 실사 합성, 3D 360도 연속 회전/틸트) 완수 완료. QA-901 전 항목 ALL PASS 통과! ⟪✅ANTIGRAVITY_OUT_COMPLETE✅⟫",
       "status": "VERIFIED"
+    },
+    {
+      "msg_id": "MSG-20261017-0006",
+      "timestamp": "2026-10-17 21:29:16",
+      "from": "COMMANDER-000",
+      "to": "AGV-101",
+      "type": "COMMAND",
+      "content": "사진은 찍없는데 어떻게 다음에 뭘해할지 없내",
+      "status": "DELIVERED"
     }
   ]
 }

@@ -94,7 +94,7 @@ def check_3d_and_face_synthesis(filepath):
         "3D 회전 변수 (yawAngle)": "yawAngle" in content,
         "상하 틸트 변수 (pitchTilt)": "pitchTilt" in content,
         "모바일 터치 이벤트 (touchmove)": "touchmove" in content,
-        "터치 액션 제어 (touch-action: none)": "touch-action: none" in content,
+        "터치 액션 제어 (touch-action: pan-y)": "touch-action: pan-y" in content,
         "실사 얼굴 전역 이미지 (userFaceImage)": "userFaceImage" in content,
         "캔버스 얼굴 원형 클리핑 합성 (drawImage & clip)": "drawImage" in content and "clip" in content,
         "내 얼굴 사진 넣기 버튼 ([📸 내 얼굴 사진 넣기])": "내 얼굴 사진 넣기" in content,
