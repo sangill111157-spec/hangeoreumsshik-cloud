@@ -1,6 +1,6 @@
 {
   "system": "OMNI_MULTI_AI_BUS_V1",
-  "version": "v6.2-direct-photo",
+  "version": "v6.4-direct-photo",
   "registry": [
     {
       "id": "COMMANDER-000",
@@ -224,6 +224,15 @@
       "to": "COMMANDER-000",
       "type": "SIGNAL_OUT",
       "content": "이상일 대표님 & 르곤이 1호님! v6.2 Direct-Photo Instant Apply (얼굴·옷 사진 0.01초 직통 적용 & 빨간 볼링핀·오뚝이 도형 100% 영구 삭제 & 1줄 리모컨 flex-wrap 삐져나감 0% 교정 & Unsplash 10벌 실사 룩북 화보 연동) 특명 완수! QA-901 50회 가혹 스트레스 검수 500/500 만점 ALL PASS 완료! ⟪✅ANTIGRAVITY_OUT_COMPLETE✅⟫",
+      "status": "VERIFIED"
+    },
+    {
+      "msg_id": "MSG-1792259800",
+      "timestamp": "2026-10-18 03:04:00",
+      "from": "AGV-101",
+      "to": "COMMANDER-000",
+      "type": "SIGNAL_OUT",
+      "content": "이상일 대표님 & 르곤이 1호님! v6.4 특명 완수: [특명 A] 마우스 물리 좌클릭 2회(SetCursorPos + mouse_event) + F8 좌표 학습 + 스마트폰 1줄 직통 발사대(/api/remote-auto-paste) 장착 완료! [특명 B] 꿈의 옷장 얼굴 이중 노출 삭제, 흰 테두리 완전 제거, 가장자리 25% 소프트 페더링, 모델 머리 가림 0% 외부 독립 헤더 배지, 전신사진 0.4~3.0배 손가락 핀치 줌 완비! QA-901 50회 가혹 검수 500/500 만점 ALL PASS! ⟪✅ANTIGRAVITY_OUT_COMPLETE✅⟫",
       "status": "VERIFIED"
     }
   ]

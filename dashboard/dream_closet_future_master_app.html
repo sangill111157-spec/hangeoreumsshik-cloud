@@ -3738,76 +3738,86 @@ window.faceOffsetY = 0;
 window.faceScale = 1.0;
 
 // 10벌 고화질 실사 패션 화보 카탈로그 (Unsplash 실제 스튜디오 모델 화보)
+// ============================================================================
+// 👑 [v6.4 Direct-Photo & 스마트폰 원격 발사대] 초실사 렌더링 엔진
+// ============================================================================
+
+window.currentRenderMode = 'photo_lookbook'; // 'photo_lookbook' | 'user_original'
+window.currentWardrobeNum = 1;
+window.isCanvasLocked = true; // 🔒 기본 화면 고정
+window.currentAdjustTarget = 'face'; // 'face' | 'body'
+
+// 얼굴 조절 변수 (기본 크기: 캔버스 폭 11%, 위치: 상단 17%)
+window.faceOffsetX = 0;
+window.faceOffsetY = 0;
+window.faceScale = 1.0;
+
+// 전신사진 / 의상 조절 변수 (0.4 ~ 3.0배)
+window.bodyPhotoScale = 1.0;
+window.bodyPhotoOffsetX = 0;
+window.bodyPhotoOffsetY = 0;
+
+// 10벌 고화질 실사 패션 화보 카탈로그 (Unsplash 실제 스튜디오 모델 화보)
 window.LOOKBOOK_CATALOG = {
   1: {
     name: "🌸 러블리 K-하이틴 핑크 가디건",
     colorTheme: "#f43f5e",
     imageUrl: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80",
-    modelDesc: "파스텔 핑크 울 가디건 & 플리츠 스커트 스튜디오 실사 화보",
-    faceAnchor: { cx: 225, cy: 135, r: 48 }
+    modelDesc: "파스텔 핑크 울 가디건 & 플리츠 스커트 스튜디오 실사 화보"
   },
   2: {
     name: "🎀 청량 아이돌 데님 자켓 & 원피스",
     colorTheme: "#38bdf8",
     imageUrl: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=600&q=80",
-    modelDesc: "라이트블루 워싱 데님 자켓 & 썸머 원피스 실사 화보",
-    faceAnchor: { cx: 225, cy: 138, r: 48 }
+    modelDesc: "라이트블루 워싱 데님 자켓 & 썸머 원피스 실사 화보"
   },
   3: {
     name: "🎓 명문 프레피 블레이저 & 리본",
     colorTheme: "#818cf8",
     imageUrl: "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=600&q=80",
-    modelDesc: "클래식 네이비 테일러드 블레이저 & 프레피 타이 실사 화보",
-    faceAnchor: { cx: 225, cy: 132, r: 46 }
+    modelDesc: "클래식 네이비 테일러드 블레이저 & 프레피 타이 실사 화보"
   },
   4: {
     name: "👕 시티보이 오버핏 후드 & 카고",
     colorTheme: "#34d399",
     imageUrl: "https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?auto=format&fit=crop&w=600&q=80",
-    modelDesc: "세이지 그린 프리미엄 오버핏 후드 & 카고 팬츠 실사 화보",
-    faceAnchor: { cx: 225, cy: 140, r: 49 }
+    modelDesc: "세이지 그린 프리미엄 오버핏 후드 & 카고 팬츠 실사 화보"
   },
   5: {
     name: "🧥 베이지 트렌치 롱코트",
     colorTheme: "#fbbf24",
     imageUrl: "https://images.unsplash.com/photo-1485968579580-b6d095142e6e?auto=format&fit=crop&w=600&q=80",
-    modelDesc: "헤리티지 베이지 더블 브레스티드 트렌치 코트 실사 화보",
-    faceAnchor: { cx: 225, cy: 130, r: 47 }
+    modelDesc: "헤리티지 베이지 더블 브레스티드 트렌치 코트 실사 화보"
   },
   6: {
     name: "👔 청담 테일러드 VIP 네이비 수트",
     colorTheme: "#60a5fa",
     imageUrl: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=600&q=80",
-    modelDesc: "이태리 최고급 원단 맞춤 다크 네이비 수트 실사 화보",
-    faceAnchor: { cx: 225, cy: 132, r: 48 }
+    modelDesc: "이태리 최고급 원단 맞춤 다크 네이비 수트 실사 화보"
   },
   7: {
     name: "✨ 캐시미어 웜골드 니트 & 슬랙스",
     colorTheme: "#fcd34d",
     imageUrl: "https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=600&q=80",
-    modelDesc: "카멜 골드 헤비 게이지 캐시미어 니트 & 슬랙스 실사 화보",
-    faceAnchor: { cx: 225, cy: 136, r: 47 }
+    modelDesc: "카멜 골드 헤비 게이지 캐시미어 니트 & 슬랙스 실사 화보"
   },
   8: {
     name: "🔮 2035 글로벌 CEO 네오-퍼플 수트",
     colorTheme: "#c084fc",
     imageUrl: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=600&q=80",
-    modelDesc: "2035 네오 서울 테크놀로지 CEO 럭셔리 수트 실사 화보",
-    faceAnchor: { cx: 225, cy: 130, r: 48 }
+    modelDesc: "2035 네오 서울 테크놀로지 CEO 럭셔리 수트 실사 화보"
   },
   9: {
     name: "🚀 우주 AI 과학자 사이버 테크웨어",
     colorTheme: "#22d3ee",
     imageUrl: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=600&q=80",
-    modelDesc: "에어로다이내믹 매트 블랙 사이버 테크웨어 재킷 실사 화보",
-    faceAnchor: { cx: 225, cy: 135, r: 47 }
+    modelDesc: "에어로다이내믹 매트 블랙 사이버 테크웨어 재킷 실사 화보"
   },
   10: {
     name: "👑 로열 골드 갈라 파티 드레스/턱시도",
     colorTheme: "#fde047",
     imageUrl: "https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=600&q=80",
-    modelDesc: "칸 영화제 레드카펫 골드 자수 이브닝 갈라 쿠튀르 실사 화보",
-    faceAnchor: { cx: 225, cy: 128, r: 48 }
+    modelDesc: "칸 영화제 레드카펫 골드 자수 이브닝 갈라 쿠튀르 실사 화보"
   }
 };
 
@@ -3835,6 +3845,40 @@ if (document.readyState === 'loading') {
   preloadLookbookImages();
 }
 
+// 🚀 [스마트폰 직통 원격 발사 함수]
+async function sendRemoteAutoPaste() {
+  const inp = document.getElementById('remote-paste-input');
+  if (!inp) return;
+  const text = inp.value.trim();
+  if (!text) {
+    if (typeof showToast === 'function') showToast('⚠️ 르곤이 명령 텍스트를 먼저 입력해주세요!', 'warning');
+    return;
+  }
+  if (typeof showToast === 'function') {
+    showToast('🚀 [노트북 안실장 발사 중]: 마우스 물리 클릭 및 자동 타이핑을 시작합니다...', 'info');
+  }
+  try {
+    const res = await fetch('/api/remote-auto-paste', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text: text })
+    });
+    const d = await res.json();
+    if (d.success) {
+      inp.value = '';
+      if (typeof showToast === 'function') {
+        showToast('✅ [발사 성공!]: 노트북 안실장 채팅창에 마우스 물리 클릭 + 입력 완료!', 'success');
+      }
+    } else {
+      if (typeof showToast === 'function') showToast(`❌ 발사 실패: ${d.error || '오류'}`, 'error');
+    }
+  } catch (e) {
+    console.warn('sendRemoteAutoPaste error:', e);
+    if (typeof showToast === 'function') showToast(`⚠️ 발사 오류: ${e.message}`, 'error');
+  }
+}
+window.sendRemoteAutoPaste = sendRemoteAutoPaste;
+
 // 🔒 [기능 1] 터치 위치 고정 잠금 스위치
 function toggleCanvasLock() {
   window.isCanvasLocked = !window.isCanvasLocked;
@@ -3850,7 +3894,7 @@ function toggleCanvasLock() {
     if (icon) icon.textContent = '🔒';
     if (label) label.textContent = '고정됨';
     if (badge) {
-      badge.innerHTML = '🔒 화면 고정됨 | ✨ ECC 실사 포토 스튜디오 v6.2';
+      badge.innerHTML = '🔒 화면 고정됨 | ✨ ECC 실사 포토 스튜디오 v6.4';
       badge.className = 'absolute bottom-2 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-slate-950/90 border border-emerald-500/40 text-[11px] text-emerald-300 font-bold shadow-lg pointer-events-none backdrop-blur-sm whitespace-nowrap z-30';
     }
     if (typeof showToast === 'function') {
@@ -3863,17 +3907,38 @@ function toggleCanvasLock() {
     if (icon) icon.textContent = '🔓';
     if (label) label.textContent = '조절중';
     if (badge) {
-      badge.innerHTML = '🔓 조절 모드 | 손가락 드래그로 얼굴 위치를 미세 조정하세요';
+      badge.innerHTML = '🔓 조절 모드 | 손가락 드래그 또는 +/- 버튼으로 조절하세요';
       badge.className = 'absolute bottom-2 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-amber-950/90 border border-amber-500/50 text-[11px] text-amber-300 font-bold shadow-lg pointer-events-none backdrop-blur-sm whitespace-nowrap z-30';
     }
     if (typeof showToast === 'function') {
-      showToast('🔓 [위치 조절 모드]: 리모컨 버튼이나 터치 드래그로 얼굴 위치를 이동하세요.', 'info');
+      showToast('🔓 [위치 조절 모드]: 리모컨 버튼이나 터치 드래그로 조절하세요.', 'info');
     }
   }
+  updateTopBadge();
   if (typeof renderRealPhotoStudio === 'function') renderRealPhotoStudio();
 }
 
-// 📸 [과업 1 핵심] 얼굴 사진 업로드 핸들러 (0.01초 직통 적용 & crossOrigin 충돌 원천 방지)
+// 👤 ↔ 🖼️ [기능 2] 얼굴 조절 vs 전신 줌 대상 전환 토글
+function toggleAdjustTarget() {
+  window.currentAdjustTarget = (window.currentAdjustTarget === 'body') ? 'face' : 'body';
+  const btn = document.getElementById('btn-adjust-target');
+  if (btn) {
+    if (window.currentAdjustTarget === 'body') {
+      btn.innerHTML = '<span>🖼️전신줌</span>';
+      btn.className = 'px-2 h-7 rounded-lg bg-pink-700 hover:bg-pink-600 text-pink-100 text-[10px] font-black border border-pink-400 active:scale-95 flex items-center gap-0.5 whitespace-nowrap shadow transition';
+    } else {
+      btn.innerHTML = '<span>👤얼굴조절</span>';
+      btn.className = 'px-2 h-7 rounded-lg bg-blue-700 hover:bg-blue-600 text-blue-100 text-[10px] font-black border border-blue-400 active:scale-95 flex items-center gap-0.5 whitespace-nowrap shadow transition';
+    }
+  }
+  if (typeof showToast === 'function') {
+    const targetName = window.currentAdjustTarget === 'body' ? '🖼️ 전신 사진/의상 (0.4배~3.0배 줌)' : '👤 얼굴 사진 위치/크기';
+    showToast(`조절 대상: [${targetName}] (+/- 또는 터치 드래그)`, 'info');
+  }
+}
+window.toggleAdjustTarget = toggleAdjustTarget;
+
+// 📸 [얼굴 사진 업로드 핸들러: 0.01초 직통 적용]
 function handleFacePhotoUpload(event) {
   const file = event.target.files && event.target.files[0];
   if (!file) return;
@@ -3884,7 +3949,6 @@ function handleFacePhotoUpload(event) {
     window.userFaceDataUrl = dataUrl;
     window.userUploadedPhoto = null; // 얼굴 합성 모드로 바로 적용
 
-    // crossOrigin 속성을 붙이지 않아 로컬 dataUrl 캔버스 tainted 에러 100% 차단
     const img = new Image();
     img.onload = function() {
       window.userFaceImage = img;
@@ -3894,18 +3958,11 @@ function handleFacePhotoUpload(event) {
       window.faceOffsetY = 0;
       window.faceScale = 1.0;
 
-      // 1) DOM 이미지 오버레이 즉시 갱신
-      const faceOverlay = document.getElementById('live-face-photo-overlay');
-      if (faceOverlay) {
-        faceOverlay.src = dataUrl;
-        faceOverlay.style.display = 'block';
-      }
-
-      // 2) 캔버스 렌더링 즉시 호출
+      // 캔버스 즉시 렌더링 (DOM 오버레이는 이중 노출 방지를 위해 숨김 유지)
       renderRealPhotoStudio();
 
       if (typeof showToast === 'function') {
-        showToast('✅ [얼굴 사진 0.01초 직통 적용 완료]: 스튜디오 목선에 자연스럽게 합성되었습니다!', 'success');
+        showToast('✅ [얼굴 사진 0.01초 직통 적용]: 머리 상단에 25% 소프트 페더링 융합 완료!', 'success');
       }
     };
     img.src = dataUrl;
@@ -3916,7 +3973,7 @@ window.handleFacePhotoUpload = handleFacePhotoUpload;
 window.handleUserFacePhotoUpload = handleFacePhotoUpload;
 window.handleRealPhotoUpload = handleFacePhotoUpload;
 
-// 👚 [과업 1 핵심] 내 옷 합성 업로드 핸들러 (0.01초 직통 교체)
+// 👚 [내 옷 합성 업로드 핸들러: 0.01초 직통 교체]
 function handleCustomClothUpload(event) {
   const file = event.target.files && event.target.files[0];
   if (!file) return;
@@ -3931,14 +3988,13 @@ function handleCustomClothUpload(event) {
       window.customClothImage = img;
       window.isCustomClothUploaded = true;
 
-      // 1) DOM 의상 오버레이 즉시 갱신
+      // DOM 의상 레이어 즉시 갱신
       const clothOverlay = document.getElementById('live-cloth-photo-overlay');
       if (clothOverlay) {
         clothOverlay.src = dataUrl;
         clothOverlay.style.display = 'block';
       }
 
-      // 2) 캔버스 즉시 렌더링
       renderRealPhotoStudio();
 
       if (typeof showToast === 'function') {
@@ -3951,7 +4007,6 @@ function handleCustomClothUpload(event) {
 }
 window.handleCustomClothUpload = handleCustomClothUpload;
 
-// 원터치 얼굴 터치 영역 및 갤러리/카메라 호출기
 function triggerFaceGalleryPhoto() {
   const inp = document.getElementById('face-upload-input') || document.getElementById('real-photo-file-input');
   if (inp) inp.click();
@@ -3980,11 +4035,6 @@ function resetFaceToIllustration() {
   window.userFaceImage = null;
   window.userFaceDataUrl = null;
   window.isFaceUploaded = false;
-  const faceOverlay = document.getElementById('live-face-photo-overlay');
-  if (faceOverlay) {
-    faceOverlay.src = '';
-    faceOverlay.style.display = 'none';
-  }
   renderRealPhotoStudio();
   if (typeof showToast === 'function') {
     showToast('🔄 얼굴 사진이 초기화되었습니다.', 'info');
@@ -4009,6 +4059,7 @@ function toggleRenderMode() {
   if (btn) {
     btn.innerHTML = window.currentRenderMode === 'photo_lookbook' ? '<span>👗 코디합성</span>' : '<span>📸 내사진 원본</span>';
   }
+  updateTopBadge();
   renderRealPhotoStudio();
 }
 window.toggleRenderMode = toggleRenderMode;
@@ -4019,7 +4070,6 @@ function applyWardrobeOutfit(num) {
   window.customClothImage = null; // 옷장 선택 시 커스텀 옷 해제하고 룩북 적용
   const item = window.LOOKBOOK_CATALOG[num] || window.LOOKBOOK_CATALOG[1];
 
-  // DOM 의상 레이어 즉시 교체
   const clothOverlay = document.getElementById('live-cloth-photo-overlay');
   if (clothOverlay) {
     if (item.imageUrl) {
@@ -4030,13 +4080,11 @@ function applyWardrobeOutfit(num) {
     }
   }
 
-  // 상태 배지 갱신
   const badge = document.getElementById('current-outfit-badge');
   if (badge) {
     badge.textContent = `🌸 ${num}번 착장 중`;
   }
 
-  // 카드 하이라이트 갱신
   for (let i = 1; i <= 10; i++) {
     const card = document.getElementById(`outfit-card-${i}`);
     if (card) {
@@ -4052,6 +4100,7 @@ function applyWardrobeOutfit(num) {
   const modeBtn = document.getElementById('btn-mode-toggle');
   if (modeBtn) modeBtn.innerHTML = '<span>👗 코디합성</span>';
 
+  updateTopBadge();
   renderRealPhotoStudio();
   if (typeof showToast === 'function') {
     showToast(`👗 [실사 룩북 전환]: ${item.name}`, 'info');
@@ -4059,7 +4108,20 @@ function applyWardrobeOutfit(num) {
 }
 window.applyWardrobeOutfit = applyWardrobeOutfit;
 
-// 👑 [과업 2 핵심] v6.2 Zero-Cartoon 초실사 렌더러 (빨간 볼링핀/오뚝이 100% 영구 삭제)
+// 👑 [상단 독립 헤더 배지 업데이트: 모델 머리 가림 0%]
+function updateTopBadge() {
+  const topBadge = document.getElementById('studio-top-model-badge');
+  if (!topBadge) return;
+  const look = window.LOOKBOOK_CATALOG[window.currentWardrobeNum] || window.LOOKBOOK_CATALOG[1];
+  const lockText = window.isCanvasLocked ? '🔒 화면고정됨' : '🔓 조절중';
+  if (window.currentRenderMode === 'user_original') {
+    topBadge.textContent = `📸 내 사진 원본 전체 모드 (${look.name} | ${lockText})`;
+  } else {
+    topBadge.textContent = `✨ ${look.name} (${lockText})`;
+  }
+}
+
+// 👑 [v6.4] 초실사 렌더러 (캔버스 내부 상단 검은바 제거 & 25% 소프트 페더링 & 줌 지원)
 function renderRealPhotoStudio() {
   const canvas = document.getElementById('main-fitting-canvas') || document.getElementById('app-fitting-canvas');
   if (!canvas) return;
@@ -4107,18 +4169,19 @@ function renderRealPhotoStudio() {
       ctx.save();
       const pw = photo.naturalWidth || photo.width || 400;
       const ph = photo.naturalHeight || photo.height || 600;
-      const ratio = Math.min((w * 0.94) / pw, (h * 0.94) / ph) * (window.faceScale || 1.0);
+      const baseRatio = Math.min((w * 0.94) / pw, (h * 0.94) / ph);
+      const ratio = baseRatio * (window.bodyPhotoScale || 1.0);
       const dw = pw * ratio;
       const dh = ph * ratio;
-      const dx = cx - dw / 2 + (window.faceOffsetX || 0);
-      const dy = (h - dh) / 2 + (window.faceOffsetY || 0);
+      const dx = cx - dw / 2 + (window.bodyPhotoOffsetX || 0);
+      const dy = (h - dh) / 2 + (window.bodyPhotoOffsetY || 0);
 
       ctx.shadowColor = 'rgba(0,0,0,0.6)';
       ctx.shadowBlur = 24;
       ctx.drawImage(photo, dx, dy, dw, dh);
       ctx.restore();
 
-      renderStudioOverlayBadge(ctx, w, h, `📸 내 사진 원본 전체 모드 (${look.name})`);
+      updateTopBadge();
       return;
     }
   }
@@ -4129,33 +4192,33 @@ function renderRealPhotoStudio() {
     ctx.drawImage(window.aiTryOnResultImage, 0, 0, w, h);
     ctx.restore();
   } else if (window.customClothImage && window.customClothImage.complete) {
-    // 사용자가 직접 올린 옷 사진으로 렌더링
+    // 사용자가 직접 올린 옷 사진으로 렌더링 (전신줌 지원)
     ctx.save();
     const cimg = window.customClothImage;
     const cw = cimg.naturalWidth || cimg.width || 400;
     const ch = cimg.naturalHeight || cimg.height || 600;
-    const cratio = Math.min((w * 0.88) / cw, (h * 0.85) / ch);
+    const cratio = Math.min((w * 0.88) / cw, (h * 0.85) / ch) * (window.bodyPhotoScale || 1.0);
     const cdw = cw * cratio;
     const cdh = ch * cratio;
-    const cdx = cx - cdw / 2;
-    const cdy = (h - cdh) / 2 + 25;
+    const cdx = cx - cdw / 2 + (window.bodyPhotoOffsetX || 0);
+    const cdy = (h - cdh) / 2 + 25 + (window.bodyPhotoOffsetY || 0);
 
     ctx.shadowColor = 'rgba(0,0,0,0.6)';
     ctx.shadowBlur = 20;
     ctx.drawImage(cimg, cdx, cdy, cdw, cdh);
     ctx.restore();
   } else {
-    // Unsplash 실사 패션 화보 렌더링 (볼링핀 오뚝이 100% 영구 삭제!)
+    // Unsplash 실사 패션 화보 렌더링 (전신줌 지원)
     const cached = window.lookbookImageCache && window.lookbookImageCache[window.currentWardrobeNum || 1];
     if (cached && cached.complete && cached.naturalWidth > 0) {
       ctx.save();
       const iw = cached.naturalWidth;
       const ih = cached.naturalHeight;
-      const iratio = Math.max(w / iw, h / ih);
+      const iratio = Math.max(w / iw, h / ih) * (window.bodyPhotoScale || 1.0);
       const idw = iw * iratio;
       const idh = ih * iratio;
-      const idx = cx - idw / 2;
-      const idy = (h - idh) / 2;
+      const idx = cx - idw / 2 + (window.bodyPhotoOffsetX || 0);
+      const idy = (h - idh) / 2 + (window.bodyPhotoOffsetY || 0);
       ctx.drawImage(cached, idx, idy, idw, idh);
       ctx.restore();
     } else {
@@ -4163,20 +4226,19 @@ function renderRealPhotoStudio() {
     }
   }
 
-  // 얼굴 사진 실사 스왑 (얼굴 사진 업로드 시 목선 위치에 정밀하게 소프트 페더링 합성)
+  // 얼굴 사진 실사 스왑 (얼굴 크기 11%, 상단 17% 위치, 가장자리 25% 소프트 페더링, 옷 가림 0%)
   if (window.userFaceImage && window.userFaceImage.complete) {
-    renderSoftFeatheredFaceSwap(ctx, cx, look);
+    renderSoftFeatheredFaceSwap(ctx, cx, look, w, h);
   }
 
-  const lockText = window.isCanvasLocked ? '🔒 화면고정됨' : '🔓 조절중';
-  renderStudioOverlayBadge(ctx, w, h, `✨ ${look.name} (${lockText})`);
+  // 상단 외부 헤더 배지 업데이트 (캔버스 내부에는 머리를 가리는 검은 바를 그리지 않음!)
+  updateTopBadge();
 }
 window.renderRealPhotoStudio = renderRealPhotoStudio;
 
-// ✨ [볼링핀 100% 박멸] 우아한 스튜디오 룩북 글래스 실루엣
+// ✨ 우아한 스튜디오 룩북 글래스 백드롭
 function renderElegantStudioBackdrop(ctx, w, h, cx, look) {
   ctx.save();
-  // 스튜디오 바닥 은은한 앰비언트 반사광
   const floorGrad = ctx.createRadialGradient(cx, h - 35, 10, cx, h - 35, 180);
   floorGrad.addColorStop(0, 'rgba(255, 255, 255, 0.12)');
   floorGrad.addColorStop(0.5, 'rgba(0, 0, 0, 0.4)');
@@ -4186,7 +4248,6 @@ function renderElegantStudioBackdrop(ctx, w, h, cx, look) {
   ctx.ellipse(cx, h - 35, 160, 25, 0, 0, Math.PI * 2);
   ctx.fill();
 
-  // 프리미엄 스튜디오 룩북 글래스 프레임
   ctx.fillStyle = 'rgba(255, 255, 255, 0.04)';
   ctx.strokeStyle = 'rgba(255, 255, 255, 0.12)';
   ctx.lineWidth = 1;
@@ -4195,28 +4256,32 @@ function renderElegantStudioBackdrop(ctx, w, h, cx, look) {
   ctx.fill();
   ctx.stroke();
 
-  // 안내 텍스트 (빨간 볼링핀이나 오뚝이는 단 1px도 그리지 않음)
   ctx.fillStyle = '#cbd5e1';
   ctx.font = 'bold 13px sans-serif';
   ctx.textAlign = 'center';
-  ctx.fillText('✨ 실사 화보 모델 준비 완료', cx, 290);
+  ctx.fillText('✨ 실사 화보 모델 로드 중...', cx, 290);
   ctx.fillStyle = '#94a3b8';
   ctx.font = '11px sans-serif';
   ctx.fillText('상단 [📸내 얼굴 사진] 또는 [👚내 옷 합성]을 터치하세요', cx, 315);
   ctx.restore();
 }
 
-// 🎭 [핵심] 소프트 페더링 얼굴 실사 스왑 (정중앙 1개만 깔끔하게 융합)
-function renderSoftFeatheredFaceSwap(ctx, cx, look) {
+// 🎭 [v6.4 정밀 페더링] 얼굴 실사 스왑 (가장자리 25% 소프트 투명 블렌딩, 하얀 테두리 0건)
+function renderSoftFeatheredFaceSwap(ctx, cx, look, w, h) {
   ctx.save();
-  const anchor = look.faceAnchor || { cx: 225, cy: 135, r: 48 };
+  // 1. 기본 크기: 캔버스 폭 11% (반경 r = 24.75px), 기본 위치: 상단 17% (cy = 102px)
+  const canvasW = w || 450;
+  const canvasH = h || 600;
+  const defaultRadius = canvasW * 0.11 * 0.5; // 약 24.75px
+  const defaultCenterY = canvasH * 0.17;      // 약 102px
+  const defaultCenterX = cx || (canvasW / 2);
 
-  const faceX = anchor.cx + (window.faceOffsetX || 0);
-  const faceY = anchor.cy + (window.faceOffsetY || 0);
-  const faceR = anchor.r * (window.faceScale || 1.0);
+  const faceX = defaultCenterX + (window.faceOffsetX || 0);
+  const faceY = defaultCenterY + (window.faceOffsetY || 0);
+  const faceR = defaultRadius * (window.faceScale || 1.0);
 
   const off = document.createElement('canvas');
-  off.width = faceR * 2.6;
+  off.width = faceR * 2.8;
   off.height = faceR * 2.8;
   const octx = off.getContext('2d');
   if (!octx) { ctx.restore(); return; }
@@ -4233,45 +4298,31 @@ function renderSoftFeatheredFaceSwap(ctx, cx, look) {
   octx.save();
   octx.drawImage(img, sx, sy, minDim, minDim, 0, 0, off.width, off.height);
 
+  // 2. 가장자리 25% 부드러운 소프트 페더링 (radialGradient: 0.75 -> 1.0 구간 알파 1.0 -> 0.0)
   octx.globalCompositeOperation = 'destination-in';
-  const vGrad = octx.createRadialGradient(ocx, ocy, faceR * 0.45, ocx, ocy, faceR * 0.98);
+  const vGrad = octx.createRadialGradient(ocx, ocy, faceR * 0.75, ocx, ocy, faceR * 1.0);
   vGrad.addColorStop(0, 'rgba(0, 0, 0, 1.0)');
-  vGrad.addColorStop(0.7, 'rgba(0, 0, 0, 0.9)');
-  vGrad.addColorStop(0.9, 'rgba(0, 0, 0, 0.4)');
-  vGrad.addColorStop(1, 'rgba(0, 0, 0, 0.0)');
+  vGrad.addColorStop(0.75, 'rgba(0, 0, 0, 0.95)');
+  vGrad.addColorStop(0.9, 'rgba(0, 0, 0, 0.45)');
+  vGrad.addColorStop(1.0, 'rgba(0, 0, 0, 0.0)');
   octx.fillStyle = vGrad;
   octx.beginPath();
   octx.arc(ocx, ocy, faceR * 1.0, 0, Math.PI * 2);
   octx.fill();
   octx.restore();
 
+  // 3. 하얀 테두리 선(stroke) 완전 제거 상태로 캔버스에 블렌딩
   ctx.drawImage(off, faceX - ocx, faceY - ocy);
 
-  const chinShadow = ctx.createRadialGradient(faceX, faceY + faceR * 0.88, 2, faceX, faceY + faceR * 0.88, faceR * 0.7);
-  chinShadow.addColorStop(0, 'rgba(20, 10, 5, 0.45)');
+  // 턱선 미세 음영 (자연스러운 입체감)
+  const chinShadow = ctx.createRadialGradient(faceX, faceY + faceR * 0.88, 1, faceX, faceY + faceR * 0.88, faceR * 0.65);
+  chinShadow.addColorStop(0, 'rgba(20, 10, 5, 0.35)');
   chinShadow.addColorStop(1, 'transparent');
   ctx.fillStyle = chinShadow;
   ctx.beginPath();
-  ctx.ellipse(faceX, faceY + faceR * 0.9, faceR * 0.65, 8, 0, 0, Math.PI * 2);
+  ctx.ellipse(faceX, faceY + faceR * 0.9, faceR * 0.6, 6, 0, 0, Math.PI * 2);
   ctx.fill();
 
-  ctx.restore();
-}
-
-function renderStudioOverlayBadge(ctx, w, h, text) {
-  ctx.save();
-  ctx.fillStyle = 'rgba(15, 23, 42, 0.85)';
-  ctx.strokeStyle = 'rgba(168, 85, 247, 0.4)';
-  ctx.lineWidth = 1;
-  ctx.beginPath();
-  ctx.roundRect(14, 14, w - 28, 28, 8);
-  ctx.fill();
-  ctx.stroke();
-
-  ctx.fillStyle = '#f8fafc';
-  ctx.font = 'bold 11px sans-serif';
-  ctx.textAlign = 'center';
-  ctx.fillText(text, w / 2, 32);
   ctx.restore();
 }
 
@@ -4281,13 +4332,12 @@ function drawMainFittingAvatar() {
 }
 window.drawMainFittingAvatar = drawMainFittingAvatar;
 
-// 🚫 [만화 머리 완전 박멸] 가짜 동그라미 만화 얼굴 그리기 무력화
 function drawDetailedIllustrationFace() {
   return;
 }
 window.drawDetailedIllustrationFace = drawDetailedIllustrationFace;
 
-// 🔒 [터치 인터랙션 제어: 잠금 상태 시 0mm도 안 움직임]
+// 🔒 & 🔍 [터치 인터랙션: 잠금 / 1손가락 이동 / 2손가락 핀치 줌]
 function initFaceTouchDragInteraction(canvasId) {
   const canvas = document.getElementById(canvasId);
   if (!canvas || canvas._touchDragBound) return;
@@ -4295,9 +4345,24 @@ function initFaceTouchDragInteraction(canvasId) {
 
   let isDragging = false;
   let startX = 0, startY = 0;
+  let initialPinchDistance = 0;
+  let initialScale = 1.0;
+
+  function getDistance(t1, t2) {
+    const dx = t1.clientX - t2.clientX;
+    const dy = t1.clientY - t2.clientY;
+    return Math.sqrt(dx * dx + dy * dy);
+  }
 
   function onStart(e) {
     if (window.isCanvasLocked) return;
+    if (e.touches && e.touches.length === 2) {
+      // 2손가락 핀치 줌 시작
+      initialPinchDistance = getDistance(e.touches[0], e.touches[1]);
+      initialScale = (window.currentAdjustTarget === 'body') ? (window.bodyPhotoScale || 1.0) : (window.faceScale || 1.0);
+      isDragging = false;
+      return;
+    }
     const t = e.touches ? e.touches[0] : e;
     isDragging = true;
     startX = t.clientX;
@@ -4305,20 +4370,42 @@ function initFaceTouchDragInteraction(canvasId) {
   }
 
   function onMove(e) {
-    if (window.isCanvasLocked || !isDragging) return;
+    if (window.isCanvasLocked) return;
+    if (e.touches && e.touches.length === 2) {
+      // 핀치 줌 계산
+      const currentDist = getDistance(e.touches[0], e.touches[1]);
+      if (initialPinchDistance > 10) {
+        const factor = currentDist / initialPinchDistance;
+        const newScale = Math.max(0.4, Math.min(3.0, initialScale * factor));
+        if (window.currentAdjustTarget === 'body') {
+          window.bodyPhotoScale = newScale;
+        } else {
+          window.faceScale = Math.max(0.4, Math.min(2.5, newScale));
+        }
+        drawMainFittingAvatar();
+      }
+      return;
+    }
+    if (!isDragging) return;
     const t = e.touches ? e.touches[0] : e;
     const dx = t.clientX - startX;
     const dy = t.clientY - startY;
     startX = t.clientX;
     startY = t.clientY;
 
-    window.faceOffsetX = (window.faceOffsetX || 0) + dx;
-    window.faceOffsetY = (window.faceOffsetY || 0) + dy;
+    if (window.currentAdjustTarget === 'body') {
+      window.bodyPhotoOffsetX = (window.bodyPhotoOffsetX || 0) + dx;
+      window.bodyPhotoOffsetY = (window.bodyPhotoOffsetY || 0) + dy;
+    } else {
+      window.faceOffsetX = (window.faceOffsetX || 0) + dx;
+      window.faceOffsetY = (window.faceOffsetY || 0) + dy;
+    }
     drawMainFittingAvatar();
   }
 
   function onEnd() {
     isDragging = false;
+    initialPinchDistance = 0;
   }
 
   canvas.addEventListener('mousedown', onStart);
@@ -4330,33 +4417,57 @@ function initFaceTouchDragInteraction(canvasId) {
   window.addEventListener('touchend', onEnd);
 }
 
-// 리모컨 오프셋 및 스케일 제어
-function adjustFaceScale(delta) {
-  window.faceScale = Math.max(0.4, Math.min(2.5, (window.faceScale || 1.0) + delta));
-  drawMainFittingAvatar();
-  if (typeof showToast === 'function') {
-    showToast(`🔍 얼굴 크기: ${Math.round(window.faceScale * 100)}%`, 'info');
+// 🎛️ 리모컨 통합 크기 및 위치 제어 (얼굴 ↔ 전신 대상 지원)
+function adjustScale(delta) {
+  if (window.currentAdjustTarget === 'body') {
+    window.bodyPhotoScale = Math.max(0.4, Math.min(3.0, (window.bodyPhotoScale || 1.0) + delta));
+    if (typeof showToast === 'function') {
+      showToast(`🔍 전신 사진 크기: ${Math.round(window.bodyPhotoScale * 100)}%`, 'info');
+    }
+  } else {
+    window.faceScale = Math.max(0.4, Math.min(2.5, (window.faceScale || 1.0) + delta));
+    if (typeof showToast === 'function') {
+      showToast(`🔍 얼굴 크기: ${Math.round(window.faceScale * 100)}%`, 'info');
+    }
   }
-}
-window.adjustFaceScale = adjustFaceScale;
-
-function adjustFaceOffset(dx, dy) {
-  window.faceOffsetX = (window.faceOffsetX || 0) + dx;
-  window.faceOffsetY = (window.faceOffsetY || 0) + dy;
   drawMainFittingAvatar();
 }
-window.adjustFaceOffset = adjustFaceOffset;
+window.adjustScale = adjustScale;
+window.adjustFaceScale = adjustScale;
 
-function resetFaceOffset() {
-  window.faceOffsetX = 0;
-  window.faceOffsetY = 0;
-  window.faceScale = 1.0;
-  drawMainFittingAvatar();
-  if (typeof showToast === 'function') {
-    showToast('🎯 얼굴 위치가 정중앙으로 초기화되었습니다.', 'info');
+function adjustOffset(dx, dy) {
+  if (window.currentAdjustTarget === 'body') {
+    window.bodyPhotoOffsetX = (window.bodyPhotoOffsetX || 0) + dx;
+    window.bodyPhotoOffsetY = (window.bodyPhotoOffsetY || 0) + dy;
+  } else {
+    window.faceOffsetX = (window.faceOffsetX || 0) + dx;
+    window.faceOffsetY = (window.faceOffsetY || 0) + dy;
   }
+  drawMainFittingAvatar();
 }
-window.resetFaceOffset = resetFaceOffset;
+window.adjustOffset = adjustOffset;
+window.adjustFaceOffset = adjustOffset;
+
+function resetAllOffset() {
+  if (window.currentAdjustTarget === 'body') {
+    window.bodyPhotoOffsetX = 0;
+    window.bodyPhotoOffsetY = 0;
+    window.bodyPhotoScale = 1.0;
+    if (typeof showToast === 'function') {
+      showToast('🎯 전신 사진 위치/크기가 정중앙으로 초기화되었습니다.', 'info');
+    }
+  } else {
+    window.faceOffsetX = 0;
+    window.faceOffsetY = 0;
+    window.faceScale = 1.0;
+    if (typeof showToast === 'function') {
+      showToast('🎯 얼굴 위치/크기가 정중앙으로 초기화되었습니다.', 'info');
+    }
+  }
+  drawMainFittingAvatar();
+}
+window.resetAllOffset = resetAllOffset;
+window.resetFaceOffset = resetAllOffset;
 
 // AI 실사 의상 착장 합성 (/api/real-ai-tryon)
 async function runRealAITryOn() {
@@ -4408,7 +4519,7 @@ function saveMyFittingPhoto() {
   if (!canvas) return;
   try {
     const a = document.createElement('a');
-    a.download = `fitting_studio_v62_${Date.now()}.png`;
+    a.download = `fitting_studio_v64_${Date.now()}.png`;
     a.href = canvas.toDataURL('image/png');
     a.click();
     if (typeof showToast === 'function') {
