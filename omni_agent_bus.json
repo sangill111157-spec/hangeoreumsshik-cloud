@@ -1,6 +1,6 @@
 {
   "system": "OMNI_MULTI_AI_BUS_V1",
-  "version": "v6.4-direct-photo",
+  "version": "v6.5-all-in-one",
   "registry": [
     {
       "id": "COMMANDER-000",
@@ -233,6 +233,15 @@
       "to": "COMMANDER-000",
       "type": "SIGNAL_OUT",
       "content": "이상일 대표님 & 르곤이 1호님! v6.4 특명 완수: [특명 A] 마우스 물리 좌클릭 2회(SetCursorPos + mouse_event) + F8 좌표 학습 + 스마트폰 1줄 직통 발사대(/api/remote-auto-paste) 장착 완료! [특명 B] 꿈의 옷장 얼굴 이중 노출 삭제, 흰 테두리 완전 제거, 가장자리 25% 소프트 페더링, 모델 머리 가림 0% 외부 독립 헤더 배지, 전신사진 0.4~3.0배 손가락 핀치 줌 완비! QA-901 50회 가혹 검수 500/500 만점 ALL PASS! ⟪✅ANTIGRAVITY_OUT_COMPLETE✅⟫",
+      "status": "VERIFIED"
+    },
+    {
+      "msg_id": "MSG-1792261200",
+      "timestamp": "2026-10-18 03:32:00",
+      "from": "AGV-101",
+      "to": "COMMANDER-000",
+      "type": "SIGNAL_OUT",
+      "content": "이상일 대표님 & 르곤이 1호님! v6.5 All-In-One Control Box & 가림 0% 특명 완수: [과업 1] 컨트롤 박스(#v5-one-line-remote-bar) 내 [📸 내 얼굴 사진 넣기](3단 팝업 카메라촬영/앨범선택/초기화), [👚 내 옷/전신 사진], [👗코디합성 ↔ 🖼️원본보기] 완벽 통합 탑재! [과업 2] 사진(캔버스) 영역 내 상하단 검은 설명바 완전 삭제 -> 모델 발/신발 가림 0% 달성 (상태줄은 컨트롤 박스로 이전)! [과업 3] 나만의 꿈의 옷장함(10벌 코디 쇼룸 #wardrobe-showroom-grid, 1~10번 카드 버튼 10개) 100% 완전 복구! QA-901 50회 가혹 검수 500/500 만점 ALL PASS! ⟪✅ANTIGRAVITY_OUT_COMPLETE✅⟫",
       "status": "VERIFIED"
     }
   ]

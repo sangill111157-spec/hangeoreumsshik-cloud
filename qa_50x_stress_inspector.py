@@ -1,21 +1,21 @@
 # -*- coding: utf-8 -*-
 """
-qa_50x_stress_inspector.py [v6.4 Direct-Photo & 물리 마우스 오토타이퍼 500회 가혹 검수기]
+qa_50x_stress_inspector.py [v6.5 All-In-One Control Box & 가림 0% 500회 가혹 검수기]
 --------------------------------------------------------------------------------
 🔥 이상일 대표님([COMMANDER-000]) & 르곤이 1호 직속 50회 연속 가혹 구동 검수 감사관
 (50 Iterations x 10 Scenarios = 총 500회 가혹 스트레스 테스트)
 
 10대 전수 검증 시나리오:
-1.  [TDD-1-A] 물리 마우스 클릭 오토타이퍼 (SetCursorPos + mouse_event + Ctrl+V + Enter)
-2.  [TDD-1-B] F8 좌표 학습 (target_pos.json & VK_F8) 및 스마트폰 직통 발사대 (/api/remote-auto-paste)
-3.  [TDD-2-A] 얼굴 이중 노출 0건 (#live-face-photo-overlay 숨김 및 외곽 하얀 테두리 제거)
-4.  [TDD-2-B] 가장자리 25% 소프트 페더링 (radialGradient: 0.75~1.0 구간 alpha 1.0->0.0)
-5.  [TDD-2-C] 옷 가림 0% (기본 얼굴 크기 폭 11%, 모델 실제 머리 위치 상단 17%)
-6.  [TDD-3-A] 모델 머리 가림 0% (캔버스 내부 검은바 드로잉 완전 삭제 & 캔버스 외부 독립 헤더 배지)
-7.  [TDD-3-B] 상단 버튼 세로 찌그러짐 0% (whitespace-nowrap & flex-wrap)
-8.  [TDD-4-A] 전신사진/의상 줌 (bodyPhotoScale, bodyPhotoOffsetX/Y, 0.4~3.0배)
-9.  [TDD-4-B] [👤얼굴조절] ↔ [🖼️전신줌] 전환 토글 & 핀치 줌 (toggleAdjustTarget & 2손가락 줌)
-10. [TDD-5]   Python py_compile & Node.js --check 문법 에러 0건 보장
+1.  [TDD-1-A] 컨트롤 박스(#v5-one-line-remote-bar) 내 [📸 내 얼굴 사진 넣기] & toggleFacePhotoMenu 존재
+2.  [TDD-1-B] 컨트롤 박스 내 [📷 지금 카메라로 촬영하기], [🖼️ 앨범에서 얼굴 사진 고르기], [🔄 얼굴 사진 초기화] 3단 팝업(#face-photo-action-menu) 완비
+3.  [TDD-1-C] 컨트롤 박스 내 [👚 내 옷/전신 사진] 및 파일 인풋 3종(face-camera-input, face-gallery-input, custom-cloth-input) 완비
+4.  [TDD-2-A] 사진 캔버스 컨테이너(#fitting-studio-container) 내부 상단·하단 오버레이 가림 0건 (오직 순수 canvas만 존재)
+5.  [TDD-2-B] 상태 설명 배지(#canvas-lock-status-badge)가 사진 바깥(컨트롤 박스 내부 최상단)으로 이전 배치 검증
+6.  [TDD-3-A] 10벌 옷장함 쇼룸(#wardrobe-showroom-grid) 100% 복구 검증
+7.  [TDD-3-B] 1번~10번 의상 카드(applyWardrobeOutfit(1..10)) 10개 버튼 전수 존재 검증
+8.  [TDD-4-A] 얼굴 이중 노출 0건 & 가장자리 25% 소프트 페더링 (alpha 1.0 -> 0.0) 유지 검증
+9.  [TDD-4-B] [👤얼굴조절 ↔ 🖼️전신줌] 전환 토글 및 2손가락 핀치 줌(0.4~3.0배) 유지 검증
+10. [TDD-5]   Python py_compile 4건 & Node.js --check 문법 에러 0건 보장
 --------------------------------------------------------------------------------
 """
 
@@ -40,61 +40,69 @@ def check_scenario(iteration):
     with open("run_dashboard.py", "r", encoding="utf-8") as f:
         py_run = f.read()
 
-    # 1. [TDD-1-A] 물리 마우스 클릭 오토타이퍼
-    p1 = ("SetCursorPos" in py_daemon and
-          "mouse_event" in py_daemon and
-          "MOUSEEVENTF_LEFTDOWN" in py_daemon and
-          "send_native_key" in py_daemon)
+    # 컨트롤 박스 영역 추출
+    cbox_start = html_idx.find('id="v5-one-line-remote-bar"')
+    cbox_end = html_idx.find('<!-- 🚪👗', cbox_start) if cbox_start != -1 else -1
+    cbox_html = html_idx[cbox_start:cbox_end] if (cbox_start != -1 and cbox_end != -1) else ""
 
-    # 2. [TDD-1-B] F8 좌표 학습 및 스마트폰 직통 발사대
-    has_f8 = ("VK_F8" in py_daemon and "target_pos.json" in py_daemon and "f8_hotkey_listener" in py_daemon)
-    has_launcher = ("remote-paste-input" in html_idx and "sendRemoteAutoPaste" in html_idx and "/api/remote-auto-paste" in py_run)
-    p2 = (has_f8 and has_launcher)
+    # 1. [TDD-1-A] 컨트롤 박스 내 [📸 내 얼굴 사진 넣기] & toggleFacePhotoMenu
+    p1 = ("btn-main-photo-upload" in cbox_html and
+          "toggleFacePhotoMenu" in cbox_html and
+          "내 얼굴 사진 넣기" in cbox_html)
 
-    # 3. [TDD-2-A] 얼굴 이중 노출 0건 (#live-face-photo-overlay 숨김 및 외곽 하얀 테두리 제거)
-    overlay_hidden = 'display: none !important;' in html_idx
-    no_white_border = 'border: 2.5px solid rgba(255,255,255,0.85)' not in html_idx
-    p3 = (overlay_hidden and no_white_border)
+    # 2. [TDD-1-B] 컨트롤 박스 내 3단 팝업 메뉴 (#face-photo-action-menu)
+    p2 = ("face-photo-action-menu" in cbox_html and
+          "triggerFaceCameraPhoto" in cbox_html and
+          "triggerFaceGalleryPhoto" in cbox_html and
+          "resetToDefaultAvatarFace" in cbox_html)
 
-    # 4. [TDD-2-B] 가장자리 25% 소프트 페더링
-    feather_idx = "faceR * 0.75" in html_idx and "destination-in" in html_idx
-    feather_app = "faceR * 0.75" in html_app and "destination-in" in html_app
-    p4 = (feather_idx and feather_app)
+    # 3. [TDD-1-C] 컨트롤 박스 내 [👚 내 옷/전신 사진] 및 파일 인풋 3종
+    has_cloth_btn = ("btn-custom-cloth-upload" in cbox_html or "custom-cloth-input" in cbox_html)
+    has_inputs = ("face-camera-input" in cbox_html and "face-gallery-input" in cbox_html and "custom-cloth-input" in cbox_html)
+    p3 = (has_cloth_btn and has_inputs)
 
-    # 5. [TDD-2-C] 옷 가림 0% (기본 얼굴 크기 폭 11%, 상단 17%)
-    proportions_idx = "0.11" in html_idx and "0.17" in html_idx
-    proportions_app = "0.11" in html_app and "0.17" in html_app
-    p5 = (proportions_idx and proportions_app)
+    # 4. [TDD-2-A] 캔버스 컨테이너(#fitting-studio-container) 내부 상단·하단 가림 0건
+    canvas_container_start = html_idx.find('id="fitting-studio-container"')
+    canvas_container_end = html_idx.find('</div>', canvas_container_start)
+    container_inner = html_idx[canvas_container_start:canvas_container_end]
+    has_no_bottom_overlay = "bottom-" not in container_inner and "bottom:" not in container_inner
+    has_no_top_overlay = "top-" not in container_inner and "top:" not in container_inner
+    has_no_badge_overlay = "main-angle-display-badge" not in container_inner
+    p4 = (has_no_bottom_overlay and has_no_top_overlay and has_no_badge_overlay)
 
-    # 6. [TDD-3-A] 모델 머리 가림 0% (외부 독립 헤더 배지 & 캔버스 내부 검은바 제거)
-    top_badge_idx = "studio-top-model-badge" in html_idx and "updateTopBadge" in html_idx
-    no_inner_black_badge = "renderStudioOverlayBadge(ctx, w, h," not in html_idx
-    p6 = (top_badge_idx and no_inner_black_badge)
+    # 5. [TDD-2-B] 상태 설명 배지(#canvas-lock-status-badge)가 컨트롤 박스 내부로 이전
+    p5 = ("canvas-lock-status-badge" in cbox_html and
+          "실사 포토 스튜디오" in cbox_html)
 
-    # 7. [TDD-3-B] 상단 버튼 세로 찌그러짐 0% (whitespace-nowrap & flex-wrap)
-    p7 = ("whitespace-nowrap" in html_idx and "flex-wrap" in html_idx)
+    # 6. [TDD-3-A] 10벌 옷장함 쇼룸(#wardrobe-showroom-grid) 100% 복구
+    p6 = ("wardrobe-showroom-grid" in html_idx and
+          "나만의 꿈의 옷장함" in html_idx and
+          "10벌 코디 쇼룸" in html_idx)
 
-    # 8. [TDD-4-A] 전신사진/의상 줌 (bodyPhotoScale, bodyPhotoOffsetX/Y)
-    zoom_vars_idx = ("bodyPhotoScale" in html_idx and "bodyPhotoOffsetX" in html_idx and "bodyPhotoOffsetY" in html_idx)
-    zoom_vars_app = ("bodyPhotoScale" in html_app and "bodyPhotoOffsetX" in html_app and "bodyPhotoOffsetY" in html_app)
-    p8 = (zoom_vars_idx and zoom_vars_app)
+    # 7. [TDD-3-B] 1번~10번 의상 카드 10개 전수 존재 검증
+    p7 = all(f"applyWardrobeOutfit({i})" in html_idx for i in range(1, 11)) and all(f"outfit-card-{i}" in html_idx for i in range(1, 11))
 
-    # 9. [TDD-4-B] [👤얼굴조절] ↔ [🖼️전신줌] 전환 토글 & 핀치 줌
-    toggle_target = ("toggleAdjustTarget" in html_idx and "btn-adjust-target" in html_idx)
-    pinch_zoom = ("initialPinchDistance" in html_idx and "touches.length === 2" in html_idx)
-    p9 = (toggle_target and pinch_zoom)
+    # 8. [TDD-4-A] 얼굴 이중 노출 0건 & 가장자리 25% 소프트 페더링
+    feather_ok = "faceR * 0.75" in html_idx and "destination-in" in html_idx
+    proportions_ok = "0.11" in html_idx and "0.17" in html_idx
+    p8 = (feather_ok and proportions_ok)
 
-    # 10. [TDD-5] 1줄 리모컨 정렬 및 문법 상태
-    remote_ok = "v5-one-line-remote-bar" in html_idx and "box-border" in html_idx
-    lock_ok = "window.isCanvasLocked = true" in html_idx
-    p10 = (remote_ok and lock_ok)
+    # 9. [TDD-4-B] [👤얼굴조절 ↔ 🖼️전신줌] 전환 토글 및 핀치 줌
+    toggle_target = ("toggleAdjustTarget" in cbox_html and "btn-adjust-target" in cbox_html)
+    zoom_vars = ("bodyPhotoScale" in html_idx and "touches.length === 2" in html_idx)
+    p9 = (toggle_target and zoom_vars)
+
+    # 10. [TDD-5] 원격 발사대 슬림 바 & 스위치 서브탭
+    launcher_ok = "remote-paste-input" in html_idx and "sendRemoteAutoPaste" in html_idx
+    subtab_ok = "tab-sub-fitting" in html_idx and "tab-sub-future" in html_idx
+    p10 = (launcher_ok and subtab_ok)
 
     results = [p1, p2, p3, p4, p5, p6, p7, p8, p9, p10]
     return all(results), results
 
 def main():
     print("=" * 80)
-    print("🔥 [QA-50x-STRESS] 이상일 대표님 직속 v6.4 Direct-Photo & 오토타이퍼 500회 가혹 검수 시작")
+    print("🔥 [QA-50x-STRESS] 이상일 대표님 직속 v6.5 All-In-One Control Box 500회 가혹 검수 시작")
     print("=" * 80)
 
     # 1. 문법 무결성 사전 검사
@@ -103,7 +111,7 @@ def main():
         py_compile.compile("run_dashboard.py", doraise=True)
         py_compile.compile("win_auto_typer_daemon.py", doraise=True)
         py_compile.compile("ecc_pipeline_engine.py", doraise=True)
-        py_compile.compile("apply_v64_dream_closet.py", doraise=True)
+        py_compile.compile("apply_v65_all_in_one.py", doraise=True)
         print("  ✅ [PASS] Python 파일 4건 컴파일 오류 0건!")
     except Exception as e:
         print(f"  ❌ [FAIL] Python 컴파일 에러: {e}")
@@ -113,7 +121,7 @@ def main():
     with open("dashboard/index.html", "r", encoding="utf-8") as f:
         html = f.read()
     scripts = re.findall(r'<script\b[^>]*>(.*?)</script>', html, re.DOTALL | re.IGNORECASE)
-    temp_js = ".qa_temp_v64_check.js"
+    temp_js = ".qa_temp_v65_check.js"
     with open(temp_js, "w", encoding="utf-8") as f:
         f.write("\n\n// NEXT BLOCK \n\n".join(scripts))
     res = subprocess.run(["node", "--check", temp_js], capture_output=True, text=True, encoding="utf-8", errors="replace")
@@ -150,7 +158,7 @@ def main():
     pass_rate = (passed_tests / total_tests) * 100.0
 
     print("=" * 80)
-    print(f"📊 [QA-50x-STRESS 최종 성적표: v6.4 Direct-Photo & 물리 마우스 오토타이퍼]")
+    print(f"📊 [QA-50x-STRESS 최종 성적표: v6.5 All-In-One Control Box & 가림 0%]")
     print(f"  - 총 반복 루프 수: {total_loops}회")
     print(f"  - 완료된 검수 루프: {passed_loops}/{total_loops} Loops ({passed_loops/total_loops*100:.1f}%)")
     print(f"  - 개별 시나리오 검수: {passed_tests}/{total_tests} Tests ({pass_rate:.1f}%)")

@@ -4535,6 +4535,72 @@ window.saveMyFittingPhoto = saveMyFittingPhoto;
 
 function renderPhotoshopAISwap() { renderRealPhotoStudio(); }
 window.renderPhotoshopAISwap = renderPhotoshopAISwap;
+
+// 👑 [v6.5 올인원 컨트롤 박스 함수 브릿지]
+function toggleFacePhotoMenu() {
+  const menu = document.getElementById('face-photo-action-menu') || document.getElementById('face-photo-menu');
+  if (menu) menu.classList.toggle('hidden');
+}
+window.toggleFacePhotoMenu = toggleFacePhotoMenu;
+
+function triggerFaceCameraPhoto() {
+  const menu = document.getElementById('face-photo-action-menu') || document.getElementById('face-photo-menu');
+  if (menu) menu.classList.add('hidden');
+  const inp = document.getElementById('face-camera-input') || document.getElementById('face-upload-input');
+  if (inp) inp.click();
+}
+window.triggerFaceCameraPhoto = triggerFaceCameraPhoto;
+
+function triggerFaceGalleryPhoto() {
+  const menu = document.getElementById('face-photo-action-menu') || document.getElementById('face-photo-menu');
+  if (menu) menu.classList.add('hidden');
+  const inp = document.getElementById('face-gallery-input') || document.getElementById('face-upload-input');
+  if (inp) inp.click();
+}
+window.triggerFaceGalleryPhoto = triggerFaceGalleryPhoto;
+
+function resetToDefaultAvatarFace() {
+  const menu = document.getElementById('face-photo-action-menu') || document.getElementById('face-photo-menu');
+  if (menu) menu.classList.add('hidden');
+  window.userFaceImage = null;
+  window.userFaceDataUrl = null;
+  window.isFaceUploaded = false;
+  drawMainFittingAvatar();
+  if (typeof showToast === 'function') {
+    showToast('🔄 얼굴 사진이 초기화되었습니다.', 'info');
+  }
+}
+window.resetToDefaultAvatarFace = resetToDefaultAvatarFace;
+window.resetFaceToIllustration = resetToDefaultAvatarFace;
+
+function togglePhotoViewMode() {
+  toggleRenderMode();
+  const btn = document.getElementById('btn-photo-view-mode') || document.getElementById('btn-mode-toggle');
+  if (btn) {
+    btn.innerHTML = window.currentRenderMode === 'photo_lookbook' ? '<span>👗코디합성</span>' : '<span>📸원본보기</span>';
+  }
+}
+window.togglePhotoViewMode = togglePhotoViewMode;
+
+// 상태 표시줄 업데이트 (사진 가림 0%)
+function updateTopBadge() {
+  const statusBadge = document.getElementById('canvas-lock-status-badge');
+  const modeBadge = document.getElementById('studio-current-mode-badge');
+  const look = window.LOOKBOOK_CATALOG[window.currentWardrobeNum] || window.LOOKBOOK_CATALOG[1];
+  const lockText = window.isCanvasLocked ? '🔒 화면 고정됨' : '🔓 조절 모드';
+  
+  if (statusBadge) {
+    statusBadge.textContent = `${lockText} | ✨ 실사 포토 스튜디오 v6.5`;
+  }
+  if (modeBadge) {
+    if (window.currentRenderMode === 'user_original') {
+      modeBadge.textContent = `📸 원본 보기 (${look.name.split(' ')[0]})`;
+    } else {
+      modeBadge.textContent = `${look.name.split(' ')[0]} ${window.currentWardrobeNum}번 착장`;
+    }
+  }
+}
+
 window.adjustFaceScale = adjustFaceScale;
 window.adjustFaceOffset = adjustFaceOffset;
 window.resetFaceOffset = resetFaceOffset;
