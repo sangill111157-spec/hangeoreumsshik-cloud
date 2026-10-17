@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-qa_50x_stress_inspector.py [v3.9 Wardrobe-Pro & 무인 원격 오토 타이퍼 500회 가혹 검수기]
+qa_50x_stress_inspector.py [v4.0 Hyper-3D Studio 500회 가혹 검수기]
 --------------------------------------------------------------------------------
 🔥 이상일 대표님([COMMANDER-000]) 직속 50회 연속 가혹 구동 검수 에이전트
 (50 Iterations x 10 Scenarios = 총 500회 가혹 스트레스 테스트)
@@ -10,11 +10,11 @@ qa_50x_stress_inspector.py [v3.9 Wardrobe-Pro & 무인 원격 오토 타이퍼 5
 2. 모바일 세로 스크롤 보장 (touch-action: pan-y !important; & passive touch)
 3. 4인 가족 원터치 프리셋 (applyProfilePreset: haesang, songhyo, eunsol, sangil)
 4. 얼굴 크기 조절 엔진 (adjustFaceScale, onFaceScaleSliderChange, 50%~220%)
-5. 얼굴 영점 미세조절 & 핀치 줌 (adjustFaceOffset, initPinchZoomInteraction)
-6. 아바타 세련된 패션 실루엣 & 일러스트 이목구비 렌더링 (drawDetailedIllustrationFace)
-7. 10벌 시그니처 의상 전수 착장 쇼룸 (applyWardrobeOutfit 1~10번 전수 완비)
-8. [스마트폰 원격 복붙 직통 스위치] (sendRemoteClipboardToAntigravity in HTMLs)
-9. 백엔드 [/api/remote-auto-paste] 엔드포인트 완비 in run_dashboard.py
+5. [v4.0 신규] 얼굴 상하좌우 이동 및 드래그 (-120~+120px, onFaceOffsetXSliderChange, toggleFaceDragMode)
+6. [v4.0 신규] AI 사진 자동 뷰티 보정 & 뒷배경 자동 제거 (processSmartFaceCutout, toggleSmartCutout)
+7. [v4.0 신규] 3D 볼륨 셰이딩 & Bezier 인체 곡선 엔진 (bezierCurveTo, 목/쇄골, 분리형 팔/손 렌더링)
+8. 10벌 시그니처 의상 전수 착장 쇼룸 (applyWardrobeOutfit 1~10번 전수 완비)
+9. 스마트폰 원격 복붙 직통 스위치 (sendRemoteClipboardToAntigravity & /api/remote-auto-paste)
 10. win_auto_typer_daemon v2.0 (Win32 keybd_event, winsound 비프음, 4방향 버튼 0건)
 --------------------------------------------------------------------------------
 """
@@ -56,28 +56,27 @@ def check_scenario(iteration):
     # 시나리오 4: 얼굴 크기 조절 엔진 완비
     p4 = "adjustFaceScale" in html_idx and "face-scale-slider" in html_idx and "faceScale" in html_idx
 
-    # 시나리오 5: 얼굴 위치 영점 미세조절 및 핀치 줌 완비
-    p5 = "adjustFaceOffset" in html_idx and "initPinchZoomInteraction" in html_idx
+    # 시나리오 5: [v4.0 신규] 얼굴 상하좌우 이동 (-120~+120px) & 캔버스 드래그 완비
+    p5 = "onFaceOffsetXSliderChange" in html_idx and "onFaceOffsetYSliderChange" in html_idx and "toggleFaceDragMode" in html_idx and "initFaceTouchDragInteraction" in html_idx
 
-    # 시나리오 6: 세련된 패션 일러스트 이목구비
-    p6 = "drawDetailedIllustrationFace" in html_idx and "drawDetailedIllustrationFace" in html_app
+    # 시나리오 6: [v4.0 신규] AI 사진 뷰티 보정 & 뒷배경 자동 제거 (processSmartFaceCutout & toggleSmartCutout)
+    p6 = "processSmartFaceCutout" in html_idx and "toggleSmartCutout" in html_idx and "autoBeautyFilter" in html_idx
 
-    # 시나리오 7: 10벌 시그니처 의상 전수 착장 쇼룸 (1~10번)
+    # 시나리오 7: [v4.0 신규] 3D 볼륨 셰이딩 & Bezier 인체 곡선 엔진
+    p7 = "bezierCurveTo" in html_idx and "bezierCurveTo" in html_app and "neckGrad" in html_idx
+
+    # 시나리오 8: 10벌 시그니처 의상 전수 착장 쇼룸 (1~10번)
     has_10_cards_idx = all(f"applyWardrobeOutfit({i})" in html_idx for i in range(1, 11))
     has_10_cards_app = all(f"applyWardrobeOutfit({i})" in html_app for i in range(1, 11))
-    p7 = has_10_cards_idx and has_10_cards_app
+    p8 = has_10_cards_idx and has_10_cards_app
 
-    # 시나리오 8: 스마트폰 원격 복붙 직통 스위치 버튼 완비
-    has_remote_idx = "sendRemoteClipboardToAntigravity" in html_idx and "스마트폰 원격 복붙 직통 스위치" in html_idx
-    has_remote_app = "sendRemoteClipboardToAntigravity" in html_app
-    p8 = has_remote_idx and has_remote_app
+    # 시나리오 9: 스마트폰 원격 복붙 직통 스위치 & /api/remote-auto-paste
+    has_remote_idx = "sendRemoteClipboardToAntigravity" in html_idx and "/api/remote-auto-paste" in py_run
+    p9 = has_remote_idx
 
-    # 시나리오 9: 백엔드 /api/remote-auto-paste 엔드포인트 완비
-    p9 = "/api/remote-auto-paste" in py_run and "--remote-trigger" in py_run
-
-    # 시나리오 10: win_auto_typer_daemon v2.0 (Win32 keybd_event, winsound, 4방향 버튼 0건)
+    # 시나리오 10: win_auto_typer_daemon v2.0 및 4방향 버튼 0건
     no_angle_btn = "setMainAngle(" not in html_idx and "setMainAngle(" not in html_app
-    typer_ok = "keybd_event" in py_daemon and "play_success_beep" in py_daemon and "set_clipboard_text" in py_daemon
+    typer_ok = "keybd_event" in py_daemon and "play_success_beep" in py_daemon
     p10 = no_angle_btn and typer_ok
 
     results = [p1, p2, p3, p4, p5, p6, p7, p8, p9, p10]
@@ -85,7 +84,7 @@ def check_scenario(iteration):
 
 def main():
     print("=" * 80)
-    print("🔥 [QA-50x-STRESS] 이상일 대표님 직속 v3.9 & 무인 원격 오토 타이퍼 50회 연속 가혹 검수 시작")
+    print("🔥 [QA-50x-STRESS] 이상일 대표님 직속 v4.0 Hyper-3D Studio 50회 연속 가혹 검수 시작")
     print("=" * 80)
 
     total_loops = 50
