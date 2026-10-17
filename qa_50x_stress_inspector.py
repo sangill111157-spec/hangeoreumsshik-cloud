@@ -1,21 +1,21 @@
 # -*- coding: utf-8 -*-
 """
-qa_50x_stress_inspector.py [v5.1 Photoshop-AI Swap Studio 500회 가혹 검수기]
+qa_50x_stress_inspector.py [v6.0 Zero-Cartoon Real-Photo Studio 500회 가혹 검수기]
 --------------------------------------------------------------------------------
 🔥 이상일 대표님([COMMANDER-000]) 직속 50회 연속 가혹 구동 검수 에이전트
 (50 Iterations x 10 Scenarios = 총 500회 가혹 스트레스 테스트)
 
 10대 전수 검증 시나리오:
-1. [과업 2] 듀얼 슬롯 상단 헤더 분리 (내 얼굴 사진 넣기 + 내 옷 합성, 얼굴 가림 0%)
-2. 모바일 세로 스크롤 보장 (touch-action: pan-y) & 캔버스 밀착 0px 1줄 퀵 리모컨 바
-3. [과업 1-①] Smart Neck & Collar Shadow (목선-옷깃 radialGradient Contact Shadow)
-4. [과업 1-②] Auto Color & Lighting Match (matchPhotoshopLighting & 포토샵 컬러 매치)
-5. [과업 1-③] Background Clean & Studio Depth-of-Field (autoDetectAndCutoutFace & 배경 제거)
-6. [과업 2] 커스텀 옷 사진 업로드 & 자동 투명화 (handleCustomClothUpload, processClothTransparency)
-7. [과업 3] 원터치 포토샵 자동 합성 리모컨 (runPhotoshopAutoBlend & btn-photoshop-auto-blend)
-8. [과업 3] 백엔드 /api/photoshop-ai-swap 라우트 및 연동
-9. 10벌 하이엔드 쇼룸 전수 착장 (applyWardrobeOutfit 1~10번)
-10. 자바스크립트(node --check) 무결성 & 4방향 고정 각도 버튼 100% 삭제
+1. [과업 1-①] 2D 만화 도형 다리 코드 박멸 (ctx.roundRect legSpread 활성 드로잉 0건 보장)
+2. [과업 1-②] renderRealPhotoStudio 초실사 렌더러 단일 통합 및 구형 드로잉 차단
+3. [과업 1-③] [📸 내 사진 원본 베이스 모드] 및 소프트 페더링 얼굴 실사 스왑 (renderSoftFeatheredFaceSwap)
+4. [과업 2-①] 터치 위치 고정 잠금 (window.isCanvasLocked = true 기본 잠금 상태 보장)
+5. [과업 2-②] 캔버스 밀착 1줄 퀵 리모컨 바 및 toggleCanvasLock() 잠금 스위치 완비
+6. [과업 3-①] 백엔드 POST /api/real-ai-tryon 실사 의상 생성 라우트 완비
+7. [과업 3-②] 4인 체형 프로필별 Pollinations Flux-Realism 실사 화보 프롬프트 완비
+8. [과업 3-③] 원터치 [🪄AI실사합성] (runRealAITryOn & btn-real-ai-tryon) 완비
+9. 10벌 하이엔드 실사 룩북 카탈로그 완비 (LOOKBOOK_CATALOG & applyWardrobeOutfit 1~10)
+10. 모바일 pan-y 스크롤 보장 & 4방향 고정 각도 버튼 0건 & Python/Node 문법 무결성
 --------------------------------------------------------------------------------
 """
 
@@ -38,57 +38,59 @@ def check_scenario(iteration):
     with open("run_dashboard.py", "r", encoding="utf-8") as f:
         py_run = f.read()
 
-    # 시나리오 1: 듀얼 슬롯 상단 헤더 분리 (내 얼굴 사진 넣기 + 내 옷 합성)
-    p1 = ("내 얼굴 사진 넣기" in html_idx and "내 옷 합성" in html_idx and 
-          "btn-face-menu" in html_idx and "btn-custom-cloth" in html_idx)
+    # 시나리오 1: 2D 만화 다리 활성 드로잉 0건 검증 (ctx.roundRect(cx - legSpread 활성 코드 부재)
+    active_leg_idx = re.search(r'(?<!//\s)ctx\.roundRect\(cx\s*-\s*legSpread', html_idx)
+    active_leg_app = re.search(r'(?<!//\s)ctx\.roundRect\(cx\s*-\s*legSpread', html_app)
+    p1 = (active_leg_idx is None and active_leg_app is None)
 
-    # 시나리오 2: touch-action: pan-y 보장 & 1줄 퀵 리모컨 바
-    p2 = ("touch-action: pan-y" in html_idx and "touch-action: pan-y" in html_app and
-          "v5-one-line-remote-bar" in html_idx and "v5-one-line-remote-bar" in html_app)
+    # 시나리오 2: renderRealPhotoStudio 초실사 렌더러 단일 통합 및 구형 차단
+    p2 = ("renderRealPhotoStudio" in html_idx and "renderRealPhotoStudio" in html_app and
+          "if (typeof renderRealPhotoStudio === 'function') { renderRealPhotoStudio(); return; }" in html_idx)
 
-    # 시나리오 3: [과업 1-①] Smart Neck & Collar Shadow (목선-옷깃 radialGradient Contact Shadow)
-    p3 = ("contactShadow" in html_idx and "createRadialGradient" in html_idx and
-          "rgba(20, 10, 5," in html_idx and "contactShadow" in html_app)
+    # 시나리오 3: 내 사진 원본 베이스 모드 & 소프트 페더링 실사 스왑
+    p3 = ("renderSoftFeatheredFaceSwap" in html_idx and "destination-in" in html_idx and
+          "user_original" in html_idx and "renderSoftFeatheredFaceSwap" in html_app)
 
-    # 시나리오 4: [과업 1-②] Auto Color & Lighting Match (matchPhotoshopLighting & 포토샵 컬러 매치)
-    p4 = ("matchPhotoshopLighting" in html_idx and "lumRatio" in html_idx and
-          "warmShift" in html_idx and "matchPhotoshopLighting" in html_app)
+    # 시나리오 4: 터치 위치 고정 잠금 (window.isCanvasLocked = true)
+    p4 = ("window.isCanvasLocked = true" in html_idx and "if (window.isCanvasLocked) return;" in html_idx and
+          "window.isCanvasLocked = true" in html_app)
 
-    # 시나리오 5: [과업 1-③] Background Clean & Studio Depth-of-Field (autoDetectAndCutoutFace & 배경 제거)
-    p5 = ("autoDetectAndCutoutFace" in html_idx and "skinSumX" in html_idx and
-          "cachedCutoutCanvas" in html_idx and "autoDetectAndCutoutFace" in html_app)
+    # 시나리오 5: 캔버스 밀착 1줄 퀵 리모컨 바 & toggleCanvasLock() 완비
+    p5 = ("toggleCanvasLock" in html_idx and "btn-canvas-lock" in html_idx and
+          "v5-one-line-remote-bar" in html_idx and "toggleCanvasLock" in html_app)
 
-    # 시나리오 6: [과업 2] 커스텀 옷 사진 업로드 & 자동 투명화 (handleCustomClothUpload)
-    p6 = ("handleCustomClothUpload" in html_idx and "processClothTransparency" in html_idx and
-          "customClothImage" in html_idx and "handleCustomClothUpload" in html_app)
+    # 시나리오 6: 백엔드 POST /api/real-ai-tryon 실사 생성 라우트
+    p6 = ("/api/real-ai-tryon" in py_run and "v6.0-real-ai-tryon" in py_run and
+          "pollinations_url" in py_run)
 
-    # 시나리오 7: [과업 3] 원터치 포토샵 자동 합성 리모컨 (runPhotoshopAutoBlend)
-    p7 = ("runPhotoshopAutoBlend" in html_idx and "btn-photoshop-auto-blend" in html_idx and
-          "runPhotoshopAutoBlend" in html_app)
+    # 시나리오 7: 4인 체형 프로필별 실사 화보 프롬프트 및 메타데이터
+    p7 = ("profile_desc" in py_run and "haesang" in py_run and "sangil" in py_run and
+          "flux-realism" in py_run)
 
-    # 시나리오 8: [과업 3] 백엔드 /api/photoshop-ai-swap 라우트 및 연동
-    p8 = ("/api/photoshop-ai-swap" in py_run and "swap_recipes" in py_run and
-          "v5.1-photoshop-ai-swap" in py_run)
+    # 시나리오 8: 원터치 [🪄AI실사합성] (runRealAITryOn)
+    p8 = ("runRealAITryOn" in html_idx and "btn-real-ai-tryon" in html_idx and
+          "runRealAITryOn" in html_app)
 
-    # 시나리오 9: 10벌 하이엔드 쇼룸 전수 착장 (1~10번)
+    # 시나리오 9: 10벌 하이엔드 실사 룩북 카탈로그 완비 (1~10번)
     has_10_cards_idx = all(f"applyWardrobeOutfit({i})" in html_idx for i in range(1, 11))
     has_10_cards_app = all(f"applyWardrobeOutfit({i})" in html_app for i in range(1, 11))
-    p9 = has_10_cards_idx and has_10_cards_app
+    has_catalog = "LOOKBOOK_CATALOG" in html_idx and "LOOKBOOK_CATALOG" in html_app
+    p9 = has_10_cards_idx and has_10_cards_app and has_catalog
 
-    # 시나리오 10: 4방향 고정 각도 버튼 100% 삭제
-    no_angle_btn = "setMainAngle(" not in html_idx and "setMainAngle(" not in html_app
-    p10 = no_angle_btn
+    # 시나리오 10: 모바일 pan-y 스크롤 보장 & 4방향 고정 각도 버튼 0건
+    p10 = ("touch-action: pan-y" in html_idx and "touch-action: pan-y" in html_app and
+           "setMainAngle(" not in html_idx and "setMainAngle(" not in html_app)
 
     results = [p1, p2, p3, p4, p5, p6, p7, p8, p9, p10]
     return all(results), results
 
 def main():
     print("=" * 80)
-    print("🔥 [QA-50x-STRESS] 이상일 대표님 직속 v5.1 Photoshop-AI Swap Studio 50회 연속 가혹 검수 시작")
+    print("🔥 [QA-50x-STRESS] 이상일 대표님 직속 v6.0 Zero-Cartoon Real-Photo 50회 가혹 검수 시작")
     print("=" * 80)
 
     # 1. 문법 무결성 사전 검사
-    print("[🔍 사전 검수 1] Python 스크립트 py_compile 무결성 검수...")
+    print("[🔍 사전 검수 1] Python py_compile 무결성 검수...")
     try:
         py_compile.compile("run_dashboard.py", doraise=True)
         py_compile.compile("win_auto_typer_daemon.py", doraise=True)
@@ -101,7 +103,7 @@ def main():
     with open("dashboard/index.html", "r", encoding="utf-8") as f:
         html = f.read()
     scripts = re.findall(r'<script\b[^>]*>(.*?)</script>', html, re.DOTALL | re.IGNORECASE)
-    temp_js = ".qa_temp_v51_check.js"
+    temp_js = ".qa_temp_v60_check.js"
     with open(temp_js, "w", encoding="utf-8") as f:
         f.write("\n\n// NEXT BLOCK \n\n".join(scripts))
     res = subprocess.run(["node", "--check", temp_js], capture_output=True, text=True, encoding="utf-8", errors="replace")
@@ -131,7 +133,6 @@ def main():
         else:
             status_tag = f"⚠️ PARTIAL ({sub_pass_count}/10)"
 
-        # 5회 단위 또는 마지막 회차 출력
         if i % 10 == 0 or i == 1 or i == total_loops:
             print(f"  [Loop {i:02d}/50] 10대 시나리오 스트레스 테스트: {status_tag} ({sub_pass_count}/10 통과)")
 

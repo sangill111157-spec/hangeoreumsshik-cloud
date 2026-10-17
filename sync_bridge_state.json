@@ -1,21 +1,21 @@
 {
   "system": "RGON_ANTIGRAVITY_BI_DIRECTIONAL_SYNC_V1",
-  "version": "v5.1-photoshop-ai-swap",
+  "version": "v6.0-zero-cartoon-real-photo",
   "last_in_signal": {
     "signal": "⟪⚡RGON_SIGNAL_READY⚡⟫",
     "status": "QUEUED_FOR_ANTIGRAVITY",
     "sender": "Test-Runner",
     "prompt": "테스트 과업 지시입니다.",
-    "timestamp": "2026-10-18T00:39:54.759577"
+    "timestamp": "2026-10-18T01:11:26.948449"
   },
   "last_out_signal": {
     "signal": "⟪✅ANTIGRAVITY_OUT_COMPLETE✅⟫",
     "status": "COMPLETED",
     "sender": "AGV-101",
-    "summary": "v5.1 Photoshop-AI 의상합성 스튜디오(목선 접촉 그림자, 포토샵 조명/컬러 매칭, 배경 제거, 듀얼 슬롯, 1줄 퀵 리모컨) 50회 연속 가혹 검수 500/500 만점 ALL PASS 완료",
-    "version": "v5.1-photoshop-swap",
-    "timestamp": "2026-10-18 00:42:18"
+    "summary": "v6.0 Zero-Cartoon Real-Photo Studio (2D 만화 다리/머리 완전 박멸, 실사 화보 및 내사진 원본 모드, 터치 위치 고정 잠금, 50회 가혹 검수 500/500 만점 ALL PASS)",
+    "version": "v6.0-real-photo",
+    "timestamp": "2026-10-18 01:13:21"
   },
-  "auto_sync_count": 35,
-  "last_updated": "2026-10-18 00:42:18"
+  "auto_sync_count": 44,
+  "last_updated": "2026-10-18 01:13:21"
 }

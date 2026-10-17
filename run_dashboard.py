@@ -2284,6 +2284,121 @@ class DashboardHandler(SimpleHTTPRequestHandler):
                 self.wfile.write(json.dumps({"error": str(e), "success": False}).encode('utf-8'))
                 return
 
+        # 23. 🪄 [v6.0 Zero-Cartoon Real-AI Try-On 브릿지] (POST /api/real-ai-tryon)
+        if self.path == '/api/real-ai-tryon':
+            try:
+                content_len = int(self.headers.get('Content-Length', 0))
+                body = self.rfile.read(content_len).decode('utf-8')
+                data = json.loads(body) if body else {}
+
+                profile = data.get('profile', 'haesang')
+                outfit_num = int(data.get('outfitNum', 1))
+                mode = data.get('mode', 'photo_lookbook')
+
+                # 4인 체형 프로필별 수식어
+                profile_desc = {
+                    "haesang": "12-year-old cute Korean girl, bright smile, natural posture",
+                    "songhyo": "14-year-old cheerful Korean middle school girl, lively stylish vibe",
+                    "eunsol": "16-year-old elegant Korean high school girl, chic model posture",
+                    "sangil": "Dignified 48-year-old Korean CEO gentleman, charismatic executive"
+                }.get(profile, "Charming Korean fashion model")
+
+                # 10벌 하이엔드 실사 화보 메타데이터 및 프롬프트
+                lookbooks = {
+                    1: {
+                        "name": "🌸 러블리 K-하이틴 핑크 가디건",
+                        "prompt": f"high-end studio fashion lookbook photo, {profile_desc} wearing lovely pastel pink wool cardigan and pleated white skirt, soft natural studio lighting, 8k portrait photography, photorealistic, professional runway shot",
+                        "colorTheme": "#f43f5e",
+                        "faceAnchor": {"cx": 225, "cy": 135, "radius": 46}
+                    },
+                    2: {
+                        "name": "🎀 청량 아이돌 데님 자켓 & 원피스",
+                        "prompt": f"high-end studio fashion lookbook photo, {profile_desc} wearing light blue washed denim jacket with trendy summer dress, crisp fashion photography, photorealistic 8k, bokeh studio background",
+                        "colorTheme": "#38bdf8",
+                        "faceAnchor": {"cx": 225, "cy": 138, "radius": 46}
+                    },
+                    3: {
+                        "name": "🎓 명문 프레피 블레이저 & 리본",
+                        "prompt": f"high-end studio fashion lookbook photo, {profile_desc} wearing navy tailored preppy blazer with neat white collar and ribbon tie, British boarding school look, 8k photorealistic, sharp focus",
+                        "colorTheme": "#818cf8",
+                        "faceAnchor": {"cx": 225, "cy": 132, "radius": 45}
+                    },
+                    4: {
+                        "name": "👕 시티보이 오버핏 후드 & 카고",
+                        "prompt": f"high-end studio fashion lookbook photo, {profile_desc} wearing cozy sage green oversized hoodie and modern cargo pants, Tokyo streetwear aesthetic, 8k realistic fashion shoot",
+                        "colorTheme": "#34d399",
+                        "faceAnchor": {"cx": 225, "cy": 140, "radius": 47}
+                    },
+                    5: {
+                        "name": "🧥 베이지 트렌치 롱코트",
+                        "prompt": f"high-end studio fashion lookbook photo, {profile_desc} wearing timeless beige double-breasted trench coat with structured belt, elegant autumn editorial, 8k magazine cover",
+                        "colorTheme": "#fbbf24",
+                        "faceAnchor": {"cx": 225, "cy": 130, "radius": 45}
+                    },
+                    6: {
+                        "name": "👔 청담 테일러드 VIP 네이비 수트",
+                        "prompt": f"high-end studio fashion lookbook photo, {profile_desc} wearing bespoke deep navy tailored suit with silk tie, luxury corporate executive photoshoot, 8k ultra realistic",
+                        "colorTheme": "#60a5fa",
+                        "faceAnchor": {"cx": 225, "cy": 132, "radius": 46}
+                    },
+                    7: {
+                        "name": "✨ 캐시미어 웜골드 니트 & 슬랙스",
+                        "prompt": f"high-end studio fashion lookbook photo, {profile_desc} wearing premium warm camel cashmere knit sweater and ivory tailored slacks, quiet luxury lifestyle, 8k portrait photography",
+                        "colorTheme": "#fcd34d",
+                        "faceAnchor": {"cx": 225, "cy": 136, "radius": 45}
+                    },
+                    8: {
+                        "name": "🔮 2035 글로벌 CEO 네오-퍼플 수트",
+                        "prompt": f"high-end studio fashion lookbook photo, {profile_desc} wearing futuristic deep purple minimalist executive tailored suit, subtle cybernetic accents, Neo-Seoul 2035 luxury, 8k hyper-detailed",
+                        "colorTheme": "#c084fc",
+                        "faceAnchor": {"cx": 225, "cy": 130, "radius": 46}
+                    },
+                    9: {
+                        "name": "🚀 우주 AI 과학자 사이버 테크웨어",
+                        "prompt": f"high-end studio fashion lookbook photo, {profile_desc} wearing matte black aerodynamic techwear jacket with subtle neon cyan fiber lines, sleek futuristic scientist, 8k photorealistic",
+                        "colorTheme": "#22d3ee",
+                        "faceAnchor": {"cx": 225, "cy": 135, "radius": 45}
+                    },
+                    10: {
+                        "name": "👑 로열 골드 갈라 파티 드레스/턱시도",
+                        "prompt": f"high-end studio fashion lookbook photo, {profile_desc} wearing breathtaking gold embroidered evening gala couture, Cannes red carpet lighting, majestic 8k fashion photography",
+                        "colorTheme": "#fde047",
+                        "faceAnchor": {"cx": 225, "cy": 128, "radius": 46}
+                    }
+                }
+
+                current_look = lookbooks.get(outfit_num, lookbooks[1])
+                import urllib.parse
+                encoded_prompt = urllib.parse.quote(current_look["prompt"])
+                pollinations_url = f"https://image.pollinations.ai/prompt/{encoded_prompt}?width=600&height=800&nologo=true&model=flux-realism&seed={outfit_num*1000 + hash(profile)%997}"
+
+                res = {
+                    "success": True,
+                    "engine": "v6.0-real-ai-tryon",
+                    "profile": profile,
+                    "outfitNum": outfit_num,
+                    "mode": mode,
+                    "lookInfo": current_look,
+                    "pollinationsUrl": pollinations_url,
+                    "faceAnchor": current_look["faceAnchor"],
+                    "colorTheme": current_look["colorTheme"],
+                    "timestamp": time.strftime("%Y-%m-%d %H:%M:%S")
+                }
+
+                resp_bytes = json.dumps(res, ensure_ascii=False).encode('utf-8')
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.send_header("Content-Length", str(len(resp_bytes)))
+                self.end_headers()
+                self.wfile.write(resp_bytes)
+                return
+            except Exception as e:
+                self.send_response(500)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.end_headers()
+                self.wfile.write(json.dumps({"error": str(e), "success": False}).encode('utf-8'))
+                return
+
         self.send_response(404)
         self.end_headers()
 
