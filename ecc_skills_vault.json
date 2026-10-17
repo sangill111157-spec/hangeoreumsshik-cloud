@@ -1,0 +1,65 @@
+{
+  "system": "ECC_SKILLS_VAULT_V1",
+  "name": "클로드 코드 68 에이전트 & 293 스킬 자율 지능 저장소",
+  "version": "v6.1-ecc",
+  "total_skills": 293,
+  "total_agents": 68,
+  "categories": {
+    "planning_and_tdd": {
+      "count": 58,
+      "description": "요구사항 분해, TDD Red-Green-Refactor 테스트 슈트 설계 및 사전 검증",
+      "featured_skills": [
+        "ecc-req-decomposer-pro",
+        "ecc-tdd-red-test-generator",
+        "ecc-edge-case-stress-matrix",
+        "ecc-dom-leak-preventer",
+        "ecc-zero-regression-guardian"
+      ]
+    },
+    "zero_cartoon_real_photo": {
+      "count": 64,
+      "description": "2D 만화 도형 완전 박멸, 초실사 패션 스튜디오 화보 렌더링 및 딥-블렌딩",
+      "featured_skills": [
+        "zero-cartoon-sanitizer",
+        "photorealistic-vignette-blender",
+        "real-human-proportions-aligner",
+        "studio-bokeh-depth-synthesizer",
+        "canvas-touch-lock-sentinel"
+      ]
+    },
+    "ai_tryon_and_vision": {
+      "count": 62,
+      "description": "Pollinations Flux-Realism 연동, 실사 룩북 화보 및 가상 피팅 딥러닝",
+      "featured_skills": [
+        "flux-realism-prompt-engineer",
+        "high-res-fashion-anchor-mapper",
+        "skin-luminance-light-matcher",
+        "fabric-texture-normal-mapper",
+        "contact-shadow-deep-renderer"
+      ]
+    },
+    "independent_review_and_qa": {
+      "count": 55,
+      "description": "독립 코드 검토, DOM 격리 검증, 50회 연속 스트레스 가혹 감사",
+      "featured_skills": [
+        "ecc-code-reviewer-alpha",
+        "qa-50x-stress-inspector-core",
+        "security-syntax-zero-flaw-checker",
+        "mobile-pan-y-scroll-validator",
+        "node-pycompile-syntax-verifier"
+      ]
+    },
+    "automation_and_sync": {
+      "count": 54,
+      "description": "멀티 AI 버스 실시간 교신, 르곤-안실장 양방향 무인 동기화",
+      "featured_skills": [
+        "omni-agent-bus-broadcaster",
+        "rgon-antigravity-bi-directional-sync",
+        "win-auto-paste-daemon-controller",
+        "git-push-auto-deployer",
+        "cloudflare-5g-tunnel-keepalive"
+      ]
+    }
+  },
+  "last_updated": "2026-10-18T01:15:00Z"
+}

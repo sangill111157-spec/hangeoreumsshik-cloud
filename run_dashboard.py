@@ -2399,6 +2399,32 @@ class DashboardHandler(SimpleHTTPRequestHandler):
                 self.wfile.write(json.dumps({"error": str(e), "success": False}).encode('utf-8'))
                 return
 
+        # 24. 🧠 [v6.1 ECC 자율 파이프라인 브릿지] (POST /api/ecc-pipeline-run)
+        if self.path == '/api/ecc-pipeline-run':
+            try:
+                content_len = int(self.headers.get('Content-Length', 0))
+                body = self.rfile.read(content_len).decode('utf-8')
+                data = json.loads(body) if body else {}
+
+                task = data.get('task', 'zero_cartoon_real_photo_studio')
+                from ecc_pipeline_engine import ECCPipelineEngine
+                engine = ECCPipelineEngine()
+                res = engine.run_pipeline(task)
+
+                resp_bytes = json.dumps(res, ensure_ascii=False).encode('utf-8')
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.send_header("Content-Length", str(len(resp_bytes)))
+                self.end_headers()
+                self.wfile.write(resp_bytes)
+                return
+            except Exception as e:
+                self.send_response(500)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.end_headers()
+                self.wfile.write(json.dumps({"error": str(e), "success": False}).encode('utf-8'))
+                return
+
         self.send_response(404)
         self.end_headers()
 

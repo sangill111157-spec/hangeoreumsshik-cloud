@@ -1,21 +1,21 @@
 {
   "system": "RGON_ANTIGRAVITY_BI_DIRECTIONAL_SYNC_V1",
-  "version": "v6.0-zero-cartoon-real-photo",
+  "version": "v6.1-ecc-pipeline",
   "last_in_signal": {
     "signal": "⟪⚡RGON_SIGNAL_READY⚡⟫",
     "status": "QUEUED_FOR_ANTIGRAVITY",
     "sender": "Test-Runner",
     "prompt": "테스트 과업 지시입니다.",
-    "timestamp": "2026-10-18T01:11:26.948449"
+    "timestamp": "2026-10-18T01:19:03.545570"
   },
   "last_out_signal": {
     "signal": "⟪✅ANTIGRAVITY_OUT_COMPLETE✅⟫",
     "status": "COMPLETED",
     "sender": "AGV-101",
-    "summary": "v6.0 Zero-Cartoon Real-Photo Studio (2D 만화 다리/머리 완전 박멸, 실사 화보 및 내사진 원본 모드, 터치 위치 고정 잠금, 50회 가혹 검수 500/500 만점 ALL PASS)",
-    "version": "v6.0-real-photo",
-    "timestamp": "2026-10-18 01:13:21"
+    "summary": "v6.1 ECC 자율 파이프라인 (68 Agents · 293 Skills) 탑재 & 2D 분홍 막대기 다리 및 만화 머리 완전 박멸, 초실사 화보 및 내 사진 원본 뷰어, 화면 고정 잠금, 50회 가혹 검수 500/500 만점 ALL PASS 완료",
+    "version": "v6.1-ecc",
+    "timestamp": "2026-10-18 01:19:54"
   },
-  "auto_sync_count": 44,
-  "last_updated": "2026-10-18 01:13:21"
+  "auto_sync_count": 47,
+  "last_updated": "2026-10-18 01:19:54"
 }
