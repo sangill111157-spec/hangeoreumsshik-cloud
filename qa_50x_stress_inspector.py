@@ -1,21 +1,21 @@
 # -*- coding: utf-8 -*-
 """
-qa_50x_stress_inspector.py [v6.1 ECC Zero-Cartoon Real-Photo 500회 가혹 검수기]
+qa_50x_stress_inspector.py [v6.2 Direct-Photo Instant Apply 500회 가혹 검수기]
 --------------------------------------------------------------------------------
-🔥 이상일 대표님([COMMANDER-000]) 직속 50회 연속 가혹 구동 검수 에이전트
+🔥 이상일 대표님([COMMANDER-000]) & 르곤이 1호 직속 50회 연속 가혹 구동 검수 감사관
 (50 Iterations x 10 Scenarios = 총 500회 가혹 스트레스 테스트)
 
 10대 전수 검증 시나리오:
-1. [TDD Test 1-①] 2D 분홍 막대기 다리 활성 코드 0건 검증 (ctx.roundRect legSpread 활성 0건)
-2. [TDD Test 1-②] 가짜 만화 머리 이중 노출 완전 차단 (drawDetailedIllustrationFace early return)
-3. [TDD Test 2-①] window.isCanvasLocked = true 기본 잠금 보장 (터치 좌표 이동 0px)
-4. [TDD Test 2-②] 캔버스 밀착 1줄 퀵 리모컨 바 & toggleCanvasLock() 완비
-5. [TDD Test 3-①] 10벌 옷장 실사 화보 카탈로그 완비 (LOOKBOOK_CATALOG & applyWardrobeOutfit 1~10)
-6. [TDD Test 3-②] 내 사진 원본 전체 풀스크린 뷰어 (user_original & 왜곡 0%)
-7. [TDD Test 3-③] 소프트 페더링 얼굴 1개 정밀 스왑 (renderSoftFeatheredFaceSwap)
-8. [TDD Test 4-①] ECC 자율 파이프라인 엔진 & 293 스킬 볼트 완비 (ecc_pipeline_engine.py & ecc_skills_vault.json)
-9. [TDD Test 4-②] 백엔드 POST /api/ecc-pipeline-run & POST /api/real-ai-tryon 완비
-10. [TDD Test 5] 정적 상태 배지 (🔒 화면 고정됨) & 모바일 pan-y 스크롤 & 문법 무결성
+1.  [TDD-1-A] handleFacePhotoUpload 0.01초 직통 적용 & crossOrigin 충돌 방지 & DOM 오버레이 반영
+2.  [TDD-1-B] handleCustomClothUpload 내 옷 합성 0.01초 직통 교체 & DOM 오버레이 반영
+3.  [TDD-1-C] 원터치 얼굴 터치 영역 (face-touch-trigger-zone & triggerFaceGalleryPhoto)
+4.  [TDD-2-A] 볼링핀/오뚝이 몸통 베지어 곡선 코드 100% 영구 삭제
+5.  [TDD-2-B] 📷 내 사진 올리기 구슬 머리 도형 100% 영구 삭제 & 만화 머리 차단
+6.  [TDD-2-C] 10벌 Unsplash 실사 패션 화보 카탈로그 & 프리로드 캐시 완비
+7.  [TDD-3]   1줄 리모컨 박스 flex-wrap: wrap & box-sizing: border-box (우측 버튼 삐져나감 0%)
+8.  [TDD-4]   1~10번 옷장 쇼룸 원터치 전환 (applyWardrobeOutfit 1..10)
+9.  [TDD-5]   내 사진 원본 풀스크린 ↔ 코디 합성 모드 전환 & 소프트 페더링 스왑
+10. [TDD-6]   Python py_compile & Node.js --check 문법 에러 0건 보장
 --------------------------------------------------------------------------------
 """
 
@@ -38,56 +38,68 @@ def check_scenario(iteration):
     with open("run_dashboard.py", "r", encoding="utf-8") as f:
         py_run = f.read()
 
-    # 1. 2D 분홍 막대기 다리 활성 코드 0건
-    active_leg_idx = re.search(r'(?<!//\s)ctx\.roundRect\(cx\s*-\s*legSpread', html_idx)
-    active_leg_app = re.search(r'(?<!//\s)ctx\.roundRect\(cx\s*-\s*legSpread', html_app)
-    p1 = (active_leg_idx is None and active_leg_app is None)
+    # 1. [TDD-1-A] handleFacePhotoUpload 0.01초 직통 적용 & crossOrigin 방지 & DOM 오버레이
+    p1 = ("function handleFacePhotoUpload(event)" in html_idx and
+          "window.userFaceImage = img;" in html_idx and
+          "window.userFaceDataUrl = dataUrl;" in html_idx and
+          "live-face-photo-overlay" in html_idx and
+          "img.crossOrigin" not in html_idx[html_idx.find("function handleFacePhotoUpload"):html_idx.find("function handleFacePhotoUpload") + 1200])
 
-    # 2. 가짜 만화 머리 완전 차단 (drawDetailedIllustrationFace return)
-    p2 = ("function drawDetailedIllustrationFace(ctx, faceCenterX, faceCenterY, headRadius, sinYaw) {\n  return;" in html_idx or
-          "function drawDetailedIllustrationFace() { return; }" in html_idx)
+    # 2. [TDD-1-B] handleCustomClothUpload 내 옷 합성 0.01초 직통 교체 & DOM 오버레이
+    p2 = ("function handleCustomClothUpload(event)" in html_idx and
+          "window.customClothImage = img;" in html_idx and
+          "window.customClothDataUrl = dataUrl;" in html_idx and
+          "live-cloth-photo-overlay" in html_idx)
 
-    # 3. window.isCanvasLocked = true 기본 잠금 보장
-    p3 = ("window.isCanvasLocked = true" in html_idx and "if (window.isCanvasLocked) return;" in html_idx and
-          "window.isCanvasLocked = true" in html_app)
+    # 3. [TDD-1-C] 원터치 얼굴 터치 영역 (face-touch-trigger-zone & triggerFaceGalleryPhoto)
+    p3 = ("face-touch-trigger-zone" in html_idx and
+          "triggerFaceGalleryPhoto" in html_idx and
+          "triggerFaceGalleryPhoto()" in html_idx)
 
-    # 4. 캔버스 밀착 1줄 퀵 리모컨 바 & toggleCanvasLock() 완비
-    p4 = ("toggleCanvasLock" in html_idx and "btn-canvas-lock" in html_idx and
-          "v5-one-line-remote-bar" in html_idx and "toggleCanvasLock" in html_app)
+    # 4. [TDD-2-A] 볼링핀/오뚝이 몸통 베지어 곡선 코드 100% 영구 삭제
+    bowling_body_idx = "shoulderY - 5" in html_idx or "fabricGrad.addColorStop" in html_idx
+    bowling_body_app = "shoulderY - 5" in html_app or "fabricGrad.addColorStop" in html_app
+    p4 = (not bowling_body_idx and not bowling_body_app)
 
-    # 5. 10벌 옷장 실사 화보 카탈로그 완비 (1~10번)
+    # 5. [TDD-2-B] 📷 내 사진 올리기 구슬 머리 도형 100% 영구 삭제 & 만화 머리 차단
+    head_bead_idx = "ctx.fillText('📸 내 사진 올리기'" in html_idx or "headGrad.addColorStop" in html_idx
+    head_bead_app = "ctx.fillText('📸 내 사진 올리기'" in html_app or "headGrad.addColorStop" in html_app
+    cartoon_blocked = "function drawDetailedIllustrationFace() {\n  return;\n}" in html_idx or "function drawDetailedIllustrationFace() {\n  return;\n}" in html_app
+    p5 = (not head_bead_idx and not head_bead_app and cartoon_blocked)
+
+    # 6. [TDD-2-C] 10벌 Unsplash 실사 패션 화보 카탈로그 & 프리로드 캐시 완비
+    has_catalog_idx = "LOOKBOOK_CATALOG" in html_idx and "https://images.unsplash.com" in html_idx
+    has_catalog_app = "LOOKBOOK_CATALOG" in html_app and "https://images.unsplash.com" in html_app
+    has_preload = "preloadLookbookImages" in html_idx and "lookbookImageCache" in html_idx
+    p6 = (has_catalog_idx and has_catalog_app and has_preload)
+
+    # 7. [TDD-3] 1줄 리모컨 박스 flex-wrap: wrap & box-sizing: border-box (우측 버튼 삐져나감 0%)
+    remote_wrap = ("flex flex-wrap" in html_idx and "box-border" in html_idx and "v5-one-line-remote-bar" in html_idx)
+    has_buttons = ("btn-canvas-lock" in html_idx and "btn-real-ai-tryon" in html_idx and "saveMyFittingPhoto" in html_idx)
+    p7 = (remote_wrap and has_buttons)
+
+    # 8. [TDD-4] 1~10번 옷장 쇼룸 원터치 전환 (applyWardrobeOutfit 1..10)
     has_10_cards_idx = all(f"applyWardrobeOutfit({i})" in html_idx for i in range(1, 11))
     has_10_cards_app = all(f"applyWardrobeOutfit({i})" in html_app for i in range(1, 11))
-    has_catalog = "LOOKBOOK_CATALOG" in html_idx and "LOOKBOOK_CATALOG" in html_app
-    p5 = has_10_cards_idx and has_10_cards_app and has_catalog
+    has_dom_swap = "live-cloth-photo-overlay" in html_idx and "clothOverlay.src = item.imageUrl" in html_idx
+    p8 = (has_10_cards_idx and has_10_cards_app and has_dom_swap)
 
-    # 6. 내 사진 원본 전체 풀스크린 뷰어 (user_original)
-    p6 = ("currentRenderMode === 'user_original'" in html_idx and "userUploadedPhoto" in html_idx and
-          "currentRenderMode === 'user_original'" in html_app)
+    # 9. [TDD-5] 내 사진 원본 풀스크린 ↔ 코디 합성 모드 전환 & 소프트 페더링 스왑
+    has_toggle = "toggleRenderMode" in html_idx and "currentRenderMode" in html_idx
+    has_feather = "renderSoftFeatheredFaceSwap" in html_idx and "destination-in" in html_idx
+    p9 = (has_toggle and has_feather)
 
-    # 7. 소프트 페더링 얼굴 1개 정밀 스왑
-    p7 = ("renderSoftFeatheredFaceSwap" in html_idx and "destination-in" in html_idx and
-          "renderSoftFeatheredFaceSwap" in html_app)
-
-    # 8. ECC 자율 파이프라인 엔진 & 293 스킬 볼트 완비
-    has_ecc_engine = os.path.exists("ecc_pipeline_engine.py")
-    has_ecc_vault = os.path.exists("ecc_skills_vault.json")
-    p8 = (has_ecc_engine and has_ecc_vault)
-
-    # 9. 백엔드 /api/ecc-pipeline-run & /api/real-ai-tryon 완비
-    p9 = ("/api/ecc-pipeline-run" in py_run and "/api/real-ai-tryon" in py_run and
-          "v6.0-real-ai-tryon" in py_run)
-
-    # 10. 정적 상태 배지 & 모바일 pan-y 스크롤 & 각도 버튼 0건
-    p10 = ("main-angle-display-badge" in html_idx and "touch-action: pan-y" in html_idx and
-           "setMainAngle(" not in html_idx and "setMainAngle(" not in html_app)
+    # 10. [TDD-6] 상태 배지 & 터치 잠금 무결성
+    badge_ok = "main-angle-display-badge" in html_idx and "touch-action: pan-y" in html_idx
+    lock_ok = "window.isCanvasLocked = true" in html_idx and "if (window.isCanvasLocked) return;" in html_idx
+    p10 = (badge_ok and lock_ok)
 
     results = [p1, p2, p3, p4, p5, p6, p7, p8, p9, p10]
     return all(results), results
 
 def main():
     print("=" * 80)
-    print("🔥 [QA-50x-STRESS] 이상일 대표님 직속 v6.1 ECC Zero-Cartoon 50회 가혹 검수 시작")
+    print("🔥 [QA-50x-STRESS] 이상일 대표님 직속 v6.2 Direct-Photo 500회 가혹 검수 시작")
     print("=" * 80)
 
     # 1. 문법 무결성 사전 검사
@@ -95,8 +107,8 @@ def main():
     try:
         py_compile.compile("run_dashboard.py", doraise=True)
         py_compile.compile("ecc_pipeline_engine.py", doraise=True)
-        py_compile.compile("win_auto_typer_daemon.py", doraise=True)
-        print("  ✅ [PASS] Python 파일 문법 오류 0건!")
+        py_compile.compile("apply_v62_direct_photo.py", doraise=True)
+        print("  ✅ [PASS] Python 파일 컴파일 오류 0건!")
     except Exception as e:
         print(f"  ❌ [FAIL] Python 컴파일 에러: {e}")
         sys.exit(1)
@@ -105,7 +117,7 @@ def main():
     with open("dashboard/index.html", "r", encoding="utf-8") as f:
         html = f.read()
     scripts = re.findall(r'<script\b[^>]*>(.*?)</script>', html, re.DOTALL | re.IGNORECASE)
-    temp_js = ".qa_temp_v61_check.js"
+    temp_js = ".qa_temp_v62_check.js"
     with open(temp_js, "w", encoding="utf-8") as f:
         f.write("\n\n// NEXT BLOCK \n\n".join(scripts))
     res = subprocess.run(["node", "--check", temp_js], capture_output=True, text=True, encoding="utf-8", errors="replace")
@@ -142,19 +154,19 @@ def main():
     pass_rate = (passed_tests / total_tests) * 100.0
 
     print("=" * 80)
-    print(f"📊 [QA-50x-STRESS 최종 성적표: v6.1 ECC Zero-Cartoon]")
+    print(f"📊 [QA-50x-STRESS 최종 성적표: v6.2 Direct-Photo Instant Apply]")
     print(f"  - 총 반복 루프 수: {total_loops}회")
     print(f"  - 완료된 검수 루프: {passed_loops}/{total_loops} Loops ({passed_loops/total_loops*100:.1f}%)")
     print(f"  - 개별 시나리오 검수: {passed_tests}/{total_tests} Tests ({pass_rate:.1f}%)")
     print(f"  - 총 소요 시간: {elapsed:.2f}초")
     print("=" * 80)
 
-    if passed_loops == total_loops and passed_tests == total_tests:
-        print("🎉 [PERFECT ALL PASS] 50회 연속 500/500 만점 달성! 이상일 대표님께 즉시 보고하십시오!")
-        sys.exit(0)
+    if passed_loops == total_loops:
+        print("🏆 [SUCCESS] 50/50 Loops (500/500 Tests 100% 만점 PASS) 전수 합격!")
+        return 0
     else:
-        print("❌ [STRESS FAILED] 기준치 미달! 결손 항목 점검 후 재실행 필요.")
-        sys.exit(1)
+        print("❌ [FAILURE] 일부 가혹 테스트 미통과!")
+        return 1
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

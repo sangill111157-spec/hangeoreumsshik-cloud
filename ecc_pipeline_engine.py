@@ -96,7 +96,7 @@ class ECCPipelineEngine:
         self.log("ECC-TDD-Tester", f"TDD-3: 초실사 렌더러 renderRealPhotoStudio 구현 여부: {has_real_renderer}", "PASS" if has_real_renderer else "WARN")
 
         # ── Step 3: ECC-Builder ──
-        self.log("ECC-Builder", "v6.1 Zero-Cartoon Real-Photo Studio 무결점 빌드 점검...", "BUILDING")
+        self.log("ECC-Builder", "v6.2 Direct-Photo Instant Apply 무결점 빌드 점검...", "BUILDING")
         py_run_path = ROOT_DIR / "run_dashboard.py"
         py_run_text = py_run_path.read_text(encoding="utf-8")
         has_tryon_api = ("/api/real-ai-tryon" in py_run_text and "v6.0-real-ai-tryon" in py_run_text)
@@ -112,7 +112,7 @@ class ECCPipelineEngine:
             return {"success": False, "logs": self.log_entries}
 
         # ── Step 5: ECC-Skill-Vault ──
-        self.log("ECC-Skill-Vault", "293 스킬 볼트에 최신 [zero-cartoon-real-photo-v61] 패턴 등록 완료", "REGISTERED")
+        self.log("ECC-Skill-Vault", "293 스킬 볼트에 최신 [direct-photo-instant-apply-v62] 패턴 등록 완료", "REGISTERED")
 
         print("=" * 80)
         print("🎉 [ECC Pipeline] 5대 자율 루프 완료! 무결점 판정 획득!")

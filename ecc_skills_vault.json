@@ -1,7 +1,7 @@
 {
   "system": "ECC_SKILLS_VAULT_V1",
   "name": "클로드 코드 68 에이전트 & 293 스킬 자율 지능 저장소",
-  "version": "v6.1-ecc",
+  "version": "v6.2-direct-photo",
   "total_skills": 293,
   "total_agents": 68,
   "categories": {
@@ -20,6 +20,7 @@
       "count": 64,
       "description": "2D 만화 도형 완전 박멸, 초실사 패션 스튜디오 화보 렌더링 및 딥-블렌딩",
       "featured_skills": [
+        "direct-photo-instant-pipeline",
         "zero-cartoon-sanitizer",
         "photorealistic-vignette-blender",
         "real-human-proportions-aligner",
