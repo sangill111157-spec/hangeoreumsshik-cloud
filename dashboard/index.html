@@ -67,11 +67,11 @@
     }
   </script>
   <style>
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar { width: 5px; height: 5px; }
-    ::-webkit-scrollbar-track { background: #070a12; }
-    ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
-    ::-webkit-scrollbar-thumb:hover { background: #334155; }
+    /* Custom Scrollbar & Hide Horizontal Scrollbars completely */
+    ::-webkit-scrollbar { display: none !important; width: 0px !important; height: 0px !important; }
+    * { scrollbar-width: none !important; -ms-overflow-style: none !important; }
+    .no-scrollbar::-webkit-scrollbar { display: none !important; }
+    .no-scrollbar { scrollbar-width: none !important; -ms-overflow-style: none !important; }
     .glass-panel {
       background: rgba(15, 23, 42, 0.85);
       backdrop-filter: blur(16px);
@@ -209,19 +209,19 @@
   <main class="flex-1 flex flex-col min-w-0 pb-24 md:pb-8">
     
     <!-- Top Action Bar (Universal) -->
-    <div class="h-14 border-b border-nexus-border/80 glass-panel px-4 sm:px-6 flex items-center justify-between sticky top-0 z-30">
-      <div class="flex items-center gap-2 text-xs">
-        <span class="text-slate-400">현재 워크스페이스:</span>
-        <span id="top-workspace-title" class="font-bold text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700">
+    <div class="h-14 border-b border-nexus-border/80 glass-panel px-3 sm:px-6 flex items-center justify-between sticky top-0 z-30">
+      <div class="flex items-center gap-1.5 sm:gap-2 text-xs min-w-0">
+        <span class="text-slate-400 hidden sm:inline shrink-0">현재 워크스페이스:</span>
+        <span id="top-workspace-title" class="font-bold text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 truncate max-w-[130px] sm:max-w-none whitespace-nowrap">
           🎛️ 1. 통합 관제 사령부
         </span>
       </div>
-      <div class="flex items-center gap-2">
+      <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
         <!-- OTA 실시간 자동 동기화 배지 -->
         <div id="ota-version-badge" onclick="checkVersionAndUpdate(true)" title="클릭하여 즉시 업데이트 확인"
-          class="cursor-pointer px-2 sm:px-2.5 py-1 rounded-lg bg-emerald-950/60 hover:bg-emerald-900 border border-emerald-500/40 text-emerald-300 text-xs flex items-center gap-1.5 transition font-mono font-semibold">
+          class="cursor-pointer px-2 sm:px-2.5 py-1 rounded-lg bg-emerald-950/60 hover:bg-emerald-900 border border-emerald-500/40 text-emerald-300 text-xs flex items-center gap-1.5 transition font-mono font-semibold whitespace-nowrap shrink-0">
           <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-          <span id="ota-version-text" class="font-bold text-amber-300">v3.3 Minimal [보이스스튜디오]</span>
+          <span id="ota-version-text" class="font-bold text-amber-300">v3.5 Pro</span>
         </div>
 
         <button onclick="openEmpireCouncilModal()" class="p-2 sm:px-3 sm:py-1 rounded-lg bg-gradient-to-r from-amber-600/30 to-purple-600/30 hover:from-amber-600/50 hover:to-purple-600/50 text-amber-300 border border-amber-500/40 text-xs flex items-center gap-1.5 transition font-bold shadow-lg shadow-amber-500/10">
@@ -1358,51 +1358,47 @@
     <!-- 👗 [한걸음씩 상생나눔 제1호 무료 앱: 꿈의 옷장 (Ultra-Simple Minimal Luxury v3.3)] -->
     <div class="max-w-4xl mx-auto space-y-4 font-sans text-slate-100 pb-16">
 
-      <!-- 👑 [Top Compact Header] (애플/토스 스타일 1줄 미니멀 헤더) -->
-      <div class="flex items-center justify-between px-3 py-2.5 rounded-2xl bg-slate-900/80 border border-slate-800 backdrop-blur-md">
-        <div class="flex items-center gap-2.5">
-          <span class="text-2xl p-1.5 rounded-xl bg-purple-600/30 text-purple-300 border border-purple-500/30">👗</span>
-          <div>
-            <div class="flex items-center gap-2">
-              <h3 class="text-sm sm:text-base font-black text-white tracking-tight">꿈의 옷장 <span class="text-xs font-normal text-slate-400">Dream Closet</span></h3>
-              <span onclick="forceBustMobileCache()" class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-400/20 text-amber-300 border border-amber-400/40 cursor-pointer hover:bg-amber-400/30 transition" title="터치 시 캐시 즉시 갱신">
-                v3.3 Minimal
-              </span>
-            </div>
-            <p class="text-[10px] text-slate-400 hidden sm:block">창안자: <b>이상일</b> 대표님 · 공동기획: <b>은솔·송효·해상</b> · 0원 상생나눔</p>
+      <!-- 👑 [Top Minimal Header] (애플/토스 스타일 1줄 울트라 슬림 헤더) -->
+      <div class="flex items-center justify-between px-3 py-2 rounded-2xl bg-slate-900/80 border border-slate-800 backdrop-blur-md">
+        <div class="flex items-center gap-2">
+          <span class="text-xl p-1.5 rounded-xl bg-purple-600/30 text-purple-300 border border-purple-500/30">👗</span>
+          <div class="flex items-center gap-1.5">
+            <h3 class="text-sm font-black text-white tracking-tight whitespace-nowrap">꿈의 옷장</h3>
+            <span onclick="forceBustMobileCache()" class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-400/20 text-amber-300 border border-amber-400/40 cursor-pointer hover:bg-amber-400/30 transition whitespace-nowrap" title="터치 시 캐시 즉시 갱신">
+              v3.5 Pro
+            </span>
           </div>
         </div>
 
-        <div class="flex items-center gap-1.5">
-          <button type="button" onclick="unlockMainFreePass()" class="px-2.5 py-1.5 rounded-xl bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 border border-amber-400/40 text-xs font-bold transition flex items-center gap-1 active:scale-95">
-            <span>⚡</span><span class="hidden sm:inline">프리패스</span>
+        <div class="flex items-center gap-1.5 shrink-0">
+          <button type="button" onclick="unlockMainFreePass()" class="px-2.5 py-1 rounded-xl bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 border border-amber-400/40 text-xs font-bold transition flex items-center gap-1 active:scale-95">
+            <span>⚡</span><span>프리패스</span>
           </button>
-          <button type="button" onclick="registerDreamClosetCopyright()" class="p-1.5 sm:px-2.5 sm:py-1.5 rounded-xl bg-purple-600/20 hover:bg-purple-600/30 text-purple-300 border border-purple-500/30 text-xs font-medium transition active:scale-95" title="저작권 등기">
+          <button type="button" onclick="registerDreamClosetCopyright()" class="p-1.5 sm:px-2.5 sm:py-1 rounded-xl bg-purple-600/20 hover:bg-purple-600/30 text-purple-300 border border-purple-500/30 text-xs font-medium transition active:scale-95" title="저작권 등기">
             <span>📜</span><span class="hidden sm:inline">등기</span>
           </button>
-          <a href="/api/download-dream-closet-app" download="dream_closet_future_master_app.html" class="p-1.5 sm:px-2.5 sm:py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-medium transition active:scale-95" title="앱 다운로드">
+          <a href="/api/download-dream-closet-app" download="dream_closet_future_master_app.html" class="p-1.5 sm:px-2.5 sm:py-1 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-medium transition active:scale-95" title="앱 다운로드">
             <span>📲</span><span class="hidden sm:inline">앱받기</span>
           </a>
         </div>
       </div>
 
-
-      <!-- 🎧 [Zone 1. 상단 1줄 Voice Bar] (ChatGPT Voice / 인스타 스토리형 원형 아이콘 바) -->
+      <!-- 🎧 [Zone 1. 상단 1줄 Voice Bar] (ChatGPT Voice형 + 깔끔한 단일 아이콘 & 사운드 웨이브) -->
       <div class="p-3 rounded-2xl bg-slate-900/60 border border-slate-800/80 backdrop-blur-md space-y-2">
         <div class="flex items-center justify-between gap-2 overflow-x-auto no-scrollbar py-0.5">
           <!-- 5대 성우 원형 아이콘 (터치 즉시 0.01초 Neural MP3 재생!) -->
-          <div class="flex items-center gap-2 sm:gap-3 shrink-0" id="voice-circle-bar">
+          <div class="flex items-center gap-2.5 sm:gap-3.5 shrink-0" id="voice-circle-bar">
             <!-- 1. 디자이너 -->
             <button type="button" onclick="selectStudioVoiceMinimal('designer')" id="mini-v-designer" class="flex flex-col items-center gap-1 group transition active:scale-90">
               <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-full p-0.5 bg-gradient-to-tr from-amber-400 to-purple-600 shadow-md shadow-purple-900/40 transition ring-2 ring-amber-400">
-                <div class="w-full h-full rounded-full bg-slate-900 flex items-center justify-center text-lg sm:text-xl">👩🎨</div>
+                <div class="w-full h-full rounded-full bg-slate-900 flex items-center justify-center text-lg sm:text-xl">🎨</div>
               </div>
               <span class="text-[10px] font-bold text-amber-300">디자이너</span>
             </button>
 
             <!-- 2. 하이틴 -->
             <button type="button" onclick="selectStudioVoiceMinimal('highteen')" id="mini-v-highteen" class="flex flex-col items-center gap-1 group transition active:scale-90 opacity-70 hover:opacity-100">
-              <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-full p-0.5 bg-slate-800 transition">
+              <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-full p-0.5 bg-gradient-to-tr from-pink-500 to-rose-500 transition">
                 <div class="w-full h-full rounded-full bg-slate-900 flex items-center justify-center text-lg sm:text-xl">💖</div>
               </div>
               <span class="text-[10px] text-slate-400">하이틴</span>
@@ -1410,7 +1406,7 @@
 
             <!-- 3. 젠틀맨 -->
             <button type="button" onclick="selectStudioVoiceMinimal('gentleman')" id="mini-v-gentleman" class="flex flex-col items-center gap-1 group transition active:scale-90 opacity-70 hover:opacity-100">
-              <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-full p-0.5 bg-slate-800 transition">
+              <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-full p-0.5 bg-gradient-to-tr from-slate-600 to-emerald-600 transition">
                 <div class="w-full h-full rounded-full bg-slate-900 flex items-center justify-center text-lg sm:text-xl">🤵</div>
               </div>
               <span class="text-[10px] text-slate-400">젠틀맨</span>
@@ -1418,7 +1414,7 @@
 
             <!-- 4. 힐링DJ -->
             <button type="button" onclick="selectStudioVoiceMinimal('dj')" id="mini-v-dj" class="flex flex-col items-center gap-1 group transition active:scale-90 opacity-70 hover:opacity-100">
-              <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-full p-0.5 bg-slate-800 transition">
+              <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-full p-0.5 bg-gradient-to-tr from-indigo-500 to-purple-600 transition">
                 <div class="w-full h-full rounded-full bg-slate-900 flex items-center justify-center text-lg sm:text-xl">🌙</div>
               </div>
               <span class="text-[10px] text-slate-400">힐링DJ</span>
@@ -1426,7 +1422,7 @@
 
             <!-- 5. 2035나 -->
             <button type="button" onclick="selectStudioVoiceMinimal('future')" id="mini-v-future" class="flex flex-col items-center gap-1 group transition active:scale-90 opacity-70 hover:opacity-100">
-              <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-full p-0.5 bg-slate-800 transition">
+              <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-full p-0.5 bg-gradient-to-tr from-cyan-400 to-blue-600 transition">
                 <div class="w-full h-full rounded-full bg-slate-900 flex items-center justify-center text-lg sm:text-xl">🚀</div>
               </div>
               <span class="text-[10px] text-slate-400">2035나</span>
@@ -1465,67 +1461,83 @@
       </div>
 
 
-      <!-- 👗 [Zone 2. 중앙 메인 Canvas] (지그재그·제페토 스타일 시원한 풀뷰 피팅 캔버스) -->
-      <div class="p-3.5 sm:p-5 rounded-3xl bg-slate-900/50 border border-slate-800/80 shadow-2xl relative space-y-3">
+      <!-- 👗 [Zone 2. 중앙 메인 Canvas] (글래스모피즘 HUD 일체형 런웨이 쇼케이스) -->
+      <div class="p-2 sm:p-4 rounded-3xl bg-slate-900/50 border border-slate-800/80 shadow-2xl relative space-y-3">
 
-        <!-- 캔버스 상단 세그먼트 (각도 & 모드) -->
-        <div class="flex items-center justify-between flex-wrap gap-2 text-xs">
-          <!-- 4방향 각도 -->
-          <div class="flex items-center gap-1 p-1 rounded-xl bg-slate-950/80 border border-slate-800">
-            <button type="button" onclick="setMainAngle(0)" id="main-angle-btn-0" class="px-2.5 py-1 rounded-lg bg-purple-600 text-white font-bold text-[11px] transition">정면</button>
-            <button type="button" onclick="setMainAngle(90)" id="main-angle-btn-90" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white text-[11px] transition">좌측</button>
-            <button type="button" onclick="setMainAngle(180)" id="main-angle-btn-180" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white text-[11px] transition">후면</button>
-            <button type="button" onclick="setMainAngle(270)" id="main-angle-btn-270" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white text-[11px] transition">우측</button>
-          </div>
-
-          <!-- 모드 전환 (피팅 / 2035미래 / 가족룩) -->
-          <div class="flex items-center gap-1 p-1 rounded-xl bg-slate-950/80 border border-slate-800">
-            <button type="button" onclick="switchMainFittingSubTab('fitting')" id="tab-sub-fitting" class="px-2.5 py-1 rounded-lg bg-purple-600 text-white font-bold text-[11px] transition">피팅</button>
-            <button type="button" onclick="switchMainFittingSubTab('future')" id="tab-sub-future" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white text-[11px] transition">🔮 2035</button>
-            <button type="button" onclick="switchMainFittingSubTab('family')" id="tab-sub-family" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white text-[11px] transition">👨‍👧‍👧 가족룩</button>
-          </div>
-
-          <!-- 내 얼굴 합성 인풋 -->
-          <label class="px-2.5 py-1 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 text-[11px] cursor-pointer transition flex items-center gap-1 active:scale-95">
-            <span>📸</span><span>내 얼굴</span>
-            <input type="file" id="main-face-upload" accept="image/*" class="hidden">
-          </label>
-        </div>
-
-        <!-- 👑 풀뷰 캔버스 뷰포트 -->
-        <div class="w-full max-w-[420px] mx-auto aspect-[3/4] max-h-[460px] rounded-2xl bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 border border-slate-800 shadow-inner relative overflow-hidden flex items-center justify-center">
+        <!-- 👑 글래스모피즘 일체형 풀뷰 캔버스 뷰포트 -->
+        <div class="w-full max-w-[420px] mx-auto aspect-[3/4] max-h-[500px] rounded-2xl bg-gradient-to-b from-slate-950 via-[#0a0f1d] to-slate-950 border border-purple-500/30 shadow-2xl relative overflow-hidden flex items-center justify-center">
           <canvas id="main-fitting-canvas" width="450" height="600" class="w-full h-full object-contain"></canvas>
 
-          <!-- 캔버스 오버레이 자막 바 -->
-          <div class="absolute bottom-2.5 left-2.5 right-2.5 px-3 py-1.5 rounded-xl bg-slate-950/85 backdrop-blur-md border border-slate-800/80 flex items-center justify-between text-[11px] text-slate-300 shadow-md">
-            <span id="main-look-label" class="font-medium truncate">👔 화이트 베이직 & 슬림 데님</span>
-            <span id="main-angle-label" class="font-mono text-purple-400 shrink-0 ml-2">0° FRONT</span>
+          <!-- 🔮 [Glassmorphism HUD: 상단 플로팅 오버레이] -->
+          <div class="absolute top-2.5 left-2.5 right-2.5 flex items-center justify-between gap-1.5 z-10 pointer-events-auto">
+            <!-- 모드 전환 (피팅 / 2035 / 가족룩) 반투명 유리 탭 -->
+            <div class="flex items-center gap-1 p-1 rounded-xl bg-slate-950/75 backdrop-blur-md border border-white/10 shadow-lg text-[11px]">
+              <button type="button" onclick="switchMainFittingSubTab('fitting')" id="tab-sub-fitting" class="px-2.5 py-1 rounded-lg bg-purple-600 text-white font-bold transition shadow-sm">
+                👗 피팅
+              </button>
+              <button type="button" onclick="switchMainFittingSubTab('future')" id="tab-sub-future" class="px-2 py-1 rounded-lg text-slate-300 hover:text-white transition">
+                🔮 2035
+              </button>
+              <button type="button" onclick="switchMainFittingSubTab('family')" id="tab-sub-family" class="px-2 py-1 rounded-lg text-slate-300 hover:text-white transition">
+                👨‍👧‍👧 가족
+              </button>
+            </div>
+
+            <!-- 내 얼굴 합성 반투명 유리 버튼 -->
+            <label class="px-2.5 py-1.5 rounded-xl bg-slate-950/75 backdrop-blur-md hover:bg-slate-900 text-slate-200 border border-white/10 text-[11px] font-medium cursor-pointer transition flex items-center gap-1 shadow-lg active:scale-95">
+              <span>📸</span><span class="hidden sm:inline">얼굴</span>
+              <input type="file" id="main-face-upload" accept="image/*" class="hidden">
+            </label>
+          </div>
+
+          <!-- 🧭 [Glassmorphism HUD: 우측 플로팅 각도 캡슐] -->
+          <div class="absolute right-2.5 top-1/2 -translate-y-1/2 flex flex-col gap-1 p-1 rounded-2xl bg-slate-950/75 backdrop-blur-md border border-white/10 shadow-xl z-10 text-[10px]">
+            <button type="button" onclick="setMainAngle(0)" id="main-angle-btn-0" class="w-8 h-8 rounded-xl bg-purple-600 text-white font-black flex items-center justify-center transition shadow-md" title="정면 0°">
+              0°
+            </button>
+            <button type="button" onclick="setMainAngle(90)" id="main-angle-btn-90" class="w-8 h-8 rounded-xl text-slate-300 hover:bg-white/10 flex items-center justify-center transition" title="좌측 90°">
+              90°
+            </button>
+            <button type="button" onclick="setMainAngle(180)" id="main-angle-btn-180" class="w-8 h-8 rounded-xl text-slate-300 hover:bg-white/10 flex items-center justify-center transition" title="후면 180°">
+              180°
+            </button>
+            <button type="button" onclick="setMainAngle(270)" id="main-angle-btn-270" class="w-8 h-8 rounded-xl text-slate-300 hover:bg-white/10 flex items-center justify-center transition" title="우측 270°">
+              270°
+            </button>
+          </div>
+
+          <!-- 캔버스 오버레이 하단 자막 바 -->
+          <div class="absolute bottom-2.5 left-2.5 right-2.5 px-3 py-1.5 rounded-xl bg-slate-950/80 backdrop-blur-md border border-white/10 flex items-center justify-between text-[11px] text-slate-200 shadow-lg z-10">
+            <span id="main-look-label" class="font-medium truncate flex items-center gap-1.5">
+              <span>✨</span><span id="main-look-name">클래식 수트 & 실크 타이</span>
+            </span>
+            <span id="main-angle-label" class="font-mono text-purple-300 font-bold shrink-0 ml-2">RUNWAY 3:7</span>
           </div>
         </div>
 
-        <!-- 캔버스 하단: 가로 스크롤 원터치 룩 캡슐 바 -->
+        <!-- 캔버스 하단: 가로 스크롤 원터치 룩 캡슐 바 (스크롤바 100% 숨김) -->
         <div class="space-y-1.5 pt-1">
           <div class="flex items-center justify-between text-[11px] text-slate-400 px-1">
             <span>원터치 스타일 코디</span>
             <span class="text-purple-300 text-[10px]">가로로 밀어서 선택 ➔</span>
           </div>
           <div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1 text-xs">
-            <button type="button" onclick="applyQuickLook('basic')" class="px-3.5 py-1.5 rounded-full bg-purple-600/30 hover:bg-purple-600/50 text-white border border-purple-400/50 font-bold shrink-0 transition active:scale-95">
-              #기본캐주얼
-            </button>
-            <button type="button" onclick="applyQuickLook('highteen')" class="px-3.5 py-1.5 rounded-full bg-pink-600/20 hover:bg-pink-600/40 text-pink-200 border border-pink-500/30 font-bold shrink-0 transition active:scale-95">
-              #하이틴룩
-            </button>
-            <button type="button" onclick="applyQuickLook('suit')" class="px-3.5 py-1.5 rounded-full bg-amber-600/20 hover:bg-amber-600/40 text-amber-200 border border-amber-500/30 font-bold shrink-0 transition active:scale-95">
+            <button type="button" onclick="applyQuickLook('suit')" id="look-btn-suit" class="px-3.5 py-1.5 rounded-full bg-purple-600/40 hover:bg-purple-600/60 text-white border border-purple-400/60 font-bold shrink-0 transition active:scale-95 shadow-md">
               #청담VIP수트
             </button>
-            <button type="button" onclick="applyQuickLook('future_ceo')" class="px-3.5 py-1.5 rounded-full bg-purple-600/20 hover:bg-purple-600/40 text-purple-200 border border-purple-500/30 font-bold shrink-0 transition active:scale-95">
+            <button type="button" onclick="applyQuickLook('basic')" id="look-btn-basic" class="px-3.5 py-1.5 rounded-full bg-slate-800/80 hover:bg-slate-700 text-slate-200 border border-slate-700 font-bold shrink-0 transition active:scale-95">
+              #기본캐주얼
+            </button>
+            <button type="button" onclick="applyQuickLook('highteen')" id="look-btn-highteen" class="px-3.5 py-1.5 rounded-full bg-pink-600/20 hover:bg-pink-600/40 text-pink-200 border border-pink-500/30 font-bold shrink-0 transition active:scale-95">
+              #하이틴룩
+            </button>
+            <button type="button" onclick="applyQuickLook('future_ceo')" id="look-btn-future_ceo" class="px-3.5 py-1.5 rounded-full bg-purple-600/20 hover:bg-purple-600/40 text-purple-200 border border-purple-500/30 font-bold shrink-0 transition active:scale-95">
               #2035글로벌CEO
             </button>
-            <button type="button" onclick="applyQuickLook('family')" class="px-3.5 py-1.5 rounded-full bg-emerald-600/20 hover:bg-emerald-600/40 text-emerald-200 border border-emerald-500/30 font-bold shrink-0 transition active:scale-95">
+            <button type="button" onclick="applyQuickLook('family')" id="look-btn-family" class="px-3.5 py-1.5 rounded-full bg-emerald-600/20 hover:bg-emerald-600/40 text-emerald-200 border border-emerald-500/30 font-bold shrink-0 transition active:scale-95">
               #가족시밀러룩
             </button>
-            <button type="button" onclick="applyQuickLook('reform_0')" class="px-3.5 py-1.5 rounded-full bg-cyan-600/20 hover:bg-cyan-600/40 text-cyan-200 border border-cyan-500/30 font-bold shrink-0 transition active:scale-95">
+            <button type="button" onclick="applyQuickLook('reform_0')" id="look-btn-reform_0" class="px-3.5 py-1.5 rounded-full bg-cyan-600/20 hover:bg-cyan-600/40 text-cyan-200 border border-cyan-500/30 font-bold shrink-0 transition active:scale-95">
               #0원옷장리폼
             </button>
           </div>
@@ -2211,6 +2223,17 @@
       // 시스템 상태 주기적 갱신
       setInterval(fetchSystemStatus, 15000);
       setInterval(() => fetchWorkflowRuns(true), 30000);
+
+      // 꿈의 옷장 캔버스 0.01초 즉시 초기 드로잉 (시꺼먼 빈 박스 원천 방지)
+      requestAnimationFrame(() => {
+        if (typeof drawMainFittingAvatar === 'function') drawMainFittingAvatar();
+      });
+    });
+
+    window.addEventListener('load', () => {
+      requestAnimationFrame(() => {
+        if (typeof drawMainFittingAvatar === 'function') drawMainFittingAvatar();
+      });
     });
 
     // ── 탭 전환 로직 ──
@@ -2226,6 +2249,11 @@
       if (activePane) {
         activePane.classList.remove('hidden');
         activePane.style.display = 'block';
+        if (tabId === 'tab-daughters') {
+          requestAnimationFrame(() => {
+            if (typeof drawMainFittingAvatar === 'function') drawMainFittingAvatar();
+          });
+        }
       }
 
       // 3. 최상단으로 즉시 스크롤 (0.01초 만에 최상단 첫 화면 노출)
@@ -5855,6 +5883,260 @@
         warm_beige: '파스텔 웜 베이지'
       };
       speakMainText(`이상일 대표님과 세 따님의 ${names[theme] || theme} 패밀리 팔레트가 적용되었습니다.`);
+    }
+
+    // ── 👑 4방향 하이엔드 런웨이 패션 아바타 그래픽 렌더러 (drawMainFittingAvatar) ──
+    mainCurrentOutfit = 'suit';
+    mainCurrentAngle = 0; // 0, 90, 180, 270
+
+    function setMainAngle(angle) {
+      mainCurrentAngle = angle;
+      [0, 90, 180, 270].forEach(a => {
+        const btn = document.getElementById(`main-angle-btn-${a}`);
+        if (btn) {
+          if (a === angle) {
+            btn.className = 'w-8 h-8 rounded-xl bg-purple-600 text-white font-black flex items-center justify-center transition shadow-md';
+          } else {
+            btn.className = 'w-8 h-8 rounded-xl text-slate-300 hover:bg-white/10 flex items-center justify-center transition';
+          }
+        }
+      });
+      const angleLabel = document.getElementById('main-angle-label');
+      if (angleLabel) angleLabel.textContent = `${angle}° ${angle === 0 ? 'FRONT' : angle === 180 ? 'BACK' : 'SIDE'}`;
+      drawMainFittingAvatar();
+    }
+
+    function applyQuickLook(lookType) {
+      mainCurrentOutfit = lookType;
+      const allLooks = ['suit', 'basic', 'highteen', 'future_ceo', 'family', 'reform_0'];
+      allLooks.forEach(l => {
+        const btn = document.getElementById(`look-btn-${l}`);
+        if (btn) {
+          if (l === lookType) {
+            btn.className = 'px-3.5 py-1.5 rounded-full bg-purple-600/40 hover:bg-purple-600/60 text-white border border-purple-400/60 font-bold shrink-0 transition active:scale-95 shadow-md';
+          } else {
+            btn.className = 'px-3.5 py-1.5 rounded-full bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700 font-bold shrink-0 transition active:scale-95';
+          }
+        }
+      });
+      drawMainFittingAvatar();
+    }
+
+    function drawMainFittingAvatar() {
+      const canvas = document.getElementById('main-fitting-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+
+      const w = canvas.width || 450;
+      const h = canvas.height || 600;
+      const cx = w / 2;
+
+      ctx.clearRect(0, 0, w, h);
+
+      // 1. 하이엔드 런웨이 스포트라이트 배경 (Radial Glow)
+      const bgGrad = ctx.createRadialGradient(cx, h * 0.45, 30, cx, h * 0.5, h * 0.7);
+      bgGrad.addColorStop(0, '#2e1065');   // 중심 딥퍼플 후광
+      bgGrad.addColorStop(0.5, '#0b1329'); // 미드나잇 런웨이
+      bgGrad.addColorStop(1, '#020617');   // 심연의 블랙
+      ctx.fillStyle = bgGrad;
+      ctx.fillRect(0, 0, w, h);
+
+      // 2. 3:7 황금비율 세련된 네온 런웨이 가이드 그리드
+      ctx.save();
+      ctx.strokeStyle = 'rgba(168, 85, 247, 0.15)';
+      ctx.lineWidth = 1;
+      ctx.setLineDash([4, 6]);
+      // 상하 황금비 라인
+      ctx.beginPath();
+      ctx.moveTo(30, h * 0.3); ctx.lineTo(w - 30, h * 0.3);
+      ctx.moveTo(30, h * 0.6); ctx.lineTo(w - 30, h * 0.6);
+      ctx.stroke();
+      ctx.restore();
+
+      // 3. 런웨이 플로어 반사광 & 타원형 스포트라이트 섀도우
+      ctx.save();
+      const floorGrad = ctx.createRadialGradient(cx, h - 55, 10, cx, h - 55, 170);
+      floorGrad.addColorStop(0, 'rgba(236, 72, 153, 0.45)');
+      floorGrad.addColorStop(0.4, 'rgba(168, 85, 247, 0.2)');
+      floorGrad.addColorStop(1, 'transparent');
+      ctx.fillStyle = floorGrad;
+      ctx.beginPath();
+      ctx.ellipse(cx, h - 55, 150, 28, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+
+      // 4. 8등신 패션 화보 마네킹 프로포션 계산
+      const scale = 1.05;
+      const headY = 105;
+      const headRadius = 34 * scale;
+      const shoulderW = 60 * scale;
+      const torsoH = 155 * scale;
+      const legH = 220 * scale;
+
+      // 의상 테마별 컬러셋 매핑
+      const outfitColors = {
+        suit: { top: '#1e1b4b', lapel: '#312e81', tie: '#f59e0b', pants: '#0f172a', shoes: '#020617', name: '👔 청담 VIP 수트 & 골드 실크 타이' },
+        basic: { top: '#f8fafc', lapel: '#e2e8f0', tie: null, pants: '#1d4ed8', shoes: '#ffffff', name: '👕 화이트 옥스포드 & 슬림 인디고 데님' },
+        highteen: { top: '#f43f5e', lapel: '#fb7185', tie: '#fbcfe8', pants: '#3b82f6', shoes: '#ffffff', name: '💖 싱그러운 K-하이틴 블레이저 & 스쿨 플리츠' },
+        future_ceo: { top: '#4c1d95', lapel: '#7c3aed', tie: '#38bdf8', pants: '#1e1e2f', shoes: '#020617', name: '👑 2035 글로벌 CEO 네오-럭셔리 수트' },
+        family: { top: '#1e3a8a', lapel: '#3b82f6', tie: '#f59e0b', pants: '#d97706', shoes: '#78350f', name: '👨‍👧‍👧 패밀리 하모니 네이비 & 웜 카멜 콤비' },
+        reform_0: { top: '#0891b2', lapel: '#06b6d4', tie: '#10b981', pants: '#111827', shoes: '#22c55e', name: '♻️ 0원 옷장 리폼 투톤 업사이클링 재킷' }
+      };
+
+      const cfg = outfitColors[mainCurrentOutfit] || outfitColors.suit;
+      const lookNameEl = document.getElementById('main-look-name');
+      if (lookNameEl) lookNameEl.textContent = cfg.name;
+
+      // 5. 다리 & 슬랙스/데님 드로잉
+      ctx.save();
+      ctx.fillStyle = cfg.pants;
+      const isSide = (mainCurrentAngle === 90 || mainCurrentAngle === 270);
+
+      if (!isSide) {
+        // 정면(0°) 또는 후면(180°) - 양다리
+        const legW = 26;
+        // 왼다리
+        ctx.beginPath();
+        ctx.roundRect(cx - 32, headY + headRadius + torsoH - 12, legW, legH, [4, 4, 8, 8]);
+        ctx.fill();
+        // 오른다리
+        ctx.beginPath();
+        ctx.roundRect(cx + 6, headY + headRadius + torsoH - 12, legW, legH, [4, 4, 8, 8]);
+        ctx.fill();
+
+        // 슈즈
+        ctx.fillStyle = cfg.shoes;
+        ctx.beginPath();
+        ctx.roundRect(cx - 36, headY + headRadius + torsoH + legH - 14, 30, 16, [4, 8, 4, 4]);
+        ctx.roundRect(cx + 6, headY + headRadius + torsoH + legH - 14, 30, 16, [8, 4, 4, 4]);
+        ctx.fill();
+      } else {
+        // 측면(90° 또는 270°) - 슬림한 한쪽 다리 라인
+        ctx.beginPath();
+        ctx.roundRect(cx - 16, headY + headRadius + torsoH - 12, 32, legH, [6, 6, 10, 10]);
+        ctx.fill();
+
+        ctx.fillStyle = cfg.shoes;
+        const shoeDir = mainCurrentAngle === 90 ? -12 : 12;
+        ctx.beginPath();
+        ctx.roundRect(cx - 18 + shoeDir, headY + headRadius + torsoH + legH - 14, 36, 16, [6, 6, 4, 4]);
+        ctx.fill();
+      }
+      ctx.restore();
+
+      // 6. 상체 & 테일러드 자켓 드로잉
+      ctx.save();
+      ctx.fillStyle = cfg.top;
+      const bodyW = isSide ? shoulderW * 1.2 : shoulderW * 2;
+      ctx.beginPath();
+      ctx.roundRect(cx - bodyW / 2, headY + headRadius, bodyW, torsoH, [18, 18, 8, 8]);
+      ctx.fill();
+
+      // 디테일: 자켓 라펠 & V존 & 넥타이
+      if (mainCurrentAngle === 0) { // 정면
+        // V존 셔츠 배경
+        ctx.fillStyle = '#ffffff';
+        ctx.beginPath();
+        ctx.moveTo(cx - 16, headY + headRadius);
+        ctx.lineTo(cx, headY + headRadius + 65);
+        ctx.lineTo(cx + 16, headY + headRadius);
+        ctx.closePath();
+        ctx.fill();
+
+        // 타이
+        if (cfg.tie) {
+          ctx.fillStyle = cfg.tie;
+          ctx.beginPath();
+          ctx.moveTo(cx - 5, headY + headRadius + 18);
+          ctx.lineTo(cx + 5, headY + headRadius + 18);
+          ctx.lineTo(cx + 4, headY + headRadius + 85);
+          ctx.lineTo(cx, headY + headRadius + 96);
+          ctx.lineTo(cx - 4, headY + headRadius + 85);
+          ctx.closePath();
+          ctx.fill();
+        }
+
+        // 라펠 라인
+        ctx.strokeStyle = cfg.lapel;
+        ctx.lineWidth = 4;
+        ctx.beginPath();
+        ctx.moveTo(cx - 24, headY + headRadius);
+        ctx.lineTo(cx - 6, headY + headRadius + 75);
+        ctx.lineTo(cx + 6, headY + headRadius + 75);
+        ctx.lineTo(cx + 24, headY + headRadius);
+        ctx.stroke();
+
+        // 단추
+        ctx.fillStyle = '#f59e0b';
+        ctx.beginPath();
+        ctx.arc(cx, headY + headRadius + 90, 3, 0, Math.PI * 2);
+        ctx.arc(cx, headY + headRadius + 115, 3, 0, Math.PI * 2);
+        ctx.fill();
+      } else if (mainCurrentAngle === 180) { // 후면
+        // 등판 절개 테일러드 라인
+        ctx.strokeStyle = 'rgba(255,255,255,0.15)';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(cx, headY + headRadius + 10);
+        ctx.lineTo(cx, headY + headRadius + torsoH - 10);
+        ctx.stroke();
+      }
+      ctx.restore();
+
+      // 7. 양팔 드로잉
+      ctx.save();
+      ctx.fillStyle = cfg.top;
+      const armW = 18;
+      const armH = 145 * scale;
+      if (!isSide) {
+        ctx.beginPath();
+        ctx.roundRect(cx - bodyW / 2 - armW + 3, headY + headRadius + 8, armW, armH, [8, 4, 8, 8]);
+        ctx.roundRect(cx + bodyW / 2 - 3, headY + headRadius + 8, armW, armH, [4, 8, 8, 8]);
+        ctx.fill();
+      } else {
+        ctx.beginPath();
+        ctx.roundRect(cx - armW / 2, headY + headRadius + 8, armW, armH, [8, 8, 8, 8]);
+        ctx.fill();
+      }
+      ctx.restore();
+
+      // 8. 두상 & 페이스 & 헤어 드로잉 (하이패션 마네킹)
+      ctx.save();
+      // 피부톤
+      ctx.fillStyle = '#f8d9c2';
+      ctx.beginPath();
+      ctx.arc(cx, headY, headRadius, 0, Math.PI * 2);
+      ctx.fill();
+
+      // 헤어스타일 (시크하고 세련된 블랙 헤어)
+      ctx.fillStyle = '#1e1b4b';
+      if (mainCurrentAngle === 0) { // 정면 헤어
+        ctx.beginPath();
+        ctx.arc(cx, headY - 6, headRadius + 2, Math.PI * 0.95, Math.PI * 2.05);
+        ctx.fill();
+        // 이목구비
+        ctx.fillStyle = '#0f172a';
+        ctx.beginPath();
+        ctx.arc(cx - 10, headY, 2.5, 0, Math.PI * 2); // 눈
+        ctx.arc(cx + 10, headY, 2.5, 0, Math.PI * 2);
+        ctx.fill();
+        // 미소
+        ctx.strokeStyle = '#e11d48';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.arc(cx, headY + 12, 6, 0.1, Math.PI - 0.1);
+        ctx.stroke();
+      } else if (mainCurrentAngle === 180) { // 후면 헤어
+        ctx.beginPath();
+        ctx.arc(cx, headY - 2, headRadius + 2, 0, Math.PI * 2);
+        ctx.fill();
+      } else { // 측면 헤어
+        ctx.beginPath();
+        ctx.arc(cx + (mainCurrentAngle === 90 ? -4 : 4), headY - 4, headRadius + 2, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.restore();
     }
 
     function renderMainFamilySimilarLookCanvas() {
