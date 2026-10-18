@@ -1274,11 +1274,14 @@ class DashboardHandler(SimpleHTTPRequestHandler):
                 self.wfile.write(err_body)
                 return
 
-        # 🏛️ [v8.0] 청와대 경호처 4대 부서 독립 청사 실시간 상태 (GET /api/cheongwadae-status)
+        # 🏛️ [v8.0] 청와대 경호처 5대 부서 독립 청사 & 무인 오토파일럿 실시간 상태 (GET /api/cheongwadae-status)
         if path == '/api/cheongwadae-status':
             try:
                 import cheongwadae_guard
+                import auto_company_loop
                 cg_data = cheongwadae_guard.get_cheongwadae_status()
+                cg_data["morning_brief"] = auto_company_loop.get_morning_brief_agenda()
+                cg_data["auto_loop"] = auto_company_loop.get_auto_loop_status()
                 body = json.dumps(cg_data, ensure_ascii=False).encode('utf-8')
                 self.send_response(200)
                 self.send_header("Content-Type", "application/json; charset=utf-8")
@@ -1816,6 +1819,42 @@ class DashboardHandler(SimpleHTTPRequestHandler):
                 import connect_ai_cloud_corps
                 dispatch_res = connect_ai_cloud_corps.dispatch_agent_task(agent_id, task_type, payload)
                 resp = {"status": "ok", "data": dispatch_res}
+            except Exception as e:
+                resp = {"status": "error", "message": str(e)}
+
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json; charset=utf-8')
+            self.send_header('Access-Control-Allow-Origin', '*')
+            self.end_headers()
+            self.wfile.write(json.dumps(resp, ensure_ascii=False).encode('utf-8'))
+            return
+
+        # 🔄 [v8.0] 청와대 무인 자율 오토파일럿 1사이클 즉시 가동 (POST /api/autonomous-cycle-run)
+        if self.path == '/api/autonomous-cycle-run':
+            try:
+                import auto_company_loop
+                cycle_res = auto_company_loop.run_autonomous_company_cycle(trigger="dashboard_button")
+                resp = {"status": "ok", "data": cycle_res}
+            except Exception as e:
+                resp = {"status": "error", "message": str(e)}
+
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json; charset=utf-8')
+            self.send_header('Access-Control-Allow-Origin', '*')
+            self.end_headers()
+            self.wfile.write(json.dumps(resp, ensure_ascii=False).encode('utf-8'))
+            return
+
+        # 👑 [v8.0] 대통령(이상일 대표님) 모닝 브리핑 1-Click 원터치 재가 (POST /api/ceo-approve-action)
+        if self.path == '/api/ceo-approve-action':
+            length = int(self.headers.get('Content-Length', 0))
+            raw_body = self.rfile.read(length) if length > 0 else b'{}'
+            try:
+                data = json.loads(raw_body.decode('utf-8')) if raw_body else {}
+                agenda_id = data.get('agenda_id', 'AGENDA-2026-001')
+                import auto_company_loop
+                receipt = auto_company_loop.approve_ceo_agenda(agenda_id)
+                resp = {"status": "ok", "receipt": receipt}
             except Exception as e:
                 resp = {"status": "error", "message": str(e)}
 

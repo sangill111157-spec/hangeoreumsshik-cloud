@@ -36,7 +36,7 @@ DEPARTMENTS = {
     "dept_1": {
         "id": "dept_1",
         "code": "DEPT-FASHION",
-        "name": "제1부서: 패션테크청 (꿈의 옷장)",
+        "name": "제1청사: 패션테크·꿈의옷장부",
         "file": os.path.join(DEPTS_DIR, "dept_closet.html"),
         "url": "/departments/dept_closet.html",
         "badge": "👗 패션테크",
@@ -47,7 +47,7 @@ DEPARTMENTS = {
     "dept_2": {
         "id": "dept_2",
         "code": "DEPT-CONNECT-AI",
-        "name": "제2부서: Connect AI 홍보·비즈니스청",
+        "name": "제2청사: Connect AI 홍보·비즈니스부",
         "file": os.path.join(DEPTS_DIR, "dept_connect_ai.html"),
         "url": "/departments/dept_connect_ai.html",
         "badge": "🎖️ 8대 정예",
@@ -58,7 +58,7 @@ DEPARTMENTS = {
     "dept_3": {
         "id": "dept_3",
         "code": "DEPT-MEDIA",
-        "name": "제3부서: 미디어·음원청",
+        "name": "제3청사: 힐링 미디어·음원제작부",
         "file": os.path.join(DEPTS_DIR, "dept_media.html"),
         "url": "/departments/dept_media.html",
         "badge": "🎵 힐링 미디어",
@@ -68,11 +68,22 @@ DEPARTMENTS = {
     },
     "dept_4": {
         "id": "dept_4",
+        "code": "DEPT-EDUCATION",
+        "name": "제4청사: 글로벌 K-인성학교 & 나눔부",
+        "file": os.path.join(DEPTS_DIR, "dept_education.html"),
+        "url": "/departments/dept_education.html",
+        "badge": "🎓 K-인성학교",
+        "desc": "세 딸 4Q 인성 시네마 퀴즈, 긍정 확언 스피치, HGS-CERT 정식 인증서 발급소",
+        "protect_status": "LOCKED_IMMUTABLE",
+        "responsible_agents": ["COMMANDER-000", "AGV-101"]
+    },
+    "dept_5": {
+        "id": "dept_5",
         "code": "DEPT-VAULT",
-        "name": "제4부서: 법무·지식기록원",
+        "name": "제5청사: 자율법무·저작권·제2의두뇌 기록원",
         "file": os.path.join(DEPTS_DIR, "dept_vault.html"),
         "url": "/departments/dept_vault.html",
-        "badge": "📚 제2의 두뇌",
+        "badge": "🛡️ 제2의 두뇌",
         "desc": "Karpathy LLM Wiki, pReinforce 강화학습 그래프, 제국 실록 차곡차곡 누적 보존",
         "protect_status": "LOCKED_IMMUTABLE",
         "responsible_agents": ["COMMANDER-000", "AGV-101", "QA-901"]

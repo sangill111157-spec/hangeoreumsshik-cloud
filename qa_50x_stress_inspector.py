@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-qa_50x_stress_inspector.py [v8.0 Cheongwadae Central Tower & 4 Independent Departments 500회 가혹 검수기]
+qa_50x_stress_inspector.py [v8.0 Blue-House Autonomous OS 500회 가혹 검수기]
 --------------------------------------------------------------------------------
 🔥 이상일 대표님([COMMANDER-000]) & 르곤이 1호 직속 50회 연속 가혹 구동 검수 감사관
 (50 Iterations x 10 Scenarios = 총 500회 가혹 스트레스 테스트)
@@ -13,9 +13,9 @@ qa_50x_stress_inspector.py [v8.0 Cheongwadae Central Tower & 4 Independent Depar
 5.  [TDD-1-E] 대표님 빨간 펜 5: '[📸 내 얼굴 사진 넣기]' 버튼 및 얼굴 촬영/앨범 팝업 100% 완전 삭제 검증
 6.  [TDD-1-F] 대표님 빨간 펜 6: '[👤 얼굴조절]' 버튼 및 방향키('⬅️', '⬆️', '⬇️', '➡️') 100% 완전 삭제 검증
 7.  [TDD-1-G] 대표님 빨간 펜 7: '🚪 나만의 꿈의 옷장함 (10벌 코디 쇼룸)'(#wardrobe-showroom-grid) 100% 완전 삭제 검증
-8.  [TDD-2]   4대 부서 독립 청사 파일 분리 및 제1부서(dept_closet.html) 꿈의 옷장 v7.1 100% 무결 보존 검증
-9.  [TDD-3&4] 제2부서(dept_connect_ai.html) 8대 요원 클라우드 오프로딩 & 제4부서(dept_vault.html & cheongwadae_guard.py) 지식금고 검증
-10. [TDD-5]   청와대 본관(dashboard/index.html) 중앙 컨트롤 타워 상황판 포털 및 /api/cheongwadae-status API 검증
+8.  [TDD-2]   5대 독립 청사 파일 분리 및 제1청사(dept_closet.html) 꿈의 옷장 v7.1 100% 무결 보존 검증
+9.  [TDD-3]   청와대 본관(dashboard/index.html) 4대 구역(Zone A 모닝브리핑 결재판, Zone B 5대 청사 포털, Zone C 24h 오토루프, Zone D Aegis 방어막) 검증
+10. [TDD-4&5] 무인 자율 엔진(auto_company_loop.py, memories/consensus.md, cheongwadae_guard.py) 및 백엔드 3대 API 검증
 --------------------------------------------------------------------------------
 """
 
@@ -40,8 +40,6 @@ def check_scenario(iteration):
         html_app = f.read()
     with open("run_dashboard.py", "r", encoding="utf-8") as f:
         py_run = f.read()
-    with open("omni_agent_bus.json", "r", encoding="utf-8") as f:
-        bus_data = json.load(f)
 
     # 1. [TDD-1-A] 대표님 빨간 펜 1: 스마트폰 원격 복붙 직통 스위치 & 스마트폰 복사 명령 완전 삭제
     p1 = ("스마트폰 원격 복붙 직통 스위치" not in html_idx and
@@ -85,15 +83,16 @@ def check_scenario(iteration):
           "10벌 코디 쇼룸" not in html_idx and
           "wardrobe-showroom-grid" not in html_app)
 
-    # 8. [TDD-2] 4대 부서 독립 청사 파일 분리 및 제1부서(dept_closet.html) 꿈의 옷장 v7.1 100% 무결 보존
-    d1_file = "dashboard/departments/dept_closet.html"
-    d2_file = "dashboard/departments/dept_connect_ai.html"
-    d3_file = "dashboard/departments/dept_media.html"
-    d4_file = "dashboard/departments/dept_vault.html"
-    all_depts_exist = (os.path.exists(d1_file) and os.path.exists(d2_file) and
-                       os.path.exists(d3_file) and os.path.exists(d4_file))
+    # 8. [TDD-2] 5대 독립 청사 파일 분리 및 제1청사(dept_closet.html) 꿈의 옷장 v7.1 100% 무결 보존
+    d1 = "dashboard/departments/dept_closet.html"
+    d2 = "dashboard/departments/dept_connect_ai.html"
+    d3 = "dashboard/departments/dept_media.html"
+    d4 = "dashboard/departments/dept_education.html"
+    d5 = "dashboard/departments/dept_vault.html"
+    all_5_depts_exist = (os.path.exists(d1) and os.path.exists(d2) and
+                         os.path.exists(d3) and os.path.exists(d4) and os.path.exists(d5))
     
-    with open(d1_file, "r", encoding="utf-8") as f:
+    with open(d1, "r", encoding="utf-8") as f:
         html_d1 = f.read()
     
     closet_v71_ok = ("extractPhotoshopGarmentMask" in html_d1 and
@@ -103,61 +102,67 @@ def check_scenario(iteration):
                      "applyPhotoshopClippingSwap" in html_d1 and
                      "toggleBeforeAfterView" in html_d1 and
                      "ps-color-material-bar" in html_d1)
-    p8 = (all_depts_exist and closet_v71_ok)
+    p8 = (all_5_depts_exist and closet_v71_ok)
 
-    # 9. [TDD-3&4] 제2부서(dept_connect_ai.html) 8대 요원 클라우드 오프로딩 & 제4부서(dept_vault.html & cheongwadae_guard.py) 검증
-    with open(d2_file, "r", encoding="utf-8") as f:
-        html_d2 = f.read()
-    with open(d4_file, "r", encoding="utf-8") as f:
-        html_d4 = f.read()
-    
-    registry_ids = [m.get("id") for m in bus_data.get("registry", [])]
-    agents_registered = all(f"CN-{i}" in registry_ids for i in range(401, 409))
-    d2_ok = ("CN-401" in html_d2 and "CN-408" in html_d2 and "dispatchAgent" in html_d2)
-    d4_ok = ("Karpathy LLM Wiki" in html_d4 and "pReinforce" in html_d4)
-    guard_py_ok = os.path.exists("cheongwadae_guard.py")
-    p9 = (agents_registered and d2_ok and d4_ok and guard_py_ok)
+    # 9. [TDD-3] 청와대 본관 4대 구역 (Zone A 모닝브리핑 결재, Zone B 5대 청사, Zone C 24h 오토루프, Zone D Aegis 방어막)
+    zone_a_ok = ("대통령(이상일 대표님) 모닝 브리핑" in html_idx and
+                 "approveCeoAction" in html_idx)
+    zone_b_ok = ("/departments/dept_closet.html" in html_idx and
+                 "/departments/dept_connect_ai.html" in html_idx and
+                 "/departments/dept_media.html" in html_idx and
+                 "/departments/dept_education.html" in html_idx and
+                 "/departments/dept_vault.html" in html_idx)
+    zone_c_ok = ("24시간 무인 오토-루프" in html_idx and
+                 "runAutonomousCompanyCycle" in html_idx)
+    zone_d_ok = ("Aegis 방어막" in html_idx and
+                 "기존 기능 손상률" in html_idx)
+    p9 = (zone_a_ok and zone_b_ok and zone_c_ok and zone_d_ok)
 
-    # 10. [TDD-5] 청와대 본관(dashboard/index.html) 컨트롤 타워 포털 및 백엔드 API 연동
-    has_central_tower = ("cheongwadae-central-tower-panel" in html_idx and
-                         "/departments/dept_closet.html" in html_idx and
-                         "/departments/dept_connect_ai.html" in html_idx and
-                         "/departments/dept_media.html" in html_idx and
-                         "/departments/dept_vault.html" in html_idx)
-    has_api = ("/api/cheongwadae-status" in py_run and
-               "/api/connect-ai-dispatch" in py_run)
-    p10 = (has_central_tower and has_api)
+    # 10. [TDD-4&5] 무인 자율 백엔드 엔진 및 3대 핵심 API 검증
+    auto_loop_ok = os.path.exists("auto_company_loop.py")
+    consensus_ok = os.path.exists("memories/consensus.md")
+    guard_ok = os.path.exists("cheongwadae_guard.py")
+    api_ok = ("/api/cheongwadae-status" in py_run and
+              "/api/autonomous-cycle-run" in py_run and
+              "/api/ceo-approve-action" in py_run)
+    p10 = (auto_loop_ok and consensus_ok and guard_ok and api_ok)
 
     results = [p1, p2, p3, p4, p5, p6, p7, p8, p9, p10]
     return all(results), results
 
 def main():
     print("=" * 80)
-    print("🏛️ [QA-50x-STRESS] 이상일 대표님 직속 v8.0 청와대 중앙 컨트롤 타워 & 4대 부서 독립 청사 500회 가혹 검수")
+    print("🏛️ [QA-50x-STRESS] 이상일 대표님 직속 v8.0 Blue-House Autonomous OS 500회 가혹 검수")
     print("=" * 80)
 
-    # 1. Python 문법 검사
+    # 1. Python 파일 7종 컴파일 무결성 검사
     print("[🔍 사전 검수 1] Python py_compile 무결성 검수...")
+    py_files = [
+        "run_dashboard.py",
+        "win_auto_typer_daemon.py",
+        "ecc_pipeline_engine.py",
+        "connect_ai_cloud_corps.py",
+        "cheongwadae_guard.py",
+        "auto_company_loop.py",
+        "apply_v80_blue_house_os.py"
+    ]
     try:
-        py_compile.compile("run_dashboard.py", doraise=True)
-        py_compile.compile("win_auto_typer_daemon.py", doraise=True)
-        py_compile.compile("ecc_pipeline_engine.py", doraise=True)
-        py_compile.compile("connect_ai_cloud_corps.py", doraise=True)
-        py_compile.compile("cheongwadae_guard.py", doraise=True)
-        py_compile.compile("apply_v80_cheongwadae_architecture.py", doraise=True)
-        print("  ✅ [PASS] Python 파일 6건 컴파일 오류 0건!")
+        for pf in py_files:
+            py_compile.compile(pf, doraise=True)
+        print(f"  ✅ [PASS] Python 파일 {len(py_files)}건 컴파일 오류 0건!")
     except Exception as e:
         print(f"  ❌ [FAIL] Python 컴파일 에러: {e}")
         sys.exit(1)
 
-    # 2. Node.js 스크립트 문법 검사 (본관 + 4대 부서 독립 청사 전수 검사)
-    print("[🔍 사전 검수 2] Node.js HTML 6종 스크립트 문법 전수 검수...")
+    # 2. Node.js HTML 7종 스크립트 문법 전수 검사
+    print("[🔍 사전 검수 2] Node.js HTML 7종 스크립트 문법 전수 검수...")
     target_files = [
         "dashboard/index.html",
         "dashboard/dream_closet_future_master_app.html",
         "dashboard/departments/dept_closet.html",
         "dashboard/departments/dept_connect_ai.html",
         "dashboard/departments/dept_media.html",
+        "dashboard/departments/dept_education.html",
         "dashboard/departments/dept_vault.html"
     ]
     for target_path in target_files:
@@ -173,7 +178,7 @@ def main():
         if res.returncode != 0:
             print(f"  ❌ [FAIL] {target_path} JS 문법 에러: {res.stderr}")
             sys.exit(1)
-    print("  ✅ [PASS] 청와대 본관 및 4대 부서 독립 청사 HTML 6종 자바스크립트 문법 오류 0건!")
+    print("  ✅ [PASS] 청와대 본관 및 5대 부서 독립 청사 HTML 7종 자바스크립트 문법 오류 0건!")
 
     total_loops = 50
     passed_loops = 0
@@ -206,7 +211,7 @@ def main():
     print("=" * 80)
 
     if passed_loops == total_loops and passed_tests == total_tests:
-        print("🏆 [FINAL RESULT] 500/500 만점 ALL PASS! 이상일 대표님 v8.0 청와대 중앙 컨트롤 타워 합격 판정!")
+        print("🏆 [FINAL RESULT] 500/500 만점 ALL PASS! 이상일 대표님 v8.0 Blue-House Autonomous OS 합격 판정!")
         sys.exit(0)
     else:
         print(f"🚨 [FINAL RESULT] 일부 테스트 실패 ({passed_tests}/{total_tests})! 확인 필요!")

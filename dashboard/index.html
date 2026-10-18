@@ -260,9 +260,10 @@
     ══════════════════════════════════════════════════════════════ -->
     <div id="tab-command" class="tab-pane p-4 sm:p-6 lg:p-8 space-y-6">
 
-        <!-- 🏛️ [v8.0] 한걸음씩 청와대 중앙 컨트롤 타워 (Blue-House Central Command) -->
+        <!-- 🏛️ [v8.0] 한걸음씩 청와대 무인 자율 컨트롤 타워 (Blue-House Autonomous OS) -->
         <div id="cheongwadae-central-tower-panel" class="rounded-3xl bg-gradient-to-br from-slate-900/95 via-slate-950 to-indigo-950/90 border border-amber-500/40 p-5 sm:p-7 shadow-2xl space-y-6 mb-6 backdrop-blur-xl">
-          <!-- 상단 타이틀 & 엠블럼 -->
+          
+          <!-- 헤더: 청와대 봉황 엠블럼 & 마스터 타이틀 -->
           <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-amber-500/20">
             <div class="flex items-center gap-3.5">
               <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-amber-600 via-amber-500 to-yellow-400 text-slate-950 flex items-center justify-center text-3xl shadow-xl shadow-amber-500/30 font-black">
@@ -271,335 +272,276 @@
               <div>
                 <div class="flex items-center gap-2 flex-wrap">
                   <h2 class="text-lg sm:text-xl font-black text-white tracking-tight">
-                    한걸음씩 청와대 중앙 컨트롤 타워 <span class="text-amber-400 font-mono text-sm">v8.0</span>
+                    한걸음씩 청와대 무인 자율 컨트롤 타워 <span class="text-amber-400 font-mono text-sm">v8.0 Autonomous OS</span>
                   </h2>
                   <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40 flex items-center gap-1">
                     <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                    청와대 경호처 레벨5 방화벽 가동
+                    청와대 경호처 Aegis 방어막 가동
                   </span>
                 </div>
-                <p class="text-xs text-slate-400 mt-0.5">4대 부서 전용 독립 청사 물리적 분리 · 상호 침범 0% 불변 통제 · 차곡차곡 누적(Append-Only) 지식 헌법</p>
+                <p class="text-xs text-slate-400 mt-0.5">5대 부서 물리적 독립 청사 완전 분리 · 무인 오토-루프 24시간 가동 · 차곡차곡 누적(Append-Only) 합의 헌법</p>
               </div>
             </div>
             <div class="flex items-center gap-2">
-              <button type="button" onclick="loadCheongwadaeLiveStatus()" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs text-slate-300 border border-slate-700 transition flex items-center gap-1.5 shadow">
-                🔄 4대 청사 실시간 점검
+              <button type="button" onclick="loadCheongwadaeLiveStatus()" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 border border-slate-700 transition flex items-center gap-1.5 shadow">
+                🔄 전 부서 실시간 동기화
               </button>
             </div>
           </div>
 
-          <!-- 4대 부서 독립 청사 직통 출입문 그리드 -->
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <!-- 🌅 [Zone A: 대통령(이상일 대표님) 모닝 브리핑 & 1-Click 결재 데스크] -->
+          <div class="rounded-2xl bg-slate-950/80 border border-amber-500/30 p-5 space-y-3 shadow-xl">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
+              <div class="flex items-center gap-2">
+                <span class="text-xl">🌅</span>
+                <h3 class="font-bold text-white text-sm">대통령(이상일 대표님) 모닝 브리핑 & 1-Click 결재 데스크</h3>
+                <span class="text-[10px] text-amber-400 font-mono">AI CEO Priority Brief</span>
+              </div>
+              <span id="brief-update-time" class="text-[11px] text-slate-400 font-mono">실시간 대기 중</span>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs" id="morning-brief-grid">
+              <!-- 안건 1 -->
+              <div class="p-3.5 rounded-xl bg-slate-900 border border-slate-800 space-y-2 flex flex-col justify-between">
+                <div>
+                  <div class="flex items-center justify-between mb-1">
+                    <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-purple-500/20 text-purple-300">기회·수익화</span>
+                    <span class="text-[10px] text-emerald-400 font-mono font-bold">리스크: 0/100</span>
+                  </div>
+                  <div class="font-bold text-white text-xs">유튜브 숏츠 Daily Stoic 3초 후킹 공식 신작 영상 1편 즉시 무인 렌더링</div>
+                  <p class="text-[11px] text-slate-400 mt-1">노박 시니어 보이스 3.0배 부스트 믹싱 숏츠 자동 제작</p>
+                </div>
+                <button type="button" onclick="approveCeoAction('AGENDA-2026-001')" class="w-full mt-2 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition flex items-center justify-center gap-1 shadow">
+                  ✅ 원터치 재가 (즉시 무인 집행)
+                </button>
+              </div>
+              <!-- 안건 2 -->
+              <div class="p-3.5 rounded-xl bg-slate-900 border border-slate-800 space-y-2 flex flex-col justify-between">
+                <div>
+                  <div class="flex items-center justify-between mb-1">
+                    <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-pink-500/20 text-pink-300">패션테크</span>
+                    <span class="text-[10px] text-emerald-400 font-mono font-bold">리스크: 0/100</span>
+                  </div>
+                  <div class="font-bold text-white text-xs">꿈의 옷장 2026 봄 시즌 K-하이틴 & 미니멀 트렌드 컬렉션 자동 색인 동기화</div>
+                  <p class="text-[11px] text-slate-400 mt-1">포토샵 픽셀 마술봉 의상 매칭을 위한 2026 트렌드 웹색인 갱신</p>
+                </div>
+                <button type="button" onclick="approveCeoAction('AGENDA-2026-002')" class="w-full mt-2 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition flex items-center justify-center gap-1 shadow">
+                  ✅ 원터치 재가 (즉시 무인 집행)
+                </button>
+              </div>
+              <!-- 안건 3 -->
+              <div class="p-3.5 rounded-xl bg-slate-900 border border-slate-800 space-y-2 flex flex-col justify-between">
+                <div>
+                  <div class="flex items-center justify-between mb-1">
+                    <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-cyan-500/20 text-cyan-300">제2의두뇌</span>
+                    <span class="text-[10px] text-emerald-400 font-mono font-bold">리스크: 0/100</span>
+                  </div>
+                  <div class="font-bold text-white text-xs">Karpathy LLM Wiki & pReinforce 지식 가중치 주간 자동 재강화</div>
+                  <p class="text-[11px] text-slate-400 mt-1">에이전트 작업 리포트 5건 연결 링크 분석 및 Master Anchor 강화</p>
+                </div>
+                <button type="button" onclick="approveCeoAction('AGENDA-2026-003')" class="w-full mt-2 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition flex items-center justify-center gap-1 shadow">
+                  ✅ 원터치 재가 (즉시 무인 집행)
+                </button>
+              </div>
+            </div>
+            <div id="ceo-approval-receipt" class="hidden p-3 rounded-xl bg-emerald-950/60 border border-emerald-500/40 text-xs text-emerald-200">
+              <!-- 원터치 재가 영수증 출력 영역 -->
+            </div>
+          </div>
+
+          <!-- 🏢 [Zone B: 5대 독립 부서 청사 직통 출입문 & 실시간 Heartbeat 상황판] -->
+          <div class="space-y-3">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+              <div class="flex items-center gap-2">
+                <span class="text-xl">🏢</span>
+                <h3 class="font-bold text-white text-sm">5대 부서 전용 독립 청사 직통 출입문 & 실시간 Heartbeat 상황판</h3>
+              </div>
+              <span class="text-[10px] text-emerald-400 font-mono">Departmental Firewall: ACTIVE</span>
+            </div>
             
-            <!-- 제1부서: 패션테크청 (꿈의 옷장) -->
-            <div class="rounded-2xl bg-slate-950/80 border border-indigo-500/30 hover:border-indigo-500/80 p-4 space-y-3 transition group flex flex-col justify-between shadow-lg">
-              <div>
-                <div class="flex items-center justify-between mb-2">
-                  <span class="text-2xl">👗</span>
-                  <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-                    🟢 100% 정상 가동중
-                  </span>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5">
+              
+              <!-- 제1청사: 패션테크·꿈의옷장부 -->
+              <div class="rounded-2xl bg-slate-950/80 border border-indigo-500/30 hover:border-indigo-500/80 p-3.5 space-y-2.5 transition flex flex-col justify-between shadow-lg">
+                <div>
+                  <div class="flex items-center justify-between mb-1.5">
+                    <span class="text-2xl">👗</span>
+                    <span class="px-2 py-0.5 rounded-full text-[9px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                      🟢 정상 가동중
+                    </span>
+                  </div>
+                  <div class="font-bold text-white text-xs">제1청사: 패션테크·꿈의옷장부</div>
+                  <div class="text-[9px] text-indigo-400 font-mono">dept_closet.html</div>
+                  <p class="text-[10px] text-slate-400 mt-1 leading-relaxed">
+                    꿈의 옷장 v7.1 포토샵 스튜디오 독립 개발창. 주름/광택 보존 변환.
+                  </p>
+                  <div class="mt-2 text-[9px] text-slate-500 flex items-center gap-1">
+                    <span>🔒 SHA-256 보호됨</span>
+                  </div>
                 </div>
-                <h3 class="font-bold text-white text-sm group-hover:text-indigo-300 transition">제1부서: 패션테크청</h3>
-                <div class="text-[10px] text-indigo-400 font-mono">DEPT-FASHION · dept_closet.html</div>
-                <p class="text-[11px] text-slate-400 mt-2 leading-relaxed">
-                  꿈의 옷장 v7.1 포토샵 스튜디오 독립 개발창. 마술봉 옷 영역 추출 & 주름·광택 보존 변환.
-                </p>
-                <div class="mt-2 text-[10px] text-slate-500 flex items-center gap-1">
-                  <span>🔒 독립 청사 보호됨</span>
-                </div>
+                <a href="/departments/dept_closet.html" target="_blank" class="w-full py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs text-center transition flex items-center justify-center gap-1 shadow">
+                  <span>👗 전용 독립창 ➔</span>
+                </a>
               </div>
-              <a href="/departments/dept_closet.html" target="_blank" class="w-full py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs text-center transition flex items-center justify-center gap-1 shadow-md shadow-indigo-600/30">
-                <span>👗 전용 독립창 열기</span>
-                <span>➔</span>
-              </a>
-            </div>
 
-            <!-- 제2부서: Connect AI 홍보·비즈니스청 -->
-            <div class="rounded-2xl bg-slate-950/80 border border-purple-500/30 hover:border-purple-500/80 p-4 space-y-3 transition group flex flex-col justify-between shadow-lg">
-              <div>
-                <div class="flex items-center justify-between mb-2">
-                  <span class="text-2xl">🎖️</span>
-                  <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-                    🟢 100% 정상 가동중
-                  </span>
+              <!-- 제2청사: Connect AI 홍보·비즈니스부 -->
+              <div class="rounded-2xl bg-slate-950/80 border border-purple-500/30 hover:border-purple-500/80 p-3.5 space-y-2.5 transition flex flex-col justify-between shadow-lg">
+                <div>
+                  <div class="flex items-center justify-between mb-1.5">
+                    <span class="text-2xl">🎖️</span>
+                    <span class="px-2 py-0.5 rounded-full text-[9px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                      🟢 정상 가동중
+                    </span>
+                  </div>
+                  <div class="font-bold text-white text-xs">제2청사: Connect AI 홍보·비즈니스부</div>
+                  <div class="text-[9px] text-purple-400 font-mono">dept_connect_ai.html</div>
+                  <p class="text-[10px] text-slate-400 mt-1 leading-relaxed">
+                    CN-401~408 8대 팀원 외부 클라우드 오프로딩 & Stitch 2.0.
+                  </p>
+                  <div class="mt-2 text-[9px] text-slate-500 flex items-center gap-1">
+                    <span>🔒 외부 클라우드 (부하 <1%)</span>
+                  </div>
                 </div>
-                <h3 class="font-bold text-white text-sm group-hover:text-purple-300 transition">제2부서: Connect AI 홍보·비즈니스청</h3>
-                <div class="text-[10px] text-purple-400 font-mono">DEPT-CONNECT-AI · dept_connect_ai.html</div>
-                <p class="text-[11px] text-slate-400 mt-2 leading-relaxed">
-                  CN-401~408 8대 정예 팀원 외부 클라우드 오프로딩. Stitch 2.0 design.md & 3초 후킹 대본.
-                </p>
-                <div class="mt-2 text-[10px] text-slate-500 flex items-center gap-1">
-                  <span>🔒 독립 청사 보호됨 (노트북 부하 0%)</span>
-                </div>
+                <a href="/departments/dept_connect_ai.html" target="_blank" class="w-full py-1.5 rounded-lg bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs text-center transition flex items-center justify-center gap-1 shadow">
+                  <span>🎖️ 전용 독립창 ➔</span>
+                </a>
               </div>
-              <a href="/departments/dept_connect_ai.html" target="_blank" class="w-full py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs text-center transition flex items-center justify-center gap-1 shadow-md shadow-purple-600/30">
-                <span>🎖️ 전용 독립창 열기</span>
-                <span>➔</span>
-              </a>
-            </div>
 
-            <!-- 제3부서: 미디어·음원청 -->
-            <div class="rounded-2xl bg-slate-950/80 border border-pink-500/30 hover:border-pink-500/80 p-4 space-y-3 transition group flex flex-col justify-between shadow-lg">
-              <div>
-                <div class="flex items-center justify-between mb-2">
-                  <span class="text-2xl">🎵</span>
-                  <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-                    🟢 100% 정상 가동중
-                  </span>
+              <!-- 제3청사: 힐링 미디어·음원제작부 -->
+              <div class="rounded-2xl bg-slate-950/80 border border-pink-500/30 hover:border-pink-500/80 p-3.5 space-y-2.5 transition flex flex-col justify-between shadow-lg">
+                <div>
+                  <div class="flex items-center justify-between mb-1.5">
+                    <span class="text-2xl">🎵</span>
+                    <span class="px-2 py-0.5 rounded-full text-[9px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                      🟢 정상 가동중
+                    </span>
+                  </div>
+                  <div class="font-bold text-white text-xs">제3청사: 힐링 미디어·음원제작부</div>
+                  <div class="text-[9px] text-pink-400 font-mono">dept_media.html</div>
+                  <p class="text-[10px] text-slate-400 mt-1 leading-relaxed">
+                    Suno AI 30곡 음원 큐, 노박 라디오극 사연 자동 믹싱 팩토리.
+                  </p>
+                  <div class="mt-2 text-[9px] text-slate-500 flex items-center gap-1">
+                    <span>🔒 SHA-256 보호됨</span>
+                  </div>
                 </div>
-                <h3 class="font-bold text-white text-sm group-hover:text-pink-300 transition">제3부서: 미디어·음원청</h3>
-                <div class="text-[10px] text-pink-400 font-mono">DEPT-MEDIA · dept_media.html</div>
-                <p class="text-[11px] text-slate-400 mt-2 leading-relaxed">
-                  Suno AI 음원 스트리밍 큐, 432Hz 힐링 주파수, 노박 라디오극 사연 자동 믹싱 팩토리.
-                </p>
-                <div class="mt-2 text-[10px] text-slate-500 flex items-center gap-1">
-                  <span>🔒 독립 청사 보호됨</span>
-                </div>
+                <a href="/departments/dept_media.html" target="_blank" class="w-full py-1.5 rounded-lg bg-pink-600 hover:bg-pink-500 text-white font-bold text-xs text-center transition flex items-center justify-center gap-1 shadow">
+                  <span>🎵 전용 독립창 ➔</span>
+                </a>
               </div>
-              <a href="/departments/dept_media.html" target="_blank" class="w-full py-2 rounded-xl bg-pink-600 hover:bg-pink-500 text-white font-bold text-xs text-center transition flex items-center justify-center gap-1 shadow-md shadow-pink-600/30">
-                <span>🎵 전용 독립창 열기</span>
-                <span>➔</span>
-              </a>
-            </div>
 
-            <!-- 제4부서: 법무·지식기록원 -->
-            <div class="rounded-2xl bg-slate-950/80 border border-amber-500/30 hover:border-amber-500/80 p-4 space-y-3 transition group flex flex-col justify-between shadow-lg">
-              <div>
-                <div class="flex items-center justify-between mb-2">
-                  <span class="text-2xl">📚</span>
-                  <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-                    🟢 100% 정상 가동중
-                  </span>
+              <!-- 제4청사: 글로벌 K-인성학교 & 나눔부 -->
+              <div class="rounded-2xl bg-slate-950/80 border border-emerald-500/30 hover:border-emerald-500/80 p-3.5 space-y-2.5 transition flex flex-col justify-between shadow-lg">
+                <div>
+                  <div class="flex items-center justify-between mb-1.5">
+                    <span class="text-2xl">🎓</span>
+                    <span class="px-2 py-0.5 rounded-full text-[9px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                      🟢 정상 가동중
+                    </span>
+                  </div>
+                  <div class="font-bold text-white text-xs">제4청사: 글로벌 K-인성학교 & 나눔부</div>
+                  <div class="text-[9px] text-emerald-400 font-mono">dept_education.html</div>
+                  <p class="text-[10px] text-slate-400 mt-1 leading-relaxed">
+                    세 딸 4Q 인성 시네마 퀴즈, 긍정 확언 스피치, HGS-CERT 발급.
+                  </p>
+                  <div class="mt-2 text-[9px] text-slate-500 flex items-center gap-1">
+                    <span>🔒 SHA-256 보호됨</span>
+                  </div>
                 </div>
-                <h3 class="font-bold text-white text-sm group-hover:text-amber-300 transition">제4부서: 법무·지식기록원</h3>
-                <div class="text-[10px] text-amber-400 font-mono">DEPT-VAULT · dept_vault.html</div>
-                <p class="text-[11px] text-slate-400 mt-2 leading-relaxed">
-                  Andrej Karpathy LLM Wiki & pReinforce 지식 그래프, 제국 실록 차곡차곡 누적 영구 보존.
-                </p>
-                <div class="mt-2 text-[10px] text-slate-500 flex items-center gap-1">
-                  <span>🔒 영구 보존 기록원 (APPEND_ONLY)</span>
-                </div>
+                <a href="/departments/dept_education.html" target="_blank" class="w-full py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs text-center transition flex items-center justify-center gap-1 shadow">
+                  <span>🎓 전용 독립창 ➔</span>
+                </a>
               </div>
-              <a href="/departments/dept_vault.html" target="_blank" class="w-full py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-slate-950 font-black text-xs text-center transition flex items-center justify-center gap-1 shadow-md shadow-amber-600/30">
-                <span>📚 전용 독립창 열기</span>
-                <span>➔</span>
-              </a>
-            </div>
 
-          </div>
-        </div>
+              <!-- 제5청사: 자율법무·저작권·제2의두뇌 기록원 -->
+              <div class="rounded-2xl bg-slate-950/80 border border-amber-500/30 hover:border-amber-500/80 p-3.5 space-y-2.5 transition flex flex-col justify-between shadow-lg">
+                <div>
+                  <div class="flex items-center justify-between mb-1.5">
+                    <span class="text-2xl">🛡️</span>
+                    <span class="px-2 py-0.5 rounded-full text-[9px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                      🟢 정상 가동중
+                    </span>
+                  </div>
+                  <div class="font-bold text-white text-xs">제5청사: 법무·제2의두뇌 기록원</div>
+                  <div class="text-[9px] text-amber-400 font-mono">dept_vault.html</div>
+                  <p class="text-[10px] text-slate-400 mt-1 leading-relaxed">
+                    Karpathy Wiki & pReinforce 지식 그래프, 제국 실록 누적 보존.
+                  </p>
+                  <div class="mt-2 text-[9px] text-slate-500 flex items-center gap-1">
+                    <span>🔒 영구 보존 (APPEND_ONLY)</span>
+                  </div>
+                </div>
+                <a href="/departments/dept_vault.html" target="_blank" class="w-full py-1.5 rounded-lg bg-amber-600 hover:bg-amber-500 text-slate-950 font-black text-xs text-center transition flex items-center justify-center gap-1 shadow">
+                  <span>🛡️ 전용 독립창 ➔</span>
+                </a>
+              </div>
 
-
-        <!-- 🎖️ [v7.2] Connect AI 8대 팀원 클라우드 배지 -->
-        <div class="p-3 rounded-xl bg-gradient-to-r from-indigo-950/60 via-purple-950/40 to-slate-950/80 border border-indigo-500/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs mb-4">
-          <div class="flex items-center gap-2">
-            <span class="text-lg">🎖️</span>
-            <div>
-              <span class="font-bold text-white">Connect AI 8대 정예 팀원 (CN-401 ~ CN-408) 편입 완료</span>
-              <span class="text-[11px] text-indigo-300 ml-2">노트북 부하 0% 외부 클라우드 오프로딩 & Karpathy Wiki 가동 중</span>
-            </div>
-          </div>
-          <button type="button" onclick="switchTab('tab-brain')" class="px-2.5 py-1 rounded bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-[11px] transition">
-            컨트롤 타워 열기 ➔
-          </button>
-        </div>
-
-      
-        </div>
-        <!-- ⚡ [르곤-안실장 양방향 시그널 오토싱크 사령탑 미니 바] -->
-  <div id="rgon-signal-sync-bar" class="w-full bg-slate-900/95 backdrop-blur-md border-b border-purple-500/30 px-3 py-1.5 flex flex-wrap items-center justify-between gap-2 text-xs shadow-lg z-20 sticky top-0">
-    <div class="flex items-center gap-2">
-      <span class="flex h-2 w-2 relative">
-        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-        <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-      </span>
-      <span class="font-bold text-amber-300 flex items-center gap-1 text-[11px] sm:text-xs">
-        <span>⚡</span><span>IN/OUT 오토싱크</span>
-      </span>
-      <span id="sync-status-badge" class="px-2 py-0.5 rounded-full bg-emerald-950/80 text-emerald-300 border border-emerald-500/40 text-[10px] font-medium">
-        🟢 Auto-Catch 대기 중
-      </span>
-    </div>
-
-    <div class="flex items-center gap-1.5 text-[11px]">
-      <button type="button" onclick="manualCatchRgonSignal()" class="px-2.5 py-1 rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-semibold transition flex items-center gap-1 shadow-sm active:scale-95">
-        <span>⚡</span><span>시그널 수동 캐치</span>
-      </button>
-      <button type="button" onclick="openSensorGuideModal()" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-medium transition flex items-center gap-1 active:scale-95">
-        <span>🔗</span><span class="hidden sm:inline">Genspark</span><span>센서 장착</span>
-      </button>
-      <button type="button" onclick="copyLatestOutReport()" class="px-2.5 py-1 rounded-lg bg-pink-600/30 hover:bg-pink-600/50 text-pink-300 border border-pink-500/40 font-medium transition flex items-center gap-1 active:scale-95">
-        <span>📋</span><span>OUT 복사</span>
-      </button>
-    </div>
-  </div>
-
-  <!-- Genspark 센서 장착 가이드 모달 -->
-  <div id="sensor-guide-modal" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-    <div class="w-full max-w-md bg-slate-900 border border-purple-500/40 rounded-2xl p-5 shadow-2xl space-y-4 text-xs text-slate-300">
-      <div class="flex items-center justify-between border-b border-slate-800 pb-2">
-        <h3 class="text-sm font-bold text-amber-300 flex items-center gap-2">
-          <span>⚡</span><span>Genspark 르곤이 무인 자동캐치 센서 설치</span>
-        </h3>
-        <button type="button" onclick="closeSensorGuideModal()" class="text-slate-400 hover:text-white text-base">✕</button>
-      </div>
-      <div class="space-y-2">
-        <p class="text-slate-200 font-semibold">1. 크롬 북마클릿 (1초 원클릭):</p>
-        <p class="text-[11px] text-slate-400">아래 코드를 복사하여 브라우저 북마크 URL에 저장하면, Genspark에서 클릭 한 번으로 시그널이 안실장에게 즉시 전송됩니다.</p>
-        <div class="flex gap-1.5">
-          <input id="bookmarklet-code-input" readonly value="javascript:(function(){const s='⟪⚡RGON_SIGNAL_READY⚡⟫';const t=document.body.innerText||'';if(!t.includes(s)){alert('르곤이 시그널 미발견');return;}fetch('http://127.0.0.1:8501/api/signal-sync-in',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({signal:s,prompt:t.substring(Math.max(0,t.lastIndexOf(s)-4500)),sender:'Genspark-Bookmarklet'})}).then(r=>r.json()).then(d=>alert('⚡ 안실장에게 0.01초 자동 전송 완료!'));})();" class="w-full px-2 py-1.5 rounded bg-slate-950 border border-slate-700 text-slate-300 text-[10px] select-all font-mono">
-          <button type="button" onclick="copyBookmarkletCode()" class="px-3 py-1 bg-purple-600 hover:bg-purple-500 text-white rounded font-bold whitespace-nowrap">복사</button>
-        </div>
-
-        <p class="text-slate-200 font-semibold pt-2">2. Tampermonkey 유저스크립트 (0초 무인):</p>
-        <p class="text-[11px] text-slate-400">Genspark 창에 상주하며 르곤이가 답변을 끝마치자마자 0초 만에 안실장 로컬 큐로 자동 전송합니다.</p>
-        <a href="/rgon_tampermonkey_script.user.js" target="_blank" class="inline-block px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-center w-full transition">
-          📥 유저스크립트 다운로드 및 설치
-        </a>
-      </div>
-      <div class="pt-2 border-t border-slate-800 flex justify-end">
-        <button type="button" onclick="closeSensorGuideModal()" class="px-4 py-1.5 bg-slate-800 hover:bg-slate-700 text-white rounded-lg font-medium">닫기</button>
-      </div>
-    </div>
-
-
-    <!-- 🌐 [만능 멀티-AI 실시간 교신 관제탑: Master Inter-Agent Mission Console] -->
-    <div id="omni-agent-bus-panel" class="w-full rounded-2xl bg-slate-900/90 backdrop-blur-xl border border-purple-500/40 p-3 sm:p-5 shadow-2xl space-y-4 mb-6">
-      
-      <!-- 상단 헤더: 사령관 명패 및 AI 레지스트리 상태 바 -->
-      <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-3">
-        <div class="flex items-center gap-2">
-          <span class="p-2 rounded-xl bg-gradient-to-tr from-amber-500 to-purple-600 text-white shadow-lg text-lg">👑</span>
-          <div>
-            <div class="flex items-center gap-2">
-              <h2 class="text-sm sm:text-base font-extrabold text-white tracking-tight">
-                만능 멀티-AI 실시간 교신 관제탑
-              </h2>
-              <span class="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[10px] font-bold">
-                COMMANDER-000 직속
-              </span>
-            </div>
-            <p class="text-[11px] text-slate-400">
-              이상일 대표님 ➔ 전 세계 AI (르곤이 1·2호, 안실장, ChatGPT, Claude, QA감사관) 실시간 지휘
-            </p>
-          </div>
-        </div>
-
-        <div class="flex items-center gap-1.5 text-xs">
-          <button type="button" onclick="openNewAgentModal()" class="px-2.5 py-1.5 rounded-xl bg-purple-600/30 hover:bg-purple-600/50 text-purple-300 border border-purple-500/40 font-bold transition flex items-center gap-1 shadow-sm active:scale-95">
-            <span>➕</span><span>새 AI 등록</span>
-          </button>
-          <button type="button" onclick="refreshOmniAgentBus()" class="px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 font-medium transition flex items-center gap-1 active:scale-95">
-            <span>🔄</span><span>피드 새로고침</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- 에이전트 고유번호 레지스트리 칩 (Active Agent Badges) -->
-      <div id="omni-agent-registry-chips" class="flex items-center gap-1.5 overflow-x-auto pb-1 text-[11px] no-scrollbar">
-        <!-- JS로 동적 렌더링 -->
-      </div>
-
-      <!-- 👑 대표님 전용 통합 명령 하달창 (Master Command Console) -->
-      <div class="rounded-xl bg-slate-950/80 border border-purple-500/30 p-3 sm:p-4 space-y-3">
-        <div class="flex flex-wrap items-center justify-between gap-2">
-          <div class="flex items-center gap-2">
-            <span class="text-amber-400 font-bold text-xs flex items-center gap-1">
-              <span>🎯</span><span>수신 에이전트:</span>
-            </span>
-            <select id="cmd-target-agent-select" class="bg-slate-900 border border-slate-700 text-slate-200 rounded-lg px-2.5 py-1 text-xs font-semibold focus:outline-none focus:border-purple-500">
-              <option value="ALL">📡 전체 AI 동시 하달 (Broadcast ALL)</option>
-              <option value="RGON-001">🧠 [RGON-001] 르곤이 1호 (Gemini 4 Argon 수석설계)</option>
-              <option value="RGON-002">🧠 [RGON-002] 르곤이 2호 (Gemini 4 Argon 특임분신)</option>
-              <option value="AGV-101" selected>🤖 [AGV-101] 안실장 (Antigravity 수석실행)</option>
-              <option value="GPT-201">🌐 [GPT-201] ChatGPT (OpenAI 크리에이티브)</option>
-              <option value="CLD-301">🎨 [CLD-301] Claude (정밀 아키텍처)</option>
-              <option value="QA-901">🕵️‍♂️ [QA-901] QA 감사관 (독립 검수)</option>
-            </select>
-          </div>
-
-          <div class="flex items-center gap-1 text-[11px]">
-            <button type="button" onclick="manualCatchRgonSignal()" class="px-2.5 py-1 rounded-lg bg-indigo-600/30 hover:bg-indigo-600/50 text-indigo-300 border border-indigo-500/40 font-semibold transition flex items-center gap-1">
-              <span>📋</span><span>르곤이 시그널 1초 캐치 (IN)</span>
-            </button>
-            <button type="button" onclick="copyLatestOutReport()" class="px-2.5 py-1 rounded-lg bg-pink-600/30 hover:bg-pink-600/50 text-pink-300 border border-pink-500/40 font-semibold transition flex items-center gap-1">
-              <span>📋</span><span>안실장 OUT 복사</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- 명령 텍스트 입력창 & 마이크 -->
-        <div class="relative">
-          <textarea id="cmd-broadcast-input" rows="2" placeholder="👑 [COMMANDER-000] 이상일 대표님의 마스터 명령을 입력하세요... (예: 르곤이 설계안 검토 후 안실장 배포 실행하라)" class="w-full px-3 py-2 pr-12 rounded-xl bg-slate-900 border border-slate-700 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition resize-none"></textarea>
-          <button type="button" onclick="toggleOmniVoiceMic()" id="btn-omni-mic" class="absolute right-2 top-2 p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-amber-400 border border-slate-700 transition" title="음성 명령 입력">
-            <span>🎙️</span>
-          </button>
-        </div>
-
-        <div class="flex items-center justify-between gap-2">
-          <span class="text-[10px] text-slate-500">
-            ⚡ 하달 즉시 고유 메시지 ID 부여 및 NEXT_TASK_FOR_ANTIGRAVITY.md / 버스에 0.01초 자동 주입
-          </span>
-          <button type="button" onclick="dispatchCommanderOrder()" class="px-4 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 via-purple-600 to-indigo-600 hover:from-amber-400 hover:to-indigo-500 text-white font-extrabold text-xs transition shadow-lg shadow-purple-500/20 flex items-center gap-1.5 active:scale-95">
-            <span>🚀</span><span>명령 하달 (IN)</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- 📺 실시간 AI 교신 라이브 모니터 (Live Inter-Agent Feed) -->
-      <div class="space-y-2">
-        <div class="flex items-center justify-between text-xs px-1">
-          <div class="flex items-center gap-2 font-bold text-slate-300">
-            <span class="flex h-2 w-2 relative">
-              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-            </span>
-            <span>📡 실시간 AI 교신 라이브 피드</span>
-            <span id="omni-msg-count-badge" class="px-2 py-0.5 rounded-full bg-slate-800 text-slate-400 text-[10px]">4건</span>
-          </div>
-          <span class="text-[11px] text-slate-500">2초 무인 자동 갱신</span>
-        </div>
-
-        <div id="omni-inter-agent-feed-box" class="h-60 overflow-y-auto space-y-2 p-2.5 rounded-xl bg-slate-950/90 border border-slate-800/80 font-sans text-xs">
-          <!-- 메시지 타임라인 렌더링 -->
-        </div>
-      </div>
-    </div>
-
-    <!-- ➕ 신규 AI 고유번호 발급 모달 -->
-    <div id="register-agent-modal" class="hidden fixed inset-0 bg-slate-950/85 backdrop-blur-md z-50 flex items-center justify-center p-4">
-      <div class="w-full max-w-sm bg-slate-900 border border-purple-500/40 rounded-2xl p-5 shadow-2xl space-y-4 text-xs text-slate-200">
-        <div class="flex items-center justify-between border-b border-slate-800 pb-2">
-          <h3 class="text-sm font-bold text-amber-300 flex items-center gap-1.5">
-            <span>➕</span><span>신규 AI 에이전트 고유번호 발급</span>
-          </h3>
-          <button type="button" onclick="closeNewAgentModal()" class="text-slate-400 hover:text-white text-base">✕</button>
-        </div>
-
-        <div class="space-y-2.5">
-          <div>
-            <label class="block text-[11px] font-semibold text-slate-400 mb-1">고유번호 (Agent ID)</label>
-            <input id="new-agent-id-input" placeholder="예: RGON-003, GPT-202" class="w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-white font-mono uppercase">
-          </div>
-          <div>
-            <label class="block text-[11px] font-semibold text-slate-400 mb-1">에이전트 이름</label>
-            <input id="new-agent-name-input" placeholder="예: 르곤이 3호, Auto-Claude" class="w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-white">
-          </div>
-          <div>
-            <label class="block text-[11px] font-semibold text-slate-400 mb-1">담당 역할 / 임무</label>
-            <input id="new-agent-role-input" placeholder="예: 글로벌 마케팅, 비전 분석" class="w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-white">
-          </div>
-          <div class="flex gap-2">
-            <div class="w-1/2">
-              <label class="block text-[11px] font-semibold text-slate-400 mb-1">아이콘 이모지</label>
-              <input id="new-agent-icon-input" value="🤖" class="w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-white text-center">
-            </div>
-            <div class="w-1/2">
-              <label class="block text-[11px] font-semibold text-slate-400 mb-1">대표 색상</label>
-              <input id="new-agent-color-input" type="color" value="#8b5cf6" class="w-full h-8 rounded-lg bg-slate-950 border border-slate-700 cursor-pointer p-0.5">
             </div>
           </div>
+
+          <!-- ⚙️ [Zone C: 24시간 무인 오토-루프(Auto-Loop) & 크론 자율 스케줄러] -->
+          <div class="rounded-2xl bg-slate-950/80 border border-indigo-500/30 p-5 space-y-3 shadow-xl">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-slate-800 pb-2.5">
+              <div class="flex items-center gap-2">
+                <span class="text-xl">⚙️</span>
+                <h3 class="font-bold text-white text-sm">24시간 무인 오토-루프(Auto-Loop) & 크론 자율 스케줄러</h3>
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+                  🔄 24h 무인 자율 오토파일럿: ON
+                </span>
+              </div>
+              <button type="button" onclick="runAutonomousCompanyCycle()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:opacity-90 text-white font-bold text-xs transition flex items-center gap-1.5 shadow-lg shadow-indigo-600/30">
+                <span>⚡ 지금 1사이클 즉시 무인 가동</span>
+              </button>
+            </div>
+
+            <!-- 4단계 자율 순환 파이프라인 진행 상태 -->
+            <div class="grid grid-cols-1 sm:grid-cols-4 gap-2.5 text-xs">
+              <div class="p-3 rounded-xl bg-slate-900 border border-slate-800">
+                <div class="font-bold text-indigo-300 mb-1">① 트렌드 탐색</div>
+                <div class="text-[11px] text-slate-400">CN-401 레오 & CN-408 리서처 실시간 저격</div>
+              </div>
+              <div class="p-3 rounded-xl bg-slate-900 border border-slate-800">
+                <div class="font-bold text-purple-300 mb-1">② 찰리 멍거 리스크 검증</div>
+                <div class="text-[11px] text-slate-400">QA-901 감사관 역발상 인버전 검증</div>
+              </div>
+              <div class="p-3 rounded-xl bg-slate-900 border border-slate-800">
+                <div class="font-bold text-pink-300 mb-1">③ 부서별 무인 제작</div>
+                <div class="text-[11px] text-slate-400">대본·음원·디자인·코드 비동기 산출</div>
+              </div>
+              <div class="p-3 rounded-xl bg-slate-900 border border-slate-800">
+                <div class="font-bold text-emerald-300 mb-1">④ 합의 기억(consensus.md)</div>
+                <div class="text-[11px] text-slate-400">Karpathy Wiki & 완료 영수증 차곡차곡 축적</div>
+              </div>
+            </div>
+
+            <div id="auto-cycle-terminal" class="rounded-xl bg-slate-950 p-3 font-mono text-[11px] text-slate-300 border border-slate-800 max-h-36 overflow-y-auto leading-relaxed">
+[자율 오토파일럿 대기 중] 24시간 무인 순환 체계가 가동 중입니다. 상단 버튼을 누르면 즉시 1사이클 협업이 집행됩니다.
+            </div>
+          </div>
+
+          <!-- 🛡️ [Zone D: 청와대 경호처 Aegis Quality Gate & 차곡차곡 자산 누적 계기판] -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+            <div class="p-3.5 rounded-2xl bg-slate-950/80 border border-emerald-500/30 text-center">
+              <div class="text-slate-400 text-[11px] mb-1">기존 기능 손상률</div>
+              <div class="text-xl font-black text-emerald-400 font-mono">0.0%</div>
+              <div class="text-[10px] text-emerald-500 mt-0.5">Aegis 방어막 정상</div>
+            </div>
+            <div class="p-3.5 rounded-2xl bg-slate-950/80 border border-cyan-500/30 text-center">
+              <div class="text-slate-400 text-[11px] mb-1">외부 클라우드 오프로딩</div>
+              <div class="text-xl font-black text-cyan-400 font-mono">100%</div>
+              <div class="text-[10px] text-cyan-500 mt-0.5">로컬 CPU 부하 < 1%</div>
+            </div>
+            <div class="p-3.5 rounded-2xl bg-slate-950/80 border border-purple-500/30 text-center">
+              <div class="text-slate-400 text-[11px] mb-1">Karpathy 누적 위키</div>
+              <div id="stat-wiki-count" class="text-xl font-black text-purple-400 font-mono">4건</div>
+              <div class="text-[10px] text-purple-500 mt-0.5">Append-Only 보존</div>
+            </div>
+            <div class="p-3.5 rounded-2xl bg-slate-950/80 border border-amber-500/30 text-center">
+              <div class="text-slate-400 text-[11px] mb-1">재정 헌법 배분율</div>
+              <div class="text-xl font-black text-amber-400 font-mono">50:25:15:10</div>
+              <div class="text-[10px] text-amber-500 mt-0.5">상생·연구·비축·자산</div>
+            </div>
+          </div>
+
         </div>
 
         <div class="pt-2 border-t border-slate-800 flex justify-end gap-2">

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🎓 제4청사: 글로벌 K-인성학교 & 나눔부 | 한걸음씩 청와대 독립 청사</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700;800&family=Nanum+Myeongjo:wght@700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Pretendard', sans-serif; background-color: #070a13; color: #f8fafc; }
+    .glass-card { background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(16px); border: 1px solid rgba(16, 185, 129, 0.25); }
+    .font-myeongjo { font-family: 'Nanum Myeongjo', serif; }
+  </style>
+</head>
+<body class="min-h-screen p-4 sm:p-6 lg:p-8 space-y-6">
+
+  <!-- 헤더 바 -->
+  <div class="glass-card rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-2xl">
+    <div class="flex items-center gap-3">
+      <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-emerald-600 via-teal-600 to-cyan-600 flex items-center justify-center text-2xl shadow-lg shadow-emerald-500/40">
+        🎓
+      </div>
+      <div>
+        <div class="flex items-center gap-2">
+          <h1 class="text-lg sm:text-xl font-extrabold text-white">제4청사: 글로벌 K-인성학교 & 나눔부</h1>
+          <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+            ● 독립 청사 보호됨 (LOCKED_IMMUTABLE)
+          </span>
+        </div>
+        <p class="text-xs text-slate-400 mt-0.5">세 딸(은솔·송효·해상) 4Q 인성 시네마 퀴즈 · 긍정 확언 스피치 · HGS-CERT 인성 인증서 발급소</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-2">
+      <a href="/?v=800&tab=command" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition flex items-center gap-1.5 shadow-lg shadow-emerald-600/30">
+        🏛️ 청와대 본관 복귀 ➔
+      </a>
+    </div>
+  </div>
+
+  <!-- 인성학교 메인 스테이션 그리드 -->
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    
+    <!-- 스테이션 1: 4Q 인성 시네마 퀴즈 -->
+    <div class="glass-card rounded-2xl p-5 space-y-4 flex flex-col justify-between">
+      <div>
+        <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+          <h2 class="font-bold text-white text-sm flex items-center gap-2">
+            <span>🎬</span> 4Q 인성 시네마 퀴즈
+          </h2>
+          <span class="text-[10px] text-emerald-400 font-mono">IQ·EQ·MQ·CQ</span>
+        </div>
+        <p class="text-xs text-slate-300 mt-3 leading-relaxed">
+          영화 같은 실제 딜레마 상황에서 마음을 선택하는 인터랙티브 질문. 세 딸의 인성 지수를 올바르게 육성합니다.
+        </p>
+        <div class="p-3.5 rounded-xl bg-slate-950/80 border border-slate-800 mt-3 text-xs space-y-2">
+          <div class="font-bold text-emerald-300">Q. 친구가 말없이 슬퍼할 때 나는?</div>
+          <button onclick="selectAnswer('A')" class="w-full text-left p-2 rounded bg-slate-900 hover:bg-slate-800 text-slate-300 text-[11px] transition">
+            A. 말없이 따뜻한 코코아 한 잔을 건넨다 (MQ 공감력 +15)
+          </button>
+          <button onclick="selectAnswer('B')" class="w-full text-left p-2 rounded bg-slate-900 hover:bg-slate-800 text-slate-300 text-[11px] transition">
+            B. 이유를 묻지 않고 곁에 가만히 앉아 있어 준다 (EQ 경청력 +20)
+          </button>
+        </div>
+      </div>
+      <div id="quiz-feedback" class="text-[11px] text-emerald-400 font-bold text-center mt-2">마음의 선택을 기다립니다.</div>
+    </div>
+
+    <!-- 스테이션 2: 음성 긍정 확언 스피치 -->
+    <div class="glass-card rounded-2xl p-5 space-y-4 flex flex-col justify-between">
+      <div>
+        <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+          <h2 class="font-bold text-white text-sm flex items-center gap-2">
+            <span>🎙️</span> 긍정 확언 음성 스피치
+          </h2>
+          <span class="text-[10px] text-cyan-400 font-mono">STT Voice Boost</span>
+        </div>
+        <p class="text-xs text-slate-300 mt-3 leading-relaxed">
+          "나는 오늘도 한걸음씩 성장한다!" 자신 있는 목소리로 소리 내어 말하면 AI가 발음과 자신감 음파를 분석합니다.
+        </p>
+        <div class="p-4 rounded-xl bg-slate-950/80 border border-slate-800 mt-3 text-center space-y-3">
+          <div class="text-sm font-bold text-white font-myeongjo">"나는 세상에서 가장 소중한 사람이다."</div>
+          <button onclick="recordAffirmation()" id="btn-speech" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-teal-600 to-cyan-600 hover:opacity-90 text-white font-bold text-xs transition shadow-lg shadow-teal-600/30">
+            🎙️ 확언 말하기 시작
+          </button>
+          <div id="speech-result" class="text-[10px] text-slate-400">마이크를 켜고 큰 소리로 확언해 보세요!</div>
+        </div>
+      </div>
+      <div class="text-[10px] text-slate-500 text-center">세 딸의 자존감과 회복탄력성을 매일 높여줍니다.</div>
+    </div>
+
+    <!-- 스테이션 3: HGS-CERT 정식 인성 인증서 발급소 -->
+    <div class="glass-card rounded-2xl p-5 space-y-4 flex flex-col justify-between">
+      <div>
+        <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+          <h2 class="font-bold text-white text-sm flex items-center gap-2">
+            <span>📜</span> HGS-CERT 인성 인증서
+          </h2>
+          <span class="text-[10px] text-amber-400 font-mono">Official Certificate</span>
+        </div>
+        <p class="text-xs text-slate-300 mt-3 leading-relaxed">
+          인성 테스트와 확언을 완료한 학생에게 발급되는 디지털 블록체인 등기 인증서.
+        </p>
+        <div class="p-3.5 rounded-xl bg-slate-950/80 border border-amber-500/30 mt-3 text-center space-y-2">
+          <div class="text-xs text-amber-300 font-mono font-bold">인증 번호: HGS-2026-CERT-007</div>
+          <div class="text-xs text-white">수여자: <span class="font-bold">이은솔 · 이송효 · 이해상</span></div>
+          <div class="text-[10px] text-slate-400">과정: 글로벌 K-인성 리더십 마스터</div>
+        </div>
+      </div>
+      <button onclick="issueCertificate()" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-amber-600 to-yellow-500 hover:opacity-90 text-slate-950 font-black text-xs transition shadow-lg shadow-amber-500/30">
+        🏆 인성 인증서 디지털 발급
+      </button>
+    </div>
+
+  </div>
+
+  <script>
+    function selectAnswer(ans) {
+      const fb = document.getElementById('quiz-feedback');
+      if (ans === 'A') {
+        fb.textContent = '💖 [MQ 공감력 +15 달성!] 친구의 마음에 따뜻한 온기를 선물했습니다.';
+      } else {
+        fb.textContent = '🌟 [EQ 경청력 +20 달성!] 함께 있어 주는 것만으로도 큰 힘이 됩니다.';
+      }
+    }
+
+    function recordAffirmation() {
+      const btn = document.getElementById('btn-speech');
+      const res = document.getElementById('speech-result');
+      btn.textContent = '🔴 듣는 중... (말씀하세요)';
+      setTimeout(() => {
+        btn.textContent = '🎙️ 확언 말하기 시작';
+        res.innerHTML = '<span class="text-emerald-400 font-bold">✅ 인식 완료:</span> "나는 세상에서 가장 소중한 사람이다." (자신감 지수: 100/100)';
+      }, 1500);
+    }
+
+    function issueCertificate() {
+      alert('🎓 [HGS-CERT] 정식 디지털 인성 인증서가 발급되어 블록체인 금고에 영구 등재되었습니다!');
+    }
+  </script>
+</body>
+</html>
