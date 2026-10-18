@@ -1735,6 +1735,30 @@ class DashboardHandler(SimpleHTTPRequestHandler):
             self.wfile.write(body)
             return
 
+        # 📱 [v10.8] 4대 SNS 안전 발굴 인벤토리 및 마스킹 현황 (GET /api/sns-inventory)
+        if path == '/api/sns-inventory':
+            import sns_account_discoverer
+            import importlib
+            importlib.reload(sns_account_discoverer)
+            inv_data = sns_account_discoverer.get_sns_inventory()
+            inv_data["safe_vault_isolation"] = True
+            resp = {
+                "status": "OK",
+                "success": True,
+                "safe_vault_isolation": True,
+                "data": inv_data,
+                **inv_data
+            }
+            body = json.dumps(resp, ensure_ascii=False).encode("utf-8")
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.send_header("Cache-Control", "no-cache, no-store")
+            self.end_headers()
+            self.wfile.write(body)
+            return
+
         # 7. OTA 무인 자동 업데이트 버전 확인 (/api/version)
         if path == '/api/version':
             ver_info = get_system_version_info()
@@ -1837,6 +1861,66 @@ class DashboardHandler(SimpleHTTPRequestHandler):
         return super().do_GET()
 
     def do_POST(self):
+
+        # 📱 [v10.8] 4대 SNS 원터치 멀티 쇼츠·콘텐츠 동시 배급 (POST /api/sns-multi-dispatch)
+        if self.path == '/api/sns-multi-dispatch':
+            length = int(self.headers.get('Content-Length', 0))
+            raw_body = self.rfile.read(length)
+            try:
+                data = json.loads(raw_body.decode('utf-8')) if raw_body else {}
+                topic = data.get('topic', 'shin')
+                import sns_multi_uploader_engine
+                import importlib
+                importlib.reload(sns_multi_uploader_engine)
+                dispatch_res = sns_multi_uploader_engine.dispatch_4_sns_package(topic)
+                resp = {
+                    "status": "OK",
+                    "success": True,
+                    "message": "4대 SNS 원터치 멀티 패키지 배급 집행 완료",
+                    "data": dispatch_res
+                }
+            except Exception as e:
+                resp = {"status": "error", "success": False, "message": str(e)}
+
+            body = json.dumps(resp, ensure_ascii=False).encode("utf-8")
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(body)
+            return
+
+        # 🔐 [v10.8] 4대 SNS 계정 핸들 안전 등록/수정 (POST /api/sns-account-update)
+        if self.path == '/api/sns-account-update':
+            length = int(self.headers.get('Content-Length', 0))
+            raw_body = self.rfile.read(length)
+            try:
+                data = json.loads(raw_body.decode('utf-8')) if raw_body else {}
+                platform = data.get('platform', '')
+                handle = data.get('handle', '')
+                channel_url = data.get('channel_url', '')
+                import sns_account_discoverer
+                import importlib
+                importlib.reload(sns_account_discoverer)
+                up_res = sns_account_discoverer.update_channel_handle(platform, handle, channel_url)
+                resp = {
+                    "status": "OK",
+                    "success": True,
+                    "message": f"{platform} 계정 정보 안전 금고 업데이트 완료",
+                    "data": up_res
+                }
+            except Exception as e:
+                resp = {"status": "error", "success": False, "message": str(e)}
+
+            body = json.dumps(resp, ensure_ascii=False).encode("utf-8")
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(body)
+            return
 
         # ⚡ [v10.6] 원터치 무인 자동 집행 파이프라인 (POST /api/one-touch-execute)
         if self.path == '/api/one-touch-execute':

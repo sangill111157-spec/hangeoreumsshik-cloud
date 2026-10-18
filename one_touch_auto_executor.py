@@ -484,6 +484,10 @@ def handle_one_touch_execute(payload: dict) -> dict:
         return execute_bm_pipeline(unit_price=price, sales_qty=qty)
     elif "CORPS" in action or "AGENT" in action or "ALL" in action:
         return execute_all_8_agents_pipeline()
+    elif "SNS" in action or "MULTI" in action or "DISPATCH" in action:
+        import sns_multi_uploader_engine
+        topic = payload.get("topic") or "shin"
+        return sns_multi_uploader_engine.dispatch_4_sns_package(topic_key=topic)
     else:
         # 기본값: 후킹 대본 자동 집필
         return execute_hook_script_pipeline(topic_key=payload.get("topic", "shin"))

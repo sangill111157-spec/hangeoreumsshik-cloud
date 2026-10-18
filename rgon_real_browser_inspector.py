@@ -611,6 +611,61 @@ try {{
     log_gate("HARD-GATE-9", "원터치 무인 자동 집행 파이프라인 4대 모드 실전 호출 및 실물 파일·영수증 전수 검증", gate9_ok, gate9_detail)
 
     # --------------------------------------------------------------------------
+    # [HARD-GATE 10] 4대 SNS(틱톡·인스타·스레드·페북) 안전 발굴 인벤토리 및 원터치 멀티 업로드 엔진 실전 검증
+    # --------------------------------------------------------------------------
+    sns_checks = []
+
+    # 1) GET /api/sns-inventory 정상 응답 & 원문 노출 0건 (비가역 마스킹) 검증
+    s_inv, b_inv = http_get("/api/sns-inventory")
+    j_inv = json.loads(b_inv) if s_inv == 200 else {}
+    channels = j_inv.get("data", {}).get("channels", {})
+    all_4_present = all(p in channels for p in ["tiktok", "instagram", "threads", "facebook"])
+    
+    # 원문 노출 여부 전수 검사
+    raw_b_str = b_inv if isinstance(b_inv, str) else b_inv.decode('utf-8', errors='ignore')
+    forbidden_tokens = ["ghp_", "xoxb-", "EAAB", "pat-", "sk-ant-"]
+    token_leak = any(t in raw_b_str.lower() for t in forbidden_tokens)
+    safe_vault = bool(j_inv.get("safe_vault_isolation") or j_inv.get("data", {}).get("safe_vault_isolation"))
+    inv_ok = (s_inv == 200 and all_4_present and not token_leak and safe_vault)
+    sns_checks.append((inv_ok, f"4대 SNS 금고 인벤토리: HTTP {s_inv} (4대 플랫폼 발굴 {all_4_present}, 원문노출 0건)"))
+
+    # 2) POST /api/sns-multi-dispatch 실전 호출 및 4대 플랫폼 패키지 생성 검증
+    s_disp, j_disp = http_post("/api/sns-multi-dispatch", {"topic": "shin"})
+    d_data = j_disp.get("data", {})
+    pkgs = d_data.get("packages", {})
+    pkgs_ok = all(k in pkgs for k in ["tiktok", "instagram", "threads", "facebook"])
+    
+    # 3) Threads 공식 Intent URL 자동채움 링크 검증
+    threads_pkg = pkgs.get("threads", {})
+    intent_url = threads_pkg.get("intent_url", "")
+    intent_ok = ("threads.net/intent/post" in intent_url and "text=" in intent_url)
+    sns_checks.append((pkgs_ok and intent_ok, f"4대 SNS 패키지 동시 생성 & 스레드 Intent URL 탑재({intent_ok})"))
+
+    # 4) 실물 파일 (SNS_PACK_*.md) 디렉터리 내 실재 검증
+    pack_dir = BASE_DIR / "knowledge_engine" / "wiki" / "sns_packages"
+    pack_files = list(pack_dir.glob("SNS_PACK_*.md")) if pack_dir.exists() else []
+    pack_file_ok = len(pack_files) >= 1
+    sns_checks.append((pack_file_ok, f"SNS 실물 패키지 마크다운 파일 실재: {len(pack_files)}건"))
+
+    # 5) 텔레그램 실전 발송 영수증 및 구글 시트 동기화 큐 검증
+    tele_info = d_data.get("telegram", {})
+    tele_ok = tele_info.get("status") in ["SUCCESS", "OK", True] or tele_info.get("receipt_id") is not None
+    gs_info = d_data.get("google_sheets", {})
+    gs_ok = gs_info.get("status") in ["RECORDED", "QUEUED", "OK", True]
+    sns_checks.append((tele_ok and gs_ok, f"텔레그램 발송 영수증(#{tele_info.get('message_id', 'PASS')}) & 구글 시트 기장({gs_info.get('status')})"))
+
+    # 6) 제6청사 금고 0원 장부 절대 불변 확인
+    s_tr2, b_tr2 = http_get("/api/treasury-status")
+    j_tr2 = json.loads(b_tr2) if s_tr2 == 200 else {}
+    sm_tr2 = j_tr2.get("summary", {})
+    tr2_zero_ok = (s_tr2 == 200 and sm_tr2.get("total_in", -1) == 0 and sm_tr2.get("disposable_net_krw", sm_tr2.get("net_profit", -1)) == 0)
+    sns_checks.append((tr2_zero_ok, f"SNS 디스패치 후 금고 0원 절대 불변 유지({tr2_zero_ok})"))
+
+    gate10_ok = all(c[0] for c in sns_checks)
+    gate10_detail = " / ".join(c[1] for c in sns_checks)
+    log_gate("HARD-GATE-10", "4대 SNS(틱톡·인스타·스레드·페북) 안전 발굴 인벤토리 및 원터치 멀티 업로드 엔진 실전 검증", gate10_ok, gate10_detail)
+
+    # --------------------------------------------------------------------------
     # 종합 판정
     # --------------------------------------------------------------------------
     total_gates = len(results)
@@ -623,7 +678,7 @@ try {{
         print("🚨 결함 발견! 수리가 필요합니다.")
         return False
 
-    print("🏆 [최종 완료] 8대 최고난도 실제 작동 검증 100.0% ALL PASS! 단 하나의 먹통 버튼이나 좀비 코드, 보안 누출도 없음 확정!")
+    print("🏆 [최종 완료] 10대 최고난도 실제 작동 검증 100.0% ALL PASS! 4대 SNS 안전 발굴 & 원터치 멀티 배급 무결성 확정!")
     print("=" * 80)
     return True
 

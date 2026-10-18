@@ -141,6 +141,111 @@
     </div>
   </div>
 
+  <!-- ══════════════════════════════════════════════════════════════
+       📱 [섹션 0.4: v10.8 대표님 4대 SNS 안전 발굴 채널 현황 & 비밀금고 관리]
+  ══════════════════════════════════════════════════════════════ -->
+  <div id="sns-vault-management-card" class="glass-card rounded-2xl p-5 space-y-4 border-t-2 border-pink-500 shadow-2xl">
+    <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 pb-3">
+      <div class="flex items-center gap-2">
+        <span class="text-2xl">📱</span>
+        <div>
+          <h2 class="text-sm sm:text-base font-bold text-white flex items-center gap-2">
+            대표님 4대 SNS(틱톡·인스타·스레드·페북) 안전 발굴 현황 & 비밀금고
+            <span class="px-2 py-0.5 rounded text-[10px] bg-pink-500/20 text-pink-300 font-mono border border-pink-500/30">v10.8 ZERO-EXPOSURE</span>
+          </h2>
+          <p class="text-xs text-slate-400 mt-0.5">원문 노출 0% 비가역 마스킹 · 스마트폰에서 직접 안전 등록/수정 · 로컬 비밀금고 격리</p>
+        </div>
+      </div>
+      <button onclick="fetchSnsInventory()" class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-pink-600 to-indigo-600 hover:opacity-95 text-white font-bold text-xs shadow-lg shadow-pink-500/20 transition flex items-center gap-1.5 active:scale-95">
+        <span>🔄 4대 SNS 금고 새로고침</span>
+      </button>
+    </div>
+
+    <!-- 4대 플랫폼 카드 그리드 -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-left" id="sns-vault-channels-grid">
+      <!-- 틱톡 -->
+      <div class="p-3.5 rounded-xl bg-slate-900/90 border border-pink-500/30 space-y-1.5">
+        <div class="flex items-center justify-between">
+          <span class="font-bold text-white text-xs flex items-center gap-1">🎵 틱톡 (TikTok)</span>
+          <span class="px-1.5 py-0.5 rounded text-[9px] bg-emerald-500/20 text-emerald-300 font-bold" id="sns-status-tiktok">발굴 완료</span>
+        </div>
+        <div class="text-[11px] font-mono text-pink-300 font-bold" id="sns-handle-tiktok">@hang****hik</div>
+        <div class="text-[10px] text-slate-400 truncate" id="sns-url-tiktok">https://www.tiktok.com/@hang****hik</div>
+        <div class="text-[9px] text-slate-500 pt-1 border-t border-slate-800">BytePlus/CapCut 연동 · 쇼츠 9:16 최적화</div>
+      </div>
+
+      <!-- 인스타그램 -->
+      <div class="p-3.5 rounded-xl bg-slate-900/90 border border-purple-500/30 space-y-1.5">
+        <div class="flex items-center justify-between">
+          <span class="font-bold text-white text-xs flex items-center gap-1">📸 인스타그램 (Reels)</span>
+          <span class="px-1.5 py-0.5 rounded text-[9px] bg-emerald-500/20 text-emerald-300 font-bold" id="sns-status-instagram">원장 연동</span>
+        </div>
+        <div class="text-[11px] font-mono text-purple-300 font-bold" id="sns-handle-instagram">@hang****hik</div>
+        <div class="text-[10px] text-slate-400 truncate" id="sns-url-instagram">https://www.instagram.com/hang****hik</div>
+        <div class="text-[9px] text-slate-500 pt-1 border-t border-slate-800">Instagram_Log 1001행 실존 원장 연동</div>
+      </div>
+
+      <!-- 스레드 -->
+      <div class="p-3.5 rounded-xl bg-slate-900/90 border border-sky-500/30 space-y-1.5">
+        <div class="flex items-center justify-between">
+          <span class="font-bold text-white text-xs flex items-center gap-1">🧵 스레드 (Threads)</span>
+          <span class="px-1.5 py-0.5 rounded text-[9px] bg-emerald-500/20 text-emerald-300 font-bold" id="sns-status-threads">Intent 연동</span>
+        </div>
+        <div class="text-[11px] font-mono text-sky-300 font-bold" id="sns-handle-threads">@hang****hik</div>
+        <div class="text-[10px] text-slate-400 truncate" id="sns-url-threads">https://www.threads.net/@hang****hik</div>
+        <div class="text-[9px] text-slate-500 pt-1 border-t border-slate-800">공식 Intent URL 원터치 자동채움</div>
+      </div>
+
+      <!-- 페이스북 -->
+      <div class="p-3.5 rounded-xl bg-slate-900/90 border border-blue-500/30 space-y-1.5">
+        <div class="flex items-center justify-between">
+          <span class="font-bold text-white text-xs flex items-center gap-1">📘 페이스북 (Facebook)</span>
+          <span class="px-1.5 py-0.5 rounded text-[9px] bg-emerald-500/20 text-emerald-300 font-bold" id="sns-status-facebook">발굴 완료</span>
+        </div>
+        <div class="text-[11px] font-mono text-blue-300 font-bold" id="sns-handle-facebook">한걸음씩****ik</div>
+        <div class="text-[10px] text-slate-400 truncate" id="sns-url-facebook">https://www.facebook.com/profile.php?id=hang****hik</div>
+        <div class="text-[9px] text-slate-500 pt-1 border-t border-slate-800">4060 시니어 공감 공유 파이프라인</div>
+      </div>
+    </div>
+
+    <!-- 🔐 4대 SNS 계정 핸들 안전 설정 패널 -->
+    <div class="p-4 rounded-xl bg-slate-950/90 border border-slate-800 space-y-3">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+        <span class="font-bold text-amber-300 text-xs flex items-center gap-1.5">
+          <span>🔐</span> 4대 SNS 계정 핸들 안전 등록/수정 (모바일 터치 1초 금고 잠금)
+        </span>
+        <span class="text-[10px] text-slate-400 font-mono">로컬 비밀금고 격리 저장</span>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-4 gap-2">
+        <div>
+          <label class="text-[10px] text-slate-400 block mb-1">대상 플랫폼:</label>
+          <select id="sns-input-platform" class="w-full p-2 rounded-lg bg-slate-900 border border-slate-800 text-xs text-white focus:outline-none focus:border-pink-500">
+            <option value="tiktok">🎵 틱톡 (TikTok)</option>
+            <option value="instagram">📸 인스타그램 (Instagram)</option>
+            <option value="threads">🧵 스레드 (Threads)</option>
+            <option value="facebook">📘 페이스북 (Facebook)</option>
+          </select>
+        </div>
+        <div>
+          <label class="text-[10px] text-slate-400 block mb-1">계정 핸들 (@...):</label>
+          <input type="text" id="sns-input-handle" placeholder="@my_channel_handle" class="w-full p-2 rounded-lg bg-slate-900 border border-slate-800 text-xs text-white focus:outline-none focus:border-pink-500" />
+        </div>
+        <div>
+          <label class="text-[10px] text-slate-400 block mb-1">채널 URL (프로필 주소):</label>
+          <input type="text" id="sns-input-url" placeholder="https://..." class="w-full p-2 rounded-lg bg-slate-900 border border-slate-800 text-xs text-white focus:outline-none focus:border-pink-500" />
+        </div>
+        <div class="flex items-end">
+          <button type="button" onclick="saveSnsHandleToVault()" id="btn-save-sns-vault" class="w-full py-2 px-3 rounded-lg bg-gradient-to-r from-amber-600 to-yellow-600 hover:opacity-90 text-white font-bold text-xs transition shadow flex items-center justify-center gap-1 active:scale-95">
+            <span>🔐 비밀금고에 안전 저장</span>
+          </button>
+        </div>
+      </div>
+      <div id="sns-vault-save-receipt" class="text-[11px] text-emerald-400 hidden pt-1">
+        ✅ 비밀금고 업데이트 완료! 원문은 로컬 금고에만 안전 격리되며 화면에는 마스킹 처리됩니다.
+      </div>
+    </div>
+  </div>
+
   <!-- 📊 [섹션 0.5: v10.4 대표님 실제 5대 구글 시트(Google Sheets) 내부 탭·기록 전수 정밀 해부] -->
   <div class="glass-card rounded-2xl p-5 space-y-4 border-t-2 border-emerald-500 shadow-2xl">
     <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 pb-3">
@@ -749,10 +854,69 @@
     }
     window.toggleSheetTabs = toggleSheetTabs;
 
+    async function fetchSnsInventory() {
+      try {
+        const res = await fetch('/api/sns-inventory');
+        const json = await res.json();
+        if (json.status === 'OK' && json.data) {
+          const channels = json.data.channels || {};
+          for (const [platform, info] of Object.entries(channels)) {
+            const hEl = document.getElementById('sns-handle-' + platform);
+            const uEl = document.getElementById('sns-url-' + platform);
+            const sEl = document.getElementById('sns-status-' + platform);
+            if (hEl && info.handle_masked) hEl.innerText = info.handle_masked;
+            if (uEl && info.channel_url_masked) uEl.innerText = info.channel_url_masked;
+            if (sEl && info.status) sEl.innerText = info.status;
+          }
+        }
+      } catch (e) {
+        console.warn('[SNS Inventory Fetch Error]:', e);
+      }
+    }
+    window.fetchSnsInventory = fetchSnsInventory;
+
+    async function saveSnsHandleToVault() {
+      const platform = document.getElementById('sns-input-platform').value;
+      const handle = document.getElementById('sns-input-handle').value.trim();
+      const channel_url = document.getElementById('sns-input-url').value.trim();
+      const btn = document.getElementById('btn-save-sns-vault');
+      const receipt = document.getElementById('sns-vault-save-receipt');
+      if (!handle) {
+        alert('계정 핸들을 입력해주세요 (예: @boosterplaylist)');
+        return;
+      }
+      if (btn) btn.innerHTML = '<span>⏳ 비밀금고 잠금 중...</span>';
+      try {
+        const res = await fetch('/api/sns-account-update', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ platform, handle, channel_url })
+        });
+        const result = await res.json();
+        if (result.status === 'OK') {
+          if (receipt) {
+            receipt.classList.remove('hidden');
+            receipt.innerText = `✅ [${platform.toUpperCase()} 금고 잠금 완료] 마스킹: ${result.data?.handle_masked || handle} (로컬 비밀금고 격리 완료)`;
+          }
+          await fetchSnsInventory();
+          document.getElementById('sns-input-handle').value = '';
+          document.getElementById('sns-input-url').value = '';
+        } else {
+          alert('저장 실패: ' + (result.message || '오류'));
+        }
+      } catch (err) {
+        alert('통신 에러: ' + err.message);
+      } finally {
+        if (btn) btn.innerHTML = '<span>🔐 비밀금고에 안전 저장</span>';
+      }
+    }
+    window.saveSnsHandleToVault = saveSnsHandleToVault;
+
     document.addEventListener('DOMContentLoaded', () => {
       runVaultLegalScan();
       fetchSecurityInventory();
       fetchGoogleSheetsReport();
+      fetchSnsInventory();
     });
   </script>
 </body>
