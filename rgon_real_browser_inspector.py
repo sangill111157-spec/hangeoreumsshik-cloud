@@ -68,6 +68,20 @@ ZOMBIE_KEYWORDS = [
     "handleCustomClothUpload",
     "triggerFaceCameraPhoto",
     "drawMainFittingAvatar",
+    "꿈의옷장",
+    "꿈의 옷장",
+    "코디 룩북",
+    "코디룩북",
+    "사계절 코디",
+    "Omni-Nexus v2.0",
+    "소통/OSMU",
+    "tab-daughters",
+]
+
+JSON_AUDIT_FILES = [
+    BASE_DIR / "rgon_schedule_roadmap.json",
+    BASE_DIR / "department_work_queue.json",
+    BASE_DIR / "morning_briefing_report.json",
 ]
 
 def http_get(path: str, timeout=5):
@@ -121,7 +135,7 @@ def run_inspector():
     zombie_file_ok = len(zombie_files_found) == 0
 
     zombie_refs_found = []
-    for fpath in CORE_HTML_FILES:
+    for fpath in (CORE_HTML_FILES + JSON_AUDIT_FILES):
         if not fpath.exists():
             continue
         text = fpath.read_text(encoding="utf-8", errors="replace")
@@ -131,7 +145,7 @@ def run_inspector():
 
     zombie_ref_ok = len(zombie_refs_found) == 0
     gate1_ok = zombie_file_ok and zombie_ref_ok
-    gate1_detail = f"폐기잔재 파일: {len(zombie_files_found)}건 / 좀비 참조: {len(zombie_refs_found)}건"
+    gate1_detail = f"폐기잔재 파일: {len(zombie_files_found)}건 / 금지·좀비 참조: {len(zombie_refs_found)}건"
     if not gate1_ok:
         gate1_detail += f" ({zombie_files_found + zombie_refs_found})"
     log_gate("HARD-GATE-1", "폐기 잔재(Zombie Files & References) 0% 전수 검증", gate1_ok, gate1_detail)
@@ -341,6 +355,45 @@ try {{
     log_gate("HARD-GATE-6", "백엔드 핵심 API 실제 호출 & 총무팀 1원 정산 무오차 검증", gate6_ok, gate6_detail)
 
     # --------------------------------------------------------------------------
+    # [HARD-GATE 7] 제1과제 실시간 양방향 소통 사령부 (/api/comm-status, /api/comm-send) 실전 검증
+    # --------------------------------------------------------------------------
+    comm_checks = []
+
+    # 1) 소통 로그 로드 (GET /api/comm-status)
+    s_comm, b_comm = http_get("/api/comm-status")
+    j_comm = json.loads(b_comm) if s_comm == 200 else {}
+    comm_get_ok = (s_comm == 200 and len(j_comm.get("messages", [])) >= 1)
+    comm_checks.append((comm_get_ok, f"소통 원장 로드: HTTP {s_comm} ({len(j_comm.get('messages', []))}건 메시지)"))
+
+    # 2) 대표님 직통 메시지 전송 및 실시간 즉각 응답 (POST /api/comm-send)
+    s_send, j_send = http_post("/api/comm-send", {
+        "message": "안총리, 전 기관 소통 상태 및 이상 유무 즉시 보고하라!",
+        "target": "ALL"
+    })
+    comm_post_ok = (
+        s_send == 200
+        and j_send.get("status") == "OK"
+        and "reply_msg" in j_send
+        and j_send["reply_msg"].get("target") == "COMMANDER-000"
+    )
+    comm_checks.append((comm_post_ok, f"대표님 직통 송수신: HTTP {s_send} (답변자={j_send.get('reply_msg', {}).get('sender_name')})"))
+
+    # 3) 프론트엔드 본관 소통 엔진 바인딩 검증
+    dash_html = (BASE_DIR / "dashboard" / "index.html").read_text(encoding="utf-8", errors="replace")
+    fe_comm_ok = (
+        "sendDirectComm" in dash_html
+        and "sendQuickComm" in dash_html
+        and "loadCommFeed" in dash_html
+        and "comm-message-feed" in dash_html
+        and "comm-input-box" in dash_html
+    )
+    comm_checks.append((fe_comm_ok, "본관 프론트엔드 소통 UI 바인딩 100% 실존"))
+
+    gate7_ok = all(c[0] for c in comm_checks)
+    gate7_detail = " / ".join(c[1] for c in comm_checks)
+    log_gate("HARD-GATE-7", "제1과제 실시간 양방향 소통 사령부(API·송수신·UI) 실전 검증", gate7_ok, gate7_detail)
+
+    # --------------------------------------------------------------------------
     # 종합 판정
     # --------------------------------------------------------------------------
     total_gates = len(results)
@@ -353,7 +406,7 @@ try {{
         print("🚨 결함 발견! 수리가 필요합니다.")
         return False
 
-    print("🏆 [최종 완료] 6대 최고난도 실제 작동 검증 100.0% ALL PASS! 단 하나의 먹통 버튼이나 좀비 코드도 없음 확정!")
+    print("🏆 [최종 완료] 7대 최고난도 실제 작동 검증 100.0% ALL PASS! 단 하나의 먹통 버튼이나 좀비 코드도 없음 확정!")
     print("=" * 80)
     return True
 

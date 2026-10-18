@@ -51,8 +51,8 @@ DEFAULT_ROADMAP = {
             {
                 "slot_id": "DAILY-1400",
                 "time": "14:00",
-                "dept": "제1청사(꿈의 옷장 R&D)",
-                "goal": "목선·어깨선 1픽셀 블렌딩 및 계절별 코디 앨범 R&D 설계 무결성 유지",
+                "dept": "제1청사(차세대 전략 R&D 본부)",
+                "goal": "제1청사 차세대 R&D 및 실시간 소통 엔진 점검",
                 "deliverable": "dept_closet.html & TASK-D1 산출물",
                 "status": "COMPLETED"
             },
@@ -94,8 +94,8 @@ DEFAULT_ROADMAP = {
             },
             {
                 "week_id": "WEEK-3",
-                "period": "제3주 (꿈의 옷장 R&D 집중 티칭)",
-                "goal": "제1청사 체형 비율 자동 가이드 및 세 딸 전용 사계절 코디 룩북 고도화",
+                "period": "제3주 (전략 R&D 및 전 기관 소통 고도화)",
+                "goal": "제1청사 전략 R&D 및 전 기관 무결점 소통 고도화",
                 "status": "SCHEDULED_READY",
                 "progress": 100
             },
@@ -149,7 +149,7 @@ DEFAULT_ROADMAP = {
             {
                 "pillar_id": "YEAR-P3",
                 "domain": "제1·4·5청사 (기술·인성·법무)",
-                "vision": "꿈의 옷장 대한민국 최고 가족 코디 스튜디오 완성 & 법적 리스크 0% · 거짓 보고 0% 영구 수호"
+                "vision": "제1·4·5청사 차세대 AI 기술·인성·법무 무결점 수호 & 법적 리스크 0% · 거짓 보고 0% 영구 수호"
             }
         ]
     }

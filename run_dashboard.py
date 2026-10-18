@@ -1,15 +1,17 @@
 """
 ══════════════════════════════════════════════════════════════════
- 한걸음씩 만능 AI 국가 OS (Omni-Nexus v2.0) 백엔드 런처
+ 🏛️ 청와대 중앙 컨트롤 타워 (v10.0 CHUNGWADAE SPATIAL GLASS OS)
  run_dashboard.py
  
  [핵심 백엔드 API]
- 1. GET  /api/config            : 로컬 토큰 자동 감지 및 브라우저 주입
- 2. GET  /api/suno-files         : PC 다운로드 및 작업 폴더 오디오 목록
- 3. GET  /api/audio?path=...     : 브라우저 내 오디오 미리듣기 스트리밍
- 4. POST /api/render-suno        : 432Hz 8시간 롱폼 + 세로 쇼츠 백그라운드 렌더링
- 5. POST /api/dispatch-to-agent  : 안실장 직통 태스크 하달 (NEXT_TASK_FOR_ANTIGRAVITY.md & memory_vault.json)
- 6. GET  /api/system-status      : NVDA(8000) 헬스체크, 디스크 용량, 렌더러 상태
+ 1. GET  /api/cheongwadae-status : 6대 독립 청사 실시간 무결성 상태
+ 2. GET  /api/comm-status        : 실시간 양방향 소통 사령부 원장
+ 3. POST /api/comm-send          : 대표님 ⇄ 르곤·안총리 실시간 즉시 응답
+ 4. GET  /api/treasury-status    : 총무팀 1원 복식부기 및 50:25:15:10 금고
+ 5. GET  /api/rgon-schedule      : 르곤 마스터 스케줄러 일·주·월·연 로드맵
+ 6. POST /api/rgon-schedule-run  : 마스터 스케줄 무인 동기화 집행
+ 7. GET  /api/dept-work-queue    : 6대 부서 18선 일거리 큐
+ 8. POST /api/execute-dept-task  : 전 부서 18대 일거리 실전 집행
 ══════════════════════════════════════════════════════════════════
 """
 
@@ -1333,6 +1335,30 @@ class DashboardHandler(SimpleHTTPRequestHandler):
                 self.wfile.write(err_body)
                 return
 
+        # 💬 [v10.0] 실시간 양방향 소통 사령부 상태 및 메시지 로그 (GET /api/comm-status)
+        if path == '/api/comm-status':
+            try:
+                import cheongwadae_comm_engine
+                st = cheongwadae_comm_engine.load_comm_log()
+                body = json.dumps(st, ensure_ascii=False).encode('utf-8')
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.send_header("Access-Control-Allow-Origin", "*")
+                self.send_header("Content-Length", str(len(body)))
+                self.send_header("Cache-Control", "no-store")
+                self.end_headers()
+                self.wfile.write(body)
+                return
+            except Exception as e:
+                err_body = json.dumps({"status": "error", "message": str(e)}, ensure_ascii=False).encode('utf-8')
+                self.send_response(500)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.send_header("Access-Control-Allow-Origin", "*")
+                self.send_header("Content-Length", str(len(err_body)))
+                self.end_headers()
+                self.wfile.write(err_body)
+                return
+
         # 🛡️ [v8.2] 제5청사 자율법무·컴플라이언스 5대 안전망 종합 감사 (GET /api/legal-safety-audit 및 /api/legal-compliance-audit)
         if path in ['/api/legal-safety-audit', '/api/legal-compliance-audit']:
             try:
@@ -2178,6 +2204,27 @@ class DashboardHandler(SimpleHTTPRequestHandler):
                 import rgon_master_scheduler
                 res = rgon_master_scheduler.execute_scheduled_cycle(cycle_type)
                 resp = {"status": "OK", "data": res}
+            except Exception as e:
+                resp = {"status": "ERROR", "message": str(e)}
+
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json; charset=utf-8')
+            self.send_header('Access-Control-Allow-Origin', '*')
+            self.end_headers()
+            self.wfile.write(json.dumps(resp, ensure_ascii=False).encode('utf-8'))
+            return
+
+        # 💬 [v10.0] 대표님 ⇄ 전 기관 실시간 양방향 소통 전송 (POST /api/comm-send)
+        if self.path == '/api/comm-send':
+            length = int(self.headers.get('Content-Length', 0))
+            raw_body = self.rfile.read(length) if length > 0 else b'{}'
+            try:
+                data = json.loads(raw_body.decode('utf-8')) if raw_body else {}
+                user_msg = data.get('message', '').strip()
+                target = data.get('target', 'ALL')
+
+                import cheongwadae_comm_engine
+                resp = cheongwadae_comm_engine.process_direct_communication(user_msg, target)
             except Exception as e:
                 resp = {"status": "ERROR", "message": str(e)}
 
@@ -3129,7 +3176,7 @@ def main():
     masked_tg = f"{sec['telegram_token'][:4]}***{sec['telegram_token'][-3:]}" if len(sec['telegram_token']) > 8 else "미감지"
 
     print("═" * 74)
-    print(" 🏛️  한걸음씩 만능 AI 국가 OS (Omni-Nexus v2.0) 서버 가동 중")
+    print(" 🏛️  청와대 중앙 컨트롤 타워 (v10.0 Spatial Glass OS) 서버 가동 중")
     print("═" * 74)
     print(f" 💻 PC 로컬 접속     : http://127.0.0.1:{port}")
     print(f" 📱 스마트폰(Wi-Fi)   : http://{wifi_ip}:{port}")
@@ -3138,12 +3185,11 @@ def main():
     print(f"  • GitHub CLI Token : {masked_gh} (자동 주입 준비 완료)")
     print(f"  • Gemini API Key    : {masked_gemini} (자동 주입 준비 완료)")
     print(f"  • Telegram Bot      : {masked_tg} (Chat ID: {sec['telegram_chat_id']})")
-    print(" ── 5대 전문 워크스페이스 활성화 ──")
-    print("  • Tab 1. 🎛️ 통합 관제 사령부 (GitHub Cloud & 재정 헌법 계산기)")
-    print("  • Tab 2. 🎹 Suno AI & 썸네일 프로듀싱 스튜디오 (음원 스트리밍 & 캔버스)")
-    print("  • Tab 3. 💬 AI 소통 & OSMU 멀티 개발실 (음성인식 마이크 & 안실장 큐)")
-    print("  • Tab 4. 👨‍👧‍👧 세 딸 인성 교육 게임 연구소 (인성 밸런스 라이브 & 웹게임 내보내기)")
-    print("  • Tab 5. 🧠 기억 금고 & 보안 설정 (Memory Vault & Zero-Leak)")
+    print(" ── 4대 핵심 사령부 활성화 ──")
+    print("  • 1. 💬 청와대 실시간 양방향 소통 사령부 (Direct Comm Hub)")
+    print("  • 2. 🏛️ 6대 독립 청사 직통 Bento Grid (Dept 1~6)")
+    print("  • 3. 🛡️ 제5청사 공인 5대 클린룸 안전 웹앱 (Safe Apps 1~5)")
+    print("  • 4. 📅 르곤 마스터 스케줄 & 18대 부서 일거리 관제탑")
     print("═" * 74)
     print(" 🛑 서버를 종료하시려면 콘솔에서 Ctrl + C 를 누르세요.")
     print("═" * 74)
