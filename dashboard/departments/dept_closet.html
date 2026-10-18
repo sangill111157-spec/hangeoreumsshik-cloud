@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>🌌 제1청사: 천부(天符) 오디세이 스튜디오 — [제1탄: 생성(生成)] TOP 10 엔진</title>
+  <title>🌌 제1청사: 천부(天符) 오디세이 스튜디오 — [제1탄: 생성(生成)] 진정한 사랑과 아름다움</title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -13,7 +13,8 @@
         extend: {
           colors: {
             cosmic: '#030712',
-            gold: { 300: '#fde047', 400: '#facc15', 500: '#eab308', 600: '#ca8a04' }
+            gold: { 300: '#fde047', 400: '#facc15', 500: '#eab308', 600: '#ca8a04' },
+            roseGold: { 300: '#fda4af', 400: '#fb7185', 500: '#f43f5e' }
           },
           animation: {
             'pulse-slow': 'pulse 3.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
@@ -34,19 +35,19 @@
     @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;600;800;900&family=Noto+Serif+KR:wght@700;900&display=swap');
     body { font-family: 'Pretendard', sans-serif; background-color: #030712; user-select: none; -webkit-tap-highlight-color: transparent; }
     .font-serif-kr { font-family: 'Noto Serif KR', serif; }
-    .glass-card { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(14px); border: 1px solid rgba(234, 179, 8, 0.3); }
-    .rune-awakened { background: linear-gradient(135deg, rgba(234, 179, 8, 0.4), rgba(245, 158, 11, 0.15)); border-color: #facc15; box-shadow: 0 0 16px rgba(250, 204, 21, 0.45); color: #fef08a; transform: translateY(-2px); cursor: pointer; }
+    .glass-card { background: rgba(15, 23, 42, 0.88); backdrop-filter: blur(14px); border: 1px solid rgba(234, 179, 8, 0.3); }
+    .rune-awakened { background: linear-gradient(135deg, rgba(234, 179, 8, 0.4), rgba(244, 63, 94, 0.2)); border-color: #facc15; box-shadow: 0 0 16px rgba(250, 204, 21, 0.5); color: #fef08a; transform: translateY(-2px); cursor: pointer; }
     .rune-dormant { background: rgba(17, 24, 39, 0.7); border-color: rgba(75, 85, 99, 0.4); color: #4b5563; }
     #genesis-visual-canvas { touch-action: none; }
   </style>
 </head>
-<body class="text-slate-100 min-h-screen flex flex-col justify-between selection:bg-amber-500 selection:text-black">
+<body class="text-slate-100 min-h-screen flex flex-col justify-between selection:bg-rose-500 selection:text-white">
 
   <!-- 🏛️ 1. 상단 네비게이션 & 실시간 스탯 바 -->
   <header class="border-b border-amber-500/20 bg-slate-950/90 sticky top-0 z-50 backdrop-blur-md">
     <div class="max-w-6xl mx-auto px-4 py-2.5 flex flex-wrap items-center justify-between gap-3">
       <div class="flex items-center gap-3">
-        <a href="/?v=900&tab=command" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 border border-amber-500/30 text-xs font-bold transition flex items-center gap-1.5 shadow-sm active:scale-95">
+        <a href="/?v=910&tab=command" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 border border-amber-500/30 text-xs font-bold transition flex items-center gap-1.5 shadow-sm active:scale-95">
           <span>🏛️</span>
           <span>청와대 본관</span>
         </a>
@@ -55,9 +56,9 @@
           <h1 class="text-sm sm:text-base font-black text-white flex items-center gap-2">
             <span>🌌</span>
             <span>제1청사: 천부(天符) 오디세이 스튜디오</span>
-            <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40">TOP 10 엔진</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-gradient-to-r from-rose-500/20 to-amber-500/20 text-rose-300 border border-rose-500/40">v9.1 眞美·眞愛 엔진</span>
           </h1>
-          <p class="text-[10px] text-slate-400 hidden sm:block">캐릭터 3단 진화 · 실시간 배경 변환 · 천부경 27자 도감 · 432Hz 율려 타격감</p>
+          <p class="text-[10px] text-slate-400 hidden sm:block">바른 선택으로의 인도 · 진정한 아름다움과 사랑의 눈부신 개화</p>
         </div>
       </div>
 
@@ -65,11 +66,11 @@
       <div class="flex items-center gap-2 text-xs">
         <div class="px-2.5 py-1 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-300 font-bold flex items-center gap-1.5">
           <span>🌟</span>
-          <span id="stat-character-level">Lv.1 빛방울</span>
+          <span id="stat-character-level">Lv.1 태초의 빛방울</span>
         </div>
-        <div class="px-2.5 py-1 rounded-lg bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 font-bold flex items-center gap-1.5">
+        <div class="px-2.5 py-1 rounded-lg bg-rose-500/10 border border-rose-500/30 text-rose-300 font-bold flex items-center gap-1.5">
           <span>💖</span>
-          <span>홍익 EXP:</span>
+          <span>홍익 사랑 지수:</span>
           <span id="stat-hongik-exp">100</span>
         </div>
         <div class="px-2.5 py-1 rounded-lg bg-purple-500/10 border border-purple-500/30 text-purple-300 font-bold flex items-center gap-1.5">
@@ -83,8 +84,8 @@
     <div id="series-staircase-nav" class="bg-slate-900/95 border-t border-slate-800/80 px-4 py-2 overflow-x-auto">
       <div class="max-w-6xl mx-auto flex items-center gap-2 text-xs font-bold whitespace-nowrap">
         <span class="text-amber-400 text-[11px] font-mono shrink-0">7부작 시리즈:</span>
-        <div class="px-2.5 py-1 rounded-md bg-amber-500/20 text-amber-300 border border-amber-400/50 flex items-center gap-1 shadow-sm shrink-0">
-          <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
+        <div class="px-2.5 py-1 rounded-md bg-gradient-to-r from-rose-500/20 to-amber-500/20 text-rose-200 border border-rose-400/50 flex items-center gap-1 shadow-sm shrink-0">
+          <span class="w-2 h-2 rounded-full bg-rose-400 animate-ping"></span>
           <span>🌟 제1탄: 생성(生成) — LIVE</span>
         </div>
         <span class="text-slate-600">➔</span>
@@ -106,15 +107,15 @@
   <!-- 🌌 2. 메인 게임 스테이지 -->
   <main class="max-w-4xl mx-auto px-4 py-6 space-y-6 flex-1 w-full">
 
-    <!-- 비주얼 스테이지 박스 (Canvas 파티클 배경 + SVG 캐릭터 3단 진화) -->
+    <!-- 비주얼 스테이지 박스 (Canvas 파티클/꽃잎 배경 + SVG 캐릭터 3단 진화) -->
     <div class="relative glass-card rounded-3xl overflow-hidden shadow-2xl border-amber-500/40 p-4 sm:p-6 text-center">
       
-      <!-- 인터랙티브 파티클 캔버스 -->
+      <!-- 인터랙티브 파티클 & 사랑의 꽃잎 캔버스 -->
       <canvas id="genesis-visual-canvas" width="800" height="320" class="w-full h-56 sm:h-72 rounded-2xl cursor-pointer block bg-slate-950"></canvas>
 
       <!-- 캔버스 위 오버레이: 중앙 3단 진화 SVG 캐릭터 -->
       <div id="character-avatar-container" onclick="handleCharacterTap(event)" class="absolute inset-0 flex items-center justify-center pointer-events-none pb-12 sm:pb-8">
-        <div id="character-svg-wrapper" class="pointer-events-auto cursor-pointer animate-float transition-all duration-700 transform hover:scale-110 active:scale-95" title="터치하여 황금빛 율려 파티클을 폭발시키세요!">
+        <div id="character-svg-wrapper" class="pointer-events-auto cursor-pointer animate-float transition-all duration-700 transform hover:scale-110 active:scale-95" title="터치하여 황금빛 별빛과 사랑의 꽃잎을 피워보세요!">
           <!-- 동적 SVG 캐릭터 주입 -->
         </div>
       </div>
@@ -125,21 +126,21 @@
           <span id="stage-badge" class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40 font-mono">
             Stage 1: 칠흑의 무극 우주
           </span>
-          <span class="text-[11px] text-slate-400">화면/캐릭터 터치 ➔ <b class="text-amber-300">황금 입자 폭발 타격감!</b></span>
+          <span class="text-[11px] text-slate-400">화면/캐릭터 터치 ➔ <b class="text-rose-300">사랑의 꽃잎 & 황금 입자 폭발!</b></span>
         </div>
         <div class="flex items-center gap-1.5">
           <button onclick="playGenesisYulryeoSound(432)" class="px-2.5 py-1 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/30 text-[11px] font-bold transition">
             🔔 율려 432Hz
           </button>
-          <button onclick="playGenesisYulryeoSound(528)" class="px-2.5 py-1 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 text-[11px] font-bold transition">
-            ✨ 기적 528Hz
+          <button onclick="playLoveSoundChord()" class="px-2.5 py-1 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 text-rose-300 border border-rose-500/30 text-[11px] font-bold transition">
+            💖 사랑 528Hz+639Hz
           </button>
         </div>
       </div>
 
       <!-- 원소 조화 바 (풍백·우사·운사·율려) -->
       <div class="mt-4 pt-3 border-t border-slate-800 flex flex-wrap items-center justify-center gap-2">
-        <span class="text-[11px] font-bold text-slate-400 mr-1">원소 조화:</span>
+        <span class="text-[11px] font-bold text-slate-400 mr-1">원소 교감:</span>
         <button onclick="triggerElementAction('wind')" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-emerald-500/30 hover:border-emerald-400 text-emerald-300 text-xs font-bold transition active:scale-95 flex items-center gap-1">
           <span>🌪️</span><span>풍백(바람)</span>
         </button>
@@ -149,8 +150,8 @@
         <button onclick="triggerElementAction('cloud')" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-purple-500/30 hover:border-purple-400 text-purple-300 text-xs font-bold transition active:scale-95 flex items-center gap-1">
           <span>☁️</span><span>운사(구름)</span>
         </button>
-        <button onclick="triggerElementAction('light')" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-amber-500/30 hover:border-amber-400 text-amber-300 text-xs font-bold transition active:scale-95 flex items-center gap-1">
-          <span>✨</span><span>율려(빛)</span>
+        <button onclick="triggerElementAction('love')" class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-rose-600/30 to-amber-600/30 hover:from-rose-600/50 hover:to-amber-600/50 border border-rose-500/40 text-rose-200 text-xs font-bold transition active:scale-95 flex items-center gap-1">
+          <span>🌸</span><span>진애(眞愛: 꽃잎)</span>
         </button>
       </div>
 
@@ -174,11 +175,94 @@
           <!-- 동적 주입 -->
         </div>
 
-        <div id="feedback-alert-box" class="hidden p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-xs text-amber-200 text-center font-medium"></div>
+        <!-- 🪞 심경(心鏡: 사랑의 거울) 성찰 박스 (#heart-mirror-reflection-box) -->
+        <div id="heart-mirror-reflection-box" class="hidden p-4 rounded-2xl bg-gradient-to-r from-rose-950/70 via-purple-950/60 to-slate-900 border-2 border-rose-400/60 shadow-xl space-y-3 text-center transition-all animate-fade-in">
+          <div class="text-2xl animate-pulse">🪞💖</div>
+          <div class="space-y-1">
+            <h4 class="text-sm font-black text-rose-200">〈사랑과 성찰의 천부거울 (心鏡)〉</h4>
+            <p id="heart-mirror-message" class="text-xs text-rose-100/90 leading-relaxed max-w-lg mx-auto">
+              "진정한 아름다움은 나 혼자만 화려하게 빛나는 것이 아니라, 내 곁의 존재를 따뜻하게 비추어 함께 피어나는 것입니다. 진정한 사랑의 마음으로 다시 '더 나은 선택, 더 바른 선택'을 해보시겠습니까?"
+            </p>
+          </div>
+          <button onclick="applyRightChoiceConversion()" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-rose-500 via-pink-500 to-amber-500 hover:opacity-90 text-white font-black text-xs shadow-lg transition active:scale-95 flex items-center justify-center gap-2 mx-auto">
+            <span>💖</span>
+            <span>네! 진정한 사랑과 나눔의 바른 길로 다시 선택하겠습니다 (+50 홍익 사랑 지수)</span>
+          </button>
+        </div>
       </div>
     </div>
 
-    <!-- 3. 포켓몬/수집형 도감 벤치마킹 — 〈천부경 제1탄 27자 황금 룬 도감 보드〉 (#cheonbu-genesis-27-board) -->
+    <!-- 🌱 3. 현실 실천 약속 카드 (#real-life-right-action-card) -->
+    <div id="real-life-right-action-card" class="glass-card rounded-3xl p-5 border-l-4 border-l-rose-500 space-y-2 shadow-lg">
+      <div class="flex items-center gap-2 text-rose-300 font-bold text-xs">
+        <span>🌱</span>
+        <span>오늘 나의 현실 사랑·아름다움 실천 약속</span>
+        <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-rose-500/20 text-rose-200">Real-Life Action</span>
+      </div>
+      <p id="real-life-action-text" class="text-xs sm:text-sm text-slate-200 font-medium leading-relaxed">
+        "진정한 아름다움은 따뜻한 시선에서 시작됩니다. 오늘 가족과 이웃에게 가장 사랑스러운 미소와 칭찬 한마디를 먼저 건넵니다."
+      </p>
+    </div>
+
+    <!-- 🧭 4. 5대 홍익 사랑·인성 나침반 (#hongik-5-virtue-compass) -->
+    <div id="hongik-5-virtue-compass" class="glass-card rounded-3xl p-5 sm:p-6 space-y-3.5 shadow-xl border-amber-500/30">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+        <div class="flex items-center gap-2">
+          <span class="text-lg">🧭</span>
+          <h3 class="text-sm font-bold text-white">5대 홍익 사랑·인성 나침반</h3>
+        </div>
+        <span class="text-xs font-mono text-rose-300 font-bold">Compass of True Love & Beauty</span>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-5 gap-3 text-xs">
+        <div class="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 space-y-1">
+          <div class="text-slate-400 text-[10px] flex items-center justify-between">
+            <span>① 진정한 사랑</span>
+            <span id="virtue-val-1" class="text-rose-400 font-bold">100%</span>
+          </div>
+          <div class="w-full h-1.5 rounded-full bg-slate-800 overflow-hidden">
+            <div id="virtue-bar-1" class="h-full bg-rose-500 rounded-full transition-all duration-700 w-full"></div>
+          </div>
+        </div>
+        <div class="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 space-y-1">
+          <div class="text-slate-400 text-[10px] flex items-center justify-between">
+            <span>② 내면의 아름다움</span>
+            <span id="virtue-val-2" class="text-amber-300 font-bold">100%</span>
+          </div>
+          <div class="w-full h-1.5 rounded-full bg-slate-800 overflow-hidden">
+            <div id="virtue-bar-2" class="h-full bg-amber-400 rounded-full transition-all duration-700 w-full"></div>
+          </div>
+        </div>
+        <div class="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 space-y-1">
+          <div class="text-slate-400 text-[10px] flex items-center justify-between">
+            <span>③ 바른 선택</span>
+            <span id="virtue-val-3" class="text-cyan-300 font-bold">100%</span>
+          </div>
+          <div class="w-full h-1.5 rounded-full bg-slate-800 overflow-hidden">
+            <div id="virtue-bar-3" class="h-full bg-cyan-400 rounded-full transition-all duration-700 w-full"></div>
+          </div>
+        </div>
+        <div class="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 space-y-1">
+          <div class="text-slate-400 text-[10px] flex items-center justify-between">
+            <span>④ 조화와 공감</span>
+            <span id="virtue-val-4" class="text-emerald-300 font-bold">100%</span>
+          </div>
+          <div class="w-full h-1.5 rounded-full bg-slate-800 overflow-hidden">
+            <div id="virtue-bar-4" class="h-full bg-emerald-400 rounded-full transition-all duration-700 w-full"></div>
+          </div>
+        </div>
+        <div class="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 space-y-1">
+          <div class="text-slate-400 text-[10px] flex items-center justify-between">
+            <span>⑤ 나눔의 실천</span>
+            <span id="virtue-val-5" class="text-purple-300 font-bold">100%</span>
+          </div>
+          <div class="w-full h-1.5 rounded-full bg-slate-800 overflow-hidden">
+            <div id="virtue-bar-5" class="h-full bg-purple-400 rounded-full transition-all duration-700 w-full"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. 포켓몬/수집형 도감 벤치마킹 — 〈천부경 제1탄 27자 황금 룬 도감 보드〉 (#cheonbu-genesis-27-board) -->
     <div id="cheonbu-genesis-27-board" class="glass-card rounded-3xl p-5 sm:p-6 space-y-4 shadow-xl border-amber-500/40">
       <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-3">
         <div class="flex items-center gap-2">
@@ -202,30 +286,30 @@
       </div>
     </div>
 
-    <!-- 4. 완주 인증서 & 가족 나눔 카드 모달 (#genesis-complete-card) -->
-    <div id="genesis-complete-card" class="hidden glass-card rounded-3xl p-6 sm:p-8 border-2 border-amber-400 space-y-5 text-center shadow-2xl relative overflow-hidden">
-      <div class="text-4xl animate-bounce">👑</div>
+    <!-- 6. 완주 인증서 & 가족 나눔 카드 모달 (#genesis-complete-card) -->
+    <div id="genesis-complete-card" class="hidden glass-card rounded-3xl p-6 sm:p-8 border-2 border-rose-400 space-y-5 text-center shadow-2xl relative overflow-hidden">
+      <div class="text-4xl animate-bounce">👑💖</div>
       <div class="space-y-1">
-        <h3 class="text-xl sm:text-2xl font-black text-amber-300">《천부 오디세이 제1탄: 생성(生成)》 대완주 인증서</h3>
-        <p class="text-xs text-slate-300">온 우주를 조화롭게 탄생시킨 지혜로운 창조자에게 수여합니다.</p>
+        <h3 class="text-xl sm:text-2xl font-black text-rose-300">《천부 오디세이 제1탄: 생성(生成)》 대완주 인증서</h3>
+        <p class="text-xs text-slate-300">진정한 사랑과 눈부신 아름다움으로 온 우주를 조화롭게 꽃피운 당신께 바칩니다.</p>
       </div>
 
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-xl mx-auto text-xs py-2">
-        <div class="p-3 rounded-xl bg-slate-900 border border-amber-500/30">
+        <div class="p-3 rounded-xl bg-slate-900 border border-rose-500/30">
           <div class="text-slate-400 text-[10px]">최종 수호신 등급</div>
-          <div class="text-base font-black text-amber-300 mt-1">Lv.3 천부수호신</div>
+          <div class="text-base font-black text-rose-300 mt-1">Lv.3 천부수호신</div>
         </div>
         <div class="p-3 rounded-xl bg-slate-900 border border-cyan-500/30">
-          <div class="text-slate-400 text-[10px]">홍익 인성 지수</div>
+          <div class="text-slate-400 text-[10px]">홍익 사랑 지수</div>
           <div id="complete-hongik-score" class="text-base font-black text-cyan-300 mt-1">100점 (만점)</div>
         </div>
         <div class="p-3 rounded-xl bg-slate-900 border border-purple-500/30">
           <div class="text-slate-400 text-[10px]">천부경 룬 도감</div>
           <div class="text-base font-black text-purple-300 mt-1">27자 100% 수집</div>
         </div>
-        <div class="p-3 rounded-xl bg-slate-900 border border-emerald-500/30">
-          <div class="text-slate-400 text-[10px]">차기작 예고</div>
-          <div class="text-base font-black text-emerald-300 mt-1">제2탄: 개천(開天)</div>
+        <div class="p-3 rounded-xl bg-slate-900 border border-amber-500/30">
+          <div class="text-slate-400 text-[10px]">5대 사랑 나침반</div>
+          <div class="text-base font-black text-amber-300 mt-1">100% 완전 개화</div>
         </div>
       </div>
 
@@ -240,7 +324,7 @@
       </div>
 
       <div class="flex flex-wrap items-center justify-center gap-3 pt-2">
-        <button onclick="copyGenesisCertificate()" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-400 hover:to-yellow-500 text-slate-950 font-black text-xs shadow-lg transition active:scale-95 flex items-center gap-2">
+        <button onclick="copyGenesisCertificate()" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-rose-500 via-pink-500 to-amber-500 hover:opacity-90 text-white font-black text-xs shadow-lg transition active:scale-95 flex items-center gap-2">
           <span>📋</span>
           <span>완주 인증서 & 가족 나눔 카드 복사하기</span>
         </button>
@@ -268,7 +352,7 @@
     </p>
   </footer>
 
-  <!-- 🎮 4. 인터랙티브 게임 & Web Audio 사운드 & 파티클 캔버스 엔진 -->
+  <!-- 🎮 5. 인터랙티브 게임 & Web Audio 사운드 & 파티클 캔버스 엔진 -->
   <script>
     // -------------------------------------------------------------
     // 전역 상태 관리
@@ -280,6 +364,7 @@
     let particles = [];
     let canvas, ctx;
     let animFrameId;
+    let pendingStepForConversion = 1;
 
     // 27자 천부경 데이터 (룬 도감)
     const CHONBU_27_RUNES = [
@@ -344,54 +429,42 @@
                 <stop offset="100%" stop-color="#f59e0b"/>
               </linearGradient>
             </defs>
-            <!-- 후광 -->
             <circle cx="60" cy="60" r="45" fill="none" stroke="url(#gradSky)" stroke-width="2" stroke-dasharray="4 4" class="animate-spin-slow"/>
-            <!-- 도포 몸체 -->
             <path d="M 40 85 L 60 50 L 80 85 Q 60 95 40 85 Z" fill="url(#gradSky)"/>
-            <!-- 얼굴 -->
             <circle cx="60" cy="45" r="20" fill="#fef08a"/>
-            <!-- 삼태극 이마 장식 -->
             <circle cx="60" cy="33" r="4" fill="#ef4444"/>
             <circle cx="58" cy="35" r="2.5" fill="#3b82f6"/>
-            <!-- 눈과 입 -->
             <circle cx="53" cy="45" r="2.5" fill="#0f172a"/>
             <circle cx="67" cy="45" r="2.5" fill="#0f172a"/>
             <path d="M 56 52 Q 60 57 64 52" stroke="#0f172a" stroke-width="2" stroke-linecap="round" fill="none"/>
-            <!-- 머리 상투 -->
             <circle cx="60" cy="22" r="6" fill="url(#gradGold)"/>
           </svg>`,
-      3: `<svg class="w-32 h-32 sm:w-44 sm:h-44 filter drop-shadow-[0_0_35px_rgba(245,158,11,0.9)]" viewBox="0 0 140 140">
+      3: `<svg class="w-32 h-32 sm:w-44 sm:h-44 filter drop-shadow-[0_0_35px_rgba(244,63,94,0.8)]" viewBox="0 0 140 140">
             <defs>
               <radialGradient id="godAura" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stop-color="#fef08a" stop-opacity="0.9"/>
+                <stop offset="0%" stop-color="#fda4af" stop-opacity="0.9"/>
                 <stop offset="50%" stop-color="#f59e0b" stop-opacity="0.5"/>
                 <stop offset="100%" stop-color="#78350f" stop-opacity="0"/>
               </radialGradient>
               <linearGradient id="wings" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stop-color="#fef08a"/>
-                <stop offset="100%" stop-color="#d97706"/>
+                <stop offset="100%" stop-color="#f43f5e"/>
               </linearGradient>
             </defs>
-            <!-- 웅장한 날개 -->
             <path d="M 60 60 C 20 20 10 70 35 90 Z" fill="url(#wings)" opacity="0.85"/>
             <path d="M 80 60 C 120 20 130 70 105 90 Z" fill="url(#wings)" opacity="0.85"/>
-            <!-- 거대한 후광 오라 -->
             <circle cx="70" cy="70" r="55" fill="url(#godAura)"/>
-            <!-- 황금 보관 -->
             <polygon points="55,30 70,12 85,30 78,35 62,35" fill="#facc15" stroke="#ca8a04" stroke-width="1.5"/>
-            <!-- 수호신 두상 -->
             <circle cx="70" cy="50" r="22" fill="#fffbeb"/>
-            <!-- 자애로운 눈과 미소 -->
             <path d="M 62 48 Q 66 52 70 48" stroke="#78350f" stroke-width="2.5" stroke-linecap="round" fill="none"/>
             <path d="M 70 48 Q 74 52 78 48" stroke="#78350f" stroke-width="2.5" stroke-linecap="round" fill="none"/>
             <path d="M 66 57 Q 70 61 74 57" stroke="#b45309" stroke-width="2" stroke-linecap="round" fill="none"/>
-            <!-- 천부경 27자 보옥 구체 -->
-            <circle cx="70" cy="90" r="14" fill="#fef08a" stroke="#ca8a04" stroke-width="2" class="animate-pulse"/>
-            <text x="70" y="94" font-size="9" font-weight="900" fill="#78350f" text-anchor="middle">天符</text>
+            <circle cx="70" cy="90" r="14" fill="#fda4af" stroke="#f43f5e" stroke-width="2" class="animate-pulse"/>
+            <text x="70" y="94" font-size="9" font-weight="900" fill="#881337" text-anchor="middle">眞愛</text>
           </svg>`
     };
 
-    // 3계단 상세 시나리오 (TOP 10 하데스 3지선다 축복형)
+    // 3계단 상세 시나리오
     const SCENARIOS = {
       1: {
         stageName: "Stage 1: 칠흑의 무극 우주",
@@ -399,24 +472,28 @@
         stepTitle: "어둠을 뚫고 첫 번째 빛과 소리(율려)가 깨어납니다",
         stepDesc: "차가운 무극의 우주에 작은 따스함이 번져나갑니다. 이 빛은 만물을 살릴 수 있는 생명의 근원입니다. 당신은 이 첫 빛을 어떻게 인도하시겠습니까?",
         percent: "33%",
+        realLifeAction: "“진정한 아름다움은 따뜻한 시선에서 시작됩니다. 오늘 가족과 이웃에게 가장 사랑스러운 미소와 칭찬 한마디를 먼저 건넵니다.”",
         choices: [
           {
             title: "🌟 [나눔의 빛] 온 우주를 데우는 자비의 빛 방사",
-            desc: "홍익과 나눔 — 432Hz 율려 화음 공명 및 첫 9자 각성",
+            desc: "홍익과 나눔 — 528Hz 사랑 화음 공명 및 첫 9자 각성",
             score: 15,
-            isBest: true
+            isBest: true,
+            type: "share"
           },
           {
             title: "🔍 [탐색의 빛] 질서를 조용히 관찰하며 숨고르기",
-            desc: "중립과 성찰 — 기본 지혜 획득",
+            desc: "소극적 방관 — 심경(사랑의 거울) 성찰 유도",
             score: 5,
-            isBest: false
+            isBest: false,
+            type: "observe"
           },
           {
             title: "🌑 [독점의 빛] 나 홀로 품어 가장 강한 자가 되기",
-            desc: "소유의 유혹 — 성찰의 경고음 울림 및 바른 마음 회복",
+            desc: "이기적 소유 — 심경(사랑의 거울) 성찰 유도",
             score: -5,
-            isBest: false
+            isBest: false,
+            type: "monopoly"
           }
         ]
       },
@@ -426,24 +503,28 @@
         stepTitle: "하늘(天)과 땅(地), 사람(人)의 삼재가 마고대성을 이룹니다",
         stepDesc: "빛이 분화하여 하늘의 별빛과 대지의 생명선이 솟아오릅니다. 풍백·우사·운사의 기운이 춤추는 마고대성에 당신은 어떤 조화의 성소를 세우시겠습니까?",
         percent: "66%",
+        realLifeAction: "“진정한 사랑은 상대를 있는 그대로 존중하는 것입니다. 오늘 내 주장보다 사랑하는 사람의 이야기에 먼저 귀를 기울입니다.”",
         choices: [
           {
             title: "🌿 [상생의 성소] 하늘·땅·사람이 서로 살리는 낙원 건설",
-            desc: "조화와 상생 — 528Hz 화음 공명 및 18자 도감 각성",
+            desc: "조화와 상생 — 639Hz 관계 조화 화음 및 18자 도감 각성",
             score: 15,
-            isBest: true
+            isBest: true,
+            type: "share"
           },
           {
             title: "🛡️ [수호의 성소] 대지의 경계만 굳건히 지키기",
-            desc: "방어와 보존 — 기본 결속 획득",
+            desc: "소극적 방어 — 심경(사랑의 거울) 성찰 유도",
             score: 5,
-            isBest: false
+            isBest: false,
+            type: "observe"
           },
           {
             title: "⚡ [정복의 성소] 자연의 원소를 힘으로 굴복시키기",
-            desc: "지배의 유혹 — 생태계 불협화음 경고",
+            desc: "지배의 욕망 — 심경(사랑의 거울) 성찰 유도",
             score: -5,
-            isBest: false
+            isBest: false,
+            type: "monopoly"
           }
         ]
       },
@@ -453,24 +534,28 @@
         stepTitle: "황금 신단수가 꽃피고, 천부경 27자가 찬란히 대완성됩니다!",
         stepDesc: "나눔과 상생의 마음에 감응하여 마고대성에 황금빛 생명수가 흐릅니다. 마침내 생성(生成)의 장이 완결되었습니다! 이제 다음 시대(제2탄 개천)를 향해 나아갈 시간입니다.",
         percent: "100%",
+        realLifeAction: "“작은 사랑 하나가 쌓여 세상을 구원하는 열 배의 기적이 됩니다. 오늘 조건 없는 감사와 나눔을 실천합니다.”",
         choices: [
           {
             title: "🚀 [홍익의 출항] 온 누리 생명에게 빛을 전하러 나아가기",
-            desc: "사명과 개척 — 27자 전체 각성 & 완주 인증서 수여",
+            desc: "진정한 사랑과 사명 — 27자 전체 각성 & 완주 인증서 수여",
             score: 20,
-            isBest: true
+            isBest: true,
+            type: "share"
           },
           {
-            title: "📜 [지혜의 기록] 천부경의 말씀을 황금 석판에 영구 보존",
-            desc: "기록과 계승 — 지식 보존 달성",
+            title: "📜 [지혜의 기록] 천부경의 말씀을 황금 석판에 보존하기",
+            desc: "소극적 보존 — 심경(사랑의 거울) 성찰 유도",
             score: 10,
-            isBest: false
+            isBest: false,
+            type: "observe"
           },
           {
             title: "🏰 [안주의 머무름] 완성된 성소 안에 영원히 안주하기",
-            desc: "정체의 유혹 — 다음 시대를 향한 진취적 격려",
+            desc: "정체의 머무름 — 심경(사랑의 거울) 성찰 유도",
             score: 0,
-            isBest: false
+            isBest: false,
+            type: "monopoly"
           }
         ]
       }
@@ -495,7 +580,6 @@
         osc.type = type;
         osc.frequency.setValueAtTime(freq, now);
 
-        // 천부종 벨 배음 커브
         gain.gain.setValueAtTime(0, now);
         gain.gain.linearRampToValueAtTime(0.35, now + 0.04);
         gain.gain.exponentialRampToValueAtTime(0.001, now + duration);
@@ -510,59 +594,94 @@
       }
     }
 
+    // 528Hz(기적의 사랑) + 639Hz(관계 조화) 듀얼 하프 화음
+    function playLoveSoundChord() {
+      try {
+        playGenesisYulryeoSound(528, 'sine', 2.5);
+        setTimeout(() => playGenesisYulryeoSound(639, 'triangle', 2.8), 60);
+      } catch (e) {}
+    }
+
     // -------------------------------------------------------------
-    // Canvas 황금 입자 폭발 타격감 엔진 (spawnGoldenParticles)
+    // Canvas 파티클 및 사랑의 꽃잎 엔진 (spawnGoldenParticles & spawnLoveAndBeautyPetals)
     // -------------------------------------------------------------
-    class GoldenParticle {
-      constructor(x, y, color = '#facc15') {
+    class Particle {
+      constructor(x, y, color = '#facc15', isPetal = false) {
         this.x = x;
         this.y = y;
         this.color = color;
+        this.isPetal = isPetal;
         const angle = Math.random() * Math.PI * 2;
-        const speed = Math.random() * 6 + 2;
+        const speed = isPetal ? (Math.random() * 4 + 1.5) : (Math.random() * 6 + 2);
         this.vx = Math.cos(angle) * speed;
         this.vy = Math.sin(angle) * speed;
-        this.size = Math.random() * 4 + 2;
+        this.size = isPetal ? (Math.random() * 6 + 4) : (Math.random() * 4 + 2);
         this.alpha = 1.0;
-        this.decay = Math.random() * 0.02 + 0.015;
+        this.decay = isPetal ? (Math.random() * 0.015 + 0.008) : (Math.random() * 0.02 + 0.015);
+        this.rotation = Math.random() * Math.PI * 2;
+        this.rotSpeed = (Math.random() - 0.5) * 0.05;
       }
       update() {
         this.x += this.vx;
         this.y += this.vy;
-        this.vy += 0.08; // 약한 중력
+        this.vy += this.isPetal ? 0.03 : 0.08;
         this.alpha -= this.decay;
-        this.size = Math.max(0, this.size - 0.04);
+        this.rotation += this.rotSpeed;
+        if (!this.isPetal) {
+          this.size = Math.max(0, this.size - 0.04);
+        }
       }
       draw(c) {
         c.save();
         c.globalAlpha = Math.max(0, this.alpha);
+        c.translate(this.x, this.y);
+        c.rotate(this.rotation);
         c.fillStyle = this.color;
         c.shadowColor = this.color;
-        c.shadowBlur = 8;
-        c.beginPath();
-        c.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        c.fill();
+        c.shadowBlur = this.isPetal ? 10 : 8;
+
+        if (this.isPetal) {
+          // 꽃잎/하트 형상
+          c.beginPath();
+          c.moveTo(0, -this.size);
+          c.quadraticCurveTo(this.size, -this.size / 2, this.size / 2, this.size);
+          c.quadraticCurveTo(0, this.size / 2, -this.size / 2, this.size);
+          c.quadraticCurveTo(-this.size, -this.size / 2, 0, -this.size);
+          c.fill();
+        } else {
+          c.beginPath();
+          c.arc(0, 0, this.size, 0, Math.PI * 2);
+          c.fill();
+        }
         c.restore();
       }
     }
 
     function spawnGoldenParticles(x, y, count = 30, color = '#facc15') {
       for (let i = 0; i < count; i++) {
-        particles.push(new GoldenParticle(x, y, color));
+        particles.push(new Particle(x, y, color, false));
       }
     }
 
+    // 🌸 진정한 아름다움과 사랑의 꽃잎 파동 엔진 (spawnLoveAndBeautyPetals)
+    function spawnLoveAndBeautyPetals(x = canvas.width / 2, y = canvas.height / 2, count = 40) {
+      const colors = ['#f43f5e', '#fb7185', '#fda4af', '#fde047', '#fff1f2'];
+      for (let i = 0; i < count; i++) {
+        const c = colors[Math.floor(Math.random() * colors.length)];
+        particles.push(new Particle(x, y, c, true));
+      }
+      playLoveSoundChord();
+    }
+
     function handleCharacterTap(e) {
-      const rect = canvas.getBoundingClientRect();
       const x = canvas.width / 2;
       const y = canvas.height / 2;
-      spawnGoldenParticles(x, y, 40, '#fef08a');
-      playGenesisYulryeoSound(currentStep === 1 ? 432 : (currentStep === 2 ? 528 : 648));
-      hongikExp += 2;
+      spawnGoldenParticles(x, y, 30, '#fef08a');
+      spawnLoveAndBeautyPetals(x, y, 20);
+      hongikExp += 3;
       updateStats();
     }
 
-    // 캔버스 자체 터치/클릭
     function handleCanvasInteraction(e) {
       const rect = canvas.getBoundingClientRect();
       const clientX = e.clientX || (e.touches && e.touches[0].clientX);
@@ -574,40 +693,34 @@
       const x = (clientX - rect.left) * scaleX;
       const y = (clientY - rect.top) * scaleY;
 
-      spawnGoldenParticles(x, y, 25, currentStep === 1 ? '#facc15' : (currentStep === 2 ? '#38bdf8' : '#e879f9'));
-      playGenesisYulryeoSound(432 + Math.random() * 100);
+      spawnGoldenParticles(x, y, 20, currentStep === 1 ? '#facc15' : '#38bdf8');
+      spawnLoveAndBeautyPetals(x, y, 15);
       hongikExp += 1;
       updateStats();
     }
 
-    // 원소 조화 버튼 동작
     function triggerElementAction(elem) {
       const x = canvas.width / 2;
       const y = canvas.height / 2;
       if (elem === 'wind') {
-        spawnGoldenParticles(x, y, 35, '#34d399');
+        spawnGoldenParticles(x, y, 30, '#34d399');
         playGenesisYulryeoSound(360, 'triangle', 1.5);
       } else if (elem === 'rain') {
-        spawnGoldenParticles(x, y, 35, '#38bdf8');
+        spawnGoldenParticles(x, y, 30, '#38bdf8');
         playGenesisYulryeoSound(480, 'sine', 1.8);
       } else if (elem === 'cloud') {
-        spawnGoldenParticles(x, y, 35, '#c084fc');
+        spawnGoldenParticles(x, y, 30, '#c084fc');
         playGenesisYulryeoSound(528, 'sine', 2.0);
       } else {
-        spawnGoldenParticles(x, y, 45, '#fde047');
-        playGenesisYulryeoSound(648, 'sine', 2.2);
+        spawnLoveAndBeautyPetals(x, y, 50);
       }
       hongikExp += 3;
       updateStats();
     }
 
-    // -------------------------------------------------------------
-    // Canvas 배경 실시간 렌더링 루프 (renderGenesisStage)
-    // -------------------------------------------------------------
     function renderGenesisStage() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // 단계별 우주 배경 그라데이션
       const grad = ctx.createRadialGradient(
         canvas.width / 2, canvas.height / 2, 20,
         canvas.width / 2, canvas.height / 2, canvas.width / 1.5
@@ -622,15 +735,14 @@
         grad.addColorStop(0.4, '#0c2e3a');
         grad.addColorStop(1, '#030712');
       } else {
-        grad.addColorStop(0, '#78350f');
-        grad.addColorStop(0.3, '#3b1d5a');
+        grad.addColorStop(0, '#881337');
+        grad.addColorStop(0.4, '#4c0519');
         grad.addColorStop(1, '#030712');
       }
 
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // 별빛 펄스
       const time = Date.now() * 0.002;
       for (let i = 0; i < 40; i++) {
         const sx = (Math.sin(i * 99 + time * 0.5) * 0.5 + 0.5) * canvas.width;
@@ -642,7 +754,6 @@
         ctx.fill();
       }
 
-      // 파티클 업데이트 및 드로우
       for (let i = particles.length - 1; i >= 0; i--) {
         const p = particles[i];
         p.update();
@@ -656,6 +767,31 @@
     }
 
     // -------------------------------------------------------------
+    // 🪞 심경(心鏡: 사랑의 거울) 성찰 & 바른 선택 유도 엔진
+    // -------------------------------------------------------------
+    function triggerHeartMirrorReflection(stepNum, choiceType) {
+      pendingStepForConversion = stepNum;
+      const box = document.getElementById('heart-mirror-reflection-box');
+      box.classList.remove('hidden');
+      box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+      playGenesisYulryeoSound(264, 'sine', 1.8); // 부드럽고 차분한 성찰의 음
+    }
+
+    // 바른 선택으로 자발적 전환 클릭 시
+    function applyRightChoiceConversion() {
+      const box = document.getElementById('heart-mirror-reflection-box');
+      box.classList.add('hidden');
+
+      // 눈부신 사랑의 꽃잎 폭발 & 성찰 보너스
+      spawnLoveAndBeautyPetals(canvas.width / 2, canvas.height / 2, 70);
+      hongikExp += 50;
+
+      // 해당 계단 바른 길로 즉시 각성 전진
+      executeStepSuccess(pendingStepForConversion);
+    }
+
+    // -------------------------------------------------------------
     // 계단 스토리 선택 엔진 (advanceGenesisStep)
     // -------------------------------------------------------------
     function advanceGenesisStep(stepNum, choiceIdx) {
@@ -663,25 +799,23 @@
       if (!scenario) return;
 
       const choice = scenario.choices[choiceIdx];
-      const alertBox = document.getElementById('feedback-alert-box');
 
-      if (!choice.isBest && choice.score <= 0) {
-        // 성찰 경고
-        playGenesisYulryeoSound(216, 'sawtooth', 1.0);
-        alertBox.classList.remove('hidden');
-        alertBox.innerHTML = `⚠️ <b>[성찰의 지혜]</b> ${choice.desc}<br>빛을 나 혼자 독점하려 하면 어둠이 다시 짙어집니다. 모두와 함께 나누는 지혜로운 선택을 해주세요!`;
+      if (!choice.isBest) {
+        // 꾸짖지 않고 심경(사랑의 거울)으로 자발적 바른 선택 유도!
+        triggerHeartMirrorReflection(stepNum, choice.type);
         return;
       }
 
-      alertBox.classList.add('hidden');
+      // 최고의 바른 선택(나눔·사랑) 실행!
+      document.getElementById('heart-mirror-reflection-box').classList.add('hidden');
       hongikExp += choice.score;
+      executeStepSuccess(stepNum);
+    }
 
-      // 화음 사운드 & 파티클 폭발
-      const soundFreq = (stepNum === 1) ? 432 : (stepNum === 2 ? 528 : 648);
-      playGenesisYulryeoSound(soundFreq, 'sine', 2.2);
-      spawnGoldenParticles(canvas.width / 2, canvas.height / 2, 60, '#fde047');
+    function executeStepSuccess(stepNum) {
+      spawnGoldenParticles(canvas.width / 2, canvas.height / 2, 50, '#fde047');
+      spawnLoveAndBeautyPetals(canvas.width / 2, canvas.height / 2, 50);
 
-      // 룬 각성 (Step 1 -> 9자, Step 2 -> 18자, Step 3 -> 27자)
       awakenedRunesCount = stepNum * 9;
       updateRuneBoard();
 
@@ -694,7 +828,6 @@
       updateStats();
     }
 
-    // 단계별 UI 렌더링
     function renderStepUI(step) {
       const s = SCENARIOS[step];
       document.getElementById('stage-badge').innerText = s.stageName;
@@ -703,15 +836,14 @@
       document.getElementById('step-main-title').innerText = s.stepTitle;
       document.getElementById('step-main-desc').innerText = s.stepDesc;
       document.getElementById('step-progress-percent').innerText = `진행도: ${s.percent}`;
+      document.getElementById('real-life-action-text').innerText = s.realLifeAction;
 
-      // 캐릭터 SVG 교체
       document.getElementById('character-svg-wrapper').innerHTML = CHARACTER_SVGS[step];
 
-      // 3지선다 버튼 렌더링
       const choicesBox = document.getElementById('choices-container');
       choicesBox.innerHTML = s.choices.map((c, i) => `
-        <button onclick="advanceGenesisStep(${step}, ${i})" class="p-3.5 rounded-2xl bg-slate-900/90 hover:bg-slate-800 border border-slate-700 hover:border-amber-400 transition text-left space-y-1 shadow-md active:scale-95 group">
-          <div class="text-xs font-bold text-amber-300 group-hover:text-amber-200">${c.title}</div>
+        <button onclick="advanceGenesisStep(${step}, ${i})" class="p-3.5 rounded-2xl bg-slate-900/90 hover:bg-slate-800 border ${c.isBest ? 'border-amber-500/50 hover:border-rose-400 bg-gradient-to-br from-slate-900 to-rose-950/20' : 'border-slate-700 hover:border-slate-500'} transition text-left space-y-1 shadow-md active:scale-95 group">
+          <div class="text-xs font-bold ${c.isBest ? 'text-rose-300 group-hover:text-amber-200' : 'text-slate-300'}">${c.title}</div>
           <div class="text-[10px] text-slate-400 leading-snug">${c.desc}</div>
         </button>
       `).join('');
@@ -749,9 +881,9 @@
 
       playGenesisYulryeoSound(432 + index * 12);
       if (isAwakened) {
-        panel.innerHTML = `📜 <b class="text-amber-300 font-serif-kr text-base">[${r.char}]</b> <span class="text-amber-200">(${r.mean})</span> — <span class="text-slate-200">${r.desc}</span>`;
+        panel.innerHTML = `📜 <b class="text-amber-300 font-serif-kr text-base">[${r.char}]</b> <span class="text-rose-300">(${r.mean})</span> — <span class="text-slate-200">${r.desc}</span>`;
       } else {
-        panel.innerHTML = `🔒 <b>[미각성 룬: ${r.char}]</b> 아직 계단을 오르지 않았습니다. 올바른 인성 선택으로 이 룬을 황금빛으로 깨워보세요!`;
+        panel.innerHTML = `🔒 <b>[미각성 룬: ${r.char}]</b> 아직 계단을 오르지 않았습니다. 올바른 사랑과 나눔의 선택으로 이 룬을 황금빛으로 깨워보세요!`;
       }
     }
 
@@ -760,18 +892,16 @@
       document.getElementById('stat-rune-count').innerText = `${awakenedRunesCount}/27자`;
     }
 
-    // 게임 완료 및 인증서
+    // -------------------------------------------------------------
+    // 대완주 및 인증서 복사
+    // -------------------------------------------------------------
     function finishGenesisGame() {
       const card = document.getElementById('genesis-complete-card');
       card.classList.remove('hidden');
       card.scrollIntoView({ behavior: 'smooth' });
       document.getElementById('complete-hongik-score').innerText = `${hongikExp}점 (만점 달성)`;
 
-      // 팡파레 화음
-      playGenesisYulryeoSound(432);
-      setTimeout(() => playGenesisYulryeoSound(528), 250);
-      setTimeout(() => playGenesisYulryeoSound(648), 500);
-      setTimeout(() => playGenesisYulryeoSound(864), 750);
+      spawnLoveAndBeautyPetals(canvas.width / 2, canvas.height / 2, 80);
     }
 
     function resetGenesisGame() {
@@ -779,7 +909,7 @@
       hongikExp = 100;
       awakenedRunesCount = 0;
       document.getElementById('genesis-complete-card').classList.add('hidden');
-      document.getElementById('feedback-alert-box').classList.add('hidden');
+      document.getElementById('heart-mirror-reflection-box').classList.add('hidden');
       document.getElementById('rune-detail-panel').innerHTML = `💡 <b class="text-amber-300">도감 수집 안내:</b> 계단을 한 단계씩 오를 때마다 9자씩 황금 룬이 각성되며, 각 글자를 터치하면 현대어 인성 풀이를 열람할 수 있습니다.`;
       updateRuneBoard();
       renderStepUI(1);
@@ -789,12 +919,14 @@
 
     function copyGenesisCertificate() {
       const text = `[🏆 천부(天符) 오디세이 제1탄: 생성(生成) 대완주 인증서]
-"태초의 빛에서 5만 년의 별로 — 한걸음씩 제국 제1청사 게임 스튜디오"
+"태초의 빛에서 5만 년의 별로 — 진정한 사랑과 눈부신 아름다움의 개화"
 
 👑 수호신 등급: Lv.3 마고대성 천부수호신 (대완성)
-💖 홍익 인성 지수: ${hongikExp}점 (만점)
+💖 홍익 사랑 지수: ${hongikExp}점 (만점 달성)
+🧭 5대 홍익 사랑 나침반: ① 진정한 사랑 100% · ② 내면의 아름다움 100% · ③ 바른 선택 100% · ④ 조화와 공감 100% · ⑤ 나눔의 실천 100%
 📜 천부경 룬 도감: 제1장 27자 [一始無始一 ~ 無匱化三] 100% 완전 수집
-🔔 태초의 율려: 432Hz 치유 주파수 공명 완료
+🔔 태초의 율려 & 기적의 주파수: 432Hz + 528Hz 화음 공명 완료
+🌱 현실 실천 약속: "작은 사랑 하나가 쌓여 세상을 구원하는 열 배의 기적이 됩니다. 오늘 조건 없는 감사와 나눔을 실천합니다."
 🔒 차기 예정작: 《제2탄: 개천(開天) — 환웅과 웅녀의 시련》
 
 "하나가 쌓여 열로 커져도, 모남 없이 온 누리를 넉넉하게 채운다."
@@ -817,7 +949,6 @@
       canvas = document.getElementById('genesis-visual-canvas');
       ctx = canvas.getContext('2d');
 
-      // 캔버스 터치/클릭 리스너
       canvas.addEventListener('mousedown', handleCanvasInteraction);
       canvas.addEventListener('touchstart', (e) => {
         e.preventDefault();

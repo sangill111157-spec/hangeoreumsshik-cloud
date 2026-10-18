@@ -1,12 +1,15 @@
 {
   "currency": "KRW",
-  "last_updated": "2026-10-18 11:14:32",
+  "last_updated": "2026-10-18 11:36:21",
   "summary": {
     "total_in": 1295000,
     "total_out": 0,
+    "total_in_krw": 1295000,
+    "total_out_krw": 0,
     "operating_profit": 1295000,
     "tax_reserve_3_3": 42735,
     "net_profit": 1252265,
+    "disposable_net_krw": 1252265,
     "allocations": {
       "commander_life_50": 626132,
       "empire_rnd_25": 313066,
@@ -17,6 +20,12 @@
         "haesang_5": 62613
       },
       "sharing_donation_10": 125228
+    },
+    "allocation_50_25_15_10": {
+      "ceo_50_percent": 626132,
+      "rnd_25_percent": 313066,
+      "daughters_15_percent": 187839,
+      "charity_10_percent": 125228
     }
   },
   "categories_in": {

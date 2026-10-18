@@ -232,6 +232,18 @@ def run_rgon_full_agency_audit():
     gate14_ok = (st_vlt == 200 and vlt_has_scan and vlt_has_wiki and vlt_has_cert and vlt_has_legal)
     record("GATE-14", "제5청사 실시간 법무 스캐너 & 18대 산출물 위키 아카이브 보드 실물 검증", gate14_ok, f"HTTP {st_vlt} (법무스캐너, 위키보드, 인증서 완비)")
 
+    # [GATE 15] 바른 선택 유도 & 진정한 사랑·아름다움(眞美·眞愛) 개화 엔진 실물 검증 (1개)
+    st_c1, body_c1 = http_get("/departments/dept_closet.html")
+    g15_ok = (
+        st_c1 == 200
+        and "spawnLoveAndBeautyPetals" in body_c1
+        and "triggerHeartMirrorReflection" in body_c1
+        and "heart-mirror-reflection-box" in body_c1
+        and "real-life-right-action-card" in body_c1
+        and "hongik-5-virtue-compass" in body_c1
+    )
+    record("GATE-15", "바른 선택 유도 & 진정한 사랑·아름다움(眞美·眞愛) 개화 엔진 검증", g15_ok, f"HTTP {st_c1} (꽃잎파동·심경성찰·실천약속·사랑나침반 완비)")
+
     # 경호처 해시 최신화
     from cheongwadae_guard import save_golden_hashes
     save_golden_hashes()
@@ -247,7 +259,7 @@ def run_rgon_full_agency_audit():
         print("🚨 테스트 미통과 항목 발견! 배포를 중단합니다.")
         sys.exit(1)
 
-    print(f"🏆 [최종 완료] 전 기관 25개 관문 전수 실전 감사 100.0% ALL PASS! 야간 자율주행 및 모닝 브리핑 완비!")
+    print(f"🏆 [최종 완료] 전 기관 26개 관문 전수 실전 감사 100.0% ALL PASS! 바른 선택 유도 & 진정한 사랑·아름다움 개화 엔진 완비!")
     print("=" * 75)
 
 if __name__ == "__main__":
