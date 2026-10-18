@@ -1845,6 +1845,8 @@ class DashboardHandler(SimpleHTTPRequestHandler):
             try:
                 data = json.loads(raw_body.decode('utf-8')) if raw_body else {}
                 import one_touch_auto_executor
+                import importlib
+                importlib.reload(one_touch_auto_executor)
                 exec_res = one_touch_auto_executor.handle_one_touch_execute(data)
                 resp = {
                     "status": "OK",
@@ -2425,6 +2427,8 @@ class DashboardHandler(SimpleHTTPRequestHandler):
                 target = data.get('target', 'ALL')
 
                 import cheongwadae_comm_engine
+                import importlib
+                importlib.reload(cheongwadae_comm_engine)
                 resp = cheongwadae_comm_engine.process_direct_communication(user_msg, target)
             except Exception as e:
                 resp = {"status": "ERROR", "message": str(e)}

@@ -309,7 +309,7 @@ def execute_hook_script_pipeline(topic_key: str = "shin") -> dict:
 # ══════════════════════════════════════════════════════════════════════════════
 # 3. 💼 PayPal & 토스 결제·수익화 파이프라인 원터치 자동 가동
 # ══════════════════════════════════════════════════════════════════════════════
-def execute_bm_pipeline(unit_price: int = 29000, sales_qty: int = 100) -> dict:
+def execute_bm_pipeline(unit_price: int = 0, sales_qty: int = 0) -> dict:
     now_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     gross = unit_price * sales_qty
 
@@ -320,8 +320,8 @@ def execute_bm_pipeline(unit_price: int = 29000, sales_qty: int = 100) -> dict:
     toss_disposable = toss_net - toss_tax
 
     # PayPal 4.4% + $0.30(400원)
-    pp_fee = round((gross * 0.044) + (sales_qty * 400))
-    pp_net = gross - pp_fee
+    pp_fee = round((gross * 0.044) + (sales_qty * 400)) if gross > 0 else 0
+    pp_net = max(0, gross - pp_fee)
     pp_tax = round(pp_net * 0.033)
     pp_disposable = pp_net - pp_tax
 
@@ -338,7 +338,7 @@ def execute_bm_pipeline(unit_price: int = 29000, sales_qty: int = 100) -> dict:
     bm_report_path = WIKI_DELIVERABLES_DIR / "BM_AUTO_REPORT.md"
     bm_doc = f"""# 💼 [원터치 BM 자동점검 리포트] PayPal & 토스 결제 파이프라인
 - 점검 일시: {now_str}
-- 상품 단가: {unit_price:,}원 | 예상 월 판매량: {sales_qty:,}건 | 총 매출: {gross:,}원
+- 상품 단가: {unit_price:,}원 | 예상 월 판매량: {sales_qty:,}건 | 총 매출: {gross:,}원 (실전 매출 대기 중)
 
 ---
 
@@ -356,7 +356,7 @@ def execute_bm_pipeline(unit_price: int = 29000, sales_qty: int = 100) -> dict:
     bm_report_path.write_text(bm_doc, encoding="utf-8")
 
     # Step 3: 구글 시트 동기화 큐 등록
-    _append_google_sheets_queue("BM_PIPELINE", f"BM 수익화 자동점검 (월 매출 {gross:,}원 시뮬레이션)", {
+    _append_google_sheets_queue("BM_PIPELINE", f"BM 수익화 자동점검 (월 매출 {gross:,}원 대기)", {
         "gross": gross,
         "toss_disposable": toss_disposable,
         "pp_disposable": pp_disposable
@@ -479,8 +479,8 @@ def handle_one_touch_execute(payload: dict) -> dict:
         topic = payload.get("topic") or "shin"
         return execute_hook_script_pipeline(topic_key=topic)
     elif "BM" in action or "PAYPAL" in action or "TOSS" in action:
-        price = int(payload.get("unit_price") or 29000)
-        qty = int(payload.get("sales_qty") or 100)
+        price = int(payload.get("unit_price") if payload.get("unit_price") is not None else 0)
+        qty = int(payload.get("sales_qty") if payload.get("sales_qty") is not None else 0)
         return execute_bm_pipeline(unit_price=price, sales_qty=qty)
     elif "CORPS" in action or "AGENT" in action or "ALL" in action:
         return execute_all_8_agents_pipeline()
@@ -494,7 +494,7 @@ if __name__ == "__main__":
     print("1. STITCH:", r1["status"], r1["steps"][0]["path"])
     r2 = execute_hook_script_pipeline("shin")
     print("2. HOOK:", r2["status"], r2["steps"][0]["path"])
-    r3 = execute_bm_pipeline(29000, 100)
+    r3 = execute_bm_pipeline(0, 0)
     print("3. BM:", r3["status"], r3["steps"][1]["path"])
     r4 = execute_all_8_agents_pipeline()
     print("4. CORPS:", r4["status"], r4["steps"][0]["path"])

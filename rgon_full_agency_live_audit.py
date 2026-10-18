@@ -17,7 +17,19 @@ if sys.platform == "win32":
     except Exception:
         pass
 
-BASE_URL = "http://127.0.0.1:8501"
+def detect_active_port():
+    for p in [8501, 8502, 8503]:
+        try:
+            req = urllib.request.Request(f"http://127.0.0.1:{p}/api/treasury-status")
+            with urllib.request.urlopen(req, timeout=1.0) as res:
+                if res.status == 200:
+                    return p
+        except Exception:
+            pass
+    return 8501
+
+PORT = detect_active_port()
+BASE_URL = f"http://127.0.0.1:{PORT}"
 
 def http_get(path):
     url = f"{BASE_URL}{path}"

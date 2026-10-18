@@ -26,7 +26,18 @@ if sys.platform == "win32":
 
 BASE_DIR = Path(__file__).resolve().parent
 DASHBOARD_DIR = BASE_DIR / "dashboard"
-PORT = 8501
+def detect_active_port():
+    for p in [8501, 8502, 8503]:
+        try:
+            req = urllib.request.Request(f"http://127.0.0.1:{p}/api/treasury-status")
+            with urllib.request.urlopen(req, timeout=1.0) as res:
+                if res.status == 200:
+                    return p
+        except Exception:
+            pass
+    return 8501
+
+PORT = detect_active_port()
 BASE_URL = f"http://127.0.0.1:{PORT}"
 
 # 검수 대상 파일 목록
@@ -81,6 +92,13 @@ ZOMBIE_KEYWORDS = [
     "1,252,265",
     "42,405",
     "42,735",
+    "2,900,000",
+    "2,708,954",
+    "1,354,477",
+    'value="29000"',
+    "Aurora Spatial Dark",
+    "STITCH-2.0-READY",
+    "디자인 코드 전체 복사",
 ]
 
 JSON_AUDIT_FILES = [
@@ -443,20 +461,36 @@ try {{
     comm_get_ok = (s_comm == 200 and len(j_comm.get("messages", [])) >= 1)
     comm_checks.append((comm_get_ok, f"소통 원장 로드: HTTP {s_comm} ({len(j_comm.get('messages', []))}건 메시지)"))
 
-    # 2) 대표님 직통 메시지 전송 및 실시간 즉각 응답 (POST /api/comm-send)
-    s_send, j_send = http_post("/api/comm-send", {
+    # 2) 대표님 직통 메시지 1차 전송 및 실시간 즉각 응답 (POST /api/comm-send)
+    s_send1, j_send1 = http_post("/api/comm-send", {
         "message": "안총리, 전 기관 소통 상태 및 이상 유무 즉시 보고하라!",
         "target": "ALL"
     })
-    comm_post_ok = (
-        s_send == 200
-        and j_send.get("status") == "OK"
-        and "reply_msg" in j_send
-        and j_send["reply_msg"].get("target") == "COMMANDER-000"
+    comm_post_ok1 = (
+        s_send1 == 200
+        and j_send1.get("status") == "OK"
+        and "reply_msg" in j_send1
+        and j_send1["reply_msg"].get("target") == "COMMANDER-000"
     )
-    comm_checks.append((comm_post_ok, f"대표님 직통 송수신: HTTP {s_send} (답변자={j_send.get('reply_msg', {}).get('sender_name')})"))
+    comm_checks.append((comm_post_ok1, f"대표님 직통 송수신 1차: HTTP {s_send1} (답변자={j_send1.get('reply_msg', {}).get('sender_name')})"))
 
-    # 3) 프론트엔드 본관 소통 엔진 바인딩 검증
+    # 3) 앵무새 매크로 차단 및 지능형 어명 분석 검증 (2차 질문: '번튼2번 확인')
+    s_send2, j_send2 = http_post("/api/comm-send", {
+        "message": "번튼2번 확인",
+        "target": "DEPT-2"
+    })
+    reply1_text = j_send1.get("reply_msg", {}).get("text") or j_send1.get("reply_msg", {}).get("message", "")
+    reply2_text = j_send2.get("reply_msg", {}).get("text") or j_send2.get("reply_msg", {}).get("message", "")
+    is_not_parrot = (reply1_text != reply2_text and len(reply2_text) > 10)
+    intelligent_ok = ("제2청사" in reply2_text or "대본" in reply2_text or "후킹" in reply2_text or "2번" in reply2_text or "완료" in reply2_text or "접수" in reply2_text)
+    comm_checks.append((is_not_parrot and intelligent_ok, f"앵무새 매크로 영구 박멸 & AI 지능형 어명 분기 검증(응답 상이={is_not_parrot}, 지능형={intelligent_ok})"))
+
+    # 4) 대표님 직통 수명 원장(COMMANDER_DIRECT_INBOX.md) 기록 실존 검증
+    inbox_file = BASE_DIR / "COMMANDER_DIRECT_INBOX.md"
+    inbox_ok = inbox_file.exists() and len(inbox_file.read_text(encoding="utf-8", errors="replace")) > 50
+    comm_checks.append((inbox_ok, f"대표님 직통 수명 원장 실존 및 기록 검증({inbox_ok})"))
+
+    # 5) 프론트엔드 본관 소통 엔진 바인딩 검증
     dash_html = (BASE_DIR / "dashboard" / "index.html").read_text(encoding="utf-8", errors="replace")
     fe_comm_ok = (
         "sendDirectComm" in dash_html
@@ -469,7 +503,7 @@ try {{
 
     gate7_ok = all(c[0] for c in comm_checks)
     gate7_detail = " / ".join(c[1] for c in comm_checks)
-    log_gate("HARD-GATE-7", "제1과제 실시간 양방향 소통 사령부(API·송수신·UI) 실전 검증", gate7_ok, gate7_detail)
+    log_gate("HARD-GATE-7", "제1과제 실시간 양방향 지능형 소통 사령부(API·지능분기·수명원장·UI) 실전 검증", gate7_ok, gate7_detail)
 
     # --------------------------------------------------------------------------
     # [HARD-GATE 8] 보안 원문 키 노출 0% 감사 및 구버전 apply_v* 잔재 0건 검증
@@ -553,11 +587,11 @@ try {{
     ot2_ok = (s_ot2 == 200 and j_ot2.get("status") == "OK" and len(script_files) >= 1)
     ot_checks.append((ot2_ok, f"3초 후킹 대본 자동집필: HTTP {s_ot2} (대본 파일 {len(script_files)}건)"))
 
-    # 3) BM 수익화 파이프라인 원터치 점검
-    s_ot3, j_ot3 = http_post("/api/one-touch-execute", {"action_type": "BM_PIPELINE", "unit_price": 29000, "sales_qty": 100})
+    # 3) BM 수익화 파이프라인 원터치 점검 (0원 정직 초기화 상태 검증)
+    s_ot3, j_ot3 = http_post("/api/one-touch-execute", {"action_type": "BM_PIPELINE", "unit_price": 0, "sales_qty": 0})
     bm_file_ok = (BASE_DIR / "knowledge_engine" / "wiki" / "dept_deliverables" / "BM_AUTO_REPORT.md").exists()
     ot3_ok = (s_ot3 == 200 and j_ot3.get("status") == "OK" and bm_file_ok)
-    ot_checks.append((ot3_ok, f"BM 수익화 자동점검: HTTP {s_ot3} (BM_AUTO_REPORT.md 생성)"))
+    ot_checks.append((ot3_ok, f"BM 수익화 자동점검(0원): HTTP {s_ot3} (BM_AUTO_REPORT.md 생성)"))
 
     # 4) 8대 정예 팀원 원터치 일괄 출격
     s_ot4, j_ot4 = http_post("/api/one-touch-execute", {"action_type": "ALL_8_AGENTS_DISPATCH"})
