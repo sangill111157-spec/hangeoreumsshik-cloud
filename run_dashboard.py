@@ -1821,6 +1821,25 @@ class DashboardHandler(SimpleHTTPRequestHandler):
             self.wfile.write(body)
             return
 
+        # 📈 [v11.0] NVIDIA 미국주식 AI 트레이딩 봇 실시간 관제 상태 (GET /api/nvda-trading-status)
+        if path == '/api/nvda-trading-status':
+            try:
+                import nvda_trading_manager
+                import importlib
+                importlib.reload(nvda_trading_manager)
+                nvda_status = nvda_trading_manager.get_nvda_trading_status()
+            except Exception as e:
+                nvda_status = {"status": "error", "success": False, "message": str(e)}
+            body = json.dumps(nvda_status, ensure_ascii=False).encode("utf-8")
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.send_header("Cache-Control", "no-cache, no-store")
+            self.end_headers()
+            self.wfile.write(body)
+            return
+
         # 11. 📊 [v10.3] 대표님 구글 시트 & 과거 기록 발굴 대조 리포트 (GET /api/google-sheets-report)
         if path == '/api/google-sheets-report':
             try:
@@ -1909,6 +1928,33 @@ class DashboardHandler(SimpleHTTPRequestHandler):
                     "success": True,
                     "message": f"{platform} 계정 정보 안전 금고 업데이트 완료",
                     "data": up_res
+                }
+            except Exception as e:
+                resp = {"status": "error", "success": False, "message": str(e)}
+
+            body = json.dumps(resp, ensure_ascii=False).encode("utf-8")
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(body)
+            return
+
+        # 📈 [v11.0] NVIDIA 트레이딩 봇 원터치 실시간 관제 감사 및 브리핑 (POST /api/nvda-trading-audit-run)
+        if self.path == '/api/nvda-trading-audit-run':
+            length = int(self.headers.get('Content-Length', 0))
+            raw_body = self.rfile.read(length) if length > 0 else b'{}'
+            try:
+                import nvda_trading_manager
+                import importlib
+                importlib.reload(nvda_trading_manager)
+                audit_res = nvda_trading_manager.run_nvda_trading_audit()
+                resp = {
+                    "status": "OK",
+                    "success": True,
+                    "message": "NVIDIA 트레이딩 봇 원터치 무중단 실시간 관제 감사 완료",
+                    "data": audit_res
                 }
             except Exception as e:
                 resp = {"status": "error", "success": False, "message": str(e)}

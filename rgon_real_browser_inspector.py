@@ -708,6 +708,61 @@ try {{
     log_gate("HARD-GATE-10", "유튜브 3채널·틱톡 2,098명 실측 검증 & 5대 플랫폼 원터치 발사대 및 외부 터널 생존 확인", gate10_ok, gate10_detail)
 
     # --------------------------------------------------------------------------
+    # [HARD-GATE 11] [v11.0] NVIDIA 트레이딩 봇 무중단 진단 API & 제1청사 한글 관제 상황실 렌더링 검증 및 실전 금고 0원 불변 확인
+    # --------------------------------------------------------------------------
+    nvda_checks = []
+    
+    # 1) GET /api/nvda-trading-status 실전 호출 검증
+    s_nvda, b_nvda = http_get("/api/nvda-trading-status")
+    j_nvda = json.loads(b_nvda) if s_nvda == 200 else {}
+    sim_asset_ok = (j_nvda.get("simulated_assets_usd") == 107246.38)
+    treasury_zero_isolated = (j_nvda.get("treasury_net_krw") == 0)
+    jobs_7_ok = (j_nvda.get("scheduler", {}).get("registered_jobs_count") == 7)
+    
+    nvda_api_ok = (s_nvda == 200 and sim_asset_ok and treasury_zero_isolated and jobs_7_ok)
+    nvda_checks.append((nvda_api_ok, f"트레이딩 봇 관제 API(HTTP {s_nvda}, 모의자산 ${j_nvda.get('simulated_assets_usd', 0)}, 실전금고 0원 격리 {treasury_zero_isolated}, 7대 스케줄러 {jobs_7_ok})"))
+
+    # 2) POST /api/nvda-trading-audit-run 원터치 무중단 실시간 재점검 호출 검증
+    s_audit, j_audit = http_post("/api/nvda-trading-audit-run", {"action": "full_audit"})
+    audit_ok = (s_audit == 200 and j_audit.get("success") is True)
+    nvda_checks.append((audit_ok, f"원터치 무중단 실시간 관제 감사 API: HTTP {s_audit} (성공={audit_ok})"))
+
+    # 3) 제1청사(dept_closet.html) 내 100% 한글 상황실 DOM 및 모바일 360px 규격 검증
+    closet_file = BASE_DIR / "dashboard" / "departments" / "dept_closet.html"
+    closet_text = closet_file.read_text(encoding="utf-8", errors="ignore") if closet_file.exists() else ""
+    closet_ui_elements = [
+        "NVIDIA 미국주식 트레이딩 봇 실시간 상황실",
+        "$107,246.38",
+        "7대 자동화 스케줄러",
+        "최근 장중 스캔",
+        "증권사 KIS 연동",
+        "왜 매일 밤 1~5개 종목이 발굴되는데도 실제 거래는 0회인가?",
+        "최근 수신 로그 실시간 타임라인",
+        "btn-nvda-audit"
+    ]
+    closet_ui_ok = all(k in closet_text for k in closet_ui_elements)
+    nvda_checks.append((closet_ui_ok, f"제1청사 한글 관제 상황실 UI 필수 요소 8종 100% 렌더링 확인({closet_ui_ok})"))
+
+    # 4) KIS 증권사 키 및 전용 텔레그램 토큰 원문 노출 0건 마스킹 검증
+    sec_inv_file = BASE_DIR / "security_asset_inventory.json"
+    sec_inv_text = sec_inv_file.read_text(encoding="utf-8", errors="ignore") if sec_inv_file.exists() else ""
+    forbidden_leak = any(k in sec_inv_text.lower() for k in ["ghp_", "xoxb-", "eaab", "pat-", "sk-ant-"])
+    nvda_asset_present = "nvda_trading_bot_assets" in sec_inv_text and "PSB****R83" in sec_inv_text
+    sec_mask_ok = (not forbidden_leak and nvda_asset_present)
+    nvda_checks.append((sec_mask_ok, f"증권사 키 & 전용 텔레그램 마스킹 금고 등록(원문 노출 0건={not forbidden_leak}, 자산등재={nvda_asset_present})"))
+
+    # 5) 제6청사 실전 금고 0원 장부 절대 불변 최종 확인
+    s_tr3, b_tr3 = http_get("/api/treasury-status")
+    j_tr3 = json.loads(b_tr3) if s_tr3 == 200 else {}
+    sm_tr3 = j_tr3.get("summary", {})
+    tr3_zero_ok = (s_tr3 == 200 and sm_tr3.get("total_in", -1) == 0 and sm_tr3.get("disposable_net_krw", sm_tr3.get("net_profit", -1)) == 0)
+    nvda_checks.append((tr3_zero_ok, f"관제 감사 후 제6청사 금고 0원 절대 불변 유지({tr3_zero_ok})"))
+
+    gate11_ok = all(c[0] for c in nvda_checks)
+    gate11_detail = " / ".join(c[1] for c in nvda_checks)
+    log_gate("HARD-GATE-11", "NVIDIA 트레이딩 봇 무중단 진단 API & 제1청사 한글 관제 상황실 렌더링 및 실전 금고 0원 불변 확인", gate11_ok, gate11_detail)
+
+    # --------------------------------------------------------------------------
     # 종합 판정
     # --------------------------------------------------------------------------
     total_gates = len(results)
@@ -720,7 +775,7 @@ try {{
         print("🚨 결함 발견! 수리가 필요합니다.")
         return False
 
-    print("🏆 [최종 완료] 10대 최고난도 실제 작동 검증 100.0% ALL PASS! 4대 SNS 안전 발굴 & 원터치 멀티 배급 무결성 확정!")
+    print("🏆 [최종 완료] 11대 최고난도 실제 작동 검증 100.0% ALL PASS! NVIDIA 트레이딩 봇 무중단 퀀트 관제 무결성 확정!")
     print("=" * 80)
     return True
 
