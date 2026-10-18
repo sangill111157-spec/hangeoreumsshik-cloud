@@ -1859,6 +1859,26 @@ class DashboardHandler(SimpleHTTPRequestHandler):
             self.wfile.write(body)
             return
 
+        # 🧠 [v11.3] 르곤 어사이드(Rgon-Aside) 에이전트 브라우저 상태 조회 (GET /api/aside-status)
+        if path == '/api/aside-status':
+            try:
+                page_id = query.get('page', ['command_main'])[0] if 'query' in locals() and query else 'command_main'
+                import rgon_aside_browser_agent
+                import importlib
+                importlib.reload(rgon_aside_browser_agent)
+                aside_res = rgon_aside_browser_agent.get_aside_status(page_id=page_id)
+            except Exception as e:
+                aside_res = {"status": "error", "success": False, "message": str(e)}
+            body = json.dumps(aside_res, ensure_ascii=False).encode("utf-8")
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.send_header("Cache-Control", "no-cache, no-store")
+            self.end_headers()
+            self.wfile.write(body)
+            return
+
         # 11. 📊 [v10.3] 대표님 구글 시트 & 과거 기록 발굴 대조 리포트 (GET /api/google-sheets-report)
         if path == '/api/google-sheets-report':
             try:
@@ -2030,6 +2050,38 @@ class DashboardHandler(SimpleHTTPRequestHandler):
                     "success": True,
                     "message": "6대 청사 합동 협업 릴레이 완주 및 산출물/텔레그램 동기화 성공",
                     "data": run_res
+                }
+            except Exception as e:
+                resp = {"status": "error", "success": False, "message": str(e)}
+
+            body = json.dumps(resp, ensure_ascii=False).encode("utf-8")
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(body)
+            return
+
+        # 🧠 [v11.3] 르곤 어사이드(Rgon-Aside) 서브 에이전트 실행 (POST /api/aside-execute)
+        if self.path == '/api/aside-execute':
+            length = int(self.headers.get('Content-Length', 0))
+            raw_body = self.rfile.read(length) if length > 0 else b'{}'
+            try:
+                post_data = json.loads(raw_body.decode('utf-8')) if raw_body else {}
+                mode = post_data.get("mode", "MULTI_7_CHANNEL_AUTOFILL")
+                page_id = post_data.get("page_id", "command_main")
+                prompt = post_data.get("prompt", "")
+                
+                import rgon_aside_browser_agent
+                import importlib
+                importlib.reload(rgon_aside_browser_agent)
+                exec_res = rgon_aside_browser_agent.execute_aside_command(mode=mode, page_id=page_id, prompt=prompt)
+                resp = {
+                    "status": "OK",
+                    "success": True,
+                    "message": "르곤 어사이드 에이전트 작업 완수",
+                    "data": exec_res
                 }
             except Exception as e:
                 resp = {"status": "error", "success": False, "message": str(e)}

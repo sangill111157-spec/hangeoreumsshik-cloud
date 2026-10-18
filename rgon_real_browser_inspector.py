@@ -834,6 +834,62 @@ try {{
     log_gate("HARD-GATE-12", "6대 청사 합동 협업 릴레이 실전 기동 & 6구간 바통 터치 무결성 및 합동 산출물 파일 생성 검증", gate12_ok, gate12_detail)
 
     # --------------------------------------------------------------------------
+    # [HARD-GATE 13] [v11.3] 르곤 어사이드(Rgon-Aside) 전 청사 장착 및 서브 에이전트 API 실전 검증
+    # --------------------------------------------------------------------------
+    aside_checks = []
+
+    # 1) GET /api/aside-status?page=dept_closet 실전 호출 검증
+    s_as_get, b_as_get = http_get("/api/aside-status?page=dept_closet")
+    j_as_get = json.loads(b_as_get) if s_as_get == 200 else {}
+    sub_count = j_as_get.get("sub_agents_status", {}).get("total_count", 0)
+    vault_status = j_as_get.get("vault_security", {}).get("status")
+    as_get_ok = (s_as_get == 200 and sub_count == 7 and vault_status == "PROTECTED")
+    aside_checks.append((as_get_ok, f"어사이드 상태 API(HTTP {s_as_get}, 서브에이전트 {sub_count}/7기, Vault보안={vault_status})"))
+
+    # 2) POST /api/aside-execute 7대 채널 서브 에이전트 동시 출격 검증
+    s_as_run, j_as_run = http_post("/api/aside-execute", {"mode": "MULTI_7_CHANNEL_AUTOFILL", "page_id": "dept_closet"})
+    j_as_data = j_as_run.get("data", j_as_run) if s_as_run == 200 else {}
+    as_receipt = j_as_data.get("receipt_id", "")
+    as_agents_count = j_as_data.get("sub_agents_count", 0)
+    as_artifact_file = j_as_data.get("artifact_file", "")
+    as_run_ok = (s_as_run == 200 and as_agents_count == 7 and bool(as_receipt) and bool(as_artifact_file))
+    aside_checks.append((as_run_ok, f"7대 채널 자동채움 API(HTTP {s_as_run}, 영수증 {as_receipt}, 7기 출격={as_run_ok})"))
+
+    # 3) 실물 아티팩트 영수증 파일(aside_artifacts/ASIDE_RUN_*.md) 실재 및 7대 채널 기장 검증
+    artifact_p = Path(as_artifact_file) if as_artifact_file else None
+    artifact_exists = artifact_p.exists() if artifact_p else False
+    artifact_txt = artifact_p.read_text(encoding="utf-8", errors="ignore") if artifact_exists else ""
+    artifact_ch_ok = all(k in artifact_txt for k in ["한걸음씩", "Booster_Playlist", "TheCaféHour", "boosterplaylist", "인스타그램", "스레드", "페이스북"])
+    art_ok = (artifact_exists and artifact_ch_ok)
+    aside_checks.append((art_ok, f"실물 아티팩트 파일 실재 & 7대 채널 카드 기장 확인({art_ok})"))
+
+    # 4) 본관 3종 및 6대 청사 HTML 9종 전원 aside_drawer.js 장착 검증
+    html_targets = [
+        BASE_DIR / "dashboard" / "index.html",
+        BASE_DIR / "index.html",
+        BASE_DIR / "docs" / "index.html",
+        BASE_DIR / "dashboard" / "departments" / "dept_closet.html",
+        BASE_DIR / "dashboard" / "departments" / "dept_connect_ai.html",
+        BASE_DIR / "dashboard" / "departments" / "dept_media.html",
+        BASE_DIR / "dashboard" / "departments" / "dept_education.html",
+        BASE_DIR / "dashboard" / "departments" / "dept_vault.html",
+        BASE_DIR / "dashboard" / "departments" / "dept_treasury.html"
+    ]
+    all_9_injected = all("aside_drawer.js" in f.read_text(encoding="utf-8", errors="ignore") for f in html_targets if f.exists())
+    aside_checks.append((all_9_injected, f"본관·6대 청사 9개 HTML 전원 어사이드 서랍 장착 확인({all_9_injected})"))
+
+    # 5) 제6청사 실전 금고 0원 장부 절대 불변 최종 확인
+    s_tr5, b_tr5 = http_get("/api/treasury-status")
+    j_tr5 = json.loads(b_tr5) if s_tr5 == 200 else {}
+    sm_tr5 = j_tr5.get("summary", {})
+    tr5_zero_ok = (s_tr5 == 200 and sm_tr5.get("total_in", -1) == 0 and sm_tr5.get("disposable_net_krw", sm_tr5.get("net_profit", -1)) == 0)
+    aside_checks.append((tr5_zero_ok, f"어사이드 가동 후 제6청사 금고 0원 절대 불변 유지({tr5_zero_ok})"))
+
+    gate13_ok = all(c[0] for c in aside_checks)
+    gate13_detail = " / ".join(c[1] for c in aside_checks)
+    log_gate("HARD-GATE-13", "르곤 어사이드(Rgon-Aside) 전 청사 장착 및 서브 에이전트 API 실전 검증", gate13_ok, gate13_detail)
+
+    # --------------------------------------------------------------------------
     # 종합 판정
     # --------------------------------------------------------------------------
     total_gates = len(results)
@@ -846,7 +902,7 @@ try {{
         print("🚨 결함 발견! 수리가 필요합니다.")
         return False
 
-    print("🏆 [최종 완료] 12대 최고난도 실제 작동 검증 100.0% ALL PASS! 6대 청사 합동 협업 릴레이 및 데이터 바통 터치 무결성 확정!")
+    print("🏆 [최종 완료] 13대 최고난도 실제 작동 검증 100.0% ALL PASS! 르곤 어사이드(Rgon-Aside) 전 청사 장착 및 서브 에이전트 무결성 확정!")
     print("=" * 80)
     return True
 
