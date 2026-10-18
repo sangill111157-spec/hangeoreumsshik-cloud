@@ -39,18 +39,17 @@ def check_scenario(iteration):
     with open("run_dashboard.py", "r", encoding="utf-8", errors="ignore") as f:
         py_run = f.read()
 
-    # 1. [TDD-1] 신 제1청사(dept_closet.html) 천부 오디세이 제1탄: 생성 계단식 엔진 검증
+    # 1. [TDD-1] 제1청사(dept_closet.html) 차세대 전략 프로젝트 R&D 본부 (Clean Slate Ready) 무결점 검증
     d1 = "dashboard/departments/dept_closet.html"
     d1_ok = False
     if os.path.exists(d1):
         with open(d1, "r", encoding="utf-8", errors="ignore") as f:
             html_d1 = f.read()
-        d1_ok = ("advanceGenesisStep" in html_d1 and
-                 "playGenesisYulryeoSound" in html_d1 and
-                 "spawnGoldenParticles" in html_d1 and
-                 "cheonbu-genesis-27-board" in html_d1 and
-                 "series-staircase-nav" in html_d1 and
-                 "copyGenesisCertificate" in html_d1)
+        d1_ok = ("차세대 전략 프로젝트 R&D 본부" in html_d1 and
+                 "Clean Slate Ready" in html_d1 and
+                 "word-break: keep-all" in html_d1 and
+                 "play_cheonbu_mobile" not in html_d1 and
+                 "matchPhotoshopLighting" not in html_d1)
     p1 = d1_ok
 
     # 2. [TDD-2] 6대 독립 청사 파일 분리 검증

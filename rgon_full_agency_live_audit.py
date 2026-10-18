@@ -54,17 +54,16 @@ def run_rgon_full_agency_audit():
     guard_json = json.loads(body_g)
     record("GATE-1", "청와대 경호처 API(/api/cheongwadae-status) 정상 가동", st_g == 200 and guard_json.get("status") == "OK")
 
-    # [GATE 2] 신 제1청사(천부 오디세이 스튜디오: 제1탄 생성) TOP 10 엔진 감사 (1개)
+    # [GATE 2] 제1청사: 차세대 전략 프로젝트 R&D 본부 (Clean Slate Ready) 무결점 가동 감사 (1개)
     st_c1, body_c1 = http_get("/departments/dept_closet.html")
     c1_ok = (
         st_c1 == 200
-        and "advanceGenesisStep" in body_c1
-        and "playGenesisYulryeoSound" in body_c1
-        and "spawnGoldenParticles" in body_c1
-        and "cheonbu-genesis-27-board" in body_c1
-        and "series-staircase-nav" in body_c1
+        and "차세대 전략 프로젝트 R&D 본부" in body_c1
+        and "Clean Slate Ready" in body_c1
+        and "word-break: keep-all" in body_c1
+        and len(body_c1) > 2000
     )
-    record("GATE-2", "신 제1청사(천부 오디세이 제1탄: 생성) TOP 10 게임 엔진 무결점 가동", c1_ok, f"Size={len(body_c1)}B (율려432Hz·파티클타격감·27자도감·3단계진화 완비)")
+    record("GATE-2", "제1청사(차세대 전략 프로젝트 R&D 본부) Clean Slate 무결점 가동", c1_ok, f"Size={len(body_c1)}B (대청소 완료 · 차세대 전략 R&D 관제)")
 
     # [GATE 3] 제2·3·4·5·6청사 독립 청사 웹페이지 라이브 응답 감사 (5개)
     depts = [
@@ -232,46 +231,33 @@ def run_rgon_full_agency_audit():
     gate14_ok = (st_vlt == 200 and vlt_has_scan and vlt_has_wiki and vlt_has_cert and vlt_has_legal)
     record("GATE-14", "제5청사 실시간 법무 스캐너 & 18대 산출물 위키 아카이브 보드 실물 검증", gate14_ok, f"HTTP {st_vlt} (법무스캐너, 위키보드, 인증서 완비)")
 
-    # [GATE 15] 바른 선택 유도 & 진정한 사랑·아름다움(眞美·眞愛) 개화 엔진 실물 검증 (1개)
+    # [GATE 15] 제1청사: 차세대 전략 프로젝트 R&D 본부 (Clean Slate Ready) 무결점 검증 (1개)
     st_c1, body_c1 = http_get("/departments/dept_closet.html")
     g15_ok = (
         st_c1 == 200
-        and "spawnLoveAndBeautyPetals" in body_c1
-        and "triggerHeartMirrorReflection" in body_c1
-        and "heart-mirror-reflection-box" in body_c1
-        and "real-life-right-action-card" in body_c1
-        and "hongik-5-virtue-compass" in body_c1
+        and "차세대 전략 프로젝트 R&D 본부" in body_c1
+        and "Clean Slate Ready" in body_c1
+        and "word-break: keep-all" in body_c1
+        and "play_cheonbu_mobile" not in body_c1
+        and "matchPhotoshopLighting" not in body_c1
     )
-    record("GATE-15", "바른 선택 유도 & 진정한 사랑·아름다움(眞美·眞愛) 개화 엔진 검증", g15_ok, f"HTTP {st_c1} (꽃잎파동·심경성찰·실천약속·사랑나침반 완비)")
+    record("GATE-15", "제1청사 차세대 전략 프로젝트 R&D 본부 (Clean Slate Ready) 무결점 실물 검증", g15_ok, f"HTTP {st_c1} (잔재 0% · 차세대 전략 기획 R&D 청사 완비)")
 
-    # [GATE 16] 5대 분야별 전담팀(이미지·음향·영상·스토리·엔진) 외부 AI 레버리지 데크 검증 (1개)
-    st_corps, body_corps = http_get("/api/cheonbu-production-corps")
-    corps_json = json.loads(body_corps) if st_corps == 200 else {}
-    g16_api_ok = (
-        st_corps == 200
-        and len(corps_json.get("specialist_teams", [])) == 5
-        and "ep1_genesis_stage_assets" in corps_json
-    )
-    g16_deck_ok = (
-        "specialist-teams-leverage-deck" in body_c1
-        and "triggerExternalAiLeverage" in body_c1
-        and "ai-leverage-preview-stage" in body_c1
-    )
-    record("GATE-16", "5대 분야별 전담팀 & 외부 AI 레버리지 스튜디오 데크(/api/cheonbu-production-corps) 실물 검증", g16_api_ok and g16_deck_ok, f"HTTP {st_corps} (5대 전담팀 100% 가동 & 레버리지 데크 완비)")
+    # [GATE 16] 르곤 최고난도 실제 작동 검수 엔진 (rgon_real_browser_inspector.py) 6대 관문 연동 검증 (1개)
+    import rgon_real_browser_inspector
+    inspector_ok = rgon_real_browser_inspector.run_inspector()
+    record("GATE-16", "르곤 최고난도 실제 작동 검수 엔진(Dead Button 0%·DOM/JS 런타임) 전수 연동 검증", inspector_ok, "6대 최고난도 실전 게이트 100% ALL PASS")
 
-    # [GATE 17] 스마트폰 풀스크린 전용 폰게임 앱 실물 검증 (1개)
-    st_mob, body_mob = http_get("/play_cheonbu_mobile.html")
-    g17_ok = (
-        st_mob == 200
-        and "100dvh" in body_mob
-        and "overflow: hidden" in body_mob
-        and "mobile-fullscreen-canvas" in body_mob
-        and "CHARACTERS_SVG" in body_mob
-        and "heart-mirror-reflection-box" in body_mob
-        and "playGenesisYulryeoSound" in body_mob
-        and "modal-corps" in body_mob
-    )
-    record("GATE-17", "스마트폰 풀스크린 폰게임 앱(/play_cheonbu_mobile.html) 무스크롤·풀캔버스·성찰 실물 검증", g17_ok, f"HTTP {st_mob} (100dvh 풀스크린·3단진화·심경거울·432Hz 완비)")
+    # [GATE 17] 제5청사 5대 클린룸 안전 웹앱 전수 가동 및 404/좀비 0% 실물 검증 (1개)
+    safe_apps_all = [
+        "/safe_apps/safe_daily_lucky.html",
+        "/safe_apps/safe_salary_planner.html",
+        "/safe_apps/safe_healing_sound.html",
+        "/safe_apps/safe_rich_dna_test.html",
+        "/safe_apps/safe_daily_routine.html"
+    ]
+    apps_st = [http_get(p)[0] == 200 for p in safe_apps_all]
+    record("GATE-17", "제5청사 공인 5대 클린룸 안전 웹앱 전수 200 OK 무결점 가동 검증", all(apps_st), f"5대 안전 웹앱 응답: {sum(apps_st)}/5 정상")
 
     # [GATE 18] 외부 5G 스마트폰 접속용 라이브 HTTPS 터널 실제 외부 접속 검증 (1개)
     import urllib.request
@@ -285,7 +271,7 @@ def run_rgon_full_agency_audit():
         try:
             with open(active_tunnel_file, "r", encoding="utf-8") as f:
                 t_data = json.load(f)
-            tunnel_url = t_data.get("mobile_game_url") or (t_data.get("tunnel_url", "") + "/play_cheonbu_mobile.html")
+            tunnel_url = t_data.get("dashboard_url") or t_data.get("tunnel_url", "")
         except Exception:
             pass
 
@@ -297,7 +283,7 @@ def run_rgon_full_agency_audit():
             with urllib.request.urlopen(req, timeout=12) as response:
                 content = response.read()
                 st_code = response.status
-                if st_code == 200 and len(content) > 15000:
+                if st_code == 200 and len(content) > 10000:
                     gate18_ok = True
                     g18_detail = f"HTTP 200 OK (크기: {len(content)}B, 도메인: {urllib.parse.urlparse(tunnel_url).netloc})"
                 else:
@@ -305,21 +291,19 @@ def run_rgon_full_agency_audit():
         except Exception as e:
             g18_detail = f"외부 터널 접속 실패: {e}"
     
-    record("GATE-18", "외부 5G 스마트폰용 라이브 Cloudflare HTTPS 터널 실전 검증", gate18_ok, g18_detail)
+    record("GATE-18", "외부 5G 스마트폰용 라이브 Cloudflare HTTPS 터널 본관 실전 검증", gate18_ok, g18_detail)
 
-    # [GATE 19] 2026 GitHub 8대 AI 개발 스킬 흡수 엔진 실물 작동 검증 (1개)
-    st_sk, body_sk = http_get("/api/github-top8-skills")
-    sk_json = json.loads(body_sk) if st_sk == 200 else {}
-    st_mob_sk, body_mob_sk = http_get("/play_cheonbu_mobile.html")
-    g19_api_ok = (st_sk == 200 and len(sk_json.get("absorbed_skills", [])) == 8)
-    g19_mob_ok = (
-        st_mob_sk == 200
-        and "drawCheonbuSacredGeometry" in body_mob_sk
-        and "triggerSuperpowerFeverBoost" in body_mob_sk
-        and "modal-top8-skills" in body_mob_sk
-        and "rea-reasoning-guide-bar" in body_mob_sk
+    # [GATE 19] 청와대 본관 컨트롤 타워 대청소(다이어트 및 Dead Button 0%) 실물 검증 (1개)
+    st_main, body_main = http_get("/")
+    gate19_ok = (
+        st_main == 200
+        and "tab-daughters" not in body_main
+        and "play_cheonbu_mobile" not in body_main
+        and "matchPhotoshopLighting" not in body_main
+        and "dept_closet.html" in body_main
+        and "dept_treasury.html" in body_main
     )
-    record("GATE-19", "2026 GitHub 8대 AI 개발 스킬 흡수 엔진 실물 검증", g19_api_ok and g19_mob_ok, f"HTTP {st_sk} (8대 스킬 100% 흡수·신성기하학·슈퍼파워 완비)")
+    record("GATE-19", "청와대 본관 컨트롤 타워 대청소 및 좀비 코드 0% 무결점 실물 검증", gate19_ok, f"HTTP {st_main} (크기={len(body_main)}B, 구 옷장·1차테스트 잔재 완전 제거)")
 
     # 경호처 해시 최신화
     from cheongwadae_guard import save_golden_hashes

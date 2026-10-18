@@ -31,33 +31,33 @@ INITIAL_WORK_QUEUE = {
     "departments": [
         {
             "dept_id": "dept_1",
-            "dept_name": "제1청사 (천부 오디세이 스튜디오 — TOP 10 엔진 개발청)",
-            "dept_role": "글로벌 TOP 10 흥행 공식(캐릭터 3단 진화·황금 입자 타격감·27자 룬 도감) 계단식 게임 스튜디오",
+            "dept_name": "제1청사 (차세대 전략 프로젝트 R&D 본부)",
+            "dept_role": "대청소 완료 · Clean Slate Ready · 무결점 차세대 혁신 기술 인큐베이팅 R&D 본부",
             "tasks": [
                 {
                     "task_id": "TASK-D1-01",
-                    "benchmark_target": "뱀파이어 서바이벌(파티클 타격감) & Web Audio 432Hz 율려 신디사이저",
-                    "title": "[제1탄: 생성] 태초의 율려(432Hz) & Canvas 황금 입자 타격감 & 캐릭터 3단 진화 엔진",
-                    "spec": "빛방울->수호동자->천부수호신 3단 진화 SVG 및 터치 시 황금 파티클 폭발(spawnGoldenParticles) 타격감과 432Hz/528Hz 화음 연동",
-                    "legal_rule": "퍼블릭 도메인 천부경 기반 100% 자체 Canvas 파티클 및 Web Audio 합성",
+                    "benchmark_target": "클린 슬레이트(Clean Slate) 아키텍처 & 폐기 잔재 100% 제거",
+                    "title": "[Clean Slate] 1차 테스트 파일 완전 삭제 및 무결점 프로젝트 기반 확립",
+                    "spec": "모든 좀비 파일 및 레거시 스크립트를 100% 철거하고 다음 핵심 프로젝트를 위한 무결점 청정 환경 구축",
+                    "legal_rule": "외부 침해 0% 클린룸 원칙 준수",
                     "status": "READY",
                     "progress": 100
                 },
                 {
                     "task_id": "TASK-D1-02",
-                    "benchmark_target": "포켓몬스터 도감(Pokédex) 수집 & 인터랙티브 타일 매트릭스",
-                    "title": "[제1탄: 생성] 포켓몬식 27자 황금 룬 도감 수집 보드 & 현대어 인성 풀이 시스템",
-                    "spec": "3x9 황금 타일 도감 터치 인터랙션 및 계단별 9자씩 각성되는 현대어 우주·인성 원리 표출 시스템",
-                    "legal_rule": "고대 천부경 원문 인용 및 100% 자체 현대어 인성 해석 적용",
+                    "benchmark_target": "TypeScript Wizard FSM & 무결점 상태 머신",
+                    "title": "[무결점 엔진] 런타임 에러 0건 & 버튼 먹통(Dead Button) 0% 보장 상태 머신 규격 수립",
+                    "spec": "초고속 연타나 단절 시에도 전이 오류가 발생하지 않는 유한 상태 머신(FSM) 가드 및 이벤트 바인딩 검증",
+                    "legal_rule": "100% 자체 안전 가드 로직 적용",
                     "status": "READY",
                     "progress": 100
                 },
                 {
                     "task_id": "TASK-D1-03",
-                    "benchmark_target": "원신(원소 조화) & 단군 신화 배달국 신시 개천 대서사",
-                    "title": "[차기 제2탄 준비] 환웅의 신시 개천 & 웅녀의 인내 시련 원소 조화 사전 설계",
-                    "spec": "풍백·우사·운사 원소 교감 시스템 및 제2탄 개천으로 이어지는 웅녀의 인내 시련 시나리오 사전 설계",
-                    "legal_rule": "건국 설화 공공 도메인 활용 100% 자체 각색",
+                    "benchmark_target": "W3C Web Audio API & 모바일 반응형 뷰포트 규격",
+                    "title": "[차세대 R&D] 360px 모바일 반응형 뷰포트 및 무지연 432Hz 율려 오디오 엔진 연구",
+                    "spec": "글자 깨짐 방지(word-break: keep-all) 및 Web Audio 기반 네이티브 무지연 오실레이터 사운드 표준화",
+                    "legal_rule": "W3C 국제 표준 웹 오디오 API 기반 100% 자체 합성",
                     "status": "READY",
                     "progress": 100
                 }

@@ -35,12 +35,12 @@ WISDOM_FILE = os.path.join(BASE_DIR, "wisdom_ledger.json")
 DEPARTMENTS = {
     "dept_1": {
         "id": "dept_1",
-        "code": "DEPT-CHEONBU-ODYSSEY",
-        "name": "제1청사: 천부(天符) 오디세이 게임 스튜디오",
+        "code": "DEPT-NEXTGEN-RND",
+        "name": "제1청사: 차세대 전략 프로젝트 R&D 본부",
         "file": os.path.join(DEPTS_DIR, "dept_closet.html"),
         "url": "/departments/dept_closet.html",
-        "badge": "🌌 천부 오디세이",
-        "desc": "[제1탄: 생성(生成)] 태초의 율려 432Hz · 삼재 마고대성 · 천부경 27자 황금 각성 계단식 게임",
+        "badge": "🏛️ 차세대 R&D",
+        "desc": "[대청소 완료 · Clean Slate Ready] 무결점 차세대 프로젝트 연구개발 및 기획 관제 본부",
         "protect_status": "LOCKED_IMMUTABLE",
         "responsible_agents": ["COMMANDER-000", "AGV-101", "RGON-001"]
     },
@@ -186,8 +186,6 @@ SAFE_APPS = {
     "app_3": {"name": "클린룸 웹앱 3호(432Hz 힐링 사운드)", "file": os.path.join(DASHBOARD_DIR, "safe_apps", "safe_healing_sound.html")},
     "app_4": {"name": "클린룸 웹앱 4호(부자 DNA 테스트)", "file": os.path.join(DASHBOARD_DIR, "safe_apps", "safe_rich_dna_test.html")},
     "app_5": {"name": "클린룸 웹앱 5호(하루 1% 성공 루틴)", "file": os.path.join(DASHBOARD_DIR, "safe_apps", "safe_daily_routine.html")},
-    "app_cheonbu": {"name": "천부 오디세이 제1탄(생성)", "file": os.path.join(DASHBOARD_DIR, "safe_apps", "safe_cheonbu_ep1_genesis.html")},
-    "app_cheonbu_mobile": {"name": "천부 오디세이 폰게임(생성)", "file": os.path.join(DASHBOARD_DIR, "play_cheonbu_mobile.html")},
 }
 
 GOLDEN_HASH_FILE = os.path.join(BASE_DIR, "cheongwadae_golden_hashes.json")

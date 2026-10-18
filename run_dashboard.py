@@ -1182,8 +1182,7 @@ def start_cloudflare_tunnel(port: int, force_restart: bool = False):
                         info_data = {
                             "active_tunnel_url": found_url,
                             "tunnel_url": found_url,
-                            "mobile_game_url": f"{found_url}/play_cheonbu_mobile.html",
-                            "dashboard_url": f"{found_url}/?v=950&tab=command",
+                            "dashboard_url": f"{found_url}/?v=960&tab=command",
                             "port": port,
                             "verified_status": 200,
                             "opened_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -1289,6 +1288,33 @@ class DashboardHandler(SimpleHTTPRequestHandler):
                 cg_data["morning_brief"] = auto_company_loop.get_morning_brief_agenda()
                 cg_data["auto_loop"] = auto_company_loop.get_auto_loop_status()
                 body = json.dumps(cg_data, ensure_ascii=False).encode('utf-8')
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.send_header("Access-Control-Allow-Origin", "*")
+                self.send_header("Content-Length", str(len(body)))
+                self.send_header("Cache-Control", "no-store")
+                self.end_headers()
+                self.wfile.write(body)
+                return
+            except Exception as e:
+                err_body = json.dumps({"status": "error", "message": str(e)}, ensure_ascii=False).encode('utf-8')
+                self.send_response(500)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.send_header("Access-Control-Allow-Origin", "*")
+                self.send_header("Content-Length", str(len(err_body)))
+                self.end_headers()
+        # 🏛️ [v8.5] 제6청사 총무·재무회계 1원 복식부기 실시간 상태 (GET /api/treasury-status)
+        if path == '/api/treasury-status':
+            try:
+                import general_affairs_treasury
+                st = general_affairs_treasury.get_treasury_status()
+                # 호환용 루트 필드 보강
+                sm = st.get("summary", {})
+                st["total_in_krw"] = sm.get("total_in", 0)
+                st["total_out_krw"] = sm.get("total_out", 0)
+                st["net_profit_krw"] = sm.get("net_profit", 0)
+                st["allocations"] = sm.get("allocations", {})
+                body = json.dumps(st, ensure_ascii=False).encode('utf-8')
                 self.send_response(200)
                 self.send_header("Content-Type", "application/json; charset=utf-8")
                 self.send_header("Access-Control-Allow-Origin", "*")
@@ -1664,6 +1690,21 @@ class DashboardHandler(SimpleHTTPRequestHandler):
             self.send_response(200)
             self.send_header("Content-Type", "application/json; charset=utf-8")
             self.send_header("Content-Length", str(len(body)))
+            self.send_header("Cache-Control", "no-store")
+            self.end_headers()
+            self.wfile.write(body)
+        # 9. 🏦 [v8.4] 총무팀 장부 상태 및 50:25:15:10 결산 조회 (GET /api/treasury-status)
+        if path == '/api/treasury-status':
+            try:
+                import general_affairs_treasury
+                status_data = general_affairs_treasury.get_treasury_status()
+            except Exception as e:
+                status_data = {"error": str(e)}
+            body = json.dumps(status_data, ensure_ascii=False).encode("utf-8")
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Access-Control-Allow-Origin", "*")
             self.send_header("Cache-Control", "no-store")
             self.end_headers()
             self.wfile.write(body)

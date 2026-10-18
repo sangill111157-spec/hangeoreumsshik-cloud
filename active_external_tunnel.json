@@ -1,9 +1,8 @@
 {
-  "active_tunnel_url": "https://motherboard-relay-ultimately-eddie.trycloudflare.com",
-  "tunnel_url": "https://motherboard-relay-ultimately-eddie.trycloudflare.com",
-  "mobile_game_url": "https://motherboard-relay-ultimately-eddie.trycloudflare.com/play_cheonbu_mobile.html",
-  "dashboard_url": "https://motherboard-relay-ultimately-eddie.trycloudflare.com/?v=950&tab=command",
+  "active_tunnel_url": "https://greene-contract-passed-press.trycloudflare.com",
+  "tunnel_url": "https://greene-contract-passed-press.trycloudflare.com",
+  "dashboard_url": "https://greene-contract-passed-press.trycloudflare.com/?v=960&tab=command",
   "port": 8501,
   "verified_status": 200,
-  "verified_at": "2026-10-18 18:55:42"
+  "opened_at": "2026-10-18 21:27:28"
 }
