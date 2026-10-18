@@ -1274,6 +1274,30 @@ class DashboardHandler(SimpleHTTPRequestHandler):
                 self.wfile.write(err_body)
                 return
 
+        # 🏛️ [v8.0] 청와대 경호처 4대 부서 독립 청사 실시간 상태 (GET /api/cheongwadae-status)
+        if path == '/api/cheongwadae-status':
+            try:
+                import cheongwadae_guard
+                cg_data = cheongwadae_guard.get_cheongwadae_status()
+                body = json.dumps(cg_data, ensure_ascii=False).encode('utf-8')
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.send_header("Access-Control-Allow-Origin", "*")
+                self.send_header("Content-Length", str(len(body)))
+                self.send_header("Cache-Control", "no-store")
+                self.end_headers()
+                self.wfile.write(body)
+                return
+            except Exception as e:
+                err_body = json.dumps({"status": "error", "message": str(e)}, ensure_ascii=False).encode('utf-8')
+                self.send_response(500)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.send_header("Access-Control-Allow-Origin", "*")
+                self.send_header("Content-Length", str(len(err_body)))
+                self.end_headers()
+                self.wfile.write(err_body)
+                return
+
         # 1. 설정 자동 주입
         if path == '/api/config':
             gh_token = get_github_token()
