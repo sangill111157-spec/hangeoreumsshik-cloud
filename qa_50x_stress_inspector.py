@@ -188,7 +188,6 @@ def main():
     print("[🔍 사전 검수 2] Node.js HTML 11종 스크립트 문법 전수 검수...")
     target_files = [
         "dashboard/index.html",
-        "dashboard/dream_closet_future_master_app.html",
         "dashboard/departments/dept_closet.html",
         "dashboard/departments/dept_connect_ai.html",
         "dashboard/departments/dept_media.html",
@@ -197,7 +196,9 @@ def main():
         "dashboard/departments/dept_treasury.html",
         "dashboard/safe_apps/safe_daily_lucky.html",
         "dashboard/safe_apps/safe_salary_planner.html",
-        "dashboard/safe_apps/safe_healing_sound.html"
+        "dashboard/safe_apps/safe_healing_sound.html",
+        "dashboard/safe_apps/safe_rich_dna_test.html",
+        "dashboard/safe_apps/safe_daily_routine.html"
     ]
     for target_path in target_files:
         with open(target_path, "r", encoding="utf-8") as f:

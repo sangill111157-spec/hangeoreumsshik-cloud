@@ -457,10 +457,21 @@ try {{
     zero_leak_ok = (len(raw_leaks) == 0)
     sec_checks.append((zero_leak_ok, f"원문 키 유출 0% (노출 파일 {len(raw_leaks)}건)"))
 
-    # 2) 구버전 apply_v*.py 잔재 0건 검증
+    # 2) 구버전 apply_v*.py 및 2차 폐기 잔재 파일 0건 검증
     apply_v_files = list(BASE_DIR.glob("apply_v*.py"))
-    purge_ok = (len(apply_v_files) == 0)
-    sec_checks.append((purge_ok, f"구버전 apply_v* 잔재 {len(apply_v_files)}건 (0건 유지)"))
+    purge_patterns = [
+        "dashboard/dream_closet_future_master_app.html",
+        "temp_step*.txt",
+        "turn*_report.md",
+        "report_8_16.md",
+        "task-*.log"
+    ]
+    purge_2nd_leaks = []
+    for pat in purge_patterns:
+        purge_2nd_leaks.extend(list(BASE_DIR.glob(pat)))
+    all_purge_files = apply_v_files + purge_2nd_leaks
+    purge_ok = (len(all_purge_files) == 0)
+    sec_checks.append((purge_ok, f"구버전/2차 폐기 잔재 {len(all_purge_files)}건 (0건 완전소각 유지)"))
 
     # 3) 단일 로컬 비밀금고(.env.local_vault) 및 .gitignore 철통 격리 검증
     vault_exists = (BASE_DIR / ".env.local_vault").exists()
@@ -475,9 +486,16 @@ try {{
     sec_api_ok = (s_sec == 200 and j_sec.get("summary", {}).get("github_leak_risk") == "0.00% (ZERO LEAK)")
     sec_checks.append((sec_api_ok, f"보안 인벤토리 API: HTTP {s_sec} (유출위험 {j_sec.get('summary', {}).get('github_leak_risk')})"))
 
+    # 5) 백엔드 구글 시트 발굴 리포트 API (/api/google-sheets-report) 정상 응답 검증
+    s_gs, b_gs = http_get("/api/google-sheets-report")
+    j_gs = json.loads(b_gs) if s_gs == 200 else {}
+    gs_count = j_gs.get("summary", {}).get("total_sheets_found", 0)
+    gs_api_ok = (s_gs == 200 and gs_count >= 20)
+    sec_checks.append((gs_api_ok, f"구글 시트 발굴 API: HTTP {s_gs} (발굴 {gs_count}건 >= 20건)"))
+
     gate8_ok = all(c[0] for c in sec_checks)
     gate8_detail = " / ".join(c[1] for c in sec_checks)
-    log_gate("HARD-GATE-8", "국가안보 보안 원문 노출 0% 감사 및 구버전 스크립트 100% 소각 검증", gate8_ok, gate8_detail)
+    log_gate("HARD-GATE-8", "국가안보 보안 원문 노출 0% 감사, 2차 잔재 100% 소각 및 구글 시트 발굴 API 검증", gate8_ok, gate8_detail)
 
     # --------------------------------------------------------------------------
     # 종합 판정

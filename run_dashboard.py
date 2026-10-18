@@ -1758,6 +1758,28 @@ class DashboardHandler(SimpleHTTPRequestHandler):
             self.wfile.write(body)
             return
 
+        # 11. 📊 [v10.3] 대표님 구글 시트 & 과거 기록 발굴 대조 리포트 (GET /api/google-sheets-report)
+        if path == '/api/google-sheets-report':
+            try:
+                rep_path = BASE_DIR / "google_sheets_history_report.json"
+                if rep_path.exists():
+                    with open(rep_path, "r", encoding="utf-8") as f:
+                        rep_data = json.load(f)
+                else:
+                    import google_sheets_archaeologist
+                    rep_data = google_sheets_archaeologist.conduct_archaeology()
+            except Exception as e:
+                rep_data = {"error": str(e), "summary": {}, "findings": []}
+            body = json.dumps(rep_data, ensure_ascii=False).encode("utf-8")
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.send_header("Cache-Control", "no-store")
+            self.end_headers()
+            self.wfile.write(body)
+            return
+
         # 루트 및 index.html 요청 시 항상 최신 파일 서빙 (캐시 방지 헤더 강제 주입)
         if path in ('/', '/index.html', ''):
             html_file = DASHBOARD_DIR / "index.html"

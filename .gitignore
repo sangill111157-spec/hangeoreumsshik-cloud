@@ -20,6 +20,7 @@
 !tsconfig.json
 !dashboard/manifest.json
 !security_asset_inventory.json
+!google_sheets_history_report.json
 *_secret*.json
 *_token*.json
 client_secret*.json
