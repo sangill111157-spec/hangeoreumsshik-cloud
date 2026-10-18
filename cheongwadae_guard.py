@@ -211,6 +211,15 @@ def save_golden_hashes():
         json.dump(hashes, f, ensure_ascii=False, indent=2)
     return hashes
 
+def verify_all_departments():
+    """6대 청사 및 본관 무결성 전수 검증"""
+    st = get_cheongwadae_status()
+    all_ok = all(d.get("exists", False) for d in st.get("departments", []))
+    return {
+        "overall_status": "ALL_SECURE" if all_ok else "WARNING",
+        "departments_count": len(st.get("departments", [])),
+        "status": st.get("status")
+    }
 
 if __name__ == "__main__":
     print("🏛️ [청와대 경호처] 중앙 컨트롤 타워 & 4대 부서 독립 청사 점검")

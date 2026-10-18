@@ -1399,6 +1399,34 @@ class DashboardHandler(SimpleHTTPRequestHandler):
                 self.wfile.write(err_body)
                 return
 
+        # ☀️ [v8.8] 르곤×안총리 야간 자율주행 모닝 브리핑 보고서 (GET /api/morning-briefing)
+        if path == '/api/morning-briefing':
+            try:
+                briefing_file = Path("morning_briefing_report.json")
+                if not briefing_file.exists():
+                    import night_autonomous_daemon
+                    data = night_autonomous_daemon.run_night_autonomous_shift()
+                else:
+                    data = json.loads(briefing_file.read_text(encoding="utf-8"))
+                body = json.dumps(data, ensure_ascii=False).encode('utf-8')
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.send_header("Access-Control-Allow-Origin", "*")
+                self.send_header("Content-Length", str(len(body)))
+                self.send_header("Cache-Control", "no-store")
+                self.end_headers()
+                self.wfile.write(body)
+                return
+            except Exception as e:
+                err_body = json.dumps({"status": "error", "message": str(e)}, ensure_ascii=False).encode('utf-8')
+                self.send_response(500)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.send_header("Access-Control-Allow-Origin", "*")
+                self.send_header("Content-Length", str(len(err_body)))
+                self.end_headers()
+                self.wfile.write(err_body)
+                return
+
         # 1. 설정 자동 주입
         if path == '/api/config':
             gh_token = get_github_token()
@@ -2055,6 +2083,22 @@ class DashboardHandler(SimpleHTTPRequestHandler):
 
                 import rgon_master_scheduler
                 res = rgon_master_scheduler.execute_scheduled_cycle(cycle_type)
+                resp = {"status": "OK", "data": res}
+            except Exception as e:
+                resp = {"status": "ERROR", "message": str(e)}
+
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json; charset=utf-8')
+            self.send_header('Access-Control-Allow-Origin', '*')
+            self.end_headers()
+            self.wfile.write(json.dumps(resp, ensure_ascii=False).encode('utf-8'))
+            return
+
+        # 🌙 [v8.8] 야간 무인 자율주행 1사이클 즉시 실행 (POST /api/night-autopilot-run)
+        if self.path == '/api/night-autopilot-run':
+            try:
+                import night_autonomous_daemon
+                res = night_autonomous_daemon.run_night_autonomous_shift()
                 resp = {"status": "OK", "data": res}
             except Exception as e:
                 resp = {"status": "ERROR", "message": str(e)}

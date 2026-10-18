@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 rgon_full_agency_live_audit.py
-[RGON-001 수석보좌관 주관] 전 기관(본관+1~6청사+5대 안전웹앱+18대 일거리+마스터스케줄+안총리 수뇌부) 22개 관문 실전 종합 감사
+[RGON-001 수석보좌관 주관] 전 기관(본관+1~6청사+5대 안전웹앱+18대 일거리+야간자율주행+모닝브리핑) 25개 관문 실전 종합 감사
 """
 import os
 import sys
@@ -36,7 +36,7 @@ def http_post(path, payload):
 
 def run_rgon_full_agency_audit():
     print("=" * 75)
-    print("🏛️ [RGON-001 보좌관 주관] 전 기관 22개 관문 실전 종합 감사 시작 (v8.7 PRIME)")
+    print("🏛️ [RGON-001 보좌관 주관] 전 기관 25개 관문 실전 종합 감사 시작 (v8.8 NIGHT-AUTOPILOT)")
     print("=" * 75)
     results = []
 
@@ -200,6 +200,36 @@ def run_rgon_full_agency_audit():
     )
     record("GATE-11", "제3청사 실물 미디어 스튜디오(Suno 30곡·432Hz·라디오쇼츠·배급) 엔진 완결 검증", media_all_ok, f"HTTP {st_m} (Web Audio, Distro, Shorts, 법무푸터 완비)")
 
+    # [GATE 12] 야간 무인 자율주행 & 모닝 브리핑 API 검증 (1개)
+    st_mb, body_mb = http_get("/api/morning-briefing")
+    mb_json = json.loads(body_mb)
+    st_np, body_np = http_post("/api/night-autopilot-run", {})
+    gate12_ok = (
+        st_mb == 200
+        and "duty_commanders" in mb_json
+        and st_np == 200
+        and body_np.get("status") == "OK"
+    )
+    record("GATE-12", "야간 무인 자율주행 & 모닝 브리핑 API (/api/morning-briefing, /api/night-autopilot-run) 검증", gate12_ok, f"GET {st_mb}, POST {st_np}")
+
+    # [GATE 13] 제2청사(dept_connect_ai.html) 바이럴 홍보 카피 스튜디오 실물 검증 (1개)
+    st_cai, body_cai = http_get("/departments/dept_connect_ai.html")
+    cai_has_copy = "generateViralPromoCopy" in body_cai
+    cai_has_launcher = ("5대 클린룸" in body_cai and "safe_daily_lucky.html" in body_cai)
+    cai_has_prime = "AGV-PRIME-101" in body_cai
+    cai_has_legal = "면책" in body_cai or "대가성" in body_cai
+    gate13_ok = (st_cai == 200 and cai_has_copy and cai_has_launcher and cai_has_prime and cai_has_legal)
+    record("GATE-13", "제2청사 Connect AI 바이럴 홍보 카피 스튜디오 & 5대 웹앱 통합 런처 실물 검증", gate13_ok, f"HTTP {st_cai} (카피엔진, 런처, 법무푸터 완비)")
+
+    # [GATE 14] 제5청사(dept_vault.html) 실시간 법무 스캐너 & 18대 산출물 위키 보드 실물 검증 (1개)
+    st_vlt, body_vlt = http_get("/departments/dept_vault.html")
+    vlt_has_scan = "runVaultLegalScan" in body_vlt
+    vlt_has_wiki = "18대 부서 실물 산출물 위키 아카이브" in body_vlt or "viewDeliverableWiki" in body_vlt
+    vlt_has_cert = "HGS-LEGAL-SAFE-2026-PASS" in body_vlt
+    vlt_has_legal = "면책" in body_vlt or "대가성" in body_vlt
+    gate14_ok = (st_vlt == 200 and vlt_has_scan and vlt_has_wiki and vlt_has_cert and vlt_has_legal)
+    record("GATE-14", "제5청사 실시간 법무 스캐너 & 18대 산출물 위키 아카이브 보드 실물 검증", gate14_ok, f"HTTP {st_vlt} (법무스캐너, 위키보드, 인증서 완비)")
+
     # 경호처 해시 최신화
     from cheongwadae_guard import save_golden_hashes
     save_golden_hashes()
@@ -208,14 +238,14 @@ def run_rgon_full_agency_audit():
     final_pass = sum(1 for r in results if r[2])
     final_total = len(results)
     print("=" * 75)
-    print(f"📊 [전 기관 실전 테스트 & 안총리 취임 & 미디어 스튜디오 종합 결과]: {final_pass}/{final_total} 통과 ({(final_pass/final_total)*100:.1f}%)")
+    print(f"📊 [전 기관 실전 감사 종합 결과]: {final_pass}/{final_total} 통과 ({(final_pass/final_total)*100:.1f}%)")
     print("=" * 75)
 
     if final_pass != final_total:
         print("🚨 테스트 미통과 항목 발견! 배포를 중단합니다.")
         sys.exit(1)
 
-    print(f"🏆 [최종 완료] 전 기관 22개 관문 전수 테스트 100.0% ALL PASS! 안총리 취임 축하드립니다!")
+    print(f"🏆 [최종 완료] 전 기관 25개 관문 전수 실전 감사 100.0% ALL PASS! 야간 자율주행 및 모닝 브리핑 완비!")
     print("=" * 75)
 
 if __name__ == "__main__":
