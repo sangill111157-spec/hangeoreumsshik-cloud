@@ -1427,6 +1427,30 @@ class DashboardHandler(SimpleHTTPRequestHandler):
                 self.wfile.write(err_body)
                 return
 
+        # 🎬 [v9.2] 천부 오디세이 제1탄 5대 분야별 전담팀 & 외부 AI 레버리지 스펙 (GET /api/cheonbu-production-corps)
+        if path == '/api/cheonbu-production-corps':
+            try:
+                import cheonbu_production_corps
+                corps_data = cheonbu_production_corps.load_production_corps()
+                body = json.dumps(corps_data, ensure_ascii=False).encode('utf-8')
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.send_header("Access-Control-Allow-Origin", "*")
+                self.send_header("Content-Length", str(len(body)))
+                self.send_header("Cache-Control", "no-store")
+                self.end_headers()
+                self.wfile.write(body)
+                return
+            except Exception as e:
+                err_body = json.dumps({"status": "error", "message": str(e)}, ensure_ascii=False).encode('utf-8')
+                self.send_response(500)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.send_header("Access-Control-Allow-Origin", "*")
+                self.send_header("Content-Length", str(len(err_body)))
+                self.end_headers()
+                self.wfile.write(err_body)
+                return
+
         # 1. 설정 자동 주입
         if path == '/api/config':
             gh_token = get_github_token()

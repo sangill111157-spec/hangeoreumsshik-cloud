@@ -244,6 +244,21 @@ def run_rgon_full_agency_audit():
     )
     record("GATE-15", "바른 선택 유도 & 진정한 사랑·아름다움(眞美·眞愛) 개화 엔진 검증", g15_ok, f"HTTP {st_c1} (꽃잎파동·심경성찰·실천약속·사랑나침반 완비)")
 
+    # [GATE 16] 5대 분야별 전담팀(이미지·음향·영상·스토리·엔진) 외부 AI 레버리지 데크 검증 (1개)
+    st_corps, body_corps = http_get("/api/cheonbu-production-corps")
+    corps_json = json.loads(body_corps) if st_corps == 200 else {}
+    g16_api_ok = (
+        st_corps == 200
+        and len(corps_json.get("specialist_teams", [])) == 5
+        and "ep1_genesis_stage_assets" in corps_json
+    )
+    g16_deck_ok = (
+        "specialist-teams-leverage-deck" in body_c1
+        and "triggerExternalAiLeverage" in body_c1
+        and "ai-leverage-preview-stage" in body_c1
+    )
+    record("GATE-16", "5대 분야별 전담팀 & 외부 AI 레버리지 스튜디오 데크(/api/cheonbu-production-corps) 실물 검증", g16_api_ok and g16_deck_ok, f"HTTP {st_corps} (5대 전담팀 100% 가동 & 레버리지 데크 완비)")
+
     # 경호처 해시 최신화
     from cheongwadae_guard import save_golden_hashes
     save_golden_hashes()
@@ -259,7 +274,7 @@ def run_rgon_full_agency_audit():
         print("🚨 테스트 미통과 항목 발견! 배포를 중단합니다.")
         sys.exit(1)
 
-    print(f"🏆 [최종 완료] 전 기관 26개 관문 전수 실전 감사 100.0% ALL PASS! 바른 선택 유도 & 진정한 사랑·아름다움 개화 엔진 완비!")
+    print(f"🏆 [최종 완료] 전 기관 27개 관문 전수 실전 감사 100.0% ALL PASS! 5대 전담팀 및 외부 AI 레버리지 스튜디오 완비!")
     print("=" * 75)
 
 if __name__ == "__main__":
