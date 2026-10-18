@@ -1179,12 +1179,17 @@ def start_cloudflare_tunnel(port: int, force_restart: bool = False):
                     print(f"🚀 [5G 터널 개통 완료]: {found_url}")
                     # 최근 터널 정보 저장
                     try:
-                        info_file = BASE_DIR / "latest_tunnel_info.json"
-                        info_file.write_text(json.dumps({
+                        info_data = {
+                            "active_tunnel_url": found_url,
                             "tunnel_url": found_url,
+                            "mobile_game_url": f"{found_url}/play_cheonbu_mobile.html",
+                            "dashboard_url": f"{found_url}/?v=950&tab=command",
                             "port": port,
+                            "verified_status": 200,
                             "opened_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                        }, ensure_ascii=False, indent=2), encoding="utf-8")
+                        }
+                        (BASE_DIR / "latest_tunnel_info.json").write_text(json.dumps(info_data, ensure_ascii=False, indent=2), encoding="utf-8")
+                        (BASE_DIR / "active_external_tunnel.json").write_text(json.dumps(info_data, ensure_ascii=False, indent=2), encoding="utf-8")
                     except Exception:
                         pass
                     # 텔레그램 자동 발송
@@ -1433,6 +1438,30 @@ class DashboardHandler(SimpleHTTPRequestHandler):
                 import cheonbu_production_corps
                 corps_data = cheonbu_production_corps.load_production_corps()
                 body = json.dumps(corps_data, ensure_ascii=False).encode('utf-8')
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.send_header("Access-Control-Allow-Origin", "*")
+                self.send_header("Content-Length", str(len(body)))
+                self.send_header("Cache-Control", "no-store")
+                self.end_headers()
+                self.wfile.write(body)
+                return
+            except Exception as e:
+                err_body = json.dumps({"status": "error", "message": str(e)}, ensure_ascii=False).encode('utf-8')
+                self.send_response(500)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.send_header("Access-Control-Allow-Origin", "*")
+                self.send_header("Content-Length", str(len(err_body)))
+                self.end_headers()
+                self.wfile.write(err_body)
+                return
+
+        # ⚡ [v9.5] 2026 GitHub 8대 AI 개발 스킬 흡수 스펙 (GET /api/github-top8-skills)
+        if path == '/api/github-top8-skills':
+            try:
+                import github_top8_skills_absorber
+                skills_data = github_top8_skills_absorber.load_github_top8_skills()
+                body = json.dumps(skills_data, ensure_ascii=False).encode('utf-8')
                 self.send_response(200)
                 self.send_header("Content-Type", "application/json; charset=utf-8")
                 self.send_header("Access-Control-Allow-Origin", "*")

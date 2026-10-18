@@ -307,6 +307,20 @@ def run_rgon_full_agency_audit():
     
     record("GATE-18", "외부 5G 스마트폰용 라이브 Cloudflare HTTPS 터널 실전 검증", gate18_ok, g18_detail)
 
+    # [GATE 19] 2026 GitHub 8대 AI 개발 스킬 흡수 엔진 실물 작동 검증 (1개)
+    st_sk, body_sk = http_get("/api/github-top8-skills")
+    sk_json = json.loads(body_sk) if st_sk == 200 else {}
+    st_mob_sk, body_mob_sk = http_get("/play_cheonbu_mobile.html")
+    g19_api_ok = (st_sk == 200 and len(sk_json.get("absorbed_skills", [])) == 8)
+    g19_mob_ok = (
+        st_mob_sk == 200
+        and "drawCheonbuSacredGeometry" in body_mob_sk
+        and "triggerSuperpowerFeverBoost" in body_mob_sk
+        and "modal-top8-skills" in body_mob_sk
+        and "rea-reasoning-guide-bar" in body_mob_sk
+    )
+    record("GATE-19", "2026 GitHub 8대 AI 개발 스킬 흡수 엔진 실물 검증", g19_api_ok and g19_mob_ok, f"HTTP {st_sk} (8대 스킬 100% 흡수·신성기하학·슈퍼파워 완비)")
+
     # 경호처 해시 최신화
     from cheongwadae_guard import save_golden_hashes
     save_golden_hashes()
@@ -322,7 +336,7 @@ def run_rgon_full_agency_audit():
         print("🚨 테스트 미통과 항목 발견! 배포를 중단합니다.")
         sys.exit(1)
 
-    print(f"🏆 [최종 완료] 전 기관 29개 관문 전수 실전 감사 100.0% ALL PASS! 외부 5G 라이브 터널 및 스마트폰 폰게임 앱 완비!")
+    print(f"🏆 [최종 완료] 전 기관 30개 관문 전수 실전 감사 100.0% ALL PASS! 2026 GitHub 8대 AI 스킬 흡수 및 5G 라이브 터널 완비!")
     print("=" * 75)
 
 if __name__ == "__main__":

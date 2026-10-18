@@ -157,6 +157,9 @@
         <button onclick="triggerElementAction('love')" class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-rose-600/30 to-amber-600/30 hover:from-rose-600/50 hover:to-amber-600/50 border border-rose-500/40 text-rose-200 text-xs font-bold transition active:scale-95 flex items-center gap-1">
           <span>🌸</span><span>진애(眞愛: 꽃잎)</span>
         </button>
+        <button onclick="triggerSuperpowerFeverBoost()" class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 via-rose-500 to-purple-600 hover:opacity-90 border-2 border-yellow-300 text-white text-xs font-black transition active:scale-95 flex items-center gap-1 shadow-lg animate-pulse" title="2026 GitHub 8대 스킬 슈퍼파워 피버 각성">
+          <span>⚡</span><span>슈퍼파워 각성(+100P)</span>
+        </button>
       </div>
 
       <!-- 3계단 스토리 & 3지선다 선택지 -->
@@ -287,6 +290,82 @@
       <!-- 룬 상세 인성 풀이 팝업 패널 -->
       <div id="rune-detail-panel" class="p-3.5 rounded-2xl bg-slate-900/90 border border-slate-800 text-xs text-slate-300 leading-relaxed font-mono transition-all">
         💡 <b class="text-amber-300">도감 수집 안내:</b> 계단을 한 단계씩 오를 때마다 9자씩 황금 룬이 각성되며, 각 글자를 터치하면 현대어 인성 풀이를 열람할 수 있습니다.
+      </div>
+    <!-- ⚡ [신설] 2026 GitHub 8대 AI 개발 스킬 흡수 데크 (#github-top8-skills-deck) -->
+    <div id="github-top8-skills-deck" class="glass-card rounded-3xl p-5 sm:p-6 space-y-4 shadow-2xl border-amber-500/40">
+      <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-3">
+        <div class="flex items-center gap-2">
+          <span class="text-2xl animate-pulse">⚡</span>
+          <div>
+            <h3 class="text-sm sm:text-base font-black text-amber-300 flex items-center gap-2">
+              <span>2026 GitHub 최고 인기 8대 AI 개발 스킬셋 흡수 엔진</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/20 text-amber-200 border border-amber-500/40">v9.5 TOP 8 AI SKILLS</span>
+            </h3>
+            <p class="text-[11px] text-slate-400">@Mindung-EasyAI 벤치마크 8대 글로벌 오픈소스 스킬을 100% 흡수하여 게임 엔진 및 5대 전담팀에 장착했습니다.</p>
+          </div>
+        </div>
+        <button onclick="triggerSuperpowerFeverBoost()" class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-rose-500 text-white font-black text-xs shadow-md active:scale-95 transition flex items-center gap-1">
+          <span>🚀</span><span>8대 스킬 부스트</span>
+        </button>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+        <div class="p-2.5 rounded-xl bg-slate-900/90 border border-purple-500/30">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-purple-300">01. REA</span>
+            <span class="text-[9px] px-1 rounded bg-emerald-500/20 text-emerald-300 font-mono font-bold">ACTIVE</span>
+          </div>
+          <div class="text-[10px] text-slate-400 mt-1">자율 추론 대사 가이드</div>
+        </div>
+        <div class="p-2.5 rounded-xl bg-slate-900/90 border border-amber-500/30">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-amber-300">02. 슈퍼파워스</span>
+            <span class="text-[9px] px-1 rounded bg-emerald-500/20 text-emerald-300 font-mono font-bold">ACTIVE</span>
+          </div>
+          <div class="text-[10px] text-slate-400 mt-1">천부 피버 각성(+100P)</div>
+        </div>
+        <div class="p-2.5 rounded-xl bg-slate-900/90 border border-cyan-500/30">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-cyan-300">03. 지스택</span>
+            <span class="text-[9px] px-1 rounded bg-emerald-500/20 text-emerald-300 font-mono font-bold">ACTIVE</span>
+          </div>
+          <div class="text-[10px] text-slate-400 mt-1">초고속 로컬 자동저장</div>
+        </div>
+        <div class="p-2.5 rounded-xl bg-slate-900/90 border border-rose-500/30">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-rose-300">04. ECC</span>
+            <span class="text-[9px] px-1 rounded bg-emerald-500/20 text-emerald-300 font-mono font-bold">ACTIVE</span>
+          </div>
+          <div class="text-[10px] text-slate-400 mt-1">5대 전담팀 오케스트레이션</div>
+        </div>
+        <div class="p-2.5 rounded-xl bg-slate-900/90 border border-blue-500/30">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-blue-300">05. 맷 포콕</span>
+            <span class="text-[9px] px-1 rounded bg-emerald-500/20 text-emerald-300 font-mono font-bold">ACTIVE</span>
+          </div>
+          <div class="text-[10px] text-slate-400 mt-1">무결점 유한 상태 머신</div>
+        </div>
+        <div class="p-2.5 rounded-xl bg-slate-900/90 border border-emerald-500/30">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-emerald-300">06. 애디 오스마니</span>
+            <span class="text-[9px] px-1 rounded bg-emerald-500/20 text-emerald-300 font-mono font-bold">ACTIVE</span>
+          </div>
+          <div class="text-[10px] text-slate-400 mt-1">60fps 파티클 최적화</div>
+        </div>
+        <div class="p-2.5 rounded-xl bg-slate-900/90 border border-indigo-500/30">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-indigo-300">07. 버셀 UI</span>
+            <span class="text-[9px] px-1 rounded bg-emerald-500/20 text-emerald-300 font-mono font-bold">ACTIVE</span>
+          </div>
+          <div class="text-[10px] text-slate-400 mt-1">탄성 터치 & 글래스모피즘</div>
+        </div>
+        <div class="p-2.5 rounded-xl bg-slate-900/90 border border-yellow-500/30">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-yellow-300">08. 아키파이</span>
+            <span class="text-[9px] px-1 rounded bg-emerald-500/20 text-emerald-300 font-mono font-bold">ACTIVE</span>
+          </div>
+          <div class="text-[10px] text-slate-400 mt-1">천·지·인 신성 기하학</div>
+        </div>
       </div>
     </div>
 
@@ -1280,6 +1359,45 @@ ${data.videoSpec}
       }).catch(() => {
         if (!silent) alert('복사되었습니다:\n\n' + currentLeverageText.substring(0, 100) + '...');
       });
+    }
+
+    // -------------------------------------------------------------
+    // ⚡ [스킬 2 슈퍼파워스 + 스킬 5 맷 포콕 FSM] 천부 슈퍼파워 피버 각성
+    // -------------------------------------------------------------
+    let isFeverActive = false;
+    function triggerSuperpowerFeverBoost() {
+      if (isFeverActive) return;
+      isFeverActive = true;
+
+      playerState.hongikExp += 100;
+      updateStats();
+
+      playGenesisYulryeoSound(432, 2.5);
+      setTimeout(() => playGenesisYulryeoSound(528, 2.5), 100);
+      setTimeout(() => playGenesisYulryeoSound(639, 2.5), 200);
+      setTimeout(() => playGenesisYulryeoSound(852, 2.5), 300);
+
+      const cx = canvas ? canvas.width / 2 : 400;
+      const cy = canvas ? canvas.height / 2 : 160;
+
+      spawnGoldenParticles(cx, cy, 60);
+      spawnLoveAndBeautyPetals(cx, cy, 60);
+
+      setTimeout(() => {
+        spawnGoldenParticles(cx, cy, 80);
+        spawnLoveAndBeautyPetals(cx, cy, 80);
+      }, 250);
+
+      setTimeout(() => {
+        spawnGoldenParticles(cx, cy, 100);
+        spawnLoveAndBeautyPetals(cx, cy, 100);
+        isFeverActive = false;
+      }, 500);
+
+      const actionText = document.getElementById('real-life-action-text');
+      if (actionText) {
+        actionText.innerHTML = "⚡ <b class='text-amber-300'>SUPERPOWER HONGIK FEVER!</b> 2026 GitHub 8대 AI 스킬이 발동되어 온 우주에 사랑과 아름다움이 가득 차오릅니다! (+100 홍익EXP)";
+      }
     }
 
     // -------------------------------------------------------------

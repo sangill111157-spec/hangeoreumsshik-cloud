@@ -110,8 +110,12 @@
         </div>
       </div>
 
-      <!-- 우측 원터치 버튼 3종 -->
+      <!-- 우측 원터치 버튼 4종 -->
       <div class="flex items-center gap-1.5 shrink-0">
+        <button onclick="toggleMobileModal('modal-top8-skills')" class="px-2 py-1.5 rounded-lg bg-gradient-to-r from-amber-500/30 to-rose-500/30 text-amber-200 border border-amber-400/50 text-[11px] font-black active:scale-95 transition flex items-center gap-1 shadow-sm">
+          <span>⚡</span>
+          <span>8대스킬</span>
+        </button>
         <button onclick="toggleMobileModal('modal-runes')" class="px-2 py-1.5 rounded-lg bg-slate-800/90 hover:bg-slate-700 text-amber-300 border border-amber-500/40 text-[11px] font-bold active:scale-95 transition flex items-center gap-1 shadow-sm">
           <span>📜</span>
           <span id="hud-rune-counter" class="font-mono">0/27</span>
@@ -147,18 +151,21 @@
         </div>
       </div>
 
-      <!-- 우측 4대 원소 플로팅 버튼 독 (절대 위치) -->
-      <div class="absolute right-3 top-1/2 -translate-y-1/2 flex flex-col gap-2.5 pointer-events-auto z-10">
-        <button onclick="triggerElementalSkill('WIND')" class="w-10 h-10 rounded-full bg-slate-900/90 border border-cyan-400/50 text-cyan-300 text-sm font-bold shadow-lg flex items-center justify-center active:scale-90 transition-transform">
+      <!-- 우측 4대 원소 + ⚡슈퍼파워 피버 플로팅 버튼 독 (절대 위치) -->
+      <div class="absolute right-3 top-1/2 -translate-y-1/2 flex flex-col gap-2 pointer-events-auto z-10">
+        <button onclick="triggerSuperpowerFeverBoost()" class="w-10 h-10 rounded-full bg-gradient-to-tr from-amber-400 via-rose-500 to-purple-600 border-2 border-yellow-300 text-white text-xs font-black shadow-xl flex items-center justify-center active:scale-90 transition-transform animate-pulse" title="천부 슈퍼파워 피버 각성">
+          ⚡
+        </button>
+        <button onclick="triggerElementalSkill('WIND')" class="w-10 h-10 rounded-full bg-slate-900/90 border border-cyan-400/50 text-cyan-300 text-sm font-bold shadow-lg flex items-center justify-center active:scale-90 transition-transform" title="풍백">
           🌪️
         </button>
-        <button onclick="triggerElementalSkill('RAIN')" class="w-10 h-10 rounded-full bg-slate-900/90 border border-blue-400/50 text-blue-300 text-sm font-bold shadow-lg flex items-center justify-center active:scale-90 transition-transform">
+        <button onclick="triggerElementalSkill('RAIN')" class="w-10 h-10 rounded-full bg-slate-900/90 border border-blue-400/50 text-blue-300 text-sm font-bold shadow-lg flex items-center justify-center active:scale-90 transition-transform" title="우사">
           💧
         </button>
-        <button onclick="triggerElementalSkill('CLOUD')" class="w-10 h-10 rounded-full bg-slate-900/90 border border-purple-400/50 text-purple-300 text-sm font-bold shadow-lg flex items-center justify-center active:scale-90 transition-transform">
+        <button onclick="triggerElementalSkill('CLOUD')" class="w-10 h-10 rounded-full bg-slate-900/90 border border-purple-400/50 text-purple-300 text-sm font-bold shadow-lg flex items-center justify-center active:scale-90 transition-transform" title="운사">
           ☁️
         </button>
-        <button onclick="triggerElementalSkill('LIGHT')" class="w-10 h-10 rounded-full bg-gradient-to-tr from-amber-500 to-rose-500 border border-amber-300 text-white text-sm font-black shadow-lg flex items-center justify-center active:scale-90 transition-transform animate-pulse">
+        <button onclick="triggerElementalSkill('LIGHT')" class="w-10 h-10 rounded-full bg-gradient-to-tr from-amber-500 to-rose-500 border border-amber-300 text-white text-sm font-black shadow-lg flex items-center justify-center active:scale-90 transition-transform animate-pulse" title="태초빛">
           ✨
         </button>
       </div>
@@ -172,6 +179,16 @@
 
     <!-- 💬 레이어 10: 하단 고정 RPG 대화창 & 엄지손가락 3지선다 선택 독 (#mobile-bottom-dock) -->
     <footer id="mobile-bottom-dock" class="relative z-10 w-full p-3 glass-dock flex flex-col gap-2">
+      <!-- 🧠 REA 자율추론 실시간 가이드 팁 바 (#rea-reasoning-guide-bar) -->
+      <div id="rea-reasoning-guide-bar" class="px-2.5 py-1.5 rounded-lg bg-gradient-to-r from-purple-950/80 via-slate-900/90 to-indigo-950/80 border border-purple-500/40 flex items-center justify-between text-[10.5px]">
+        <div class="flex items-center gap-1.5 text-purple-200">
+          <span class="animate-pulse">🧠</span>
+          <span class="font-bold text-amber-300">REA 가이드:</span>
+          <span id="rea-guide-text" class="text-purple-100 font-medium">지금 '나눔의 빛'을 선택하면 천부경 9자가 각성되고 마고성의 꽃이 피어납니다.</span>
+        </div>
+        <span class="text-[9px] px-1 py-0.2 rounded bg-purple-500/30 text-purple-200 border border-purple-400/40 font-mono">추론가동</span>
+      </div>
+
       <!-- 마고 여신 스토리 내레이션 박스 -->
       <div class="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800 text-xs leading-snug">
         <div class="flex items-center gap-1.5 text-amber-300 font-bold text-[11px] mb-0.5">
@@ -343,6 +360,126 @@
             🏛️ 본관 가기
           </a>
         </div>
+      </div>
+    <!-- ⚡ 모달 4: 2026 GitHub 8대 AI 개발 스킬 흡수 현황 & 풀-오버드라이브 (#modal-top8-skills) -->
+    <div id="modal-top8-skills" class="hidden absolute inset-0 z-50 bg-slate-950/95 backdrop-blur-md p-4 flex flex-col justify-between">
+      <div class="flex items-center justify-between border-b border-amber-500/30 pb-2">
+        <div class="flex items-center gap-2">
+          <span class="text-xl">⚡</span>
+          <div>
+            <h3 class="text-sm font-black text-amber-300">2026 GitHub TOP 8 AI 개발 스킬 흡수</h3>
+            <p class="text-[9px] text-slate-400">@Mindung-EasyAI 벤치마크 100% 외주 레버리지 완결</p>
+          </div>
+        </div>
+        <button onclick="toggleMobileModal('modal-top8-skills')" class="text-slate-400 hover:text-white text-lg font-bold px-2">✕</button>
+      </div>
+
+      <div class="flex-1 overflow-y-auto space-y-2 py-2 pr-0.5">
+        <!-- 1. REA -->
+        <div class="p-2 rounded-xl bg-slate-900 border border-purple-500/40 flex items-start justify-between gap-2">
+          <div class="flex-1">
+            <div class="flex items-center gap-1.5">
+              <span class="text-[10px] font-mono px-1 rounded bg-purple-500/20 text-purple-300 font-bold">01</span>
+              <span class="text-xs font-bold text-purple-200">REA (Reasoning & Execution Agent)</span>
+            </div>
+            <p class="text-[10px] text-slate-300 mt-0.5">마고 여신 & 수호령 자율 추론 엔진 — 플레이어 선택 패턴 실시간 분석 및 맞춤형 사랑 가이드</p>
+          </div>
+          <span class="px-1.5 py-0.5 rounded text-[9px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 shrink-0">ACTIVE</span>
+        </div>
+
+        <!-- 2. Superpowers -->
+        <div class="p-2 rounded-xl bg-slate-900 border border-amber-500/40 flex items-start justify-between gap-2">
+          <div class="flex-1">
+            <div class="flex items-center gap-1.5">
+              <span class="text-[10px] font-mono px-1 rounded bg-amber-500/20 text-amber-300 font-bold">02</span>
+              <span class="text-xs font-bold text-amber-200">슈퍼파워스 (Superpowers — Jesse Vincent)</span>
+            </div>
+            <p class="text-[10px] text-slate-300 mt-0.5">천부 슈퍼파워 피버(Fever) 각성 — 바른 선택 연속 시 황금 오로라 폭발 & +100 EXP 부스트</p>
+          </div>
+          <span class="px-1.5 py-0.5 rounded text-[9px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 shrink-0">ACTIVE</span>
+        </div>
+
+        <!-- 3. G-Stack -->
+        <div class="p-2 rounded-xl bg-slate-900 border border-cyan-500/40 flex items-start justify-between gap-2">
+          <div class="flex-1">
+            <div class="flex items-center gap-1.5">
+              <span class="text-[10px] font-mono px-1 rounded bg-cyan-500/20 text-cyan-300 font-bold">03</span>
+              <span class="text-xs font-bold text-cyan-200">지스택 (G-Stack — Garry Tan Fullstack)</span>
+            </div>
+            <p class="text-[10px] text-slate-300 mt-0.5">제로-렉 모바일 상태 세이브 스택 — 스마트폰 새로고침에도 레벨·홍익 지수·27자 도감 즉시 복원</p>
+          </div>
+          <span class="px-1.5 py-0.5 rounded text-[9px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 shrink-0">ACTIVE</span>
+        </div>
+
+        <!-- 4. Everything Claude Code -->
+        <div class="p-2 rounded-xl bg-slate-900 border border-rose-500/40 flex items-start justify-between gap-2">
+          <div class="flex-1">
+            <div class="flex items-center gap-1.5">
+              <span class="text-[10px] font-mono px-1 rounded bg-rose-500/20 text-rose-300 font-bold">04</span>
+              <span class="text-xs font-bold text-rose-200">에브리씽 클로드 코드 (ECC Pipeline)</span>
+            </div>
+            <p class="text-[10px] text-slate-300 mt-0.5">5대 전담팀(스토리·이미지·음향·영상·엔진) 68에이전트 통합 멀티미디어 일괄 오케스트레이션</p>
+          </div>
+          <span class="px-1.5 py-0.5 rounded text-[9px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 shrink-0">ACTIVE</span>
+        </div>
+
+        <!-- 5. Matt Pocock Skills -->
+        <div class="p-2 rounded-xl bg-slate-900 border border-blue-500/40 flex items-start justify-between gap-2">
+          <div class="flex-1">
+            <div class="flex items-center gap-1.5">
+              <span class="text-[10px] font-mono px-1 rounded bg-blue-500/20 text-blue-300 font-bold">05</span>
+              <span class="text-xs font-bold text-blue-200">맷 포콕 스킬 (Matt Pocock FSM & Guard)</span>
+            </div>
+            <p class="text-[10px] text-slate-300 mt-0.5">무결점 유한 상태 머신 — 고속 터치 연타 시에도 Step 1➔2➔3 전이와 점수 계산 0% 무오류 보장</p>
+          </div>
+          <span class="px-1.5 py-0.5 rounded text-[9px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 shrink-0">ACTIVE</span>
+        </div>
+
+        <!-- 6. Addy Osmani Skills -->
+        <div class="p-2 rounded-xl bg-slate-900 border border-emerald-500/40 flex items-start justify-between gap-2">
+          <div class="flex-1">
+            <div class="flex items-center gap-1.5">
+              <span class="text-[10px] font-mono px-1 rounded bg-emerald-500/20 text-emerald-300 font-bold">06</span>
+              <span class="text-xs font-bold text-emerald-200">애디 오스마니 에이전트 스킬 (60fps Vitals)</span>
+            </div>
+            <p class="text-[10px] text-slate-300 mt-0.5">크롬급 60fps 캔버스 파티클 최적화 — 구형 스마트폰에서도 수백 개 별빛·꽃잎 끊김 없는 렌더링</p>
+          </div>
+          <span class="px-1.5 py-0.5 rounded text-[9px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 shrink-0">ACTIVE</span>
+        </div>
+
+        <!-- 7. Vercel React Best Practices -->
+        <div class="p-2 rounded-xl bg-slate-900 border border-indigo-500/40 flex items-start justify-between gap-2">
+          <div class="flex-1">
+            <div class="flex items-center gap-1.5">
+              <span class="text-[10px] font-mono px-1 rounded bg-indigo-500/20 text-indigo-300 font-bold">07</span>
+              <span class="text-xs font-bold text-indigo-200">버셀 리액트 베스트 프랙티스 (Vercel UI)</span>
+            </div>
+            <p class="text-[10px] text-slate-300 mt-0.5">초고감도 모바일 네이티브 탄성(Spring) 인터랙션 & 다크 골드 글래스모피즘 HUD</p>
+          </div>
+          <span class="px-1.5 py-0.5 rounded text-[9px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 shrink-0">ACTIVE</span>
+        </div>
+
+        <!-- 8. Archify -->
+        <div class="p-2 rounded-xl bg-slate-900 border border-yellow-500/40 flex items-start justify-between gap-2">
+          <div class="flex-1">
+            <div class="flex items-center gap-1.5">
+              <span class="text-[10px] font-mono px-1 rounded bg-yellow-500/20 text-yellow-300 font-bold">08</span>
+              <span class="text-xs font-bold text-yellow-200">아키파이 (Archify Sacred Geometry)</span>
+            </div>
+            <p class="text-[10px] text-slate-300 mt-0.5">천부경 원(○)·방(□)·각(△) 신성 기하학 마법진 회전 캔버스 — 계단 진화에 따른 만다라 확장</p>
+          </div>
+          <span class="px-1.5 py-0.5 rounded text-[9px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 shrink-0">ACTIVE</span>
+        </div>
+      </div>
+
+      <div class="space-y-2 pt-2 border-t border-slate-800">
+        <button onclick="triggerSuperpowerFeverBoost(); toggleMobileModal('modal-top8-skills');" class="w-full py-3 rounded-xl bg-gradient-to-r from-amber-500 via-rose-500 to-purple-600 text-white font-black text-xs shadow-xl active:scale-95 transition flex items-center justify-center gap-1.5">
+          <span>🚀</span>
+          <span>8대 스킬 풀-오버드라이브 발동! (슈퍼파워 피버 +100 EXP)</span>
+        </button>
+        <button onclick="toggleMobileModal('modal-top8-skills')" class="w-full py-2 rounded-xl bg-slate-800 text-slate-300 text-xs font-bold active:scale-95">
+          닫기
+        </button>
       </div>
     </div>
 
@@ -614,9 +751,109 @@
       }
     }
 
+    // -------------------------------------------------------------
+    // 🌀 [스킬 8 아키파이 + 스킬 6 애디 오스마니] 천부경 원(○)·방(□)·각(△) 신성 기하학 마법진
+    // -------------------------------------------------------------
+    let geometryRotationAngle = 0;
+
+    function drawCheonbuSacredGeometry(step = 1) {
+      if (!ctx || !canvas) return;
+      const cx = canvas.width / 2;
+      const cy = canvas.height * 0.42;
+      const baseR = Math.min(canvas.width, canvas.height) * 0.22 * (0.85 + step * 0.15);
+
+      geometryRotationAngle += 0.008 + (step * 0.002);
+
+      ctx.save();
+      ctx.translate(cx, cy);
+
+      // 1. 천(天) - 원(○) 신성 기하학 (황금 오로라)
+      ctx.save();
+      ctx.rotate(geometryRotationAngle);
+      ctx.strokeStyle = 'rgba(245, 158, 11, 0.45)';
+      ctx.lineWidth = 1.6;
+      ctx.shadowColor = 'rgba(245, 158, 11, 0.65)';
+      ctx.shadowBlur = 10;
+      ctx.beginPath();
+      ctx.arc(0, 0, baseR, 0, Math.PI * 2);
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.arc(0, 0, baseR * 0.68, 0, Math.PI * 2);
+      ctx.stroke();
+
+      // 원주상 12 성수 황금 빛점
+      for (let i = 0; i < 12; i++) {
+        const a = (i * Math.PI * 2) / 12;
+        const px = Math.cos(a) * baseR;
+        const py = Math.sin(a) * baseR;
+        ctx.fillStyle = i % 3 === 0 ? 'rgba(254, 240, 138, 0.95)' : 'rgba(245, 158, 11, 0.55)';
+        ctx.beginPath();
+        ctx.arc(px, py, i % 3 === 0 ? 3.2 : 1.8, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.restore();
+
+      // 2. 지(地) - 방(□) 신성 기하학 (청록/에메랄드빛 정사각)
+      ctx.save();
+      ctx.rotate(-geometryRotationAngle * 0.75);
+      ctx.strokeStyle = 'rgba(52, 211, 153, 0.42)';
+      ctx.lineWidth = 1.5;
+      ctx.shadowColor = 'rgba(52, 211, 153, 0.55)';
+      ctx.shadowBlur = 8;
+      const sqR = baseR * 0.82;
+      ctx.strokeRect(-sqR / 2, -sqR / 2, sqR, sqR);
+      if (step >= 2) {
+        ctx.rotate(Math.PI / 4);
+        ctx.strokeRect(-sqR / 2, -sqR / 2, sqR, sqR);
+      }
+      ctx.restore();
+
+      // 3. 인(人) - 각(△) 신성 기하학 (로즈골드/진애 정삼각형 대칭)
+      ctx.save();
+      ctx.rotate(geometryRotationAngle * 0.5);
+      ctx.strokeStyle = 'rgba(244, 63, 94, 0.48)';
+      ctx.lineWidth = 1.6;
+      ctx.shadowColor = 'rgba(244, 63, 94, 0.65)';
+      ctx.shadowBlur = 10;
+      const triR = baseR * 0.95;
+
+      // 정방향 삼태극 삼각형
+      ctx.beginPath();
+      for (let i = 0; i < 3; i++) {
+        const a = -Math.PI / 2 + (i * Math.PI * 2) / 3;
+        const tx = Math.cos(a) * triR;
+        const ty = Math.sin(a) * triR;
+        if (i === 0) ctx.moveTo(tx, ty);
+        else ctx.lineTo(tx, ty);
+      }
+      ctx.closePath();
+      ctx.stroke();
+
+      // Step 2 이상이면 역방향 삼각형 추가(육각 대조화 만다라)
+      if (step >= 2) {
+        ctx.beginPath();
+        for (let i = 0; i < 3; i++) {
+          const a = Math.PI / 2 + (i * Math.PI * 2) / 3;
+          const tx = Math.cos(a) * triR;
+          const ty = Math.sin(a) * triR;
+          if (i === 0) ctx.moveTo(tx, ty);
+          else ctx.lineTo(tx, ty);
+        }
+        ctx.closePath();
+        ctx.stroke();
+      }
+      ctx.restore();
+
+      ctx.restore();
+    }
+
     function renderParticles() {
       if (!ctx || !canvas) return;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // 🌀 60fps 신성 기하학 마법진 먼저 렌더링
+      drawCheonbuSacredGeometry(currentStep);
 
       for (let i = particles.length - 1; i >= 0; i--) {
         const p = particles[i];
@@ -720,12 +957,106 @@
         playTripleHarmonic();
       }
 
-      if (navigator.vibrate) navigator.vibrate(40);
+    // -------------------------------------------------------------
+    // ⚡ [스킬 2 슈퍼파워스 + 스킬 5 맷 포콕 FSM] 천부 슈퍼파워 피버(Fever) 각성 엔진
+    // -------------------------------------------------------------
+    let isFeverActive = false;
+
+    function triggerSuperpowerFeverBoost() {
+      if (isFeverActive) return; // 맷 포콕 FSM 상태 가드 (연타 오류 방지)
+      isFeverActive = true;
+
+      hongikExp += 100;
+      document.getElementById('hud-hongik-score').innerText = `${hongikExp}P`;
+      saveGStackState();
+
+      // 432Hz + 528Hz + 639Hz + 852Hz 천상 4중주 화음
+      playGenesisYulryeoSound(432, 'sine', 3.0);
+      setTimeout(() => playGenesisYulryeoSound(528, 'sine', 3.0), 100);
+      setTimeout(() => playGenesisYulryeoSound(639, 'sine', 3.0), 200);
+      setTimeout(() => playGenesisYulryeoSound(852, 'sine', 3.0), 300);
+
+      const rect = canvas.getBoundingClientRect();
+      const cx = rect.width / 2;
+      const cy = rect.height * 0.42;
+
+      // 3연속 대폭발
+      spawnGoldenParticles(cx, cy, 60);
+      spawnLoveAndBeautyPetals(cx, cy, 60);
+
+      setTimeout(() => {
+        spawnGoldenParticles(cx, cy, 80);
+        spawnLoveAndBeautyPetals(cx, cy, 80);
+        if (navigator.vibrate) navigator.vibrate([40, 40, 40]);
+      }, 250);
+
+      setTimeout(() => {
+        spawnGoldenParticles(cx, cy, 100);
+        spawnLoveAndBeautyPetals(cx, cy, 100);
+        if (navigator.vibrate) navigator.vibrate([70, 50, 70]);
+      }, 500);
+
+      // 캐릭터 말풍선 ⚡ SUPERPOWER HONGIK FEVER!
+      const bubble = document.getElementById('char-speech-bubble');
+      const text = document.getElementById('char-speech-text');
+      text.innerHTML = "⚡ <span class='text-amber-300 font-black'>SUPERPOWER HONGIK FEVER!</span><br/>진정한 사랑과 아름다움 각성 (+100 EXP) 💖";
+      bubble.classList.remove('opacity-0');
+
+      setTimeout(() => {
+        bubble.classList.add('opacity-0');
+        isFeverActive = false;
+      }, 3200);
     }
 
     // -------------------------------------------------------------
-    // 스테이지 렌더링 & 바른 선택 로직
+    // 💾 [스킬 3 지스택] 제로-렉 로컬 상태 관리 & 영구 보존
     // -------------------------------------------------------------
+    function saveGStackState() {
+      try {
+        const state = {
+          currentStep,
+          hongikExp,
+          awakenedRunesCount,
+          updatedAt: Date.now(),
+          version: 'v9.5-gstack'
+        };
+        localStorage.setItem('cheonbu_gstack_save', JSON.stringify(state));
+      } catch (e) {
+        console.warn('G-Stack Save Error:', e);
+      }
+    }
+
+    function loadGStackState() {
+      try {
+        const raw = localStorage.getItem('cheonbu_gstack_save');
+        if (raw) {
+          const state = JSON.parse(raw);
+          if (state && typeof state.hongikExp === 'number') {
+            hongikExp = Math.max(hongikExp, state.hongikExp);
+          }
+          if (state && state.currentStep && state.currentStep >= 1 && state.currentStep <= 3) {
+            currentStep = state.currentStep;
+          }
+        }
+      } catch (e) {
+        console.warn('G-Stack Load Error:', e);
+      }
+    }
+
+    // -------------------------------------------------------------
+    // 🧠 [스킬 1 REA] 자율 추론 가이드 팁 엔진
+    // -------------------------------------------------------------
+    function updateReaReasoningGuide(step) {
+      const guide = document.getElementById('rea-guide-text');
+      if (!guide) return;
+      if (step === 1) {
+        guide.innerText = "지금 '나눔의 빛'을 선택하면 천부경 9자가 각성되고 마고성의 꽃이 피어납니다.";
+      } else if (step === 2) {
+        guide.innerText = "'상생의 성소'를 선택하면 천·지·인의 조화 에너지가 극대화되어 홍익 지수가 폭발적으로 상승합니다.";
+      } else if (step === 3) {
+        guide.innerText = "'홍익의 출항'을 인도하면 황금 신단수가 대완성되며 27자 도감이 100% 영구 각성됩니다.";
+      }
+    }
     function renderStep(step) {
       currentStep = step;
       const scenario = MOBILE_SCENARIOS[step] || MOBILE_SCENARIOS[1];
@@ -771,6 +1102,8 @@
       });
 
       updateRuneBoard();
+      updateReaReasoningGuide(step);
+      saveGStackState();
     }
 
     function onSelectChoice(type) {
@@ -839,6 +1172,7 @@
     function resetMobileGame() {
       hongikExp = 100;
       currentStep = 1;
+      try { localStorage.removeItem('cheonbu_gstack_save'); } catch(e) {}
       document.getElementById('modal-victory').classList.add('hidden');
       renderStep(1);
     }
@@ -961,7 +1295,8 @@
       }, { passive: false });
       canvas.addEventListener('mousedown', handleScreenTouch);
 
-      renderStep(1);
+      loadGStackState();
+      renderStep(currentStep);
       renderParticles();
     });
   </script>
