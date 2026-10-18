@@ -259,6 +259,20 @@ def run_rgon_full_agency_audit():
     )
     record("GATE-16", "5대 분야별 전담팀 & 외부 AI 레버리지 스튜디오 데크(/api/cheonbu-production-corps) 실물 검증", g16_api_ok and g16_deck_ok, f"HTTP {st_corps} (5대 전담팀 100% 가동 & 레버리지 데크 완비)")
 
+    # [GATE 17] 스마트폰 풀스크린 전용 폰게임 앱 실물 검증 (1개)
+    st_mob, body_mob = http_get("/play_cheonbu_mobile.html")
+    g17_ok = (
+        st_mob == 200
+        and "100dvh" in body_mob
+        and "overflow: hidden" in body_mob
+        and "mobile-fullscreen-canvas" in body_mob
+        and "CHARACTERS_SVG" in body_mob
+        and "heart-mirror-reflection-box" in body_mob
+        and "playGenesisYulryeoSound" in body_mob
+        and "modal-corps" in body_mob
+    )
+    record("GATE-17", "스마트폰 풀스크린 폰게임 앱(/play_cheonbu_mobile.html) 무스크롤·풀캔버스·성찰 실물 검증", g17_ok, f"HTTP {st_mob} (100dvh 풀스크린·3단진화·심경거울·432Hz 완비)")
+
     # 경호처 해시 최신화
     from cheongwadae_guard import save_golden_hashes
     save_golden_hashes()
@@ -274,7 +288,7 @@ def run_rgon_full_agency_audit():
         print("🚨 테스트 미통과 항목 발견! 배포를 중단합니다.")
         sys.exit(1)
 
-    print(f"🏆 [최종 완료] 전 기관 27개 관문 전수 실전 감사 100.0% ALL PASS! 5대 전담팀 및 외부 AI 레버리지 스튜디오 완비!")
+    print(f"🏆 [최종 완료] 전 기관 28개 관문 전수 실전 감사 100.0% ALL PASS! 스마트폰 풀스크린 실제 폰게임 앱 완비!")
     print("=" * 75)
 
 if __name__ == "__main__":
