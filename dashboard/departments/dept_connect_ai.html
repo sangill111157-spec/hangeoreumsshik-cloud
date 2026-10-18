@@ -163,7 +163,25 @@
       <span class="text-xs text-emerald-400 font-bold">● 무인 바이럴 루프 활성화됨</span>
     </div>
 
-    <!-- 5대 클린룸 웹앱 통합 런처 카드 -->
+    <!-- 5대 클린룸 웹앱 통합 런처 카드 + 신작 천부 오디세이 스튜디오 -->
+    <div class="mb-3 p-3 rounded-xl bg-gradient-to-r from-amber-500/20 via-purple-500/20 to-cyan-500/20 border border-amber-500/40 flex flex-wrap items-center justify-between gap-2">
+      <div class="flex items-center gap-2.5">
+        <span class="text-2xl">🌌</span>
+        <div>
+          <div class="text-xs font-bold text-amber-200">신작 플래그십: 《천부(天符) 오디세이 제1탄: 생성(生成)》</div>
+          <div class="text-[10px] text-slate-300">태초의 율려 432Hz · 천부경 27자 황금 각성 계단식 인성 게임</div>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <button onclick="selectViralTarget('app_cheonbu')" class="px-2.5 py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-[11px] font-bold transition">
+          📢 바이럴 카피 생성
+        </button>
+        <a href="/departments/dept_closet.html" target="_blank" class="px-3 py-1 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 text-[11px] font-black transition shadow">
+          플레이 열기 ➔
+        </a>
+      </div>
+    </div>
+
     <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
       <div onclick="selectViralTarget('app1')" class="viral-card p-3 rounded-xl bg-slate-950/80 border border-emerald-500/40 hover:border-emerald-400 cursor-pointer transition text-center group">
         <div class="text-2xl group-hover:scale-110 transition">🍀</div>
@@ -253,7 +271,13 @@
 "어제의 나보다 딱 1%만 더 나아가면, 1년 뒤 37배의 기적이 일어납니다."
 매일 아침 긍정 확언과 5대 핵심 습관을 체크하고 황금 스탬프를 모아보세요!
 👉 나의 1% 루틴 시작하기: \${window.location.origin}/safe_daily_routine.html
-※ 기록이 내 기기에만 안전하게 보관되는 무료 웹앱입니다.`
+※ 기록이 내 기기에만 안전하게 보관되는 무료 웹앱입니다.`,
+
+      app_cheonbu: `[🌌 천부(天符) 오디세이 시리즈 제1탄: 생성(生成)]
+"태초의 차가운 어둠 속, 첫 번째 빛과 소리(율려)가 깨어납니다."
+천부경 81자 중 첫 27자의 비밀을 풀고, 가족과 함께 432Hz 치유 주파수의 울림을 경험해보세요!
+👉 1탄 무료 플레이: \${window.location.origin}/departments/dept_closet.html
+※ 개인정보를 전혀 저장하지 않는 100% 클린룸 계단식 인성 게임입니다.`
     };
 
     function selectViralTarget(appKey) {

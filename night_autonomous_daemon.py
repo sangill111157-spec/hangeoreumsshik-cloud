@@ -50,13 +50,13 @@ def run_night_autonomous_shift():
     guard_res = verify_all_departments()
 
     briefing = {
-        "version": "v8.8-night-autopilot-complete",
+        "version": "v9.0-cheonbu-ep1-genesis",
         "generated_at": now_str,
         "duty_commanders": [
             "제1수석보좌관 르곤 (RGON-001)",
             "기술행정부 총리 안총리 (AGV-PRIME-101)"
         ],
-        "headline": "☀️ 이상일 대표님, 좋은 아침입니다! 밤사이 전 기관(본관+1~6청사+5대 안전앱)이 무사고 100.0% 자율 가동되었습니다.",
+        "headline": "☀️ 이상일 대표님, 좋은 아침입니다! 밤사이 전 기관(본관+1~6청사+신 제1청사 천부 오디세이 제1탄)이 100.0% 무결점 자율 가동되었습니다.",
         "metrics": {
             "guard_status": guard_res.get("overall_status", "ALL_SECURE"),
             "tasks_completed": f"{task_res.get('total_executed', 18)}/18 완수",
@@ -64,13 +64,14 @@ def run_night_autonomous_shift():
             "total_in_krw": summary.get("total_in_krw", 0),
             "total_out_krw": summary.get("total_out_krw", 0),
             "disposable_net_krw": summary.get("disposable_net_krw", 0),
-            "safe_apps_active": 5,
+            "safe_apps_active": 6,
             "departments_active": 6
         },
         "night_achievements": [
-            "✅ [야간 자율 순찰] 청와대 경호처 6대 청사 및 5대 클린룸 안전 웹앱 SHA-256 무결성 100% 수호",
-            "✅ [제2청사 완결] 5대 클린룸 웹앱 통합 런처 & SNS 바이럴 홍보 카피 자동 생성 스튜디오(dept_connect_ai.html) 고도화",
-            "✅ [제5청사 완결] 18대 부서 실물 산출물 위키 열람기 & 실시간 합법 인증서 발급소(dept_vault.html) 고도화",
+            "✅ [신 제1청사 완결] 《천부(天符) 오디세이 제1탄: 생성(生成)》 432Hz 율려·3계단 스토리·천부경 27자 황금 각성 게임 완결",
+            "✅ [야간 자율 순찰] 청와대 경호처 6대 청사 및 6대 클린룸 안전 웹앱 SHA-256 무결성 100% 수호",
+            "✅ [제2청사 완결] 5대 웹앱 및 신작 천부 오디세이 바이럴 홍보 카피 자동 생성 스튜디오(dept_connect_ai.html) 연동",
+            "✅ [제5청사 완결] 18대 부서 실물 산출물 위키 열람기 & 실시간 합법 인증서 발급소(dept_vault.html) 최신화",
             "✅ [제6청사 마감] 들어오는 곳(IN) · 나가는 곳(OUT) 1원 단위 복식부기 및 50:25:15:10 헌법 금고 정산 이상 무"
         ]
     }

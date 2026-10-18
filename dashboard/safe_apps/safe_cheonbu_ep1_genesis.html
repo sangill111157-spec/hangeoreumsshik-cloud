@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🌌 제1청사: 천부(天符) 오디세이 스튜디오 — [제1탄: 생성(生成)]</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            space: '#030712',
+            gold: { 300: '#fde047', 400: '#facc15', 500: '#eab308', 600: '#ca8a04' }
+          },
+          animation: {
+            'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'spin-slow': 'spin 20s linear infinite'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;600;800;900&display=swap');
+    body { font-family: 'Pretendard', sans-serif; background-color: #030712; }
+    .glass-card { background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(12px); border: 1px solid rgba(234, 179, 8, 0.25); }
+    .tile-awakened { background: linear-gradient(135deg, rgba(234, 179, 8, 0.35), rgba(245, 158, 11, 0.15)); border-color: #facc15; box-shadow: 0 0 15px rgba(250, 204, 21, 0.4); color: #fef08a; transform: translateY(-2px); }
+    .tile-dormant { background: rgba(17, 24, 39, 0.8); border-color: rgba(75, 85, 99, 0.4); color: #4b5563; }
+  </style>
+</head>
+<body class="text-slate-100 min-h-screen flex flex-col justify-between selection:bg-amber-500 selection:text-black">
+
+  <!-- 🏛️ 상단 네비게이션 & 헤더 -->
+  <header class="border-b border-amber-500/20 bg-slate-950/80 sticky top-0 z-50 backdrop-blur-md">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <a href="/?v=900&tab=command" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 border border-amber-500/30 text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
+          <span>🏛️</span>
+          <span>청와대 본관 귀환</span>
+        </a>
+        <div class="h-4 w-[1px] bg-slate-800 hidden sm:block"></div>
+        <div>
+          <h1 class="text-base sm:text-lg font-black text-white flex items-center gap-2">
+            <span>🌌</span>
+            <span>제1청사: 천부(天符) 오디세이 스튜디오</span>
+            <span class="text-[11px] font-mono px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40">제1탄: 생성(生成)</span>
+          </h1>
+          <p class="text-[11px] text-slate-400 hidden sm:block">태초의 빛에서 5만 년의 별로 · 전 세대 계단식 인성 인터랙티브 서사</p>
+        </div>
+      </div>
+
+      <!-- 사운드 토글 & 율려 주파수 -->
+      <div class="flex items-center gap-2">
+        <button onclick="playGenesisYulryeoSound(432)" class="px-2.5 py-1.5 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-bold transition flex items-center gap-1">
+          <span>🔔</span>
+          <span class="hidden sm:inline">태초의 율려</span>
+          <span>432Hz</span>
+        </button>
+        <button onclick="playGenesisYulryeoSound(528)" class="px-2.5 py-1.5 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 text-xs font-bold transition flex items-center gap-1">
+          <span>✨</span>
+          <span class="hidden sm:inline">생명의 화음</span>
+          <span>528Hz</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- 🪜 7부작 시리즈 계단 네비게이터 (#series-staircase-nav) -->
+    <div id="series-staircase-nav" class="bg-slate-900/90 border-t border-slate-800 px-4 py-2 overflow-x-auto">
+      <div class="max-w-6xl mx-auto flex items-center gap-2 text-xs font-bold whitespace-nowrap">
+        <span class="text-amber-400 text-[11px] font-mono shrink-0">7부작 계단:</span>
+        <div class="px-2.5 py-1 rounded-md bg-amber-500/20 text-amber-300 border border-amber-400/50 flex items-center gap-1 shadow-sm shrink-0">
+          <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
+          <span>🟢 제1탄: 생성(生成) — LIVE</span>
+        </div>
+        <span class="text-slate-600">➔</span>
+        <div class="px-2.5 py-1 rounded-md bg-slate-800/60 text-slate-500 border border-slate-800 flex items-center gap-1 shrink-0" title="환웅의 신시 개천과 웅녀의 인내">
+          <span>🔒 제2탄: 개천</span>
+        </div>
+        <span class="text-slate-600">➔</span>
+        <div class="px-2.5 py-1 rounded-md bg-slate-800/60 text-slate-500 border border-slate-800 shrink-0">🔒 제3탄: 홍익</div>
+        <span class="text-slate-600">➔</span>
+        <div class="px-2.5 py-1 rounded-md bg-slate-800/60 text-slate-500 border border-slate-800 shrink-0">🔒 제4탄: 애민</div>
+        <span class="text-slate-600">➔</span>
+        <div class="px-2.5 py-1 rounded-md bg-slate-800/60 text-slate-500 border border-slate-800 shrink-0">🔒 제5탄: 등불</div>
+        <span class="text-slate-600">➔</span>
+        <div class="px-2.5 py-1 rounded-md bg-slate-800/60 text-slate-500 border border-slate-800 shrink-0">🔒 제6탄: 공존</div>
+        <span class="text-slate-600">➔</span>
+        <div class="px-2.5 py-1 rounded-md bg-slate-800/60 text-slate-500 border border-slate-800 shrink-0">🔒 제7탄: 5만년 신단수</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 🌌 메인 인터랙티브 게임 스테이지 -->
+  <main class="max-w-4xl mx-auto px-4 py-8 space-y-8 flex-1 w-full">
+
+    <!-- 1. 태초의 우주 에너지 캔버스 박스 -->
+    <div class="relative glass-card rounded-3xl p-6 overflow-hidden text-center shadow-2xl border-amber-500/30">
+      <!-- 배경 애니메이션 그라데이션 구체 -->
+      <div class="absolute inset-0 flex items-center justify-center opacity-30 pointer-events-none">
+        <div id="genesis-energy-core" class="w-64 h-64 sm:w-80 sm:h-80 rounded-full bg-gradient-to-tr from-amber-500 via-purple-600 to-cyan-400 filter blur-3xl animate-pulse-slow"></div>
+      </div>
+
+      <div class="relative z-10 space-y-3">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-mono">
+          <span>✨</span>
+          <span id="genesis-stage-badge">제1계단: 무극(無極)의 진동</span>
+        </div>
+        <h2 id="genesis-title" class="text-xl sm:text-2xl font-black text-white tracking-tight">
+          태초의 고요 속에 첫 번째 빛과 소리(율려)가 깨어납니다
+        </h2>
+        <p id="genesis-desc" class="text-xs sm:text-sm text-slate-300 max-w-xl mx-auto leading-relaxed">
+          아무것도 존재하지 않던 차가운 우주에 따뜻한 하나의 울림이 피어납니다.<br class="hidden sm:inline">
+          이 빛은 온 우주를 비추는 생명의 씨앗입니다. 당신은 이 빛을 어떻게 마주하시겠습니까?
+        </p>
+
+        <!-- 진행 계단 프로그레스 바 -->
+        <div class="max-w-md mx-auto pt-2">
+          <div class="flex justify-between text-[11px] text-slate-400 font-mono mb-1">
+            <span>계단 진행도</span>
+            <span id="step-progress-text" class="text-amber-300 font-bold">1 / 3 계단</span>
+          </div>
+          <div class="w-full h-2 rounded-full bg-slate-800 overflow-hidden p-0.5 border border-slate-700">
+            <div id="step-progress-bar" class="h-full bg-gradient-to-r from-amber-500 to-cyan-400 rounded-full transition-all duration-700 w-1/3"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 선택지 버튼 그리드 -->
+      <div id="genesis-choices-container" class="relative z-10 grid grid-cols-1 sm:grid-cols-2 gap-3 mt-6 pt-4 border-t border-slate-800">
+        <button onclick="advanceGenesisStep(1, 0)" class="p-4 rounded-2xl bg-slate-900/90 hover:bg-slate-800/90 border border-slate-700 hover:border-amber-400 transition text-left space-y-1 group active:scale-[0.98]">
+          <div class="text-xs font-bold text-amber-300 group-hover:text-amber-200 flex items-center justify-between">
+            <span>☀️ [선택 A] "빛을 온 우주로 나누어 모두를 따뜻하게 하겠다"</span>
+            <span>➔</span>
+          </div>
+          <p class="text-[11px] text-slate-400 leading-snug">홍익(弘益)과 나눔의 인성 선택 — 율려 432Hz 화음 공명 및 제1구절 각성</p>
+        </button>
+        <button onclick="advanceGenesisStep(1, 1)" class="p-4 rounded-2xl bg-slate-900/90 hover:bg-slate-800/90 border border-slate-700 hover:border-slate-500 transition text-left space-y-1 group active:scale-[0.98]">
+          <div class="text-xs font-bold text-slate-300 group-hover:text-white flex items-center justify-between">
+            <span>🌑 [선택 B] "빛을 나 홀로 품어 가장 강한 자가 되겠다"</span>
+            <span>➔</span>
+          </div>
+          <p class="text-[11px] text-slate-400 leading-snug">소유와 고립의 선택 — 성찰의 경고음 울림 및 바른 마음 회복 유도</p>
+        </button>
+      </div>
+
+      <!-- 성찰/피드백 메시지 박스 -->
+      <div id="genesis-feedback-box" class="hidden mt-4 p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-xs text-amber-200 text-center font-medium"></div>
+    </div>
+
+    <!-- 2. 천부경 제1탄 〈생성〉 27자 황금 석판 각성 보드 (#cheonbu-genesis-27-board) -->
+    <div id="cheonbu-genesis-27-board" class="glass-card rounded-3xl p-6 space-y-4 shadow-xl border-amber-500/30">
+      <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-3">
+        <div class="flex items-center gap-2">
+          <span class="text-xl">📜</span>
+          <h3 class="text-sm sm:text-base font-bold text-white">천부경(天符經) 제1장 〈생성(生成)〉 27자 황금 석판</h3>
+          <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">81자 중 첫 27자 각성</span>
+        </div>
+        <div class="text-xs text-slate-400 font-mono">
+          각성 현황: <span id="awakened-count" class="text-amber-300 font-bold">0</span> / 27자
+        </div>
+      </div>
+
+      <!-- 3행 x 9열 황금 타일 매트릭스 -->
+      <div class="grid grid-cols-9 gap-1.5 sm:gap-2 text-center" id="cheonbu-tiles-grid">
+        <!-- 1행: 一始無始一 析三極 無 (9자) -->
+        <div class="tile-dormant p-2 sm:p-3 rounded-lg font-serif font-black text-sm sm:text-base transition-all duration-500" data-idx="0">一</div>
+        <div class="tile-dormant p-2 sm:p-3 rounded-lg font-serif font-black text-sm sm:text-base transition-all duration-500" data-idx="1">始</div>
+        <div class="tile-dormant p-2 sm:p-3 rounded-lg font-serif font-black text-sm sm:text-base transition-all duration-500" data-idx="2">無</div>
+        <div class="tile-dormant p-2 sm:p-3 rounded-lg font-serif font-black text-sm sm:text-base transition-all duration-500" data-idx="3">始</div>
+        <div class="tile-dormant p-2 sm:p-3 rounded-lg font-serif font-black text-sm sm:text-base transition-all duration-500" data-idx="4">一</div>
+        <div class="tile-dormant p-2 sm:p-3 rounded-lg font-serif font-black text-sm sm:text-base transition-all duration-500" data-idx="5">析</div>
+        <div class="tile-dormant p-2 sm:p-3 rounded-lg font-serif font-black text-sm sm:text-base transition-all duration-500" data-idx="6">三</div>
+        <div class="tile-dormant p-2 sm:p-3 rounded-lg font-serif font-black text-sm sm:text-base transition-all duration-500" data-idx="7">極</div>
+        <div class="tile-dormant p-2 sm:p-3 rounded-lg font-serif font-black text-sm sm:text-base transition-all duration-500" data-idx="8">無</div>
+
+        <!-- 2행: 盡本 天一一 地一二 人 (9자) -->
+        <div class="tile-dormant p-2 sm:p-3 rounded-lg font-serif font-black text-sm sm:text-base transition-all duration-500" data-idx="9">盡</div>
+        <div class="tile-dormant p-2 sm:p-3 rounded-lg font-serif font-black text-sm sm:text-base transition-all duration-500" data-idx="10">本</div>
+        <div class="tile-dormant p-2 sm:p-3 rounded-lg font-serif font-black text-sm sm:text-base transition-all duration-500" data-idx="11">天</div>
+        <div class="tile-dormant p-2 sm:p-3 rounded-lg font-serif font-black text-sm sm:text-base transition-all duration-500" data-idx="12">一</div>
+        <div class="tile-dormant p-2 sm:p-3 rounded-lg font-serif font-black text-sm sm:text-base transition-all duration-500" data-idx="13">一</div>
+        <div class="tile-dormant p-2 sm:p-3 rounded-lg font-serif font-black text-sm sm:text-base transition-all duration-500" data-idx="14">地</div>
+        <div class="tile-dormant p-2 sm:p-3 rounded-lg font-serif font-black text-sm sm:text-base transition-all duration-500" data-idx="15">一</div>
+        <div class="tile-dormant p-2 sm:p-3 rounded-lg font-serif font-black text-sm sm:text-base transition-all duration-500" data-idx="16">二</div>
+        <div class="tile-dormant p-2 sm:p-3 rounded-lg font-serif font-black text-sm sm:text-base transition-all duration-500" data-idx="17">人</div>
+
+        <!-- 3행: 一三 一積十鉅 無匱化三 (9자) -->
+        <div class="tile-dormant p-2 sm:p-3 rounded-lg font-serif font-black text-sm sm:text-base transition-all duration-500" data-idx="18">一</div>
+        <div class="tile-dormant p-2 sm:p-3 rounded-lg font-serif font-black text-sm sm:text-base transition-all duration-500" data-idx="19">三</div>
+        <div class="tile-dormant p-2 sm:p-3 rounded-lg font-serif font-black text-sm sm:text-base transition-all duration-500" data-idx="20">一</div>
+        <div class="tile-dormant p-2 sm:p-3 rounded-lg font-serif font-black text-sm sm:text-base transition-all duration-500" data-idx="21">積</div>
+        <div class="tile-dormant p-2 sm:p-3 rounded-lg font-serif font-black text-sm sm:text-base transition-all duration-500" data-idx="22">十</div>
+        <div class="tile-dormant p-2 sm:p-3 rounded-lg font-serif font-black text-sm sm:text-base transition-all duration-500" data-idx="23">鉅</div>
+        <div class="tile-dormant p-2 sm:p-3 rounded-lg font-serif font-black text-sm sm:text-base transition-all duration-500" data-idx="24">無</div>
+        <div class="tile-dormant p-2 sm:p-3 rounded-lg font-serif font-black text-sm sm:text-base transition-all duration-500" data-idx="25">匱</div>
+        <div class="tile-dormant p-2 sm:p-3 rounded-lg font-serif font-black text-sm sm:text-base transition-all duration-500" data-idx="26">化</div>
+      </div>
+
+      <!-- 쉬운 우리말 인성 풀이 보드 -->
+      <div id="cheonbu-interpretation" class="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 text-xs text-slate-300 leading-relaxed font-mono">
+        💡 <span class="text-amber-300 font-bold">인성 풀이 대기중:</span> 계단을 하나씩 오를 때마다 태초의 지혜가 우리말로 깨어납니다.
+      </div>
+    </div>
+
+    <!-- 3. 완주 인증서 & 가족 공감 나눔 카드 (완주 시 자동 표시) -->
+    <div id="genesis-complete-card" class="hidden glass-card rounded-3xl p-6 sm:p-8 border-2 border-amber-400 space-y-5 text-center shadow-2xl relative overflow-hidden">
+      <div class="text-4xl animate-bounce">🏆</div>
+      <div class="space-y-1">
+        <h3 class="text-xl sm:text-2xl font-black text-amber-300">《천부 오디세이 제1탄: 생성(生成)》 완주 인증서</h3>
+        <p class="text-xs text-slate-300">당신은 바른 마음과 나눔의 인성으로 태초의 우주를 조화롭게 탄생시켰습니다!</p>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-lg mx-auto text-xs py-2">
+        <div class="p-3 rounded-xl bg-slate-900 border border-amber-500/30">
+          <div class="text-slate-400">홍익 인성 점수</div>
+          <div id="final-hongik-score" class="text-lg font-black text-amber-300">100 / 100</div>
+        </div>
+        <div class="p-3 rounded-xl bg-slate-900 border border-cyan-500/30">
+          <div class="text-slate-400">각성 글자 수</div>
+          <div class="text-lg font-black text-cyan-300">27자 전체</div>
+        </div>
+        <div class="p-3 rounded-xl bg-slate-900 border border-purple-500/30">
+          <div class="text-slate-400">태초의 율려</div>
+          <div class="text-lg font-black text-purple-300">432Hz 공명</div>
+        </div>
+        <div class="p-3 rounded-xl bg-slate-900 border border-emerald-500/30">
+          <div class="text-slate-400">차기 에피소드</div>
+          <div class="text-lg font-black text-emerald-300">제2탄 개천</div>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap items-center justify-center gap-3 pt-2">
+        <button onclick="copyGenesisCertificate()" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-400 hover:to-yellow-500 text-slate-950 font-black text-xs shadow-lg transition active:scale-95 flex items-center gap-2">
+          <span>📋</span>
+          <span>완주 인증서 & 가족 나눔 카드 복사하기</span>
+        </button>
+        <button onclick="resetGenesisGame()" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold transition">
+          🔄 처음부터 다시 체험
+        </button>
+      </div>
+      <div id="copy-confirm-msg" class="hidden text-xs text-emerald-400 font-bold">✅ 클립보드에 복사되었습니다! 가족 단톡방이나 SNS에 붙여넣어 나누어보세요.</div>
+    </div>
+
+  </main>
+
+  <!-- 🛡️ 제5청사 법무 안전망 푸터 -->
+  <footer class="border-t border-slate-800/80 bg-slate-950/90 py-5 px-4 text-center text-xs text-slate-500 space-y-2">
+    <div class="flex flex-wrap items-center justify-center gap-2 text-slate-400 text-[11px]">
+      <span>🏛️ 한걸음씩 제1청사 천부 오디세이 스튜디오</span>
+      <span>•</span>
+      <span>기술행정부 총리 안총리(AGV-PRIME-101) 지휘</span>
+      <span>•</span>
+      <span>제5청사 법무 안전망 HGS-LEGAL-SAFE-2026-PASS</span>
+    </div>
+    <p class="max-w-2xl mx-auto text-[10px] text-slate-500 leading-relaxed">
+      ⚖️ 법적 고지: 본 작품은 고대 문화유산 천부경(퍼블릭 도메인)을 바탕으로 한 100% 자체 기획·자체 코드 창작물입니다. 
+      사용자의 선택과 플레이 정보는 외부 서버에 일체 전송 및 저장되지 않으며(Zero-Leak), 남녀노소 누구나 무료로 안전하게 체험할 수 있습니다.
+    </p>
+  </footer>
+
+  <!-- 🎮 인터랙티브 게임 & Web Audio 사운드 엔진 스크립트 -->
+  <script>
+    let currentStep = 1;
+    let hongikScore = 100;
+    let audioCtx = null;
+
+    // 432Hz / 528Hz Web Audio 율려 사운드 신디사이저
+    function playGenesisYulryeoSound(freq = 432) {
+      try {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+
+        const now = audioCtx.currentTime;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+
+        // 부드러운 사인파 천부종 톤
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, now);
+
+        // 벨 배음 감쇠 엔벨로프
+        gain.gain.setValueAtTime(0, now);
+        gain.gain.linearRampToValueAtTime(0.3, now + 0.05);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 2.5);
+
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        osc.start(now);
+        osc.stop(now + 2.5);
+      } catch (e) {
+        console.warn('[Audio] Web Audio skip:', e);
+      }
+    }
+
+    // 단계별 시나리오 정의
+    const SCENARIOS = {
+      1: {
+        badge: "제1계단: 무극(無極)의 진동",
+        title: "태초의 고요 속에 첫 번째 빛과 소리(율려)가 깨어납니다",
+        desc: "아무것도 존재하지 않던 차가운 우주에 따뜻한 하나의 울림이 피어납니다. 이 빛은 온 우주를 비추는 생명의 씨앗입니다. 당신은 이 빛을 어떻게 마주하시겠습니까?",
+        progress: "1 / 3 계단",
+        percent: "33%",
+        choices: [
+          { text: "☀️ [선택 A] '빛을 온 우주로 나누어 모두를 따뜻하게 하겠다'", sub: "홍익과 나눔의 인성 선택 — 율려 432Hz 화음 공명 및 제1구절 각성", score: 10, correct: true },
+          { text: "🌑 [선택 B] '빛을 나 홀로 품어 가장 강한 자가 되겠다'", sub: "소유와 고립의 선택 — 성찰의 경고음 울림 및 바른 마음 회복 유도", score: -5, correct: false }
+        ]
+      },
+      2: {
+        badge: "제2계단: 삼재(三才)의 생성과 마고대성",
+        title: "하늘(天)의 별과 땅(地)의 흙, 생명의 중심(人)이 조화를 이룹니다",
+        desc: "하늘과 땅과 사람이 만나 태초의 순수 성소인 마고대성(麻姑大城)이 장엄하게 솟아오릅니다. 생명들이 평화롭게 깃들기 위해 당신은 어떤 성소를 세우시겠습니까?",
+        progress: "2 / 3 계단",
+        percent: "66%",
+        choices: [
+          { text: "🌿 [선택 A] '하늘과 땅과 사람이 상생하는 조화의 낙원을 세우겠다'", sub: "상생과 조화의 인성 선택 — 율려 528Hz 화음 공명 및 제2구절 각성", score: 10, correct: true },
+          { text: "⚡ [선택 B] '자연의 질서를 힘으로 정복하여 지배하겠다'", sub: "정복과 지배의 선택 — 생태계의 불협화음 경고", score: -5, correct: false }
+        ]
+      },
+      3: {
+        badge: "제3계단: 생성(生成)의 대완성 — 27자 각성",
+        title: "마고성의 생명수가 꽃피고, 천부경 제1장이 찬란히 완성됩니다!",
+        desc: "나눔과 상생의 마음에 감응하여 온 우주에 생명의 싹이 틉니다. 마침내 생성(生成)의 장이 완결되었습니다. 이제 당신은 다음 시대(제2탄 개천)를 향해 어떤 발걸음을 내딛겠습니까?",
+        progress: "3 / 3 계단 (완성)",
+        percent: "100%",
+        choices: [
+          { text: "🚀 [선택 A] '더 많은 생명에게 생명의 빛을 전하러 한걸음씩 나아가겠다'", sub: "사명과 개척의 인성 선택 — 27자 황금 각성 대완성", score: 10, correct: true },
+          { text: "🏰 [선택 B] '완성된 낙원에 머물며 영원히 안주하겠다'", sub: "안주의 선택 — 새로운 진보를 위한 격려 메시지", score: 0, correct: false }
+        ]
+      }
+    };
+
+    const INTERPRETATIONS = {
+      0: "💡 인성 풀이 대기중: 계단을 하나씩 오를 때마다 태초의 지혜가 우리말로 깨어납니다.",
+      1: "✨ [제1구절 각성 - 一始無始一 析三極 無]: '우주는 하나의 큰 생명에서 시작되었으니, 셋으로 나누어져도 그 근본 바탕은 결코 다함이 없다.' (나눔과 평등의 지혜)",
+      2: "✨ [제2구절 각성 - 盡本 天一一 地一二 人一三]: '하늘의 별도, 대지의 흙도, 사람의 숨결도 모두 하나에서 비롯되었으니, 자연과 인간은 둘이 아닌 하나이다.' (상생과 조화의 지혜)",
+      3: "👑 [제1장 대완성 - 一積十鉅 無匱化三]: '작은 정성과 배려가 하나씩 쌓여 무한히 커져도, 모남 없이 온 누리를 넉넉하게 채운다.' (홍익인간 성취)"
+    };
+
+    // 계단 전진 함수 advanceGenesisStep
+    function advanceGenesisStep(stepNum, choiceIdx) {
+      const scenario = SCENARIOS[stepNum];
+      if (!scenario) return;
+
+      const choice = scenario.choices[choiceIdx];
+      const feedbackBox = document.getElementById('genesis-feedback-box');
+
+      if (!choice.correct) {
+        // 성찰 피드백
+        playGenesisYulryeoSound(216); // 낮은 성찰 톤
+        feedbackBox.classList.remove('hidden');
+        feedbackBox.innerHTML = `⚠️ <strong>[성찰의 지혜]</strong> ${choice.sub}<br>우리는 나 혼자만의 독점이 아닌, 모두와 함께 나누고 상생할 때 진정한 우주를 생성할 수 있습니다. 바른 마음의 선택을 터치해주세요!`;
+        return;
+      }
+
+      // 정답/추천 선택 시 화음 연주
+      const soundFreq = (stepNum === 1) ? 432 : (stepNum === 2 ? 528 : 648);
+      playGenesisYulryeoSound(soundFreq);
+
+      feedbackBox.classList.add('hidden');
+      hongikScore += choice.score;
+
+      // 타일 각성 (Step 1: 9자, Step 2: 18자, Step 3: 27자)
+      const targetCount = stepNum * 9;
+      awakenTiles(targetCount);
+      document.getElementById('cheonbu-interpretation').innerHTML = INTERPRETATIONS[stepNum];
+
+      // 다음 단계로 전환
+      if (stepNum < 3) {
+        currentStep = stepNum + 1;
+        renderStep(currentStep);
+      } else {
+        // 제1탄 생성 완주!
+        finishGenesisEpisode();
+      }
+    }
+
+    function renderStep(step) {
+      const s = SCENARIOS[step];
+      document.getElementById('genesis-stage-badge').innerText = s.badge;
+      document.getElementById('genesis-title').innerText = s.title;
+      document.getElementById('genesis-desc').innerHTML = s.desc;
+      document.getElementById('step-progress-text').innerText = s.progress;
+      document.getElementById('step-progress-bar').style.width = s.percent;
+
+      // 선택지 교체
+      const container = document.getElementById('genesis-choices-container');
+      container.innerHTML = s.choices.map((c, i) => `
+        <button onclick="advanceGenesisStep(${step}, ${i})" class="p-4 rounded-2xl bg-slate-900/90 hover:bg-slate-800/90 border border-slate-700 hover:border-amber-400 transition text-left space-y-1 group active:scale-[0.98]">
+          <div class="text-xs font-bold text-amber-300 group-hover:text-amber-200 flex items-center justify-between">
+            <span>${c.text}</span>
+            <span>➔</span>
+          </div>
+          <p class="text-[11px] text-slate-400 leading-snug">${c.sub}</p>
+        </button>
+      `).join('');
+    }
+
+    function awakenTiles(count) {
+      const tiles = document.querySelectorAll('#cheonbu-tiles-grid > div');
+      tiles.forEach((t, i) => {
+        if (i < count) {
+          t.classList.remove('tile-dormant');
+          t.classList.add('tile-awakened');
+        } else {
+          t.classList.remove('tile-awakened');
+          t.classList.add('tile-dormant');
+        }
+      });
+      document.getElementById('awakened-count').innerText = Math.min(count, 27);
+    }
+
+    function finishGenesisEpisode() {
+      const completeCard = document.getElementById('genesis-complete-card');
+      completeCard.classList.remove('hidden');
+      completeCard.scrollIntoView({ behavior: 'smooth' });
+      document.getElementById('final-hongik-score').innerText = Math.min(hongikScore, 100) + ' / 100';
+
+      // 팡파레 화음 (432 -> 528 -> 864)
+      playGenesisYulryeoSound(432);
+      setTimeout(() => playGenesisYulryeoSound(528), 250);
+      setTimeout(() => playGenesisYulryeoSound(864), 500);
+    }
+
+    function resetGenesisGame() {
+      currentStep = 1;
+      hongikScore = 100;
+      document.getElementById('genesis-complete-card').classList.add('hidden');
+      document.getElementById('genesis-feedback-box').classList.add('hidden');
+      document.getElementById('cheonbu-interpretation').innerHTML = INTERPRETATIONS[0];
+      awakenTiles(0);
+      renderStep(1);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function copyGenesisCertificate() {
+      const shareText = `[🏆 천부 오디세이 제1탄: 생성(生成) 완주 인증서]
+"태초의 빛에서 5만 년의 별로 — 한걸음씩 제국 제1청사 게임 스튜디오"
+
+✨ 플레이어: 자랑스러운 지구별 가족
+🌟 홍익 인성 점수: ${Math.min(hongikScore, 100)}점 (만점)
+📜 천부경 각성: 제1장 27자 [一始無始一 ~ 無匱化三] 100% 완전 각성
+🔔 태초의 율려: 432Hz 치유 주파수 공명 완료
+
+"하나가 쌓여 열로 커져도, 모남 없이 온 누리를 넉넉하게 채운다."
+👉 함께 플레이하기: ${window.location.origin}/departments/dept_closet.html
+(※ 개인정보를 일체 저장하지 않는 100% 안심 클린룸 인성 게임)`;
+
+      navigator.clipboard.writeText(shareText).then(() => {
+        const msg = document.getElementById('copy-confirm-msg');
+        msg.classList.remove('hidden');
+        setTimeout(() => msg.classList.add('hidden'), 4000);
+      }).catch(err => {
+        alert('인증서가 생성되었습니다:\n\n' + shareText);
+      });
+    }
+  </script>
+</body>
+</html>

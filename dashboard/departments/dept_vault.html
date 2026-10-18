@@ -121,15 +121,15 @@
 
         <!-- 18대 일거리 스크롤 목록 -->
         <div class="mt-3 space-y-1.5 max-h-96 overflow-y-auto pr-1 text-xs">
-          <!-- 1청사 -->
-          <button onclick="viewDeliverableWiki('TASK-D1-01')" class="deliv-btn w-full text-left p-2 rounded-lg bg-pink-950/30 border border-pink-500/30 hover:border-pink-400 transition text-[11px]">
-            <b class="text-pink-300">[D1-01]</b> 목선·어깨선 1픽셀 블렌딩
+          <!-- 1청사: 천부 오디세이 게임 스튜디오 -->
+          <button onclick="viewDeliverableWiki('TASK-D1-01')" class="deliv-btn w-full text-left p-2 rounded-lg bg-amber-950/30 border border-amber-500/30 hover:border-amber-400 transition text-[11px]">
+            <b class="text-amber-300">[D1-01]</b> [생성] 432Hz 율려·3계단 엔진
           </button>
-          <button onclick="viewDeliverableWiki('TASK-D1-02')" class="deliv-btn w-full text-left p-2 rounded-lg bg-slate-900 border border-slate-800 hover:border-pink-400 transition text-[11px]">
-            <b class="text-pink-300">[D1-02]</b> 체형별 황금비율 코디 연구
+          <button onclick="viewDeliverableWiki('TASK-D1-02')" class="deliv-btn w-full text-left p-2 rounded-lg bg-slate-900 border border-slate-800 hover:border-amber-400 transition text-[11px]">
+            <b class="text-amber-300">[D1-02]</b> [생성] 천부경 27자 황금 각성
           </button>
-          <button onclick="viewDeliverableWiki('TASK-D1-03')" class="deliv-btn w-full text-left p-2 rounded-lg bg-slate-900 border border-slate-800 hover:border-pink-400 transition text-[11px]">
-            <b class="text-pink-300">[D1-03]</b> 세 딸 사계절 코디 룩북
+          <button onclick="viewDeliverableWiki('TASK-D1-03')" class="deliv-btn w-full text-left p-2 rounded-lg bg-slate-900 border border-slate-800 hover:border-amber-400 transition text-[11px]">
+            <b class="text-amber-300">[D1-03]</b> [차기] 환웅 개천·웅녀 인내 시련
           </button>
           <!-- 2청사 -->
           <button onclick="viewDeliverableWiki('TASK-D2-01')" class="deliv-btn w-full text-left p-2 rounded-lg bg-slate-900 border border-slate-800 hover:border-blue-400 transition text-[11px]">
@@ -195,7 +195,7 @@
           <div class="flex items-center gap-2">
             <span class="text-lg">📖</span>
             <h3 id="wiki-viewer-title" class="font-bold text-white text-sm">
-              [TASK-D1-01] 목선·어깨선 1픽셀 자연 블렌딩 R&D 실물 산출물
+              [TASK-D1-01] [제1탄: 생성(生成)] 태초의 율려(432Hz) & 천·지·인 3계단 스토리 엔진 구축
             </h3>
           </div>
           <span id="wiki-viewer-status" class="px-2 py-0.5 rounded text-[10px] bg-emerald-500/20 text-emerald-300 font-mono">
@@ -205,8 +205,8 @@
 
         <div class="mt-4 p-4 rounded-xl bg-slate-950/90 border border-slate-800 space-y-3">
           <div class="text-xs text-slate-400 flex flex-wrap items-center justify-between gap-2 border-b border-slate-800/80 pb-2">
-            <span>담당 기관: <b id="wiki-viewer-dept" class="text-pink-300">제1청사 (패션테크 R&D)</b></span>
-            <span>벤치마킹: <b id="wiki-viewer-benchmark" class="text-slate-200">Photoroom & Adobe Firefly</b></span>
+            <span>담당 기관: <b id="wiki-viewer-dept" class="text-amber-300">제1청사 (천부 오디세이 스튜디오)</b></span>
+            <span>벤치마킹: <b id="wiki-viewer-benchmark" class="text-slate-200">고대 천부경 율려 주파수 & Web Audio 신디사이저</b></span>
             <span>합법 코드: <b class="text-amber-400 font-mono">HGS-LEGAL-SAFE-2026-PASS</b></span>
           </div>
 
@@ -256,24 +256,24 @@
   <script>
     const DELIVERABLE_DATABASE = {
       "TASK-D1-01": {
-        title: "[TASK-D1-01] 목선·어깨선 1픽셀 자연 블렌딩 R&D",
-        dept: "제1청사 (패션테크 R&D — 꿈의 옷장)",
-        benchmark: "Photoroom & Adobe Firefly",
-        spec: "인물 사진과 의상 합성 경계면의 각진 현상을 없애는 알파 페더링(Feathering) 정밀 튜닝 설계. 자체 Canvas 2D 픽셀 연산 알고리즘만 사용하여 완벽한 1픽셀 블렌딩을 완성했습니다.",
+        title: "[TASK-D1-01] [제1탄: 생성(生成)] 태초의 율려(432Hz) & 천·지·인 3계단 스토리 엔진 구축",
+        dept: "제1청사 (천부 오디세이 스튜디오)",
+        benchmark: "고대 천부경 율려 주파수 & Web Audio 신디사이저",
+        spec: "무극의 진동(Step 1)에서 삼재 마고대성(Step 2)을 거쳐 생성 대완성(Step 3)까지의 3계단 스토리텔링 및 432Hz/528Hz 화음 연주 엔진을 100% 순수 Web Audio로 구현했습니다.",
         file: "TASK-D1-01_deliverable.md"
       },
       "TASK-D1-02": {
-        title: "[TASK-D1-02] 체형별 상·하의 황금비율 가이드라인 연구",
-        dept: "제1청사 (패션테크 R&D — 꿈의 옷장)",
-        benchmark: "ZARA / 무신사 AI 코디네이터",
-        spec: "전신 사진 업로드 시 어깨·허리·다리 비율을 분석해 최적의 의상 스케일 자동 제안 알고리즘을 개발했습니다.",
+        title: "[TASK-D1-02] [제1탄: 생성(生成)] 천부경 제1장(27자) 황금 석판 각성 시스템 및 인성 풀이",
+        dept: "제1청사 (천부 오디세이 스튜디오)",
+        benchmark: "전통 각석(刻石) 탁본 & 인터랙티브 타일 매트릭스",
+        spec: "3행×9열 27개 황금 타일 계단별 순차 각성(9자->18자->27자) 및 쉬운 우리말 인성 교훈 풀이 인터랙티브 표출을 완성했습니다.",
         file: "TASK-D1-02_deliverable.md"
       },
       "TASK-D1-03": {
-        title: "[TASK-D1-03] 세 딸 전용 계절별 코디 앨범 북마킹 구조",
-        dept: "제1청사 (패션테크 R&D — 꿈의 옷장)",
-        benchmark: "Pinterest (핀터레스트) 무드보드",
-        spec: "완성된 코디 사진을 봄·여름·가을·겨울 룩북 형태로 깔끔하게 모아보는 개인용 브라우저 로컬 저장 앨범 UI를 완성했습니다.",
+        title: "[TASK-D1-03] [차기 제2탄 준비] 환웅의 신시 개천 & 웅녀의 인내 시련 계단식 사전 설계",
+        dept: "제1청사 (천부 오디세이 스튜디오)",
+        benchmark: "단군 신화 & 배달국 신시 개천 대서사",
+        spec: "제1탄 완주 후 차기작 제2탄 〈개천(開天)〉으로 이어지는 환웅의 하강과 웅녀의 인내 인성 시련 시나리오 및 UI를 사전 설계 완료했습니다.",
         file: "TASK-D1-03_deliverable.md"
       },
       "TASK-D2-01": {

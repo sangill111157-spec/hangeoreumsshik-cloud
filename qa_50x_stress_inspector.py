@@ -39,22 +39,17 @@ def check_scenario(iteration):
     with open("run_dashboard.py", "r", encoding="utf-8", errors="ignore") as f:
         py_run = f.read()
 
-    # 1. [TDD-1] 제1청사(dept_closet.html) 꿈의 옷장 v7.1 100% 무결 보존 검증
+    # 1. [TDD-1] 신 제1청사(dept_closet.html) 천부 오디세이 제1탄: 생성 계단식 엔진 검증
     d1 = "dashboard/departments/dept_closet.html"
     d1_ok = False
     if os.path.exists(d1):
         with open(d1, "r", encoding="utf-8", errors="ignore") as f:
             html_d1 = f.read()
-        d1_ok = ("extractPhotoshopGarmentMask" in html_d1 and
-                 "isSkinTone" in html_d1 and
-                 "renderMarchingAntsContour" in html_d1 and
-                 "applyPhotoshopColorMaterial" in html_d1 and
-                 "applyPhotoshopClippingSwap" in html_d1 and
-                 "toggleBeforeAfterView" in html_d1 and
-                 "ps-color-material-bar" in html_d1 and
-                 "스마트폰 원격 복붙 직통 스위치" not in html_d1 and
-                 "remote-commander-launch-bar" not in html_d1 and
-                 "wardrobe-showroom-grid" not in html_d1)
+        d1_ok = ("advanceGenesisStep" in html_d1 and
+                 "playGenesisYulryeoSound" in html_d1 and
+                 "cheonbu-genesis-27-board" in html_d1 and
+                 "series-staircase-nav" in html_d1 and
+                 "copyGenesisCertificate" in html_d1)
     p1 = d1_ok
 
     # 2. [TDD-2] 6대 독립 청사 파일 분리 검증

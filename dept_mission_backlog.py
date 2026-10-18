@@ -31,33 +31,33 @@ INITIAL_WORK_QUEUE = {
     "departments": [
         {
             "dept_id": "dept_1",
-            "dept_name": "제1청사 (패션테크 R&D — 꿈의 옷장)",
-            "dept_role": "수익화 제외 순수 R&D 보호 구역 (화질·핏·합성 정밀도 극대화)",
+            "dept_name": "제1청사 (천부 오디세이 게임 스튜디오 — 계단식 시리즈 개발청)",
+            "dept_role": "전 세대 7부작 계단식 인성 오디세이 게임 스튜디오 및 천부경 27자 각성",
             "tasks": [
                 {
                     "task_id": "TASK-D1-01",
-                    "benchmark_target": "Photoroom & Adobe Firefly (스마트 마스킹)",
-                    "title": "목선·어깨선 1픽셀 자연 블렌딩 R&D",
-                    "spec": "인물 사진과 의상 합성 경계면의 각진 현상을 없애는 알파 페더링(Feathering) 정밀 튜닝 설계",
-                    "legal_rule": "자체 Canvas 2D 픽셀 연산 알고리즘만 사용",
+                    "benchmark_target": "고대 천부경 율려 주파수 & Web Audio 신디사이저",
+                    "title": "[제1탄: 생성(生成)] 태초의 율려(432Hz) & 천·지·인 3계단 스토리 엔진 구축",
+                    "spec": "무극의 진동(Step 1)에서 삼재 마고대성(Step 2)을 거쳐 생성 대완성(Step 3)까지의 3계단 스토리텔링 및 432Hz/528Hz 화음 연주",
+                    "legal_rule": "퍼블릭 도메인 천부경 기반 100% 자체 Web Audio 합성 및 자체 각본",
                     "status": "READY",
                     "progress": 100
                 },
                 {
                     "task_id": "TASK-D1-02",
-                    "benchmark_target": "ZARA / 무신사 AI 코디네이터",
-                    "title": "체형별 상·하의 황금비율 가이드라인 연구",
-                    "spec": "전신 사진 업로드 시 어깨·허리·다리 비율을 분석해 최적의 의상 스케일 자동 제안 알고리즘",
-                    "legal_rule": "외부 쇼핑몰 이미지 무단 크롤링 금지, 자체 비율 수식 적용",
+                    "benchmark_target": "전통 각석(刻石) 탁본 & 인터랙티브 타일 매트릭스",
+                    "title": "[제1탄: 생성(生成)] 천부경 제1장(27자) 황금 석판 각성 시스템 및 인성 풀이 구현",
+                    "spec": "3행×9열 27개 황금 타일 계단별 순차 각성(9자->18자->27자) 및 쉬운 우리말 인성 교훈 풀이 인터랙티브 표출",
+                    "legal_rule": "고대 원문 인용 및 자체 현대어 인성 해석 적용",
                     "status": "READY",
                     "progress": 100
                 },
                 {
                     "task_id": "TASK-D1-03",
-                    "benchmark_target": "Pinterest (핀터레스트) 무드보드",
-                    "title": "세 딸 전용 계절별 코디 앨범 북마킹 구조 설계",
-                    "spec": "완성된 코디 사진을 봄·여름·가을·겨울 룩북 형태로 깔끔하게 모아보는 UI 연구",
-                    "legal_rule": "로컬 브라우저 저장소 기반 개인용 앨범으로 설계",
+                    "benchmark_target": "단군 신화 & 배달국 신시 개천 대서사",
+                    "title": "[차기 제2탄 준비] 환웅의 신시 개천 & 웅녀의 인내 시련 계단식 사전 설계",
+                    "spec": "제1탄 완주 후 차기작 제2탄 〈개천(開天)〉으로 이어지는 환웅의 하강과 웅녀의 인내 인성 시련 시나리오 및 UI 사전 설계",
+                    "legal_rule": "건국 설화 공공 도메인 활용 100% 자체 각색",
                     "status": "READY",
                     "progress": 100
                 }

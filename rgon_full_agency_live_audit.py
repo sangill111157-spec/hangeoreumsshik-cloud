@@ -36,7 +36,7 @@ def http_post(path, payload):
 
 def run_rgon_full_agency_audit():
     print("=" * 75)
-    print("🏛️ [RGON-001 보좌관 주관] 전 기관 25개 관문 실전 종합 감사 시작 (v8.8 NIGHT-AUTOPILOT)")
+    print("🏛️ [RGON-001 보좌관 주관] 전 기관 25개 관문 실전 종합 감사 시작 (v9.0 CHEONBU-EP1-GENESIS)")
     print("=" * 75)
     results = []
 
@@ -54,15 +54,16 @@ def run_rgon_full_agency_audit():
     guard_json = json.loads(body_g)
     record("GATE-1", "청와대 경호처 API(/api/cheongwadae-status) 정상 가동", st_g == 200 and guard_json.get("status") == "OK")
 
-    # [GATE 2] 제1청사(꿈의 옷장) 100% R&D 보존 감사 (1개)
+    # [GATE 2] 신 제1청사(천부 오디세이 스튜디오: 제1탄 생성) 계단식 엔진 감사 (1개)
     st_c1, body_c1 = http_get("/departments/dept_closet.html")
     c1_ok = (
         st_c1 == 200
-        and "matchPhotoshopLighting" in body_c1
-        and "search2026FashionTrend" in body_c1
-        and "toggleCanvasLock" in body_c1
+        and "advanceGenesisStep" in body_c1
+        and "playGenesisYulryeoSound" in body_c1
+        and "cheonbu-genesis-27-board" in body_c1
+        and "series-staircase-nav" in body_c1
     )
-    record("GATE-2", "제1청사(꿈의 옷장 v7.1 어도비 엔진) 무결성 100% 보존", c1_ok, f"Size={len(body_c1)}B")
+    record("GATE-2", "신 제1청사(천부 오디세이 제1탄: 생성) 계단식 게임 엔진 무결점 가동", c1_ok, f"Size={len(body_c1)}B (율려432Hz·27자각성·3계단스토리 완비)")
 
     # [GATE 3] 제2·3·4·5·6청사 독립 청사 웹페이지 라이브 응답 감사 (5개)
     depts = [
