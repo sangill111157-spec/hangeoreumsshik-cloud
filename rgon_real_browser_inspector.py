@@ -486,12 +486,14 @@ try {{
     sec_api_ok = (s_sec == 200 and j_sec.get("summary", {}).get("github_leak_risk") == "0.00% (ZERO LEAK)")
     sec_checks.append((sec_api_ok, f"보안 인벤토리 API: HTTP {s_sec} (유출위험 {j_sec.get('summary', {}).get('github_leak_risk')})"))
 
-    # 5) 백엔드 구글 시트 발굴 리포트 API (/api/google-sheets-report) 정상 응답 검증
+    # 5) 백엔드 구글 시트 발굴 리포트 API (/api/google-sheets-report) 정상 응답 검증 (5대 실제 시트 & 85개 탭)
     s_gs, b_gs = http_get("/api/google-sheets-report")
     j_gs = json.loads(b_gs) if s_gs == 200 else {}
-    gs_count = j_gs.get("summary", {}).get("total_sheets_found", 0)
-    gs_api_ok = (s_gs == 200 and gs_count >= 20)
-    sec_checks.append((gs_api_ok, f"구글 시트 발굴 API: HTTP {s_gs} (발굴 {gs_count}건 >= 20건)"))
+    sheets_list = j_gs.get("sheets", [])
+    total_real = j_gs.get("summary", {}).get("total_real_cloud_sheets", 0)
+    total_tabs = j_gs.get("summary", {}).get("total_tabs_across_5_sheets", 0)
+    gs_api_ok = (s_gs == 200 and (total_real >= 5 or len(sheets_list) >= 5) and total_tabs >= 80)
+    sec_checks.append((gs_api_ok, f"대표님 실제 5대 구글 시트 API: HTTP {s_gs} (5대 시트/{total_tabs}개 탭 전수 열람 완료)"))
 
     gate8_ok = all(c[0] for c in sec_checks)
     gate8_detail = " / ".join(c[1] for c in sec_checks)

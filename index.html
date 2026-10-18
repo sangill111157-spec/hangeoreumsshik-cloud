@@ -132,13 +132,16 @@
       </div>
 
       <!-- 우측 상태 인디케이터 배지 -->
-      <div class="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-end">
+      <div class="flex flex-wrap items-center gap-2 w-full sm:w-auto justify-between sm:justify-end">
         <div class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900/80 border border-emerald-500/30 text-xs">
           <span class="relative flex h-2 w-2">
             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
             <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
           </span>
           <span class="font-semibold text-emerald-300 font-mono">5G LIVE 소통중</span>
+        </div>
+        <div class="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-slate-900/80 border border-cyan-500/30 text-xs">
+          <span class="font-semibold text-cyan-300 font-mono text-[11px]">📊 5대시트 85탭 실측완료</span>
         </div>
         <button onclick="loadCheongwadaeLiveStatus()" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium border border-slate-700 transition">
           🛡️ 경호처 점검

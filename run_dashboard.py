@@ -1575,21 +1575,60 @@ class DashboardHandler(SimpleHTTPRequestHandler):
             self.wfile.write(body)
             return
 
-        # 1-2. 꿈의 옷장 초격차 마스터 독립 웹앱 (.html) 다운로드
-        if path == '/api/download-dream-closet-app':
-            app_file = DASHBOARD_DIR / "dream_closet_future_master_app.html"
-            if app_file.exists():
-                content = app_file.read_bytes()
+        # 🛡️ [v10.2] 제5청사 국가안보·비밀금고 인벤토리 (GET /api/security-inventory)
+        if path == '/api/security-inventory':
+            try:
+                inv_path = Path("security_asset_inventory.json")
+                if inv_path.exists():
+                    inv_data = json.loads(inv_path.read_text(encoding="utf-8"))
+                else:
+                    import laptop_security_vault_purger
+                    inv_data = laptop_security_vault_purger.build_security_inventory()
+                body = json.dumps(inv_data, ensure_ascii=False).encode('utf-8')
                 self.send_response(200)
-                self.send_header("Content-Type", "text/html; charset=utf-8")
-                self.send_header("Content-Disposition", 'attachment; filename="dream_closet_future_master_app.html"')
-                self.send_header("Content-Length", str(len(content)))
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.send_header("Access-Control-Allow-Origin", "*")
+                self.send_header("Content-Length", str(len(body)))
+                self.send_header("Cache-Control", "no-store")
                 self.end_headers()
-                self.wfile.write(content)
+                self.wfile.write(body)
                 return
-            else:
-                self.send_response(404)
+            except Exception as e:
+                err_body = json.dumps({"status": "error", "message": str(e)}, ensure_ascii=False).encode('utf-8')
+                self.send_response(500)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.send_header("Access-Control-Allow-Origin", "*")
+                self.send_header("Content-Length", str(len(err_body)))
                 self.end_headers()
+                self.wfile.write(err_body)
+                return
+
+        # 📊 [v10.4] 제5청사 대표님 실제 5대 구글 시트 정밀 해부 리포트 (GET /api/google-sheets-report)
+        if path == '/api/google-sheets-report':
+            try:
+                rep_path = Path("google_sheets_history_report.json")
+                if rep_path.exists():
+                    rep_data = json.loads(rep_path.read_text(encoding="utf-8"))
+                else:
+                    import inspect_real_5_google_sheets
+                    rep_data = {"summary": {"total_real_cloud_sheets": 0}, "sheets": []}
+                body = json.dumps(rep_data, ensure_ascii=False).encode('utf-8')
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.send_header("Access-Control-Allow-Origin", "*")
+                self.send_header("Content-Length", str(len(body)))
+                self.send_header("Cache-Control", "no-store")
+                self.end_headers()
+                self.wfile.write(body)
+                return
+            except Exception as e:
+                err_body = json.dumps({"status": "error", "message": str(e)}, ensure_ascii=False).encode('utf-8')
+                self.send_response(500)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.send_header("Access-Control-Allow-Origin", "*")
+                self.send_header("Content-Length", str(len(err_body)))
+                self.end_headers()
+                self.wfile.write(err_body)
                 return
 
         # 2. Suno MP3 목록
