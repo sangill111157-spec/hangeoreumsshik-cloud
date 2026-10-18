@@ -1301,6 +1301,30 @@ class DashboardHandler(SimpleHTTPRequestHandler):
                 self.wfile.write(err_body)
                 return
 
+        # 🛡️ [v8.2] 제5청사 자율법무·컴플라이언스 5대 안전망 종합 감사 (GET /api/legal-safety-audit)
+        if path == '/api/legal-safety-audit':
+            try:
+                import legal_compliance_engine
+                audit_res = legal_compliance_engine.audit_all_safe_apps()
+                body = json.dumps(audit_res, ensure_ascii=False).encode('utf-8')
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.send_header("Access-Control-Allow-Origin", "*")
+                self.send_header("Content-Length", str(len(body)))
+                self.send_header("Cache-Control", "no-store")
+                self.end_headers()
+                self.wfile.write(body)
+                return
+            except Exception as e:
+                err_body = json.dumps({"status": "error", "message": str(e)}, ensure_ascii=False).encode('utf-8')
+                self.send_response(500)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.send_header("Access-Control-Allow-Origin", "*")
+                self.send_header("Content-Length", str(len(err_body)))
+                self.end_headers()
+                self.wfile.write(err_body)
+                return
+
         # 1. 설정 자동 주입
         if path == '/api/config':
             gh_token = get_github_token()
@@ -1835,6 +1859,22 @@ class DashboardHandler(SimpleHTTPRequestHandler):
                 import auto_company_loop
                 cycle_res = auto_company_loop.run_autonomous_company_cycle(trigger="dashboard_button")
                 resp = {"status": "ok", "data": cycle_res}
+            except Exception as e:
+                resp = {"status": "error", "message": str(e)}
+
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json; charset=utf-8')
+            self.send_header('Access-Control-Allow-Origin', '*')
+            self.end_headers()
+            self.wfile.write(json.dumps(resp, ensure_ascii=False).encode('utf-8'))
+            return
+
+        # 🛡️ [v8.2] 클린룸 안전 웹앱 즉시 감사 및 생성 (POST /api/safe-app-generate)
+        if self.path == '/api/safe-app-generate':
+            try:
+                import legal_compliance_engine
+                audit_res = legal_compliance_engine.audit_all_safe_apps()
+                resp = {"status": "ok", "audit": audit_res, "message": "5대 안전망 심의 완료"}
             except Exception as e:
                 resp = {"status": "error", "message": str(e)}
 

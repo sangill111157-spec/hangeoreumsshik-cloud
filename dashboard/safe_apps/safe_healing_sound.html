@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>한걸음씩 432Hz 마음휴식 호흡 가이드 & 힐링 사운드 박스 | 클린룸 안전 웹앱</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Noto Sans KR', sans-serif; }
+    .glass-card { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.1); }
+    @keyframes breathePulse {
+      0% { transform: scale(0.85); opacity: 0.6; }
+      21% { transform: scale(1.15); opacity: 1; } /* 4s inhale */
+      58% { transform: scale(1.15); opacity: 0.95; } /* 7s hold */
+      100% { transform: scale(0.85); opacity: 0.6; } /* 8s exhale */
+    }
+    .breathe-anim {
+      animation: breathePulse 19s infinite ease-in-out;
+    }
+  </style>
+</head>
+<body class="bg-[#050711] text-slate-100 min-h-screen flex flex-col items-center justify-between p-4 sm:p-6 selection:bg-purple-500 selection:text-white">
+
+  <!-- 상단 네비게이션 & 안전 인증 바 -->
+  <header class="w-full max-w-2xl mb-6 flex flex-col gap-3">
+    <div class="flex items-center justify-between">
+      <a href="/?v=800&tab=command" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-xs font-semibold text-slate-300 border border-slate-700 transition">
+        <span>🏛️ 청와대 본관으로 복귀</span>
+      </a>
+      <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold bg-purple-500/10 text-purple-300 border border-purple-500/30">
+        <span class="w-1.5 h-1.5 rounded-full bg-purple-400 animate-ping"></span>
+        <span>🛡️ 자율법무팀 합법·안전 심의필 (Clean-Room Original Creation)</span>
+      </span>
+    </div>
+
+    <!-- 5대 안전장치 배지 바 -->
+    <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800 text-[11px] text-slate-400 flex flex-wrap items-center justify-between gap-2">
+      <span class="flex items-center gap-1 text-purple-400">
+        <span>🔒 개인정보 서버 미수집·미저장 안전 인증</span>
+      </span>
+      <span class="text-slate-500">|</span>
+      <span>⚖️ 비의료 웰니스 마음휴식용</span>
+      <span class="text-slate-500">|</span>
+      <span>100% 순수 자연음 합성기</span>
+    </div>
+  </header>
+
+  <!-- 메인 인터랙티브 카드 -->
+  <main class="w-full max-w-2xl glass-card rounded-2xl p-6 sm:p-8 shadow-2xl relative overflow-hidden flex-1">
+    <div class="absolute -top-24 -right-24 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute -bottom-24 -left-24 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="text-center mb-6">
+      <div class="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-tr from-purple-500 to-indigo-600 text-2xl shadow-lg shadow-purple-500/20 mb-3">
+        🎧
+      </div>
+      <h1 class="text-xl sm:text-2xl font-black text-white tracking-tight">
+        432Hz 마음휴식 호흡 가이드 & 힐링 사운드
+      </h1>
+      <p class="text-xs sm:text-sm text-slate-400 mt-1">
+        복잡한 생각을 내려놓고 편안한 4-7-8 호흡과 부드러운 자연음에 귀를 기울여보세요.
+      </p>
+    </div>
+
+    <!-- 4-7-8 마인드풀 호흡 애니메이션 서클 -->
+    <div class="my-8 flex flex-col items-center justify-center">
+      <div class="relative w-48 h-48 flex items-center justify-center">
+        <!-- 맥박 원 -->
+        <div id="breathe-circle" class="absolute w-44 h-44 rounded-full bg-gradient-to-tr from-purple-600/30 via-indigo-500/20 to-teal-400/20 border-2 border-purple-400/40 blur-[1px] breathe-anim"></div>
+        <div class="relative z-10 text-center select-none">
+          <div id="breathe-state" class="text-lg font-black text-white tracking-tight">들이쉬기 (4초)</div>
+          <div id="breathe-sub" class="text-xs text-purple-300 mt-1">코로 깊게 숨을 채웁니다</div>
+          <div id="breathe-timer" class="text-2xl font-mono font-extrabold text-teal-300 mt-2">4</div>
+        </div>
+      </div>
+      <div class="mt-4 flex gap-2">
+        <button onclick="toggleBreathing()" id="btn-breathe-toggle" class="px-4 py-1.5 rounded-full bg-purple-600/30 border border-purple-500/40 text-purple-200 text-xs font-semibold hover:bg-purple-600/50 transition">
+          ⏸️ 호흡 가이드 일시정지
+        </button>
+      </div>
+    </div>
+
+    <!-- 사운드 컨트롤 섹션 (Web Audio API 기반 100% 저작권 안전 합성기) -->
+    <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800 space-y-3 mb-6">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span class="text-xs font-bold text-slate-300">🎵 힐링 사운드 테마 선택</span>
+          <span class="px-2 py-0.5 rounded text-[10px] bg-emerald-500/10 text-emerald-300 font-mono">100% 저작권 클린</span>
+        </div>
+        <button onclick="toggleAudio()" id="btn-audio-play" class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white text-xs font-bold shadow transition flex items-center gap-1.5">
+          <span id="play-icon">▶️</span> <span id="play-text">소리 재생</span>
+        </button>
+      </div>
+
+      <div class="grid grid-cols-3 gap-2 text-xs">
+        <button onclick="selectTrack('tone432', this)" class="track-btn p-2.5 rounded-xl bg-slate-800 border border-purple-500 text-purple-300 font-bold text-center active-track">
+          432Hz 명상톤 🧘
+        </button>
+        <button onclick="selectTrack('rain', this)" class="track-btn p-2.5 rounded-xl bg-slate-800 border border-slate-700 text-slate-300 font-medium text-center hover:border-purple-500 transition">
+          아늑한 빗소리 🌧️
+        </button>
+        <button onclick="selectTrack('wind', this)" class="track-btn p-2.5 rounded-xl bg-slate-800 border border-slate-700 text-slate-300 font-medium text-center hover:border-purple-500 transition">
+          숲속 바람소리 🍃
+        </button>
+      </div>
+
+      <div class="flex items-center gap-3 pt-1">
+        <span class="text-[11px] text-slate-400">볼륨</span>
+        <input type="range" id="volume-slider" min="0" max="1" step="0.05" value="0.5" class="flex-1 accent-purple-500 h-1.5 bg-slate-700 rounded-lg cursor-pointer" oninput="changeVolume(this.value)" />
+      </div>
+    </div>
+
+    <!-- 따뜻한 자존감 위로 편지 -->
+    <div class="p-4 rounded-xl bg-gradient-to-r from-purple-950/40 via-slate-900 to-indigo-950/40 border border-purple-500/20 text-center mb-6">
+      <span class="text-xs text-purple-300 font-semibold">💌 마음 충전 위로 한마디</span>
+      <p class="text-xs sm:text-sm font-bold text-slate-100 my-2 leading-relaxed">
+        "오늘 하루도 참 고생 많으셨습니다. 세상의 모든 속도를 잠시 멈추고, 나 자신에게 따뜻한 칭찬과 휴식을 선물해주세요."
+      </p>
+    </div>
+
+    <!-- 제휴 링크 & 공유 버튼 (합법 준수) -->
+    <div class="flex flex-col sm:flex-row gap-2">
+      <a id="healing-pillow-link" href="https://link.coupang.com/a/sample_sleep_pillow" target="_blank" class="flex-1 py-3 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 border border-purple-500/40 text-purple-300 hover:text-white font-bold text-xs text-center transition flex items-center justify-center gap-1.5 shadow">
+        <span>🛏️ 편안한 밤을 돕는 숙면 베개·아로마 디퓨저 추천 보러가기</span>
+      </a>
+      <button onclick="shareHealingSound()" class="py-3 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs font-semibold transition flex items-center justify-center gap-1.5">
+        <span>💬 지친 친구에게 힐링 소리 선물하기</span>
+      </button>
+    </div>
+  </main>
+
+  <!-- 하단 5대 법적 의무 고지 (공정위 표시광고법 + 개인정보보호법 + 면책고지) -->
+  <footer class="w-full max-w-2xl mt-6 p-4 rounded-xl bg-slate-900/90 border border-slate-800 text-[11px] text-slate-400 space-y-2">
+    <!-- 공정위 의무 문구 -->
+    <div class="text-amber-400/90 font-medium leading-relaxed">
+      ※ 본 콘텐츠(서비스)는 제휴 활동(쿠팡파트너스 등)의 일환으로, 이에 따른 일정액의 수수료를 제공받을 수 있습니다.
+    </div>
+    
+    <!-- 면책 고지 & 개인정보 -->
+    <div class="text-slate-500 text-[10px] leading-relaxed pt-2 border-t border-slate-800/80">
+      ⚖️ 본 결과는 일상 참고용이며 전문적인 법률·세무·의료 진단을 대신하지 않습니다. 본 서비스는 순수 웰니스 마음휴식 보조 도구이며 의학적 치료를 대체하지 않습니다. 어떠한 개인정보도 수집·저장하지 않습니다 (🔒 개인정보 서버 미수집·미저장 안전 인증).
+    </div>
+
+    <div class="flex items-center justify-between text-[10px] text-slate-500 pt-1">
+      <span>© 2026 한걸음씩 Clean-Room Sound Engine</span>
+      <span>🤖 2026 AI 기본법 준수: 본 서비스는 건전하고 투명한 AI 보조 기술을 기반으로 자체 제작되었습니다.</span>
+    </div>
+  </footer>
+
+  <script>
+    // 4-7-8 호흡 타이머 시뮬레이션
+    let breatheActive = true;
+    let bStep = 0; // 0: inhale (4s), 1: hold (7s), 2: exhale (8s)
+    let bSec = 4;
+    const circle = document.getElementById('breathe-circle');
+    const stateText = document.getElementById('breathe-state');
+    const subText = document.getElementById('breathe-sub');
+    const timerText = document.getElementById('breathe-timer');
+
+    setInterval(() => {
+      if (!breatheActive) return;
+      bSec--;
+      if (bSec <= 0) {
+        bStep = (bStep + 1) % 3;
+        if (bStep === 0) {
+          bSec = 4;
+          stateText.innerText = '들이쉬기 (4초)';
+          subText.innerText = '코로 깊게 숨을 채웁니다';
+        } else if (bStep === 1) {
+          bSec = 7;
+          stateText.innerText = '숨 멈추기 (7초)';
+          subText.innerText = '몸 안의 평온을 가만히 느낍니다';
+        } else {
+          bSec = 8;
+          stateText.innerText = '내쉬기 (8초)';
+          subText.innerText = '입으로 천천히 모든 긴장을 비워냅니다';
+        }
+      }
+      timerText.innerText = bSec;
+    }, 1000);
+
+    function toggleBreathing() {
+      breatheActive = !breatheActive;
+      const btn = document.getElementById('btn-breathe-toggle');
+      if (breatheActive) {
+        circle.style.animationPlayState = 'running';
+        btn.innerText = '⏸️ 호흡 가이드 일시정지';
+      } else {
+        circle.style.animationPlayState = 'paused';
+        btn.innerText = '▶️ 호흡 가이드 다시시작';
+      }
+    }
+
+    // Web Audio API 순수 신디사이저 (외부 오디오 파일 없이 100% 자체 생성)
+    let audioCtx = null;
+    let osc = null;
+    let gainNode = null;
+    let isPlaying = false;
+    let currentTrack = 'tone432';
+
+    function initAudio() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        gainNode = audioCtx.createGain();
+        gainNode.gain.value = 0.15;
+        gainNode.connect(audioCtx.destination);
+      }
+    }
+
+    function toggleAudio() {
+      initAudio();
+      if (isPlaying) {
+        stopAudio();
+      } else {
+        startAudio();
+      }
+    }
+
+    function startAudio() {
+      if (!audioCtx) return;
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      
+      stopAudio(); // 기존 정리
+
+      if (currentTrack === 'tone432') {
+        osc = audioCtx.createOscillator();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(432, audioCtx.currentTime); // 432Hz 치유 주파수
+        osc.connect(gainNode);
+        osc.start();
+      } else {
+        // 백색/핑크 노이즈 버퍼 합성 (비/바람 효과)
+        const bufferSize = audioCtx.sampleRate * 2;
+        const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+        const output = noiseBuffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+          output[i] = Math.random() * 2 - 1;
+        }
+        const whiteNoise = audioCtx.createBufferSource();
+        whiteNoise.buffer = noiseBuffer;
+        whiteNoise.loop = true;
+
+        const filter = audioCtx.createBiquadFilter();
+        filter.type = currentTrack === 'rain' ? 'lowpass' : 'bandpass';
+        filter.frequency.value = currentTrack === 'rain' ? 800 : 400;
+
+        whiteNoise.connect(filter);
+        filter.connect(gainNode);
+        whiteNoise.start();
+        osc = whiteNoise;
+      }
+
+      isPlaying = true;
+      document.getElementById('play-icon').innerText = '⏹️';
+      document.getElementById('play-text').innerText = '소리 정지';
+    }
+
+    function stopAudio() {
+      if (osc) {
+        try { osc.stop(); } catch(e){}
+        osc.disconnect();
+        osc = null;
+      }
+      isPlaying = false;
+      document.getElementById('play-icon').innerText = '▶️';
+      document.getElementById('play-text').innerText = '소리 재생';
+    }
+
+    function selectTrack(track, btn) {
+      currentTrack = track;
+      document.querySelectorAll('.track-btn').forEach(b => {
+        b.classList.remove('border-purple-500', 'text-purple-300', 'font-bold');
+        b.classList.add('border-slate-700', 'text-slate-300');
+      });
+      btn.classList.add('border-purple-500', 'text-purple-300', 'font-bold');
+      btn.classList.remove('border-slate-700', 'text-slate-300');
+
+      if (isPlaying) {
+        startAudio();
+      }
+    }
+
+    function changeVolume(val) {
+      if (gainNode) {
+        gainNode.gain.setValueAtTime(parseFloat(val) * 0.3, audioCtx ? audioCtx.currentTime : 0);
+      }
+    }
+
+    function shareHealingSound() {
+      const text = `[한걸음씩 432Hz 마음휴식 호흡 가이드]\n깊은 숨 하나로 마음의 짐을 내려놓으세요 🍵\n※ 100% 무료 웰니스 사운드: ${window.location.href}`;
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(text).then(() => {
+          alert('📋 힐링 사운드 링크가 복사되었습니다! 소중한 분의 편안한 쉼을 위해 나눠보세요.');
+        });
+      } else {
+        alert(text);
+      }
+    }
+  </script>
+</body>
+</html>
