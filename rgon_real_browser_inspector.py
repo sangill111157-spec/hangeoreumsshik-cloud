@@ -434,6 +434,52 @@ try {{
     log_gate("HARD-GATE-7", "제1과제 실시간 양방향 소통 사령부(API·송수신·UI) 실전 검증", gate7_ok, gate7_detail)
 
     # --------------------------------------------------------------------------
+    # [HARD-GATE 8] 보안 원문 키 노출 0% 감사 및 구버전 apply_v* 잔재 0건 검증
+    # --------------------------------------------------------------------------
+    sec_checks = []
+
+    # 1) 핵심 HTML 및 클라이언트 파일 내 마스킹되지 않은 원문 키 노출 0건 전수 검사
+    raw_leaks = []
+    raw_patterns = [
+        re.compile(r"AIza[0-9A-Za-z-_]{35}"),
+        re.compile(r"ghp_[0-9A-Za-z]{36}"),
+        re.compile(r"sk-(?:proj-)?[0-9A-Za-z-_]{30,}")
+    ]
+    for fpath in CORE_HTML_FILES:
+        if not fpath.exists():
+            continue
+        text = fpath.read_text(encoding="utf-8", errors="replace")
+        for pat in raw_patterns:
+            if pat.search(text):
+                raw_leaks.append(fpath.name)
+                break
+
+    zero_leak_ok = (len(raw_leaks) == 0)
+    sec_checks.append((zero_leak_ok, f"원문 키 유출 0% (노출 파일 {len(raw_leaks)}건)"))
+
+    # 2) 구버전 apply_v*.py 잔재 0건 검증
+    apply_v_files = list(BASE_DIR.glob("apply_v*.py"))
+    purge_ok = (len(apply_v_files) == 0)
+    sec_checks.append((purge_ok, f"구버전 apply_v* 잔재 {len(apply_v_files)}건 (0건 유지)"))
+
+    # 3) 단일 로컬 비밀금고(.env.local_vault) 및 .gitignore 철통 격리 검증
+    vault_exists = (BASE_DIR / ".env.local_vault").exists()
+    gitignore_text = (BASE_DIR / ".gitignore").read_text(encoding="utf-8", errors="replace") if (BASE_DIR / ".gitignore").exists() else ""
+    git_blocked = (".env.local_vault" in gitignore_text and ".env*" in gitignore_text)
+    vault_ok = (vault_exists and git_blocked)
+    sec_checks.append((vault_ok, f"단일 로컬 비밀금고 격리({vault_exists}) & .gitignore 차단({git_blocked})"))
+
+    # 4) 백엔드 보안 인벤토리 API (/api/security-inventory) 정상 응답 검증
+    s_sec, b_sec = http_get("/api/security-inventory")
+    j_sec = json.loads(b_sec) if s_sec == 200 else {}
+    sec_api_ok = (s_sec == 200 and j_sec.get("summary", {}).get("github_leak_risk") == "0.00% (ZERO LEAK)")
+    sec_checks.append((sec_api_ok, f"보안 인벤토리 API: HTTP {s_sec} (유출위험 {j_sec.get('summary', {}).get('github_leak_risk')})"))
+
+    gate8_ok = all(c[0] for c in sec_checks)
+    gate8_detail = " / ".join(c[1] for c in sec_checks)
+    log_gate("HARD-GATE-8", "국가안보 보안 원문 노출 0% 감사 및 구버전 스크립트 100% 소각 검증", gate8_ok, gate8_detail)
+
+    # --------------------------------------------------------------------------
     # 종합 판정
     # --------------------------------------------------------------------------
     total_gates = len(results)
@@ -446,7 +492,7 @@ try {{
         print("🚨 결함 발견! 수리가 필요합니다.")
         return False
 
-    print("🏆 [최종 완료] 7대 최고난도 실제 작동 검증 100.0% ALL PASS! 단 하나의 먹통 버튼이나 좀비 코드도 없음 확정!")
+    print("🏆 [최종 완료] 8대 최고난도 실제 작동 검증 100.0% ALL PASS! 단 하나의 먹통 버튼이나 좀비 코드, 보안 누출도 없음 확정!")
     print("=" * 80)
     return True
 

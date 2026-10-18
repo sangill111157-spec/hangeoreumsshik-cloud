@@ -1,17 +1,25 @@
 # ══════════════════════════════════════════════════════════════
-# 한걸음씩 & NVDA 트레이딩 보안 .gitignore
+# [v10.2 국가안보·보안 철칙] 단일 로컬 비밀금고 격리 & 키 유출 0% 차단
 # ══════════════════════════════════════════════════════════════
-
-# 1. 시크릿 및 인증 키 (절대 유출 금지)
 .env
+.env*
+.env.local_vault
 *.env
 .env.*
+*vault_secret*
+*secret*
+*credentials*
+*.key
+*.pem
+*.pfx
+*.cert
 *.pickle
 *.json
 !package.json
 !package-lock.json
 !tsconfig.json
 !dashboard/manifest.json
+!security_asset_inventory.json
 *_secret*.json
 *_token*.json
 client_secret*.json

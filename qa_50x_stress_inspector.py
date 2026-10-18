@@ -171,7 +171,7 @@ def main():
         "connect_ai_cloud_corps.py",
         "cheongwadae_guard.py",
         "auto_company_loop.py",
-        "apply_v80_blue_house_os.py",
+        "security_asset_auditor.py",
         "legal_compliance_engine.py",
         "general_affairs_treasury.py",
         "dept_mission_backlog.py"

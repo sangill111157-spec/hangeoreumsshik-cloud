@@ -1736,6 +1736,28 @@ class DashboardHandler(SimpleHTTPRequestHandler):
             self.wfile.write(body)
             return
 
+        # 10. 🛡️ [v10.2] 제5청사 국가안보·마스킹 보안 금고 인벤토리 (GET /api/security-inventory)
+        if path == '/api/security-inventory':
+            try:
+                inv_path = BASE_DIR / "security_asset_inventory.json"
+                if inv_path.exists():
+                    with open(inv_path, "r", encoding="utf-8") as f:
+                        inv_data = json.load(f)
+                else:
+                    import security_asset_auditor
+                    inv_data = security_asset_auditor.run_security_audit()
+            except Exception as e:
+                inv_data = {"error": str(e), "summary": {}}
+            body = json.dumps(inv_data, ensure_ascii=False).encode("utf-8")
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.send_header("Cache-Control", "no-store")
+            self.end_headers()
+            self.wfile.write(body)
+            return
+
         # 루트 및 index.html 요청 시 항상 최신 파일 서빙 (캐시 방지 헤더 강제 주입)
         if path in ('/', '/index.html', ''):
             html_file = DASHBOARD_DIR / "index.html"
@@ -1811,6 +1833,29 @@ class DashboardHandler(SimpleHTTPRequestHandler):
                         "net_profit": clean_data.get("net_profit_krw", 0)
                     },
                     "summary": clean_data.get("summary", {})
+                }
+            except Exception as e:
+                resp = {"status": "error", "success": False, "message": str(e)}
+
+            body = json.dumps(resp, ensure_ascii=False).encode("utf-8")
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(body)
+            return
+
+        # 🛡️ [v10.2] 제5청사 노트북 전수 보안 재감사 및 소각 집행 (POST /api/security-audit-run)
+        if self.path == '/api/security-audit-run':
+            try:
+                import security_asset_auditor
+                rep = security_asset_auditor.run_security_audit()
+                resp = {
+                    "status": "ok",
+                    "success": True,
+                    "message": "노트북 전수 보안 감사 및 소각 완료",
+                    "report": rep
                 }
             except Exception as e:
                 resp = {"status": "error", "success": False, "message": str(e)}
