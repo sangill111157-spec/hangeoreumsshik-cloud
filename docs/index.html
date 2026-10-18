@@ -580,9 +580,9 @@
         const outEl = document.getElementById('main-total-out');
         const netEl = document.getElementById('main-net-profit');
 
-        const inVal = sm.total_in || data.total_in_krw || 1295000;
-        const outVal = sm.total_out || data.total_out_krw || 0;
-        const netVal = sm.disposable_net_krw || sm.net_profit || data.net_profit_krw || 1252265;
+        const inVal = (sm.total_in !== undefined) ? sm.total_in : ((data.total_in_krw !== undefined) ? data.total_in_krw : 0);
+        const outVal = (sm.total_out !== undefined) ? sm.total_out : ((data.total_out_krw !== undefined) ? data.total_out_krw : 0);
+        const netVal = (sm.disposable_net_krw !== undefined) ? sm.disposable_net_krw : ((sm.net_profit !== undefined) ? sm.net_profit : ((data.net_profit_krw !== undefined) ? data.net_profit_krw : 0));
 
         if (inEl) inEl.innerText = inVal.toLocaleString('ko-KR') + '원';
         if (outEl) outEl.innerText = outVal.toLocaleString('ko-KR') + '원';

@@ -87,6 +87,10 @@ JSON_AUDIT_FILES = [
     BASE_DIR / "rgon_schedule_roadmap.json",
     BASE_DIR / "department_work_queue.json",
     BASE_DIR / "morning_briefing_report.json",
+    BASE_DIR / "treasury_ledger.json",
+    BASE_DIR / "cheongwadae_comm_log.json",
+    BASE_DIR / "index.html",
+    BASE_DIR / "docs" / "index.html",
 ]
 
 def http_get(path: str, timeout=5):
@@ -148,12 +152,20 @@ def run_inspector():
             if kw in text:
                 zombie_refs_found.append(f"{fpath.name}:{kw}")
 
+    # 백엔드 API 응답 내 유령 금액 키워드 검증
+    for api_endpoint in ["/api/treasury-status", "/api/cheongwadae-status", "/api/comm-status"]:
+        st, b_text = http_get(api_endpoint)
+        if st == 200:
+            for kw in ["1,295,000", "1,285,000", "1,252,265", "42,405", "42,735", "1295000", "1285000", "1252265"]:
+                if kw in b_text:
+                    zombie_refs_found.append(f"API({api_endpoint}):{kw}")
+
     zombie_ref_ok = len(zombie_refs_found) == 0
     gate1_ok = zombie_file_ok and zombie_ref_ok
-    gate1_detail = f"폐기잔재 파일: {len(zombie_files_found)}건 / 금지·좀비 참조: {len(zombie_refs_found)}건"
+    gate1_detail = f"폐기잔재 파일: {len(zombie_files_found)}건 / 금지·좀비·유령금액 참조: {len(zombie_refs_found)}건"
     if not gate1_ok:
         gate1_detail += f" ({zombie_files_found + zombie_refs_found})"
-    log_gate("HARD-GATE-1", "폐기 잔재(Zombie Files & References) 0% 전수 검증", gate1_ok, gate1_detail)
+    log_gate("HARD-GATE-1", "폐기 잔재 및 1,295,000 유령금액 0% 전수 검증", gate1_ok, gate1_detail)
 
     # --------------------------------------------------------------------------
     # [HARD-GATE 2] 전 페이지 <script> 추출 후 Node.js VM 실제 컴파일 & 런타임 실행 검증
@@ -265,11 +277,30 @@ try {{
                 if fname not in declared_funcs and fname not in builtins:
                     dead_buttons.append(f"{fpath.name}: {fname}() in [onclick='{call[:40]}']")
 
-    gate3_ok = len(dead_buttons) == 0
-    gate3_detail = f"발견된 먹통 버튼(Dead Button): {len(dead_buttons)}건"
-    if not gate3_ok:
+    # 제2청사 4대 실물 패널 DOM 렌더링 검증 (Node.js 가상 DOM)
+    panel_check_ok = False
+    panel_check_detail = ""
+    try:
+        test_js_path = BASE_DIR / "scratch" / "test_connect_ai_panels.js"
+        res_panels = subprocess.run(["node", str(test_js_path)], capture_output=True, text=True)
+        if res_panels.returncode == 0:
+            panel_data = json.loads(res_panels.stdout.strip())
+            all_panels_ok = all(v.get("ok", False) for v in panel_data.values())
+            if all_panels_ok:
+                panel_check_ok = True
+                panel_check_detail = f"제2청사 4대 실물 패널 100% 렌더링 확인 (Stitch:{panel_data['stitch']['len']}자, Script:{panel_data['script']['len']}자, BM:{panel_data['bm']['len']}자, Corps:{panel_data['corps']['len']}자)"
+            else:
+                panel_check_detail = f"일부 패널 렌더링 미달: {panel_data}"
+        else:
+            panel_check_detail = f"패널 검증 스크립트 실행 실패: {res_panels.stderr[:100]}"
+    except Exception as e:
+        panel_check_detail = f"패널 검증 예외: {str(e)}"
+
+    gate3_ok = (len(dead_buttons) == 0) and panel_check_ok
+    gate3_detail = f"먹통 버튼: {len(dead_buttons)}건 / {panel_check_detail}"
+    if len(dead_buttons) > 0:
         gate3_detail += f" ({dead_buttons[:5]})"
-    log_gate("HARD-GATE-3", "전 페이지 모든 버튼(onclick)과 핸들러 1:1 실존 매칭 전수 검증 (Dead Button 0%)", gate3_ok, gate3_detail)
+    log_gate("HARD-GATE-3", "모든 버튼 핸들러 매칭 & 제2청사 4대 실물 결과 패널 렌더링 검증", gate3_ok, gate3_detail)
 
     # --------------------------------------------------------------------------
     # [HARD-GATE 4] 전 페이지 모든 링크(href, src) 실제 HTTP 200 응답 전수 검증 (404 Broken Link 0%)
@@ -377,6 +408,13 @@ try {{
             reset_to_clean_zero_ledger()
         except Exception:
             pass
+
+    # ④ 0원 복구 상태 완벽 확인 (total_in == 0, disposable_net == 0)
+    s2_final, b2_final = http_get("/api/treasury-status")
+    j2_final = json.loads(b2_final) if s2_final == 200 else {}
+    sm_final = j2_final.get("summary", {})
+    final_zero_ok = (s2_final == 200 and sm_final.get("total_in", -1) == 0 and sm_final.get("disposable_net_krw", sm_final.get("net_profit", -1)) == 0)
+    api_checks.append((final_zero_ok, f"검수 후 0원 장부 영구 고정 상태 검증({final_zero_ok})"))
 
     # 3) 르곤 마스터 스케줄러 API
     s3, b3 = http_get("/api/rgon-schedule")
