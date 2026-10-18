@@ -4,37 +4,37 @@
       "name": "제1청사: 천부(天符) 오디세이 게임 스튜디오",
       "file": "C:\\Users\\sangi\\Downloads\\shin-agent\\dashboard\\departments\\dept_closet.html",
       "hash": "71e4526948173e72b480aaeaaf885aa0fc165bd4c10d036db9b80be6597142d7",
-      "timestamp": "2026-10-18 18:18:35"
+      "timestamp": "2026-10-18 18:31:07"
     },
     "dept_2": {
       "name": "제2청사: Connect AI 홍보·비즈니스부",
       "file": "C:\\Users\\sangi\\Downloads\\shin-agent\\dashboard\\departments\\dept_connect_ai.html",
       "hash": "e35b05f1f7198e870d8914aec8cf1aa25d7bf8982cdbe4e2be4765b6528c88e0",
-      "timestamp": "2026-10-18 18:18:35"
+      "timestamp": "2026-10-18 18:31:07"
     },
     "dept_3": {
       "name": "제3청사: 힐링 미디어·음원제작부",
       "file": "C:\\Users\\sangi\\Downloads\\shin-agent\\dashboard\\departments\\dept_media.html",
       "hash": "6f81d780d427b5043f9258039e3c209a0922076c2707c6e8b357d8400207166e",
-      "timestamp": "2026-10-18 18:18:35"
+      "timestamp": "2026-10-18 18:31:07"
     },
     "dept_4": {
       "name": "제4청사: 글로벌 K-인성학교 & 나눔부",
       "file": "C:\\Users\\sangi\\Downloads\\shin-agent\\dashboard\\departments\\dept_education.html",
       "hash": "85840ddf2c376eea864adf9ca7b2e1f94e496e58df4409c6d089c37a1acc6027",
-      "timestamp": "2026-10-18 18:18:35"
+      "timestamp": "2026-10-18 18:31:07"
     },
     "dept_5": {
       "name": "제5청사: 자율법무·저작권·제2의두뇌 기록원",
       "file": "C:\\Users\\sangi\\Downloads\\shin-agent\\dashboard\\departments\\dept_vault.html",
       "hash": "d7b1eb9d5018501c639658a5fd7bf769273a77dd2a3bdc141f2bcfe5ea4d4995",
-      "timestamp": "2026-10-18 18:18:35"
+      "timestamp": "2026-10-18 18:31:07"
     },
     "dept_6": {
       "name": "제6청사: 총무·재무회계·정산청",
       "file": "C:\\Users\\sangi\\Downloads\\shin-agent\\dashboard\\departments\\dept_treasury.html",
       "hash": "e187b4b311c7b31024fa930f211bf30e60713cbd54d8b9d7f8cb6ee8f4e32402",
-      "timestamp": "2026-10-18 18:18:35"
+      "timestamp": "2026-10-18 18:31:07"
     }
   },
   "safe_apps": {
@@ -42,43 +42,43 @@
       "name": "클린룸 웹앱 1호(행운 컬러)",
       "file": "C:\\Users\\sangi\\Downloads\\shin-agent\\dashboard\\safe_apps\\safe_daily_lucky.html",
       "hash": "842c16ce28bdbe92e4133436fd7a896a9158c07fdeff66776d141dea324e1f83",
-      "timestamp": "2026-10-18 18:18:35"
+      "timestamp": "2026-10-18 18:31:07"
     },
     "app_2": {
       "name": "클린룸 웹앱 2호(연봉·퇴직금 계산기)",
       "file": "C:\\Users\\sangi\\Downloads\\shin-agent\\dashboard\\safe_apps\\safe_salary_planner.html",
       "hash": "1369ec4281e25363d95f447d55480a888a6088c51b6b6e142c74f06d85c514e0",
-      "timestamp": "2026-10-18 18:18:35"
+      "timestamp": "2026-10-18 18:31:07"
     },
     "app_3": {
       "name": "클린룸 웹앱 3호(432Hz 힐링 사운드)",
       "file": "C:\\Users\\sangi\\Downloads\\shin-agent\\dashboard\\safe_apps\\safe_healing_sound.html",
       "hash": "d6ed5bdc03ebaf29661a768fa684da8ae981941af9b2e59bbc587e5348cb334b",
-      "timestamp": "2026-10-18 18:18:35"
+      "timestamp": "2026-10-18 18:31:07"
     },
     "app_4": {
       "name": "클린룸 웹앱 4호(부자 DNA 테스트)",
       "file": "C:\\Users\\sangi\\Downloads\\shin-agent\\dashboard\\safe_apps\\safe_rich_dna_test.html",
       "hash": "8f007fca3507792b8364d79ae4aa14daf77178916ddec28f2994c8597f3ffbda",
-      "timestamp": "2026-10-18 18:18:35"
+      "timestamp": "2026-10-18 18:31:07"
     },
     "app_5": {
       "name": "클린룸 웹앱 5호(하루 1% 성공 루틴)",
       "file": "C:\\Users\\sangi\\Downloads\\shin-agent\\dashboard\\safe_apps\\safe_daily_routine.html",
       "hash": "b9967bcc30a47fea170fc0566c65904d6db19b6c7624c32eb1e57632be8f80c1",
-      "timestamp": "2026-10-18 18:18:35"
+      "timestamp": "2026-10-18 18:31:07"
     },
     "app_cheonbu": {
       "name": "천부 오디세이 제1탄(생성)",
       "file": "C:\\Users\\sangi\\Downloads\\shin-agent\\dashboard\\safe_apps\\safe_cheonbu_ep1_genesis.html",
       "hash": "71e4526948173e72b480aaeaaf885aa0fc165bd4c10d036db9b80be6597142d7",
-      "timestamp": "2026-10-18 18:18:35"
+      "timestamp": "2026-10-18 18:31:07"
     },
     "app_cheonbu_mobile": {
       "name": "천부 오디세이 폰게임(생성)",
       "file": "C:\\Users\\sangi\\Downloads\\shin-agent\\dashboard\\play_cheonbu_mobile.html",
       "hash": "f3caf11e117d6b963417639515a344ee932d84cc769d9351df51cf9f47856f91",
-      "timestamp": "2026-10-18 18:18:35"
+      "timestamp": "2026-10-18 18:31:07"
     }
   }
 }

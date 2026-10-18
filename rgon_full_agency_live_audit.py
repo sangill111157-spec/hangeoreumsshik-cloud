@@ -273,6 +273,40 @@ def run_rgon_full_agency_audit():
     )
     record("GATE-17", "스마트폰 풀스크린 폰게임 앱(/play_cheonbu_mobile.html) 무스크롤·풀캔버스·성찰 실물 검증", g17_ok, f"HTTP {st_mob} (100dvh 풀스크린·3단진화·심경거울·432Hz 완비)")
 
+    # [GATE 18] 외부 5G 스마트폰 접속용 라이브 HTTPS 터널 실제 외부 접속 검증 (1개)
+    import urllib.request
+    import urllib.parse
+    active_tunnel_file = "active_external_tunnel.json"
+    if not os.path.exists(active_tunnel_file):
+        active_tunnel_file = "latest_tunnel_info.json"
+    
+    tunnel_url = None
+    if os.path.exists(active_tunnel_file):
+        try:
+            with open(active_tunnel_file, "r", encoding="utf-8") as f:
+                t_data = json.load(f)
+            tunnel_url = t_data.get("mobile_game_url") or (t_data.get("tunnel_url", "") + "/play_cheonbu_mobile.html")
+        except Exception:
+            pass
+
+    gate18_ok = False
+    g18_detail = "터널 정보 파일 없음"
+    if tunnel_url:
+        try:
+            req = urllib.request.Request(tunnel_url, headers={"User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X)"})
+            with urllib.request.urlopen(req, timeout=12) as response:
+                content = response.read()
+                st_code = response.status
+                if st_code == 200 and len(content) > 15000:
+                    gate18_ok = True
+                    g18_detail = f"HTTP 200 OK (크기: {len(content)}B, 도메인: {urllib.parse.urlparse(tunnel_url).netloc})"
+                else:
+                    g18_detail = f"응답 비정상 (Status: {st_code}, 크기: {len(content)}B)"
+        except Exception as e:
+            g18_detail = f"외부 터널 접속 실패: {e}"
+    
+    record("GATE-18", "외부 5G 스마트폰용 라이브 Cloudflare HTTPS 터널 실전 검증", gate18_ok, g18_detail)
+
     # 경호처 해시 최신화
     from cheongwadae_guard import save_golden_hashes
     save_golden_hashes()
@@ -288,7 +322,7 @@ def run_rgon_full_agency_audit():
         print("🚨 테스트 미통과 항목 발견! 배포를 중단합니다.")
         sys.exit(1)
 
-    print(f"🏆 [최종 완료] 전 기관 28개 관문 전수 실전 감사 100.0% ALL PASS! 스마트폰 풀스크린 실제 폰게임 앱 완비!")
+    print(f"🏆 [최종 완료] 전 기관 29개 관문 전수 실전 감사 100.0% ALL PASS! 외부 5G 라이브 터널 및 스마트폰 폰게임 앱 완비!")
     print("=" * 75)
 
 if __name__ == "__main__":
