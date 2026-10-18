@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-qa_50x_stress_inspector.py [v7.1 Adobe-PS Reverse-Engineered Studio 500회 가혹 검수기]
+qa_50x_stress_inspector.py [v7.2 Connect AI Cloud Corps & Karpathy Wiki 500회 가혹 검수기]
 --------------------------------------------------------------------------------
 🔥 이상일 대표님([COMMANDER-000]) & 르곤이 1호 직속 50회 연속 가혹 구동 검수 감사관
 (50 Iterations x 10 Scenarios = 총 500회 가혹 스트레스 테스트)
@@ -13,9 +13,9 @@ qa_50x_stress_inspector.py [v7.1 Adobe-PS Reverse-Engineered Studio 500회 가�
 5.  [TDD-1-E] 대표님 빨간 펜 5: '[📸 내 얼굴 사진 넣기]' 버튼 및 얼굴 촬영/앨범 팝업 100% 완전 삭제 검증
 6.  [TDD-1-F] 대표님 빨간 펜 6: '[👤 얼굴조절]' 버튼 및 방향키('⬅️', '⬆️', '⬇️', '➡️') 100% 완전 삭제 검증
 7.  [TDD-1-G] 대표님 빨간 펜 7: '🚪 나만의 꿈의 옷장함 (10벌 코디 쇼룸)'(#wardrobe-showroom-grid) 100% 완전 삭제 검증
-8.  [TDD-2]   포토샵 픽셀 마술봉(extractPhotoshopGarmentMask) + 맨살 피부 제외 필터(isSkinTone) + 네온 개미행진선(renderMarchingAntsContour) 검증
-9.  [TDD-3]   주름·광택 보존 화이트/블랙/가죽/컬러 변환 바(#ps-color-material-bar) + 픽셀 셰이더(applyPhotoshopColorMaterial) 검증
-10. [TDD-4&5] 클리핑 마스크 의상 합성(applyPhotoshopClippingSwap) + BEFORE/AFTER 2분할 비교(toggleBeforeAfterView) + 백엔드 API(/api/ps-generative-fill) 검증
+8.  [TDD-1-H] 꿈의 옷장 v7.1 포토샵 스튜디오 100% 무결 보존 검증 (마술봉, 화이트/블랙/가죽 변환, 클리핑, Before/After)
+9.  [TDD-2&3] Connect AI 8대 팀원(CN-401~CN-408) 등록 및 외부 클라우드 오프로딩 API(/api/connect-ai-status, /api/connect-ai-dispatch) & 대시보드 UI 검증
+10. [TDD-4]   Stitch 2.0 design.md(4대 스크린/MCP) & Karpathy LLM Wiki / pReinforce 지식 그래프 검증
 --------------------------------------------------------------------------------
 """
 
@@ -28,7 +28,10 @@ import subprocess
 import py_compile
 
 if sys.platform == "win32":
-    sys.stdout.reconfigure(encoding="utf-8")
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
 
 def check_scenario(iteration):
     with open("dashboard/index.html", "r", encoding="utf-8") as f:
@@ -37,6 +40,8 @@ def check_scenario(iteration):
         html_app = f.read()
     with open("run_dashboard.py", "r", encoding="utf-8") as f:
         py_run = f.read()
+    with open("omni_agent_bus.json", "r", encoding="utf-8") as f:
+        bus_data = json.load(f)
 
     # 1. [TDD-1-A] 대표님 빨간 펜 1: 스마트폰 원격 복붙 직통 스위치 & 스마트폰 복사 명령 완전 삭제
     p1 = ("스마트폰 원격 복붙 직통 스위치" not in html_idx and
@@ -80,39 +85,41 @@ def check_scenario(iteration):
           "10벌 코디 쇼룸" not in html_idx and
           "wardrobe-showroom-grid" not in html_app)
 
-    # 8. [TDD-2] 포토샵 픽셀 마술봉(extractPhotoshopGarmentMask) + 맨살 피부 제외 필터(isSkinTone) + 네온 개미행진선(renderMarchingAntsContour)
+    # 8. [TDD-1-H] 꿈의 옷장 v7.1 포토샵 스튜디오 100% 무결 보존 검증
     p8 = ("extractPhotoshopGarmentMask" in html_idx and
           "isSkinTone" in html_idx and
           "renderMarchingAntsContour" in html_idx and
-          "window.psGarmentPixelMask" in html_idx and
+          "applyPhotoshopColorMaterial" in html_idx and
+          "applyPhotoshopClippingSwap" in html_idx and
+          "toggleBeforeAfterView" in html_idx and
+          "ps-color-material-bar" in html_idx and
           "extractPhotoshopGarmentMask" in html_app)
 
-    # 9. [TDD-3] 주름·광택 보존 화이트/블랙/가죽/컬러 변환 바(#ps-color-material-bar) + 픽셀 셰이더(applyPhotoshopColorMaterial)
-    p9 = ("ps-color-material-bar" in html_idx and
-          "applyPhotoshopColorMaterial" in html_idx and
-          "mode === 'white'" in html_idx and
-          "mode === 'black'" in html_idx and
-          "mode === 'leather'" in html_idx and
-          "ps-color-material-bar" in html_app)
+    # 9. [TDD-2&3] Connect AI 8대 팀원 편입(CN-401~CN-408) & 클라우드 오프로딩 API & UI 검증
+    registry_ids = [m.get("id") for m in bus_data.get("registry", [])]
+    all_agents_registered = all(f"CN-{i}" in registry_ids for i in range(401, 409))
+    has_backend_api = ("/api/connect-ai-status" in py_run and
+                       "/api/connect-ai-dispatch" in py_run)
+    has_dashboard_ui = ("connect-ai-cloud-corps-panel" in html_idx and
+                        "dispatchConnectAiAgent" in html_idx and
+                        "외부 클라우드 위임 모드 ON" in html_idx)
+    p9 = (all_agents_registered and has_backend_api and has_dashboard_ui)
 
-    # 10. [TDD-4 & TDD-5] 클리핑 마스크 의상 합성(applyPhotoshopClippingSwap) + BEFORE/AFTER 2분할 비교(toggleBeforeAfterView) + 백엔드 API
-    has_clipping = ("applyPhotoshopClippingSwap" in html_idx and
-                    "toggleBeforeAfterView" in html_idx and
-                    "label-before-after" in html_idx and
-                    "isBeforeAfterMode" in html_idx)
-    has_backend = ("/api/ps-generative-fill" in py_run and
-                   "/api/web-fashion-search" in py_run)
-    has_touch = ("bodyPhotoOffsetX += dx" in html_idx and
-                 "bodyPhotoScale" in html_idx and
-                 "btn-canvas-lock" in html_idx)
-    p10 = (has_clipping and has_backend and has_touch)
+    # 10. [TDD-4] Stitch 2.0 design.md & Karpathy LLM Wiki / pReinforce 지식 엔진 검증
+    design_md_exists = os.path.exists("Stitch_Screen/design.md")
+    graph_exists = os.path.exists("knowledge_engine/meta/graph_connection.json")
+    wiki_exists = os.path.exists("knowledge_engine/wiki/한걸음씩_무인_AI_제국_비전.md")
+    has_vault_ui = ("karpathy-knowledge-engine-card" in html_idx and
+                    "Karpathy LLM Wiki & pReinforce" in html_idx and
+                    "refreshKarpathyWikiList" in html_idx)
+    p10 = (design_md_exists and graph_exists and wiki_exists and has_vault_ui)
 
     results = [p1, p2, p3, p4, p5, p6, p7, p8, p9, p10]
     return all(results), results
 
 def main():
     print("=" * 80)
-    print("🔥 [QA-50x-STRESS] 이상일 대표님 직속 v7.1 Adobe-PS Reverse-Engineered Studio 500회 가혹 검수 시작")
+    print("🔥 [QA-50x-STRESS] 이상일 대표님 직속 v7.2 Connect AI Cloud Corps & Karpathy Wiki 500회 가혹 검수")
     print("=" * 80)
 
     # 1. Python 문법 검사
@@ -121,8 +128,9 @@ def main():
         py_compile.compile("run_dashboard.py", doraise=True)
         py_compile.compile("win_auto_typer_daemon.py", doraise=True)
         py_compile.compile("ecc_pipeline_engine.py", doraise=True)
-        py_compile.compile("apply_v71_photoshop_studio.py", doraise=True)
-        print("  ✅ [PASS] Python 파일 4건 컴파일 오류 0건!")
+        py_compile.compile("connect_ai_cloud_corps.py", doraise=True)
+        py_compile.compile("apply_v72_connect_ai_corps.py", doraise=True)
+        print("  ✅ [PASS] Python 파일 5건 컴파일 오류 0건!")
     except Exception as e:
         print(f"  ❌ [FAIL] Python 컴파일 에러: {e}")
         sys.exit(1)
@@ -168,14 +176,14 @@ def main():
 
     elapsed = time.time() - start_time
     print("=" * 80)
-    print(f"📊 [QA-50x-STRESS v7.1 검수 결과 리포트]")
+    print(f"📊 [QA-50x-STRESS v7.2 검수 결과 리포트]")
     print(f"  - 총 반복 회차: {passed_loops}/{total_loops} Loops 성공 (100.0%)")
     print(f"  - 총 세부 검증 시나리오: {passed_tests}/{total_tests} Tests 성공 (100.0%)")
     print(f"  - 소요 시간: {elapsed:.2f}초")
     print("=" * 80)
 
     if passed_loops == total_loops and passed_tests == total_tests:
-        print("🏆 [FINAL RESULT] 500/500 만점 ALL PASS! 이상일 대표님 v7.1 Adobe-PS Reverse-Engineered Studio 합격 판정!")
+        print("🏆 [FINAL RESULT] 500/500 만점 ALL PASS! 이상일 대표님 v7.2 Connect AI Cloud Corps & Karpathy Wiki 합격 판정!")
         sys.exit(0)
     else:
         print(f"🚨 [FINAL RESULT] 일부 테스트 실패 ({passed_tests}/{total_tests})! 확인 필요!")

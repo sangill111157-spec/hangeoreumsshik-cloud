@@ -1250,6 +1250,29 @@ class DashboardHandler(SimpleHTTPRequestHandler):
             self.wfile.write(json.dumps(data, ensure_ascii=False).encode('utf-8'))
             return
 
+        # 🎖️ [v7.2] Connect AI 8대 정예 팀원 상태 및 지식 엔진 현황 (GET /api/connect-ai-status)
+        if path == '/api/connect-ai-status':
+            try:
+                import connect_ai_cloud_corps
+                status_data = connect_ai_cloud_corps.get_connect_ai_status()
+                body = json.dumps(status_data, ensure_ascii=False).encode('utf-8')
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.send_header("Access-Control-Allow-Origin", "*")
+                self.send_header("Content-Length", str(len(body)))
+                self.send_header("Cache-Control", "no-store")
+                self.end_headers()
+                self.wfile.write(body)
+                return
+            except Exception as e:
+                err_body = json.dumps({"status": "error", "message": str(e)}, ensure_ascii=False).encode('utf-8')
+                self.send_response(500)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.send_header("Access-Control-Allow-Origin", "*")
+                self.send_header("Content-Length", str(len(err_body)))
+                self.end_headers()
+                self.wfile.write(err_body)
+                return
 
         # 1. 설정 자동 주입
         if path == '/api/config':
@@ -1746,6 +1769,29 @@ class DashboardHandler(SimpleHTTPRequestHandler):
                     "ps_engine": "Adobe-PS-Reverse-Engine-v7.1",
                     "processed_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 }
+            except Exception as e:
+                resp = {"status": "error", "message": str(e)}
+
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json; charset=utf-8')
+            self.send_header('Access-Control-Allow-Origin', '*')
+            self.end_headers()
+            self.wfile.write(json.dumps(resp, ensure_ascii=False).encode('utf-8'))
+            return
+
+        # 🎖️ [v7.2] Connect AI 8대 정예 팀원 비동기 클라우드 디스패치 (POST /api/connect-ai-dispatch)
+        if self.path == '/api/connect-ai-dispatch':
+            length = int(self.headers.get('Content-Length', 0))
+            raw_body = self.rfile.read(length) if length > 0 else b'{}'
+            try:
+                data = json.loads(raw_body.decode('utf-8')) if raw_body else {}
+                agent_id = data.get('agent_id', 'CN-401')
+                task_type = data.get('task_type', None)
+                payload = data.get('payload', None)
+
+                import connect_ai_cloud_corps
+                dispatch_res = connect_ai_cloud_corps.dispatch_agent_task(agent_id, task_type, payload)
+                resp = {"status": "ok", "data": dispatch_res}
             except Exception as e:
                 resp = {"status": "error", "message": str(e)}
 
