@@ -1,42 +1,42 @@
 {
   "version": "v8.5-cleanroom-work-queue",
-  "updated_at": "2026-10-18 16:44:11",
+  "updated_at": "2026-10-18 16:51:42",
   "compliance_policy": "HGS-CLEANROOM-100% (아이디어·구조 벤치마킹 합법 / 소스·상표·저작물 침해 0%)",
   "departments": [
     {
       "dept_id": "dept_1",
-      "dept_name": "제1청사 (천부 오디세이 게임 스튜디오 — 계단식 시리즈 개발청)",
-      "dept_role": "전 세대 7부작 계단식 인성 오디세이 게임 스튜디오 및 천부경 27자 각성",
+      "dept_name": "제1청사 (천부 오디세이 스튜디오 — TOP 10 엔진 개발청)",
+      "dept_role": "글로벌 TOP 10 흥행 공식(캐릭터 3단 진화·황금 입자 타격감·27자 룬 도감) 계단식 게임 스튜디오",
       "tasks": [
         {
           "task_id": "TASK-D1-01",
-          "benchmark_target": "고대 천부경 율려 주파수 & Web Audio 신디사이저",
-          "title": "[제1탄: 생성(生成)] 태초의 율려(432Hz) & 천·지·인 3계단 스토리 엔진 구축",
-          "spec": "무극의 진동(Step 1)에서 삼재 마고대성(Step 2)을 거쳐 생성 대완성(Step 3)까지의 3계단 스토리텔링 및 432Hz/528Hz 화음 연주",
-          "legal_rule": "퍼블릭 도메인 천부경 기반 100% 자체 Web Audio 합성 및 자체 각본",
+          "benchmark_target": "뱀파이어 서바이벌(파티클 타격감) & Web Audio 432Hz 율려 신디사이저",
+          "title": "[제1탄: 생성] 태초의 율려(432Hz) & Canvas 황금 입자 타격감 & 캐릭터 3단 진화 엔진",
+          "spec": "빛방울->수호동자->천부수호신 3단 진화 SVG 및 터치 시 황금 파티클 폭발(spawnGoldenParticles) 타격감과 432Hz/528Hz 화음 연동",
+          "legal_rule": "퍼블릭 도메인 천부경 기반 100% 자체 Canvas 파티클 및 Web Audio 합성",
           "status": "COMPLETED_AND_ACTIVE",
           "progress": 100,
-          "last_executed": "2026-10-18 16:44:11"
+          "last_executed": "2026-10-18 16:51:42"
         },
         {
           "task_id": "TASK-D1-02",
-          "benchmark_target": "전통 각석(刻石) 탁본 & 인터랙티브 타일 매트릭스",
-          "title": "[제1탄: 생성(生成)] 천부경 제1장(27자) 황금 석판 각성 시스템 및 인성 풀이 구현",
-          "spec": "3행×9열 27개 황금 타일 계단별 순차 각성(9자->18자->27자) 및 쉬운 우리말 인성 교훈 풀이 인터랙티브 표출",
-          "legal_rule": "고대 원문 인용 및 자체 현대어 인성 해석 적용",
+          "benchmark_target": "포켓몬스터 도감(Pokédex) 수집 & 인터랙티브 타일 매트릭스",
+          "title": "[제1탄: 생성] 포켓몬식 27자 황금 룬 도감 수집 보드 & 현대어 인성 풀이 시스템",
+          "spec": "3x9 황금 타일 도감 터치 인터랙션 및 계단별 9자씩 각성되는 현대어 우주·인성 원리 표출 시스템",
+          "legal_rule": "고대 천부경 원문 인용 및 100% 자체 현대어 인성 해석 적용",
           "status": "COMPLETED_AND_ACTIVE",
           "progress": 100,
-          "last_executed": "2026-10-18 16:44:11"
+          "last_executed": "2026-10-18 16:51:42"
         },
         {
           "task_id": "TASK-D1-03",
-          "benchmark_target": "단군 신화 & 배달국 신시 개천 대서사",
-          "title": "[차기 제2탄 준비] 환웅의 신시 개천 & 웅녀의 인내 시련 계단식 사전 설계",
-          "spec": "제1탄 완주 후 차기작 제2탄 〈개천(開天)〉으로 이어지는 환웅의 하강과 웅녀의 인내 인성 시련 시나리오 및 UI 사전 설계",
+          "benchmark_target": "원신(원소 조화) & 단군 신화 배달국 신시 개천 대서사",
+          "title": "[차기 제2탄 준비] 환웅의 신시 개천 & 웅녀의 인내 시련 원소 조화 사전 설계",
+          "spec": "풍백·우사·운사 원소 교감 시스템 및 제2탄 개천으로 이어지는 웅녀의 인내 시련 시나리오 사전 설계",
           "legal_rule": "건국 설화 공공 도메인 활용 100% 자체 각색",
           "status": "COMPLETED_AND_ACTIVE",
           "progress": 100,
-          "last_executed": "2026-10-18 16:44:11"
+          "last_executed": "2026-10-18 16:51:42"
         }
       ]
     },
@@ -53,7 +53,7 @@
           "legal_rule": "타사 질문지/일러스트 0% 사용, 100% 자체 문항 및 SVG 그래픽 제작",
           "status": "COMPLETED_AND_ACTIVE",
           "progress": 100,
-          "last_executed": "2026-10-18 16:44:11"
+          "last_executed": "2026-10-18 16:51:42"
         },
         {
           "task_id": "TASK-D2-02",
@@ -63,7 +63,7 @@
           "legal_rule": "대한민국 근로기준법 및 세법 공개 수식 100% 활용 (저작권 제한 없음)",
           "status": "COMPLETED_AND_ACTIVE",
           "progress": 100,
-          "last_executed": "2026-10-18 16:44:11"
+          "last_executed": "2026-10-18 16:51:42"
         },
         {
           "task_id": "TASK-D2-03",
@@ -73,7 +73,7 @@
           "legal_rule": "한걸음씩 고유 브랜드 철학 100% 반영 자체 제작",
           "status": "COMPLETED_AND_ACTIVE",
           "progress": 100,
-          "last_executed": "2026-10-18 16:44:11"
+          "last_executed": "2026-10-18 16:51:42"
         }
       ]
     },
@@ -90,7 +90,7 @@
           "legal_rule": "100% 자체 생성 Suno 마스터 음원 및 Web Audio API 자체 파형 사용",
           "status": "COMPLETED_AND_ACTIVE",
           "progress": 100,
-          "last_executed": "2026-10-18 16:44:11"
+          "last_executed": "2026-10-18 16:51:42"
         },
         {
           "task_id": "TASK-D3-02",
@@ -100,7 +100,7 @@
           "legal_rule": "국제 음원 유통 표준 규격 준수",
           "status": "COMPLETED_AND_ACTIVE",
           "progress": 100,
-          "last_executed": "2026-10-18 16:44:11"
+          "last_executed": "2026-10-18 16:51:42"
         },
         {
           "task_id": "TASK-D3-03",
@@ -110,7 +110,7 @@
           "legal_rule": "제5청사 표준 대가성 표시 문구 100% 자동 삽입",
           "status": "COMPLETED_AND_ACTIVE",
           "progress": 100,
-          "last_executed": "2026-10-18 16:44:11"
+          "last_executed": "2026-10-18 16:51:42"
         }
       ]
     },
@@ -127,7 +127,7 @@
           "legal_rule": "내부 윤리 거버넌스 표준 수립",
           "status": "COMPLETED_AND_ACTIVE",
           "progress": 100,
-          "last_executed": "2026-10-18 16:44:11"
+          "last_executed": "2026-10-18 16:51:42"
         },
         {
           "task_id": "TASK-D4-02",
@@ -137,7 +137,7 @@
           "legal_rule": "자체 성과 평가 지표 활용",
           "status": "COMPLETED_AND_ACTIVE",
           "progress": 100,
-          "last_executed": "2026-10-18 16:44:11"
+          "last_executed": "2026-10-18 16:51:42"
         },
         {
           "task_id": "TASK-D4-03",
@@ -147,7 +147,7 @@
           "legal_rule": "로컬 마크다운 아카이빙 표준 준수",
           "status": "COMPLETED_AND_ACTIVE",
           "progress": 100,
-          "last_executed": "2026-10-18 16:44:11"
+          "last_executed": "2026-10-18 16:51:42"
         }
       ]
     },
@@ -164,7 +164,7 @@
           "legal_rule": "대한민국 공정거래위원회 및 저작권법 기준 100% 적용",
           "status": "COMPLETED_AND_ACTIVE",
           "progress": 100,
-          "last_executed": "2026-10-18 16:44:11"
+          "last_executed": "2026-10-18 16:51:42"
         },
         {
           "task_id": "TASK-D5-02",
@@ -174,7 +174,7 @@
           "legal_rule": "내부 지적재산권(IP) 자산화",
           "status": "COMPLETED_AND_ACTIVE",
           "progress": 100,
-          "last_executed": "2026-10-18 16:44:11"
+          "last_executed": "2026-10-18 16:51:42"
         },
         {
           "task_id": "TASK-D5-03",
@@ -184,7 +184,7 @@
           "legal_rule": "시스템 보안 최고 등급 유지",
           "status": "COMPLETED_AND_ACTIVE",
           "progress": 100,
-          "last_executed": "2026-10-18 16:44:11"
+          "last_executed": "2026-10-18 16:51:42"
         }
       ]
     },
@@ -201,7 +201,7 @@
           "legal_rule": "복식부기 회계 원칙 및 원천징수(3.3%) 예비비 산식 엄수",
           "status": "COMPLETED_AND_ACTIVE",
           "progress": 100,
-          "last_executed": "2026-10-18 16:44:11"
+          "last_executed": "2026-10-18 16:51:42"
         },
         {
           "task_id": "TASK-D6-02",
@@ -211,7 +211,7 @@
           "legal_rule": "한걸음씩 재무 헌법 제1조 준수",
           "status": "COMPLETED_AND_ACTIVE",
           "progress": 100,
-          "last_executed": "2026-10-18 16:44:11"
+          "last_executed": "2026-10-18 16:51:42"
         },
         {
           "task_id": "TASK-D6-03",
@@ -221,7 +221,7 @@
           "legal_rule": "무자본·무위험(Zero-Risk) 경영 원칙 수호",
           "status": "COMPLETED_AND_ACTIVE",
           "progress": 100,
-          "last_executed": "2026-10-18 16:44:11"
+          "last_executed": "2026-10-18 16:51:42"
         }
       ]
     }

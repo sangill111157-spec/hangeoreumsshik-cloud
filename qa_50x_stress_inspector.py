@@ -47,6 +47,7 @@ def check_scenario(iteration):
             html_d1 = f.read()
         d1_ok = ("advanceGenesisStep" in html_d1 and
                  "playGenesisYulryeoSound" in html_d1 and
+                 "spawnGoldenParticles" in html_d1 and
                  "cheonbu-genesis-27-board" in html_d1 and
                  "series-staircase-nav" in html_d1 and
                  "copyGenesisCertificate" in html_d1)
