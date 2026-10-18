@@ -661,9 +661,28 @@ try {{
     tr2_zero_ok = (s_tr2 == 200 and sm_tr2.get("total_in", -1) == 0 and sm_tr2.get("disposable_net_krw", sm_tr2.get("net_profit", -1)) == 0)
     sns_checks.append((tr2_zero_ok, f"SNS 디스패치 후 금고 0원 절대 불변 유지({tr2_zero_ok})"))
 
+    # 7) 외부 Cloudflare 터널 실시간 HTTP 200 생존 확인 (Error 1033 영구 방어)
+    tunnel_file = BASE_DIR / "active_external_tunnel.json"
+    tunnel_live_ok = False
+    tunnel_url = ""
+    if tunnel_file.exists():
+        try:
+            t_data = json.loads(tunnel_file.read_text(encoding="utf-8"))
+            tunnel_url = t_data.get("active_tunnel_url") or t_data.get("tunnel_url") or ""
+            if tunnel_url.startswith("https://"):
+                req_t = urllib.request.Request(f"{tunnel_url}/api/cheongwadae-status", headers={"User-Agent": "Inspector/10.8"})
+                with urllib.request.urlopen(req_t, timeout=6.0) as res_t:
+                    if res_t.status == 200:
+                        t_body = res_t.read().decode("utf-8", errors="ignore")
+                        if "Error 1033" not in t_body and "Cloudflare Tunnel error" not in t_body:
+                            tunnel_live_ok = True
+        except Exception:
+            tunnel_live_ok = False
+    sns_checks.append((tunnel_live_ok, f"외부 5G 터널 HTTP 200 생존(Error 1033 면역): {tunnel_url} ({tunnel_live_ok})"))
+
     gate10_ok = all(c[0] for c in sns_checks)
     gate10_detail = " / ".join(c[1] for c in sns_checks)
-    log_gate("HARD-GATE-10", "4대 SNS(틱톡·인스타·스레드·페북) 안전 발굴 인벤토리 및 원터치 멀티 업로드 엔진 실전 검증", gate10_ok, gate10_detail)
+    log_gate("HARD-GATE-10", "4대 SNS 원터치 멀티 업로드 엔진 검증 및 외부 Cloudflare 터널 실시간 HTTP 200 생존 확인", gate10_ok, gate10_detail)
 
     # --------------------------------------------------------------------------
     # 종합 판정

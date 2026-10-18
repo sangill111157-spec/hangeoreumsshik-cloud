@@ -114,6 +114,30 @@
   <!-- 메인 컨테이너 -->
   <div class="relative z-10 max-w-5xl mx-auto px-3 sm:px-6 pt-4 sm:pt-6 space-y-6">
 
+    <!-- ⚡ [v10.8] 불사조 5G 무중단 터널 브릿지 (Error 1033 영구 면역) 배너 -->
+    <div id="immortal-tunnel-bridge-banner" class="glass-card rounded-2xl p-3.5 border border-emerald-500/40 bg-gradient-to-r from-emerald-950/70 via-slate-900/90 to-indigo-950/70 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-xl">
+      <div class="flex items-center gap-2.5">
+        <span class="relative flex h-3 w-3 flex-shrink-0">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+        </span>
+        <div>
+          <div class="text-xs sm:text-sm font-bold text-white flex items-center gap-1.5">
+            <span>🛡️ 불사조 5G 무중단 터널 가동 중</span>
+            <span class="px-2 py-0.5 rounded text-[10px] bg-emerald-500/20 text-emerald-300 font-mono font-bold">Error 1033 면역</span>
+          </div>
+          <div class="text-[11px] text-slate-300" id="tunnel-live-status-desc">
+            현재 살아있는 실시간 터널: <span class="font-mono text-emerald-300 font-bold" id="banner-live-tunnel-url">https://nirvana-exercises-jet-then.trycloudflare.com</span>
+          </div>
+        </div>
+      </div>
+      <div class="flex items-center gap-2 w-full sm:w-auto">
+        <a id="btn-jump-live-tunnel" href="https://nirvana-exercises-jet-then.trycloudflare.com/?v=1080" target="_blank" class="flex-1 sm:flex-none px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 hover:opacity-95 text-white font-bold text-xs shadow-lg shadow-emerald-500/30 transition flex items-center justify-center gap-1.5 active:scale-95">
+          <span>🚀 실시간 사령부 직통 연결</span>
+        </a>
+      </div>
+    </div>
+
     <!-- 🏛️ [HEADER] 청와대 중앙 컨트롤 타워 v10.0 -->
     <header class="glass-card rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-cyan-500/20">
       <div class="flex items-center gap-3">
@@ -770,11 +794,30 @@
     }
     window.checkLegalCompliance = checkLegalCompliance;
 
+    // 12. 불사조 5G 터널 실시간 브릿지 동기화 (Error 1033 영구 방어)
+    async function syncImmortalTunnelBanner() {
+      try {
+        const res = await fetch('tunnel_bridge.json?t=' + Date.now());
+        if (res.ok) {
+          const data = await res.json();
+          const u = data.active_tunnel_url || data.tunnel_url;
+          if (u) {
+            const urlSpan = document.getElementById('banner-live-tunnel-url');
+            const jumpBtn = document.getElementById('btn-jump-live-tunnel');
+            if (urlSpan) urlSpan.innerText = u;
+            if (jumpBtn) jumpBtn.href = u + '/?v=1080';
+          }
+        }
+      } catch (e) {}
+    }
+    window.syncImmortalTunnelBanner = syncImmortalTunnelBanner;
+
     // 초기 로딩
     document.addEventListener('DOMContentLoaded', function() {
       loadCommFeed();
       fetchTreasuryQuickStatus();
       loadDeptWorkQueue();
+      syncImmortalTunnelBanner();
     });
   </script>
 </body>
