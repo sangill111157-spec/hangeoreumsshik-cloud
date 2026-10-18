@@ -538,6 +538,45 @@ try {{
     log_gate("HARD-GATE-8", "국가안보 보안 원문 노출 0% 감사, 2차 잔재 100% 소각 및 구글 시트 발굴 API 검증", gate8_ok, gate8_detail)
 
     # --------------------------------------------------------------------------
+    # [HARD-GATE 9] 원터치 무인 자동 집행 API (/api/one-touch-execute) 4대 모드 실전 호출 및 실물 파일·영수증 검증
+    # --------------------------------------------------------------------------
+    ot_checks = []
+
+    # 1) Stitch 2.0 원터치 자동 실행
+    s_ot1, j_ot1 = http_post("/api/one-touch-execute", {"action_type": "STITCH_DESIGN", "theme": "dark"})
+    ot1_ok = (s_ot1 == 200 and j_ot1.get("status") == "OK" and (BASE_DIR / "knowledge_engine" / "wiki" / "dept_deliverables" / "DESIGN_SYSTEM_LATEST.md").exists())
+    ot_checks.append((ot1_ok, f"Stitch 디자인 자동적용: HTTP {s_ot1} (DESIGN_SYSTEM_LATEST.md 생성)"))
+
+    # 2) 3초 후킹 대본 원터치 자동 집필
+    s_ot2, j_ot2 = http_post("/api/one-touch-execute", {"action_type": "HOOK_SCRIPT", "topic": "shin"})
+    script_files = list((BASE_DIR / "knowledge_engine" / "wiki" / "auto_scripts").glob("SCRIPT_*.md"))
+    ot2_ok = (s_ot2 == 200 and j_ot2.get("status") == "OK" and len(script_files) >= 1)
+    ot_checks.append((ot2_ok, f"3초 후킹 대본 자동집필: HTTP {s_ot2} (대본 파일 {len(script_files)}건)"))
+
+    # 3) BM 수익화 파이프라인 원터치 점검
+    s_ot3, j_ot3 = http_post("/api/one-touch-execute", {"action_type": "BM_PIPELINE", "unit_price": 29000, "sales_qty": 100})
+    bm_file_ok = (BASE_DIR / "knowledge_engine" / "wiki" / "dept_deliverables" / "BM_AUTO_REPORT.md").exists()
+    ot3_ok = (s_ot3 == 200 and j_ot3.get("status") == "OK" and bm_file_ok)
+    ot_checks.append((ot3_ok, f"BM 수익화 자동점검: HTTP {s_ot3} (BM_AUTO_REPORT.md 생성)"))
+
+    # 4) 8대 정예 팀원 원터치 일괄 출격
+    s_ot4, j_ot4 = http_post("/api/one-touch-execute", {"action_type": "ALL_8_AGENTS_DISPATCH"})
+    corps_file_ok = (BASE_DIR / "knowledge_engine" / "wiki" / "dept_deliverables" / "CORPS_8_MISSION_REPORT.md").exists()
+    ot4_ok = (s_ot4 == 200 and j_ot4.get("status") == "OK" and corps_file_ok)
+    ot_checks.append((ot4_ok, f"8대 정예 팀원 일괄 출격: HTTP {s_ot4} (CORPS_8_MISSION_REPORT.md 생성)"))
+
+    # 5) 원터치 집행 후 금고 0원 장부 절대 불변 검증
+    s_tr, b_tr = http_get("/api/treasury-status")
+    j_tr = json.loads(b_tr) if s_tr == 200 else {}
+    sm_tr = j_tr.get("summary", {})
+    tr_zero_ok = (s_tr == 200 and sm_tr.get("total_in", -1) == 0 and sm_tr.get("disposable_net_krw", sm_tr.get("net_profit", -1)) == 0)
+    ot_checks.append((tr_zero_ok, f"원터치 집행 후 금고 0원 절대 불변 유지({tr_zero_ok})"))
+
+    gate9_ok = all(c[0] for c in ot_checks)
+    gate9_detail = " / ".join(c[1] for c in ot_checks)
+    log_gate("HARD-GATE-9", "원터치 무인 자동 집행 파이프라인 4대 모드 실전 호출 및 실물 파일·영수증 전수 검증", gate9_ok, gate9_detail)
+
+    # --------------------------------------------------------------------------
     # 종합 판정
     # --------------------------------------------------------------------------
     total_gates = len(results)

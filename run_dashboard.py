@@ -1838,6 +1838,32 @@ class DashboardHandler(SimpleHTTPRequestHandler):
 
     def do_POST(self):
 
+        # ⚡ [v10.6] 원터치 무인 자동 집행 파이프라인 (POST /api/one-touch-execute)
+        if self.path == '/api/one-touch-execute':
+            length = int(self.headers.get('Content-Length', 0))
+            raw_body = self.rfile.read(length)
+            try:
+                data = json.loads(raw_body.decode('utf-8')) if raw_body else {}
+                import one_touch_auto_executor
+                exec_res = one_touch_auto_executor.handle_one_touch_execute(data)
+                resp = {
+                    "status": "OK",
+                    "success": True,
+                    "message": "원터치 무인 자동 집행 파이프라인 완수",
+                    "data": exec_res
+                }
+            except Exception as e:
+                resp = {"status": "error", "success": False, "message": str(e)}
+
+            body = json.dumps(resp, ensure_ascii=False).encode("utf-8")
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(body)
+            return
+
         # 🏦 [v10.1] 제6청사 총무팀 신규 전표 기장 처리 (POST /api/treasury-record)
         if self.path == '/api/treasury-record':
             length = int(self.headers.get('Content-Length', 0))

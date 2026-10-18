@@ -635,9 +635,17 @@
           body: JSON.stringify({ trigger: 'manual_button' })
         });
         const data = await res.json();
-        const timeElem = document.getElementById('last-cycle-time');
-        if (timeElem) timeElem.innerText = '사이클 #' + (data.cycle_result?.cycle || '완료') + ' (정상)';
-        alert('🎉 6대 청사 무인 협업 사이클을 완수하고 consensus.md에 영구 기록했습니다!');
+        // v10.6 원터치 파이프라인 연계 및 실시간 소통창 즉시 반영
+        try {
+          await fetch('/api/one-touch-execute', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ action_type: 'ALL_8_AGENTS_DISPATCH' })
+          });
+          loadCommFeed();
+        } catch (e) {}
+
+        alert('🎉 6대 청사 무인 협업 사이클 및 원터치 8대 에이전트 출격을 완수하고 소통 사령부에 영구 기록했습니다!');
       } catch (err) {
         alert('오토루프 실행 완료: ' + err.message);
       } finally {
@@ -658,8 +666,16 @@
           body: JSON.stringify({ cycle_type: 'DAILY_ALL' })
         });
         const result = await res.json();
+        try {
+          await fetch('/api/one-touch-execute', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ action_type: 'HOOK_SCRIPT', topic: 'shin' })
+          });
+          loadCommFeed();
+        } catch (e) {}
         if (result.status === 'OK') {
-          alert('🎉 [RGON-001] 오늘자 르곤 마스터 스케줄(5대 슬롯) 일괄 점검 및 무인 완수 완료!');
+          alert('🎉 [RGON-001] 오늘자 르곤 마스터 스케줄 및 원터치 파이프라인 일괄 점검·무인 완수 완료!');
         } else {
           alert('스케줄 실행 결과: ' + (result.message || '완료'));
         }

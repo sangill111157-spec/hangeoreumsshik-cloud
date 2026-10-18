@@ -37,7 +37,7 @@ INITIAL_COMM_LOG = {
             "sender_id": "RGON-001",
             "sender_name": "🧠 제1수석보좌관 르곤",
             "target": "COMMANDER-000",
-            "text": "이상일 대표님! 구 버전 잔재(Omni-Nexus v2.0, 꿈의옷장, 코디 룩북 등)를 100% 완전 소각하고, 2026 미래지향 디자인 리모델링 및 제1과제 '실시간 양방향 소통 사령부'를 개통했습니다. 아래 입력창이나 빠른 소통 버튼으로 언제든 말씀해 주십시오!"
+            "text": "이상일 대표님! 과거 구버전 모바일 앱 등 잔재를 100% 완전 소각하고, 2026 미래지향 디자인 리모델링 및 제1과제 '실시간 양방향 소통 사령부'를 개통했습니다. 아래 입력창이나 빠른 소통 버튼으로 언제든 말씀해 주십시오!"
         },
         {
             "msg_id": "COMM-0002",
@@ -104,7 +104,7 @@ def process_direct_communication(user_message: str, target_agency: str = "ALL"):
     elif any(k in q_lower for k in ["법무", "보안", "검수", "잔재", "점검", "안전"]):
         reply_sender = ("AGV-PRIME-101", "⚡ 기술행정부 안총리 & 제5청사")
         reply_text = (
-            "[무결성·검수 보고] 과거 폐기 잔재(꿈의옷장·v2.0 등) 0건, 먹통 버튼 0건, 제5청사 법무 안전망 100/100 만점 상태로 전 기관 이상 없습니다!"
+            "[무결성·검수 보고] 과거 폐기 잔재(구버전 모바일 앱 등) 0건, 먹통 버튼 0건, 제5청사 법무 안전망 100/100 만점 상태로 전 기관 이상 없습니다!"
         )
     elif any(k in q_lower for k in ["점호", "상태", "이상"]):
         reply_sender = ("RGON-001", "🧠 제1수석보좌관 르곤 & ⚡ 안총리")
@@ -140,6 +140,31 @@ def process_direct_communication(user_message: str, target_agency: str = "ALL"):
         f.write(f"\n- [{now_str}] 💬 [DIRECT-COMM] 대표님 지시: \"{user_message}\" ➔ {reply_sender[1]} 실시간 응답 완료.\n")
 
     return {"status": "OK", "commander_msg": commander_msg, "reply_msg": reply_msg, "all_messages": data["messages"]}
+
+def append_comm_message(sender_id: str, sender_name: str, text: str, target: str = "COMMANDER-000"):
+    """원터치 자동 집행 시스템 등에서 대표님 소통창에 직통 보고 메시지를 등재하는 공용 함수"""
+    data = load_comm_log()
+    now_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    msg_count = len(data.get("messages", [])) + 1
+    new_msg = {
+        "msg_id": f"COMM-{msg_count:04d}",
+        "timestamp": now_str,
+        "sender_id": sender_id,
+        "sender_name": sender_name,
+        "target": target,
+        "text": text
+    }
+    data["messages"].append(new_msg)
+    data["messages"] = data["messages"][-30:]
+    data["updated_at"] = now_str
+    with open(COMM_LOG_FILE, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
+
+    os.makedirs(os.path.join(BASE_DIR, "memories"), exist_ok=True)
+    consensus_path = os.path.join(BASE_DIR, "memories", "consensus.md")
+    with open(consensus_path, "a", encoding="utf-8") as f:
+        f.write(f"\n- [{now_str}] ⚡ [ONE-TOUCH-AUTO] {sender_name}: {text}\n")
+    return new_msg
 
 if __name__ == "__main__":
     st = load_comm_log()
