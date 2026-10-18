@@ -776,6 +776,64 @@ try {{
     log_gate("HARD-GATE-11", "NVIDIA 트레이딩 봇 4대 혈관 완전 개통 & 실시간 모의매매 및 제1청사 한글 관제 상황실 렌더링 검증", gate11_ok, gate11_detail)
 
     # --------------------------------------------------------------------------
+    # [HARD-GATE 12] [v11.2] 6대 청사 합동 협업 릴레이 엔진(POST /api/synergy-relay-run) 실전 기동 & 6구간 바통 터치(Hand-off 6/6) 및 합동 산출물 파일 검증
+    # --------------------------------------------------------------------------
+    synergy_checks = []
+
+    # 1) GET /api/synergy-relay-status 호출 검증
+    s_syn_get, b_syn_get = http_get("/api/synergy-relay-status")
+    j_syn_get = json.loads(b_syn_get) if s_syn_get == 200 else {}
+    syn_get_ok = (s_syn_get == 200 and j_syn_get.get("synergy_score") == 100.0 and j_syn_get.get("handoffs_completed") == 6)
+    synergy_checks.append((syn_get_ok, f"릴레이 상태 API(HTTP {s_syn_get}, 협업점수 {j_syn_get.get('synergy_score', 0)}점, 바통터치 {j_syn_get.get('handoffs_completed', 0)}/6)"))
+
+    # 2) POST /api/synergy-relay-run 실전 호출 검증
+    s_syn_run, j_syn_run = http_post("/api/synergy-relay-run", {"trigger": "gate12_inspector_test"})
+    j_syn_data = j_syn_run.get("data", j_syn_run) if s_syn_run == 200 else {}
+    syn_run_ok = (s_syn_run == 200 and j_syn_data.get("handoffs_completed") == 6 and j_syn_data.get("synergy_score") == 100.0 and bool(j_syn_data.get("receipt_id")))
+    synergy_checks.append((syn_run_ok, f"실시간 협업 릴레이 가동 API(HTTP {s_syn_run}, 영수증 {j_syn_data.get('receipt_id')}, 6구간 완주={syn_run_ok})"))
+
+    # 3) 실물 합동 산출물 파일(GRAND_SYNERGY_RELAY_REPORT.md) 생성 및 바통터치 내용 검증
+    report_file = BASE_DIR / "knowledge_engine" / "wiki" / "dept_deliverables" / "GRAND_SYNERGY_RELAY_REPORT.md"
+    report_text = report_file.read_text(encoding="utf-8", errors="ignore") if report_file.exists() else ""
+    report_keywords = [
+        "6대 청사 합동 협업 산출물",
+        "Hand-off #1",
+        "Hand-off #2",
+        "Hand-off #3",
+        "Hand-off #4",
+        "Hand-off #5",
+        "Hand-off #6",
+        "100.0점 / S등급"
+    ]
+    report_ok = report_file.exists() and all(k in report_text for k in report_keywords)
+    synergy_checks.append((report_ok, f"실물 합동 산출물 마크다운 파일 실재 & 6대 바통터치 기장 확인({report_ok})"))
+
+    # 4) 본관(dashboard/index.html) 내 상황판 DOM 렌더링 검증
+    dash_index = BASE_DIR / "dashboard" / "index.html"
+    dash_text = dash_index.read_text(encoding="utf-8", errors="ignore") if dash_index.exists() else ""
+    dash_ui_elements = [
+        "cross-dept-synergy-board",
+        "btn-grand-synergy-run",
+        "전 기관(1~6청사) 실시간 협업 능력 & 바통 터치 점검 상황판",
+        "6대 청사 합동 협업 릴레이 지금 즉시 점검 가동",
+        "synergy-steps-list",
+        "synergy-receipt-panel"
+    ]
+    dash_ui_ok = all(k in dash_text for k in dash_ui_elements)
+    synergy_checks.append((dash_ui_ok, f"본관 실시간 협업 릴레이 상황판 DOM 필수 요소 6종 100% 렌더링 확인({dash_ui_ok})"))
+
+    # 5) 제6청사 실전 금고 0원 장부 절대 불변 및 원문 키 0건 마스킹 검증
+    s_tr4, b_tr4 = http_get("/api/treasury-status")
+    j_tr4 = json.loads(b_tr4) if s_tr4 == 200 else {}
+    sm_tr4 = j_tr4.get("summary", {})
+    tr4_zero_ok = (s_tr4 == 200 and sm_tr4.get("total_in", -1) == 0 and sm_tr4.get("disposable_net_krw", sm_tr4.get("net_profit", -1)) == 0)
+    synergy_checks.append((tr4_zero_ok, f"릴레이 집행 후 제6청사 금고 0원 절대 불변 유지({tr4_zero_ok})"))
+
+    gate12_ok = all(c[0] for c in synergy_checks)
+    gate12_detail = " / ".join(c[1] for c in synergy_checks)
+    log_gate("HARD-GATE-12", "6대 청사 합동 협업 릴레이 실전 기동 & 6구간 바통 터치 무결성 및 합동 산출물 파일 생성 검증", gate12_ok, gate12_detail)
+
+    # --------------------------------------------------------------------------
     # 종합 판정
     # --------------------------------------------------------------------------
     total_gates = len(results)
@@ -788,7 +846,7 @@ try {{
         print("🚨 결함 발견! 수리가 필요합니다.")
         return False
 
-    print("🏆 [최종 완료] 11대 최고난도 실제 작동 검증 100.0% ALL PASS! NVIDIA 트레이딩 봇 무중단 퀀트 관제 무결성 확정!")
+    print("🏆 [최종 완료] 12대 최고난도 실제 작동 검증 100.0% ALL PASS! 6대 청사 합동 협업 릴레이 및 데이터 바통 터치 무결성 확정!")
     print("=" * 80)
     return True
 

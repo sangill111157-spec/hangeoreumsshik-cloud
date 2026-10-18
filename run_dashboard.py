@@ -1840,6 +1840,25 @@ class DashboardHandler(SimpleHTTPRequestHandler):
             self.wfile.write(body)
             return
 
+        # 🤝 [v11.2] 6대 청사 합동 협업 릴레이 상태 조회 (GET /api/synergy-relay-status)
+        if path == '/api/synergy-relay-status':
+            try:
+                import cross_dept_synergy_engine
+                import importlib
+                importlib.reload(cross_dept_synergy_engine)
+                relay_status = cross_dept_synergy_engine.get_synergy_relay_status()
+            except Exception as e:
+                relay_status = {"status": "error", "success": False, "message": str(e)}
+            body = json.dumps(relay_status, ensure_ascii=False).encode("utf-8")
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.send_header("Cache-Control", "no-cache, no-store")
+            self.end_headers()
+            self.wfile.write(body)
+            return
+
         # 11. 📊 [v10.3] 대표님 구글 시트 & 과거 기록 발굴 대조 리포트 (GET /api/google-sheets-report)
         if path == '/api/google-sheets-report':
             try:
@@ -1982,6 +2001,35 @@ class DashboardHandler(SimpleHTTPRequestHandler):
                     "success": True,
                     "message": "NVIDIA 트레이딩 봇 4대 혈관 완전 개통 및 지금 즉시 종목 스캔·모의매수 실전 가동 성공",
                     "data": unblock_res
+                }
+            except Exception as e:
+                resp = {"status": "error", "success": False, "message": str(e)}
+
+            body = json.dumps(resp, ensure_ascii=False).encode("utf-8")
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(body)
+            return
+
+        # 🤝 [v11.2] 6대 청사 실시간 합동 협업 릴레이 즉시 가동 (POST /api/synergy-relay-run)
+        if self.path == '/api/synergy-relay-run':
+            length = int(self.headers.get('Content-Length', 0))
+            raw_body = self.rfile.read(length) if length > 0 else b'{}'
+            try:
+                post_data = json.loads(raw_body.decode('utf-8')) if raw_body else {}
+                trigger = post_data.get("trigger", "dashboard_button")
+                import cross_dept_synergy_engine
+                import importlib
+                importlib.reload(cross_dept_synergy_engine)
+                run_res = cross_dept_synergy_engine.run_grand_synergy_relay(trigger=trigger)
+                resp = {
+                    "status": "OK",
+                    "success": True,
+                    "message": "6대 청사 합동 협업 릴레이 완주 및 산출물/텔레그램 동기화 성공",
+                    "data": run_res
                 }
             except Exception as e:
                 resp = {"status": "error", "success": False, "message": str(e)}

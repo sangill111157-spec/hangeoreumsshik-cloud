@@ -4,37 +4,37 @@
       "name": "제1청사: 차세대 전략 프로젝트 R&D 본부",
       "file": "C:\\Users\\sangi\\Downloads\\shin-agent\\dashboard\\departments\\dept_closet.html",
       "hash": "71da9847ce2170ad29ec3914754b106a96a70ee652191c4fce04be1fc815054c",
-      "timestamp": "2026-10-19 05:00:55"
+      "timestamp": "2026-10-19 08:22:52"
     },
     "dept_2": {
       "name": "제2청사: Connect AI 홍보·비즈니스부",
       "file": "C:\\Users\\sangi\\Downloads\\shin-agent\\dashboard\\departments\\dept_connect_ai.html",
       "hash": "6e884f86f7f7334eb2e800a512407e93073763a7f26f4fa03b4d70e8d7d26f4f",
-      "timestamp": "2026-10-19 05:00:55"
+      "timestamp": "2026-10-19 08:22:52"
     },
     "dept_3": {
       "name": "제3청사: 힐링 미디어·음원제작부",
       "file": "C:\\Users\\sangi\\Downloads\\shin-agent\\dashboard\\departments\\dept_media.html",
       "hash": "1388e2f97f6b1ec547727ea174d7e8c31a98da817930ddadea7adb81c3634943",
-      "timestamp": "2026-10-19 05:00:55"
+      "timestamp": "2026-10-19 08:22:52"
     },
     "dept_4": {
       "name": "제4청사: 글로벌 K-인성학교 & 나눔부",
       "file": "C:\\Users\\sangi\\Downloads\\shin-agent\\dashboard\\departments\\dept_education.html",
       "hash": "ba8a07b5c4ed46b09bb0bb9d8987be183667b490f5466cb7553bd5d2350e94f0",
-      "timestamp": "2026-10-19 05:00:55"
+      "timestamp": "2026-10-19 08:22:52"
     },
     "dept_5": {
       "name": "제5청사: 자율법무·저작권·제2의두뇌 기록원",
       "file": "C:\\Users\\sangi\\Downloads\\shin-agent\\dashboard\\departments\\dept_vault.html",
       "hash": "e7263c80a632ce8c96e364b6edccabdc6f41f92909e83c86ad1384dd20d5185c",
-      "timestamp": "2026-10-19 05:00:55"
+      "timestamp": "2026-10-19 08:22:52"
     },
     "dept_6": {
       "name": "제6청사: 총무·재무회계·정산청",
       "file": "C:\\Users\\sangi\\Downloads\\shin-agent\\dashboard\\departments\\dept_treasury.html",
       "hash": "a307c1b39fe31ecfa0bfde37b1e70cc2f63a75a8dd44cbffb6576abbd2c6dfad",
-      "timestamp": "2026-10-19 05:00:55"
+      "timestamp": "2026-10-19 08:22:52"
     }
   },
   "safe_apps": {
@@ -42,31 +42,31 @@
       "name": "클린룸 웹앱 1호(행운 컬러)",
       "file": "C:\\Users\\sangi\\Downloads\\shin-agent\\dashboard\\safe_apps\\safe_daily_lucky.html",
       "hash": "579da283e5598143f688bcd5a44f388b46c237fc00e3bfb71e34128760e25fa5",
-      "timestamp": "2026-10-19 05:00:55"
+      "timestamp": "2026-10-19 08:22:52"
     },
     "app_2": {
       "name": "클린룸 웹앱 2호(연봉·퇴직금 계산기)",
       "file": "C:\\Users\\sangi\\Downloads\\shin-agent\\dashboard\\safe_apps\\safe_salary_planner.html",
       "hash": "4d174ba82fd1c137468ada0aadb401006f0f4df7d83bc2668dbca7ef3be0b4b3",
-      "timestamp": "2026-10-19 05:00:55"
+      "timestamp": "2026-10-19 08:22:52"
     },
     "app_3": {
       "name": "클린룸 웹앱 3호(432Hz 힐링 사운드)",
       "file": "C:\\Users\\sangi\\Downloads\\shin-agent\\dashboard\\safe_apps\\safe_healing_sound.html",
       "hash": "d21c744e359a9d3cd623466929e350c653e70ab9e975525c5cba06715a2efea9",
-      "timestamp": "2026-10-19 05:00:55"
+      "timestamp": "2026-10-19 08:22:52"
     },
     "app_4": {
       "name": "클린룸 웹앱 4호(부자 DNA 테스트)",
       "file": "C:\\Users\\sangi\\Downloads\\shin-agent\\dashboard\\safe_apps\\safe_rich_dna_test.html",
       "hash": "d141648ddaa358a81e3510c0d47b0f1b8132b4b166ac0708b26dd8b7e41dbcf3",
-      "timestamp": "2026-10-19 05:00:55"
+      "timestamp": "2026-10-19 08:22:52"
     },
     "app_5": {
       "name": "클린룸 웹앱 5호(하루 1% 성공 루틴)",
       "file": "C:\\Users\\sangi\\Downloads\\shin-agent\\dashboard\\safe_apps\\safe_daily_routine.html",
       "hash": "12d0e38762b61f0986da8c3c25d9cbb6cb00cec153c5c045a84a3c4ec4ab004b",
-      "timestamp": "2026-10-19 05:00:55"
+      "timestamp": "2026-10-19 08:22:52"
     }
   }
 }
