@@ -1,0 +1,229 @@
+{
+  "system_version": "v8.5 Department Mission Backlog",
+  "doctrine": "100% 클린룸 자체 제작 & 글로벌 1위 벤치마킹 타겟 18선",
+  "last_updated": "2026-10-18 11:20:47",
+  "departments": {
+    "dept_1": {
+      "id": "dept_1",
+      "name": "👗 제1청사: 패션테크·꿈의옷장부",
+      "badge": "패션테크 R&D",
+      "tasks": [
+        {
+          "id": "TASK-D1-01",
+          "target": "Photoroom / Remove.bg",
+          "title": "머리카락·소매 끝단 초정밀 알파 매팅 배경 분리 R&D",
+          "category": "알고리즘 R&D",
+          "legal_grade": "🛡️ 클린룸 합법 100%",
+          "status": "READY",
+          "output_summary": "픽셀 단위 투명도 알파 매팅 마스크 알고리즘 설계서 및 프로토타입 코드",
+          "completed_at": null
+        },
+        {
+          "id": "TASK-D1-02",
+          "target": "Adobe Firefly / Photoshop 2026",
+          "title": "체형 굴곡 맞춤 스마트 메쉬 워핑 & 주름 전사 R&D",
+          "category": "렌더링 R&D",
+          "legal_grade": "🛡️ 클린룸 합법 100%",
+          "status": "READY",
+          "output_summary": "의상 텍스처 굴곡 매핑 및 명암 보존 블렌딩 셰이더 스펙",
+          "completed_at": null
+        },
+        {
+          "id": "TASK-D1-03",
+          "target": "무신사 스냅 / 지그재그",
+          "title": "피부톤 RGB 기반 상·하의 황금 컬러 조합 추천 알고리즘 R&D",
+          "category": "추천엔진 R&D",
+          "legal_grade": "🛡️ 클린룸 합법 100%",
+          "status": "READY",
+          "output_summary": "퍼스널 컬러 맞춤형 상·하의 매칭 컬러 휠 알고리즘",
+          "completed_at": null
+        }
+      ]
+    },
+    "dept_2": {
+      "id": "dept_2",
+      "name": "🎖️ 제2청사: Connect AI 홍보·비즈니스부",
+      "badge": "트래픽·수익화",
+      "tasks": [
+        {
+          "id": "TASK-D2-01",
+          "target": "푸망 / K-Test",
+          "title": "카톡 단톡방 바이럴 1위 '성향·행운 컬러 진단' 웹앱 & 제휴 링크 패키지 생산",
+          "category": "바이럴 마케팅",
+          "legal_grade": "🛡️ 클린룸 합법 100%",
+          "status": "READY",
+          "output_summary": "safe_daily_lucky 기반 카카오톡 공유 최적화 텍스트 및 제휴 링크 세팅",
+          "completed_at": null
+        },
+        {
+          "id": "TASK-D2-02",
+          "target": "Daily Stoic 250만 채널",
+          "title": "3초 후킹 명언·위로 쇼츠 대본 & 고정댓글 수익 문구 일일 생산",
+          "category": "유튜브 쇼츠",
+          "legal_grade": "🛡️ 클린룸 합법 100%",
+          "status": "COMPLETED",
+          "output_summary": "초반 3초 시선강탈 훅 + 본문 힐링 명언 + 고정댓글 쿠팡파트너스 문구 3종",
+          "completed_at": "2026-10-18 11:20:47"
+        },
+        {
+          "id": "TASK-D2-03",
+          "target": "Linktree / 리틀리",
+          "title": "유튜브·인스타 프로필용 '한걸음씩 통합 수익화 바이오 허브' 구축",
+          "category": "프로필 바이오",
+          "legal_grade": "🛡️ 클린룸 합법 100%",
+          "status": "READY",
+          "output_summary": "3대 안전 웹앱 + Suno 음원 + 인성학교 직통 원클릭 멀티링크 카드",
+          "completed_at": null
+        }
+      ]
+    },
+    "dept_3": {
+      "id": "dept_3",
+      "name": "🎵 제3청사: 힐링 미디어·음원제작부",
+      "badge": "음원 스트리밍",
+      "tasks": [
+        {
+          "id": "TASK-D3-01",
+          "target": "Calm / Endel 수면앱",
+          "title": "Suno 30곡 + 432Hz 주파수 + 빗소리 실시간 믹서 고도화",
+          "category": "오디오 믹싱",
+          "legal_grade": "🛡️ 클린룸 합법 100%",
+          "status": "READY",
+          "output_summary": "Web Audio API 기반 432Hz 바이노럴 비트 합성 및 빗소리 레이어링 믹서",
+          "completed_at": null
+        },
+        {
+          "id": "TASK-D3-02",
+          "target": "Lofi Girl 1,400만 채널",
+          "title": "비 오는 창가 루프 + Suno 30곡 1시간 연속 재생 패키지 & 타임스탬프 생성",
+          "category": "롱폼 유튜브",
+          "legal_grade": "🛡️ 클린룸 합법 100%",
+          "status": "READY",
+          "output_summary": "Suno AI 30곡 메들리 큐시트 및 타임스탬프 마크다운",
+          "completed_at": null
+        },
+        {
+          "id": "TASK-D3-03",
+          "target": "세바시 / 라디오 사연극",
+          "title": "노박 보이스 1분 힐링 라디오 드라마 쇼츠 대본·오디오 생성",
+          "category": "오디오 드라마",
+          "legal_grade": "🛡️ 클린룸 합법 100%",
+          "status": "READY",
+          "output_summary": "자존감 회복 사연 기반 노박 1인칭 나레이션 대본 및 연출 가이드",
+          "completed_at": null
+        }
+      ]
+    },
+    "dept_4": {
+      "id": "dept_4",
+      "name": "🎓 제4청사: 글로벌 K-인성학교 & 나눔부",
+      "badge": "인성교육",
+      "tasks": [
+        {
+          "id": "TASK-D4-01",
+          "target": "Duolingo 듀오링고",
+          "title": "매일 1분 4Q 인성 웹툰 상황극 퀴즈 & 연속 출석(Streak) 보상 엔진",
+          "category": "게이미피케이션",
+          "legal_grade": "🛡️ 클린룸 합법 100%",
+          "status": "READY",
+          "output_summary": "하루 1문제 인성 딜레마 퀴즈 및 일일 스트릭 보상 로직",
+          "completed_at": null
+        },
+        {
+          "id": "TASK-D4-02",
+          "target": "ClassDojo",
+          "title": "가정·학교용 '우리 아이 선행 칭찬 보드 & HGS-CERT 정식 인성 상장 발급기'",
+          "category": "인증서 발급",
+          "legal_grade": "🛡️ 클린룸 합법 100%",
+          "status": "READY",
+          "output_summary": "선행 스티커 보드 및 정식 PDF/이미지 인성 표창장 자동 렌더러",
+          "completed_at": null
+        },
+        {
+          "id": "TASK-D4-03",
+          "target": "Headspace Kids",
+          "title": "세 딸(은솔·송효·해상) 맞춤형 1분 자존감 음성 긍정 확언 스튜디오",
+          "category": "자존감 코칭",
+          "legal_grade": "🛡️ 클린룸 합법 100%",
+          "status": "READY",
+          "output_summary": "세 딸 맞춤 긍정 확언 스크립트 및 따뜻한 음성 가이드라인",
+          "completed_at": null
+        }
+      ]
+    },
+    "dept_5": {
+      "id": "dept_5",
+      "name": "🛡️ 제5청사: 자율법무·제2의두뇌 기록원",
+      "badge": "법무·컴플라이언스",
+      "tasks": [
+        {
+          "id": "TASK-D5-01",
+          "target": "OneTrust 컴플라이언스",
+          "title": "전 부서 산출물 5대 법률 안전망(저작권·공정위·개인정보·면책·AI법) 100% 자동 심의",
+          "category": "법무 감사",
+          "legal_grade": "🛡️ 클린룸 합법 100%",
+          "status": "READY",
+          "output_summary": "5대 법률 규정 준수 자동 심의 보고서 및 배포 승인 인증서",
+          "completed_at": null
+        },
+        {
+          "id": "TASK-D5-02",
+          "target": "Karpathy LLM Wiki & Obsidian",
+          "title": "부서별 완료 일거리를 마크다운 위키 & pReinforce 지식 그래프로 영구 축적",
+          "category": "지식 자산화",
+          "legal_grade": "🛡️ 클린룸 합법 100%",
+          "status": "READY",
+          "output_summary": "knowledge_engine/wiki/ 신규 문서 및 그래프 링크 자동 연결",
+          "completed_at": null
+        },
+        {
+          "id": "TASK-D5-03",
+          "target": "디지털 저작권 타임스탬프",
+          "title": "대표님 독창적 기획 자산 SHA-256 해시 등기 원장 관리",
+          "category": "저작권 등기",
+          "legal_grade": "🛡️ 클린룸 합법 100%",
+          "status": "READY",
+          "output_summary": "자체 창작 산출물 SHA-256 해시 블록 생성 및 wisdom_ledger 영구 등재",
+          "completed_at": null
+        }
+      ]
+    },
+    "dept_6": {
+      "id": "dept_6",
+      "name": "🏦 제6청사: 총무·재무회계·정산청",
+      "badge": "재무회계",
+      "tasks": [
+        {
+          "id": "TASK-D6-01",
+          "target": "토스(Toss) / 뱅크샐러드",
+          "title": "들어오는 곳(IN) vs 나가는 곳(OUT) 1원 단위 직관적 자금 흐름 원장 가동",
+          "category": "자금 흐름",
+          "legal_grade": "🛡️ 클린룸 합법 100%",
+          "status": "READY",
+          "output_summary": "수입처 4대 파이프라인별 누적 잔액 및 지출 0원 방어 원장",
+          "completed_at": null
+        },
+        {
+          "id": "TASK-D6-02",
+          "target": "삼쩜삼 / SSEM",
+          "title": "원천세·세금 예비비(3.3%) 자동 분리 및 세후 확정 순수익 정밀 계산",
+          "category": "세무 정산",
+          "legal_grade": "🛡️ 클린룸 합법 100%",
+          "status": "READY",
+          "output_summary": "영업이익 대비 3.3% 원천징수 예비비 적립 및 세후 순수익 정산서",
+          "completed_at": null
+        },
+        {
+          "id": "TASK-D6-03",
+          "target": "Profit First 다중계좌",
+          "title": "50(대표님) : 25(R&D) : 15(세 딸 장학금) : 10(나눔) 황금비율 무인 배분 금고",
+          "category": "헌법 배분",
+          "legal_grade": "🛡️ 클린룸 합법 100%",
+          "status": "READY",
+          "output_summary": "4대 목적별 계좌 1원 무오차 자동 이체 전표 및 적립 리포트",
+          "completed_at": null
+        }
+      ]
+    }
+  }
+}

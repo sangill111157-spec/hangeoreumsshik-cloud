@@ -1349,6 +1349,30 @@ class DashboardHandler(SimpleHTTPRequestHandler):
                 self.wfile.write(err_body)
                 return
 
+        # 🎯 [v8.5] 6대 부서별 18대 클린룸 벤치마킹 일거리 큐 (GET /api/dept-work-queue)
+        if path == '/api/dept-work-queue':
+            try:
+                import dept_mission_backlog
+                queue_data = dept_mission_backlog.get_all_work_queue()
+                body = json.dumps(queue_data, ensure_ascii=False).encode('utf-8')
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.send_header("Access-Control-Allow-Origin", "*")
+                self.send_header("Content-Length", str(len(body)))
+                self.send_header("Cache-Control", "no-store")
+                self.end_headers()
+                self.wfile.write(body)
+                return
+            except Exception as e:
+                err_body = json.dumps({"status": "error", "message": str(e)}, ensure_ascii=False).encode('utf-8')
+                self.send_response(500)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.send_header("Access-Control-Allow-Origin", "*")
+                self.send_header("Content-Length", str(len(err_body)))
+                self.end_headers()
+                self.wfile.write(err_body)
+                return
+
         # 1. 설정 자동 주입
         if path == '/api/config':
             gh_token = get_github_token()
@@ -1959,6 +1983,30 @@ class DashboardHandler(SimpleHTTPRequestHandler):
             try:
                 import general_affairs_treasury
                 res = general_affairs_treasury.audit_and_clean_scratch()
+                resp = {"status": "ok", "data": res}
+            except Exception as e:
+                resp = {"status": "error", "message": str(e)}
+
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json; charset=utf-8')
+            self.send_header('Access-Control-Allow-Origin', '*')
+            self.end_headers()
+            self.wfile.write(json.dumps(resp, ensure_ascii=False).encode('utf-8'))
+            return
+
+        # 🎯 [v8.5] 부서별 일거리 원터치 집행 (POST /api/execute-dept-task)
+        if self.path == '/api/execute-dept-task':
+            length = int(self.headers.get('Content-Length', 0))
+            raw_body = self.rfile.read(length) if length > 0 else b'{}'
+            try:
+                data = json.loads(raw_body.decode('utf-8')) if raw_body else {}
+                task_id = data.get('task_id', '')
+
+                import dept_mission_backlog
+                if task_id == 'ALL':
+                    res = dept_mission_backlog.execute_all_tasks()
+                else:
+                    res = dept_mission_backlog.execute_task(task_id)
                 resp = {"status": "ok", "data": res}
             except Exception as e:
                 resp = {"status": "error", "message": str(e)}

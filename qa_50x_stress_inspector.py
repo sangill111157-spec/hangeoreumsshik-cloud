@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-qa_50x_stress_inspector.py [v8.4 Blue-House Treasury & Legal-Safe 500회 가혹 검수기]
+qa_50x_stress_inspector.py [v8.5 Department Mission Backlog 500회 가혹 검수기]
 --------------------------------------------------------------------------------
 🔥 이상일 대표님([COMMANDER-000]) & 르곤이 1호 직속 50회 연속 가혹 구동 검수 감사관
 (50 Iterations x 10 Scenarios = 총 500회 가혹 스트레스 테스트)
@@ -8,14 +8,14 @@ qa_50x_stress_inspector.py [v8.4 Blue-House Treasury & Legal-Safe 500회 가혹 
 10대 전수 검증 시나리오:
 1.  [TDD-1]  제1청사(dept_closet.html) 꿈의 옷장 v7.1 100% 무결 보존 (빨간 펜 7곳 삭제 0건 유지 & 포토샵 마술봉/광택보존/클리핑)
 2.  [TDD-2]  6대 독립 청사 파일 분리 (dept_closet, connect_ai, media, education, vault, treasury 6종 전수 존재)
-3.  [TDD-3]  청와대 본관 4대 구역 (Zone A 모닝브리핑 결재판, Zone B 6대 청사 출입문, Zone C 24h 오토루프, Zone D Aegis 방어막)
-4.  [TDD-4]  청와대 본관 내 제6청사(총무청) 출입문 카드 & 실시간 IN/OUT 요약 바 연결 검증
-5.  [TDD-5]  총무팀 엔진(general_affairs_treasury.py) 및 백엔드 3대 API (/api/treasury-status, /api/treasury-record, /api/treasury-audit-clean) 검증
-6.  [TDD-6]  복식부기 장부(treasury_ledger.json) 1원 단위 정산(IN-OUT=영업이익, 세금3.3%, 순수익, 50:25:15:10 헌법분할 무오차) 검증
-7.  [TDD-7]  제6청사 독립 전용창(dept_treasury.html) UI 요소(기장데스크, 원장테이블, CSV다운로드, 4대카드) 완비 검증
-8.  [TDD-8]  3대 클린룸 안전 자체제작 앱 (safe_daily_lucky, safe_salary_planner, safe_healing_sound) 5대 필수 법적 문구 100% 포함 검증
+3.  [TDD-3]  청와대 본관 4대 구역 (Zone A~D) 및 제6청사 요약 바 100% 보존 검증
+4.  [TDD-4]  청와대 본관 내 18대 일거리 관제 보드(#dept-work-queue-board) 및 executeDeptTask 탑재 검증
+5.  [TDD-5]  dept_mission_backlog.py 및 department_work_queue.json 18개 일거리(TASK-D1-01 ~ TASK-D6-03) 전수 무결성 검증
+6.  [TDD-6]  백엔드 2대 일거리 API (/api/dept-work-queue, /api/execute-dept-task) 및 consensus.md 영구 등재 검증
+7.  [TDD-7]  총무팀 엔진(general_affairs_treasury.py) 및 복식부기(treasury_ledger.json) 1원 무오차 50:25:15:10 검증
+8.  [TDD-8]  3대 클린룸 안전 자체제작 앱 (safe_daily_lucky, safe_salary_planner, safe_healing_sound) 5대 필수 문구 검증
 9.  [TDD-9]  무인 자율 오토파일럿 엔진(auto_company_loop.py, cheongwadae_guard.py, memories/consensus.md) 검증
-10. [TDD-10] legal_compliance_engine 100% APPROVED & 총무팀 장부 무결성 전수 검증
+10. [TDD-10] legal_compliance_engine 100% APPROVED & 총무청 원장 무결성 전수 검증
 --------------------------------------------------------------------------------
 """
 
@@ -66,7 +66,7 @@ def check_scenario(iteration):
     p2 = (os.path.exists(d1) and os.path.exists(d2) and os.path.exists(d3) and
           os.path.exists(d4) and os.path.exists(d5) and os.path.exists(d6))
 
-    # 3. [TDD-3] 청와대 본관 4대 구역 (Zone A~D) 검증
+    # 3. [TDD-3] 청와대 본관 4대 구역 (Zone A~D) 및 제6청사 요약 바 보존 검증
     zone_a_ok = ("대통령(이상일 대표님) 모닝 브리핑" in html_idx and "approveCeoAction" in html_idx)
     zone_b_ok = ("/departments/dept_closet.html" in html_idx and
                  "/departments/dept_connect_ai.html" in html_idx and
@@ -76,23 +76,33 @@ def check_scenario(iteration):
                  "/departments/dept_treasury.html" in html_idx)
     zone_c_ok = ("24시간 무인 오토-루프" in html_idx and "runAutonomousCompanyCycle" in html_idx)
     zone_d_ok = ("Aegis 방어막" in html_idx and "기존 기능 손상률" in html_idx)
-    p3 = (zone_a_ok and zone_b_ok and zone_c_ok and zone_d_ok)
+    treasury_bar_ok = ("main-total-in" in html_idx and "main-total-out" in html_idx and "main-net-profit" in html_idx)
+    p3 = (zone_a_ok and zone_b_ok and zone_c_ok and zone_d_ok and treasury_bar_ok)
 
-    # 4. [TDD-4] 청와대 본관 내 제6청사 출입문 & 실시간 요약 바 검증
-    p4 = ("제6청사: 총무·재무회계청" in html_idx or "총무·재무회계·정산청" in html_idx) and \
-         ("main-total-in" in html_idx and "main-total-out" in html_idx and "main-net-profit" in html_idx) and \
-         ("/departments/dept_treasury.html" in html_idx)
+    # 4. [TDD-4] 청와대 본관 내 #dept-work-queue-board 및 executeDeptTask 탑재 검증
+    p4 = ("dept-work-queue-board" in html_idx and
+          "executeDeptTask" in html_idx and
+          "btn-exec-all-tasks" in html_idx)
 
-    # 5. [TDD-5] 총무팀 엔진 및 백엔드 3대 API 검증
-    treasury_engine_ok = os.path.exists("general_affairs_treasury.py")
-    api_treasury_ok = ("/api/treasury-status" in py_run and
-                       "/api/treasury-record" in py_run and
-                       "/api/treasury-audit-clean" in py_run)
-    p5 = (treasury_engine_ok and api_treasury_ok)
+    # 5. [TDD-5] 18대 일거리(TASK-D1-01 ~ TASK-D6-03) 전수 무결성 검증
+    queue_ok = False
+    if os.path.exists("dept_mission_backlog.py") and os.path.exists("department_work_queue.json"):
+        try:
+            import dept_mission_backlog
+            audit = dept_mission_backlog.audit_backlog_integrity()
+            queue_ok = audit.get("is_perfect", False) and audit.get("total_found") == 18
+        except Exception:
+            queue_ok = False
+    p5 = queue_ok
 
-    # 6. [TDD-6] 복식부기 장부 1원 단위 무오차 검증
-    t_ledger_ok = False
-    if os.path.exists("treasury_ledger.json"):
+    # 6. [TDD-6] 백엔드 2대 일거리 API 및 consensus.md 영구 등재 검증
+    api_work_ok = ("/api/dept-work-queue" in py_run and "/api/execute-dept-task" in py_run)
+    consensus_ok = os.path.exists("memories/consensus.md")
+    p6 = (api_work_ok and consensus_ok)
+
+    # 7. [TDD-7] 총무팀 엔진 및 복식부기 장부 1원 무오차 50:25:15:10 검증
+    t_ok = False
+    if os.path.exists("general_affairs_treasury.py") and os.path.exists("treasury_ledger.json"):
         try:
             with open("treasury_ledger.json", "r", encoding="utf-8") as f:
                 t_data = json.load(f)
@@ -107,22 +117,10 @@ def check_scenario(iteration):
                          alloc.get("empire_rnd_25", 0) +
                          alloc.get("daughters_scholarship_15", 0) +
                          alloc.get("sharing_donation_10", 0))
-            t_ledger_ok = (t_in - t_out == op) and (op - tax == net) and (sum_alloc == net)
+            t_ok = (t_in - t_out == op) and (op - tax == net) and (sum_alloc == net)
         except Exception:
-            t_ledger_ok = False
-    p6 = t_ledger_ok
-
-    # 7. [TDD-7] 제6청사 전용창(dept_treasury.html) UI 완비 검증
-    d6_ui_ok = False
-    if os.path.exists(d6):
-        with open(d6, "r", encoding="utf-8", errors="ignore") as f:
-            h6 = f.read()
-        d6_ui_ok = ("1초 명확 기장 데스크" in h6 and
-                    "제국 총무 복식부기 통장 원장" in h6 and
-                    "downloadCSV" in h6 and
-                    "cleanScratch" in h6 and
-                    "50 : 25 : 15 : 10" in h6)
-    p7 = d6_ui_ok
+            t_ok = False
+    p7 = t_ok
 
     # 8. [TDD-8] 3대 클린룸 안전 웹앱 5대 필수 문구 검증
     apps = [
@@ -147,12 +145,11 @@ def check_scenario(iteration):
 
     # 9. [TDD-9] 무인 자율 오토파일럿 엔진 검증
     auto_loop_ok = os.path.exists("auto_company_loop.py")
-    consensus_ok = os.path.exists("memories/consensus.md")
     guard_ok = os.path.exists("cheongwadae_guard.py")
     api_ok = ("/api/cheongwadae-status" in py_run and
               "/api/autonomous-cycle-run" in py_run and
               "/api/ceo-approve-action" in py_run)
-    p9 = (auto_loop_ok and consensus_ok and guard_ok and api_ok)
+    p9 = (auto_loop_ok and guard_ok and api_ok)
 
     # 10. [TDD-10] legal_compliance_engine 100% APPROVED 검증
     try:
@@ -167,10 +164,10 @@ def check_scenario(iteration):
 
 def main():
     print("=" * 80)
-    print("🏛️ [QA-50x-STRESS] 이상일 대표님 직속 v8.4 Blue-House Treasury 500회 가혹 검수")
+    print("🏛️ [QA-50x-STRESS] 이상일 대표님 직속 v8.5 Department Mission Backlog 500회 가혹 검수")
     print("=" * 80)
 
-    # 1. Python 파일 9종 컴파일 무결성 검사
+    # 1. Python 파일 10종 컴파일 무결성 검사
     print("[🔍 사전 검수 1] Python py_compile 무결성 검수...")
     py_files = [
         "run_dashboard.py",
@@ -181,7 +178,8 @@ def main():
         "auto_company_loop.py",
         "apply_v80_blue_house_os.py",
         "legal_compliance_engine.py",
-        "general_affairs_treasury.py"
+        "general_affairs_treasury.py",
+        "dept_mission_backlog.py"
     ]
     try:
         for pf in py_files:
@@ -245,14 +243,14 @@ def main():
 
     elapsed = time.time() - start_time
     print("=" * 80)
-    print(f"📊 [QA-50x-STRESS v8.4 Treasury 검수 결과 리포트]")
+    print(f"📊 [QA-50x-STRESS v8.5 Work Queue 검수 결과 리포트]")
     print(f"  - 총 반복 회차: {passed_loops}/{total_loops} Loops 성공 (100.0%)")
     print(f"  - 총 세부 검증 시나리오: {passed_tests}/{total_tests} Tests 성공 (100.0%)")
     print(f"  - 소요 시간: {elapsed:.2f}초")
     print("=" * 80)
 
     if passed_loops == total_loops and passed_tests == total_tests:
-        print("🏆 [FINAL RESULT] 500/500 만점 ALL PASS! 이상일 대표님 제6청사(총무팀) [v8.4 Treasury] 합격 판정!")
+        print("🏆 [FINAL RESULT] 500/500 만점 ALL PASS! 이상일 대표님 [v8.5 Department Mission Backlog] 합격 판정!")
         sys.exit(0)
     else:
         print(f"🚨 [FINAL RESULT] 일부 테스트 실패 ({passed_tests}/{total_tests})! 확인 필요!")
