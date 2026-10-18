@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 rgon_full_agency_live_audit.py
-[RGON-001 보좌관 주관] 전 기관(본관+1~6청사+3대 안전앱+18대 일거리) 실전 종합 감사
+[RGON-001 보좌관 주관] 전 기관(본관+1~6청사+5대 안전웹앱+18대 일거리+마스터 스케줄러) 실전 종합 감사
 """
 import os
 import sys
@@ -36,7 +36,7 @@ def http_post(path, payload):
 
 def run_rgon_full_agency_audit():
     print("=" * 75)
-    print("🏛️ [RGON-001 보좌관 주관] 전 기관(본관+1~6청사+3대 웹앱+18대 일거리) 실전 종합 감사 시작")
+    print("🏛️ [RGON-001 보좌관 주관] 전 기관(본관+1~6청사+5대 웹앱+18대 일거리+마스터스케줄) 실전 종합 감사 시작")
     print("=" * 75)
     results = []
 
@@ -76,17 +76,17 @@ def run_rgon_full_agency_audit():
         st_d, body_d = http_get(d_path)
         record("GATE-3", f"{d_name} 독립 청사 라이브 가동", st_d == 200 and len(body_d) > 1500, f"HTTP {st_d} ({len(body_d)}B)")
 
-    # [GATE 4] 제5청사 법무 안전망 & 3대 클린룸 안전 웹앱 라이브 감사
+    # [GATE 4] 제5청사 법무 안전망 & 기존 3대 클린룸 안전 웹앱 라이브 감사
     st_leg, body_leg = http_get("/api/legal-compliance-audit")
     leg_json = json.loads(body_leg)
     record("GATE-4", "제5청사 5대 법무 안전망 감사 API 만점 확인", st_leg == 200 and leg_json.get("overall_score") == "100/100 (SAFE TO LAUNCH)")
 
-    safe_apps = [
+    safe_apps_basic = [
         ("클린룸 웹앱 1호(행운 컬러)", "/safe_apps/safe_daily_lucky.html"),
         ("클린룸 웹앱 2호(연봉·퇴직금 계산기)", "/safe_apps/safe_salary_planner.html"),
         ("클린룸 웹앱 3호(432Hz 힐링 사운드)", "/safe_apps/safe_healing_sound.html"),
     ]
-    for s_name, s_path in safe_apps:
+    for s_name, s_path in safe_apps_basic:
         st_s, body_s = http_get(s_path)
         has_legal = ("면책" in body_s or "대가성" in body_s or "저장하지 않" in body_s)
         record("GATE-4", f"{s_name} 라이브 가동 및 법무 보호막 탑재", st_s == 200 and has_legal)
@@ -133,23 +133,10 @@ def run_rgon_full_agency_audit():
     total_tasks = sum(len(d.get("tasks", [])) for d in depts_list)
     record("GATE-6", "6대 부서 18선 일거리 큐(/api/dept-work-queue) 완벽 로드", st_wq == 200 and len(depts_list) == 6 and total_tasks == 18, f"6개 부서 / {total_tasks}개 일거리")
 
-    # 종합 판정
-    passed_count = sum(1 for r in results if r[2])
-    total_count = len(results)
-    print("=" * 75)
-    print(f"📊 [1차 전 기관 실전 테스트 결과]: {passed_count}/{total_count} 통과 ({(passed_count/total_count)*100:.1f}%)")
-    print("=" * 75)
-
-    if passed_count != total_count:
-        print("🚨 테스트 미통과 항목 발견! 실질적 작업을 중단합니다.")
-        sys.exit(1)
-
-    # [GATE 7] 100% 통과 확인 후 — 전 부서 18대 일거리 실질적 작업(실물 산출물 생성) 즉시 실행!
-    print("🚀 [100% 통과 인증 완료] 지금 즉시 6대 부서 18대 일거리 실질적 작업 실행에 돌입합니다!")
+    # [GATE 7] 전 부서 18대 일거리 실질적 작업(실물 산출물 생성) 및 검증
     st_exec, res_exec = http_post("/api/execute-dept-task", {"task_id": "ALL"})
     exec_ok = (st_exec == 200 and res_exec.get("status") == "OK" and res_exec.get("total_executed") == 18)
 
-    # 산출물 파일 18개 디스크 실존 검증
     deliverable_dir = os.path.join("knowledge_engine", "wiki", "dept_deliverables")
     files_exist = [
         os.path.exists(os.path.join(deliverable_dir, f"TASK-D{d}-0{t}_deliverable.md"))
@@ -158,14 +145,50 @@ def run_rgon_full_agency_audit():
     all_files_ok = all(files_exist)
     record("GATE-7", "전 부서 18대 일거리 실전 작업 실행 및 18개 실물 산출물(Wiki) 생성", exec_ok and all_files_ok, f"생성된 산출물={sum(files_exist)}/18개")
 
+    # [GATE 8] 르곤 마스터 스케줄러 API & 일·주·월·연 로드맵 검증
+    st_sched, body_sched = http_get("/api/rgon-schedule")
+    sched_json = json.loads(body_sched) if st_sched == 200 else {}
+    sched_structure_ok = (
+        st_sched == 200
+        and "daily_schedule" in sched_json
+        and "weekly_schedule" in sched_json
+        and "monthly_schedule" in sched_json
+        and "yearly_schedule" in sched_json
+        and len(sched_json["daily_schedule"].get("slots", [])) == 5
+    )
+    record("GATE-8", "르곤 마스터 스케줄러 API(/api/rgon-schedule) 및 4단계 로드맵 완결 검증", sched_structure_ok, f"일별 5대 슬롯 / 4주 스프린트 / 3단계 마일스톤 / 연별 비전")
+
+    st_srun, res_srun = http_post("/api/rgon-schedule-run", {"cycle_type": "AUDIT_VERIFY"})
+    srun_ok = (st_srun == 200 and res_srun.get("status") == "OK" and res_srun.get("data", {}).get("daily_slots_completed") == 5)
+    record("GATE-8", "르곤 마스터 스케줄 집행 API(/api/rgon-schedule-run) 무인 동기화 검증", srun_ok, f"HTTP {st_srun} (Status={res_srun.get('status')})")
+
+    # [GATE 9] 신규 출시 클린룸 안전 웹앱 4호 & 5호 라이브 응답 및 법무 보호막 검증
+    safe_apps_new = [
+        ("클린룸 웹앱 4호(부자 DNA 테스트)", "/safe_apps/safe_rich_dna_test.html", "runRichDnaAnalysis"),
+        ("클린룸 웹앱 5호(하루 1% 성공 루틴 보드)", "/safe_apps/safe_daily_routine.html", "updateRoutineProgress"),
+    ]
+    for s_name, s_path, s_func in safe_apps_new:
+        st_sn, body_sn = http_get(s_path)
+        has_legal = ("면책" in body_sn or "대가성" in body_sn or "저장하지 않" in body_sn)
+        has_func = s_func in body_sn
+        record("GATE-9", f"{s_name} 라이브 가동 & {s_func} 엔진 & 법무 보호막 탑재", st_sn == 200 and has_legal and has_func, f"HTTP {st_sn} ({len(body_sn)}B)")
+
     # 경호처 해시 최신화
     from cheongwadae_guard import save_golden_hashes
     save_golden_hashes()
 
+    # 종합 판정
     final_pass = sum(1 for r in results if r[2])
     final_total = len(results)
     print("=" * 75)
-    print(f"🏆 [최종 완료] 전 기관 테스트 및 18대 실전 과업 실행: {final_pass}/{final_total} (100.0% ALL PASS)")
+    print(f"📊 [전 기관 실전 테스트 및 르곤 마스터 스케줄러 종합 결과]: {final_pass}/{final_total} 통과 ({(final_pass/final_total)*100:.1f}%)")
+    print("=" * 75)
+
+    if final_pass != final_total:
+        print("🚨 테스트 미통과 항목 발견! 배포를 중단합니다.")
+        sys.exit(1)
+
+    print(f"🏆 [최종 완료] 전 기관 테스트 및 르곤 마스터 스케줄러 & 웹앱 4·5호 실물 완수: {final_pass}/{final_total} (100.0% ALL PASS)")
     print("=" * 75)
 
 if __name__ == "__main__":

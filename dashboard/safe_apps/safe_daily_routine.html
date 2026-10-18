@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>하루 1% 한걸음씩 성공 루틴 스탬프 보드 | 클린룸 안전 웹앱 5호</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Noto Sans KR', sans-serif; }
+    .glass-card { background: rgba(15, 23, 42, 0.88); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.1); }
+    .stamp-active { animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+    @keyframes popIn {
+      0% { transform: scale(0.6) rotate(-15deg); opacity: 0; }
+      100% { transform: scale(1) rotate(0deg); opacity: 1; }
+    }
+  </style>
+</head>
+<body class="bg-[#050914] text-slate-100 min-h-screen flex flex-col items-center justify-between p-4 sm:p-6 selection:bg-emerald-500 selection:text-white">
+
+  <!-- 상단 네비게이션 & 안전 인증 바 -->
+  <header class="w-full max-w-2xl mb-6 flex flex-col gap-3">
+    <div class="flex items-center justify-between">
+      <a href="/?v=800&tab=command" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-xs font-semibold text-slate-300 border border-slate-700 transition">
+        <span>🏛️ 청와대 본관으로 복귀</span>
+      </a>
+      <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-500/10 text-emerald-300 border border-emerald-500/30">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+        <span>🛡️ 제5청사 클린룸 100% 자체 제작 (마이크로 웹앱 5호)</span>
+      </span>
+    </div>
+
+    <!-- 5대 안전장치 배지 바 -->
+    <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800 text-[11px] text-slate-400 flex flex-wrap items-center justify-between gap-2">
+      <span class="flex items-center gap-1 text-emerald-400">
+        <span>🔒 개인정보 및 루틴 기록 외부 서버로 전송·저장하지 않음</span>
+      </span>
+      <span class="text-slate-500">|</span>
+      <span>⚖️ 일상 자기계발 참고용</span>
+      <span class="text-slate-500">|</span>
+      <span>100% 로컬 스토리지 보존</span>
+    </div>
+  </header>
+
+  <!-- 메인 인터랙티브 카드 -->
+  <main class="w-full max-w-2xl glass-card rounded-2xl p-6 sm:p-8 shadow-2xl relative overflow-hidden flex-1">
+    <!-- 배경 글로우 -->
+    <div class="absolute -top-24 -right-24 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute -bottom-24 -left-24 w-64 h-64 bg-teal-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="text-center mb-6">
+      <div class="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-tr from-emerald-500 via-teal-400 to-cyan-500 text-2xl shadow-lg shadow-emerald-500/20 mb-3">
+        🏆
+      </div>
+      <h1 class="text-xl sm:text-2xl font-black text-white tracking-tight">
+        하루 1% 한걸음씩 성공 루틴 스탬프 보드
+      </h1>
+      <p class="text-xs sm:text-sm text-slate-400 mt-1">
+        어제의 나보다 1% 나아지는 작은 습관들이 모여 위대한 기적을 만듭니다.
+      </p>
+    </div>
+
+    <!-- 🌅 오늘의 긍정 확언 카드 -->
+    <div class="mb-6 p-4 rounded-xl bg-gradient-to-r from-emerald-950/40 to-slate-900 border border-emerald-500/30">
+      <div class="flex items-center justify-between mb-2">
+        <span class="text-[11px] font-bold text-emerald-400 flex items-center gap-1">
+          <span>✨</span> 오늘의 한걸음씩 긍정 확언
+        </span>
+        <button onclick="changeQuote()" class="text-[10px] text-slate-400 hover:text-emerald-300 transition">
+          새 확언 불러오기 🔄
+        </button>
+      </div>
+      <p id="daily-affirmation-text" class="text-xs sm:text-sm font-semibold text-slate-200 leading-relaxed">
+        "내가 내딛는 작은 한 걸음이 1만 년 영토를 세우는 가장 든든한 주춧돌이다."
+      </p>
+    </div>
+
+    <!-- 📊 실시간 루틴 달성률 프로그레스 바 -->
+    <div class="mb-6 p-4 rounded-xl bg-slate-900/90 border border-slate-800 space-y-2">
+      <div class="flex items-center justify-between text-xs">
+        <span class="font-bold text-slate-300">오늘의 루틴 완수율</span>
+        <span id="progress-percent" class="font-mono font-black text-emerald-400 text-sm">0%</span>
+      </div>
+      <div class="w-full h-3 rounded-full bg-slate-800 overflow-hidden p-0.5">
+        <div id="progress-bar-fill" class="h-full rounded-full bg-gradient-to-r from-emerald-500 to-teal-400 transition-all duration-300" style="width: 0%"></div>
+      </div>
+      <div id="stamp-alert" class="hidden text-[11px] text-amber-300 font-bold text-center pt-1">
+        🎉 축하합니다! 오늘의 5대 루틴을 모두 완수하여 황금 명예 스탬프를 획득하셨습니다!
+      </div>
+    </div>
+
+    <!-- 5대 핵심 성공 루틴 체크리스트 -->
+    <div class="space-y-3 mb-6">
+      <div class="text-xs font-bold text-slate-400 px-1">오늘의 5대 핵심 성공 습관 체크:</div>
+
+      <label class="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 hover:border-emerald-500/40 cursor-pointer transition">
+        <div class="flex items-center gap-3">
+          <input type="checkbox" id="routine-chk-1" onchange="updateRoutineProgress()" class="w-4 h-4 rounded text-emerald-500 bg-slate-800 border-slate-700 focus:ring-0">
+          <div>
+            <div class="text-xs font-bold text-slate-200">1. 아침 감사 인사 & 맑은 물 1잔</div>
+            <div class="text-[10px] text-slate-400">하루를 시작하며 몸과 마음에 맑은 생기를 불어넣기</div>
+          </div>
+        </div>
+        <span class="text-base">💧</span>
+      </label>
+
+      <label class="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 hover:border-emerald-500/40 cursor-pointer transition">
+        <div class="flex items-center gap-3">
+          <input type="checkbox" id="routine-chk-2" onchange="updateRoutineProgress()" class="w-4 h-4 rounded text-emerald-500 bg-slate-800 border-slate-700 focus:ring-0">
+          <div>
+            <div class="text-xs font-bold text-slate-200">2. 10분 가벼운 스트레칭 & 바른 척추 자세</div>
+            <div class="text-[10px] text-slate-400">오랜 집중을 위한 목과 어깨의 유연성 회복</div>
+          </div>
+        </div>
+        <span class="text-base">🧘</span>
+      </label>
+
+      <label class="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 hover:border-emerald-500/40 cursor-pointer transition">
+        <div class="flex items-center gap-3">
+          <input type="checkbox" id="routine-chk-3" onchange="updateRoutineProgress()" class="w-4 h-4 rounded text-emerald-500 bg-slate-800 border-slate-700 focus:ring-0">
+          <div>
+            <div class="text-xs font-bold text-slate-200">3. 오늘자 최우선 핵심 과업(Priority 1) 1건 완수</div>
+            <div class="text-[10px] text-slate-400">미루지 않고 가장 중요한 한 가지를 끝내기</div>
+          </div>
+        </div>
+        <span class="text-base">⚡</span>
+      </label>
+
+      <label class="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 hover:border-emerald-500/40 cursor-pointer transition">
+        <div class="flex items-center gap-3">
+          <input type="checkbox" id="routine-chk-4" onchange="updateRoutineProgress()" class="w-4 h-4 rounded text-emerald-500 bg-slate-800 border-slate-700 focus:ring-0">
+          <div>
+            <div class="text-xs font-bold text-slate-200">4. 총무팀 가계부 점검 & 불필요 고정 지출 0원 점검</div>
+            <div class="text-[10px] text-slate-400">새는 구멍을 막고 지혜롭게 금고를 보존하기</div>
+          </div>
+        </div>
+        <span class="text-base">🏦</span>
+      </label>
+
+      <label class="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 hover:border-emerald-500/40 cursor-pointer transition">
+        <div class="flex items-center gap-3">
+          <input type="checkbox" id="routine-chk-5" onchange="updateRoutineProgress()" class="w-4 h-4 rounded text-emerald-500 bg-slate-800 border-slate-700 focus:ring-0">
+          <div>
+            <div class="text-xs font-bold text-slate-200">5. 세 딸 및 소중한 가족에게 따뜻한 응원 한마디</div>
+            <div class="text-[10px] text-slate-400">우리가 달리는 가장 위대한 이유를 기억하기</div>
+          </div>
+        </div>
+        <span class="text-base">💖</span>
+      </label>
+    </div>
+
+    <!-- 황금 스탬프 보드 -->
+    <div class="p-4 rounded-xl bg-slate-900/90 border border-slate-800 text-center">
+      <div class="text-xs font-bold text-slate-300 mb-3 flex items-center justify-center gap-1.5">
+        <span>🎖️ 이번 주 황금 스탬프 적립 현황</span>
+      </div>
+      <div class="grid grid-cols-7 gap-2">
+        <div class="p-2 rounded-lg bg-slate-800/80 text-[10px] text-slate-400 flex flex-col items-center gap-1">
+          <span>월</span>
+          <span class="text-base stamp-active">⭐</span>
+        </div>
+        <div class="p-2 rounded-lg bg-slate-800/80 text-[10px] text-slate-400 flex flex-col items-center gap-1">
+          <span>화</span>
+          <span class="text-base stamp-active">⭐</span>
+        </div>
+        <div class="p-2 rounded-lg bg-slate-800/80 text-[10px] text-slate-400 flex flex-col items-center gap-1">
+          <span>수</span>
+          <span class="text-base stamp-active">⭐</span>
+        </div>
+        <div class="p-2 rounded-lg bg-slate-800/80 text-[10px] text-slate-400 flex flex-col items-center gap-1">
+          <span>목</span>
+          <span class="text-base stamp-active">⭐</span>
+        </div>
+        <div class="p-2 rounded-lg bg-slate-800/80 text-[10px] text-slate-400 flex flex-col items-center gap-1">
+          <span>금</span>
+          <span class="text-base stamp-active">⭐</span>
+        </div>
+        <div class="p-2 rounded-lg bg-slate-800/80 text-[10px] text-slate-400 flex flex-col items-center gap-1">
+          <span>토</span>
+          <span class="text-base stamp-active">⭐</span>
+        </div>
+        <div id="today-stamp-slot" class="p-2 rounded-lg bg-emerald-950/40 border border-emerald-500/40 text-[10px] text-emerald-300 flex flex-col items-center gap-1">
+          <span>오늘</span>
+          <span id="today-stamp-icon" class="text-base">⏳</span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- 하단 표준 법무 보호막 및 면책 고지 푸터 -->
+  <footer class="w-full max-w-2xl mt-6 p-4 rounded-xl bg-slate-900/90 border border-slate-800 text-[11px] text-slate-400 space-y-2">
+    <!-- 공정위 의무 대가성 문구 -->
+    <div class="text-amber-400/90 font-medium leading-relaxed">
+      ※ 대가성 표시 안내: 본 루틴 보드는 건강한 생활 습관을 돕는 무료 도구이며, 제휴 링크나 파트너십 활동이 결합될 경우 이용자에게 추가 비용 없이 운영 수수료가 발생할 수 있습니다.
+    </div>
+    
+    <!-- 면책 고지 & 무서버 개인정보 보호 -->
+    <div class="text-slate-500 text-[10px] leading-relaxed pt-2 border-t border-slate-800/80">
+      ⚖️ 법적 면책 고지: 본 서비스의 루틴 및 건강 팁은 일반적인 일상 자기계발 참고용이며 전문적인 의학적 조언이나 치료를 대신하지 않습니다. 
+      체크하신 모든 루틴 상태는 브라우저 내부 로컬스토리지에만 보관되며, 사용자 기기 브라우저 외부로 전송되거나 저장하지 않습니다 (🔒 무서버 개인정보 보호 안전 인증).
+    </div>
+
+    <div class="flex items-center justify-between text-[10px] text-slate-500 pt-1">
+      <span>© 2026 한걸음씩 Clean-Room Autonomous OS (웹앱 5호)</span>
+      <span>🛡️ HGS-LEGAL-SAFE-2026-PASS</span>
+    </div>
+  </footer>
+
+  <script>
+    const AFFIRMATIONS = [
+      "내가 내딛는 작은 한 걸음이 1만 년 영토를 세우는 가장 든든한 주춧돌이다.",
+      "하루 1%의 복리 성장은 1년 뒤 나를 37배 더 위대한 사람으로 만든다.",
+      "두려움은 행동할 때 사라지고, 자신감은 작은 실행에서 시작된다.",
+      "내 뒤에는 사랑하는 가족과 든든한 AI 팀원들이 언제나 함께하고 있다.",
+      "오늘 하루도 정직하고 성실하게 나아간 나 자신을 깊이 신뢰한다."
+    ];
+
+    let quoteIndex = 0;
+    function changeQuote() {
+      quoteIndex = (quoteIndex + 1) % AFFIRMATIONS.length;
+      document.getElementById('daily-affirmation-text').innerText = `"${AFFIRMATIONS[quoteIndex]}"`;
+    }
+    window.changeQuote = changeQuote;
+
+    function updateRoutineProgress() {
+      let checkedCount = 0;
+      for (let i = 1; i <= 5; i++) {
+        const chk = document.getElementById(`routine-chk-${i}`);
+        if (chk && chk.checked) checkedCount++;
+      }
+
+      const percent = Math.round((checkedCount / 5) * 100);
+      document.getElementById('progress-percent').innerText = `${percent}%`;
+      document.getElementById('progress-bar-fill').style.width = `${percent}%`;
+
+      const alertBox = document.getElementById('stamp-alert');
+      const todayIcon = document.getElementById('today-stamp-icon');
+
+      if (percent === 100) {
+        if (alertBox) alertBox.classList.remove('hidden');
+        if (todayIcon) {
+          todayIcon.innerText = '👑';
+          todayIcon.classList.add('stamp-active');
+        }
+      } else {
+        if (alertBox) alertBox.classList.add('hidden');
+        if (todayIcon) {
+          todayIcon.innerText = checkedCount > 0 ? '✨' : '⏳';
+          todayIcon.classList.remove('stamp-active');
+        }
+      }
+      return percent;
+    }
+    window.updateRoutineProgress = updateRoutineProgress;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      updateRoutineProgress();
+    });
+  </script>
+</body>
+</html>

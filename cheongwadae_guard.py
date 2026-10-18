@@ -180,21 +180,37 @@ def get_cheongwadae_status():
         "departments": dept_status
     }
 
+SAFE_APPS = {
+    "app_1": {"name": "클린룸 웹앱 1호(행운 컬러)", "file": os.path.join(DASHBOARD_DIR, "safe_apps", "safe_daily_lucky.html")},
+    "app_2": {"name": "클린룸 웹앱 2호(연봉·퇴직금 계산기)", "file": os.path.join(DASHBOARD_DIR, "safe_apps", "safe_salary_planner.html")},
+    "app_3": {"name": "클린룸 웹앱 3호(432Hz 힐링 사운드)", "file": os.path.join(DASHBOARD_DIR, "safe_apps", "safe_healing_sound.html")},
+    "app_4": {"name": "클린룸 웹앱 4호(부자 DNA 테스트)", "file": os.path.join(DASHBOARD_DIR, "safe_apps", "safe_rich_dna_test.html")},
+    "app_5": {"name": "클린룸 웹앱 5호(하루 1% 성공 루틴)", "file": os.path.join(DASHBOARD_DIR, "safe_apps", "safe_daily_routine.html")},
+}
+
 GOLDEN_HASH_FILE = os.path.join(BASE_DIR, "cheongwadae_golden_hashes.json")
 
 def save_golden_hashes():
-    """청와대 경호처 6대 청사 골든 해시 저장 및 최신화"""
-    hashes = {}
+    """청와대 경호처 6대 청사 및 5대 클린룸 웹앱 골든 해시 저장 및 최신화"""
+    hashes = {"departments": {}, "safe_apps": {}}
     for did, dinfo in DEPARTMENTS.items():
-        hashes[did] = {
+        hashes["departments"][did] = {
             "name": dinfo["name"],
             "file": dinfo["file"],
             "hash": compute_file_hash(dinfo["file"]),
             "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         }
+    for aid, ainfo in SAFE_APPS.items():
+        hashes["safe_apps"][aid] = {
+            "name": ainfo["name"],
+            "file": ainfo["file"],
+            "hash": compute_file_hash(ainfo["file"]),
+            "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        }
     with open(GOLDEN_HASH_FILE, "w", encoding="utf-8") as f:
         json.dump(hashes, f, ensure_ascii=False, indent=2)
     return hashes
+
 
 if __name__ == "__main__":
     print("🏛️ [청와대 경호처] 중앙 컨트롤 타워 & 4대 부서 독립 청사 점검")

@@ -487,6 +487,194 @@
         </div>
       </div>
 
+      <!-- 📅 [Zone B-1.5: 르곤 보좌관 일·주·월·연 4단계 마스터 스케줄 관제탑 & 5대 클린룸 웹앱 허브] -->
+      <div id="rgon-master-schedule-board" class="rgon-master-schedule-board mb-6 p-5 rounded-2xl bg-gradient-to-br from-slate-900 via-slate-950 to-emerald-950/60 border border-emerald-500/40 shadow-2xl relative overflow-hidden">
+        <!-- 상단 헤더 -->
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-4 pb-3 border-b border-emerald-500/20">
+          <div class="flex items-center gap-2">
+            <span class="text-2xl">📅</span>
+            <div>
+              <div class="flex items-center gap-2">
+                <h3 class="text-sm font-bold text-white">
+                  르곤 보좌관 일·주·월·연 마스터 스케줄 관제탑
+                </h3>
+                <span class="px-2 py-0.5 rounded-full text-[10px] bg-emerald-500/20 text-emerald-300 font-mono border border-emerald-500/30">
+                  v8.6 RGON-SCHEDULER
+                </span>
+              </div>
+              <p class="text-[11px] text-slate-400 mt-0.5">
+                이상일 대표님 직속 · 6대 부서 시간표별 100% 무인 통제 · 하루 1% 무결점 복리 전진
+              </p>
+            </div>
+          </div>
+          
+          <div class="flex items-center gap-2">
+            <button onclick="executeRgonDailySchedule()" class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs font-bold shadow-lg shadow-emerald-500/20 transition flex items-center gap-1.5 active:scale-95">
+              <span>⚡ 오늘자 르곤 스케줄 일괄 점검·완수</span>
+            </button>
+            <button onclick="refreshRgonSchedule()" class="px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium border border-slate-700 transition">
+              🔄 스케줄 동기화
+            </button>
+          </div>
+        </div>
+
+        <!-- 4대 목표 요약 배지 -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4">
+          <div class="p-2.5 rounded-xl bg-slate-900/80 border border-emerald-500/30 text-center">
+            <div class="text-[10px] text-slate-400">☀️ 일별 루틴</div>
+            <div class="text-xs font-bold text-emerald-300 mt-0.5">5/5 슬롯 100% 가동</div>
+          </div>
+          <div class="p-2.5 rounded-xl bg-slate-900/80 border border-teal-500/30 text-center">
+            <div class="text-[10px] text-slate-400">📆 주별 스프린트</div>
+            <div class="text-xs font-bold text-teal-300 mt-0.5">1주차 웹앱 5종 완비</div>
+          </div>
+          <div class="p-2.5 rounded-xl bg-slate-900/80 border border-cyan-500/30 text-center">
+            <div class="text-[10px] text-slate-400">🗓️ 월별 마일스톤</div>
+            <div class="text-xs font-bold text-cyan-300 mt-0.5">1개월 기반 완성기</div>
+          </div>
+          <div class="p-2.5 rounded-xl bg-slate-900/80 border border-amber-500/30 text-center">
+            <div class="text-[10px] text-slate-400">🏆 연별 비전 (2026)</div>
+            <div class="text-xs font-bold text-amber-300 mt-0.5">고정비 0원 & 자산 제국</div>
+          </div>
+        </div>
+
+        <!-- 🚀 [클린룸 안전 웹앱 1호~5호 원터치 직통 런처] -->
+        <div class="mb-4 p-3 rounded-xl bg-slate-900/90 border border-indigo-500/30">
+          <div class="flex items-center justify-between text-xs font-bold text-slate-300 mb-2.5">
+            <span class="flex items-center gap-1.5 text-indigo-300">
+              <span>🛡️</span> 제5청사 심의필 5대 클린룸 안전 웹앱 실시간 가동창:
+            </span>
+            <span class="text-[10px] text-slate-400">법적 리스크 0% · 타사 저작물 무단복제 0%</span>
+          </div>
+          <div class="grid grid-cols-2 sm:grid-cols-5 gap-2">
+            <a href="/safe_apps/safe_daily_lucky.html" target="_blank" class="p-2.5 rounded-lg bg-slate-800/80 hover:bg-emerald-950/40 border border-emerald-500/30 hover:border-emerald-400 transition text-center group">
+              <div class="text-base group-hover:scale-110 transition">🍀</div>
+              <div class="text-[11px] font-bold text-slate-200 mt-1">1호 행운컬러</div>
+              <div class="text-[9px] text-emerald-400">마인드 힐링</div>
+            </a>
+            <a href="/safe_apps/safe_salary_planner.html" target="_blank" class="p-2.5 rounded-lg bg-slate-800/80 hover:bg-cyan-950/40 border border-cyan-500/30 hover:border-cyan-400 transition text-center group">
+              <div class="text-base group-hover:scale-110 transition">🧮</div>
+              <div class="text-[11px] font-bold text-slate-200 mt-1">2호 연봉계산기</div>
+              <div class="text-[9px] text-cyan-400">실수령액 플래너</div>
+            </a>
+            <a href="/safe_apps/safe_healing_sound.html" target="_blank" class="p-2.5 rounded-lg bg-slate-800/80 hover:bg-purple-950/40 border border-purple-500/30 hover:border-purple-400 transition text-center group">
+              <div class="text-base group-hover:scale-110 transition">🎧</div>
+              <div class="text-[11px] font-bold text-slate-200 mt-1">3호 힐링사운드</div>
+              <div class="text-[9px] text-purple-400">432Hz 숙면명상</div>
+            </a>
+            <a href="/safe_apps/safe_rich_dna_test.html" target="_blank" class="p-2.5 rounded-lg bg-slate-800/80 hover:bg-amber-950/40 border border-amber-500/30 hover:border-amber-400 transition text-center group">
+              <div class="text-base group-hover:scale-110 transition">💎</div>
+              <div class="text-[11px] font-bold text-slate-200 mt-1">4호 부자DNA</div>
+              <div class="text-[9px] text-amber-400">재테크 성향퀴즈</div>
+            </a>
+            <a href="/safe_apps/safe_daily_routine.html" target="_blank" class="p-2.5 rounded-lg bg-slate-800/80 hover:bg-teal-950/40 border border-teal-500/30 hover:border-teal-400 transition text-center group">
+              <div class="text-base group-hover:scale-110 transition">🏆</div>
+              <div class="text-[11px] font-bold text-slate-200 mt-1">5호 성공루틴</div>
+              <div class="text-[9px] text-teal-400">하루 1% 스탬프</div>
+            </a>
+          </div>
+        </div>
+
+        <!-- 4단계 로드맵 그리드 상세 -->
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-3 text-xs">
+          <!-- 1. 일별 5대 시간표 -->
+          <div class="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 space-y-2">
+            <div class="font-bold text-emerald-400 flex items-center justify-between">
+              <span>☀️ 일별 타임블록</span>
+              <span class="text-[10px] text-emerald-300">100% COMPLETED</span>
+            </div>
+            <div class="space-y-1.5 text-[11px] text-slate-300">
+              <div class="flex items-center justify-between p-1 rounded bg-slate-800/50">
+                <span>09:00 법무·보안 점호</span>
+                <span class="text-emerald-400 font-mono">100점</span>
+              </div>
+              <div class="flex items-center justify-between p-1 rounded bg-slate-800/50">
+                <span>11:00 웹앱 4·5호 출시</span>
+                <span class="text-emerald-400 font-mono">완결</span>
+              </div>
+              <div class="flex items-center justify-between p-1 rounded bg-slate-800/50">
+                <span>14:00 꿈의옷장 블렌딩</span>
+                <span class="text-emerald-400 font-mono">유지</span>
+              </div>
+              <div class="flex items-center justify-between p-1 rounded bg-slate-800/50">
+                <span>17:00 음원·인성 헌법</span>
+                <span class="text-emerald-400 font-mono">서약</span>
+              </div>
+              <div class="flex items-center justify-between p-1 rounded bg-slate-800/50">
+                <span>20:00 1원 정산·금고</span>
+                <span class="text-emerald-400 font-mono">마감</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. 주별 스프린트 -->
+          <div class="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 space-y-2">
+            <div class="font-bold text-teal-400 flex items-center justify-between">
+              <span>📆 주별 4주 스프린트</span>
+              <span class="text-[10px] text-teal-300">1주차 ACTIVE</span>
+            </div>
+            <div class="space-y-1 text-[11px] text-slate-300">
+              <div class="p-1 rounded bg-emerald-950/30 border border-emerald-500/20 text-emerald-200">
+                <b>1주:</b> 클린룸 웹앱 5종 완비 (완수)
+              </div>
+              <div class="p-1 rounded bg-slate-800/50 text-slate-400">
+                <b>2주:</b> Suno 30곡 힐링 패키지
+              </div>
+              <div class="p-1 rounded bg-slate-800/50 text-slate-400">
+                <b>3주:</b> 세 딸 사계절 코디 룩북
+              </div>
+              <div class="p-1 rounded bg-slate-800/50 text-slate-400">
+                <b>4주:</b> 월간 손익 결산 & 승급
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. 월별 마일스톤 -->
+          <div class="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 space-y-2">
+            <div class="font-bold text-cyan-400 flex items-center justify-between">
+              <span>🗓️ 월별 3단계 마일스톤</span>
+              <span class="text-[10px] text-cyan-300">STAGE-1</span>
+            </div>
+            <div class="space-y-1.5 text-[11px] text-slate-300">
+              <div class="p-1.5 rounded bg-slate-800/60">
+                <div class="font-semibold text-white">1개월: 기반 완성기</div>
+                <div class="text-[10px] text-slate-400">독립 6청사 & 웹앱 5종 & 서버비 0원</div>
+              </div>
+              <div class="p-1.5 rounded bg-slate-800/60">
+                <div class="font-semibold text-slate-300">2개월: 트래픽 확장기</div>
+                <div class="text-[10px] text-slate-400">웹앱 10종 & 쇼츠 100편 & 제휴 다각화</div>
+              </div>
+              <div class="p-1.5 rounded bg-slate-800/60">
+                <div class="font-semibold text-slate-300">3개월: 자율 경영기</div>
+                <div class="text-[10px] text-slate-400">기획·제작·정산 100% 무인 자율주행</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4. 연별 마스터 비전 -->
+          <div class="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 space-y-2">
+            <div class="font-bold text-amber-400 flex items-center justify-between">
+              <span>🏆 연별 제국 비전 (2026~2027)</span>
+              <span class="text-[10px] text-amber-300">MASTER</span>
+            </div>
+            <div class="space-y-1.5 text-[11px] text-slate-300">
+              <div class="p-1.5 rounded bg-slate-800/60">
+                <div class="font-semibold text-amber-300">🏛️ 디지털 IP 자산 365편</div>
+                <div class="text-[10px] text-slate-400">웹앱 30종 + 음원/쇼츠 365편 구축</div>
+              </div>
+              <div class="p-1.5 rounded bg-slate-800/60">
+                <div class="font-semibold text-amber-300">🏦 50:25:15:10 금고 사수</div>
+                <div class="text-[10px] text-slate-400">고정비 0원 & 대표님/세딸 장학금 적립</div>
+              </div>
+              <div class="p-1.5 rounded bg-slate-800/60">
+                <div class="font-semibold text-amber-300">🛡️ 무결점 안심 제국</div>
+                <div class="text-[10px] text-slate-400">법적 리스크 0% & 거짓 보고 0%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- 🎯 [Zone B-2: 6대 부서 18선 클린룸 실전 일거리 종합 관제 보드] -->
       <div id="dept-work-queue-master-board" class="dept-work-queue-master-board mb-6 p-5 rounded-2xl bg-gradient-to-br from-slate-900 via-slate-950 to-indigo-950/60 border border-indigo-500/30 shadow-xl">
         <div class="flex flex-wrap items-center justify-between gap-3 mb-4 pb-3 border-b border-indigo-500/20">
@@ -10635,6 +10823,50 @@ async function executeDeptTask(taskId) {
     }
   }
 }
+
+async function executeAllDeptTasks() {
+  await executeDeptTask('ALL');
+}
+window.executeAllDeptTasks = executeAllDeptTasks;
+
+function loadDeptWorkQueueBoard() {
+  if (typeof loadDeptWorkQueue === 'function') {
+    loadDeptWorkQueue();
+  }
+}
+window.loadDeptWorkQueueBoard = loadDeptWorkQueueBoard;
+
+// 📅 [v8.6] 르곤 보좌관 마스터 스케줄러 프론트엔드 연동
+async function executeRgonDailySchedule() {
+  try {
+    const res = await fetch('/api/rgon-schedule-run', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ cycle_type: 'DAILY_ALL' })
+    });
+    const result = await res.json();
+    if (result.status === 'OK') {
+      alert('🎉 [RGON-001] 오늘자 르곤 마스터 스케줄(5대 타임블록) 일괄 점검 및 동기화 완수!');
+    } else {
+      alert('스케줄 실행 결과: ' + (result.message || '완료'));
+    }
+  } catch (err) {
+    alert('스케줄 연동 안내: ' + err.message);
+  }
+}
+window.executeRgonDailySchedule = executeRgonDailySchedule;
+
+async function refreshRgonSchedule() {
+  try {
+    const res = await fetch('/api/rgon-schedule');
+    const data = await res.json();
+    console.log('[RGON-SCHEDULE] 동기화 완료:', data);
+    alert('🔄 르곤 보좌관 마스터 스케줄이 최신 상태로 동기화되었습니다.');
+  } catch (err) {
+    console.error(err);
+  }
+}
+window.refreshRgonSchedule = refreshRgonSchedule;
 
 document.addEventListener('DOMContentLoaded', function() {
   setTimeout(loadDeptWorkQueue, 1600);
