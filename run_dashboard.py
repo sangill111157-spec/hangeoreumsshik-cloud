@@ -1968,6 +1968,33 @@ class DashboardHandler(SimpleHTTPRequestHandler):
             self.wfile.write(body)
             return
 
+        # 🩸 [v11.1] NVIDIA 트레이딩 봇 4대 막힌 혈관 개통 & 즉시 스캔·모의매수 (POST /api/nvda-trading-unblock-test)
+        if self.path == '/api/nvda-trading-unblock-test':
+            length = int(self.headers.get('Content-Length', 0))
+            raw_body = self.rfile.read(length) if length > 0 else b'{}'
+            try:
+                import nvda_trading_manager
+                import importlib
+                importlib.reload(nvda_trading_manager)
+                unblock_res = nvda_trading_manager.run_nvda_unblock_test()
+                resp = {
+                    "status": "OK",
+                    "success": True,
+                    "message": "NVIDIA 트레이딩 봇 4대 혈관 완전 개통 및 지금 즉시 종목 스캔·모의매수 실전 가동 성공",
+                    "data": unblock_res
+                }
+            except Exception as e:
+                resp = {"status": "error", "success": False, "message": str(e)}
+
+            body = json.dumps(resp, ensure_ascii=False).encode("utf-8")
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(body)
+            return
+
         # ⚡ [v10.6] 원터치 무인 자동 집행 파이프라인 (POST /api/one-touch-execute)
         if self.path == '/api/one-touch-execute':
             length = int(self.headers.get('Content-Length', 0))

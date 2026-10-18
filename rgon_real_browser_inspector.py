@@ -727,7 +727,18 @@ try {{
     audit_ok = (s_audit == 200 and j_audit.get("success") is True)
     nvda_checks.append((audit_ok, f"원터치 무중단 실시간 관제 감사 API: HTTP {s_audit} (성공={audit_ok})"))
 
-    # 3) 제1청사(dept_closet.html) 내 100% 한글 상황실 DOM 및 모바일 360px 규격 검증
+    # 3) [v11.1] POST /api/nvda-trading-unblock-test 4대 혈관 완전 개통 & 실시간 스캔·모의매수 파이프라인 검증
+    s_unb, j_unb = http_post("/api/nvda-trading-unblock-test", {"trigger": "gate11_test"})
+    unb_data = j_unb.get("data", j_unb) if s_unb == 200 else {}
+    unb_vessels_ok = (unb_data.get("unblocked_vessels") == 4)
+    cand_list = unb_data.get("candidates", unb_data.get("discovered_candidates", []))
+    cand_has_nvda = any(c.get("ticker") == "NVDA" for c in cand_list)
+    trades_list = unb_data.get("paper_trades_executed", unb_data.get("executed_trades", []))
+    trades_executed = len(trades_list) >= 1
+    unb_api_ok = (s_unb == 200 and unb_vessels_ok and cand_has_nvda and trades_executed)
+    nvda_checks.append((unb_api_ok, f"4대 혈관 개통 API(HTTP {s_unb}, 혈관개통 {unb_data.get('unblocked_vessels')}/4, NVDA발굴 {cand_has_nvda}, 모의체결 {trades_executed}건)"))
+
+    # 4) 제1청사(dept_closet.html) 내 100% 한글 상황실 DOM 및 모바일 360px 규격 검증
     closet_file = BASE_DIR / "dashboard" / "departments" / "dept_closet.html"
     closet_text = closet_file.read_text(encoding="utf-8", errors="ignore") if closet_file.exists() else ""
     closet_ui_elements = [
@@ -738,12 +749,14 @@ try {{
         "증권사 KIS 연동",
         "왜 매일 밤 1~5개 종목이 발굴되는데도 실제 거래는 0회인가?",
         "최근 수신 로그 실시간 타임라인",
-        "btn-nvda-audit"
+        "btn-nvda-audit",
+        "btn-nvda-unblock",
+        "4대 막힌 혈관 개통"
     ]
     closet_ui_ok = all(k in closet_text for k in closet_ui_elements)
-    nvda_checks.append((closet_ui_ok, f"제1청사 한글 관제 상황실 UI 필수 요소 8종 100% 렌더링 확인({closet_ui_ok})"))
+    nvda_checks.append((closet_ui_ok, f"제1청사 한글 관제 상황실 UI 필수 요소 10종 100% 렌더링 확인({closet_ui_ok})"))
 
-    # 4) KIS 증권사 키 및 전용 텔레그램 토큰 원문 노출 0건 마스킹 검증
+    # 5) KIS 증권사 키 및 전용 텔레그램 토큰 원문 노출 0건 마스킹 검증
     sec_inv_file = BASE_DIR / "security_asset_inventory.json"
     sec_inv_text = sec_inv_file.read_text(encoding="utf-8", errors="ignore") if sec_inv_file.exists() else ""
     forbidden_leak = any(k in sec_inv_text.lower() for k in ["ghp_", "xoxb-", "eaab", "pat-", "sk-ant-"])
@@ -751,7 +764,7 @@ try {{
     sec_mask_ok = (not forbidden_leak and nvda_asset_present)
     nvda_checks.append((sec_mask_ok, f"증권사 키 & 전용 텔레그램 마스킹 금고 등록(원문 노출 0건={not forbidden_leak}, 자산등재={nvda_asset_present})"))
 
-    # 5) 제6청사 실전 금고 0원 장부 절대 불변 최종 확인
+    # 6) 제6청사 실전 금고 0원 장부 절대 불변 최종 확인
     s_tr3, b_tr3 = http_get("/api/treasury-status")
     j_tr3 = json.loads(b_tr3) if s_tr3 == 200 else {}
     sm_tr3 = j_tr3.get("summary", {})
@@ -760,7 +773,7 @@ try {{
 
     gate11_ok = all(c[0] for c in nvda_checks)
     gate11_detail = " / ".join(c[1] for c in nvda_checks)
-    log_gate("HARD-GATE-11", "NVIDIA 트레이딩 봇 무중단 진단 API & 제1청사 한글 관제 상황실 렌더링 및 실전 금고 0원 불변 확인", gate11_ok, gate11_detail)
+    log_gate("HARD-GATE-11", "NVIDIA 트레이딩 봇 4대 혈관 완전 개통 & 실시간 모의매매 및 제1청사 한글 관제 상황실 렌더링 검증", gate11_ok, gate11_detail)
 
     # --------------------------------------------------------------------------
     # 종합 판정
