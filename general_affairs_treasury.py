@@ -25,6 +25,7 @@ if sys.platform == "win32":
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 LEDGER_PATH = os.path.join(BASE_DIR, "treasury_ledger.json")
+LEDGER_FILE = LEDGER_PATH
 
 # 수입처 및 지출처 표준 카테고리
 CATEGORIES_IN = [
@@ -142,9 +143,12 @@ def recalculate_summary(ledger: dict) -> dict:
     ledger["summary"] = {
         "total_in": total_in,
         "total_out": total_out,
+        "total_in_krw": total_in,
+        "total_out_krw": total_out,
         "operating_profit": operating_profit,
         "tax_reserve_3_3": tax_reserve,
         "net_profit": net_profit,
+        "disposable_net_krw": net_profit,
         "allocations": {
             "commander_life_50": commander_50,
             "empire_rnd_25": rnd_25,
@@ -155,6 +159,12 @@ def recalculate_summary(ledger: dict) -> dict:
                 "haesang_5": d_haesang
             },
             "sharing_donation_10": sharing_10
+        },
+        "allocation_50_25_15_10": {
+            "ceo_50_percent": commander_50,
+            "rnd_25_percent": rnd_25,
+            "daughters_15_percent": daughters_15,
+            "charity_10_percent": sharing_10
         }
     }
     ledger["categories_in"] = cat_in
@@ -163,10 +173,15 @@ def recalculate_summary(ledger: dict) -> dict:
 
     return ledger
 
-def record_transaction(tx_type: str, category: str, amount: int, memo: str, registered_by: str = "COMMANDER-000") -> dict:
+def record_transaction(tx_type: str, category: str, amount: int = None, memo: str = "", registered_by: str = "COMMANDER-000", **kwargs) -> dict:
     """신규 전표 등록 및 장부 갱신"""
     ledger = load_ledger()
     records = ledger.get("records", [])
+
+    if amount is None:
+        amount = kwargs.get("amount_krw", 0)
+    if not memo:
+        memo = kwargs.get("title", "")
 
     # 전표 번호 생성 TR-2026-XXXX
     count = len(records) + 1

@@ -487,6 +487,76 @@
         </div>
       </div>
 
+      <!-- 🎯 [Zone B-2: 6대 부서 18선 클린룸 실전 일거리 종합 관제 보드] -->
+      <div id="dept-work-queue-master-board" class="dept-work-queue-master-board mb-6 p-5 rounded-2xl bg-gradient-to-br from-slate-900 via-slate-950 to-indigo-950/60 border border-indigo-500/30 shadow-xl">
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-4 pb-3 border-b border-indigo-500/20">
+          <div class="flex items-center gap-2">
+            <span class="text-xl">🎯</span>
+            <div>
+              <h3 class="text-sm font-bold text-white flex items-center gap-2">
+                6대 부서 18대 실전 일거리(Mission Backlog) 관제소
+                <span class="px-2 py-0.5 rounded-full text-[10px] bg-indigo-500/20 text-indigo-300 font-mono border border-indigo-500/30">v8.5 Clean-Room 100%</span>
+              </h3>
+              <p class="text-[11px] text-slate-400">합법적 아이디어 역설계 벤치마킹 · 타사 저작물 0% 자체제작 · 실물 산출물 즉시 생성</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="executeAllDeptTasks()" class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs font-bold shadow-lg shadow-emerald-500/20 transition flex items-center gap-1.5 active:scale-95">
+              <span>🚀 18대 일거리 실전 일괄 가동</span>
+            </button>
+            <button onclick="loadDeptWorkQueueBoard()" class="px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium border border-slate-700 transition">
+              🔄 새로고침
+            </button>
+          </div>
+        </div>
+
+        <div id="dept-work-queue-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+          <!-- 동적 로드 또는 기본 6개 부서 현황 카드 -->
+          <div class="p-3.5 rounded-xl bg-slate-800/60 border border-pink-500/20">
+            <div class="flex items-center justify-between text-xs font-bold text-pink-300 mb-1">
+              <span>👗 제1청사 (패션테크 R&D)</span>
+              <span class="text-[10px] text-emerald-400">3/3 READY</span>
+            </div>
+            <p class="text-[11px] text-slate-400">TASK-D1-01~03: 1픽셀 블렌딩, 황금비율, 룩북 북마크</p>
+          </div>
+          <div class="p-3.5 rounded-xl bg-slate-800/60 border border-blue-500/20">
+            <div class="flex items-center justify-between text-xs font-bold text-blue-300 mb-1">
+              <span>🎖️ 제2청사 (Connect AI 바이럴 웹앱)</span>
+              <span class="text-[10px] text-emerald-400">3/3 READY</span>
+            </div>
+            <p class="text-[11px] text-slate-400">TASK-D2-01~03: 부자 DNA 퀴즈, 실수령액 계산기, 습관 루틴</p>
+          </div>
+          <div class="p-3.5 rounded-xl bg-slate-800/60 border border-purple-500/20">
+            <div class="flex items-center justify-between text-xs font-bold text-purple-300 mb-1">
+              <span>🎵 제3청사 (미디어·음원 & 커머스)</span>
+              <span class="text-[10px] text-emerald-400">3/3 READY</span>
+            </div>
+            <p class="text-[11px] text-slate-400">TASK-D3-01~03: Suno 30곡 패키지, 글로벌 배급, 라디오 쇼츠</p>
+          </div>
+          <div class="p-3.5 rounded-xl bg-slate-800/60 border border-emerald-500/20">
+            <div class="flex items-center justify-between text-xs font-bold text-emerald-300 mb-1">
+              <span>🎓 제4청사 (AI 인성·윤리 사관학교)</span>
+              <span class="text-[10px] text-emerald-400">3/3 READY</span>
+            </div>
+            <p class="text-[11px] text-slate-400">TASK-D4-01~03: 인성 헌법, 에이전트 승급, 인수인계 기억 감사</p>
+          </div>
+          <div class="p-3.5 rounded-xl bg-slate-800/60 border border-amber-500/20">
+            <div class="flex items-center justify-between text-xs font-bold text-amber-300 mb-1">
+              <span>🛡️ 제5청사 (자율법무·보안·기록원)</span>
+              <span class="text-[10px] text-emerald-400">3/3 READY</span>
+            </div>
+            <p class="text-[11px] text-slate-400">TASK-D5-01~03: 5대 법무 게이트, 위키 자동 색인, 무결성 감시</p>
+          </div>
+          <div class="p-3.5 rounded-xl bg-slate-800/60 border border-yellow-500/20">
+            <div class="flex items-center justify-between text-xs font-bold text-yellow-300 mb-1">
+              <span>🏦 제6청사 (총무·재무회계·정산청)</span>
+              <span class="text-[10px] text-emerald-400">3/3 READY</span>
+            </div>
+            <p class="text-[11px] text-slate-400">TASK-D6-01~03: 1원 정산 리포트, 50:25:15:10 금고, 고정비 0원 감사</p>
+          </div>
+        </div>
+      </div>
+
       <!-- ⚙️ [Zone C: 24시간 무인 오토-루프 & 크론 스케줄러] -->
       <div id="zone-c-auto-loop" class="mb-6 p-5 rounded-xl bg-slate-900/90 border border-indigo-500/30">
         <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
