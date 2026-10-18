@@ -76,6 +76,11 @@ ZOMBIE_KEYWORDS = [
     "Omni-Nexus v2.0",
     "소통/OSMU",
     "tab-daughters",
+    "1,295,000",
+    "1,285,000",
+    "1,252,265",
+    "42,405",
+    "42,735",
 ]
 
 JSON_AUDIT_FILES = [
@@ -323,20 +328,55 @@ try {{
     cheongwadae_ok = s1 == 200 and status_val in ["OK", "ALL_SECURE", "SECURE_ALL_SYSTEMS_GO"]
     api_checks.append((cheongwadae_ok, f"청와대 경호처 상태: HTTP {s1} ({status_val})"))
 
-    # 2) 재정/총무 1원 무오차 검증
-    s2, b2 = http_get("/api/treasury-status")
-    j2 = json.loads(b2) if s2 == 200 else {}
-    sm = j2.get("summary", {})
-    in_sum = sm.get("total_in", j2.get("total_in_krw", 0))
-    out_sum = sm.get("total_out", j2.get("total_out_krw", 0))
-    tax_reserve = sm.get("tax_reserve_3_3", 0)
-    net_profit = sm.get("net_profit", j2.get("net_profit_krw", 0))
-    alloc = sm.get("allocations", j2.get("allocations", {}))
-    # daughters_detail 등 중첩 dict 제외하고 4대 헌법 배분액만 합산
-    alloc_sum = sum(v for k, v in alloc.items() if isinstance(v, (int, float)) and k != "daughters_detail")
-    # 정산 무오차 검증: 수입 - 지출 - 세금예비금(3.3%) == 처분가능순익 == 4대 헌법 배분 합계
-    treasury_ok = (s2 == 200 and (in_sum - out_sum - tax_reserve == net_profit) and (net_profit == alloc_sum))
-    api_checks.append((treasury_ok, f"총무팀 1원 복식부기: 총수입 {in_sum}원 - 세금 {tax_reserve}원 = 순익 {net_profit}원 == 배분 {alloc_sum}원"))
+    # 2) 재정/총무 정직한 0원 클린 기본 상태 검증 및 1원 무오차 실전 검증
+    try:
+        from general_affairs_treasury import reset_to_clean_zero_ledger
+        # ① 초기 기본 장부의 정직한 0원 상태 검증
+        s2, b2 = http_get("/api/treasury-status")
+        j2 = json.loads(b2) if s2 == 200 else {}
+        sm = j2.get("summary", {})
+        init_in = sm.get("total_in", 0)
+        init_out = sm.get("total_out", 0)
+        init_net = sm.get("net_profit", 0)
+        init_cnt = j2.get("total_records_count", 0)
+        zero_base_ok = (s2 == 200 and init_in == 0 and init_out == 0 and init_net == 0 and init_cnt == 0)
+
+        # ② 임시로 테스트 입금(1,000,000원) 및 출금(200,000원)을 넣어 세금(26,400원)과 가처분 순익(773,600원), 배분(773,600원) 검증
+        http_post("/api/treasury-record", {
+            "type": "IN",
+            "category": "제휴·파트너스 수익 (쿠팡파트너스 등)",
+            "amount": 1000000,
+            "memo": "[르곤 검수 임시 테스트 입금]",
+            "registered_by": "RGON-INSPECTOR"
+        })
+        http_post("/api/treasury-record", {
+            "type": "OUT",
+            "category": "서버 호스팅 및 API 인프라 유지비용",
+            "amount": 200000,
+            "memo": "[르곤 검수 임시 테스트 출금]",
+            "registered_by": "RGON-INSPECTOR"
+        })
+        s2_test, b2_test = http_get("/api/treasury-status")
+        j2_test = json.loads(b2_test) if s2_test == 200 else {}
+        sm_test = j2_test.get("summary", {})
+        in_test = sm_test.get("total_in", 0)
+        out_test = sm_test.get("total_out", 0)
+        tax_test = sm_test.get("tax_reserve_3_3", 0)
+        net_test = sm_test.get("net_profit", 0)
+        alloc_test = sm_test.get("allocations", {})
+        alloc_sum_test = sum(v for k, v in alloc_test.items() if isinstance(v, (int, float)) and k != "daughters_detail")
+
+        # 100만 - 20만 = 80만 영업이익, 3.3% = 26,400원, 순익 = 773,600원
+        math_ok = (in_test == 1000000 and out_test == 200000 and tax_test == 26400 and net_test == 773600 and alloc_sum_test == 773600)
+        treasury_ok = zero_base_ok and math_ok
+        api_checks.append((treasury_ok, f"총무팀 정직한 0원 장부({zero_base_ok}) & 1원 복식부기 검증(순익 {net_test}원 == 배분 {alloc_sum_test}원)"))
+    finally:
+        # ③ 반드시 다시 깨끗한 0원 장부로 100% 원상 복구!
+        try:
+            from general_affairs_treasury import reset_to_clean_zero_ledger
+            reset_to_clean_zero_ledger()
+        except Exception:
+            pass
 
     # 3) 르곤 마스터 스케줄러 API
     s3, b3 = http_get("/api/rgon-schedule")

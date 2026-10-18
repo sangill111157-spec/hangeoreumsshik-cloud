@@ -41,42 +41,85 @@ CATEGORIES_OUT = [
     "운영비·장비·기타 지출"
 ]
 
-def load_ledger() -> dict:
-    """장부 파일을 로드하거나 없으면 기본 구조를 생성합니다."""
-    if not os.path.exists(LEDGER_PATH):
-        init_data = {
-            "currency": "KRW",
-            "last_updated": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-            "summary": {
-                "total_in": 0,
-                "total_out": 0,
-                "operating_profit": 0,
-                "tax_reserve_3_3": 0,
-                "net_profit": 0,
-                "allocations": {
-                    "commander_life_50": 0,
-                    "empire_rnd_25": 0,
-                    "daughters_scholarship_15": 0,
-                    "daughters_detail": {
-                        "eunsol_5": 0,
-                        "songhyo_5": 0,
-                        "haesang_5": 0
-                    },
-                    "sharing_donation_10": 0
-                }
+def get_clean_zero_ledger_data() -> dict:
+    """정직한 실전 0원 클린 장부 기본 구조"""
+    now_str = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    return {
+        "currency": "KRW",
+        "last_updated": now_str,
+        "total_in_krw": 0,
+        "total_out_krw": 0,
+        "net_profit_krw": 0,
+        "estimated_tax_3_3_krw": 0,
+        "disposable_net_krw": 0,
+        "allocation_50_25_15_10": {
+            "ceo_50_percent": 0,
+            "rnd_25_percent": 0,
+            "daughters_15_percent": 0,
+            "charity_10_percent": 0
+        },
+        "summary": {
+            "total_in": 0,
+            "total_out": 0,
+            "total_in_krw": 0,
+            "total_out_krw": 0,
+            "operating_profit": 0,
+            "tax_reserve_3_3": 0,
+            "estimated_tax_3_3_krw": 0,
+            "net_profit": 0,
+            "net_profit_krw": 0,
+            "disposable_net_krw": 0,
+            "allocations": {
+                "commander_life_50": 0,
+                "empire_rnd_25": 0,
+                "daughters_scholarship_15": 0,
+                "daughters_detail": {
+                    "eunsol_5": 0,
+                    "songhyo_5": 0,
+                    "haesang_5": 0
+                },
+                "sharing_donation_10": 0
             },
-            "categories_in": {c: 0 for c in CATEGORIES_IN},
-            "categories_out": {c: 0 for c in CATEGORIES_OUT},
-            "records": []
-        }
+            "allocation_50_25_15_10": {
+                "ceo_50_percent": 0,
+                "rnd_25_percent": 0,
+                "daughters_15_percent": 0,
+                "charity_10_percent": 0
+            }
+        },
+        "categories_in": {c: 0 for c in CATEGORIES_IN},
+        "categories_out": {c: 0 for c in CATEGORIES_OUT},
+        "records": [],
+        "transactions": []
+    }
+
+def reset_to_clean_zero_ledger() -> dict:
+    """어명에 따라 가짜 샘플 거래를 전액 소각하고 0원 클린 장부로 리셋"""
+    clean_data = get_clean_zero_ledger_data()
+    save_ledger(clean_data)
+    return clean_data
+
+def load_ledger() -> dict:
+    """장부 파일을 로드하거나 없으면 기본 0원 구조를 생성합니다."""
+    if not os.path.exists(LEDGER_PATH):
+        init_data = get_clean_zero_ledger_data()
         save_ledger(init_data)
         return init_data
 
     try:
         with open(LEDGER_PATH, "r", encoding="utf-8") as f:
-            return json.load(f)
+            data = json.load(f)
+            if not data.get("records") and not data.get("transactions"):
+                # 0원 클린 호환성 필드 보장
+                if "total_in_krw" not in data:
+                    data["total_in_krw"] = 0
+                    data["total_out_krw"] = 0
+                    data["net_profit_krw"] = 0
+                    data["estimated_tax_3_3_krw"] = 0
+                    data["disposable_net_krw"] = 0
+            return data
     except Exception:
-        return {}
+        return get_clean_zero_ledger_data()
 
 def save_ledger(data: dict):
     """장부 데이터를 원자적으로 안전하게 저장합니다."""
@@ -167,6 +210,18 @@ def recalculate_summary(ledger: dict) -> dict:
             "charity_10_percent": sharing_10
         }
     }
+    ledger["summary"]["estimated_tax_3_3_krw"] = tax_reserve
+    ledger["summary"]["net_profit_krw"] = net_profit
+
+    # 루트 레벨 호환성 필드
+    ledger["total_in_krw"] = total_in
+    ledger["total_out_krw"] = total_out
+    ledger["net_profit_krw"] = net_profit
+    ledger["estimated_tax_3_3_krw"] = tax_reserve
+    ledger["disposable_net_krw"] = net_profit
+    ledger["allocation_50_25_15_10"] = ledger["summary"]["allocation_50_25_15_10"]
+    ledger["transactions"] = records
+
     ledger["categories_in"] = cat_in
     ledger["categories_out"] = cat_out
     ledger["last_updated"] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")

@@ -124,8 +124,12 @@ def run_rgon_full_agency_audit():
         )
         record("GATE-5", "제6청사 총무팀 IN/OUT 복식부기 및 50:25:15:10 1원 무오차 검증", math_ok, f"가처분순익={after_s['disposable_net_krw']:,}원 == 배분합계={alloc_sum:,}원")
     finally:
-        with open(LEDGER_FILE, "w", encoding="utf-8") as f:
-            f.write(backup_ledger_raw)
+        try:
+            from general_affairs_treasury import reset_to_clean_zero_ledger
+            reset_to_clean_zero_ledger()
+        except Exception:
+            with open(LEDGER_FILE, "w", encoding="utf-8") as f:
+                f.write(backup_ledger_raw)
 
     # [GATE 6] 6대 부서 18선 일거리 큐 API 검증 (1개)
     st_wq, body_wq = http_get("/api/dept-work-queue")

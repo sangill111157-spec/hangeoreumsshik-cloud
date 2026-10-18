@@ -44,7 +44,10 @@
           <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
           🟢 복식부기 감시 ON · 과금 0원 방어중
         </span>
-        <a href="/?v=800&tab=command" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-bold text-slate-200 border border-slate-700 transition flex items-center gap-1.5 shadow">
+        <button onclick="resetTreasuryToZero()" class="px-3.5 py-2 rounded-xl bg-rose-600/20 hover:bg-rose-600 text-rose-300 hover:text-white border border-rose-500/40 text-xs font-bold transition flex items-center gap-1.5 shadow">
+          <span>🧹 장부 0원 클린 초기화</span>
+        </button>
+        <a href="/?v=1000" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-bold text-slate-200 border border-slate-700 transition flex items-center gap-1.5 shadow">
           <span>🏛️ 청와대 본관으로 복귀 ➔</span>
         </a>
       </div>
@@ -60,14 +63,14 @@
       <div class="p-5 rounded-2xl glass-card border border-emerald-500/30 bg-gradient-to-br from-slate-900/90 to-emerald-950/20 relative overflow-hidden">
         <div class="flex items-center justify-between text-xs font-bold text-slate-400 mb-1">
           <span>📥 총 들어온 돈 (Total IN)</span>
-          <span id="badge-in-count" class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-[10px] font-mono">4건</span>
+          <span id="badge-in-count" class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-[10px] font-mono">0건</span>
         </div>
         <div id="stat-total-in" class="text-2xl sm:text-3xl font-black text-emerald-300 font-mono tracking-tight my-1">
-          1,285,000 원
+          0 원
         </div>
         <div class="text-[11px] text-slate-400 flex items-center justify-between">
           <span>제휴·음원·웹앱·후원 4대 파이프라인</span>
-          <span class="text-emerald-400 font-bold">100% 정상 입금</span>
+          <span id="badge-in-status" class="text-emerald-400 font-bold">실전 입금 대기중 (클린 0원 출발)</span>
         </div>
       </div>
 
@@ -93,11 +96,11 @@
           <span id="tax-rate-badge" class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 text-[10px] font-mono">세금 3.3% 공제후</span>
         </div>
         <div id="stat-net-profit" class="text-2xl sm:text-3xl font-black text-amber-300 font-mono tracking-tight my-1">
-          1,242,595 원
+          0 원
         </div>
         <div class="text-[11px] text-slate-400 flex items-center justify-between">
-          <span>세전 영업이익: <span id="stat-operating-profit" class="text-slate-200 font-mono">1,285,000원</span></span>
-          <span class="text-amber-400 font-bold">원천세 42,405원</span>
+          <span>세전 영업이익: <span id="stat-operating-profit" class="text-slate-200 font-mono">0원</span></span>
+          <span id="stat-tax-reserve" class="text-amber-400 font-bold">원천세 0원</span>
         </div>
       </div>
 
@@ -108,10 +111,10 @@
           <span class="px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 text-[10px] font-mono">은솔·송효·해상</span>
         </div>
         <div id="stat-daughters-total" class="text-2xl sm:text-3xl font-black text-purple-300 font-mono tracking-tight my-1">
-          186,389 원
+          0 원
         </div>
         <div class="text-[11px] text-slate-400 flex items-center justify-between">
-          <span>각 5% (약 62,130원씩)</span>
+          <span>각 5% 균등 분할</span>
           <span class="text-purple-400 font-bold">영구 복리 배분</span>
         </div>
       </div>
@@ -193,47 +196,47 @@
         <div class="space-y-2.5">
           <div class="text-xs font-bold text-emerald-400 flex items-center justify-between">
             <span>📥 들어오는 곳 (수입 파이프라인 현황)</span>
-            <span id="cat-in-sum" class="font-mono">1,285,000 원</span>
+            <span id="cat-in-sum" class="font-mono">0 원</span>
           </div>
 
           <div class="space-y-2 text-xs">
             <div>
               <div class="flex justify-between text-slate-400 mb-1 text-[11px]">
                 <span>제휴·파트너스 수익</span>
-                <span id="val-cat-affiliate" class="font-mono text-slate-200">485,000원</span>
+                <span id="val-cat-affiliate" class="font-mono text-slate-200">0원</span>
               </div>
               <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
-                <div id="bar-cat-affiliate" class="bg-emerald-500 h-full rounded-full transition-all duration-500" style="width: 38%;"></div>
+                <div id="bar-cat-affiliate" class="bg-emerald-500 h-full rounded-full transition-all duration-500" style="width: 0%;"></div>
               </div>
             </div>
 
             <div>
               <div class="flex justify-between text-slate-400 mb-1 text-[11px]">
                 <span>음원·유튜브 수익 (Suno·라디오)</span>
-                <span id="val-cat-music" class="font-mono text-slate-200">350,000원</span>
+                <span id="val-cat-music" class="font-mono text-slate-200">0원</span>
               </div>
               <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
-                <div id="bar-cat-music" class="bg-cyan-500 h-full rounded-full transition-all duration-500" style="width: 27%;"></div>
+                <div id="bar-cat-music" class="bg-cyan-500 h-full rounded-full transition-all duration-500" style="width: 0%;"></div>
               </div>
             </div>
 
             <div>
               <div class="flex justify-between text-slate-400 mb-1 text-[11px]">
                 <span>디지털 상품·웹앱 수익</span>
-                <span id="val-cat-app" class="font-mono text-slate-200">300,000원</span>
+                <span id="val-cat-app" class="font-mono text-slate-200">0원</span>
               </div>
               <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
-                <div id="bar-cat-app" class="bg-blue-500 h-full rounded-full transition-all duration-500" style="width: 23%;"></div>
+                <div id="bar-cat-app" class="bg-blue-500 h-full rounded-full transition-all duration-500" style="width: 0%;"></div>
               </div>
             </div>
 
             <div>
               <div class="flex justify-between text-slate-400 mb-1 text-[11px]">
                 <span>상생 후원금·기타 수입</span>
-                <span id="val-cat-donation" class="font-mono text-slate-200">150,000원</span>
+                <span id="val-cat-donation" class="font-mono text-slate-200">0원</span>
               </div>
               <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
-                <div id="bar-cat-donation" class="bg-purple-500 h-full rounded-full transition-all duration-500" style="width: 12%;"></div>
+                <div id="bar-cat-donation" class="bg-purple-500 h-full rounded-full transition-all duration-500" style="width: 0%;"></div>
               </div>
             </div>
           </div>
@@ -249,20 +252,20 @@
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center text-xs">
             <div class="p-3 rounded-xl bg-slate-900/80 border border-amber-500/30">
               <div class="text-[10px] text-slate-400">대표님 생활기금 (50%)</div>
-              <div id="vault-commander" class="text-sm font-extrabold text-amber-300 font-mono mt-1">621,297원</div>
+              <div id="vault-commander" class="text-sm font-extrabold text-amber-300 font-mono mt-1">0원</div>
             </div>
             <div class="p-3 rounded-xl bg-slate-900/80 border border-cyan-500/30">
               <div class="text-[10px] text-slate-400">제국 R&D 기금 (25%)</div>
-              <div id="vault-rnd" class="text-sm font-extrabold text-cyan-300 font-mono mt-1">310,648원</div>
+              <div id="vault-rnd" class="text-sm font-extrabold text-cyan-300 font-mono mt-1">0원</div>
             </div>
             <div class="p-3 rounded-xl bg-slate-900/80 border border-purple-500/30">
               <div class="text-[10px] text-slate-400">세 딸 장학기금 (15%)</div>
-              <div id="vault-daughters" class="text-sm font-extrabold text-purple-300 font-mono mt-1">186,389원</div>
-              <div class="text-[9px] text-slate-500 mt-0.5">각 62,129원</div>
+              <div id="vault-daughters" class="text-sm font-extrabold text-purple-300 font-mono mt-1">0원</div>
+              <div id="vault-daughters-each" class="text-[9px] text-slate-500 mt-0.5">각 0원</div>
             </div>
             <div class="p-3 rounded-xl bg-slate-900/80 border border-emerald-500/30">
               <div class="text-[10px] text-slate-400">상생 나눔기금 (10%)</div>
-              <div id="vault-sharing" class="text-sm font-extrabold text-emerald-300 font-mono mt-1">124,261원</div>
+              <div id="vault-sharing" class="text-sm font-extrabold text-emerald-300 font-mono mt-1">0원</div>
             </div>
           </div>
         </div>
@@ -289,7 +292,7 @@
         <div class="flex items-center gap-2">
           <span class="text-lg">📜</span>
           <h2 class="text-sm font-bold text-white">제국 총무 복식부기 통장 원장 (Treasury Ledger)</h2>
-          <span id="record-count-badge" class="px-2 py-0.5 rounded text-[10px] font-mono bg-slate-800 text-slate-300">총 4건</span>
+          <span id="record-count-badge" class="px-2 py-0.5 rounded text-[10px] font-mono bg-slate-800 text-slate-300">총 0건</span>
         </div>
         <button onclick="downloadCSV()" class="px-3.5 py-1.5 rounded-xl bg-emerald-600/20 hover:bg-emerald-600 text-emerald-300 hover:text-white border border-emerald-500/40 text-xs font-bold transition flex items-center gap-1.5 shadow">
           <span>📥 장부 CSV(엑셀) 다운로드</span>
@@ -421,6 +424,14 @@
       document.getElementById('vault-daughters').innerText = fmt(alloc.daughters_scholarship_15);
       document.getElementById('vault-sharing').innerText = fmt(alloc.sharing_donation_10);
 
+      if (document.getElementById('stat-tax-reserve')) {
+        document.getElementById('stat-tax-reserve').innerText = '원천세 ' + fmt(s.tax_reserve_3_3 || 0);
+      }
+      if (document.getElementById('vault-daughters-each')) {
+        const eachDaughter = Math.floor((alloc.daughters_scholarship_15 || 0) / 3);
+        document.getElementById('vault-daughters-each').innerText = '각 ' + fmt(eachDaughter);
+      }
+
       document.getElementById('disk-free-val').innerText = (data.free_disk_gb || 0) + ' GB';
       document.getElementById('record-count-badge').innerText = '총 ' + (data.total_records_count || 0) + '건';
 
@@ -492,6 +503,19 @@
         btn.innerHTML = '<span>🏦 총무팀 장부 확정도장 찍기</span>';
       }
     }
+
+    async function resetTreasuryToZero() {
+      if (!confirm('🚨 [최고 통수권자 어명]\n가짜 샘플 수익을 전액 영구 삭제하고, 100% 정직한 실전 [0원 클린 장부]로 초기화하시겠습니까?')) return;
+      try {
+        const res = await fetch('/api/treasury-audit-clean', { method: 'POST' });
+        const data = await res.json();
+        alert('🧹 정직한 0원 실전 클린 장부 초기화 완료! (수입 0원, 지출 0원, 전표 0건)');
+        fetchTreasuryStatus();
+      } catch (e) {
+        alert('초기화 중 오류: ' + e.message);
+      }
+    }
+    window.resetTreasuryToZero = resetTreasuryToZero;
 
     async function cleanScratch() {
       if (!confirm('임시 캐시 및 더미 파일을 청소하고 장부 무결성을 감사하시겠습니까?')) return;

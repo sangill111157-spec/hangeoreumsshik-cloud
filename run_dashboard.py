@@ -1755,6 +1755,75 @@ class DashboardHandler(SimpleHTTPRequestHandler):
 
     def do_POST(self):
 
+        # 🏦 [v10.1] 제6청사 총무팀 신규 전표 기장 처리 (POST /api/treasury-record)
+        if self.path == '/api/treasury-record':
+            length = int(self.headers.get('Content-Length', 0))
+            raw_body = self.rfile.read(length)
+            try:
+                data = json.loads(raw_body.decode('utf-8'))
+                import general_affairs_treasury
+                tx_type = data.get("type") or data.get("tx_type") or "IN"
+                category = data.get("category") or "기타 수입/지출"
+                amount = data.get("amount") if data.get("amount") is not None else data.get("amount_krw", 0)
+                memo = data.get("memo") or data.get("title") or ""
+                registered_by = data.get("registered_by") or "COMMANDER-000"
+
+                rec_res = general_affairs_treasury.record_transaction(
+                    tx_type=tx_type,
+                    category=category,
+                    amount=amount,
+                    memo=memo,
+                    registered_by=registered_by
+                )
+                resp = {
+                    "status": "ok",
+                    "success": True,
+                    "message": "전표 기장 완료",
+                    "data": rec_res.get("record", {}),
+                    "voucher_no": rec_res.get("voucher_no"),
+                    "summary": rec_res.get("summary", {})
+                }
+            except Exception as e:
+                resp = {"status": "error", "success": False, "message": str(e)}
+
+            body = json.dumps(resp, ensure_ascii=False).encode("utf-8")
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(body)
+            return
+
+        # 🧹 [v10.1] 제6청사 0원 클린 장부 초기화 & 감사 (POST /api/treasury-audit-clean, /api/treasury-reset-zero)
+        if self.path in ('/api/treasury-audit-clean', '/api/treasury-reset-zero'):
+            try:
+                import general_affairs_treasury
+                clean_data = general_affairs_treasury.reset_to_clean_zero_ledger()
+                resp = {
+                    "status": "ok",
+                    "success": True,
+                    "message": "정직한 0원 실전 클린 장부 초기화 완료",
+                    "data": {
+                        "cleaned_count": 0,
+                        "total_in": clean_data.get("total_in_krw", 0),
+                        "total_out": clean_data.get("total_out_krw", 0),
+                        "net_profit": clean_data.get("net_profit_krw", 0)
+                    },
+                    "summary": clean_data.get("summary", {})
+                }
+            except Exception as e:
+                resp = {"status": "error", "success": False, "message": str(e)}
+
+            body = json.dumps(resp, ensure_ascii=False).encode("utf-8")
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(body)
+            return
+
         # 🌐 만능 멀티-AI 실시간 교신 메시지 발송 & 에이전트 등록 (POST /api/omni-agent-bus)
         if self.path == '/api/omni-agent-bus':
             length = int(self.headers.get('Content-Length', 0))
@@ -2227,6 +2296,53 @@ class DashboardHandler(SimpleHTTPRequestHandler):
                 resp = cheongwadae_comm_engine.process_direct_communication(user_msg, target)
             except Exception as e:
                 resp = {"status": "ERROR", "message": str(e)}
+
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json; charset=utf-8')
+            self.send_header('Access-Control-Allow-Origin', '*')
+            self.end_headers()
+            self.wfile.write(json.dumps(resp, ensure_ascii=False).encode('utf-8'))
+            return
+
+        # 🏦 [v10.1] 제6청사 총무팀 신규 전표 기장 (POST /api/treasury-record)
+        if self.path == '/api/treasury-record':
+            length = int(self.headers.get('Content-Length', 0))
+            raw_body = self.rfile.read(length) if length > 0 else b'{}'
+            try:
+                data = json.loads(raw_body.decode('utf-8')) if raw_body else {}
+                tx_type = data.get('type') or data.get('tx_type', 'IN')
+                cat = data.get('category', '상생 후원금·기타 수입')
+                amount = int(data.get('amount') or data.get('amount_krw', 0))
+                memo = data.get('memo') or data.get('title', '')
+                reg = data.get('registered_by', 'COMMANDER-000')
+
+                import general_affairs_treasury
+                res = general_affairs_treasury.record_transaction(tx_type, cat, amount, memo, reg)
+                resp = {"status": "ok", "data": res, "summary": res.get("summary", {})}
+            except Exception as e:
+                resp = {"status": "error", "message": str(e)}
+
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json; charset=utf-8')
+            self.send_header('Access-Control-Allow-Origin', '*')
+            self.end_headers()
+            self.wfile.write(json.dumps(resp, ensure_ascii=False).encode('utf-8'))
+            return
+
+        # 🧹 [v10.1] 제6청사 총무팀 0원 클린 초기화 및 캐시 청소 (POST /api/treasury-audit-clean)
+        if self.path in ['/api/treasury-audit-clean', '/api/treasury-reset-zero']:
+            try:
+                import general_affairs_treasury
+                clean_ledger = general_affairs_treasury.reset_to_clean_zero_ledger()
+                clean_audit = general_affairs_treasury.audit_and_clean_scratch()
+                resp = {
+                    "status": "ok",
+                    "message": "0원 클린 장부 초기화 및 임시 캐시 청소 완료",
+                    "data": clean_audit,
+                    "ledger": clean_ledger
+                }
+            except Exception as e:
+                resp = {"status": "error", "message": str(e)}
 
             self.send_response(200)
             self.send_header('Content-Type', 'application/json; charset=utf-8')

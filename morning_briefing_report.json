@@ -1,6 +1,6 @@
 {
   "version": "v9.0-cheonbu-ep1-genesis",
-  "generated_at": "2026-10-18 21:32:22",
+  "generated_at": "2026-10-18 22:33:25",
   "duty_commanders": [
     "제1수석보좌관 르곤 (RGON-001)",
     "기술행정부 총리 안총리 (AGV-PRIME-101)"
@@ -10,9 +10,9 @@
     "guard_status": "ALL_SECURE",
     "tasks_completed": "18/18 완수",
     "legal_score": "100/100 (SAFE TO LAUNCH)",
-    "total_in_krw": 1295000,
+    "total_in_krw": 0,
     "total_out_krw": 0,
-    "disposable_net_krw": 1252265,
+    "disposable_net_krw": 0,
     "safe_apps_active": 6,
     "departments_active": 6
   },

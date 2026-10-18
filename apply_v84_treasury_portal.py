@@ -27,11 +27,11 @@ TREASURY_BAR_HTML = """
           <div class="flex items-center gap-2">
             <span class="text-base">🏦</span>
             <span class="font-bold text-amber-300">총무팀 1원 정산 현황:</span>
-            <span class="text-slate-400">IN: <b id="main-total-in" class="text-emerald-400 font-mono">1,285,000원</b></span>
+            <span class="text-slate-400">IN: <b id="main-total-in" class="text-emerald-400 font-mono">0원</b></span>
             <span class="text-slate-600">|</span>
             <span class="text-slate-400">OUT: <b id="main-total-out" class="text-rose-400 font-mono">0원</b></span>
             <span class="text-slate-600">|</span>
-            <span class="text-slate-400">순수익: <b id="main-net-profit" class="text-amber-300 font-mono">1,242,595원</b></span>
+            <span class="text-slate-400">순수익: <b id="main-net-profit" class="text-amber-300 font-mono">0원</b></span>
           </div>
           <a href="/departments/dept_treasury.html" target="_blank" class="px-2.5 py-1 rounded-lg bg-amber-600/20 hover:bg-amber-600 text-amber-300 hover:text-white border border-amber-500/40 text-[11px] font-bold transition flex items-center gap-1">
             <span>들어오는 돈·나가는 돈 1원 정산소 열기 ➔</span>
