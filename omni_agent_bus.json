@@ -25,11 +25,11 @@
       "color": "#a855f7"
     },
     {
-      "id": "AGV-101",
-      "name": "안실장",
-      "role": "Antigravity 수석 실행·배포관",
-      "icon": "🤖",
-      "color": "#3b82f6",
+      "id": "AGV-PRIME-101",
+      "name": "기술행정부 총리 안총리",
+      "role": "기술행정부 총리 (6대 청사 내각 총괄·집행 사령관)",
+      "icon": "⚡",
+      "color": "#06b6d4",
       "signal": "⟪✅ANTIGRAVITY_OUT_COMPLETE✅⟫"
     },
     {

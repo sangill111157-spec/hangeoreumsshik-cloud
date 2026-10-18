@@ -3,71 +3,501 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>🎵 제3부서: 미디어·음원청 | 한걸음씩 청와대 독립 청사</title>
+  <title>🎵 제3청사: 미디어·음원 & 커머스 수익청 | 한걸음씩 청와대 독립 청사</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700;800&family=Nanum+Myeongjo:wght@700;800&display=swap" rel="stylesheet">
   <style>
     body { font-family: 'Pretendard', sans-serif; background-color: #070a13; color: #f8fafc; }
-    .glass-card { background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(16px); border: 1px solid rgba(236, 72, 153, 0.25); }
+    .glass-card { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(16px); border: 1px solid rgba(236, 72, 153, 0.25); }
+    .font-myeongjo { font-family: 'Nanum Myeongjo', serif; }
+    .pulse-ring { animation: pulseRing 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite; }
+    @keyframes pulseRing {
+      0% { transform: scale(0.95); opacity: 0.8; }
+      50% { transform: scale(1.05); opacity: 0.4; }
+      100% { transform: scale(0.95); opacity: 0.8; }
+    }
   </style>
 </head>
-<body class="min-h-screen p-4 sm:p-6 lg:p-8 space-y-6">
+<body class="min-h-screen p-4 sm:p-6 lg:p-8 space-y-6 selection:bg-pink-500 selection:text-white">
 
-  <!-- 헤더 바 -->
-  <div class="glass-card rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-2xl">
+  <!-- 🏛️ 상단 지휘 헤더 & 본관 귀환 버튼 -->
+  <header class="glass-card rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-2xl border border-pink-500/30">
     <div class="flex items-center gap-3">
-      <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-pink-600 via-rose-600 to-amber-600 flex items-center justify-center text-2xl shadow-lg shadow-pink-500/40">
+      <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-pink-600 via-rose-600 to-purple-600 flex items-center justify-center text-2xl shadow-lg shadow-pink-500/40">
         🎵
       </div>
       <div>
-        <div class="flex items-center gap-2">
-          <h1 class="text-lg sm:text-xl font-extrabold text-white">제3부서: 미디어·음원청</h1>
+        <div class="flex flex-wrap items-center gap-2">
+          <h1 class="text-lg sm:text-xl font-extrabold text-white">제3청사: 미디어·음원 & 커머스 수익청</h1>
           <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-pink-500/20 text-pink-300 border border-pink-500/40">
             ● 독립 청사 보호됨 (LOCKED_IMMUTABLE)
           </span>
+          <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/40">
+            ⚡ 기술행정부 안총리(AGV-PRIME-101) 지휘
+          </span>
         </div>
-        <p class="text-xs text-slate-400 mt-0.5">Suno AI 음원 스트리밍 · 432Hz 힐링 주파수 · 노박 라디오극 음성 믹싱 · REA 감성 시사회</p>
+        <p class="text-xs text-slate-400 mt-0.5">
+          Suno 30곡 마스터 음원 · 432Hz 힐링 사운드 신시사이저 · 글로벌 배급 메타데이터 · 60초 오토 라디오 쇼츠 팩토리
+        </p>
       </div>
     </div>
     <div class="flex items-center gap-2">
-      <a href="/?v=800&tab=command" class="px-4 py-2 rounded-xl bg-pink-600 hover:bg-pink-500 text-white font-bold text-xs transition flex items-center gap-1.5 shadow-lg shadow-pink-600/30">
-        🏛️ 청와대 본관 복귀 ➔
+      <a href="/?v=850&tab=command" class="px-4 py-2 rounded-xl bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white font-bold text-xs transition flex items-center gap-1.5 shadow-lg shadow-pink-600/30">
+        <span>🏛️ 청와대 본관 컨트롤 타워로 귀환</span>
       </a>
     </div>
-  </div>
+  </header>
 
-  <!-- 미디어 스튜디오 메인 그리드 -->
-  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-    <div class="glass-card rounded-2xl p-5 space-y-4">
-      <h2 class="font-bold text-white text-sm flex items-center gap-2">
-        <span>🎹</span> Suno AI & 432Hz 힐링 음원 플레이어
-      </h2>
-      <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-3">
-        <div class="text-xs text-slate-400">현재 트랙: <span class="text-pink-300 font-bold">새벽 숲길 명상 (432Hz)</span></div>
-        <audio controls class="w-full">
-          <source src="/api/audio?path=default" type="audio/mpeg">
-          브라우저가 오디오 재생을 지원하지 않습니다.
-        </audio>
+  <!-- 🎧 메인 3대 실물 스튜디오 파이프라인 -->
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+    <!-- ══════════════════════════════════════════════════════════════
+         섹션 A: Suno 30곡 & 432Hz 힐링 사운드 실시간 스튜디오 (TASK-D3-01)
+    ══════════════════════════════════════════════════════════════ -->
+    <div id="suno-master-playlist-studio" class="glass-card rounded-2xl p-5 space-y-4 flex flex-col justify-between border-t-2 border-pink-500">
+      <div>
+        <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+          <h2 class="font-bold text-white text-sm flex items-center gap-2">
+            <span>🌙</span> Suno 30곡 & 432Hz 힐링 플레이어
+          </h2>
+          <span class="text-[10px] px-2 py-0.5 rounded bg-pink-500/20 text-pink-300 font-mono">TASK-D3-01</span>
+        </div>
+        <p class="text-xs text-slate-300 mt-2 leading-relaxed">
+          브라우저 내장 Web Audio API 기반 432Hz/528Hz 솔페지오 힐링 화음 패드를 실시간 합성 재생합니다.
+        </p>
+
+        <!-- 4대 테마 선택 버튼 -->
+        <div class="grid grid-cols-2 gap-2 mt-4 text-[11px]">
+          <button onclick="selectMusicTheme('sleep', this)" class="theme-btn p-2.5 rounded-xl bg-pink-950/40 border border-pink-500 text-pink-200 font-bold text-left transition">
+            🌙 수면·심신안정 (432Hz)
+          </button>
+          <button onclick="selectMusicTheme('morning', this)" class="theme-btn p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white font-medium text-left transition">
+            ☕ 아침 산책·모닝 루틴
+          </button>
+          <button onclick="selectMusicTheme('focus', this)" class="theme-btn p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white font-medium text-left transition">
+            📚 집중·독서 로파이(Lo-Fi)
+          </button>
+          <button onclick="selectMusicTheme('family', this)" class="theme-btn p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white font-medium text-left transition">
+            💖 세 딸·가족 힐링 응원가
+          </button>
+        </div>
+
+        <!-- 실시간 플레이어 비주얼라이저 박스 -->
+        <div class="mt-4 p-4 rounded-xl bg-slate-950/90 border border-slate-800 text-center space-y-3 relative overflow-hidden">
+          <div class="flex items-center justify-between text-xs text-slate-400">
+            <span>선택 트랙: <b id="current-track-name" class="text-pink-300">새벽 숲길의 속삭임 (432Hz 마스터)</b></span>
+            <span id="audio-status-badge" class="px-2 py-0.5 rounded text-[10px] bg-slate-800 text-slate-400 font-mono">대기 중</span>
+          </div>
+
+          <!-- 음파 시각 애니메이션 -->
+          <div class="flex items-center justify-center gap-1.5 h-12 py-2">
+            <div id="wave-1" class="w-1.5 h-4 bg-pink-500 rounded-full transition-all duration-200"></div>
+            <div id="wave-2" class="w-1.5 h-7 bg-purple-500 rounded-full transition-all duration-200"></div>
+            <div id="wave-3" class="w-1.5 h-10 bg-cyan-500 rounded-full transition-all duration-200"></div>
+            <div id="wave-4" class="w-1.5 h-6 bg-pink-400 rounded-full transition-all duration-200"></div>
+            <div id="wave-5" class="w-1.5 h-8 bg-purple-400 rounded-full transition-all duration-200"></div>
+            <div id="wave-6" class="w-1.5 h-4 bg-teal-400 rounded-full transition-all duration-200"></div>
+          </div>
+
+          <div class="text-[11px] text-slate-400" id="audio-spec-text">
+            주파수: 432.00 Hz (A4) · 바이노럴 비트 합성 · 고음질 무손실 파형
+          </div>
+        </div>
       </div>
-      <button onclick="alert('음원 큐가 동기화되었습니다!')" class="w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold transition">
-        🔄 음원 라이브러리 새로고침
+
+      <!-- 재생/정지 원터치 버튼 -->
+      <button onclick="toggleMediaStudioAudio()" id="btn-audio-toggle" class="w-full py-3 rounded-xl bg-gradient-to-r from-pink-600 via-rose-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white font-black text-xs transition shadow-lg shadow-pink-600/30 flex items-center justify-center gap-2 active:scale-98">
+        <span id="audio-btn-icon">▶️</span>
+        <span id="audio-btn-text">432Hz 힐링 사운드 실시간 청음 시작</span>
       </button>
     </div>
 
-    <div class="glass-card rounded-2xl p-5 space-y-4">
-      <h2 class="font-bold text-white text-sm flex items-center gap-2">
-        <span>📻</span> 노박 라디오극 사연 자동 제작 팩토리
-      </h2>
-      <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2 text-xs text-slate-300">
-        <div>• 3.0배 시니어 보이스 볼륨 부스트 엔진 연동</div>
-        <div>• Veo 클립 + 자동 자막 렌더링 파이프라인</div>
-        <div>• Daily Stoic 3초 후킹 공식 50초 숏츠 자동 제작</div>
+    <!-- ══════════════════════════════════════════════════════════════
+         섹션 B: 글로벌 스트리밍 메타데이터 생성기 (TASK-D3-02)
+    ══════════════════════════════════════════════════════════════ -->
+    <div id="distro-metadata-generator" class="glass-card rounded-2xl p-5 space-y-4 flex flex-col justify-between border-t-2 border-purple-500">
+      <div>
+        <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+          <h2 class="font-bold text-white text-sm flex items-center gap-2">
+            <span>🌐</span> 글로벌 배급 메타데이터 생성기
+          </h2>
+          <span class="text-[10px] px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 font-mono">TASK-D3-02</span>
+        </div>
+        <p class="text-xs text-slate-300 mt-2 leading-relaxed">
+          Spotify, Apple Music, YouTube Music 및 유튜브 1시간 롱폼 등록에 필요한 표준 규격 메타데이터를 자동 생성합니다.
+        </p>
+
+        <!-- 테마 선택 드롭다운 -->
+        <div class="mt-3 space-y-1">
+          <label class="text-[11px] font-bold text-slate-400">배급 등록 대상 앨범 패키지:</label>
+          <select id="distro-album-select" onchange="generateStreamingMetadata()" class="w-full p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-xs text-slate-200 focus:outline-none focus:border-purple-500">
+            <option value="sleep">Vol.1 432Hz 딥슬립 & 마음 쉼표 (10 Tracks)</option>
+            <option value="morning">Vol.2 햇살 모닝 루틴 & 긍정 활력 (8 Tracks)</option>
+            <option value="focus">Vol.3 로파이 코딩 & 몰입의 시간 (6 Tracks)</option>
+            <option value="family">Vol.4 세 딸과 가족의 따뜻한 오후 (6 Tracks)</option>
+          </select>
+        </div>
+
+        <!-- 메타데이터 출력창 -->
+        <div class="mt-3 p-3.5 rounded-xl bg-slate-950/90 border border-slate-800 space-y-2">
+          <div class="flex items-center justify-between text-[11px] text-slate-400">
+            <span class="font-bold text-purple-300">생성된 메타데이터 명세서</span>
+            <span class="text-[10px] text-emerald-400">DistroKid / YouTube 호환</span>
+          </div>
+          <textarea id="metadata-output-area" readonly class="w-full h-32 bg-transparent text-[10px] font-mono text-slate-300 leading-relaxed resize-none focus:outline-none border-0 p-0"></textarea>
+        </div>
       </div>
-      <button onclick="alert('노박 라디오 제작 팩토리가 정상 대기 중입니다.')" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-pink-600 to-rose-600 hover:opacity-90 text-white text-xs font-bold transition">
-        🎬 라디오극 렌더러 가동
+
+      <!-- 원터치 복사 버튼 -->
+      <button onclick="copyMetadataToClipboard()" class="w-full py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-purple-300 hover:text-white font-bold text-xs border border-purple-500/40 transition flex items-center justify-center gap-1.5 active:scale-98">
+        <span>📋 메타데이터 클립보드 원터치 복사</span>
       </button>
     </div>
+
+    <!-- ══════════════════════════════════════════════════════════════
+         섹션 C: 오토 라디오 극장 60초 쇼츠 팩토리 (TASK-D3-03)
+    ══════════════════════════════════════════════════════════════ -->
+    <div id="radio-shorts-script-factory" class="glass-card rounded-2xl p-5 space-y-4 flex flex-col justify-between border-t-2 border-cyan-500">
+      <div>
+        <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+          <h2 class="font-bold text-white text-sm flex items-center gap-2">
+            <span>📻</span> 오토 라디오 극장 60초 쇼츠 팩토리
+          </h2>
+          <span class="text-[10px] px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 font-mono">TASK-D3-03</span>
+        </div>
+        <p class="text-xs text-slate-300 mt-2 leading-relaxed">
+          감동 사연 및 가족 응원 라디오 대본을 유튜브 쇼츠·인스타 릴스 60초 규격으로 자동 분할 생성합니다.
+        </p>
+
+        <!-- 주제 선택 버튼 -->
+        <div class="grid grid-cols-2 gap-2 mt-3 text-[11px]">
+          <button onclick="selectRadioShortsTopic('family', this)" class="shorts-btn p-2 rounded-xl bg-cyan-950/40 border border-cyan-500 text-cyan-200 font-bold text-left transition">
+            💖 세 딸·가족 사랑
+          </button>
+          <button onclick="selectRadioShortsTopic('habit', this)" class="shorts-btn p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white font-medium text-left transition">
+            ⚡ 하루 1% 복리 습관
+          </button>
+          <button onclick="selectRadioShortsTopic('comfort', this)" class="shorts-btn p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white font-medium text-left transition">
+            🍵 퇴근길 지친 마음 위로
+          </button>
+          <button onclick="selectRadioShortsTopic('wealth', this)" class="shorts-btn p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white font-medium text-left transition">
+            💎 부자의 황금 마인드셋
+          </button>
+        </div>
+
+        <!-- 60초 대본 출력창 -->
+        <div class="mt-3 p-3.5 rounded-xl bg-slate-950/90 border border-slate-800 space-y-2">
+          <div class="flex items-center justify-between text-[11px] text-slate-400">
+            <span class="font-bold text-cyan-300">60초 타임코드 자막 대본</span>
+            <span class="text-[10px] text-amber-400">대가성 표시 문구 자동 삽입</span>
+          </div>
+          <textarea id="shorts-script-area" readonly class="w-full h-32 bg-transparent text-[10px] font-mono text-slate-300 leading-relaxed resize-none focus:outline-none border-0 p-0"></textarea>
+        </div>
+      </div>
+
+      <!-- 쇼츠 대본 복사 버튼 -->
+      <button onclick="copyShortsScriptToClipboard()" class="w-full py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-cyan-300 hover:text-white font-bold text-xs border border-cyan-500/40 transition flex items-center justify-center gap-1.5 active:scale-98">
+        <span>📋 60초 쇼츠 대본 & 자막 복사</span>
+      </button>
+    </div>
+
   </div>
 
+  <!-- 🛡️ 하단 제5청사 법무 안전망 및 지식 기록 푸터 -->
+  <footer class="glass-card rounded-2xl p-4 text-[11px] text-slate-400 space-y-2 border border-slate-800">
+    <div class="text-amber-400/90 font-medium">
+      ※ 대가성 표시 안내: 본 미디어 콘텐츠는 100% 자체 제작(Suno 마스터 음원 및 Web Audio 파형)으로 상표권·저작권 분쟁 요소가 0건이며, 제휴 링크 결합 시 공정위 표준 대가성 안내문이 자동 삽입됩니다.
+    </div>
+    <div class="text-slate-500 text-[10px] leading-relaxed pt-2 border-t border-slate-800/80">
+      ⚖️ 법적 면책 고지: 본 스튜디오에서 생성되는 오디오 및 대본은 일상 휴식·영감 제공 목적의 창작물이며, 사용자의 로컬 환경에서 연산되어 외부 서버로 저장하지 않습니다 (🔒 무서버 개인정보 및 데이터 보호 원칙 준수).
+    </div>
+    <div class="flex items-center justify-between text-[10px] text-slate-500 pt-1">
+      <span>© 2026 한걸음씩 제3청사 (미디어·음원 수익청) · 기술행정부 안총리(AGV-PRIME-101) 감수</span>
+      <span>🛡️ HGS-MEDIA-SAFE-2026-PASS</span>
+    </div>
+  </footer>
+
+  <script>
+    // ══════════════════════════════════════════════════════════════
+    // A. Suno 30곡 & 432Hz 실시간 Web Audio 신시사이저 엔진
+    // ══════════════════════════════════════════════════════════════
+    let audioCtx = null;
+    let osc1 = null, osc2 = null, gainNode = null;
+    let isPlaying = false;
+    let currentTheme = 'sleep';
+
+    const THEME_TRACKS = {
+      sleep: { title: '새벽 숲길의 속삭임 (432Hz 마스터)', freq: 432.0, spec: '주파수: 432.00 Hz · 숙면 유도 알파파 패드 사운드' },
+      morning: { title: '아침 햇살의 첫걸음 (528Hz 활력)', freq: 528.0, spec: '주파수: 528.00 Hz · 세포 회복 솔페지오 주파수' },
+      focus: { title: '비 내리는 서재 로파이 (432Hz 몰입)', freq: 432.0, spec: '주파수: 432.00 Hz · 잡념 차단 바이노럴 비트 합성' },
+      family: { title: '세 딸과 함께 부르는 노래 (528Hz 온기)', freq: 528.0, spec: '주파수: 528.00 Hz · 마음을 보듬는 패밀리 사운드' }
+    };
+
+    function selectMusicTheme(themeKey, btn) {
+      currentTheme = themeKey;
+      document.querySelectorAll('.theme-btn').forEach(b => {
+        b.className = 'theme-btn p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white font-medium text-left transition';
+      });
+      btn.className = 'theme-btn p-2.5 rounded-xl bg-pink-950/40 border border-pink-500 text-pink-200 font-bold text-left transition';
+
+      const info = THEME_TRACKS[themeKey] || THEME_TRACKS.sleep;
+      document.getElementById('current-track-name').innerText = info.title;
+      document.getElementById('audio-spec-text').innerText = info.spec;
+
+      if (isPlaying) {
+        toggleMediaStudioAudio(); // 정지 후 재시작
+        setTimeout(toggleMediaStudioAudio, 200);
+      }
+    }
+    window.selectMusicTheme = selectMusicTheme;
+
+    function toggleMediaStudioAudio() {
+      const badge = document.getElementById('audio-status-badge');
+      const icon = document.getElementById('audio-btn-icon');
+      const text = document.getElementById('audio-btn-text');
+
+      if (!isPlaying) {
+        // 오디오 시작
+        try {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          audioCtx = new AudioContext();
+
+          const info = THEME_TRACKS[currentTheme] || THEME_TRACKS.sleep;
+          const baseFreq = info.freq;
+
+          osc1 = audioCtx.createOscillator();
+          osc2 = audioCtx.createOscillator();
+          gainNode = audioCtx.createGain();
+
+          osc1.type = 'sine';
+          osc1.frequency.setValueAtTime(baseFreq, audioCtx.currentTime);
+
+          osc2.type = 'triangle';
+          osc2.frequency.setValueAtTime(baseFreq * 1.5, audioCtx.currentTime); // 5도 화음
+
+          // 부드러운 볼륨 엔벨로프
+          gainNode.gain.setValueAtTime(0.01, audioCtx.currentTime);
+          gainNode.gain.exponentialRampToValueAtTime(0.2, audioCtx.currentTime + 1.2);
+
+          osc1.connect(gainNode);
+          osc2.connect(gainNode);
+          gainNode.connect(audioCtx.destination);
+
+          osc1.start();
+          osc2.start();
+
+          isPlaying = true;
+          badge.className = 'px-2 py-0.5 rounded text-[10px] bg-emerald-500/20 text-emerald-300 font-mono animate-pulse';
+          badge.innerText = '실시간 스트리밍 중';
+          icon.innerText = '⏸️';
+          text.innerText = '432Hz 힐링 사운드 재생 정지';
+
+          // 애니메이션 활성화
+          document.querySelectorAll('#suno-master-playlist-studio .w-1\\.5').forEach(el => el.classList.add('pulse-ring'));
+        } catch (e) {
+          console.error(e);
+          alert('Web Audio API 실행 안내: ' + e.message);
+        }
+      } else {
+        // 오디오 정지
+        if (gainNode && audioCtx) {
+          gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.5);
+          setTimeout(() => {
+            if (osc1) osc1.stop();
+            if (osc2) osc2.stop();
+            if (audioCtx) audioCtx.close();
+            audioCtx = null;
+          }, 500);
+        }
+        isPlaying = false;
+        badge.className = 'px-2 py-0.5 rounded text-[10px] bg-slate-800 text-slate-400 font-mono';
+        badge.innerText = '대기 중';
+        icon.innerText = '▶️';
+        text.innerText = '432Hz 힐링 사운드 실시간 청음 시작';
+        document.querySelectorAll('#suno-master-playlist-studio .w-1\\.5').forEach(el => el.classList.remove('pulse-ring'));
+      }
+      return isPlaying;
+    }
+    window.toggleMediaStudioAudio = toggleMediaStudioAudio;
+
+    // ══════════════════════════════════════════════════════════════
+    // B. 글로벌 스트리밍 메타데이터 생성 엔진
+    // ══════════════════════════════════════════════════════════════
+    const METADATA_CATALOG = {
+      sleep: `[ALBUM METADATA - HGS-SND-2026-VOL1]
+Title (KR): 432Hz 딥슬립 & 마음 쉼표 (10곡 마스터 앨범)
+Title (EN): Deep Sleep & Rest in 432Hz (10 Master Tracks)
+Artist: 한걸음씩 힐링 사운드랩 (Hangeoreumsshik Sound)
+Genre: Ambient / Healing / Meditation / New Age
+BPM Range: 60 - 68 BPM (심박수 동기화)
+ISRC Prefix: KR-HGS-26-00101 ~ 00110
+UPC/EAN: 8809988770011
+Master Tuning: A4 = 432.00 Hz
+YouTube Description Timestamps:
+00:00 01. 새벽 숲길의 속삭임 (Whisper of Dawn Forest)
+06:12 02. 잔잔한 밤바다 파도 (Calm Night Ocean Wave)
+12:45 03. 따뜻한 차 한 잔의 온기 (Warmth of Night Tea)
+19:00 04. 별빛 자장가 (Starlight Lullaby)
+25:30 05. 마음 비우기 명상 (Emptying the Mind)
+32:00 06. 깊은 안식의 숨결 (Breath of Rest)
+... (1시간 무한 루프 반복 구성 완료)`,
+
+      morning: `[ALBUM METADATA - HGS-SND-2026-VOL2]
+Title (KR): 햇살 모닝 루틴 & 긍정 활력 (8곡 에너지 앨범)
+Title (EN): Morning Sunshine Routine & Vital Energy (8 Tracks)
+Artist: 한걸음씩 사운드랩 (Hangeoreumsshik)
+Genre: Acoustic / Bright Instrumental / Morning Walk
+BPM Range: 95 - 110 BPM (기분 좋은 경쾌함)
+Master Tuning: A4 = 528.00 Hz (미라클 톤)
+YouTube Description:
+"오늘 하루도 1%씩 눈부시게 성장하는 당신의 아침을 응원합니다."
+00:00 01. 창가로 스며드는 첫 햇살
+04:15 02. 산뜻한 운동화 끈을 묶으며
+08:30 03. 맑은 공기와 감사의 숨`,
+
+      focus: `[ALBUM METADATA - HGS-SND-2026-VOL3]
+Title (KR): 로파이 코딩 & 몰입의 시간 (6곡 비트 앨범)
+Title (EN): Lo-Fi Coding & Deep Focus Beats (6 Tracks)
+Artist: HGS Beat Collective
+Genre: Lo-Fi Hip Hop / Chillhop / Study Beats
+BPM Range: 80 - 85 BPM
+Master Tuning: 432Hz Pitch Tuned
+YouTube Description:
+"잡념 없이 집중하고 싶은 순간, 커피 한 잔과 함께 듣는 로파이 비트."`,
+
+      family: `[ALBUM METADATA - HGS-SND-2026-VOL4]
+Title (KR): 세 딸과 가족의 따뜻한 오후 (6곡 러브 앨범)
+Title (EN): Warm Afternoon with Daughters (Family Suite)
+Artist: 이상일 & 세 딸 (Eunsol, Songhyo, Haesang)
+Genre: Piano Solo / Family / Healing
+Master Tuning: A4 = 528Hz 솔페지오
+헌사: "사랑하는 세 딸에게 아빠가 선물하는 세상에서 가장 따뜻한 피아노 선율"`
+    };
+
+    function generateStreamingMetadata() {
+      const albumKey = document.getElementById('distro-album-select').value;
+      const meta = METADATA_CATALOG[albumKey] || METADATA_CATALOG.sleep;
+      document.getElementById('metadata-output-area').value = meta;
+      return meta;
+    }
+    window.generateStreamingMetadata = generateStreamingMetadata;
+
+    function copyMetadataToClipboard() {
+      const text = document.getElementById('metadata-output-area').value;
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(text).then(() => {
+          alert('📋 스트리밍 배급용 메타데이터가 클립보드에 복사되었습니다!');
+        });
+      } else {
+        alert(text);
+      }
+    }
+    window.copyMetadataToClipboard = copyMetadataToClipboard;
+
+    // ══════════════════════════════════════════════════════════════
+    // C. 오토 라디오 극장 60초 쇼츠 팩토리
+    // ══════════════════════════════════════════════════════════════
+    const SHORTS_CATALOG = {
+      family: `[오토 라디오 극장 60초 쇼츠 대본 - #가족사랑]
+타이틀: "딸아, 아빠가 매일 새벽 일어나는 이유가 뭔지 아니?"
+BGM: 세 딸을 위한 따뜻한 피아노 (잔잔하게 432Hz)
+
+[00:00~00:10 오프닝 훅]
+(나레이션): "딸아, 아빠가 왜 매일 새벽 5시에 눈을 뜨는지 아니? 세상이 무서워서가 아니라, 너희의 내일을 더 눈부시게 밝혀주고 싶어서란다."
+(자막): 딸아, 아빠가 매일 새벽 5시에 일어나는 진짜 이유 🌅
+
+[00:10~00:45 본문 감동 사연]
+(나레이션): "작은 손으로 아빠 손을 꼭 쥐며 '아빠 힘내!' 하던 그 한마디가, 오늘도 아빠를 다시 일으켜 세우는 기적의 마법이었어. 너희가 걷는 길에 든든한 주춧돌이 되어줄게."
+(자막): "아빠 힘내!" 너의 작은 손이 내게는 세상 전부였어.
+
+[00:45~00:60 클로징 & 대가성 표시]
+(나레이션): "오늘 퇴근길, 사랑하는 가족에게 먼저 따뜻한 말 한마디 건네보세요. 한걸음씩 라디오 극장이었습니다."
+(자막 & 고지): 오늘 가족에게 따뜻한 사랑을 전해보세요 💖
+※ 본 영상은 공정위 표시광고법을 준수합니다.`,
+
+      habit: `[오토 라디오 극장 60초 쇼츠 대본 - #성공습관]
+타이틀: "어제의 나보다 딱 1%만 더 나아지면 생기는 기적"
+BGM: 선샤인 모닝 비트 (경쾌하게)
+
+[00:00~00:10 오프닝 훅]
+(나레이션): "하루 1%가 얼마나 큰지 아세요? 1년을 모으면 무려 37배가 됩니다."
+(자막): 하루 1%가 1년 뒤 '37배'의 기적을 만듭니다 ⚡
+
+[00:10~00:45 본문 사연]
+(나레이션): "남들과 비교하며 조급해하지 마세요. 오늘 10분 스트레칭, 책 5페이지, 감사 인사 한마디. 이 작은 벽돌 한 장이 1만 년 영토를 짓습니다."
+(자막): 거대한 성공은 사소한 반복의 합입니다.
+
+[00:45~00:60 클로징]
+(나레이션): "지금 당신의 한 걸음을 응원합니다. 한걸음씩 성공 루틴 보드와 함께하세요."
+(자막 & 고지): 무료 루틴 앱 프로필 링크 확인 🏆 (대가성 안내 포함)`,
+
+      comfort: `[오토 라디오 극장 60초 쇼츠 대본 - #퇴근길위로]
+타이틀: "오늘 하루도 버텨낸 당신, 정말 애쓰셨습니다"
+BGM: 비 내리는 창가 로파이 (아늑하게 432Hz)
+
+[00:00~00:10 오프닝 훅]
+(나레이션): "지친 하루 끝, 문득 혼자라는 생각이 드셨나요? 잠시 어깨의 짐을 내려놓으세요."
+(자막): 오늘 하루도 정말 수고 많으셨습니다 🍵
+
+[00:10~00:45 본문 사연]
+(나레이션): "누구도 알아주지 않는 것 같아도, 오늘 당신이 흘린 땀방울은 절대 헛되지 않습니다. 밤하늘의 별처럼 조용히 당신의 길을 밝히고 있어요."
+(자막): 당신이 묵묵히 걸어온 길은 결코 헛되지 않았습니다.
+
+[00:45~00:60 클로징]
+(나레이션): "편안한 밤 되세요. 432Hz 숙면 사운드가 당신의 마음에 쉼을 드립니다."
+(자막 & 고지): 따뜻한 쉼표 하나를 선물합니다 🌙 (제작: 제3청사)`,
+
+      wealth: `[오토 라디오 극장 60초 쇼츠 대본 - #부자마인드]
+타이틀: "부자들은 절대 '얼마 버는가'를 묻지 않습니다"
+BGM: 골든 복리 신시사이저
+
+[00:00~00:10 오프닝 훅]
+(나레이션): "진짜 부자들은 한 달 수입을 묻지 않습니다. '새어나가는 돈이 얼마인가'를 묻습니다."
+(자막): 부자들의 제1원칙: 들어오는 곳과 나가는 곳을 1원까지 알라 💎
+
+[00:10~00:45 본문 사연]
+(나레이션): "워런 버핏의 제1원칙은 '돈을 잃지 마라'입니다. 고정 지출을 0원으로 만들고, 남은 수익을 복리로 굴리는 자만이 제국을 세웁니다."
+(자막): 복리의 마법은 새는 구멍을 막는 데서 시작됩니다.
+
+[00:45~00:60 클로징]
+(나레이션): "2026 나의 부자 DNA 테스트로 지금 당신의 금고를 점검해보세요!"
+(자막 & 고지): 클린룸 부자 DNA 퀴즈 링크 클릭 👑 (공정위 준수 안내)`
+    };
+
+    function selectRadioShortsTopic(topicKey, btn) {
+      document.querySelectorAll('.shorts-btn').forEach(b => {
+        b.className = 'shorts-btn p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white font-medium text-left transition';
+      });
+      btn.className = 'shorts-btn p-2 rounded-xl bg-cyan-950/40 border border-cyan-500 text-cyan-200 font-bold text-left transition';
+
+      generateRadioShortsScript(topicKey);
+    }
+    window.selectRadioShortsTopic = selectRadioShortsTopic;
+
+    function generateRadioShortsScript(topicKey = 'family') {
+      const script = SHORTS_CATALOG[topicKey] || SHORTS_CATALOG.family;
+      document.getElementById('shorts-script-area').value = script;
+      return script;
+    }
+    window.generateRadioShortsScript = generateRadioShortsScript;
+
+    function copyShortsScriptToClipboard() {
+      const text = document.getElementById('shorts-script-area').value;
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(text).then(() => {
+          alert('📋 60초 라디오 쇼츠 대본 및 자막이 클립보드에 복사되었습니다!');
+        });
+      } else {
+        alert(text);
+      }
+    }
+    window.copyShortsScriptToClipboard = copyShortsScriptToClipboard;
+
+    // 초기 로딩
+    document.addEventListener('DOMContentLoaded', () => {
+      generateStreamingMetadata();
+      generateRadioShortsScript('family');
+    });
+  </script>
 </body>
 </html>

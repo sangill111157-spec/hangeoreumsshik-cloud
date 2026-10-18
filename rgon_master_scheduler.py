@@ -23,9 +23,10 @@ if sys.platform == "win32":
 ROADMAP_FILE = "rgon_schedule_roadmap.json"
 
 DEFAULT_ROADMAP = {
-    "version": "v8.6-rgon-master-schedule",
+    "version": "v8.7-rgon-master-schedule",
     "commander": "이상일 총괄 대표님 (COMMANDER-000)",
-    "controller": "제1보좌관 르곤 (RGON-001)",
+    "controller": "제1수석보좌관 르곤 (RGON-001)",
+    "prime_executor": "기술행정부 총리 안총리 (AGV-PRIME-101)",
     "updated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
     "daily_schedule": {
         "title": "☀️ 일별(Daily) 무인 통제 스케줄 — 하루 1% 무결점 전진",
@@ -160,7 +161,11 @@ def load_roadmap():
             json.dump(DEFAULT_ROADMAP, f, ensure_ascii=False, indent=2)
     try:
         with open(ROADMAP_FILE, "r", encoding="utf-8") as f:
-            return json.load(f)
+            data = json.load(f)
+            data["prime_executor"] = "기술행정부 총리 안총리 (AGV-PRIME-101)"
+            data["version"] = "v8.7-rgon-master-schedule"
+            data["controller"] = "제1수석보좌관 르곤 (RGON-001)"
+            return data
     except Exception:
         with open(ROADMAP_FILE, "w", encoding="utf-8") as f:
             json.dump(DEFAULT_ROADMAP, f, ensure_ascii=False, indent=2)
@@ -171,6 +176,7 @@ def execute_scheduled_cycle(cycle_type="DAILY_ALL"):
     now_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     roadmap["updated_at"] = now_str
     roadmap["last_executed_cycle"] = cycle_type
+    roadmap["prime_executor"] = "기술행정부 총리 안총리 (AGV-PRIME-101)"
 
     for slot in roadmap["daily_schedule"]["slots"]:
         slot["status"] = "COMPLETED"
