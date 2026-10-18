@@ -1,0 +1,85 @@
+{
+  "currency": "KRW",
+  "last_updated": "2026-10-18 11:14:32",
+  "summary": {
+    "total_in": 1295000,
+    "total_out": 0,
+    "operating_profit": 1295000,
+    "tax_reserve_3_3": 42735,
+    "net_profit": 1252265,
+    "allocations": {
+      "commander_life_50": 626132,
+      "empire_rnd_25": 313066,
+      "daughters_scholarship_15": 187839,
+      "daughters_detail": {
+        "eunsol_5": 62613,
+        "songhyo_5": 62613,
+        "haesang_5": 62613
+      },
+      "sharing_donation_10": 125228
+    }
+  },
+  "categories_in": {
+    "제휴·파트너스 수익 (쿠팡파트너스 등)": 485000,
+    "음원·유튜브 수익 (Suno 30곡·쇼츠·라디오극)": 350000,
+    "디지털 상품·웹앱 수익 (크몽·Gumroad)": 300000,
+    "상생 후원금·기타 수입": 160000
+  },
+  "categories_out": {
+    "AI·클라우드 서버비 (현재 0원 무료 방어중!)": 0,
+    "플랫폼 수수료·결제 수수료": 0,
+    "운영비·장비·기타 지출": 0
+  },
+  "records": [
+    {
+      "voucher_no": "TR-2026-0001",
+      "timestamp": "2026-10-18 09:30:00",
+      "type": "IN",
+      "category": "제휴·파트너스 수익 (쿠팡파트너스 등)",
+      "amount": 485000,
+      "balance_after": 485000,
+      "memo": "쿠팡파트너스 10월 정산금 입금",
+      "registered_by": "COMMANDER-000"
+    },
+    {
+      "voucher_no": "TR-2026-0002",
+      "timestamp": "2026-10-18 10:00:00",
+      "type": "IN",
+      "category": "음원·유튜브 수익 (Suno 30곡·쇼츠·라디오극)",
+      "amount": 350000,
+      "balance_after": 835000,
+      "memo": "Suno 감성 힐링 음원 및 쇼츠 음원 스트리밍 수익",
+      "registered_by": "CN-404"
+    },
+    {
+      "voucher_no": "TR-2026-0003",
+      "timestamp": "2026-10-18 10:30:00",
+      "type": "IN",
+      "category": "디지털 상품·웹앱 수익 (크몽·Gumroad)",
+      "amount": 300000,
+      "balance_after": 1135000,
+      "memo": "안전 웹앱 템플릿 및 인성 인증서 양식 판매 수익",
+      "registered_by": "AGV-101"
+    },
+    {
+      "voucher_no": "TR-2026-0004",
+      "timestamp": "2026-10-18 11:00:00",
+      "type": "IN",
+      "category": "상생 후원금·기타 수입",
+      "amount": 150000,
+      "balance_after": 1285000,
+      "memo": "한걸음씩 미래 국가 OS 자발적 상생 후원금",
+      "registered_by": "COMMANDER-000"
+    },
+    {
+      "voucher_no": "TR-2026-0005",
+      "timestamp": "2026-10-18 11:14:32",
+      "type": "IN",
+      "category": "상생 후원금·기타 수입",
+      "amount": 10000,
+      "balance_after": 1295000,
+      "memo": "테스트 기장",
+      "registered_by": "COMMANDER-000"
+    }
+  ]
+}

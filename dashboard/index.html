@@ -370,7 +370,24 @@
           <span class="text-[11px] text-slate-400">각 부서 코드가 완전히 분리되어 상호 훼손 불가</span>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-5 gap-3">
+        
+        <!-- 🏦 총무팀 실시간 IN / OUT / NET 요약 바 -->
+        <div class="mb-3 p-3 rounded-xl bg-slate-900/90 border border-amber-500/30 flex flex-wrap items-center justify-between gap-3 text-xs">
+          <div class="flex items-center gap-2">
+            <span class="text-base">🏦</span>
+            <span class="font-bold text-amber-300">총무팀 1원 정산 현황:</span>
+            <span class="text-slate-400">IN: <b id="main-total-in" class="text-emerald-400 font-mono">1,285,000원</b></span>
+            <span class="text-slate-600">|</span>
+            <span class="text-slate-400">OUT: <b id="main-total-out" class="text-rose-400 font-mono">0원</b></span>
+            <span class="text-slate-600">|</span>
+            <span class="text-slate-400">순수익: <b id="main-net-profit" class="text-amber-300 font-mono">1,242,595원</b></span>
+          </div>
+          <a href="/departments/dept_treasury.html" target="_blank" class="px-2.5 py-1 rounded-lg bg-amber-600/20 hover:bg-amber-600 text-amber-300 hover:text-white border border-amber-500/40 text-[11px] font-bold transition flex items-center gap-1">
+            <span>들어오는 돈·나가는 돈 1원 정산소 열기 ➔</span>
+          </a>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3">
           <!-- 제1청사: 꿈의 옷장 -->
           <div class="p-4 rounded-xl bg-slate-900/90 border border-pink-500/30 hover:border-pink-500 transition flex flex-col justify-between">
             <div>
@@ -450,6 +467,23 @@
               🚪 전용 독립창 열기 ➔
             </a>
           </div>
+
+          <!-- 제6청사: 총무·재무회계청 -->
+          <div class="p-4 rounded-xl bg-slate-900/90 border border-yellow-500/30 hover:border-yellow-500 transition flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-xs font-bold text-yellow-400">🏦 제6청사</span>
+                <span class="px-1.5 py-0.5 rounded text-[10px] bg-emerald-500/20 text-emerald-300 font-semibold">🟢 정상</span>
+              </div>
+              <h4 class="text-xs font-bold text-white mb-1">총무·재무회계·정산청</h4>
+              <p class="text-[10px] text-slate-400 mb-3">들어오는 곳(IN) & 나가는 곳(OUT) 1원 단위 명확 복식부기</p>
+              <div class="text-[10px] text-slate-500 font-mono mb-3">🔒 SHA-256 잠금 보호</div>
+            </div>
+            <a href="/departments/dept_treasury.html" target="_blank" class="w-full py-2 rounded-lg bg-yellow-600/20 hover:bg-yellow-600 text-yellow-300 hover:text-white border border-yellow-500/40 text-xs font-bold text-center transition block">
+              🚪 전용 독립창 열기 ➔
+            </a>
+          </div>
+
         </div>
       </div>
 
@@ -10336,8 +10370,27 @@ async function runAutonomousCompanyCycle() {
 // 초기화 로드 시 자동 갱신
 document.addEventListener('DOMContentLoaded', function() {
   setTimeout(refreshCheongwadaeStatus, 1000);
+  setTimeout(fetchTreasuryQuickStatus, 1200);
 });
 </script>
 
+<script>
+async function fetchTreasuryQuickStatus() {
+  try {
+    const res = await fetch('/api/treasury-status');
+    if (!res.ok) return;
+    const data = await res.json();
+    const s = data.summary || {};
+    const elemIn = document.getElementById('main-total-in');
+    const elemOut = document.getElementById('main-total-out');
+    const elemNet = document.getElementById('main-net-profit');
+    if (elemIn) elemIn.innerText = Math.round(s.total_in || 0).toLocaleString('ko-KR') + '원';
+    if (elemOut) elemOut.innerText = Math.round(s.total_out || 0).toLocaleString('ko-KR') + '원';
+    if (elemNet) elemNet.innerText = Math.round(s.net_profit || 0).toLocaleString('ko-KR') + '원';
+  } catch (e) {
+    console.warn('[Treasury] Quick status skip:', e);
+  }
+}
+</script>
 </body>
 </html>

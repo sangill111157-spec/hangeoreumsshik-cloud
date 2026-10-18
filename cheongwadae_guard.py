@@ -87,6 +87,17 @@ DEPARTMENTS = {
         "desc": "Karpathy LLM Wiki, pReinforce 강화학습 그래프, 제국 실록 차곡차곡 누적 보존",
         "protect_status": "LOCKED_IMMUTABLE",
         "responsible_agents": ["COMMANDER-000", "AGV-101", "QA-901"]
+    },
+    "dept_6": {
+        "id": "dept_6",
+        "code": "DEPT-TREASURY",
+        "name": "제6청사: 총무·재무회계·정산청",
+        "file": os.path.join(DEPTS_DIR, "dept_treasury.html"),
+        "url": "/departments/dept_treasury.html",
+        "badge": "🏦 총무회계",
+        "desc": "들어오는 곳·나가는 곳 1원 무오차 복식부기 및 50:25:15:10 헌법 배분",
+        "protect_status": "LOCKED_IMMUTABLE",
+        "responsible_agents": ["COMMANDER-000", "AGV-101"]
     }
 }
 

@@ -1325,6 +1325,30 @@ class DashboardHandler(SimpleHTTPRequestHandler):
                 self.wfile.write(err_body)
                 return
 
+        # 🏦 [v8.4] 제6청사 총무·재무회계청 1원 단위 명확 정산 현황 (GET /api/treasury-status)
+        if path == '/api/treasury-status':
+            try:
+                import general_affairs_treasury
+                st_data = general_affairs_treasury.get_treasury_status()
+                body = json.dumps(st_data, ensure_ascii=False).encode('utf-8')
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.send_header("Access-Control-Allow-Origin", "*")
+                self.send_header("Content-Length", str(len(body)))
+                self.send_header("Cache-Control", "no-store")
+                self.end_headers()
+                self.wfile.write(body)
+                return
+            except Exception as e:
+                err_body = json.dumps({"status": "error", "message": str(e)}, ensure_ascii=False).encode('utf-8')
+                self.send_response(500)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.send_header("Access-Control-Allow-Origin", "*")
+                self.send_header("Content-Length", str(len(err_body)))
+                self.end_headers()
+                self.wfile.write(err_body)
+                return
+
         # 1. 설정 자동 주입
         if path == '/api/config':
             gh_token = get_github_token()
@@ -1895,6 +1919,47 @@ class DashboardHandler(SimpleHTTPRequestHandler):
                 import auto_company_loop
                 receipt = auto_company_loop.approve_ceo_agenda(agenda_id)
                 resp = {"status": "ok", "receipt": receipt}
+            except Exception as e:
+                resp = {"status": "error", "message": str(e)}
+
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json; charset=utf-8')
+            self.send_header('Access-Control-Allow-Origin', '*')
+            self.end_headers()
+            self.wfile.write(json.dumps(resp, ensure_ascii=False).encode('utf-8'))
+            return
+
+        # 🏦 [v8.4] 총무팀 전표 발행 및 장부 기장 (POST /api/treasury-record)
+        if self.path == '/api/treasury-record':
+            length = int(self.headers.get('Content-Length', 0))
+            raw_body = self.rfile.read(length) if length > 0 else b'{}'
+            try:
+                data = json.loads(raw_body.decode('utf-8')) if raw_body else {}
+                tx_type = data.get('type', 'IN')
+                category = data.get('category', '상생 후원금·기타 수입')
+                amount = int(data.get('amount', 0))
+                memo = data.get('memo', '')
+                registered_by = data.get('registered_by', 'COMMANDER-000')
+
+                import general_affairs_treasury
+                res = general_affairs_treasury.record_transaction(tx_type, category, amount, memo, registered_by)
+                resp = {"status": "ok", "data": res}
+            except Exception as e:
+                resp = {"status": "error", "message": str(e)}
+
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json; charset=utf-8')
+            self.send_header('Access-Control-Allow-Origin', '*')
+            self.end_headers()
+            self.wfile.write(json.dumps(resp, ensure_ascii=False).encode('utf-8'))
+            return
+
+        # 🧹 [v8.4] 총무팀 노트북 자원 경량화 청소 & 장부 감사 (POST /api/treasury-audit-clean)
+        if self.path == '/api/treasury-audit-clean':
+            try:
+                import general_affairs_treasury
+                res = general_affairs_treasury.audit_and_clean_scratch()
+                resp = {"status": "ok", "data": res}
             except Exception as e:
                 resp = {"status": "error", "message": str(e)}
 

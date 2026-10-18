@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>제6청사: 총무·재무회계·정산청 | 한걸음씩 청와대 독립청사</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Noto+Sans+KR:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Noto Sans KR', sans-serif; }
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+    .glass-card { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); }
+    .gold-glow { box-shadow: 0 0 25px -5px rgba(245, 158, 11, 0.25); }
+  </style>
+</head>
+<body class="bg-[#060913] text-slate-100 min-h-screen p-4 sm:p-6 lg:p-8 flex flex-col justify-between selection:bg-amber-500 selection:text-slate-950">
+
+  <!-- 상단 네비게이션 & 총무청 헤더 -->
+  <header class="w-full max-w-7xl mx-auto mb-6">
+    <div class="flex flex-wrap items-center justify-between gap-4 p-5 rounded-2xl glass-card border border-amber-500/30 gold-glow">
+      <div class="flex items-center gap-3.5">
+        <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-amber-500 via-yellow-500 to-orange-500 p-[2px] shadow-lg shadow-amber-500/30 flex items-center justify-center">
+          <span class="text-2xl">🏦</span>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="text-lg sm:text-xl font-black text-white tracking-tight flex items-center gap-2">
+              제6청사: 총무·재무회계·정산청
+              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono bg-amber-500/20 text-amber-300 border border-amber-500/40">DEPT-TREASURY</span>
+            </h1>
+          </div>
+          <p class="text-xs text-slate-400 mt-0.5">이상일 대표님 직속 · 들어오는 곳(IN) & 나가는 곳(OUT) 1원 단위 무오차 복식부기 및 50:25:15:10 헌법 금고</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2.5">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-bold">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+          🟢 복식부기 감시 ON · 과금 0원 방어중
+        </span>
+        <a href="/?v=800&tab=command" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-bold text-slate-200 border border-slate-700 transition flex items-center gap-1.5 shadow">
+          <span>🏛️ 청와대 본관으로 복귀 ➔</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 메인 워크스페이스 컨테이너 -->
+  <main class="w-full max-w-7xl mx-auto flex-1 space-y-6">
+
+    <!-- 1. 핵심 자금 전광판 (4대 카드) -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <!-- 📥 총 들어온 돈 -->
+      <div class="p-5 rounded-2xl glass-card border border-emerald-500/30 bg-gradient-to-br from-slate-900/90 to-emerald-950/20 relative overflow-hidden">
+        <div class="flex items-center justify-between text-xs font-bold text-slate-400 mb-1">
+          <span>📥 총 들어온 돈 (Total IN)</span>
+          <span id="badge-in-count" class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-[10px] font-mono">4건</span>
+        </div>
+        <div id="stat-total-in" class="text-2xl sm:text-3xl font-black text-emerald-300 font-mono tracking-tight my-1">
+          1,285,000 원
+        </div>
+        <div class="text-[11px] text-slate-400 flex items-center justify-between">
+          <span>제휴·음원·웹앱·후원 4대 파이프라인</span>
+          <span class="text-emerald-400 font-bold">100% 정상 입금</span>
+        </div>
+      </div>
+
+      <!-- 📤 총 나간 돈 -->
+      <div class="p-5 rounded-2xl glass-card border border-rose-500/30 bg-gradient-to-br from-slate-900/90 to-rose-950/20 relative overflow-hidden">
+        <div class="flex items-center justify-between text-xs font-bold text-slate-400 mb-1">
+          <span>📤 총 나간 돈 (Total OUT)</span>
+          <span class="px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 text-[10px] font-mono">지출 통제</span>
+        </div>
+        <div id="stat-total-out" class="text-2xl sm:text-3xl font-black text-rose-300 font-mono tracking-tight my-1">
+          0 원
+        </div>
+        <div class="text-[11px] text-slate-400 flex items-center justify-between">
+          <span>AI·서버비 고정 지출</span>
+          <span class="text-cyan-400 font-bold">0원 무료 방어 성공</span>
+        </div>
+      </div>
+
+      <!-- ⚖️ 세금 공제 후 확정 순수익 -->
+      <div class="p-5 rounded-2xl glass-card border border-amber-500/40 bg-gradient-to-br from-slate-900/90 to-amber-950/30 relative overflow-hidden">
+        <div class="flex items-center justify-between text-xs font-bold text-slate-400 mb-1">
+          <span>⚖️ 확정 순수익 (Net Profit)</span>
+          <span id="tax-rate-badge" class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 text-[10px] font-mono">세금 3.3% 공제후</span>
+        </div>
+        <div id="stat-net-profit" class="text-2xl sm:text-3xl font-black text-amber-300 font-mono tracking-tight my-1">
+          1,242,595 원
+        </div>
+        <div class="text-[11px] text-slate-400 flex items-center justify-between">
+          <span>세전 영업이익: <span id="stat-operating-profit" class="text-slate-200 font-mono">1,285,000원</span></span>
+          <span class="text-amber-400 font-bold">원천세 42,405원</span>
+        </div>
+      </div>
+
+      <!-- 👧👧👧 세 딸 장학기금 적립액 -->
+      <div class="p-5 rounded-2xl glass-card border border-purple-500/30 bg-gradient-to-br from-slate-900/90 to-purple-950/20 relative overflow-hidden">
+        <div class="flex items-center justify-between text-xs font-bold text-slate-400 mb-1">
+          <span>👧👧👧 세 딸 미래 장학금 (15%)</span>
+          <span class="px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 text-[10px] font-mono">은솔·송효·해상</span>
+        </div>
+        <div id="stat-daughters-total" class="text-2xl sm:text-3xl font-black text-purple-300 font-mono tracking-tight my-1">
+          186,389 원
+        </div>
+        <div class="text-[11px] text-slate-400 flex items-center justify-between">
+          <span>각 5% (약 62,130원씩)</span>
+          <span class="text-purple-400 font-bold">영구 복리 배분</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. 기장 데스크 & 자금 흐름 시각화 (2단 분할) -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+      <!-- 좌측: [✍️ 들어오는 곳 · 나가는 곳 1초 명확 기장 데스크] (5단) -->
+      <div class="lg:col-span-5 glass-card rounded-2xl p-6 border border-slate-800 space-y-4">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+          <div class="flex items-center gap-2">
+            <span class="text-lg">✍️</span>
+            <h2 class="text-sm font-bold text-white">1초 명확 기장 데스크</h2>
+          </div>
+          <span class="text-[11px] text-slate-400">전표 번호 자동 부여</span>
+        </div>
+
+        <!-- 구분 선택 탭 (IN vs OUT) -->
+        <div class="grid grid-cols-2 gap-2">
+          <button type="button" onclick="setTxType('IN')" id="btn-type-in" class="py-2.5 rounded-xl font-bold text-xs transition flex items-center justify-center gap-1.5 bg-emerald-600 text-white shadow shadow-emerald-600/30">
+            <span>📥 들어온 돈 (수입)</span>
+          </button>
+          <button type="button" onclick="setTxType('OUT')" id="btn-type-out" class="py-2.5 rounded-xl font-bold text-xs transition flex items-center justify-center gap-1.5 bg-slate-800 text-slate-300 hover:bg-slate-700">
+            <span>📤 나간 돈 (지출)</span>
+          </button>
+        </div>
+
+        <!-- 카테고리 드롭다운 -->
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1" id="lbl-category">📥 들어온 곳 (수입처 선택)</label>
+          <select id="tx-category" class="w-full bg-slate-800/90 border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-amber-500 font-medium">
+            <option value="제휴·파트너스 수익 (쿠팡파트너스 등)">제휴·파트너스 수익 (쿠팡파트너스 등)</option>
+            <option value="음원·유튜브 수익 (Suno 30곡·쇼츠·라디오극)">음원·유튜브 수익 (Suno 30곡·쇼츠·라디오극)</option>
+            <option value="디지털 상품·웹앱 수익 (크몽·Gumroad)">디지털 상품·웹앱 수익 (크몽·Gumroad)</option>
+            <option value="상생 후원금·기타 수입">상생 후원금·기타 수입</option>
+          </select>
+        </div>
+
+        <!-- 금액 입력 및 퀵 버튼 -->
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1">💰 금액 (원 단위)</label>
+          <div class="relative mb-2">
+            <input type="number" id="tx-amount" placeholder="0" class="w-full bg-slate-800/90 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-amber-300 font-bold font-mono focus:outline-none focus:border-amber-500" />
+            <span class="absolute right-4 top-2.5 text-xs text-slate-400">원</span>
+          </div>
+          <!-- 퀵 금액 버튼 -->
+          <div class="grid grid-cols-4 gap-1.5 text-xs">
+            <button type="button" onclick="addAmount(100)" class="py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-mono text-[11px] border border-slate-700/80 transition">+100원</button>
+            <button type="button" onclick="addAmount(1000)" class="py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-mono text-[11px] border border-slate-700/80 transition">+1,000원</button>
+            <button type="button" onclick="addAmount(10000)" class="py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-mono text-[11px] border border-slate-700/80 transition">+10,000원</button>
+            <button type="button" onclick="addAmount(100000)" class="py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-mono text-[11px] border border-slate-700/80 transition">+100,000원</button>
+          </div>
+        </div>
+
+        <!-- 메모 -->
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1">📝 상세 내역 및 메모</label>
+          <input type="text" id="tx-memo" placeholder="예: 쿠팡파트너스 10월 정산금, Suno 음원 스트리밍 등" class="w-full bg-slate-800/90 border border-slate-700 rounded-xl px-4 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-amber-500" />
+        </div>
+
+        <!-- 제출 버튼 -->
+        <button onclick="submitTransaction()" id="btn-submit-tx" class="w-full py-3 rounded-xl bg-gradient-to-r from-amber-600 via-yellow-600 to-orange-600 hover:from-amber-500 hover:to-orange-500 text-slate-950 font-black text-xs sm:text-sm shadow-lg shadow-amber-600/30 transition transform active:scale-[0.99] flex items-center justify-center gap-2">
+          <span>🏦 총무팀 장부 확정도장 찍기</span>
+        </button>
+      </div>
+
+      <!-- 우측: [📊 들어오는 곳 vs 나가는 곳 상세 흐름 & 50:25:15:10 헌법 금고] (7단) -->
+      <div class="lg:col-span-7 glass-card rounded-2xl p-6 border border-slate-800 space-y-5">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+          <div class="flex items-center gap-2">
+            <span class="text-lg">📊</span>
+            <h2 class="text-sm font-bold text-white">들어오는 곳(IN) vs 나가는 곳(OUT) 상세 흐름표</h2>
+          </div>
+          <span class="text-[11px] text-slate-400 font-mono" id="last-updated-text">실시간 연동</span>
+        </div>
+
+        <!-- 들어오는 곳 4대 파이프라인 누적 바 -->
+        <div class="space-y-2.5">
+          <div class="text-xs font-bold text-emerald-400 flex items-center justify-between">
+            <span>📥 들어오는 곳 (수입 파이프라인 현황)</span>
+            <span id="cat-in-sum" class="font-mono">1,285,000 원</span>
+          </div>
+
+          <div class="space-y-2 text-xs">
+            <div>
+              <div class="flex justify-between text-slate-400 mb-1 text-[11px]">
+                <span>제휴·파트너스 수익</span>
+                <span id="val-cat-affiliate" class="font-mono text-slate-200">485,000원</span>
+              </div>
+              <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                <div id="bar-cat-affiliate" class="bg-emerald-500 h-full rounded-full transition-all duration-500" style="width: 38%;"></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between text-slate-400 mb-1 text-[11px]">
+                <span>음원·유튜브 수익 (Suno·라디오)</span>
+                <span id="val-cat-music" class="font-mono text-slate-200">350,000원</span>
+              </div>
+              <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                <div id="bar-cat-music" class="bg-cyan-500 h-full rounded-full transition-all duration-500" style="width: 27%;"></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between text-slate-400 mb-1 text-[11px]">
+                <span>디지털 상품·웹앱 수익</span>
+                <span id="val-cat-app" class="font-mono text-slate-200">300,000원</span>
+              </div>
+              <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                <div id="bar-cat-app" class="bg-blue-500 h-full rounded-full transition-all duration-500" style="width: 23%;"></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between text-slate-400 mb-1 text-[11px]">
+                <span>상생 후원금·기타 수입</span>
+                <span id="val-cat-donation" class="font-mono text-slate-200">150,000원</span>
+              </div>
+              <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                <div id="bar-cat-donation" class="bg-purple-500 h-full rounded-full transition-all duration-500" style="width: 12%;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 신생국가 재정 헌법 50:25:15:10 4대 금고 잔액 -->
+        <div class="pt-4 border-t border-slate-800">
+          <div class="text-xs font-bold text-amber-300 mb-3 flex items-center justify-between">
+            <span>🏛️ 신생국가 재정 헌법 (50 : 25 : 15 : 10) 자동 배분 금고</span>
+            <span class="text-[10px] text-slate-400 font-mono">1원 무오차 배분</span>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center text-xs">
+            <div class="p-3 rounded-xl bg-slate-900/80 border border-amber-500/30">
+              <div class="text-[10px] text-slate-400">대표님 생활기금 (50%)</div>
+              <div id="vault-commander" class="text-sm font-extrabold text-amber-300 font-mono mt-1">621,297원</div>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-900/80 border border-cyan-500/30">
+              <div class="text-[10px] text-slate-400">제국 R&D 기금 (25%)</div>
+              <div id="vault-rnd" class="text-sm font-extrabold text-cyan-300 font-mono mt-1">310,648원</div>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-900/80 border border-purple-500/30">
+              <div class="text-[10px] text-slate-400">세 딸 장학기금 (15%)</div>
+              <div id="vault-daughters" class="text-sm font-extrabold text-purple-300 font-mono mt-1">186,389원</div>
+              <div class="text-[9px] text-slate-500 mt-0.5">각 62,129원</div>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-900/80 border border-emerald-500/30">
+              <div class="text-[10px] text-slate-400">상생 나눔기금 (10%)</div>
+              <div id="vault-sharing" class="text-sm font-extrabold text-emerald-300 font-mono mt-1">124,261원</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 총무팀 시스템 자원 및 경량화 버튼 -->
+        <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 flex items-center justify-between">
+          <div class="flex items-center gap-2 text-xs">
+            <span>🧹</span>
+            <div>
+              <div class="text-slate-300 font-semibold">노트북 디스크 여유 공간: <span id="disk-free-val" class="font-mono text-emerald-400">361.5 GB</span></div>
+              <div class="text-[10px] text-slate-500">임시 캐시 및 QA 더미 파일 자동 정리</div>
+            </div>
+          </div>
+          <button onclick="cleanScratch()" class="px-3.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-medium transition">
+            🧹 경량화 청소 실행
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. [통장 원장 (Ledger)] 실시간 전표 테이블 & CSV 내보내기 -->
+    <div class="glass-card rounded-2xl p-6 border border-slate-800 space-y-4">
+      <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 pb-3">
+        <div class="flex items-center gap-2">
+          <span class="text-lg">📜</span>
+          <h2 class="text-sm font-bold text-white">제국 총무 복식부기 통장 원장 (Treasury Ledger)</h2>
+          <span id="record-count-badge" class="px-2 py-0.5 rounded text-[10px] font-mono bg-slate-800 text-slate-300">총 4건</span>
+        </div>
+        <button onclick="downloadCSV()" class="px-3.5 py-1.5 rounded-xl bg-emerald-600/20 hover:bg-emerald-600 text-emerald-300 hover:text-white border border-emerald-500/40 text-xs font-bold transition flex items-center gap-1.5 shadow">
+          <span>📥 장부 CSV(엑셀) 다운로드</span>
+        </button>
+      </div>
+
+      <!-- 테이블 컨테이너 -->
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs">
+          <thead class="text-[11px] text-slate-400 bg-slate-900/80 border-b border-slate-800">
+            <tr>
+              <th class="py-2.5 px-3 font-semibold">전표 번호</th>
+              <th class="py-2.5 px-3 font-semibold">일시</th>
+              <th class="py-2.5 px-3 font-semibold">구분</th>
+              <th class="py-2.5 px-3 font-semibold">출처 / 용도</th>
+              <th class="py-2.5 px-3 font-semibold text-right">금액</th>
+              <th class="py-2.5 px-3 font-semibold text-right">기장 후 잔액</th>
+              <th class="py-2.5 px-3 font-semibold">적요 (메모)</th>
+            </tr>
+          </thead>
+          <tbody id="ledger-table-body" class="divide-y divide-slate-800/60 font-mono">
+            <!-- JS 동적 렌더링 -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- 하단 푸터 -->
+  <footer class="w-full max-w-7xl mx-auto mt-6 p-4 rounded-xl glass-card border border-slate-800 text-[11px] text-slate-500 flex flex-wrap items-center justify-between gap-2">
+    <span>© 2026 한걸음씩 청와대 제6청사: 총무·재무회계·정산청 (Zero-Leak Double-Entry Accounting)</span>
+    <span>👑 이상일 대표님 직속 · 들어오는 곳과 나가는 곳을 1원 단위까지 투명하게 밝힙니다.</span>
+  </footer>
+
+  <script>
+    let currentTxType = 'IN';
+    let currentTreasuryData = null;
+
+    const IN_CATEGORIES = [
+      "제휴·파트너스 수익 (쿠팡파트너스 등)",
+      "음원·유튜브 수익 (Suno 30곡·쇼츠·라디오극)",
+      "디지털 상품·웹앱 수익 (크몽·Gumroad)",
+      "상생 후원금·기타 수입"
+    ];
+
+    const OUT_CATEGORIES = [
+      "AI·클라우드 서버비 (현재 0원 무료 방어중!)",
+      "플랫폼 수수료·결제 수수료",
+      "운영비·장비·기타 지출"
+    ];
+
+    function fmt(num) {
+      return Math.round(num || 0).toLocaleString('ko-KR') + ' 원';
+    }
+
+    function setTxType(type) {
+      currentTxType = type;
+      const btnIn = document.getElementById('btn-type-in');
+      const btnOut = document.getElementById('btn-type-out');
+      const catSelect = document.getElementById('tx-category');
+      const lblCat = document.getElementById('lbl-category');
+
+      if (type === 'IN') {
+        btnIn.className = 'py-2.5 rounded-xl font-bold text-xs transition flex items-center justify-center gap-1.5 bg-emerald-600 text-white shadow shadow-emerald-600/30';
+        btnOut.className = 'py-2.5 rounded-xl font-bold text-xs transition flex items-center justify-center gap-1.5 bg-slate-800 text-slate-300 hover:bg-slate-700';
+        lblCat.innerText = '📥 들어온 곳 (수입처 선택)';
+        catSelect.innerHTML = IN_CATEGORIES.map(c => `<option value="${c}">${c}</option>`).join('');
+      } else {
+        btnOut.className = 'py-2.5 rounded-xl font-bold text-xs transition flex items-center justify-center gap-1.5 bg-rose-600 text-white shadow shadow-rose-600/30';
+        btnIn.className = 'py-2.5 rounded-xl font-bold text-xs transition flex items-center justify-center gap-1.5 bg-slate-800 text-slate-300 hover:bg-slate-700';
+        lblCat.innerText = '📤 나간 곳 (지출 용도 선택)';
+        catSelect.innerHTML = OUT_CATEGORIES.map(c => `<option value="${c}">${c}</option>`).join('');
+      }
+    }
+
+    function addAmount(delta) {
+      const input = document.getElementById('tx-amount');
+      const current = parseInt(input.value || 0);
+      input.value = current + delta;
+    }
+
+    async function fetchTreasuryStatus() {
+      try {
+        const res = await fetch('/api/treasury-status');
+        if (!res.ok) return;
+        const data = await res.json();
+        currentTreasuryData = data;
+        renderTreasuryUI(data);
+      } catch (err) {
+        console.warn('[Treasury] Fetch error:', err);
+      }
+    }
+
+    function renderTreasuryUI(data) {
+      const s = data.summary || {};
+      
+      document.getElementById('stat-total-in').innerText = fmt(s.total_in);
+      document.getElementById('stat-total-out').innerText = fmt(s.total_out);
+      document.getElementById('stat-net-profit').innerText = fmt(s.net_profit);
+      document.getElementById('stat-operating-profit').innerText = fmt(s.operating_profit);
+      document.getElementById('stat-daughters-total').innerText = fmt(s.allocations?.daughters_scholarship_15);
+
+      document.getElementById('cat-in-sum').innerText = fmt(s.total_in);
+
+      // 카테고리별 수입
+      const cin = data.categories_in || {};
+      const tIn = s.total_in || 1;
+      
+      const affAmt = cin["제휴·파트너스 수익 (쿠팡파트너스 등)"] || 0;
+      const musAmt = cin["음원·유튜브 수익 (Suno 30곡·쇼츠·라디오극)"] || 0;
+      const appAmt = cin["디지털 상품·웹앱 수익 (크몽·Gumroad)"] || 0;
+      const donAmt = cin["상생 후원금·기타 수입"] || 0;
+
+      document.getElementById('val-cat-affiliate').innerText = fmt(affAmt);
+      document.getElementById('val-cat-music').innerText = fmt(musAmt);
+      document.getElementById('val-cat-app').innerText = fmt(appAmt);
+      document.getElementById('val-cat-donation').innerText = fmt(donAmt);
+
+      document.getElementById('bar-cat-affiliate').style.width = Math.round((affAmt / tIn) * 100) + '%';
+      document.getElementById('bar-cat-music').style.width = Math.round((musAmt / tIn) * 100) + '%';
+      document.getElementById('bar-cat-app').style.width = Math.round((appAmt / tIn) * 100) + '%';
+      document.getElementById('bar-cat-donation').style.width = Math.round((donAmt / tIn) * 100) + '%';
+
+      // 50:25:15:10 금고
+      const alloc = s.allocations || {};
+      document.getElementById('vault-commander').innerText = fmt(alloc.commander_life_50);
+      document.getElementById('vault-rnd').innerText = fmt(alloc.empire_rnd_25);
+      document.getElementById('vault-daughters').innerText = fmt(alloc.daughters_scholarship_15);
+      document.getElementById('vault-sharing').innerText = fmt(alloc.sharing_donation_10);
+
+      document.getElementById('disk-free-val').innerText = (data.free_disk_gb || 0) + ' GB';
+      document.getElementById('record-count-badge').innerText = '총 ' + (data.total_records_count || 0) + '건';
+
+      // 테이블 렌더링
+      const tbody = document.getElementById('ledger-table-body');
+      tbody.innerHTML = '';
+      (data.recent_records || []).forEach(r => {
+        const isIN = r.type === 'IN';
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-slate-800/40 transition';
+        tr.innerHTML = `
+          <td class="py-2.5 px-3 text-slate-400">${r.voucher_no}</td>
+          <td class="py-2.5 px-3 text-slate-400 text-[11px]">${r.timestamp}</td>
+          <td class="py-2.5 px-3">
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold ${isIN ? 'bg-emerald-500/20 text-emerald-300' : 'bg-rose-500/20 text-rose-300'}">
+              ${isIN ? '📥 입금' : '📤 출금'}
+            </span>
+          </td>
+          <td class="py-2.5 px-3 font-sans text-slate-200">${r.category}</td>
+          <td class="py-2.5 px-3 text-right font-bold ${isIN ? 'text-emerald-400' : 'text-rose-400'}">
+            ${isIN ? '+' : '-'}${fmt(r.amount)}
+          </td>
+          <td class="py-2.5 px-3 text-right text-slate-300">${fmt(r.balance_after)}</td>
+          <td class="py-2.5 px-3 font-sans text-slate-400 text-[11px]">${r.memo}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    async function submitTransaction() {
+      const amtInput = document.getElementById('tx-amount');
+      const amount = parseInt(amtInput.value || 0);
+      if (!amount || amount <= 0) {
+        alert('올바른 금액을 입력해주세요.');
+        return;
+      }
+      const category = document.getElementById('tx-category').value;
+      const memo = document.getElementById('tx-memo').value.trim();
+
+      const btn = document.getElementById('btn-submit-tx');
+      btn.disabled = true;
+      btn.innerHTML = '<span>⏳ 장부 도장 찍는 중...</span>';
+
+      try {
+        const res = await fetch('/api/treasury-record', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            type: currentTxType,
+            category: category,
+            amount: amount,
+            memo: memo,
+            registered_by: 'COMMANDER-000'
+          })
+        });
+        const result = await res.json();
+        if (result.status === 'ok') {
+          alert('✅ 전표 번호 [' + result.data.voucher_no + '] 기장 완료! 장부 및 50:25:15:10 금고가 즉시 재계산되었습니다.');
+          amtInput.value = '';
+          document.getElementById('tx-memo').value = '';
+          fetchTreasuryStatus();
+        } else {
+          alert('기장 실패: ' + result.message);
+        }
+      } catch (err) {
+        alert('오류 발생: ' + err.message);
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<span>🏦 총무팀 장부 확정도장 찍기</span>';
+      }
+    }
+
+    async function cleanScratch() {
+      if (!confirm('임시 캐시 및 더미 파일을 청소하고 장부 무결성을 감사하시겠습니까?')) return;
+      try {
+        const res = await fetch('/api/treasury-audit-clean', { method: 'POST' });
+        const data = await res.json();
+        alert('🧹 총무팀 청소 완료: ' + data.data.cleaned_count + '개 임시 파일 정리 및 장부 무결성 100% 검증 완료!');
+        fetchTreasuryStatus();
+      } catch (e) {
+        alert('청소 중 오류: ' + e.message);
+      }
+    }
+
+    function downloadCSV() {
+      if (!currentTreasuryData || !currentTreasuryData.recent_records) {
+        alert('다운로드할 장부 데이터가 없습니다.');
+        return;
+      }
+      const records = currentTreasuryData.recent_records;
+      let csvContent = '\uFEFF전표번호,일시,구분,카테고리,금액(원),기장후잔액(원),적요(메모)\n';
+      records.forEach(r => {
+        csvContent += `"${r.voucher_no}","${r.timestamp}","${r.type}","${r.category}",${r.amount},${r.balance_after},"${r.memo.replace(/"/g, '""')}"\n`;
+      });
+
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.setAttribute('href', url);
+      link.setAttribute('download', `hangeoreumsshik_treasury_${Date.now()}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    document.addEventListener('DOMContentLoaded', fetchTreasuryStatus);
+  </script>
+</body>
+</html>
