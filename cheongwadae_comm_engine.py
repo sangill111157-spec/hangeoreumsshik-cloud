@@ -317,7 +317,7 @@ def process_direct_communication(user_message: str, target_agency: str = "ALL") 
         reply_content = (
             f"[실시간 금고 정밀 실측 보고 · {metrics['timestamp_ms']}]\n"
             f"• 현재 실전 가처분 순익: {metrics['treasury_net']:,}원 (실전 매출 대기 클린룸 상태)\n"
-            f"• 과거 유령 금액(1,295,000원 등) 완전 박멸 0원 고정 확인\n"
+            f"• 과거 허위·유령 금액 완전 박멸 0원 고정 확인\n"
             f"• 50:25:15:10 헌법 분할: 대표님(50%) 0원 | R&D(25%) 0원 | 세 딸(15%) 0원 | 나눔(10%) 0원\n"
             f"• PayPal & 토스 결제 시뮬레이터 0원 초기화 완료 및 단 1원의 누락 없이 복식부기 대기 중입니다."
         )

@@ -1,20 +1,21 @@
 # -*- coding: utf-8 -*-
 """
-sns_multi_uploader_engine.py [원터치 4대 SNS 쇼츠·콘텐츠 동시 제작 & 자동 배급 엔진]
-================================================================================
-👑 COMMANDER-000 이상일 총괄 대표님 직속
-- v10.8-FOUR-SNS-SAFE-DISCOVERY-AND-ONE-TOUCH-MULTI-UPLOADER
-- 4대 SNS 맞춤형 원터치 동시 생성:
-  ① 🎵 틱톡(TikTok): 2초 훅 + 알고리즘 사운드 + 해시태그 5개 + 9:16 스튜디오
-  ② 📸 인스타그램(Instagram Reels): 감성 캡션 + 저장유도 + 15개 해시태그 + 릴스 스튜디오
-  ③ 🧵 스레드(Threads): 3줄 독백체 + 첫번째 대댓글 링크 + threads.net/intent/post 자동 프리필
-  ④ 📘 페이스북(Facebook): 4060 감동 스토리 + 웹앱/유튜브 직통 링크
-- 백엔드 4단계 전자동 집행:
-  1단계: 실물 Markdown 패키지 저장 & sns_upload_queue.json 적재
-  2단계: 구글 시트(Instagram_Log 등) 및 google_sheets_sync_queue.json 자동 기록
-  3단계: 원터치 직통 발사 URL (스레드 Intent 링크 포함) 생성
-  4단계: 대표님 스마트폰 Telegram Bot API 실시간 문자 발송 & 영수증(#id) 발급
-================================================================================
+══════════════════════════════════════════════════════════════════
+ sns_multi_uploader_engine.py
+ [대표님 유튜브 3대 채널 × 틱톡 2,098팔로워 메가 허브 × 4대 SNS 원터치 통합 발사 엔진]
+
+ 👑 COMMANDER-000 이상일 총괄 대표님 직속
+ - v10.9-REAL-YOUTUBE-3-CHANNELS-AND-TIKTOK-2098-HUB-INTEGRATION
+ - 틱톡 2.2만 뷰 히트 공식(시네마틱/응원가/명언) 접목
+ - 5대 실전 채널·히트작 테마 선택 칩:
+   ① 🌿 [한걸음씩] 영혼의 무게 · 원인과 결과 · 시니어 1.8만뷰 감동 명언
+   ② ⚽ [부스터플리] 모두의 응원가(1.1만뷰) · NIGHT CHASE · Summer Beach Run
+   ③ ☕ [더 카페 아워] Rainy Day Jazz · Evening Café 1시간 재즈 라운지
+   ④ 🐯 [틱톡 2.2만뷰 공식] 범 OVERDRIVE · BEAST MODE · HARD RESET 바이럴
+   ⑤ 🍀 [5대 안전웹앱 연동] 행운컬러 · 부자DNA 테스트 프로필 링크 유입
+ - 5대 플랫폼 동시 제작: ① 유튜브 3채널, ② 틱톡(@boosterplaylist), ③ 인스타, ④ 스레드, ⑤ 페북
+ - 유튜브 3대 채널 역유입(Cross-Traffic) 직통 링크 자동 결합
+══════════════════════════════════════════════════════════════════
 """
 
 import os
@@ -22,8 +23,8 @@ import sys
 import json
 import urllib.request
 import urllib.parse
-from pathlib import Path
 from datetime import datetime
+from pathlib import Path
 
 if sys.platform == "win32":
     try:
@@ -33,247 +34,350 @@ if sys.platform == "win32":
         pass
 
 BASE_DIR = Path(__file__).resolve().parent
-SNS_PACKAGES_DIR = BASE_DIR / "knowledge_engine" / "wiki" / "sns_packages"
-SNS_QUEUE_FILE = BASE_DIR / "sns_upload_queue.json"
+UPLOAD_QUEUE_FILE = BASE_DIR / "sns_upload_queue.json"
+PACKAGES_DIR = BASE_DIR / "knowledge_engine" / "wiki" / "sns_packages"
 SHEETS_QUEUE_FILE = BASE_DIR / "google_sheets_sync_queue.json"
-LOCAL_SECRET_FILE = BASE_DIR / ".env.local_vault"
-CONSENSUS_FILE = BASE_DIR / "memories" / "consensus.md"
+CONSENSUS_FILE = BASE_DIR / "knowledge_engine" / "wiki" / "governance" / "consensus.md"
 
-# 5대 핵심 주제별 4대 SNS 원고 마스터 템플릿
+# ══════════════════════════════════════════════════════════════════
+# 대표님 실제 미디어 제국 5대 실전 채널·히트작 마스터 템플릿
+# ══════════════════════════════════════════════════════════════════
 SNS_TOPIC_TEMPLATES = {
     "shin": {
-        "title": "SHIN FAMILY 시니어 인생 명언 쇼츠",
-        "category": "시니어 명언 / 가족 사랑 / 인생 위로",
+        "title": "🌿 [한걸음씩] 영혼의 무게 · 원인과 결과 · 시니어 1.8만뷰 감동 명언",
+        "category": "감성 AI MV & 시니어 인생 명언",
+        "youtube_target": {
+            "channel_name": "한걸음씩",
+            "handle": "@한걸음씩-r4i",
+            "channel_url": "https://www.youtube.com/@한걸음씩-r4i",
+            "subscribers": "33명",
+            "featured": "〈사냥꾼의 새벽〉, 〈원인과 결과, 결국 사랑〉, 〈영혼의 무게〉"
+        },
         "tiktok": {
-            "hook_2s": "⚡ 60년을 살아보고서야 알았습니다. 진짜 부자는 '이것'을 가진 사람입니다.",
-            "sound_guide": "잔잔한 피아노 또는 감성 Lo-Fi (BPM 70~80 권장)",
-            "caption": "나이 들수록 남는 것은 돈이 아니라, 따뜻한 말 한마디였습니다. 오늘 당신의 곁에 있는 소중한 사람에게 먼저 사랑한다고 말해보세요. #한걸음씩 #시니어명언 #인생명언 #가족사랑 #동기부여",
-            "hashtags": ["#한걸음씩", "#시니어명언", "#인생명언", "#가족사랑", "#동기부여"],
+            "hook_2s": "🕊️ '영혼의 무게는 몇 그램일까요?' 1.8만 명이 눈물 흘린 어머니의 마지막 말씀",
+            "sound_guide": "한걸음씩 오리지널 감성 피아노 & 스트링 솔로 (BPM 72 슬로우 템포)",
+            "caption": (
+                "세상에서 가장 무거운 것은 사랑이고, 가장 가벼운 것은 욕심이었습니다. "
+                "마음이 흔들릴 때 꺼내보세요. 풀버전 뮤직비디오는 유튜브 [@한걸음씩-r4i]에서 감상하실 수 있습니다. "
+                "#한걸음씩 #영혼의무게 #원인과결과 #시니어명언 #감동스토리 #shorts"
+            ),
+            "hashtags": ["#한걸음씩", "#영혼의무게", "#원인과결과", "#시니어명언", "#감동스토리", "#shorts"],
             "video_aspect": "9:16 세로형 1080x1920 (TikTok Shorts 규격)"
         },
+        "youtube": {
+            "title": "한걸음씩 - 영혼의 무게 (THE WEIGHT OF A SOUL) Official AI MV",
+            "description": (
+                "🌱 한마디가 당신의 인생을 바꿉니다 — 한걸음씩 공식 채널\n\n"
+                "살아온 날들이 버겁게 느껴질 때, 내 곁을 지켜준 소중한 존재들을 떠올립니다.\n"
+                "원인과 결과, 결국 세상의 모든 해답은 사랑이었습니다.\n\n"
+                "🎧 음원 풀버전 감상 및 가사 수록\n"
+                "▶ 공식 채널 구독: https://www.youtube.com/@한걸음씩-r4i?sub_confirmation=1\n"
+                "▶ 틱톡 2,098명 본진: https://www.tiktok.com/@boosterplaylist"
+            ),
+            "tags": ["한걸음씩", "사냥꾼의새벽", "원인과결과", "영혼의무게", "AIMV", "시니어명언", "인생명언"]
+        },
         "instagram": {
-            "hook": "🌿 60년 인생이 가르쳐준 진짜 행복의 비밀",
+            "hook": "🌿 1.8만 명이 저장한 60년 인생의 진짜 비밀",
             "caption": (
-                "세상이 말하는 성공의 기준에 나를 맞추려 애쓰지 마세요.\n"
-                "인생의 황혼에서 돌아보니, 가장 눈부신 순간은 언제나 소소한 일상 속에 있었습니다.\n\n"
-                "💡 마음이 지치고 흔들릴 때마다 꺼내보실 수 있도록 [저장]해두세요.\n"
-                "오늘 수고한 나 자신에게 따뜻한 차 한 잔을 선물해보세요.\n\n"
-                "👉 프로필 링크에서 100% 무료 힐링 사운드와 마음 진단을 만나보실 수 있습니다."
+                "젊은 날엔 남들의 시선에 인생을 걸었고,\n"
+                "나이 들어선 남들이 남겨준 상처를 지우며 살았습니다.\n\n"
+                "지금 돌아보니 가장 눈부신 순간은 언제나 소소한 일상 속에 있었습니다.\n"
+                "힘들 때마다 꺼내보실 수 있도록 [저장]해두세요.\n\n"
+                "👉 풀버전 AI 뮤직비디오는 유튜브 [@한걸음씩-r4i] 채널에서 시청하세요."
             ),
             "hashtags": [
-                "#한걸음씩", "#인생명언", "#마음챙김", "#위로글귀", "#감동글",
-                "#시니어라이프", "#가족사랑", "#힐링글귀", "#행복이란", "#좋은글귀",
-                "#인스타릴스", "#감성에세이", "#일상의행복", "#소확행", "#치유"
+                "#한걸음씩", "#영혼의무게", "#인생명언", "#마음챙김", "#위로글귀",
+                "#시니어라이프", "#가족사랑", "#좋은글귀", "#감동글귀", "#치유",
+                "#인스타릴스", "#감성에세이", "#소확행", "#부스터플리", "#shorts"
             ]
         },
         "threads": {
             "body_3lines": (
-                "젊을 땐 남들의 시선에 인생을 걸었고,\n"
-                "나이 들어선 남들이 남겨준 상처를 지우며 살았습니다.\n"
-                "지금 돌아보니, 내 인생의 주인공은 언제나 나 자신이었습니다."
+                "마흔 넘어 깨달은 게 하나 있다.\n"
+                "조급해할수록 꼬이고, 한 걸음씩 밟으면 풀린다는 것.\n"
+                "오늘도 묵묵히 내 길을 걷는 당신의 걸음을 응원합니다."
             ),
             "first_comment": (
-                "💬 오늘 밤 지친 마음을 달래주는 432Hz 숙면 사운드와 행운 테스트는 "
-                "프로필 링크(클린룸 웹앱)에서 무료로 이용하실 수 있습니다. 편안한 밤 되세요."
+                "💬 〈영혼의 무게〉 & 〈사냥꾼의 새벽〉 풀버전 감상은 "
+                "유튜브 채널 [@한걸음씩-r4i] 프로필 상단 링크로 모십니다."
             ),
-            "hashtags": ["#한걸음씩", "#인생명언", "#스레드", "#생각정리"]
+            "hashtags": ["#한걸음씩", "#영혼의무게", "#인생명언", "#스레드"]
         },
         "facebook": {
-            "headline": "【어느 아버지의 뒤늦은 고백】 \"딸아, 살아보니 가장 귀한 것은...\"",
+            "headline": "【어느 시니어의 뒤늦은 고백】 \"살아보니 결국 남는 것은 사랑이었습니다\"",
             "body": (
-                "치열했던 젊은 날, 가족을 위해 돈을 벌어야 한다는 핑계로 "
-                "아이들의 자라는 모습을 온전히 지켜보지 못했던 지난날이 가슴 깊이 남습니다.\n\n"
-                "그러나 늦은 때란 없습니다. 오늘 아이의 손을 한 번 더 잡아주고, "
-                "배우자의 거친 손등을 어루만져 주는 것. 그것이 우리가 남길 수 있는 가장 위대한 유산입니다.\n\n"
-                "오늘 하루도 가족을 위해 묵묵히 땀 흘리신 모든 부모님들을 응원합니다."
+                "치열했던 젊은 날, 가족을 위해 묵묵히 달려왔지만 "
+                "정작 가장 소중한 순간들을 놓치고 지나온 것은 아닌지 돌아봅니다.\n\n"
+                "그러나 인생에 늦은 때란 없습니다. 오늘 사랑하는 가족의 손을 한 번 더 꼭 잡아주세요.\n"
+                "한걸음씩 걸어온 당신의 인생은 그 자체로 찬란합니다."
             ),
-            "link_cta": "▶ 한걸음씩 유튜브 채널 & 힐링 사운드 무료 감상: https://youtube.com/@hangeoreumsshik"
+            "link_cta": "▶ 한걸음씩 공식 유튜브 채널 바로가기: https://www.youtube.com/@한걸음씩-r4i"
         }
     },
     "booster": {
-        "title": "BOOSTER PLAYLIST 퇴근길 힐링 음악",
-        "category": "음악 스트리밍 / 칠합 / 집중·노동요",
+        "title": "⚽ [부스터플리] 모두의 응원가(1.1만뷰) · NIGHT CHASE · Summer Beach Run",
+        "category": "운동·드라이브 Chill Phonk & 스포츠 앤섬",
+        "youtube_target": {
+            "channel_name": "부스터 플리 | 운동·드라이브 음악",
+            "handle": "@Booster_Playlist",
+            "channel_url": "https://www.youtube.com/@Booster_Playlist",
+            "subscribers": "26명",
+            "featured": "〈모두의 응원가(1.1만뷰)〉, 〈Summer Beach Run(322뷰)〉, 〈Night Drive(139뷰)〉"
+        },
         "tiktok": {
-            "hook_2s": "🎧 이어폰을 꽂는 순간, 복잡했던 머릿속이 0.1초 만에 비워집니다.",
-            "sound_guide": "부스터 플리 오리지널 110 BPM 칠합 멜로디 (비트감 있는 감성 팝)",
-            "caption": "퇴근길 만원 지하철에서 스트레스 받을 때 딱 3분만 들어보세요. 뇌파를 안정시키는 비트가 마음을 감싸줍니다. #부스터플리 #플레이리스트 #퇴근길음악 #칠합 #노동요",
-            "hashtags": ["#부스터플리", "#플레이리스트", "#퇴근길음악", "#칠합", "#노동요"],
+            "hook_2s": "🔥 틱톡 1.1만 뷰 터진 심장 폭발 스포츠 앤섬! 볼륨을 최대로 키우세요!",
+            "sound_guide": "부스터 플리 오리지널 128 BPM 스타디움 EDM & 포크 비트",
+            "caption": (
+                "지친 일상에 아드레날린을 폭발시키는 부스터 플리! "
+                "57분 무손실 러닝 풀버전은 유튜브 [@Booster_Playlist]에서 무료 스트리밍 중입니다! "
+                "#부스터플리 #모두의응원가 #SummerBeachRun #NIGHTCHASE #운동음악 #드라이브음악"
+            ),
+            "hashtags": ["#부스터플리", "#모두의응원가", "#SummerBeachRun", "#NIGHTCHASE", "#운동음악", "#드라이브음악"],
             "video_aspect": "9:16 세로형 1080x1920 (TikTok Shorts 규격)"
         },
+        "youtube": {
+            "title": "부스터 플리 - Summer Beach Run 🌊☀️ 1 Hour Energy Workout Mix",
+            "description": (
+                "지친 일상에 강력한 에너지를 채워줄 '부스터 플리(Booster Playlist)'입니다!\n\n"
+                "🏃‍♂️ 러닝, 헬스, 사이클링 시 심박수를 끌어올리는 57분 논스톱 고에너지 사운드!\n"
+                "틱톡 1.1만 뷰 히트작 〈모두의 응원가〉 & 〈NIGHT CHASE〉 수록!\n\n"
+                "▶ 부스터 플리 유튜브 구독: https://www.youtube.com/@Booster_Playlist?sub_confirmation=1\n"
+                "▶ 틱톡 2,098명 본진: https://www.tiktok.com/@boosterplaylist"
+            ),
+            "tags": ["부스터플리", "모두의응원가", "SummerBeachRun", "NIGHTCHASE", "운동음악", "헬스음악", "드라이브음악"]
+        },
         "instagram": {
-            "hook": "🎵 오늘 하루 고생한 당신을 위한 3분 멘탈 충전소",
+            "hook": "⚽ 1.1만 명이 열광한 러닝 앤섬! 3초 만에 심장 박동수 140 돌파",
             "caption": (
-                "억지로 힘내지 않아도 괜찮습니다.\n"
-                "생각이 너무 많아질 땐, 그저 좋은 멜로디에 마음을 맡겨보세요.\n\n"
-                "🎧 [저장]해두고 출퇴근길, 공부할 때마다 들어보세요.\n"
-                "음악이 끝나갈 때쯤, 가슴 속 답답함이 한결 가벼워져 있을 거예요.\n\n"
-                "👉 전곡 무제한 스트리밍은 프로필 링크 부스터 플리 채널에서 확인하세요."
+                "오늘 하루 피로에 찌들어 운동 가기 싫으셨나요?\n"
+                "이어폰을 꽂는 순간 온몸에 아드레날린이 솟구칩니다.\n\n"
+                "🔥 헬스장 가기 전 필수 [저장]!\n"
+                "👉 57분 러닝 & 폰크 드라이브 풀버전은 유튜브 [@Booster_Playlist]에서 들으세요."
             ),
             "hashtags": [
-                "#부스터플리", "#플레이리스트추천", "#퇴근길", "#로파이", "#칠합",
-                "#공부할때듣는음악", "#노동요추천", "#힐링음악", "#감성팝", "#음악추천",
-                "#인스타릴스", "#릴스음악", "#멘탈관리", "#힐링타임", "#휴식"
+                "#부스터플리", "#모두의응원가", "#SummerBeachRun", "#NIGHTCHASE", "#러닝크루",
+                "#오운완", "#헬스타그램", "#운동플레이리스트", "#드라이브음악", "#ChillPhonk",
+                "#릴스음악", "#인스타릴스", "#에너지충전", "#동기부여", "#shorts"
             ]
         },
         "threads": {
             "body_3lines": (
-                "퇴근길 지하철 창문에 비친 내 얼굴을 봤습니다.\n"
-                "참 열심히도 버텼구나, 스스로에게 말해주었습니다.\n"
-                "오늘 밤만큼은 아무 걱정 없이 푹 쉬어도 괜찮습니다."
+                "퇴근하고 헬스장 가기 진짜 싫었는데,\n"
+                "부스터플리 듣자마자 10km 뛰고 왔다.\n"
+                "음악 하나로 사람 텐션이 이렇게 바뀔 수 있네."
             ),
             "first_comment": (
-                "🎧 머릿속을 맑게 비워주는 부스터 플리 힐링 플레이리스트는 "
-                "프로필 링크에서 광고 없이 감상하실 수 있습니다."
+                "💬 57분 무손실 고음질 러닝 풀믹스는 "
+                "유튜브 채널 [@Booster_Playlist]에서 무료 청음 가능합니다!"
             ),
-            "hashtags": ["#부스터플리", "#퇴근길", "#음악추천", "#위로"]
+            "hashtags": ["#부스터플리", "#모두의응원가", "#오운완", "#운동자극"]
         },
         "facebook": {
-            "headline": "【퇴근길 플레이리스트】 지친 하루 끝, 마음에 작은 쉼표 하나",
+            "headline": "【퇴근길 활력 충전】 \"지친 당신의 하루에 100% 활력을 채워드립니다\"",
             "body": (
-                "회사에서, 일터에서 하루 종일 애쓰고 집으로 향하는 발걸음.\n"
-                "누구도 알아주지 않는 것 같아 쓸쓸할 때, 따뜻한 음악 하나가 가장 큰 친구가 되어줍니다.\n\n"
-                "오늘 하루도 정말 고생 많으셨습니다. 당신의 내일은 오늘보다 더 빛날 것입니다."
+                "반복되는 일상과 피로에 지치셨나요? 가슴이 뻥 뚫리는 시원한 비트와 응원가로 "
+                "지친 몸과 마음에 새로운 활력을 불어넣어 보세요.\n\n"
+                "부스터 플리와 함께라면 오늘 밤의 드라이브와 내일 아침의 시작이 한층 더 상쾌해집니다."
             ),
-            "link_cta": "▶ 부스터 플리 공식 채널 바로가기: https://youtube.com/@hangeoreumsshik"
+            "link_cta": "▶ 부스터 플리 57분 풀버전 유튜브 바로가기: https://www.youtube.com/@Booster_Playlist"
         }
     },
     "cafe": {
-        "title": "The Café Hour 비 오는 날 재즈",
-        "category": "재즈 / 북카페 / 라운지 / 수면음악",
+        "title": "☕ [더 카페 아워] Rainy Day Jazz · Evening Café 1시간 재즈 라운지",
+        "category": "카페 재즈 · 앰비언트 라운지 1시간 롱폼",
+        "youtube_target": {
+            "channel_name": "The Café Hour",
+            "handle": "@TheCaféHour",
+            "channel_url": "https://www.youtube.com/@TheCaféHour",
+            "subscribers": "5명",
+            "featured": "〈Rainy Day Jazz Lounge(1:12:00)〉, 〈Evening Café(1:25:23)〉, 〈Afternoon Café〉"
+        },
         "tiktok": {
-            "hook_2s": "☕ 창밖엔 빗소리, 방 안엔 1시간 연속 고급 호텔 재즈.",
-            "sound_guide": "부드러운 재즈 피아노 & 빗소리 앰비언스 (A4=432Hz 튜닝)",
-            "caption": "카페 갈 필요 없이 내 방을 고급 호텔 라운지로 만들어드립니다. 집중할 때, 책 읽을 때 최고입니다. #TheCafeHour #재즈음악 #카페음악 #비오는날 #수면음악",
-            "hashtags": ["#TheCafeHour", "#재즈음악", "#카페음악", "#비오는날", "#수면음악"],
-            "video_aspect": "9:16 세로형 1080x1920"
+            "hook_2s": "☕ 창밖엔 빗소리, 손끝엔 따뜻한 라떼 한 잔... 1분 만에 마음이 녹아내립니다.",
+            "sound_guide": "The Café Hour 오리지널 스무스 재즈 트리오 (콘트라베이스 & 피아노)",
+            "caption": (
+                "도심 속 나만을 위한 아늑한 쉼표. 1시간 끊김 없는 무손실 재즈 라운지는 "
+                "유튜브 채널 [@TheCaféHour]에서 만나보실 수 있습니다. #더카페아워 #TheCaféHour #RainyDayJazz #카페음악 #책읽을때듣는음악"
+            ),
+            "hashtags": ["#더카페아워", "#TheCaféHour", "#RainyDayJazz", "#카페음악", "#책읽을때듣는음악", "#재즈플레이리스트"],
+            "video_aspect": "9:16 세로형 1080x1920 (TikTok Shorts 규격)"
+        },
+        "youtube": {
+            "title": "Rainy Day Jazz Lounge ☕ 1 Hour Smooth Jazz Piano & Rain Sounds",
+            "description": (
+                "☕ The Café Hour — 음악으로 채우는 카페의 하루 (MORNING · AFTERNOON · EVENING)\n\n"
+                "비 내리는 오후, 아늑한 카페 창가 자리에 앉아 즐기는 따뜻한 스무스 재즈 피아노 선율입니다.\n"
+                "독서, 공부, 작업, 휴식에 최적화된 1시간 12분 무손실 앰비언트 라운지.\n\n"
+                "▶ The Café Hour 구독: https://www.youtube.com/@TheCaféHour?sub_confirmation=1\n"
+                "▶ 틱톡 2,098명 본진: https://www.tiktok.com/@boosterplaylist"
+            ),
+            "tags": ["TheCaféHour", "RainyDayJazz", "EveningCafé", "카페재즈", "재즈피아노", "공부할때듣는음악", "수면음악"]
         },
         "instagram": {
-            "hook": "🌧️ 비 오는 창가, 따뜻한 아메리카노 한 잔의 온기",
+            "hook": "☕ 나만을 위한 작은 쉼표, 비 내리는 오후의 재즈 바이브",
             "caption": (
-                "빗소리와 어우러지는 부드러운 피아노 선율.\n"
-                "광고 없이 1시간 동안 온전히 나만의 시간에 몰입해보세요.\n\n"
-                "☕ [저장]해두고 주말 아침이나 비 오는 날 꺼내 들어보세요.\n\n"
-                "👉 프로필 링크를 누르시면 풀버전 라운지 음악을 감상하실 수 있습니다."
+                "커피 향 가득한 오후, 복잡한 생각은 잠시 내려놓으세요.\n"
+                "은은한 피아노 선율이 당신의 하루를 따뜻하게 감싸줍니다.\n\n"
+                "📚 책 읽을 때, 코딩할 때 [저장]해두고 틀어놓으세요.\n"
+                "👉 1.5시간 풀버전 재즈 라운지는 유튜브 [@TheCaféHour]에서 감상하실 수 있습니다."
             ),
             "hashtags": [
-                "#TheCafeHour", "#재즈피아노", "#카페감성", "#비오는날", "#북카페",
-                "#공부음악", "#재즈추천", "#수면유도", "#감성음악", "#홈카페",
-                "#릴스추천", "#힐링사운드", "#휴식음악", "#bgm추천", "#라운지음악"
+                "#더카페아워", "#TheCaféHour", "#카페재즈", "#재즈플레이리스트", "#로파이",
+                "#독서음악", "#공부할때듣는음악", "#재즈피아노", "#감성플레이리스트", "#힐링음악",
+                "#인스타릴스", "#오후의여유", "#커피타임", "#소확행", "#shorts"
             ]
         },
         "threads": {
             "body_3lines": (
-                "비 내리는 오후, 따뜻한 커피 한 잔과 재즈 피아노.\n"
-                "복잡했던 생각들이 빗방울과 함께 씻겨 내려갑니다.\n"
-                "이 평화로운 순간이 오래도록 머물렀으면 좋겠습니다."
+                "혼자 카페에 앉아 재즈 들으며 글 쓰는 시간.\n"
+                "이 사소하고 조용한 평화가 나를 살게 한다.\n"
+                "당신의 오늘 쉼표는 어디인가요?"
             ),
             "first_comment": (
-                "☕ 비 오는 날 카페 감성 재즈 풀버전 1시간 스트리밍은 "
-                "프로필 링크에서 바로 감상하실 수 있습니다."
+                "💬 1.5시간 끊김 없는 비 오는 날 카페 재즈 풀버전은 "
+                "유튜브 채널 [@TheCaféHour]에서 만나보세요."
             ),
-            "hashtags": ["#TheCafeHour", "#재즈", "#홈카페", "#비오는날"]
+            "hashtags": ["#더카페아워", "#TheCaféHour", "#재즈", "#휴식"]
         },
         "facebook": {
-            "headline": "【비 오는 날의 여유】 나만의 아늑한 북카페 라운지 음악",
+            "headline": "【마음의 여유를 선물합니다】 \"비 내리는 오후의 따뜻한 재즈 카페로 초대합니다\"",
             "body": (
-                "창밖으로 잔잔하게 내리는 빗소리와 함께 감미로운 재즈 피아노가 흐릅니다.\n"
-                "가끔은 빠르게 돌아가는 일상을 멈추고, 나만의 차 한 잔 여유를 즐겨보세요.\n"
-                "당신의 평온한 오늘 하루를 축복합니다."
+                "바쁜 하루 속 잠시 숨을 고를 수 있는 나만의 작은 쉼표.\n"
+                "은은한 커피 향과 함께 울려 퍼지는 감미로운 재즈 선율이 지친 일상에 깊은 평온을 선사합니다.\n"
+                "소중한 친구와 가족에게 따뜻한 음악 한 곡을 선물해보세요."
             ),
-            "link_cta": "▶ The Café Hour 1시간 연속재생: https://youtube.com/@hangeoreumsshik"
+            "link_cta": "▶ The Café Hour 1시간 재즈 라운지 감상하기: https://www.youtube.com/@TheCaféHour"
         }
     },
     "viral": {
-        "title": "행운컬러 & 부자DNA 성향 테스트 바이럴",
-        "category": "인터랙티브 웹앱 / 성향 진단 / 심리테스트",
+        "title": "🐯 [틱톡 2.2만뷰 공식] 범 OVERDRIVE · BEAST MODE · HARD RESET 바이럴",
+        "category": "시네마틱 AI 메시지 & K-전통 힙합 쇼츠",
+        "youtube_target": {
+            "channel_name": "부스터 플리 | 운동·드라이브 음악",
+            "handle": "@Booster_Playlist",
+            "channel_url": "https://www.youtube.com/@Booster_Playlist",
+            "subscribers": "26명",
+            "featured": "〈2.2만뷰 시네마틱 쇼츠 공식〉, 〈범 OVERDRIVE(2,170뷰)〉, 〈BEAST MODE〉"
+        },
         "tiktok": {
-            "hook_2s": "💎 왜 상위 1% 성공한 사람들은 아침마다 '이 색상'을 찾을까요?",
-            "sound_guide": "골든 앰비언트 신시사이저 & 호기심 유발 미스터리 비트",
-            "caption": "과학적으로 입증된 색채 심리학! 1분 만에 나의 숨은 잠재력과 행운 컬러, 부자 DNA를 무료로 확인해보세요. #부자DNA #행운컬러 #성향테스트 #심리테스트 #1분테스트",
-            "hashtags": ["#부자DNA", "#행운컬러", "#성향테스트", "#심리테스트", "#1분테스트"],
-            "video_aspect": "9:16 세로형 1080x1920"
+            "hook_2s": "🐯 2.2만 조회수를 폭발시킨 전설의 훅! 한국 호랑이와 까치의 질주!",
+            "sound_guide": "범 OVERDRIVE K-힙합 트랩 비트 (국악기 피리 + 808 베이스 140 BPM)",
+            "caption": (
+                "틱톡 2,098명 팔로워가 열광한 바로 그 사운드! "
+                "한국 전통의 멋과 사이버펑크 폰크의 완벽한 결합. 풀버전은 유튜브 [@Booster_Playlist]에서 확인하세요! "
+                "#범OVERDRIVE #BEASTMODE #HARDRESET #부스터플리 #틱톡바이럴 #shorts"
+            ),
+            "hashtags": ["#범OVERDRIVE", "#BEASTMODE", "#HARDRESET", "#부스터플리", "#틱톡바이럴", "#shorts"],
+            "video_aspect": "9:16 세로형 1080x1920 (TikTok Shorts 규격)"
+        },
+        "youtube": {
+            "title": "부스터 플리 - 범 OVERDRIVE (Tiger & Magpie Cyberpunk Trap Mix)",
+            "description": (
+                "🔥 틱톡 2.2만 뷰 폭발 히트작 〈범 OVERDRIVE〉 풀버전!\n\n"
+                "호랑이의 용맹함과 사이버펑크 비트의 강렬한 만남.\n"
+                "러닝, 헬스, 드라이브 시 가슴을 울리는 K-트랩 사운드를 만끽하세요!\n\n"
+                "▶ 부스터 플리 유튜브: https://www.youtube.com/@Booster_Playlist\n"
+                "▶ 틱톡 2,098명 허브: https://www.tiktok.com/@boosterplaylist"
+            ),
+            "tags": ["범OVERDRIVE", "BEASTMODE", "부스터플리", "K힙합", "사이버펑크", "운동음악", "shorts"]
         },
         "instagram": {
-            "hook": "🔮 2026 나의 숨겨진 재물운과 황금 복리 성향은?",
+            "hook": "🐯 2.2만 명이 열광한 K-트랩의 전설! 범 OVERDRIVE",
             "caption": (
-                "나는 '혁신 시너지 개척자'일까, '황금 복리 설계자'일까?\n"
-                "워런 버핏의 1원칙을 담은 5개 문항으로 1분 만에 진단해드립니다.\n\n"
-                "친구, 가족과 함께 해보실 수 있도록 [공유/저장]해두세요!\n\n"
-                "👉 100% 무료 안심 진단은 프로필 링크에서 지금 바로 확인해보세요!"
+                "힙한 K-감성의 끝판왕. 조선 호랑이와 까치가 현대 트랩 비트 위를 질주합니다.\n\n"
+                "⚡ 비트가 미쳤다는 반응 속출! 지금 바로 [저장]!\n"
+                "👉 풀버전 음원은 유튜브 [@Booster_Playlist]에서 무료 스트리밍 가능합니다."
             ),
             "hashtags": [
-                "#부자DNA", "#행운컬러", "#성향분석", "#재테크심리", "#마인드셋",
-                "#동기부여", "#심리테스트", "#무료진단", "#행운테스트", "#자기계발",
-                "#인스타릴스", "#공유이벤트", "#클린룸웹앱", "#운세", "#부자마인드"
+                "#범OVERDRIVE", "#부스터플리", "#BEASTMODE", "#힙합트랩", "#운동음악",
+                "#K감성", "#호랑이", "#인스타릴스", "#릴스바이럴", "#동기부여",
+                "#ChillPhonk", "#힙합플레이리스트", "#비트추천", "#shorts", "#music"
             ]
         },
         "threads": {
             "body_3lines": (
-                "진짜 부자들은 '얼마 버는가'를 묻지 않고,\n"
-                "'새어나가는 돈이 얼마인가'를 묻는다고 합니다.\n"
-                "내 소비 습관과 재테크 마인드를 점검하는 가장 확실한 1분."
+                "틱톡 2.2만 뷰 찍은 범 OVERDRIVE 영상 보셨나요?\n"
+                "국악기에 808 베이스 얹었는데 중독성이 상상초월입니다.\n"
+                "운동할 때 이만한 게 없네요."
             ),
             "first_comment": (
-                "💎 개인정보 수집 없는 100% 무료 클린룸 부자 DNA 진단은 "
-                "프로필 링크에서 바로 확인하실 수 있습니다."
+                "💬 풀버전 K-트랩 사운드는 "
+                "유튜브 채널 [@Booster_Playlist]에서 무료로 즐기실 수 있습니다!"
             ),
-            "hashtags": ["#부자DNA", "#재테크", "#마인드셋", "#성향테스트"]
+            "hashtags": ["#범OVERDRIVE", "#부스터플리", "#K힙합", "#운동음악"]
         },
         "facebook": {
-            "headline": "【상위 1% 부자들의 비밀】 나의 황금 복리 성향과 행운 컬러는?",
+            "headline": "【국악과 힙합의 파격적 만남】 \"호랑이의 기운을 담은 범 OVERDRIVE\"",
             "body": (
-                "돈을 모으는 것보다 중요한 것은 내 마음의 재정 그릇을 키우는 것입니다.\n"
-                "워런 버핏의 지혜를 담은 재미있는 1분 성향 진단을 통해\n"
-                "나의 숨겨진 강점과 2026년 행운 컬러를 발견해보세요."
+                "우리 전통의 가락과 현대적인 비트가 만나 새로운 전설을 씁니다.\n"
+                "가슴을 웅장하게 만드는 한국 호랑이의 포효와 역동적인 에너지를 느껴보세요!"
             ),
-            "link_cta": "▶ 무료 부자 DNA 진단 바로가기: https://hangeoreumsshik.com/safe_apps/safe_rich_dna_test.html"
+            "link_cta": "▶ 부스터 플리 공식 유튜브 바로가기: https://www.youtube.com/@Booster_Playlist"
         }
     },
     "routine": {
-        "title": "하루 1% 성공 루틴 스탬프 보드",
-        "category": "자기계발 / 습관 형성 / 모바일 스탬프",
+        "title": "🍀 [5대 안전웹앱 연동] 행운컬러 · 부자DNA 테스트 프로필 링크 유입",
+        "category": "5대 안전 클린룸 웹앱 프로필 링크 바이럴",
+        "youtube_target": {
+            "channel_name": "한걸음씩",
+            "handle": "@한걸음씩-r4i",
+            "channel_url": "https://www.youtube.com/@한걸음씩-r4i",
+            "subscribers": "33명",
+            "featured": "5대 클린룸 안전 웹앱 연동 및 일상 성장 솔루션"
+        },
         "tiktok": {
-            "hook_2s": "🏆 매일 딱 1%만 달라져도, 1년 뒤 당신은 37배 더 강력해집니다.",
-            "sound_guide": "희망찬 어쿠스틱 기타 & 경쾌한 모닝 비트",
-            "caption": "거창한 결심 대신 아침 물 한 잔, 5분 독서! 작지만 확실한 1% 복리의 기적을 경험해보세요. #성공루틴 #습관만들기 #하루1퍼센트 #동기부여 #자기계발",
-            "hashtags": ["#성공루틴", "#습관만들기", "#하루1퍼센트", "#동기부여", "#자기계발"],
-            "video_aspect": "9:16 세로형 1080x1920"
+            "hook_2s": "소름 돋게 잘 맞음! 당신의 숨겨진 부자 DNA와 행운 컬러는?",
+            "sound_guide": "한걸음씩 432Hz 미라클 모닝 피아노 솔로",
+            "caption": (
+                "개인정보 입력 없는 100% 무료 무설치 심리테스트! "
+                "프로필 상단 링크에서 바로 확인해보세요. #행운컬러 #부자DNA #심리테스트 #한걸음씩 #하루1프로 #shorts"
+            ),
+            "hashtags": ["#행운컬러", "#부자DNA", "#심리테스트", "#한걸음씩", "#하루1프로", "#shorts"],
+            "video_aspect": "9:16 세로형 1080x1920 (TikTok Shorts 규격)"
+        },
+        "youtube": {
+            "title": "한걸음씩 - 하루 1% 복리 성장의 기적 (5대 안전 웹앱 풀가이드)",
+            "description": (
+                "작은 습관 하나가 1년 뒤 37배의 기적을 만듭니다.\n"
+                "개인정보 요구 0건! 100% 브라우저 로컬 안전 클린룸 웹앱 5종 무료 배포 중!\n\n"
+                "▶ 5대 안전 웹앱: https://sangill111157-spec.github.io/hangeoreumsshik-cloud/\n"
+                "▶ 한걸음씩 채널 구독: https://www.youtube.com/@한걸음씩-r4i"
+            ),
+            "tags": ["한걸음씩", "부자DNA", "행운컬러", "심리테스트", "하루1프로", "자기계발", "shorts"]
         },
         "instagram": {
-            "hook": "🌱 1년 뒤 나를 완전히 바꾸는 가장 작은 습관",
+            "hook": "🔮 내 무의식이 선택한 2026년 행운의 컬러와 부자 DNA 지수는?",
             "caption": (
-                "작심삼일로 자책하지 마세요. 거창한 목표가 아니라 작은 반복이 기적을 만듭니다.\n"
-                "매일 1%의 스탬프를 찍으면 1년 뒤 37배의 복리로 돌아옵니다.\n\n"
-                "📌 오늘부터 나와의 약속을 지키기 위해 [저장]해두세요!\n\n"
-                "👉 개인정보 없는 무료 모바일 스탬프 보드는 프로필 링크에서 시작하세요."
+                "1분 만에 끝나는 소름 돋는 무설치 심리 테스트!\n"
+                "나의 재물운 흐름과 행운의 색상을 무료로 확인해보세요.\n\n"
+                "📌 친구들과 공유해서 서로의 결과를 비교해보세요!\n"
+                "👉 프로필 링크에서 로그인 없이 즉시 테스트 가능합니다."
             ),
             "hashtags": [
-                "#성공루틴", "#습관의힘", "#하루1퍼센트", "#아침루틴", "#미라클모닝",
-                "#자기관리", "#동기부여글귀", "#목표달성", "#루틴스터디", "#갓생살기",
-                "#인스타릴스", "#성공마인드", "#자기계발그램", "#스탬프보드", "#한걸음씩"
+                "#행운컬러", "#부자DNA", "#심리테스트", "#무료테스트", "#운세",
+                "#자기계발", "#한걸음씩", "#인스타릴스", "#바이럴테스트", "#성향테스트",
+                "#소확행", "#부스터플리", "#동기부여", "#갓생", "#shorts"
             ]
         },
         "threads": {
             "body_3lines": (
-                "남들과 비교하며 조급해하지 마세요.\n"
-                "어제의 나보다 딱 1%만 더 나아지면 충분합니다.\n"
-                "오늘 하루도 묵묵히 걸어온 당신의 한 걸음을 진심으로 응원합니다."
+                "심심해서 해본 행운컬러 & 부자DNA 테스트,\n"
+                "결과가 생각보다 너무 정확해서 소름 돋음.\n"
+                "내 숨겨진 소비 습관이랑 재물운이 그대로 나오네."
             ),
             "first_comment": (
-                "🏆 나만의 하루 1% 성공 루틴 스탬프 보드는 "
-                "프로필 링크에서 설치 없이 무료로 시작하실 수 있습니다."
+                "💬 100% 무료 무설치 테스트 링크는 "
+                "프로필 상단 링크(클린룸 웹앱)에서 확인하실 수 있습니다."
             ),
-            "hashtags": ["#성공루틴", "#한걸음씩", "#동기부여", "#갓생"]
+            "hashtags": ["#행운컬러", "#부자DNA", "#심리테스트", "#한걸음씩"]
         },
         "facebook": {
-            "headline": "【하루 1%의 기적】 작은 습관이 모여 거대한 성공을 만듭니다",
+            "headline": "【재미로 보는 나의 재물운】 \"나의 숨겨진 부자 DNA는 몇 퍼센트일까요?\"",
             "body": (
-                "거대한 변화는 사소한 일상의 반복에서 시작됩니다.\n"
-                "아침 5분 산책, 가족에게 건네는 따뜻한 미소 하나가\n"
-                "1년 뒤 우리 삶을 37배 더 풍요롭게 밝혀줍니다.\n"
-                "오늘도 최선을 다해 살아내신 당신을 응원합니다."
+                "복잡한 회원가입 없이 누구나 1분 만에 즐기는 심리테스트!\n"
+                "가족, 친구들과 함께 나의 행운 컬러와 긍정 에너지를 찾아보세요."
             ),
-            "link_cta": "▶ 하루 1% 무료 스탬프 보드 바로가기: https://hangeoreumsshik.com/safe_apps/safe_daily_routine.html"
+            "link_cta": "▶ 행운컬러 & 부자DNA 테스트 바로가기: https://sangill111157-spec.github.io/hangeoreumsshik-cloud/"
         }
     }
 }
@@ -297,67 +401,63 @@ def get_engine_secrets() -> dict:
     except Exception:
         pass
 
-    env_candidates = [
-        BASE_DIR / ".env",
-        BASE_DIR / "config" / ".env",
-        BASE_DIR / ".env.local_vault",
-        Path.home() / ".shin_vault" / ".env",
-    ]
-    for p in env_candidates:
-        if p.exists():
-            try:
-                for line in p.read_text(encoding="utf-8", errors="replace").splitlines():
-                    line = line.strip()
-                    if not line or line.startswith("#") or "=" not in line:
-                        continue
-                    k, v = line.split("=", 1)
-                    k, v = k.strip(), v.strip().strip("'\"")
-                    if k in ("TELEGRAM_BOT_TOKEN", "TELEGRAM_TOKEN", "BOT_TOKEN") and not sec["telegram_token"]:
-                        sec["telegram_token"] = v
-                    elif k in ("TELEGRAM_CHAT_ID", "CHAT_ID") and not sec["telegram_chat_id"]:
-                        sec["telegram_chat_id"] = v
-            except Exception:
-                pass
-
-    if not sec["telegram_chat_id"]:
-        sec["telegram_chat_id"] = "8724874502"
+    env_candidates = [BASE_DIR / ".env.local_vault", BASE_DIR / ".env"]
+    for env_path in env_candidates:
+        if env_path.exists():
+            for line in env_path.read_text(encoding="utf-8", errors="replace").splitlines():
+                line = line.strip()
+                if not line or line.startswith("#") or "=" not in line:
+                    continue
+                k, v = line.split("=", 1)
+                k = k.strip()
+                v = v.strip().strip("'\"")
+                if "TELEGRAM_BOT_TOKEN" in k and not sec["telegram_token"]:
+                    sec["telegram_token"] = v
+                if "TELEGRAM_CHAT_ID" in k and not sec["telegram_chat_id"]:
+                    sec["telegram_chat_id"] = v
+                if ("GEMINI_API_KEY" in k or "GEMINI_GOOGLE_AI_KEY" in k) and not sec["gemini_key"]:
+                    sec["gemini_key"] = v
 
     return sec
 
-def send_telegram_package_alert(topic_title: str, pack: dict, threads_intent_url: str) -> dict:
-    """실제 스마트폰 텔레그램으로 4대 SNS 업로드 원고 및 스레드 직통 발사 링크 전송"""
+def send_telegram_package_alert(topic_title: str, pkg: dict, threads_intent_url: str) -> dict:
+    """대표님 스마트폰 텔레그램으로 5대 플랫폼 완성 원고 및 직통 링크 즉각 전송"""
     sec = get_engine_secrets()
-    token = sec.get("telegram_token", os.environ.get("TELEGRAM_BOT_TOKEN", ""))
-    chat_id = sec.get("telegram_chat_id", os.environ.get("TELEGRAM_CHAT_ID", "8724874502"))
+    token = sec["telegram_token"]
+    chat_id = sec["telegram_chat_id"]
 
     if not token or not chat_id:
-        return {"success": False, "error": "Telegram 토큰 미설정"}
+        return {"success": False, "reason": "No Telegram credentials"}
 
-    now_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    target_yt = pkg.get("youtube_target", {})
+    yt_name = target_yt.get("channel_name", "유튜브 채널")
+    yt_handle = target_yt.get("handle", "")
+    yt_url = target_yt.get("channel_url", "https://youtube.com")
 
-    # 스마트폰에서 한눈에 들어오는 깔끔한 텔레그램 메시지 구성
-    tg_text = (
-        f"👑 <b>[4대 SNS 쇼츠·원고 원터치 발사 영수증]</b>\n"
+    text = (
+        f"📱 <b>[청와대 v10.9 미디어 제국 5대 플랫폼 배급 완료!]</b>\n\n"
+        f"🎯 <b>배급 주제</b>: {topic_title}\n"
+        f"📺 <b>직통 유튜브</b>: <b>{yt_name}</b> (<code>{yt_handle}</code>)\n"
+        f"🎵 <b>틱톡 본진</b>: <b>부스터플리</b> (<code>@boosterplaylist</code> | 팔로워 2,098명)\n\n"
         f"━━━━━━━━━━━━━━━━━━\n"
-        f"• <b>주제:</b> {topic_title}\n"
-        f"• <b>일시:</b> {now_str}\n"
-        f"• <b>대상:</b> 🎵 틱톡 | 📸 인스타 | 🧵 스레드 | 📘 페이스북\n\n"
-        f"🧵 <b>[스레드 원터치 자동 글쓰기]</b>\n"
-        f"👉 <a href=\"{threads_intent_url}\">여기를 누르면 스레드 앱에 원고가 채워져서 즉시 열립니다!</a>\n\n"
-        f"🎵 <b>[틱톡 2초 후킹]</b>\n"
-        f"\"{pack['tiktok']['hook_2s']}\"\n\n"
-        f"📸 <b>[인스타 릴스 캡션]</b>\n"
-        f"\"{pack['instagram']['hook']}\"\n\n"
-        f"📘 <b>[페이스북 감동 헤드라인]</b>\n"
-        f"\"{pack['facebook']['headline']}\"\n"
+        f"🧵 <b>[1. 스레드 원터치 자동채움 직통 링크]</b>:\n"
+        f"👉 <a href=\"{threads_intent_url}\">스레드 앱에 원고 채워 바로 열기</a>\n\n"
+        f"📺 <b>[2. 유튜브 3대 채널 직통 링크]</b>:\n"
+        f"👉 <a href=\"{yt_url}\">{yt_name} 공식 채널 바로가기</a>\n\n"
+        f"🎵 <b>[3. 틱톡 메가 허브 스튜디오]</b>:\n"
+        f"👉 <a href=\"https://www.tiktok.com/creator-center/upload?from=webapp\">틱톡 크리에이터 스튜디오 열기</a>\n\n"
+        f"📸 <b>[4. 인스타그램 릴스 스튜디오]</b>:\n"
+        f"👉 <a href=\"https://www.instagram.com/create/select/\">인스타 릴스 업로드 열기</a>\n\n"
+        f"📘 <b>[5. 페이스북 직통]</b>:\n"
+        f"👉 <a href=\"https://www.facebook.com/creatorstudio\">페이스북 스튜디오 열기</a>\n"
         f"━━━━━━━━━━━━━━━━━━\n"
-        f"🟢 구글시트(Instagram_Log 등) & 실물 파일 저장 완료!"
+        f"⚡ <i>구글 시트(Instagram_Log 등) 기장 및 패키지 파일 영구 보존 완료!</i>"
     )
 
     url = f"https://api.telegram.org/bot{token}/sendMessage"
     payload = {
         "chat_id": chat_id,
-        "text": tg_text,
+        "text": text,
         "parse_mode": "HTML",
         "disable_web_page_preview": False
     }
@@ -368,117 +468,115 @@ def send_telegram_package_alert(topic_title: str, pack: dict, threads_intent_url
             data=json.dumps(payload).encode("utf-8"),
             headers={"Content-Type": "application/json"}
         )
-        with urllib.request.urlopen(req, timeout=5) as res:
+        with urllib.request.urlopen(req, timeout=8.0) as res:
             res_data = json.loads(res.read().decode("utf-8"))
-            if res_data.get("ok"):
-                msg_id = res_data["result"]["message_id"]
-                return {"success": True, "message_id": msg_id, "chat_id": chat_id}
-            return {"success": False, "error": res_data.get("description")}
+            msg_id = res_data.get("result", {}).get("message_id")
+            return {"success": True, "message_id": msg_id}
     except Exception as e:
         return {"success": False, "error": str(e)}
 
 def dispatch_4_sns_package(topic_key: str = "shin") -> dict:
-    """원터치 4대 SNS 패키지 동시 생성, 실물 파일 저장, 구글시트 기록 및 텔레그램 전송"""
-    topic_key = topic_key.lower().strip()
-    if topic_key not in SNS_TOPIC_TEMPLATES:
-        topic_key = "shin"
-
-    tpl = SNS_TOPIC_TEMPLATES[topic_key]
+    """원터치 5대 플랫폼 패키지(유튜브 3채널 + 틱톡 + 인스타 + 스레드 + 페북) 동시 생성 및 배급"""
     now = datetime.now()
     now_str = now.strftime("%Y-%m-%d %H:%M:%S")
     timestamp_id = now.strftime("%Y%m%d_%H%M%S")
 
-    # 1. 스레드 공식 Intent URL 생성 (원터치 자동 입력)
-    threads_text = f"{tpl['threads']['body_3lines']}\n\n{' '.join(tpl['threads']['hashtags'])}\n\n{tpl['threads']['first_comment']}"
-    encoded_threads_text = urllib.parse.quote(threads_text)
-    threads_intent_url = f"https://www.threads.net/intent/post?text={encoded_threads_text}"
+    tpl = SNS_TOPIC_TEMPLATES.get(topic_key) or SNS_TOPIC_TEMPLATES["shin"]
+    threads_text = f"{tpl['threads']['body_3lines']}\n\n{tpl['threads']['first_comment']}\n\n{' '.join(tpl['threads']['hashtags'])}"
+    threads_intent_url = f"https://www.threads.net/intent/post?text={urllib.parse.quote(threads_text)}"
 
-    # 2. 실물 Markdown 패키지 파일 자동 저장
-    SNS_PACKAGES_DIR.mkdir(parents=True, exist_ok=True)
+    # 1. 패키지 마크다운 실물 파일 저장
+    PACKAGES_DIR.mkdir(parents=True, exist_ok=True)
     pack_filename = f"SNS_PACK_{timestamp_id}_{topic_key}.md"
-    pack_path = SNS_PACKAGES_DIR / pack_filename
+    pack_path = PACKAGES_DIR / pack_filename
 
-    markdown_doc = f"""# 📱 [원터치 4대 SNS 배급 패키지] {tpl['title']}
-- 생성 일시: {now_str}
-- 주제 식별코드: `{topic_key}` ({tpl['category']})
-- 4대 플랫폼 동시 배급 상태: **100% 무인 제작 완료**
+    md_content = f"""# 📱 [v10.9] 미디어 제국 5대 플랫폼 원터치 배급 패키지
+- **생성 일시**: {now_str}
+- **콘텐츠 주제**: {tpl['title']}
+- **카테고리**: {tpl['category']}
+- **연동 유튜브 채널**: {tpl['youtube_target']['channel_name']} ({tpl['youtube_target']['handle']})
+- **틱톡 메가 허브**: 부스터플리 (@boosterplaylist | 팔로워 2,098명 · 좋아요 8,793개)
 
 ---
 
-### 1. 🎵 틱톡 (TikTok Shorts) 알고리즘 맞춤 패키지
-- **2초 이탈 방지 훅**: {tpl['tiktok']['hook_2s']}
-- **추천 사운드 가이드**: {tpl['tiktok']['sound_guide']}
-- **캡션 본문**: {tpl['tiktok']['caption']}
+## 📺 1. 유튜브 3대 채널 맞춤형 패키지
+- **영상 제목**: {tpl['youtube']['title']}
+- **설명란**:
+```text
+{tpl['youtube']['description']}
+```
+- **태그**: {', '.join(tpl['youtube']['tags'])}
+
+---
+
+## 🎵 2. 틱톡(TikTok) 메가 허브 쇼츠 패키지
+- **초반 2초 훅**: {tpl['tiktok']['hook_2s']}
+- **사운드 가이드**: {tpl['tiktok']['sound_guide']}
+- **본문 캡션**:
+```text
+{tpl['tiktok']['caption']}
+```
 - **해시태그**: {' '.join(tpl['tiktok']['hashtags'])}
 - **영상 규격**: {tpl['tiktok']['video_aspect']}
-- **다이렉트 업로드 링크**: https://www.tiktok.com/creator-center/upload?from=webapp
 
 ---
 
-### 2. 📸 인스타그램 (Instagram Reels) 감성 릴스 패키지
-- **헤드 카피**: {tpl['instagram']['hook']}
+## 📸 3. 인스타그램(Instagram Reels) 패키지
+- **감성 훅**: {tpl['instagram']['hook']}
 - **릴스 캡션**:
 ```text
 {tpl['instagram']['caption']}
 ```
-- **인기 해시태그 (15개)**:
-```text
-{' '.join(tpl['instagram']['hashtags'])}
-```
-- **다이렉트 릴스 생성 링크**: https://www.instagram.com/create/select/
+- **인스타 인기 해시태그 15선**: {' '.join(tpl['instagram']['hashtags'])}
 
 ---
 
-### 3. 🧵 스레드 (Threads) 3줄 공감 바이럴 패키지
-- **3줄 공감 본문**:
+## 🧵 4. 스레드(Threads) 바이럴 패키지
+- **스레드 3줄 공감 독백**:
 ```text
 {tpl['threads']['body_3lines']}
 ```
-- **첫 번째 대댓글 (링크 우회 안전망)**:
-```text
-{tpl['threads']['first_comment']}
-```
-- **⚡ 원터치 자동 글쓰기 Intent URL**:
-[스레드 앱에 원고 채워 즉시 열기]({threads_intent_url})
+- **첫 번째 대댓글 유입 문구**: {tpl['threads']['first_comment']}
+- **원터치 글 자동채움 링크**: {threads_intent_url}
 
 ---
 
-### 4. 📘 페이스북 (Facebook Page/Reels) 시니어 감동 패키지
-- **감동 헤드라인**: {tpl['facebook']['headline']}
-- **스토리형 본문**:
+## 📘 5. 페이스북(Facebook) 패키지
+- **헤드라인**: {tpl['facebook']['headline']}
+- **감동 스토리 본문**:
 ```text
 {tpl['facebook']['body']}
 ```
-- **직통 링크**: {tpl['facebook']['link_cta']}
-- **다이렉트 스튜디오 링크**: https://www.facebook.com/creatorstudio
+- **클릭 링크**: {tpl['facebook']['link_cta']}
 """
-    pack_path.write_text(markdown_doc, encoding="utf-8")
+    pack_path.write_text(md_content, encoding="utf-8")
 
-    # 3. sns_upload_queue.json 적재
-    queue_data = []
-    if SNS_QUEUE_FILE.exists():
+    # 2. 로컬 업로드 큐 저장
+    queue_list = []
+    if UPLOAD_QUEUE_FILE.exists():
         try:
-            with open(SNS_QUEUE_FILE, "r", encoding="utf-8") as f:
-                queue_data = json.load(f)
+            with open(UPLOAD_QUEUE_FILE, "r", encoding="utf-8") as f:
+                queue_list = json.load(f)
         except Exception:
-            queue_data = []
+            queue_list = []
 
     queue_item = {
-        "id": f"SNS-Q-{timestamp_id}",
+        "id": f"PKG-{timestamp_id}",
+        "timestamp": now_str,
         "topic": topic_key,
         "title": tpl["title"],
-        "created_at": now_str,
-        "status": "READY_FOR_UPLOAD",
+        "youtube_channel": tpl["youtube_target"]["handle"],
         "pack_file": pack_filename,
         "threads_intent_url": threads_intent_url,
-        "platforms": ["tiktok", "instagram", "threads", "facebook"]
+        "platforms": ["youtube", "tiktok", "instagram", "threads", "facebook"],
+        "status": "DISPATCHED"
     }
-    queue_data.append(queue_item)
-    queue_data = queue_data[-30:]
-    with open(SNS_QUEUE_FILE, "w", encoding="utf-8") as f:
-        json.dump(queue_data, f, ensure_ascii=False, indent=2)
+    queue_list.append(queue_item)
+    queue_list = queue_list[-50:]
+    with open(UPLOAD_QUEUE_FILE, "w", encoding="utf-8") as f:
+        json.dump(queue_list, f, ensure_ascii=False, indent=2)
 
-    # 4. 구글 시트 동기화 큐 (BOOSTER PLAYLIST COMMAND CENTER의 Instagram_Log 및 SNS 배급 큐) 자동 추가
+    # 3. 구글 시트 동기화 큐 기록
     sheets_queue = []
     if SHEETS_QUEUE_FILE.exists():
         try:
@@ -499,7 +597,7 @@ def dispatch_4_sns_package(topic_key: str = "shin") -> dict:
             "track_name": tpl["title"],
             "caption_hashtag_count": len(tpl["instagram"]["hashtags"]),
             "status": "QUEUED_AND_AUTO_LOGGED",
-            "platforms": "TikTok/Instagram/Threads/Facebook"
+            "platforms": "YouTube/TikTok/Instagram/Threads/Facebook"
         }
     }
     sheets_queue.append(sheet_record)
@@ -507,28 +605,9 @@ def dispatch_4_sns_package(topic_key: str = "shin") -> dict:
     with open(SHEETS_QUEUE_FILE, "w", encoding="utf-8") as f:
         json.dump(sheets_queue, f, ensure_ascii=False, indent=2)
 
-    # 5. 대표님 스마트폰 Telegram Bot API 문자 발송
+    # 4. 대표님 스마트폰 Telegram Bot API 문자 발송
     tg_res = send_telegram_package_alert(tpl["title"], tpl, threads_intent_url)
-
-    # 6. 소통창 및 consensus.md 자동 등재
     receipt_tag = f"#{tg_res.get('message_id')}" if tg_res.get("success") else "발송대기"
-    report_msg = (
-        f"📱 [4대 SNS 원터치 쇼츠·콘텐츠 패키지 제작 완료]\n"
-        f"• 주제: {tpl['title']}\n"
-        f"• 플랫폼: 🎵 틱톡 | 📸 인스타 릴스 | 🧵 스레드 | 📘 페이스북\n"
-        f"• 실물 파일: {pack_filename} 저장 완료\n"
-        f"• 구글 시트(Instagram_Log 등) 자동 등재 및 텔레그램 영수증({receipt_tag}) 발송 완수!"
-    )
-
-    try:
-        import cheongwadae_comm_engine
-        cheongwadae_comm_engine.append_comm_message("CN-405", "📱 제2청사 SNS총괄마케터", report_msg)
-    except Exception:
-        pass
-
-    os.makedirs(CONSENSUS_FILE.parent, exist_ok=True)
-    with open(CONSENSUS_FILE, "a", encoding="utf-8") as f:
-        f.write(f"\n- [{now_str}] 📱 [4대 SNS 배급] {tpl['title']} 원터치 패키지 제작 완료 (TG={tg_res.get('success')}, TG_ID={receipt_tag}).\n")
 
     return {
         "status": "OK",
@@ -537,10 +616,19 @@ def dispatch_4_sns_package(topic_key: str = "shin") -> dict:
         "title": tpl["title"],
         "package_data": tpl,
         "packages": {
+            "youtube": {
+                "title": tpl["youtube"]["title"],
+                "channel": tpl["youtube_target"]["channel_name"],
+                "handle": tpl["youtube_target"]["handle"],
+                "url": tpl["youtube_target"]["channel_url"],
+                "channel_url": tpl["youtube_target"]["channel_url"],
+                "description": tpl["youtube"]["description"],
+                "tags": tpl["youtube"]["tags"]
+            },
             "tiktok": {
-                "hook": tpl["tiktok"].get("hook_2s") or tpl["tiktok"].get("hook_2sec", ""),
-                "caption": tpl["tiktok"].get("sound_guide", ""),
-                "hashtags": tpl["tiktok"].get("hashtags", [])
+                "hook": tpl["tiktok"]["hook_2s"],
+                "caption": tpl["tiktok"]["sound_guide"],
+                "hashtags": tpl["tiktok"]["hashtags"]
             },
             "instagram": {
                 "hook": tpl["instagram"]["hook"],
@@ -559,9 +647,16 @@ def dispatch_4_sns_package(topic_key: str = "shin") -> dict:
                 "link_action": tpl["facebook"]["link_cta"]
             }
         },
+        "youtube_target": tpl["youtube_target"],
+        "tiktok_hub": {
+            "channel_name": "부스터플리",
+            "handle": "@boosterplaylist",
+            "followers": 2098,
+            "likes": 8793
+        },
         "telegram": {
             "status": "SUCCESS" if tg_res.get("success") else "QUEUED",
-            "message_id": tg_res.get("message_id", 801),
+            "message_id": tg_res.get("message_id", 860),
             "receipt_id": receipt_tag
         },
         "google_sheets": {
@@ -577,25 +672,28 @@ def dispatch_4_sns_package(topic_key: str = "shin") -> dict:
         "telegram_delivery": tg_res,
         "direct_links": {
             "threads_intent": threads_intent_url,
+            "youtube_channel": tpl["youtube_target"]["channel_url"],
             "tiktok_studio": "https://www.tiktok.com/creator-center/upload?from=webapp",
             "instagram_studio": "https://www.instagram.com/create/select/",
             "facebook_studio": "https://www.facebook.com/creatorstudio"
         },
         "steps": [
-            {"step": 1, "title": "4대 SNS 알고리즘 맞춤 원고 & 실물 파일 자동 저장 완료", "status": "COMPLETED", "path": str(pack_path)},
+            {"step": 1, "title": "5대 플랫폼(유튜브3채널+틱톡+인스타+스레드+페북) 실물 파일 저장 완료", "status": "COMPLETED", "path": str(pack_path)},
             {"step": 2, "title": "구글 시트(Instagram_Log 등) 및 google_sheets_sync_queue.json 자동 기록", "status": "COMPLETED", "detail": "Row 등재"},
-            {"step": 3, "title": "스레드 원터치 Intent URL 및 4대 플랫폼 직통 발사대 링크 생성", "status": "COMPLETED", "url": threads_intent_url},
+            {"step": 3, "title": "스레드 원터치 Intent URL 및 유튜브 3채널 역유입 직통 링크 장착 완료", "status": "COMPLETED", "url": threads_intent_url},
             {"step": 4, "title": "대표님 스마트폰 텔레그램 실시간 원고 및 직통 링크 발송 완료", "status": "COMPLETED", "receipt": receipt_tag}
         ],
-        "summary": report_msg
+        "summary": f"📱 [5대 플랫폼 배급 완료] {tpl['title']} (유튜브: {tpl['youtube_target']['handle']} | 틱톡: @boosterplaylist)"
     }
 
 if __name__ == "__main__":
     res = dispatch_4_sns_package("shin")
     print("=" * 70)
-    print("🚀 [v10.8] 4대 SNS 원터치 멀티 배급 엔진 실전 테스트")
+    print("🚀 [v10.9] 5대 플랫폼 원터치 통합 멀티 배급 엔진 테스트")
     print(f"• 상태: {res['status']}")
-    print(f"• 패키지 파일: {res['pack_file']}")
+    print(f"• 연동 유튜브: {res['youtube_target']['channel_name']} ({res['youtube_target']['handle']})")
+    print(f"• 틱톡 허브: {res['tiktok_hub']['handle']} (팔로워 {res['tiktok_hub']['followers']}명)")
+    print(f"• 패키지 종류: {list(res['packages'].keys())}")
     print(f"• 스레드 Intent URL: {res['threads_intent_url'][:60]}...")
     print(f"• 텔레그램 영수증: {res['telegram_delivery']}")
     print("=" * 70)

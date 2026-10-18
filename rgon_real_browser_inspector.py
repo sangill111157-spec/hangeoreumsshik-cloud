@@ -611,57 +611,80 @@ try {{
     log_gate("HARD-GATE-9", "원터치 무인 자동 집행 파이프라인 4대 모드 실전 호출 및 실물 파일·영수증 전수 검증", gate9_ok, gate9_detail)
 
     # --------------------------------------------------------------------------
-    # [HARD-GATE 10] 4대 SNS(틱톡·인스타·스레드·페북) 안전 발굴 인벤토리 및 원터치 멀티 업로드 엔진 실전 검증
+    # [HARD-GATE 10] 유튜브 3대 채널 & 틱톡 2,098명 허브 실측 데이터 탑재 & 5대 플랫폼 원터치 발사대 검증
     # --------------------------------------------------------------------------
     sns_checks = []
 
-    # 1) GET /api/sns-inventory 정상 응답 & 원문 노출 0건 (비가역 마스킹) 검증
+    # 1) GET /api/sns-inventory 정상 응답 & 유튜브 3채널 + 틱톡 2,098명 실측 데이터 확인
     s_inv, b_inv = http_get("/api/sns-inventory")
     j_inv = json.loads(b_inv) if s_inv == 200 else {}
-    channels = j_inv.get("data", {}).get("channels", {})
+    data_inv = j_inv.get("data", j_inv)
+    
+    # 유튜브 3채널 실측 데이터 검증
+    y3 = data_inv.get("youtube_3_channels", {})
+    y1_h = y3.get("channel_1_shin", {}).get("handle", "")
+    y2_h = y3.get("channel_2_booster", {}).get("handle", "")
+    y3_h = y3.get("channel_3_cafe", {}).get("handle", "")
+    y3_ok = (y1_h == "@한걸음씩-r4i" and y2_h == "@Booster_Playlist" and y3_h == "@TheCaféHour")
+
+    # 틱톡 2,098명 본진 실측 지표 검증
+    tt_hub = data_inv.get("tiktok_hub_main", {})
+    tt_h = tt_hub.get("handle", "")
+    tt_fol = tt_hub.get("followers", 0)
+    tt_likes = tt_hub.get("likes", 0)
+    tt_hub_ok = (tt_h == "@boosterplaylist" and tt_fol == 2098 and tt_likes == 8793)
+
+    # 4대 SNS 채널 존재 검증
+    channels = data_inv.get("channels", {}) or data_inv.get("four_sns_channels", {})
     all_4_present = all(p in channels for p in ["tiktok", "instagram", "threads", "facebook"])
     
-    # 원문 노출 여부 전수 검사
+    # 원문 노출 0% 마스킹 철칙 전수 검사
     raw_b_str = b_inv if isinstance(b_inv, str) else b_inv.decode('utf-8', errors='ignore')
     forbidden_tokens = ["ghp_", "xoxb-", "EAAB", "pat-", "sk-ant-"]
     token_leak = any(t in raw_b_str.lower() for t in forbidden_tokens)
-    safe_vault = bool(j_inv.get("safe_vault_isolation") or j_inv.get("data", {}).get("safe_vault_isolation"))
-    inv_ok = (s_inv == 200 and all_4_present and not token_leak and safe_vault)
-    sns_checks.append((inv_ok, f"4대 SNS 금고 인벤토리: HTTP {s_inv} (4대 플랫폼 발굴 {all_4_present}, 원문노출 0건)"))
+    safe_vault = bool(data_inv.get("safe_vault_isolation"))
+    
+    inv_ok = (s_inv == 200 and y3_ok and tt_hub_ok and all_4_present and not token_leak and safe_vault)
+    sns_checks.append((inv_ok, f"7대 미디어 실측 인벤토리: HTTP {s_inv} (유튜브 3채널 {y3_ok}, 틱톡 2,098명 {tt_hub_ok}, 원문노출 0건)"))
 
-    # 2) POST /api/sns-multi-dispatch 실전 호출 및 4대 플랫폼 패키지 생성 검증
+    # 2) POST /api/sns-multi-dispatch 실전 호출 및 5대 플랫폼(유튜브+틱톡+인스타+스레드+페북) 패키지 동시 생성 검증
     s_disp, j_disp = http_post("/api/sns-multi-dispatch", {"topic": "shin"})
     d_data = j_disp.get("data", {})
     pkgs = d_data.get("packages", {})
-    pkgs_ok = all(k in pkgs for k in ["tiktok", "instagram", "threads", "facebook"])
+    pkgs_ok = all(k in pkgs for k in ["youtube", "tiktok", "instagram", "threads", "facebook"])
     
-    # 3) Threads 공식 Intent URL 자동채움 링크 검증
+    # 유튜브 패키지 역유입 링크 검증
+    yt_pkg = pkgs.get("youtube", {})
+    yt_url = yt_pkg.get("channel_url", "")
+    yt_ok = ("youtube.com" in yt_url)
+
+    # 스레드 Intent URL 검증
     threads_pkg = pkgs.get("threads", {})
     intent_url = threads_pkg.get("intent_url", "")
     intent_ok = ("threads.net/intent/post" in intent_url and "text=" in intent_url)
-    sns_checks.append((pkgs_ok and intent_ok, f"4대 SNS 패키지 동시 생성 & 스레드 Intent URL 탑재({intent_ok})"))
+    sns_checks.append((pkgs_ok and yt_ok and intent_ok, f"5대 플랫폼 패키지 동시 생성(유튜브 역유입 {yt_ok}, 스레드 Intent {intent_ok})"))
 
-    # 4) 실물 파일 (SNS_PACK_*.md) 디렉터리 내 실재 검증
+    # 3) 실물 파일 (SNS_PACK_*.md) 디렉터리 내 실재 검증
     pack_dir = BASE_DIR / "knowledge_engine" / "wiki" / "sns_packages"
     pack_files = list(pack_dir.glob("SNS_PACK_*.md")) if pack_dir.exists() else []
     pack_file_ok = len(pack_files) >= 1
-    sns_checks.append((pack_file_ok, f"SNS 실물 패키지 마크다운 파일 실재: {len(pack_files)}건"))
+    sns_checks.append((pack_file_ok, f"5대 플랫폼 실물 패키지 마크다운 파일 실재: {len(pack_files)}건"))
 
-    # 5) 텔레그램 실전 발송 영수증 및 구글 시트 동기화 큐 검증
+    # 4) 텔레그램 실전 발송 영수증 및 구글 시트 동기화 큐 검증
     tele_info = d_data.get("telegram", {})
     tele_ok = tele_info.get("status") in ["SUCCESS", "OK", True] or tele_info.get("receipt_id") is not None
     gs_info = d_data.get("google_sheets", {})
     gs_ok = gs_info.get("status") in ["RECORDED", "QUEUED", "OK", True]
     sns_checks.append((tele_ok and gs_ok, f"텔레그램 발송 영수증(#{tele_info.get('message_id', 'PASS')}) & 구글 시트 기장({gs_info.get('status')})"))
 
-    # 6) 제6청사 금고 0원 장부 절대 불변 확인
+    # 5) 제6청사 금고 0원 장부 절대 불변 확인
     s_tr2, b_tr2 = http_get("/api/treasury-status")
     j_tr2 = json.loads(b_tr2) if s_tr2 == 200 else {}
     sm_tr2 = j_tr2.get("summary", {})
     tr2_zero_ok = (s_tr2 == 200 and sm_tr2.get("total_in", -1) == 0 and sm_tr2.get("disposable_net_krw", sm_tr2.get("net_profit", -1)) == 0)
     sns_checks.append((tr2_zero_ok, f"SNS 디스패치 후 금고 0원 절대 불변 유지({tr2_zero_ok})"))
 
-    # 7) 외부 Cloudflare 터널 실시간 HTTP 200 생존 확인 (Error 1033 영구 방어)
+    # 6) 외부 Cloudflare 터널 실시간 HTTP 200 생존 확인 (Error 1033 영구 방어)
     tunnel_file = BASE_DIR / "active_external_tunnel.json"
     tunnel_live_ok = False
     tunnel_url = ""
@@ -670,7 +693,7 @@ try {{
             t_data = json.loads(tunnel_file.read_text(encoding="utf-8"))
             tunnel_url = t_data.get("active_tunnel_url") or t_data.get("tunnel_url") or ""
             if tunnel_url.startswith("https://"):
-                req_t = urllib.request.Request(f"{tunnel_url}/api/cheongwadae-status", headers={"User-Agent": "Inspector/10.8"})
+                req_t = urllib.request.Request(f"{tunnel_url}/api/cheongwadae-status", headers={"User-Agent": "Inspector/10.9"})
                 with urllib.request.urlopen(req_t, timeout=6.0) as res_t:
                     if res_t.status == 200:
                         t_body = res_t.read().decode("utf-8", errors="ignore")
@@ -682,7 +705,7 @@ try {{
 
     gate10_ok = all(c[0] for c in sns_checks)
     gate10_detail = " / ".join(c[1] for c in sns_checks)
-    log_gate("HARD-GATE-10", "4대 SNS 원터치 멀티 업로드 엔진 검증 및 외부 Cloudflare 터널 실시간 HTTP 200 생존 확인", gate10_ok, gate10_detail)
+    log_gate("HARD-GATE-10", "유튜브 3채널·틱톡 2,098명 실측 검증 & 5대 플랫폼 원터치 발사대 및 외부 터널 생존 확인", gate10_ok, gate10_detail)
 
     # --------------------------------------------------------------------------
     # 종합 판정
