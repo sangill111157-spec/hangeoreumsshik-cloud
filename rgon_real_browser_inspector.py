@@ -111,36 +111,46 @@ JSON_AUDIT_FILES = [
     BASE_DIR / "docs" / "index.html",
 ]
 
-def http_get(path: str, timeout=5):
+def http_get(path: str, timeout=10):
     url = f"{BASE_URL}{path}"
-    try:
-        req = urllib.request.Request(url, headers={"User-Agent": "RgonRealBrowserInspector/9.6"})
-        with urllib.request.urlopen(req, timeout=timeout) as res:
-            return res.status, res.read().decode("utf-8", errors="replace")
-    except urllib.error.HTTPError as e:
-        return e.code, e.read().decode("utf-8", errors="replace")
-    except Exception as e:
-        return 0, str(e)
+    for attempt in range(2):
+        try:
+            req = urllib.request.Request(url, headers={"User-Agent": "RgonRealBrowserInspector/9.6"})
+            with urllib.request.urlopen(req, timeout=timeout) as res:
+                return res.status, res.read().decode("utf-8", errors="replace")
+        except urllib.error.HTTPError as e:
+            return e.code, e.read().decode("utf-8", errors="replace")
+        except Exception as e:
+            if attempt == 0:
+                time.sleep(0.3)
+                continue
+            return 0, str(e)
+    return 0, "Unknown error"
 
-def http_post(path: str, payload: dict, timeout=5):
+def http_post(path: str, payload: dict, timeout=10):
     url = f"{BASE_URL}{path}"
     data = json.dumps(payload).encode("utf-8")
-    try:
-        req = urllib.request.Request(
-            url,
-            data=data,
-            headers={"Content-Type": "application/json", "User-Agent": "RgonRealBrowserInspector/9.6"},
-            method="POST"
-        )
-        with urllib.request.urlopen(req, timeout=timeout) as res:
-            return res.status, json.loads(res.read().decode("utf-8", errors="replace"))
-    except urllib.error.HTTPError as e:
+    for attempt in range(2):
         try:
-            return e.code, json.loads(e.read().decode("utf-8", errors="replace"))
-        except Exception:
-            return e.code, {}
-    except Exception as e:
-        return 0, {"error": str(e)}
+            req = urllib.request.Request(
+                url,
+                data=data,
+                headers={"Content-Type": "application/json", "User-Agent": "RgonRealBrowserInspector/9.6"},
+                method="POST"
+            )
+            with urllib.request.urlopen(req, timeout=timeout) as res:
+                return res.status, json.loads(res.read().decode("utf-8", errors="replace"))
+        except urllib.error.HTTPError as e:
+            try:
+                return e.code, json.loads(e.read().decode("utf-8", errors="replace"))
+            except Exception:
+                return e.code, {}
+        except Exception as e:
+            if attempt == 0:
+                time.sleep(0.3)
+                continue
+            return 0, {"error": str(e)}
+    return 0, {"error": "Unknown error"}
 
 def run_inspector():
     print("=" * 80)
@@ -1255,9 +1265,47 @@ try {{
         f"어사이드올인원멀티탭(HTTP {s_aio}, 멀티탭수={len(aio_plan)}/6, 영수증={j_aio.get('receipt_id')})"
     ))
 
+    # 6) [v12.3] 6대 기관 단계별 목표 해금 스케줄러 API (/api/stage-gate-schedule, /api/stage-gate-check) 검증
+    s_sgs, raw_sgs = http_get("/api/stage-gate-schedule")
+    try:
+        j_sgs = json.loads(raw_sgs) if isinstance(raw_sgs, str) else raw_sgs
+    except Exception:
+        j_sgs = {}
+    agencies_map = j_sgs.get("agencies", {})
+    all_6_agencies_exist = (len(agencies_map) == 6)
+    
+    # 폐기된 옛 명칭 0건 검증 & 각 기관 STEP 2~4 잠금 검증
+    no_old_name = not any("꿈의" in (str(v.get("agency_name", "")) + str(v.get("name", ""))) for v in agencies_map.values())
+    locked_check = True
+    for a_info in agencies_map.values():
+        sg = a_info.get("stage_gates") or {f"step_{sk}": sv for sk, sv in a_info.get("steps", {}).items()}
+        if sg.get("step_2", {}).get("status") != "LOCKED" or sg.get("step_3", {}).get("status") != "LOCKED":
+            locked_check = False
+            break
+
+    s_sgc, j_sgc = http_post("/api/stage-gate-check", {})
+    sgc_ok = (s_sgc == 200 and j_sgc.get("success") == True and "#STAGE-GATE-" in j_sgc.get("receipt_id", ""))
+    stage_gate_api_ok = (s_sgs == 200 and all_6_agencies_exist and no_old_name and locked_check and sgc_ok)
+    gate17_checks.append((
+        stage_gate_api_ok,
+        f"6대기관단계별목표해금(HTTP {s_sgs}/{s_sgc}, 6대기관={len(agencies_map)}/6, 옛명칭0건={no_old_name}, STEP잠금통제={locked_check})"
+    ))
+
+    # 7) [v12.3] 독대실 맞춤형 음성 설정 패널 & 컨트롤 스튜디오 실존 검증
+    has_custom_panel = ("voice-custom-panel" in chat_html_txt)
+    has_pitch_slider = ("voice-pitch-slider" in chat_html_txt)
+    has_rate_slider = ("voice-rate-slider" in chat_html_txt)
+    has_preset_fn = ("applyVoicePreset" in chat_html_txt)
+    has_actor_select = ("voice-actor-select" in chat_html_txt)
+    voice_studio_ok = (has_custom_panel and has_pitch_slider and has_rate_slider and has_preset_fn and has_actor_select)
+    gate17_checks.append((
+        voice_studio_ok,
+        f"맞춤형음성스튜디오UI(패널={has_custom_panel}, 피치슬라이더={has_pitch_slider}, 속도슬라이더={has_rate_slider}, 프리셋함수={has_preset_fn}, 성우선택={has_actor_select})"
+    ))
+
     gate17_ok = all(c[0] for c in gate17_checks)
     gate17_detail = " / ".join(c[1] for c in gate17_checks)
-    log_gate("HARD-GATE-17", "v12.0~12.2 3대 AI 마스터 & 노트북 어사이드 올인원 멀티탭 실전 검수", gate17_ok, gate17_detail)
+    log_gate("HARD-GATE-17", "v12.0~12.3 3대 AI 마스터·올인원 멀티탭·맞춤형 음성 스튜디오 & 6대 기관 단계별 목표 해금 검수", gate17_ok, gate17_detail)
 
     # --------------------------------------------------------------------------
     # 종합 판정

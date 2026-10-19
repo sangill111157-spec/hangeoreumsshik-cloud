@@ -2037,6 +2037,25 @@ class DashboardHandler(SimpleHTTPRequestHandler):
             self.wfile.write(body)
             return
 
+        # 🎯 [v12.3] 6대 확실한 기관 단계별 목표 해금 스케줄러 (GET /api/stage-gate-schedule)
+        if path == '/api/stage-gate-schedule':
+            try:
+                import agency_stage_gate_scheduler
+                import importlib
+                importlib.reload(agency_stage_gate_scheduler)
+                sg_data = agency_stage_gate_scheduler.get_stage_gate_schedule()
+            except Exception as e:
+                sg_data = {"status": "error", "success": False, "message": str(e), "agencies": {}}
+            body = json.dumps(sg_data, ensure_ascii=False).encode("utf-8")
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.send_header("Cache-Control", "no-cache, no-store")
+            self.end_headers()
+            self.wfile.write(body)
+            return
+
         # 🔬 [v11.6] 전 기관 무늬만 버튼 0% 실사용 심층 감사 리포트 (GET /api/button-audit-report)
         if path == '/api/button-audit-report':
             try:
@@ -2488,6 +2507,31 @@ class DashboardHandler(SimpleHTTPRequestHandler):
                     open_physical_tabs=open_tabs
                 )
                 resp = all_res
+            except Exception as e:
+                resp = {"status": "error", "success": False, "message": str(e)}
+
+            body = json.dumps(resp, ensure_ascii=False).encode("utf-8")
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(body)
+            return
+
+        # 🎯 [v12.3] 6대 기관 일일 기본 스케줄 & STEP 승급 판정 (POST /api/stage-gate-check)
+        if self.path == '/api/stage-gate-check':
+            length = int(self.headers.get('Content-Length', 0))
+            raw_body = self.rfile.read(length) if length > 0 else b'{}'
+            try:
+                post_data = json.loads(raw_body.decode('utf-8')) if raw_body else {}
+                target_agency = post_data.get("agency_id")
+
+                import agency_stage_gate_scheduler
+                import importlib
+                importlib.reload(agency_stage_gate_scheduler)
+                eval_res = agency_stage_gate_scheduler.evaluate_stage_gate_status(agency_id=target_agency)
+                resp = eval_res
             except Exception as e:
                 resp = {"status": "error", "success": False, "message": str(e)}
 

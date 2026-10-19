@@ -112,6 +112,9 @@
     </div>
 
     <div class="flex flex-wrap items-center gap-1.5 text-xs">
+      <button id="stage-gate-status-btn" onclick="sendChipAction('STAGE_GATE_STATUS')" class="px-2.5 py-1 rounded-lg bg-amber-950/80 hover:bg-amber-900 border border-amber-500/50 text-amber-300 hover:text-white font-extrabold transition text-[11px] flex items-center gap-1">
+        <span>🎯</span><span>6대 기관 단계별 목표 &amp; 승급잠금 스케줄</span>
+      </button>
       <button onclick="sendChipAction('SUB_AGENTS_REPORT')" class="px-2.5 py-1 rounded-lg bg-indigo-950/80 hover:bg-indigo-900 border border-indigo-500/40 text-indigo-300 hover:text-white font-medium transition text-[11px] flex items-center gap-1">
         <span>📊</span><span>6대 서브에이전트 검수결과 종합보고</span>
       </button>
@@ -119,7 +122,7 @@
         <span>🔍</span><span>무늬만 버튼 0% 클릭감사 즉시실행</span>
       </button>
       <button onclick="sendChipAction('QUANT_MEDIA_BRIEF')" class="px-2.5 py-1 rounded-lg bg-cyan-950/80 hover:bg-cyan-900 border border-cyan-500/40 text-cyan-300 hover:text-white font-medium transition text-[11px] flex items-center gap-1">
-        <span>📈</span><span>1청사 퀀트($107K) & 3청사 미디어 브리핑</span>
+        <span>📈</span><span>1청사 퀀트($107K) &amp; 3청사 미디어 브리핑</span>
       </button>
       <button onclick="sendChipAction('GRAND_RELAY')" class="px-2.5 py-1 rounded-lg bg-purple-950/80 hover:bg-purple-900 border border-purple-500/40 text-purple-300 hover:text-white font-medium transition text-[11px] flex items-center gap-1">
         <span>⚡</span><span>6대 청사 합동 릴레이 즉시 출격</span>
@@ -130,7 +133,7 @@
     </div>
   </div>
 
-  <!-- 🎙️ [v12.1] 20대 청년 보좌관 최첨단 음성 대화 컨트롤 바 -->
+  <!-- 🎙️ [v12.1 & v12.3] 20대 청년 보좌관 최첨단 음성 대화 컨트롤 바 -->
   <div class="px-3 py-1.5 bg-slate-900/90 border-b border-indigo-500/20 shrink-0 flex items-center justify-between gap-2 flex-wrap z-20">
     <div class="flex items-center gap-2 flex-wrap">
       <!-- 👦 20대 청년보이스 ON/OFF 토글 스위치 -->
@@ -155,6 +158,17 @@
         <span>청년보이스 테스트</span>
       </button>
 
+      <!-- ⚙️ [v12.3] 음성 설정 / 변경 토글 버튼 -->
+      <button 
+        id="voice-settings-toggle-btn"
+        type="button"
+        onclick="toggleVoiceCustomPanel()" 
+        class="px-2.5 py-1 rounded-lg text-xs font-bold transition flex items-center gap-1 border border-cyan-500/50 bg-cyan-950/70 text-cyan-300 hover:bg-cyan-900/80 hover:text-white active:scale-95"
+      >
+        <span>⚙️</span>
+        <span id="voice-settings-toggle-text">음성 설정 / 변경 ▼</span>
+      </button>
+
       <!-- ⏹️ 음성 중지 버튼 -->
       <button 
         id="voice-stop-btn"
@@ -169,7 +183,113 @@
 
     <div class="text-[11px] text-slate-400 flex items-center gap-1.5">
       <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-      <span class="font-medium text-emerald-300">20대 청년 보좌관 음성엔진 활성</span>
+      <span class="font-medium text-emerald-300">대표님 맞춤 음성엔진 활성</span>
+    </div>
+  </div>
+
+  <!-- 🎛️ [v12.3] 대표님 맞춤형 음성 커스텀 스튜디오 패널 (평소 접힘) -->
+  <div id="voice-custom-panel" style="display: none;" class="px-3 py-3 bg-slate-950/95 border-b border-cyan-500/30 shrink-0 z-30 space-y-3">
+    <div class="flex items-center justify-between pb-1.5 border-b border-slate-800">
+      <div class="flex items-center gap-1.5 font-bold text-xs text-cyan-300">
+        <span>🎛️</span>
+        <span>대표님 전담 AI 보좌관 음성 커스텀 스튜디오</span>
+      </div>
+      <span class="text-[10px] text-slate-400">설정 시 자동 영구 저장(localStorage)</span>
+    </div>
+
+    <!-- ① 원터치 캐릭터 프리셋 4종 -->
+    <div>
+      <div class="text-[11px] font-bold text-amber-300 mb-1.5 flex items-center gap-1">
+        <span>🎭</span><span>원터치 캐릭터 프리셋 (클릭 시 톤·속도·성우 일괄 세팅)</span>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5">
+        <button type="button" onclick="applyVoicePreset('young_male')" class="p-2 rounded-lg bg-slate-900 border border-emerald-500/40 text-emerald-300 hover:bg-emerald-950/50 text-[11px] font-bold text-left transition flex flex-col justify-between">
+          <span>👦 20대 쾌활 청년 (기본)</span>
+          <span class="text-[9px] text-slate-400 font-normal">피치 1.15 · 속도 1.10</span>
+        </button>
+        <button type="button" onclick="applyVoicePreset('calm_senior')" class="p-2 rounded-lg bg-slate-900 border border-indigo-500/40 text-indigo-300 hover:bg-indigo-950/50 text-[11px] font-bold text-left transition flex flex-col justify-between">
+          <span>🕴️ 30대 차분한 수석</span>
+          <span class="text-[9px] text-slate-400 font-normal">피치 0.98 · 속도 1.04</span>
+        </button>
+        <button type="button" onclick="applyVoicePreset('cheerful_female')" class="p-2 rounded-lg bg-slate-900 border border-pink-500/40 text-pink-300 hover:bg-pink-950/50 text-[11px] font-bold text-left transition flex flex-col justify-between">
+          <span>👩 20대 명랑 여성비서</span>
+          <span class="text-[9px] text-slate-400 font-normal">피치 1.12 · 속도 1.08</span>
+        </button>
+        <button type="button" onclick="applyVoicePreset('speed_brief')" class="p-2 rounded-lg bg-slate-900 border border-amber-500/40 text-amber-300 hover:bg-amber-950/50 text-[11px] font-bold text-left transition flex flex-col justify-between">
+          <span>⚡ 1.4배속 초고속 브리핑</span>
+          <span class="text-[9px] text-slate-400 font-normal">피치 1.08 · 속도 1.40</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ② 기기 내장 성우 선택 드롭다운 -->
+    <div>
+      <div class="text-[11px] font-bold text-slate-300 mb-1 flex items-center gap-1">
+        <span>🎙️</span><span>기기 내장 성우(Voice Actor) 직접 선택</span>
+      </div>
+      <select id="voice-actor-select" onchange="handleVoiceActorChange()" class="w-full bg-slate-900 text-slate-200 text-xs px-3 py-2 rounded-lg border border-slate-700 focus:border-cyan-400 focus:outline-none">
+        <option value="AUTO_RECOMMENDED">자동 추천 (최적 청년/비서 신경망 음성)</option>
+      </select>
+    </div>
+
+    <!-- ③ 음높이(Pitch) & 말하기 속도(Rate) 실시간 슬라이더 -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+      <div class="p-2 rounded-lg bg-slate-900/80 border border-slate-800 space-y-1">
+        <div class="flex items-center justify-between text-[11px] font-semibold text-slate-300">
+          <span>🎵 톤(음높이 Pitch)</span>
+          <span id="voice-pitch-val" class="font-mono text-cyan-300 font-bold">1.15</span>
+        </div>
+        <input 
+          id="voice-pitch-slider"
+          type="range" 
+          min="0.70" 
+          max="1.40" 
+          step="0.05" 
+          value="1.15" 
+          oninput="handlePitchChange(this.value)"
+          class="w-full accent-cyan-400 cursor-pointer"
+        />
+        <div class="flex justify-between text-[9px] text-slate-500">
+          <span>차분한 저음 (0.70)</span>
+          <span>기본 (1.00)</span>
+          <span>밝은 고음 (1.40)</span>
+        </div>
+      </div>
+
+      <div class="p-2 rounded-lg bg-slate-900/80 border border-slate-800 space-y-1">
+        <div class="flex items-center justify-between text-[11px] font-semibold text-slate-300">
+          <span>⚡ 빠르기(말하기 속도 Rate)</span>
+          <span id="voice-rate-val" class="font-mono text-emerald-300 font-bold">1.10x</span>
+        </div>
+        <input 
+          id="voice-rate-slider"
+          type="range" 
+          min="0.80" 
+          max="1.60" 
+          step="0.05" 
+          value="1.10" 
+          oninput="handleRateChange(this.value)"
+          class="w-full accent-emerald-400 cursor-pointer"
+        />
+        <div class="flex justify-between text-[9px] text-slate-500">
+          <span>천천히 (0.80x)</span>
+          <span>기본 (1.00x)</span>
+          <span>초고속 (1.60x)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ④ 변경된 목소리 즉시 들어보기 & 저장 상태 -->
+    <div class="flex items-center justify-between pt-1">
+      <button 
+        id="voice-preview-btn"
+        type="button" 
+        onclick="previewCustomVoice()" 
+        class="px-3 py-1.5 rounded-lg bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-bold text-xs shadow-md transition active:scale-95 flex items-center gap-1.5"
+      >
+        <span>🔊</span><span>변경된 목소리로 즉시 들어보기</span>
+      </button>
+      <span id="voice-save-status-badge" class="text-[10px] text-emerald-400">✓ 실시간 자동 저장 완료</span>
     </div>
   </div>
 
@@ -279,6 +399,187 @@
     let isSpeechRecognizing = false;
     let speechRecognitionInstance = null;
 
+    // =========================================================================
+    // 🎛️ [v12.3] 대표님 맞춤형 음성 설정 스튜디오 (프리셋 4종·기기성우·Pitch·Rate·영구저장)
+    // =========================================================================
+    const VOICE_STORAGE_KEY = 'rgon_alpha_voice_config';
+    const VOICE_PRESETS = {
+      'young_male': {
+        name: '👦 20대 쾌활 청년 (기본)',
+        pitch: 1.15,
+        rate: 1.10,
+        gender: 'male'
+      },
+      'calm_male': {
+        name: '🕴️ 30대 차분한 수석',
+        pitch: 0.98,
+        rate: 1.04,
+        gender: 'male'
+      },
+      'bright_female': {
+        name: '👩 20대 명랑 여성비서',
+        pitch: 1.12,
+        rate: 1.08,
+        gender: 'female'
+      },
+      'fast_briefing': {
+        name: '⚡ 1.4배속 초고속 핵심브리핑',
+        pitch: 1.08,
+        rate: 1.40,
+        gender: 'any'
+      }
+    };
+
+    function loadSavedVoiceConfig() {
+      try {
+        const raw = localStorage.getItem(VOICE_STORAGE_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          return {
+            preset: parsed.preset || 'young_male',
+            pitch: parseFloat(parsed.pitch) || 1.15,
+            rate: parseFloat(parsed.rate) || 1.10,
+            voiceURI: parsed.voiceURI || 'AUTO_RECOMMENDED'
+          };
+        }
+      } catch (e) {
+        console.warn('보이스 설정 로드 에러:', e);
+      }
+      return {
+        preset: 'young_male',
+        pitch: 1.15,
+        rate: 1.10,
+        voiceURI: 'AUTO_RECOMMENDED'
+      };
+    }
+
+    function saveVoiceConfig(cfg) {
+      try {
+        localStorage.setItem(VOICE_STORAGE_KEY, JSON.stringify(cfg));
+      } catch (e) {
+        console.warn('보이스 설정 저장 에러:', e);
+      }
+    }
+
+    function syncVoiceSettingsUI() {
+      const cfg = loadSavedVoiceConfig();
+      const pitchSlider = document.getElementById('voice-pitch-slider');
+      const pitchVal = document.getElementById('voice-pitch-val');
+      const rateSlider = document.getElementById('voice-rate-slider');
+      const rateVal = document.getElementById('voice-rate-val');
+      const actorSelect = document.getElementById('voice-actor-select');
+
+      if (pitchSlider) pitchSlider.value = cfg.pitch;
+      if (pitchVal) pitchVal.textContent = cfg.pitch.toFixed(2);
+      if (rateSlider) rateSlider.value = cfg.rate;
+      if (rateVal) rateVal.textContent = cfg.rate.toFixed(2) + 'x';
+      if (actorSelect && cfg.voiceURI) actorSelect.value = cfg.voiceURI;
+
+      ['young_male', 'calm_male', 'bright_female', 'fast_briefing'].forEach(k => {
+        const btn = document.getElementById(`preset-btn-${k}`);
+        if (btn) {
+          if (cfg.preset === k) {
+            btn.className = 'preset-btn px-2.5 py-1.5 rounded-lg text-xs font-bold border transition text-left flex items-center justify-between border-amber-500 bg-amber-950/60 text-amber-200 ring-1 ring-amber-500/50';
+          } else {
+            btn.className = 'preset-btn px-2.5 py-1.5 rounded-lg text-xs font-bold border transition text-left flex items-center justify-between border-slate-700 bg-slate-900/60 text-slate-300 hover:border-slate-500';
+          }
+        }
+      });
+    }
+
+    function toggleVoiceCustomPanel() {
+      const panel = document.getElementById('voice-custom-panel');
+      const arrow = document.getElementById('voice-settings-toggle-arrow');
+      if (!panel) return;
+      if (panel.classList.contains('hidden')) {
+        panel.classList.remove('hidden');
+        if (arrow) arrow.textContent = '▲';
+        populateVoiceActorDropdown();
+        syncVoiceSettingsUI();
+      } else {
+        panel.classList.add('hidden');
+        if (arrow) arrow.textContent = '▼';
+      }
+    }
+
+    function populateVoiceActorDropdown() {
+      if (!('speechSynthesis' in window)) return;
+      const select = document.getElementById('voice-actor-select');
+      if (!select) return;
+
+      const voices = window.speechSynthesis.getVoices() || [];
+      const cfg = loadSavedVoiceConfig();
+
+      const koVoices = voices.filter(v => (v.lang || '').toLowerCase().includes('ko'));
+      const otherVoices = voices.filter(v => !(v.lang || '').toLowerCase().includes('ko'));
+
+      let html = '<option value="AUTO_RECOMMENDED">✨ 자동 추천 (최적 청년/비서)</option>';
+      if (koVoices.length > 0) {
+        html += '<optgroup label="🇰🇷 한국어 성우 (추천)">';
+        koVoices.forEach(v => {
+          const selected = (v.voiceURI === cfg.voiceURI) ? 'selected' : '';
+          html += `<option value="${escapeHtml(v.voiceURI)}" ${selected}>${escapeHtml(v.name)} (${v.lang})</option>`;
+        });
+        html += '</optgroup>';
+      }
+
+      if (otherVoices.length > 0) {
+        html += '<optgroup label="🌐 글로벌 성우 (기타)">';
+        otherVoices.slice(0, 15).forEach(v => {
+          const selected = (v.voiceURI === cfg.voiceURI) ? 'selected' : '';
+          html += `<option value="${escapeHtml(v.voiceURI)}" ${selected}>${escapeHtml(v.name)} (${v.lang})</option>`;
+        });
+        html += '</optgroup>';
+      }
+
+      select.innerHTML = html;
+    }
+
+    function applyVoicePreset(presetKey) {
+      const preset = VOICE_PRESETS[presetKey];
+      if (!preset) return;
+      const cfg = loadSavedVoiceConfig();
+      cfg.preset = presetKey;
+      cfg.pitch = preset.pitch;
+      cfg.rate = preset.rate;
+      cfg.voiceURI = 'AUTO_RECOMMENDED';
+      saveVoiceConfig(cfg);
+      syncVoiceSettingsUI();
+      previewCustomVoice(`[${preset.name}] 프리셋이 적용되었습니다!`);
+    }
+
+    function handlePitchChange(val) {
+      const pitch = parseFloat(val);
+      const pitchVal = document.getElementById('voice-pitch-val');
+      if (pitchVal) pitchVal.textContent = pitch.toFixed(2);
+      const cfg = loadSavedVoiceConfig();
+      cfg.pitch = pitch;
+      saveVoiceConfig(cfg);
+    }
+
+    function handleRateChange(val) {
+      const rate = parseFloat(val);
+      const rateVal = document.getElementById('voice-rate-val');
+      if (rateVal) rateVal.textContent = rate.toFixed(2) + 'x';
+      const cfg = loadSavedVoiceConfig();
+      cfg.rate = rate;
+      saveVoiceConfig(cfg);
+    }
+
+    function handleVoiceActorChange() {
+      const select = document.getElementById('voice-actor-select');
+      if (!select) return;
+      const cfg = loadSavedVoiceConfig();
+      cfg.voiceURI = select.value;
+      saveVoiceConfig(cfg);
+      previewCustomVoice('선택하신 성우 음성으로 설정이 변경되었습니다.');
+    }
+
+    function previewCustomVoice(customText) {
+      const txt = customText || "충성! 이상일 대표님! 르곤-알파가 대표님 맞춤형 목소리로 즉시 보고드립니다!";
+      speakAsYoungAssistant(txt);
+    }
+
     // 1. 한국어 남성/청년 신경망 보이스 우선 선택
     function selectYoungKoreanVoice() {
       if (!('speechSynthesis' in window)) return null;
@@ -289,7 +590,7 @@
       const primeMale = voices.find(v => {
         const name = (v.name || '').toLowerCase();
         const lang = (v.lang || '').toLowerCase();
-        return (lang.includes('ko') || lang.includes('kr')) && (name.includes('injoon') || name.includes('bongjin') || name.includes('male'));
+        return (lang.includes('ko') || lang.includes('kr')) && (name.includes('injoon') || name.includes('bongjin') || name.includes('male') || name.includes('인준') || name.includes('봉진'));
       });
       if (primeMale) return primeMale;
 
@@ -305,9 +606,34 @@
       return voices.find(v => (v.lang || '').toLowerCase().includes('ko')) || voices[0] || null;
     }
 
+    function selectConfiguredVoice(cfg) {
+      if (!('speechSynthesis' in window)) return null;
+      const voices = window.speechSynthesis.getVoices() || [];
+      if (voices.length === 0) return null;
+
+      // (1) 직접 지정된 성우 URI가 있는 경우
+      if (cfg && cfg.voiceURI && cfg.voiceURI !== 'AUTO_RECOMMENDED') {
+        const found = voices.find(v => v.voiceURI === cfg.voiceURI);
+        if (found) return found;
+      }
+
+      // (2) 여성 비서 프리셋인 경우 여성 음성 우선
+      if (cfg && cfg.preset === 'bright_female') {
+        const female = voices.find(v => {
+          const name = (v.name || '').toLowerCase();
+          const lang = (v.lang || '').toLowerCase();
+          return (lang.includes('ko') || lang.includes('kr')) && (name.includes('sunhi') || name.includes('heami') || name.includes('female') || name.includes('여성') || name.includes('선희') || name.includes('혜미'));
+        });
+        if (female) return female;
+      }
+
+      // (3) 기본 한국어 청년/남성 보이스
+      return selectYoungKoreanVoice();
+    }
+
     if ('speechSynthesis' in window) {
       window.speechSynthesis.onvoiceschanged = () => {
-        selectYoungKoreanVoice();
+        populateVoiceActorDropdown();
       };
     }
 
@@ -350,7 +676,7 @@
       return text;
     }
 
-    // 3. '20대 청년 보좌관' 음색 발성 (pitch: 1.15, rate: 1.10, volume: 1.0)
+    // 3. 대표님 맞춤형 음색 발성 (저장된 pitch, rate, 성우 자동 적용)
     function speakAsYoungAssistant(rawText) {
       if (!('speechSynthesis' in window)) return;
       window.speechSynthesis.cancel(); // 이전 발성 즉시 중지
@@ -358,12 +684,13 @@
       const cleaned = cleanTextForKoreanSpeech(rawText);
       if (!cleaned) return;
 
+      const cfg = loadSavedVoiceConfig();
       const utterance = new SpeechSynthesisUtterance(cleaned);
-      const voice = selectYoungKoreanVoice();
+      const voice = selectConfiguredVoice(cfg);
       if (voice) utterance.voice = voice;
-      utterance.lang = 'ko-KR';
-      utterance.pitch = 1.15; // 맑고 총명한 20대 청년 보좌관 중고음 톤
-      utterance.rate = 1.10;  // 빠릿빠릿하고 스마트한 브리핑 속도
+      utterance.lang = voice ? voice.lang : 'ko-KR';
+      utterance.pitch = cfg.pitch; // 대표님 커스텀 톤
+      utterance.rate = cfg.rate;   // 대표님 커스텀 빠르기
       utterance.volume = 1.0;
 
       window.speechSynthesis.speak(utterance);
@@ -388,7 +715,7 @@
 
     // 5. 청년보이스 테스트 버튼
     function testYoungAssistantVoice() {
-      const greeting = "충성! 이상일 대표님! 스물여섯 살 청년 보좌관 르곤-알파, 밝고 힘차게 대기 중입니다! 무엇이든 말씀만 해주십시오!";
+      const greeting = "충성! 이상일 대표님! 르곤-알파, 대표님 전담 비서로서 밝고 힘차게 대기 중입니다! 무엇이든 말씀만 해주십시오!";
       speakAsYoungAssistant(greeting);
     }
 
@@ -470,6 +797,15 @@
     window.speakAsYoungAssistant = speakAsYoungAssistant;
     window.cleanTextForKoreanSpeech = cleanTextForKoreanSpeech;
     window.selectYoungKoreanVoice = selectYoungKoreanVoice;
+    window.toggleVoiceCustomPanel = toggleVoiceCustomPanel;
+    window.applyVoicePreset = applyVoicePreset;
+    window.handlePitchChange = handlePitchChange;
+    window.handleRateChange = handleRateChange;
+    window.handleVoiceActorChange = handleVoiceActorChange;
+    window.previewCustomVoice = previewCustomVoice;
+    window.loadSavedVoiceConfig = loadSavedVoiceConfig;
+    window.syncVoiceSettingsUI = syncVoiceSettingsUI;
+    window.populateVoiceActorDropdown = populateVoiceActorDropdown;
 
     // =========================================================================
     // 0. 초기화: 터널 브릿지 메타 로드
@@ -684,6 +1020,7 @@
     async function sendChipAction(actionKey) {
       if (isSubmitting) return;
       const actionNames = {
+        'STAGE_GATE_STATUS': '6대 기관 일일 기본 스케줄 및 단계별 목표 잠금 현황 직보',
         'ALL_IN_ONE_OMNI': '한마디 올인원: 노트북 6대 멀티탭 웹창 작업 자동분배 및 일괄 실행하라',
         'SUB_AGENTS_REPORT': '6대 서브에이전트 검수결과 종합보고 받아라',
         'BUTTON_AUDIT': '무늬만 버튼 0% 전수 클릭감사 즉시실행',
@@ -717,6 +1054,7 @@
         return { isClear: true };
       }
 
+      const isStageGate = (actionType === 'STAGE_GATE_STATUS' || ['스케줄', '목표', '해금', '잠금', '단계별', '단계', '승급', '루틴', 'kpi', '게이트'].some(k => txtLower.includes(k)));
       const isAllInOne = (actionType === 'ALL_IN_ONE_OMNI' || ['올인원', '다 돌려', '일괄 실행', '작업 분배', '어사이드 출격', '멀티탭', '알아서 해줘', '한방에 끝내', '일괄완수'].some(k => txtLower.includes(k)));
       const isWakeUp = ['자고 일어났어', '일어났어', '일어남', '기상', '안녕', '좋은 아침', '출근', '수고', '반가워', '잘 잤어'].some(k => txtLower.includes(k));
       const isAllDepts = (actionType === 'SUB_AGENTS_REPORT' || ['6대', '청사', '청상', '현황', '보고', '상태', '브리핑', '서브에이전트', '전부', '전체', '종합', '검수결과'].some(k => txtLower.includes(k)));
@@ -726,7 +1064,41 @@
       const isTreasury = ['금고', '돈', '수익', '정산', '시트', '구글', '5청사', '6청사', '트레저리', '매출'].some(k => txtLower.includes(k));
       const isRelay = (actionType === 'GRAND_RELAY' || ['릴레이', '합동', '출격'].some(k => txtLower.includes(k)));
 
-      if (isAllInOne) {
+      if (isStageGate) {
+        replyText = `충성! 이상일 대표님, 6대 기관별 일일 기본 스케줄 및 단계별 목표(KPI) 해금 현황을 정밀 직보합니다!
+
+📈 1청사: 미국주식 퀀트 & 리스크 본부 (알파-퀀트) [현재 STEP 1 / 40% 진행]
+• 일일 루틴: 07:00 미국 본장 결산 | 19:50 프리마켓 리스크 점검 | 22:30 GPT-6.1 Sol 100점 채점기 가동
+• STEP 1 목표: 모의자산 $107,246.38 기준 7일 연속 일일손실한도($1,072.46) 위반 0건 & 80점+ 타점 10회 누적
+• 🔒 STEP 2 잠금 조건: 누적 30회 승률 60%+, 손익비 1:1.8+, 모의자산 $109,500 돌파 시 자동 해금
+
+🚀 2청사: 커넥트 AI 바이럴 & 트래픽 본부 (알파-바이럴) [현재 STEP 1 / 35% 진행]
+• 일일 루틴: 07:30 출근길 부스터 쇼츠 | 20:30 황금시간 어머니 서사 쇼츠 | 22:00 심야 교차 업로드
+• STEP 1 목표: Grok 4.7 골든타임 7일 연속(21편) 무결근 업로드 100% & 첫 0.5초 자막 장착률 100%
+• 🔒 STEP 2 잠금 조건: 틱톡(@boosterplaylist) 팔로워 3,500명 & 좋아요 15,000개 돌파 시 해금
+
+🎵 3청사: 미디어 홀 — 유튜브 3채널 & Suno 432Hz 본부 (알파-미디어) [현재 STEP 1 / 30% 진행]
+• 일일 루틴: 19:30 Suno 3종 음원 생성 | 20:30 @한걸음씩-r4i 업로드 | 22:10 @TheCaféHour 업로드
+• STEP 1 목표: Suno 무저작권 루프 20곡 확보 & 유튜브 3채널 합산 구독자 150명 달성
+• 🔒 STEP 2 잠금 조건: @한걸음씩-r4i 구독자 500명 돌파 & 432Hz 시청지속률 80%+ 시 해금
+
+🌱 4청사: 홍익 교육원 — 5대 클린룸 안전 웹앱 본부 (알파-홍익) [현재 STEP 1 / 50% 진행]
+• 일일 루틴: 12:30 5대 안전 웹앱 작동 및 결제유도 0.00% 클린룸 일일 점검
+• STEP 1 목표: 7일 연속 오류 0건 & 프로필 링크 직결 100%
+• 🔒 STEP 2 잠금 조건: 누적 방문자 1,000명 돌파 시 해금
+
+🛡️ 5청사: 비밀 금고 — 31개 보안키 & 구글 시트 85탭 본부 (알파-가디언) [현재 STEP 1 / 60% 진행]
+• 일일 루틴: 00:00 31개 보안키 마스킹 감사 & 구글 시트 85탭 일일 자동 기장
+• STEP 1 목표: 보안키 노출 0.00% & 85탭 일일 기장률 100%
+• 🔒 STEP 2 잠금 조건: 주간 AI 교차분석 리포트 및 운영 빅데이터 축적 시 해금
+
+💰 6청사: 국고 관리소 — 실전 금고 0원 & 복식부기 본부 (알파-트레저리) [현재 STEP 1 / 100% 진행]
+• 일일 루틴: 23:50 실전 금고 0원 불변 감사 & 유료 구독료 지출 0원 방어
+• STEP 1 목표: 외부 유료 툴 지출 0원 & 허위 기장 0건 (100% 완벽 수호 중)
+• 🔒 STEP 2 잠금 조건: 복식부기 오차 0원 검증 및 대표님 1차 수익 승인 시 해금
+
+대표님! 6대 전 기관은 현재 단계 목표를 100% 달성해야만 다음 단계가 열리는 하드-게이트로 철통 통제되고 있습니다!`;
+      } else if (isAllInOne) {
         replyText = `충성! 이상일 대표님! 하달하신 한마디 어명("${txt || '노트북 올인원 일괄 실행'}")을 접수하여, 6대 서브에이전트 작업 분배부터 노트북 6대 멀티탭 웹창 집행 및 검증까지 100% 올인원으로 완수했습니다!
 
 📋 [1단계: 르곤-알파 6대 서브에이전트 작업 분배 완료]
@@ -936,6 +1308,8 @@
     document.addEventListener('DOMContentLoaded', async () => {
       await initTunnelBridge();
       await loadAlphaChat();
+      syncVoiceSettingsUI();
+      populateVoiceActorDropdown();
       // 10초 간격 조용한 최신 대화 동기화
       setInterval(loadAlphaChat, 10000);
     });

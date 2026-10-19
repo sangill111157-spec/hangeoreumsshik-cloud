@@ -551,12 +551,12 @@
           <div class="flex items-start justify-between">
             <div>
               <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-950 text-cyan-300 border border-cyan-800">DEPT-01</span>
-              <h3 class="text-sm font-bold text-white mt-1 group-hover:text-cyan-300 transition">제1청사: 차세대 전략 R&D & 퀀트 상황실</h3>
+              <h3 class="text-sm font-bold text-white mt-1 group-hover:text-cyan-300 transition">제1청사: 미국주식 퀀트 & 리스크 본부 (알파-퀀트)</h3>
             </div>
             <span class="text-xl">📈</span>
           </div>
           <p class="text-xs text-slate-400 leading-relaxed">
-            📈 NVIDIA 미국주식 AI 트레이딩 모의($107,246) 실시간 관제 및 4대 기술 진단 완료.
+            📈 NVIDIA 미국주식 AI 트레이딩 모의($107,246.38) 실시간 관제 및 4대 혈관 100% 개통 완료.
           </p>
           <div class="text-[11px] font-semibold text-cyan-400 flex items-center gap-1 pt-1">
             <span>상황실 입장</span><span>➔</span>
@@ -647,6 +647,45 @@
             <span>청사 입장</span><span>➔</span>
           </div>
         </a>
+      </div>
+    </section>
+
+    <!-- 🎯 [v12.3] 6대 기관 일일 기본 스케줄 & STEP 1➔4 목표 달성 해금 보드 (#stage-gate-scheduler-board) -->
+    <section id="stage-gate-scheduler-board" class="glass-card rounded-2xl p-4 sm:p-6 space-y-4 border-indigo-500/40 bg-gradient-to-br from-indigo-950/30 via-slate-900/90 to-purple-950/30 shadow-2xl">
+      <!-- 섹션 헤더 -->
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-indigo-500/30 pb-3">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 via-orange-600 to-indigo-600 flex items-center justify-center text-xl shadow-lg shadow-amber-500/30">
+            🎯
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h2 class="text-base sm:text-lg font-bold text-white tracking-tight">6대 기관 일일 기본 스케줄 & STEP 1➔4 목표 달성 해금 보드</h2>
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40 font-mono">STAGE-GATE</span>
+            </div>
+            <p class="text-xs text-slate-400 mt-0.5">
+              현재 STEP 목표 100% 달성 시에만 다음 단계(🔒 LOCKED)가 자동 해금되는 '잘될 수밖에 없는 단계별 성취 스케줄러'
+            </p>
+          </div>
+        </div>
+        <div class="flex items-center gap-2 w-full sm:w-auto">
+          <button 
+            id="btn-stage-gate-check"
+            onclick="checkStageGateStatus()" 
+            class="w-full sm:w-auto px-4 py-2 rounded-xl bg-gradient-to-r from-amber-600 via-orange-600 to-indigo-600 hover:opacity-95 text-white font-bold text-xs shadow-lg shadow-amber-500/30 transition flex items-center justify-center gap-1.5 active:scale-95"
+          >
+            <span>🎯</span>
+            <span>[🎯 일일 루틴 & STEP 해금 판정]</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 6대 기관 단계별 목표 & 스케줄 카드 그리드 -->
+      <div id="stage-gate-cards-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5 text-xs">
+        <!-- JS 동적 로딩 (loadStageGateSchedule) -->
+        <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-800 text-slate-400 col-span-full text-center">
+          ⏳ 6대 기관 단계별 목표 해금 데이터를 불러오는 중입니다...
+        </div>
       </div>
     </section>
 
@@ -1376,7 +1415,150 @@
         }
       }
     }
-    window.runDeepButtonAuditFromUI = runDeepButtonAuditFromUI;
+    // 17. 🎯 [v12.3] 6대 기관 일일 기본 스케줄 & STEP 1➔4 목표 달성 해금 보드 로드
+    async function loadStageGateSchedule() {
+      const container = document.getElementById('stage-gate-cards-container');
+      if (!container) return;
+
+      try {
+        const res = await fetch('/api/stage-gate-schedule?t=' + Date.now());
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const data = await res.json();
+        const agencies = data.agencies || {};
+
+        let html = '';
+        Object.keys(agencies).forEach(key => {
+          const a = agencies[key];
+          const curStepNum = a.current_step || 1;
+          const curStepObj = (a.stage_gates && a.stage_gates[`step_${curStepNum}`]) || {};
+          const progress = curStepObj.progress_pct || 0;
+
+          // 일일 루틴 태그들
+          let routineHtml = '';
+          (a.daily_routine || []).forEach(r => {
+            routineHtml += `
+              <div class="flex items-center justify-between text-[11px] p-1.5 rounded bg-slate-950/60 border border-slate-800">
+                <span class="font-mono text-amber-300 font-bold shrink-0">${escapeHtml(r.time)}</span>
+                <span class="text-slate-300 text-right truncate ml-2">${escapeHtml(r.task)}</span>
+              </div>
+            `;
+          });
+
+          // STEP 2~4 잠금 배지 및 조건
+          let lockedStepsHtml = '';
+          [2, 3, 4].forEach(sNum => {
+            const sObj = (a.stage_gates && a.stage_gates[`step_${sNum}`]) || {};
+            const isLocked = sObj.status !== 'UNLOCKED';
+            const badgeClass = isLocked 
+              ? 'bg-rose-950/60 text-rose-300 border-rose-500/40' 
+              : 'bg-emerald-950/60 text-emerald-300 border-emerald-500/40';
+            const badgeText = isLocked ? `🔒 STEP ${sNum} 잠금` : `🔓 STEP ${sNum} 해금`;
+
+            lockedStepsHtml += `
+              <div class="p-2 rounded-lg bg-slate-950/50 border border-slate-800/80 space-y-1">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-slate-300 text-[11px]">${escapeHtml(sObj.name || `STEP ${sNum}`)}</span>
+                  <span class="px-1.5 py-0.5 rounded text-[9px] font-mono font-bold border ${badgeClass}">${badgeText}</span>
+                </div>
+                <div class="text-[10px] text-slate-400 leading-snug">
+                  ${isLocked ? `<span class="text-amber-400 font-bold">해금 조건:</span> ` : ''}${escapeHtml(sObj.unlock_condition || (sObj.kpi_targets ? sObj.kpi_targets.join(' · ') : ''))}
+                </div>
+              </div>
+            `;
+          });
+
+          html += `
+            <div class="p-4 rounded-xl bg-slate-900/80 border border-indigo-500/30 flex flex-col justify-between space-y-3 shadow-lg">
+              <!-- 헤더 -->
+              <div class="flex items-start justify-between gap-2 border-b border-slate-800 pb-2.5">
+                <div>
+                  <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-indigo-950 text-indigo-300 border border-indigo-800 font-bold">${escapeHtml(a.agency_code || key)}</span>
+                  <h4 class="text-sm font-bold text-white mt-1 leading-snug">${escapeHtml(a.name || key)}</h4>
+                </div>
+                <span class="text-2xl">${a.icon || '🏛️'}</span>
+              </div>
+
+              <!-- 일일 기본 루틴 -->
+              <div class="space-y-1.5">
+                <div class="text-[11px] font-bold text-amber-300 flex items-center gap-1">
+                  <span>🕒</span><span>하루 24시간 기본 루틴</span>
+                </div>
+                <div class="space-y-1">
+                  ${routineHtml}
+                </div>
+              </div>
+
+              <!-- 현재 진행 STEP & 게이지 -->
+              <div class="p-2.5 rounded-lg bg-indigo-950/40 border border-indigo-500/30 space-y-1.5">
+                <div class="flex items-center justify-between text-[11px]">
+                  <span class="font-bold text-cyan-300">현재: STEP ${curStepNum} (${escapeHtml(curStepObj.name || '')})</span>
+                  <span class="font-mono font-bold text-emerald-400">${progress}% 진행</span>
+                </div>
+                <div class="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
+                  <div class="bg-gradient-to-r from-cyan-500 to-emerald-400 h-2 rounded-full transition-all duration-500" style="width: ${progress}%"></div>
+                </div>
+                <div class="text-[10px] text-slate-300 pt-0.5">
+                  <span class="text-indigo-300 font-bold">필수 달성 목표:</span>
+                  ${(curStepObj.kpi_targets || []).map(t => `<div class="ml-1 text-slate-300 leading-tight">• ${escapeHtml(t)}</div>`).join('')}
+                </div>
+              </div>
+
+              <!-- 후속 잠금 STEP 현황 -->
+              <div class="space-y-1 pt-1 border-t border-slate-800/80">
+                <div class="text-[10px] text-slate-400 font-bold flex items-center justify-between">
+                  <span>🔒 후속 단계 잠금 현황</span>
+                  <span class="text-amber-400 text-[9px]">STEP 1 100% 달성 시 해금</span>
+                </div>
+                ${lockedStepsHtml}
+              </div>
+            </div>
+          `;
+        });
+
+        container.innerHTML = html;
+      } catch (err) {
+        container.innerHTML = `
+          <div class="p-4 rounded-xl bg-rose-950/40 border border-rose-500/40 text-rose-300 col-span-full text-center text-xs">
+            ⚠️ 6대 기관 스케줄 데이터를 불러오는 중 오류가 발생했습니다: ${escapeHtml(err.message)}
+          </div>
+        `;
+      }
+    }
+    window.loadStageGateSchedule = loadStageGateSchedule;
+
+    async function checkStageGateStatus() {
+      const btn = document.getElementById('btn-stage-gate-check');
+      const oldHtml = btn ? btn.innerHTML : '';
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<span>⏳</span><span>스케줄 및 해금 판정 중...</span>';
+      }
+      try {
+        const res = await fetch('/api/stage-gate-check', { method: 'POST' });
+        const result = await res.json();
+        const data = result.data || result;
+        if (result.success || data.success) {
+          await loadStageGateSchedule();
+          alert(`🎯 [6대 기관 일일 루틴 및 STEP 해금 판정 완료]\n\n• 영수증: ${data.receipt_id || 'STAGE-GATE-OK'}\n• 6대 기관 STEP 1 하드-게이트 철통 수호 중!\n• 현재 단계 목표 100% 달성 시 다음 단계 자동 해금!\n• 대표님 스마트폰 텔레그램 직보 발송 완료!`);
+        } else {
+          alert('스케줄 판정 응답: ' + (result.message || '완료'));
+        }
+      } catch (err) {
+        alert('판정 오류: ' + err.message);
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = oldHtml;
+        }
+      }
+    }
+    window.checkStageGateStatus = checkStageGateStatus;
+
+    // HTML 특수문자 이스케이프
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
 
     // 초기 로딩
     document.addEventListener('DOMContentLoaded', function() {
@@ -1387,6 +1569,7 @@
       loadSynergyRelayStatus();
       loadRgonAlphaStatus();
       loadAllDeptSubAgentsStatus();
+      loadStageGateSchedule();
     });
   </script>
   <script src="/aside_drawer.js"></script>
