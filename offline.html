@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>청와대 AI 중앙 컨트롤타워 - 터널 재개통 대기 중</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #070b14;
+      color: #e6edf3;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+      box-sizing: border-box;
+      padding: 20px;
+    }
+    .card {
+      background: #0d1322;
+      border: 1px solid #d4af37;
+      border-radius: 16px;
+      padding: 32px 24px;
+      max-width: 420px;
+      width: 100%;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.7);
+    }
+    .badge {
+      display: inline-block;
+      background: rgba(212, 175, 55, 0.15);
+      color: #d4af37;
+      border: 1px solid #d4af37;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-size: 20px;
+      margin: 0 0 12px 0;
+      color: #ffffff;
+    }
+    p {
+      font-size: 14px;
+      color: #94a3b8;
+      line-height: 1.6;
+      margin: 0 0 24px 0;
+    }
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(212, 175, 55, 0.2);
+      border-top-color: #d4af37;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 20px auto;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    .status-text {
+      font-size: 13px;
+      color: #38bdf8;
+      font-weight: 600;
+    }
+    .retry-btn {
+      background: linear-gradient(135deg, #d4af37, #b8911b);
+      color: #070b14;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 20px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="badge">Claude Opus 5.5 무중단 브릿지</div>
+    <div class="spinner"></div>
+    <h1>5G 터널 재개통 대기 중</h1>
+    <p>
+      청와대 AI 중앙 컨트롤타워와의 연결이 일시적으로 지연되고 있습니다.<br>
+      최신 활성 5G 터널을 3초 주기로 자동 추적 중이며, 연결 복구 즉시 자동으로 화면이 전환됩니다.
+    </p>
+    <div class="status-text" id="status-desc">터널 상태 신호 탐색 중 (0회 시도)...</div>
+    <button class="retry-btn" onclick="checkBridgeNow()">지금 다시 연결 시도</button>
+  </div>
+
+  <script>
+    let attempts = 0;
+    async function checkBridgeNow() {
+      attempts++;
+      const statusElem = document.getElementById('status-desc');
+      statusElem.textContent = `터널 상태 신호 탐색 중 (${attempts}회 시도)...`;
+
+      try {
+        const res = await fetch('/tunnel_bridge.json?_t=' + Date.now(), { cache: 'no-store' });
+        if (res.ok) {
+          const data = await res.json();
+          const targetUrl = data.active_url || data.tunnel_url;
+          if (targetUrl) {
+            statusElem.textContent = '활성 터널 발견! 안전하게 이동합니다...';
+            setTimeout(() => {
+              window.location.href = targetUrl + '/rgon_alpha_chat.html';
+            }, 800);
+            return;
+          }
+        }
+      } catch (err) {
+        // 일시적 오류
+      }
+    }
+
+    // 3초 주기 자동 폴링
+    setInterval(checkBridgeNow, 3000);
+    checkBridgeNow();
+  </script>
+</body>
+</html>

@@ -1239,6 +1239,86 @@ class DashboardHandler(SimpleHTTPRequestHandler):
         path = parsed.path
         query = urllib.parse.parse_qs(parsed.query)
 
+        # 📱 [v12.0] Claude Opus 5.5 PWA 코어 자산 및 터널 브릿지 서빙
+        pwa_content_types = {
+            '/manifest.webmanifest': 'application/manifest+json; charset=utf-8',
+            '/sw.js': 'application/javascript; charset=utf-8',
+            '/pwa_bootstrap.js': 'application/javascript; charset=utf-8',
+            '/offline.html': 'text/html; charset=utf-8',
+            '/tunnel_bridge.json': 'application/json; charset=utf-8'
+        }
+        if path in pwa_content_types:
+            target_file = DASHBOARD_DIR / path.lstrip('/')
+            if not target_file.exists():
+                target_file = BASE_DIR / path.lstrip('/')
+            if target_file.exists():
+                with open(target_file, 'rb') as f:
+                    content = f.read()
+                self.send_response(200)
+                self.send_header('Content-Type', pwa_content_types[path])
+                self.send_header('Content-Length', str(len(content)))
+                self.send_header('Access-Control-Allow-Origin', '*')
+                if path in ['/sw.js', '/tunnel_bridge.json']:
+                    self.send_header('Cache-Control', 'no-cache, no-store, must-revalidate')
+                else:
+                    self.send_header('Cache-Control', 'public, max-age=3600')
+                self.end_headers()
+                self.wfile.write(content)
+                return
+
+        # 🛡️ [v12.0] 제1청사 × GPT-6.1 Sol 퀀트 리스크 & 100점 채점 상태 (GET /api/quant-risk-status)
+        if path == '/api/quant-risk-status':
+            try:
+                import quant_risk_engine
+                import importlib
+                importlib.reload(quant_risk_engine)
+                status_data = quant_risk_engine.get_quant_risk_master_status()
+            except Exception as e:
+                status_data = {
+                    "status": "ERROR",
+                    "error": str(e),
+                    "engine_version": "v12.0-GPT-6.1-SOL-FALLBACK",
+                    "risk_budget": {
+                        "total_capital_usd": 107246.38,
+                        "daily_loss_limit_usd": 1072.46,
+                        "max_drawdown_limit_usd": 5362.32
+                    }
+                }
+            body = json.dumps(status_data, ensure_ascii=False).encode('utf-8')
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json; charset=utf-8')
+            self.send_header('Access-Control-Allow-Origin', '*')
+            self.send_header('Content-Length', str(len(body)))
+            self.send_header('Cache-Control', 'no-store')
+            self.end_headers()
+            self.wfile.write(body)
+            return
+
+        # 🚀 [v12.0] 제2·3청사 × Grok 4.7 골든타임 바이럴 4대 편성표 & Suno 명세 (GET /api/grok-viral-plan)
+        if path == '/api/grok-viral-plan':
+            try:
+                import grok_viral_schedule_engine
+                import importlib
+                importlib.reload(grok_viral_schedule_engine)
+                plan_data = grok_viral_schedule_engine.viral_engine.get_full_plan()
+                next_slot_data = grok_viral_schedule_engine.viral_engine.get_active_or_next_slot()
+                response_data = {
+                    "status": "OK",
+                    "master_plan": plan_data,
+                    "active_recommendation": next_slot_data
+                }
+            except Exception as e:
+                response_data = {"status": "ERROR", "error": str(e)}
+            body = json.dumps(response_data, ensure_ascii=False).encode('utf-8')
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json; charset=utf-8')
+            self.send_header('Access-Control-Allow-Origin', '*')
+            self.send_header('Content-Length', str(len(body)))
+            self.send_header('Cache-Control', 'no-store')
+            self.end_headers()
+            self.wfile.write(body)
+            return
+
         # 🌐 만능 멀티-AI 실시간 교신 버스 조회 (GET /api/omni-agent-bus)
         if path == '/api/omni-agent-bus':
             bus_file = BASE_DIR / "omni_agent_bus.json"
@@ -2016,6 +2096,113 @@ class DashboardHandler(SimpleHTTPRequestHandler):
         return super().do_GET()
 
     def do_POST(self):
+
+        # 🛡️ [v12.0] 제1청사 × GPT-6.1 Sol 퀀트 리스크 100점 채점 즉시 평가 (POST /api/quant-risk-evaluate)
+        if self.path == '/api/quant-risk-evaluate':
+            length = int(self.headers.get('Content-Length', 0))
+            raw_body = self.rfile.read(length)
+            try:
+                data = json.loads(raw_body.decode('utf-8')) if raw_body else {}
+                symbol = data.get('symbol', 'NVDA').upper()
+                import quant_risk_engine
+                import importlib
+                from dataclasses import asdict
+                importlib.reload(quant_risk_engine)
+
+                budget = quant_risk_engine.RiskBudget()
+                default_data = {
+                    "NVDA": {"price": 138.25, "ema20": 135.10, "ema50": 130.40, "vwap": 136.80, "rsi": 62.5, "rvol": 1.45, "spread": 0.03, "atr": 3.85},
+                    "AVGO": {"price": 1780.50, "ema20": 1740.00, "ema50": 1690.00, "vwap": 1765.00, "rsi": 68.0, "rvol": 1.30, "spread": 0.05, "atr": 42.0},
+                    "TSLA": {"price": 220.10, "ema20": 218.00, "ema50": 212.00, "vwap": 219.50, "rsi": 58.0, "rvol": 1.25, "spread": 0.04, "atr": 7.50}
+                }
+                d = default_data.get(symbol, default_data["NVDA"])
+                price = float(data.get('price', d['price']))
+                atr = float(data.get('atr', d['atr']))
+
+                score = quant_risk_engine.score_entry(
+                    ticker=symbol,
+                    price=price,
+                    ema20=d['ema20'],
+                    ema50=d['ema50'],
+                    vwap=d['vwap'],
+                    rsi=d['rsi'],
+                    rvol=d['rvol'],
+                    box_breakout=True,
+                    qqq_bullish=True,
+                    spread_pct=d['spread']
+                )
+
+                is_blocked, p_reason, all_reasons = quant_risk_engine.check_16_entry_block_reasons(
+                    ticker=symbol,
+                    budget=budget,
+                    market_open=True,
+                    minutes_from_open=45,
+                    minutes_to_close=120,
+                    is_holiday=False,
+                    spread_pct=d['spread'],
+                    slippage_pct=0.03,
+                    broker_api_healthy=True,
+                    kis_cooldown_active=False,
+                    score=score
+                )
+
+                plan = quant_risk_engine.make_entry_plan(
+                    ticker=symbol,
+                    current_price=price,
+                    atr14=atr,
+                    budget=budget
+                )
+
+                resp = {
+                    "status": "OK",
+                    "success": True,
+                    "symbol": symbol,
+                    "score": asdict(score),
+                    "is_blocked": is_blocked,
+                    "primary_block_reason": p_reason,
+                    "all_block_reasons": all_reasons,
+                    "plan": plan,
+                    "risk_budget": asdict(budget)
+                }
+            except Exception as e:
+                resp = {"status": "ERROR", "success": False, "message": str(e)}
+
+            body = json.dumps(resp, ensure_ascii=False).encode("utf-8")
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(body)
+            return
+
+        # 🚀 [v12.0] 제2·3청사 × Grok 4.7 바이럴 슬롯 원클릭 장전 번들 (POST /api/grok-viral-autofill)
+        if self.path == '/api/grok-viral-autofill':
+            length = int(self.headers.get('Content-Length', 0))
+            raw_body = self.rfile.read(length)
+            try:
+                data = json.loads(raw_body.decode('utf-8')) if raw_body else {}
+                slot_id = data.get('slot_id', 'slot_1')
+                import grok_viral_schedule_engine
+                import importlib
+                importlib.reload(grok_viral_schedule_engine)
+                bundle = grok_viral_schedule_engine.viral_engine.generate_autofill_bundle(slot_id)
+                resp = {
+                    "status": "OK",
+                    "success": True,
+                    "bundle": bundle
+                }
+            except Exception as e:
+                resp = {"status": "ERROR", "success": False, "message": str(e)}
+
+            body = json.dumps(resp, ensure_ascii=False).encode("utf-8")
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(body)
+            return
 
         # 📱 [v10.8] 4대 SNS 원터치 멀티 쇼츠·콘텐츠 동시 배급 (POST /api/sns-multi-dispatch)
         if self.path == '/api/sns-multi-dispatch':

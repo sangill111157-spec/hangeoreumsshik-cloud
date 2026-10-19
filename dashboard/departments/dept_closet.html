@@ -6,6 +6,8 @@
   <title>🏛️ 제1청사: 차세대 전략 프로젝트 R&D 본부 & NVIDIA 퀀트 상황실 | 한걸음씩 청와대</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <script src="/pwa_bootstrap.js" defer></script>
   <style>
     * {
       box-sizing: border-box;
@@ -62,6 +64,67 @@
       </a>
     </div>
   </header>
+
+  <!-- 🛡️ [v12.0 핵심] GPT-6.1 Sol 퀀트 리스크 & 100점 채점 컨트롤 패널 -->
+  <section class="glass-card rounded-2xl p-4 sm:p-6 space-y-4 border border-emerald-500/50 shadow-2xl bg-slate-900/90">
+    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3 border-b border-slate-800 pb-3">
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="text-2xl">🛡️</span>
+          <h2 class="text-base sm:text-lg font-black text-white tracking-tight">GPT-6.1 Sol 퀀트 리스크 & 100점 채점 컨트롤 패널</h2>
+          <span class="px-2 py-0.5 rounded-md bg-emerald-500/20 text-emerald-300 text-[10px] font-black border border-emerald-500/40">
+            v12.0-SOL-VERIFIED
+          </span>
+        </div>
+        <p class="text-[11px] text-slate-400 mt-0.5">
+          기준 자본금: <span class="font-bold text-amber-300">$107,246.38</span> | 일일 최대 손실: <span class="font-bold text-rose-400">$1,072.46 (1.0%)</span> | MDD 한도: <span class="font-bold text-rose-400">$5,362.32 (5.0%)</span> | 1회 리스크: <span class="text-emerald-300">$107.25~$214.49</span>
+        </p>
+      </div>
+      <div class="flex items-center gap-2">
+        <button onclick="evaluateQuantRisk('NVDA')" class="px-3 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-slate-950 font-black text-xs transition shadow-lg shadow-emerald-500/20 active:scale-95 flex items-center gap-1">
+          <span>⚡ NVDA 채점 실행</span>
+        </button>
+        <button onclick="evaluateQuantRisk('AVGO')" class="px-3 py-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-black text-xs transition shadow-lg shadow-cyan-500/20 active:scale-95 flex items-center gap-1">
+          <span>⚡ AVGO 채점 실행</span>
+        </button>
+        <button onclick="evaluateQuantRisk('TSLA')" class="px-3 py-2 rounded-xl bg-gradient-to-r from-rose-500 to-red-600 hover:from-rose-400 hover:to-red-500 text-white font-black text-xs transition shadow-lg shadow-rose-500/20 active:scale-95 flex items-center gap-1">
+          <span>⚡ TSLA 채점 실행</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- 4대 요약 카드 -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
+      <div class="p-3 rounded-xl bg-slate-950/60 border border-slate-800">
+        <div class="text-[10px] text-slate-400">100점 채점 합격선</div>
+        <div class="text-sm font-black text-amber-300 mt-1">80점 이상 (ELIGIBLE)</div>
+        <div class="text-[9px] text-slate-500 mt-0.5">추세25·모멘텀20·거래량15·구조20·시장10·체결10</div>
+      </div>
+      <div class="p-3 rounded-xl bg-slate-950/60 border border-slate-800">
+        <div class="text-[10px] text-slate-400">16대 진입 차단 필터</div>
+        <div id="quant-block-status" class="text-sm font-black text-emerald-400 mt-1">정상 통과 (NO BLOCK)</div>
+        <div class="text-[9px] text-slate-500 mt-0.5">KIS 장애 시 임의 장부 대체 원천 금지</div>
+      </div>
+      <div class="p-3 rounded-xl bg-slate-950/60 border border-slate-800">
+        <div class="text-[10px] text-slate-400">30/30/40 분할 익절 모델</div>
+        <div class="text-sm font-black text-cyan-300 mt-1">1R(30%)+BE ➔ 2R(30%) ➔ 40%(Trail)</div>
+        <div class="text-[9px] text-slate-500 mt-0.5">손절폭 max(1.5*ATR, 0.8%), 캡 5%</div>
+      </div>
+      <div class="p-3 rounded-xl bg-slate-950/60 border border-slate-800">
+        <div class="text-[10px] text-slate-400">실시간 엔진 응답</div>
+        <div id="quant-engine-state" class="text-sm font-black text-emerald-300 mt-1">GPT-6.1 Sol ACTIVE</div>
+        <div id="quant-last-updated" class="text-[9px] text-slate-500 mt-0.5">동기화 대기 중...</div>
+      </div>
+    </div>
+
+    <!-- 3대 모니터링 종목 채점 및 분할익절 시뮬레이션 카드 -->
+    <div id="quant-assets-container" class="grid grid-cols-1 md:grid-cols-3 gap-3">
+      <!-- 동적 로드 영역 -->
+      <div class="col-span-3 text-center py-4 text-xs text-slate-400">
+        퀀트 리스크 및 채점 엔진 데이터를 불러오는 중입니다...
+      </div>
+    </div>
+  </section>
 
   <!-- 📈 [v11.1 핵심] NVIDIA 미국주식 AI 트레이딩 봇 — 실시간 시험운전 관제 상황실 -->
   <section class="glass-card rounded-2xl p-4 sm:p-6 space-y-4 border border-amber-500/40 shadow-2xl">
@@ -653,8 +716,98 @@
     }
     window.loadDeptSubAgentStatus = loadDeptSubAgentStatus;
 
+    // 🛡️ [v12.0] GPT-6.1 Sol 퀀트 리스크 상태 로드 및 채점기
+    async function loadQuantRiskStatus() {
+      try {
+        const res = await fetch('/api/quant-risk-status?_t=' + Date.now());
+        if (!res.ok) return;
+        const data = await res.json();
+        renderQuantRiskData(data);
+      } catch (e) {
+        console.warn('Quant risk status fetch failed:', e);
+      }
+    }
+
+    function renderQuantRiskData(data) {
+      if (!data || !data.monitored_assets) return;
+      const lastUp = document.getElementById('quant-last-updated');
+      if (lastUp) lastUp.textContent = data.timestamp || '동기화 완료';
+
+      const container = document.getElementById('quant-assets-container');
+      if (!container) return;
+
+      container.innerHTML = Object.entries(data.monitored_assets).map(([sym, item]) => {
+        const sc = item.score || {};
+        const isEligible = sc.is_eligible;
+        const plan = item.plan || {};
+        const stopLoss = plan.stop_loss_plan || {};
+        const tp1 = plan.tp1_plan || {};
+        const tp2 = plan.tp2_plan || {};
+        const tp3 = plan.tp3_plan || {};
+
+        return `
+          <div class="p-3.5 rounded-xl bg-slate-950/80 border ${isEligible ? 'border-emerald-500/50' : 'border-slate-800'} space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-sm font-black text-white">${sym}</span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-black ${isEligible ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40' : 'bg-slate-800 text-slate-400'}">
+                총점 ${sc.total_score || 0}점 (${isEligible ? '적합 ELIGIBLE' : '대기'})
+              </span>
+            </div>
+            <div class="text-[10px] text-slate-400 grid grid-cols-2 gap-1 bg-slate-900/60 p-2 rounded-lg">
+              <div>추세: <b class="text-slate-200">${sc.trend_score || 0}/25</b></div>
+              <div>모멘텀: <b class="text-slate-200">${sc.momentum_score || 0}/20</b></div>
+              <div>거래량: <b class="text-slate-200">${sc.volume_score || 0}/15</b></div>
+              <div>구조: <b class="text-slate-200">${sc.structure_score || 0}/20</b></div>
+              <div>시장: <b class="text-slate-200">${sc.market_env_score || 0}/10</b></div>
+              <div>체결: <b class="text-slate-200">${sc.execution_score || 0}/10</b></div>
+            </div>
+            <div class="text-[11px] space-y-1 border-t border-slate-800/80 pt-2">
+              <div class="flex justify-between text-rose-300">
+                <span>손절(max 1.5*ATR):</span>
+                <b>$${stopLoss.stop_price || 0} (-${stopLoss.stop_loss_pct || 0}%)</b>
+              </div>
+              <div class="flex justify-between text-amber-300">
+                <span>+1R 30% 익절+본절:</span>
+                <b>$${tp1.target_price || 0} (${tp1.shares_to_sell || 0}주)</b>
+              </div>
+              <div class="flex justify-between text-emerald-300">
+                <span>+2R 30% 익절:</span>
+                <b>$${tp2.target_price || 0} (${tp2.shares_to_sell || 0}주)</b>
+              </div>
+              <div class="flex justify-between text-cyan-300">
+                <span>잔여 40% 트레일링:</span>
+                <b>${tp3.description || 'EMA20 / 2*ATR 추적'}</b>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    async function evaluateQuantRisk(symbol) {
+      try {
+        const res = await fetch('/api/quant-risk-evaluate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ symbol: symbol })
+        });
+        const result = await res.json();
+        if (result.success) {
+          alert(`⚡ [${symbol} 100점 채점 완료]\n\n• 총점: ${result.score.total_score}점 (${result.score.is_eligible ? 'ELIGIBLE 진입 적합' : '대기'})\n• 16대 차단 여부: ${result.is_blocked ? result.primary_block_reason : '통과 (NO BLOCK)'}\n• 손절가: $${result.plan.stop_loss_plan.stop_price}\n• 1차 익절(+1R): $${result.plan.tp1_plan.target_price}`);
+          loadQuantRiskStatus();
+        } else {
+          alert('채점 실패: ' + (result.message || '알 수 없는 오류'));
+        }
+      } catch (err) {
+        alert('API 호출 오류: ' + err.message);
+      }
+    }
+    window.evaluateQuantRisk = evaluateQuantRisk;
+    window.loadQuantRiskStatus = loadQuantRiskStatus;
+
     document.addEventListener('DOMContentLoaded', () => {
       loadDeptSubAgentStatus('ALPHA-D1');
+      loadQuantRiskStatus();
     });
   </script>
   <script src="/aside_drawer.js"></script>

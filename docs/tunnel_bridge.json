@@ -1,8 +1,13 @@
 {
-  "active_tunnel_url": "https://wiley-worlds-ethical-hood.trycloudflare.com",
-  "tunnel_url": "https://wiley-worlds-ethical-hood.trycloudflare.com",
-  "dashboard_url": "https://wiley-worlds-ethical-hood.trycloudflare.com/?v=960&tab=command",
-  "port": 8501,
-  "verified_status": 200,
-  "opened_at": "2026-10-19 12:00:51"
+  "version": "v12.0-GRAND-TRINITY",
+  "active_url": "https://asp-defend-republican-kurt.trycloudflare.com",
+  "tunnel_url": "https://asp-defend-republican-kurt.trycloudflare.com",
+  "last_checked_at": "2026-10-19T17:52:14.360474",
+  "status": "HEALTHY",
+  "provider": "Cloudflare Trycloudflare Tunnel",
+  "shortcuts": {
+    "rgon_chat": "https://asp-defend-republican-kurt.trycloudflare.com/rgon_alpha_chat.html",
+    "main_tower": "https://asp-defend-republican-kurt.trycloudflare.com/index.html",
+    "dept_closet": "https://asp-defend-republican-kurt.trycloudflare.com/departments/dept_closet.html"
+  }
 }

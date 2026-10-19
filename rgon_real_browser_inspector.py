@@ -1181,6 +1181,68 @@ try {{
     log_gate("HARD-GATE-16", "르곤-알파 1:1 전담 독대실(rgon_alpha_chat.html) 개통 & 전 청사 무늬만 버튼 0% 실사용 감사", gate16_ok, gate16_detail)
 
     # --------------------------------------------------------------------------
+    # [HARD-GATE 17] v12.0 3대 AI 마스터 통합(GPT 퀀트리스크 · Grok 편성표 · Claude PWA) 실전 검수
+    # --------------------------------------------------------------------------
+    gate17_checks = []
+
+    # 1) GPT-6.1 Sol 퀀트 리스크 API (/api/quant-risk-status) & $107,246.38 검증
+    s_qrs, raw_qrs = http_get("/api/quant-risk-status")
+    try:
+        j_qrs = json.loads(raw_qrs) if isinstance(raw_qrs, str) else raw_qrs
+    except Exception:
+        j_qrs = {}
+    q_budget = j_qrs.get("risk_budget", {})
+    cap_ok = (q_budget.get("total_capital_usd") == 107246.38 and q_budget.get("daily_loss_limit_usd") == 1072.46)
+    score_ok = ("monitored_assets" in j_qrs and "NVDA" in j_qrs["monitored_assets"])
+    gate17_checks.append((
+        s_qrs == 200 and cap_ok and score_ok,
+        f"GPT퀀트리스크API(HTTP {s_qrs}, 자본금=$107,246.38, 일일한도=$1,072.46, NVDA채점={score_ok})"
+    ))
+
+    # 2) Grok 4.7 바이럴 편성표 API (/api/grok-viral-plan) & 4대 슬롯/432Hz 검증
+    s_gvp, raw_gvp = http_get("/api/grok-viral-plan")
+    try:
+        j_gvp = json.loads(raw_gvp) if isinstance(raw_gvp, str) else raw_gvp
+    except Exception:
+        j_gvp = {}
+    m_plan = j_gvp.get("master_plan", {})
+    slots = m_plan.get("slots") or m_plan.get("schedule_slots") or []
+    times = [str(s.get("time", s.get("target_time", ""))) for s in slots]
+    has_grok_times = any("20:30" in t for t in times) and any("22:10" in t for t in times) and any("07:30" in t for t in times)
+    comments = [str(s.get("pinned_comment", "")) for s in slots]
+    if isinstance(m_plan.get("pinned_comments"), dict):
+        comments.extend([str(c.get("comment_text", "")) for c in m_plan["pinned_comments"].values()])
+    has_432hz = any("432Hz" in c for c in comments)
+    gate17_checks.append((
+        s_gvp == 200 and has_grok_times and has_432hz,
+        f"Grok바이럴편성표API(HTTP {s_gvp}, 4대슬롯시간={has_grok_times}, 432Hz수면댓글={has_432hz})"
+    ))
+
+    # 3) Claude Opus 5.5 PWA 모바일 앱 자산 서빙 (/manifest.webmanifest, /sw.js)
+    s_manifest, c_manifest = http_get("/manifest.webmanifest")
+    s_sw, c_sw = http_get("/sw.js")
+    manifest_has_name = "청와대 AI 중앙 컨트롤타워" in str(c_manifest)
+    sw_has_cache = "cheongwadae-pwa-v12.0" in str(c_sw) or "CACHE_NAME" in str(c_sw)
+    gate17_checks.append((
+        s_manifest == 200 and s_sw == 200 and manifest_has_name and sw_has_cache,
+        f"ClaudePWA서빙(Manifest HTTP {s_manifest}, SW HTTP {s_sw}, 앱이름일치={manifest_has_name})"
+    ))
+
+    # 4) 퀀트 리스크 및 그록 바이럴 POST API 작동 검증
+    s_q_eval, j_q_eval = http_post("/api/quant-risk-evaluate", {"symbol": "NVDA"})
+    s_g_auto, j_g_auto = http_post("/api/grok-viral-autofill", {"slot_id": "slot_1"})
+    q_eval_ok = (s_q_eval == 200 and j_q_eval.get("success") == True and "score" in j_q_eval)
+    g_auto_ok = (s_g_auto == 200 and j_g_auto.get("success") == True and "bundle" in j_g_auto)
+    gate17_checks.append((
+        q_eval_ok and g_auto_ok,
+        f"POST엔드포인트검증(퀀트채점={q_eval_ok}, 그록장전={g_auto_ok})"
+    ))
+
+    gate17_ok = all(c[0] for c in gate17_checks)
+    gate17_detail = " / ".join(c[1] for c in gate17_checks)
+    log_gate("HARD-GATE-17", "v12.0 3대 AI 마스터 통합(GPT 퀀트리스크 · Grok 편성표 · Claude PWA) 실전 검수", gate17_ok, gate17_detail)
+
+    # --------------------------------------------------------------------------
     # 종합 판정
     # --------------------------------------------------------------------------
     total_gates = len(results)

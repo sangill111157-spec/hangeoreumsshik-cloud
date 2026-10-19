@@ -1,0 +1,53 @@
+{
+  "name": "청와대 AI 중앙 컨트롤타워 (르곤-알파)",
+  "short_name": "청와대AI",
+  "description": "최고 통수권자 이상일 대표님 전용 AI 중앙 컨트롤타워 모바일 PWA",
+  "start_url": "/rgon_alpha_chat.html",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#070b14",
+  "theme_color": "#d4af37",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/assets/logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/assets/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "1:1 독대실 직통",
+      "short_name": "독대실",
+      "description": "르곤-알파 1:1 대화실로 즉시 연결",
+      "url": "/rgon_alpha_chat.html",
+      "icons": [{ "src": "/favicon.ico", "sizes": "64x64" }]
+    },
+    {
+      "name": "청와대 본관",
+      "short_name": "본관",
+      "description": "청와대 AI 중앙 컨트롤타워 대시보드",
+      "url": "/index.html",
+      "icons": [{ "src": "/favicon.ico", "sizes": "64x64" }]
+    },
+    {
+      "name": "제1청사 퀀트",
+      "short_name": "제1청사",
+      "description": "꿈의 옷장 × GPT-6.1 Sol 퀀트 리스크 엔진",
+      "url": "/departments/dept_closet.html",
+      "icons": [{ "src": "/favicon.ico", "sizes": "64x64" }]
+    }
+  ]
+}

@@ -6,6 +6,8 @@
   <title>🎖️ 제2부서: Connect AI 홍보·비즈니스청 | 한걸음씩 청와대 독립 청사</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700;800&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <script src="/pwa_bootstrap.js" defer></script>
   <style>
     body { font-family: 'Pretendard', 'Inter', sans-serif; background-color: #070a13; color: #f8fafc; }
     .glass-card { background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(16px); border: 1px solid rgba(99, 102, 241, 0.25); }
@@ -48,6 +50,62 @@
       </a>
     </div>
   </div>
+
+  <!-- 🔥 [v12.0 핵심] Grok 4.7 골든타임 4대 편성표 & Suno 3종 · 고정댓글 원클릭 복사/장착 패널 -->
+  <section class="glass-card rounded-2xl p-4 sm:p-6 space-y-4 border border-purple-500/50 shadow-2xl bg-slate-900/90">
+    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3 border-b border-slate-800 pb-3">
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="text-2xl">🔥</span>
+          <h2 class="text-base sm:text-lg font-black text-white tracking-tight">Grok 4.7 골든타임 4대 편성표 & Suno AI 3종 마스터 패널</h2>
+          <span class="px-2 py-0.5 rounded-md bg-purple-500/20 text-purple-300 text-[10px] font-black border border-purple-500/40">
+            v12.0-GROK-4.7-VIRAL
+          </span>
+        </div>
+        <p class="text-[11px] text-slate-400 mt-0.5">
+          4대 골든타임 슬롯 (20:30 · 22:10 · 07:30 · 22:00) | 3초 훅 + 단 1개 고정댓글 | 432Hz 주파수는 수면/힐링 전용
+        </p>
+      </div>
+      <div class="flex items-center gap-2">
+        <span id="grok-active-slot-badge" class="px-3 py-1.5 rounded-xl bg-purple-950/80 text-purple-300 border border-purple-500/40 text-xs font-bold">
+          ⏳ 슬롯 계산 중...
+        </span>
+      </div>
+    </div>
+
+    <!-- 4대 골든타임 슬롯 카드 리스트 -->
+    <div id="grok-slots-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+      <div class="col-span-full text-center py-4 text-xs text-slate-400">
+        Grok 4.7 바이럴 편성표 데이터를 동기화하는 중입니다...
+      </div>
+    </div>
+
+    <!-- Suno 3종 및 고정댓글 & 안전 바이오 요약 패널 -->
+    <div class="p-3.5 rounded-xl bg-slate-950/70 border border-slate-800 grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+      <div>
+        <div class="text-[11px] font-bold text-amber-300 mb-1">🎵 Suno 프롬프트 3종</div>
+        <div class="text-[10px] text-slate-400 space-y-1">
+          <div>① 어머니 발라드: 62 BPM, A minor, Warm Felt Piano</div>
+          <div>② 출근길 부스터: 128 BPM, F minor, Punchy Synth Bass</div>
+          <div>③ 비오는 로파이 재즈: 78 BPM, Rhodes Piano & Rain Ambiance</div>
+        </div>
+      </div>
+      <div>
+        <div class="text-[11px] font-bold text-emerald-300 mb-1">📌 고정 댓글 3종 (단 1개만 고정)</div>
+        <div class="text-[10px] text-slate-400 space-y-1">
+          <div>① "엄마한테, 말 없이 이 영상만 보내세요..." (432Hz)</div>
+          <div>② "저장만 해. 내일 7시, 알람 대신 이거 켜고 나가."</div>
+          <div>③ "저장. 비 오는 날 다시 켜. 풀버전 수면용 432Hz..."</div>
+        </div>
+      </div>
+      <div>
+        <div class="text-[11px] font-bold text-cyan-300 mb-1">🔗 안전 프로필 바이오 문구</div>
+        <div class="text-[10px] text-slate-400">
+          "한걸음씩 유튜브 | 432Hz 힐링 | Booster_Playlist | 하루 1% 루틴 | 연봉 계산기 · 행운컬러 · 부자DNA"
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- ══════════════════════════════════════════════════════════════
        👑 [v10.9] 대표님 실전 미디어 제국: 유튜브 3대 채널 & 틱톡 2,098팔로워 메가 허브 직통 관제판
@@ -2197,12 +2255,87 @@
     }
     window.closeInspectionCard = closeInspectionCard;
     
+    // 🔥 [v12.0] Grok 4.7 바이럴 마스터 플랜 로드 및 슬롯 장전
+    async function loadGrokViralPlan() {
+      try {
+        const res = await fetch('/api/grok-viral-plan?_t=' + Date.now());
+        if (!res.ok) return;
+        const data = await res.json();
+        renderGrokPlanData(data);
+      } catch (e) {
+        console.warn('Grok viral plan fetch failed:', e);
+      }
+    }
+
+    function renderGrokPlanData(data) {
+      if (!data || !data.master_plan) return;
+      const plan = data.master_plan;
+      const rec = data.active_recommendation || {};
+
+      const badge = document.getElementById('grok-active-slot-badge');
+      if (badge && rec.slot) {
+        badge.textContent = `🎯 추천 슬롯: ${rec.slot.title} (${rec.slot.target_time})`;
+      }
+
+      const container = document.getElementById('grok-slots-container');
+      if (!container || !plan.schedule_slots) return;
+
+      container.innerHTML = plan.schedule_slots.map(slot => {
+        const isRec = rec.slot && rec.slot.slot_id === slot.slot_id;
+        return `
+          <div class="p-3.5 rounded-xl bg-slate-950/80 border ${isRec ? 'border-amber-400/80 bg-amber-950/20' : 'border-slate-800'} flex flex-col justify-between space-y-2">
+            <div>
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-black text-amber-300 font-mono">${slot.target_time}</span>
+                <span class="px-1.5 py-0.5 rounded text-[9px] font-bold ${isRec ? 'bg-amber-400/20 text-amber-300' : 'bg-slate-800 text-slate-400'}">
+                  ${isRec ? '👑 최적 슬롯' : slot.duration}
+                </span>
+              </div>
+              <div class="text-xs font-bold text-white mt-1">${slot.title}</div>
+              <div class="text-[10px] text-slate-400 mt-0.5">${slot.channel}</div>
+              <div class="text-[10px] text-purple-300 bg-purple-950/40 p-1.5 rounded mt-1.5 border border-purple-500/20">
+                <b>3초 훅:</b> "${slot.hook_first_3s}"
+              </div>
+            </div>
+            <button onclick="autofillGrokSlot('${slot.slot_id}')" class="w-full py-1.5 px-2 rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-[10px] transition shadow flex items-center justify-center gap-1 active:scale-95">
+              <span>📋 캡션·댓글·Suno 즉시 장전</span>
+            </button>
+          </div>
+        `;
+      }).join('');
+    }
+
+    async function autofillGrokSlot(slotId) {
+      try {
+        const res = await fetch('/api/grok-viral-autofill', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ slot_id: slotId })
+        });
+        const result = await res.json();
+        if (result.success && result.bundle) {
+          const bundle = result.bundle;
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            await navigator.clipboard.writeText(bundle.clipboard_payload);
+          }
+          alert(`🔥 [${bundle.slot.title} 장전 완료]\n\n• 초반 훅: ${bundle.slot.hook_first_3s}\n• Suno 프롬프트 & 고정 댓글이 클립보드에 복사되었습니다!\n• Aside 브라우저와 업로드 창에 붙여넣기(Ctrl+V) 하십시오.`);
+        } else {
+          alert('장전 실패: ' + (result.message || '오류'));
+        }
+      } catch (err) {
+        alert('API 통신 오류: ' + err.message);
+      }
+    }
+    window.loadGrokViralPlan = loadGrokViralPlan;
+    window.autofillGrokSlot = autofillGrokSlot;
+
     document.addEventListener('DOMContentLoaded', () => {
       generateViralPromoCopy('app4');
       recalcBmSimulator();
       renderStitchUI();
       selectSnsTopic('shin');
       loadDeptSubAgentStatus('ALPHA-D2');
+      loadGrokViralPlan();
     });
   </script>
   <script src="/aside_drawer.js"></script>
