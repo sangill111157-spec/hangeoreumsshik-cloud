@@ -47,6 +47,17 @@
       white-space: nowrap;
       word-break: keep-all;
     }
+    @keyframes pulse-ring {
+      0% { transform: scale(0.95); opacity: 0.9; }
+      50% { transform: scale(1.05); opacity: 1; }
+      100% { transform: scale(0.95); opacity: 0.9; }
+    }
+    .mic-recording {
+      animation: pulse-ring 1.2s infinite ease-in-out;
+      background: linear-gradient(135deg, #ef4444, #dc2626) !important;
+      border-color: #fca5a5 !important;
+      box-shadow: 0 0 15px rgba(239, 68, 68, 0.6) !important;
+    }
   </style>
   <link rel="manifest" href="/manifest.webmanifest">
   <script src="/pwa_bootstrap.js" defer></script>
@@ -105,11 +116,55 @@
     </div>
   </div>
 
+  <!-- 🎙️ [v12.1] 20대 청년 보좌관 최첨단 음성 대화 컨트롤 바 -->
+  <div class="px-3 py-1.5 bg-slate-900/90 border-b border-indigo-500/20 shrink-0 flex items-center justify-between gap-2 flex-wrap z-20">
+    <div class="flex items-center gap-2 flex-wrap">
+      <!-- 👦 20대 청년보이스 ON/OFF 토글 스위치 -->
+      <button 
+        id="voice-auto-toggle"
+        type="button"
+        onclick="toggleAutoVoice()" 
+        class="px-2.5 py-1 rounded-lg text-xs font-bold transition flex items-center gap-1.5 border border-emerald-500/60 bg-emerald-950/80 text-emerald-300 shadow-md shadow-emerald-950/40 active:scale-95"
+      >
+        <span>👦</span>
+        <span id="voice-auto-toggle-text">20대 청년보이스 ON</span>
+      </button>
+
+      <!-- 🔊 청년보이스 테스트 버튼 -->
+      <button 
+        id="voice-test-btn"
+        type="button"
+        onclick="testYoungAssistantVoice()" 
+        class="px-2.5 py-1 rounded-lg text-xs font-semibold transition flex items-center gap-1 border border-amber-500/40 bg-amber-950/60 text-amber-300 hover:bg-amber-900/80 hover:text-white active:scale-95"
+      >
+        <span>🔊</span>
+        <span>청년보이스 테스트</span>
+      </button>
+
+      <!-- ⏹️ 음성 중지 버튼 -->
+      <button 
+        id="voice-stop-btn"
+        type="button"
+        onclick="stopVoiceSpeech()" 
+        class="px-2.5 py-1 rounded-lg text-xs font-semibold transition flex items-center gap-1 border border-rose-500/40 bg-rose-950/60 text-rose-300 hover:bg-rose-900/80 hover:text-white active:scale-95"
+      >
+        <span>⏹️</span>
+        <span>음성 중지</span>
+      </button>
+    </div>
+
+    <div class="text-[11px] text-slate-400 flex items-center gap-1.5">
+      <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+      <span class="font-medium text-emerald-300">20대 청년 보좌관 음성엔진 활성</span>
+    </div>
+  </div>
+
   <!-- 📡 [v12.0.1] 6대 청사 서브에이전트 실시간 보좌 지표 토글 버튼 및 접이식 서랍 (평소 100% 숨김) -->
   <div class="px-3 py-1.5 bg-slate-950/40 border-b border-indigo-500/10 shrink-0">
     <div class="flex items-center justify-between">
       <button 
         id="toggle-sub-metrics-btn"
+        type="button"
         onclick="toggleSubMetricsDrawer()" 
         class="text-[11px] text-slate-400 hover:text-amber-300 transition flex items-center gap-1 font-bold bg-slate-900/80 px-2.5 py-1 rounded-md border border-slate-800 active:scale-95"
       >
@@ -160,13 +215,28 @@
     <form id="chat-form" onsubmit="handleChatSubmit(event)" class="flex items-center gap-2">
       <div class="relative flex-1">
         <input 
-          id="chat-input-box"
+          id="chat-input"
+          data-alias="chat-input-box"
           type="text" 
           placeholder="르곤-알파에게 단독 지시나 질문을 입력하십시오... (예: 6대 청사 현황 보고해봐)" 
           class="w-full bg-slate-900/90 text-white placeholder-slate-500 text-xs sm:text-sm px-4 py-3 rounded-xl border border-indigo-500/30 focus:border-indigo-400 focus:outline-none focus:ring-1 focus:ring-indigo-400 transition"
           autocomplete="off"
         />
       </div>
+
+      <!-- 🎙️ [v12.1] 원터치 마이크 음성 대화 버튼 -->
+      <button 
+        id="voice-mic-btn"
+        type="button"
+        onclick="toggleVoiceRecognition()" 
+        class="px-3 sm:px-4 py-3 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-extrabold text-xs sm:text-sm shadow-lg shadow-emerald-700/30 transition active:scale-95 flex items-center gap-1.5 shrink-0"
+        title="음성으로 말씀하시면 즉시 텍스트로 변환되어 전송됩니다"
+      >
+        <span id="voice-mic-icon">🎙️</span>
+        <span id="voice-mic-label" class="hidden xs:inline sm:inline">음성 대화</span>
+      </button>
+
+      <!-- ⚡ 전송 버튼 -->
       <button 
         id="btn-chat-send"
         type="submit" 
@@ -186,8 +256,210 @@
     const CHAT_STORAGE_KEY = 'rgon_alpha_exclusive_chat_v11';
     let isSubmitting = false;
     let cachedTunnelUrl = '';
+    let currentLoadedMessages = [];
 
+    // =========================================================================
+    // 🎙️ [v12.1] 20대 청년 보좌관 최첨단 음성엔진 (TTS & STT)
+    // =========================================================================
+    let isAutoVoiceEnabled = true;
+    let isSpeechRecognizing = false;
+    let speechRecognitionInstance = null;
+
+    // 1. 한국어 남성/청년 신경망 보이스 우선 선택
+    function selectYoungKoreanVoice() {
+      if (!('speechSynthesis' in window)) return null;
+      const voices = window.speechSynthesis.getVoices() || [];
+      if (voices.length === 0) return null;
+
+      // 1순위: Microsoft InJoon, BongJin 등 한국어 남성 신경망 음성
+      const primeMale = voices.find(v => {
+        const name = (v.name || '').toLowerCase();
+        const lang = (v.lang || '').toLowerCase();
+        return (lang.includes('ko') || lang.includes('kr')) && (name.includes('injoon') || name.includes('bongjin') || name.includes('male'));
+      });
+      if (primeMale) return primeMale;
+
+      // 2순위: Google 한국의 / Samsung 한국어
+      const secondaryKo = voices.find(v => {
+        const name = (v.name || '').toLowerCase();
+        const lang = (v.lang || '').toLowerCase();
+        return (lang.includes('ko') || lang.includes('kr')) && (name.includes('google') || name.includes('samsung'));
+      });
+      if (secondaryKo) return secondaryKo;
+
+      // 3순위: 기타 ko-KR 기본 음성
+      return voices.find(v => (v.lang || '').toLowerCase().includes('ko')) || voices[0] || null;
+    }
+
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.onvoiceschanged = () => {
+        selectYoungKoreanVoice();
+      };
+    }
+
+    // 2. 한국어 자연 발음 전처리 필터 (기호, 이모지 제거 & 금융·기술 용어 한국어 치환)
+    function cleanTextForKoreanSpeech(rawText) {
+      if (!rawText) return '';
+      let text = String(rawText);
+
+      // (1) 주요 금융·기술 전문 용어 청년 자연 발음 변환
+      text = text.replace(/\$107,246\.38/g, '10만 7천 246 달러');
+      text = text.replace(/\$1,072\.46/g, '1천 72 달러');
+      text = text.replace(/\$107K/gi, '10만 7천 달러');
+      text = text.replace(/NVDA/gi, '엔비디아');
+      text = text.replace(/AVGO/gi, '브로드컴');
+      text = text.replace(/TSLA/gi, '테슬라');
+      text = text.replace(/432Hz/gi, '432 헤르츠');
+      text = text.replace(/528Hz/gi, '528 헤르츠');
+      text = text.replace(/PWA/gi, '모바일 앱');
+      text = text.replace(/SNS/gi, '에스엔에스');
+      text = text.replace(/BM/gi, '비즈니스 모델');
+      text = text.replace(/1:1/g, '일대일');
+      text = text.replace(/HTTP 200/gi, '정상 응답');
+      text = text.replace(/2,098명/g, '2천 98명');
+      text = text.replace(/8,793개/g, '8천 793개');
+
+      // (2) 원문자 치환
+      text = text.replace(/①/g, '1번, ');
+      text = text.replace(/②/g, '2번, ');
+      text = text.replace(/③/g, '3번, ');
+      text = text.replace(/④/g, '4번, ');
+      text = text.replace(/⑤/g, '5번, ');
+      text = text.replace(/⑥/g, '6번, ');
+
+      // (3) 이모지 및 마크다운 기호 제거
+      text = text.replace(/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F700}-\u{1F77F}\u{1F780}-\u{1F7FF}\u{1F800}-\u{1F8FF}\u{1F900}-\u{1F9FF}\u{1FA00}-\u{1FA6F}\u{1FA70}-\u{1FAFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{2300}-\u{23FF}]/gu, '');
+      text = text.replace(/[\*\#\-\_\~\`\|\>]/g, ' ');
+
+      // (4) 연속 공백 및 줄바꿈 정리
+      text = text.replace(/\s+/g, ' ').trim();
+      return text;
+    }
+
+    // 3. '20대 청년 보좌관' 음색 발성 (pitch: 1.15, rate: 1.10, volume: 1.0)
+    function speakAsYoungAssistant(rawText) {
+      if (!('speechSynthesis' in window)) return;
+      window.speechSynthesis.cancel(); // 이전 발성 즉시 중지
+
+      const cleaned = cleanTextForKoreanSpeech(rawText);
+      if (!cleaned) return;
+
+      const utterance = new SpeechSynthesisUtterance(cleaned);
+      const voice = selectYoungKoreanVoice();
+      if (voice) utterance.voice = voice;
+      utterance.lang = 'ko-KR';
+      utterance.pitch = 1.15; // 맑고 총명한 20대 청년 보좌관 중고음 톤
+      utterance.rate = 1.10;  // 빠릿빠릿하고 스마트한 브리핑 속도
+      utterance.volume = 1.0;
+
+      window.speechSynthesis.speak(utterance);
+    }
+
+    // 4. 보이스 자동 토글 컨트롤러
+    function toggleAutoVoice() {
+      isAutoVoiceEnabled = !isAutoVoiceEnabled;
+      const btn = document.getElementById('voice-auto-toggle');
+      const text = document.getElementById('voice-auto-toggle-text');
+      if (!btn || !text) return;
+
+      if (isAutoVoiceEnabled) {
+        btn.className = 'px-2.5 py-1 rounded-lg text-xs font-bold transition flex items-center gap-1.5 border border-emerald-500/60 bg-emerald-950/80 text-emerald-300 shadow-md shadow-emerald-950/40 active:scale-95';
+        text.textContent = '20대 청년보이스 ON';
+      } else {
+        btn.className = 'px-2.5 py-1 rounded-lg text-xs font-bold transition flex items-center gap-1.5 border border-slate-700 bg-slate-800/80 text-slate-400 active:scale-95';
+        text.textContent = '20대 청년보이스 OFF';
+        stopVoiceSpeech();
+      }
+    }
+
+    // 5. 청년보이스 테스트 버튼
+    function testYoungAssistantVoice() {
+      const greeting = "충성! 이상일 대표님! 스물여섯 살 청년 보좌관 르곤-알파, 밝고 힘차게 대기 중입니다! 무엇이든 말씀만 해주십시오!";
+      speakAsYoungAssistant(greeting);
+    }
+
+    // 6. 음성 중지 버튼
+    function stopVoiceSpeech() {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+    }
+
+    // 7. 하단 마이크 음성 대화 (STT ➔ 자동 전송)
+    function toggleVoiceRecognition() {
+      const micBtn = document.getElementById('voice-mic-btn');
+      const micLabel = document.getElementById('voice-mic-label');
+      const micIcon = document.getElementById('voice-mic-icon');
+
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SpeechRecognition) {
+        alert('현재 브라우저에서는 음성 인식을 지원하지 않습니다. Chrome 또는 최신 모바일 브라우저를 이용해 주십시오.');
+        return;
+      }
+
+      if (isSpeechRecognizing && speechRecognitionInstance) {
+        speechRecognitionInstance.stop();
+        return;
+      }
+
+      try {
+        speechRecognitionInstance = new SpeechRecognition();
+        speechRecognitionInstance.lang = 'ko-KR';
+        speechRecognitionInstance.continuous = false;
+        speechRecognitionInstance.interimResults = false;
+
+        speechRecognitionInstance.onstart = () => {
+          isSpeechRecognizing = true;
+          if (micBtn) micBtn.classList.add('mic-recording');
+          if (micIcon) micIcon.textContent = '🔴';
+          if (micLabel) micLabel.textContent = '듣는 중...';
+        };
+
+        speechRecognitionInstance.onresult = async (event) => {
+          const transcript = (event.results[0] && event.results[0][0]) ? event.results[0][0].transcript : '';
+          if (transcript) {
+            const input = document.getElementById('chat-input') || document.getElementById('chat-input-box');
+            if (input) input.value = transcript;
+            await sendMessage(transcript);
+          }
+        };
+
+        speechRecognitionInstance.onerror = (event) => {
+          console.warn('음성 인식 이벤트:', event.error);
+        };
+
+        speechRecognitionInstance.onend = () => {
+          isSpeechRecognizing = false;
+          if (micBtn) micBtn.classList.remove('mic-recording');
+          if (micIcon) micIcon.textContent = '🎙️';
+          if (micLabel) micLabel.textContent = '음성 대화';
+        };
+
+        speechRecognitionInstance.start();
+      } catch (err) {
+        console.error('음성 인식 시작 실패:', err);
+      }
+    }
+
+    // 8. 개별 말풍선 듣기 함수
+    function speakAlphaMessageByIndex(idx) {
+      if (currentLoadedMessages && currentLoadedMessages[idx]) {
+        speakAsYoungAssistant(currentLoadedMessages[idx].text);
+      }
+    }
+
+    window.toggleAutoVoice = toggleAutoVoice;
+    window.testYoungAssistantVoice = testYoungAssistantVoice;
+    window.stopVoiceSpeech = stopVoiceSpeech;
+    window.toggleVoiceRecognition = toggleVoiceRecognition;
+    window.speakAlphaMessageByIndex = speakAlphaMessageByIndex;
+    window.speakAsYoungAssistant = speakAsYoungAssistant;
+    window.cleanTextForKoreanSpeech = cleanTextForKoreanSpeech;
+    window.selectYoungKoreanVoice = selectYoungKoreanVoice;
+
+    // =========================================================================
     // 0. 초기화: 터널 브릿지 메타 로드
+    // =========================================================================
     async function initTunnelBridge() {
       try {
         const res = await fetch('./tunnel_bridge.json?t=' + Date.now());
@@ -195,8 +467,8 @@
           const ct = res.headers.get('content-type') || '';
           if (ct.includes('application/json')) {
             const data = await res.json();
-            if (data && data.active_tunnel_url) {
-              cachedTunnelUrl = data.active_tunnel_url.replace(/\/$/, '');
+            if (data && (data.active_tunnel_url || data.active_url || data.tunnel_url)) {
+              cachedTunnelUrl = (data.active_tunnel_url || data.active_url || data.tunnel_url).replace(/\/$/, '');
             }
           }
         }
@@ -225,7 +497,9 @@
       }
     }
 
+    // =========================================================================
     // 1. 대화 원장 로드 및 렌더링 (서버 ➔ 로컬스토리지 하이브리드)
+    // =========================================================================
     async function loadAlphaChat() {
       let messages = [];
       
@@ -248,17 +522,15 @@
         } catch (e) {}
       }
 
-      // 초기 빈 상태 시 환영 메시지 기본 적재
-      // 초기 빈 상태 시 환영 메시지 기본 적재
-      if (!messages || messages.length === 0) {
+      if (messages.length === 0) {
         messages = [
           {
-            id: 'INIT-ALPHA-MSG',
+            id: 'INIT-001',
+            role: 'assistant',
             sender_id: 'RGON-ALPHA',
             sender_name: '🛰️ 르곤-알파 (대시보드 총괄사령관)',
             timestamp: new Date().toLocaleTimeString('ko-KR'),
-            role: 'assistant',
-            text: '충성! 최고 통수권자 이상일 대표님! 르곤-알파(RGON-ALPHA) 대시보드 총괄 독대실에 오신 것을 환영합니다.\n\n현재 6대 청사 서브 에이전트 전원 24시간 정상 상주 중이며, 13개 화면 210개 버튼은 100% 무결점으로 결재 완료되었습니다. 상단 원터치 지휘 칩을 누르시거나 자유롭게 어명을 하달해 주십시오!',
+            text: '충성! 이상일 대표님! 대시보드 총괄사령관 르곤-알파, 20대 청년 보좌관의 밝고 힘찬 보이스로 24시간 1:1 독대실에 상시 대기 중입니다! 6대 청사 서브 에이전트 통제, 무늬만 버튼 0% 클릭 감사, 1청사 퀀트 및 3청사 미디어 직보 등 명령만 내려주시면 즉각 집행하겠습니다!',
             sub_agents_snapshot: {
               'ALPHA-D1': { name: '📈 1청사 알파-퀀트', metric: 'NVDA $107,246.38 · 4대혈관 100% 정상' },
               'ALPHA-D2': { name: '🚀 2청사 알파-바이럴', metric: '4대 SNS 발사대 · BM 시뮬레이터 0원' },
@@ -277,7 +549,9 @@
       renderChatMessages(messages, false);
     }
 
-    // 2. [v12.0.1] 토글 서랍 컨트롤러 & 초깔끔 메시지 스트림 렌더링
+    // =========================================================================
+    // 2. [v12.0.1 & v12.1] 접이식 서랍 & 초깔끔 스트림 & 개별 듣기 버튼 렌더링
+    // =========================================================================
     window._lastHistorySignature = "";
 
     function toggleSubMetricsDrawer() {
@@ -295,18 +569,19 @@
     window.toggleSubMetricsDrawer = toggleSubMetricsDrawer;
 
     function renderChatMessages(messages, forceScrollToNew = false) {
+      currentLoadedMessages = messages || [];
       const stream = document.getElementById('alpha-exclusive-chat-stream');
       if (!stream) return;
 
       const sig = (messages ? messages.length : 0) + "_" + (messages && messages.length > 0 ? (messages[messages.length - 1].timestamp || messages[messages.length - 1].id || "") : "");
       if (!forceScrollToNew && sig === window._lastHistorySignature) {
-        // 폴링 시 이전과 동일한 데이터이면 재렌더링 및 강제 스크롤 일체 금지!
+        // 폴링 시 이전과 동일한 데이터이면 재렌더링 및 스크롤 조작 일체 금지!
         return;
       }
       window._lastHistorySignature = sig;
 
       let html = '';
-      messages.forEach(m => {
+      messages.forEach((m, idx) => {
         const isUser = (m.role === 'user' || m.sender_id === 'COMMANDER-000');
         
         if (isUser) {
@@ -326,7 +601,7 @@
             </div>
           `;
         } else {
-          // 르곤-알파 말풍선 (좌측 에메랄드 다크 - 지표 카드 & 영수증 100% 제거, 초깔끔 본문 전용)
+          // 르곤-알파 말풍선 (좌측 에메랄드 다크 - 지표 카드 & 영수증 100% 제거, 초깔끔 본문 + 개별 듣기 버튼 장착)
           html += `
             <div class="msg-row alpha flex items-start gap-2.5 mr-auto max-w-[95%] sm:max-w-[85%]">
               <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-indigo-600 via-purple-600 to-pink-600 flex items-center justify-center text-xs shrink-0 shadow-md ring-2 ring-indigo-400/40">
@@ -338,7 +613,17 @@
                     <span class="font-extrabold text-indigo-300 text-xs">🛰️ 르곤-알파</span>
                     <span class="px-1.5 py-0.5 rounded text-[9px] bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 font-bold">🛰️ 대시보드 총괄사령관</span>
                   </div>
-                  <span class="text-[10px] text-slate-500 font-mono">${m.timestamp || ''}</span>
+                  <div class="flex items-center gap-2">
+                    <button 
+                      type="button" 
+                      class="msg-speak-btn px-2 py-0.5 rounded text-[10px] bg-indigo-900/60 hover:bg-indigo-800 text-indigo-200 border border-indigo-500/40 font-medium transition active:scale-95 flex items-center gap-1"
+                      onclick="speakAlphaMessageByIndex(${idx})"
+                      title="청년 보좌관 목소리로 다시 듣기"
+                    >
+                      <span>🔊</span><span>듣기</span>
+                    </button>
+                    <span class="text-[10px] text-slate-500 font-mono">${m.timestamp || ''}</span>
+                  </div>
                 </div>
                 <div class="msg-body whitespace-pre-line leading-relaxed font-sans text-slate-200">${escapeHtml(m.text)}</div>
               </div>
@@ -349,7 +634,7 @@
 
       stream.innerHTML = html;
 
-      // 새 답변 도착 시 '맨 바닥'이 아니라 '새 답변의 첫 줄(시작점)'로 부드럽게 스크롤
+      // 새 답변 도착 시 맨 바닥이 아니라 '새 답변의 첫 줄(시작점)'로 부드럽게 스크롤 맞춤
       if (forceScrollToNew) {
         const alphaRows = stream.querySelectorAll('.msg-row.alpha');
         if (alphaRows.length > 0) {
@@ -361,10 +646,12 @@
       }
     }
 
+    // =========================================================================
     // 3. 메시지 전송 처리
+    // =========================================================================
     async function handleChatSubmit(e) {
       if (e) e.preventDefault();
-      const input = document.getElementById('chat-input-box');
+      const input = document.getElementById('chat-input') || document.getElementById('chat-input-box');
       if (!input || !input.value.trim() || isSubmitting) return;
 
       const text = input.value.trim();
@@ -372,7 +659,9 @@
       await sendMessage(text);
     }
 
+    // =========================================================================
     // 4. 원터치 칩 액션 처리
+    // =========================================================================
     async function sendChipAction(actionKey) {
       if (isSubmitting) return;
       const actionNames = {
@@ -386,7 +675,9 @@
       await sendMessage(text, actionKey);
     }
 
+    // =========================================================================
     // 5. 프론트엔드 내장 지능 엔진 (100% 무중단 폴백 — 에러 팝업 0% & 앵무새 문구 영구 소각)
+    // =========================================================================
     function generateLocalAlphaResponse(text, actionType) {
       const nowStr = new Date().toLocaleTimeString('ko-KR');
       const receiptId = '#ALPHA-LOCAL-' + Date.now();
@@ -479,7 +770,9 @@
       };
     }
 
-    // 6. 공통 전송 함수 (무중단 하이브리드 엔진 — alert 영구 금지)
+    // =========================================================================
+    // 6. 공통 전송 함수 (무중단 하이브리드 엔진 & 음성 자동 브리핑 연동)
+    // =========================================================================
     async function sendMessage(text, actionType = '') {
       isSubmitting = true;
       const sendBtn = document.getElementById('btn-chat-send');
@@ -576,6 +869,11 @@
       if (currentMessages.length > 60) currentMessages = currentMessages.slice(-60);
       localStorage.setItem(CHAT_STORAGE_KEY, JSON.stringify(currentMessages));
       renderChatMessages(currentMessages, true);
+
+      // 5. 새 답변 도착 시 20대 청년 보좌관 자동 음성 브리핑
+      if (isAutoVoiceEnabled && alphaMsgEntry && alphaMsgEntry.text) {
+        speakAsYoungAssistant(alphaMsgEntry.text);
+      }
 
       isSubmitting = false;
       if (sendBtn) {

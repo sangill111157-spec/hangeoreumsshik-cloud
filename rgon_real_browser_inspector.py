@@ -1099,6 +1099,14 @@ try {{
     hotfix_code_ok = (no_exclusive and no_alert_error and has_safe_json)
     chat_and_button_checks.append((hotfix_code_ok, f"독대실 무결점 코드(EXCLUSIVE 잔재 0건={no_exclusive}, alert오류창 0건={no_alert_error}, safeFetchJson 안전망={has_safe_json})"))
 
+    # 6-1) [v12.1] 20대 청년 보좌관 음성엔진 실존 검증 (voice-mic-btn, voice-test-btn, speakAsYoungAssistant, cleanTextForKoreanSpeech)
+    has_mic_btn = ("voice-mic-btn" in chat_html_txt)
+    has_test_btn = ("voice-test-btn" in chat_html_txt)
+    has_young_fn = ("speakAsYoungAssistant" in chat_html_txt)
+    has_clean_fn = ("cleanTextForKoreanSpeech" in chat_html_txt)
+    voice_engine_ok = (has_mic_btn and has_test_btn and has_young_fn and has_clean_fn)
+    chat_and_button_checks.append((voice_engine_ok, f"20대청년보좌관음성엔진(마이크버튼={has_mic_btn}, 테스트버튼={has_test_btn}, 청년발성함수={has_young_fn}, 발음정제={has_clean_fn})"))
+
     # 7) [v11.6.1] 외부 5G 터널 rgon_alpha_chat.html 및 크로스도메인 API 실제 응답 검증
     live_tunnel_ok = False
     tunnel_detail = "터널 브릿지 파일 없음"
