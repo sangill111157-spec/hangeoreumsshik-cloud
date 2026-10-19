@@ -40,8 +40,8 @@
     bar.id = 'rgon-pwa-bridge-bar';
     bar.style.cssText = isChatPage ? `
       position: fixed;
-      top: 10px;
-      right: 76px;
+      top: 14px;
+      right: 140px;
       bottom: auto;
       z-index: 99999;
       display: flex;

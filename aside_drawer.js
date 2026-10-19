@@ -80,7 +80,7 @@
         right: 0;
       }
       #rgon-aside-fab.chat-compact {
-        top: 68px !important;
+        top: auto; bottom: 92px !important;
         transform: none !important;
         font-size: 11px !important;
         padding: 6px 10px !important;
