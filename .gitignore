@@ -99,3 +99,14 @@ logs/
 !dashboard/audio/*.json
 
 _backup_clean_ui/
+
+*.pickle*
+config/*.pickle*
+config/token*
+config/yt_token*
+*.exe
+cloudflared.exe
+node_modules/
+.rgon_ad_backups/
+.rgon_ui_backups/
+
