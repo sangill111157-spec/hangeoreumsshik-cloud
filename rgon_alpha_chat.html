@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>👑 대표님 ⇄ 🛰️ 르곤-알파 1:1 전담 독대실 | 청와대 대시보드 총괄 지휘소</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+      background: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #0f172a 50%, #020617 100%);
+      min-height: 100vh;
+      color: #f8fafc;
+      overflow-x: hidden;
+    }
+    .glass-panel {
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(99, 102, 241, 0.25);
+    }
+    .chat-stream::-webkit-scrollbar {
+      width: 6px;
+    }
+    .chat-stream::-webkit-scrollbar-thumb {
+      background: rgba(99, 102, 241, 0.3);
+      border-radius: 9999px;
+    }
+  </style>
+</head>
+<body class="flex flex-col h-screen max-w-4xl mx-auto border-x border-indigo-950/60 shadow-2xl relative">
+
+  <!-- 👑 상단 헤더 바 -->
+  <header class="glass-panel px-4 py-3 shrink-0 flex items-center justify-between border-b border-indigo-500/30 sticky top-0 z-40">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-amber-500 via-indigo-600 to-purple-600 flex items-center justify-center text-xl shadow-lg shadow-indigo-500/30 ring-2 ring-amber-400/30">
+        🛰️
+      </div>
+      <div>
+        <div class="flex items-center gap-2">
+          <h1 class="text-xs sm:text-sm font-extrabold text-white tracking-tight flex items-center gap-1.5">
+            <span>르곤-알파 1:1 전담 독대실</span>
+            <span class="px-1.5 py-0.2 rounded text-[10px] bg-amber-500/20 text-amber-300 font-mono border border-amber-500/40">EXCLUSIVE</span>
+          </h1>
+        </div>
+        <div class="flex items-center gap-2 text-[10px] text-slate-400 mt-0.5">
+          <span class="flex items-center gap-1 text-emerald-400 font-medium">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            실시간 두뇌 가동 (RGON-001 복제)
+          </span>
+          <span class="text-slate-600">|</span>
+          <span class="text-indigo-300">📡 6대 서브에이전트 직보 대기</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 본관 복귀 버튼 -->
+    <a href="index.html" class="px-3 py-1.5 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-200 hover:text-white font-bold text-xs border border-slate-700 transition flex items-center gap-1 shadow-sm active:scale-95">
+      <span>🏛️</span>
+      <span class="hidden sm:inline">본관 복귀</span>
+    </a>
+  </header>
+
+  <!-- ⚡ 상단 원터치 지휘 칩 바 (가로 스크롤 없이 깔끔한 반응형 래핑) -->
+  <div class="glass-panel px-3 py-2 shrink-0 border-b border-indigo-500/20 bg-slate-950/60 z-30">
+    <div class="flex flex-wrap items-center gap-1.5 text-xs">
+      <button onclick="sendChipAction('SUB_AGENTS_REPORT')" class="px-2.5 py-1 rounded-lg bg-indigo-950/80 hover:bg-indigo-900 border border-indigo-500/40 text-indigo-300 hover:text-white font-medium transition text-[11px] flex items-center gap-1">
+        <span>📊</span><span>6대 서브에이전트 검수결과 종합보고</span>
+      </button>
+      <button onclick="sendChipAction('BUTTON_AUDIT')" class="px-2.5 py-1 rounded-lg bg-emerald-950/80 hover:bg-emerald-900 border border-emerald-500/40 text-emerald-300 hover:text-white font-medium transition text-[11px] flex items-center gap-1">
+        <span>🔍</span><span>무늬만 버튼 0% 클릭감사 즉시실행</span>
+      </button>
+      <button onclick="sendChipAction('QUANT_MEDIA_BRIEF')" class="px-2.5 py-1 rounded-lg bg-cyan-950/80 hover:bg-cyan-900 border border-cyan-500/40 text-cyan-300 hover:text-white font-medium transition text-[11px] flex items-center gap-1">
+        <span>📈</span><span>1청사 퀀트($107K) & 3청사 미디어 브리핑</span>
+      </button>
+      <button onclick="sendChipAction('GRAND_RELAY')" class="px-2.5 py-1 rounded-lg bg-purple-950/80 hover:bg-purple-900 border border-purple-500/40 text-purple-300 hover:text-white font-medium transition text-[11px] flex items-center gap-1">
+        <span>⚡</span><span>6대 청사 합동 릴레이 즉시 출격</span>
+      </button>
+      <button onclick="sendChipAction('CLEAR_CHAT')" class="px-2 py-1 rounded-lg bg-slate-800 hover:bg-rose-900/60 border border-slate-700 hover:border-rose-500/50 text-slate-400 hover:text-rose-200 font-medium transition text-[11px] ml-auto flex items-center gap-1">
+        <span>🗑️</span><span>대화 비우기</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- 💬 중앙 1:1 대화 스트림 -->
+  <main id="alpha-exclusive-chat-stream" class="chat-stream flex-1 overflow-y-auto p-4 space-y-4">
+    <!-- 자바스크립트로 메시지 실시간 렌더링 -->
+  </main>
+
+  <!-- ⌨️ 하단 고정 지휘 입력창 -->
+  <footer class="glass-panel p-3 shrink-0 border-t border-indigo-500/30 bg-slate-950/90 sticky bottom-0 z-40">
+    <form id="chat-form" onsubmit="handleChatSubmit(event)" class="flex items-center gap-2">
+      <div class="relative flex-1">
+        <input 
+          id="chat-input-box"
+          type="text" 
+          placeholder="르곤-알파에게 단독 지시나 질문을 입력하십시오... (예: 6대 청사 현황 보고해봐)" 
+          class="w-full bg-slate-900/90 text-white placeholder-slate-500 text-xs sm:text-sm px-4 py-3 rounded-xl border border-indigo-500/30 focus:border-indigo-400 focus:outline-none focus:ring-1 focus:ring-indigo-400 transition"
+          autocomplete="off"
+        />
+      </div>
+      <button 
+        id="btn-chat-send"
+        type="submit" 
+        class="px-4 sm:px-6 py-3 rounded-xl bg-gradient-to-r from-amber-500 via-indigo-600 to-purple-600 hover:opacity-95 text-white font-extrabold text-xs sm:text-sm shadow-lg shadow-indigo-600/30 transition active:scale-95 flex items-center gap-1.5 shrink-0"
+      >
+        <span>⚡</span>
+        <span>알파에게 전송</span>
+      </button>
+    </form>
+    <div class="flex items-center justify-between text-[10px] text-slate-500 mt-2 px-1">
+      <span>👑 최고 통수권자 이상일 대표님 전용 암호화 직통 채널</span>
+      <span>🔒 헌법 금고 격리 및 보안키 0.00% 마스킹 적용</span>
+    </div>
+  </footer>
+
+  <script>
+    let isSubmitting = false;
+
+    // 1. 대화 원장 로드 및 렌더링
+    async function loadAlphaChat() {
+      try {
+        const res = await fetch('/api/rgon-alpha-chat?t=' + Date.now());
+        if (!res.ok) return;
+        const data = await res.json();
+        renderChatMessages(data.messages || []);
+      } catch (err) {
+        console.warn('Chat load error:', err);
+      }
+    }
+
+    // 2. 메시지 스트림 렌더링
+    function renderChatMessages(messages) {
+      const stream = document.getElementById('alpha-exclusive-chat-stream');
+      if (!stream) return;
+
+      if (messages.length === 0) {
+        stream.innerHTML = `
+          <div class="p-8 text-center text-slate-500 space-y-2">
+            <span class="text-3xl">🛰️</span>
+            <p class="text-xs">대표님과의 1:1 전담 독대실에 오신 것을 환영합니다.<br>상단 지휘 칩을 누르시거나 아래 입력창에 명령을 하달해 주십시오.</p>
+          </div>
+        `;
+        return;
+      }
+
+      let html = '';
+      messages.forEach(m => {
+        const isUser = (m.role === 'user' || m.sender_id === 'COMMANDER-000');
+        
+        if (isUser) {
+          // 대표님 말풍선 (우측 골드)
+          html += `
+            <div class="flex items-start justify-end gap-2.5 ml-auto max-w-[85%] sm:max-w-[75%]">
+              <div class="p-3.5 rounded-2xl rounded-tr-none bg-gradient-to-br from-amber-950/80 via-slate-900/90 to-amber-900/60 border border-amber-500/40 text-xs sm:text-sm text-slate-100 space-y-1.5 shadow-lg shadow-amber-950/20">
+                <div class="flex items-center justify-end gap-2">
+                  <span class="text-[10px] text-amber-400 font-mono">${m.timestamp || ''}</span>
+                  <span class="font-extrabold text-amber-300 text-xs">👑 이상일 대표님</span>
+                </div>
+                <div class="whitespace-pre-line leading-relaxed font-sans">${escapeHtml(m.text)}</div>
+              </div>
+              <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-amber-600 to-yellow-500 flex items-center justify-center text-xs shrink-0 shadow-md ring-2 ring-amber-400/40">
+                👑
+              </div>
+            </div>
+          `;
+        } else {
+          // 르곤-알파 말풍선 (좌측 에메랄드 다크)
+          let snapshotHtml = '';
+          if (m.sub_agents_snapshot && Object.keys(m.sub_agents_snapshot).length > 0) {
+            snapshotHtml = `
+              <div class="mt-2.5 pt-2 border-t border-slate-800 space-y-1.5">
+                <div class="text-[10px] font-bold text-indigo-300 flex items-center gap-1">
+                  <span>📡</span><span>6대 청사 서브에이전트 실시간 보좌 지표</span>
+                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-1.5 text-[10px]">
+            `;
+            for (const [sid, sinfo] of Object.entries(m.sub_agents_snapshot)) {
+              snapshotHtml += `
+                <div class="p-1.5 rounded bg-slate-950/70 border border-slate-800">
+                  <div class="font-bold text-slate-300 font-mono">${sid} (${sinfo.name || ''})</div>
+                  <div class="text-emerald-400 font-mono text-[9px] truncate">${sinfo.report || sinfo.metric || '정상 상주'}</div>
+                </div>
+              `;
+            }
+            snapshotHtml += `</div></div>`;
+          }
+
+          html += `
+            <div class="flex items-start gap-2.5 mr-auto max-w-[90%] sm:max-w-[85%]">
+              <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-indigo-600 via-purple-600 to-pink-600 flex items-center justify-center text-xs shrink-0 shadow-md ring-2 ring-indigo-400/40">
+                🛰️
+              </div>
+              <div class="p-4 rounded-2xl rounded-tl-none bg-slate-900/90 border border-indigo-500/30 text-xs sm:text-sm text-slate-200 space-y-2 shadow-xl shadow-indigo-950/20">
+                <div class="flex items-center justify-between gap-2 border-b border-slate-800 pb-1.5">
+                  <div class="flex items-center gap-1.5">
+                    <span class="font-extrabold text-indigo-300 text-xs">🛰️ 르곤-알파</span>
+                    <span class="px-1.5 py-0.2 rounded text-[9px] bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 font-mono">RGON-DASH-002</span>
+                  </div>
+                  <span class="text-[10px] text-slate-500 font-mono">${m.timestamp || ''}</span>
+                </div>
+                <div class="whitespace-pre-line leading-relaxed font-sans text-slate-200">${escapeHtml(m.text)}</div>
+                ${snapshotHtml}
+                <div class="pt-1.5 flex items-center justify-between text-[10px] text-slate-500 border-t border-slate-800/80 font-mono">
+                  <span>영수증: ${m.receipt_id || 'ALPHA-RECEIPT'}</span>
+                  <span class="text-amber-400 font-bold">${m.approval_stamp || 'ALPHA_VERIFIED'}</span>
+                </div>
+              </div>
+            </div>
+          `;
+        }
+      });
+
+      stream.innerHTML = html;
+      stream.scrollTop = stream.scrollHeight;
+    }
+
+    // 3. 메시지 전송 처리
+    async function handleChatSubmit(e) {
+      if (e) e.preventDefault();
+      const input = document.getElementById('chat-input-box');
+      if (!input || !input.value.trim() || isSubmitting) return;
+
+      const text = input.value.trim();
+      input.value = '';
+      await sendMessage(text);
+    }
+
+    // 4. 원터치 칩 액션 처리
+    async function sendChipAction(actionKey) {
+      if (isSubmitting) return;
+      const actionNames = {
+        'SUB_AGENTS_REPORT': '6대 서브에이전트 검수결과 종합보고 받아라',
+        'BUTTON_AUDIT': '무늬만 버튼 0% 전수 클릭감사 즉시실행',
+        'QUANT_MEDIA_BRIEF': '1청사 엔비디아($107K) & 3청사 유튜브·틱톡 현황 브리핑',
+        'GRAND_RELAY': '전 기관(1~6청사) 합동 릴레이 즉시 출격시켜라',
+        'CLEAR_CHAT': '대화 내역 깔끔히 비우기'
+      };
+      const text = actionNames[actionKey] || actionKey;
+      await sendMessage(text, actionKey);
+    }
+
+    // 5. 공통 전송 함수
+    async function sendMessage(text, actionType = '') {
+      isSubmitting = true;
+      const sendBtn = document.getElementById('btn-chat-send');
+      const oldHtml = sendBtn ? sendBtn.innerHTML : '';
+      if (sendBtn) {
+        sendBtn.disabled = true;
+        sendBtn.innerHTML = '<span>⏳</span><span>알파 처리중...</span>';
+      }
+
+      try {
+        const res = await fetch('/api/rgon-alpha-chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: text, action: actionType })
+        });
+        const result = await res.json();
+        if (result.success || result.status === 'OK') {
+          loadAlphaChat();
+        } else {
+          alert('독대실 응답: ' + (result.message || '완료'));
+        }
+      } catch (err) {
+        alert('통신 오류: ' + err.message);
+      } finally {
+        isSubmitting = false;
+        if (sendBtn) {
+          sendBtn.disabled = false;
+          sendBtn.innerHTML = oldHtml;
+        }
+      }
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+    window.sendQuickCommand = sendChipAction;
+    window.sendChipAction = sendChipAction;
+    window.handleChatSubmit = handleChatSubmit;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadAlphaChat();
+      // 5초 간격 최신 대화 자동 동기화
+      setInterval(loadAlphaChat, 5000);
+    });
+  </script>
+  <script src="/aside_drawer.js"></script>
+</body>
+</html>

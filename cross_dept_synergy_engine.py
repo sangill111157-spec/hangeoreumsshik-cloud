@@ -414,13 +414,17 @@ def run_grand_synergy_relay(trigger: str = "manual") -> dict:
     if COMM_LOG_FILE.exists():
         try:
             c_logs = json.loads(COMM_LOG_FILE.read_text(encoding="utf-8"))
-            c_logs.append({
-                "id": len(c_logs) + 1,
+            new_entry = {
+                "id": (len(c_logs["messages"]) + 1) if isinstance(c_logs, dict) and "messages" in c_logs else (len(c_logs) + 1 if isinstance(c_logs, list) else 1),
                 "timestamp": now_str,
                 "speaker": "⚡ 기술행정부 안총리 [AGV-PRIME-101]",
                 "message": f"이상일 대표님! 6대 청사 합동 협업 릴레이({receipt_id})를 100.0점(S등급)으로 완주하였습니다! (총 소요 시간: {total_elapsed_all}ms)",
                 "category": "SYNERGY_RELAY_COMPLETED"
-            })
+            }
+            if isinstance(c_logs, dict) and "messages" in c_logs:
+                c_logs["messages"].append(new_entry)
+            elif isinstance(c_logs, list):
+                c_logs.append(new_entry)
             COMM_LOG_FILE.write_text(json.dumps(c_logs, ensure_ascii=False, indent=2), encoding="utf-8")
             comm_logged = True
         except Exception as e:

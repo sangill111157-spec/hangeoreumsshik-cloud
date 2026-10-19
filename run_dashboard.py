@@ -1918,6 +1918,44 @@ class DashboardHandler(SimpleHTTPRequestHandler):
             self.wfile.write(body)
             return
 
+        # 👑 [v11.6] 대표님 ⇄ 르곤-알파 1:1 전담 독대실 대화 원장 (GET /api/rgon-alpha-chat)
+        if path == '/api/rgon-alpha-chat':
+            try:
+                import rgon_alpha_clone_engine
+                import importlib
+                importlib.reload(rgon_alpha_clone_engine)
+                chat_res = rgon_alpha_clone_engine.get_alpha_chat_history()
+            except Exception as e:
+                chat_res = {"status": "error", "success": False, "message": str(e), "messages": []}
+            body = json.dumps(chat_res, ensure_ascii=False).encode("utf-8")
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.send_header("Cache-Control", "no-cache, no-store")
+            self.end_headers()
+            self.wfile.write(body)
+            return
+
+        # 🔬 [v11.6] 전 기관 무늬만 버튼 0% 실사용 심층 감사 리포트 (GET /api/button-audit-report)
+        if path == '/api/button-audit-report':
+            try:
+                import rgon_alpha_deep_button_auditor
+                import importlib
+                importlib.reload(rgon_alpha_deep_button_auditor)
+                b_report = rgon_alpha_deep_button_auditor.get_button_audit_report()
+            except Exception as e:
+                b_report = {"status": "error", "success": False, "message": str(e)}
+            body = json.dumps(b_report, ensure_ascii=False).encode("utf-8")
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.send_header("Cache-Control", "no-cache, no-store")
+            self.end_headers()
+            self.wfile.write(body)
+            return
+
         # 11. 📊 [v10.3] 대표님 구글 시트 & 과거 기록 발굴 대조 리포트 (GET /api/google-sheets-report)
         if path == '/api/google-sheets-report':
             try:
@@ -2187,6 +2225,57 @@ class DashboardHandler(SimpleHTTPRequestHandler):
                     "success": True,
                     "message": "서브 에이전트 상향 직보 완수",
                     "data": exec_res
+                }
+            except Exception as e:
+                resp = {"status": "error", "success": False, "message": str(e)}
+
+            body = json.dumps(resp, ensure_ascii=False).encode("utf-8")
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(body)
+            return
+
+        # 👑 [v11.6] 대표님 ⇄ 르곤-알파 1:1 전담 독대실 메시지 전송 및 지능형 응답 (POST /api/rgon-alpha-chat)
+        if self.path == '/api/rgon-alpha-chat':
+            length = int(self.headers.get('Content-Length', 0))
+            raw_body = self.rfile.read(length) if length > 0 else b'{}'
+            try:
+                post_data = json.loads(raw_body.decode('utf-8')) if raw_body else {}
+                user_msg = post_data.get("message") or post_data.get("text") or ""
+                action = post_data.get("action", "")
+
+                import rgon_alpha_clone_engine
+                import importlib
+                importlib.reload(rgon_alpha_clone_engine)
+                chat_res = rgon_alpha_clone_engine.handle_alpha_chat_message(user_msg=user_msg, action=action)
+                resp = chat_res
+            except Exception as e:
+                resp = {"status": "error", "success": False, "message": str(e)}
+
+            body = json.dumps(resp, ensure_ascii=False).encode("utf-8")
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(body)
+            return
+
+        # 🔬 [v11.6] 전 기관 무늬만 버튼 0% 전수 실사용 심층 감사 재실행 (POST /api/button-audit-run)
+        if self.path == '/api/button-audit-run':
+            try:
+                import rgon_alpha_deep_button_auditor
+                import importlib
+                importlib.reload(rgon_alpha_deep_button_auditor)
+                audit_res = rgon_alpha_deep_button_auditor.run_deep_button_audit()
+                resp = {
+                    "status": "OK",
+                    "success": audit_res.get("success", True),
+                    "message": "전 기관 무늬만 버튼 전수 실사용 감사 완수",
+                    "data": audit_res
                 }
             except Exception as e:
                 resp = {"status": "error", "success": False, "message": str(e)}

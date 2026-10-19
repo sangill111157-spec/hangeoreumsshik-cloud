@@ -122,7 +122,12 @@
             </div>
           </div>
         </div>
-        <button id="btn-aside-close" onclick="window.closeAsideDrawer()" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #cbd5e1; border-radius: 8px; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 13px;">✕</button>
+        <div style="display:flex; align-items:center; gap:6px;">
+          <button id="btn-aside-header-alpha-chat" onclick="window.goToAlphaChat()" title="1:1 독대실 바로가기" style="background: rgba(245,158,11,0.2); border: 1px solid rgba(245,158,11,0.4); color: #fef08a; border-radius: 8px; padding: 4px 8px; cursor: pointer; font-size: 11px; font-weight: 700; display: flex; align-items: center; gap: 4px;">
+            <span>💬</span><span>독대실</span>
+          </button>
+          <button id="btn-aside-close" onclick="window.closeAsideDrawer()" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #cbd5e1; border-radius: 8px; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 13px;">✕</button>
+        </div>
       </div>
 
       <!-- 본문 스크롤 영역 -->
@@ -141,6 +146,15 @@
         <!-- 섹션 2: 원터치 에이전트 액션 칩 5종 -->
         <div style="display: flex; flex-direction: column; gap: 6px;">
           <div style="font-size: 11px; font-weight: 700; color: #f59e0b; margin-left: 2px;">⚡ 원터치 어사이드 에이전트 출격</div>
+
+          <!-- 👑 르곤-알파 1:1 전담 독대실 바로가기 -->
+          <button id="btn-aside-goto-alpha-chat" onclick="window.goToAlphaChat()" style="width: 100%; text-align: left; padding: 11px 12px; border-radius: 10px; background: linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(217, 119, 6, 0.35)); border: 1.5px solid rgba(245, 158, 11, 0.6); color: #fef08a; font-size: 12px; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 4px 12px rgba(245,158,11,0.2);">
+            <span style="display:flex; align-items:center; gap:6px;">
+              <span>💬</span>
+              <span>👑 대표님 ⇄ 🛰️ 르곤-알파 1:1 독대실</span>
+            </span>
+            <span style="background:rgba(245,158,11,0.3); padding:2px 8px; border-radius:12px; font-size:10px; color:#fff;">직통 ➔</span>
+          </button>
 
           <button onclick="window.triggerAlphaFromAside()" style="width: 100%; text-align: left; padding: 10px 12px; border-radius: 10px; background: linear-gradient(135deg, rgba(99, 102, 241, 0.25), rgba(79, 70, 229, 0.35)); border: 1px solid rgba(99, 102, 241, 0.5); color: #e0e7ff; font-size: 12px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: space-between;">
             <span>🛰️ 르곤-알파 전 기관 통합 순찰·명령</span>
@@ -231,6 +245,19 @@
     if (backdrop) backdrop.classList.remove('active');
   }
   window.closeAsideDrawer = closeAsideDrawer;
+
+  // 👑 대표님 ⇄ 르곤-알파 1:1 독대실 바로가기
+  function goToAlphaChat() {
+    const p = window.location.pathname.toLowerCase();
+    if (p.includes('/departments/')) {
+      window.location.href = '../rgon_alpha_chat.html';
+    } else if (p.includes('/dashboard/')) {
+      window.location.href = 'rgon_alpha_chat.html';
+    } else {
+      window.location.href = 'rgon_alpha_chat.html';
+    }
+  }
+  window.goToAlphaChat = goToAlphaChat;
 
   // 상태 로드 및 X-Ray 바인딩
   async function loadAsideStatus() {

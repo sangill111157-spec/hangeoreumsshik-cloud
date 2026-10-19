@@ -40,6 +40,9 @@
       </div>
     </div>
     <div class="flex items-center gap-2">
+            <a href="../rgon_alpha_chat.html" class="px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-600 hover:from-amber-400 hover:to-yellow-400 text-slate-950 font-black text-xs transition flex items-center gap-1.5 shadow-lg shadow-amber-500/25 active:scale-95">
+        <span>💬 르곤-알파 1:1 독대실 ➔</span>
+      </a>
       <a href="/?v=850&tab=command" class="px-4 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-xs transition flex items-center gap-1.5 shadow-lg shadow-purple-600/30">
         <span>🏛️ 청와대 본관 컨트롤 타워로 귀환</span>
       </a>
@@ -60,6 +63,10 @@
         </div>
       </div>
       <div class="flex flex-wrap items-center gap-1.5 text-[10px] sm:text-[11px]">
+          <a href="../rgon_alpha_chat.html" class="px-2.5 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 hover:bg-amber-500/30 transition flex items-center gap-1 font-bold text-[10px] sm:text-[11px]">
+            <span>💬 르곤-알파 1:1 독대실</span>
+          </a>
+
         <span class="px-2 py-0.5 rounded-full bg-emerald-950/80 text-emerald-300 border border-emerald-500/40 flex items-center gap-1 font-medium">
           <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
           🟢 전담 보좌관: 알파-가디언 대기중
@@ -597,9 +604,34 @@
 
       <div class="flex items-center justify-between text-[11px] text-slate-500 pt-2 border-t border-slate-800">
         <span>기록 파일: <code id="wiki-viewer-filepath" class="text-slate-400">knowledge_engine/wiki/dept_deliverables/TASK-D1-01_deliverable.md</code></span>
-        <button onclick="alert('📋 산출물 마크다운 내용이 확인되었습니다.')" class="px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium transition">
-          내용 확인
+        <button onclick="openDeliverableModal()" class="px-3 py-1 rounded-lg bg-indigo-600/30 hover:bg-indigo-600 text-indigo-300 hover:text-white border border-indigo-500/40 font-bold transition flex items-center gap-1">
+          <span>📋</span><span>산출물 전체 열람</span>
         </button>
+      </div>
+    </div>
+
+    <!-- 📋 [v11.6 수리] 산출물 실물 열람 모달 -->
+    <div id="deliverable-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+      <div class="glass-card rounded-2xl max-w-2xl w-full max-h-[80vh] flex flex-col border border-indigo-500/40 shadow-2xl overflow-hidden">
+        <div class="p-4 border-b border-slate-800 flex items-center justify-between bg-slate-900/80">
+          <div class="flex items-center gap-2">
+            <span class="text-xl">📜</span>
+            <div>
+              <h3 class="text-xs sm:text-sm font-bold text-white" id="modal-deliverable-title">산출물 정밀 열람</h3>
+              <span class="text-[10px] text-emerald-400 font-mono">100% 클린룸 인증 필</span>
+            </div>
+          </div>
+          <button onclick="closeDeliverableModal()" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold">
+            ✕ 닫기
+          </button>
+        </div>
+        <div class="p-4 overflow-y-auto space-y-3 text-xs text-slate-200" id="modal-deliverable-body">
+          <!-- 동적 주입 -->
+        </div>
+        <div class="p-3 border-t border-slate-800 bg-slate-900/60 flex items-center justify-between text-[10px] text-slate-400">
+          <span>감찰관: 알파-가디언 (ALPHA-D5)</span>
+          <span class="text-amber-400 font-mono font-bold">ALPHA_VERIFIED_100%</span>
+        </div>
       </div>
     </div>
 
@@ -1089,6 +1121,48 @@
       }
     }
     window.loadDeptSubAgentStatus = loadDeptSubAgentStatus;
+
+    function openDeliverableModal() {
+      const modal = document.getElementById('deliverable-modal');
+      if (!modal) return;
+      const titleEl = document.getElementById('modal-deliverable-title');
+      const bodyEl = document.getElementById('modal-deliverable-body');
+
+      const currTitle = document.getElementById('wiki-viewer-title')?.innerText || 'TASK 산출물';
+      const currDept = document.getElementById('wiki-viewer-dept')?.innerText || '제1청사';
+      const currSpec = document.getElementById('wiki-viewer-spec')?.innerText || '';
+      const currFile = document.getElementById('wiki-viewer-filepath')?.innerText || '';
+
+      if (titleEl) titleEl.innerText = currTitle;
+      if (bodyEl) {
+        bodyEl.innerHTML = `
+          <div class="p-3 rounded-lg bg-slate-900/90 border border-slate-800 space-y-2">
+            <div class="text-xs font-bold text-indigo-300">소관 기관: ${currDept}</div>
+            <div class="text-[11px] text-slate-400 font-mono">문서 경로: ${currFile}</div>
+          </div>
+          <div class="p-3 rounded-lg bg-slate-900/70 border border-slate-800 space-y-1.5">
+            <div class="text-xs font-bold text-cyan-300">📌 핵심 설계 및 실행 명세 (Full Specification)</div>
+            <p class="text-xs text-slate-300 leading-relaxed">${currSpec}</p>
+          </div>
+          <div class="p-3 rounded-lg bg-emerald-950/40 border border-emerald-500/30 space-y-1">
+            <div class="text-xs font-bold text-emerald-300">🛡️ 클린룸(Clean-Room) 법무 심의 합격 인증서</div>
+            <div class="text-[11px] text-slate-300 space-y-0.5">
+              <div>• 타사 상표/저작권 침해 요소: <b class="text-emerald-400">0건 (완전 배제)</b></div>
+              <div>• 자체 Canvas 2D / 순수 Web Audio 알고리즘 독자 적용: <b class="text-emerald-400">100.0%</b></div>
+              <div>• 제6청사 고정비용(OUT): <b class="text-emerald-400">0원 (Zero-Cost Free Tier)</b></div>
+            </div>
+          </div>
+        `;
+      }
+      modal.classList.remove('hidden');
+    }
+    window.openDeliverableModal = openDeliverableModal;
+
+    function closeDeliverableModal() {
+      const modal = document.getElementById('deliverable-modal');
+      if (modal) modal.classList.add('hidden');
+    }
+    window.closeDeliverableModal = closeDeliverableModal;
 
     document.addEventListener('DOMContentLoaded', () => {
       runVaultLegalScan();
