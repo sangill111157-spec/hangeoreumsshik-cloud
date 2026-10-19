@@ -1,0 +1,8 @@
+{
+  "active_tunnel_url": "https://semi-soil-bobby-assistant.trycloudflare.com",
+  "tunnel_url": "https://semi-soil-bobby-assistant.trycloudflare.com",
+  "dashboard_url": "https://semi-soil-bobby-assistant.trycloudflare.com/?v=1150",
+  "port": 8501,
+  "verified_status": 200,
+  "immune_to_error_1033": true
+}

@@ -953,6 +953,72 @@ try {{
     log_gate("HARD-GATE-14", "대시보드 전담 복제관 르곤-알파(RGON-ALPHA) 두뇌 엔진 및 전 기관 통제 검증", gate14_ok, gate14_detail)
 
     # --------------------------------------------------------------------------
+    # [HARD-GATE 15] [v11.5] 6대 청사 전담 서브 에이전트(ALPHA-D1~D6) 배치 및 르곤-알파 상향 보고 무결성 검증
+    # --------------------------------------------------------------------------
+    sub_agent_checks = []
+
+    # 1) 6대 청사 HTML 6종 전원 #dept-sub-agent-deck 및 dispatchDeptSubAgent 실재 검증
+    dept_html_files = [
+        BASE_DIR / "dashboard" / "departments" / "dept_closet.html",
+        BASE_DIR / "dashboard" / "departments" / "dept_connect_ai.html",
+        BASE_DIR / "dashboard" / "departments" / "dept_media.html",
+        BASE_DIR / "dashboard" / "departments" / "dept_education.html",
+        BASE_DIR / "dashboard" / "departments" / "dept_vault.html",
+        BASE_DIR / "dashboard" / "departments" / "dept_treasury.html"
+    ]
+    dept_deck_results = []
+    for df in dept_html_files:
+        if not df.exists():
+            dept_deck_results.append(False)
+            continue
+        txt = df.read_text(encoding="utf-8", errors="ignore")
+        has_deck = "dept-sub-agent-deck" in txt and "dispatchDeptSubAgent" in txt and "loadDeptSubAgentStatus" in txt
+        dept_deck_results.append(has_deck)
+    dept_deck_all_ok = all(dept_deck_results) and len(dept_deck_results) == 6
+    sub_agent_checks.append((dept_deck_all_ok, f"6대 청사 HTML 6종 전원 전담 보좌관 데크 장착({sum(dept_deck_results)}/6 청사)"))
+
+    # 2) 본관 index.html 내 6기 실시간 상향 보고 수신판(#sub-agents-cards-grid) 및 일제 점검 함수 검증
+    dash_idx_p = BASE_DIR / "dashboard" / "index.html"
+    dash_idx_code = dash_idx_p.read_text(encoding="utf-8", errors="ignore") if dash_idx_p.exists() else ""
+    main_reception_ok = (
+        "sub-agents-cards-grid" in dash_idx_code
+        and "btn-dispatch-all-sub-agents" in dash_idx_code
+        and "dispatchAllDeptSubAgents" in dash_idx_code
+        and "loadAllDeptSubAgentsStatus" in dash_idx_code
+    )
+    sub_agent_checks.append((main_reception_ok, f"본관 index.html 내 6기 상향 보고 수신판 및 일제 점검 함수 장착({main_reception_ok})"))
+
+    # 3) GET /api/dept-sub-agents?dept=ALL 6기 전원 상태 및 르곤-알파 직보 연결 검증
+    s_sub_get, b_sub_get = http_get("/api/dept-sub-agents?dept=ALL")
+    j_sub_get = json.loads(b_sub_get) if s_sub_get == 200 else {}
+    sub_dict = j_sub_get.get("sub_agents", {})
+    sub_ids = ["ALPHA-D1", "ALPHA-D2", "ALPHA-D3", "ALPHA-D4", "ALPHA-D5", "ALPHA-D6"]
+    all_6_registered = all(sid in sub_dict for sid in sub_ids)
+    all_6_direct_reported = all(sub_dict[sid].get("direct_report_to") == "RGON-ALPHA" for sid in sub_ids if sid in sub_dict)
+    sub_get_ok = (s_sub_get == 200 and all_6_registered and all_6_direct_reported)
+    sub_agent_checks.append((sub_get_ok, f"서브 에이전트 상태 API(HTTP {s_sub_get}, 6기 전원 등록={all_6_registered}, 르곤-알파 직보={all_6_direct_reported})"))
+
+    # 4) POST /api/dept-sub-agent-dispatch 6기 전원 일제 출격 및 영수증/결재 도장 검증
+    s_sub_post, j_sub_post = http_post("/api/dept-sub-agent-dispatch", {"agent_id": "ALL_6_SUB_AGENTS", "send_telegram": False})
+    j_sub_data = j_sub_post.get("data", j_sub_post) if s_sub_post == 200 else {}
+    receipt_all = j_sub_data.get("receipt_id", "")
+    all_dispatched_cnt = j_sub_data.get("dispatched_count", 0)
+    all_approved = (j_sub_data.get("approval_stamp") == "ALPHA_APPROVED_100%")
+    sub_dispatch_ok = (s_sub_post == 200 and bool(receipt_all) and all_dispatched_cnt == 6 and all_approved)
+    sub_agent_checks.append((sub_dispatch_ok, f"6기 전원 일제 출격 API(HTTP {s_sub_post}, 영수증={receipt_all}, 출격수={all_dispatched_cnt}/6, 결재={all_approved})"))
+
+    # 5) 제6청사 실전 금고 0원 장부 절대 불변 및 보안 키 유출 0건 최종 확인
+    s_tr7, b_tr7 = http_get("/api/treasury-status")
+    j_tr7 = json.loads(b_tr7) if s_tr7 == 200 else {}
+    sm_tr7 = j_tr7.get("summary", {})
+    tr7_zero_ok = (s_tr7 == 200 and sm_tr7.get("total_in", -1) == 0 and sm_tr7.get("disposable_net_krw", sm_tr7.get("net_profit", -1)) == 0)
+    sub_agent_checks.append((tr7_zero_ok, f"서브 에이전트 소집 후 제6청사 금고 0원 절대 불변 유지({tr7_zero_ok})"))
+
+    gate15_ok = all(c[0] for c in sub_agent_checks)
+    gate15_detail = " / ".join(c[1] for c in sub_agent_checks)
+    log_gate("HARD-GATE-15", "6대 청사 전담 서브 에이전트(ALPHA-D1~D6) 배치 및 르곤-알파 상향 보고 무결성 검증", gate15_ok, gate15_detail)
+
+    # --------------------------------------------------------------------------
     # 종합 판정
     # --------------------------------------------------------------------------
     total_gates = len(results)
@@ -965,7 +1031,7 @@ try {{
         print("🚨 결함 발견! 수리가 필요합니다.")
         return False
 
-    print("🏆 [최종 완료] 14대 최고난도 실제 작동 검증 100.0% ALL PASS! 르곤-알파(RGON-ALPHA) 대시보드 24시간 상주 및 전 기관 통제 완벽 확정!")
+    print("🏆 [최종 완료] 15대 최고난도 실제 작동 검증 100.0% ALL PASS! 6대 청사 전담 서브 에이전트 6기 배치 및 르곤-알파 상향 보고 체계 무결점 확정!")
     print("=" * 80)
     return True
 

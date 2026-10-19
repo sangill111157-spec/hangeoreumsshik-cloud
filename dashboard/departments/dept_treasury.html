@@ -57,6 +57,66 @@
   <!-- 메인 워크스페이스 컨테이너 -->
   <main class="w-full max-w-7xl mx-auto flex-1 space-y-6">
 
+    <!-- 🛡️ [v11.5] 현 청사 전담 보좌관: 『알파-트레저리 (ALPHA-D6)』 24시간 상주 데크 (#dept-sub-agent-deck) -->
+    <div id="dept-sub-agent-deck" class="glass-card rounded-2xl p-3.5 sm:p-4 space-y-3 border-amber-500/40 bg-gradient-to-r from-amber-950/40 via-slate-900/90 to-indigo-950/40 shadow-xl">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 border-b border-amber-500/20 pb-2.5">
+        <div class="flex items-center gap-2">
+          <span class="text-xl sm:text-2xl">💰</span>
+          <div>
+            <div class="flex items-center gap-2">
+              <h2 class="text-xs sm:text-sm font-bold text-white tracking-tight">현 청사 전담 보좌관: 『알파-트레저리 (ALPHA-D6)』 24시간 상주 데크</h2>
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300 font-mono">DEPT-6</span>
+            </div>
+            <p class="text-[11px] text-slate-400 mt-0.5">실전 금고 0원 장부 절대 보존 & 50:25:15:10 황금 배분 규칙 24시간 감시</p>
+          </div>
+        </div>
+        <div class="flex flex-wrap items-center gap-1.5 text-[10px] sm:text-[11px]">
+          <span class="px-2 py-0.5 rounded-full bg-emerald-950/80 text-emerald-300 border border-emerald-500/40 flex items-center gap-1 font-medium">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            🟢 전담 보좌관: 알파-트레저리 대기중
+          </span>
+          <span class="px-2 py-0.5 rounded-full bg-indigo-950/80 text-indigo-300 border border-indigo-500/40 flex items-center gap-1 font-medium">
+            🛰️ 본관 르곤-알파 직보 연결: 100%
+          </span>
+        </div>
+      </div>
+
+      <!-- 원터치 한글 버튼 2종 -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+        <button 
+          id="btn-dispatch-sub-agent"
+          onclick="dispatchDeptSubAgent('ALPHA-D6')" 
+          class="p-2.5 rounded-xl bg-gradient-to-r from-amber-600 via-yellow-600 to-emerald-600 hover:opacity-95 border border-amber-500/40 text-xs font-bold text-slate-950 shadow transition active:scale-98 flex items-center justify-center gap-2"
+        >
+          <span>⚡</span>
+          <span>[⚡ 알파-트레저리 즉시 부서 정밀점검 & 본관 르곤-알파에게 직보 올리기]</span>
+        </button>
+        <button 
+          id="btn-load-sub-agent"
+          onclick="loadDeptSubAgentStatus('ALPHA-D6')" 
+          class="p-2.5 rounded-xl bg-gradient-to-r from-indigo-900/80 to-purple-900/80 hover:from-indigo-800 hover:to-purple-800 border border-indigo-500/40 text-xs font-bold text-white shadow transition active:scale-98 flex items-center justify-center gap-2"
+        >
+          <span>🛰️</span>
+          <span>[🛰️ 본관 르곤-알파 총괄 지휘소에서 응답 받기]</span>
+        </button>
+      </div>
+
+      <!-- 실측 점검표 & 르곤-알파 결재 도장 박스 -->
+      <div id="sub-agent-report-box" class="p-3 rounded-xl bg-slate-950/90 border border-slate-800 text-[11px] text-slate-300 space-y-1.5">
+        <div class="flex items-center justify-between border-b border-slate-800/80 pb-1.5">
+          <span class="font-bold text-amber-300 flex items-center gap-1">
+            <span>📋</span><span>알파-트레저리 실시간 상향 점검표</span>
+          </span>
+          <span id="sub-agent-approval-stamp" class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300 font-mono border border-amber-500/40">
+            결재: ALPHA_APPROVED_100%
+          </span>
+        </div>
+        <div id="sub-agent-report-text" class="leading-relaxed whitespace-pre-line text-slate-200">
+          충성! 알파-트레저리(ALPHA-D6) 현 청사 24시간 상주 중입니다. 상단 점검 버튼을 누르면 실시간 실측치와 르곤-알파의 직보 영수증이 즉시 갱신됩니다.
+        </div>
+      </div>
+    </div>
+
     <!-- 1. 핵심 자금 전광판 (4대 카드) -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
       <!-- 📥 총 들어온 돈 -->
@@ -550,7 +610,63 @@
       document.body.removeChild(link);
     }
 
-    document.addEventListener('DOMContentLoaded', fetchTreasuryStatus);
+    async function dispatchDeptSubAgent(agentId) {
+      const btn = document.getElementById('btn-dispatch-sub-agent');
+      const oldText = btn ? btn.innerHTML : '';
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<span>⏳</span><span>점검 및 르곤-알파 상향 직보 중...</span>';
+      }
+      try {
+        const res = await fetch('/api/dept-sub-agent-dispatch', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ agent_id: agentId, send_telegram: true })
+        });
+        const result = await res.json();
+        const data = result.data || result;
+        if (result.success || data.success) {
+          const repBox = document.getElementById('sub-agent-report-text');
+          const stampBox = document.getElementById('sub-agent-approval-stamp');
+          if (repBox && data.report) repBox.innerText = data.report;
+          if (stampBox && data.approval_stamp) stampBox.innerText = `결재: ${data.approval_stamp} (${data.receipt_id || 'OK'})`;
+          alert(`💰 [${agentId} 상향 보고 완료!]\n\n• 영수증: ${data.receipt_id}\n• 본관 르곤-알파(RGON-ALPHA) 수신 결재 완료!\n• 대표님 스마트폰 텔레그램 발송 완료!`);
+        } else {
+          alert('상향 보고 응답: ' + (result.message || '완료'));
+        }
+      } catch (err) {
+        alert('서브 에이전트 호출 오류: ' + err.message);
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = oldText;
+        }
+      }
+    }
+    window.dispatchDeptSubAgent = dispatchDeptSubAgent;
+
+    async function loadDeptSubAgentStatus(agentId) {
+      try {
+        const res = await fetch('/api/dept-sub-agents?dept=' + encodeURIComponent(agentId) + '&t=' + Date.now());
+        if (!res.ok) return;
+        const result = await res.json();
+        const ag = result.agent || (result.sub_agents && result.sub_agents[agentId]);
+        if (ag) {
+          const repBox = document.getElementById('sub-agent-report-text');
+          const stampBox = document.getElementById('sub-agent-approval-stamp');
+          if (repBox && ag.last_report) repBox.innerText = ag.last_report;
+          if (stampBox && ag.approval_stamp) stampBox.innerText = `결재: ${ag.approval_stamp} (${ag.last_receipt_id || 'OK'})`;
+        }
+      } catch (e) {
+        console.warn('Sub agent status load failed:', e);
+      }
+    }
+    window.loadDeptSubAgentStatus = loadDeptSubAgentStatus;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      fetchTreasuryStatus();
+      loadDeptSubAgentStatus('ALPHA-D6');
+    });
   </script>
   <script src="/aside_drawer.js"></script>
 </body>

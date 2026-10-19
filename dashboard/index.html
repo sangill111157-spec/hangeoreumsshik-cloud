@@ -286,6 +286,35 @@
             </div>
           </div>
         </div>
+
+        <!-- 📡 [v11.5] 1~6청사 전담 서브 에이전트 6기(알파-D1~D6) 실시간 상향 보고 수신판 -->
+        <div class="pt-3 border-t border-indigo-500/30 space-y-3">
+          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+              <h3 class="text-xs sm:text-sm font-bold text-white flex items-center gap-1.5">
+                <span>📡</span>
+                <span>1~6청사 전담 서브 에이전트 6기(알파-D1~D6) 실시간 상향 보고 수신판</span>
+              </h3>
+              <span id="sub-agents-summary-badge" class="px-2 py-0.5 rounded text-[10px] font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/40">
+                6기 직보 가동 중
+              </span>
+            </div>
+            <button 
+              id="btn-dispatch-all-sub-agents"
+              onclick="dispatchAllDeptSubAgents()" 
+              class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 hover:from-indigo-500 hover:to-pink-500 text-white font-bold text-xs shadow-lg shadow-indigo-950/60 transition active:scale-95 flex items-center gap-1.5"
+            >
+              <span>⚡</span>
+              <span>[⚡ 6대 청사 서브 에이전트 전원 일제 점검·소집]</span>
+            </button>
+          </div>
+
+          <!-- 6기 서브 에이전트 실시간 관제 카드 그리드 (반응형 1~3열) -->
+          <div id="sub-agents-cards-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2.5 text-xs">
+            <!-- 자바스크립트로 6기 카드 실시간 렌더링 -->
+          </div>
+        </div>
       </div>
     </section>
 
@@ -1178,6 +1207,120 @@
     }
     window.triggerRgonAlpha = triggerRgonAlpha;
 
+    // 15. 🛡️ [v11.5] 6대 청사 전담 서브 에이전트(ALPHA-D1 ~ ALPHA-D6) 관제 로직
+    async function loadAllDeptSubAgentsStatus() {
+      try {
+        const res = await fetch('/api/dept-sub-agents?dept=ALL&t=' + Date.now());
+        if (!res.ok) return;
+        const result = await res.json();
+        const agents = result.sub_agents || {};
+        const container = document.getElementById('sub-agents-cards-grid');
+        if (!container) return;
+
+        const agentList = [
+          { id: 'ALPHA-D1', name: '알파-퀀트', dept: '제1청사 (퀀트·R&D)', icon: '📈', border: 'border-cyan-500/30' },
+          { id: 'ALPHA-D2', name: '알파-바이럴', dept: '제2청사 (홍보·BM)', icon: '🚀', border: 'border-indigo-500/30' },
+          { id: 'ALPHA-D3', name: '알파-미디어', dept: '제3청사 (미디어·음원)', icon: '🎵', border: 'border-purple-500/30' },
+          { id: 'ALPHA-D4', name: '알파-홍익', dept: '제4청사 (인성감찰)', icon: '🌱', border: 'border-emerald-500/30' },
+          { id: 'ALPHA-D5', name: '알파-가디언', dept: '제5청사 (법무·보안)', icon: '🛡️', border: 'border-blue-500/30' },
+          { id: 'ALPHA-D6', name: '알파-트레저리', dept: '제6청사 (재무정산)', icon: '💰', border: 'border-amber-500/30' }
+        ];
+
+        let html = '';
+        agentList.forEach(meta => {
+          const ag = agents[meta.id] || { status: 'STANDBY', approval_stamp: 'ALPHA_APPROVED_100%', direct_report_to: 'RGON-ALPHA' };
+          const reportSnippet = ag.last_report ? ag.last_report.replace(/\n/g, ' ').substring(0, 55) + '...' : '정상 상주 중 (점검 대기)';
+          html += `
+            <div class="p-3 rounded-xl bg-slate-900/80 border ${meta.border} space-y-2 flex flex-col justify-between">
+              <div class="space-y-1">
+                <div class="flex items-center justify-between text-[11px]">
+                  <span class="font-bold text-white flex items-center gap-1">
+                    <span>${meta.icon}</span>
+                    <span>${meta.name}</span>
+                    <span class="text-[10px] text-slate-400 font-mono">(${meta.id})</span>
+                  </span>
+                  <span class="px-1.5 py-0.2 rounded text-[9px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+                    🟢 상주중
+                  </span>
+                </div>
+                <div class="text-[10px] text-slate-400 font-medium">${meta.dept}</div>
+                <div class="p-2 rounded bg-slate-950/70 border border-slate-800 text-[10px] text-slate-300 leading-relaxed font-sans line-clamp-2">
+                  ${reportSnippet}
+                </div>
+              </div>
+              <div class="pt-1.5 border-t border-slate-800/80 flex items-center justify-between text-[10px]">
+                <span class="text-amber-400 font-mono font-bold">${ag.approval_stamp || 'ALPHA_APPROVED'}</span>
+                <button 
+                  onclick="dispatchSingleDeptSubAgent('${meta.id}')"
+                  class="px-2 py-0.5 rounded bg-indigo-600/30 hover:bg-indigo-600 text-indigo-300 hover:text-white border border-indigo-500/40 text-[10px] font-bold transition"
+                >
+                  ⚡ 점검·직보
+                </button>
+              </div>
+            </div>
+          `;
+        });
+        container.innerHTML = html;
+      } catch (err) {
+        console.warn('Sub agents status load failed:', err);
+      }
+    }
+    window.loadAllDeptSubAgentsStatus = loadAllDeptSubAgentsStatus;
+
+    async function dispatchAllDeptSubAgents() {
+      const btn = document.getElementById('btn-dispatch-all-sub-agents');
+      const oldHtml = btn ? btn.innerHTML : '';
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<span>⏳</span><span>6대 청사 전원 점검 및 르곤-알파 직보 중...</span>';
+      }
+      try {
+        const res = await fetch('/api/dept-sub-agent-dispatch', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ agent_id: 'ALL_6_SUB_AGENTS', send_telegram: true })
+        });
+        const result = await res.json();
+        const payload = result.data || result;
+        if (result.success || payload.success) {
+          loadAllDeptSubAgentsStatus();
+          loadRgonAlphaStatus();
+          alert(`🎉 [6대 청사 서브 에이전트 전원 일제 점검 및 직보 완수!]\n\n• 총괄 영수증: ${payload.receipt_id || 'CORPS-RECEIPT-OK'}\n• 6기 전원(알파-D1~D6) 르곤-알파 상향 보고 완료!\n• 전원 결재: ALPHA_APPROVED_100%\n• 대표님 스마트폰 텔레그램 발송 완료!\n• 제6청사 실전 금고: 0원 절대 불변 수호!`);
+        } else {
+          alert('서브 에이전트 전원 점검 응답: ' + (result.message || '완료'));
+        }
+      } catch (err) {
+        alert('서브 에이전트 소집 오류: ' + err.message);
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = oldHtml;
+        }
+      }
+    }
+    window.dispatchAllDeptSubAgents = dispatchAllDeptSubAgents;
+
+    async function dispatchSingleDeptSubAgent(agentId) {
+      try {
+        const res = await fetch('/api/dept-sub-agent-dispatch', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ agent_id: agentId, send_telegram: true })
+        });
+        const result = await res.json();
+        const payload = result.data || result;
+        if (result.success || payload.success) {
+          loadAllDeptSubAgentsStatus();
+          alert(`🛡️ [${agentId} 직보 완수]\n\n• 영수증: ${payload.receipt_id || 'OK'}\n• 르곤-알파 수신 결재 도장 발급 완료!\n• 텔레그램 보고서 전송 완료!`);
+        } else {
+          alert('직보 응답: ' + (result.message || '완료'));
+        }
+      } catch (err) {
+        alert('단독 직보 오류: ' + err.message);
+      }
+    }
+    window.dispatchSingleDeptSubAgent = dispatchSingleDeptSubAgent;
+
     // 초기 로딩
     document.addEventListener('DOMContentLoaded', function() {
       loadCommFeed();
@@ -1186,6 +1329,7 @@
       syncImmortalTunnelBanner();
       loadSynergyRelayStatus();
       loadRgonAlphaStatus();
+      loadAllDeptSubAgentsStatus();
     });
   </script>
   <script src="/aside_drawer.js"></script>

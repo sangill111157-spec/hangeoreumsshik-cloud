@@ -578,13 +578,13 @@ def find_available_port(start_port: int = 8501) -> int:
     return start_port
 
 def call_gemini_server_side(prompt: str, user_key: str = None) -> dict:
-    """Gemini REST API 백엔드 프록시 (gemini-2.5-flash -> 2.0-flash -> 1.5-flash 자동 폴백)"""
+    """Gemini REST API 백엔드 프록시 (gemini-4-argon -> gemini-2.5-flash -> gemini-2.5-pro -> 2.0-flash -> 1.5-flash 자동 폴백)"""
     sec = get_local_secrets()
     api_key = (user_key or sec.get("gemini_key") or "").strip()
     if not api_key:
         return {"error": "서버에 GEMINI_API_KEY가 설정되어 있지 않습니다.", "success": False}
 
-    models = ["gemini-2.5-flash", "gemini-2.0-flash", "gemini-1.5-flash"]
+    models = ["gemini-4-argon", "gemini-2.5-flash", "gemini-2.5-pro", "gemini-2.0-flash", "gemini-1.5-flash"]
     last_err = ""
     wisdom_ctx = get_wisdom_prompt_context()
     system_instruction = (
@@ -1898,6 +1898,26 @@ class DashboardHandler(SimpleHTTPRequestHandler):
             self.wfile.write(body)
             return
 
+        # 🛡️ [v11.5] 6대 청사 전담 서브 에이전트 상태 조회 (GET /api/dept-sub-agents)
+        if path.startswith('/api/dept-sub-agents'):
+            try:
+                dept_id = query.get('dept', [''])[0] if 'query' in locals() and query else ''
+                import dept_sub_agents_corps
+                import importlib
+                importlib.reload(dept_sub_agents_corps)
+                sub_res = dept_sub_agents_corps.get_sub_agents_status(dept_filter=dept_id)
+            except Exception as e:
+                sub_res = {"status": "error", "success": False, "message": str(e)}
+            body = json.dumps(sub_res, ensure_ascii=False).encode("utf-8")
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.send_header("Cache-Control", "no-cache, no-store")
+            self.end_headers()
+            self.wfile.write(body)
+            return
+
         # 11. 📊 [v10.3] 대표님 구글 시트 & 과거 기록 발굴 대조 리포트 (GET /api/google-sheets-report)
         if path == '/api/google-sheets-report':
             try:
@@ -2131,6 +2151,41 @@ class DashboardHandler(SimpleHTTPRequestHandler):
                     "status": "OK",
                     "success": True,
                     "message": "르곤-알파 총괄 명령 집행 완료",
+                    "data": exec_res
+                }
+            except Exception as e:
+                resp = {"status": "error", "success": False, "message": str(e)}
+
+            body = json.dumps(resp, ensure_ascii=False).encode("utf-8")
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(body)
+            return
+
+        # 🛡️ [v11.5] 6대 청사 전담 서브 에이전트 실전 출격 및 상향 보고 (POST /api/dept-sub-agent-dispatch)
+        if self.path == '/api/dept-sub-agent-dispatch':
+            length = int(self.headers.get('Content-Length', 0))
+            raw_body = self.rfile.read(length) if length > 0 else b'{}'
+            try:
+                post_data = json.loads(raw_body.decode('utf-8')) if raw_body else {}
+                agent_id = post_data.get("agent_id") or post_data.get("dept") or "ALL_6_SUB_AGENTS"
+                send_tg = post_data.get("send_telegram", True)
+
+                import dept_sub_agents_corps
+                import importlib
+                importlib.reload(dept_sub_agents_corps)
+                if agent_id in ("ALL", "ALL_6_SUB_AGENTS", "ALL_AGENTS"):
+                    exec_res = dept_sub_agents_corps.dispatch_all_sub_agents(send_tg=send_tg)
+                else:
+                    exec_res = dept_sub_agents_corps.dispatch_sub_agent(agent_id=agent_id, send_tg=send_tg)
+
+                resp = {
+                    "status": "OK",
+                    "success": True,
+                    "message": "서브 에이전트 상향 직보 완수",
                     "data": exec_res
                 }
             except Exception as e:

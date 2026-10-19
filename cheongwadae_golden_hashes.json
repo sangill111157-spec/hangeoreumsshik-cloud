@@ -3,38 +3,38 @@
     "dept_1": {
       "name": "제1청사: 차세대 전략 프로젝트 R&D 본부",
       "file": "C:\\Users\\sangi\\Downloads\\shin-agent\\dashboard\\departments\\dept_closet.html",
-      "hash": "8edf600db181ba928758bfa3b207fed071e9116897bb1be197930971a1b82f09",
-      "timestamp": "2026-10-19 10:03:56"
+      "hash": "379a32dda21557988881122ab31c1ca3d8eee47031274793ed99f3011947233c",
+      "timestamp": "2026-10-19 10:42:50"
     },
     "dept_2": {
       "name": "제2청사: Connect AI 홍보·비즈니스부",
       "file": "C:\\Users\\sangi\\Downloads\\shin-agent\\dashboard\\departments\\dept_connect_ai.html",
-      "hash": "f4dd8a1b9e6440c5d3d183fe679c8870810a879372a930b13d9f622174692d24",
-      "timestamp": "2026-10-19 10:03:56"
+      "hash": "54fb9d92990d8ae272461a351526afc95e8f8c49850477b354086ac74301ab5e",
+      "timestamp": "2026-10-19 10:42:50"
     },
     "dept_3": {
       "name": "제3청사: 힐링 미디어·음원제작부",
       "file": "C:\\Users\\sangi\\Downloads\\shin-agent\\dashboard\\departments\\dept_media.html",
-      "hash": "89bf583ab7125de81a4a0cfa1f5758b73ee5bf90d10da3891ba5349694f8d9d4",
-      "timestamp": "2026-10-19 10:03:56"
+      "hash": "a74704d72b44be11c9b65f5afbdb03767a919a67dd2c36fd710cee66f82a94d8",
+      "timestamp": "2026-10-19 10:42:50"
     },
     "dept_4": {
       "name": "제4청사: 글로벌 K-인성학교 & 나눔부",
       "file": "C:\\Users\\sangi\\Downloads\\shin-agent\\dashboard\\departments\\dept_education.html",
-      "hash": "5a8f09cf998a138428f9a5c3b025b321bf7a41f26073893e041b93ce6761444a",
-      "timestamp": "2026-10-19 10:03:56"
+      "hash": "3f4ef723229fea9fdfba42f5bd4967ce53460192f34117cb408d55c8c11e29e3",
+      "timestamp": "2026-10-19 10:42:50"
     },
     "dept_5": {
       "name": "제5청사: 자율법무·저작권·제2의두뇌 기록원",
       "file": "C:\\Users\\sangi\\Downloads\\shin-agent\\dashboard\\departments\\dept_vault.html",
-      "hash": "2cc703684f02d81289e3869a0fde5a23ad4741613c4501f1b7fd00ca31aac560",
-      "timestamp": "2026-10-19 10:03:56"
+      "hash": "c83f5f38faa58d582dac17028552ac7b8b4061303d27a07e61d0c952ed4b2d82",
+      "timestamp": "2026-10-19 10:42:50"
     },
     "dept_6": {
       "name": "제6청사: 총무·재무회계·정산청",
       "file": "C:\\Users\\sangi\\Downloads\\shin-agent\\dashboard\\departments\\dept_treasury.html",
-      "hash": "22cc916602a4d37e0ee24e6be5f9a2c9e3209cbbe7708f4e617b438b14739dcf",
-      "timestamp": "2026-10-19 10:03:56"
+      "hash": "c1dbf63cf12b765c7f6549e9e29ffea3373adb2e82e3eae0febaf9ed766ff151",
+      "timestamp": "2026-10-19 10:42:50"
     }
   },
   "safe_apps": {
@@ -42,31 +42,31 @@
       "name": "클린룸 웹앱 1호(행운 컬러)",
       "file": "C:\\Users\\sangi\\Downloads\\shin-agent\\dashboard\\safe_apps\\safe_daily_lucky.html",
       "hash": "579da283e5598143f688bcd5a44f388b46c237fc00e3bfb71e34128760e25fa5",
-      "timestamp": "2026-10-19 10:03:56"
+      "timestamp": "2026-10-19 10:42:50"
     },
     "app_2": {
       "name": "클린룸 웹앱 2호(연봉·퇴직금 계산기)",
       "file": "C:\\Users\\sangi\\Downloads\\shin-agent\\dashboard\\safe_apps\\safe_salary_planner.html",
       "hash": "4d174ba82fd1c137468ada0aadb401006f0f4df7d83bc2668dbca7ef3be0b4b3",
-      "timestamp": "2026-10-19 10:03:56"
+      "timestamp": "2026-10-19 10:42:50"
     },
     "app_3": {
       "name": "클린룸 웹앱 3호(432Hz 힐링 사운드)",
       "file": "C:\\Users\\sangi\\Downloads\\shin-agent\\dashboard\\safe_apps\\safe_healing_sound.html",
       "hash": "d21c744e359a9d3cd623466929e350c653e70ab9e975525c5cba06715a2efea9",
-      "timestamp": "2026-10-19 10:03:56"
+      "timestamp": "2026-10-19 10:42:50"
     },
     "app_4": {
       "name": "클린룸 웹앱 4호(부자 DNA 테스트)",
       "file": "C:\\Users\\sangi\\Downloads\\shin-agent\\dashboard\\safe_apps\\safe_rich_dna_test.html",
       "hash": "d141648ddaa358a81e3510c0d47b0f1b8132b4b166ac0708b26dd8b7e41dbcf3",
-      "timestamp": "2026-10-19 10:03:56"
+      "timestamp": "2026-10-19 10:42:50"
     },
     "app_5": {
       "name": "클린룸 웹앱 5호(하루 1% 성공 루틴)",
       "file": "C:\\Users\\sangi\\Downloads\\shin-agent\\dashboard\\safe_apps\\safe_daily_routine.html",
       "hash": "12d0e38762b61f0986da8c3c25d9cbb6cb00cec153c5c045a84a3c4ec4ab004b",
-      "timestamp": "2026-10-19 10:03:56"
+      "timestamp": "2026-10-19 10:42:50"
     }
   }
 }

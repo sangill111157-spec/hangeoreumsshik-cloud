@@ -34,6 +34,72 @@
       "signal": "⟪🛰️RGON_ALPHA_COMMAND_STANDBY🛰️⟫"
     },
     {
+      "id": "ALPHA-D1",
+      "name": "알파-퀀트",
+      "dept_id": "DEPT-1",
+      "dept_name": "제1청사 (패션테크·퀀트R&D)",
+      "page": "dept_closet.html",
+      "role": "📈 제1청사 수석 퀀트·R&D 보좌관 (NVIDIA $107,246.38 혈관 24시간 실시간 감시)",
+      "icon": "📈",
+      "color": "#10b981",
+      "parent_agent": "RGON-ALPHA"
+    },
+    {
+      "id": "ALPHA-D2",
+      "name": "알파-바이럴",
+      "dept_id": "DEPT-2",
+      "dept_name": "제2청사 (Connect AI 홍보·BM)",
+      "page": "dept_connect_ai.html",
+      "role": "🚀 제2청사 수석 홍보·BM 보좌관 (4대 SNS 발사대 & 3초 후킹 & Stitch 연동)",
+      "icon": "🚀",
+      "color": "#f59e0b",
+      "parent_agent": "RGON-ALPHA"
+    },
+    {
+      "id": "ALPHA-D3",
+      "name": "알파-미디어",
+      "dept_id": "DEPT-3",
+      "dept_name": "제3청사 (힐링 미디어·음원제작)",
+      "page": "dept_media.html",
+      "role": "🎵 제3청사 수석 미디어·음원 보좌관 (유튜브 3채널 & 틱톡 2,098명 & 432Hz 관제)",
+      "icon": "🎵",
+      "color": "#ec4899",
+      "parent_agent": "RGON-ALPHA"
+    },
+    {
+      "id": "ALPHA-D4",
+      "name": "알파-홍익",
+      "dept_id": "DEPT-4",
+      "dept_name": "제4청사 (글로벌 K-인성학교)",
+      "page": "dept_education.html",
+      "role": "🌱 제4청사 수석 인성감찰 보좌관 (홍익인간 100점 인성 헌법 기강 수호)",
+      "icon": "🌱",
+      "color": "#8b5cf6",
+      "parent_agent": "RGON-ALPHA"
+    },
+    {
+      "id": "ALPHA-D5",
+      "name": "알파-가디언",
+      "dept_id": "DEPT-5",
+      "dept_name": "제5청사 (자율법무·보안·기록원)",
+      "page": "dept_vault.html",
+      "role": "🛡️ 제5청사 수석 법무·보안·시트 보좌관 (Vault 0.00% 마스킹 & 5대 시트 85탭 감시)",
+      "icon": "🛡️",
+      "color": "#06b6d4",
+      "parent_agent": "RGON-ALPHA"
+    },
+    {
+      "id": "ALPHA-D6",
+      "name": "알파-트레저리",
+      "dept_id": "DEPT-6",
+      "dept_name": "제6청사 (총무·재무회계청)",
+      "page": "dept_treasury.html",
+      "role": "💰 제6청사 수석 재무정산 보좌관 (실전 금고 0원 무오차 수호 & 50:25:15:10 배분 감시)",
+      "icon": "💰",
+      "color": "#eab308",
+      "parent_agent": "RGON-ALPHA"
+    },
+    {
       "id": "AGV-PRIME-101",
       "name": "기술행정부 총리 안총리",
       "role": "기술행정부 총리 & ⚡게임엔진·클라우드 통합 전담 총괄 (6대 청사 내각 총괄·집행 사령관)",
@@ -480,14 +546,59 @@
       "type": "GRAND_SYNERGY_RELAY_COMPLETE",
       "content": "6대 청사 합동 릴레이 완주: 바통 터치 6/6 완료, 종합점수 100.0점, 영수증 #RELAY-20261019_100329",
       "status": "VERIFIED"
+    },
+    {
+      "msg_id": "MSG-1792373030",
+      "timestamp": "2026-10-19 10:23:50",
+      "from": "AGV-PRIME-101",
+      "to": "COMMANDER-000",
+      "type": "GRAND_SYNERGY_RELAY_COMPLETE",
+      "content": "6대 청사 합동 릴레이 완주: 바통 터치 6/6 완료, 종합점수 100.0점, 영수증 #RELAY-20261019_102350",
+      "status": "VERIFIED"
+    },
+    {
+      "msg_id": "MSG-1792373856",
+      "timestamp": "2026-10-19 10:37:36",
+      "from": "AGV-PRIME-101",
+      "to": "COMMANDER-000",
+      "type": "GRAND_SYNERGY_RELAY_COMPLETE",
+      "content": "6대 청사 합동 릴레이 완주: 바통 터치 6/6 완료, 종합점수 100.0점, 영수증 #RELAY-20261019_103736",
+      "status": "VERIFIED"
+    },
+    {
+      "msg_id": "MSG-1792374055",
+      "timestamp": "2026-10-19 10:40:55",
+      "from": "AGV-PRIME-101",
+      "to": "COMMANDER-000",
+      "type": "GRAND_SYNERGY_RELAY_COMPLETE",
+      "content": "6대 청사 합동 릴레이 완주: 바통 터치 6/6 완료, 종합점수 100.0점, 영수증 #RELAY-20261019_104055",
+      "status": "VERIFIED"
+    },
+    {
+      "msg_id": "MSG-1792374116",
+      "timestamp": "2026-10-19 10:41:56",
+      "from": "AGV-PRIME-101",
+      "to": "COMMANDER-000",
+      "type": "GRAND_SYNERGY_RELAY_COMPLETE",
+      "content": "6대 청사 합동 릴레이 완주: 바통 터치 6/6 완료, 종합점수 100.0점, 영수증 #RELAY-20261019_104156",
+      "status": "VERIFIED"
+    },
+    {
+      "msg_id": "MSG-1792374145",
+      "timestamp": "2026-10-19 10:42:25",
+      "from": "AGV-PRIME-101",
+      "to": "COMMANDER-000",
+      "type": "GRAND_SYNERGY_RELAY_COMPLETE",
+      "content": "6대 청사 합동 릴레이 완주: 바통 터치 6/6 완료, 종합점수 100.0점, 영수증 #RELAY-20261019_104225",
+      "status": "VERIFIED"
     }
   ],
   "latest_synergy_relay": {
-    "receipt_id": "#RELAY-20261019_100329",
-    "completed_at": "2026-10-19 10:03:29",
+    "receipt_id": "#RELAY-20261019_104225",
+    "completed_at": "2026-10-19 10:42:25",
     "score": 100.0,
     "grade": "S",
     "handoffs_completed": 6,
-    "total_elapsed_ms": 6.24
+    "total_elapsed_ms": 9.76
   }
 }

@@ -215,13 +215,13 @@ def gather_realtime_system_metrics() -> dict:
     }
 
 def call_gemini_ai(user_prompt: str, system_context: str) -> str:
-    """실제 Google Gemini API (gemini-2.5-flash / gemini-2.0-flash / gemini-1.5-flash) 호출"""
+    """실제 Google Gemini API (gemini-4-argon / gemini-2.5-flash / gemini-2.5-pro / gemini-2.0-flash / gemini-1.5-flash) 최신 프론티어 폴백 호출"""
     sec = get_engine_secrets()
     key = sec.get("gemini_key", "").strip()
     if not key:
         return ""
 
-    models = ["gemini-2.5-flash", "gemini-2.0-flash", "gemini-1.5-flash"]
+    models = ["gemini-4-argon", "gemini-2.5-flash", "gemini-2.5-pro", "gemini-2.0-flash", "gemini-1.5-flash"]
     for model_name in models:
         url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={key}"
         body = {
