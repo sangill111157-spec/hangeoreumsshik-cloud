@@ -147,10 +147,10 @@
         <div>
           <div class="flex items-center gap-2">
             <h1 class="text-lg sm:text-xl font-bold tracking-tight text-white">청와대 중앙 컨트롤 타워</h1>
-            <span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-gradient-to-r from-pink-500/20 via-purple-500/20 to-cyan-500/20 text-pink-300 border border-pink-500/30 font-bold">청와대 통합 OS v11.0</span>
+            <span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-gradient-to-r from-pink-500/20 via-purple-500/20 to-cyan-500/20 text-pink-300 border border-pink-500/30 font-bold">청와대 통합 OS v11.4</span>
           </div>
           <p class="text-xs text-slate-400 mt-0.5">
-            👑 이상일 대표님 <span class="text-slate-600 font-mono">[COMMANDER-000]</span> · 🧠 르곤 수석보좌관 <span class="text-slate-600 font-mono">[RGON-001]</span> · ⚡ 기술행정부 안총리 <span class="text-slate-600 font-mono">[AGV-PRIME-101]</span>
+            👑 의장 이상일 <span class="text-slate-600 font-mono">[COMMANDER-000]</span> · 🧠 수석보좌관 르곤 <span class="text-slate-600 font-mono">[RGON-001]</span> · 🛰️ 대시보드총괄 르곤-알파 <span class="text-slate-600 font-mono">[RGON-ALPHA]</span> · ⚡ 기술총리 안총리 <span class="text-slate-600 font-mono">[AGV-PRIME-101]</span>
           </p>
         </div>
       </div>
@@ -189,6 +189,105 @@
         <div id="main-net-profit" class="text-sm sm:text-lg font-bold text-cyan-400 font-mono mt-0.5">0원</div>
       </div>
     </div>
+
+    <!-- 🛰️ [v11.4] 대시보드 전담 총괄 복제관 『르곤-알파(RGON-ALPHA)』 24시간 지휘소 (#rgon-alpha-command-deck) -->
+    <section id="rgon-alpha-command-deck" class="glass-card rounded-2xl p-4 sm:p-6 space-y-4 border-indigo-500/40 bg-gradient-to-br from-indigo-950/40 via-slate-900/90 to-purple-950/40 shadow-2xl">
+      <!-- 타이틀 & 실시간 상태 배지 -->
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-indigo-500/30 pb-3">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-purple-600 flex items-center justify-center text-xl shadow-lg shadow-indigo-500/30">
+            🛰️
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h2 class="text-base sm:text-lg font-bold text-white tracking-tight">대시보드 전담 총괄 복제관 『르곤-알파(RGON-ALPHA)』 24시간 지휘소</h2>
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 font-mono">RGON-DASH-002</span>
+            </div>
+            <p class="text-xs text-slate-400 mt-0.5">제1수석보좌관 르곤(RGON-001) 두뇌·기억 100% 복제 | 본관 & 1~6청사 실시간 전 기관 감시·통제·순찰</p>
+          </div>
+        </div>
+        <!-- 실시간 상태 배지 3종 -->
+        <div class="flex flex-wrap items-center gap-2 text-[11px]">
+          <span id="alpha-badge-sync" class="px-2.5 py-1 rounded-full bg-emerald-950/70 text-emerald-300 border border-emerald-500/40 flex items-center gap-1 font-medium">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            🟢 두뇌 동기화: 100% (RGON-001 복제)
+          </span>
+          <span id="alpha-badge-patrol" class="px-2.5 py-1 rounded-full bg-indigo-950/70 text-indigo-300 border border-indigo-500/40 flex items-center gap-1 font-medium">
+            🛡️ 대시보드 자가순찰: 이상 무
+          </span>
+          <span id="alpha-badge-treasury" class="px-2.5 py-1 rounded-full bg-amber-950/70 text-amber-300 border border-amber-500/40 flex items-center gap-1 font-medium">
+            💰 금고 감시: 0원 정상
+          </span>
+        </div>
+      </div>
+
+      <!-- 원터치 한글 버튼 3종 -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <button 
+          id="btn-alpha-patrol"
+          onclick="triggerRgonAlpha('ALPHA_FULL_PATROL')" 
+          class="p-3.5 rounded-xl bg-gradient-to-r from-indigo-900/80 to-blue-900/80 hover:from-indigo-800 hover:to-blue-800 border border-indigo-500/40 text-xs sm:text-sm font-bold text-white shadow-lg shadow-indigo-950/50 transition active:scale-98 flex items-center justify-center gap-2"
+        >
+          <span>🔍</span>
+          <span>[🔍 알파의 전 기관 1초 자가순찰 & 브리핑]</span>
+        </button>
+        <button 
+          id="btn-alpha-omni"
+          onclick="triggerRgonAlpha('ALPHA_OMNI_EXECUTE')" 
+          class="p-3.5 rounded-xl bg-gradient-to-r from-emerald-900/80 to-teal-900/80 hover:from-emerald-800 hover:to-teal-800 border border-emerald-500/40 text-xs sm:text-sm font-bold text-white shadow-lg shadow-emerald-950/50 transition active:scale-98 flex items-center justify-center gap-2"
+        >
+          <span>⚡</span>
+          <span>[⚡ 알파의 원터치 전 기관(퀀트+7채널+릴레이) 총괄 집행]</span>
+        </button>
+        <button 
+          id="btn-alpha-sync"
+          onclick="triggerRgonAlpha('ALPHA_SYNC_MEMORY')" 
+          class="p-3.5 rounded-xl bg-gradient-to-r from-purple-900/80 to-pink-900/80 hover:from-purple-800 hover:to-pink-800 border border-purple-500/40 text-xs sm:text-sm font-bold text-white shadow-lg shadow-purple-950/50 transition active:scale-98 flex items-center justify-center gap-2"
+        >
+          <span>🔄</span>
+          <span>[🔄 본체 르곤(RGON-001) ⇄ 알파 기억 100% 동기화]</span>
+        </button>
+      </div>
+
+      <!-- 르곤-알파 실시간 브리핑 & 선제 건의 메시지 카드 -->
+      <div class="p-4 rounded-xl bg-slate-950/80 border border-indigo-500/20 space-y-3">
+        <div class="flex items-center justify-between text-xs">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+            <span class="font-bold text-indigo-300">🛰️ 르곤-알파 실시간 브리핑 전문</span>
+            <span id="alpha-last-updated" class="text-slate-500 font-mono text-[10px]">실시간 연동</span>
+          </div>
+          <div class="text-[11px] text-slate-400">
+            종합 통제 지수: <span id="alpha-control-score" class="font-bold text-emerald-400 font-mono">100.0%</span>
+          </div>
+        </div>
+        <div id="alpha-briefing-box" class="text-xs text-slate-200 leading-relaxed font-sans bg-slate-900/70 p-3 rounded-lg border border-slate-800 whitespace-pre-line">
+          충성! 최고 통수권자 이상일 대표님, 제1수석보좌관 르곤-알파(RGON-ALPHA) 대시보드 24시간 관제소에 정상 상주 중입니다.
+          • 본관 및 1~6청사: 6/6개 청사 정상 가동 중 (이상 무)
+          • NVIDIA 퀀트 사령부: 모의 자산 $107,246.38 (4대 혈관 개통 완료)
+          • 제6청사 실전 금고: 0원 절대 불변 수호 중
+          • 7대 미디어 채널: 유튜브 3채널 & 틱톡 2,098명 본진 발사 대기 완료!
+        </div>
+
+        <!-- 선제 건의 사항 3선 -->
+        <div class="pt-2 border-t border-slate-800/80 space-y-1.5">
+          <div class="text-[11px] font-bold text-purple-300 flex items-center gap-1.5">
+            <span>📋</span><span>르곤-알파의 선제 건의 3선</span>
+          </div>
+          <div id="alpha-recommendations-list" class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-[11px] text-slate-300">
+            <div class="p-2 rounded-lg bg-slate-900/60 border border-indigo-500/20">
+              1. 📈 <b>[퀀트 사령부]</b> 모의 체결 완료 후 장마감 KIS 폴링 유지 권고
+            </div>
+            <div class="p-2 rounded-lg bg-slate-900/60 border border-indigo-500/20">
+              2. 📺 <b>[미디어 본진]</b> 7대 채널 일괄 자동 채움 후 숏츠 예약 배포
+            </div>
+            <div class="p-2 rounded-lg bg-slate-900/60 border border-indigo-500/20">
+              3. 🏦 <b>[재무 금고]</b> 0원 클린룸 장부 100% 무결성 유지 권고
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- 💬 [SECTION 1: 최우선 제1과제] 청와대 실시간 양방향 소통 사령부 (#live-communication-center) -->
     <section id="live-communication-center" class="glass-card rounded-2xl p-4 sm:p-6 space-y-4 border-cyan-500/30">
@@ -998,6 +1097,87 @@
     }
     window.runGrandSynergyRelay = runGrandSynergyRelay;
 
+    // 14. 🛰️ [v11.4] 르곤-알파(RGON-ALPHA) 대시보드 총괄관 통제 로직
+    async function loadRgonAlphaStatus() {
+      try {
+        const res = await fetch('/api/rgon-alpha-status?t=' + Date.now());
+        if (!res.ok) return;
+        const data = await res.json();
+        updateRgonAlphaUI(data);
+      } catch (e) {
+        console.warn('RGON-ALPHA status load failed:', e);
+      }
+    }
+    window.loadRgonAlphaStatus = loadRgonAlphaStatus;
+
+    function updateRgonAlphaUI(data) {
+      if (!data) return;
+      const scoreEl = document.getElementById('alpha-control-score');
+      const briefingEl = document.getElementById('alpha-briefing-box');
+      const updatedEl = document.getElementById('alpha-last-updated');
+      const recoList = document.getElementById('alpha-recommendations-list');
+      const badgeSync = document.getElementById('alpha-badge-sync');
+
+      if (scoreEl && data.control_score !== undefined) {
+        scoreEl.innerText = `${Number(data.control_score).toFixed(1)}%`;
+      }
+      if (updatedEl && data.timestamp) {
+        updatedEl.innerText = data.timestamp;
+      }
+      if (briefingEl && data.patrol_summary && data.patrol_summary.briefing) {
+        briefingEl.innerText = data.patrol_summary.briefing;
+      }
+      if (badgeSync && data.rgon_memory_sync_percent !== undefined) {
+        badgeSync.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>🟢 두뇌 동기화: ${data.rgon_memory_sync_percent}% (RGON-001 복제)`;
+      }
+      if (recoList && data.recommendations && data.recommendations.length >= 3) {
+        recoList.innerHTML = data.recommendations.map(r => `
+          <div class="p-2 rounded-lg bg-slate-900/60 border border-indigo-500/20">
+            ${r}
+          </div>
+        `).join('');
+      }
+    }
+    window.updateRgonAlphaUI = updateRgonAlphaUI;
+
+    async function triggerRgonAlpha(mode) {
+      const modeNames = {
+        'ALPHA_FULL_PATROL': '전 기관 1초 자가순찰',
+        'ALPHA_OMNI_EXECUTE': '전 기관 총괄 일괄 집행',
+        'ALPHA_SYNC_MEMORY': '본체 르곤 기억 동기화'
+      };
+      const name = modeNames[mode] || mode;
+      const btn = event ? event.currentTarget : null;
+      const oldHtml = btn ? btn.innerHTML : '';
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<span>⏳</span><span>알파 집행 중...</span>';
+      }
+      try {
+        const res = await fetch('/api/rgon-alpha-command', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ mode: mode })
+        });
+        const result = await res.json();
+        const payload = result.data || result;
+        if (result.success || payload.success) {
+          loadRgonAlphaStatus();
+          alert(`🛰️ [르곤-알파(RGON-ALPHA) 임무 완수!]\n\n• 집행 모드: ${name}\n• 영수증: ${payload.receipt_id || 'ALPHA-RECEIPT-OK'}\n• 르곤-알파 브리핑 및 대표님 텔레그램 발송 완료!\n• 제6청사 실전 금고: 0원 절대 불변 수호!`);
+        } else {
+          alert('르곤-알파 응답: ' + (result.message || '완료'));
+        }
+      } catch (err) {
+        alert('르곤-알파 호출 오류: ' + err.message);
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = oldHtml;
+        }
+      }
+    }
+    window.triggerRgonAlpha = triggerRgonAlpha;
+
     // 초기 로딩
     document.addEventListener('DOMContentLoaded', function() {
       loadCommFeed();
@@ -1005,6 +1185,7 @@
       loadDeptWorkQueue();
       syncImmortalTunnelBanner();
       loadSynergyRelayStatus();
+      loadRgonAlphaStatus();
     });
   </script>
   <script src="/aside_drawer.js"></script>

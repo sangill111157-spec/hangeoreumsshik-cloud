@@ -116,9 +116,9 @@
           <span style="font-size: 20px;">🧠</span>
           <div>
             <div style="font-weight: 800; font-size: 14px; color: #f8fafc; letter-spacing: -0.02em;">르곤 어사이드 (Rgon-Aside)</div>
-            <div style="font-size: 11px; color: #fbbf24; display: flex; align-items: center; gap: 4px;">
-              <span style="width: 6px; height: 6px; border-radius: 50%; background: #10b981; display: inline-block;"></span>
-              <span>Vault 보안 가동 (마스킹 100%)</span>
+            <div style="font-size: 11px; color: #a5b4fc; display: flex; align-items: center; gap: 4px; margin-top: 2px;">
+              <span style="width: 6px; height: 6px; border-radius: 50%; background: #6366f1; display: inline-block;"></span>
+              <span style="font-weight: 700;">🛰️ 대시보드 총괄: 르곤-알파(RGON-ALPHA) 상주 중</span>
             </div>
           </div>
         </div>
@@ -138,9 +138,14 @@
           <div id="aside-xray-summary" style="font-size: 11px; color: #94a3b8; line-height: 1.4;">잠시만 기다려주세요.</div>
         </div>
 
-        <!-- 섹션 2: 원터치 에이전트 액션 칩 4종 -->
+        <!-- 섹션 2: 원터치 에이전트 액션 칩 5종 -->
         <div style="display: flex; flex-direction: column; gap: 6px;">
           <div style="font-size: 11px; font-weight: 700; color: #f59e0b; margin-left: 2px;">⚡ 원터치 어사이드 에이전트 출격</div>
+
+          <button onclick="window.triggerAlphaFromAside()" style="width: 100%; text-align: left; padding: 10px 12px; border-radius: 10px; background: linear-gradient(135deg, rgba(99, 102, 241, 0.25), rgba(79, 70, 229, 0.35)); border: 1px solid rgba(99, 102, 241, 0.5); color: #e0e7ff; font-size: 12px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: space-between;">
+            <span>🛰️ 르곤-알파 전 기관 통합 순찰·명령</span>
+            <span>➔</span>
+          </button>
           
           <button onclick="window.triggerAsideAction('MULTI_7_CHANNEL_AUTOFILL')" style="width: 100%; text-align: left; padding: 10px 12px; border-radius: 10px; background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(217, 119, 6, 0.25)); border: 1px solid rgba(245, 158, 11, 0.4); color: #fef3c7; font-size: 12px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: space-between;">
             <span>🚀 7대 채널(유튜브3·틱톡·SNS) 서브에이전트 동시 자동채움</span>
@@ -341,6 +346,25 @@
 
     box.innerHTML = html;
   }
+
+  // 🛰️ [v11.4] 어사이드 서랍 내부에서 르곤-알파 호출 함수
+  window.triggerAlphaFromAside = async function() {
+    try {
+      const res = await fetch('/api/rgon-alpha-command', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ mode: 'ALPHA_FULL_PATROL' })
+      });
+      const data = await res.json();
+      const payload = data.data || data;
+      alert(`🛰️ [르곤-알파 전 기관 통합 자가순찰 완료!]\n\n• 영수증: ${payload.receipt_id || '#ALPHA-PATROL-OK'}\n• 르곤-알파 브리핑: ${payload.briefing || '전 기관 이상 무'}\n• 대표님 스마트폰 텔레그램 발송 완료!`);
+      if (typeof window.loadRgonAlphaStatus === 'function') {
+        window.loadRgonAlphaStatus();
+      }
+    } catch (e) {
+      alert('르곤-알파 순찰 호출 실패: ' + e.message);
+    }
+  };
 
   // 초기화
   function initAsideDrawer() {

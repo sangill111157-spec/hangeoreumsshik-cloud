@@ -1879,6 +1879,25 @@ class DashboardHandler(SimpleHTTPRequestHandler):
             self.wfile.write(body)
             return
 
+        # 🛰️ [v11.4] 르곤-알파(RGON-ALPHA) 대시보드 총괄관 상태 조회 (GET /api/rgon-alpha-status)
+        if path == '/api/rgon-alpha-status':
+            try:
+                import rgon_alpha_clone_engine
+                import importlib
+                importlib.reload(rgon_alpha_clone_engine)
+                alpha_res = rgon_alpha_clone_engine.get_alpha_status()
+            except Exception as e:
+                alpha_res = {"status": "error", "success": False, "message": str(e)}
+            body = json.dumps(alpha_res, ensure_ascii=False).encode("utf-8")
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.send_header("Cache-Control", "no-cache, no-store")
+            self.end_headers()
+            self.wfile.write(body)
+            return
+
         # 11. 📊 [v10.3] 대표님 구글 시트 & 과거 기록 발굴 대조 리포트 (GET /api/google-sheets-report)
         if path == '/api/google-sheets-report':
             try:
@@ -2081,6 +2100,37 @@ class DashboardHandler(SimpleHTTPRequestHandler):
                     "status": "OK",
                     "success": True,
                     "message": "르곤 어사이드 에이전트 작업 완수",
+                    "data": exec_res
+                }
+            except Exception as e:
+                resp = {"status": "error", "success": False, "message": str(e)}
+
+            body = json.dumps(resp, ensure_ascii=False).encode("utf-8")
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(body)
+            return
+
+        # 🛰️ [v11.4] 르곤-알파(RGON-ALPHA) 총괄 명령 집행 (POST /api/rgon-alpha-command)
+        if self.path == '/api/rgon-alpha-command':
+            length = int(self.headers.get('Content-Length', 0))
+            raw_body = self.rfile.read(length) if length > 0 else b'{}'
+            try:
+                post_data = json.loads(raw_body.decode('utf-8')) if raw_body else {}
+                mode = post_data.get("mode", "ALPHA_FULL_PATROL")
+                custom_order = post_data.get("order", "")
+                
+                import rgon_alpha_clone_engine
+                import importlib
+                importlib.reload(rgon_alpha_clone_engine)
+                exec_res = rgon_alpha_clone_engine.execute_alpha_command(mode=mode, custom_order=custom_order)
+                resp = {
+                    "status": "OK",
+                    "success": True,
+                    "message": "르곤-알파 총괄 명령 집행 완료",
                     "data": exec_res
                 }
             except Exception as e:

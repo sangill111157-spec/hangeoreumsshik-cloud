@@ -890,6 +890,69 @@ try {{
     log_gate("HARD-GATE-13", "르곤 어사이드(Rgon-Aside) 전 청사 장착 및 서브 에이전트 API 실전 검증", gate13_ok, gate13_detail)
 
     # --------------------------------------------------------------------------
+    # [HARD-GATE 14] [v11.4] 대시보드 전담 복제관 르곤-알파(RGON-ALPHA) 두뇌 엔진 및 전 기관 통제 검증
+    # --------------------------------------------------------------------------
+    alpha_checks = []
+
+    # 1) GET /api/rgon-alpha-status 호출 검증
+    s_alpha_st, b_alpha_st = http_get("/api/rgon-alpha-status")
+    j_alpha_st = json.loads(b_alpha_st) if s_alpha_st == 200 else {}
+    sync_pct = j_alpha_st.get("rgon_memory_sync_percent", j_alpha_st.get("memory_sync_rate", 0))
+    agent_id = j_alpha_st.get("agent_id", "")
+    callsign = j_alpha_st.get("callsign", "")
+    ctrl_score = j_alpha_st.get("control_score", j_alpha_st.get("patrol_summary", {}).get("overall_score", 0))
+    alpha_get_ok = (s_alpha_st == 200 and sync_pct == 100.0 and (agent_id in ("RGON-ALPHA", "RGON-DASH-002") or callsign == "RGON-DASH-002") and ctrl_score == 100.0)
+    alpha_checks.append((alpha_get_ok, f"르곤-알파 상태 API(HTTP {s_alpha_st}, 동기화={sync_pct}%, 점수={ctrl_score})"))
+
+    # 2) POST /api/rgon-alpha-command (ALPHA_FULL_PATROL) 호출 검증
+    s_alpha_run, j_alpha_run = http_post("/api/rgon-alpha-command", {"mode": "ALPHA_FULL_PATROL"})
+    j_alpha_data = j_alpha_run.get("data", j_alpha_run) if s_alpha_run == 200 else {}
+    alpha_receipt = j_alpha_data.get("receipt_id", "")
+    alpha_score = j_alpha_data.get("overall_score", 0)
+    alpha_recos = len(j_alpha_data.get("recommendations", []))
+    alpha_run_ok = (s_alpha_run == 200 and bool(alpha_receipt) and alpha_score == 100.0 and alpha_recos >= 3)
+    alpha_checks.append((alpha_run_ok, f"르곤-알파 순찰 집행 API(HTTP {s_alpha_run}, 영수증={alpha_receipt}, 선제건의={alpha_recos}선)"))
+
+    # 3) 본관 index.html 내 #rgon-alpha-command-deck 및 버튼 3종 DOM 검증
+    dash_index_path = BASE_DIR / "dashboard" / "index.html"
+    dash_idx_txt = dash_index_path.read_text(encoding="utf-8", errors="ignore") if dash_index_path.exists() else ""
+    deck_elements = [
+        "rgon-alpha-command-deck",
+        "btn-alpha-patrol",
+        "btn-alpha-omni",
+        "btn-alpha-sync",
+        "triggerRgonAlpha('ALPHA_FULL_PATROL')",
+        "triggerRgonAlpha('ALPHA_OMNI_EXECUTE')",
+        "triggerRgonAlpha('ALPHA_SYNC_MEMORY')",
+        "alpha-briefing-box",
+        "alpha-recommendations-list"
+    ]
+    deck_dom_ok = all(k in dash_idx_txt for k in deck_elements)
+    alpha_checks.append((deck_dom_ok, f"본관 지휘소(#rgon-alpha-command-deck) 및 원터치 버튼 3종 DOM 검증({deck_dom_ok})"))
+
+    # 4) aside_drawer.js 내 르곤-알파 상주 배지 및 원터치 호출 칩 검증
+    aside_js_path = BASE_DIR / "dashboard" / "aside_drawer.js"
+    aside_js_txt = aside_js_path.read_text(encoding="utf-8", errors="ignore") if aside_js_path.exists() else ""
+    aside_alpha_elements = [
+        "🛰️ 대시보드 총괄: 르곤-알파(RGON-ALPHA) 상주 중",
+        "triggerAlphaFromAside()",
+        "🛰️ 르곤-알파 전 기관 통합 순찰·명령"
+    ]
+    aside_alpha_ok = all(k in aside_js_txt for k in aside_alpha_elements)
+    alpha_checks.append((aside_alpha_ok, f"어사이드 서랍 내 르곤-알파 상주 배지 및 원터치 호출 칩 검증({aside_alpha_ok})"))
+
+    # 5) 제6청사 실전 금고 0원 장부 절대 불변 및 원문 키 노출 0건 최종 확인
+    s_tr6, b_tr6 = http_get("/api/treasury-status")
+    j_tr6 = json.loads(b_tr6) if s_tr6 == 200 else {}
+    sm_tr6 = j_tr6.get("summary", {})
+    tr6_zero_ok = (s_tr6 == 200 and sm_tr6.get("total_in", -1) == 0 and sm_tr6.get("disposable_net_krw", sm_tr6.get("net_profit", -1)) == 0)
+    alpha_checks.append((tr6_zero_ok, f"르곤-알파 가동 후 제6청사 실전 금고 0원 절대 불변 유지({tr6_zero_ok})"))
+
+    gate14_ok = all(c[0] for c in alpha_checks)
+    gate14_detail = " / ".join(c[1] for c in alpha_checks)
+    log_gate("HARD-GATE-14", "대시보드 전담 복제관 르곤-알파(RGON-ALPHA) 두뇌 엔진 및 전 기관 통제 검증", gate14_ok, gate14_detail)
+
+    # --------------------------------------------------------------------------
     # 종합 판정
     # --------------------------------------------------------------------------
     total_gates = len(results)
@@ -902,7 +965,7 @@ try {{
         print("🚨 결함 발견! 수리가 필요합니다.")
         return False
 
-    print("🏆 [최종 완료] 13대 최고난도 실제 작동 검증 100.0% ALL PASS! 르곤 어사이드(Rgon-Aside) 전 청사 장착 및 서브 에이전트 무결성 확정!")
+    print("🏆 [최종 완료] 14대 최고난도 실제 작동 검증 100.0% ALL PASS! 르곤-알파(RGON-ALPHA) 대시보드 24시간 상주 및 전 기관 통제 완벽 확정!")
     print("=" * 80)
     return True
 

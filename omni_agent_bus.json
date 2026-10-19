@@ -25,6 +25,15 @@
       "color": "#a855f7"
     },
     {
+      "id": "RGON-ALPHA",
+      "callsign": "RGON-DASH-002",
+      "name": "대시보드 총괄관 르곤-알파",
+      "role": "청와대 4대 수뇌부 & 🛰️ 대시보드 24시간 상주 최고통제관 (RGON-001 복제 클론)",
+      "icon": "🛰️",
+      "color": "#fbbf24",
+      "signal": "⟪🛰️RGON_ALPHA_COMMAND_STANDBY🛰️⟫"
+    },
+    {
       "id": "AGV-PRIME-101",
       "name": "기술행정부 총리 안총리",
       "role": "기술행정부 총리 & ⚡게임엔진·클라우드 통합 전담 총괄 (6대 청사 내각 총괄·집행 사령관)",
@@ -426,14 +435,59 @@
       "type": "GRAND_SYNERGY_RELAY_COMPLETE",
       "content": "6대 청사 합동 릴레이 완주: 바통 터치 6/6 완료, 종합점수 100.0점, 영수증 #RELAY-20261019_085511",
       "status": "VERIFIED"
+    },
+    {
+      "msg_id": "MSG-1792369874",
+      "timestamp": "2026-10-19 09:31:14",
+      "from": "AGV-PRIME-101",
+      "to": "COMMANDER-000",
+      "type": "GRAND_SYNERGY_RELAY_COMPLETE",
+      "content": "6대 청사 합동 릴레이 완주: 바통 터치 6/6 완료, 종합점수 100.0점, 영수증 #RELAY-20261019_093114",
+      "status": "VERIFIED"
+    },
+    {
+      "msg_id": "MSG-1792370099",
+      "timestamp": "2026-10-19 09:34:59",
+      "from": "AGV-PRIME-101",
+      "to": "COMMANDER-000",
+      "type": "GRAND_SYNERGY_RELAY_COMPLETE",
+      "content": "6대 청사 합동 릴레이 완주: 바통 터치 6/6 완료, 종합점수 100.0점, 영수증 #RELAY-20261019_093459",
+      "status": "VERIFIED"
+    },
+    {
+      "msg_id": "MSG-1792371708",
+      "timestamp": "2026-10-19 10:01:48",
+      "from": "AGV-PRIME-101",
+      "to": "COMMANDER-000",
+      "type": "GRAND_SYNERGY_RELAY_COMPLETE",
+      "content": "6대 청사 합동 릴레이 완주: 바통 터치 6/6 완료, 종합점수 100.0점, 영수증 #RELAY-20261019_100148",
+      "status": "VERIFIED"
+    },
+    {
+      "msg_id": "MSG-1792371784",
+      "timestamp": "2026-10-19 10:03:04",
+      "from": "AGV-PRIME-101",
+      "to": "COMMANDER-000",
+      "type": "GRAND_SYNERGY_RELAY_COMPLETE",
+      "content": "6대 청사 합동 릴레이 완주: 바통 터치 6/6 완료, 종합점수 100.0점, 영수증 #RELAY-20261019_100304",
+      "status": "VERIFIED"
+    },
+    {
+      "msg_id": "MSG-1792371809",
+      "timestamp": "2026-10-19 10:03:29",
+      "from": "AGV-PRIME-101",
+      "to": "COMMANDER-000",
+      "type": "GRAND_SYNERGY_RELAY_COMPLETE",
+      "content": "6대 청사 합동 릴레이 완주: 바통 터치 6/6 완료, 종합점수 100.0점, 영수증 #RELAY-20261019_100329",
+      "status": "VERIFIED"
     }
   ],
   "latest_synergy_relay": {
-    "receipt_id": "#RELAY-20261019_085511",
-    "completed_at": "2026-10-19 08:55:11",
+    "receipt_id": "#RELAY-20261019_100329",
+    "completed_at": "2026-10-19 10:03:29",
     "score": 100.0,
     "grade": "S",
     "handoffs_completed": 6,
-    "total_elapsed_ms": 12.61
+    "total_elapsed_ms": 6.24
   }
 }
