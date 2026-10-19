@@ -4408,5 +4408,30 @@
         }
       ]
     }
+  ],
+  "evolution_sync_history": [
+    {
+      "timestamp": "2026-10-20 00:02:16",
+      "receipts": [
+        {
+          "sheet_id": "1gYDrCuqM2hKQbYyE3cYEZhJZEhrH_Is6tdUhsw-cgaw",
+          "sheet_title": "BLOG AUTOMATION COMMAND CENTER",
+          "tab_name": "RGON_진화일지",
+          "updated_range": "'RGON_진화일지'!A2:F8",
+          "updated_rows": 7,
+          "updated_cells": 42
+        },
+        {
+          "sheet_id": "1mIu1vXu0luRSDNyjE-WkJaz91otX0OvgaBVrJj6rwnY",
+          "sheet_title": "SHIN FAMILY COMMAND CENTER",
+          "tab_name": "RGON_진화일지",
+          "updated_range": "'RGON_진화일지'!A2:F8",
+          "updated_rows": 7,
+          "updated_cells": 42
+        }
+      ],
+      "rows_count": 7,
+      "status": "SUCCESS"
+    }
   ]
 }

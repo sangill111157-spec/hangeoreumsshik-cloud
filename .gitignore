@@ -110,3 +110,9 @@ node_modules/
 .rgon_ad_backups/
 .rgon_ui_backups/
 
+!evolution_memory.json
+
+
+*.db
+temp_browser_hist.db
+
