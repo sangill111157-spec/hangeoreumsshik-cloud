@@ -1,8 +1,8 @@
 {
-  "active_tunnel_url": "https://semi-soil-bobby-assistant.trycloudflare.com",
-  "tunnel_url": "https://semi-soil-bobby-assistant.trycloudflare.com",
-  "dashboard_url": "https://semi-soil-bobby-assistant.trycloudflare.com/?v=1150",
+  "active_tunnel_url": "https://wiley-worlds-ethical-hood.trycloudflare.com",
+  "tunnel_url": "https://wiley-worlds-ethical-hood.trycloudflare.com",
+  "dashboard_url": "https://wiley-worlds-ethical-hood.trycloudflare.com/?v=960&tab=command",
   "port": 8501,
   "verified_status": 200,
-  "immune_to_error_1033": true
+  "opened_at": "2026-10-19 12:00:51"
 }

@@ -1191,6 +1191,9 @@ def start_cloudflare_tunnel(port: int, force_restart: bool = False):
                         }
                         (BASE_DIR / "latest_tunnel_info.json").write_text(json.dumps(info_data, ensure_ascii=False, indent=2), encoding="utf-8")
                         (BASE_DIR / "active_external_tunnel.json").write_text(json.dumps(info_data, ensure_ascii=False, indent=2), encoding="utf-8")
+                        (BASE_DIR / "tunnel_bridge.json").write_text(json.dumps(info_data, ensure_ascii=False, indent=2), encoding="utf-8")
+                        (BASE_DIR / "dashboard" / "tunnel_bridge.json").write_text(json.dumps(info_data, ensure_ascii=False, indent=2), encoding="utf-8")
+                        (BASE_DIR / "docs" / "tunnel_bridge.json").write_text(json.dumps(info_data, ensure_ascii=False, indent=2), encoding="utf-8")
                     except Exception:
                         pass
                     # 텔레그램 자동 발송
@@ -1213,6 +1216,23 @@ def tunnel_guardian_loop(port: int):
 class DashboardHandler(SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=str(DASHBOARD_DIR), **kwargs)
+
+    def do_OPTIONS(self):
+        """CORS 프리플라이트 요청 100% 무조건 허용"""
+        self.send_response(200)
+        self.send_header("Access-Control-Allow-Origin", "*")
+        self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE")
+        self.send_header("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With")
+        self.send_header("Access-Control-Max-Age", "86400")
+        self.send_header("Content-Length", "0")
+        super().end_headers()
+
+    def end_headers(self):
+        """모든 응답에 CORS 및 캐시 방지 헤더 자동 주입"""
+        self.send_header("Access-Control-Allow-Origin", "*")
+        self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE")
+        self.send_header("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With")
+        super().end_headers()
 
     def do_GET(self):
         parsed = urllib.parse.urlparse(self.path)

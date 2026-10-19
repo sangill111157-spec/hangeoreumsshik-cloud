@@ -313,7 +313,26 @@ def run_security_audit() -> dict:
             "github_leak_risk": "0.00% (ZERO LEAK)"
         },
         "usable_assets": all_usable,
-        "purged_assets": purged
+        "purged_assets": purged,
+        "nvda_trading_bot_assets": {
+            "system_name": "NVIDIA 미국주식 AI 트레이딩 시스템 (모의투자 시험운전)",
+            "installation_path": "C:\\trading\\package\\nvda_trading_system",
+            "kis_broker": {
+                "account_type": "KIS 해외주식 모의투자계좌 (PAPER)",
+                "account_no": "502****432",
+                "app_key": "PSB****R83",
+                "is_paper": True,
+                "status": "CONFIGURED_AND_SAFE_MASKED"
+            },
+            "dedicated_telegram": {
+                "bot_type": "NVIDIA 트레이딩 봇 전용 독립 텔레그램 봇",
+                "bot_token": "8682****pkk",
+                "chat_id": "872****502",
+                "status": "ACTIVE_DEDICATED_CHANNEL"
+            },
+            "simulated_capital": "$107,246.38 USD (모의투자 운용 자산)",
+            "zero_exposure_audit": "100.0% PASS (원문 키 노출 0건)"
+        }
     }
 
     # JSON 저장

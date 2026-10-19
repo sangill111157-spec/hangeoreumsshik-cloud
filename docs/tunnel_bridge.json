@@ -1,10 +1,8 @@
 {
-  "active_tunnel_url": "https://nirvana-exercises-jet-then.trycloudflare.com",
-  "tunnel_url": "https://nirvana-exercises-jet-then.trycloudflare.com",
-  "dashboard_url": "https://nirvana-exercises-jet-then.trycloudflare.com/?v=1080&tab=command",
+  "active_tunnel_url": "https://wiley-worlds-ethical-hood.trycloudflare.com",
+  "tunnel_url": "https://wiley-worlds-ethical-hood.trycloudflare.com",
+  "dashboard_url": "https://wiley-worlds-ethical-hood.trycloudflare.com/?v=960&tab=command",
   "port": 8501,
   "verified_status": 200,
-  "opened_at": "2026-10-19 02:29:55",
-  "immune_to_error_1033": true,
-  "daemon_managed": true
+  "opened_at": "2026-10-19 12:00:51"
 }

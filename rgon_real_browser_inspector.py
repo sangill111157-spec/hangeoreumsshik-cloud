@@ -1092,6 +1092,41 @@ try {{
     tr8_zero_ok = (s_tr8 == 200 and sm_tr8.get("total_in", -1) == 0 and sm_tr8.get("disposable_net_krw", sm_tr8.get("net_profit", -1)) == 0)
     chat_and_button_checks.append((tr8_zero_ok, f"감사 후 제6청사 실전 금고 0원 절대 불변 보존({tr8_zero_ok})"))
 
+    # 6) [v11.6.1] EXCLUSIVE 영어 잔재 0건, alert('통신 오류') 코드 0건, safeFetchJson 안전망 탑재 검증
+    no_exclusive = ("EXCLUSIVE" not in chat_html_txt)
+    no_alert_error = ("alert('통신 오류" not in chat_html_txt and 'alert("통신 오류' not in chat_html_txt)
+    has_safe_json = ("safeFetchJson" in chat_html_txt)
+    hotfix_code_ok = (no_exclusive and no_alert_error and has_safe_json)
+    chat_and_button_checks.append((hotfix_code_ok, f"독대실 무결점 코드(EXCLUSIVE 잔재 0건={no_exclusive}, alert오류창 0건={no_alert_error}, safeFetchJson 안전망={has_safe_json})"))
+
+    # 7) [v11.6.1] 외부 5G 터널 rgon_alpha_chat.html 및 크로스도메인 API 실제 응답 검증
+    live_tunnel_ok = False
+    tunnel_detail = "터널 브릿지 파일 없음"
+    tb_file = BASE_DIR / "tunnel_bridge.json"
+    if tb_file.exists():
+        try:
+            tb_data = json.loads(tb_file.read_text(encoding="utf-8"))
+            act_url = tb_data.get("active_tunnel_url", "").rstrip('/')
+            if act_url:
+                req_t1 = urllib.request.Request(f"{act_url}/rgon_alpha_chat.html", headers={"User-Agent": "Mozilla/5.0"})
+                with urllib.request.urlopen(req_t1, timeout=8) as res_t1:
+                    t1_status = res_t1.status
+                
+                req_t2 = urllib.request.Request(
+                    f"{act_url}/api/rgon-alpha-chat",
+                    data=json.dumps({"message": "5G 라이브 검증", "action": "SUB_AGENTS_REPORT"}).encode("utf-8"),
+                    headers={"Content-Type": "application/json", "User-Agent": "Mozilla/5.0"}
+                )
+                with urllib.request.urlopen(req_t2, timeout=8) as res_t2:
+                    t2_status = res_t2.status
+                    t2_data = json.loads(res_t2.read().decode("utf-8"))
+                
+                live_tunnel_ok = (t1_status == 200 and t2_status == 200 and t2_data.get("status") == "OK")
+                tunnel_detail = f"5G 터널({act_url}) HTML {t1_status} OK, API {t2_status} OK (영수증={t2_data.get('receipt_id')})"
+        except Exception as te:
+            tunnel_detail = f"5G 터널 검증 예외: {te}"
+    chat_and_button_checks.append((live_tunnel_ok, tunnel_detail))
+
     gate16_ok = all(c[0] for c in chat_and_button_checks)
     gate16_detail = " / ".join(c[1] for c in chat_and_button_checks)
     log_gate("HARD-GATE-16", "르곤-알파 1:1 전담 독대실(rgon_alpha_chat.html) 개통 & 전 청사 무늬만 버튼 0% 실사용 감사", gate16_ok, gate16_detail)
