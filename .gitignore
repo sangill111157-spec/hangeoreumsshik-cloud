@@ -97,3 +97,5 @@ logs/
 
 !dashboard/audio/*.mp3
 !dashboard/audio/*.json
+
+_backup_clean_ui/

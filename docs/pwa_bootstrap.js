@@ -1,3 +1,11 @@
+/* RGON_LOCAL_SW_GUARD_START */
+(function(){
+  if(/^(127\.0\.0\.1|localhost)$/.test(location.hostname) && "serviceWorker" in navigator){
+    var fake={update:function(){},unregister:function(){return Promise.resolve(true);},addEventListener:function(){},installing:null,waiting:null,active:null};
+    try{ navigator.serviceWorker.register=function(){ return Promise.resolve(fake); }; }catch(e){}
+  }
+})();
+/* RGON_LOCAL_SW_GUARD_END */
 // pwa_bootstrap.js - 청와대 AI 중앙 컨트롤타워 PWA 부트스트랩 및 터널 자동 추적 브릿지
 (function() {
   'use strict';
@@ -41,7 +49,7 @@
     bar.style.cssText = isChatPage ? `
       position: fixed;
       top: 14px;
-      right: 140px;
+      right: 145px;
       bottom: auto;
       z-index: 99999;
       display: flex;
@@ -59,7 +67,7 @@
     ` : `
       position: fixed;
       bottom: 12px;
-      right: 12px;
+      right: 145px;
       z-index: 99999;
       display: flex;
       align-items: center;
