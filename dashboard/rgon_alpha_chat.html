@@ -105,6 +105,51 @@
     </div>
   </div>
 
+  <!-- 📡 [v12.0.1] 6대 청사 서브에이전트 실시간 보좌 지표 토글 버튼 및 접이식 서랍 (평소 100% 숨김) -->
+  <div class="px-3 py-1.5 bg-slate-950/40 border-b border-indigo-500/10 shrink-0">
+    <div class="flex items-center justify-between">
+      <button 
+        id="toggle-sub-metrics-btn"
+        onclick="toggleSubMetricsDrawer()" 
+        class="text-[11px] text-slate-400 hover:text-amber-300 transition flex items-center gap-1 font-bold bg-slate-900/80 px-2.5 py-1 rounded-md border border-slate-800 active:scale-95"
+      >
+        <span>📡</span>
+        <span id="toggle-sub-metrics-text">6대 청사 실시간 보좌 지표 보기 ▼</span>
+      </button>
+      <span class="text-[10px] text-slate-500">원할 때만 열어보는 접이식 서랍</span>
+    </div>
+
+    <!-- 기본적으로 완전 숨김(display: none) 처리되는 서랍 패널 -->
+    <div id="sub-metrics-drawer-panel" style="display: none;" class="mt-2 p-2.5 rounded-xl bg-slate-900/95 border border-indigo-500/30">
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 text-[10px]">
+        <div class="p-2 rounded-lg bg-slate-950/80 border border-slate-800 flex flex-col justify-between">
+          <div class="font-extrabold text-amber-300 pb-1 border-b border-slate-800">📈 1청사 알파-퀀트</div>
+          <div class="text-emerald-400 pt-1" style="white-space: normal; word-break: keep-all; overflow: visible; text-overflow: clip; line-height: 1.35;">NVDA $107,246.38 · 4대혈관 100% 정상</div>
+        </div>
+        <div class="p-2 rounded-lg bg-slate-950/80 border border-slate-800 flex flex-col justify-between">
+          <div class="font-extrabold text-amber-300 pb-1 border-b border-slate-800">🚀 2청사 알파-바이럴</div>
+          <div class="text-emerald-400 pt-1" style="white-space: normal; word-break: keep-all; overflow: visible; text-overflow: clip; line-height: 1.35;">4대 SNS 발사대 · BM 시뮬레이터 0원</div>
+        </div>
+        <div class="p-2 rounded-lg bg-slate-950/80 border border-slate-800 flex flex-col justify-between">
+          <div class="font-extrabold text-amber-300 pb-1 border-b border-slate-800">🎵 3청사 알파-미디어</div>
+          <div class="text-emerald-400 pt-1" style="white-space: normal; word-break: keep-all; overflow: visible; text-overflow: clip; line-height: 1.35;">유튜브 3채널 · 틱톡 2,098명 · 432Hz</div>
+        </div>
+        <div class="p-2 rounded-lg bg-slate-950/80 border border-slate-800 flex flex-col justify-between">
+          <div class="font-extrabold text-amber-300 pb-1 border-b border-slate-800">🌱 4청사 알파-홍익</div>
+          <div class="text-emerald-400 pt-1" style="white-space: normal; word-break: keep-all; overflow: visible; text-overflow: clip; line-height: 1.35;">인성헌법 100점 · 거짓보고 0% 감찰</div>
+        </div>
+        <div class="p-2 rounded-lg bg-slate-950/80 border border-slate-800 flex flex-col justify-between">
+          <div class="font-extrabold text-amber-300 pb-1 border-b border-slate-800">🛡️ 5청사 알파-가디언</div>
+          <div class="text-emerald-400 pt-1" style="white-space: normal; word-break: keep-all; overflow: visible; text-overflow: clip; line-height: 1.35;">보안키 0.00% 마스킹 · 5대시트 85탭</div>
+        </div>
+        <div class="p-2 rounded-lg bg-slate-950/80 border border-slate-800 flex flex-col justify-between">
+          <div class="font-extrabold text-amber-300 pb-1 border-b border-slate-800">💰 6청사 알파-트레저리</div>
+          <div class="text-emerald-400 pt-1" style="white-space: normal; word-break: keep-all; overflow: visible; text-overflow: clip; line-height: 1.35;">실전금고 0원 불변 · 50:25:15:10 수호</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- 💬 중앙 1:1 대화 스트림 -->
   <main id="alpha-exclusive-chat-stream" class="chat-stream flex-1 overflow-y-auto p-3 sm:p-4 space-y-4">
     <!-- 자바스크립트로 메시지 실시간 렌더링 -->
@@ -229,13 +274,36 @@
         localStorage.setItem(CHAT_STORAGE_KEY, JSON.stringify(messages));
       }
 
-      renderChatMessages(messages);
+      renderChatMessages(messages, false);
     }
 
-    // 2. 메시지 스트림 렌더링
-    function renderChatMessages(messages) {
+    // 2. [v12.0.1] 토글 서랍 컨트롤러 & 초깔끔 메시지 스트림 렌더링
+    window._lastHistorySignature = "";
+
+    function toggleSubMetricsDrawer() {
+      const panel = document.getElementById('sub-metrics-drawer-panel');
+      const text = document.getElementById('toggle-sub-metrics-text');
+      if (!panel) return;
+      if (panel.style.display === 'none') {
+        panel.style.display = 'block';
+        if (text) text.textContent = '6대 청사 실시간 보좌 지표 접기 ▲';
+      } else {
+        panel.style.display = 'none';
+        if (text) text.textContent = '6대 청사 실시간 보좌 지표 보기 ▼';
+      }
+    }
+    window.toggleSubMetricsDrawer = toggleSubMetricsDrawer;
+
+    function renderChatMessages(messages, forceScrollToNew = false) {
       const stream = document.getElementById('alpha-exclusive-chat-stream');
       if (!stream) return;
+
+      const sig = (messages ? messages.length : 0) + "_" + (messages && messages.length > 0 ? (messages[messages.length - 1].timestamp || messages[messages.length - 1].id || "") : "");
+      if (!forceScrollToNew && sig === window._lastHistorySignature) {
+        // 폴링 시 이전과 동일한 데이터이면 재렌더링 및 강제 스크롤 일체 금지!
+        return;
+      }
+      window._lastHistorySignature = sig;
 
       let html = '';
       messages.forEach(m => {
@@ -244,13 +312,13 @@
         if (isUser) {
           // 대표님 말풍선 (우측 골드)
           html += `
-            <div class="flex items-start justify-end gap-2.5 ml-auto max-w-[90%] sm:max-w-[78%]">
+            <div class="msg-row user flex items-start justify-end gap-2.5 ml-auto max-w-[90%] sm:max-w-[78%]">
               <div class="p-3 sm:p-3.5 rounded-2xl rounded-tr-none bg-gradient-to-br from-amber-950/80 via-slate-900/90 to-amber-900/60 border border-amber-500/40 text-xs sm:text-sm text-slate-100 space-y-1.5 shadow-lg shadow-amber-950/20">
                 <div class="flex items-center justify-end gap-2">
                   <span class="text-[10px] text-amber-400 font-mono">${m.timestamp || ''}</span>
                   <span class="font-extrabold text-amber-300 text-xs">👑 이상일 대표님</span>
                 </div>
-                <div class="whitespace-pre-line leading-relaxed font-sans">${escapeHtml(m.text)}</div>
+                <div class="msg-body whitespace-pre-line leading-relaxed font-sans">${escapeHtml(m.text)}</div>
               </div>
               <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-amber-600 to-yellow-500 flex items-center justify-center text-xs shrink-0 shadow-md ring-2 ring-amber-400/40">
                 👑
@@ -258,31 +326,9 @@
             </div>
           `;
         } else {
-          // 르곤-알파 말풍선 (좌측 에메랄드 다크)
-          let snapshotHtml = '';
-          if (m.sub_agents_snapshot && Object.keys(m.sub_agents_snapshot).length > 0) {
-            snapshotHtml = `
-              <div class="mt-2.5 pt-2 border-t border-slate-800 space-y-1.5">
-                <div class="text-[10px] font-bold text-indigo-300 flex items-center gap-1">
-                  <span>📡</span><span>6대 청사 서브에이전트 실시간 보좌 지표</span>
-                </div>
-                <div class="grid grid-cols-2 sm:grid-cols-3 gap-1.5 text-[10px]">
-            `;
-            for (const [sid, sinfo] of Object.entries(m.sub_agents_snapshot)) {
-              const displayName = sinfo.name || sid;
-              const metricText = sinfo.metric || sinfo.report || '정상 상주';
-              snapshotHtml += `
-                <div class="p-2 rounded-lg bg-slate-950/80 border border-slate-800/80 flex flex-col justify-between">
-                  <div class="font-extrabold text-amber-300 text-[10px] pb-1 border-b border-slate-800/60">${escapeHtml(displayName)}</div>
-                  <div class="text-emerald-400 text-[10px] pt-1" style="white-space: normal; word-break: keep-all; overflow: visible; text-overflow: clip; line-height: 1.35;">${escapeHtml(metricText)}</div>
-                </div>
-              `;
-            }
-            snapshotHtml += `</div></div>`;
-          }
-
+          // 르곤-알파 말풍선 (좌측 에메랄드 다크 - 지표 카드 & 영수증 100% 제거, 초깔끔 본문 전용)
           html += `
-            <div class="flex items-start gap-2.5 mr-auto max-w-[95%] sm:max-w-[85%]">
+            <div class="msg-row alpha flex items-start gap-2.5 mr-auto max-w-[95%] sm:max-w-[85%]">
               <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-indigo-600 via-purple-600 to-pink-600 flex items-center justify-center text-xs shrink-0 shadow-md ring-2 ring-indigo-400/40">
                 🛰️
               </div>
@@ -294,12 +340,7 @@
                   </div>
                   <span class="text-[10px] text-slate-500 font-mono">${m.timestamp || ''}</span>
                 </div>
-                <div class="whitespace-pre-line leading-relaxed font-sans text-slate-200">${escapeHtml(m.text)}</div>
-                ${snapshotHtml}
-                <div class="pt-1.5 flex items-center justify-between text-[10px] text-slate-500 border-t border-slate-800/80 font-mono">
-                  <span>영수증: ${m.receipt_id || 'ALPHA-RECEIPT'}</span>
-                  <span class="text-amber-400 font-bold">${m.approval_stamp || '🎖️ 르곤-알파 100% 검증완료'}</span>
-                </div>
+                <div class="msg-body whitespace-pre-line leading-relaxed font-sans text-slate-200">${escapeHtml(m.text)}</div>
               </div>
             </div>
           `;
@@ -307,7 +348,17 @@
       });
 
       stream.innerHTML = html;
-      stream.scrollTop = stream.scrollHeight;
+
+      // 새 답변 도착 시 '맨 바닥'이 아니라 '새 답변의 첫 줄(시작점)'로 부드럽게 스크롤
+      if (forceScrollToNew) {
+        const alphaRows = stream.querySelectorAll('.msg-row.alpha');
+        if (alphaRows.length > 0) {
+          const lastAlpha = alphaRows[alphaRows.length - 1];
+          stream.scrollTo({ top: Math.max(0, lastAlpha.offsetTop - 12), behavior: 'smooth' });
+        } else {
+          stream.scrollTo({ top: stream.scrollHeight, behavior: 'smooth' });
+        }
+      }
     }
 
     // 3. 메시지 전송 처리
@@ -468,7 +519,9 @@
         text: text
       };
       currentMessages.push(userMsgEntry);
-      renderChatMessages(currentMessages);
+      renderChatMessages(currentMessages, false);
+      const streamEl = document.getElementById('alpha-exclusive-chat-stream');
+      if (streamEl) streamEl.scrollTo({ top: streamEl.scrollHeight, behavior: 'smooth' });
 
       let serverResponse = null;
 
@@ -522,7 +575,7 @@
       currentMessages.push(alphaMsgEntry);
       if (currentMessages.length > 60) currentMessages = currentMessages.slice(-60);
       localStorage.setItem(CHAT_STORAGE_KEY, JSON.stringify(currentMessages));
-      renderChatMessages(currentMessages);
+      renderChatMessages(currentMessages, true);
 
       isSubmitting = false;
       if (sendBtn) {

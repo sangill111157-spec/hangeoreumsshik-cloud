@@ -104,6 +104,7 @@ class TunnelDiscoveryBridge:
 
         record = {
             "version": "v12.0-GRAND-TRINITY",
+            "active_tunnel_url": target_url or "",
             "active_url": target_url or "",
             "tunnel_url": target_url or "",
             "last_checked_at": now_iso,

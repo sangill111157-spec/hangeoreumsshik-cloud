@@ -79,6 +79,14 @@
       #rgon-aside-drawer.active {
         right: 0;
       }
+      #rgon-aside-fab.chat-compact {
+        top: 68px !important;
+        transform: none !important;
+        font-size: 11px !important;
+        padding: 6px 10px !important;
+        opacity: 0.85 !important;
+        border-radius: 12px 0 0 12px !important;
+      }
       .aside-scrollbar::-webkit-scrollbar {
         width: 5px;
       }
@@ -97,6 +105,9 @@
     // 플로팅 호출 버튼
     const fab = document.createElement('div');
     fab.id = 'rgon-aside-fab';
+    if (window.location.pathname.toLowerCase().includes('rgon_alpha_chat')) {
+      fab.classList.add('chat-compact');
+    }
     fab.innerHTML = '<span>🧠</span><span>어사이드</span>';
     fab.title = '🧠 르곤 어사이드 AI 브라우저 부관 열기';
     fab.onclick = toggleAsideDrawer;

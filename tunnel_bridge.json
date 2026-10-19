@@ -1,8 +1,9 @@
 {
   "version": "v12.0-GRAND-TRINITY",
+  "active_tunnel_url": "https://asp-defend-republican-kurt.trycloudflare.com",
   "active_url": "https://asp-defend-republican-kurt.trycloudflare.com",
   "tunnel_url": "https://asp-defend-republican-kurt.trycloudflare.com",
-  "last_checked_at": "2026-10-19T17:52:14.360474",
+  "last_checked_at": "2026-10-19T18:06:54.980716",
   "status": "HEALTHY",
   "provider": "Cloudflare Trycloudflare Tunnel",
   "shortcuts": {

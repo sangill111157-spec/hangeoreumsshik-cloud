@@ -1106,7 +1106,7 @@ try {{
     if tb_file.exists():
         try:
             tb_data = json.loads(tb_file.read_text(encoding="utf-8"))
-            act_url = tb_data.get("active_tunnel_url", "").rstrip('/')
+            act_url = (tb_data.get("active_tunnel_url") or tb_data.get("active_url") or tb_data.get("tunnel_url") or "").rstrip('/')
             if act_url:
                 req_t1 = urllib.request.Request(f"{act_url}/rgon_alpha_chat.html", headers={"User-Agent": "Mozilla/5.0"})
                 with urllib.request.urlopen(req_t1, timeout=8) as res_t1:

@@ -35,9 +35,28 @@
   function injectPwaUI() {
     if (document.getElementById('rgon-pwa-bridge-bar')) return;
 
+    const isChatPage = window.location.pathname.toLowerCase().includes('rgon_alpha_chat');
     const bar = document.createElement('div');
     bar.id = 'rgon-pwa-bridge-bar';
-    bar.style.cssText = `
+    bar.style.cssText = isChatPage ? `
+      position: fixed;
+      top: 10px;
+      right: 76px;
+      bottom: auto;
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(7, 11, 20, 0.92);
+      border: 1px solid #d4af37;
+      border-radius: 16px;
+      padding: 4px 10px;
+      font-size: 10px;
+      color: #e6edf3;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.6);
+      backdrop-filter: blur(8px);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    ` : `
       position: fixed;
       bottom: 12px;
       right: 12px;
