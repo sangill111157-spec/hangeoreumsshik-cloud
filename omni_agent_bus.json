@@ -780,14 +780,32 @@
       "type": "GRAND_SYNERGY_RELAY_COMPLETE",
       "content": "6대 청사 합동 릴레이 완주: 바통 터치 6/6 완료, 종합점수 100.0점, 영수증 #RELAY-20261019_182155",
       "status": "VERIFIED"
+    },
+    {
+      "msg_id": "MSG-1792402814",
+      "timestamp": "2026-10-19 18:40:14",
+      "from": "AGV-PRIME-101",
+      "to": "COMMANDER-000",
+      "type": "GRAND_SYNERGY_RELAY_COMPLETE",
+      "content": "6대 청사 합동 릴레이 완주: 바통 터치 6/6 완료, 종합점수 100.0점, 영수증 #RELAY-20261019_184014",
+      "status": "VERIFIED"
+    },
+    {
+      "msg_id": "MSG-1792402854",
+      "timestamp": "2026-10-19 18:40:54",
+      "from": "AGV-PRIME-101",
+      "to": "COMMANDER-000",
+      "type": "GRAND_SYNERGY_RELAY_COMPLETE",
+      "content": "6대 청사 합동 릴레이 완주: 바통 터치 6/6 완료, 종합점수 100.0점, 영수증 #RELAY-20261019_184054",
+      "status": "VERIFIED"
     }
   ],
   "latest_synergy_relay": {
-    "receipt_id": "#RELAY-20261019_182155",
-    "completed_at": "2026-10-19 18:21:55",
+    "receipt_id": "#RELAY-20261019_184054",
+    "completed_at": "2026-10-19 18:40:54",
     "score": 100.0,
     "grade": "S",
     "handoffs_completed": 6,
-    "total_elapsed_ms": 4.65
+    "total_elapsed_ms": 5.29
   }
 }

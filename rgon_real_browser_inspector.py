@@ -1246,9 +1246,18 @@ try {{
         f"POST엔드포인트검증(퀀트채점={q_eval_ok}, 그록장전={g_auto_ok})"
     ))
 
+    # 5) [v12.2] 노트북 어사이드 6대 멀티탭 올인원 자동 분배 및 완수 검증 (POST /api/aside-all-in-one-execute)
+    s_aio, j_aio = http_post("/api/aside-all-in-one-execute", {"command_text": "검수기 올인원 멀티탭 검증"})
+    aio_plan = j_aio.get("multitab_execution_plan", [])
+    aio_ok = (s_aio == 200 and j_aio.get("success") == True and len(aio_plan) == 6 and "#ASIDE-ALLINONE-" in j_aio.get("receipt_id", ""))
+    gate17_checks.append((
+        aio_ok,
+        f"어사이드올인원멀티탭(HTTP {s_aio}, 멀티탭수={len(aio_plan)}/6, 영수증={j_aio.get('receipt_id')})"
+    ))
+
     gate17_ok = all(c[0] for c in gate17_checks)
     gate17_detail = " / ".join(c[1] for c in gate17_checks)
-    log_gate("HARD-GATE-17", "v12.0 3대 AI 마스터 통합(GPT 퀀트리스크 · Grok 편성표 · Claude PWA) 실전 검수", gate17_ok, gate17_detail)
+    log_gate("HARD-GATE-17", "v12.0~12.2 3대 AI 마스터 & 노트북 어사이드 올인원 멀티탭 실전 검수", gate17_ok, gate17_detail)
 
     # --------------------------------------------------------------------------
     # 종합 판정

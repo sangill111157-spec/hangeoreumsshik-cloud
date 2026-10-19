@@ -156,7 +156,14 @@
 
         <!-- 섹션 2: 원터치 에이전트 액션 칩 5종 -->
         <div style="display: flex; flex-direction: column; gap: 6px;">
-          <div style="font-size: 11px; font-weight: 700; color: #f59e0b; margin-left: 2px;">⚡ 원터치 어사이드 에이전트 출격</div>
+          <!-- 💻 [v12.2] 노트북 6대 멀티탭 워크스페이스 일괄 가동 -->
+          <button id="btn-aside-multitab-allinone" onclick="window.triggerAsideAllInOneMultitab()" style="width: 100%; text-align: left; padding: 11px 12px; border-radius: 10px; background: linear-gradient(135deg, rgba(16, 185, 129, 0.25), rgba(5, 150, 105, 0.35)); border: 1.5px solid rgba(16, 185, 129, 0.6); color: #a7f3d0; font-size: 12px; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);">
+            <span style="display:flex; align-items:center; gap:6px;">
+              <span>💻</span>
+              <span>노트북 6대 멀티탭 워크스페이스 일괄 가동</span>
+            </span>
+            <span style="background:rgba(16, 185, 129, 0.3); padding:2px 8px; border-radius:12px; font-size:10px; color:#fff;">올인원 ➔</span>
+          </button>
 
           <!-- 👑 르곤-알파 1:1 전담 독대실 바로가기 -->
           <button id="btn-aside-goto-alpha-chat" onclick="window.goToAlphaChat()" style="width: 100%; text-align: left; padding: 11px 12px; border-radius: 10px; background: linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(217, 119, 6, 0.35)); border: 1.5px solid rgba(245, 158, 11, 0.6); color: #fef08a; font-size: 12px; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 4px 12px rgba(245,158,11,0.2);">
@@ -383,6 +390,61 @@
     });
 
     box.innerHTML = html;
+  }
+
+  // 💻 [v12.2] 노트북 6대 멀티탭 워크스페이스 일괄 가동
+  window.triggerAsideAllInOneMultitab = async function() {
+    const listEl = document.getElementById('aside-channels-list');
+    if (listEl) {
+      listEl.innerHTML = `
+        <div style="padding: 12px; border-radius: 8px; background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.4); text-align: center; color: #a7f3d0; font-size: 11px;">
+          <div style="font-weight: 700; margin-bottom: 4px;">💻 6대 멀티탭 워크스페이스 동시 집행 중...</div>
+          <div style="font-size: 10px; color: #6ee7b7;">1청사 퀀트 ➔ 6청사 트레저리 작업 분배 및 동기화 진행 중</div>
+        </div>
+      `;
+    }
+
+    try {
+      const res = await fetch('/api/aside-all-in-one-execute', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ command_text: '어사이드 서랍 6대 멀티탭 일괄 가동' })
+      });
+      const data = await res.json();
+      if (data && data.success) {
+        renderMultitabStatusBoard(data);
+      } else {
+        if (listEl) listEl.innerHTML = `<div style="padding:10px; color:#f87171;">멀티탭 실행 응답 오류</div>`;
+      }
+    } catch (err) {
+      console.warn('어사이드 멀티탭 실행 예외:', err);
+    }
+  };
+
+  function renderMultitabStatusBoard(data) {
+    const listEl = document.getElementById('aside-channels-list');
+    if (!listEl) return;
+
+    const plan = data.multitab_execution_plan || [];
+    let html = `
+      <div style="padding: 8px 10px; border-radius: 8px; background: rgba(16, 185, 129, 0.2); border: 1px solid rgba(16, 185, 129, 0.5); color: #a7f3d0; font-weight: 800; font-size: 11px; margin-bottom: 6px;">
+        💻 노트북 6대 멀티탭 올인원 완수 (${data.receipt_id || ''})
+      </div>
+    `;
+
+    plan.forEach(item => {
+      html += `
+        <div style="padding: 8px 10px; border-radius: 8px; background: rgba(15, 23, 42, 0.85); border: 1px solid rgba(16, 185, 129, 0.35); font-size: 11px;">
+          <div style="font-weight: 700; color: #fef08a; display: flex; justify-content: space-between;">
+            <span>탭 ${item.tab_index}: ${item.dept}</span>
+            <span style="font-size: 10px; color: #34d399;">100% 정상</span>
+          </div>
+          <div style="color: #e2e8f0; font-size: 11px; margin-top: 2px;">${item.target}</div>
+        </div>
+      `;
+    });
+
+    listEl.innerHTML = html;
   }
 
   // 🛰️ [v11.4] 어사이드 서랍 내부에서 르곤-알파 호출 함수

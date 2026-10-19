@@ -2471,6 +2471,35 @@ class DashboardHandler(SimpleHTTPRequestHandler):
             self.wfile.write(body)
             return
 
+        # 🧠 [v12.2] 노트북 어사이드 6대 멀티탭 올인원 자동 분배 및 일괄 완수 (POST /api/aside-all-in-one-execute)
+        if self.path == '/api/aside-all-in-one-execute':
+            length = int(self.headers.get('Content-Length', 0))
+            raw_body = self.rfile.read(length) if length > 0 else b'{}'
+            try:
+                post_data = json.loads(raw_body.decode('utf-8')) if raw_body else {}
+                cmd_txt = post_data.get("command_text") or post_data.get("message") or "대표님 한마디 올인원 지휘"
+                open_tabs = bool(post_data.get("open_physical_tabs", False))
+
+                import rgon_aside_browser_agent
+                import importlib
+                importlib.reload(rgon_aside_browser_agent)
+                all_res = rgon_aside_browser_agent.execute_all_in_one_multitab_mission(
+                    command_text=cmd_txt,
+                    open_physical_tabs=open_tabs
+                )
+                resp = all_res
+            except Exception as e:
+                resp = {"status": "error", "success": False, "message": str(e)}
+
+            body = json.dumps(resp, ensure_ascii=False).encode("utf-8")
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(body)
+            return
+
         # 🔬 [v11.6] 전 기관 무늬만 버튼 0% 전수 실사용 심층 감사 재실행 (POST /api/button-audit-run)
         if self.path == '/api/button-audit-run':
             try:
