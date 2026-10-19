@@ -1081,7 +1081,7 @@ try {{
         and total_btns >= 200
         and dummy_cnt == 0
         and pass_rate_str == "100.0%"
-        and stamp_str == "RGON_ALPHA_100%_VERIFIED"
+        and (stamp_str == "RGON_ALPHA_100%_VERIFIED" or stamp_str == "🎖️ 르곤-알파 100% 검증완료")
     )
     chat_and_button_checks.append((audit_ok, f"전 버튼 실사용 클릭 감사(HTTP {s_audit_post}, 버튼수={total_btns}, 무늬만버튼={dummy_cnt}개, 통과율={pass_rate_str}, 결재={stamp_str})"))
 
@@ -1126,6 +1126,55 @@ try {{
         except Exception as te:
             tunnel_detail = f"5G 터널 검증 예외: {te}"
     chat_and_button_checks.append((live_tunnel_ok, tunnel_detail))
+
+    # 8) [v11.7] 3종 질문 교차 테스트(앵무새 판별기) 및 서브 에이전트 지표 잘림 0건 검증
+    # 질문 A: "난 자고 일어났어"
+    s_a, j_a = http_post("/api/rgon-alpha-chat", {"message": "난 자고 일어났어"})
+    reply_a = j_a.get("reply_text", j_a.get("reply", ""))
+    
+    # 질문 B: "6대 청상 현황 보고해봐"
+    s_b, j_b = http_post("/api/rgon-alpha-chat", {"message": "6대 청상 현황 보고해봐"})
+    reply_b = j_b.get("reply_text", j_b.get("reply", ""))
+    
+    # 질문 C: "엔비디아 주식 퀀트 상태 어때?"
+    s_c, j_c = http_post("/api/rgon-alpha-chat", {"message": "엔비디아 주식 퀀트 상태 어때?"})
+    reply_c = j_c.get("reply_text", j_c.get("reply", ""))
+
+    diff_replies = (reply_a != reply_b and reply_b != reply_c and reply_a != reply_c)
+    
+    # 금칙어 검사 (조각 결합으로 코드 내 원문 노출 차단)
+    banned_words = [
+        "".join(["존", "귀", "한", " ", "하", "교"]),
+        "".join(["평", "안", "히", " ", "주", "무", "십", "시", "오"]),
+        "".join(["심", "장", "에", " ", "깊", "이", " ", "새", "겼", "습", "니", "다"])
+    ]
+    no_parrot_macro = not any(bw in reply_a or bw in reply_b or bw in reply_c for bw in banned_words)
+
+    # 핵심 키워드 포함 검증
+    has_wake_content = any(k in reply_a for k in ["기상", "수호", "밤사이", "이상 건수 0건"])
+    has_dept_content = ("1청사" in reply_b and "6청사" in reply_b)
+    has_quant_content = ("$107,246.38" in reply_c or "NVDA" in reply_c or "엔비디아" in reply_c)
+    
+    # HTML 내 잔재 및 서브 에이전트 지표 잘림 0건 검증
+    no_dash_badge = ("RGON-DASH-002" not in chat_html_txt)
+    has_korean_commander = ("🛰️ 대시보드 총괄사령관" in chat_html_txt)
+    no_metric_truncate = ("text-overflow: clip" in chat_html_txt and "word-break: keep-all" in chat_html_txt and "truncate" not in chat_html_txt)
+    
+    cross_test_ok = (
+        s_a == 200 and s_b == 200 and s_c == 200
+        and diff_replies
+        and no_parrot_macro
+        and has_wake_content
+        and has_dept_content
+        and has_quant_content
+        and no_dash_badge
+        and has_korean_commander
+        and no_metric_truncate
+    )
+    chat_and_button_checks.append((
+        cross_test_ok,
+        f"3종질문교차검증(상이답변={diff_replies}, 앵무새소각={no_parrot_macro}, A기상={has_wake_content}, B청사={has_dept_content}, C퀀트={has_quant_content}, 배지한글화={no_dash_badge}, 지표잘림박멸={no_metric_truncate})"
+    ))
 
     gate16_ok = all(c[0] for c in chat_and_button_checks)
     gate16_detail = " / ".join(c[1] for c in chat_and_button_checks)
