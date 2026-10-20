@@ -1,7 +1,7 @@
 (() => {
 "use strict";
 if (window.top !== window) return;
-const VER = "6.0.2";
+const VER = "6.0.3";
 
 // 이전 인스턴스(재주입/확장 리로드) 정리
 try { window.dispatchEvent(new CustomEvent("rgon-omni-kill")); } catch (_) {}
@@ -361,7 +361,7 @@ button.b.sm:hover{background:rgba(220,60,60,.85)}
   <div class="body">
     <section class="pane on" data-pane="1">
       <div class="row"><b style="font-size:12px">이 탭 역할:</b> <span id="selfRole">확인 중…</span>
-        <select id="roleSel"><option value="">자동 감지</option><option value="rgon">르곤 독대실</option><option value="claude">Claude Opus 5.5</option><option value="gpt">GPT-6.1 Sol</option><option value="grok">Grok 4.7</option><option value="sheets">Google Sheets</option><option value="adobe">Adobe</option></select>
+        <select id="roleSel"><option value="">자동 감지</option><option value="rgon">르곤 독대실</option><option value="claude">Claude Opus 5.5</option><option value="gpt">GPT-6.1 Sol</option><option value="grok">Grok 4.7</option><option value="sheets">Google Sheets</option><option value="adobe">Adobe</option><option value="__custom__">✏️ 직접 쓰기…</option></select><input type="text" id="customRoleInput" placeholder="역할명 직접 입력" style="display:none;width:110px;padding:4px 6px;font-size:12px;margin-left:4px">
         <button class="b" id="roleSave">지정</button></div>
       <div id="lamps"></div>
       <div class="row"><button class="b c" id="rescan">🔄 다시 스캔</button><small style="opacity:.6;font-size:11px">3초마다 자동 갱신 · 단축키 Alt+Shift+O</small></div>
@@ -370,7 +370,14 @@ button.b.sm:hover{background:rgba(220,60,60,.85)}
       <div class="row"><select id="preset"><option value="">— 지시문 템플릿 —</option><option value="design">코드 설계 요청</option><option value="review">코드 리뷰/개선</option><option value="ad">10초 광고 카피</option></select><button class="b" id="clearPrompt" type="button">🗑️ 전체 지우기</button><button class="b c" id="pastePrompt" type="button">📋 새로 붙여넣기</button></div>
       <textarea id="prompt" placeholder="사령관 지시문을 입력하세요. 열려 있는 Claude / GPT / Grok 탭 입력창에 자동으로 꽂아 넣습니다."></textarea>
       <div class="row"><label><input type="checkbox" id="autosend" checked> 자동 전송</label><label><input type="checkbox" id="grokPrefix" checked> Grok 카피 모드 접두어</label><label><input type="checkbox" id="autoclear" checked> 발사 후 입력창 자동 비우기</label></div>
-      <div class="row"><button class="b g" id="fireCG">🚀 Claude + GPT 동시 발사</button><button class="b o" id="fireGrok">🎯 Grok 카피 발사</button><button class="b" id="fireAll">🌐 3종 전체 발사</button></div>
+      <div id="dispatchTargets" style="margin:8px 0;padding:8px 10px;border-radius:10px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1)">
+        <div style="font-size:11.5px;font-weight:700;margin-bottom:6px;color:#b9c0ff">🎯 발사 대상 선택 (체크박스 선택 또는 단독 발사)</div>
+        <div id="targetCheckList" style="display:flex;flex-wrap:wrap;gap:8px"></div>
+      </div>
+      <div class="row">
+        <button class="b g" id="fireChecked">🚀 체크 선택 발사</button>
+        <button class="b" id="fireAll">🌐 전체 발사</button>
+      </div>
       <div class="out" id="fireOut">대기 중…</div>
     </section>
     <section class="pane" data-pane="3">
@@ -611,6 +618,83 @@ async function checkStatus() {
   }
   $("#statusOut").innerHTML = lines.join("<br>");
 }
+
+
+// ===== v6.0.3 커스텀 신경망 직접 쓰기 & 단독/체크 발사 엔진 =====
+const customInp = $("#customRoleInput");
+const roleSel = $("#roleSel");
+if (roleSel && customInp) {
+  roleSel.addEventListener("change", () => {
+    customInp.style.display = roleSel.value === "__custom__" ? "inline-block" : "none";
+    if (roleSel.value === "__custom__") customInp.focus();
+  });
+}
+
+async function renderDispatchTargets() {
+  const tList = $("#targetCheckList");
+  if (!tList) return;
+  const scan = state.scan || { list: [] };
+  const customRes = await rt({ type: "OMNI_GET_CUSTOM_ROLES" });
+  const customs = (customRes && customRes.customRoles) || {};
+  
+  const allRoles = Object.assign({}, ROLE_META, customs);
+  const activeRoles = ROLE_ORDER.concat(Object.keys(customs).filter(k => !ROLE_ORDER.includes(k)));
+  
+  let html = "";
+  for (const role of activeRoles) {
+    if (role === "rgon" || role === "sheets" || role === "adobe") continue;
+    const m = allRoles[role] || { label: role, icon: "⚡" };
+    const tabs = (scan.list || []).filter(t => t.role === role);
+    const hasTab = tabs.length > 0;
+    html += `<div style="display:inline-flex;align-items:center;gap:4px;padding:4px 8px;border-radius:8px;background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,${hasTab ? ".2" : ".05"})">
+      <label style="cursor:pointer;display:inline-flex;align-items:center;gap:3px;font-size:12px">
+        <input type="checkbox" class="role-chk" value="${esc(role)}" ${hasTab ? "checked" : ""}>
+        <span>${m.icon} ${esc(m.label)}</span>
+      </label>
+      <button class="b sm" data-solo-fire="${esc(role)}" style="padding:2px 6px;font-size:11px" title="이 AI에만 단독 발사">🚀</button>
+    </div>`;
+  }
+  tList.innerHTML = html || "<small style='opacity:.6'>발사 가능한 AI 역할이 없습니다.</small>";
+}
+
+const origRefreshScan = refreshScan;
+refreshScan = async function() {
+  await origRefreshScan();
+  renderDispatchTargets();
+};
+
+const origRoleSave = $("#roleSave");
+if (origRoleSave) {
+  origRoleSave.onclick = async () => {
+    let sel = $("#roleSel").value;
+    if (sel === "__custom__") {
+      const customName = ($("#customRoleInput").value || "").trim();
+      if (!customName) { toast("커스텀 역할명을 입력하세요."); return; }
+      sel = "custom_" + customName.toLowerCase().replace(/[^a-z0-9_-]/g, "_");
+      await rt({ type: "OMNI_SET_CUSTOM_ROLE", roleKey: sel, roleMeta: { label: customName, icon: "🔮" } });
+    }
+    await rt({ type: "OMNI_SET_OVERRIDE", role: sel });
+    await refreshScan();
+    toast("이 탭 역할을 지정했습니다: " + sel);
+  };
+}
+
+const fireCheckedBtn = $("#fireChecked");
+if (fireCheckedBtn) {
+  fireCheckedBtn.onclick = () => {
+    const checked = $$(".role-chk:checked").map(c => c.value);
+    if (!checked.length) { toast("발사할 대상을 1개 이상 체크하세요."); return; }
+    fire(checked);
+  };
+}
+
+$("#dispatchTargets")?.addEventListener("click", (ev) => {
+  const solo = ev.target.closest("[data-solo-fire]");
+  if (solo) {
+    const role = solo.dataset.soloFire;
+    fire([role]);
+  }
+});
 
 // ------------------------------------------------------------------ wiring
 $("#badge").addEventListener("click", () => togglePanel());

@@ -1,7 +1,7 @@
 "use strict";
 // RGON Omni-Link v6.0.0 - background service worker (multi-tab neural router)
 
-const OMNI_VERSION = "6.0.2";
+const OMNI_VERSION = "6.0.3";
 const BRIDGE = "http://127.0.0.1:8765";
 const OMNI_TOKEN = "9c5330679c10470c340860488caed5c6";
 const AI_ROLES = ["claude", "gpt", "grok"];
@@ -100,6 +100,16 @@ async function maybeAutoClean() {
     return true;
   }
   return false;
+}
+
+
+// ---- v6.0.3: 커스텀 신경망 역할 (Custom Neural Roles) 지원 ----
+async function getCustomRoles() {
+  const o = await chrome.storage.local.get("omni_custom_roles");
+  return o.omni_custom_roles || {};
+}
+async function setCustomRoles(roles) {
+  await chrome.storage.local.set({ omni_custom_roles: roles });
 }
 
 // ---------------------------------------------------------------- role mapping
@@ -386,6 +396,24 @@ async function handle(msg, sender) {
       });
       scheduleBadge();
       return { ok: true };
+    }
+    case "OMNI_GET_CUSTOM_ROLES":
+      return { ok: true, customRoles: await getCustomRoles() };
+    case "OMNI_SET_CUSTOM_ROLE": {
+      const cr = await getCustomRoles();
+      if (msg.roleKey && msg.roleMeta) {
+        cr[msg.roleKey] = msg.roleMeta;
+        await setCustomRoles(cr);
+      }
+      return { ok: true, customRoles: cr };
+    }
+    case "OMNI_DEL_CUSTOM_ROLE": {
+      const cr = await getCustomRoles();
+      if (msg.roleKey && cr[msg.roleKey]) {
+        delete cr[msg.roleKey];
+        await setCustomRoles(cr);
+      }
+      return { ok: true, customRoles: cr };
     }
     case "OMNI_SET_OVERRIDE": {
       const id = msg.tabId || (sender.tab && sender.tab.id);
