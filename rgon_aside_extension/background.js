@@ -1,7 +1,7 @@
 "use strict";
 // RGON Omni-Link v6.0.0 - background service worker (multi-tab neural router)
 
-const OMNI_VERSION = "6.0.6";
+const OMNI_VERSION = "6.0.7";
 const BRIDGE = "http://127.0.0.1:8765";
 const OMNI_TOKEN = "9c5330679c10470c340860488caed5c6";
 const AI_ROLES = ["claude", "gpt", "grok"];
