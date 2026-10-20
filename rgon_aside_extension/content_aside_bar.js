@@ -1,7 +1,7 @@
 (() => {
 "use strict";
 if (window.top !== window) return;
-const VER = "6.0.4";
+const VER = "6.0.6";
 
 // 이전 인스턴스(재주입/확장 리로드) 정리
 try { window.dispatchEvent(new CustomEvent("rgon-omni-kill")); } catch (_) {}
@@ -22,7 +22,47 @@ const GROK_PREFIX = "[광고 카피라이터 모드] 아래 지시를 바탕으�
 const IS_RGON = /^(127\.0\.0\.1|localhost)$/.test(location.hostname) && location.port === "8501";
 const IS_AI_HOST = /(^|\.)(genspark\.ai|claude\.ai|chatgpt\.com|openai\.com|grok\.com)$|^x\.com$/.test(location.hostname);
 
-const state = { role: null, tabId: null, open: false, scan: null, autoAbsorb: true, lastHash: null, dead: false, reported: undefined };
+// ===== v6.0.6 3중 체크 상태 영구 보존 엔진 (메모리 + localStorage + chrome.storage) =====
+const STORAGE_KEY_V606 = "rgon_omni_checked_v606";
+window.__RGON_CHECKED__ = window.__RGON_CHECKED__ || null;
+
+function initCheckedStore() {
+  if (window.__RGON_CHECKED__ !== null) return window.__RGON_CHECKED__;
+  let saved = null;
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY_V606);
+    if (raw) saved = JSON.parse(raw);
+  } catch (_) {}
+  window.__RGON_CHECKED__ = Object.assign({ claude: true, gpt: true, grok: false }, saved || {});
+  try {
+    chrome.storage.local.get(STORAGE_KEY_V606).then(o => {
+      if (o && o[STORAGE_KEY_V606]) {
+        Object.assign(window.__RGON_CHECKED__, o[STORAGE_KEY_V606]);
+      }
+    }).catch(() => {});
+  } catch (_) {}
+  return window.__RGON_CHECKED__;
+}
+
+function setRoleChecked(role, boolVal) {
+  initCheckedStore();
+  window.__RGON_CHECKED__[role] = !!boolVal;
+  try { localStorage.setItem(STORAGE_KEY_V606, JSON.stringify(window.__RGON_CHECKED__)); } catch (_) {}
+  try { chrome.storage.local.set({ [STORAGE_KEY_V606]: window.__RGON_CHECKED__ }); } catch (_) {}
+}
+
+function isRoleChecked(role) {
+  initCheckedStore();
+  if (window.__RGON_CHECKED__[role] !== undefined) {
+    return window.__RGON_CHECKED__[role] === true;
+  }
+  const def = (role === "claude" || role === "gpt");
+  window.__RGON_CHECKED__[role] = def;
+  try { localStorage.setItem(STORAGE_KEY_V606, JSON.stringify(window.__RGON_CHECKED__)); } catch (_) {}
+  return def;
+}
+
+const state = { targetChecked: { claude: true, gpt: true, grok: false }, _lastTgtKey: '', role: null, tabId: null, open: false, scan: null, autoAbsorb: true, lastHash: null, dead: false, reported: undefined };
 const intervals = [];
 let observer = null;
 let arenaCache = {};
@@ -371,7 +411,13 @@ button.b.sm:hover{background:rgba(220,60,60,.85)}
       <textarea id="prompt" placeholder="사령관 지시문을 입력하세요. 열려 있는 Claude / GPT / Grok 탭 입력창에 자동으로 꽂아 넣습니다."></textarea>
       <div class="row"><label><input type="checkbox" id="autosend" checked> 자동 전송</label><label><input type="checkbox" id="grokPrefix" checked> Grok 카피 모드 접두어</label><label><input type="checkbox" id="autoclear" checked> 발사 후 입력창 자동 비우기</label></div>
       <div id="dispatchTargets" style="margin:8px 0;padding:8px 10px;border-radius:10px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1)">
-        <div style="font-size:11.5px;font-weight:700;margin-bottom:6px;color:#b9c0ff">🎯 발사 대상 선택 (체크박스 선택 또는 단독 발사)</div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+        <div style="font-size:11.5px;font-weight:700;color:#b9c0ff">🎯 발사 대상 선택 (체크박스 선택 또는 단독 발사)</div>
+        <div style="display:flex;gap:4px">
+          <button class="b sm" id="btnSelectAll" style="padding:2px 6px;font-size:11px" type="button">☑️ 전체 선택</button>
+          <button class="b sm" id="btnUnselectAll" style="padding:2px 6px;font-size:11px" type="button">☐ 전체 해제</button>
+        </div>
+      </div>
         <div id="targetCheckList" style="display:flex;flex-wrap:wrap;gap:8px"></div>
       </div>
       <div class="row">
@@ -672,48 +718,7 @@ async function checkStatus() {
 }
 
 
-// ===== v6.0.3 커스텀 신경망 직접 쓰기 & 단독/체크 발사 엔진 =====
-const customInp = $("#customRoleInput");
-const roleSel = $("#roleSel");
-if (roleSel && customInp) {
-  roleSel.addEventListener("change", () => {
-    customInp.style.display = roleSel.value === "__custom__" ? "inline-block" : "none";
-    if (roleSel.value === "__custom__") customInp.focus();
-  });
-}
 
-async function renderDispatchTargets() {
-  const tList = $("#targetCheckList");
-  if (!tList) return;
-  const scan = state.scan || { list: [] };
-  const customRes = await rt({ type: "OMNI_GET_CUSTOM_ROLES" });
-  const customs = (customRes && customRes.customRoles) || {};
-  
-  const allRoles = Object.assign({}, ROLE_META, customs);
-  const activeRoles = ROLE_ORDER.concat(Object.keys(customs).filter(k => !ROLE_ORDER.includes(k)));
-  
-  let html = "";
-  for (const role of activeRoles) {
-    if (role === "rgon" || role === "sheets" || role === "adobe") continue;
-    const m = allRoles[role] || { label: role, icon: "⚡" };
-    const tabs = (scan.list || []).filter(t => t.role === role);
-    const hasTab = tabs.length > 0;
-    html += `<div style="display:inline-flex;align-items:center;gap:4px;padding:4px 8px;border-radius:8px;background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,${hasTab ? ".2" : ".05"})">
-      <label style="cursor:pointer;display:inline-flex;align-items:center;gap:3px;font-size:12px">
-        <input type="checkbox" class="role-chk" value="${esc(role)}" ${hasTab ? "checked" : ""}>
-        <span>${m.icon} ${esc(m.label)}</span>
-      </label>
-      <button class="b sm" data-solo-fire="${esc(role)}" style="padding:2px 6px;font-size:11px" title="이 AI에만 단독 발사">🚀</button>
-    </div>`;
-  }
-  tList.innerHTML = html || "<small style='opacity:.6'>발사 가능한 AI 역할이 없습니다.</small>";
-}
-
-const origRefreshScan = refreshScan;
-refreshScan = async function() {
-  await origRefreshScan();
-  renderDispatchTargets();
-};
 
 const roleSaveBtn = $("#roleSave");
 if (roleSaveBtn) {
@@ -742,7 +747,7 @@ if (roleSaveBtn) {
 const fireCheckedBtn = $("#fireChecked");
 if (fireCheckedBtn) {
   fireCheckedBtn.onclick = () => {
-    const checked = $$(".role-chk:checked").map(c => c.value);
+    const checked = $$(".role-chk:checked, .tgt-chk:checked").map(c => c.value);
     if (!checked.length) { toast("발사할 대상을 1개 이상 체크하세요."); return; }
     fire(checked);
   };
@@ -755,6 +760,32 @@ $("#dispatchTargets")?.addEventListener("click", (ev) => {
     fire([role]);
   }
 });
+
+// ===== v6.0.6 발사 대상 체크박스 3중 저장소 실시간 동기화 핸들러 =====
+$("#dispatchTargets")?.addEventListener("change", (ev) => {
+  const chk = ev.target.closest(".role-chk, .tgt-chk");
+  if (!chk) return;
+  setRoleChecked(chk.value, chk.checked);
+});
+
+$("#btnSelectAll")?.addEventListener("click", () => {
+  $$(".role-chk, .tgt-chk").forEach(c => {
+    c.checked = true;
+    setRoleChecked(c.value, true);
+  });
+  toast("☑️ 전체 대상 선택 완료");
+});
+
+$("#btnUnselectAll")?.addEventListener("click", () => {
+  $$(".role-chk, .tgt-chk").forEach(c => {
+    c.checked = false;
+    setRoleChecked(c.value, false);
+  });
+  toast("☐ 전체 대상 해제 완료");
+});
+
+
+
 
 // ------------------------------------------------------------------ wiring
 $("#badge").addEventListener("click", () => togglePanel());
