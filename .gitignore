@@ -116,3 +116,41 @@ node_modules/
 *.db
 temp_browser_hist.db
 
+# BEGIN RGON SAFE CLOUD KITCHEN
+*.pickle*
+*.pkl
+*.db
+*.db-*
+*.sqlite*
+*.pem
+*.key
+*.p12
+*.pfx
+.env
+.env.*
+!.env.example
+config/token*
+**/config/token*
+**/token.json
+**/credentials.json
+**/client_secret*.json
+**/service_account*.json
+**/service-account*.json
+external_kitchen_outputs/
+.rgon_ad_backups/
+brain_basket/generated_file_backups/
+__pycache__/
+*.py[cod]
+ingredients_basket/backup_old_ceramic_mug.jpg
+ingredients_basket/backup_old_ceramic_mug.*.jpg
+# END RGON SAFE CLOUD KITCHEN
+# RGON brain-v5: 토큰·비밀키·임시 산출물 커밋 차단
+token.json
+credentials*.json
+service_account*.json
+*.sqlite
+*.sqlite3
+kitchen_output/
+*.bak_v5_*
+v5_server_*.log
+ingredients_basket/backup_old_ceramic_mug*.jpg

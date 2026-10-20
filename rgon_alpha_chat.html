@@ -3395,5 +3395,527 @@
 </script>
 <!-- RGON_AD_STUDIO_END -->
 
+<!-- SHIN_AD_V5_START -->
+<style id="shin-ad-v5-style">
+#shinAdV5Modal{position:fixed;inset:0;z-index:2147483640;display:flex;align-items:center;justify-content:center;background:rgba(5,7,18,.84);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);font-family:'Pretendard','Noto Sans KR','Malgun Gothic',system-ui,sans-serif;color:#e9ecff}
+#shinAdV5Modal *{box-sizing:border-box}
+#shinAdV5Modal .v5-card{position:relative;width:min(1200px,96vw);max-height:94vh;overflow:auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:18px;padding:22px;border-radius:20px;background:linear-gradient(155deg,#151b36 0%,#0b0f20 100%);border:1px solid #2e3a70;box-shadow:0 30px 90px rgba(0,0,0,.65)}
+@media (max-width:880px){#shinAdV5Modal .v5-card{grid-template-columns:1fr}}
+#shinAdV5Modal .v5-close{position:absolute;top:12px;right:14px;width:36px;height:36px;border-radius:50%;border:1px solid #3a4680;background:#1b2347;color:#fff;font-size:18px;cursor:pointer;z-index:2}
+#shinAdV5Modal .v5-h{margin:6px 0 4px;font-size:20px;font-weight:800;line-height:1.35}
+#shinAdV5Modal .v5-badge{display:inline-block;padding:3px 9px;border-radius:999px;background:#253067;color:#9fb4ff;font-size:11px;margin-right:6px}
+#shinAdV5Modal .v5-sec{background:rgba(255,255,255,.035);border:1px solid #27315f;border-radius:14px;padding:12px 14px;margin-top:12px}
+#shinAdV5Modal .v5-sec h4{margin:0 0 8px;font-size:13px;color:#a9b8ff}
+#shinAdV5Modal .v5-scene{display:flex;gap:10px;align-items:center;padding:6px 0;border-bottom:1px dashed #2a3463}
+#shinAdV5Modal .v5-scene:last-child{border-bottom:0}
+#shinAdV5Modal .v5-scene img,#shinAdV5Modal .v5-scene .ph{width:54px;height:96px;object-fit:cover;border-radius:8px;background:#222a52;flex:0 0 auto}
+#shinAdV5Modal .v5-scene .t{font-weight:700;font-size:13px}
+#shinAdV5Modal .v5-scene .s{font-size:12px;color:#aab3d9}
+#shinAdV5Modal .v5-scene .tm{font-size:11px;color:#7f8bc0}
+#shinAdV5Modal .v5-pre{white-space:pre-wrap;word-break:break-word;font-size:12px;line-height:1.5;background:#0a0e1c;border:1px solid #232c57;border-radius:10px;padding:8px 10px;color:#cfd7ff;max-height:120px;overflow:auto;margin:0;font-family:inherit}
+.v5-btn{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:11px 14px;margin-top:8px;border:0;border-radius:12px;font-weight:700;font-size:14px;cursor:pointer;color:#fff !important;text-decoration:none !important;transition:transform .08s,filter .15s;font-family:inherit;line-height:1.3;text-align:center}
+.v5-btn:hover{filter:brightness(1.12)}
+.v5-btn:active{transform:scale(.98)}
+.v5-btn[disabled]{opacity:.6;cursor:wait}
+.v5-dl{background:linear-gradient(90deg,#00a862,#00d4a0);font-size:15px;padding:14px;margin-top:0}
+.v5-dl.missing{background:#4a4f66}
+.v5-play{background:linear-gradient(90deg,#ff3d6e,#ff8a3d)}
+.v5-firefly{background:linear-gradient(90deg,#e8341c,#ff6a3d)}
+.v5-express{background:linear-gradient(90deg,#5c2bd8,#c23ee0)}
+.v5-podcast{background:linear-gradient(90deg,#1473e6,#2fa8ff)}
+.v5-sub{background:#27315f}
+#shinAdV5Modal .v5-tabs{display:flex;gap:6px;margin-top:10px}
+#shinAdV5Modal .v5-tab{flex:1;padding:9px;border-radius:10px;border:1px solid #33407a;background:#151c3b;color:#c5cdf5;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit}
+#shinAdV5Modal .v5-tab.on{background:#3346a8;color:#fff;border-color:#4d62d6}
+#shinAdV5Modal .v5-stage{margin-top:10px;display:flex;justify-content:center;background:#000;border-radius:14px;overflow:hidden}
+#shinAdV5Modal .v5-stage video,#shinAdV5Modal .v5-stage canvas{display:block;height:min(60vh,620px);width:auto;aspect-ratio:9/16;max-width:100%;background:#000}
+#shinAdV5Modal .v5-row{display:flex;gap:8px}
+#shinAdV5Modal .v5-row .v5-btn{flex:1}
+#shinAdV5Modal .v5-note{display:block;font-size:11.5px;color:#8f9ad0;margin-top:6px;line-height:1.5}
+#shinAdV5Toast{position:fixed;left:50%;bottom:36px;transform:translateX(-50%);z-index:2147483647;background:#111833;color:#fff;border:1px solid #4357c9;padding:11px 18px;border-radius:12px;font-size:13.5px;box-shadow:0 10px 30px rgba(0,0,0,.5);opacity:0;transition:opacity .25s;pointer-events:none;max-width:90vw;font-family:'Pretendard','Noto Sans KR','Malgun Gothic',system-ui,sans-serif}
+#shinAdV5Toast.on{opacity:1}
+.v5-panel-adobe{margin-top:10px;padding:10px;border:1px solid #2e3a70;border-radius:12px;background:rgba(20,26,54,.6)}
+.v5-panel-adobe .v5-btn{font-size:13px;padding:9px 12px}
+</style>
+<script id="shin-ad-v5-script">
+(function(){
+'use strict';
+if(window.__SHIN_AD_V5__)return;
+window.__SHIN_AD_V5__=true;
+
+var BUILD='v5-20261020154003';
+var MANIFEST={"version": "v5", "build": "v5-20261020154003", "generated_at": "2026-10-20T15:40:03", "topic": "종이컵", "video": "trimmed_ad_paper_cup_10s.mp4", "video_bytes": 379417, "video_spec": "540x960 · 30fps · 10.0s · H.264/AAC", "voice": "InJoon (Korean voice actor)", "bgm": "62 BPM ducking BGM", "recipe_file": "trimmed_recipe_종이컵.json", "recipes": ["trimmed_recipe_종이컵.json"], "scenes": [{"index": 0, "key": "hook", "title": "방금 돈 버렸다", "sub": "끝까지 보면 반전!", "start": 0.0, "end": 3.0, "file": "scene_0_hook.jpg"}, {"index": 1, "key": "benefit", "title": "네 통장에 구멍 났다", "sub": "손잡이 없는 진짜 일회용 종이컵", "start": 3.0, "end": 7.0, "file": "scene_1_body.jpg"}, {"index": 2, "key": "cta", "title": "저장하고 다시 봐", "sub": "친환경 일회용 종이컵 · 대량 할인", "start": 7.0, "end": 10.0, "file": "scene_2_cta.jpg"}], "grok_viral_styles": [{"style_name": "반전형", "hook_0_3s": "방금 돈 버렸다", "body_3_7s": "네 통장에 구멍 났다", "cta_7_10s": "저장하고 다시 봐", "narration_10s": "야, {topic}. 방금 버린 거, 네 돈이다. 한 번만 다시 봐. 저장해.", "viral_title": "{topic}, 방금 네 돈을 버렸다", "pinned_comment": "오늘 {topic} 몇 개 버렸어? 숫자만 댓글 #반전 #숏폼 #10초광고 #낭비 #저장각 #틱톡", "adobe_firefly_prompt_en": "Vertical 9:16 photoreal commercial advertising still, a {topic_en} frozen mid-fall just above an open trash bin, one hand releasing it, single hard sidelight, deep shadow, shallow depth of field, 50mm, ultra-sharp product texture, dark muted background, premium campaign, no text, no logo, no watermark, no brand name", "suno_bgm_prompt_en": "10-second ad sting, instrumental only, A minor, 96 BPM, dry hit and low bass drop in the first 0.3 seconds, tense pizzicato and muted kick, no vocals, no intro, phone-speaker midrange, ends on a short unresolved bass note"}, {"style_name": "감성형", "hook_0_3s": "말 없이 식었다", "body_3_7s": "하루의 끝이 여기야", "cta_7_10s": "저장하고 보내 줘", "narration_10s": "오늘 {topic}. 말 없이 여기 있었어. 아무도 몰랐어. 너는 알지. 저장해.", "viral_title": "{topic}, 밤새 혼자 남아 있었다", "pinned_comment": "이 {topic} 보면 누구 생각나? 관계는 한 단어만 #감성 #공감 #숏폼 #10초광고 #저장각 #일상", "adobe_firefly_prompt_en": "Vertical 9:16 photoreal cinematic still, a single {topic_en} left alone on a small wooden table at night, one warm tungsten lamp, faint steam, quiet empty room, shallow depth of field, 85mm, filmic color, intimate lonely mood, ultra-detailed texture, no faces, no text, no logo, no watermark", "suno_bgm_prompt_en": "10-second ad bed, instrumental only, 68 BPM, solo felt piano and soft cello, warm and aching, first note immediate, no drums, no vocals, close-mic, gentle room tone, fade on the same piano note as the opening"}, {"style_name": "비교형", "hook_0_3s": "같은 돈 다른 끝", "body_3_7s": "하나는 남고 하나는 사라져", "cta_7_10s": "너는 어느 쪽이야", "narration_10s": "같은 {topic}인데. 하나는 남고, 하나는 사라진다. 너는 어느 쪽이야.", "viral_title": "같은 {topic}, 끝만 정반대다", "pinned_comment": "같은 {topic} 기준, 너는 A야 B야? A 또는 B만 댓글 #비교 #선택 #숏폼 #10초광고 #댓글 #틱톡", "adobe_firefly_prompt_en": "Vertical 9:16 photoreal commercial split still of the same {topic_en} twice, left side crushed and discarded in cold blue light, right side pristine and prized in warm gold light, hard contrast, razor sharp, advertising campaign, no text, no logo, no watermark, no brand", "suno_bgm_prompt_en": "10-second comparison ad sting, instrumental only, 110 BPM, cold synth tick then warm chord stab, tight kick, no vocals, no intro, clean phone mix, hard cut ending"}, {"style_name": "숫자충격형", "hook_0_3s": "365를 곱해봐", "body_3_7s": "네 습관이 숫자가 된다", "cta_7_10s": "숫자만 댓글 ㄱㄱ", "narration_10s": "{topic}. 네가 하루 몇 번 써? 그 숫자, 일 년으로 곱해 봐. 지금 세봐.", "viral_title": "{topic} 하루 몇 번? 1년으로 곱해봐", "pinned_comment": "{topic} 하루 몇 번? 숫자만 남겨. 1년 곱은 내가 한다 #숫자 #충격 #숏폼 #10초광고 #계산 #저장", "adobe_firefly_prompt_en": "Vertical 9:16 photoreal extreme advertising still, many identical {topic_en} lined up in a receding row, harsh direct flash, high contrast, tactile surface detail, overwhelming quantity, dark background, no readable text, no numerals, no logo, no watermark, commercial campaign", "suno_bgm_prompt_en": "10-second shock ad sting, instrumental only, 120 BPM, metronome click and punchy kick from beat one, rising synth ticks like a counter, no vocals, no melody intro, dry and urgent, hard stop ending"}, {"style_name": "ASMR몰입형", "hook_0_3s": "이 소리 중독이다", "body_3_7s": "더 가까이, 숨 죽여", "cta_7_10s": "저장. 내일 또 틀어", "narration_10s": "가까이. {topic} 소리만 들어. 눈 감아. 한 번만 더. 저장하고 내일 또.", "viral_title": "볼륨 올려. {topic} 소리만 들어", "pinned_comment": "소리 듣고 소름 1, 별로 2. {topic} 숫자만 댓글 #ASMR #소리 #몰입 #숏폼 #10초 #틱톡", "adobe_firefly_prompt_en": "Vertical 9:16 extreme macro photoreal still of a {topic_en}, surface texture filling the frame, tiny condensation and fibers visible, soft rim light, dark background, intimate ASMR commercial mood, 100mm macro, ultra sharp, no text, no logo, no watermark, no face", "suno_bgm_prompt_en": "10-second ASMR ad bed, instrumental only, 72 BPM, close-mic soft percussion, light vinyl crackle, warm rhodes chord on beat one, no vocals, intimate, low dynamic range, short loop feel, phone-friendly"}], "adobe": {"firefly_prompt": "Photorealistic vertical 9:16 commercial product photograph of a single disposable white paper cup, single-use takeaway paper cup, rolled rim, no handle, no ceramic mug, no saucer, on a warm wooden table, soft studio lighting, clean upper negative space", "firefly_url": "https://firefly.adobe.com", "express_keywords": "미니멀 제품 광고 세로, 감성 제품 릴스, 제품 소개 인스타그램 스토리", "express_url": "https://new.express.adobe.com", "podcast_tip": "성우 원본의 잡음이나 실내 잔향이 있을 때 선택적으로 정리.", "podcast_url": "https://podcast.adobe.com/enhance"}, "suno": {"prompt": "Instrumental only, no vocals, no speech. Refined minimalist commercial music bed for a 10-second vertical product ad about 종이컵. 62 BPM, warm electric-piano-style major ninth chords, soft rounded bass, delicate muted bell accents, sparse soft percussion, clean stereo image, elegant optimistic mood, plenty of midrange space for a Korean male voiceover. Immediate gentle opening, a subtle lift near 7 seconds, a clean soft ending at 10 seconds, no loud riser or crash. If exact duration is unsupported, generate and edit a 10-second excerpt with short fades."}};
+var MP4=MANIFEST.video||'trimmed_ad_paper_cup_10s.mp4';
+var CANDS=['/ingredients_basket/','ingredients_basket/','../ingredients_basket/'];
+var basePromise=null;
+var lastTopic='종이컵';
+var lastOpen=0;
+var timers=[];
+var engine=null;
+var previewAC=null;
+
+(function(){
+ try{
+  var k='shin_ad_v5_build';
+  if(localStorage.getItem(k)!==BUILD){
+   localStorage.setItem(k,BUILD);
+   if(window.caches&&caches.keys){caches.keys().then(function(ks){ks.forEach(function(x){caches.delete(x);});});}
+  }
+  if('serviceWorker' in navigator){
+   navigator.serviceWorker.getRegistrations().then(function(rs){rs.forEach(function(r){try{r.update();}catch(e){}});});
+   navigator.serviceWorker.addEventListener('message',function(e){if(e.data&&e.data.type==='SHIN_SW_RESET'){console.log('[SHIN v5] SW cache reset',e.data.build);}});
+  }
+ }catch(e){}
+})();
+
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function safeName(s){return String(s||'ad').replace(/[\\\/:*?"<>|\s]+/g,'_').slice(0,40)||'ad';}
+function isPaperCup(t){return /종이컵|종이\s*컵|paper\s*cup/i.test(String(t||''));}
+
+function resolveBase(){
+ if(basePromise)return basePromise;
+ basePromise=(async function(){
+  for(var i=0;i<CANDS.length;i++){
+   try{
+    var r=await fetch(CANDS[i]+'v5_manifest.json?v='+BUILD,{cache:'no-store'});
+    if(r.ok){
+     try{var j=await r.json();if(j&&j.video){MANIFEST=Object.assign({},MANIFEST,j);MP4=MANIFEST.video||MP4;}}catch(e){}
+     return CANDS[i];
+    }
+   }catch(e){}
+  }
+  return CANDS[0];
+ })();
+ return basePromise;
+}
+
+function toast(msg,ms){
+ var t=document.getElementById('shinAdV5Toast');
+ if(!t){t=document.createElement('div');t.id='shinAdV5Toast';document.body.appendChild(t);}
+ t.textContent=msg;t.classList.add('on');
+ clearTimeout(t._h);t._h=setTimeout(function(){t.classList.remove('on');},ms||2600);
+}
+
+function copyText(text){
+ var ok=false;
+ try{
+  var ta=document.createElement('textarea');
+  ta.value=text;ta.setAttribute('readonly','');
+  ta.style.cssText='position:fixed;top:-1000px;left:-1000px;opacity:0;';
+  document.body.appendChild(ta);ta.select();
+  ok=document.execCommand('copy');ta.remove();
+ }catch(e){}
+ try{
+  if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(text).catch(function(){});ok=true;}
+ }catch(e){}
+ return ok;
+}
+
+var ADOBE={
+ firefly:function(){
+  var a=MANIFEST.adobe||{};
+  var ok=copyText(a.firefly_prompt||'');
+  toast(ok?'✅ Firefly 실사 프롬프트 복사 완료! 새 탭 프롬프트 창에 Ctrl+V 하세요.':'⚠️ 자동 복사 실패: 모달의 프롬프트를 직접 복사해 주세요.',4000);
+  window.open(a.firefly_url||'https://firefly.adobe.com','_blank','noopener');
+ },
+ express:function(){
+  var a=MANIFEST.adobe||{};
+  var ok=copyText(a.express_keywords||'');
+  toast(ok?'✅ Express 쇼츠 템플릿 검색어 복사 완료! 템플릿 검색창에 Ctrl+V 하세요.':'⚠️ 자동 복사 실패: 검색어를 직접 복사해 주세요.',4000);
+  window.open(a.express_url||'https://new.express.adobe.com','_blank','noopener');
+ },
+ podcast:function(){
+  var a=MANIFEST.adobe||{};
+  toast('🎙️ Adobe Podcast Enhance: '+(a.podcast_tip||'성우 음성을 올리면 무료로 음질이 보정됩니다.'),4200);
+  window.open(a.podcast_url||'https://podcast.adobe.com/enhance','_blank','noopener');
+ }
+};
+function adobeButtons(){
+ return '<button type="button" class="v5-btn v5-firefly" data-v5-adobe="firefly">🎨 Adobe Firefly 열기 + 실사 프롬프트 자동복사</button>'+
+        '<button type="button" class="v5-btn v5-express" data-v5-adobe="express">✨ Adobe Express 열기 + 쇼츠 템플릿 검색어 복사</button>'+
+        '<button type="button" class="v5-btn v5-podcast" data-v5-adobe="podcast">🎙️ Adobe Podcast 열기 (무료 성우 음질 보정)</button>';
+}
+document.addEventListener('click',function(e){
+ var t=e.target;if(!t||!t.closest)return;
+ var b=t.closest('[data-v5-adobe]');
+ if(b){e.preventDefault();e.stopPropagation();var k=b.getAttribute('data-v5-adobe');if(ADOBE[k])ADOBE[k]();return;}
+ var o=t.closest('[data-v5-open-studio]');
+ if(o){e.preventDefault();e.stopPropagation();openModal(lastTopic||'종이컵');}
+},true);
+
+function scenesFor(topic){
+ if(isPaperCup(topic)&&MANIFEST.scenes&&MANIFEST.scenes.length)return MANIFEST.scenes;
+ return [
+  {index:0,key:'hook',title:topic+', 아직도 고민 중이세요?',sub:'10초면 충분합니다',start:0,end:3,file:null},
+  {index:1,key:'benefit',title:'차원이 다른 '+topic,sub:'한 번 써보면 바로 알게 됩니다',start:3,end:7,file:null},
+  {index:2,key:'cta',title:'지금 바로 만나보세요',sub:topic+' · 오늘 주문하면 내일 도착',start:7,end:10,file:null}
+ ];
+}
+
+function makeBgm(ac,dest,dur){
+ var beat=60/62,t0=ac.currentTime+0.05,barDur=beat*4;
+ var master=ac.createGain();master.gain.value=0.5;master.connect(dest);
+ var chords=[[220,277.18,329.63],[196,246.94,293.66],[174.61,220,261.63],[196,246.94,293.66]];
+ for(var b=0;b*barDur<dur;b++){
+  (function(b){
+   var st=t0+b*barDur,en=t0+Math.min(dur,(b+1)*barDur);
+   chords[b%4].forEach(function(f){
+    var o=ac.createOscillator(),g=ac.createGain();
+    o.type='triangle';o.frequency.value=f;
+    g.gain.setValueAtTime(0,st);g.gain.linearRampToValueAtTime(0.06,st+0.3);g.gain.linearRampToValueAtTime(0,en);
+    o.connect(g);g.connect(master);o.start(st);o.stop(en+0.05);
+   });
+  })(b);
+ }
+ for(var k=0;k*beat<dur;k++){
+  var o=ac.createOscillator(),g=ac.createGain(),st=t0+k*beat;
+  o.frequency.setValueAtTime(120,st);o.frequency.exponentialRampToValueAtTime(40,st+0.18);
+  g.gain.setValueAtTime(0.45,st);g.gain.exponentialRampToValueAtTime(0.001,st+0.22);
+  o.connect(g);g.connect(master);o.start(st);o.stop(st+0.25);
+ }
+ master.gain.setValueAtTime(0.5,t0+Math.max(0,dur-0.8));
+ master.gain.linearRampToValueAtTime(0,t0+dur);
+ return master;
+}
+
+function wrapText(ctx,text,maxW){
+ var out=[];
+ String(text||'').split('\n').forEach(function(para){
+  var line='';
+  para.split('').forEach(function(ch){
+   var test=line+ch;
+   if(ctx.measureText(test).width>maxW&&line){out.push(line);line=ch.trim()?ch:'';}
+   else line=test;
+  });
+  if(line)out.push(line);
+ });
+ return out.slice(0,3);
+}
+function makeEngine(canvas,scenes,topic,base){
+ var ctx=canvas.getContext('2d'),W=540,H=960,DUR=10,raf=0,running=false;
+ var FONT='"Pretendard","Noto Sans KR","Malgun Gothic",sans-serif';
+ var pal=[['#1b1f3b','#ff5f6d'],['#0f2027','#2c5364'],['#232526','#f7971e']];
+ var imgs=scenes.map(function(s){
+  if(!s.file)return null;
+  var im=new Image();im.onload=function(){if(!running)draw(0);};
+  im.src=base+encodeURIComponent(s.file);return im;
+ });
+ function sceneAt(t){for(var i=0;i<scenes.length;i++){if(t<scenes[i].end)return i;}return scenes.length-1;}
+ function draw(t){
+  var i=sceneAt(t),s=scenes[i],local=(t-s.start)/Math.max(0.001,s.end-s.start);
+  ctx.save();ctx.clearRect(0,0,W,H);
+  var im=imgs[i];
+  if(im&&im.complete&&im.naturalWidth){
+   var sc=Math.max(W/im.naturalWidth,H/im.naturalHeight)*(1.04+0.06*local);
+   var dw=im.naturalWidth*sc,dh=im.naturalHeight*sc;
+   ctx.drawImage(im,(W-dw)/2,(H-dh)/2,dw,dh);
+  }else{
+   var p=pal[i%3],g=ctx.createLinearGradient(0,0,W,H);
+   g.addColorStop(0,p[0]);g.addColorStop(1,p[1]);ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+   ctx.globalAlpha=0.15;ctx.fillStyle='#fff';
+   ctx.beginPath();ctx.arc(W*0.78,H*0.22+40*Math.sin(t*2),120,0,Math.PI*2);ctx.fill();
+   ctx.beginPath();ctx.arc(W*0.18,H*0.42+30*Math.cos(t*1.6),70,0,Math.PI*2);ctx.fill();
+   ctx.globalAlpha=1;
+  }
+  var sh=ctx.createLinearGradient(0,H*0.45,0,H);
+  sh.addColorStop(0,'rgba(0,0,0,0)');sh.addColorStop(1,'rgba(0,0,0,.8)');
+  ctx.fillStyle=sh;ctx.fillRect(0,0,W,H);
+  var a=Math.min(1,local*4),y=H*0.68+(1-a)*40;
+  ctx.globalAlpha=a;ctx.textAlign='center';ctx.shadowColor='rgba(0,0,0,.6)';ctx.shadowBlur=12;
+  ctx.font='900 46px '+FONT;ctx.fillStyle='#fff';
+  var lines=wrapText(ctx,s.title,W-70);
+  lines.forEach(function(ln,k){ctx.fillText(ln,W/2,y+k*56);});
+  ctx.font='600 26px '+FONT;ctx.fillStyle='#ffe08a';
+  wrapText(ctx,s.sub,W-80).forEach(function(ln,k){ctx.fillText(ln,W/2,y+lines.length*56+14+k*34);});
+  ctx.globalAlpha=1;ctx.shadowBlur=0;
+  ctx.font='700 18px '+FONT;ctx.fillStyle='rgba(255,255,255,.88)';ctx.textAlign='left';
+  ctx.fillText('#'+topic+'  ·  10s AD',24,44);
+  ctx.fillStyle='rgba(255,255,255,.25)';ctx.fillRect(0,H-8,W,8);
+  ctx.fillStyle='#ff4d6d';ctx.fillRect(0,H-8,W*Math.min(1,t/DUR),8);
+  ctx.restore();
+ }
+ function run(onEnd){
+  cancelAnimationFrame(raf);running=true;var t0=performance.now();
+  (function loop(){
+   var t=(performance.now()-t0)/1000;
+   if(t>=DUR){draw(DUR-0.001);running=false;if(onEnd)onEnd();return;}
+   draw(t);raf=requestAnimationFrame(loop);
+  })();
+ }
+ function stop(){cancelAnimationFrame(raf);running=false;}
+ draw(0);
+ return {canvas:canvas,draw:draw,run:run,stop:stop,DUR:DUR};
+}
+
+function clearTimers(){timers.forEach(function(h){clearTimeout(h);});timers=[];}
+
+function previewCanvas(scenes,useTts){
+ if(!engine)return;
+ clearTimers();
+ try{speechSynthesis.cancel();}catch(e){}
+ try{if(previewAC)previewAC.close();}catch(e){}
+ try{var AC=window.AudioContext||window.webkitAudioContext;previewAC=new AC();makeBgm(previewAC,previewAC.destination,engine.DUR);}catch(e){previewAC=null;}
+ engine.run(function(){try{if(previewAC)previewAC.close();}catch(e){}previewAC=null;});
+ if(!useTts||!window.speechSynthesis)return;
+ scenes.forEach(function(s){
+  timers.push(setTimeout(function(){
+   var u=new SpeechSynthesisUtterance(s.title+'. '+(s.sub||''));
+   u.lang='ko-KR';u.rate=1.15;
+   var vs=speechSynthesis.getVoices().filter(function(v){return /ko/i.test(v.lang);});
+   if(vs.length)u.voice=vs[0];
+   speechSynthesis.speak(u);
+  },s.start*1000));
+ });
+}
+
+function recordWebm(topic,btn){
+ if(!engine)return;
+ if(!window.MediaRecorder||!HTMLCanvasElement.prototype.captureStream){toast('⚠️ 이 브라우저는 Canvas 녹화를 지원하지 않습니다.');return;}
+ var orig=btn.textContent;
+ var vs=engine.canvas.captureStream(30);
+ var ac=null,dest=null;
+ try{
+  var AC=window.AudioContext||window.webkitAudioContext;ac=new AC();
+  dest=ac.createMediaStreamDestination();
+  var mix=ac.createGain();mix.connect(dest);mix.connect(ac.destination);
+  makeBgm(ac,mix,engine.DUR);
+ }catch(e){ac=null;dest=null;}
+ var tracks=vs.getVideoTracks().slice();
+ if(dest)tracks=tracks.concat(dest.stream.getAudioTracks());
+ var stream=new MediaStream(tracks);
+ var types=['video/webm;codecs=vp9,opus','video/webm;codecs=vp8,opus','video/webm'],mime='';
+ for(var i=0;i<types.length;i++){if(MediaRecorder.isTypeSupported(types[i])){mime=types[i];break;}}
+ var rec;
+ try{rec=new MediaRecorder(stream,mime?{mimeType:mime,videoBitsPerSecond:4000000}:{});}
+ catch(e){toast('⚠️ MediaRecorder 생성 실패: '+e.message);return;}
+ var chunks=[];
+ rec.ondataavailable=function(e){if(e.data&&e.data.size)chunks.push(e.data);};
+ rec.onstop=function(){
+  var blob=new Blob(chunks,{type:'video/webm'});
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);a.download='ad_'+safeName(topic)+'_10s.webm';
+  document.body.appendChild(a);a.click();
+  setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},5000);
+  try{if(ac)ac.close();}catch(e){}
+  btn.disabled=false;btn.textContent=orig;
+  toast('✅ 10초 WebM 저장 완료 ('+Math.round(blob.size/1024)+' KB)');
+ };
+ btn.disabled=true;btn.textContent='⏺ 녹화 중... (10초)';
+ rec.start(250);
+ engine.run(function(){setTimeout(function(){if(rec.state!=='inactive')rec.stop();},150);});
+}
+
+var suppressObs=null;
+function hideForeign(el){
+ if(!el||el.nodeType!==1||el.id==='shinAdV5Modal'||el.id==='shinAdV5Toast')return;
+ try{
+  var cs=getComputedStyle(el),z=parseInt(cs.zIndex,10);
+  if(cs.position==='fixed'&&z>=2147483000){el.setAttribute('data-v5-hidden','1');el.style.setProperty('display','none','important');}
+ }catch(e){}
+}
+function suppressOthers(on){
+ if(on){
+  Array.prototype.forEach.call(document.body.children,hideForeign);
+  if(!suppressObs)suppressObs=new MutationObserver(function(ms){ms.forEach(function(m){m.addedNodes.forEach(hideForeign);});});
+  suppressObs.observe(document.body,{childList:true});
+ }else{
+  if(suppressObs)suppressObs.disconnect();
+  document.querySelectorAll('[data-v5-hidden]').forEach(function(el){
+   if(/광고|스튜디오|studio/i.test(el.textContent||''))el.remove();
+   else{el.removeAttribute('data-v5-hidden');el.style.removeProperty('display');}
+  });
+ }
+}
+
+function closeModal(){
+ var m=document.getElementById('shinAdV5Modal');
+ clearTimers();
+ try{speechSynthesis.cancel();}catch(e){}
+ try{if(previewAC)previewAC.close();}catch(e){}
+ previewAC=null;
+ if(engine){engine.stop();engine=null;}
+ if(m){var v=m.querySelector('video');if(v){try{v.pause();}catch(e){}}m.remove();}
+ suppressOthers(false);
+ document.removeEventListener('keydown',escHandler,true);
+}
+function escHandler(e){if(e.key==='Escape'){e.stopPropagation();closeModal();}}
+
+async function openModal(topic){
+ var now=Date.now();if(now-lastOpen<800)return;lastOpen=now;
+ topic=String(topic||'종이컵').trim()||'종이컵';lastTopic=topic;
+ var base=await resolveBase();
+ closeModal();suppressOthers(true);
+ var paper=isPaperCup(topic),scenes=scenesFor(topic),a=MANIFEST.adobe||{},suno=MANIFEST.suno||{};
+ var mp4Src=base+encodeURIComponent(MP4)+'?v='+BUILD;
+ var mp4Dl=base+encodeURIComponent(MP4);
+ var s0=(MANIFEST.scenes||[])[0];
+ var poster=(s0&&s0.file)?base+encodeURIComponent(s0.file):'';
+ var sceneHtml=scenes.map(function(s){
+  var img=s.file?'<img src="'+esc(base+encodeURIComponent(s.file))+'" alt="">':'<div class="ph"></div>';
+  return '<div class="v5-scene">'+img+'<div><div class="tm">'+esc(s.start)+'s ~ '+esc(s.end)+'s · '+esc((s.key||'scene').toUpperCase())+'</div><div class="t">'+esc(s.title)+'</div><div class="s">'+esc(s.sub)+'</div></div></div>';
+ }).join('');
+ var m=document.createElement('div');
+ m.id='shinAdV5Modal';
+ m.innerHTML=
+ '<div class="v5-card" role="dialog" aria-modal="true">'+
+  '<button type="button" class="v5-close" data-v5-close title="닫기 (Esc)">✕</button>'+
+  '<div class="v5-left">'+
+   '<div><span class="v5-badge">STUDIO v5</span><span class="v5-badge">'+esc(BUILD)+'</span></div>'+
+   '<h3 class="v5-h">🎬 10초 광고 스튜디오: 「'+esc(topic)+'」</h3>'+
+   '<span class="v5-note">'+esc(MANIFEST.voice||'InJoon')+' 실제 성우 · '+esc(MANIFEST.bgm||'62 BPM ducking BGM')+' · 실사 타이포그래피 · '+esc(MANIFEST.video_spec||'540x960 · 30fps · 10.0s')+'</span>'+
+   '<div class="v5-sec"><h4>🎞️ 3씬 구성 (Hook → Benefit → CTA)</h4>'+sceneHtml+'</div>'+
+   '<div class="v5-sec"><h4>🎨 Adobe Firefly 실사 프롬프트 (EN)</h4><pre class="v5-pre">'+esc(a.firefly_prompt)+'</pre></div>'+
+   '<div class="v5-sec"><h4>✨ Adobe Express 쇼츠 템플릿 검색어</h4><pre class="v5-pre">'+esc(a.express_keywords)+'</pre></div>'+
+   '<div class="v5-sec"><h4>🎵 Suno BGM 레시피</h4><pre class="v5-pre">'+esc(suno.prompt)+'</pre>'+
+    (MANIFEST.recipe_file?'<span class="v5-note">📄 레시피: '+esc(MANIFEST.recipe_file)+'</span>':'')+'</div>'+
+   '<div class="v5-sec"><h4>🅰️ Adobe 무료 3대장 직통</h4>'+adobeButtons()+'</div>'+
+  '</div>'+
+  '<div class="v5-right">'+
+   '<a class="v5-btn v5-dl" data-v5-dl href="'+esc(mp4Dl)+'" download="'+esc(MP4)+'">💾 성우 음성 포함 10초 광고 MP4 즉시 다운로드 ('+esc(MP4)+')</a>'+
+   (paper?'':'<span class="v5-note">※ 완성본 MP4는 「종이컵」 주제로 제작된 결과물입니다. 「'+esc(topic)+'」 주제는 아래 [실시간 Canvas 3씬 + WebM] 탭에서 바로 생성할 수 있습니다.</span>')+
+   '<button type="button" class="v5-btn v5-play" data-v5-playmp4>🎬 실제 성우+BGM+실사 합체 완성본 MP4 바로 재생</button>'+
+   '<div class="v5-tabs"><button type="button" class="v5-tab" data-v5-tab="mp4">🎬 완성본 MP4</button><button type="button" class="v5-tab" data-v5-tab="canvas">🖼️ 실시간 Canvas 3씬 + WebM</button></div>'+
+   '<div data-v5-pane="mp4">'+
+    '<div class="v5-stage"><video id="shinAdV5Video" controls playsinline preload="auto"'+(poster?' poster="'+esc(poster)+'"':'')+' src="'+esc(mp4Src)+'"></video></div>'+
+    '<span class="v5-note" data-v5-vnote>▶ 재생하면 브라우저 TTS가 아닌 실제 녹음된 InJoon 성우 목소리와 62BPM 덕킹 BGM이 소리와 함께 재생됩니다.</span>'+
+   '</div>'+
+   '<div data-v5-pane="canvas" style="display:none">'+
+    '<div class="v5-stage"><canvas id="shinAdV5Canvas" width="540" height="960"></canvas></div>'+
+    '<div class="v5-row"><button type="button" class="v5-btn v5-sub" data-v5-cv-preview>▶ 3씬 미리보기 (+BGM/TTS)</button><button type="button" class="v5-btn v5-sub" data-v5-cv-record>⏺ 10초 WebM 녹화·다운로드</button></div>'+
+    '<label class="v5-note"><input type="checkbox" id="shinAdV5Tts" checked> 미리보기 때 브라우저 TTS 내레이션 사용 (녹화 파일에는 62BPM BGM만 들어갑니다)</label>'+
+   '</div>'+
+  '</div>'+
+ '</div>';
+ document.body.appendChild(m);
+ document.addEventListener('keydown',escHandler,true);
+
+ var video=m.querySelector('#shinAdV5Video');
+ var canvas=m.querySelector('#shinAdV5Canvas');
+ var dl=m.querySelector('[data-v5-dl]');
+
+ function showTab(name){
+  m.querySelectorAll('[data-v5-tab]').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-v5-tab')===name);});
+  m.querySelectorAll('[data-v5-pane]').forEach(function(p){p.style.display=p.getAttribute('data-v5-pane')===name?'':'none';});
+  if(name==='canvas'){if(!engine)engine=makeEngine(canvas,scenes,topic,base);try{video.pause();}catch(e){}}
+  else if(engine){engine.stop();try{speechSynthesis.cancel();}catch(e){}}
+ }
+
+ m.addEventListener('click',function(e){
+  var t=e.target;
+  if(t===m||(t.closest&&t.closest('[data-v5-close]'))){closeModal();return;}
+  var tab=t.closest&&t.closest('[data-v5-tab]');
+  if(tab){showTab(tab.getAttribute('data-v5-tab'));return;}
+  if(t.closest&&t.closest('[data-v5-playmp4]')){
+   showTab('mp4');
+   try{video.currentTime=0;}catch(err){}
+   video.muted=false;video.volume=1;
+   var p=video.play();
+   if(p&&p.then){p.then(function(){toast('🔊 InJoon 성우 + 62BPM BGM 완성본 재생 중');}).catch(function(){toast('▶ 플레이어의 재생 버튼을 한 번 눌러 주세요.');});}
+   return;
+  }
+  if(t.closest&&t.closest('[data-v5-cv-preview]')){previewCanvas(scenes,m.querySelector('#shinAdV5Tts').checked);return;}
+  var rb=t.closest&&t.closest('[data-v5-cv-record]');
+  if(rb){recordWebm(topic,rb);return;}
+  if(t.closest&&t.closest('[data-v5-dl]')){
+   if(dl.classList.contains('missing')){e.preventDefault();toast('⚠️ MP4 파일을 찾을 수 없습니다.',4200);return;}
+   toast('💾 '+MP4+' 다운로드 시작!');
+  }
+ });
+
+ video.addEventListener('error',function(){
+  var n=m.querySelector('[data-v5-vnote]');
+  if(n)n.textContent='⚠️ MP4 로드 실패: '+mp4Src+' 경로를 확인해 주세요.';
+ });
+
+ fetch(mp4Dl,{method:'HEAD',cache:'no-store'}).then(function(r){
+  if(!r.ok){dl.classList.add('missing');dl.textContent='⚠️ 완성본 MP4 없음';}
+ }).catch(function(){});
+
+ showTab(paper?'mp4':'canvas');
+ if(paper){video.muted=false;var pp=video.play();if(pp&&pp.catch)pp.catch(function(){});}
+}
+
+/* ── v4 RGON_AD_STUDIO 연동: 전송 시 v5 모달도 즉시 오픈 ── */
+window.addEventListener('rgon:ad-generated',function(e){
+ var tp=(e&&e.detail&&e.detail.topic)||'종이컵';
+ setTimeout(function(){openModal(tp);},80);
+});
+
+function isAdRequest(t){
+ t=String(t||'');
+ return (/광고/.test(t)&&/(만들|제작|생성|뽑아|짜\s*줘|해\s*줘|부탁|주제)/.test(t))||/\d+\s*초\s*(짜리\s*)?광고/.test(t)||/광고\s*(영상|쇼츠|만들기)/.test(t);
+}
+function extractTopic(t){
+ t=String(t||'');
+ var m=t.match(/주제\s*(?:는|은|:|=)?\s*["'「『]?([^"'」』,.!?\n]+?)["'」』]?\s*(?:$|[,.!?\n]|으로|로\s|입니다|이야|야$|요$)/);
+ if(m&&m[1].trim())return m[1].trim().slice(0,30);
+ m=t.match(/([가-힣A-Za-z0-9 ]{1,24}?)\s*(?:의\s*)?(?:10\s*초\s*)?광고/);
+ if(m){
+  var c=m[1].replace(/간단한|간단하게|짧은|\d+\s*초|짜리|영상|만들기/g,' ').trim();
+  if(c)return c.split(/\s+/).pop();
+ }
+ return '종이컵';
+}
+var lastTyped='';
+function trigger(text){
+ if(!isAdRequest(text))return false;
+ var tp=extractTopic(text);
+ setTimeout(function(){openModal(tp);},120);
+ return true;
+}
+document.addEventListener('input',function(e){
+ var el=e.target;if(!el||(el.closest&&el.closest('#shinAdV5Modal')))return;
+ if(el.tagName==='TEXTAREA'||(el.tagName==='INPUT'&&/^(text|search)$/i.test(el.type||'text'))){lastTyped=el.value;}
+ else if(el.isContentEditable){lastTyped=el.innerText;}
+},true);
+document.addEventListener('keydown',function(e){
+ if(e.key!=='Enter'||e.shiftKey)return;
+ var el=e.target;if(!el||(el.closest&&el.closest('#shinAdV5Modal')))return;
+ if(el.tagName==='TEXTAREA'||el.tagName==='INPUT'||el.isContentEditable){
+  if(trigger(el.value!=null?el.value:el.innerText))lastTyped='';
+ }
+},true);
+document.addEventListener('click',function(e){
+ var t=e.target;if(!t||!t.closest)return;
+ var b=t.closest('button,[role="button"],input[type="submit"]');
+ if(!b||b.closest('#shinAdV5Modal')||b.hasAttribute('data-v5-adobe')||b.hasAttribute('data-v5-open-studio'))return;
+ var cls=typeof b.className==='string'?b.className:'';
+ var label=(b.id+' '+cls+' '+(b.getAttribute('aria-label')||'')+' '+(b.title||'')+' '+(b.textContent||'')).toLowerCase();
+ if((/send|submit|전송|보내|실행/.test(label)||b.type==='submit')&&lastTyped){if(trigger(lastTyped))lastTyped='';}
+},true);
+
+function injectPanel(){
+ try{
+  var xp=document.evaluate("//*[contains(normalize-space(text()),'한마디 올인원') or contains(normalize-space(text()),'실전 지휘 패널')]",document.body,null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE,null);
+  for(var i=0;i<xp.snapshotLength;i++){
+   var el=xp.snapshotItem(i);
+   if(!el||!el.closest||el.closest('#shinAdV5Modal')||el.closest('[data-v5-panel-adobe]'))continue;
+   if(/^(SCRIPT|STYLE|TEXTAREA|TITLE|OPTION|BUTTON|A|INPUT|LABEL)$/.test(el.tagName))continue;
+   var host=el.closest('#rgon-clean-aside-modal,[class*="panel"],[id*="panel"],section,aside,details,.card,[role="dialog"]')||el.parentElement;
+   if(!host||host===document.body||host.querySelector('[data-v5-panel-adobe]'))continue;
+   var box=document.createElement('div');
+   box.className='v5-panel-adobe';box.setAttribute('data-v5-panel-adobe','1');
+   box.innerHTML='<div style="font-size:12px;font-weight:800;color:#a9b8ff;margin-bottom:2px">🅰️ Adobe 무료 3대장 직통 (v5)</div>'+adobeButtons()+
+    '<button type="button" class="v5-btn v5-play" data-v5-open-studio>🎬 10초 광고 스튜디오 v5 열기 (완성본 MP4)</button>';
+   host.appendChild(box);
+  }
+ }catch(e){}
+}
+var injT=0;
+function scheduleInject(){clearTimeout(injT);injT=setTimeout(injectPanel,400);}
+function init(){
+ resolveBase();
+ injectPanel();
+ try{new MutationObserver(scheduleInject).observe(document.body,{childList:true,subtree:true});}catch(e){}
+ console.log('[SHIN v5] 10초 광고 스튜디오 v5 준비 완료 · build',BUILD);
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+
+window.openShinAdStudioV5=openModal;
+window.openAdStudioModal=openModal;
+window.shinAdV5={open:openModal,close:closeModal,manifest:function(){return MANIFEST;},build:BUILD,adobe:ADOBE};
+})();
+</script>
+<!-- SHIN_AD_V5_END -->
 </body>
 </html>

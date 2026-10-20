@@ -1,39 +1,29 @@
+// SHIN service worker: v5 cache reset worker (build v5-20261020154003)
+const BUILD = 'v5-20261020154003';
 
-/* rgon-ad-studio-v4 / 20261019233728410014: online-only cache reset worker */
-const RGON_VERSION = "rgon-ad-studio-v4";
-const RGON_BUILD = "20261019233728410014";
-
-self.addEventListener("install", event => {
-  event.waitUntil(self.skipWaiting());
+self.addEventListener('install', (event) => {
+  self.skipWaiting();
 });
 
-self.addEventListener("activate", event => {
+self.addEventListener('activate', (event) => {
   event.waitUntil((async () => {
-    const names = await caches.keys();
-
-    await Promise.allSettled(
-      names.map(name => caches.delete(name))
-    );
-
+    const keys = await caches.keys();
+    await Promise.all(keys.map((k) => caches.delete(k)));
     await self.clients.claim();
-
-    const windows = await self.clients.matchAll({
-      type: "window",
-      includeUncontrolled: true
-    });
-
-    await self.registration.unregister();
-
-    await Promise.allSettled(windows.map(async client => {
-      const url = new URL(client.url);
-
-      if (url.origin !== self.location.origin) return;
-      if (!url.pathname.endsWith("/rgon_alpha_chat.html")) return;
-      if (url.searchParams.get("__rgon_ad_build") === RGON_BUILD) return;
-
-      url.searchParams.set("__rgon_ad", RGON_VERSION);
-      url.searchParams.set("__rgon_ad_build", RGON_BUILD);
-      await client.navigate(url.href);
-    }));
+    const clients = await self.clients.matchAll({ type: 'window' });
+    clients.forEach((c) => c.postMessage({ type: 'SHIN_SW_RESET', build: BUILD }));
   })());
+});
+
+self.addEventListener('fetch', (event) => {
+  const req = event.request;
+  if (req.method !== 'GET') return;
+  const url = new URL(req.url);
+  if (url.origin !== self.location.origin) return;
+  if (req.headers.has('range')) return;
+  if (url.pathname.includes('/ingredients_basket/')) return;
+  if (/\.(mp4|webm|mp3|wav|m4a|ogg|jpg|jpeg|png|webp|gif|json)$/i.test(url.pathname)) return;
+  if (req.mode === 'navigate' || /\.html?$/i.test(url.pathname)) {
+    event.respondWith(fetch(req, { cache: 'no-store' }).catch(() => caches.match(req)));
+  }
 });
