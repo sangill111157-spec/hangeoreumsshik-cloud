@@ -1,6 +1,9 @@
 name: RGON External Brain Kitchen
 
 on:
+  workflow_dispatch::
+  schedule:
+    - cron: "0 18 * * *"   # 매일 03:00 KST
   workflow_dispatch:
     inputs:
       topic:
@@ -29,6 +32,51 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  # >>> RGON-AUTO-EVOLVE-BRAIN v1.0 >>>
+  rgon_auto_evolve_brain:
+    name: "🧠 RGON Auto-Evolve Brain (TOP1 무인 자가 진단·치유)"
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Setup Node (node --check)
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Install deps
+        run: |
+          sudo apt-get update -y >/dev/null 2>&1 || true
+          sudo apt-get install -y ffmpeg >/dev/null 2>&1 || true
+          python -m pip install --upgrade pip
+          pip install pillow google-api-python-client google-auth google-auth-oauthlib google-auth-httplib2 || true
+      - name: Restore Google token (optional secret RGON_TOKEN_PICKLE_B64)
+        env:
+          RGON_TOKEN_PICKLE_B64: ${{ secrets.RGON_TOKEN_PICKLE_B64 }}
+        run: |
+          if [ -n "$RGON_TOKEN_PICKLE_B64" ]; then echo "$RGON_TOKEN_PICKLE_B64" | base64 -d > token.pickle; fi
+      - name: Run Auto-Evolve Brain (CI)
+        run: python rgon_auto_evolve_brain.py --ci
+      - name: Commit self-heal results
+        run: |
+          rm -f token.pickle
+          git config user.name "rgon-brain-bot"
+          git config user.email "rgon-brain-bot@users.noreply.github.com"
+          for p in brain_basket ingredients_basket rgon_aside_extension omni_bridge.py rgon_alpha_chat.html omni_dispatch_queue.json evolution_memory.json; do
+            if [ -e "$p" ]; then git add -A -- "$p"; fi
+          done
+          git reset -q -- brain_basket/backups 2>/dev/null || true
+          if git diff --cached --quiet; then echo "변경 없음"; exit 0; fi
+          git commit -m "🧠 RGON Auto-Evolve Brain: nightly self-diagnosis & self-heal"
+          git pull --rebase --autostash || true
+          git push || echo "push 실패 — 다음 실행 시 재시도"
+  # <<< RGON-AUTO-EVOLVE-BRAIN <<<
   kitchen:
     if: >-
       (github.event_name == 'workflow_dispatch' && inputs.approved == true) ||

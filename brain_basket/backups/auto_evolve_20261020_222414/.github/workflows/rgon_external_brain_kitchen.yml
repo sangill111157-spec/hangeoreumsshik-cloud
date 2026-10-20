@@ -1,0 +1,100 @@
+name: RGON External Brain Kitchen
+
+on:
+  workflow_dispatch:
+    inputs:
+      topic:
+        description: "광고 주제"
+        required: true
+        default: "종이컵"
+        type: string
+      style:
+        description: "광고 스타일"
+        required: true
+        default: "반전형"
+        type: string
+      approved:
+        description: "이번 외부 TTS·영상 실행을 사전 승인합니다"
+        required: true
+        default: false
+        type: boolean
+  schedule:
+    - cron: "17 18 * * *"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: rgon-external-brain-kitchen
+  cancel-in-progress: false
+
+jobs:
+  kitchen:
+    if: >-
+      (github.event_name == 'workflow_dispatch' && inputs.approved == true) ||
+      (github.event_name == 'schedule' && vars.RGON_SCHEDULE_APPROVED == 'true')
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      PYTHONUTF8: "1"
+      PYTHONDONTWRITEBYTECODE: "1"
+      PIP_DISABLE_PIP_VERSION_CHECK: "1"
+      TOPIC: ${{ inputs.topic || '종이컵' }}
+      STYLE: ${{ inputs.style || '반전형' }}
+
+    steps:
+      - name: Checkout approved repository files
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Check brain before dependency installation
+        run: python -B external_kitchen_worker.py --check-brain --topic "$TOPIC" --style "$STYLE"
+
+      - name: Install external media tools and Korean fonts
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends ffmpeg fonts-noto-cjk
+          python -m pip install "Pillow>=10,<13" "edge-tts>=6,<8"
+          if ! python -m pip install "langgraph>=0.2,<2"; then
+            echo "::warning::LangGraph installation failed; using bounded state-machine fallback."
+          fi
+
+      - name: Execute approved external kitchen
+        run: |
+          python -B external_kitchen_worker.py \
+            --topic "$TOPIC" \
+            --style "$STYLE" \
+            --approved \
+            --output external_kitchen_outputs
+
+      - name: Preserve generated artifacts and failure receipts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rgon-kitchen-${{ github.run_id }}-${{ github.run_attempt }}
+          path: external_kitchen_outputs/
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Write receipt summary
+        if: always()
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+          receipts = sorted(Path("external_kitchen_outputs").glob("*/verification_receipt.json"))
+          with open(os.environ["GITHUB_STEP_SUMMARY"], "a", encoding="utf-8") as handle:
+              handle.write("## RGON External Brain Kitchen\n")
+              if not receipts:
+                  handle.write("No successful media receipt; inspect logs and failure artifacts.\n")
+              for path in receipts:
+                  data = json.loads(path.read_text(encoding="utf-8"))
+                  handle.write(f"- Verified H.264/AAC / 300 frames / 10 seconds / {data['bytes']:,} bytes\n")
+          PY

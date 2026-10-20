@@ -1,0 +1,70 @@
+=== 어전회의 모달 복사/텔레그램 === (6 matches)
+  <div id="council-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden flex items-center justify-center p
+  <div id="council-content-body" class="flex-1 overflow-y-auto pr-1 text-xs text-slate-200 space-y-3 leading-relaxed white
+  <button onclick="sendCouncilToTelegram()" class="px-3 py-1.5 rounded-lg bg-emerald-600/30 hover:bg-emerald-600/50 text-e
+  <button onclick="copyCouncilContent()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 bord
+  async function sendCouncilToTelegram() {
+  function copyCouncilContent() {
+=== 헤더 보안설정 === (82 matches)
+  <button onclick="switchTab('tab-vault')" id="nav-tab-vault"
+  <div class="text-[10px] text-slate-400 font-normal">성공공식 · 오답백신 · 보안</div>
+  <button onclick="openSettingsModal()" class="p-2 sm:px-3 sm:py-1 rounded-lg bg-emerald-600/20 hover:bg-emerald-600/30 te
+  <span class="hidden sm:inline">보안 설정</span>
+  <!-- 🛡️ [제1원: 안전보안·자율법무원] 실시간 컴플라이언스 & Zero-Leak 신호등 -->
+  [제1원: 안전보안·자율법무원] 실시간 컴플라이언스 & Zero-Leak 신호등
+  <span>보안 Zero-Leak</span>
+  TAB 5. 📚 지혜금고 & 제국실록 (Wisdom Ledger & Memory Vault)
+=== 제1원 법무 감사 === (18 matches)
+  <button onclick="runComplianceAudit()" id="btn-run-audit"
+  <div id="compliance-briefing-box" class="hidden p-3 rounded-xl bg-indigo-950/40 border border-indigo-500/30 text-xs text
+  <p id="compliance-briefing-text" class="leading-relaxed"></p>
+  runComplianceAudit(true);
+  async function runComplianceAudit(isSilent = false) {
+  const btn = document.getElementById('btn-run-audit');
+  const resp = await fetch('/api/compliance-audit');
+  if (sig.youtube_compliance) {
+=== 제2원 scout === (50 matches)
+  <!-- 🔭 [제2원 특임대: 글로벌 GitHub 오픈소스 일일 답사 & 흡수단] -->
+  [제2원 특임대: 글로벌 GitHub 오픈소스 일일 답사 & 흡수단]
+  <p class="text-[11px] text-slate-400">선구자들의 오픈소스를 실시간 답사하여 우리 제국 맞춤형 도구로 개조·흡수</p>
+  <button onclick="runGitHubScout()" id="btn-run-scout"
+  <span>전 세계 GitHub 보물 답사 시작</span>
+  <!-- 4대 답사 분야 선택 버튼 -->
+  <button type="button" onclick="setScoutCategory('audio')" id="scout-cat-audio"
+  <button type="button" onclick="setScoutCategory('education')" id="scout-cat-education"
+=== 제3원 나눔 온도계 === (31 matches)
+  <p id="signal-ethics-desc" class="text-[11px] text-slate-400 mt-0.5 leading-snug">재정헌법 10% 상생 나눔 의무화, 세 딸 무자극 원칙</p>
+  <!-- 🌳 [제3원: 상생 나눔원] 세상에 전하는 선한 영향력 & 나눔 온도계 -->
+  [제3원: 상생 나눔원] 세상에 전하는 선한 영향력 & 나눔 온도계
+  🌡️ 나눔 온도: 83.2°C (목표 순항 중)
+  <!-- 4대 나눔 지표 카드 그리드 -->
+  <span class="text-[10px] text-slate-400 block mb-1">🎯 이달의 나눔 목표 달성률</span>
+  <!-- 나눔 온도계 프로그레스 바 -->
+  <span>상생 나눔 기금 적립 프로그레스</span>
+=== 클라우드 발사대 === (41 matches)
+  <!-- 4대 클라우드 파이프라인 원터치 발사대 -->
+  <h3 class="text-base font-bold text-white">4대 파이프라인 원터치 클라우드 발사대</h3>
+  <button onclick="dispatchWorkflow('report', '일일 리포트')" class="p-4 rounded-xl bg-slate-900/80 hover:bg-slate-800 border b
+  <h4 class="text-sm font-bold text-white">일일 리포트 발사</h4>
+  <button onclick="dispatchWorkflow('analytics', '3채널 지표 분석')" class="p-4 rounded-xl bg-slate-900/80 hover:bg-slate-800 bo
+  <h4 class="text-sm font-bold text-white">3채널 지표 분석 발사</h4>
+  <button onclick="dispatchWorkflow('strategy', 'AI 주간 전략')" class="p-4 rounded-xl bg-slate-900/80 hover:bg-slate-800 bord
+  <h4 class="text-sm font-bold text-white">AI 주간 전략 발사</h4>
+=== 채팅 프리셋 === (30 matches)
+  <!-- Quick status indicator on mobile -->
+  <div class="text-[10px] text-slate-400 font-normal">마이크 · 안실장 큐 · 원고</div>
+  <p class="text-xs text-slate-400">음성 인식 마이크 ➔ Gemini 실시간 대화 ➔ 안실장 직통 큐 하달 ➔ 블로그/커뮤니티 원고 동시 생성</p>
+  <span>🤖</span> 안실장 AI 사령탑 준비 완료!
+  나온 아이디어나 지시는 아래 <b>[안실장 직통 작업 큐에 등록]</b> 버튼을 누르면 복붙할 필요 없이 시스템에 영구 기록됩니다!
+  <button onclick="dispatchLastBrainToAgentQueue()" class="px-2.5 py-1 rounded bg-indigo-600 text-white font-bold">🤖 안실장 직
+  <!-- Right: OSMU Content Studio & Quick Dispatch (5 Cols) -->
+  <span>🤖</span> 안실장 직통 작업 하달 (무복붙 브릿지)
+=== 인증원 세 딸 프리셋 === (32 matches)
+  <button onclick="switchTab('tab-daughters')" id="nav-tab-daughters"
+  <div class="text-[10px] text-slate-400 font-normal">정식 인증서 · 인성 밸런스</div>
+  <div id="tab-daughters" class="tab-pane hidden p-4 sm:p-6 lg:p-8 space-y-6">
+  <p class="text-xs text-slate-400">세 딸(중3·중1·초5)과 청소년을 위한 4대 덕목 밸런스 게임 & 〈올바른 AI & 인성 리더 정식 인증서〉 발급소</p>
+  <select id="game-target-daughter" class="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 text-white tex
+  <option value="first">첫째 (중학교 3학년)</option>
+  <option value="second">둘째 (중학교 1학년)</option>
+  <option value="third" selected>셋째 (초등학교 5학년)</option>

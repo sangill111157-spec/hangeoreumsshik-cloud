@@ -1,0 +1,13 @@
+{
+  "name": "shin-family-content-agent",
+  "version": "1.0.0",
+  "description": "Daily YouTube Shorts content generation agent",
+  "main": "shin-content-agent.js",
+  "scripts": {
+    "start": "node shin-content-agent.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.24.0",
+    "dotenv": "^16.3.1"
+  }
+}

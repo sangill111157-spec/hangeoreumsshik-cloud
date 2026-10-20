@@ -1,0 +1,100 @@
+=== 02번 글 전체 섹션 및 문맥 분석 ===
+<p><strong>카테고리: 건강·식습관 | 작성: 3교대 직장인 길잡이</strong></p>
+
+<hr style="border:none; border-top:1px solid #eee; margin:24px 0;">
+
+<p>숫자가 달라지기 시작한 건 두 달째부터였어요.</p>
+
+<p>처음 한 달은 솔직히 변화가 없었습니다. 체중계 숫자는 꿈쩍도 안 하고, 허리둘레도 그대로였고, 몸이 가벼워진 것 같지도 않았어요. '이게 맞는 건가?' 싶어서 포기할 뻔한 적이 한 번이 아니었습니다.</p>
+
+<p>그런데 두 달째 중반부터 슬금슬금 체중이 빠지기 시작했어요. 그때부터 식습관 변화를 조금 더 꼼꼼히 기록하기 시작했고, 3개월 후 결과는 <strong>몸무게 75kg → 68kg, 허리둘레 36인치 → 32인치</strong>였습니다.</p>
+
+<p>오늘은 그 3개월 동안 실제로 무엇을 어떻게 바꿨는지 최대한 구체적으로 적어볼게요.</p>
+
+<hr style="border:none; border-top:1px solid #eee; margin:24px 0;">
+
+
+---
+<h2 style="border-bottom:1px solid #eee; padding-bottom:4px;">1. 야식 타이밍 이동</h2>
+---
+
+
+<p>제일 먼저 바꾼 건 야식이었습니다.</p>
+
+<p>야간 근무 후 새벽에 집에 와서 뭔가 먹는 게 거의 일상이었어요. 배가 고프기도 했고, 퇴근 후의 작은 보상 같은 느낌도 있었고요. 근데 이게 문제였습니다. 자기 직전에 먹고 바로 눕는 패턴이 수년째 이어진 거였으니까요.</p>
+
+<p>이걸 한 번에 끊지 않고, <strong>야간 근무 중간(새벽 2~3시 휴식 시간)에 먹는 것</strong>으로 타이밍을 앞당겼어요. 집에 와서는 가벼운 물 한 잔으로 마무리하는 식으로요. 처음 2주가 제일 힘들었고, 3주 차부터는 적응이 됐습니다.</p>
+
+<hr style="border:none; border-top:1px solid #eee; margin:24px 0;">
+
+
+---
+<h2 style="border-bottom:1px solid #eee; padding-bottom:4px;">2. 가공식품 비율 조정 (완전히 끊은 건 아님)</h2>
+---
+
+
+<p>컵라면, 편의점 도시락, 즉석 볶음밥 — 이게 야간 근무 주식이었습니다. 이걸 한 번에 끊는 건 현실적으로 불가능했어요.</p>
+
+<p>대신 <strong>비율을 바꾸는</strong> 쪽으로 접근했습니다. 주 2~3회는 컵라면 대신 삶은 달걀, 방울토마토, 무염 견과류 소분 팩을 가방에 챙겨 다니며 야간 허기를 달랬습니다. (상세한 간식 구성법은 <a href="https://connect-ai-shin.blogspot.com/2026/07/blog-post_28.html">교대근무자 간단 도시락·간식 가이드</a>를 참고하시기 바랍니다.)</p>
+
+<p><strong>바꾼 것 vs. 유지한 것</strong></p>
+
+<table style="width:100%; border-collapse:collapse; margin:16px 0;"><tr><th style="border:1px solid #ddd; padding:8px; background:#f5f5f5; font-weight:bold;">항목</th><th style="border:1px solid #ddd; padding:8px; background:#f5f5f5; font-weight:bold;">변경 전</th><th style="border:1px solid #ddd; padding:8px; background:#f5f5f5; font-weight:bold;">변경 후</th></tr><tr><td style="border:1px solid #ddd; padding:8px;">야간 간식</td><td style="border:1px solid #ddd; padding:8px;">컵라면, 빵, 과자</td><td style="border:1px solid #ddd; padding:8px;">달걀, 방울토마토, 견과류</td></tr><tr><td style="border:1px solid #ddd; padding:8px;">퇴근 후 야식</td><td style="border:1px solid #ddd; padding:8px;">치킨, 라면, 편의점 도시락</td><td style="border:1px solid #ddd; padding:8px;">퇴근 전 중간에 먹고 종료</td></tr><tr><td style="border:1px solid #ddd; padding:8px;">주간 식사</td><td style="border:1px solid #ddd; padding:8px;">불규칙 (배고플 때 폭식)</td><td style="border:1px solid #ddd; padding:8px;">3끼 타이밍 고정 시도</td></tr><tr><td style="border:1px solid #ddd; padding:8px;">음료</td><td style="border:1px solid #ddd; padding:8px;">에너지드링크, 믹스커피 다수</td><td style="border:1px solid #ddd; padding:8px;">물 위주, 커피는 하루 1~2잔</td></tr></table>
+<hr style="border:none; border-top:1px solid #eee; margin:24px 0;">
+
+
+---
+<h2 style="border-bottom:1px solid #eee; padding-bottom:4px;">3. 물 마시는 타이밍 고정</h2>
+---
+
+
+<p>교대근무자들이 공통적으로 놓치는 게 수분 섭취입니다. 바쁘다 보면 물 마시는 걸 깜빡하고, 그러다 에너지드링크나 믹스커피로 버티게 되죠.</p>
+
+<p>저는 하루 세 타이밍을 고정했어요.</p>
+
+<ul>
+<li><strong>근무 시작 전</strong> — 물 한 컵 (500ml)</li>
+<li><strong>중간 휴식</strong> — 물 한 컵</li>
+<li><strong>퇴근 후</strong> — 물 한 컵</li>
+</ul>
+<p>별거 아닌 것 같아도, 이 루틴을 지키는 것만으로 에너지드링크 섭취 횟수가 눈에 띄게 줄었어요.</p>
+
+<hr style="border:none; border-top:1px solid #eee; margin:24px 0;">
+
+
+---
+<h2 style="border-bottom:1px solid #eee; padding-bottom:4px;">4. 가벼운 걷기 병행</h2>
+---
+
+
+<p>처음엔 고강도 운동 대신 퇴근 후 15~20분간 가볍게 <strong>걷기</strong>만 실천했습니다. 신기하게도 가볍게 걷고 잠자리에 들면 뇌의 피로가 풀려 수면의 질이 훨씬 좋아졌습니다. (구체적인 동선 설계와 실천법은 <a href="https://connect-ai-shin.blogspot.com/2026/08/3.html">3교대 걷기 습관 팁 글</a>에 정리해 두었습니다.)</p>
+
+<hr style="border:none; border-top:1px solid #eee; margin:24px 0;">
+
+
+---
+<h2 style="border-bottom:1px solid #eee; padding-bottom:4px;">변화 타임라인</h2>
+---
+
+
+<table style="width:100%; border-collapse:collapse; margin:16px 0;"><tr><th style="border:1px solid #ddd; padding:8px; background:#f5f5f5; font-weight:bold;">기간</th><th style="border:1px solid #ddd; padding:8px; background:#f5f5f5; font-weight:bold;">체중</th><th style="border:1px solid #ddd; padding:8px; background:#f5f5f5; font-weight:bold;">허리둘레</th><th style="border:1px solid #ddd; padding:8px; background:#f5f5f5; font-weight:bold;">체감 변화</th></tr><tr><td style="border:1px solid #ddd; padding:8px;">시작</td><td style="border:1px solid #ddd; padding:8px;">75kg</td><td style="border:1px solid #ddd; padding:8px;">36인치</td><td style="border:1px solid #ddd; padding:8px;">만성피로, 소화 불량 일상</td></tr><tr><td style="border:1px solid #ddd; padding:8px;">1개월</td><td style="border:1px solid #ddd; padding:8px;">74kg</td><td style="border:1px solid #ddd; padding:8px;">36인치</td><td style="border:1px solid #ddd; padding:8px;">소화 조금 안정, 체중 거의 변화 없음</td></tr><tr><td style="border:1px solid #ddd; padding:8px;">2개월</td><td style="border:1px solid #ddd; padding:8px;">71kg</td><td style="border:1px solid #ddd; padding:8px;">34인치</td><td style="border:1px solid #ddd; padding:8px;">바지가 헐렁해지기 시작</td></tr><tr><td style="border:1px solid #ddd; padding:8px;">3개월</td><td style="border:1px solid #ddd; padding:8px;">68kg</td><td style="border:1px solid #ddd; padding:8px;">32인치</td><td style="border:1px solid #ddd; padding:8px;">피로감 감소, 소화 안정</td></tr></table>
+<hr style="border:none; border-top:1px solid #eee; margin:24px 0;">
+
+
+---
+<h2 style="border-bottom:1px solid #eee; padding-bottom:4px;">솔직한 후기</h2>
+---
+
+
+<p>뭔가 특별한 비법이 있을 거라 기대하셨다면 미안합니다. 사실 별게 없었어요. 야식 타이밍을 앞당기고, 가공식품 비율을 낮추고, 물을 조금 더 마시고, 걸었습니다.</p>
+
+<p>근데 3교대 직장인한테는 이 '별거 아닌 것'들이 생각보다 쉽지 않습니다. 그래서 어떻게 현실에서 실행했는지를 앞으로도 하나씩 더 자세히 다뤄볼게요.</p>
+
+<hr style="border:none; border-top:1px solid #eee; margin:24px 0;">
+
+<blockquote style="border-left:4px solid #ccc; padding:8px 16px; color:#555; margin:16px 0;">
+<p><strong>면책 고지</strong></p>
+<p>이 글은 개인의 경험을 공유한 것이며, 의학적 조언이 아닙니다. 건강 관련 결정은 반드시 전문의와 상담하시기 바랍니다.</p>
+</blockquote>
+
+---

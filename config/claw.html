@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>두근두근 인형뽑기</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; user-select:none; }
+  html,body { height:100%; font-family:'Apple SD Gothic Neo','Malgun Gothic',sans-serif; overflow:hidden; touch-action:manipulation; }
+  body { background:linear-gradient(160deg,#ffd1f0,#c4e0ff); display:flex; justify-content:center; }
+  #app { position:relative; width:100%; max-width:440px; height:100%; display:flex; flex-direction:column; }
+
+  #top { text-align:center; padding:8px; }
+  #title { font-size:24px; font-weight:900; color:#ff5fa2; text-shadow:2px 2px 0 #fff; }
+  #stats { display:flex; justify-content:center; gap:12px; margin-top:4px; font-size:15px; font-weight:700; color:#5a4a7a; }
+  .stat { background:#fff; padding:4px 12px; border-radius:14px; box-shadow:0 2px 4px rgba(0,0,0,.1); }
+
+  #machine { flex:1; margin:6px 12px; background:linear-gradient(180deg,#fff6fb,#ffe3f3);
+             border:6px solid #ff9ed1; border-radius:22px; position:relative; overflow:hidden;
+             box-shadow:inset 0 0 20px rgba(255,95,162,.2); }
+  #rail { position:absolute; top:14px; left:0; width:100%; height:8px; background:#ffb3dd; }
+  #claw { position:absolute; top:14px; width:54px; text-align:center; transition:none; z-index:5; }
+  #cord { width:4px; background:#888; margin:0 auto; height:8px; }
+  #grip { font-size:40px; line-height:1; }
+
+  #pit { position:absolute; bottom:0; left:0; width:100%; height:72px;
+         background:linear-gradient(180deg,rgba(255,158,209,.15),rgba(255,158,209,.45)); border-top:3px dashed #ff9ed1; }
+  #pitLabel { position:absolute; bottom:6px; left:0; width:100%; text-align:center; font-size:12px; color:#c2569a; font-weight:700; }
+  .doll { position:absolute; font-size:42px; transition:none; }
+  #chute { position:absolute; bottom:6px; right:10px; font-size:13px; color:#c2569a; font-weight:700; }
+
+  #controls { padding:10px 12px 14px; }
+  #bigBtn { width:100%; padding:18px; border:none; border-radius:20px; font-size:22px; font-weight:900;
+            color:#fff; background:linear-gradient(90deg,#ff5fa2,#ff9ed1); box-shadow:0 5px 0 #e0468a; cursor:pointer; }
+  #bigBtn:active { transform:translateY(4px); box-shadow:0 1px 0 #e0468a; }
+  .row { display:flex; gap:8px; margin-top:8px; }
+  .miniBtn { flex:1; padding:11px; border:none; border-radius:14px; font-size:15px; font-weight:800; cursor:pointer; color:#fff; }
+  #coinBtn { background:linear-gradient(90deg,#ffb700,#ffd35a); box-shadow:0 4px 0 #d99700; }
+  #coinBtn:active { transform:translateY(3px); box-shadow:0 1px 0 #d99700; }
+  #musicBtn { background:linear-gradient(90deg,#7c6bff,#a99bff); box-shadow:0 4px 0 #5a4bd0; }
+  #musicBtn:active { transform:translateY(3px); box-shadow:0 1px 0 #5a4bd0; }
+  #hint { text-align:center; margin-top:8px; font-size:14px; color:#7a5a8a; font-weight:700; height:18px; }
+
+  #prize { position:absolute; inset:0; background:rgba(0,0,0,.45); display:none; justify-content:center; align-items:center; z-index:20; }
+  #prizeBox { background:#fff; border-radius:24px; padding:26px 34px; text-align:center; animation:pop .3s; }
+  @keyframes pop { from{transform:scale(.5);opacity:0} }
+  #prizeFace { font-size:90px; }
+  #prizeMsg { font-size:22px; font-weight:900; color:#ff5fa2; margin-top:6px; }
+  #prizeSub { font-size:14px; color:#888; margin:8px 0 16px; }
+  #prizeBtn { padding:12px 28px; border:none; border-radius:16px; background:#ff5fa2; color:#fff; font-size:18px; font-weight:800; cursor:pointer; }
+  .confetti { position:absolute; font-size:22px; z-index:25; pointer-events:none; }
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="top">
+    <div id="title">🧸 두근두근 인형뽑기 🧸</div>
+    <div id="stats">
+      <div class="stat">🪙 동전 <span id="coins">10</span></div>
+      <div class="stat">🏆 모은 인형 <span id="got">0</span></div>
+    </div>
+  </div>
+
+  <div id="machine">
+    <div id="rail"></div>
+    <div id="claw">
+      <div id="cord"></div>
+      <div id="grip">🦾</div>
+    </div>
+    <div id="pit"></div>
+    <div id="pitLabel">⬇ 여기서 인형이 떨어져요 ⬇</div>
+    <div id="chute">🎁 받는곳</div>
+  </div>
+
+  <div id="controls">
+    <button id="bigBtn">출발! 🎮</button>
+    <div class="row">
+      <button id="coinBtn" class="miniBtn">🪙 동전 보충 (1번키)</button>
+      <button id="musicBtn" class="miniBtn">🎵 음악 켜기</button>
+    </div>
+    <div id="hint">버튼을 눌러 집게를 움직이세요</div>
+  </div>
+
+  <div id="prize">
+    <div id="prizeBox">
+      <div id="prizeFace">🧸</div>
+      <div id="prizeMsg">성공!</div>
+      <div id="prizeSub"></div>
+      <button id="prizeBtn">한 번 더! 🎈</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// 인형 종류 대폭 추가!
+const DOLLS = ["🧸","🐰","🐻","🐼","🐱","🐶","🦊","🐯","🦁","🐸","🐷","🦄","🐥","🐙","🐧",
+               "🐨","🐮","🐹","🐔","🦉","🦒","🐳","🦋","🐢","🐠","🐝","🐞","🦕","🦖","🐉",
+               "🍓","🍑","🌸","⭐","🍀","🎀"];
+const machine = document.getElementById('machine');
+const claw = document.getElementById('claw');
+const grip = document.getElementById('grip');
+const bigBtn = document.getElementById('bigBtn');
+const hint = document.getElementById('hint');
+
+let coins = 10, got = 0;
+let dolls = [];
+let state = "idle";
+let clawX = 30, dir = 1, clawY = 14;
+let target = null;
+let raf = null;
+
+function rnd(a,b){ return a+Math.random()*(b-a); }
+function updateCoins(){ document.getElementById('coins').textContent=coins; }
+
+function layoutDolls(){
+  machine.querySelectorAll('.doll').forEach(d=>d.remove());
+  dolls = [];
+  const W = machine.clientWidth, floor = machine.clientHeight - 84;
+  const n = 8;
+  for(let i=0;i<n;i++){
+    const el = document.createElement('div'); el.className='doll';
+    const face = DOLLS[Math.floor(Math.random()*DOLLS.length)];
+    el.textContent = face;
+    const x = 16 + (i*(W-56)/(n-1));
+    const y = floor - rnd(0,20);
+    el.style.left = x+'px'; el.style.top = y+'px';
+    machine.appendChild(el);
+    dolls.push({el, x, y, face, caught:false});
+  }
+}
+
+function setClaw(){ claw.style.left = clawX+'px'; claw.style.top = clawY+'px'; }
+
+function startMove(){
+  if(coins<=0){ hint.textContent="동전이 없어요! 🪙 보충 버튼을 누르세요!"; return; }
+  state="moving"; dir=1; clawX=14; clawY=14; setClaw();
+  bigBtn.textContent="멈춰! ✋";
+  hint.textContent="인형 위에서 멈추세요!";
+  const W = machine.clientWidth - 60;
+  function loop(){
+    if(state!=="moving") return;
+    clawX += dir*3.5;
+    if(clawX>W){ clawX=W; dir=-1; }
+    if(clawX<14){ clawX=14; dir=1; }
+    setClaw();
+    raf = requestAnimationFrame(loop);
+  }
+  loop();
+}
+
+function dropClaw(){
+  state="dropping";
+  bigBtn.disabled=true; bigBtn.textContent="...";
+  hint.textContent="집는 중... 🤞";
+  cancelAnimationFrame(raf);
+  coins--; updateCoins();
+
+  const clawCenter = clawX + 27;
+  target = null; let best = 9999;
+  dolls.forEach(d=>{
+    if(d.caught) return;
+    const dist = Math.abs((d.x+18) - clawCenter);
+    if(dist<best){ best=dist; target=d; }
+  });
+
+  const floor = machine.clientHeight - 84;
+  let down = 14;
+  const willCatch = target && best < 38;
+  const catchOdds = willCatch ? (best<18 ? 0.9 : 0.6) : 0;
+  const success = Math.random() < catchOdds;
+
+  const dropInt = setInterval(()=>{
+    down += 6; clawY = down; setClaw();
+    if(down >= floor){
+      clearInterval(dropInt);
+      grip.textContent = success ? "✊" : "🦾";
+      if(success && target) target.el.style.transition="top .35s";
+      setTimeout(()=>raiseClaw(success), 250);
+    }
+  }, 16);
+}
+
+function raiseClaw(success){
+  hint.textContent = success ? "올라가는 중! 🎉" : "앗, 놓쳤어요! 😅";
+  let slipped=false;
+  const upInt = setInterval(()=>{
+    clawY -= 7;
+    if(clawY<=14) clawY=14;
+    setClaw();
+    if(success && target){
+      target.el.style.left = clawX+18+'px';
+      target.el.style.top = clawY+30+'px';
+      if(!slipped && clawY<machine.clientHeight*0.4 && Math.random()<0.04) slipped=true;
+    }
+    if(clawY<=14){ clearInterval(upInt); finish(success && !slipped, success && slipped); }
+  },16);
+}
+
+function finish(win, slipped){
+  grip.textContent="🦾"; bigBtn.disabled=false;
+  if(win){
+    got++; document.getElementById('got').textContent=got;
+    coins += 2; updateCoins();
+    showPrize(true, target.face); target.el.remove();
+  } else if(slipped){
+    showPrize(false, target ? target.face : "🧸", true);
+  } else { showPrize(false, "🧸"); }
+  state="idle";
+  bigBtn.textContent="출발! 🎮";
+  hint.textContent = coins>0 ? "버튼을 눌러 다시 도전!" : "동전이 없어요! 🪙 보충하세요!";
+  if(dolls.filter(d=>!d.caught).length===0) layoutDolls();
+}
+
+function showPrize(win, face, slipped){
+  const p=document.getElementById('prize');
+  document.getElementById('prizeFace').textContent = win? face : "😢";
+  document.getElementById('prizeMsg').textContent = win? "성공! 축하해요! 🎉" : (slipped? "아아 다 와서 미끄러졌어요!" : "아쉬워요!");
+  document.getElementById('prizeSub').textContent = win? (face+" 인형을 뽑았어요!") : "괜찮아요, 다시 도전해봐요!";
+  p.style.display="flex";
+  if(win) confetti();
+  sfx(win);
+}
+document.getElementById('prizeBtn').onclick=()=>{ document.getElementById('prize').style.display="none"; };
+
+function confetti(){
+  const em=["🎉","🎊","⭐","💖","✨","🎈"];
+  for(let i=0;i<18;i++){
+    const c=document.createElement('div'); c.className='confetti';
+    c.textContent=em[Math.floor(Math.random()*em.length)];
+    c.style.left=rnd(10,90)+'%'; c.style.top="-30px";
+    document.getElementById('app').appendChild(c);
+    c.animate([{top:"-30px",opacity:1,transform:"rotate(0)"},
+               {top:"110%",opacity:0,transform:"rotate("+rnd(-360,360)+"deg)"}],
+              {duration:rnd(1200,2200),easing:"ease-in"});
+    setTimeout(()=>c.remove(),2200);
+  }
+}
+
+bigBtn.onclick=()=>{
+  if(state==="idle") startMove();
+  else if(state==="moving") dropClaw();
+};
+
+/* ===== 동전 보충 ===== */
+function refillCoins(){
+  coins += 10; updateCoins();
+  hint.textContent="동전 10개 충전 완료! 🪙✨";
+  // 동전 소리
+  const ctx=ac();
+  [880,1175].forEach((f,i)=>{
+    const o=ctx.createOscillator(),g=ctx.createGain();
+    o.type="square"; o.frequency.value=f;
+    const t=ctx.currentTime+i*0.08;
+    g.gain.setValueAtTime(0.0001,t); g.gain.linearRampToValueAtTime(0.2,t+0.01);
+    g.gain.exponentialRampToValueAtTime(0.001,t+0.2);
+    o.connect(g); g.connect(ctx.destination); o.start(t); o.stop(t+0.2);
+  });
+}
+document.getElementById('coinBtn').onclick=refillCoins;
+// 키보드 1번 누르면 보충
+window.addEventListener('keydown',(e)=>{ if(e.key==="1") refillCoins(); });
+
+/* ===== 효과음 ===== */
+let actx=null;
+function ac(){ if(!actx) actx=new(window.AudioContext||window.webkitAudioContext)(); return actx; }
+function sfx(win){
+  const ctx=ac();
+  const notes = win?[523,659,784,1047]:[392,330];
+  notes.forEach((f,i)=>{
+    const o=ctx.createOscillator(),g=ctx.createGain();
+    o.type="triangle"; o.frequency.value=f;
+    const t=ctx.currentTime+i*0.12;
+    g.gain.setValueAtTime(0.0001,t); g.gain.linearRampToValueAtTime(0.3,t+0.02);
+    g.gain.exponentialRampToValueAtTime(0.001,t+0.25);
+    o.connect(g); g.connect(ctx.destination); o.start(t); o.stop(t+0.25);
+  });
+}
+
+/* ===== 배경음악 (간단한 멜로디 반복) ===== */
+let musicOn=false, musicTimer=null, musicStep=0;
+// 도레미로 만든 귀여운 멜로디 (음 높이 Hz)
+const MELODY = [523,659,784,659,523,587,659,587,  523,659,784,880,784,659,587,523];
+function musicTick(){
+  const ctx=ac();
+  const f = MELODY[musicStep % MELODY.length];
+  const o=ctx.createOscillator(), g=ctx.createGain();
+  o.type="sine"; o.frequency.value=f;
+  const t=ctx.currentTime;
+  g.gain.setValueAtTime(0.0001,t);
+  g.gain.linearRampToValueAtTime(0.12,t+0.03);
+  g.gain.exponentialRampToValueAtTime(0.001,t+0.32);
+  o.connect(g); g.connect(ctx.destination); o.start(t); o.stop(t+0.35);
+  // 베이스 음 살짝
+  if(musicStep%2===0){
+    const b=ctx.createOscillator(), bg=ctx.createGain();
+    b.type="triangle"; b.frequency.value=f/2;
+    bg.gain.setValueAtTime(0.0001,t); bg.gain.linearRampToValueAtTime(0.08,t+0.03);
+    bg.gain.exponentialRampToValueAtTime(0.001,t+0.4);
+    b.connect(bg); bg.connect(ctx.destination); b.start(t); b.stop(t+0.4);
+  }
+  musicStep++;
+}
+function toggleMusic(){
+  const btn=document.getElementById('musicBtn');
+  if(musicOn){
+    clearInterval(musicTimer); musicOn=false;
+    btn.textContent="🎵 음악 켜기";
+  } else {
+    ac(); musicOn=true;
+    musicTimer=setInterval(musicTick, 350);
+    btn.textContent="🔇 음악 끄기";
+  }
+}
+document.getElementById('musicBtn').onclick=toggleMusic;
+
+/* 시작 */
+layoutDolls();
+setClaw();
+</script>
+</body>
+</html>

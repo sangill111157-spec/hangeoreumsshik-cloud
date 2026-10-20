@@ -1,0 +1,29 @@
+======================================================================
+[Auth] 안실장 유튜브 채널별 개별 토큰 재발급
+======================================================================
+
+재발급할 채널을 선택해 주세요:
+  [1] 한걸음씩 (THE SHIN FAMILY) (저장 파일: token.pickle)
+  [2] 부스터 플리 (Booster Playlist) (저장 파일: token_booster.pickle)
+  [3] Café Hour (카페 아워) (저장 파일: yt_token.pickle)
+
+-> 입력받은 채널 번호: 3
+
+[Info] 선택한 채널: Café Hour (카페 아워)
+-> 이 작업을 완료하면 yt_token.pickle 파일에 크레덴셜이 저장됩니다.
+📋 요청 권한 (3개):
+  * youtube
+  * youtube.upload
+  * youtube.force-ssl
+  -> 기존 토큰 백업 완료: yt_token.pickle.bak_20260816_113401
+
+🌐 [안내] 아래 안내되는 URL로 브라우저에서 접속하여 인증을 완료해 주세요.
+----------------------------------------------------------------------
+Please visit this URL to authorize this application: https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=204020867553-lb023bvfbdse6d68nngc00fecsgjnije.apps.googleusercontent.com&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2F&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fyoutube+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fyoutube.upload+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fyoutube.force-ssl&state=Pj29ccNY07fv0JYFrhZ27ouTVNAnLF&code_challenge=-mkw1q9hPNHgMpHI40b1ANPLM9VZn8ErUb5QSO7u060&code_challenge_method=S256&prompt=consent&access_type=offline
+----------------------------------------------------------------------
+[Success] 구글 인증 성공!
+💾 토큰 저장 완료 -> C:\Users\sangi\OneDrive\Desktop\hangeoreumsshik\automation\config\yt_token.pickle (1228 bytes)
+
+======================================================================
+[Success] [Café Hour (카페 아워)] 토큰 갱신 완료!
+======================================================================

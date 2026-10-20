@@ -1,0 +1,7 @@
+======================================================================
+📝 [Auth] 구글 Blogger API 토큰 재발급 기동
+======================================================================
+Please visit this URL to authorize this application: https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=204020867553-lb023bvfbdse6d68nngc00fecsgjnije.apps.googleusercontent.com&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2F&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fblogger&state=1bDCZh3PnpLfcqWnlPntTn6W6C7Cho&code_challenge=Ue5cczeTiwfN261nV7gwxOJQ8XyrhoanhOX-2aCKNCI&code_challenge_method=S256&prompt=consent&access_type=offline
+
+✅ [Success] Blogger 토큰 저장 완료 -> C:\Users\sangi\.connectai\secrets\token.json
+======================================================================

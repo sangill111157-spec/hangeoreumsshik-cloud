@@ -1,0 +1,9 @@
+.env
+00_audio/
+02_keyframes/
+03_clips/
+00_smoke/
+*.pyc
+__pycache__/
+client_secret.json
+token.json

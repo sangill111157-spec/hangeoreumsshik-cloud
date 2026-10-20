@@ -1,0 +1,33 @@
+웹 검색이나 외부 도구는 절대 호출하지 말고 즉시 Python 코드만 작성하라.
+[RGON 자가 진화 두뇌 v1.0 — 제 1세대 자동 진화 지시문]
+생성 시각: 2026-10-20 22:24:27 KST
+최고 1순위 스케줄: TOP1_SELF_EVOLVING_BRAIN (ACTIVE_TOTAL_WAR)
+현재 건강 점수: 68 → 100 / 100
+
+[활성 항체 — 반드시 준수]
+  - R1: 도자기 머그컵·유리컵·텀블러 금지 / 흰색 일회용 종이컵만 등장
+  - R2: 성우 내레이션 + BGM 포함, 정확히 10.000초 / 30fps / 300프레임
+  - R3: 모달 z-index 최상위(2147483647) + Cache-Control no-store meta 강제
+  - R4: Genspark 'Copy'/'Copy code' 접두어·잔류 줄 자동 제거
+  - R5: document.getElementById/querySelector 결과 접근 시 ?. 또는 null 가드 강제
+  - R6: Pollinations 이미지 하단 워터마크 크롭 + nologo=true + 하단 안전 구도
+
+[이번 실행 자가 치유 기록]
+  - rgon_alpha_chat.html: HEALED ?./null 가드 7곳, no-store meta 삽입
+  - ingredients_basket/sample_paper_cup.jpg: HEALED 하단 77px(8%) 크롭 540x960→540x883
+
+[잔존 이슈]
+  - (없음)
+
+[이번 세대 진화 과제 — AlphaEvolve 적합도 상위 3]
+  1. LangGraph Reflexion 루프: 발사→흡수→비평→재발사 자동화  (적합도 15)
+     → omni_bridge.py에 /reflect 엔드포인트를 추가해 흡수한 응답을 항체 규칙으로 채점하고, 미달이면 교정 지시를 붙여 자동 재발사
+  2. 흡수함 응답 자동 채점 → 항체 자동 학습  (적합도 13)
+     → 흡수 카드마다 R1~Rn 위반 여부를 자동 판정하고 새 실패 패턴을 add_antibody로 금고에 축적
+  3. R2 렌더 가드  (적합도 13)
+     → MP4 생성 직후 ffprobe로 10.000초/300프레임/오디오 트랙을 검사하고 불합격 시 자동 재렌더
+
+[출력 요구사항]
+  - `C:\Users\sangi\Downloads\shin-agent` 기준 대상 파일 전체 코드를 단일 ```python 코드 블록으로 출력할 것
+  - 기존 기능 100% 유지, 모든 항체 규칙 위반 금지, 수정 파일은 실행 전 backups/에 자동 백업
+  - 마지막 줄에 `RGON EVOLUTION GEN-1 COMPLETE!` 를 출력할 것

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>[로컬 미리보기] 3조 2교대 야간근무, 식사와 생활 습관을 바꾸며 느낀 변화 — HEALTH_13</title>
+  <style>
+    :root {
+      --bg-color: #f8fafc;
+      --card-bg: #ffffff;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --primary: #2563eb;
+      --border: #e2e8f0;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", "Pretendard", Roboto, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      line-height: 1.75;
+      padding: 20px;
+    }
+    /* 상단 컨트롤 바 */
+    .toolbar {
+      max-width: 800px;
+      margin: 0 auto 20px;
+      padding: 12px 18px;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .toolbar-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+    .btn-group {
+      display: flex;
+      gap: 8px;
+    }
+    .btn-group button {
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 600;
+      border: 1px solid var(--border);
+      background: #f1f5f9;
+      color: #334155;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-group button:hover, .btn-group button.active {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+    }
+
+    /* 본문 래퍼 */
+    .preview-container {
+      margin: 0 auto;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 36px 32px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+      transition: max-width 0.3s ease;
+      max-width: 760px; /* 기본 데스크톱 */
+    }
+
+    /* 프리뷰 너비 클래스 */
+    .preview-container.w-360 {
+      max-width: 360px;
+      padding: 24px 16px;
+    }
+    .preview-container.w-390 {
+      max-width: 390px;
+      padding: 24px 18px;
+    }
+    .preview-container.w-desktop {
+      max-width: 760px;
+      padding: 36px 32px;
+    }
+
+    /* Blogger 글 스타일 모사 */
+    .post-header {
+      border-bottom: 2px solid #f1f5f9;
+      padding-bottom: 20px;
+      margin-bottom: 28px;
+    }
+    .post-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      background: #eff6ff;
+      color: #2563eb;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 4px;
+      margin-bottom: 12px;
+    }
+    .post-title {
+      font-size: 24px;
+      font-weight: 800;
+      line-height: 1.35;
+      color: #0f172a;
+      margin-bottom: 8px;
+    }
+    .post-meta {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* 본문 타이포그래피 */
+    .post-content h2 {
+      font-size: 20px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-top: 32px;
+      margin-bottom: 14px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .post-content p {
+      font-size: 15px;
+      margin-bottom: 16px;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+    }
+    .post-content ul {
+      margin: 14px 0 20px 20px;
+      padding: 0;
+    }
+    .post-content li {
+      font-size: 15px;
+      margin-bottom: 8px;
+      word-break: keep-all;
+    }
+    .post-content strong {
+      color: #0f172a;
+    }
+    .post-content a {
+      color: #2563eb;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    .post-content a:hover {
+      color: #1d4ed8;
+    }
+    .post-content .separator {
+      margin: 24px 0;
+      text-align: center;
+    }
+    .post-content img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    .post-content blockquote {
+      border-left: 4px solid #f59e0b;
+      background-color: #fffbeb;
+      padding: 12px 16px;
+      margin: 24px 0;
+      color: #92400e;
+      font-size: 14px;
+      line-height: 1.6;
+      border-radius: 0 8px 8px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 뷰포트 시뮬레이션 바 -->
+  <div class="toolbar">
+    <div class="toolbar-title">📱 로컬 반응형 뷰포트 검증 도구</div>
+    <div class="btn-group">
+      <button id="btn-360" onclick="setView('w-360', this)">360px (작은 모바일)</button>
+      <button id="btn-390" onclick="setView('w-390', this)">390px (아이폰 등 표준)</button>
+      <button id="btn-desktop" class="active" onclick="setView('w-desktop', this)">데스크톱 (기본)</button>
+    </div>
+  </div>
+
+  <!-- 블로그 포스트 본문 렌더링 컨테이너 -->
+  <main class="preview-container w-desktop" id="previewArea">
+    
+    <header class="post-header">
+      <span class="post-tag">근무생활 / 건강관리</span>
+      <h1 class="post-title">3조 2교대 야간근무, 식사와 생활 습관을 바꾸며 느낀 변화</h1>
+      <div class="post-meta">로컬 검수본 (HEALTH_13) | 대표 실제 경험 반영본 (경험 중심 간소화)</div>
+    </header>
+
+    <article class="post-content">
+      <p>저는 3조 2교대로 일하면서 야간근무의 피로와 더부룩함, 속 쓰림, 식사 후 졸림을 겪었습니다.</p>
+
+      <p>이러한 불편함을 겪으면서 밥의 양, 커피, 물, 운동 등 몇 가지 일상 습관을 바꾸어 보았습니다. 3조 2교대 야간근무를 하면서 겪은 불편함과 생활 습관을 바꾸며 느낀 점을 정리해 봅니다.</p>
+
+      <h2>1. 3조 2교대 근무와 회사 식당 이용</h2>
+
+      <p>저는 주간과 야간에 각각 12시간씩 일하는 3조 2교대 근무자입니다. 야간근무 때는 회사 식당에서 밤중 식사와 퇴근 전 아침 식사를 합니다.</p>
+
+      <h2>2. 야간근무 중 겪은 피로와 식사 관련 불편함</h2>
+
+      <p>야간근무를 하면서 야간근무 자체의 피로를 겪었고, 더부룩함과 속 쓰림, 식사 후 졸림이 이어졌습니다. (이와 관련해 이전에 겪었던 소화기 불편 증상에 대해서는 앞서 <a href="https://connect-ai-shin.blogspot.com/2026/07/blog-post_22.html">변비·속쓰림 소화 이야기</a> 글에서도 나눈 바 있습니다.)</p>
+
+      <h2>3. 밥의 양·커피·물·운동 습관을 바꾼 이야기</h2>
+
+      <p>이러한 불편함 속에서 생활 습관을 바꾸어 보았습니다.</p>
+
+      <div class="separator" style="clear: both; text-align: center; margin: 20px 0;">
+        <a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhWXblBq8OZQpR5-nbLnPz7Ki1qXqIcZo4bQKFBV0sgi0EwkXcp5IykGgVi3MUY-Sum1fliK0vWsJQticaH062OGVbVtgSHkmBEIkVFqWrYkaq4pHWYHliImYMb4BPSHHsmjEXdavhNvoHFMM8EbrjzsZgggEwsdwpAhaMR83NwU2KiGdf-cWoXeE-PDwc/s1600/photo_04_tumbler.jpg" style="margin-left: auto; margin-right: auto; display: inline-block; max-width: 100%;">
+          <img border="0" alt="수분 섭취를 돕기 위한 물병과 텀블러" data-original-height="800" data-original-width="600" width="300" height="400" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhWXblBq8OZQpR5-nbLnPz7Ki1qXqIcZo4bQKFBV0sgi0EwkXcp5IykGgVi3MUY-Sum1fliK0vWsJQticaH062OGVbVtgSHkmBEIkVFqWrYkaq4pHWYHliImYMb4BPSHHsmjEXdavhNvoHFMM8EbrjzsZgggEwsdwpAhaMR83NwU2KiGdf-cWoXeE-PDwc/w300-h400/photo_04_tumbler.jpg" style="max-width: 100%; height: auto; border-radius: 8px;" />
+        </a>
+      </div>
+
+      <ul>
+        <li><strong>밥 먹는 양 줄이기</strong>: 밥 먹는 양을 줄였습니다.</li>
+        <li><strong>커피 끊기</strong>: 커피를 끊었습니다. (<a href="https://connect-ai-shin.blogspot.com/2026/07/blog-post_27.html">에너지드링크·커피를 줄인 경험과 변화</a> 글에서도 관련 경험을 나눈 적이 있습니다.)</li>
+        <li><strong>물 자주 마시기</strong>: 물을 자주 마시려고 했습니다.</li>
+        <li><strong>운동 노력</strong>: 운동을 조금씩이라도 꾸준히 하려고 노력했습니다. (<a href="https://connect-ai-shin.blogspot.com/2026/08/3.html">걷기를 습관으로 만든 방법과 실천 팁</a> 글 참고)</li>
+      </ul>
+
+      <h2>4. 개인적으로 느낀 변화와 아직 관리 중인 생활</h2>
+
+      <p>이런 습관들을 바꾼 뒤, 개인적으로 속 쓰림과 더부룩함이 조금 줄었고 몸 상태도 전반적으로 나아진 느낌이 들었습니다. 다만 어떤 변화가 얼마나 영향을 주었는지는 알 수 없습니다. 식사 후 졸림이 줄었다고 말하려는 것은 아닙니다.</p>
+
+      <p>3조 2교대 야간근무 생활을 하면서 저에게 맞는 생활 방식을 계속 찾아가고 있습니다.</p>
+
+      <blockquote style="border-left: 4px solid #f59e0b; background-color: #fffbeb; padding: 12px 16px; margin: 24px 0; color: #92400e; font-size: 14px; line-height: 1.6; border-radius: 0 8px 8px 0;">
+        ⚠️ <strong>면책 고지 (Disclaimer)</strong><br>
+        이 글은 개인적인 경험과 생활 습관 조절 기록을 바탕으로 작성되었으며, 의학적 진단이나 치료 효과를 보장하지 않습니다. 건강상 이상이나 기저 질환이 있는 경우 반드시 전문의와 상담하시기 바랍니다.
+      </blockquote>
+    </article>
+  </main>
+
+  <script>
+    function setView(className, btn) {
+      const area = document.getElementById('previewArea');
+      area.className = 'preview-container ' + className;
+      document.querySelectorAll('.btn-group button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+  </script>
+</body>
+</html>
