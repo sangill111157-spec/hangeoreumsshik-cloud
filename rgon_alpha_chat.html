@@ -86,6 +86,240 @@
   <script src="/pwa_bootstrap.js?v=20261019205433" defer></script>
 </head>
 <body class="flex flex-col h-screen max-w-4xl mx-auto border-x border-indigo-950/60 shadow-2xl relative">
+<!-- OMNI-LINK-CTRL-START v6.0.3 -->
+<div id="omniCtrl" style="font-family:'Malgun Gothic',sans-serif;background:#0d1117;color:#e6edf3;border:1px solid #30363d;border-radius:10px;padding:8px 10px;margin:6px;font-size:13px">
+  <style>
+    #omniCtrl button{background:#21262d;color:#e6edf3;border:1px solid #30363d;border-radius:6px;padding:4px 8px;cursor:pointer;font-size:12px;margin:2px}
+    #omniCtrl button:hover{background:#30363d}
+    #omniCtrl .pri{background:#238636;border-color:#2ea043}
+    #omniCtrl label{margin-right:8px;cursor:pointer}
+    #omniCtrl textarea{width:100%;box-sizing:border-box;height:60px;background:#010409;color:#e6edf3;border:1px solid #30363d;border-radius:6px;padding:6px}
+  </style>
+  <div style="display:flex;justify-content:space-between;align-items:center">
+    <b>🛰️ Omni-Link 분배 컨트롤러 v6.0.3</b><span id="omniBridge">⚪ 8765</span>
+  </div>
+  <textarea id="omniPrompt" placeholder="발사할 내용 (비우면 독대실 입력창 내용 사용)"></textarea>
+  <div>
+    <label><input type="checkbox" class="omni-chk" value="claude" checked> 🧠 Claude</label>
+    <label><input type="checkbox" class="omni-chk" value="gpt" checked> ⚡ GPT</label>
+    <label><input type="checkbox" class="omni-chk" value="grok"> 🎯 Grok</label>
+    <span id="omniCustom"></span>
+  </div>
+  <div>
+    <button id="omniSelAll">☑️ 전체 선택</button>
+    <button id="omniUnselAll">☐ 전체 해제</button>
+    <button data-omni-solo="claude">🧠 Claude 단독</button>
+    <button data-omni-solo="gpt">⚡ GPT 단독</button>
+    <button data-omni-solo="grok">🎯 Grok 단독</button>
+    <span id="omniCustomSolo"></span>
+  </div>
+  <div>
+    <button id="omniFireChecked" class="pri">🚀 체크 선택 발사</button>
+    <button id="omniFireAll" class="pri">🌐 전체 발사</button>
+    <button id="omniClear">🗑️ 전체 지우기</button>
+    <label><input type="checkbox" id="omniAutoClear"> 발사 후 자동 지우기</label>
+  </div>
+  <div id="omniLog" style="font-size:12px;color:#8b949e;min-height:16px"></div>
+  <script>
+  (function(){
+    var BR = "http://127.0.0.1:8765";
+    var $ = function(id){ return document.getElementById(id); };
+    var root = $("omniCtrl");
+    function esc(s){ return String(s==null?"":s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];}); }
+    function log(m){ $("omniLog").textContent = m; }
+    function getText(){
+      var t = $("omniPrompt").value;
+      if(!t.trim()){
+        var alt = document.querySelector("textarea:not(#omniPrompt), #userInput, #input");
+        if(alt) t = alt.value || alt.innerText || "";
+      }
+      return t;
+    }
+    function checked(){ return Array.prototype.slice.call(root.querySelectorAll(".omni-chk:checked")).map(function(c){return c.value;}); }
+    async function waitResult(id, label){
+      for(var i=0;i<40;i++){
+        await new Promise(function(r){setTimeout(r,1000);});
+        try{
+          var j = await (await fetch(BR+"/result?id="+encodeURIComponent(id))).json();
+          if(j.done){
+            var rs = Array.isArray(j.result) ? j.result : [];
+            log(label+" 결과: "+(rs.map(function(x){return (x.ok?"✅":"❌")+x.label+(x.ok?"":"("+(x.err||"")+")");}).join("  ")||"대상 없음"));
+            return;
+          }
+        }catch(e){}
+      }
+      log("⏱️ "+label+": 확장 응답 대기 시간 초과 (Omni-Link 확장이 켜져 있는지 확인)");
+    }
+    async function fire(targets, label){
+      var text = getText();
+      if(!text.trim()){ log("⚠️ 발사할 내용이 없습니다"); return; }
+      if(Array.isArray(targets) && !targets.length){ log("⚠️ 체크된 대상이 없습니다"); return; }
+      try{
+        var r = await fetch(BR+"/dispatch",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({text:text,targets:targets})});
+        var j = await r.json();
+        log("🚀 "+label+" 발사 접수 (#"+j.id+") → 확장 전달 대기...");
+        if($("omniAutoClear").checked) $("omniPrompt").value = "";
+        waitResult(j.id, label);
+      }catch(e){ log("❌ 브리지(8765) 연결 실패: "+e.message); }
+    }
+    $("omniSelAll").onclick = function(){ root.querySelectorAll(".omni-chk").forEach(function(c){c.checked=true;}); };
+    $("omniUnselAll").onclick = function(){ root.querySelectorAll(".omni-chk").forEach(function(c){c.checked=false;}); };
+    $("omniFireChecked").onclick = function(){ fire(checked(), "체크 선택"); };
+    $("omniFireAll").onclick = function(){ fire("__all__", "🌐 전체"); };
+    $("omniClear").onclick = function(){ $("omniPrompt").value = ""; log("🗑️ 지움"); };
+    root.addEventListener("click", function(e){
+      var b = e.target.closest("[data-omni-solo]");
+      if(b) fire([b.getAttribute("data-omni-solo")], b.textContent.trim());
+    });
+    async function loadRoles(){
+      try{
+        var j = await (await fetch(BR+"/roles",{cache:"no-store"})).json();
+        var prev = checked();
+        var cs = (j.roles||[]).filter(function(r){return r.custom;});
+        $("omniCustom").innerHTML = cs.map(function(r){
+          return '<label><input type="checkbox" class="omni-chk" value="'+esc(r.key)+'"'+(prev.indexOf(r.key)>=0?" checked":"")+'> 🧩 '+esc(r.label)+'</label>';
+        }).join("");
+        $("omniCustomSolo").innerHTML = cs.map(function(r){
+          return '<button data-omni-solo="'+esc(r.key)+'">🧩 '+esc(r.label)+' 단독</button>';
+        }).join("");
+        $("omniBridge").textContent = "🟢 8765";
+      }catch(e){ $("omniBridge").textContent = "🔴 8765"; }
+    }
+    loadRoles(); setInterval(loadRoles, 15000);
+  })();
+  </script>
+</div>
+<!-- OMNI-LINK-CTRL-END -->
+
+<!-- OMNI-LINK:BEGIN -->
+<div id="omniLinkController" style="margin:10px auto;max-width:1100px;padding:12px 16px;border-radius:16px;color:#e9ecff;background:linear-gradient(135deg,rgba(60,40,160,.88),rgba(0,110,160,.78));border:1px solid rgba(255,255,255,.25);box-shadow:0 8px 28px rgba(60,40,200,.3);font-family:'Pretendard','Noto Sans KR',system-ui,sans-serif">
+  <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center">
+    <button id="omniOpenBtn" type="button" style="padding:10px 16px;font-size:14px;font-weight:700;color:#fff;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.45);border-radius:12px;cursor:pointer">[✨ AI 만능 소통창 (르곤⇄클로드⇄GPT⇄그록 직결 허브) 열기]</button>
+    <span id="omniExtState" style="font-size:12px;opacity:.9">확장프로그램 확인 중…</span>
+  </div>
+  <details style="margin-top:8px">
+    <summary style="cursor:pointer;font-size:13px">⚡ 독대실에서 바로 분배하기 (Claude / GPT / Grok)</summary>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:8px">
+      <select id="omniPreset" style="padding:7px 10px;border-radius:9px;border:1px solid rgba(255,255,255,.4);background:rgba(0,0,0,.35);color:#fff">
+        <option value="" style="color:#000">— 지시문 템플릿 —</option>
+        <option value="design" style="color:#000">코드 설계 요청</option>
+        <option value="review" style="color:#000">코드 리뷰/개선</option>
+        <option value="ad" style="color:#000">10초 광고 카피</option>
+      </select>
+      <button type="button" id="omniClearBtn" style="padding:7px 12px;border-radius:9px;border:1px solid rgba(255,255,255,.4);background:rgba(220,60,60,.55);color:#fff;cursor:pointer">🗑️ 전체 지우기</button>
+      <button type="button" id="omniPasteBtn" style="padding:7px 12px;border-radius:9px;border:1px solid rgba(255,255,255,.4);background:rgba(0,150,255,.5);color:#fff;cursor:pointer">📋 새로 붙여넣기</button>
+    </div>
+    <textarea id="omniPrompt" rows="4" placeholder="사령관 지시문 — 열려 있는 AI 탭 입력창에 자동으로 주입됩니다." style="width:100%;box-sizing:border-box;margin-top:8px;padding:8px;border-radius:10px;border:1px solid rgba(255,255,255,.3);background:rgba(0,0,0,.35);color:#fff"></textarea>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:8px">
+      <label style="font-size:12px"><input type="checkbox" id="omniAutoSend" checked> 자동 전송</label>
+      <label style="font-size:12px"><input type="checkbox" id="omniAutoClear" checked> 발사 후 입력창 자동 비우기</label>
+      <button type="button" data-omni-fire="claude,gpt" style="padding:7px 12px;border-radius:9px;border:1px solid rgba(255,255,255,.4);background:rgba(16,185,129,.55);color:#fff;cursor:pointer">🚀 Claude + GPT 동시 발사</button>
+      <button type="button" data-omni-fire="grok" style="padding:7px 12px;border-radius:9px;border:1px solid rgba(255,255,255,.4);background:rgba(245,158,11,.55);color:#fff;cursor:pointer">🎯 Grok 카피 발사</button>
+      <button type="button" id="omniCollectBtn" style="padding:7px 12px;border-radius:9px;border:1px solid rgba(255,255,255,.4);background:rgba(0,150,255,.5);color:#fff;cursor:pointer">🧲 AI 탭 코드 수거</button>
+    </div>
+    <pre id="omniOut" style="white-space:pre-wrap;font-size:12px;margin:8px 0 0;padding:8px;border-radius:10px;background:rgba(0,0,0,.3)">대기 중…</pre>
+  </details>
+</div>
+<script>
+(function () {
+  var pending = {}, seq = 0;
+  var stateEl = document.getElementById("omniExtState");
+  var outEl = document.getElementById("omniOut");
+  var promptEl = document.getElementById("omniPrompt");
+  function call(type, data) {
+    return new Promise(function (resolve) {
+      var id = "o" + (++seq);
+      pending[id] = resolve;
+      window.postMessage(Object.assign({ source: "rgon-omni-page", type: type, id: id }, data || {}), location.origin);
+      setTimeout(function () {
+        if (pending[id]) { delete pending[id]; resolve({ ok: false, error: "확장프로그램 응답 없음 (RGON Omni-Link 확장 로드/새로고침 확인)" }); }
+      }, 8000);
+    });
+  }
+  window.addEventListener("message", function (ev) {
+    if (ev.source !== window || ev.origin !== location.origin) return;
+    var d = ev.data;
+    if (!d || d.source !== "rgon-omni-ext") return;
+    if (d.type === "OMNI_REPLY" && pending[d.id]) { var f = pending[d.id]; delete pending[d.id]; f(d.payload || {}); }
+    else if (d.type === "OMNI_SHARED_UPDATED") { summarize(); }
+    else if (d.type === "OMNI_JOB_DISPATCHED") { outEl.textContent = "📥 브리지 작업이 탭에 주입되었습니다."; }
+  });
+  function fmt(results) {
+    return (results || []).map(function (r) {
+      return (r.ok ? "✅ " : "⚠️ ") + r.role + ": " + (r.ok ? (r.sent ? "입력+전송 완료" : "입력 완료") : (r.error || "실패"));
+    }).join("\n") || "결과 없음";
+  }
+  async function summarize() {
+    var r = await call("OMNI_GET_SHARED");
+    var en = (r.shared && r.shared.entries) || {};
+    var parts = ["claude", "gpt", "grok"].filter(function (k) { return en[k]; }).map(function (k) {
+      return k + ": " + en[k].lines + "줄 / " + (en[k].bytes / 1024).toFixed(1) + "KB / 함수 " + (en[k].funcCount || 0) + "개";
+    });
+    if (parts.length) outEl.textContent = "🧲 흡수 현황\n" + parts.join("\n");
+  }
+  document.getElementById("omniOpenBtn").addEventListener("click", async function () {
+    var r = await call("OMNI_TOGGLE");
+    if (!r.ok) stateEl.textContent = "⚠️ " + (r.error || "확장프로그램 미연결");
+  });
+
+  // ---- v6.0.1 편의 기능: 템플릿 / 전체 지우기 / 새로 붙여넣기 / 발사 후 자동 비우기
+  var PRESETS = {
+    design: "다음 기능을 구현하는 단일 Python 스크립트를 설계·작성해 주세요. 코드 블록 하나로, 주요 함수에는 주석을, main 진입점을 포함해 주세요:\n\n",
+    review: "아래 코드를 리뷰하고 버그·예외처리·성능을 개선한 전체 코드를 코드 블록 하나로 출력해 주세요:\n\n",
+    ad: "10초 광고 영상(STUDIO v5)용 한국어 카피를 훅-혜택-CTA 구조로 작성해 주세요:\n\n"
+  };
+  document.getElementById("omniPreset").addEventListener("change", function (ev) {
+    var p = PRESETS[ev.target.value];
+    if (p) { promptEl.value = p + promptEl.value; promptEl.focus(); }
+    ev.target.value = "";
+  });
+  document.getElementById("omniClearBtn").addEventListener("click", function () {
+    promptEl.value = "";
+    promptEl.focus();
+  });
+  document.getElementById("omniPasteBtn").addEventListener("click", async function () {
+    promptEl.value = "";
+    promptEl.focus();
+    try {
+      var t = await navigator.clipboard.readText();
+      promptEl.value = t;
+      promptEl.focus();
+      outEl.textContent = "📋 클립보드 내용을 붙여넣었습니다 (" + t.length + "자)";
+    } catch (e) {
+      outEl.textContent = "⚠️ 클립보드 읽기 권한이 필요합니다. 입력창에서 Ctrl+V 로 붙여넣어 주세요.";
+    }
+  });
+
+  document.querySelectorAll("[data-omni-fire]").forEach(function (b) {
+    b.addEventListener("click", async function () {
+      var targets = b.getAttribute("data-omni-fire").split(",");
+      var prompt = promptEl.value;
+      if (!prompt.trim()) { outEl.textContent = "지시문을 입력하세요."; return; }
+      outEl.textContent = "발사 중…";
+      var r = await call("OMNI_DISPATCH", { targets: targets, prompt: prompt, autoSend: document.getElementById("omniAutoSend").checked, grokPrefix: targets.indexOf("grok") >= 0 });
+      outEl.textContent = r.results ? fmt(r.results) : "⚠️ " + (r.error || "실패");
+      var allOk = !!(r.results && r.results.length && r.results.every(function (x) { return x && x.ok; }));
+      if (allOk && document.getElementById("omniAutoClear").checked) {
+        promptEl.value = "";
+        promptEl.focus();
+      }
+    });
+  });
+  document.getElementById("omniCollectBtn").addEventListener("click", async function () {
+    outEl.textContent = "수거 중…";
+    var r = await call("OMNI_COLLECT", { targets: ["claude", "gpt", "grok"] });
+    outEl.textContent = (r.results || []).map(function (x) {
+      return (x.ok ? "✅ " : "⚠️ ") + x.role + ": " + (x.ok ? (x.lines + "줄 / " + (x.bytes / 1024).toFixed(1) + "KB") : (x.error || "실패"));
+    }).join("\n") || ("⚠️ " + (r.error || "결과 없음"));
+  });
+  call("OMNI_PING").then(function (r) {
+    stateEl.textContent = r.ok ? "🟢 확장프로그램 연결됨 v" + r.ver : "🔴 확장프로그램 미연결 — chrome://extensions 에서 rgon_aside_extension 로드/새로고침";
+    if (r.ok) summarize();
+  });
+})();
+</script>
+<!-- OMNI-LINK:END -->
+
 
   <!-- 👑 상단 헤더 바 (모바일 360px 완벽 대응) -->
   <header class="glass-panel px-3 sm:px-4 py-2.5 sm:py-3 shrink-0 flex items-center justify-between border-b border-indigo-500/30 sticky top-0 z-40">

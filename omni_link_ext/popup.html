@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><title>RGON Omni-Link v6.0.3</title>
+<style>
+body{width:440px;margin:0;font-family:"Malgun Gothic","Segoe UI",sans-serif;background:#0d1117;color:#e6edf3;font-size:13px}
+header{padding:8px 10px;background:#161b22;display:flex;justify-content:space-between;align-items:center;gap:6px}
+.tabs{display:flex;border-bottom:1px solid #30363d}
+.tabs button{flex:1;background:#161b22;color:#c9d1d9;border:0;border-radius:0;padding:8px;cursor:pointer}
+.tabs button.on{background:#1f6feb;color:#fff}
+.pane{display:none;padding:10px}.pane.on{display:block}
+button{background:#21262d;color:#e6edf3;border:1px solid #30363d;border-radius:6px;padding:5px 8px;cursor:pointer;font-size:12px}
+button:hover{background:#30363d}
+button.pri{background:#238636;border-color:#2ea043}
+button.warn{background:#5a2323;border-color:#a33}
+select,input[type=text],textarea{width:100%;box-sizing:border-box;background:#0d1117;color:#e6edf3;border:1px solid #30363d;border-radius:6px;padding:6px;font-size:12px}
+textarea{height:120px;resize:vertical}
+.row{display:flex;gap:6px;align-items:center;margin:6px 0;flex-wrap:wrap}
+.lamp{display:flex;justify-content:space-between;align-items:center;padding:5px;border-bottom:1px solid #21262d;gap:6px}
+.lamp small{color:#8b949e}
+.tgt{display:flex;justify-content:space-between;align-items:center;padding:4px 6px;background:#161b22;border-radius:6px;margin:4px 0;gap:6px}
+.tgt label{flex:1;cursor:pointer}
+.card{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:6px;margin:6px 0}
+.card pre{white-space:pre-wrap;word-break:break-word;max-height:160px;overflow:auto;margin:4px 0;font-size:12px;font-family:Consolas,monospace}
+.sub{color:#8b949e;font-size:11px;margin:8px 0 2px}
+#status{font-size:11px;color:#8b949e;padding:4px 10px 8px;min-height:16px}
+.hide{display:none!important}
+hr{border:0;border-top:1px solid #30363d;margin:8px 0}
+</style></head>
+<body>
+<header><b>🛰️ RGON Omni-Link Hub</b><span id="ver"></span><span id="bridgeLamp">⚪ Bridge</span></header>
+<div class="tabs">
+  <button data-pane="neural" class="on">📡 신경망</button>
+  <button data-pane="dispatch">⚡ 작업 분배</button>
+  <button data-pane="absorb">🧲 흡수기</button>
+</div>
+
+<!-- 📡 신경망 -->
+<section id="neural" class="pane on">
+  <div class="sub">신경망 램프</div>
+  <div id="lamps"></div>
+  <hr>
+  <div class="sub">역할 지정 (선택한 탭 ← 역할)</div>
+  <div class="row"><select id="tabSel"></select></div>
+  <div class="row" style="flex-wrap:nowrap">
+    <select id="roleSel">
+      <option value="claude">🧠 Claude</option>
+      <option value="gpt">⚡ GPT</option>
+      <option value="grok">🎯 Grok</option>
+      <option value="__custom__">✏️ 직접 쓰기 (이름 직접 입력)</option>
+    </select>
+    <button id="assignRole" class="pri" style="white-space:nowrap">지정</button>
+  </div>
+  <div class="row hide" id="customRow">
+    <input type="text" id="customRoleName" placeholder="새 신경망 이름 입력 (예: Claude Sonnet 5.5, Suno, Perplexity)">
+  </div>
+</section>
+
+<!-- ⚡ 작업 분배 -->
+<section id="dispatch" class="pane">
+  <textarea id="prompt" placeholder="발사할 작업 지시를 입력하세요..."></textarea>
+  <div class="row">
+    <button id="clearPrompt">🗑️ 전체 지우기</button>
+    <button id="pastePrompt">📋 새로 붙여넣기</button>
+    <label><input type="checkbox" id="autoclear"> 발사 후 자동 지우기</label>
+  </div>
+  <div class="row">
+    <button id="selAllTargets">☑️ 전체 선택</button>
+    <button id="unselAllTargets">☐ 전체 해제</button>
+  </div>
+  <div id="targets">
+    <div class="tgt"><label><input type="checkbox" class="tgt-chk" value="claude" checked> 🧠 Claude</label><span data-lamp="claude"></span><button data-solo="claude">🧠 Claude 단독 발사</button></div>
+    <div class="tgt"><label><input type="checkbox" class="tgt-chk" value="gpt" checked> ⚡ GPT</label><span data-lamp="gpt"></span><button data-solo="gpt">⚡ GPT 단독 발사</button></div>
+    <div class="tgt"><label><input type="checkbox" class="tgt-chk" value="grok"> 🎯 Grok</label><span data-lamp="grok"></span><button data-solo="grok">🎯 Grok 단독 발사</button></div>
+    <div id="customTargets"></div>
+  </div>
+  <div class="row">
+    <button id="fireChecked" class="pri">🚀 체크한 대상만 발사</button>
+    <button id="fireAll" class="pri">🌐 전체 선택 발사</button>
+  </div>
+  <div id="fireLog" style="font-size:12px"></div>
+</section>
+
+<!-- 🧲 흡수기 -->
+<section id="absorb" class="pane">
+  <div class="row">
+    <button id="absSelAll">☑️ 전체 선택</button>
+    <button id="absUnselAll">☐ 전체 해제</button>
+  </div>
+  <div id="absTargets"></div>
+  <div class="row">
+    <button id="doAbsorb" class="pri">🧲 선택 대상 수거</button>
+    <button id="doAbsorbAll">🌐 전체 수거</button>
+  </div>
+  <div class="row"><label><input type="checkbox" id="autoCleanAbs"> 자동 삭제 ON (수거 전 기존 흡수함 비우기)</label></div>
+  <div class="row">
+    <button id="clearAbs" class="warn">🗑️ 흡수함 전체 비우기</button>
+    <button id="copyAllAbs">📋 전체 복사</button>
+  </div>
+  <div id="cards"></div>
+</section>
+
+<div id="status"></div>
+<script src="core.js"></script>
+<script src="popup.js"></script>
+</body></html>
