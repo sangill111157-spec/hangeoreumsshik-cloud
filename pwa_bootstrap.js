@@ -166,3 +166,99 @@
     setInterval(monitorTunnelBridge, 30000);
   }
 })();
+
+/* RGON_STEP2_BEGIN */
+;(function () {
+  'use strict';
+  if (window.__RGON_STEP2_TUNNEL__) { return; }
+  window.__RGON_STEP2_TUNNEL__ = true;
+
+  var RE = /5G\s*\ud130\ub110\s*\ucd94\uc801/;
+  var STYLE_ID = 'rgon-step2-tunnel-style';
+  var CSS = '.rgon-tunnel-badge{white-space:nowrap !important;width:max-content !important;max-width:90vw !important;word-break:keep-all !important;overflow-wrap:normal !important;writing-mode:horizontal-tb !important;box-sizing:border-box !important;}' +
+    '@media (max-width:768px){html.rgon-dokdae-page .rgon-tunnel-badge{position:fixed !important;top:auto !important;left:auto !important;right:6px !important;bottom:6px !important;transform:none !important;margin:0 !important;padding:2px 7px !important;font-size:10px !important;line-height:1.25 !important;opacity:0.72 !important;pointer-events:none !important;z-index:40 !important;}}';
+
+  function isDokdae() {
+    try { return /rgon_alpha_chat/i.test(location.pathname) || !!document.getElementById('dokdae-feed'); }
+    catch (e) { return false; }
+  }
+  function norm(el) { return (el.textContent || '').replace(/\s+/g, ' ').trim(); }
+  function ensureStyle() {
+    if (document.getElementById(STYLE_ID)) { return; }
+    var host = document.head || document.documentElement;
+    if (!host) { return; }
+    var st = document.createElement('style');
+    st.id = STYLE_ID;
+    st.textContent = CSS;
+    host.appendChild(st);
+  }
+  function tag(el) {
+    var base = norm(el);
+    var cur = el;
+    var n = 0;
+    while (cur && cur !== document.body && cur !== document.documentElement && n < 4) {
+      if (n > 0 && norm(cur) !== base) { break; }
+      cur.classList.add('rgon-tunnel-badge');
+      cur = cur.parentElement;
+      n++;
+    }
+  }
+  function tagNode(node) {
+    var el = node.parentElement;
+    if (!el || el.classList.contains('rgon-tunnel-badge')) { return; }
+    if (norm(el).length > 80) {
+      var sp = document.createElement('span');
+      node.parentNode.insertBefore(sp, node);
+      sp.appendChild(node);
+      el = sp;
+    }
+    tag(el);
+  }
+  function scan() {
+    if (!document.body) { return; }
+    ensureStyle();
+    if (isDokdae()) { document.documentElement.classList.add('rgon-dokdae-page'); }
+    var w;
+    try {
+      w = document.createTreeWalker(document.body, 5, { acceptNode: function (n) {
+        if (n.nodeType === 1) {
+          var t = n.tagName;
+          if (t === 'SCRIPT' || t === 'STYLE' || t === 'NOSCRIPT' || t === 'TEXTAREA' || n.id === 'dokdae-feed') { return 2; }
+          return 3;
+        }
+        var v = n.nodeValue;
+        return (v && v.length < 100 && RE.test(v)) ? 1 : 3;
+      } });
+    } catch (e) { return; }
+    var hits = [];
+    var node;
+    while ((node = w.nextNode())) { hits.push(node); }
+    hits.forEach(tagNode);
+  }
+
+  var timer = null;
+  function sched() {
+    if (timer) { return; }
+    timer = setTimeout(function () {
+      timer = null;
+      try { scan(); } catch (e) {}
+    }, 350);
+  }
+  function boot() {
+    try { scan(); } catch (e) {}
+    setTimeout(function () { try { scan(); } catch (e) {} }, 600);
+    setTimeout(function () { try { scan(); } catch (e) {} }, 1800);
+    var n = 0;
+    var iv = setInterval(function () {
+      try { scan(); } catch (e) {}
+      if (++n >= 20) { clearInterval(iv); }
+    }, 3000);
+    try {
+      var mo = new MutationObserver(sched);
+      mo.observe(document.body, { childList: true, subtree: true });
+    } catch (e) {}
+  }
+  if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', boot); }
+  else { boot(); }
+})();
+/* RGON_STEP2_END */

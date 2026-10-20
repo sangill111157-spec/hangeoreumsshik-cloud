@@ -1,8 +1,8 @@
 {
   "schema": "rgon_brain_snapshot/1",
-  "version": "v6.0.7",
-  "generated_at_kst": "2026-10-21 06:04:57 KST",
-  "synced_at_kst": "2026-10-21 06:04:57 KST",
+  "version": "v6.0.8",
+  "generated_at_kst": "2026-10-21 07:28:57 KST",
+  "synced_at_kst": "2026-10-21 07:28:57 KST",
   "sync_rate": "100.0%",
   "score": 100,
   "max_score": 100,
@@ -523,6 +523,15 @@
         "verified_status": 200,
         "opened_at": "2026-10-20 23:47:42"
       }
+    }
+  },
+  "auto_builder": {
+    "last_run_kst": "2026-10-21 07:28:57 KST",
+    "trigger": "startup",
+    "ok": true,
+    "steps": {
+      "step1": "already-applied",
+      "step2": "already-applied"
     }
   }
 }

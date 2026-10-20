@@ -1,7 +1,7 @@
 (() => {
 "use strict";
 if (window.top !== window) return;
-const VER = "6.0.7";
+const VER = "6.0.8";
 
 // 이전 인스턴스(재주입/확장 리로드) 정리
 try { window.dispatchEvent(new CustomEvent("rgon-omni-kill")); } catch (_) {}
@@ -22,7 +22,7 @@ const GROK_PREFIX = "[광고 카피라이터 모드] 아래 지시를 바탕으�
 const IS_RGON = /^(127\.0\.0\.1|localhost)$/.test(location.hostname) && location.port === "8501";
 const IS_AI_HOST = /(^|\.)(genspark\.ai|claude\.ai|chatgpt\.com|openai\.com|grok\.com)$|^x\.com$/.test(location.hostname);
 
-// ===== v6.0.7 3중 체크 상태 영구 보존 엔진 (메모리 + localStorage + chrome.storage) =====
+// ===== v6.0.8 3중 체크 상태 영구 보존 엔진 (메모리 + localStorage + chrome.storage) =====
 const STORAGE_KEY_V606 = "rgon_omni_checked_v606";
 window.__RGON_CHECKED__ = window.__RGON_CHECKED__ || null;
 
@@ -761,7 +761,7 @@ $("#dispatchTargets")?.addEventListener("click", (ev) => {
   }
 });
 
-// ===== v6.0.7 발사 대상 체크박스 3중 저장소 실시간 동기화 핸들러 =====
+// ===== v6.0.8 발사 대상 체크박스 3중 저장소 실시간 동기화 핸들러 =====
 $("#dispatchTargets")?.addEventListener("change", (ev) => {
   const chk = ev.target.closest(".role-chk, .tgt-chk");
   if (!chk) return;
@@ -1074,7 +1074,7 @@ function __v607Sync() {
   try {
     if (__v607Api && typeof __v607Api.sync === 'function') { __v607Api.sync(); }
   } catch (e) {
-    try { console.warn('[v6.0.7] sync error:', e); } catch (_) {}
+    try { console.warn('[v6.0.8] sync error:', e); } catch (_) {}
   }
 }
 
@@ -1082,12 +1082,13 @@ __v607Api = (function () {
   var CHECK_KEY = 'rgon_omni_checked_v607';
   var CONTAINER_STYLE = 'display:flex;flex-direction:column;gap:6px;margin-top:8px;';
   var DEFAULT_ROLES = [
+    { role: 'rgon', icon: '🔵', label: '👑 르곤 보좌관 (Gemini 4 Argon)', def: false },
     { role: 'claude', icon: '🟠', label: '🧠 Claude (설계·코드)', def: true },
     { role: 'gpt',    icon: '🟢', label: '⚡ GPT (검증·코드)',    def: true },
     { role: 'grok',   icon: '🟣', label: '🔥 Grok (바이럴·카피)', def: false }
   ];
-  var KEY_ALIAS = { chatgpt: 'gpt', openai: 'gpt', anthropic: 'claude', xai: 'grok' };
-  var URL_ALIAS = [
+  var KEY_ALIAS = { gemini: 'rgon', argon: 'rgon', chatgpt: 'gpt', openai: 'gpt', anthropic: 'claude', xai: 'grok' };
+  var URL_ALIAS = [ [/gemini\.google\.com/i, 'rgon'],
     [/claude\.ai/i, 'claude'],
     [/chatgpt\.com|chat\.openai\.com/i, 'gpt'],
     [/grok\.com|x\.com\/i\/grok|grok\.x\.ai/i, 'grok']
@@ -1448,7 +1449,7 @@ __v607Api = (function () {
         return;
       }
     } catch (e) {}
-    try { console.warn('[v6.0.7]', msg); } catch (e) {}
+    try { console.warn('[v6.0.8]', msg); } catch (e) {}
   }
 
   function doFire(f, roles) {
@@ -1581,7 +1582,7 @@ __v607Api = (function () {
       updateTargetRowStatus();
       bindChange();
     } catch (e) {
-      try { console.warn('[v6.0.7] sync failed:', e); } catch (_) {}
+      try { console.warn('[v6.0.8] sync failed:', e); } catch (_) {}
     }
   }
 
@@ -1657,3 +1658,299 @@ function refreshScan() {
 /* RGON_V607_END */
 
 })();
+
+/* RGON_V608_FAB_BEGIN */
+;(function () {
+  'use strict';
+  try {
+    if (window.__RGON_V608_FAB__) { return; }
+    window.__RGON_V608_FAB__ = true;
+  } catch (e) {}
+
+  var POS_KEY = 'rgon_omni_fab_pos';
+  var STYLE_ID = 'rgon-v608-fab-style';
+  var KEY_TEXT = /르곤\s*만능\s*소통창|Omni-?Link/i;
+  var ID_SELECTORS = [
+    '#rgon-omni-fab', '#rgon-omni-toggle', '#omni-fab', '#rgon-fab',
+    '[id*="omni"][id*="fab"]', '[id*="omni"][id*="toggle"]'
+  ];
+  var OBS = { childList: true, characterData: true, subtree: true };
+  var CSS = [
+    '.rgon-fab-compact{padding:5px 10px !important;font-size:12px !important;line-height:1.3 !important;',
+    'white-space:nowrap !important;width:auto !important;min-width:0 !important;max-width:none !important;',
+    'height:auto !important;min-height:0 !important;border-radius:999px !important;box-sizing:border-box !important;',
+    'cursor:grab;user-select:none;-webkit-user-select:none;touch-action:none;',
+    'transition:opacity .2s ease, box-shadow .2s ease;}',
+    '.rgon-fab-compact:hover{opacity:1 !important;}',
+    '.rgon-fab-compact.rgon-fab-dragging{cursor:grabbing;opacity:1 !important;transition:none;}',
+    '.rgon-fab-compact .rgon-fab-full{display:inline-block;max-width:0;overflow:hidden;opacity:0;',
+    'white-space:nowrap;margin:0;vertical-align:middle;',
+    'transition:max-width .28s ease, opacity .2s ease, margin .28s ease;}',
+    '.rgon-fab-compact:hover .rgon-fab-full,.rgon-fab-compact.rgon-fab-dragging .rgon-fab-full{',
+    'max-width:340px;opacity:1;margin:0 6px;}',
+    '.rgon-fab-compact .rgon-fab-n{display:inline-block;min-width:16px;padding:0 5px;margin-left:4px;',
+    'border-radius:999px;background:rgba(255,255,255,.22);text-align:center;font-weight:700;}'
+  ].join('');
+
+  var current = null;
+  var tries = 0;
+
+  /* ---------- small helpers ---------- */
+  function mk(cls, text) {
+    var s = document.createElement('span');
+    s.className = cls;
+    s.textContent = text;
+    return s;
+  }
+  function hasOurClass(n) {
+    var c = n && n.classList;
+    return !!(c && (c.contains('rgon-fab-ic') || c.contains('rgon-fab-full') || c.contains('rgon-fab-n')));
+  }
+  function clamp(v, lo, hi) { return Math.min(Math.max(v, lo), hi); }
+  function setImp(el, name, val) { el.style.setProperty(name, val, 'important'); }
+
+  /* ---------- stored position ---------- */
+  function loadPos() {
+    try {
+      var raw = localStorage.getItem(POS_KEY);
+      if (!raw) { return null; }
+      var o = JSON.parse(raw);
+      if (o && typeof o.top === 'number' && (typeof o.left === 'number' || typeof o.right === 'number')) { return o; }
+    } catch (e) {}
+    return null;
+  }
+  function savePos(o) {
+    try { localStorage.setItem(POS_KEY, JSON.stringify(o)); } catch (e) {}
+  }
+  function applyPos(el, pos) {
+    var w = el.offsetWidth || 40;
+    var h = el.offsetHeight || 24;
+    var vw = window.innerWidth;
+    var vh = window.innerHeight;
+    setImp(el, 'top', clamp(pos.top, 0, Math.max(0, vh - h)) + 'px');
+    setImp(el, 'bottom', 'auto');
+    if (typeof pos.right === 'number') {
+      setImp(el, 'right', clamp(pos.right, 0, Math.max(0, vw - w)) + 'px');
+      setImp(el, 'left', 'auto');
+    } else {
+      setImp(el, 'left', clamp(pos.left, 0, Math.max(0, vw - w)) + 'px');
+      setImp(el, 'right', 'auto');
+    }
+  }
+  function defaultPos(el) {
+    setImp(el, 'right', '2px');
+    setImp(el, 'left', 'auto');
+  }
+
+  /* ---------- style ---------- */
+  function ensureStyle(el) {
+    try {
+      var root = el.getRootNode ? el.getRootNode() : document;
+      var host = (root && root.nodeType === 11) ? root : (document.head || document.documentElement);
+      if (host.querySelector('#' + STYLE_ID)) { return; }
+      var st = document.createElement('style');
+      st.id = STYLE_ID;
+      st.textContent = CSS;
+      host.appendChild(st);
+    } catch (e) {}
+  }
+
+  /* ---------- compact the label: icon / full label / count ---------- */
+  function splitText(v) {
+    var m = /^\s*(✨\uFE0F?)?\s*([\s\S]*?)\s*(\d+)?\s*$/.exec(v);
+    if (!m) { return null; }
+    return { ic: m[1], label: m[2], n: m[3] };
+  }
+  function processTextNode(tn) {
+    var p = tn.parentNode;
+    if (!p || p.nodeType !== 1 || hasOurClass(p)) { return false; }
+    var v = tn.nodeValue;
+    if (!v || !v.trim()) { return false; }
+    var s = splitText(v);
+    if (!s) { return false; }
+    var frag = document.createDocumentFragment();
+    if (s.ic) { frag.appendChild(mk('rgon-fab-ic', '✨')); }
+    if (s.label) { frag.appendChild(mk('rgon-fab-full', s.label)); }
+    if (s.n) { frag.appendChild(mk('rgon-fab-n', s.n)); }
+    if (!frag.childNodes.length) { return false; }
+    p.replaceChild(frag, tn);
+    return true;
+  }
+  function compact(el) {
+    if (!el || !el.isConnected) { return; }
+    (function walk(node, depth) {
+      var kids = Array.prototype.slice.call(node.childNodes);
+      for (var i = 0; i < kids.length; i++) {
+        var k = kids[i];
+        if (k.nodeType === 3) {
+          processTextNode(k);
+        } else if (k.nodeType === 1 && depth < 2 && !hasOurClass(k) && !/^(SCRIPT|STYLE|SVG)$/i.test(k.tagName)) {
+          walk(k, depth + 1);
+        }
+      }
+    })(el, 0);
+    if (el.querySelector('.rgon-fab-full') && !el.querySelector('.rgon-fab-ic')) {
+      el.insertBefore(mk('rgon-fab-ic', '✨'), el.firstChild);
+    }
+  }
+
+  /* ---------- drag (>= 5px = move, otherwise a normal click) ---------- */
+  function bindDrag(el) {
+    var st = null;
+    var suppress = false;
+
+    function onMove(ev) {
+      if (!st) { return; }
+      var dx = ev.clientX - st.x;
+      var dy = ev.clientY - st.y;
+      if (!st.moved) {
+        if (Math.sqrt(dx * dx + dy * dy) < 5) { return; }
+        st.moved = true;
+        el.classList.add('rgon-fab-dragging');
+      }
+      try { ev.preventDefault(); } catch (e) {}
+      var nl = clamp(st.left + dx, 0, Math.max(0, window.innerWidth - st.w));
+      var nt = clamp(st.top + dy, 0, Math.max(0, window.innerHeight - st.h));
+      setImp(el, 'left', nl + 'px');
+      setImp(el, 'top', nt + 'px');
+      setImp(el, 'right', 'auto');
+      setImp(el, 'bottom', 'auto');
+    }
+    function onUp() {
+      window.removeEventListener('mousemove', onMove, true);
+      window.removeEventListener('mouseup', onUp, true);
+      var s = st;
+      st = null;
+      if (!s || !s.moved) { return; }
+      el.classList.remove('rgon-fab-dragging');
+      suppress = true;
+      setTimeout(function () { suppress = false; }, 80);
+      var r = el.getBoundingClientRect();
+      var vw = window.innerWidth;
+      var pos;
+      if (r.left + r.width / 2 > vw / 2) {
+        pos = { top: Math.round(r.top), right: Math.round(Math.max(0, vw - r.right)) };
+      } else {
+        pos = { top: Math.round(r.top), left: Math.round(Math.max(0, r.left)) };
+      }
+      savePos(pos);
+      applyPos(el, pos);
+    }
+
+    el.addEventListener('mousedown', function (ev) {
+      if (ev.button !== 0) { return; }
+      var r = el.getBoundingClientRect();
+      st = { x: ev.clientX, y: ev.clientY, left: r.left, top: r.top, w: r.width, h: r.height, moved: false };
+      window.addEventListener('mousemove', onMove, true);
+      window.addEventListener('mouseup', onUp, true);
+    }, true);
+
+    window.addEventListener('click', function (ev) {
+      if (!suppress) { return; }
+      var path = ev.composedPath ? ev.composedPath() : [];
+      if (path.indexOf(el) !== -1) {
+        suppress = false;
+        ev.preventDefault();
+        ev.stopPropagation();
+        ev.stopImmediatePropagation();
+      }
+    }, true);
+  }
+
+  /* ---------- find the launcher ---------- */
+  function getRoots() {
+    var roots = [document];
+    try {
+      var all = document.querySelectorAll('*');
+      for (var i = 0; i < all.length && i < 8000; i++) {
+        if (all[i].shadowRoot) { roots.push(all[i].shadowRoot); }
+      }
+    } catch (e) {}
+    return roots;
+  }
+  function isFixed(el) {
+    try { return getComputedStyle(el).position === 'fixed'; } catch (e) { return false; }
+  }
+  function looksLikeFab(el) {
+    return !!el && (el.textContent || '').length < 200;
+  }
+  function findFab() {
+    var roots = getRoots();
+    var i, j, el;
+    for (i = 0; i < roots.length; i++) {
+      for (j = 0; j < ID_SELECTORS.length; j++) {
+        try { el = roots[i].querySelector(ID_SELECTORS[j]); } catch (e) { el = null; }
+        if (el && looksLikeFab(el)) { return el; }
+      }
+    }
+    for (i = 0; i < roots.length; i++) {
+      var walker;
+      try { walker = document.createTreeWalker(roots[i], NodeFilter.SHOW_TEXT, null); } catch (e) { continue; }
+      var node, guard = 0;
+      while ((node = walker.nextNode()) && guard++ < 30000) {
+        var v = node.nodeValue;
+        if (!v || v.length > 120 || !KEY_TEXT.test(v)) { continue; }
+        var cur = node.parentElement;
+        var up = 0;
+        while (cur && up < 4) {
+          if (isFixed(cur)) {
+            if (looksLikeFab(cur)) { return cur; }
+            break;
+          }
+          cur = cur.parentElement;
+          up++;
+        }
+      }
+    }
+    return null;
+  }
+
+  /* ---------- attach ---------- */
+  function attach(el) {
+    if (el.__rgonV608Fab) { return; }
+    el.__rgonV608Fab = true;
+    ensureStyle(el);
+    el.classList.add('rgon-fab-compact');
+    el.style.opacity = '0.78';
+    if (!el.getAttribute('title')) {
+      el.setAttribute('title', '✨ 르곤 만능 소통창 (Omni-Link) — 드래그로 이동');
+    }
+    compact(el);
+    var mo = new MutationObserver(function () {
+      mo.disconnect();
+      try { compact(el); } catch (e) {}
+      try { mo.observe(el, OBS); } catch (e) {}
+    });
+    mo.observe(el, OBS);
+    var saved = loadPos();
+    if (saved) { applyPos(el, saved); } else { defaultPos(el); }
+    bindDrag(el);
+  }
+
+  function tick() {
+    try {
+      if (current && !current.isConnected) { current = null; }
+      if (!current) {
+        var f = findFab();
+        if (f) { current = f; attach(f); }
+      } else {
+        if (!current.classList.contains('rgon-fab-compact')) { current.classList.add('rgon-fab-compact'); }
+        ensureStyle(current);
+      }
+    } catch (e) {}
+    tries++;
+    var delay = current ? 2000 : (tries < 20 ? 1000 : 4000);
+    setTimeout(tick, delay);
+  }
+
+  window.addEventListener('resize', function () {
+    try {
+      if (!current) { return; }
+      var p = loadPos();
+      if (p) { applyPos(current, p); }
+    } catch (e) {}
+  });
+
+  tick();
+})();
+/* RGON_V608_FAB_END */

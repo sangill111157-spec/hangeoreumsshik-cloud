@@ -695,6 +695,20 @@
   </style>
   <link rel="manifest" href="/manifest.webmanifest">
   <script src="/pwa_bootstrap.js?v=20261019205433" defer></script>
+
+<!-- RGON_STEP2_STYLE_BEGIN -->
+<style id="rgon-step2-style">
+details.rgon-compact-drawer{margin:6px 0;border-radius:10px;border:1px solid rgba(99,102,241,0.35);background:rgba(15,23,42,0.85);padding:6px 10px;color:#e0e7ff;box-sizing:border-box;max-width:100%;}
+details.rgon-compact-drawer>summary{cursor:pointer;font-size:12.5px;font-weight:600;line-height:1.45;list-style:none;color:#c7d2fe;user-select:none;-webkit-user-select:none;padding:3px 0;word-break:keep-all;}
+details.rgon-compact-drawer>summary::-webkit-details-marker{display:none;}
+details.rgon-compact-drawer[open]>summary{margin-bottom:6px;padding-bottom:6px;border-bottom:1px solid rgba(99,102,241,0.25);}
+details.rgon-compact-drawer>.rgon-drawer-body{max-height:58vh;overflow-y:auto;-webkit-overflow-scrolling:touch;}
+#dokdae-feed,.rgon-feed-main{min-height:45vh !important;max-height:62vh !important;overflow-y:auto !important;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;}
+@media (max-width:768px){#dokdae-feed,.rgon-feed-main{min-height:48vh !important;max-height:62vh !important;}}
+.rgon-tunnel-badge,#tunnelBadge,#tunnel-badge,#rgon-tunnel-badge,.tunnel-badge,[id*="tunnel"][id*="badge" i],[class*="tunnel"][class*="badge" i]{white-space:nowrap !important;width:max-content !important;max-width:90vw !important;word-break:keep-all !important;overflow-wrap:normal !important;writing-mode:horizontal-tb !important;}
+@media (max-width:768px){.rgon-tunnel-badge,#tunnelBadge,#tunnel-badge,#rgon-tunnel-badge,.tunnel-badge,[id*="tunnel"][id*="badge" i],[class*="tunnel"][class*="badge" i]{position:fixed !important;top:auto !important;left:auto !important;right:6px !important;bottom:6px !important;transform:none !important;margin:0 !important;padding:2px 7px !important;font-size:10px !important;line-height:1.25 !important;opacity:0.72 !important;pointer-events:none !important;z-index:40 !important;}}
+</style>
+<!-- RGON_STEP2_STYLE_END -->
 </head>
 <body class="flex flex-col h-screen max-w-4xl mx-auto border-x border-indigo-950/60 shadow-2xl relative">
 <!-- OMNI-LINK:BEGIN -->
@@ -4657,5 +4671,532 @@ window.shinAdV5={open:openModal,close:closeModal,manifest:function(){return MANI
 })();
 </script>
 <!-- SHIN_AD_V5_END -->
+
+<!-- RGON_STEP2_SCRIPT_BEGIN -->
+<script id="rgon-step2-layout">
+/* RGON_STEP2_BEGIN */
+;(function () {
+  'use strict';
+  if (window.__RGON_STEP2_TUNNEL__) { return; }
+  window.__RGON_STEP2_TUNNEL__ = true;
+
+  var RE = /5G\s*\ud130\ub110\s*\ucd94\uc801/;
+  var STYLE_ID = 'rgon-step2-tunnel-style';
+  var CSS = '.rgon-tunnel-badge{white-space:nowrap !important;width:max-content !important;max-width:90vw !important;word-break:keep-all !important;overflow-wrap:normal !important;writing-mode:horizontal-tb !important;box-sizing:border-box !important;}' +
+    '@media (max-width:768px){html.rgon-dokdae-page .rgon-tunnel-badge{position:fixed !important;top:auto !important;left:auto !important;right:6px !important;bottom:6px !important;transform:none !important;margin:0 !important;padding:2px 7px !important;font-size:10px !important;line-height:1.25 !important;opacity:0.72 !important;pointer-events:none !important;z-index:40 !important;}}';
+
+  function isDokdae() {
+    try { return /rgon_alpha_chat/i.test(location.pathname) || !!document.getElementById('dokdae-feed'); }
+    catch (e) { return false; }
+  }
+  function norm(el) { return (el.textContent || '').replace(/\s+/g, ' ').trim(); }
+  function ensureStyle() {
+    if (document.getElementById(STYLE_ID)) { return; }
+    var host = document.head || document.documentElement;
+    if (!host) { return; }
+    var st = document.createElement('style');
+    st.id = STYLE_ID;
+    st.textContent = CSS;
+    host.appendChild(st);
+  }
+  function tag(el) {
+    var base = norm(el);
+    var cur = el;
+    var n = 0;
+    while (cur && cur !== document.body && cur !== document.documentElement && n < 4) {
+      if (n > 0 && norm(cur) !== base) { break; }
+      cur.classList.add('rgon-tunnel-badge');
+      cur = cur.parentElement;
+      n++;
+    }
+  }
+  function tagNode(node) {
+    var el = node.parentElement;
+    if (!el || el.classList.contains('rgon-tunnel-badge')) { return; }
+    if (norm(el).length > 80) {
+      var sp = document.createElement('span');
+      node.parentNode.insertBefore(sp, node);
+      sp.appendChild(node);
+      el = sp;
+    }
+    tag(el);
+  }
+  function scan() {
+    if (!document.body) { return; }
+    ensureStyle();
+    if (isDokdae()) { document.documentElement.classList.add('rgon-dokdae-page'); }
+    var w;
+    try {
+      w = document.createTreeWalker(document.body, 5, { acceptNode: function (n) {
+        if (n.nodeType === 1) {
+          var t = n.tagName;
+          if (t === 'SCRIPT' || t === 'STYLE' || t === 'NOSCRIPT' || t === 'TEXTAREA' || n.id === 'dokdae-feed') { return 2; }
+          return 3;
+        }
+        var v = n.nodeValue;
+        return (v && v.length < 100 && RE.test(v)) ? 1 : 3;
+      } });
+    } catch (e) { return; }
+    var hits = [];
+    var node;
+    while ((node = w.nextNode())) { hits.push(node); }
+    hits.forEach(tagNode);
+  }
+
+  var timer = null;
+  function sched() {
+    if (timer) { return; }
+    timer = setTimeout(function () {
+      timer = null;
+      try { scan(); } catch (e) {}
+    }, 350);
+  }
+  function boot() {
+    try { scan(); } catch (e) {}
+    setTimeout(function () { try { scan(); } catch (e) {} }, 600);
+    setTimeout(function () { try { scan(); } catch (e) {} }, 1800);
+    var n = 0;
+    var iv = setInterval(function () {
+      try { scan(); } catch (e) {}
+      if (++n >= 20) { clearInterval(iv); }
+    }, 3000);
+    try {
+      var mo = new MutationObserver(sched);
+      mo.observe(document.body, { childList: true, subtree: true });
+    } catch (e) {}
+  }
+  if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', boot); }
+  else { boot(); }
+})();
+
+;(function () {
+  'use strict';
+  if (window.__RGON_STEP2_LAYOUT__) { return; }
+  window.__RGON_STEP2_LAYOUT__ = true;
+
+  var UA = (navigator && navigator.userAgent) || '';
+  var IS_MOBILE = (!/Chrome/.test(UA)) || /Mobile|Android|iPhone/i.test(UA);
+  var OMNI_ID = 'rgon-omni-top-drawer';
+  var TOOLS_ID = 'rgon-tools-drawer';
+  var OMNI_SUMMARY = "\ud83d\udce1 4\ub300 AI (\ud83d\udc51\ub974\uace4 \u00b7 \ud83e\udde0Claude \u00b7 \u26a1GPT \u00b7 \ud83d\udd25Grok) \ubd84\ubc30 \ucee8\ud2b8\ub864\ub7ec & \ub9cc\ub2a5 \uc18c\ud1b5\ucc3d \ud3bc\uce58\uae30 \u25bc";
+  var TOOLS_SUMMARY = "\ud83e\uddf0 6\ub300 \uae30\uad00 \uc9c0\ud718 \u00b7 Adobe STUDIO v5 \u00b7 \uc74c\uc131 \ub3c4\uad6c\ud568 \ud3bc\uce58\uae30 \u25bc";
+  var MOBILE_TEXT = "\ud83d\udcf1 \ubaa8\ubc14\uc77c \uc9c1\uacb0 \ubaa8\ub4dc (\ud074\ub9ad \uc2dc \uc9c0\uc2dc\ubb38 \ubcf5\uc0ac \ubc0f \ub3c5\ub300\uc2e4 \uc804\ub2ec)";
+  var RGON_LABEL = "\ud83d\udd35 \ud83d\udc51 \ub974\uace4 (Gemini 4 Argon)";
+  var DRAWER_STYLE = 'margin:6px 0;border-radius:10px;border:1px solid rgba(99,102,241,0.35);background:rgba(15,23,42,0.85);padding:6px 10px;';
+  var OMNI_RE = /Omni-?Link\s*\ubd84\ubc30\s*\ucee8\ud2b8\ub864\ub7ec|AI\s*\ub9cc\ub2a5\s*\uc18c\ud1b5\ucc3d\s*\uc5f4\uae30|\ud655\uc7a5\s*\ud504\ub85c\uadf8\ub7a8\s*\ud655\uc778\s*\uc911/;
+  var TOOLS_RE = /\ud55c\ub9c8\ub514\s*\uc62c\uc778\uc6d0|6\ub300\s*\uae30\uad00\s*\ubaa9\ud45c|6\ub300\s*\uc11c\ube0c\s*\uc5d0\uc774\uc804\ud2b8|\ubb34\ub2ac\ub9cc\s*\ubc84\ud2bc|[13]\s*\uccad\uc0ac|6\ub300\s*\uccad\uc0ac\s*\ub9b4\ub808\uc774|Adobe\s*\ubb34\ub8cc\s*3\ub300\uc7a5|\uccad\ub144\s*\ubcf4\uc774\uc2a4|\uc74c\uc131\s*\uc124\uc815/;
+  var STATUS_RE = /\ud655\uc7a5\s*\ud504\ub85c\uadf8\ub7a8\s*\ud655\uc778\s*\uc911\s*\.{0,3}|\ud655\uc7a5\s*\ud504\ub85c\uadf8\ub7a8\s*(?:\ubbf8\uac10\uc9c0|\ubbf8\uc124\uce58)[^\n]*/;
+  var SKIP_IDS = { 'rgon-autosync-badge': 1, 'rgon-autosync-fallback': 1, 'rgon-autosync-toast': 1, 'rgon-step2-toast': 1 };
+  var GUARD_SEL = '#' + OMNI_ID + ',#' + TOOLS_ID + ',#rgon-autosync-badge,#rgon-autosync-fallback';
+  var T0 = Date.now();
+
+  /* ---------------- helpers ---------------- */
+  function toast(msg) {
+    try {
+      var t = document.getElementById('rgon-step2-toast');
+      if (!t) {
+        t = document.createElement('div');
+        t.id = 'rgon-step2-toast';
+        t.style.cssText = 'position:fixed;left:50%;bottom:64px;transform:translateX(-50%);z-index:2147483646;max-width:90vw;padding:8px 14px;border-radius:10px;background:rgba(30,41,59,0.96);color:#e2e8f0;font-size:13px;text-align:center;box-shadow:0 4px 18px rgba(0,0,0,0.4);transition:opacity .25s;opacity:0;pointer-events:none;';
+        document.body.appendChild(t);
+      }
+      t.textContent = msg;
+      t.style.opacity = '1';
+      clearTimeout(t.__h);
+      t.__h = setTimeout(function () { t.style.opacity = '0'; }, 2600);
+    } catch (e) {}
+  }
+
+  function getFeed() {
+    var f = document.getElementById('dokdae-feed');
+    if (f) { return f; }
+    var sels = ['#chat-feed', '#chatFeed', '#feed', '#messages', '#chat-messages', '#chatMessages',
+      '.dokdae-feed', '.chat-feed', '[id*="dokdae"][id*="feed"]', '[id*="chat"][id*="feed"]'];
+    for (var i = 0; i < sels.length; i++) {
+      var el = null;
+      try { el = document.querySelector(sels[i]); } catch (e) {}
+      if (el) { return el; }
+    }
+    return null;
+  }
+  function tagFeed(feed) {
+    if (feed && !feed.classList.contains('rgon-feed-main')) { feed.classList.add('rgon-feed-main'); }
+  }
+
+  function inOverlay(el) {
+    var cur = el;
+    var n = 0;
+    while (cur && cur !== document.body && cur !== document.documentElement && n < 30) {
+      var sig = (cur.id || '') + ' ' + ((cur.getAttribute && cur.getAttribute('class')) || '');
+      if (/modal|overlay|dialog|popup|toast|backdrop|lightbox/i.test(sig)) { return true; }
+      var pos = '';
+      try { pos = getComputedStyle(cur).position; } catch (e) {}
+      if (pos === 'fixed') { return true; }
+      cur = cur.parentElement;
+      n++;
+    }
+    return false;
+  }
+
+  /* ---------------- anchor collection ---------------- */
+  function accept(el, text, feed, res) {
+    if (!el || !text) { return; }
+    if (el.closest('#' + OMNI_ID + ',#' + TOOLS_ID)) { return; }
+    if (feed && (feed.contains(el) || !(el.compareDocumentPosition(feed) & 4))) { return; }
+    if (inOverlay(el)) { return; }
+    if (OMNI_RE.test(text)) { res.omni.push(el); return; }
+    if (TOOLS_RE.test(text) && !el.closest('h1,h2')) { res.tools.push(el); }
+  }
+  function collect(feed) {
+    var res = { omni: [], tools: [] };
+    var w;
+    try {
+      w = document.createTreeWalker(document.body, 5, { acceptNode: function (n) {
+        if (n.nodeType === 1) {
+          var t = n.tagName;
+          if (t === 'SCRIPT' || t === 'STYLE' || t === 'NOSCRIPT' || t === 'TEXTAREA' || t === 'TEMPLATE' || t === 'OPTION') { return 2; }
+          if (n === feed || n.id === OMNI_ID || n.id === TOOLS_ID || SKIP_IDS[n.id]) { return 2; }
+          return 3;
+        }
+        var v = n.nodeValue;
+        if (!v || v.length > 200) { return 3; }
+        return (OMNI_RE.test(v) || TOOLS_RE.test(v)) ? 1 : 3;
+      } });
+    } catch (e) { return res; }
+    var node;
+    while ((node = w.nextNode())) {
+      if (node.parentElement) { accept(node.parentElement, node.nodeValue, feed, res); }
+    }
+    var ins = document.querySelectorAll('input[type="button"],input[type="submit"]');
+    for (var i = 0; i < ins.length; i++) { accept(ins[i], ins[i].value, feed, res); }
+    return res;
+  }
+
+  /* ---------------- block computation ---------------- */
+  function exclusiveBlock(anchor, others, feed) {
+    var cur = anchor;
+    for (var guard = 0; guard < 25; guard++) {
+      var p = cur.parentElement;
+      if (!p || p === document.body || p === document.documentElement) { break; }
+      if (feed && p.contains(feed)) { break; }
+      if (p.querySelector('h1')) { break; }
+      if (p.querySelector(GUARD_SEL)) { break; }
+      if (p.querySelector('#dokdae-input,#dokdae-text,#dokdae-msg,textarea[id*="dokdae"]')) { break; }
+      if ((p.textContent || '').length > 8000) { break; }
+      var bad = false;
+      for (var i = 0; i < others.length; i++) {
+        if (p.contains(others[i])) { bad = true; break; }
+      }
+      if (bad) { break; }
+      var pos = '';
+      try { pos = getComputedStyle(p).position; } catch (e) {}
+      if (pos === 'fixed' || pos === 'sticky') { break; }
+      cur = p;
+    }
+    return cur;
+  }
+  function uniqueBlocks(anchors, others, feed) {
+    var blocks = [];
+    anchors.forEach(function (a) {
+      var b = exclusiveBlock(a, others, feed);
+      if (blocks.indexOf(b) === -1) { blocks.push(b); }
+    });
+    var out = blocks.filter(function (b) {
+      return !blocks.some(function (o) { return o !== b && o.contains(b); });
+    });
+    out.sort(function (a, b) { return (a.compareDocumentPosition(b) & 4) ? -1 : 1; });
+    return out;
+  }
+
+  /* ---------------- drawers ---------------- */
+  function ensureDrawer(id, summaryText, openDefault, before) {
+    var d = document.getElementById(id);
+    if (d) { return d; }
+    if (!before || !before.parentNode) { return null; }
+    d = document.createElement('details');
+    d.id = id;
+    d.className = 'rgon-compact-drawer';
+    d.setAttribute('style', DRAWER_STYLE);
+    var s = document.createElement('summary');
+    s.textContent = summaryText;
+    var body = document.createElement('div');
+    body.className = 'rgon-drawer-body';
+    d.appendChild(s);
+    d.appendChild(body);
+    before.parentNode.insertBefore(d, before);
+    function sync() {
+      var t = s.textContent;
+      s.textContent = d.open ? t.replace(/\ud3bc\uce58\uae30 \u25bc\s*$/, '\uc811\uae30 \u25b2') : t.replace(/\uc811\uae30 \u25b2\s*$/, '\ud3bc\uce58\uae30 \u25bc');
+    }
+    d.addEventListener('toggle', sync);
+    if (openDefault) { d.open = true; sync(); }
+    return d;
+  }
+  function hoist(block) {
+    var all = block.querySelectorAll('*');
+    var list = [];
+    for (var i = 0; i < all.length; i++) {
+      var el = all[i];
+      var pos = '';
+      try { pos = getComputedStyle(el).position; } catch (e) {}
+      if (pos === 'fixed' && !list.some(function (x) { return x.contains(el); })) { list.push(el); }
+    }
+    list.forEach(function (el) { document.body.appendChild(el); });
+  }
+  function moveBlocks(drawer, blocks) {
+    var body = drawer.querySelector('.rgon-drawer-body');
+    if (!body) { return; }
+    blocks.forEach(function (b) {
+      if (b.parentNode && !drawer.contains(b) && !b.contains(drawer)) {
+        hoist(b);
+        body.appendChild(b);
+      }
+    });
+  }
+
+  /* ---------------- rgon row ---------------- */
+  function sigOf(el) {
+    var s = '';
+    if (el.attributes) {
+      for (var i = 0; i < el.attributes.length; i++) {
+        var a = el.attributes[i];
+        if (a.name !== 'style' && a.name !== 'class') { s += ' ' + a.value; }
+      }
+    }
+    return s + ' ' + (el.textContent || '');
+  }
+  function prepClone(root) {
+    var nodes = [root].concat(Array.prototype.slice.call(root.querySelectorAll('*')));
+    nodes.forEach(function (el) {
+      if (el.tagName === 'INPUT' && el.type === 'checkbox') {
+        el.removeAttribute('checked');
+        el.checked = false;
+        el.setAttribute('data-rgon-step2', '1');
+      }
+      for (var i = 0; i < el.attributes.length; i++) {
+        var a = el.attributes[i];
+        var n = a.name;
+        var v = a.value;
+        if (n === 'class' || n === 'style' || !/claude/i.test(v)) { continue; }
+        var nv = v;
+        if (n === 'href') {
+          nv = v.replace(/https?:\/\/[^\s'"]*claude[^\s'"]*/gi, 'https://gemini.google.com/app');
+        } else if (n === 'id' || n === 'for' || n === 'name' || n === 'value' || n === 'title' || n === 'aria-label' || n.indexOf('data-') === 0) {
+          nv = v.replace(/claude/gi, 'rgon');
+        } else {
+          nv = v.replace(/(['"])claude\1/gi, '$1rgon$1');
+        }
+        if (nv !== v) { el.setAttribute(n, nv); }
+      }
+      for (var c = el.firstChild; c; c = c.nextSibling) {
+        if (c.nodeType !== 3) { continue; }
+        var t = c.nodeValue;
+        if (/claude/i.test(t)) {
+          t = t.replace(/(?:\ud83d\udfe0\s*)?(?:\ud83e\udde0\s*)?Claude(?:\s*\([^)]*\))?/i, ' ' + RGON_LABEL + ' ');
+        }
+        t = t.replace(/\(?\uc124\uacc4\s*[\u00b7\u318d]\s*\ucf54\ub4dc\)?/g, '').replace(/(?:\ud83d\udfe0|\ud83e\udde0)/g, '');
+        if (t !== c.nodeValue) { c.nodeValue = t; }
+      }
+      if (el.tagName === 'BUTTON' || el.tagName === 'A' || el.getAttribute('role') === 'button') {
+        if (!el.getAttribute('onclick')) { el.setAttribute('data-rgon-step2-solo', '1'); }
+      }
+    });
+  }
+  function firstCheckRow(row) {
+    var kids = row.parentNode ? row.parentNode.children : [];
+    for (var i = 0; i < kids.length; i++) {
+      if (kids[i] === row || kids[i].querySelector('input[type="checkbox"]')) { return kids[i]; }
+    }
+    return row;
+  }
+  function cloneRow(row, body) {
+    var c = row.cloneNode(true);
+    prepClone(c);
+    c.setAttribute('data-rgon-step2-row', '1');
+    row.parentNode.insertBefore(c, firstCheckRow(row));
+    var btns = body.querySelectorAll('button,a,[role="button"],input[type="button"]');
+    for (var i = 0; i < btns.length; i++) {
+      var b = btns[i];
+      if (row.contains(b) || b.closest('[data-rgon-step2-row]') || !b.parentNode) { continue; }
+      if (/claude/i.test(sigOf(b))) {
+        var cb = b.cloneNode(true);
+        prepClone(cb);
+        cb.setAttribute('data-rgon-step2-row', '1');
+        b.parentNode.insertBefore(cb, b);
+      }
+    }
+  }
+  function buildScratchRow(body) {
+    var row = document.createElement('div');
+    row.setAttribute('data-rgon-step2-row', '1');
+    row.style.cssText = 'display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 8px;margin:4px 0;border:1px solid rgba(255,255,255,0.15);border-radius:8px;';
+    var lab = document.createElement('label');
+    lab.style.cssText = 'display:flex;align-items:center;gap:6px;flex:1;min-width:0;cursor:pointer;';
+    var cb = document.createElement('input');
+    cb.type = 'checkbox';
+    cb.className = 'role-chk tgt-chk';
+    cb.value = 'rgon';
+    cb.setAttribute('data-role', 'rgon');
+    cb.setAttribute('data-rgon-step2', '1');
+    var sp = document.createElement('span');
+    sp.textContent = RGON_LABEL;
+    lab.appendChild(cb);
+    lab.appendChild(sp);
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'btn ghost solo-fire-btn';
+    btn.setAttribute('data-solo', 'rgon');
+    btn.setAttribute('data-rgon-step2-solo', '1');
+    btn.style.whiteSpace = 'nowrap';
+    btn.textContent = '\ud83d\ude80 \ub2e8\ub3c5 \ubc1c\uc0ac';
+    row.appendChild(lab);
+    row.appendChild(btn);
+    body.insertBefore(row, body.firstChild);
+  }
+  function ensureRgonRow(drawer) {
+    var body = drawer.querySelector('.rgon-drawer-body');
+    if (!body) { return; }
+    var real = body.querySelector('input[type="checkbox"][value="rgon"]:not([data-rgon-step2])');
+    var mine = body.querySelectorAll('[data-rgon-step2-row]');
+    var i;
+    if (real) {
+      for (i = 0; i < mine.length; i++) {
+        if (mine[i].parentNode) { mine[i].parentNode.removeChild(mine[i]); }
+      }
+      return;
+    }
+    if (mine.length) { return; }
+    if (/Gemini\s*4\s*Argon/.test(body.textContent || '')) { return; }
+    var boxes = body.querySelectorAll('input[type="checkbox"]');
+    var claude = null;
+    for (var j = 0; j < boxes.length; j++) {
+      var holder = boxes[j].closest('label') || boxes[j].parentElement;
+      if (/claude/i.test(sigOf(boxes[j]) + ' ' + (holder ? holder.textContent : ''))) { claude = boxes[j]; break; }
+    }
+    if (claude) {
+      var row = claude;
+      while (row.parentElement && row.parentElement !== body &&
+             row.parentElement.querySelectorAll('input[type="checkbox"]').length === 1) {
+        row = row.parentElement;
+      }
+      if (row !== claude && (row.textContent || '').trim()) { cloneRow(row, body); return; }
+    }
+    if (Date.now() - T0 < 4000) { return; }
+    buildScratchRow(body);
+  }
+
+  /* fallback for clone/scratch solo buttons that have no inline handler */
+  function fireFallback(role) {
+    var text = '';
+    var ta = document.getElementById('dokdae-input') || document.querySelector('#' + OMNI_ID + ' textarea') || document.querySelector('textarea');
+    if (ta) { text = ta.value || ''; }
+    try { window.dispatchEvent(new CustomEvent('rgon-omni-fire', { detail: { roles: [role], text: text, source: 'step2-layout' } })); } catch (e) {}
+    try {
+      if (window.RGON_OMNI && typeof window.RGON_OMNI.fire === 'function') { window.RGON_OMNI.fire([role], text); }
+    } catch (e) {}
+    if (text && navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () {
+        toast('\ud83d\udccb \uc9c0\uc2dc\ubb38 \ubcf5\uc0ac \uc644\ub8cc \u2014 \ub974\uace4(Gemini)\uc5d0 \ubd99\uc5ec\ub123\uc73c\uc138\uc694');
+      }, function () { toast('\ud83d\udc51 \ub974\uace4 \ub2e8\ub3c5 \ubc1c\uc0ac \uc694\uccad\uc744 \uc804\ub2ec\ud588\uc2b5\ub2c8\ub2e4'); });
+    } else {
+      toast('\ud83d\udc51 \ub974\uace4 \ub2e8\ub3c5 \ubc1c\uc0ac \uc694\uccad\uc744 \uc804\ub2ec\ud588\uc2b5\ub2c8\ub2e4');
+    }
+  }
+  document.addEventListener('click', function (ev) {
+    try {
+      var t = ev.target;
+      var b = (t && t.closest) ? t.closest('[data-rgon-step2-solo="1"]') : null;
+      if (!b || b.getAttribute('onclick')) { return; }
+      fireFallback(b.getAttribute('data-solo') || 'rgon');
+    } catch (e) {}
+  }, true);
+
+  /* ---------------- mobile status text ---------------- */
+  function fixStatus(root) {
+    if (!IS_MOBILE || !root) { return; }
+    var w;
+    try { w = document.createTreeWalker(root, 4, null); } catch (e) { return; }
+    var hits = [];
+    var n;
+    while ((n = w.nextNode())) {
+      if (n.nodeValue && STATUS_RE.test(n.nodeValue)) { hits.push(n); }
+    }
+    hits.forEach(function (t) {
+      var p = t.parentElement;
+      if (p && /^(SCRIPT|STYLE|TEXTAREA)$/.test(p.tagName)) { return; }
+      t.nodeValue = t.nodeValue.replace(STATUS_RE, MOBILE_TEXT);
+    });
+  }
+
+  /* ---------------- watcher on the omni drawer ---------------- */
+  var watched = null;
+  var wobs = null;
+  var wTimer = null;
+  var WOPT = { childList: true, subtree: true, characterData: true };
+  function watch(drawer) {
+    if (watched === drawer) { return; }
+    watched = drawer;
+    if (wobs) { wobs.disconnect(); }
+    try {
+      wobs = new MutationObserver(function () {
+        if (wTimer) { return; }
+        wTimer = setTimeout(function () {
+          wTimer = null;
+          wobs.disconnect();
+          try { fixStatus(drawer); ensureRgonRow(drawer); } catch (e) {}
+          wobs.observe(drawer, WOPT);
+        }, 150);
+      });
+      wobs.observe(drawer, WOPT);
+    } catch (e) {}
+  }
+
+  /* ---------------- organize ---------------- */
+  function organize() {
+    if (!document.body) { return; }
+    var feed = getFeed();
+    tagFeed(feed);
+    var g = collect(feed);
+    if (g.omni.length || g.tools.length) {
+      var ob = uniqueBlocks(g.omni, g.tools, feed);
+      var tb = uniqueBlocks(g.tools, g.omni, feed);
+      if (ob.length) {
+        var d1 = ensureDrawer(OMNI_ID, OMNI_SUMMARY, false, ob[0]);
+        if (d1) { moveBlocks(d1, ob); }
+      }
+      if (tb.length) {
+        var d2 = ensureDrawer(TOOLS_ID, TOOLS_SUMMARY, (!IS_MOBILE && window.innerWidth >= 1100), tb[0]);
+        if (d2) { moveBlocks(d2, tb); }
+      }
+    }
+    var omni = document.getElementById(OMNI_ID);
+    if (omni) {
+      fixStatus(omni);
+      ensureRgonRow(omni);
+      watch(omni);
+    }
+  }
+  function safeOrganize() { try { organize(); } catch (e) { try { console.warn('[step2]', e); } catch (_) {} } }
+
+  function boot() {
+    safeOrganize();
+    [400, 1200, 2500, 5000, 9000].forEach(function (ms) { setTimeout(safeOrganize, ms); });
+    var pending = null;
+    try {
+      var obs = new MutationObserver(function () {
+        if (pending) { return; }
+        pending = setTimeout(function () { pending = null; safeOrganize(); }, 500);
+      });
+      obs.observe(document.body, { childList: true, subtree: true });
+      setTimeout(function () { try { obs.disconnect(); } catch (e) {} }, 30000);
+    } catch (e) {}
+  }
+  window.addEventListener('load', safeOrganize);
+  if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', boot); }
+  else { boot(); }
+})();
+/* RGON_STEP2_END */
+</script>
+<!-- RGON_STEP2_SCRIPT_END -->
 </body>
 </html>
