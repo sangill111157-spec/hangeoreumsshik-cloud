@@ -1,7 +1,7 @@
 "use strict";
 // RGON Omni-Link v6.0.0 - background service worker (multi-tab neural router)
 
-const OMNI_VERSION = "6.0.3";
+const OMNI_VERSION = "6.0.4";
 const BRIDGE = "http://127.0.0.1:8765";
 const OMNI_TOKEN = "9c5330679c10470c340860488caed5c6";
 const AI_ROLES = ["claude", "gpt", "grok"];
@@ -121,7 +121,7 @@ function roleFromText(s) {
   return null;
 }
 
-function guessRole(tab, reported, override) {
+function guessRole(tab, reported, override, customRoles) {
   if (override) return override;
   let u;
   try { u = new URL(tab.url || ""); } catch (_) { return null; }
@@ -135,21 +135,29 @@ function guessRole(tab, reported, override) {
   if (host === "genspark.ai" || host.endsWith(".genspark.ai")) {
     return reported || roleFromText(tab.title) || null;
   }
+  if (customRoles) {
+    for (const [ckey, cmeta] of Object.entries(customRoles)) {
+      if (!cmeta) continue;
+      if (cmeta.url && tab.url && (tab.url === cmeta.url || tab.url.startsWith(cmeta.url))) return ckey;
+      if (cmeta.origin && u.origin && u.origin.toLowerCase() === cmeta.origin.toLowerCase()) return ckey;
+    }
+  }
   return null;
 }
 
 async function scanTabs() {
-  const [tabs, rep, ovr] = await Promise.all([
+  const [tabs, rep, ovr, customs] = await Promise.all([
     chrome.tabs.query({}),
     getStore("omni_reported", {}),
-    getStore("omni_override", {})
+    getStore("omni_override", {}),
+    getStore("omni_custom_roles", {})
   ]);
   const list = [];
   const byRole = {};
   for (const t of tabs) {
     if (!t.id) continue;
     const r = rep[t.id] ? rep[t.id].role : null;
-    const role = guessRole(t, r, ovr[t.id]);
+    const role = guessRole(t, r, ovr[t.id], customs);
     if (!role) continue;
     const info = {
       tabId: t.id,
@@ -163,7 +171,7 @@ async function scanTabs() {
     list.push(info);
     (byRole[role] = byRole[role] || []).push(info);
   }
-  return { list, byRole };
+  return { list, byRole, customRoles: customs };
 }
 
 function pickTab(arr) {
@@ -428,10 +436,10 @@ async function handle(msg, sender) {
       return { ok: true };
     }
     case "OMNI_SCAN": {
-      const { list, byRole } = await scanTabs();
+      const { list, byRole, customRoles } = await scanTabs();
       const counts = {};
       Object.keys(byRole).forEach((k) => (counts[k] = byRole[k].length));
-      return { ok: true, version: OMNI_VERSION, list, counts, selfTabId: sender.tab ? sender.tab.id : null };
+      return { ok: true, version: OMNI_VERSION, list, counts, customRoles, selfTabId: sender.tab ? sender.tab.id : null };
     }
     case "OMNI_DISPATCH":
       return dispatch(msg.targets, msg.prompt, msg.autoSend, msg.perRole);
@@ -451,26 +459,18 @@ async function handle(msg, sender) {
       return { ok: true, value: msg.value !== false };
     case "OMNI_GET_AUTOCLEAN":
       return { ok: true, value: await isAutoClean() };
-    case "OMNI_FOCUS": {
-      const { byRole } = await scanTabs();
+            case "OMNI_FOCUS": {
+      const { byRole, customRoles } = await scanTabs();
       const t = pickTab(byRole[msg.role]);
-      if (!t) return { ok: false, error: "열려 있는 탭 없음" };
-      await focusTab(t);
-      return { ok: true };
-    }
-    case "OMNI_OPEN":
-      if (!/^https?:\/\//i.test(String(msg.url || ""))) return { ok: false, error: "http(s) URL만 허용" };
-      return openUrl(msg.url);
-    case "OMNI_OPEN_LINK":
-      return openLink(msg.key);
-    case "OMNI_SET_LINK": {
-      if (!/^https?:\/\//i.test(String(msg.url || ""))) return { ok: false, error: "http(s) URL만 허용" };
-      await withLock(async () => {
-        const l = await getStore("omni_links", {});
-        l[msg.key] = msg.url;
-        await setStore("omni_links", l);
-      });
-      return { ok: true };
+      if (t) {
+        await focusTab(t);
+        return { ok: true, focused: true };
+      }
+      const cmeta = (customRoles && customRoles[msg.role]) || (await getStore("omni_custom_roles", {}))[msg.role];
+      if (cmeta && cmeta.url) {
+        return openUrl(cmeta.url);
+      }
+      return { ok: false, error: "열려 있는 탭 없음" };
     }
     case "OMNI_GET_LINKS":
       return { ok: true, links: Object.assign({}, DEFAULT_LINKS, await getStore("omni_links", {})) };

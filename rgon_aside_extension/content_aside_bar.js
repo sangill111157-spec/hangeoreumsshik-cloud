@@ -1,7 +1,7 @@
 (() => {
 "use strict";
 if (window.top !== window) return;
-const VER = "6.0.3";
+const VER = "6.0.4";
 
 // 이전 인스턴스(재주입/확장 리로드) 정리
 try { window.dispatchEvent(new CustomEvent("rgon-omni-kill")); } catch (_) {}
@@ -112,7 +112,7 @@ async function detectAndReport() {
 
 // ------------------------------------------------------------------ prompt injection
 function findInput() {
-  const sel = "textarea, [contenteditable='true'], [contenteditable='plaintext-only'], [role='textbox']";
+  const sel = "textarea, [contenteditable='true'], [contenteditable='plaintext-only'], [role='textbox'], input[type='search'], input#search, #search-input input, #textbox, input[type='text']:not([readonly]):not([disabled])";
   const all = [...document.querySelectorAll(sel)].filter((e) => visible(e) && !e.disabled && !e.readOnly);
   if (!all.length) return null;
   const ph = (e) => {
@@ -396,6 +396,7 @@ button.b.sm:hover{background:rgba(220,60,60,.85)}
         <button class="b" data-link="firefly">🎨 Adobe Firefly</button>
         <button class="b" id="cfgLinks">🔧 링크 설정</button>
       </div>
+      <div id="studioCustomGrid" style="display:flex;flex-wrap:wrap;gap:6px;margin:8px 0"></div>
       <div class="row"><button class="b c" id="chkStatus">🩺 상태 확인</button></div>
       <div class="out" id="statusOut">상태 확인을 눌러주세요.</div>
     </section>
@@ -436,19 +437,70 @@ function fmtResults(results) {
 function renderLamps() {
   const scan = state.scan;
   if (!scan) return;
-  const html = ROLE_ORDER.map((role) => {
-    const m = ROLE_META[role];
-    const tabs = scan.list.filter((t) => t.role === role);
+  const customs = scan.customRoles || {};
+  const allRoles = Object.assign({}, ROLE_META, customs);
+  const activeOrder = ROLE_ORDER.concat(Object.keys(customs).filter(k => !ROLE_ORDER.includes(k)));
+
+  const html = activeOrder.map((role) => {
+    const m = allRoles[role] || { label: role, icon: "🔮" };
+    const tabs = (scan.list || []).filter((t) => t.role === role);
     const on = tabs.length > 0;
-    const first = tabs.slice().sort((a, b) => (b.lastAccessed || 0) - (a.lastAccessed || 0))[0];
-    return `<div class="lamp ${on ? "on" : "off"}"><span>${on ? "🟢" : "⚫"}</span><div class="lt"><b>${m.icon} ${esc(m.label)}</b><small>${on ? esc(trunc(first.title, 46)) + (tabs.length > 1 ? " (+" + (tabs.length - 1) + ")" : "") : "연결 안 됨"}</small></div>${on ? `<button class="b" data-focus="${role}">이동</button>` : ""}</div>`;
+    const first = on ? tabs.slice().sort((a, b) => (b.lastAccessed || 0) - (a.lastAccessed || 0))[0] : null;
+    const isCustom = !!customs[role];
+
+    return `<div class="lamp ${on ? "on" : "off"}">
+      <span>${on ? "🟢" : "⚫"}</span>
+      <div class="lt">
+        <b>${m.icon || "🔮"} ${esc(m.label)}</b>
+        <small>${on ? esc(trunc(first.title || m.url || "", 44)) + (tabs.length > 1 ? " (+" + (tabs.length - 1) + ")" : "") : (m.url ? esc(trunc(m.url, 44)) : "연결 안 됨")}</small>
+      </div>
+      <div style="display:flex;gap:4px;align-items:center">
+        ${on ? `<button class="b" data-focus="${esc(role)}">이동</button>` : (m.url ? `<button class="b c" data-focus="${esc(role)}">열기</button>` : "")}
+        ${isCustom ? `<button class="b sm" data-del-custom="${esc(role)}" title="이 커스텀 신경망 삭제">✕</button>` : ""}
+      </div>
+    </div>`;
   }).join("");
   $("#lamps").innerHTML = html;
-  const n = ROLE_ORDER.filter((r) => scan.list.some((t) => t.role === r)).length;
-  $("#cnt").textContent = String(n);
-  const me = state.role ? ROLE_META[state.role] : null;
-  $("#selfRole").textContent = me ? me.icon + " " + me.label : "일반 페이지";
+
+  const connectedCount = activeOrder.filter((r) => (scan.list || []).some((t) => t.role === r)).length;
+  $("#cnt").textContent = String(connectedCount);
+
+  // 상단 '이 탭 역할:' 즉시 표시
+  const me = state.role ? allRoles[state.role] : null;
+  $("#selfRole").textContent = me ? `${me.icon || "🔮"} ${me.label}` : "일반 페이지";
+
+  updateRoleSelect(customs);
+  renderStudioCustomLinks(customs);
 }
+
+function updateRoleSelect(customs) {
+  const sel = $("#roleSel");
+  if (!sel) return;
+  let html = `<option value="">자동 감지</option>
+    <option value="rgon">르곤 독대실</option>
+    <option value="claude">Claude Opus 5.5</option>
+    <option value="gpt">GPT-6.1 Sol</option>
+    <option value="grok">Grok 4.7</option>
+    <option value="sheets">Google Sheets</option>
+    <option value="adobe">Adobe</option>`;
+  for (const [k, v] of Object.entries(customs || {})) {
+    html += `<option value="${esc(k)}">${v.icon || "🔮"} ${esc(v.label)}</option>`;
+  }
+  html += `<option value="__custom__">✏️ 직접 쓰기…</option>`;
+  sel.innerHTML = html;
+  sel.value = state.role || "";
+}
+
+function renderStudioCustomLinks(customs) {
+  const cont = $("#studioCustomGrid");
+  if (!cont) return;
+  const list = Object.entries(customs || {});
+  if (!list.length) { cont.innerHTML = ""; return; }
+  cont.innerHTML = list.map(([k, v]) =>
+    `<button class="b" data-focus="${esc(k)}" style="flex:1;min-width:130px;padding:8px">${v.icon || "🔮"} ${esc(v.label)}</button>`
+  ).join("");
+}
+
 async function refreshScan() {
   if (state.dead) return;
   const r = await rt({ type: "OMNI_SCAN" });
@@ -663,15 +715,23 @@ refreshScan = async function() {
   renderDispatchTargets();
 };
 
-const origRoleSave = $("#roleSave");
-if (origRoleSave) {
-  origRoleSave.onclick = async () => {
+const roleSaveBtn = $("#roleSave");
+if (roleSaveBtn) {
+  roleSaveBtn.onclick = async () => {
     let sel = $("#roleSel").value;
     if (sel === "__custom__") {
-      const customName = ($("#customRoleInput").value || "").trim();
-      if (!customName) { toast("커스텀 역할명을 입력하세요."); return; }
-      sel = "custom_" + customName.toLowerCase().replace(/[^a-z0-9_-]/g, "_");
-      await rt({ type: "OMNI_SET_CUSTOM_ROLE", roleKey: sel, roleMeta: { label: customName, icon: "🔮" } });
+      const customName = ($("#customRoleInput")?.value || "").trim();
+      if (!customName) { toast("신경망 이름을 입력하세요."); return; }
+      const roleKey = "custom_" + encodeURIComponent(customName).replace(/%/g, "_");
+      const roleMeta = {
+        label: customName,
+        icon: "🔮",
+        url: location.href,
+        origin: location.origin,
+        title: document.title
+      };
+      await rt({ type: "OMNI_SET_CUSTOM_ROLE", roleKey, roleMeta });
+      sel = roleKey;
     }
     await rt({ type: "OMNI_SET_OVERRIDE", role: sel });
     await refreshScan();
@@ -713,9 +773,29 @@ $("#roleSave").addEventListener("click", async () => {
   await refreshScan();
   toast("이 탭 역할을 저장했습니다.");
 });
-$("#lamps").addEventListener("click", async (ev) => {
-  const b = ev.target.closest("[data-focus]");
-  if (b) await rt({ type: "OMNI_FOCUS", role: b.dataset.focus });
+$("#lamps")?.addEventListener("click", async (ev) => {
+  const focusBtn = ev.target.closest("[data-focus]");
+  if (focusBtn) {
+    await rt({ type: "OMNI_FOCUS", role: focusBtn.dataset.focus });
+    return;
+  }
+  const delBtn = ev.target.closest("[data-del-custom]");
+  if (delBtn) {
+    const roleKey = delBtn.dataset.delCustom;
+    if (confirm("이 커스텀 신경망 역할을 삭제하시겠습니까?")) {
+      await rt({ type: "OMNI_DEL_CUSTOM_ROLE", roleKey });
+      toast("커스텀 신경망 삭제 완료");
+      await refreshScan();
+    }
+  }
+});
+
+$("#panel")?.addEventListener("click", async (ev) => {
+  const focusBtn = ev.target.closest("[data-focus]");
+  if (focusBtn && !focusBtn.closest("#lamps")) {
+    await rt({ type: "OMNI_FOCUS", role: focusBtn.dataset.focus });
+    return;
+  }
 });
 $("#preset").addEventListener("change", (ev) => {
   const p = {
@@ -726,9 +806,9 @@ $("#preset").addEventListener("change", (ev) => {
   if (p) $("#prompt").value = p + $("#prompt").value;
   ev.target.value = "";
 });
-$("#fireCG").addEventListener("click", () => fire(["claude", "gpt"]));
-$("#fireGrok").addEventListener("click", () => fire(["grok"]));
-$("#fireAll").addEventListener("click", () => fire(["claude", "gpt", "grok"]));
+$("#fireCG")?.addEventListener("click", () => fire(["claude", "gpt"]));
+$("#fireGrok")?.addEventListener("click", () => fire(["grok"]));
+$("#fireAll")?.addEventListener("click", () => fire(["claude", "gpt", "grok"]));
 
 async function readClip() {
   try { return await navigator.clipboard.readText(); } catch (_) {}
@@ -825,8 +905,8 @@ chrome.runtime.onMessage.addListener((msg, _s, send) => {
     switch (msg.type) {
       case "OMNI_INJECT_PROMPT": return injectPrompt(msg.prompt, msg.autoSend !== false);
       case "OMNI_GET_LAST_CODE": {
-        const e = extractLastCode();
-        return e ? { ok: true, entry: e } : { ok: false, error: "코드 블록(pre code)·JSON 없음" };
+        const e = extractLastCode() || absorbPageText();
+        return e ? { ok: true, entry: e } : { ok: false, error: "수거할 내용 없음" };
       }
       case "OMNI_TOGGLE": togglePanel(); return { ok: true };
       case "OMNI_PING": return { ok: true, role: state.role, ver: VER };
