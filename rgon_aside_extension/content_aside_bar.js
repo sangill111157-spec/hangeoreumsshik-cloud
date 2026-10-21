@@ -2263,3 +2263,409 @@ if (document.readyState === "loading") { document.addEventListener("DOMContentLo
 
 })();
 // RGON-STEP8:END
+
+// RGON-STEP9:BEGIN
+(function () {
+'use strict';
+if (window.__rgon9Installed) { return; }
+window.__rgon9Installed = true;
+
+var KEY = "rgon_step9_candidates", REQ = "rgon_step9_collect_req", SEL_KEY = "rgon_step9_selected";
+var BOARD_ID = "rgon-step9-aggregator-board";
+var STABLE_MS = 2500, TICK_MS = 500, BRIDGE = "http://127.0.0.1:8765/api/candidates";
+
+
+var SQ = String.fromCharCode(39), DQ = String.fromCharCode(34), BS = String.fromCharCode(92);
+var FORBID = new RegExp("<" + "/script", "i");
+var RISK = [
+  { lv: 3, label: "git push", re: /\bgit\b[^\n]{0,80}\bpush\b/i },
+  { lv: 3, label: "requests", re: /\brequests\b/ },
+  { lv: 3, label: "urllib", re: /\burllib\b/ },
+  { lv: 3, label: "http.client/httpx/aiohttp", re: /\b(?:http\.client|httpx|aiohttp)\b/ },
+  { lv: 3, label: "smtplib/ftplib/socket", re: /\b(?:smtplib|ftplib|socket)\b/ },
+  { lv: 3, label: "텔레그램 API", re: /api\.telegram\.org/i },
+  { lv: 3, label: "fetch/XHR 외부 통신", re: /\bfetch\s*\(|XMLHttpRequest/ },
+  { lv: 2, label: "shutil.rmtree", re: /\brmtree\b/ },
+  { lv: 2, label: "os.remove/unlink/rmdir", re: /\bos\.(?:remove|unlink|rmdir|removedirs)\b|\.unlink\s*\(/ },
+  { lv: 2, label: "os.system/shell=True", re: /\bos\.system\b|\bshell\s*=\s*True\b/ },
+  { lv: 2, label: "동적 코드 실행 계열", re: /\b(?:eval|exec)\s*\(/ },
+  { lv: 2, label: "권한 변경(chmod/icacls)", re: /\bos\.chmod\b|\bicacls\b|\bchmod\b/i },
+  { lv: 2, label: "삭제 명령(rm -rf/Remove-Item/rmdir /s)", re: /\brm\s+-rf?\b|\bRemove-Item\b|\brmdir\s+\/s\b|\bdel\s+\/[fsq]/i },
+  { lv: 2, label: "git reset --hard/clean", re: /\bgit\b[^\n]{0,60}(?:reset\s+--hard|\bclean\b)/i },
+  { lv: 2, label: "DB 스키마/삭제(DROP/ALTER/DELETE)", re: /\b(?:DROP|ALTER)\s+TABLE\b|\bDELETE\s+FROM\b/i },
+  { lv: 2, label: "헌법 파일 접근(rgon_constitution.json)", re: /rgon_constitution\.json/ }
+];
+
+function djb2(s) {
+  var h = 5381, i;
+  for (i = 0; i < s.length; i++) { h = (((h << 5) + h) + s.charCodeAt(i)) | 0; }
+  return (h >>> 0).toString(16);
+}
+function hashCode(code) {
+  code = String(code || "");
+  return "djb2:" + djb2(code) + "-" + code.length;
+}
+function countLines(code) {
+  var t = String(code || "").replace(/\n+$/, "");
+  return t ? t.split("\n").length : 0;
+}
+function lineAt(code, idx) {
+  var n = 1, k;
+  for (k = 0; k < idx && k < code.length; k++) { if (code.charCodeAt(k) === 10) { n++; } }
+  return n;
+}
+function guessLang(code) {
+  if (/^\s*(?:import\s+\w|from\s+\S+\s+import\s|def\s+\w|class\s+\w|print\s*\(|#!.*python)/m.test(code)) { return "python"; }
+  return "";
+}
+function isPyLike(lang, code) {
+  if (/^(?:py|python|python3|py3)$/i.test(lang || "")) { return true; }
+  return !lang && guessLang(code) === "python";
+}
+
+function pyBalance(code) {
+  var st = [], i = 0, n = code.length, c, j, last, tail;
+  var opens = "([{", closes = ")]}";
+  while (i < n) {
+    c = code.charAt(i);
+    if (c === "#") {
+      while (i < n && code.charAt(i) !== "\n") { i++; }
+      continue;
+    }
+    if (c === SQ || c === DQ) {
+      if (code.substr(i, 3) === c + c + c) {
+        j = i + 3;
+        while (j < n) {
+          if (code.charAt(j) === BS) { j += 2; continue; }
+          if (code.substr(j, 3) === c + c + c) { break; }
+          j++;
+        }
+        if (j >= n) { return { ok: false, why: "닫히지 않은 삼중따옴표 (줄 " + lineAt(code, i) + ")" }; }
+        i = j + 3;
+        continue;
+      }
+      j = i + 1;
+      while (j < n && code.charAt(j) !== c && code.charAt(j) !== "\n") {
+        if (code.charAt(j) === BS) { j += 2; continue; }
+        j++;
+      }
+      if (j >= n || code.charAt(j) !== c) { return { ok: false, why: "닫히지 않은 따옴표 (줄 " + lineAt(code, i) + ")" }; }
+      i = j + 1;
+      continue;
+    }
+    if (opens.indexOf(c) >= 0) {
+      st.push({ ch: c, at: i });
+    } else if (closes.indexOf(c) >= 0) {
+      last = st.pop();
+      if (!last || opens.indexOf(last.ch) !== closes.indexOf(c)) {
+        return { ok: false, why: "괄호 불일치 (줄 " + lineAt(code, i) + ")" };
+      }
+    }
+    i++;
+  }
+  if (st.length) {
+    return { ok: false, why: "닫히지 않은 괄호 " + st[st.length - 1].ch + " (줄 " + lineAt(code, st[st.length - 1].at) + ")" };
+  }
+  tail = code.replace(/\s+$/, "").split("\n").pop();
+  if (tail.indexOf("#") < 0 && /[:=]$|\\$/.test(tail)) {
+    return { ok: false, why: "잘림 의심: 마지막 줄이 미완성" };
+  }
+  return { ok: true, why: "" };
+}
+
+function scoreCandidate(c) {
+  var blocks = (c && c.blocks) || [], n = blocks.length, i, j, b, code, lv = 1, lines = 0;
+  var hits = [], notes = [], ok = true, r9, bal, sealed;
+  if (n === 1) { r9 = { code: "PASS", label: "✅ R9 단일블록" }; }
+  else if (n >= 2) { r9 = { code: "MULTI", label: "⚠️ 다중블록주의" }; }
+  else { r9 = { code: "TEXT", label: "📝 텍스트답변" }; }
+  for (i = 0; i < n; i++) {
+    b = blocks[i];
+    code = String(b.code || "");
+    lines += countLines(code);
+    if (FORBID.test(code)) { ok = false; notes.push("블록" + (i + 1) + ": 금지 시퀀스 포함"); }
+    if (isPyLike(b.lang, code)) {
+      bal = pyBalance(code);
+      if (!bal.ok) { ok = false; notes.push("블록" + (i + 1) + ": " + bal.why); }
+    }
+    for (j = 0; j < RISK.length; j++) {
+      if (RISK[j].re.test(code)) {
+        if (RISK[j].lv > lv) { lv = RISK[j].lv; }
+        if (hits.indexOf(RISK[j].label) < 0) { hits.push(RISK[j].label); }
+      }
+    }
+  }
+  sealed = !!c && c.status === "SEALED";
+  return {
+    r9: r9, integ: { ok: ok, na: n === 0, notes: notes }, hits: hits,
+    lv: lv, level: "R" + lv, lines: lines, n: n, sealed: sealed,
+    eligible: sealed && n === 1 && ok && lv === 1
+  };
+}
+
+function totalLen(c) {
+  var t = 0, i, bl = (c && c.blocks) || [];
+  for (i = 0; i < bl.length; i++) { t += String(bl[i].code || "").length; }
+  return t;
+}
+function cmpKey(a, b) {
+  var i;
+  for (i = 0; i < a.length; i++) {
+    if (a[i] < b[i]) { return -1; }
+    if (a[i] > b[i]) { return 1; }
+  }
+  return 0;
+}
+function rankTop(entries) {
+  var best = null, i, e, key;
+  for (i = 0; i < entries.length; i++) {
+    e = entries[i];
+    if (!e || !e.score || !e.score.eligible) { continue; }
+    key = [e.score.lines, totalLen(e.cand), (e.cand && e.cand.t) || 0];
+    if (!best || cmpKey(key, best.key) < 0) { best = { role: e.role, key: key }; }
+  }
+  return best ? best.role : null;
+}
+
+
+var HOSTS = [
+  [/(^|\.)claude\.ai$/, "claude"],
+  [/(^|\.)chatgpt\.com$|(^|\.)chat\.openai\.com$/, "gpt"],
+  [/(^|\.)grok\.com$|(^|\.)grok\.x\.ai$/, "grok"],
+  [/(^|\.)gemini\.google\.com$|(^|\.)aistudio\.google\.com$/, "rgon"]
+];
+var SITE = {
+  claude: { msg: ['[data-is-streaming]', '.font-claude-message', '[data-testid="assistant-message"]', '.markdown-body', '.prose'] },
+  gpt: { msg: ['[data-message-author-role="assistant"]', '.markdown-body', '.prose'] },
+  grok: { msg: ['[id^="response-"]', '.message-bubble', '[data-testid="assistant-message"]', '.markdown-body', '.prose'] },
+  rgon: { msg: ['model-response', 'message-content', '.model-response-text', '.markdown-body', '.prose'] }
+};
+var UI_SEL = 'button, [role="button"], .copy-btn, [class*="copy-" i], [data-testid*="copy" i], [aria-label*="copy" i], svg, style, script';
+var BLOCK_TAGS = { P: 1, DIV: 1, LI: 1, UL: 1, OL: 1, BR: 1, H1: 1, H2: 1, H3: 1, H4: 1, H5: 1, H6: 1, TR: 1, BLOCKQUOTE: 1, SECTION: 1, ARTICLE: 1, TABLE: 1 };
+var SKIP_TAGS = { BUTTON: 1, SVG: 1, STYLE: 1, SCRIPT: 1, NOSCRIPT: 1 };
+
+var ROLE = detectRole();
+var curCont = null, lastSig = "", lastChange = Date.now(), stable = 0;
+var state = "WAIT", armed = false, sealedSig = "", draftSent = false, relayOn = false;
+
+function detectRole() {
+  var h = location.hostname, p = location.pathname, i, txt = "";
+  if (/(^|\.)genspark\.ai$/i.test(h)) {
+    try { txt = (document.body && document.body.innerText) ? document.body.innerText.slice(-3000) : ""; } catch (e) { txt = ""; }
+    if (/Claude\s*(?:Sonnet|Opus|Haiku|3|4|5)/i.test(txt)) { return "claude"; }
+    if (/GPT-[456]|ChatGPT|o1-|o3-/i.test(txt)) { return "gpt"; }
+    if (/Grok\s*[234]/i.test(txt)) { return "grok"; }
+    return "rgon";
+  }
+  if ((h === "x.com" || h === "twitter.com") && p.indexOf("/i/grok") === 0) { return "grok"; }
+  for (i = 0; i < HOSTS.length; i++) { if (HOSTS[i][0].test(h)) { return HOSTS[i][1]; } }
+  return "";
+}
+function hasChrome() {
+  try { return !!(typeof chrome !== "undefined" && chrome.storage && chrome.storage.local && chrome.runtime && chrome.runtime.id); } catch (e) { return false; }
+}
+function notify(msg) {
+  var t = document.createElement("div");
+  t.textContent = msg;
+  t.style.cssText = "position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:2147483647;background:#0b1220;color:#e2e8f0;border:1px solid #3b82f6;padding:7px 12px;border-radius:8px;font:12px system-ui,sans-serif";
+  (document.body || document.documentElement).appendChild(t);
+  setTimeout(function () { if (t.parentNode) { t.parentNode.removeChild(t); } }, 2400);
+}
+var STOP_SEL = 'button[aria-label*="Stop" i], button[aria-label*="중지"], button[aria-label*="멈춤"], button[data-testid*="stop" i], [data-is-streaming="true"], button.stop, mat-icon[fonticon="stop"]';
+function isGenerating() {
+  try { return !!document.querySelector(STOP_SEL); } catch (e) { return false; }
+}
+function findContainer() {
+  ROLE = detectRole() || ROLE;
+  var sels = (SITE[ROLE] && SITE[ROLE].msg) || [], i, list, best = null, el;
+  for (i = 0; i < sels.length; i++) {
+    try { list = document.querySelectorAll(sels[i]); } catch (e) { list = []; }
+    if (list.length) {
+      el = list[list.length - 1];
+      if (!best || (best.compareDocumentPosition(el) & 4)) { best = el; }
+    }
+  }
+  return best;
+}
+function cleanCode(el) {
+  var clone = el.cloneNode(true), ui, i;
+  try { ui = clone.querySelectorAll(UI_SEL); } catch (e) { ui = []; }
+  for (i = 0; i < ui.length; i++) { if (ui[i].parentNode) { ui[i].parentNode.removeChild(ui[i]); } }
+  return (clone.textContent || "").replace(/\r\n?/g, "\n").replace(/\s+$/, "");
+}
+function langOf(pre, codeEl, code) {
+  var cls = String((codeEl && codeEl.className) || "") + " " + String(pre.className || ""), m, p;
+  m = /(?:language|lang)-([A-Za-z0-9_+#-]+)/i.exec(cls);
+  if (m) { return m[1].toLowerCase(); }
+  m = pre.getAttribute("data-language") || (codeEl && codeEl.getAttribute("data-language")) || "";
+  if (m) { return String(m).toLowerCase(); }
+  p = pre.previousElementSibling;
+  if (p && /^\s*(?:python|py|javascript|js|json|html|css|bash|sh|powershell|ps1|sql|yaml|java|cpp|typescript|ts|text)\s*$/i.test(p.textContent || "")) {
+    return p.textContent.trim().toLowerCase();
+  }
+  return guessLang(code);
+}
+function extractBlocks(cont) {
+  var pres = cont.querySelectorAll("pre"), out = [], i, pre, codeEl, code;
+  for (i = 0; i < pres.length; i++) {
+    pre = pres[i];
+    if (pre.parentElement && pre.parentElement.closest("pre")) { continue; }
+    codeEl = pre.querySelector("code") || pre;
+    code = cleanCode(codeEl);
+    if (!code.trim()) { continue; }
+    out.push({ lang: langOf(pre, codeEl === pre ? null : codeEl, code), code: code });
+  }
+  return out;
+}
+function walk(node, out, st) {
+  var tag, kids, i;
+  if (st.n > 24000) { return; }
+  if (node.nodeType === 3) { out.push(node.nodeValue); st.n += node.nodeValue.length; return; }
+  if (node.nodeType !== 1) { return; }
+  tag = node.tagName.toUpperCase();
+  if (SKIP_TAGS[tag]) { return; }
+  if (tag === "PRE") { out.push("\n[코드 블록]\n"); return; }
+  try { if (node.matches(UI_SEL)) { return; } } catch (e) {}
+  if (BLOCK_TAGS[tag]) { out.push("\n"); }
+  kids = node.childNodes;
+  for (i = 0; i < kids.length; i++) { walk(kids[i], out, st); }
+  if (BLOCK_TAGS[tag]) { out.push("\n"); }
+}
+function snap(cont) {
+  var out = [], codes = [], blocks, i, body, ch;
+  walk(cont, out, { n: 0 });
+  body = out.join("").replace(/[ \t\u00a0]+/g, " ").replace(/\s*\n\s*/g, "\n").trim();
+  blocks = extractBlocks(cont);
+  for (i = 0; i < blocks.length; i++) { codes.push(blocks[i].code); }
+  ch = hashCode(codes.join("\u0001"));
+  return { body: body, blocks: blocks, codeHash: ch, sig: hashCode(body) + "|" + ch };
+}
+function build(s, st) {
+  var blocks = [], i, b, sealed = (st === "SEALED");
+  ROLE = detectRole() || ROLE;
+  if (sealed) {
+    for (i = 0; i < s.blocks.length; i++) {
+      b = s.blocks[i];
+      blocks.push({ lang: b.lang, code: b.code, lines: countLines(b.code), hash: hashCode(b.code) });
+    }
+  }
+  return {
+    type: "rgon_step9_candidate", role: ROLE, status: st, ts: new Date().toISOString(), t: Date.now(),
+    host: location.hostname,
+    summary: sealed ? s.body.slice(0, 400) : "✍️ 답변 작성 중... (SEALED 전까지 수거 보류)",
+    body: sealed ? s.body.slice(0, 20000) : "", n: blocks.length, hash: sealed ? s.codeHash : "", blocks: blocks
+  };
+}
+function broadcast(cand) {
+  var bc;
+  if (hasChrome()) {
+    try {
+      chrome.storage.local.get(KEY, function (r) {
+        var m = (r && r[KEY]) || {}, o = {};
+        m[cand.role] = cand;
+        o[KEY] = m;
+        try { chrome.storage.local.set(o); } catch (e1) {}
+      });
+    } catch (e2) {}
+  }
+  try { bc = new BroadcastChannel("rgon_omni_channel"); bc.postMessage(cand); bc.close(); } catch (e3) {}
+  try { window.postMessage(cand, "*"); } catch (e4) {}
+  try {
+    fetch(BRIDGE, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(cand) })
+      .catch(function () {});
+  } catch (e5) {}
+}
+function tick() {
+  var now = Date.now(), cont = findContainer(), s, gen, changed;
+  if (!cont) { return; }
+  s = snap(cont);
+  gen = isGenerating();
+  if (curCont === null && !gen) {
+    curCont = cont; lastSig = s.sig; lastChange = now; sealedSig = s.sig; armed = false; state = "WAIT";
+    return;
+  }
+  changed = (cont !== curCont || s.sig !== lastSig);
+  if (changed) {
+    curCont = cont; lastSig = s.sig; lastChange = now; stable = 0;
+    if (s.sig !== sealedSig) { armed = true; }
+  }
+  if (gen) { armed = true; lastChange = now; stable = 0; }
+  if (!armed) { return; }
+  state = "DRAFT-PARTIAL";
+  if (!draftSent) { draftSent = true; broadcast(build(s, "DRAFT-PARTIAL")); }
+  if (gen || changed || now - lastChange < STABLE_MS) { stable = 0; return; }
+  stable++;
+  if (stable >= 2) {
+    state = "SEALED"; sealedSig = s.sig; armed = false; draftSent = false; stable = 0;
+    broadcast(build(s, "SEALED"));
+  }
+}
+function manualSend(quiet) {
+  var cont = findContainer(), s1;
+  if (!cont) { if (!quiet) { notify("📡 이 탭에서 AI 답변을 찾지 못했습니다"); } return; }
+  s1 = snap(cont);
+  setTimeout(function () {
+    var c2 = findContainer(), s2 = c2 ? snap(c2) : null, st;
+    if (!s2) { return; }
+    st = (!isGenerating() && c2 === cont && s1.sig === s2.sig && Date.now() - lastChange >= STABLE_MS) ? "SEALED" : "DRAFT-PARTIAL";
+    if (st === "SEALED") { sealedSig = s2.sig; armed = false; draftSent = false; }
+    broadcast(build(s2, st));
+    if (!quiet) { notify(st === "SEALED" ? "📡 봉인 완료 답변을 전광판으로 송출했습니다 (" + ROLE + ")" : "📡 아직 작성 중이라 DRAFT 상태로 송출했습니다"); }
+  }, 400);
+}
+function mountManual() {
+  var b;
+  if (!document.body || document.getElementById("rgon9-manual-send")) { return; }
+  b = document.createElement("button");
+  b.id = "rgon9-manual-send";
+  b.type = "button";
+  b.textContent = "📡 현재 탭 답변 전광판으로 송출";
+  b.title = "R0 읽기 전용 - 이 탭의 답변만 수거해 독대실 전광판으로 보냅니다";
+  b.style.cssText = "position:fixed;right:12px;bottom:12px;z-index:2147483646;cursor:pointer;border:1px solid #3b82f6;background:#0f172a;color:#e2e8f0;border-radius:8px;padding:6px 10px;font:12px system-ui,'Malgun Gothic',sans-serif";
+  b.addEventListener("click", function (ev) { ev.preventDefault(); ev.stopPropagation(); manualSend(false); });
+  document.body.appendChild(b);
+}
+function startRelay() {
+  if (relayOn || !hasChrome()) { return; }
+  relayOn = true;
+  function push(m) { try { window.postMessage({ type: "rgon_step9_snapshot", candidates: m }, "*"); } catch (e) {} }
+  try {
+    chrome.storage.local.get(KEY, function (r) { push((r && r[KEY]) || {}); });
+    chrome.storage.onChanged.addListener(function (ch, area) {
+      if (area === "local" && ch[KEY]) { push(ch[KEY].newValue || {}); }
+    });
+  } catch (e1) {}
+  window.addEventListener("message", function (ev) {
+    var d = ev.data, w = {};
+    if (ev.source !== window || !d || typeof d !== "object") { return; }
+    try {
+      if (d.type === "rgon_step9_collect_req") { w[REQ] = Date.now(); chrome.storage.local.set(w); }
+      else if (d.type === "rgon_step9_clear") { w[KEY] = {}; chrome.storage.local.set(w); }
+      else if (d.type === "rgon_step9_selected" && d.cand) { w[SEL_KEY] = d.cand; chrome.storage.local.set(w); }
+    } catch (e2) {}
+  });
+}
+function init() {
+  var iv, tries = 0;
+  ROLE = detectRole();
+  if (ROLE) {
+    if (hasChrome()) {
+      try {
+        chrome.storage.onChanged.addListener(function (ch, area) {
+          if (area === "local" && ch[REQ]) { manualSend(true); }
+        });
+      } catch (e) {}
+    }
+    setInterval(function () { try { ROLE = detectRole() || ROLE; mountManual(); tick(); } catch (e2) {} }, TICK_MS);
+  } else {
+    iv = setInterval(function () {
+      tries++;
+      if (document.getElementById(BOARD_ID)) { clearInterval(iv); startRelay(); }
+      else if (tries > 60) { clearInterval(iv); }
+    }, 1000);
+  }
+}
+init();
+
+})();
+// RGON-STEP9:END
