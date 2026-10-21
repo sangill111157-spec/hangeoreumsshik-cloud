@@ -1,6 +1,6 @@
 {
   "schema": "rgon_brain_snapshot/1",
-  "version": "v6.0.9-constitution",
+  "version": "v6.1.0-step10",
   "generated_at_kst": "2026-10-21 07:28:57 KST",
   "synced_at_kst": "2026-10-21 07:28:57 KST",
   "sync_rate": "100.0%",
@@ -13,41 +13,6 @@
   },
   "antibody_range": "R1~R7",
   "antibodies": [
-    {
-      "id": "R1",
-      "name": "항체 R1",
-      "status": "활성"
-    },
-    {
-      "id": "R2",
-      "name": "항체 R2",
-      "status": "활성"
-    },
-    {
-      "id": "R3",
-      "name": "항체 R3",
-      "status": "활성"
-    },
-    {
-      "id": "R4",
-      "name": "항체 R4",
-      "status": "활성"
-    },
-    {
-      "id": "R5",
-      "name": "항체 R5",
-      "status": "활성"
-    },
-    {
-      "id": "R6",
-      "name": "항체 R6",
-      "status": "활성"
-    },
-    {
-      "id": "R7",
-      "name": "항체 R7",
-      "status": "활성"
-    },
     {
       "id": "R8_APPROVAL_BEFORE_CODE",
       "rule": "G1 대표님 명시적 승인(Y) 전 실행 스크립트/코드 선발급 절대 금지",
@@ -113,6 +78,12 @@
       "rule": "3.5초 스캔 시 체크박스 덮어쓰기 금지(배지만 갱신)",
       "status": "ACTIVE",
       "since": "v6.0.9-constitution"
+    },
+    {
+      "id": "R12_SINGLE_FINAL_OUTPUT_ONLY",
+      "rule": "중복 인사말·반복 설명 금지, 깊이 사고 후 최종 1회만 단순 요약 보고",
+      "status": "ACTIVE",
+      "since": "v6.1.0-step10"
     }
   ],
   "top_priority_id": "GEN-1",

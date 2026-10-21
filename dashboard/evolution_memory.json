@@ -285,7 +285,12 @@
             "rule": "3.5초 스캔 시 체크박스 덮어쓰기 금지(배지만 갱신)",
             "status": "ACTIVE",
             "since": "v6.0.9-constitution"
+        },
+        "R12_SINGLE_FINAL_OUTPUT_ONLY": {
+            "rule": "중복 인사말·반복 설명 금지, 깊이 사고 후 최종 1회만 단순 요약 보고",
+            "status": "ACTIVE",
+            "since": "v6.1.0-step10"
         }
     },
-    "version": "v6.0.9-constitution"
+    "version": "v6.1.0-step10"
 }

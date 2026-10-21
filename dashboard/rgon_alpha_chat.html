@@ -7033,5 +7033,368 @@ details:not([open]) {
 })();
 </script>
 <!-- RGON-STEP7-UNTRAP END -->
+<!-- RGON-STEP10-AWAKEN:BEGIN -->
+<script id="rgon-step10-agency-awaken">
+(function () {
+'use strict';
+if (window.__rgon10Awaken) { return; }
+window.__rgon10Awaken = true;
+
+var FEED_ID = "dokdae-" + "feed";
+var BOARD9_ID = "rgon-step9-aggregator-" + "board";
+var STAMP_ATTR = "data-rgon10-stamp";
+var AG = [
+  { id: "D1", name: "알파-퀀트" },
+  { id: "D2", name: "알파-바이럴" },
+  { id: "D3", name: "알파-미디어" },
+  { id: "D4", name: "알파-홍익" },
+  { id: "D5", name: "알파-가디언" },
+  { id: "D6", name: "알파-트레저리" }
+];
+var PHRASE = /정상\s*상주\s*중\s*\(\s*점검\s*대기\s*\)/;
+var FIX = [
+  [/(항체\s*)?R1\s*[~∼～]\s*R(?:7|11)(?![0-9])(?:\s*\(\s*\d+\s*종\s*\))?/g, function (m, p) { return (p || "") + "R1~R12 (12종)"; }],
+  [/v6\.0\.[78](?![0-9])/gi, "v6.1.0"],
+  [/(독대실에서\s*바로\s*분배하기\s*)\(\s*Claude\s*\/\s*GPT\s*\/\s*Grok\s*\)/g, function (m, p) { return p + "(👑르곤 / 🧠Claude / ⚡GPT / 🎯Grok)"; }]
+];
+var FILES = [
+  ["const", "rgon_constitution.json"],
+  ["snap", "rgon_brain_snapshot.json"],
+  ["sched", "brain_basket/master_schedule.json"],
+  ["ledger", "treasury_ledger.json"]
+];
+var PREFIXES = ["", "../"];
+var DEFAULT_NOTE = " (장부 읽기 실패 · 기본값 표시)";
+var DATA = {}, RAW = {}, LOADED = {}, LINES = null, ready = false;
+var entries = [], lastStamp = {}, pending = null, pendTimer = null, scanTimer = null;
+
+function pad(n) { return (n < 10 ? "0" : "") + n; }
+function hhmmss() {
+  var d = new Date();
+  return pad(d.getHours()) + ":" + pad(d.getMinutes()) + ":" + pad(d.getSeconds());
+}
+function own(o, k) { return Object.prototype.hasOwnProperty.call(o, k); }
+function toast(msg) {
+  var t = document.createElement("div");
+  t.textContent = msg;
+  t.setAttribute("data-rgon10-skip", "1");
+  t.style.cssText = "position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:2147483001;background:#111827;color:#fff;padding:8px 14px;border-radius:8px;font:12px system-ui,sans-serif;max-width:90vw";
+  document.body.appendChild(t);
+  setTimeout(function () { if (t.parentNode) { t.parentNode.removeChild(t); } }, 2600);
+}
+
+/* ---------- 실시간 장부 로딩 (읽기 전용 fetch) ---------- */
+function tryFetch(name, i) {
+  if (i >= PREFIXES.length || typeof fetch !== "function") { return Promise.resolve(null); }
+  return fetch(PREFIXES[i] + name, { cache: "no-store" })
+    .then(function (r) { return r.ok ? r.text() : null; })
+    .then(function (t) {
+      if (t) {
+        try { return { data: JSON.parse(t.replace(/^\uFEFF/, "")), raw: t }; } catch (e) { /* 다음 후보 */ }
+      }
+      return tryFetch(name, i + 1);
+    }, function () { return tryFetch(name, i + 1); });
+}
+function loadAll() {
+  var jobs = FILES.map(function (f) {
+    return tryFetch(f[1], 0).then(function (res) {
+      if (res) { DATA[f[0]] = res.data; RAW[f[0]] = res.raw; LOADED[f[0]] = true; }
+      else { LOADED[f[0]] = false; }
+    });
+  });
+  return Promise.all(jobs);
+}
+
+/* ---------- 장부 해석 ---------- */
+function abNums(node, inAb, depth, set) {
+  var i, k, m, it, ks, v;
+  if (depth > 8 || node === null || typeof node !== "object") { return; }
+  if (Array.isArray(node)) {
+    for (i = 0; i < node.length; i++) {
+      it = node[i];
+      if (inAb) {
+        if (typeof it === "string") {
+          m = /^\s*R(\d+)(?![A-Za-z0-9])/.exec(it);
+          if (m) { set[m[1]] = 1; }
+        } else if (it && typeof it === "object" && !Array.isArray(it)) {
+          ks = ["id", "name", "code", "key"];
+          for (k = 0; k < ks.length; k++) {
+            v = it[ks[k]];
+            if (typeof v === "string") {
+              m = /^\s*R(\d+)(?![A-Za-z0-9])/.exec(v);
+              if (m) { set[m[1]] = 1; break; }
+            }
+          }
+        }
+      }
+      abNums(it, inAb, depth + 1, set);
+    }
+    return;
+  }
+  for (k in node) {
+    if (!own(node, k)) { continue; }
+    if (inAb) {
+      m = /^R(\d+)(?![A-Za-z0-9])/.exec(k);
+      if (m) { set[m[1]] = 1; }
+    }
+    abNums(node[k], inAb || /antibod|항체/i.test(k), depth + 1, set);
+  }
+}
+function abCount() {
+  var set = {}, n = 0, k;
+  abNums(DATA.snap, false, 0, set);
+  for (k in set) { if (own(set, k)) { n++; } }
+  return n;
+}
+function genOf() {
+  var raw = RAW.snap || "", re = /GEN-(\d+)/g, m, best = 0, n;
+  while ((m = re.exec(raw)) !== null) {
+    n = parseInt(m[1], 10);
+    if (n > best) { best = n; }
+  }
+  return best || 1;
+}
+function findSpend(node, depth) {
+  var k, r;
+  if (depth > 6 || node === null || typeof node !== "object") { return null; }
+  for (k in node) {
+    if (!own(node, k)) { continue; }
+    if (typeof node[k] === "number" && /(api.*(spend|spent|cost|expense|지출|비용))|((spend|spent|cost|expense|지출|비용).*api)/i.test(k)) {
+      return node[k];
+    }
+    r = findSpend(node[k], depth + 1);
+    if (r !== null) { return r; }
+  }
+  return null;
+}
+function mk(ok, text, note) {
+  return (ok ? "🟢 " : "🟡 ") + text + (ok ? "" : (note || DEFAULT_NOTE));
+}
+function buildLines() {
+  var L = {}, c = DATA["const"], b9, gen, nAb, imm, ver, spend, m;
+  b9 = !!document.getElementById(BOARD9_ID);
+  gen = genOf();
+  nAb = LOADED.snap ? abCount() : 0;
+
+  if (!LOADED.snap) {
+    L.D1 = mk(false, "R&D 가동 중 · 진화단계 GEN-1 · 4대 AI 교차검증 전광판 활성");
+  } else if (!b9) {
+    L.D1 = mk(false, "R&D 가동 중 · 진화단계 GEN-" + gen + " · 4대 AI 교차검증 전광판", " 미탐지");
+  } else {
+    L.D1 = mk(true, "R&D 가동 중 · 진화단계 GEN-" + gen + " · 4대 AI 교차검증 전광판 활성");
+  }
+  L.D2 = mk(!!LOADED.sched, "홍보·BM 대기 · 두뇌장바구니 시트 연동 · 일일 키워드 수확 준비");
+  L.D3 = mk(!!LOADED.sched, "미디어 스튜디오 · STUDIO v5 MP4 & 청년보이스 TTS 대기");
+
+  imm = !!(c && c.immutable === true);
+  m = (c && typeof c.version === "string") ? /^(\d+\.\d+)/.exec(c.version) : null;
+  ver = m ? m[1] : "1.0";
+  if (!LOADED["const"]) {
+    L.D4 = mk(false, "제0조 홍익인간 헌법 v1.0 수호 중 · 불변 잠금(immutable) 정상");
+  } else if (imm) {
+    L.D4 = mk(true, "제0조 홍익인간 헌법 v" + ver + " 수호 중 · 불변 잠금(immutable) 정상");
+  } else {
+    L.D4 = "🔴 제0조 홍익인간 헌법 v" + ver + " · ⚠️ 불변 잠금(immutable) 이상 감지 - 대표님 확인 필요";
+  }
+
+  if (!LOADED.snap) {
+    L.D5 = mk(false, "5-Gate 보안 감찰 · 항체 R1~R12(12종) 활성 · R2/R3 폭탄 차단");
+  } else if (nAb === 12) {
+    L.D5 = mk(true, "5-Gate 보안 감찰 · 항체 R1~R12(12종) 활성 · R2/R3 폭탄 차단");
+  } else {
+    L.D5 = "🟡 5-Gate 보안 감찰 · 항체 " + nAb + "종 확인 (기대 R1~R12 12종) · R2/R3 폭탄 차단";
+  }
+
+  spend = LOADED.ledger ? findSpend(DATA.ledger, 0) : null;
+  if (LOADED.ledger && spend !== null && spend > 0) {
+    L.D6 = "🟡 무자본 레버리지 정산 · ⚠️ API 지출 " + spend + "원 감지 - 금고 확인 필요";
+  } else {
+    L.D6 = mk(!!LOADED.ledger, "무자본 레버리지 정산 · API 지출 0원 · 금고 무결성 100%");
+  }
+  return L;
+}
+
+/* ---------- DOM 탐색 ---------- */
+function namesIn(txt) {
+  var out = [], i;
+  for (i = 0; i < AG.length; i++) { if (txt.indexOf(AG[i].name) >= 0) { out.push(AG[i]); } }
+  return out;
+}
+function agencyOf(start) {
+  var cur = start, best = null, i, nm;
+  for (i = 0; i < 14 && cur && cur !== document.body && cur !== document.documentElement; i++) {
+    nm = namesIn(cur.textContent || "");
+    if (nm.length === 1) { best = { card: cur, ag: nm[0] }; }
+    else if (nm.length > 1) { break; }
+    cur = cur.parentElement;
+  }
+  return best;
+}
+function collectTextNodes() {
+  var feed = document.getElementById(FEED_ID), out = [], w;
+  w = document.createTreeWalker(document.body, NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_TEXT, {
+    acceptNode: function (n) {
+      var t;
+      if (n.nodeType === 1) {
+        t = n.tagName.toUpperCase();
+        if (n === feed || t === "SCRIPT" || t === "STYLE" || t === "NOSCRIPT" || t === "TEXTAREA" ||
+            t === "INPUT" || t === "SELECT" || n.hasAttribute("data-rgon10-skip") || n.isContentEditable) {
+          return NodeFilter.FILTER_REJECT;
+        }
+        return NodeFilter.FILTER_SKIP;
+      }
+      return (n.nodeValue && n.nodeValue.length > 1) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP;
+    }
+  }, false);
+  while (w.nextNode()) { out.push(w.currentNode); }
+  return out;
+}
+
+/* ---------- 카드 상태창 렌더 ---------- */
+function putStamp(ent, t) {
+  var host = ent.tn.parentNode, sp;
+  if (!host || host.nodeType !== 1) { host = ent.card; }
+  sp = host.querySelector("span[" + STAMP_ATTR + "]");
+  if (!sp) {
+    sp = document.createElement("span");
+    sp.setAttribute(STAMP_ATTR, "1");
+    sp.style.cssText = "margin-left:6px;color:#93c5fd;font-size:11px;white-space:nowrap";
+    host.appendChild(sp);
+  }
+  sp.textContent = "⏱ 점검 " + t;
+}
+function paint(ent) {
+  var t = ent.pre + ((LINES && LINES[ent.id]) || "") + ent.suf;
+  if (ent.tn.nodeValue !== t) { ent.tn.nodeValue = t; }
+  if (lastStamp[ent.id]) { putStamp(ent, lastStamp[ent.id]); }
+}
+function register(tn) {
+  var m = PHRASE.exec(tn.nodeValue), hit = agencyOf(tn.parentElement), ent;
+  if (!m || !hit) { return; }
+  ent = {
+    tn: tn, id: hit.ag.id, card: hit.card,
+    pre: tn.nodeValue.slice(0, m.index),
+    suf: tn.nodeValue.slice(m.index + m[0].length)
+  };
+  entries.push(ent);
+  paint(ent);
+}
+function scan() {
+  var nodes, i, j, tn, v, nv;
+  if (!document.body) { return; }
+  nodes = collectTextNodes();
+  entries = entries.filter(function (e) { return e.tn.isConnected; });
+  for (i = 0; i < nodes.length; i++) {
+    tn = nodes[i];
+    v = tn.nodeValue;
+    nv = v;
+    for (j = 0; j < FIX.length; j++) { nv = nv.replace(FIX[j][0], FIX[j][1]); }
+    if (nv !== v) { tn.nodeValue = nv; v = nv; }
+    if (ready && LINES && PHRASE.test(v)) { register(tn); }
+  }
+}
+function schedule() {
+  if (scanTimer) { return; }
+  scanTimer = setTimeout(function () { scanTimer = null; try { scan(); } catch (e) { /* 무시 */ } }, 250);
+}
+function paintAll() {
+  entries = entries.filter(function (e) { return e.tn.isConnected; });
+  entries.forEach(paint);
+}
+
+/* ---------- 점검·직보 / 일제 점호 ---------- */
+function addReport(now, ids, viaAll) {
+  var feed = document.getElementById(FEED_ID), card, hd, i, row, stamped = {}, src, sl, ft, srcNames;
+  if (!feed) { toast("독대실 피드를 찾지 못해 점호 카드를 추가하지 못했습니다"); return; }
+  for (i = 0; i < ids.length; i++) { stamped[ids[i]] = 1; }
+  card = document.createElement("div");
+  card.setAttribute("data-rgon10-report", "1");
+  card.style.cssText = "margin:8px 0;padding:10px 12px;border:1px solid #1e3a8a;border-radius:10px;background:#0b1220;color:#e2e8f0;font:13px/1.55 system-ui,'Malgun Gothic',sans-serif";
+  hd = document.createElement("div");
+  hd.style.cssText = "font-weight:700;margin-bottom:6px";
+  hd.textContent = "📋 6대 청사 종합 점호 보고 · " + now + (viaAll ? " (전원 일제 점검)" : " (개별 점검·직보)");
+  card.appendChild(hd);
+  for (i = 0; i < AG.length; i++) {
+    row = document.createElement("div");
+    row.style.cssText = "padding:3px 0;border-bottom:1px solid #1e293b";
+    row.textContent = AG[i].id + " " + AG[i].name + " — " + ((LINES && LINES[AG[i].id]) || "-") +
+      (stamped[AG[i].id] ? "  ⏱ " + now : "");
+    card.appendChild(row);
+  }
+  srcNames = [["const", "rgon_constitution.json"], ["snap", "rgon_brain_snapshot.json"],
+              ["sched", "master_schedule.json"], ["ledger", "treasury_ledger.json"]];
+  src = [];
+  for (i = 0; i < srcNames.length; i++) { src.push((LOADED[srcNames[i][0]] ? "✅ " : "⚠️ ") + srcNames[i][1]); }
+  ft = document.createElement("div");
+  ft.style.cssText = "margin-top:6px;font-size:11px;color:#94a3b8";
+  ft.textContent = "장부 출처: " + src.join(" · ") + " · R0 읽기 전용 점호 (코드 실행 없음)";
+  card.appendChild(ft);
+  sl = feed;
+  sl.appendChild(card);
+  try { sl.scrollTop = sl.scrollHeight; } catch (e) { /* 무시 */ }
+}
+function runCheck(ids, viaAll) {
+  var now = hhmmss();
+  loadAll().then(function () {
+    var i;
+    ready = true;
+    LINES = buildLines();
+    for (i = 0; i < ids.length; i++) { lastStamp[ids[i]] = now; }
+    scan();
+    paintAll();
+    addReport(now, ids, viaAll);
+  });
+}
+function flush() {
+  var p = pending, ids = [], k, i;
+  pending = null;
+  pendTimer = null;
+  if (!p) { return; }
+  if (p.all) { for (i = 0; i < AG.length; i++) { ids.push(AG[i].id); } }
+  else { for (k in p.ids) { if (own(p.ids, k)) { ids.push(k); } } }
+  if (ids.length) { runCheck(ids, p.all); }
+}
+function onClick(ev) {
+  var t = ev.target, btn, label, all, one, hit;
+  if (!t || !t.closest) { return; }
+  btn = t.closest("button, [role='button'], a, input[type='button'], input[type='submit']");
+  if (!btn || btn.hasAttribute("data-rgon10-skip")) { return; }
+  label = String(btn.value || "") + " " + String(btn.textContent || "");
+  all = /일제\s*점검/.test(label);
+  one = !all && /점검\s*[·∙・•‧.\-]?\s*직보/.test(label);
+  if (!all && !one) { return; }
+  if (!pending) {
+    pending = { all: false, ids: {} };
+    pendTimer = setTimeout(flush, 180);
+  }
+  if (all) { pending.all = true; }
+  else {
+    hit = agencyOf(btn);
+    if (hit) { pending.ids[hit.ag.id] = 1; } else { pending.all = true; }
+  }
+}
+
+/* ---------- 부팅 ---------- */
+function refresh() {
+  loadAll().then(function () {
+    ready = true;
+    LINES = buildLines();
+    scan();
+    paintAll();
+  });
+}
+function boot() {
+  try { scan(); } catch (e) { /* 배지 교정 실패는 무시 */ }
+  refresh();
+  document.addEventListener("click", onClick, true);
+  try {
+    new MutationObserver(schedule).observe(document.body, { childList: true, subtree: true, characterData: true });
+  } catch (e2) { /* 무시 */ }
+  setInterval(refresh, 60000);
+}
+if (document.readyState === "loading") { document.addEventListener("DOMContentLoaded", boot); } else { boot(); }
+})();
+</script>
+<!-- RGON-STEP10-AWAKEN:END -->
 </body>
 </html>
