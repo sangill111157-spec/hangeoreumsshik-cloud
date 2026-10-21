@@ -69,7 +69,7 @@ CONSTITUTION = {
     },
 }
 
-ANTIBODIES_NEW = {
+ANTIBODIES_NEW = {'R1_NO_POWERSHELL_QUOTE_TRAP':'PowerShell 따옴표 충돌 및 500자 잘림 방지','R2_SAFE_JSON_FALLBACK':'GitHub Pages 404 HTML 응답 시 JSON 파싱 에러 방어','R3_ZERO_CLICK_AUTO_SYNC':'페이지 로드 및 15초 주기 무클릭 자동 동기화','R4_UNIFIED_4PILLAR_ROLES':'르곤/Claude/GPT/Grok 4대 AI 역할 통일 및 깜빡임 차단','R5_UNTRAP_DOKDAE_FEED':'독대실 대화창 서랍 감금 해방 및 가로 정렬 유지','R6_SOLO_DISPATCH_UNIFY':'상하단 4대 AI 단독/선택/전체 발사 버튼 100% 통일','R7_TARGET_ROW_BADGE_ONLY_SCAN':'3.5초 스캔 시 체크박스 덮어쓰기 금지(배지만 갱신)',
     "R8_APPROVAL_BEFORE_CODE": "G1 대표님 명시적 승인(Y) 전 실행 스크립트/코드 선발급 절대 금지",
     "R9_SINGLE_PY_BLOCK_FOR_ABSORBER": "흡수기(AI 탭 코드 수거) 사용 시 마지막 블록 오수거 방지를 위해 단일 python 코드 블록 1개만 출력",
     "R10_NO_SELF_MATCH_IN_GUARD": "검증 스크립트 내부 문자열이 자기 자신의 카운트 검사를 실패시키는 자기모순(Self-Match) 금지",
