@@ -5308,5 +5308,405 @@ window.shinAdV5={open:openModal,close:closeModal,manifest:function(){return MANI
 /* RGON_STEP2_END */
 </script>
 <!-- RGON_STEP2_SCRIPT_END -->
-<style>#rgon-tools-drawer,#rgon-omni-top-drawer{width:100%!important;flex:0 0 100%!important}#dokdae-feed{display:flex!important;flex-direction:column!important;width:100%!important;flex:0 0 100%!important;min-height:46vh!important;max-height:62vh!important;overflow-y:auto!important}#dokdae-feed *{word-break:keep-all!important;writing-mode:horizontal-tb!important}</style><script>setInterval(function(){var f=document.getElementById('dokdae-feed'),t=document.getElementById('rgon-tools-drawer');if(f){var d=f.closest('details');while(d&&d.parentNode){d.parentNode.insertBefore(f,d.nextSibling);d=f.closest('details');}}if(t&&f&&f.parentNode&&t.parentNode!==f.parentNode){f.parentNode.insertBefore(t,f);}document.querySelectorAll('div,span').forEach(function(e){if(e.children.length<=2&&/5G\s*터널|^🟢$/.test((e.textContent||'').trim()))e.style.setProperty('display','none','important');});},400);</script></body>
+<style>#rgon-tools-drawer,#rgon-omni-top-drawer{width:100%!important;flex:0 0 100%!important}#dokdae-feed{display:flex!important;flex-direction:column!important;width:100%!important;flex:0 0 100%!important;min-height:46vh!important;max-height:62vh!important;overflow-y:auto!important}#dokdae-feed *{word-break:keep-all!important;writing-mode:horizontal-tb!important}</style><script>setInterval(function(){var f=document.getElementById('dokdae-feed'),t=document.getElementById('rgon-tools-drawer');if(f){var d=f.closest('details');while(d&&d.parentNode){d.parentNode.insertBefore(f,d.nextSibling);d=f.closest('details');}}if(t&&f&&f.parentNode&&t.parentNode!==f.parentNode){f.parentNode.insertBefore(t,f);}document.querySelectorAll('div,span').forEach(function(e){if(e.children.length<=2&&/5G\s*터널|^🟢$/.test((e.textContent||'').trim()))e.style.setProperty('display','none','important');});},400);</script><style id="rgon-step4-solo-css">
+#rgon-omni-drawer:not([open]),#rgon-omni-top-drawer:not([open]){min-height:0 !important;height:auto !important;flex:0 0 auto !important;}
+#rgon-omni-drawer:not([open])>*:not(summary),#rgon-omni-top-drawer:not([open])>*:not(summary){display:none !important;}
+#dokdae-feed{flex:1 1 auto !important;min-height:320px !important;}
+[data-r4-legacy="1"]{display:none !important;}
+[data-r4-keep="1"]{display:inline-block !important;visibility:visible !important;opacity:1 !important;margin:6px 0 0 !important;}
+.r4-panel{width:100% !important;flex:0 0 100% !important;box-sizing:border-box !important;max-width:100% !important;margin:8px 0;padding:8px;border:1px solid rgba(99,102,241,0.35);border-radius:10px;background:rgba(15,23,42,0.6);color:#e0e7ff;}
+.r4-chk-row{display:flex;flex-direction:column;gap:4px;margin-bottom:6px;}
+.r4-chk{display:flex;align-items:center;gap:6px;font-size:13px;word-break:keep-all;cursor:pointer;}
+.r4-mini-row{display:flex;gap:6px;margin-bottom:6px;}
+.r4-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:6px;}
+.r4-exec{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:4px;}
+.r4-btn{cursor:pointer;border:1px solid rgba(129,140,248,0.5);background:rgba(30,41,59,0.9);color:#e0e7ff;border-radius:8px;padding:8px 6px;font-size:12.5px;line-height:1.3;word-break:keep-all;white-space:normal;min-width:0;}
+.r4-mini{padding:5px 10px;font-size:12px;}
+.r4-exec .r4-btn{flex:1 1 140px;font-weight:700;}
+.r4-btn:active{transform:scale(0.98);}
+</style>
+<script id="rgon-step4-solo-unify">
+;(function () {
+  'use strict';
+  if (window.__RGON_STEP4_SOLO__) { return; }
+  window.__RGON_STEP4_SOLO__ = true;
+
+  var PANEL_ID = 'rgon-step4-solo-panel';
+  var BRIDGE = 'http://127.0.0.1:8765/api/dispatch';
+  var ALL_ROLES = ['rgon', 'claude', 'gpt', 'grok'];
+  var ROLES = [
+    { role: 'rgon', label: '\ud83d\udd35\ud83d\udc51 \ub974\uace4 (Gemini 4 Argon)', checked: true },
+    { role: 'claude', label: '\ud83e\udde0 Claude', checked: false },
+    { role: 'gpt', label: '\u26a1 GPT', checked: false },
+    { role: 'grok', label: '\ud83c\udfaf Grok', checked: false }
+  ];
+  var DRAWER_SEL = '#rgon-omni-drawer,#rgon-omni-top-drawer';
+  var HEAD_RE = /\ub3c5\ub300\uc2e4\uc5d0\uc11c\s*\ubc14\ub85c\s*\ubd84\ubc30\ud558\uae30/;
+  var LEGACY_RE = /\ub3d9\uc2dc\s*\ubc1c\uc0ac|Grok\s*\uce74\ud53c\s*\ubc1c\uc0ac/;
+  var COLLECT_RE = /AI\s*\ud0ed\s*\ucf54\ub4dc\s*\uc218\uac70/;
+  var CTL_RE = /Omni-?Link|\ubd84\ubc30\s*\ucee8\ud2b8\ub864\ub7ec|\ucee8\ud2b8\ub864\ub7ec/;
+  var TEXT_FIX_RE = /v6\.0\.3|\(\s*Claude\s*\/\s*GPT\s*\/\s*Grok\s*\)/;
+
+  /* ---------------- helpers ---------------- */
+  function mk(tag, props, text) {
+    var e = document.createElement(tag);
+    if (props) {
+      for (var k in props) { if (Object.prototype.hasOwnProperty.call(props, k)) { e.setAttribute(k, props[k]); } }
+    }
+    if (text !== undefined && text !== null) { e.textContent = text; }
+    return e;
+  }
+  function toast(msg) {
+    try {
+      var t = document.getElementById('rgon-step4-toast');
+      if (!t) {
+        t = mk('div', { id: 'rgon-step4-toast' });
+        t.style.cssText = 'position:fixed;left:50%;bottom:70px;transform:translateX(-50%);z-index:2147483646;max-width:90vw;padding:8px 14px;border-radius:10px;background:rgba(30,41,59,0.96);color:#e2e8f0;font-size:13px;text-align:center;box-shadow:0 4px 18px rgba(0,0,0,0.4);transition:opacity .25s;opacity:0;pointer-events:none;';
+        document.body.appendChild(t);
+      }
+      t.textContent = msg;
+      t.style.opacity = '1';
+      clearTimeout(t.__h);
+      t.__h = setTimeout(function () { t.style.opacity = '0'; }, 2800);
+    } catch (e) {}
+  }
+  function btnText(el) {
+    return String((el.tagName === 'INPUT') ? el.value : el.textContent || '');
+  }
+
+  /* ---------------- panel ---------------- */
+  function buildPanel() {
+    var p = mk('div', { id: PANEL_ID, 'class': 'r4-panel' });
+    var chkRow = mk('div', { 'class': 'r4-chk-row' });
+    ROLES.forEach(function (r) {
+      var lab = mk('label', { 'class': 'r4-chk' });
+      var cb = mk('input', { type: 'checkbox', 'class': 'r4-role-chk', value: r.role });
+      if (r.checked) { cb.checked = true; cb.setAttribute('checked', 'checked'); }
+      lab.appendChild(cb);
+      lab.appendChild(mk('span', null, r.label));
+      chkRow.appendChild(lab);
+    });
+    p.appendChild(chkRow);
+
+    var mini = mk('div', { 'class': 'r4-mini-row' });
+    mini.appendChild(mk('button', { type: 'button', 'class': 'r4-btn r4-mini', 'data-r4': 'all' }, '\u2611 \uc804\uccb4 \uc120\ud0dd'));
+    mini.appendChild(mk('button', { type: 'button', 'class': 'r4-btn r4-mini', 'data-r4': 'none' }, '\u2610 \uc804\uccb4 \ud574\uc81c'));
+    p.appendChild(mini);
+
+    var grid = mk('div', { 'class': 'r4-grid' });
+    ROLES.forEach(function (r) {
+      grid.appendChild(mk('button', { type: 'button', 'class': 'r4-btn r4-solo', 'data-solo': r.role }, r.label + ' \ub2e8\ub3c5 \ubc1c\uc0ac'));
+    });
+    p.appendChild(grid);
+
+    var exec = mk('div', { 'class': 'r4-exec' });
+    exec.appendChild(mk('button', { type: 'button', 'class': 'r4-btn', 'data-r4': 'checked' }, '\ud83d\ude80 \uccb4\ud06c \uc120\ud0dd \ubc1c\uc0ac'));
+    exec.appendChild(mk('button', { type: 'button', 'class': 'r4-btn', 'data-r4': 'fireall' }, '\ud83c\udf10 4\ub300 AI \uc804\uccb4 \ubc1c\uc0ac'));
+    p.appendChild(exec);
+
+    p.addEventListener('click', onPanelClick);
+    return p;
+  }
+  function checkedRoles(panel) {
+    var out = [];
+    var list = panel.querySelectorAll('.r4-role-chk');
+    for (var i = 0; i < list.length; i++) { if (list[i].checked) { out.push(list[i].value); } }
+    return out;
+  }
+  function setAll(panel, flag) {
+    var list = panel.querySelectorAll('.r4-role-chk');
+    for (var i = 0; i < list.length; i++) { list[i].checked = flag; }
+  }
+  function onPanelClick(ev) {
+    try {
+      var panel = ev.currentTarget;
+      var t = ev.target;
+      var b = (t && t.closest) ? t.closest('button') : null;
+      if (!b || !panel.contains(b)) { return; }
+      ev.preventDefault();
+      ev.stopPropagation();
+      var solo = b.getAttribute('data-solo');
+      if (solo) { fire([solo]); return; }
+      var act = b.getAttribute('data-r4');
+      if (act === 'all' || act === 'none') { setAll(panel, act === 'all'); return; }
+      if (act === 'checked') {
+        var c = checkedRoles(panel);
+        if (!c.length) { toast('\u26a0\ufe0f \ubc1c\uc0ac\ud560 \ub300\uc0c1\uc744 1\uac1c \uc774\uc0c1 \uccb4\ud06c\ud558\uc138\uc694.'); return; }
+        fire(c);
+        return;
+      }
+      if (act === 'fireall') { fire(ALL_ROLES.slice()); }
+    } catch (e) { try { console.warn('[step4]', e); } catch (_) {} }
+  }
+
+  /* ---------------- dispatch (triple wiring) ---------------- */
+  function readText() {
+    var panel = document.getElementById(PANEL_ID);
+    var ta = null;
+    if (panel) {
+      var cur = panel.parentElement;
+      var n = 0;
+      while (cur && cur !== document.body && n < 8 && !ta) {
+        var list = cur.querySelectorAll('textarea');
+        for (var i = 0; i < list.length; i++) {
+          if (!panel.contains(list[i]) && !list[i].closest(DRAWER_SEL)) { ta = list[i]; break; }
+        }
+        cur = cur.parentElement;
+        n++;
+      }
+    }
+    if (!ta) { ta = document.getElementById('dokdae-input'); }
+    if (!ta) { ta = document.querySelector('textarea'); }
+    return ta ? String(ta.value || '').trim() : '';
+  }
+  function findTopSolo(role) {
+    var sel = '[data-solo="' + role + '"]';
+    var drawers = document.querySelectorAll(DRAWER_SEL);
+    for (var i = 0; i < drawers.length; i++) {
+      var b = drawers[i].querySelector(sel);
+      if (b) { return b; }
+    }
+    var all = document.querySelectorAll(sel);
+    for (var j = 0; j < all.length; j++) {
+      if (!all[j].closest('#' + PANEL_ID)) { return all[j]; }
+    }
+    return null;
+  }
+  function callTop(roles, text) {
+    try {
+      var api = window.RGON_OMNI;
+      if (api && typeof api.fire === 'function') { api.fire(roles, text); return 1; }
+    } catch (e) {}
+    var names = ['rgonOmniFire', 'omniFire', 'fireOmni', 'rgonFire'];
+    for (var i = 0; i < names.length; i++) {
+      try {
+        if (typeof window[names[i]] === 'function') { window[names[i]](roles, text); return 1; }
+      } catch (e) {}
+    }
+    var drawer = document.querySelector(DRAWER_SEL);
+    if (drawer) {
+      var tta = drawer.querySelector('textarea');
+      if (tta && !String(tta.value || '').trim()) {
+        tta.value = text;
+        try { tta.dispatchEvent(new Event('input', { bubbles: true })); } catch (e) {}
+      }
+    }
+    var clicked = 0;
+    roles.forEach(function (r) {
+      var b = findTopSolo(r);
+      if (b) { try { b.click(); clicked++; } catch (e) {} }
+    });
+    return clicked;
+  }
+  function postBridge(roles, text) {
+    if (typeof fetch !== 'function') { return; }
+    try {
+      fetch(BRIDGE, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ roles: roles, prompt: text, text: text, source: 'dokdae-step4', ts: Date.now() })
+      }).then(function (res) {
+        return res.json().catch(function () { return null; });
+      }).then(function (j) {
+        if (j && j.source === 'rgon-safety-shield') { toast('\u2139\ufe0f \ub85c\uceec \ube0c\ub9bf\uc9c0(8765) \uc751\ub2f5 \uc5c6\uc74c - \uc0c1\ub2e8 \ucee8\ud2b8\ub864\ub7ec/\uba54\uc2dc\uc9c0 \uacbd\ub85c\ub9cc \uc0ac\uc6a9\ub428'); }
+      }).catch(function () {
+        toast('\u2139\ufe0f \ub85c\uceec \ube0c\ub9bf\uc9c0(8765) \uc5f0\uacb0 \uc2e4\ud328 - \uc0c1\ub2e8 \ucee8\ud2b8\ub864\ub7ec/\uba54\uc2dc\uc9c0 \uacbd\ub85c\ub9cc \uc0ac\uc6a9\ub428');
+      });
+    } catch (e) {}
+  }
+  function fire(roles) {
+    var text = readText();
+    if (!text) { toast('\u26a0\ufe0f \ubc1c\uc0ac\ud560 \uc9c0\uc2dc\ubb38\uc744 \uc785\ub825\ud558\uc138\uc694.'); return; }
+    try { callTop(roles, text); } catch (e) {}
+    try { window.postMessage({ type: 'RGON_OMNI_DISPATCH', roles: roles, prompt: text, text: text }, '*'); } catch (e) {}
+    postBridge(roles, text);
+    toast('\ud83d\ude80 \ubc1c\uc0ac \uc694\uccad \uc804\uc1a1: ' + roles.join(' \u00b7 '));
+  }
+
+  /* ---------------- locate section / place panel ---------------- */
+  function findHeading() {
+    var w;
+    try {
+      w = document.createTreeWalker(document.body, 5, { acceptNode: function (n) {
+        if (n.nodeType === 1) {
+          return /^(SCRIPT|STYLE|NOSCRIPT|TEXTAREA|TEMPLATE)$/.test(n.tagName) ? 2 : 3;
+        }
+        return HEAD_RE.test(n.nodeValue || '') ? 1 : 3;
+      } });
+    } catch (e) { return null; }
+    var node;
+    while ((node = w.nextNode())) {
+      var p = node.parentElement;
+      if (p && !p.closest('#' + PANEL_ID) && !p.closest(DRAWER_SEL)) { return p; }
+    }
+    return null;
+  }
+  function legacyIn(root) {
+    var out = [];
+    var list = root.querySelectorAll('button,a,[role="button"],input[type="button"]');
+    for (var i = 0; i < list.length; i++) {
+      if (LEGACY_RE.test(btnText(list[i])) && !list[i].closest('#' + PANEL_ID)) { out.push(list[i]); }
+    }
+    return out;
+  }
+  function findSection() {
+    var h = findHeading();
+    if (!h) { return null; }
+    var feed = document.getElementById('dokdae-feed');
+    var cur = h;
+    var n = 0;
+    while (cur && cur !== document.body && n < 7) {
+      if (feed && cur.contains(feed)) { break; }
+      var l = legacyIn(cur);
+      if (l.length) { return { heading: h, root: cur, legacy: l }; }
+      cur = cur.parentElement;
+      n++;
+    }
+    return { heading: h, root: h.parentElement, legacy: [] };
+  }
+  function commonAncestor(list) {
+    var cur = list[0].parentElement;
+    while (cur && cur !== document.body) {
+      var ok = true;
+      for (var i = 1; i < list.length; i++) { if (!cur.contains(list[i])) { ok = false; break; } }
+      if (ok) { return cur; }
+      cur = cur.parentElement;
+    }
+    return null;
+  }
+  function hasCollect(root) {
+    var list = root.querySelectorAll('button,a,[role="button"],input[type="button"]');
+    for (var i = 0; i < list.length; i++) { if (COLLECT_RE.test(btnText(list[i]))) { return true; } }
+    return false;
+  }
+  function hideEl(el) {
+    if (el.getAttribute('data-r4-legacy') === '1') { return; }
+    el.setAttribute('data-r4-legacy', '1');
+    el.style.setProperty('display', 'none', 'important');
+  }
+  function place(panel, sec) {
+    var feed = document.getElementById('dokdae-feed');
+    var legacy = sec.legacy;
+    if (legacy.length) {
+      var lca = commonAncestor(legacy);
+      var safe = !!lca && lca !== document.body && lca !== document.documentElement &&
+        !lca.querySelector('textarea') && !hasCollect(lca) && !lca.contains(sec.heading) &&
+        !(feed && lca.contains(feed));
+      if (safe && lca.parentNode) {
+        lca.parentNode.insertBefore(panel, lca);
+        if (String(lca.innerText || '').trim() === '') { hideEl(lca); }
+        return;
+      }
+      var first = legacy[0];
+      if (first.parentNode) {
+        first.parentNode.insertBefore(panel, first);
+        var par = first.parentElement;
+        try {
+          if (par && /flex/.test(getComputedStyle(par).display)) { par.style.setProperty('flex-wrap', 'wrap', 'important'); }
+        } catch (e) {}
+        return;
+      }
+    }
+    var h = sec.heading;
+    if (h && h.parentNode) { h.parentNode.insertBefore(panel, h.nextSibling); }
+  }
+
+  /* ---------------- text fix / gap fix ---------------- */
+  function isCtl(node) {
+    var el = node.parentElement;
+    for (var i = 0; i < 6 && el; i++) {
+      if (el.id === 'rgon-omni-drawer' || el.id === 'rgon-omni-top-drawer') { return true; }
+      var tc = el.textContent || '';
+      if (tc.length < 2500 && CTL_RE.test(tc)) { return true; }
+      el = el.parentElement;
+    }
+    return false;
+  }
+  function fixCtlText() {
+    var w;
+    try { w = document.createTreeWalker(document.body, 4, null); } catch (e) { return; }
+    var hits = [];
+    var n;
+    while ((n = w.nextNode())) {
+      var v = n.nodeValue;
+      if (!v || v.length > 400 || !TEXT_FIX_RE.test(v)) { continue; }
+      var p = n.parentElement;
+      if (!p || /^(SCRIPT|STYLE|TEXTAREA|NOSCRIPT)$/.test(p.tagName) || p.closest('#dokdae-feed')) { continue; }
+      if (isCtl(n)) { hits.push(n); }
+    }
+    hits.forEach(function (t) {
+      t.nodeValue = t.nodeValue
+        .replace(/v6\.0\.3/g, 'v6.0.8')
+        .replace(/\(\s*Claude\s*\/\s*GPT\s*\/\s*Grok\s*\)/g, '(\ud83d\udc51\ub974\uace4 / \ud83e\udde0Claude / \u26a1GPT / \ud83c\udfafGrok)');
+    });
+  }
+  function fixGap() {
+    var feed = document.getElementById('dokdae-feed');
+    if (feed) { feed.style.setProperty('flex', '1 1 auto', 'important'); }
+    var drawers = document.querySelectorAll(DRAWER_SEL);
+    for (var i = 0; i < drawers.length; i++) {
+      var p = drawers[i].parentElement;
+      var n = 0;
+      while (p && p !== document.body && n < 3) {
+        if (feed && p.contains(feed)) { break; }
+        p.style.setProperty('min-height', '0', 'important');
+        p.style.setProperty('height', 'auto', 'important');
+        p.style.setProperty('flex', '0 0 auto', 'important');
+        p = p.parentElement;
+        n++;
+      }
+    }
+  }
+
+  /* ---------------- ensure / boot ---------------- */
+  function ensure() {
+    if (!document.body) { return; }
+    fixGap();
+    fixCtlText();
+    var sec = findSection();
+    if (!sec) { return; }
+    sec.legacy.forEach(hideEl);
+    var panel = document.getElementById(PANEL_ID);
+    if (!panel || !panel.isConnected) {
+      panel = buildPanel();
+      place(panel, sec);
+    }
+    if (sec.root) {
+      var list = sec.root.querySelectorAll('button,a,[role="button"],input[type="button"]');
+      for (var i = 0; i < list.length; i++) {
+        if (COLLECT_RE.test(btnText(list[i])) && !list[i].closest('#' + PANEL_ID)) { list[i].setAttribute('data-r4-keep', '1'); }
+      }
+    }
+  }
+  function safeEnsure() {
+    try { ensure(); } catch (e) { try { console.warn('[step4]', e); } catch (_) {} }
+  }
+
+  var timer = null;
+  function schedule() {
+    if (timer) { return; }
+    timer = setTimeout(function () { timer = null; safeEnsure(); }, 300);
+  }
+  function boot() {
+    safeEnsure();
+    [400, 1200, 2500, 5000].forEach(function (ms) { setTimeout(safeEnsure, ms); });
+    try {
+      var mo = new MutationObserver(function (muts) {
+        var feed = document.getElementById('dokdae-feed');
+        for (var i = 0; i < muts.length; i++) {
+          var t = muts[i].target;
+          if (!(feed && t && feed.contains(t))) { schedule(); return; }
+        }
+      });
+      mo.observe(document.body, { childList: true, subtree: true, characterData: true });
+    } catch (e) {}
+  }
+  window.addEventListener('load', safeEnsure);
+  if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', boot); }
+  else { boot(); }
+
+  window.RGON_STEP4_SOLO = { ensure: safeEnsure, fire: fire };
+})();
+</script>
+</body>
 </html>
