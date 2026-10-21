@@ -1,6 +1,6 @@
 {
   "schema": "rgon_brain_snapshot/1",
-  "version": "v6.0.8",
+  "version": "v6.0.9-constitution",
   "generated_at_kst": "2026-10-21 07:28:57 KST",
   "synced_at_kst": "2026-10-21 07:28:57 KST",
   "sync_rate": "100.0%",
@@ -47,6 +47,30 @@
       "id": "R7",
       "name": "항체 R7",
       "status": "활성"
+    },
+    {
+      "id": "R8_APPROVAL_BEFORE_CODE",
+      "rule": "G1 대표님 명시적 승인(Y) 전 실행 스크립트/코드 선발급 절대 금지",
+      "status": "ACTIVE",
+      "since": "v6.0.9-constitution"
+    },
+    {
+      "id": "R9_SINGLE_PY_BLOCK_FOR_ABSORBER",
+      "rule": "흡수기(AI 탭 코드 수거) 사용 시 마지막 블록 오수거 방지를 위해 단일 python 코드 블록 1개만 출력",
+      "status": "ACTIVE",
+      "since": "v6.0.9-constitution"
+    },
+    {
+      "id": "R10_NO_SELF_MATCH_IN_GUARD",
+      "rule": "검증 스크립트 내부 문자열이 자기 자신의 카운트 검사를 실패시키는 자기모순(Self-Match) 금지",
+      "status": "ACTIVE",
+      "since": "v6.0.9-constitution"
+    },
+    {
+      "id": "R11_CROSS_VALIDATION_MIN_DIFF_TOP1",
+      "rule": "교차검증 시 기계적 테스트 통과 후보 중 변경량(diff)이 가장 작은 Top 1 선택 및 거부권(Veto) 우선",
+      "status": "ACTIVE",
+      "since": "v6.0.9-constitution"
     }
   ],
   "top_priority_id": "GEN-1",
