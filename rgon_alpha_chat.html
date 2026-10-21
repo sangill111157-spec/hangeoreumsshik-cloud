@@ -6083,5 +6083,320 @@ details:not([open]) {
 })();
 /* RGON_STEP6_END */
 </script>
+<!-- RGON-STEP7-UNTRAP START -->
+<style id="rgon-step7-style">
+#rgon-step7-chat-zone{display:block!important;position:relative!important;width:100%!important;max-width:100%!important;flex:1 1 100%!important;min-width:0!important;box-sizing:border-box!important;clear:both!important;margin:8px 0!important;writing-mode:horizontal-tb!important}
+#rgon-step7-chat-zone > [data-rgon-untrapped="1"]{width:100%!important;max-width:100%!important;flex:1 1 100%!important;min-width:0!important;box-sizing:border-box!important}
+#rgon-step7-chat-zone #dokdae-feed{width:100%!important;max-width:100%!important;min-width:0!important;box-sizing:border-box!important}
+#rgon-step7-chat-zone .rgon-s7-row{display:flex!important;flex-direction:row!important;flex-wrap:wrap!important;align-items:center!important;gap:6px!important;white-space:nowrap!important;word-break:keep-all!important;width:auto!important;max-width:100%!important;writing-mode:horizontal-tb!important}
+#rgon-step7-chat-zone .rgon-s7-nw{display:flex!important;flex-direction:row!important;flex-wrap:wrap!important;align-items:center!important;white-space:nowrap!important;word-break:keep-all!important;overflow-wrap:normal!important;width:auto!important;max-width:none!important;flex:0 0 auto!important;writing-mode:horizontal-tb!important}
+</style>
+<script id="rgon-step7-script">
+(function () {
+  "use strict";
+  if (window.__RGON_STEP7_UNTRAP__) return;
+  window.__RGON_STEP7_UNTRAP__ = true;
+
+  var ZONE_ID = "rgon-step7-chat-zone";
+  var STEP5_ID = "rgon-step5-solo-panel";
+  var TOOL_RE = /음성 중지|청년보이스 테스트|음성 설정|Adobe 무료|한마디 올인원/;
+  var PHRASES = ["충성! 이상일 대표님", "6대 청사 실시간 보좌 지표"];
+  var FEED_SEL = "#dokdae-feed,#dokdae-messages,#dokdae-chat,#chat-feed,#chatFeed,#chat-log,#chatLog,#messages,[data-rgon-untrapped='1']";
+  var N = {
+    appendChild: Node.prototype.appendChild,
+    insertBefore: Node.prototype.insertBefore,
+    append: Element.prototype.append,
+    prepend: Element.prototype.prepend,
+    before: Element.prototype.before,
+    after: Element.prototype.after,
+    iae: Element.prototype.insertAdjacentElement
+  };
+  var busy = false;
+
+  function txt(el) { return (el && el.textContent) || ""; }
+
+  function directSummary(d) {
+    for (var c = d.firstElementChild; c; c = c.nextElementSibling) {
+      if (c.tagName === "SUMMARY") return c;
+    }
+    return null;
+  }
+
+  function findDrawer() {
+    var ds = document.getElementsByTagName("details"), fb = null;
+    for (var i = 0; i < ds.length; i++) {
+      var s = directSummary(ds[i]);
+      if (!s) continue;
+      var t = txt(s);
+      if (t.indexOf("음성 도구함") >= 0) return ds[i];
+      if (!fb && t.indexOf("6대 기관 지휘") >= 0) fb = ds[i];
+    }
+    return fb;
+  }
+
+  function hasStep5(el) {
+    return el.id === STEP5_ID || !!(el.querySelector && el.querySelector("#" + STEP5_ID));
+  }
+
+  function isIndicator(el) {
+    if (el.tagName === "DETAILS") {
+      var s = directSummary(el);
+      if (s && txt(s).indexOf("보좌 지표") >= 0) return true;
+    }
+    var t = txt(el);
+    return t.indexOf("보좌 지표") >= 0 && t.indexOf("충성!") < 0 && t.length < 600;
+  }
+
+  function climb(el, drawer) {
+    if (!el || el === drawer || !drawer.contains(el)) return null;
+    if (el.id === ZONE_ID) return null;
+    var sum = directSummary(drawer);
+    if (sum && sum.contains(el)) return null;
+    if (el.closest && el.closest("#" + STEP5_ID)) return null;
+    while (el.parentElement && el.parentElement !== drawer) {
+      var p = el.parentElement;
+      if (TOOL_RE.test(txt(p)) || hasStep5(p)) break;
+      el = p;
+    }
+    if (el.tagName === "SUMMARY" || hasStep5(el)) return null;
+    return el;
+  }
+
+  function collect(drawer) {
+    var hits = [], i, n;
+    var f = drawer.querySelectorAll(FEED_SEL);
+    for (i = 0; i < f.length; i++) hits.push(f[i]);
+    var ds = drawer.getElementsByTagName("details");
+    for (i = 0; i < ds.length; i++) {
+      var s = directSummary(ds[i]);
+      if (s && txt(s).indexOf("보좌 지표") >= 0) hits.push(ds[i]);
+    }
+    var w = document.createTreeWalker(drawer, NodeFilter.SHOW_TEXT, null);
+    while ((n = w.nextNode())) {
+      var v = n.nodeValue || "", pe = n.parentElement;
+      if (!pe || /^(SCRIPT|STYLE|TEMPLATE)$/.test(pe.tagName)) continue;
+      for (i = 0; i < PHRASES.length; i++) {
+        if (v.indexOf(PHRASES[i]) >= 0) { hits.push(pe); break; }
+      }
+    }
+    var out = [];
+    hits.forEach(function (h) {
+      var c = climb(h, drawer);
+      if (c && out.indexOf(c) < 0) out.push(c);
+    });
+    out = out.filter(function (a) {
+      return !out.some(function (b) { return b !== a && b.contains(a); });
+    });
+    out.sort(function (a, b) {
+      return (a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING) ? -1 : 1;
+    });
+    return out;
+  }
+
+  function hasSend(el) {
+    if (txt(el).indexOf("알파에게 전송") >= 0) return true;
+    return !!(el.querySelector && el.querySelector("input[value*='전송'],button[aria-label*='전송']"));
+  }
+
+  function composerRoot(drawer) {
+    var els = document.querySelectorAll("textarea,input");
+    for (var i = 0; i < els.length; i++) {
+      var ph = els[i].getAttribute("placeholder") || "";
+      if (ph.indexOf("알파에게") < 0) continue;
+      if (drawer && drawer.contains(els[i])) continue;
+      var c = els[i];
+      while (c.parentElement && c.parentElement !== document.body &&
+             !(drawer && c.parentElement.contains(drawer)) && !hasSend(c)) {
+        c = c.parentElement;
+      }
+      return c;
+    }
+    return null;
+  }
+
+  function flexRow(drawer) {
+    var p = drawer.parentElement;
+    if (!p || p === document.body) return null;
+    var cs = getComputedStyle(p);
+    if (cs.display.indexOf("flex") >= 0 && cs.flexDirection.indexOf("row") === 0) return p;
+    return null;
+  }
+
+  function ensureZone(drawer) {
+    var zone = document.getElementById(ZONE_ID);
+    if (!zone) {
+      zone = document.createElement("div");
+      zone.id = ZONE_ID;
+      zone.setAttribute("data-rgon-untrapped", "1");
+    }
+    var anchor = composerRoot(drawer);
+    if (anchor && anchor.parentNode && anchor !== zone && !zone.contains(anchor)) {
+      if (zone.parentNode !== anchor.parentNode || zone.nextElementSibling !== anchor) {
+        N.insertBefore.call(anchor.parentNode, zone, anchor);
+      }
+    } else if (drawer) {
+      var ref = flexRow(drawer) || drawer;
+      if (ref.parentNode && (zone.parentNode !== ref.parentNode || zone.previousElementSibling !== ref)) {
+        N.insertBefore.call(ref.parentNode, zone, ref.nextSibling);
+      }
+    }
+    var p = zone.parentElement;
+    if (p) {
+      var cs = getComputedStyle(p);
+      if (cs.display.indexOf("flex") >= 0 && cs.flexDirection.indexOf("row") === 0) {
+        p.style.setProperty("flex-wrap", "wrap", "important");
+      }
+    }
+    return zone;
+  }
+
+  function orderZone(zone) {
+    var kids = Array.prototype.slice.call(zone.children), firstNon = -1, needs = false;
+    kids.forEach(function (k, i) {
+      if (isIndicator(k)) { if (firstNon >= 0) needs = true; }
+      else if (firstNon < 0) firstNon = i;
+    });
+    if (!needs) return;
+    kids.filter(isIndicator).reverse().forEach(function (k) {
+      N.insertBefore.call(zone, k, zone.firstChild);
+    });
+  }
+
+  function fixBadges(zone) {
+    if (!zone) return;
+    var els = zone.querySelectorAll("span,b,strong,small,em,i,div,button,time,label,a,p");
+    for (var i = 0; i < els.length; i++) {
+      var el = els[i];
+      if (el.classList.contains("rgon-s7-nw") || el.children.length > 3) continue;
+      var t = (el.textContent || "").replace(/\s+/g, " ").trim();
+      if (!t || t.length > 24) continue;
+      if (t.indexOf("르곤-알파") >= 0 || t.indexOf("총괄사령관") >= 0 ||
+          /^(?:\S{0,3}\s*)?듣기$/.test(t) || /(오전|오후)\s*\d{1,2}:\d{2}/.test(t)) {
+        el.classList.add("rgon-s7-nw");
+        var p = el.parentElement;
+        if (p && p !== zone && !p.hasAttribute("data-rgon-untrapped") &&
+            (p.textContent || "").trim().length <= 90) {
+          p.classList.add("rgon-s7-row");
+        }
+      }
+    }
+  }
+
+  function rescue() {
+    if (busy) return;
+    busy = true;
+    try {
+      var drawer = findDrawer();
+      var zone = document.getElementById(ZONE_ID);
+      if (drawer) {
+        zone = ensureZone(drawer);
+        collect(drawer).forEach(function (el) {
+          if (el === zone || el.contains(zone)) return;
+          el.setAttribute("data-rgon-untrapped", "1");
+          N.appendChild.call(zone, el);
+        });
+        orderZone(zone);
+      }
+      fixBadges(zone);
+    } catch (e) {
+      try { console.warn("[RGON step7] rescue error", e); } catch (x) {}
+    } finally {
+      busy = false;
+    }
+  }
+
+  function guarded(n) {
+    if (!n || n.nodeType !== 1) return false;
+    if (n.id === ZONE_ID || n.getAttribute("data-rgon-untrapped") === "1") return true;
+    return !!n.querySelector("#" + ZONE_ID + ",[data-rgon-untrapped='1']");
+  }
+  function blocked(parent, n) {
+    if (busy || !parent || !guarded(n)) return false;
+    var d = findDrawer();
+    return !!(d && (parent === d || d.contains(parent)));
+  }
+  Node.prototype.appendChild = function (n) {
+    if (blocked(this, n)) return n;
+    return N.appendChild.call(this, n);
+  };
+  Node.prototype.insertBefore = function (n, r) {
+    if (blocked(this, n)) return n;
+    return N.insertBefore.call(this, n, r);
+  };
+  Element.prototype.append = function () {
+    var self = this;
+    var a = Array.prototype.filter.call(arguments, function (x) { return !blocked(self, x); });
+    return N.append.apply(this, a);
+  };
+  Element.prototype.prepend = function () {
+    var self = this;
+    var a = Array.prototype.filter.call(arguments, function (x) { return !blocked(self, x); });
+    return N.prepend.apply(this, a);
+  };
+  if (N.before) {
+    Element.prototype.before = function () {
+      var p = this.parentNode;
+      var a = Array.prototype.filter.call(arguments, function (x) { return !blocked(p, x); });
+      return N.before.apply(this, a);
+    };
+  }
+  if (N.after) {
+    Element.prototype.after = function () {
+      var p = this.parentNode;
+      var a = Array.prototype.filter.call(arguments, function (x) { return !blocked(p, x); });
+      return N.after.apply(this, a);
+    };
+  }
+  Element.prototype.insertAdjacentElement = function (pos, el) {
+    var pp = String(pos || "").toLowerCase();
+    var parent = (pp === "beforebegin" || pp === "afterend") ? this.parentNode : this;
+    if (blocked(parent, el)) return el;
+    return N.iae.call(this, pos, el);
+  };
+
+  var KNOWN = ["rgonStep2Wrap", "rgonStep2Apply", "rgonStep2Layout", "rgonMobileCleanLayout",
+               "rgonWrapToolDrawer", "rgonWrapTools", "wrapToolsDrawer", "applyMobileCleanLayout",
+               "step2MobileClean"];
+  function wrapKnown() {
+    KNOWN.forEach(function (k) {
+      var f = window[k];
+      if (typeof f === "function" && !f.__rgonS7) {
+        var g = function () {
+          try { return f.apply(this, arguments); }
+          finally { setTimeout(rescue, 0); }
+        };
+        g.__rgonS7 = true;
+        try { window[k] = g; } catch (e) {}
+      }
+    });
+  }
+
+  var scheduled = false, runs = 0, winStart = Date.now();
+  var raf = window.requestAnimationFrame || function (cb) { return setTimeout(cb, 16); };
+  var mo = new MutationObserver(function () {
+    if (busy || scheduled) return;
+    scheduled = true;
+    raf(function () {
+      scheduled = false;
+      var now = Date.now();
+      if (now - winStart > 5000) { winStart = now; runs = 0; }
+      if (++runs > 40) return;
+      rescue();
+    });
+  });
+
+  function boot() { wrapKnown(); rescue(); }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
+  else boot();
+  window.addEventListener("load", boot);
+  [300, 1000, 2500, 5000].forEach(function (t) { setTimeout(boot, t); });
+  document.addEventListener("toggle", function (e) {
+    if (e.target && e.target.tagName === "DETAILS") rescue();
+  }, true);
+  try { mo.observe(document.documentElement, { childList: true, subtree: true }); } catch (e) {}
+  window.rgonStep7Rescue = rescue;
+})();
+</script>
+<!-- RGON-STEP7-UNTRAP END -->
 </body>
 </html>
