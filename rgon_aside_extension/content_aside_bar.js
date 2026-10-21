@@ -17,7 +17,7 @@ const ROLE_META = {
   adobe: { label: "Adobe", icon: "🎨" }
 };
 const ROLE_ORDER = ["rgon", "claude", "gpt", "grok", "sheets", "adobe"];
-const AI_ROLES = ["claude", "gpt", "grok"];
+const AI_ROLES = ['rgon', 'claude', 'gpt', 'grok'];
 const GROK_PREFIX = "[광고 카피라이터 모드] 아래 지시를 바탕으로 짧고 강렬한 카피 5안을 제시해 주세요.\n\n";
 const IS_RGON = /^(127\.0\.0\.1|localhost)$/.test(location.hostname) && location.port === "8501";
 const IS_AI_HOST = /(^|\.)(genspark\.ai|claude\.ai|chatgpt\.com|openai\.com|grok\.com)$|^x\.com$/.test(location.hostname);
@@ -671,7 +671,7 @@ async function renderArena() {
   arenaCache = en;
   let html = "";
   if (en.claude && en.gpt) html += compareHTML(en.claude, en.gpt);
-  const order = ["claude", "gpt", "grok"].concat(Object.keys(en).filter((k) => !["claude", "gpt", "grok"].includes(k)));
+  const order = ['rgon', 'claude', 'gpt', 'grok'].concat(Object.keys(en).filter((k) => !['rgon', 'claude', 'gpt', 'grok'].includes(k)));
   const cards = order.filter((k) => en[k]).map((k) => cardHTML(k, en[k])).join("");
   html += cards || `<div class="out">아직 흡수된 결과물이 없습니다.</div>`;
   $("#arena").innerHTML = html;
@@ -839,7 +839,7 @@ $("#preset").addEventListener("change", (ev) => {
 });
 $("#fireCG")?.addEventListener("click", () => fire(["claude", "gpt"]));
 $("#fireGrok")?.addEventListener("click", () => fire(["grok"]));
-$("#fireAll")?.addEventListener("click", () => fire(["claude", "gpt", "grok"]));
+$("#fireAll")?.addEventListener("click", () => fire(['rgon', 'claude', 'gpt', 'grok']));
 
 async function readClip() {
   try { return await navigator.clipboard.readText(); } catch (_) {}
