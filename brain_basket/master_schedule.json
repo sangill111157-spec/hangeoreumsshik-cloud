@@ -15,7 +15,9 @@
     "owner": "사령관님",
     "first_registered_at": "2026-10-20 22:24:14 KST",
     "registered_at": "2026-10-20 22:24:14 KST",
-    "date": "2026-10-22"
+    "date": "2026-10-22",
+    "assigned_date": "2026-10-22",
+    "activated_at": "2026-10-22T14:39:52"
   },
   "schedules": [
     {
@@ -24,9 +26,13 @@
       "title": "GEN-1 완전 무인 자가 진화 폐쇄 루프 개통",
       "description": "사령관 한 줄 지시 -> 멀티 AI 발사 -> 완료 감지 -> 자동 수거 -> 문법/실행 자동 검증 -> 실패 시 자동 재발사 -> 승리 코드 자동 적용",
       "target_date": "2026-10-21 (내일 아침)",
-      "status": "SCHEDULED_TOP1",
+      "status": "ACTIVE",
       "engine": "rgon_auto_evolve_brain.py + omni_bridge.py /reflect",
-      "registered_at": "2026-10-20 23:38:04"
+      "registered_at": "2026-10-20 23:38:04",
+      "status_prev": "SCHEDULED_TOP1",
+      "date": "2026-10-22",
+      "assigned_date": "2026-10-22",
+      "activated_at": "2026-10-22T14:39:52"
     },
     {
       "priority": 1,
@@ -44,7 +50,9 @@
       "owner": "사령관님",
       "first_registered_at": "2026-10-20 22:24:14 KST",
       "registered_at": "2026-10-20 22:24:14 KST",
-      "date": "2026-10-22"
+      "date": "2026-10-22",
+      "assigned_date": "2026-10-22",
+      "activated_at": "2026-10-22T14:39:52"
     }
   ],
   "R7_ANTIBODY": {
@@ -60,9 +68,13 @@
     "title": "GEN-1 완전 무인 자가 진화 폐쇄 루프 개통",
     "description": "사령관 한 줄 지시 -> 멀티 AI 발사 -> 완료 감지 -> 자동 수거 -> 문법/실행 자동 검증 -> 실패 시 자동 재발사 -> 승리 코드 자동 적용",
     "target_date": "2026-10-21 (내일 아침)",
-    "status": "SCHEDULED_TOP1",
+    "status": "ACTIVE",
     "engine": "rgon_auto_evolve_brain.py + omni_bridge.py /reflect",
-    "registered_at": "2026-10-20 23:38:04"
+    "registered_at": "2026-10-20 23:38:04",
+    "status_prev": "SCHEDULED_TOP1",
+    "date": "2026-10-22",
+    "assigned_date": "2026-10-22",
+    "activated_at": "2026-10-22T14:39:52"
   },
   "viral_keywords": [
     "AI 에이전트 군단 자동화",
@@ -84,6 +96,56 @@
     "title": "전 에이전트 합심·융합 자율 진화 두뇌(Auto-Evolve Brain) 상시 가동",
     "status": "ACTIVE",
     "date": "2026-10-22",
-    "updated_at": "2026-10-22T14:27:56+09:00"
+    "updated_at": "2026-10-22T14:27:56+09:00",
+    "assigned_date": "2026-10-22",
+    "activated_at": "2026-10-22T14:39:52"
+  },
+  "top1_self_evolving_brain": {
+    "task": "TOP1_SELF_EVOLVING_BRAIN",
+    "priority": 1,
+    "source": "step11_task_c2",
+    "status": "ACTIVE",
+    "date": "2026-10-22",
+    "assigned_date": "2026-10-22",
+    "activated_at": "2026-10-22T14:39:52",
+    "kept_by": "step11_task_c3"
+  },
+  "gen1_autonomous_evolution_closed_loop": {
+    "task": "GEN1_AUTONOMOUS_EVOLUTION_CLOSED_LOOP",
+    "status": "ACTIVE",
+    "date": "2026-10-22",
+    "assigned_date": "2026-10-22",
+    "priority": 2,
+    "activated_at": "2026-10-22T14:39:52",
+    "source": "step11_task_c3",
+    "description": "GEN-1 자율 진화 폐루프: G4 항체 자동 학습 -> G1~G3 원클릭 집행",
+    "loop": [
+      "G4 항체 자동 학습",
+      "G1 지시서 생성",
+      "G2 교차검증",
+      "G3 백업·원클릭 집행"
+    ],
+    "antibodies": "R1~R14 (14/14 활성)"
+  },
+  "daily_assignments": {
+    "2026-10-22": [
+      "TOP1_SELF_EVOLVING_BRAIN",
+      "GEN1_AUTONOMOUS_EVOLUTION_CLOSED_LOOP"
+    ]
+  },
+  "active_tasks": [
+    "TOP1_SELF_EVOLVING_BRAIN",
+    "GEN1_AUTONOMOUS_EVOLUTION_CLOSED_LOOP"
+  ],
+  "bm_pipeline": {
+    "name": "BM_PIPELINE",
+    "status": "REGISTERED",
+    "keywords_count": 5,
+    "top1": "TOP1_SELF_EVOLVING_BRAIN",
+    "top1_status": "ACTIVE",
+    "gen1_closed_loop": "ACTIVE",
+    "gen1": "GEN1_AUTONOMOUS_EVOLUTION_CLOSED_LOOP",
+    "updated_at": "2026-10-22T14:39:52",
+    "source": "step11_task_c3"
   }
 }

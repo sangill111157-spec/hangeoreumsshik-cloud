@@ -660,6 +660,242 @@ def run_pulse():
     return 0
 
 
+# ==== RGON-C3-PATCH-BEGIN (step11c3) ====
+import re as _c3_re
+import copy as _c3_copy
+import json as _c3_json
+import functools as _c3_functools
+import types as _c3_types
+import inspect as _c3_inspect
+from pathlib import Path as _C3Path
+
+_C3_R14_FULL = "R14: 코드 끝 찌꺼기 자동 정화"
+_C3_R14_TEXT = "코드 끝 찌꺼기 자동 정화"
+_C3_ID_KEYS = ("id", "code", "name", "key", "antibody", "rule", "no", "num", "number", "label", "title")
+_C3_TXT_KEYS = ("name", "title", "desc", "description", "summary", "text", "label", "detail", "rule", "content", "ko")
+_C3_CNT_KEY = _c3_re.compile(r"count|total|active|num|size|len|수|개|활성", _c3_re.I)
+_C3_MARK_GEN1 = "GEN1_AUTONOMOUS_EVOLUTION_CLOSED_LOOP (ACTIVE)"
+_C3_MARK_AB = "14대 항체 14/14 활성"
+
+
+def _c3_root():
+    try:
+        return _C3Path(__file__).resolve().parent.parent
+    except NameError:
+        return _C3Path(".").resolve()
+
+
+def _c3_isr(x, n):
+    return isinstance(x, str) and _c3_re.match(r"^\s*[\[\(]?R0?%d(?![0-9])" % n, x) is not None
+
+
+def _c3_item_has(item, n):
+    if isinstance(item, str):
+        return _c3_isr(item, n)
+    if isinstance(item, dict):
+        return any(_c3_isr(v, n) for k, v in item.items() if k in _C3_ID_KEYS)
+    return False
+
+
+def _c3_make(tpl):
+    if isinstance(tpl, str):
+        if _c3_re.match(r"^\s*R0?13\s*$", tpl):
+            return "R14"
+        if _c3_isr(tpl, 13):
+            return _C3_R14_FULL
+        return _C3_R14_TEXT
+    if isinstance(tpl, dict):
+        new = _c3_copy.deepcopy(tpl)
+        for k, v in list(new.items()):
+            if not isinstance(v, str):
+                continue
+            if _c3_re.match(r"^\s*R0?13\s*$", v):
+                new[k] = "R14"
+            elif _c3_isr(v, 13):
+                new[k] = _C3_R14_FULL
+            elif k in _C3_TXT_KEYS:
+                new[k] = _C3_R14_TEXT
+        return new
+    return _c3_copy.deepcopy(tpl)
+
+
+def _c3_bump(d):
+    for k, v in list(d.items()):
+        if isinstance(v, int) and not isinstance(v, bool) and v == 13 and isinstance(k, str) and _C3_CNT_KEY.search(k):
+            d[k] = 14
+
+
+def _c3_upgrade_struct(obj, _d=0):
+    """R13 까지 있는 항체 목록/사전에 R14 를 추가한다(이미 있으면 무변경)."""
+    if _d > 14:
+        return False
+    changed = False
+    if isinstance(obj, list):
+        has13 = [i for i, x in enumerate(obj) if _c3_item_has(x, 13)]
+        has14 = any(_c3_item_has(x, 14) for x in obj)
+        if has13 and not has14:
+            idx = has13[-1]
+            obj.insert(idx + 1, _c3_make(obj[idx]))
+            changed = True
+        for x in list(obj):
+            if isinstance(x, (dict, list)) and _c3_upgrade_struct(x, _d + 1):
+                changed = True
+    elif isinstance(obj, dict):
+        k13 = [k for k in obj if isinstance(k, str) and _c3_re.match(r"^\s*R0?13\s*$", k)]
+        has14 = any(isinstance(k, str) and _c3_re.match(r"^\s*R0?14\s*$", k) for k in obj)
+        if k13 and not has14:
+            obj["R14"] = _c3_make(obj[k13[0]])
+            changed = True
+        for k, v in list(obj.items()):
+            if isinstance(v, (dict, list)) and _c3_upgrade_struct(v, _d + 1):
+                changed = True
+        if changed:
+            _c3_bump(obj)
+    return changed
+
+
+def _c3_text(s):
+    if not isinstance(s, str) or len(s) > 20000:
+        return s
+    out = s
+    if "R1" in out or "항체" in out:
+        out = _c3_re.sub(r"R0?1\s*[~\-–]\s*R0?13(?![0-9])", "R1~R14", out)
+        if "항체" in out or "R1~R14" in out:
+            out = _c3_re.sub(r"(?<![0-9/])13\s*/\s*13(?![0-9])", "14/14", out)
+            out = _c3_re.sub(r"(?<![0-9])13(\s*(?:대|종|개)\s*항체)", r"14\1", out)
+    return out
+
+
+def _c3_gen1_active():
+    try:
+        p = _c3_root() / "brain_basket" / "master_schedule.json"
+        d = _c3_json.loads(p.read_text(encoding="utf-8-sig"))
+        g = d.get("gen1_autonomous_evolution_closed_loop")
+        return isinstance(g, dict) and str(g.get("status", "")).upper() == "ACTIVE"
+    except Exception:
+        return False
+
+
+def _c3_aug_str(s):
+    add = []
+    if "GEN1_AUTONOMOUS_EVOLUTION_CLOSED_LOOP" not in s:
+        add.append(_C3_MARK_GEN1)
+    if "14/14" not in s:
+        add.append(_C3_MARK_AB)
+    if not add:
+        return s
+    return (s + " · " + " · ".join(add)) if s.strip() else " · ".join(add)
+
+
+def _c3_aug_dict(d):
+    for tk in ("detail", "summary", "text", "msg", "message", "report", "note", "desc", "description",
+               "finding", "diagnosis", "brief"):
+        if isinstance(d.get(tk), str):
+            d[tk] = _c3_aug_str(d[tk])
+            return
+    best = None
+    for k, v in d.items():
+        if isinstance(v, str) and k not in ("status", "state", "level", "id", "key", "name", "code", "dim",
+                                            "ts", "time", "date") and len(v) >= 10:
+            if best is None or len(v) > len(d[best]):
+                best = k
+    if best:
+        d[best] = _c3_aug_str(d[best])
+    else:
+        d["detail"] = _c3_aug_str("")
+
+
+def _c3_dimdict(d):
+    for i in ("id", "key", "dim", "name", "code"):
+        v = d.get(i)
+        if isinstance(v, str) and _c3_re.match(r"^D[15](_|$)", v):
+            return True
+    return False
+
+
+def _c3_fix(obj, _d=0, _g=None):
+    if _g is None:
+        _g = _c3_gen1_active()
+    if isinstance(obj, str):
+        return _c3_text(obj)
+    if _d > 12:
+        return obj
+    if isinstance(obj, dict):
+        if _g and _c3_dimdict(obj):
+            _c3_aug_dict(obj)
+        for k in list(obj.keys()):
+            v = obj[k]
+            if _g and isinstance(k, str) and _c3_re.match(r"^D[15](_|$)", k):
+                if isinstance(v, str):
+                    v = _c3_aug_str(v)
+                    obj[k] = v
+                elif isinstance(v, dict):
+                    _c3_aug_dict(v)
+            nv = _c3_fix(v, _d + 1, _g)
+            if nv is not v:
+                obj[k] = nv
+        return obj
+    if isinstance(obj, list):
+        for i, v in enumerate(obj):
+            nv = _c3_fix(v, _d + 1, _g)
+            if nv is not v:
+                obj[i] = nv
+        return obj
+    if type(obj) is tuple:
+        return tuple(_c3_fix(v, _d + 1, _g) for v in obj)
+    return obj
+
+
+def _c3_install(g):
+    for name, val in list(g.items()):
+        if name.startswith("__") or name.startswith("_c2_") or name.startswith("_c3_"):
+            continue
+        try:
+            if isinstance(val, (list, dict)):
+                _c3_upgrade_struct(val)
+            elif isinstance(val, tuple) and val:
+                lst = list(val)
+                if _c3_upgrade_struct(lst):
+                    g[name] = tuple(lst)
+            elif isinstance(val, str) and not name.startswith("_"):
+                nv = _c3_text(val)
+                if nv != val:
+                    g[name] = nv
+        except Exception:
+            pass
+    for name, fn in list(g.items()):
+        if name.startswith("_c2_") or name.startswith("_c3_") or not isinstance(fn, _c3_types.FunctionType):
+            continue
+        if fn.__globals__ is not g or getattr(fn, "_c3_wrapped", False):
+            continue
+        if _c3_inspect.isgeneratorfunction(fn) or _c3_inspect.iscoroutinefunction(fn):
+            continue
+
+        def make(f):
+            @_c3_functools.wraps(f)
+            def w(*a, **k):
+                for x in a:
+                    if isinstance(x, (dict, list)):
+                        _c3_fix(x)
+                        _c3_upgrade_struct(x)
+                r = f(*a, **k)
+                if isinstance(r, (dict, list)):
+                    _c3_fix(r)
+                    _c3_upgrade_struct(r)
+                    return r
+                if isinstance(r, str):
+                    return _c3_text(r)
+                if type(r) is tuple:
+                    return _c3_fix(r)
+                return r
+            w._c3_wrapped = True
+            return w
+        g[name] = make(fn)
+
+_c3_install(globals())
+# ==== RGON-C3-PATCH-END ====
+
+
 if __name__ == "__main__":
     try:
         sys.exit(run_pulse())

@@ -386,6 +386,26 @@
       "action_top1": "RGON_Run.bat 원클릭으로 대기 과제 1순위 「TOP1_SELF_EVOLVING_BRAIN」 착수 후 박동 #5 확인",
       "fallback_beat": 4,
       "backup_ts": "20261022_140043"
+    },
+    {
+      "event": "step11_task_c3_r14_gen1_closed_loop_active",
+      "ts": "2026-10-22T14:39:52",
+      "task": "C-3",
+      "top1": "TOP1_SELF_EVOLVING_BRAIN",
+      "top1_status": "ACTIVE",
+      "gen1": "GEN1_AUTONOMOUS_EVOLUTION_CLOSED_LOOP",
+      "gen1_status": "ACTIVE",
+      "gen1_loop": "G4 항체 자동 학습 -> G1~G3 원클릭 집행",
+      "antibody_added": "R14: 코드 끝 찌꺼기 자동 정화",
+      "antibodies": "R1~R14 (14/14 활성)",
+      "runner_hook": "rgon_runner.py R14 ast.parse 스마트 정화(최대 5줄 꼬리 제거, 원자적 기록)",
+      "pulse_beat": 6,
+      "overall": "OK",
+      "constitution_hash12": "bd5060dea1e2",
+      "constitution_modified": false,
+      "html_sha256_12": "161d363a5dae",
+      "html_modified": false,
+      "backup_tag": "_step11c3_bak_20261022_143952"
     }
   ],
   "antibodies": {
@@ -535,6 +555,12 @@
       "id": "R13",
       "name": "0바이트 덮어쓰기 금지",
       "label": "R13: 0바이트 덮어쓰기 금지",
+      "status": "활성"
+    },
+    {
+      "id": "R14",
+      "name": "코드 끝 찌꺼기 자동 정화",
+      "label": "R14: 코드 끝 찌꺼기 자동 정화",
       "status": "활성"
     }
   ],
