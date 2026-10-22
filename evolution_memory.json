@@ -324,6 +324,36 @@
       },
       "html_untouched": true,
       "backup_ts": "20261022_122529"
+    },
+    {
+      "event": "step11_task_b3_pulse_live_ui_binding",
+      "timestamp": "2026-10-22T13:16:56+09:00",
+      "summary": "독대실 UI에 6대 청사 무인 박동(agency_pulse) 라이브 전광판 바인딩 장착(60초 주기 · 지금 동기화 · 내장 폴백) · HTML 3곳 해시 통일 · 클라우드 배포",
+      "script_id": "rgon-step11-pulse-live",
+      "canonical": "docs/rgon_alpha_chat.html",
+      "html_sha256": "8ab00dab3b8242baf52d5d1ad348574744c58ad7aec5ca6f262a5fd3a5f21906",
+      "protected_ids": {
+        "rgon-step5-solo-panel": 1,
+        "rgon-step7-chat-zone": 1,
+        "rgon-step8-constitution-bar": 1,
+        "rgon-step9-aggregator-board": 1,
+        "rgon-step10-agency-awaken": 1,
+        "dokdae-feed": 1
+      },
+      "beat_count": 3,
+      "checked_at": "2026-10-22T13:16:56+09:00",
+      "overall": "OK",
+      "agencies": {
+        "D1": "OK",
+        "D2": "OK",
+        "D3": "OK",
+        "D4": "OK",
+        "D5": "OK",
+        "D6": "OK"
+      },
+      "antibodies_active": 13,
+      "fallback_beat": 2,
+      "backup_ts": "20261022_131655"
     }
   ],
   "antibodies": {

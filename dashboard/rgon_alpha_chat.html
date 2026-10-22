@@ -7466,5 +7466,223 @@ if (document.readyState === "loading") { document.addEventListener("DOMContentLo
   else boot();
 })();
 </script>
+<script id="rgon-step11-pulse-live">
+(function(){
+  "use strict";
+  if (window.__rgonPulseLive) return;
+  window.__rgonPulseLive = true;
+  var FALLBACK = {"beat_count":2,"checked_at":"2026-10-22T13:01:12+09:00","overall":"OK","agencies":{"D1":{"code":"D1","name":"\uc54c\ud30c-D1 \ud000\ud2b8","duty":"R\u0026D \u00b7 4\ub300 AI \uad50\ucc28\uac80\uc99d \uc804\uad11\ud310 \ub300\uae30 \uc0c1\ud0dc \uc810\uac80","status":"OK","checked_at":"2026-10-22T13:01:12+09:00","metrics":{"aggregator_board_present":true,"chat_zone_present":true,"cross_validation_board":"\ub300\uae30(STANDBY-READY)"}},"D2":{"code":"D2","name":"\uc54c\ud30c-D2 \ubc14\uc774\ub7f4","duty":"\ud575\uc2ec \ud0a4\uc6cc\ub4dc \u0026 BM \ud30c\uc774\ud504\ub77c\uc778 \uc900\ube44\ub3c4 \uc810\uac80","status":"OK","checked_at":"2026-10-22T13:01:12+09:00","metrics":{"master_schedule_exists":true,"master_schedule_valid":true,"keyword_bm_keys":1}},"D3":{"code":"D3","name":"\uc54c\ud30c-D3 \ubbf8\ub514\uc5b4","duty":"\ube0c\ub9ac\ud551 \u00b7 TTS \u00b7 \ubbf8\ub514\uc5b4 \uc790\uc0b0 \uc0c1\ud0dc \uc810\uac80","status":"OK","checked_at":"2026-10-22T13:01:12+09:00","metrics":{"media_files":5,"briefing_keys":0}},"D4":{"code":"D4","name":"\uc54c\ud30c-D4 \ud64d\uc775","duty":"\uc81c0\uc870 \ud64d\uc775\uc778\uac04 \uc6d0\uce59 \u0026 \ud5cc\ubc95 v1.0 \ubb34\uacb0\uc131 \ud574\uc2dc \uc810\uac80","status":"OK","checked_at":"2026-10-22T13:01:12+09:00","metrics":{"constitution_exists":true,"constitution_valid":true,"baseline_match":true,"article0_hongik_found":true}},"D5":{"code":"D5","name":"\uc54c\ud30c-D5 \uac00\ub514\uc5b8","duty":"13\ub300 \ud56d\uccb4(R1~R13) \u0026 \ub3c5\ub300\uc2e4 HTML 3\uacf3 \ud574\uc2dc \uc77c\uce58 \uc218\ud638 \uc810\uac80","status":"OK","checked_at":"2026-10-22T13:01:12+09:00","metrics":{"html_all_exist":true,"html_hash_unified":true,"protected_ids_ok":true,"ab_realname_script_all":true,"antibodies_active":13,"antibodies_total":13}},"D6":{"code":"D6","name":"\uc54c\ud30c-D6 \ud2b8\ub808\uc800\ub9ac","duty":"treasury_ledger.json \uae08\uace0 \uc7a5\ubd80 \ubb34\uacb0\uc131 \u0026 \ubb34\uacfc\uae08(Free Tier) \uc810\uac80","status":"OK","checked_at":"2026-10-22T13:01:12+09:00","metrics":{"ledger_exists":true,"ledger_valid":true,"free_tier":true,"paid_api_calls":0,"network_used":false}}},"antibodies":{"active":13,"total":13}};
+  var SNAP_URL = "./rgon_brain_snapshot.json";
+  var PERIOD = 60000;
+  var AWAKEN = "rgon-step10-" + "agency-awaken";
+  var ANCHOR_TEXT = "6대 청사 실시간 보좌 지표 보기";
+  var BANNER_ID = "rgon-pulse-live-banner";
+  var STYLE_ID = "rgon-pulse-live-style";
+  var CODES = ["D1","D2","D3","D4","D5","D6"];
+  var NAMES = {D1:"알파-D1 퀀트",D2:"알파-D2 바이럴",D3:"알파-D3 미디어",D4:"알파-D4 홍익",D5:"알파-D5 가디언",D6:"알파-D6 트레저리"};
+  var ICON = {OK:"🟢",STANDBY:"🟡",WARN:"🟠",ALERT:"🔴"};
+  var SKIP = {SCRIPT:1,STYLE:1,NOSCRIPT:1,TEXTAREA:1,INPUT:1,SELECT:1,OPTION:1,BUTTON:1,HTML:1,BODY:1,HEAD:1,TITLE:1};
+  var INLINE = {SPAN:1,B:1,STRONG:1,EM:1,I:1,SMALL:1,A:1,LABEL:1,CODE:1,MARK:1,U:1,FONT:1};
+  var lastGood = null, lastKey = "", busy = false, timer = null;
+
+  function css(){
+    if (document.getElementById(STYLE_ID)) return;
+    var s = document.createElement("style");
+    s.id = STYLE_ID;
+    s.textContent =
+      "#" + BANNER_ID + "{display:block;writing-mode:horizontal-tb;max-width:100%;box-sizing:border-box;margin:8px 0;padding:10px 12px;border:1px solid rgba(34,197,94,.45);border-radius:10px;background:rgba(34,197,94,.08);font-size:13px;line-height:1.5;color:inherit;word-break:keep-all;overflow-wrap:anywhere;}" +
+      "#" + BANNER_ID + "[data-state=warn]{border-color:rgba(249,115,22,.55);background:rgba(249,115,22,.08);}" +
+      "#" + BANNER_ID + " .rpl-head{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;justify-content:space-between;}" +
+      "#" + BANNER_ID + " .rpl-sum{font-weight:700;min-width:0;flex:1 1 240px;}" +
+      "#" + BANNER_ID + " .rpl-btn{flex:0 0 auto;cursor:pointer;border:1px solid currentColor;border-radius:8px;background:transparent;color:inherit;padding:3px 10px;font-size:12px;writing-mode:horizontal-tb;white-space:nowrap;}" +
+      "#" + BANNER_ID + " .rpl-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:6px;margin-top:8px;}" +
+      "#" + BANNER_ID + " .rpl-card{box-sizing:border-box;max-width:100%;min-width:0;padding:6px 8px;border-radius:8px;background:rgba(127,127,127,.08);writing-mode:horizontal-tb;}" +
+      "#" + BANNER_ID + " .rpl-card b{display:block;}" +
+      "#" + BANNER_ID + " .rpl-duty{display:block;opacity:.85;font-size:12px;}" +
+      "#" + BANNER_ID + " .rpl-met{display:block;opacity:.7;font-size:11px;}" +
+      "#" + BANNER_ID + " .rpl-src{opacity:.65;font-size:11px;margin-top:4px;}" +
+      ".rgon-pulse-chip{display:block;writing-mode:horizontal-tb;max-width:100%;box-sizing:border-box;margin-top:4px;font-size:11px;line-height:1.4;opacity:.9;overflow-wrap:anywhere;word-break:keep-all;}";
+    (document.head || document.documentElement).appendChild(s);
+  }
+
+  function fmt(s){ s = String(s || ""); return s ? s.replace("T", " ").slice(0, 19) : "-"; }
+  function setText(el, t){ if (el && el.textContent !== t) el.textContent = t; }
+
+  function metricText(code, m){
+    m = m || {};
+    switch (code) {
+      case "D1": return "교차검증판 " + (m.cross_validation_board || (m.aggregator_board_present ? "대기" : "미탐지")) + " · 대화창 " + (m.chat_zone_present ? "확인" : "미확인");
+      case "D2": return "마스터 스케줄 " + (m.master_schedule_valid ? "정상" : "미확인") + " · 키워드/BM 키 " + (m.keyword_bm_keys || 0);
+      case "D3": return "미디어 " + (m.media_files || 0) + "개 · 브리핑 키 " + (m.briefing_keys || 0);
+      case "D4": return "헌법 해시 " + (m.baseline_match ? "일치" : "불일치") + " · 제0조 홍익 " + (m.article0_hongik_found ? "확인" : "미확인");
+      case "D5": return "항체 " + (m.antibodies_active || 0) + "/" + (m.antibodies_total || 13) + " · HTML 3곳 " + (m.html_hash_unified ? "해시 일치" : "해시 불일치");
+      case "D6": return "금고 장부 " + (m.ledger_valid ? "정상" : "미확인") + " · Free Tier · 유료호출 " + (m.paid_api_calls || 0);
+    }
+    return "";
+  }
+
+  function agency(p, code){
+    var a = (p && p.agencies && p.agencies[code]) || {};
+    return {code: code, name: a.name || NAMES[code], duty: a.duty || "", status: String(a.status || "STANDBY"), metrics: a.metrics || {}};
+  }
+
+  function summary(p){
+    var bad = [];
+    for (var i = 0; i < CODES.length; i++) if (agency(p, CODES[i]).status !== "OK") bad.push(CODES[i]);
+    var ab = (p && p.antibodies) || {};
+    var allOk = bad.length === 0 && p && p.overall === "OK";
+    var head = allOk ? "🟢 6대 청사 무인 박동 #" + (p.beat_count || 0) + " · D1~D6 ALL OK"
+                     : "🟠 6대 청사 무인 박동 #" + ((p && p.beat_count) || 0) + " · 점검 필요: " + (bad.join(", ") || "종합 판정");
+    return {ok: allOk, text: head + " · 항체 " + (ab.active || 0) + "/" + (ab.total || 13) + " 활성 · 최근 점검: " + fmt(p && p.checked_at)};
+  }
+
+  function findAnchor(){
+    var w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false), t;
+    while ((t = w.nextNode())) {
+      if (t.nodeValue && t.nodeValue.indexOf(ANCHOR_TEXT) >= 0 && t.parentElement && !t.parentElement.closest("#" + BANNER_ID)) return t.parentElement;
+    }
+    return null;
+  }
+
+  function ensureBanner(){
+    var b = document.getElementById(BANNER_ID);
+    if (b) return b;
+    b = document.createElement("div");
+    b.id = BANNER_ID;
+    b.setAttribute("role", "status");
+    b.setAttribute("aria-live", "polite");
+    var head = document.createElement("div"); head.className = "rpl-head";
+    var sum = document.createElement("div"); sum.className = "rpl-sum"; sum.textContent = "🟡 6대 청사 무인 박동 수신 대기";
+    var btn = document.createElement("button"); btn.type = "button"; btn.className = "rpl-btn"; btn.textContent = "🔄 지금 동기화";
+    btn.addEventListener("click", function(){ load(true); });
+    head.appendChild(sum); head.appendChild(btn);
+    var grid = document.createElement("div"); grid.className = "rpl-grid";
+    for (var i = 0; i < CODES.length; i++) {
+      var c = document.createElement("div"); c.className = "rpl-card"; c.setAttribute("data-rpl-code", CODES[i]);
+      var nb = document.createElement("b"); var du = document.createElement("span"); du.className = "rpl-duty";
+      var me = document.createElement("span"); me.className = "rpl-met";
+      c.appendChild(nb); c.appendChild(du); c.appendChild(me); grid.appendChild(c);
+    }
+    var src = document.createElement("div"); src.className = "rpl-src";
+    b.appendChild(head); b.appendChild(grid); b.appendChild(src);
+    var host = document.getElementById(AWAKEN);
+    if (host) { host.insertBefore(b, host.firstChild); return b; }
+    var anc = findAnchor();
+    if (anc) {
+      var det = anc.closest("details");
+      var ref = det || anc;
+      if (ref.parentNode) { ref.parentNode.insertBefore(b, ref); return b; }
+    }
+    document.body.insertBefore(b, document.body.firstChild);
+    return b;
+  }
+
+  function hostOf(el){
+    var h = el, k = 0;
+    while (h && INLINE[h.nodeName] && h.parentElement && k < 3) { h = h.parentElement; k++; }
+    return h;
+  }
+
+  function bindCards(p){
+    for (var i = 0; i < CODES.length; i++) {
+      var code = CODES[i], name = NAMES[code], a = agency(p, code);
+      var line = (ICON[a.status] || "⚪") + " " + a.status + " · " + a.duty + " · " + metricText(code, a.metrics);
+      var w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false), t, hosts = [];
+      while ((t = w.nextNode()) && hosts.length < 3) {
+        var pe = t.parentElement;
+        if (!pe || !t.nodeValue || t.nodeValue.indexOf(name) < 0) continue;
+        if (pe.closest("#" + BANNER_ID) || pe.closest(".rgon-pulse-chip") || pe.isContentEditable) continue;
+        var h = hostOf(pe);
+        if (!h || SKIP[h.nodeName] || hosts.indexOf(h) >= 0) continue;
+        var tx = h.textContent || "", multi = 0;
+        for (var j = 0; j < CODES.length; j++) if (tx.indexOf(NAMES[CODES[j]]) >= 0) multi++;
+        if (multi > 1) continue;
+        hosts.push(h);
+      }
+      for (var k = 0; k < hosts.length; k++) {
+        var chip = null, ch = hosts[k].children;
+        for (var x = 0; x < ch.length; x++) if (ch[x].getAttribute("data-rgon-pulse-chip") === code) { chip = ch[x]; break; }
+        if (!chip) {
+          chip = document.createElement("span");
+          chip.className = "rgon-pulse-chip";
+          chip.setAttribute("data-rgon-pulse-chip", code);
+          hosts[k].appendChild(chip);
+        }
+        setText(chip, line);
+      }
+    }
+  }
+
+  function bindSyncButtons(){
+    var list = document.querySelectorAll("button, a, [role=button]");
+    for (var i = 0; i < list.length; i++) {
+      var el = list[i];
+      if (el.closest("#" + BANNER_ID) || el.getAttribute("data-rgon-pulse-sync") === "1") continue;
+      if ((el.textContent || "").indexOf("지금 동기화") >= 0) {
+        el.setAttribute("data-rgon-pulse-sync", "1");
+        el.addEventListener("click", function(){ load(true); });
+      }
+    }
+  }
+
+  function render(p, src){
+    if (!document.body || !p) return;
+    css();
+    var b = ensureBanner();
+    var s = summary(p);
+    var key = JSON.stringify([p.beat_count, p.checked_at, p.overall, p.agencies, p.antibodies, src]);
+    if (key !== lastKey) {
+      lastKey = key;
+      var st = s.ok ? "ok" : "warn";
+      if (b.getAttribute("data-state") !== st) b.setAttribute("data-state", st);
+      setText(b.querySelector(".rpl-sum"), s.text);
+      var cards = b.querySelectorAll(".rpl-card");
+      for (var i = 0; i < cards.length; i++) {
+        var a = agency(p, cards[i].getAttribute("data-rpl-code"));
+        setText(cards[i].querySelector("b"), (ICON[a.status] || "⚪") + " " + a.status + " · " + a.code + " " + a.name);
+        setText(cards[i].querySelector(".rpl-duty"), a.duty);
+        setText(cards[i].querySelector(".rpl-met"), metricText(a.code, a.metrics));
+      }
+      setText(b.querySelector(".rpl-src"), "출처: " + src + " · 60초 주기 자동 갱신");
+    }
+    try { bindCards(p); } catch (e) {}
+    try { bindSyncButtons(); } catch (e) {}
+  }
+
+  function load(){
+    if (busy) return;
+    busy = true;
+    var finish = function(p, src){ busy = false; render(p, src); };
+    if (!window.fetch) { finish(lastGood || FALLBACK, lastGood ? "직전 수신값 유지" : "내장 폴백(R4)"); return; }
+    var ctrl = window.AbortController ? new AbortController() : null;
+    var to = setTimeout(function(){ if (ctrl) ctrl.abort(); }, 8000);
+    var opt = {cache: "no-store"};
+    if (ctrl) opt.signal = ctrl.signal;
+    fetch(SNAP_URL + "?t=" + Date.now(), opt)
+      .then(function(r){ if (!r.ok) throw new Error("http " + r.status); return r.json(); })
+      .then(function(j){
+        var p = j && j.agency_pulse;
+        if (!p || !p.agencies) throw new Error("no agency_pulse");
+        lastGood = p;
+        clearTimeout(to);
+        finish(p, "실시간 스냅샷");
+      })
+      .catch(function(){
+        clearTimeout(to);
+        finish(lastGood || FALLBACK, lastGood ? "직전 수신값 유지" : "내장 폴백(R4)");
+      });
+  }
+
+  function boot(){
+    try { render(FALLBACK, "내장 폴백(R4)"); } catch (e) {}
+    load();
+    if (timer) clearInterval(timer);
+    timer = setInterval(load, PERIOD);
+    document.addEventListener("visibilitychange", function(){ if (!document.hidden) load(); });
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
+  else boot();
+})();
+</script>
 </body>
 </html>
