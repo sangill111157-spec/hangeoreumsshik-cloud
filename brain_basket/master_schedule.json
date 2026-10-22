@@ -3,7 +3,7 @@
     "priority": 1,
     "task_id": "TOP1_SELF_EVOLVING_BRAIN",
     "title": "전 에이전트 합심·융합 자율 진화 두뇌(Auto-Evolve Brain) 상시 가동",
-    "status": "ACTIVE_TOTAL_WAR",
+    "status": "ACTIVE",
     "fusion": [
       "DSPy",
       "AlphaEvolve",
@@ -14,7 +14,8 @@
     "cadence": "상시 가동 + 매일 03:00 KST 외부 주방(GitHub Actions --ci) 무인 진화",
     "owner": "사령관님",
     "first_registered_at": "2026-10-20 22:24:14 KST",
-    "registered_at": "2026-10-20 22:24:14 KST"
+    "registered_at": "2026-10-20 22:24:14 KST",
+    "date": "2026-10-22"
   },
   "schedules": [
     {
@@ -31,7 +32,7 @@
       "priority": 1,
       "task_id": "TOP1_SELF_EVOLVING_BRAIN",
       "title": "전 에이전트 합심·융합 자율 진화 두뇌(Auto-Evolve Brain) 상시 가동",
-      "status": "ACTIVE_TOTAL_WAR",
+      "status": "ACTIVE",
       "fusion": [
         "DSPy",
         "AlphaEvolve",
@@ -42,7 +43,8 @@
       "cadence": "상시 가동 + 매일 03:00 KST 외부 주방(GitHub Actions --ci) 무인 진화",
       "owner": "사령관님",
       "first_registered_at": "2026-10-20 22:24:14 KST",
-      "registered_at": "2026-10-20 22:24:14 KST"
+      "registered_at": "2026-10-20 22:24:14 KST",
+      "date": "2026-10-22"
     }
   ],
   "R7_ANTIBODY": {
@@ -61,5 +63,27 @@
     "status": "SCHEDULED_TOP1",
     "engine": "rgon_auto_evolve_brain.py + omni_bridge.py /reflect",
     "registered_at": "2026-10-20 23:38:04"
+  },
+  "viral_keywords": [
+    "AI 에이전트 군단 자동화",
+    "4대 AI 교차검증 레버리지",
+    "원클릭 무인 사령부",
+    "홍익인간 안전 가드레일",
+    "24시간 클라우드 자가진화"
+  ],
+  "keywords": [
+    "AI 에이전트 군단 자동화",
+    "4대 AI 교차검증 레버리지",
+    "원클릭 무인 사령부",
+    "홍익인간 안전 가드레일",
+    "24시간 클라우드 자가진화"
+  ],
+  "bm_pipeline_status": "ACTIVE_READY",
+  "active_top1_task": {
+    "id": "TOP1_SELF_EVOLVING_BRAIN",
+    "title": "전 에이전트 합심·융합 자율 진화 두뇌(Auto-Evolve Brain) 상시 가동",
+    "status": "ACTIVE",
+    "date": "2026-10-22",
+    "updated_at": "2026-10-22T14:27:56+09:00"
   }
 }

@@ -7468,6 +7468,22 @@ if (document.readyState === "loading") { document.addEventListener("DOMContentLo
 </script>
 <script id="rgon-step11-pulse-live">
 (function(){
+  window.__rgonLoadTop1Directive = function(actionText){
+    var directive = "[RGON 자율진화 G1 지시서 — TOP1_SELF_EVOLVING_BRAIN]\n" +
+      "목표: " + (actionText || "6대 청사 자율 진화 점검 및 최소 변경(Minimal Diff) 개선") + "\n" +
+      "가드레일: 헌법 v1.0 및 항체 R1~R13 100% 준수, 보호 ID 6/6 보존, 단일 Python 코드 블록만 출력하라.";
+    var inputs = document.querySelectorAll("textarea, input[type='text']");
+    for (var i = 0; i < inputs.length; i++) {
+      inputs[i].value = directive;
+      inputs[i].dispatchEvent(new Event("input", {bubbles: true}));
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(directive).catch(function(){});
+    }
+    alert("🧠 [자율진화 Top1 지시서]가 하단 입력창과 클립보드에 동시 장전되었습니다!");
+  };
+})();
+(function(){
   "use strict";
   if (window.__rgonPulseLiveC1) return;
   window.__rgonPulseLiveC1 = true;
