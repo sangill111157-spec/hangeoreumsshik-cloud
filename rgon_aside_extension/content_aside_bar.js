@@ -912,8 +912,32 @@ $("#arena").addEventListener("click", async (ev) => {
     if (r && r.ok) { toast("💾 저장 완료: " + r.path, 4500); }
     else { downloadBlob(fn, e.code); toast("브리지 오프라인 → 브라우저 다운로드 폴더로 저장했습니다.", 4500); }
   } else if (btn.dataset.act === "queue") {
-    const r = await rt({ type: "OMNI_QUEUE", role, filename: fn, code: e.code });
-    toast(r && r.ok ? "📮 안총리 실행 큐에 등록했습니다 (자동 실행되지 않음)" : "⚠️ " + ((r && r.error) || "큐 등록 실패"), 4000);
+    const raw = String(e.code || "");
+    const isPy = /(^|\n)\s*(import\s+|from\s+\w+\s+import|def\s+\w+\s*\(|class\s+\w+[:\(]|#\s*-\*-)/.test(raw) || (e.lang && /python|py/i.test(e.lang));
+    const now = new Date();
+    const pad = (n) => String(n).padStart(2, "0");
+    const tsStr = `${now.getFullYear()}${pad(now.getMonth()+1)}${pad(now.getDate())}_${pad(now.getHours())}${pad(now.getMinutes())}${pad(now.getSeconds())}`;
+    
+    // 시각적 피드백
+    const origText = btn.textContent;
+    const origBg = btn.style.backgroundColor;
+    btn.textContent = "✅ 실행 큐 전송 완료!";
+    btn.style.backgroundColor = "#059669";
+    setTimeout(() => {
+      btn.textContent = origText;
+      btn.style.backgroundColor = origBg;
+    }, 3500);
+
+    if (isPy) {
+      const qFn = `omni_queue_${tsStr}.py`;
+      downloadBlob(qFn, raw);
+      toast("🚀 [파이썬 코드 감지] omni_queue 파일 다운로드 완료! rgon_auto_watcher 가 즉시 실행창을 띄웁니다.", 5000);
+    } else {
+      await copyText(raw);
+      const qFn = `ahn_queue_${tsStr}.txt`;
+      downloadBlob(qFn, raw);
+      toast("📋 [지시서/텍스트 감지] 클립보드 복사 & ahn_queue 다운로드 완료! 안총리 데스크에 즉시 전달됩니다.", 5000);
+    }
   }
 });
 
