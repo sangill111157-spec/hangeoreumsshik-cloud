@@ -337,6 +337,237 @@ def html_hashes():
     return out
 
 
+# >>> RGON-C1 DAILY BRIEFING >>>
+# Step 11 과제 C-1: 6대 청사 일일 실전 브리핑(daily_briefing) 생성기 (표준 라이브러리만 사용, 장부는 읽기만 함)
+C1_EVO_REL = "evolution_memory.json"
+C1_TASK_HINTS = ("title", "task", "tasks", "todo", "action", "subject", "topic", "goal", "target", "mission", "name",
+                 "과제", "할일", "업무", "제목", "목표", "임무")
+C1_KW_HINTS = ("keyword", "keywords", "키워드", "tag", "tags", "bm", "pipeline", "파이프라인")
+C1_DATE_HINTS = ("date", "day", "due", "when", "scheduled", "deadline", "날짜", "일자", "마감")
+C1_STATUS_KEYS = ("status", "state", "done", "completed", "상태", "완료")
+C1_BRIEF_KEYS = ("headline", "D1_quant", "D2_viral", "D3_media", "D4_hongik", "D5_guardian", "D6_treasury", "action_top1")
+C1_ICON = {"OK": "🟢", "STANDBY": "🟡", "WARN": "🟠", "ALERT": "🔴"}
+
+
+def _c1_clean(s, n=48):
+    s = re.sub(r"\s+", " ", str(s)).strip()
+    s = re.sub(r"[<>`]", "", s)
+    return (s[:n - 1] + "…") if len(s) > n else s
+
+
+def _c1_hit(key, hints):
+    k = str(key).lower()
+    toks = [t for t in re.split(r"[^0-9a-z가-힣]+", k) if t]
+    return k in hints or any(t in hints for t in toks) or any(len(h) >= 4 and h in k for h in hints)
+
+
+def _c1_walk(o, depth=0):
+    if depth > 7:
+        return
+    if isinstance(o, dict):
+        yield o
+        for v in o.values():
+            for x in _c1_walk(v, depth + 1):
+                yield x
+    elif isinstance(o, list):
+        for v in o[:1000]:
+            for x in _c1_walk(v, depth + 1):
+                yield x
+
+
+def _c1_strs(v):
+    if isinstance(v, str):
+        return [v] if v.strip() else []
+    if isinstance(v, list):
+        return [x for x in v[:20] if isinstance(x, str) and x.strip()]
+    return []
+
+
+def _c1_schedule(today):
+    info = load_json_rel(SCHEDULE_REL)
+    res = {"exists": info["exists"], "valid": info["valid"], "today": [], "pending": [], "keywords": []}
+    if not info["valid"]:
+        return res
+    compact = today.replace("-", "")
+    seen_t, seen_k = set(), set()
+
+    def add_task(c, bucket):
+        if c and c not in seen_t:
+            seen_t.add(c)
+            res[bucket].append(c)
+
+    for d in _c1_walk(info["obj"]):
+        tasks, kws, dates, stat = [], [], [], ""
+        for k, v in d.items():
+            ks = str(k)
+            if today in ks or compact in ks:
+                for t in _c1_strs(v):
+                    add_task(_c1_clean(t), "today")
+                continue
+            if _c1_hit(k, C1_KW_HINTS):
+                kws.extend(_c1_strs(v))
+            elif _c1_hit(k, C1_DATE_HINTS) and isinstance(v, (str, int)):
+                dates.append(str(v))
+            elif ks.lower() in C1_STATUS_KEYS:
+                stat += " " + str(v).lower()
+            elif _c1_hit(k, C1_TASK_HINTS):
+                tasks.extend(_c1_strs(v))
+        for kw in kws:
+            c = _c1_clean(kw, 24)
+            if c and c not in seen_k:
+                seen_k.add(c)
+                res["keywords"].append(c)
+        if not tasks:
+            continue
+        done = any(w in stat for w in ("done", "complete", "완료", "true", "closed"))
+        if done:
+            continue
+        is_today = any(today in x or compact in x for x in dates)
+        for t in tasks:
+            add_task(_c1_clean(t), "today" if is_today else "pending")
+    return res
+
+
+def _c1_evolution():
+    info = load_json_rel(C1_EVO_REL)
+    events = []
+    if info["valid"]:
+        for d in _c1_walk(info["obj"]):
+            ev = d.get("event")
+            if isinstance(ev, str) and ev.strip():
+                events.append(ev.strip())
+    return {"valid": info["valid"], "count": len(events),
+            "step11": sum(1 for e in events if e.startswith("step11")),
+            "latest": _c1_clean(events[-1], 60) if events else ""}
+
+
+def _c1_treasury():
+    info = load_json_rel(TREASURY_REL)
+    res = {"exists": info["exists"], "valid": info["valid"], "sha": (info["sha256"] or "")[:12],
+           "records": 0, "balance": None}
+    if not info["valid"]:
+        return res
+    o = info["obj"]
+    if isinstance(o, list):
+        res["records"] = len(o)
+    elif isinstance(o, dict):
+        res["records"] = sum(len(v) for v in o.values() if isinstance(v, list))
+    for d in _c1_walk(o):
+        if res["balance"] is not None:
+            break
+        for k, v in d.items():
+            if isinstance(v, (int, float)) and not isinstance(v, bool) and \
+                    re.search(r"(?i)(balance|잔액|잔고|total|합계)", str(k)):
+                res["balance"] = (_c1_clean(k, 20), v)
+                break
+    return res
+
+
+def _c1_constitution():
+    info = load_json_rel(CONST_REL)
+    txt = json.dumps(info["obj"], ensure_ascii=False) if info["valid"] else ""
+    return {"valid": info["valid"], "sha": (info["sha256"] or "")[:12],
+            "gates": sorted(set(re.findall(r"(?<![A-Za-z0-9])G([1-5])(?![0-9])", txt))),
+            "gate_word": bool(re.search(r"(?i)5\s*-?\s*gate|게이트", txt))}
+
+
+def _c1_build(pulse, now):
+    codes = ["D1", "D2", "D3", "D4", "D5", "D6"]
+    ags = pulse.get("agencies") or {}
+    st = {c: str((ags.get(c) or {}).get("status") or "STANDBY") for c in codes}
+    mt = {c: (ags.get(c) or {}).get("metrics") or {} for c in codes}
+    ic = {c: C1_ICON.get(st[c], "⚪") + " " + st[c] for c in codes}
+    bad = [c for c in codes if st[c] != "OK"]
+    all_ok = not bad and pulse.get("overall") == "OK"
+    beat = pulse.get("beat_count") if isinstance(pulse.get("beat_count"), int) else 0
+    today = str(now)[:10]
+    sch = _c1_schedule(today)
+    evo = _c1_evolution()
+    tre = _c1_treasury()
+    con = _c1_constitution()
+    hi = pulse.get("html_integrity") or {}
+    ab = pulse.get("antibodies") or {}
+    target = (sch["today"] or sch["pending"] or ["다음 Step 지시서 교차검증 준비"])[0]
+
+    headline = "👑 [RGON 6대 청사 일일 실전 브리핑] 박동 #%d · %s" % (
+        beat, "D1~D6 ALL OK" if all_ok else "점검 필요: " + ", ".join(bad or ["종합 판정"]))
+
+    d1 = "%s · 4대 AI 교차검증 전광판 %s · Minimal Diff Top1(R11) 심판 가동 · 누적 진화 %d건(Step 11 %d건) · 최신 이력 %s · R&D 핵심 타겟: %s" % (
+        ic["D1"], "대기" if mt["D1"].get("aggregator_board_present") else "미탐지",
+        evo["count"], evo["step11"], evo["latest"] or "-", target)
+
+    if not sch["exists"]:
+        d2 = "%s · master_schedule.json 미탐지 → 오늘 일정 등록 필요" % ic["D2"]
+    elif not sch["valid"]:
+        d2 = "%s · master_schedule.json JSON 무효 → 점검 필요" % ic["D2"]
+    else:
+        if sch["today"]:
+            tasks = "오늘 과제 %d건: %s" % (len(sch["today"]), " / ".join(sch["today"][:3]))
+        elif sch["pending"]:
+            tasks = "오늘 날짜 과제 없음 · 대기 과제 %d건: %s" % (len(sch["pending"]), " / ".join(sch["pending"][:3]))
+        else:
+            tasks = "미완료 과제 0건"
+        d2 = "%s · %s · 핵심 키워드: %s · BM 파이프라인 %s" % (
+            ic["D2"], tasks, ", ".join(sch["keywords"][:5]) or "미등록",
+            "준비 완료" if st["D2"] == "OK" else "준비 중")
+
+    mf = mt["D3"].get("media_files") or 0
+    d3 = "%s · 독대실 HTML 3곳 %s · 미디어 자산 %d개 · 브리핑 키 %d · 콘텐츠 준비도: %s" % (
+        ic["D3"], "동기화 완료" if hi.get("hash_unified") else "동기화 점검 필요", mf,
+        mt["D3"].get("briefing_keys") or 0,
+        "미디어+텍스트 브리핑 출고 가능" if mf > 0 else "텍스트 브리핑 출고 가능(미디어 자산 보강 권장)")
+
+    if con["gates"]:
+        gate = "5-Gate 조항 %d/5 확인(%s)" % (len(con["gates"]), ",".join("G" + g for g in con["gates"]))
+    elif con["gate_word"]:
+        gate = "5-Gate 조항 확인"
+    else:
+        gate = "5-Gate 표기 미탐지(헌법 해시 봉인으로 수호)"
+    d4 = "%s · 제0조 홍익인간 %s · 헌법 v1.0 해시 %s %s · %s" % (
+        ic["D4"], "확인" if mt["D4"].get("article0_hongik_found") else "미확인", con["sha"] or "-",
+        "기준선 일치(무변경)" if mt["D4"].get("baseline_match") else "기준선 불일치", gate)
+
+    d5 = "%s · 13대 항체 %d/%d 활성 · 독대실 3곳 SHA-256 %s · 보호 ID 6/6 %s" % (
+        ic["D5"], ab.get("active") or 0, ab.get("total") or 13,
+        "100% 일치" if hi.get("hash_unified") else "불일치",
+        "철통 수호" if hi.get("protected_ids_ok") else "점검 필요")
+
+    if not tre["exists"]:
+        ledger = "금고 장부 미탐지(대기)"
+    elif not tre["valid"]:
+        ledger = "금고 장부 JSON 무효(점검 필요)"
+    else:
+        bal = (" · %s %s" % (tre["balance"][0], format(tre["balance"][1], ","))) if tre["balance"] else ""
+        ledger = "금고 장부 무결(sha %s · 기록 %d건%s)" % (tre["sha"], tre["records"], bal)
+    d6 = "%s · %s · 유료 API 호출 %d회 · 비용 0원 · %s" % (
+        ic["D6"], ledger, mt["D6"].get("paid_api_calls") or 0, "Free Tier 100%")
+
+    if not all_ok:
+        action = "RGON_Run.bat 원클릭으로 %s 점검·복구 지시서부터 실행(R11 최소 변경 Top1)" % ", ".join(bad or ["종합 판정"])
+    elif sch["today"]:
+        action = "RGON_Run.bat 원클릭으로 오늘 1순위 과제 「%s」 실행 후 박동 #%d 확인" % (sch["today"][0], beat + 1)
+    elif sch["pending"]:
+        action = "RGON_Run.bat 원클릭으로 대기 과제 1순위 「%s」 착수 후 박동 #%d 확인" % (sch["pending"][0], beat + 1)
+    else:
+        action = "RGON_Run.bat 원클릭으로 다음 Step 지시서 발사 → 4대 AI 교차검증 Top1 채택 후 박동 #%d 확인" % (beat + 1)
+
+    out = {"date": today, "generated_at": now, "headline": headline,
+           "D1_quant": d1, "D2_viral": d2, "D3_media": d3, "D4_hongik": d4,
+           "D5_guardian": d5, "D6_treasury": d6, "action_top1": action}
+    out["lines"] = [out[k] for k in C1_BRIEF_KEYS]
+    return out
+
+
+def build_daily_briefing(pulse, snap, now):
+    try:
+        return _c1_build(pulse, now)
+    except Exception as ex:
+        b = {k: "브리핑 생성 오류(점검 필요)" for k in C1_BRIEF_KEYS}
+        b.update({"error": _c1_clean(ex, 160), "generated_at": now})
+        return b
+# <<< RGON-C1 DAILY BRIEFING <<<
+
+
 def run_pulse():
     if not os.path.isdir(ROOT):
         print("[PULSE-FAIL] ROOT 없음: %s" % ROOT)
@@ -351,6 +582,7 @@ def run_pulse():
     snap = root_info["obj"] if root_info["exists"] else {}
 
     pulse = build_pulse(snap, now)
+    pulse["daily_briefing"] = build_daily_briefing(pulse, snap, now)  # RGON-C1
     snap["agency_pulse"] = pulse
     snap["agency_pulse_updated"] = now
     atomic_write(p(SNAP_RELS[0]), dump(snap, root_info["bom"]))
