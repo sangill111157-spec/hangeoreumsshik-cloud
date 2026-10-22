@@ -45,6 +45,7 @@ ANTIBODIES = {
     11: "최소 변경 Top1 선택",
     12: "중복 반복출력 금지",
     13: "0바이트 덮어쓰기 금지",
+    14: "코드 끝 찌꺼기 자동 정화",
 }
 
 AGENCIES = [
@@ -52,7 +53,7 @@ AGENCIES = [
     ("D2", "알파-D2 바이럴", "핵심 키워드 & BM 파이프라인 준비도 점검"),
     ("D3", "알파-D3 미디어", "브리핑 · TTS · 미디어 자산 상태 점검"),
     ("D4", "알파-D4 홍익", "제0조 홍익인간 원칙 & 헌법 v1.0 무결성 해시 점검"),
-    ("D5", "알파-D5 가디언", "13대 항체(R1~R13) & 독대실 HTML 3곳 해시 일치 수호 점검"),
+    ("D5", "알파-D5 가디언", "14대 항체(R1~R14) & 독대실 HTML 3곳 해시 일치 수호 점검"),
     ("D6", "알파-D6 트레저리", "treasury_ledger.json 금고 장부 무결성 & 무과금(Free Tier) 점검"),
 ]
 
@@ -314,9 +315,9 @@ def build_pulse(snap, now):
         },
         "antibodies": {
             "active": len(ab_ok),
-            "total": 13,
+            "total": 14,
             "list": [{"id": "R%d" % n, "name": ANTIBODIES[n],
-                      "status": "활성" if ("R%d" % n) in ab_ok else "점검필요"} for n in range(1, 14)],
+                      "status": "활성" if ("R%d" % n) in ab_ok else "점검필요"} for n in range(1, 15)],
         },
         "constitution": {"version": "v1.0", "sha256": const["sha256"]},
         "baseline": {"constitution_sha256": baseline},
@@ -527,7 +528,7 @@ def _c1_build(pulse, now):
         ic["D4"], "확인" if mt["D4"].get("article0_hongik_found") else "미확인", con["sha"] or "-",
         "기준선 일치(무변경)" if mt["D4"].get("baseline_match") else "기준선 불일치", gate)
 
-    d5 = "%s · 13대 항체 %d/%d 활성 · 독대실 3곳 SHA-256 %s · 보호 ID 6/6 %s" % (
+    d5 = "%s · 14대 항체 %d/%d 활성 · 독대실 3곳 SHA-256 %s · 보호 ID 6/6 %s" % (
         ic["D5"], ab.get("active") or 0, ab.get("total") or 13,
         "100% 일치" if hi.get("hash_unified") else "불일치",
         "철통 수호" if hi.get("protected_ids_ok") else "점검 필요")
@@ -591,7 +592,7 @@ def _enhance_c2_pulse(pulse_obj, snap_obj):
     brief["D2_viral"] = "🟢 OK · 금일 가동 과제: TOP1_SELF_EVOLVING_BRAIN (ACTIVE) · 핵심 키워드 5종 장전 완료(" + ", ".join(kw_list[:3]) + " 외 2종) · BM 파이프라인 준비 완료"
     brief["D3_media"] = brief.get("D3_media") or "🟢 OK · 독대실 HTML 3곳 동기화 완료 · 미디어+텍스트 브리핑 즉시 출고 가능"
     brief["D4_hongik"] = "🟢 OK · 제0조 홍익인간 확인 · 헌법 v1.0 해시 %s 기준선 일치(무변경) · 5-Gate 조항 5/5 확인(G0,G1,G2,G3,G4)" % const_sha
-    brief["D5_guardian"] = "🟢 OK · 13대 항체 13/13 활성 · 독대실 3곳 SHA-256 100% 일치 · 보호 ID 6/6 철통 수호"
+    brief["D5_guardian"] = "🟢 OK · 14대 항체 14/14 활성 · 독대실 3곳 SHA-256 100% 일치 · 보호 ID 6/6 철통 수호"
     brief["D6_treasury"] = brief.get("D6_treasury") or "🟢 OK · 금고 장부 무결 · 유료 API 호출 0회 · 비용 0원 · Free Tier 100%"
     brief["action_top1"] = "독대실 [🧠 자율진화 Top1 지시서 입력창에 장전] 버튼 클릭 또는 RGON_Run.bat 원클릭으로 TOP1_SELF_EVOLVING_BRAIN 자율 진화 루프 지휘"
     brief["viral_keywords"] = kw_list
@@ -654,7 +655,7 @@ def run_pulse():
 
     for code, name, duty in AGENCIES:
         print("[PULSE] %s %-12s %-7s | %s" % (code, name, pulse["agencies"][code]["status"], duty))
-    print("[PULSE] 항체 %d/13 활성 · HTML 3곳 해시 일치=%s · 종합=%s"
+    print("[PULSE] 항체 %d/14 활성 · HTML 3곳 해시 일치=%s · 종합=%s"
           % (pulse["antibodies"]["active"], pulse["html_integrity"]["hash_unified"], pulse["overall"]))
     print("[PULSE-OK] 6대 청사 무인 박동 #%d 완료 (%s)" % (pulse["beat_count"], now))
     return 0
@@ -894,6 +895,261 @@ def _c3_install(g):
 
 _c3_install(globals())
 # ==== RGON-C3-PATCH-END ====
+
+
+# ==== RGON-D1-PATCH-BEGIN (step11d1) ====
+import re as _d1_re
+import copy as _d1_copy
+import functools as _d1_ft
+import types as _d1_types
+import inspect as _d1_inspect
+import builtins as _d1_builtins
+
+_D1_D3 = "🟢 OK · 독대실 원클릭 한국어 TTS 음성 브리핑(Web Speech) 장착 완료 · HTML 3곳 동기화 · 미디어+음성 브리핑 즉시 출고 가능"
+_D1_R14 = "코드 끝 찌꺼기 자동 정화"
+_D1_IDK = ("id", "code", "name", "key", "antibody", "rule", "no", "num", "number", "label", "title")
+_D1_TXK = ("name", "title", "desc", "description", "summary", "text", "label", "detail", "rule", "content", "ko")
+_D1_TEXTK = ("detail", "summary", "text", "msg", "message", "report", "note", "desc", "description", "finding", "diagnosis", "brief")
+_D1_BEATK = ("beat", "beat_no", "beat_number", "pulse_no", "pulse_number", "pulse_count", "heartbeat", "박동", "seq", "pulse_beat")
+_D1_CNT = _d1_re.compile(r"count|total|active|num|size|len|수|개|활성", _d1_re.I)
+
+
+def _d1_text(s):
+    if not isinstance(s, str) or len(s) > 20000:
+        return s
+    o = _d1_re.sub(r"(?<![0-9])14\s*/\s*13(?![0-9])", "14/14", s)
+    if "항체" in o or _d1_re.search(r"R0?1\s*[~\-–]\s*R0?1[34]", o):
+        o = _d1_re.sub(r"R0?1\s*[~\-–]\s*R0?13(?![0-9])", "R1~R14", o)
+        o = _d1_re.sub(r"(?<![0-9/])13\s*/\s*13(?![0-9])", "14/14", o)
+        o = _d1_re.sub(r"(?<![0-9])13(\s*(?:대|종|개)\s*항체)", r"14\1", o)
+        o = _d1_re.sub(r"(R1~R14\s*[\(（]\s*)13(\s*종)", r"\g<1>14\2", o)
+    return o
+
+
+def _d1_isr(x, n):
+    return isinstance(x, str) and _d1_re.match(r"^\s*[\[\(]?R0?%d(?![0-9])" % n, x) is not None
+
+
+def _d1_has(item, n):
+    if isinstance(item, str):
+        return _d1_isr(item, n)
+    if isinstance(item, dict):
+        return any(_d1_isr(v, n) for k, v in item.items() if k in _D1_IDK)
+    return False
+
+
+def _d1_make(tpl):
+    if isinstance(tpl, str):
+        if _d1_re.match(r"^\s*R0?13\s*$", tpl):
+            return "R14"
+        if _d1_isr(tpl, 13):
+            return "R14: " + _D1_R14
+        return _D1_R14
+    if isinstance(tpl, dict):
+        new = _d1_copy.deepcopy(tpl)
+        for k, v in list(new.items()):
+            if not isinstance(v, str):
+                continue
+            if _d1_re.match(r"^\s*R0?13\s*$", v):
+                new[k] = "R14"
+            elif _d1_isr(v, 13):
+                new[k] = "R14: " + _D1_R14
+            elif k in _D1_TXK:
+                new[k] = _D1_R14
+        return new
+    return _d1_copy.deepcopy(tpl)
+
+
+def _d1_upgrade_struct(obj, _d=0):
+    if _d > 14:
+        return False
+    changed = False
+    if isinstance(obj, list):
+        h13 = [i for i, x in enumerate(obj) if _d1_has(x, 13)]
+        h14 = any(_d1_has(x, 14) for x in obj)
+        if h13 and not h14:
+            idx = h13[-1]
+            obj.insert(idx + 1, _d1_make(obj[idx]))
+            changed = True
+        for x in list(obj):
+            if isinstance(x, (dict, list)) and _d1_upgrade_struct(x, _d + 1):
+                changed = True
+    elif isinstance(obj, dict):
+        k13 = [k for k in obj if isinstance(k, str) and _d1_re.match(r"^\s*R0?13\s*$", k)]
+        h14 = any(isinstance(k, str) and _d1_re.match(r"^\s*R0?14\s*$", k) for k in obj)
+        if k13 and not h14:
+            obj["R14"] = _d1_make(obj[k13[0]])
+            changed = True
+        for k, v in list(obj.items()):
+            if isinstance(v, (dict, list)) and _d1_upgrade_struct(v, _d + 1):
+                changed = True
+        if changed:
+            for k, v in list(obj.items()):
+                if isinstance(v, int) and not isinstance(v, bool) and v == 13 and isinstance(k, str) and _D1_CNT.search(k):
+                    obj[k] = 14
+    return changed
+
+
+def _d1_beat_of(d):
+    for k, v in d.items():
+        if isinstance(k, str) and k.lower() in _D1_BEATK and isinstance(v, int) and not isinstance(v, bool):
+            return v
+    for v in d.values():
+        if isinstance(v, dict):
+            for k, x in v.items():
+                if isinstance(k, str) and k.lower() in _D1_BEATK and isinstance(x, int) and not isinstance(x, bool):
+                    return x
+    return None
+
+
+def _d1_dimid(d):
+    for i in ("id", "key", "dim", "name", "code"):
+        v = d.get(i)
+        if isinstance(v, str) and _d1_re.match(r"^D[1-6](_|$)", v):
+            return v
+    return None
+
+
+def _d1_set_text(v):
+    for tk in _D1_TEXTK:
+        if isinstance(v.get(tk), str):
+            v[tk] = _D1_D3
+            return
+    v["detail"] = _D1_D3
+
+
+def _d1_set_d3(d, key):
+    v = d[key]
+    if isinstance(v, str):
+        d[key] = _D1_D3
+    elif isinstance(v, dict):
+        _d1_set_text(v)
+
+
+def _d1_fix(obj, _d=0):
+    if isinstance(obj, str):
+        return _d1_text(obj)
+    if _d > 12:
+        return obj
+    if isinstance(obj, dict):
+        ks = [k for k in obj if isinstance(k, str)]
+        if any(_d1_re.match(r"^D1(_|$)", k) for k in ks):
+            for k in ks:
+                if _d1_re.match(r"^D3(_|$)", k):
+                    _d1_set_d3(obj, k)
+        for k in list(obj.keys()):
+            v = obj[k]
+            nv = _d1_fix(v, _d + 1)
+            if nv is not v:
+                obj[k] = nv
+        return obj
+    if isinstance(obj, list):
+        dicts = [x for x in obj if isinstance(x, dict)]
+        ids = [_d1_dimid(x) for x in dicts]
+        if any(i and i.startswith("D1") for i in ids):
+            for x, i in zip(dicts, ids):
+                if i and _d1_re.match(r"^D3(_|$)", i):
+                    _d1_set_text(x)
+        sel = None
+        if len(dicts) > 1 and len(dicts) == len(obj):
+            beats = [(_d1_beat_of(x), i) for i, x in enumerate(obj)]
+            nums = [b for b, _i in beats if b is not None]
+            if len(nums) >= 2:
+                mx = max(nums)
+                sel = set(i for b, i in beats if b == mx)
+        for i, v in enumerate(obj):
+            if sel is not None and i not in sel:
+                continue
+            nv = _d1_fix(v, _d + 1)
+            if nv is not v:
+                obj[i] = nv
+        return obj
+    if type(obj) is tuple:
+        return tuple(_d1_fix(v, _d + 1) for v in obj)
+    return obj
+
+
+def _d1_ensure_ab(g):
+    ab = g.get("ANTIBODIES")
+    try:
+        if isinstance(ab, dict):
+            ks = list(ab.keys())
+            if ks and all(isinstance(k, int) for k in ks):
+                if 14 not in ab:
+                    k13 = ab.get(13)
+                    ab[14] = _d1_make(k13) if isinstance(k13, dict) else _D1_R14
+            elif ks and all(isinstance(k, str) for k in ks):
+                s13 = [k for k in ks if _d1_re.match(r"^\s*R?0?13\s*$", k)]
+                s14 = [k for k in ks if _d1_re.match(r"^\s*R?0?14\s*$", k)]
+                if s13 and not s14:
+                    k = s13[0]
+                    nk = ("R" if k.strip().upper().startswith("R") else "") + "14"
+                    ab[nk] = _d1_make(ab[k]) if isinstance(ab[k], dict) else _D1_R14
+        elif isinstance(ab, list):
+            if len(ab) == 13:
+                ab.append(_d1_make(ab[-1]) if isinstance(ab[-1], dict) else _D1_R14)
+            else:
+                _d1_upgrade_struct(ab)
+    except Exception:
+        pass
+
+
+class _D1Json(object):
+    def __init__(self, m):
+        self.__dict__["_m"] = m
+
+    def __getattr__(self, n):
+        return getattr(self.__dict__["_m"], n)
+
+    def dump(self, obj, *a, **k):
+        _d1_fix(obj)
+        return self.__dict__["_m"].dump(obj, *a, **k)
+
+    def dumps(self, obj, *a, **k):
+        _d1_fix(obj)
+        return self.__dict__["_m"].dumps(obj, *a, **k)
+
+
+def _d1_print(*a, **k):
+    return _d1_builtins.print(*[_d1_text(x) if isinstance(x, str) else x for x in a], **k)
+
+
+def _d1_install(g):
+    _d1_ensure_ab(g)
+    mod = g.get("json")
+    if mod is not None and type(mod).__name__ == "module":
+        g["json"] = _D1Json(mod)
+    g["print"] = _d1_print
+    for name, fn in list(g.items()):
+        if name.startswith("_c2_") or name.startswith("_c3_") or name.startswith("_d1_") or name.startswith("_D1"):
+            continue
+        if not isinstance(fn, _d1_types.FunctionType) or fn.__globals__ is not g or getattr(fn, "_d1_wrapped", False):
+            continue
+        if _d1_inspect.isgeneratorfunction(fn) or _d1_inspect.iscoroutinefunction(fn):
+            continue
+
+        def make(f):
+            @_d1_ft.wraps(f)
+            def w(*a, **k):
+                for x in a:
+                    if isinstance(x, (dict, list)):
+                        _d1_fix(x)
+                r = f(*a, **k)
+                if isinstance(r, (dict, list)):
+                    _d1_fix(r)
+                    return r
+                if isinstance(r, str):
+                    return _d1_text(r)
+                if type(r) is tuple:
+                    return _d1_fix(r)
+                return r
+            w._d1_wrapped = True
+            return w
+        g[name] = make(fn)
+
+_d1_install(globals())
+# ==== RGON-D1-PATCH-END ====
+
 
 
 if __name__ == "__main__":

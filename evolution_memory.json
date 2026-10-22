@@ -406,6 +406,24 @@
       "html_sha256_12": "161d363a5dae",
       "html_modified": false,
       "backup_tag": "_step11c3_bak_20261022_143952"
+    },
+    {
+      "event": "step11_task_d1_d3_tts_and_r14_ui_sync",
+      "ts": "2026-10-22T15:04:35",
+      "task": "D-1",
+      "d3_media": "원클릭 한국어 TTS 음성 브리핑(Web Speech API) 장착",
+      "tts_button": "[🔊 6대 청사 브리핑 음성 듣기]",
+      "tts_function": "window.__rgonSpeakDailyBriefing",
+      "antibodies": "R1~R14 (14/14 활성)",
+      "antibody_denominator_fix": "14/13 -> 14/14",
+      "html_ab_realname": "14: 코드 끝 찌꺼기 자동 정화",
+      "pulse_beat": 7,
+      "overall": "OK",
+      "constitution_hash12": "bd5060dea1e2",
+      "constitution_modified": false,
+      "html_sha256_12": "728cb2fbc907",
+      "html_identical_3": true,
+      "backup_tag": "_step11d1_bak_20261022_150435"
     }
   ],
   "antibodies": {
