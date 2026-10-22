@@ -1,0 +1,133 @@
+# 🔍 [RGON 기존 윈도우 자동화 & 구글 시트 완전 분해 보고서]
+- 조사 시각: 2026-10-22 18:32:01 (읽기 전용 R0 · 안총리 토큰 소모 0)
+
+## 1. ⏰ 윈도우 작업 스케줄러 (등록된 자동 실행 작업)
+- \ConnectAI_Daily_Briefing (다음실행: 2026-10-23 오전 7:00:00, 상태: 준비)
+- \NVDA Scheduler (다음실행: N/A, 상태: 사용 안 함)
+- \NVDA 일일 리포트 (다음실행: N/A, 상태: 사용 안 함)
+- \NVIDIA GeForce Experience SelfUpdate_{B2FE1952-0186-46C3-BAEC-A80AA35AC5B8} (다음실행: N/A, 상태: 준비)
+- \SHIN Family Daily Agent (다음실행: N/A, 상태: 사용 안 함)
+
+## 2. 🖥️ 바탕화면 · 시작프로그램 · 루트 배치파일(.bat/.ps1)
+- [바탕화면(OneDrive)] RGON_Run.bat
+- [바탕화면(OneDrive)] RGON_사령부_원클릭_가동.bat
+- [바탕화면(OneDrive)] 한걸음씩_만능_AI_사령부.bat
+- [바탕화면(OneDrive)] 한걸음씩_만능_AI_사령부_실행.bat
+- [바탕화면(OneDrive)] Antigravity IDE.lnk
+- [바탕화면(OneDrive)] Antigravity.lnk
+- [바탕화면(OneDrive)] CapCut.lnk
+- [바탕화면(OneDrive)] Docker Desktop.lnk
+- [바탕화면(OneDrive)] MiniMax Agent  Minimize Effort, Maximize Intelligence.lnk
+- [바탕화면(OneDrive)] nvda-trading-dashboard-step44.lnk
+- [바탕화면(OneDrive)] Roblox Player.lnk
+- [바탕화면(OneDrive)] Roblox Studio.lnk
+- [바탕화면(OneDrive)] Suno.lnk
+- [바탕화면(OneDrive)] Telegram.lnk
+- [바탕화면(OneDrive)] Vrew.lnk
+- [바탕화면(OneDrive)] 수노   AI 음악.lnk
+- [바탕화면(OneDrive)] 점핑캣-kr.lnk
+- [바탕화면(OneDrive)] 점핑캣-net.lnk
+- [바탕화면(OneDrive)] 파일몽.lnk
+- [바탕화면(OneDrive)] 한걸음씩_만능_AI_사령부_실행.lnk
+
+## 3. 📊 발견된 구글 시트 ID (4개) 및 서비스 계정
+- **시트 ID:** `1mIu1vXu0luRSDNyjE-WkJaz91otX0OvgaBVrJj6rwnY`
+  - 연결 파일: shin-agent/brain_basket\external_kitchen_setup_receipt.json, shin-agent/build_omni_link_communicator.py, shin-agent/channel_agent.py
+- **시트 ID:** `1gYDrCuqM2hKQbYyE3cYEZhJZEhrH_Is6tdUhsw-cgaw`
+  - 연결 파일: shin-agent/CONNECT_AI_WORKFLOW.md, shin-agent/brain_basket\external_kitchen_setup_receipt.json, shin-agent/sync_all_command_centers.py
+- **시트 ID:** `19yLh5tIUNg5gm3UpJxbCUmAfEUtotjrlrc7KMvp_KE4`
+  - 연결 파일: shin-agent/sync_all_command_centers.py
+- **시트 ID:** `1MqLCJNCdwPV8GrIhp5w3BdIsuVazIC2uREpgypUu9PI`
+  - 연결 파일: shin-agent/sync_all_command_centers.py
+- **코드 내 탐지된 시트 탭/키워드(2종):** PIPELINE, RGON_진화일지
+
+## 4. 🐍 구글 시트 연동 파이썬 스크립트 (25개)
+- `shin-agent/agency_stage_gate_scheduler.py`
+- `shin-agent/apply_deduplication_updates.py`
+- `shin-agent/auto_write_to_5_google_sheets.py`
+- `shin-agent/build_omni_link_communicator.py`
+- `shin-agent/build_real_aside_ext.py`
+- `shin-agent/channel_agent.py`
+- `shin-agent/cheongwadae_comm_engine.py`
+- `shin-agent/cross_dept_synergy_engine.py`
+- `shin-agent/delete_todo_sheet.py`
+- `shin-agent/dept_sub_agents_corps.py`
+- `shin-agent/fetch_raw_posts.py`
+- `shin-agent/final_round_check.py`
+- `shin-agent/fix_17_and_locate_01_02.py`
+- `shin-agent/fix_post_17_margin_and_verify.py`
+- `shin-agent/fix_v604_full_autowiring.py`
+- `shin-agent/google_sheets_archaeologist.py`
+- `shin-agent/hunters-dawn\scripts\apply_blogger_pages.py`
+- `shin-agent/hunters-dawn\scripts\perfect_youtube_uploader.py`
+- `shin-agent/hunters-dawn\scripts\run_oauth_flow.py`
+- `shin-agent/hunters-dawn\scripts\sheets_auth_url.py`
+- `shin-agent/hunters-dawn\scripts\sheets_get_token.py`
+- `shin-agent/hunters-dawn\scripts\update_pages_script.py`
+- `shin-agent/hunters-dawn\scripts\upload_now.py`
+- `shin-agent/hunters-dawn\scripts\upload_with_token.py`
+- `shin-agent/hunters-dawn\scripts\upload_youtube_api.py`
+
+## 5. ✈️ 기존 텔레그램/로건봇/NVIDIA봇 관련 스크립트 (25개)
+- `C:\trading/_backup_20260901\backend\app\core\config.py`
+- `C:\trading/_backup_20260901\backend\app\services\telegram_notifier.py`
+- `C:\trading/_backup_20260901\backend\run_daily_report.py`
+- `C:\trading/_backup_20260901\backend\telegram_command_listener.py`
+- `C:\trading/package\nvda_trading_system\backend\app\core\config.py`
+- `C:\trading/package\nvda_trading_system\backend\app\services\telegram_notifier.py`
+- `C:\trading/package\nvda_trading_system\backend\run_daily_report.py`
+- `C:\trading/package\nvda_trading_system\backend\telegram_command_listener.py`
+- `C:\trading/package\nvda_trading_system\backend\tests\test_stop_loss_telegram_inline_cap.py`
+- `shin-agent/apply_telegram_patch.py`
+- `shin-agent/channel_agent.py`
+- `shin-agent/cheongwadae_comm_engine.py`
+- `shin-agent/control_tower_bot.py`
+- `shin-agent/cross_dept_synergy_engine.py`
+- `shin-agent/deep_sweep_final_purger.py`
+- `shin-agent/immortal_tunnel_daemon.py`
+- `shin-agent/launch_tunnel_and_send_telegram.py`
+- `shin-agent/nvda_trading_auditor.py`
+- `shin-agent/rgon_alpha_clone_engine.py`
+- `shin-agent/rgon_aside_browser_agent.py`
+- `shin-agent/rgon_auto_watcher.py`
+- `shin-agent/rgon_runner.py`
+- `shin-agent/run_dashboard.py`
+- `shin-agent/run_p30_tests.py`
+- `shin-agent/s_run.py`
+
+## 6. 🤖 안총리 & 윈도우 자동화/런처 스크립트 (35개)
+- `C:\trading/_backup_20260901\backend\app\services\auto_trader.py`
+- `C:\trading/_backup_20260901\backend\app\services\scheduler.py`
+- `C:\trading/_backup_20260901\backend\app\services\telegram_notifier.py`
+- `C:\trading/_backup_20260901\backend\patch_scheduler.py`
+- `C:\trading/_backup_20260901\backend\run_scheduler.bat`
+- `C:\trading/_backup_20260901\backend\run_scheduler.py`
+- `C:\trading/_backup_20260901\backend\run_scheduler_daily.py`
+- `C:\trading/_backup_20260901\backend\scheduler_daily_report.py`
+- `C:\trading/_backup_20260901\backend\telegram_command_listener.py`
+- `C:\trading/_backup_20260901\backend\test_telegram.py`
+- `C:\trading/_backup_20260901\backend\tests\test_auto_trader_thresholds.py`
+- `C:\trading/_backup_20260901\backend\tests\test_auto_trader_toggle.py`
+- `C:\trading/_backup_20260901\backend\tests\test_scheduler_sizing.py`
+- `C:\trading/_backup_20260901\backend\tests\test_telegram_fail_counter.py`
+- `C:\trading/_evidence_backup_20260826\app_services_auto_trader.py`
+- `C:\trading/_evidence_backup_20260826\app_services_scheduler.py`
+- `C:\trading/package\nvda_trading_system\backend\app\services\auto_trader.py`
+- `C:\trading/package\nvda_trading_system\backend\app\services\scheduler.py`
+- `C:\trading/package\nvda_trading_system\backend\app\services\telegram_notifier.py`
+- `C:\trading/package\nvda_trading_system\backend\run_scheduler.bat`
+- `C:\trading/package\nvda_trading_system\backend\run_scheduler.py`
+- `C:\trading/package\nvda_trading_system\backend\run_scheduler_daily.py`
+- `C:\trading/package\nvda_trading_system\backend\scheduler_daily_report.py`
+- `C:\trading/package\nvda_trading_system\backend\telegram_command_listener.py`
+- `C:\trading/package\nvda_trading_system\backend\test_telegram.py`
+- `C:\trading/package\nvda_trading_system\backend\tests\test_auto_trader_ssot_clamp.py`
+- `C:\trading/package\nvda_trading_system\backend\tests\test_auto_trader_thresholds.py`
+- `C:\trading/package\nvda_trading_system\backend\tests\test_auto_trader_toggle.py`
+- `C:\trading/package\nvda_trading_system\backend\tests\test_scheduler_all_jobs_mock.py`
+- `C:\trading/package\nvda_trading_system\backend\tests\test_scheduler_core_roundtrip.py`
+- `C:\trading/package\nvda_trading_system\backend\tests\test_scheduler_fixture_drift_guard.py`
+- `C:\trading/package\nvda_trading_system\backend\tests\test_scheduler_hourly_scan.py`
+- `C:\trading/package\nvda_trading_system\backend\tests\test_scheduler_sizing.py`
+- `C:\trading/package\nvda_trading_system\backend\tests\test_scheduler_startup_suppression.py`
+- `C:\trading/package\nvda_trading_system\backend\tests\test_stop_loss_telegram_inline_cap.py`

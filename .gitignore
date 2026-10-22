@@ -154,3 +154,5 @@ kitchen_output/
 *.bak_v5_*
 v5_server_*.log
 ingredients_basket/backup_old_ceramic_mug*.jpg
+
+.env.telegram.local

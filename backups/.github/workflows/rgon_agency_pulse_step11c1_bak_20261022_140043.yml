@@ -1,0 +1,46 @@
+name: RGON Agency Pulse (6대 청사 무인 박동)
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: rgon-agency-pulse
+  cancel-in-progress: false
+
+jobs:
+  pulse:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run 6-agency pulse
+        env:
+          PYTHONIOENCODING: utf-8
+        run: python scripts/rgon_agency_pulse.py
+
+      - name: Commit and push snapshot
+        run: |
+          git config user.name "rgon-pulse-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for f in rgon_brain_snapshot.json dashboard/rgon_brain_snapshot.json docs/rgon_brain_snapshot.json; do
+            if [ -f "$f" ]; then git add "$f"; fi
+          done
+          if git diff --cached --quiet; then
+            echo "변경 없음 - 커밋 생략"
+            exit 0
+          fi
+          git commit -m "chore(pulse): 6대 청사 무인 박동 갱신 [skip ci]"
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"

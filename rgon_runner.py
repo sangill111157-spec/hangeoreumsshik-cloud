@@ -276,3 +276,23 @@ if ctypes.windll.user32.MessageBoxW(0,os.path.basename(f),'RGON RUN',0x40024)==6
 r14_install_funcs(globals())
 # ==== RGON-R14-INSTALL-END ====
 
+
+
+# [STEP11_E3_TG_REPORT_HOOK]
+def _send_runner_tg_report(fname, returncode):
+    try:
+        import urllib.request, urllib.parse
+        env_p = os.path.join(r"C:\Users\sangi\Downloads\shin-agent", ".env.telegram.local")
+        if not os.path.isfile(env_p):
+            return
+        tok, cid = None, None
+        for ln in open(env_p, encoding="utf-8").read().splitlines():
+            if ln.startswith("TELEGRAM_BOT_TOKEN="): tok = ln.split("=", 1)[1].strip()
+            elif ln.startswith("TELEGRAM_CHAT_ID="): cid = ln.split("=", 1)[1].strip()
+        if tok and cid:
+            st = "✅ 성공" if returncode == 0 else f"⚠️ 코드 {returncode}"
+            msg = f"👑 [RGON_Run.bat 실행 완료]\n📄 파일: {fname}\n📊 결과: {st}"
+            data = urllib.parse.urlencode({"chat_id": cid, "text": msg}).encode("utf-8")
+            urllib.request.urlopen(urllib.request.Request(f"https://api.telegram.org/bot{tok}/sendMessage", data=data), timeout=8)
+    except Exception:
+        pass
