@@ -746,6 +746,364 @@ details.rgon-compact-drawer>.rgon-drawer-body{max-height:58vh;overflow-y:auto;-w
 <meta name="rgon-version" content="v6.1.0-step11">
 </head>
 <body class="flex flex-col h-screen max-w-4xl mx-auto border-x border-indigo-950/60 shadow-2xl relative">
+<!-- === [RGON-STEP1-MOBILE-UI-START] === -->
+<style id="rgon-step1-mobile-style">
+  #rgon-mobile-quickbar {
+    position: sticky;
+    top: 0;
+    z-index: 9998;
+    background: linear-gradient(135deg, #0b132b 0%, #1c2541 100%);
+    border-bottom: 2px solid #f59e0b;
+    padding: 10px 10px 8px 10px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  #rgon-mobile-quickbar .rgon-mq-Header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+    margin-bottom: 8px;
+    color: #fef3c7;
+    font-size: 13px;
+    font-weight: 700;
+  }
+  #rgon-mobile-quickbar .rgon-mq-badge {
+    background: #10b981;
+    color: #052e16;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 800;
+  }
+  #rgon-mobile-quickbar .rgon-mq-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+  }
+  #rgon-mobile-quickbar .rgon-mq-btn {
+    min-height: 48px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 800;
+    color: #ffffff;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    padding: 6px 4px;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  #rgon-mobile-quickbar .rgon-mq-copy { background: linear-gradient(135deg, #2563eb, #1d4ed8); }
+  #rgon-mobile-quickbar .rgon-mq-claude { background: linear-gradient(135deg, #d97706, #b45309); }
+  #rgon-mobile-quickbar .rgon-mq-gpt { background: linear-gradient(135deg, #059669, #047857); }
+  #rgon-mobile-quickbar .rgon-mq-grok { background: linear-gradient(135deg, #7c3aed, #5b21b6); }
+  #rgon-mobile-pc-toggle {
+    margin-top: 7px;
+    width: 100%;
+    min-height: 34px;
+    background: rgba(255, 255, 255, 0.08);
+    color: #cbd5e1;
+    border: 1px dashed rgba(255, 255, 255, 0.25);
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    display: none;
+  }
+  body.rgon-is-mobile #rgon-mobile-pc-toggle { display: block; }
+  body.rgon-is-mobile:not(.rgon-show-pc-panels) .rgon-pc-only-hidden { display: none !important; }
+  #rgon-mq-toast {
+    position: fixed;
+    left: 50%;
+    bottom: 24px;
+    transform: translateX(-50%);
+    background: rgba(15, 23, 42, 0.96);
+    color: #fde68a;
+    border: 1px solid #f59e0b;
+    padding: 10px 16px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 700;
+    z-index: 10000;
+    display: none;
+  }
+</style>
+
+<div id="rgon-mobile-quickbar" role="region" aria-label="RGON 모바일 원터치 발사대">
+  <div class="rgon-mq-Header">
+    <span>📱 모바일 원터치 지휘 바 (Step 1)</span>
+    <span id="rgon-mq-mode-badge" class="rgon-mq-badge">감지 중...</span>
+  </div>
+  <div class="rgon-mq-grid">
+    <button type="button" class="rgon-mq-btn rgon-mq-copy" id="rgon-btn-copy-prompt">
+      <span>📋 지시문</span><span>복사</span>
+    </button>
+    <button type="button" class="rgon-mq-btn rgon-mq-claude" id="rgon-btn-open-claude">
+      <span>🤖 클로드</span><span>열기</span>
+    </button>
+    <button type="button" class="rgon-mq-btn rgon-mq-gpt" id="rgon-btn-open-gpt">
+      <span>⚡ GPT</span><span>열기</span>
+    </button>
+    <button type="button" class="rgon-mq-btn rgon-mq-grok" id="rgon-btn-open-grok">
+      <span>🎯 Grok</span><span>열기</span>
+    </button>
+  </div>
+  <button type="button" id="rgon-mobile-pc-toggle">
+    🔧 PC 전용 패널 보기 (모바일에서는 기본 숨김)
+  </button>
+</div>
+<div id="rgon-mq-toast" role="status" aria-live="polite"></div>
+
+<script id="rgon-step1-mobile-script">
+(function () {
+  "use strict";
+  var PC_ONLY_KEYWORDS = [
+    "확장프로그램 확인 중",
+    "독대실에서 바로 분배하기",
+    "상단 컨트롤러 v6.0.8",
+    "안총리 실행 큐"
+  ];
+  function detectMobile() {
+    var ua = (navigator.userAgent || "").toLowerCase();
+    return /android|iphone|ipad|ipod|mobile/i.test(ua) || window.innerWidth <= 820;
+  }
+  function showToast(msg) {
+    var t = document.getElementById("rgon-mq-toast");
+    if (!t) return;
+    t.textContent = msg;
+    t.style.display = "block";
+    clearTimeout(t._timer);
+    t._timer = setTimeout(function () { t.style.display = "none"; }, 2400);
+  }
+  function findBestTextTo() {
+    var active = document.activeElement;
+    if (active && (active.tagName === "TEXTAREA" || (active.tagName === "INPUT" && active.type === "text"))) {
+      if (active.value && active.value.trim()) return active.value.trim();
+    }
+    var sel = window.getSelection ? String(window.getSelection()).trim() : "";
+    if (sel) return sel;
+    var areas = Array.prototype.slice.call(document.querySelectorAll("textarea"));
+    for (var i = 0; i < areas.length; i++) {
+      if (areas[i].value && areas[i].value.trim()) return areas[i].value.trim();
+    }
+    var blocks = Array.prototype.slice.call(document.querySelectorAll("pre, code, .chat-bubble, .message, .msg"));
+    for (var j = blocks.length - 1; j >= 0; j--) {
+      var txt = (blocks[j].innerText || "").trim();
+      if (txt.length >= 10) return txt;
+    }
+    return "";
+  }
+  function copyTextRobust(text) {
+    if (!text) {
+      showToast("⚠️ 복사할 지시문이나 입력창 글자가 없습니다.");
+      return Promise.resolve(false);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      return navigator.clipboard.writeText(text).then(function () {
+        showToast("✅ 클립보드 복사 완료! (" + text.length + "자)");
+        return true;
+      }).catch(function () { return fallback(text); });
+    }
+    return Promise.resolve(fallback(text));
+  }
+  function fallback(text) {
+    try {
+      var ta = document.createElement("textarea");
+      ta.value = text;
+      ta.setAttribute("readonly", "readonly");
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, text.length);
+      var ok = document.execCommand("copy");
+      document.body.removeChild(ta);
+      showToast(ok ? "✅ 복사 완료! (" + text.length + "자)" : "⚠️ 복사 실패");
+      return ok;
+    } catch (e) {
+      showToast("⚠️ 복사 오류: " + e.message);
+      return false;
+    }
+  }
+  function markPcOnlyPanels() {
+    var candidates = document.querySelectorAll("section, details, div, aside, fieldset");
+    for (var i = 0; i < candidates.length; i++) {
+      var el = candidates[i];
+      if (el.id === "rgon-mobile-quickbar" || el.contains(document.getElementById("rgon-mobile-quickbar"))) continue;
+      if (el.children.length > 25) continue;
+      var txt = (el.innerText || "").trim();
+      if (!txt || txt.length > 900) continue;
+      for (var k = 0; k < PC_ONLY_KEYWORDS.length; k++) {
+        if (txt.indexOf(PC_ONLY_KEYWORDS[k]) !== -1) {
+          el.classList.add("rgon-pc-only-hidden");
+          break;
+        }
+      }
+    }
+  }
+  function applyResponsiveMode() {
+    var isMob = detectMobile();
+    var badge = document.getElementById("rgon-mq-mode-badge");
+    if (isMob) {
+      document.body.classList.add("rgon-is-mobile");
+      if (badge) { badge.textContent = "📱 모바일 최적화 ON"; badge.style.background = "#10b981"; }
+    } else {
+      document.body.classList.remove("rgon-is-mobile");
+      if (badge) { badge.textContent = "🖥️ PC 모드"; badge.style.background = "#38bdf8"; }
+    }
+  }
+  function openAiTarget(url, label) {
+    var txt = findBestTextTo();
+    if (txt) {
+      copyTextRobust(txt).then(function () {
+        showToast("✅ 복사 후 " + label + " 이동 중...");
+        window.open(url, "_blank", "noopener,noreferrer");
+      });
+    } else {
+      window.open(url, "_blank", "noopener,noreferrer");
+    }
+  }
+  function initStep1() {
+    markPcOnlyPanels();
+    applyResponsiveMode();
+    window.addEventListener("resize", applyResponsiveMode);
+    var btn = document.getElementById("rgon-btn-copy-prompt");
+    var btnClaude = document.getElementById("rgon-btn-open-claude");
+    var btnGpt = document.getElementById("rgon-btn-open-gpt");
+    var btnGrok = document.getElementById("rgon-btn-open-grok");
+    var btnToggle = document.getElementById("rgon-mobile-pc-toggle");
+    if (btn) btn.addEventListener("click", function () { copyTextRobust(findBestTextTo()); });
+    if (btnClaude) btnClaude.addEventListener("click", function () { openAiTarget("https://claude.ai/new", "Claude"); });
+    if (btnGpt) btnGpt.addEventListener("click", function () { openAiTarget("https://chatgpt.com/", "ChatGPT"); });
+    if (btnGrok) btnGrok.addEventListener("click", function () { openAiTarget("https://grok.com/", "Grok"); });
+    if (btnToggle) {
+      btnToggle.addEventListener("click", function () {
+        var shown = document.body.classList.toggle("rgon-show-pc-panels");
+        btnToggle.textContent = shown
+          ? "🙈 PC 전용 패널 다시 숨기기 (모바일 깔끔 모드)"
+          : "🔧 PC 전용 패널 보기 (모바일에서는 기본 숨김)";
+      });
+    }
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initStep1);
+  } else {
+    initStep1();
+  }
+})();
+</script>
+<!-- === [RGON-STEP1-MOBILE-UI-END] === -->
+
+<!-- OMNI-LINK-CTRL-START v6.0.3 -->
+<div id="omniCtrl" style="font-family:'Malgun Gothic',sans-serif;background:#0d1117;color:#e6edf3;border:1px solid #30363d;border-radius:10px;padding:8px 10px;margin:6px;font-size:13px">
+  <style>
+    #omniCtrl button{background:#21262d;color:#e6edf3;border:1px solid #30363d;border-radius:6px;padding:4px 8px;cursor:pointer;font-size:12px;margin:2px}
+    #omniCtrl button:hover{background:#30363d}
+    #omniCtrl .pri{background:#238636;border-color:#2ea043}
+    #omniCtrl label{margin-right:8px;cursor:pointer}
+    #omniCtrl textarea{width:100%;box-sizing:border-box;height:60px;background:#010409;color:#e6edf3;border:1px solid #30363d;border-radius:6px;padding:6px}
+  </style>
+  <div style="display:flex;justify-content:space-between;align-items:center">
+    <b>🛰️ Omni-Link 분배 컨트롤러 v6.0.3</b><span id="omniBridge">⚪ 8765</span>
+  </div>
+  <textarea id="omniPrompt" placeholder="발사할 내용 (비우면 독대실 입력창 내용 사용)"></textarea>
+  <div>
+    <label><input type="checkbox" class="omni-chk" value="claude" checked> 🧠 Claude</label>
+    <label><input type="checkbox" class="omni-chk" value="gpt" checked> ⚡ GPT</label>
+    <label><input type="checkbox" class="omni-chk" value="grok"> 🎯 Grok</label>
+    <span id="omniCustom"></span>
+  </div>
+  <div>
+    <button id="omniSelAll">☑️ 전체 선택</button>
+    <button id="omniUnselAll">☐ 전체 해제</button>
+    <button data-omni-solo="claude">🧠 Claude 단독</button>
+    <button data-omni-solo="gpt">⚡ GPT 단독</button>
+    <button data-omni-solo="grok">🎯 Grok 단독</button>
+    <span id="omniCustomSolo"></span>
+  </div>
+  <div>
+    <button id="omniFireChecked" class="pri">🚀 체크 선택 발사</button>
+    <button id="omniFireAll" class="pri">🌐 전체 발사</button>
+    <button id="omniClear">🗑️ 전체 지우기</button>
+    <label><input type="checkbox" id="omniAutoClear"> 발사 후 자동 지우기</label>
+  </div>
+  <div id="omniLog" style="font-size:12px;color:#8b949e;min-height:16px"></div>
+  <script>
+  (function(){
+    var BR = "http://127.0.0.1:8765";
+    var $ = function(id){ return document.getElementById(id); };
+    var root = $("omniCtrl");
+    function esc(s){ return String(s==null?"":s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];}); }
+    function log(m){ $("omniLog").textContent = m; }
+    function getText(){
+      var t = $("omniPrompt").value;
+      if(!t.trim()){
+        var alt = document.querySelector("textarea:not(#omniPrompt), #userInput, #input");
+        if(alt) t = alt.value || alt.innerText || "";
+      }
+      return t;
+    }
+    function checked(){ return Array.prototype.slice.call(root.querySelectorAll(".omni-chk:checked")).map(function(c){return c.value;}); }
+    async function waitResult(id, label){
+      for(var i=0;i<40;i++){
+        await new Promise(function(r){setTimeout(r,1000);});
+        try{
+          var j = await (await fetch(BR+"/result?id="+encodeURIComponent(id))).json();
+          if(j.done){
+            var rs = Array.isArray(j.result) ? j.result : [];
+            log(label+" 결과: "+(rs.map(function(x){return (x.ok?"✅":"❌")+x.label+(x.ok?"":"("+(x.err||"")+")");}).join("  ")||"대상 없음"));
+            return;
+          }
+        }catch(e){}
+      }
+      log("⏱️ "+label+": 확장 응답 대기 시간 초과 (Omni-Link 확장이 켜져 있는지 확인)");
+    }
+    async function fire(targets, label){
+      var text = getText();
+      if(!text.trim()){ log("⚠️ 발사할 내용이 없습니다"); return; }
+      if(Array.isArray(targets) && !targets.length){ log("⚠️ 체크된 대상이 없습니다"); return; }
+      try{
+        var r = await fetch(BR+"/dispatch",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({text:text,targets:targets})});
+        var j = await r.json();
+        log("🚀 "+label+" 발사 접수 (#"+j.id+") → 확장 전달 대기...");
+        if($("omniAutoClear").checked) $("omniPrompt").value = "";
+        waitResult(j.id, label);
+      }catch(e){ log("❌ 브리지(8765) 연결 실패: "+e.message); }
+    }
+    $("omniSelAll").onclick = function(){ root.querySelectorAll(".omni-chk").forEach(function(c){c.checked=true;}); };
+    $("omniUnselAll").onclick = function(){ root.querySelectorAll(".omni-chk").forEach(function(c){c.checked=false;}); };
+    $("omniFireChecked").onclick = function(){ fire(checked(), "체크 선택"); };
+    $("omniFireAll").onclick = function(){ fire("__all__", "🌐 전체"); };
+    $("omniClear").onclick = function(){ $("omniPrompt").value = ""; log("🗑️ 지움"); };
+    root.addEventListener("click", function(e){
+      var b = e.target.closest("[data-omni-solo]");
+      if(b) fire([b.getAttribute("data-omni-solo")], b.textContent.trim());
+    });
+    async function loadRoles(){
+      try{
+        var j = await (await fetch(BR+"/roles",{cache:"no-store"})).json();
+        var prev = checked();
+        var cs = (j.roles||[]).filter(function(r){return r.custom;});
+        $("omniCustom").innerHTML = cs.map(function(r){
+          return '<label><input type="checkbox" class="omni-chk" value="'+esc(r.key)+'"'+(prev.indexOf(r.key)>=0?" checked":"")+'> 🧩 '+esc(r.label)+'</label>';
+        }).join("");
+        $("omniCustomSolo").innerHTML = cs.map(function(r){
+          return '<button data-omni-solo="'+esc(r.key)+'">🧩 '+esc(r.label)+' 단독</button>';
+        }).join("");
+        $("omniBridge").textContent = "🟢 8765";
+      }catch(e){ $("omniBridge").textContent = "🔴 8765"; }
+    }
+    loadRoles(); setInterval(loadRoles, 15000);
+  })();
+  </script>
+</div>
+<!-- OMNI-LINK-CTRL-END -->
+
 <!-- OMNI-LINK:BEGIN -->
 <div id="omniLinkController" style="margin:10px auto;max-width:1100px;padding:12px 16px;border-radius:16px;color:#e9ecff;background:linear-gradient(135deg,rgba(60,40,160,.88),rgba(0,110,160,.78));border:1px solid rgba(255,255,255,.25);box-shadow:0 8px 28px rgba(60,40,200,.3);font-family:'Pretendard','Noto Sans KR',system-ui,sans-serif">
   <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center">
