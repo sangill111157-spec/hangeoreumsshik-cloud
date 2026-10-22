@@ -570,5 +570,87 @@
       "step1": "already-applied",
       "step2": "already-applied"
     }
-  }
+  },
+  "antibody_realnames": [
+    {
+      "id": "R1",
+      "name": "PS 따옴표 함정 방지",
+      "label": "R1: PS 따옴표 함정 방지",
+      "status": "활성"
+    },
+    {
+      "id": "R2",
+      "name": "모바일 가로폭 보호",
+      "label": "R2: 모바일 가로폭 보호",
+      "status": "활성"
+    },
+    {
+      "id": "R3",
+      "name": "체크박스 선택 보존",
+      "label": "R3: 체크박스 선택 보존",
+      "status": "활성"
+    },
+    {
+      "id": "R4",
+      "name": "정적 JSON 폴백",
+      "label": "R4: 정적 JSON 폴백",
+      "status": "활성"
+    },
+    {
+      "id": "R5",
+      "name": "서랍 빈여백 제거",
+      "label": "R5: 서랍 빈여백 제거",
+      "status": "활성"
+    },
+    {
+      "id": "R6",
+      "name": "세로 글자 깨짐 방지",
+      "label": "R6: 세로 글자 깨짐 방지",
+      "status": "활성"
+    },
+    {
+      "id": "R7",
+      "name": "배지 깜빡임 방지",
+      "label": "R7: 배지 깜빡임 방지",
+      "status": "활성"
+    },
+    {
+      "id": "R8",
+      "name": "승인(Y) 전 코드 금지",
+      "label": "R8: 승인(Y) 전 코드 금지",
+      "status": "활성"
+    },
+    {
+      "id": "R9",
+      "name": "단일 코드블록 원칙",
+      "label": "R9: 단일 코드블록 원칙",
+      "status": "활성"
+    },
+    {
+      "id": "R10",
+      "name": "자기참조 오판 방지",
+      "label": "R10: 자기참조 오판 방지",
+      "status": "활성"
+    },
+    {
+      "id": "R11",
+      "name": "최소 변경 Top1 선택",
+      "label": "R11: 최소 변경 Top1 선택",
+      "status": "활성"
+    },
+    {
+      "id": "R12",
+      "name": "중복 반복출력 금지",
+      "label": "R12: 중복 반복출력 금지",
+      "status": "활성"
+    },
+    {
+      "id": "R13",
+      "name": "0바이트 덮어쓰기 금지",
+      "label": "R13: 0바이트 덮어쓰기 금지",
+      "status": "활성"
+    }
+  ],
+  "antibody_summary": "항체 R1~R13 (13종)",
+  "antibody_realname_updated": "2026-10-22T11:17:02"
 }
