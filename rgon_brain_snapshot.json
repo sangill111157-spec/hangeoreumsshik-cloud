@@ -652,5 +652,188 @@
     }
   ],
   "antibody_summary": "항체 R1~R13 (13종)",
-  "antibody_realname_updated": "2026-10-22T11:17:02"
+  "antibody_realname_updated": "2026-10-22T11:17:02",
+  "agency_pulse": {
+    "version": "1.0",
+    "engine": "scripts/rgon_agency_pulse.py",
+    "runner": "local",
+    "checked_at": "2026-10-22T13:01:12+09:00",
+    "beat_count": 2,
+    "overall": "OK",
+    "network_used": false,
+    "paid_api_calls": 0,
+    "agencies": {
+      "D1": {
+        "code": "D1",
+        "name": "알파-D1 퀀트",
+        "duty": "R&D · 4대 AI 교차검증 전광판 대기 상태 점검",
+        "status": "OK",
+        "checked_at": "2026-10-22T13:01:12+09:00",
+        "metrics": {
+          "aggregator_board_present": true,
+          "chat_zone_present": true,
+          "cross_validation_board": "대기(STANDBY-READY)"
+        }
+      },
+      "D2": {
+        "code": "D2",
+        "name": "알파-D2 바이럴",
+        "duty": "핵심 키워드 & BM 파이프라인 준비도 점검",
+        "status": "OK",
+        "checked_at": "2026-10-22T13:01:12+09:00",
+        "metrics": {
+          "master_schedule_exists": true,
+          "master_schedule_valid": true,
+          "keyword_bm_keys": 1
+        }
+      },
+      "D3": {
+        "code": "D3",
+        "name": "알파-D3 미디어",
+        "duty": "브리핑 · TTS · 미디어 자산 상태 점검",
+        "status": "OK",
+        "checked_at": "2026-10-22T13:01:12+09:00",
+        "metrics": {
+          "media_dirs": [
+            "dashboard/audio"
+          ],
+          "media_files": 5,
+          "briefing_keys": 0
+        }
+      },
+      "D4": {
+        "code": "D4",
+        "name": "알파-D4 홍익",
+        "duty": "제0조 홍익인간 원칙 & 헌법 v1.0 무결성 해시 점검",
+        "status": "OK",
+        "checked_at": "2026-10-22T13:01:12+09:00",
+        "metrics": {
+          "constitution_exists": true,
+          "constitution_valid": true,
+          "constitution_sha256": "bd5060dea1e27bd55ac08a353369be5edc0e98c5384a0b589f769fb3bc7a9b88",
+          "baseline_match": true,
+          "article0_hongik_found": true
+        }
+      },
+      "D5": {
+        "code": "D5",
+        "name": "알파-D5 가디언",
+        "duty": "13대 항체(R1~R13) & 독대실 HTML 3곳 해시 일치 수호 점검",
+        "status": "OK",
+        "checked_at": "2026-10-22T13:01:12+09:00",
+        "metrics": {
+          "html_all_exist": true,
+          "html_hash_unified": true,
+          "protected_ids_ok": true,
+          "ab_realname_script_all": true,
+          "antibodies_active": 13,
+          "antibodies_total": 13,
+          "antibodies_need_check": []
+        }
+      },
+      "D6": {
+        "code": "D6",
+        "name": "알파-D6 트레저리",
+        "duty": "treasury_ledger.json 금고 장부 무결성 & 무과금(Free Tier) 점검",
+        "status": "OK",
+        "checked_at": "2026-10-22T13:01:12+09:00",
+        "metrics": {
+          "ledger_exists": true,
+          "ledger_valid": true,
+          "ledger_sha256": "c3e6c9829242cf3723b35b823e37525eed23b942a884b8ff024e725eac307eae",
+          "free_tier": true,
+          "paid_api_calls": 0,
+          "network_used": false
+        }
+      }
+    },
+    "html_integrity": {
+      "hash_unified": true,
+      "protected_ids_ok": true,
+      "sha256": {
+        "rgon_alpha_chat.html": "cbda875435ea86c90f1060223c99efdf7246f0965b859cb8f189513e3c7304e0",
+        "dashboard/rgon_alpha_chat.html": "cbda875435ea86c90f1060223c99efdf7246f0965b859cb8f189513e3c7304e0",
+        "docs/rgon_alpha_chat.html": "cbda875435ea86c90f1060223c99efdf7246f0965b859cb8f189513e3c7304e0"
+      }
+    },
+    "antibodies": {
+      "active": 13,
+      "total": 13,
+      "list": [
+        {
+          "id": "R1",
+          "name": "PS 따옴표 함정 방지",
+          "status": "활성"
+        },
+        {
+          "id": "R2",
+          "name": "모바일 가로폭 보호",
+          "status": "활성"
+        },
+        {
+          "id": "R3",
+          "name": "체크박스 선택 보존",
+          "status": "활성"
+        },
+        {
+          "id": "R4",
+          "name": "정적 JSON 폴백",
+          "status": "활성"
+        },
+        {
+          "id": "R5",
+          "name": "서랍 빈여백 제거",
+          "status": "활성"
+        },
+        {
+          "id": "R6",
+          "name": "세로 글자 깨짐 방지",
+          "status": "활성"
+        },
+        {
+          "id": "R7",
+          "name": "배지 깜빡임 방지",
+          "status": "활성"
+        },
+        {
+          "id": "R8",
+          "name": "승인(Y) 전 코드 금지",
+          "status": "활성"
+        },
+        {
+          "id": "R9",
+          "name": "단일 코드블록 원칙",
+          "status": "활성"
+        },
+        {
+          "id": "R10",
+          "name": "자기참조 오판 방지",
+          "status": "활성"
+        },
+        {
+          "id": "R11",
+          "name": "최소 변경 Top1 선택",
+          "status": "활성"
+        },
+        {
+          "id": "R12",
+          "name": "중복 반복출력 금지",
+          "status": "활성"
+        },
+        {
+          "id": "R13",
+          "name": "0바이트 덮어쓰기 금지",
+          "status": "활성"
+        }
+      ]
+    },
+    "constitution": {
+      "version": "v1.0",
+      "sha256": "bd5060dea1e27bd55ac08a353369be5edc0e98c5384a0b589f769fb3bc7a9b88"
+    },
+    "baseline": {
+      "constitution_sha256": "bd5060dea1e27bd55ac08a353369be5edc0e98c5384a0b589f769fb3bc7a9b88"
+    }
+  },
+  "agency_pulse_updated": "2026-10-22T13:01:12+09:00"
 }
