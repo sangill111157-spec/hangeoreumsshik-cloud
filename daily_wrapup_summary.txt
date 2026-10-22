@@ -1,0 +1,1370 @@
+RGON daily wrap-up summary (2026-10-23 07:21:44)
+Root: C:\Users\sangi\Downloads\shin-agent
+
+RGON 로컬 정비 시작 2026-10-23 07:21:36 | C:\Users\sangi\Downloads\shin-agent
+
+==============================================================================
+[1-A] 클립보드/"shared"/"entries" 관련 코드 스캔 (.js, .py)
+==============================================================================
+
+  ■ .swarm_sandbox\temp_check.js
+     L309   [타이머] setInterval(() => checkVersionAndUpdate(false), 15000);
+     L336   [타이머] setInterval(updateDDayCountdowns, 60000);
+     L352   [타이머] setInterval(fetchSystemStatus, 15000);
+     L353   [타이머] setInterval(() => fetchWorkflowRuns(true), 30000);
+     L446   [타이머] setInterval(update, 1000);
+     L488   [핵심] navigator.clipboard.writeText(text).then(() => showToast('📋 재정 배분 내역이 복사되었습니다!', 'success'));
+     L623   [핵심] navigator.clipboard.writeText(window.lastSunoStyle).then(() => {
+     L730   [타이머] const aiUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?width=1280&height=720&nologo=true&seed=${Date.now()}`;
+     L1270  [핵심] navigator.clipboard.writeText(lastBrainAiResponseText).then(() => showToast('📋 클립보드에 복사되었습니다!', 'success'));
+     L1713  [핵심] navigator.clipboard.writeText(input.value);
+     L1773  [핵심] navigator.clipboard.writeText(linkInput.value).then(() => {
+     L1900  [핵심] navigator.clipboard.writeText(str).then(() => showToast('📋 복사되었습니다!', 'success'));
+     L2492  [핵심] navigator.clipboard.writeText(lastCouncilReportText).then(() => {
+     L4116  [핵심] navigator.clipboard.writeText(shareUrl);
+     L4139  [타이머] setInterval(loadTunnelStatus, 15000);
+     L4140  [타이머] setInterval(() => {
+
+  ■ analyze_feed_all.py
+     L14    [핵심] entries = feed_data.get('feed', {}).get('entry', [])
+     L17    [핵심] for entry in entries:
+
+  ■ backups\daily_omni_archive\omni_bridge.py
+     L184   [핵심] return self._send(200, {"ok": True, "shared": load_json(SHARED, {"entries": {}, "history": []})})
+     L211   [핵심] sh = load_json(SHARED, {"entries": {}, "history": []})
+     L212   [핵심] sh.setdefault("entries", {})[role] = entry
+
+  ■ backups\daily_omni_archive\omni_claude_20261020_181234.py
+     L128   [핵심] var en = (r.shared && r.shared.entries) || {};
+     L639   [타이머] if p.poll() is not None:
+
+  ■ backups\daily_omni_archive\omni_claude_20261020_210118.py
+     L107   [핵심] for (const [k, v] of Object.entries(BUILTIN_ROLES)) {
+     L111   [핵심] for (const [k, v] of Object.entries(customs)) {
+     L154   [핵심] const exist = Object.entries(customs).find(([k, v]) => v.label === name);
+     L343   [타이머] chrome.alarms.onAlarm.addListener(a => { if (a.name === "omni_keepalive") pollBridge(); });
+     L345   [타이머] let polling = false;
+     L346   [타이머] async function pollBridge() {
+     L347   [타이머] if (polling) return;
+     L348   [타이머] polling = true;
+     L350   [타이머] const r = await fetch(BRIDGE + "/poll", { cache: "no-store" });
+     L355   [타이머] } catch (e) {} finally { polling = false; }
+     L370   [타이머] setInterval(pollBridge, 1500);
+     L709   [핵심] try { await navigator.clipboard.writeText(txt); status("📋 전체 복사 완료 (" + omni_absorbed.length + "건)"); }
+     L731   [핵심] await navigator.clipboard.writeText(c.text); status("📋 복사: " + c.label);
+     L853   [타이머] if u.path == "/poll":
+     L1022  [타이머] loadRoles(); setInterval(loadRoles, 15000);
+
+  ■ backups\daily_omni_archive\omni_claude_20261020_221613.py
+     L81    [타이머] R6_CROP_RATIO = 0.08          # Pollinations 하단 워터마크 크롭 비율
+     L174   [타이머] {"id": "R6", "name": "Pollinations 워터마크 차단",
+     L175   [타이머] "rule": "Pollinations 이미지 하단 워터마크 크롭 + nologo=true + 하단 안전 구도",
+     L268   [타이머] RE_POLL_URL = re.compile(r"https?://image\.pollinations\.ai/prompt/[^\s'\"`<>)]*")
+     L364   [타이머] "signature", "text overlay", "bottom caption", "pollinations"]
+     L529   [타이머] poll_fixed = self._fix_poll(raw)
+     L552   [타이머] self.report = {"created": created, "injected": injected, "pollinations_fixed": poll_fixed,
+     L610   [타이머] and ("pollinations" in p.name.lower() or p.name.lower() == "sample_paper_cup.jpg")
+     L737   [타이머] F.append(fnd("R6", p, f"Pollinations URL nologo 누락 {pc}곳 (수동 확인)", 2 * pc))
+     L863   [타이머] "R6": ("Pollinations 워터마크 전 경로 차단", "모든 이미지 URL에 nologo=true 주입 + 저장 시 하단 자동 크롭 훅", 4, 2),
+     L1080  [핵심] for k in ("schedules", "schedule", "tasks", "items", "entries"):
+     L1099  [핵심] for k in ("schedules", "schedule", "tasks", "items", "entries"):
+
+  ■ backups\daily_omni_archive\omni_claude_20261021_064602.py
+     L14    [핵심] - Clones single-line claude role entries (lamps / role tables) when the pattern is recognisable.
+     L571   [핵심] """Clone single-line claude entries (array objects or key: value maps) that sit next to a gpt entry."""
+     L626   [핵심] info("   [warn] %s: could not auto-clone the claude entries on lines %s (add rgon there manually)"
+
+  ■ backups\daily_omni_archive\omni_claude_20261021_070048.py
+     L157   [타이머] var iv = setInterval(function () {
+     L500   [핵심] if (text && navigator.clipboard && navigator.clipboard.writeText) {
+     L501   [핵심] navigator.clipboard.writeText(text).then(function () {
+
+  ■ backups\daily_omni_archive\omni_claude_20261021_071103.py
+     L16    [타이머] 4. --once (default) applies pending patches one time. --watch polls every 2 seconds
+     L243   [핵심] files.append({"path": p, "entries": n,
+     L521   [타이머] info("[watch] polling every %.1fs (omni_*.py + %s). Ctrl+C to stop." % (interval, QUEUE_NAME))
+     L554   [타이머] ap.add_argument("--interval", type=float, default=2.0, help="watch polling interval in seconds (default 2)")
+
+  ■ backups\daily_omni_archive\omni_claude_20261022_062511.py
+     L108   [핵심] var entries = [], lastStamp = {}, pending = null, pendTimer = null, scanTimer = null;
+     L318   [핵심] entries.push(ent);
+     L325   [핵심] entries = entries.filter(function (e) { return e.tn.isConnected; });
+     L340   [핵심] entries = entries.filter(function (e) { return e.tn.isConnected; });
+     L341   [핵심] entries.forEach(paint);
+     L432   [타이머] setInterval(refresh, 60000);
+
+  ■ backups\daily_omni_archive\omni_claude_20261022_095954.py
+     L425   [핵심] for k in ("history", "events", "log", "logs", "entries", "evolutions", "memory"):
+
+  ■ backups\daily_omni_archive\omni_claude_20261022_111515.py
+     L431   [핵심] for k in ("history", "events", "log", "logs", "entries", "evolutions", "memory", "step_log"):
+
+  ■ backups\daily_omni_archive\omni_claude_20261022_122453.py
+     L743   [핵심] for k in ("history", "events", "log", "logs", "entries", "evolutions", "memory", "step_log"):
+
+  ■ backups\daily_omni_archive\omni_claude_20261022_123445.py
+     L600   [핵심] for k in ("history", "events", "log", "logs", "entries", "evolutions", "memory", "step_log"):
+
+  ■ backups\daily_omni_archive\omni_claude_20261022_131128.py
+     L264   [타이머] timer = setInterval(load, PERIOD);
+     L686   [핵심] for k in ("history", "events", "log", "logs", "entries", "evolutions", "memory", "step_log"):
+
+  ■ backups\daily_omni_archive\omni_claude_20261022_133204.py
+     L551   [타이머] timer = setInterval(load, PERIOD);
+     L630   [핵심] for k in ("history", "events", "log", "logs", "entries", "evolutions", "memory", "step_log"):
+
+  ■ backups\daily_omni_archive\omni_claude_20261022_141902.py
+     L351   [핵심] var ok = document.execCommand("copy");
+     L359   [핵심] return navigator.clipboard.writeText(text).then(function () { return true; },
+     L403   [타이머] setInterval(ensure, 1500);
+     L667   [핵심] for k in ("history", "evolution_history", "log", "events", "entries", "records", "timeline"):
+
+  ■ backups\daily_omni_archive\omni_claude_20261022_143925.py
+     L923   [핵심] for k in ("history", "evolution_history", "log", "events", "entries", "records", "timeline"):
+
+  ■ backups\daily_omni_archive\omni_claude_20261022_150408.py
+     L687   [타이머] catch (e) { setInterval(ensure, 1500); }
+     L1068  [핵심] for k in ("history", "evolution_history", "log", "events", "entries", "records", "timeline"):
+
+  ■ backups\daily_omni_archive\omni_claude_20261022_174849.py
+     L80    [타이머] python scripts/rgon_telegram_bridge.py --poll-once     (박동/브리핑/상태/키워드 질의에 자동 답장)
+     L418   [타이머] def poll_once():
+     L444   [타이머] log("[TELEGRAM-POLL] 신규 %d건 확인 · 자동 답장 %d건" % (len(ups), handled))
+     L467   [타이머] ap.add_argument("--poll-once", action="store_true", help="getUpdates 1회 확인 후 자동 답장")
+     L481   [타이머] if a.poll_once:
+     L482   [타이머] return poll_once()
+     L770   [핵심] var ok = document.execCommand("copy");
+     L778   [핵심] return navigator.clipboard.writeText(text).then(function () { return true; }, function () { return legacyCopy(text); });
+     L961   [타이머] "(--send 로 발송, --poll-once 로 '박동·브리핑·상태·키워드' 메시지에 자동 답장)" + tail);
+     L1039  [타이머] catch (e) { setInterval(ensure, 1500); }
+     L1587  [핵심] for k in ("history", "evolution_history", "log", "events", "entries", "records", "timeline"):
+
+  ■ backups\daily_omni_archive\omni_gpt_20261020_205815.py
+     L113   [핵심] for (const entries of Object.values(result)) {
+     L114   [핵심] const index = entries.findIndex(item => item.id === tab.id);
+     L115   [핵심] if (index >= 0) entries.splice(index, 1);
+     L199   [핵심] for (const [tabId, value] of Object.entries(overrides)) {
+     L203   [핵심] for (const [tabId, value] of Object.entries(legacy)) {
+     L1049  [타이머] if launched is not None and launched.poll() is not None:
+     L1057  [핵심] data=json.dumps({"approved": False, "entries": []}).encode(),
+     L1111  [타이머] if launched is not None and launched.poll() is None:
+     L1140  [타이머] if restored.poll() is None:
+
+  ■ backups\daily_omni_archive\omni_gpt_20261022_062106.py
+     L106   [핵심] for (const [key, child] of Object.entries(item)) {
+     L220   [핵심] await Promise.all(Object.entries(PATHS).map(
+     L437   [타이머] setInterval(() => {
+
+  ■ backups\daily_omni_archive\omni_queue_20261022_223637.py
+     L1     [핵심] {"role":"claude","entry":{"code":"#!/usr/bin/env python3\n# -*- coding: utf-8 -*-\n\"\"\"rgon_fix_flashing_and_doctor.py  (Windows / Python 3 stdlib o
+
+  ■ backups\daily_omni_archive\omni_queue_20261022_223652.py
+     L1     [핵심] {"role":"claude","entry":{"code":"#!/usr/bin/env python3\n# -*- coding: utf-8 -*-\n\"\"\"rgon_fix_flashing_and_doctor.py  (Windows / Python 3 stdlib o
+
+  ■ backups\daily_omni_archive\omni_queue_20261022_223708.py
+     L1     [핵심] {"role":"claude","entry":{"code":"#!/usr/bin/env python3\n# -*- coding: utf-8 -*-\n\"\"\"rgon_fix_flashing_and_doctor.py  (Windows / Python 3 stdlib o
+
+  ■ backups\daily_omni_archive\omni_queue_20261022_223743.py
+     L1     [핵심] {"role":"rgon","entry":{"code":"#!/usr/bin/env python3\n# -*- coding: utf-8 -*-\n\"\"\"rgon_fix_flashing_and_doctor.py  (Windows / Python 3 stdlib onl
+
+  ■ backups\daily_omni_archive\omni_queue_20261022_224839.py
+     L1     [핵심] {"role":"claude","entry":{"code":"#!/usr/bin/env python3\n# -*- coding: utf-8 -*-\n\"\"\"rgon_fix_flashing_and_doctor.py  (Windows / Python 3 stdlib o
+
+  ■ backups\daily_omni_archive\omni_queue_20261022_224909.py
+     L319   [핵심] # - clip.exe / rgon_telegram_bridge.py 호출은 모두 CREATE_NO_WINDOW
+     L386   [핵심] run_hidden(["clip.exe"], input_bytes=str(path).encode("mbcs", "replace"), timeout=10)
+
+  ■ backups\daily_omni_archive\omni_rgon_20261021_224431.py
+     L195   [핵심] function rankTop(entries) {
+     L197   [핵심] for (i = 0; i < entries.length; i++) {
+     L198   [핵심] e = entries[i];
+     L484   [타이머] setInterval(function () { try { ROLE = detectRole() || ROLE; mountManual(); tick(); } catch (e2) {} }, TICK_MS);
+     L486   [타이머] iv = setInterval(function () {
+     L596   [핵심] function entries() {
+     L618   [핵심] try { ok = document.execCommand("copy"); } catch (e) {}
+     L622   [핵심] if (navigator.clipboard && navigator.clipboard.writeText) {
+     L623   [핵심] navigator.clipboard.writeText(text).then(function () { cb(true); }, function () { legacy(); });
+     L765   [핵심] var es = entries(), map = {}, i, sealedN = 0;
+
+  ■ backups\daily_omni_archive\omni_rgon_20261022_142309.py
+     L212   [핵심] if (navigator.clipboard && navigator.clipboard.writeText) {
+     L213   [핵심] navigator.clipboard.writeText(directive).catch(function(){});
+
+  ■ backups\daily_omni_archive\omni_rgon_20261022_142735.py
+     L208   [핵심] if (navigator.clipboard && navigator.clipboard.writeText) {
+     L209   [핵심] navigator.clipboard.writeText(directive).catch(function(){});
+
+  ■ backups\daily_omni_archive\omni_rgon_20261022_202140.py
+     L150   [핵심] subprocess.run(["clip.exe"], input=text_payload.encode("utf-16le"), timeout=5)
+
+  ■ backups\daily_omni_archive\omni_rgon_20261022_214659.py
+     L51    [타이머] # /poll, /api/dispatch/next, /health 등 모든 GET 요청에 정상 응답
+     L90    [핵심] subprocess.run(["clip.exe"], input=code.encode("utf-16le"), timeout=5)
+
+  ■ backups\daily_omni_archive\omni_rgon_20261022_215020.py
+     L73    [핵심] subprocess.run(["clip.exe"], input=code.encode("utf-16le"), timeout=5)
+
+  ■ backups\omni_bridge_pre_v603_20261020_210609.py
+     L187   [핵심] return self._send(200, {"ok": True, "shared": load_json(SHARED, {"entries": {}, "history": []})})
+     L209   [핵심] sh = data.get("shared")
+     L210   [핵심] if not isinstance(sh, dict) or not isinstance(sh.get("entries", {}), dict):
+     L212   [핵심] sh.setdefault("entries", {})
+     L217   [핵심] return self._send(200, {"ok": True, "entries": len(sh["entries"])})
+     L224   [핵심] sh = load_json(SHARED, {"entries": {}, "history": []})
+     L225   [핵심] sh.setdefault("entries", {})[role] = entry
+
+  ■ backups\omni_link_20261020_173122\rgon_aside_extension\content_aside_bar.js
+     L32    [핵심] navigator.clipboard.writeText(text).catch(()=>{});
+
+  ■ backups\omni_link_20261022_214440\rgon_aside_extension\background.js
+     L58    [핵심] return { entries: {}, history: [], updated: Date.now() };
+     L63    [핵심] const sh = await getStore("omni_shared", { entries: {}, history: [] });
+     L64    [핵심] sh.entries = sh.entries || {};
+     L67    [핵심] for (const k of Object.keys(sh.entries)) {
+     L68    [핵심] if (sanitizeEntry(sh.entries[k])) dirty = true;
+     L82    [핵심] cur.entries = cur.entries || {};
+     L84    [핵심] delete cur.entries[role];
+     L139   [핵심] for (const [ckey, cmeta] of Object.entries(customRoles)) {
+     L241   [핵심] const cur = await getStore("omni_shared", { entries: {}, history: [] });
+     L242   [핵심] cur.entries = cur.entries || {};
+     L247   [핵심] for (const k of Object.keys(cur.entries)) {
+     L248   [핵심] const ets = (cur.entries[k] && cur.entries[k].ts) || 0;
+     L249   [핵심] if (k !== role && ets < limit) { delete cur.entries[k]; trimmed = true; }
+     L251   [핵심] if (trimmed) cur.history = cur.history.filter((h) => h.role === role || !!cur.entries[h.role]);
+     L253   [핵심] cur.entries[role] = entry;
+
+  ■ backups\omni_link_20261022_214440\rgon_aside_extension\content_aside_bar.js
+     L318   [핵심] try { await navigator.clipboard.writeText(text); return true; } catch (_) {}
+     L323   [핵심] const ok = document.execCommand("copy");
+     L532   [핵심] for (const [k, v] of Object.entries(customs || {})) {
+     L543   [핵심] const list = Object.entries(customs || {});
+     L632   [핵심] const sh = o.omni_shared || { entries: {}, history: [] };
+     L633   [핵심] sh.entries = sh.entries || {};
+     L635   [핵심] for (const k of Object.keys(sh.entries)) { if (cleanEntry(sh.entries[k])) dirty = true; }
+     L638   [핵심] } catch (_) { return { entries: {}, history: [] }; }
+     L670   [핵심] const en = sh.entries || {};
+     L1028  [타이머] intervals.push(setInterval(async () => {
+     L1053  [핵심] const oc = o && o.entries ? Object.keys(o.entries).length : 0;
+     L1054  [핵심] const nc = n && n.entries ? Object.keys(n.entries).length : 0;
+     L1091  [타이머] intervals.push(setInterval(() => { if (!document.hidden) refreshScan(); }, 5000));
+     L1092  [타이머] intervals.push(setInterval(() => { if (!document.hidden) detectAndReport(); }, 4000));
+     L1651  [타이머] window.__rgonV607Timer = setInterval(sync, 3500);
+     L2443  [핵심] function rankTop(entries) {
+     L2445  [핵심] for (i = 0; i < entries.length; i++) {
+     L2446  [핵심] e = entries[i];
+     L2683  [타이머] setInterval(function () { try { ROLE = detectRole() || ROLE; mountManual(); tick(); } catch (e2) {} }, TICK_MS);
+     L2685  [타이머] iv = setInterval(function () {
+
+  ■ backups\omni_link_ext_pre_v603_20261020_210641\core.js
+     L31    [핵심] for (const [k, v] of Object.entries(BUILTIN_ROLES)) {
+     L35    [핵심] for (const [k, v] of Object.entries(customs)) {
+     L78    [핵심] const exist = Object.entries(customs).find(([k, v]) => v.label === name);
+
+  ■ backups\omni_link_ext_pre_v603_20261020_210641\popup.js
+     L210   [핵심] try { await navigator.clipboard.writeText(txt); status("📋 전체 복사 완료 (" + omni_absorbed.length + "건)"); }
+     L232   [핵심] await navigator.clipboard.writeText(c.text); status("📋 복사: " + c.label);
+
+  ■ backups\omni_link_ext_pre_v603_20261022_214441\core.js
+     L31    [핵심] for (const [k, v] of Object.entries(BUILTIN_ROLES)) {
+     L35    [핵심] for (const [k, v] of Object.entries(customs)) {
+     L78    [핵심] const exist = Object.entries(customs).find(([k, v]) => v.label === name);
+
+  ■ backups\omni_link_ext_pre_v603_20261022_214441\popup.js
+     L210   [핵심] try { await navigator.clipboard.writeText(txt); status("📋 전체 복사 완료 (" + omni_absorbed.length + "건)"); }
+     L232   [핵심] await navigator.clipboard.writeText(c.text); status("📋 복사: " + c.label);
+
+  ■ backups\omni_v601_20261020_181720\omni_bridge.py
+     L184   [핵심] return self._send(200, {"ok": True, "shared": load_json(SHARED, {"entries": {}, "history": []})})
+     L211   [핵심] sh = load_json(SHARED, {"entries": {}, "history": []})
+     L212   [핵심] sh.setdefault("entries", {})[role] = entry
+
+  ■ backups\omni_v601_20261020_181720\rgon_aside_extension\background.js
+     L156   [핵심] const sh = await getStore("omni_shared", { entries: {}, history: [] });
+     L157   [핵심] sh.entries = sh.entries || {};
+     L159   [핵심] sh.entries[role] = entry;
+     L332   [핵심] return { ok: true, shared: await getStore("omni_shared", { entries: {}, history: [] }) };
+
+  ■ backups\omni_v601_20261020_181720\rgon_aside_extension\content_aside_bar.js
+     L272   [핵심] try { await navigator.clipboard.writeText(text); return true; } catch (_) {}
+     L277   [핵심] const ok = document.execCommand("copy");
+     L501   [핵심] return o.omni_shared || { entries: {}, history: [] };
+     L502   [핵심] } catch (_) { return { entries: {}, history: [] }; }
+     L534   [핵심] const en = sh.entries || {};
+     L751   [타이머] intervals.push(setInterval(async () => {
+     L764   [타이머] intervals.push(setInterval(() => { if (!document.hidden) refreshScan(); }, 5000));
+     L765   [타이머] intervals.push(setInterval(() => { if (!document.hidden) detectAndReport(); }, 4000));
+
+  ■ backups\omni_v602_20261020_185216\omni_bridge.py
+     L187   [핵심] return self._send(200, {"ok": True, "shared": load_json(SHARED, {"entries": {}, "history": []})})
+     L214   [핵심] sh = load_json(SHARED, {"entries": {}, "history": []})
+     L215   [핵심] sh.setdefault("entries", {})[role] = entry
+
+  ■ backups\omni_v602_20261020_185216\rgon_aside_extension\background.js
+     L156   [핵심] const sh = await getStore("omni_shared", { entries: {}, history: [] });
+     L157   [핵심] sh.entries = sh.entries || {};
+     L159   [핵심] sh.entries[role] = entry;
+     L332   [핵심] return { ok: true, shared: await getStore("omni_shared", { entries: {}, history: [] }) };
+
+  ■ backups\omni_v602_20261020_185216\rgon_aside_extension\content_aside_bar.js
+     L278   [핵심] try { await navigator.clipboard.writeText(text); return true; } catch (_) {}
+     L283   [핵심] const ok = document.execCommand("copy");
+     L511   [핵심] return o.omni_shared || { entries: {}, history: [] };
+     L512   [핵심] } catch (_) { return { entries: {}, history: [] }; }
+     L544   [핵심] const en = sh.entries || {};
+     L787   [타이머] intervals.push(setInterval(async () => {
+     L800   [타이머] intervals.push(setInterval(() => { if (!document.hidden) refreshScan(); }, 5000));
+     L801   [타이머] intervals.push(setInterval(() => { if (!document.hidden) detectAndReport(); }, 4000));
+
+  ■ backups\step8_20261021_204317\rgon_aside_extension\content_aside_bar.js
+     L318   [핵심] try { await navigator.clipboard.writeText(text); return true; } catch (_) {}
+     L323   [핵심] const ok = document.execCommand("copy");
+     L532   [핵심] for (const [k, v] of Object.entries(customs || {})) {
+     L543   [핵심] const list = Object.entries(customs || {});
+     L632   [핵심] const sh = o.omni_shared || { entries: {}, history: [] };
+     L633   [핵심] sh.entries = sh.entries || {};
+     L635   [핵심] for (const k of Object.keys(sh.entries)) { if (cleanEntry(sh.entries[k])) dirty = true; }
+     L638   [핵심] } catch (_) { return { entries: {}, history: [] }; }
+     L670   [핵심] const en = sh.entries || {};
+     L1004  [타이머] intervals.push(setInterval(async () => {
+     L1029  [핵심] const oc = o && o.entries ? Object.keys(o.entries).length : 0;
+     L1030  [핵심] const nc = n && n.entries ? Object.keys(n.entries).length : 0;
+     L1067  [타이머] intervals.push(setInterval(() => { if (!document.hidden) refreshScan(); }, 5000));
+     L1068  [타이머] intervals.push(setInterval(() => { if (!document.hidden) detectAndReport(); }, 4000));
+     L1627  [타이머] window.__rgonV607Timer = setInterval(sync, 3500);
+
+  ■ backups\step8_20261021_205733\rgon_aside_extension\content_aside_bar.js
+     L318   [핵심] try { await navigator.clipboard.writeText(text); return true; } catch (_) {}
+     L323   [핵심] const ok = document.execCommand("copy");
+     L532   [핵심] for (const [k, v] of Object.entries(customs || {})) {
+     L543   [핵심] const list = Object.entries(customs || {});
+     L632   [핵심] const sh = o.omni_shared || { entries: {}, history: [] };
+     L633   [핵심] sh.entries = sh.entries || {};
+     L635   [핵심] for (const k of Object.keys(sh.entries)) { if (cleanEntry(sh.entries[k])) dirty = true; }
+     L638   [핵심] } catch (_) { return { entries: {}, history: [] }; }
+     L670   [핵심] const en = sh.entries || {};
+     L1004  [타이머] intervals.push(setInterval(async () => {
+     L1029  [핵심] const oc = o && o.entries ? Object.keys(o.entries).length : 0;
+     L1030  [핵심] const nc = n && n.entries ? Object.keys(n.entries).length : 0;
+     L1067  [타이머] intervals.push(setInterval(() => { if (!document.hidden) refreshScan(); }, 5000));
+     L1068  [타이머] intervals.push(setInterval(() => { if (!document.hidden) detectAndReport(); }, 4000));
+     L1627  [타이머] window.__rgonV607Timer = setInterval(sync, 3500);
+
+  ■ backups\step9_20261021_224604\rgon_aside_extension\content_aside_bar.js
+     L318   [핵심] try { await navigator.clipboard.writeText(text); return true; } catch (_) {}
+     L323   [핵심] const ok = document.execCommand("copy");
+     L532   [핵심] for (const [k, v] of Object.entries(customs || {})) {
+     L543   [핵심] const list = Object.entries(customs || {});
+     L632   [핵심] const sh = o.omni_shared || { entries: {}, history: [] };
+     L633   [핵심] sh.entries = sh.entries || {};
+     L635   [핵심] for (const k of Object.keys(sh.entries)) { if (cleanEntry(sh.entries[k])) dirty = true; }
+     L638   [핵심] } catch (_) { return { entries: {}, history: [] }; }
+     L670   [핵심] const en = sh.entries || {};
+     L1004  [타이머] intervals.push(setInterval(async () => {
+     L1029  [핵심] const oc = o && o.entries ? Object.keys(o.entries).length : 0;
+     L1030  [핵심] const nc = n && n.entries ? Object.keys(n.entries).length : 0;
+     L1067  [타이머] intervals.push(setInterval(() => { if (!document.hidden) refreshScan(); }, 5000));
+     L1068  [타이머] intervals.push(setInterval(() => { if (!document.hidden) detectAndReport(); }, 4000));
+     L1627  [타이머] window.__rgonV607Timer = setInterval(sync, 3500);
+
+  ■ backups\step_builder_20261021_072855\prev_step1_ui_rgon_and_badge.py
+     L16    [타이머] 4. --once (default) applies pending patches one time. --watch polls every 2 seconds
+     L243   [핵심] files.append({"path": p, "entries": n,
+     L521   [타이머] info("[watch] polling every %.1fs (omni_*.py + %s). Ctrl+C to stop." % (interval, QUEUE_NAME))
+     L554   [타이머] ap.add_argument("--interval", type=float, default=2.0, help="watch polling interval in seconds (default 2)")
+
+  ■ build_omni_link_communicator.py
+     L241   [핵심] const sh = await getStore("omni_shared", { entries: {}, history: [] });
+     L242   [핵심] sh.entries = sh.entries || {};
+     L244   [핵심] sh.entries[role] = entry;
+     L417   [핵심] return { ok: true, shared: await getStore("omni_shared", { entries: {}, history: [] }) };
+     L754   [핵심] try { await navigator.clipboard.writeText(text); return true; } catch (_) {}
+     L759   [핵심] const ok = document.execCommand("copy");
+     L983   [핵심] return o.omni_shared || { entries: {}, history: [] };
+     L984   [핵심] } catch (_) { return { entries: {}, history: [] }; }
+     L1016  [핵심] const en = sh.entries || {};
+     L1233  [타이머] intervals.push(setInterval(async () => {
+     L1246  [타이머] intervals.push(setInterval(() => { if (!document.hidden) refreshScan(); }, 5000));
+     L1247  [타이머] intervals.push(setInterval(() => { if (!document.hidden) detectAndReport(); }, 4000));
+     L1437  [핵심] return self._send(200, {"ok": True, "shared": load_json(SHARED, {"entries": {}, "history": []})})
+     L1464  [핵심] sh = load_json(SHARED, {"entries": {}, "history": []})
+     L1465  [핵심] sh.setdefault("entries", {})[role] = entry
+     L1587  [핵심] var en = (r.shared && r.shared.entries) || {};
+     L1750  [핵심] atomic_write(BASE / "omni_shared_clipboard.json", json.dumps({"entries": {}, "history": [], "updated": 0}, ensure_ascii=False, indent=2))
+
+  ■ build_real_aside_ext.py
+     L54    [핵심] navigator.clipboard.writeText(text).catch(()=>{});
+
+  ■ clean_ui.py
+     L166   [핵심] var r=false; try{ r=document.execCommand("copy"); }catch(e){}
+     L172   [핵심] return navigator.clipboard.writeText(text).catch(function(){ return legacyCopy(text); });
+     L281   [타이머] addEventListener("load", function(){ install(); purgeOld(); alignBadge(); setInterval(purgeOld, 500); });
+
+  ■ dashboard\rgon_signal_bookmarklet.js
+     L27    [핵심] navigator.clipboard.writeText(promptSnippet).then(() => {
+
+  ■ dashboard\test_syntax.js
+     L26    [타이머] setInterval(updateDDayCountdowns, 60000);
+     L36    [타이머] setInterval(fetchSystemStatus, 15000);
+     L37    [타이머] setInterval(() => fetchWorkflowRuns(true), 30000);
+     L117   [타이머] setInterval(update, 1000);
+     L159   [핵심] navigator.clipboard.writeText(text).then(() => showToast('📋 재정 배분 내역이 복사되었습니다!', 'success'));
+     L294   [핵심] navigator.clipboard.writeText(window.lastSunoStyle).then(() => {
+     L396   [타이머] const aiUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?width=1280&height=720&nologo=true&seed=${Date.now()}`;
+     L609   [핵심] navigator.clipboard.writeText(lastBrainAiResponseText).then(() => showToast('📋 클립보드에 복사되었습니다!', 'success'));
+     L1087  [핵심] navigator.clipboard.writeText(str).then(() => showToast('📋 복사되었습니다!', 'success'));
+
+  ■ deep_duplicate_scan.py
+     L11    [핵심] entries = feed_data.get('feed', {}).get('entry', [])
+     L13    [핵심] for entry in entries:
+
+  ■ fast_patch_3.py
+     L29    [핵심] <button onclick="navigator.clipboard.writeText('엄마는 나를 기다리다 밥을 식혔다 #어머니 #감동 #한걸음씩');alert('쇼츠 제목 복사 완료! 유튜브/틱톡 창에서 Ctrl+V 하세요!');" style="padding:9px 
+     L30    [핵심] <button onclick="navigator.clipboard.writeText('엄마한테, 말 없이 이 영상만 보내세요. 오늘 밤 숙면 주파수 432Hz는 프로필에 열어두었습니다.');alert('432Hz 고정댓글 복사 완료!');" style="padding:
+     L31    [핵심] <button onclick="navigator.clipboard.writeText('Intimate Korean emotional ballad, 62 BPM, A minor, solo warm felt piano and deep cello, nostalgic, no 
+     L37    [핵심] navigator.clipboard.writeText('엄마는 나를 기다리다 밥을 식혔다 #어머니 #감동 #한걸음씩\n\n[고정댓글]: 엄마한테, 말 없이 이 영상만 보내세요. 오늘 밤 숙면 주파수 432Hz는 프로필에 열어두었습니다.').catch(()=>{});
+     L51    [핵심] subprocess.run(['powershell', '-Command', f'Set-Clipboard -Value "{clip_text}"'], check=False)
+
+  ■ fast_patch_5.py
+     L42    [핵심] <button onclick="navigator.clipboard.writeText('엄마는 나를 기다리다 밥을 식혔다 #어머니 #감동 #한걸음씩');this.innerText='✅ 제목 복사됨!(Ctrl+V)';" style="padding:9px 12px;borde
+     L43    [핵심] <button onclick="navigator.clipboard.writeText('엄마한테, 말 없이 이 영상만 보내세요. 오늘 밤 숙면 주파수 432Hz는 프로필에 열어두었습니다.');this.innerText='✅ 고정댓글 복사됨!';" style="paddin
+     L44    [핵심] <button onclick="navigator.clipboard.writeText('Intimate Korean emotional ballad, 62 BPM, A minor, solo warm felt piano and deep cello, nostalgic, no 
+
+  ■ fast_patch_7.py
+     L7     [핵심] navigator.clipboard.writeText(text).catch(()=>{});
+
+  ■ fix_v604_full_autowiring.py
+     L79    [핵심] for (const [ckey, cmeta] of Object.entries(customRoles)) {
+     L279   [핵심] for (const [k, v] of Object.entries(customs || {})) {
+     L290   [핵심] const list = Object.entries(customs || {});
+
+  ■ fix_voice_close_and_tabs.py
+     L72    [핵심] <button onclick="navigator.clipboard.writeText('엄마는 나를 기다리다 밥을 식혔다 #어머니 #감동 #한걸음씩');alert('쇼츠 제목 복사 완료! Ctrl+V 하세요!');" style="padding:9px 12px;border
+     L73    [핵심] <button onclick="navigator.clipboard.writeText('엄마한테, 말 없이 이 영상만 보내세요. 오늘 밤 숙면 주파수 432Hz는 프로필에 열어두었습니다.');alert('432Hz 고정댓글 복사 완료!');" style="padding:
+
+  ■ hunters-dawn\scripts\add_subtitles_to_capcut.py
+     L5     [핵심] # Subtitle entries with microsecond timing
+
+  ■ hunters-dawn\scripts\audit_blog_gate.py
+     L39    [핵심] entries = root.findall('atom:entry', ns)
+     L42    [핵심] for idx, e in enumerate(reversed(entries), 1):
+
+  ■ hunters-dawn\scripts\check_blog.py
+     L14    [핵심] entries = root.findall('atom:entry', ns)
+     L16    [핵심] print(f"=== connect-ai-shin.blogspot.com TOTAL POSTS: {len(entries)} ===")
+     L17    [핵심] for idx, e in enumerate(reversed(entries), 1):
+
+  ■ hunters-dawn\scripts\execute_instruction_17.py
+     L31    [핵심] entries = root.findall('atom:entry', ns)
+     L34    [핵심] for idx, e in enumerate(reversed(entries), 1):
+
+  ■ hunters-dawn\scripts\live_measurement.py
+     L44    [핵심] entries = data.get('feed', {}).get('entry', [])
+     L45    [핵심] print(f"   ▶ 게시된 페이지 총 수: {len(entries)}개")
+     L46    [핵심] for e in entries:
+
+  ■ master_clean_fix.py
+     L28    [타이머] setInterval(fixPwaBadgePosition, 300);
+     L55    [핵심] navigator.clipboard.writeText(text).catch(function(){});
+
+  ■ omni_claude_20261022_231830.py
+     L5     [핵심] 1) 클립보드 자동 덮어쓰기 코드 진단 + 안전 비활성화 (.js 주석 처리, rgon_bridge_8765.py 의 clip.exe 호출 제거)
+     L93    [핵심] r"""|clip\.exe|Set-Clipboard|pyperclip""", re.I)
+     L94    [타이머] TIMER_LINE_RE = re.compile(r"setInterval|\bpoll\w*", re.I)
+     L97    [타이머] TIMER_RE = re.compile(r"setInterval|setTimeout|\bpoll\w*|alarms\.|onAlarm|MutationObserver|\bsync\w*", re.I)
+     L101   [핵심] CLIP_PY_RE = re.compile(r"clip\.exe|Set-Clipboard|pyperclip", re.I)
+     L105   [핵심] section("[1-A] 클립보드/\"shared\"/\"entries\" 관련 코드 스캔 (.js, .py)")
+     L134   [핵심] """타이머/자동 동기화 문맥에서 'shared' JSON 을 클립보드에 쓰는 한 줄짜리 문장만 주석 처리."""
+     L172   [핵심] """rgon_bridge_8765.py 의 clip.exe 호출 문장을 주석 처리하고 pass 로 대체 (ast 로 문장 범위 확인)."""
+     L244   [핵심] say(f"     clip.exe 호출 제거(주석+pass) 줄: {removed if removed else '없음'}")
+
+  ■ omni_link_ext\core.js
+     L31    [핵심] for (const [k, v] of Object.entries(BUILTIN_ROLES)) {
+     L35    [핵심] for (const [k, v] of Object.entries(customs)) {
+     L78    [핵심] const exist = Object.entries(customs).find(([k, v]) => v.label === name);
+
+  ■ omni_link_ext\popup.js
+     L210   [핵심] try { await navigator.clipboard.writeText(txt); status("📋 전체 복사 완료 (" + omni_absorbed.length + "건)"); }
+     L232   [핵심] await navigator.clipboard.writeText(c.text); status("📋 복사: " + c.label);
+
+  ■ patch_omni_agent_bus_frontend.py
+     L242   [핵심] <button type="button" onclick="navigator.clipboard.writeText('${(m.content||'').replace(/'/g, "\\'")}'); showToast('📋 교신 내용이 복사되었습니다!', 'info');" clas
+     L384   [타이머] setInterval(refreshOmniAgentBus, 2500);
+
+  ■ patch_v360_signal_sync.py
+     L144   [핵심] navigator.clipboard.writeText(input.value);
+     L163   [핵심] if (navigator.clipboard && navigator.clipboard.writeText) {
+     L164   [핵심] await navigator.clipboard.writeText(reportText);
+     L178   [타이머] setInterval(async () => {
+
+  ■ rgon_aside_extension\background.js
+     L156   [핵심] const sh = await getStore("omni_shared", { entries: {}, history: [] });
+     L157   [핵심] sh.entries = sh.entries || {};
+     L159   [핵심] sh.entries[role] = entry;
+     L332   [핵심] return { ok: true, shared: await getStore("omni_shared", { entries: {}, history: [] }) };
+
+  ■ rgon_aside_extension\content_aside_bar.js
+     L272   [핵심] try { await navigator.clipboard.writeText(text); return true; } catch (_) {}
+     L277   [핵심] const ok = document.execCommand("copy");
+     L501   [핵심] return o.omni_shared || { entries: {}, history: [] };
+     L502   [핵심] } catch (_) { return { entries: {}, history: [] }; }
+     L534   [핵심] const en = sh.entries || {};
+     L751   [타이머] intervals.push(setInterval(async () => {
+     L764   [타이머] intervals.push(setInterval(() => { if (!document.hidden) refreshScan(); }, 5000));
+     L765   [타이머] intervals.push(setInterval(() => { if (!document.hidden) detectAndReport(); }, 4000));
+
+  ■ rgon_auto_evolve_brain.py
+     L81    [타이머] R6_CROP_RATIO = 0.08          # Pollinations 하단 워터마크 크롭 비율
+     L174   [타이머] {"id": "R6", "name": "Pollinations 워터마크 차단",
+     L175   [타이머] "rule": "Pollinations 이미지 하단 워터마크 크롭 + nologo=true + 하단 안전 구도",
+     L268   [타이머] RE_POLL_URL = re.compile(r"https?://image\.pollinations\.ai/prompt/[^\s'\"`<>)]*")
+     L364   [타이머] "signature", "text overlay", "bottom caption", "pollinations"]
+     L529   [타이머] poll_fixed = self._fix_poll(raw)
+     L552   [타이머] self.report = {"created": created, "injected": injected, "pollinations_fixed": poll_fixed,
+     L610   [타이머] and ("pollinations" in p.name.lower() or p.name.lower() == "sample_paper_cup.jpg")
+     L737   [타이머] F.append(fnd("R6", p, f"Pollinations URL nologo 누락 {pc}곳 (수동 확인)", 2 * pc))
+     L863   [타이머] "R6": ("Pollinations 워터마크 전 경로 차단", "모든 이미지 URL에 nologo=true 주입 + 저장 시 하단 자동 크롭 훅", 4, 2),
+     L1080  [핵심] for k in ("schedules", "schedule", "tasks", "items", "entries"):
+     L1099  [핵심] for k in ("schedules", "schedule", "tasks", "items", "entries"):
+
+  ■ rgon_auto_watcher.py
+     L182   [핵심] proc = subprocess.Popen(["clip.exe"], stdin=subprocess.PIPE, shell=True)
+     L461   [핵심] subprocess.run(["clip.exe"], input=text_payload.encode("utf-16le"), timeout=5)
+
+  ■ s10.py
+     L108   [핵심] var entries = [], lastStamp = {}, pending = null, pendTimer = null, scanTimer = null;
+     L318   [핵심] entries.push(ent);
+     L325   [핵심] entries = entries.filter(function (e) { return e.tn.isConnected; });
+     L340   [핵심] entries = entries.filter(function (e) { return e.tn.isConnected; });
+     L341   [핵심] entries.forEach(paint);
+     L432   [타이머] setInterval(refresh, 60000);
+
+  ■ s9.py
+     L195   [핵심] function rankTop(entries) {
+     L197   [핵심] for (i = 0; i < entries.length; i++) {
+     L198   [핵심] e = entries[i];
+     L484   [타이머] setInterval(function () { try { ROLE = detectRole() || ROLE; mountManual(); tick(); } catch (e2) {} }, TICK_MS);
+     L486   [타이머] iv = setInterval(function () {
+     L596   [핵심] function entries() {
+     L618   [핵심] try { ok = document.execCommand("copy"); } catch (e) {}
+     L622   [핵심] if (navigator.clipboard && navigator.clipboard.writeText) {
+     L623   [핵심] navigator.clipboard.writeText(text).then(function () { cb(true); }, function () { legacy(); });
+     L765   [핵심] var es = entries(), map = {}, i, sealedN = 0;
+
+  ■ s_run.py
+     L5     [핵심] 1) 클립보드 자동 덮어쓰기 코드 진단 + 안전 비활성화 (.js 주석 처리, rgon_bridge_8765.py 의 clip.exe 호출 제거)
+     L93    [핵심] r"""|clip\.exe|Set-Clipboard|pyperclip""", re.I)
+     L94    [타이머] TIMER_LINE_RE = re.compile(r"setInterval|\bpoll\w*", re.I)
+     L97    [타이머] TIMER_RE = re.compile(r"setInterval|setTimeout|\bpoll\w*|alarms\.|onAlarm|MutationObserver|\bsync\w*", re.I)
+     L101   [핵심] CLIP_PY_RE = re.compile(r"clip\.exe|Set-Clipboard|pyperclip", re.I)
+     L105   [핵심] section("[1-A] 클립보드/\"shared\"/\"entries\" 관련 코드 스캔 (.js, .py)")
+     L134   [핵심] """타이머/자동 동기화 문맥에서 'shared' JSON 을 클립보드에 쓰는 한 줄짜리 문장만 주석 처리."""
+     L172   [핵심] """rgon_bridge_8765.py 의 clip.exe 호출 문장을 주석 처리하고 pass 로 대체 (ast 로 문장 범위 확인)."""
+     L244   [핵심] say(f"     clip.exe 호출 제거(주석+pass) 줄: {removed if removed else '없음'}")
+
+  ■ scan_orphan_lis.py
+     L12    [핵심] entries = feed_data.get('feed', {}).get('entry', [])
+     L15    [핵심] for entry in entries:
+
+  ■ scratch\_chk_alpha.js
+     L129   [핵심] Object.entries(s.sub_agents).forEach(([id, a]) => lines.push(`• ${id} ${a.name}: ${a.report}`));
+     L221   [핵심] for (const [sid, sinfo] of Object.entries(m.sub_agents_snapshot)) {
+     L343   [타이머] setInterval(() => { if (!isSubmitting) loadAlphaChat(); }, 8000);
+
+  ■ scratch\check_app_0.js
+     L783   [핵심] navigator.clipboard.writeText(window.location.href);
+
+  ■ scratch\check_app_emerg_0.js
+     L783   [핵심] navigator.clipboard.writeText(window.location.href);
+
+  ■ scratch\check_app_minimal_0.js
+     L783   [핵심] navigator.clipboard.writeText(window.location.href);
+
+  ■ scratch\check_dash_1.js
+     L261   [타이머] setInterval(() => checkVersionAndUpdate(false), 15000);
+     L279   [타이머] setInterval(updateDDayCountdowns, 60000);
+     L295   [타이머] setInterval(fetchSystemStatus, 15000);
+     L296   [타이머] setInterval(() => fetchWorkflowRuns(true), 30000);
+     L376   [타이머] setInterval(update, 1000);
+     L418   [핵심] navigator.clipboard.writeText(text).then(() => showToast('📋 재정 배분 내역이 복사되었습니다!', 'success'));
+     L553   [핵심] navigator.clipboard.writeText(window.lastSunoStyle).then(() => {
+     L660   [타이머] const aiUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?width=1280&height=720&nologo=true&seed=${Date.now()}`;
+     L1200  [핵심] navigator.clipboard.writeText(lastBrainAiResponseText).then(() => showToast('📋 클립보드에 복사되었습니다!', 'success'));
+     L1643  [핵심] navigator.clipboard.writeText(input.value);
+     L1703  [핵심] navigator.clipboard.writeText(linkInput.value).then(() => {
+     L1830  [핵심] navigator.clipboard.writeText(str).then(() => showToast('📋 복사되었습니다!', 'success'));
+     L2422  [핵심] navigator.clipboard.writeText(lastCouncilReportText).then(() => {
+     L4046  [핵심] navigator.clipboard.writeText(shareUrl);
+     L4069  [타이머] setInterval(loadTunnelStatus, 15000);
+     L4070  [타이머] setInterval(() => {
+
+  ■ scratch\check_dash_emerg_1.js
+     L261   [타이머] setInterval(() => checkVersionAndUpdate(false), 15000);
+     L279   [타이머] setInterval(updateDDayCountdowns, 60000);
+     L295   [타이머] setInterval(fetchSystemStatus, 15000);
+     L296   [타이머] setInterval(() => fetchWorkflowRuns(true), 30000);
+     L376   [타이머] setInterval(update, 1000);
+     L418   [핵심] navigator.clipboard.writeText(text).then(() => showToast('📋 재정 배분 내역이 복사되었습니다!', 'success'));
+     L553   [핵심] navigator.clipboard.writeText(window.lastSunoStyle).then(() => {
+     L660   [타이머] const aiUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?width=1280&height=720&nologo=true&seed=${Date.now()}`;
+     L1200  [핵심] navigator.clipboard.writeText(lastBrainAiResponseText).then(() => showToast('📋 클립보드에 복사되었습니다!', 'success'));
+     L1643  [핵심] navigator.clipboard.writeText(input.value);
+     L1703  [핵심] navigator.clipboard.writeText(linkInput.value).then(() => {
+     L1830  [핵심] navigator.clipboard.writeText(str).then(() => showToast('📋 복사되었습니다!', 'success'));
+     L2422  [핵심] navigator.clipboard.writeText(lastCouncilReportText).then(() => {
+     L4046  [핵심] navigator.clipboard.writeText(shareUrl);
+     L4069  [타이머] setInterval(loadTunnelStatus, 15000);
+     L4070  [타이머] setInterval(() => {
+
+  ■ scratch\check_dash_final_1.js
+     L261   [타이머] setInterval(() => checkVersionAndUpdate(false), 15000);
+     L288   [타이머] setInterval(updateDDayCountdowns, 60000);
+     L304   [타이머] setInterval(fetchSystemStatus, 15000);
+     L305   [타이머] setInterval(() => fetchWorkflowRuns(true), 30000);
+     L385   [타이머] setInterval(update, 1000);
+     L427   [핵심] navigator.clipboard.writeText(text).then(() => showToast('📋 재정 배분 내역이 복사되었습니다!', 'success'));
+     L562   [핵심] navigator.clipboard.writeText(window.lastSunoStyle).then(() => {
+     L669   [타이머] const aiUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?width=1280&height=720&nologo=true&seed=${Date.now()}`;
+     L1209  [핵심] navigator.clipboard.writeText(lastBrainAiResponseText).then(() => showToast('📋 클립보드에 복사되었습니다!', 'success'));
+     L1652  [핵심] navigator.clipboard.writeText(input.value);
+     L1712  [핵심] navigator.clipboard.writeText(linkInput.value).then(() => {
+     L1839  [핵심] navigator.clipboard.writeText(str).then(() => showToast('📋 복사되었습니다!', 'success'));
+     L2431  [핵심] navigator.clipboard.writeText(lastCouncilReportText).then(() => {
+     L4055  [핵심] navigator.clipboard.writeText(shareUrl);
+     L4078  [타이머] setInterval(loadTunnelStatus, 15000);
+     L4079  [타이머] setInterval(() => {
+
+  ■ scratch\check_dash_minimal_1.js
+     L261   [타이머] setInterval(() => checkVersionAndUpdate(false), 15000);
+     L288   [타이머] setInterval(updateDDayCountdowns, 60000);
+     L304   [타이머] setInterval(fetchSystemStatus, 15000);
+     L305   [타이머] setInterval(() => fetchWorkflowRuns(true), 30000);
+     L385   [타이머] setInterval(update, 1000);
+     L427   [핵심] navigator.clipboard.writeText(text).then(() => showToast('📋 재정 배분 내역이 복사되었습니다!', 'success'));
+     L562   [핵심] navigator.clipboard.writeText(window.lastSunoStyle).then(() => {
+     L669   [타이머] const aiUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?width=1280&height=720&nologo=true&seed=${Date.now()}`;
+     L1209  [핵심] navigator.clipboard.writeText(lastBrainAiResponseText).then(() => showToast('📋 클립보드에 복사되었습니다!', 'success'));
+     L1652  [핵심] navigator.clipboard.writeText(input.value);
+     L1712  [핵심] navigator.clipboard.writeText(linkInput.value).then(() => {
+     L1839  [핵심] navigator.clipboard.writeText(str).then(() => showToast('📋 복사되었습니다!', 'success'));
+     L2431  [핵심] navigator.clipboard.writeText(lastCouncilReportText).then(() => {
+     L4055  [핵심] navigator.clipboard.writeText(shareUrl);
+     L4078  [타이머] setInterval(loadTunnelStatus, 15000);
+     L4079  [타이머] setInterval(() => {
+
+  ■ scratch\check_dept_closet_2.js
+     L190   [핵심] container.innerHTML = Object.entries(data.monitored_assets).map(([sym, item]) => {
+
+  ■ scratch\check_dept_connect_ai_1.js
+     L57    [핵심] navigator.clipboard.writeText(text).then(() => {
+     L365   [핵심] navigator.clipboard.writeText(fullText).then(() => {
+     L575   [핵심] navigator.clipboard.writeText(text).then(() => {
+     L676   [핵심] navigator.clipboard.writeText(text).then(() => {
+     L964   [핵심] navigator.clipboard.writeText(textToCopy).then(() => {
+
+  ■ scratch\check_dept_connect_ai_2.js
+     L57    [핵심] navigator.clipboard.writeText(text).then(() => {
+     L365   [핵심] navigator.clipboard.writeText(fullText).then(() => {
+     L575   [핵심] navigator.clipboard.writeText(text).then(() => {
+     L676   [핵심] navigator.clipboard.writeText(text).then(() => {
+     L964   [핵심] navigator.clipboard.writeText(textToCopy).then(() => {
+     L1172  [핵심] if (navigator.clipboard && navigator.clipboard.writeText) {
+     L1173  [핵심] await navigator.clipboard.writeText(bundle.clipboard_payload);
+
+  ■ scratch\check_dept_media_1.js
+     L180   [핵심] navigator.clipboard.writeText(text).then(() => {
+     L290   [핵심] navigator.clipboard.writeText(text).then(() => {
+     L525   [핵심] navigator.clipboard.writeText(textToCopy).then(() => {
+
+  ■ scratch\check_dept_media_2.js
+     L180   [핵심] navigator.clipboard.writeText(text).then(() => {
+     L290   [핵심] navigator.clipboard.writeText(text).then(() => {
+     L525   [핵심] navigator.clipboard.writeText(textToCopy).then(() => {
+     L733   [핵심] if (navigator.clipboard && navigator.clipboard.writeText) {
+     L734   [핵심] await navigator.clipboard.writeText(bundle.clipboard_payload);
+
+  ■ scratch\check_dept_vault_1.js
+     L348   [핵심] for (const [platform, info] of Object.entries(channels)) {
+
+  ■ scratch\check_dept_vault_2.js
+     L348   [핵심] for (const [platform, info] of Object.entries(channels)) {
+
+  ■ scratch\check_index_7.js
+     L179   [핵심] navigator.clipboard.writeText(content).then(() => {
+
+  ■ scratch\check_safe_daily_lucky_1.js
+     L64    [핵심] navigator.clipboard.writeText(text).then(() => {
+
+  ■ scratch\check_safe_daily_lucky_2.js
+     L64    [핵심] navigator.clipboard.writeText(text).then(() => {
+
+  ■ scratch\check_safe_healing_sound_1.js
+     L11    [타이머] setInterval(() => {
+     L145   [핵심] navigator.clipboard.writeText(text).then(() => {
+
+  ■ scratch\check_safe_healing_sound_2.js
+     L11    [타이머] setInterval(() => {
+     L145   [핵심] navigator.clipboard.writeText(text).then(() => {
+
+  ■ scratch\check_safe_rich_dna_test_1.js
+     L56    [핵심] navigator.clipboard.writeText(latestResultText).then(() => {
+
+  ■ scratch\check_safe_rich_dna_test_2.js
+     L56    [핵심] navigator.clipboard.writeText(latestResultText).then(() => {
+
+  ■ scratch\check_safe_salary_planner_1.js
+     L56    [핵심] navigator.clipboard.writeText(text).then(() => {
+
+  ■ scratch\check_safe_salary_planner_2.js
+     L56    [핵심] navigator.clipboard.writeText(text).then(() => {
+
+  ■ scratch\check_script_1.js
+     L261   [타이머] setInterval(() => checkVersionAndUpdate(false), 15000);
+     L279   [타이머] setInterval(updateDDayCountdowns, 60000);
+     L295   [타이머] setInterval(fetchSystemStatus, 15000);
+     L296   [타이머] setInterval(() => fetchWorkflowRuns(true), 30000);
+     L376   [타이머] setInterval(update, 1000);
+     L418   [핵심] navigator.clipboard.writeText(text).then(() => showToast('📋 재정 배분 내역이 복사되었습니다!', 'success'));
+     L553   [핵심] navigator.clipboard.writeText(window.lastSunoStyle).then(() => {
+     L660   [타이머] const aiUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?width=1280&height=720&nologo=true&seed=${Date.now()}`;
+     L1200  [핵심] navigator.clipboard.writeText(lastBrainAiResponseText).then(() => showToast('📋 클립보드에 복사되었습니다!', 'success'));
+     L1643  [핵심] navigator.clipboard.writeText(input.value);
+     L1703  [핵심] navigator.clipboard.writeText(linkInput.value).then(() => {
+     L1830  [핵심] navigator.clipboard.writeText(str).then(() => showToast('📋 복사되었습니다!', 'success'));
+     L2422  [핵심] navigator.clipboard.writeText(lastCouncilReportText).then(() => {
+     L4046  [핵심] navigator.clipboard.writeText(shareUrl);
+     L4069  [타이머] setInterval(loadTunnelStatus, 15000);
+     L4070  [타이머] setInterval(() => {
+
+  ■ scratch\check_sentinel_2.js
+     L261   [타이머] setInterval(() => checkVersionAndUpdate(false), 15000);
+     L288   [타이머] setInterval(updateDDayCountdowns, 60000);
+     L304   [타이머] setInterval(fetchSystemStatus, 15000);
+     L305   [타이머] setInterval(() => fetchWorkflowRuns(true), 30000);
+     L385   [타이머] setInterval(update, 1000);
+     L427   [핵심] navigator.clipboard.writeText(text).then(() => showToast('📋 재정 배분 내역이 복사되었습니다!', 'success'));
+     L562   [핵심] navigator.clipboard.writeText(window.lastSunoStyle).then(() => {
+     L669   [타이머] const aiUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?width=1280&height=720&nologo=true&seed=${Date.now()}`;
+     L1209  [핵심] navigator.clipboard.writeText(lastBrainAiResponseText).then(() => showToast('📋 클립보드에 복사되었습니다!', 'success'));
+     L1652  [핵심] navigator.clipboard.writeText(input.value);
+     L1712  [핵심] navigator.clipboard.writeText(linkInput.value).then(() => {
+     L1839  [핵심] navigator.clipboard.writeText(str).then(() => showToast('📋 복사되었습니다!', 'success'));
+     L2431  [핵심] navigator.clipboard.writeText(lastCouncilReportText).then(() => {
+     L4055  [핵심] navigator.clipboard.writeText(shareUrl);
+     L4078  [타이머] setInterval(loadTunnelStatus, 15000);
+     L4079  [타이머] setInterval(() => {
+
+  ■ scratch\check_v33_2.js
+     L261   [타이머] setInterval(() => checkVersionAndUpdate(false), 15000);
+     L288   [타이머] setInterval(updateDDayCountdowns, 60000);
+     L304   [타이머] setInterval(fetchSystemStatus, 15000);
+     L305   [타이머] setInterval(() => fetchWorkflowRuns(true), 30000);
+     L385   [타이머] setInterval(update, 1000);
+     L427   [핵심] navigator.clipboard.writeText(text).then(() => showToast('📋 재정 배분 내역이 복사되었습니다!', 'success'));
+     L562   [핵심] navigator.clipboard.writeText(window.lastSunoStyle).then(() => {
+     L669   [타이머] const aiUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?width=1280&height=720&nologo=true&seed=${Date.now()}`;
+     L1209  [핵심] navigator.clipboard.writeText(lastBrainAiResponseText).then(() => showToast('📋 클립보드에 복사되었습니다!', 'success'));
+     L1652  [핵심] navigator.clipboard.writeText(input.value);
+     L1712  [핵심] navigator.clipboard.writeText(linkInput.value).then(() => {
+     L1839  [핵심] navigator.clipboard.writeText(str).then(() => showToast('📋 복사되었습니다!', 'success'));
+     L2431  [핵심] navigator.clipboard.writeText(lastCouncilReportText).then(() => {
+     L4055  [핵심] navigator.clipboard.writeText(shareUrl);
+     L4078  [타이머] setInterval(loadTunnelStatus, 15000);
+     L4079  [타이머] setInterval(() => {
+
+  ■ scratch\script_2.js
+     L261   [타이머] setInterval(() => checkVersionAndUpdate(false), 15000);
+     L279   [타이머] setInterval(updateDDayCountdowns, 60000);
+     L295   [타이머] setInterval(fetchSystemStatus, 15000);
+     L296   [타이머] setInterval(() => fetchWorkflowRuns(true), 30000);
+     L376   [타이머] setInterval(update, 1000);
+     L418   [핵심] navigator.clipboard.writeText(text).then(() => showToast('📋 재정 배분 내역이 복사되었습니다!', 'success'));
+     L553   [핵심] navigator.clipboard.writeText(window.lastSunoStyle).then(() => {
+     L660   [타이머] const aiUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?width=1280&height=720&nologo=true&seed=${Date.now()}`;
+     L1200  [핵심] navigator.clipboard.writeText(lastBrainAiResponseText).then(() => showToast('📋 클립보드에 복사되었습니다!', 'success'));
+     L1654  [핵심] navigator.clipboard.writeText(linkInput.value).then(() => {
+     L1781  [핵심] navigator.clipboard.writeText(str).then(() => showToast('📋 복사되었습니다!', 'success'));
+     L2373  [핵심] navigator.clipboard.writeText(lastCouncilReportText).then(() => {
+     L3404  [타이머] setInterval(() => {
+
+  ■ scratch\smoke_dept_closet_2.js
+     L15    [타이머] setInterval: setInterval,
+     L30    [핵심] vm.runInContext("\n    let audioCtx = null;\n\n    // \ud83e\ude78 [v11.1] 4\ub300 \ub9c9\ud78c \ud608\uad00 \uac1c\ud1b5 & \uc989\uc2dc \uc885\ubaa9 
+
+  ■ scratch\smoke_dept_connect_ai_1.js
+     L15    [타이머] setInterval: setInterval,
+     L30    [핵심] vm.runInContext("\n    const VIRAL_TEMPLATES = {\n      app1: `[\ud83c\udf40 \uc624\ub298 \ub098\uc5d0\uac8c \ud589\uc6b4\uc744 \uc8fc\ub294 \uceec\ub
+
+  ■ scratch\smoke_dept_connect_ai_2.js
+     L15    [타이머] setInterval: setInterval,
+     L30    [핵심] vm.runInContext("\n    const VIRAL_TEMPLATES = {\n      app1: `[\ud83c\udf40 \uc624\ub298 \ub098\uc5d0\uac8c \ud589\uc6b4\uc744 \uc8fc\ub294 \uceec\ub
+
+  ■ scratch\smoke_dept_media_1.js
+     L15    [타이머] setInterval: setInterval,
+     L30    [핵심] vm.runInContext("\n    // \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u25
+
+  ■ scratch\smoke_dept_media_2.js
+     L15    [타이머] setInterval: setInterval,
+     L30    [핵심] vm.runInContext("\n    // \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u25
+
+  ■ scratch\smoke_dept_vault_1.js
+     L15    [타이머] setInterval: setInterval,
+     L30    [핵심] vm.runInContext("\n    const DELIVERABLE_DATABASE = {\n      \"TASK-D1-01\": {\n        title: \"[TASK-D1-01] [\uc81c1\ud0c4: \uc0dd\uc131(\u751f\u621
+
+  ■ scratch\smoke_dept_vault_2.js
+     L15    [타이머] setInterval: setInterval,
+     L30    [핵심] vm.runInContext("\n    const DELIVERABLE_DATABASE = {\n      \"TASK-D1-01\": {\n        title: \"[TASK-D1-01] [\uc81c1\ud0c4: \uc0dd\uc131(\u751f\u621
+
+  ■ scratch\smoke_index_7.js
+     L15    [타이머] setInterval: setInterval,
+     L30    [핵심] vm.runInContext("\n// \ud83c\udfaf [v8.5] 18\ub300 \ubd80\uc11c\ubcc4 \uc77c\uac70\ub9ac \ub85c\ub4dc \ubc0f \uc6d0\ud130\uce58 \uc9d1\ud589 \uc5d4\uc
+
+  ■ scratch\smoke_safe_daily_lucky_1.js
+     L15    [타이머] setInterval: setInterval,
+     L30    [핵심] vm.runInContext("\n    let currentMood = 'peaceful';\n\n    const COLOR_DATABASE = {\n      spring: {\n        peaceful: { score: 92, color: '\uc5d0\u
+
+  ■ scratch\smoke_safe_daily_lucky_2.js
+     L15    [타이머] setInterval: setInterval,
+     L30    [핵심] vm.runInContext("\n    let currentMood = 'peaceful';\n\n    const COLOR_DATABASE = {\n      spring: {\n        peaceful: { score: 92, color: '\uc5d0\u
+
+  ■ scratch\smoke_safe_healing_sound_1.js
+     L15    [타이머] setInterval: setInterval,
+     L30    [핵심] vm.runInContext("\n    // 4-7-8 \ud638\ud761 \ud0c0\uc774\uba38 \uc2dc\ubbac\ub808\uc774\uc158\n    let breatheActive = true;\n    let bStep = 0; // 0
+
+  ■ scratch\smoke_safe_healing_sound_2.js
+     L15    [타이머] setInterval: setInterval,
+     L30    [핵심] vm.runInContext("\n    // 4-7-8 \ud638\ud761 \ud0c0\uc774\uba38 \uc2dc\ubbac\ub808\uc774\uc158\n    let breatheActive = true;\n    let bStep = 0; // 0
+
+  ■ scratch\smoke_safe_rich_dna_test_1.js
+     L15    [타이머] setInterval: setInterval,
+     L30    [핵심] vm.runInContext("\n    const ARCHETYPES = {\n      A: {\n        badge: \"\ud83d\udc51\",\n        title: \"\ud669\uae08 \ubcf5\ub9ac \uc124\uacc4\uc7
+
+  ■ scratch\smoke_safe_rich_dna_test_2.js
+     L15    [타이머] setInterval: setInterval,
+     L30    [핵심] vm.runInContext("\n    const ARCHETYPES = {\n      A: {\n        badge: \"\ud83d\udc51\",\n        title: \"\ud669\uae08 \ubcf5\ub9ac \uc124\uacc4\uc7
+
+  ■ scratch\smoke_safe_salary_planner_1.js
+     L15    [타이머] setInterval: setInterval,
+     L30    [핵심] vm.runInContext("\n    function fmt(num) {\n      return Math.round(num).toLocaleString('ko-KR') + ' \uc6d0';\n    }\n\n    function calculateSalaryAn
+
+  ■ scratch\smoke_safe_salary_planner_2.js
+     L15    [타이머] setInterval: setInterval,
+     L30    [핵심] vm.runInContext("\n    function fmt(num) {\n      return Math.round(num).toLocaleString('ko-KR') + ' \uc6d0';\n    }\n\n    function calculateSalaryAn
+
+  ■ scratch\temp_extracted_check.js
+     L292   [타이머] setInterval(() => checkVersionAndUpdate(false), 15000);
+     L310   [타이머] setInterval(updateDDayCountdowns, 60000);
+     L326   [타이머] setInterval(fetchSystemStatus, 15000);
+     L327   [타이머] setInterval(() => fetchWorkflowRuns(true), 30000);
+     L407   [타이머] setInterval(update, 1000);
+     L449   [핵심] navigator.clipboard.writeText(text).then(() => showToast('📋 재정 배분 내역이 복사되었습니다!', 'success'));
+     L584   [핵심] navigator.clipboard.writeText(window.lastSunoStyle).then(() => {
+     L691   [타이머] const aiUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?width=1280&height=720&nologo=true&seed=${Date.now()}`;
+     L975   [핵심] navigator.clipboard.writeText(lastBrainAiResponseText).then(() => showToast('📋 클립보드에 복사되었습니다!', 'success'));
+     L1429  [핵심] navigator.clipboard.writeText(linkInput.value).then(() => {
+     L1556  [핵심] navigator.clipboard.writeText(str).then(() => showToast('📋 복사되었습니다!', 'success'));
+     L2148  [핵심] navigator.clipboard.writeText(lastCouncilReportText).then(() => {
+
+  ■ scratch\temp_extracted_check2.js
+     L292   [타이머] setInterval(() => checkVersionAndUpdate(false), 15000);
+     L310   [타이머] setInterval(updateDDayCountdowns, 60000);
+     L326   [타이머] setInterval(fetchSystemStatus, 15000);
+     L327   [타이머] setInterval(() => fetchWorkflowRuns(true), 30000);
+     L407   [타이머] setInterval(update, 1000);
+     L449   [핵심] navigator.clipboard.writeText(text).then(() => showToast('📋 재정 배분 내역이 복사되었습니다!', 'success'));
+     L584   [핵심] navigator.clipboard.writeText(window.lastSunoStyle).then(() => {
+     L691   [타이머] const aiUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?width=1280&height=720&nologo=true&seed=${Date.now()}`;
+     L1231  [핵심] navigator.clipboard.writeText(lastBrainAiResponseText).then(() => showToast('📋 클립보드에 복사되었습니다!', 'success'));
+     L1685  [핵심] navigator.clipboard.writeText(linkInput.value).then(() => {
+     L1812  [핵심] navigator.clipboard.writeText(str).then(() => showToast('📋 복사되었습니다!', 'success'));
+     L2404  [핵심] navigator.clipboard.writeText(lastCouncilReportText).then(() => {
+
+  ■ scratch\temp_val.js
+     L784   [핵심] navigator.clipboard.writeText(window.location.href);
+
+  ■ search_duplicate_topics.py
+     L11    [핵심] entries = feed_data.get('feed', {}).get('entry', [])
+     L13    [핵심] for entry in entries:
+
+  ■ smart_relay_5h.py
+     L5     [핵심] import time, sys, os, subprocess, json, pyperclip
+     L33    [핵심] current_text = pyperclip.paste()
+     L160   [핵심] pyperclip.copy(report_text)
+
+  ■ step1_ui_rgon_and_badge.py
+     L14    [핵심] - Clones single-line claude role entries (lamps / role tables) when the pattern is recognisable.
+     L571   [핵심] """Clone single-line claude entries (array objects or key: value maps) that sit next to a gpt entry."""
+     L626   [핵심] info("   [warn] %s: could not auto-clone the claude entries on lines %s (add rgon there manually)"
+
+  ■ step2_mobile_clean_layout.py
+     L16    [타이머] 4. --once (default) applies pending patches one time. --watch polls every 2 seconds
+     L243   [핵심] files.append({"path": p, "entries": n,
+     L521   [타이머] info("[watch] polling every %.1fs (omni_*.py + %s). Ctrl+C to stop." % (interval, QUEUE_NAME))
+     L554   [타이머] ap.add_argument("--interval", type=float, default=2.0, help="watch polling interval in seconds (default 2)")
+
+  ■ step3_local_auto_builder.py
+     L16    [타이머] 4. --once (default) applies pending patches one time. --watch polls every 2 seconds
+     L243   [핵심] files.append({"path": p, "entries": n,
+     L521   [타이머] info("[watch] polling every %.1fs (omni_*.py + %s). Ctrl+C to stop." % (interval, QUEUE_NAME))
+     L554   [타이머] ap.add_argument("--interval", type=float, default=2.0, help="watch polling interval in seconds (default 2)")
+
+  ■ upgrade_all_in_one_ad.py
+     L106   [핵심] for (const [name, value] of Object.entries(properties)) {
+     L1341  [핵심] await navigator.clipboard.writeText(text);
+     L1354  [핵심] copied = document.execCommand("copy");
+
+  ■ upgrade_all_in_one_ad_v5.py
+     L460   [핵심] ok=document.execCommand('copy');ta.remove();
+     L463   [핵심] if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(text).catch(function(){});ok=true;}
+
+  ■ upgrade_omni_link_v601.py
+     L128   [핵심] var en = (r.shared && r.shared.entries) || {};
+     L639   [타이머] if p.poll() is not None:
+
+  ■ upgrade_omni_link_v602.py
+     L8     [핵심] #        ON  : 작업 분배(OMNI_DISPATCH) 시 이전 omni_shared.entries 선삭제
+     L95    [핵심] return { entries: {}, history: [], updated: Date.now() };
+     L100   [핵심] const sh = await getStore("omni_shared", { entries: {}, history: [] });
+     L101   [핵심] sh.entries = sh.entries || {};
+     L104   [핵심] for (const k of Object.keys(sh.entries)) {
+     L105   [핵심] if (sanitizeEntry(sh.entries[k])) dirty = true;
+     L119   [핵심] cur.entries = cur.entries || {};
+     L121   [핵심] delete cur.entries[role];
+     L148   [핵심] const cur = await getStore("omni_shared", { entries: {}, history: [] });
+     L149   [핵심] cur.entries = cur.entries || {};
+     L154   [핵심] for (const k of Object.keys(cur.entries)) {
+     L155   [핵심] const ets = (cur.entries[k] && cur.entries[k].ts) || 0;
+     L156   [핵심] if (k !== role && ets < limit) { delete cur.entries[k]; trimmed = true; }
+     L158   [핵심] if (trimmed) cur.history = cur.history.filter((h) => h.role === role || !!cur.entries[h.role]);
+     L160   [핵심] cur.entries[role] = entry;
+     L232   [핵심] const sh = o.omni_shared || { entries: {}, history: [] };
+     L233   [핵심] sh.entries = sh.entries || {};
+     L235   [핵심] for (const k of Object.keys(sh.entries)) { if (cleanEntry(sh.entries[k])) dirty = true; }
+     L238   [핵심] } catch (_) { return { entries: {}, history: [] }; }
+     L257   [핵심] const oc = o && o.entries ? Object.keys(o.entries).length : 0;
+     L258   [핵심] const nc = n && n.entries ? Object.keys(n.entries).length : 0;
+     L299   [핵심] '{I}    sh = data.get("shared")\n'
+     L300   [핵심] '{I}    if not isinstance(sh, dict) or not isinstance(sh.get("entries", {}), dict):\n'
+     L302   [핵심] '{I}    sh.setdefault("entries", {})\n'
+     L307   [핵심] '{I}    return self._send(200, {"ok": True, "entries": len(sh["entries"])})\n'
+     L547   [핵심] r'^ *case "OMNI_GET_SHARED":\n *return \{ ok: true, shared: await getStore\("omni_shared", \{ entries: \{\}, history: \[\] \}\) \};\n',
+     L595   [핵심] entries = data.get("entries") if isinstance(data, dict) else None
+     L596   [핵심] if not isinstance(entries, dict):
+     L599   [핵심] for e in entries.values():
+     L721   [핵심] data=json.dumps({"shared": "probe"}).encode("utf-8"), method="POST",
+     L789   [타이머] if p.poll() is not None:
+
+  ■ upgrade_omni_link_v603.py
+     L107   [핵심] for (const [k, v] of Object.entries(BUILTIN_ROLES)) {
+     L111   [핵심] for (const [k, v] of Object.entries(customs)) {
+     L154   [핵심] const exist = Object.entries(customs).find(([k, v]) => v.label === name);
+     L343   [타이머] chrome.alarms.onAlarm.addListener(a => { if (a.name === "omni_keepalive") pollBridge(); });
+     L345   [타이머] let polling = false;
+     L346   [타이머] async function pollBridge() {
+     L347   [타이머] if (polling) return;
+     L348   [타이머] polling = true;
+     L350   [타이머] const r = await fetch(BRIDGE + "/poll", { cache: "no-store" });
+     L355   [타이머] } catch (e) {} finally { polling = false; }
+     L370   [타이머] setInterval(pollBridge, 1500);
+     L709   [핵심] try { await navigator.clipboard.writeText(txt); status("📋 전체 복사 완료 (" + omni_absorbed.length + "건)"); }
+     L731   [핵심] await navigator.clipboard.writeText(c.text); status("📋 복사: " + c.label);
+     L853   [타이머] if u.path == "/poll":
+     L1022  [타이머] loadRoles(); setInterval(loadRoles, 15000);
+
+==============================================================================
+[1-B] 자동 클립보드 쓰기 차단
+==============================================================================
+  ■ .swarm_sandbox\temp_check.js
+     - L488: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L623: 사용자 이벤트(클릭/단축키 등)와 연관 → 유지
+     - L1270: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L1713: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L1773: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L1900: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L2492: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L4116: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+  ■ backups\omni_link_20261020_173122\rgon_aside_extension\content_aside_bar.js
+     - L32: 사용자 이벤트(클릭/단축키 등)와 연관 → 유지
+  ■ backups\omni_link_20261022_214440\rgon_aside_extension\content_aside_bar.js
+     - L318: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L323: 사용자 이벤트(클릭/단축키 등)와 연관 → 유지
+  ■ backups\omni_link_ext_pre_v603_20261020_210641\popup.js
+     - L210: 사용자 이벤트(클릭/단축키 등)와 연관 → 유지
+     - L232: 사용자 이벤트(클릭/단축키 등)와 연관 → 유지
+  ■ backups\omni_link_ext_pre_v603_20261022_214441\popup.js
+     - L210: 사용자 이벤트(클릭/단축키 등)와 연관 → 유지
+     - L232: 사용자 이벤트(클릭/단축키 등)와 연관 → 유지
+  ■ backups\omni_v601_20261020_181720\rgon_aside_extension\content_aside_bar.js
+     - L272: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L277: 사용자 이벤트(클릭/단축키 등)와 연관 → 유지
+  ■ backups\omni_v602_20261020_185216\rgon_aside_extension\content_aside_bar.js
+     - L278: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L283: 사용자 이벤트(클릭/단축키 등)와 연관 → 유지
+  ■ backups\step8_20261021_204317\rgon_aside_extension\content_aside_bar.js
+     - L318: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L323: 사용자 이벤트(클릭/단축키 등)와 연관 → 유지
+  ■ backups\step8_20261021_205733\rgon_aside_extension\content_aside_bar.js
+     - L318: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L323: 사용자 이벤트(클릭/단축키 등)와 연관 → 유지
+  ■ backups\step9_20261021_224604\rgon_aside_extension\content_aside_bar.js
+     - L318: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L323: 사용자 이벤트(클릭/단축키 등)와 연관 → 유지
+  ■ dashboard\rgon_signal_bookmarklet.js
+     - L27: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+  ■ dashboard\test_syntax.js
+     - L159: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L294: 사용자 이벤트(클릭/단축키 등)와 연관 → 유지
+     - L609: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L1087: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+  ■ omni_link_ext\popup.js
+     - L210: 사용자 이벤트(클릭/단축키 등)와 연관 → 유지
+     - L232: 사용자 이벤트(클릭/단축키 등)와 연관 → 유지
+  ■ rgon_aside_extension\content_aside_bar.js
+     - L272: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L277: 사용자 이벤트(클릭/단축키 등)와 연관 → 유지
+  ■ scratch\check_app_0.js
+     - L783: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+  ■ scratch\check_app_emerg_0.js
+     - L783: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+  ■ scratch\check_app_minimal_0.js
+     - L783: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+  ■ scratch\check_dash_1.js
+     - L418: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L553: 사용자 이벤트(클릭/단축키 등)와 연관 → 유지
+     - L1200: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L1643: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L1703: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L1830: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L2422: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L4046: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+  ■ scratch\check_dash_emerg_1.js
+     - L418: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L553: 사용자 이벤트(클릭/단축키 등)와 연관 → 유지
+     - L1200: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L1643: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L1703: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L1830: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L2422: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L4046: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+  ■ scratch\check_dash_final_1.js
+     - L427: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L562: 사용자 이벤트(클릭/단축키 등)와 연관 → 유지
+     - L1209: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L1652: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L1712: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L1839: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L2431: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L4055: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+  ■ scratch\check_dash_minimal_1.js
+     - L427: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L562: 사용자 이벤트(클릭/단축키 등)와 연관 → 유지
+     - L1209: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L1652: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L1712: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L1839: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L2431: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L4055: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+  ■ scratch\check_dept_connect_ai_1.js
+     - L57: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L365: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L575: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L676: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L964: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+  ■ scratch\check_dept_connect_ai_2.js
+     - L57: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L365: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L575: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L676: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L964: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L1173: 사용자 이벤트(클릭/단축키 등)와 연관 → 유지
+  ■ scratch\check_dept_media_1.js
+     - L180: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L290: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L525: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+  ■ scratch\check_dept_media_2.js
+     - L180: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L290: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L525: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L734: 사용자 이벤트(클릭/단축키 등)와 연관 → 유지
+  ■ scratch\check_index_7.js
+     - L179: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+  ■ scratch\check_safe_daily_lucky_1.js
+     - L64: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+  ■ scratch\check_safe_daily_lucky_2.js
+     - L64: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+  ■ scratch\check_safe_healing_sound_1.js
+     - L145: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+  ■ scratch\check_safe_healing_sound_2.js
+     - L145: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+  ■ scratch\check_safe_rich_dna_test_1.js
+     - L56: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+  ■ scratch\check_safe_rich_dna_test_2.js
+     - L56: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+  ■ scratch\check_safe_salary_planner_1.js
+     - L56: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+  ■ scratch\check_safe_salary_planner_2.js
+     - L56: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+  ■ scratch\check_script_1.js
+     - L418: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L553: 사용자 이벤트(클릭/단축키 등)와 연관 → 유지
+     - L1200: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L1643: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L1703: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L1830: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L2422: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L4046: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+  ■ scratch\check_sentinel_2.js
+     - L427: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L562: 사용자 이벤트(클릭/단축키 등)와 연관 → 유지
+     - L1209: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L1652: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L1712: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L1839: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L2431: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L4055: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+  ■ scratch\check_v33_2.js
+     - L427: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L562: 사용자 이벤트(클릭/단축키 등)와 연관 → 유지
+     - L1209: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L1652: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L1712: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L1839: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L2431: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L4055: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+  ■ scratch\script_2.js
+     - L418: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L553: 사용자 이벤트(클릭/단축키 등)와 연관 → 유지
+     - L1200: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L1654: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L1781: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L2373: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+  ■ scratch\smoke_dept_connect_ai_1.js
+     - L30: 사용자 이벤트(클릭/단축키 등)와 연관 → 유지
+  ■ scratch\smoke_dept_connect_ai_2.js
+     - L30: 사용자 이벤트(클릭/단축키 등)와 연관 → 유지
+  ■ scratch\smoke_dept_media_1.js
+     - L30: 사용자 이벤트(클릭/단축키 등)와 연관 → 유지
+  ■ scratch\smoke_dept_media_2.js
+     - L30: 사용자 이벤트(클릭/단축키 등)와 연관 → 유지
+  ■ scratch\smoke_index_7.js
+     - L30: 사용자 이벤트(클릭/단축키 등)와 연관 → 유지
+  ■ scratch\smoke_safe_daily_lucky_1.js
+     - L30: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+  ■ scratch\smoke_safe_daily_lucky_2.js
+     - L30: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+  ■ scratch\smoke_safe_healing_sound_1.js
+     - L30: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+  ■ scratch\smoke_safe_healing_sound_2.js
+     - L30: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+  ■ scratch\smoke_safe_rich_dna_test_1.js
+     - L30: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+  ■ scratch\smoke_safe_rich_dna_test_2.js
+     - L30: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+  ■ scratch\smoke_safe_salary_planner_1.js
+     - L30: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+  ■ scratch\smoke_safe_salary_planner_2.js
+     - L30: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+  ■ scratch\temp_extracted_check.js
+     - L449: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L584: 사용자 이벤트(클릭/단축키 등)와 연관 → 유지
+     - L975: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L1429: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L1556: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L2148: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+  ■ scratch\temp_extracted_check2.js
+     - L449: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L584: 사용자 이벤트(클릭/단축키 등)와 연관 → 유지
+     - L1231: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L1685: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L1812: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+     - L2404: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+  ■ scratch\temp_val.js
+     - L784: 타이머+shared 문맥 아님(수동 확인 권장) → 유지
+  ■ rgon_bridge_8765.py
+     clip.exe 호출 제거(주석+pass) 줄: 없음
+  ■ rgon_auto_watcher.py 클립보드 관련 줄(수정 안 함, 참고용): [182, 461]
+
+  결과: JS 0곳 / Python 0곳 비활성화
+
+==============================================================================
+[2-A] 프로젝트 내 .html 파일 목록
+==============================================================================
+  경로                                                                             크기  최근 수정
+  --------------------------------------------------------------------------------------------------------
+  rgon_alpha_chat.html                                                      408.0KB  2026-10-22 21:44:41
+  omni_link_ext\popup.html                                                    5.3KB  2026-10-22 21:44:41
+  rgon_alpha_audience.html                                                  402.4KB  2026-10-22 17:54:29
+  docs\rgon_alpha_chat.html                                                 402.4KB  2026-10-22 17:54:29
+  dashboard\rgon_alpha_chat.html                                            402.4KB  2026-10-22 17:54:29
+  backups\rgon_alpha_chat_pre_v603_20261022_214441.html                     402.4KB  2026-10-22 17:54:29
+  backups\docs__rgon_alpha_chat_step11e1_bak_20261022_175425.html           375.1KB  2026-10-22 15:53:38
+  backups\dashboard__rgon_alpha_chat_step11e1_bak_20261022_175425.html      375.1KB  2026-10-22 15:53:38
+  backups\rgon_alpha_chat_step11e1_bak_20261022_175425.html                 375.1KB  2026-10-22 15:53:38
+  backups\pwa_20261022_155329\docs__rgon_alpha_chat.html                    375.0KB  2026-10-22 15:04:36
+  backups\pwa_20261022_155329\dashboard__rgon_alpha_chat.html               375.0KB  2026-10-22 15:04:36
+  backups\pwa_20261022_155329\rgon_alpha_chat.html                          375.0KB  2026-10-22 15:04:36
+  backups\docs__rgon_alpha_chat_step11d1_bak_20261022_150435.html           360.6KB  2026-10-22 14:27:56
+  backups\dashboard__rgon_alpha_chat_step11d1_bak_20261022_150435.html      360.6KB  2026-10-22 14:27:56
+  backups\rgon_alpha_chat_step11d1_bak_20261022_150435.html                 360.6KB  2026-10-22 14:27:56
+  backups\docs\rgon_alpha_chat_step11c2_bak_20261022_142756.html            359.7KB  2026-10-22 14:27:56
+  backups\dashboard\rgon_alpha_chat_step11c2_bak_20261022_142756.html       359.7KB  2026-10-22 14:27:56
+  backups\rgon_alpha_chat_step11c2_bak_20261022_142756.html                 359.7KB  2026-10-22 14:27:56
+  backups\docs__rgon_alpha_chat_step11c2_bak_20261022_141927.html           359.7KB  2026-10-22 14:00:44
+  backups\dashboard__rgon_alpha_chat_step11c2_bak_20261022_141927.html      359.7KB  2026-10-22 14:00:44
+  backups\rgon_alpha_chat_step11c2_bak_20261022_141927.html                 359.7KB  2026-10-22 14:00:44
+  backups\docs\rgon_alpha_chat_step11c1_bak_20261022_140043.html            355.4KB  2026-10-22 14:00:43
+  backups\dashboard\rgon_alpha_chat_step11c1_bak_20261022_140043.html       355.4KB  2026-10-22 14:00:43
+  backups\rgon_alpha_chat_step11c1_bak_20261022_140043.html                 355.4KB  2026-10-22 14:00:43
+  backups\docs\rgon_alpha_chat_step11b3_bak_20261022_131655.html            341.7KB  2026-10-22 13:16:55
+  backups\dashboard\rgon_alpha_chat_step11b3_bak_20261022_131655.html       341.7KB  2026-10-22 13:16:55
+  backups\rgon_alpha_chat_step11b3_bak_20261022_131655.html                 341.7KB  2026-10-22 13:16:55
+  backups\docs\rgon_alpha_chat_step11b2_fix_bak_20261022_130111.html        341.5KB  2026-10-22 13:01:11
+  backups\dashboard\rgon_alpha_chat_step11b2_fix_bak_20261022_130111.htm    341.5KB  2026-10-22 13:01:11
+  backups\rgon_alpha_chat_step11b2_fix_bak_20261022_130111.html             341.5KB  2026-10-22 13:01:11
+  backups\docs\rgon_alpha_chat_step11b2_bak_20261022_124729.html            341.5KB  2026-10-22 12:47:29
+  backups\dashboard\rgon_alpha_chat_step11b2_bak_20261022_124729.html       341.5KB  2026-10-22 12:47:29
+  backups\rgon_alpha_chat_step11b2_bak_20261022_124729.html                 341.5KB  2026-10-22 12:47:29
+  backups\docs\rgon_alpha_chat_step11a2_bak_20261022_111702.html            337.9KB  2026-10-22 11:17:02
+  backups\dashboard\rgon_alpha_chat_step11a2_bak_20261022_111702.html       337.9KB  2026-10-22 11:17:02
+  backups\rgon_alpha_chat_step11a2_bak_20261022_111702.html                 343.8KB  2026-10-22 11:17:02
+  backups\docs\rgon_alpha_chat_step11_bak_20261022_100841.html              337.7KB  2026-10-22 10:08:41
+  backups\dashboard\rgon_alpha_chat_step11_bak_20261022_100841.html         337.7KB  2026-10-22 10:08:41
+  backups\rgon_alpha_chat_step11_bak_20261022_100841.html                   343.7KB  2026-10-22 10:08:41
+  backups\step10_20261022_062940\docs\rgon_alpha_chat.html                  316.8KB  2026-10-21 22:46:04
+  backups\step10_20261022_062940\dashboard\rgon_alpha_chat.html             316.8KB  2026-10-21 22:46:04
+  backups\step10_20261022_062940\rgon_alpha_chat.html                       322.6KB  2026-10-21 22:46:04
+  backups\step9_20261021_224604\docs\rgon_alpha_chat.html                   293.2KB  2026-10-21 20:57:33
+  backups\step9_20261021_224604\dashboard\rgon_alpha_chat.html              293.2KB  2026-10-21 20:57:33
+  backups\step9_20261021_224604\rgon_alpha_chat.html                        299.1KB  2026-10-21 20:57:33
+  backups\step8_20261021_205733\docs\rgon_alpha_chat.html                   292.6KB  2026-10-21 20:43:17
+  backups\step8_20261021_205733\dashboard\rgon_alpha_chat.html              292.6KB  2026-10-21 20:43:17
+  backups\step8_20261021_205733\rgon_alpha_chat.html                        298.4KB  2026-10-21 20:43:17
+  backups\step8_20261021_204317\docs\rgon_alpha_chat.html                   277.1KB  2026-10-21 16:11:13
+  backups\step8_20261021_204317\dashboard\rgon_alpha_chat.html              277.1KB  2026-10-21 16:11:12
+  backups\step8_20261021_204317\rgon_alpha_chat.html                        282.9KB  2026-10-21 16:11:10
+  backups\step7_20261021_142641\docs\rgon_alpha_chat.html                   265.1KB  2026-10-21 14:01:18
+  backups\step7_20261021_161108\docs\rgon_alpha_chat.html                   265.1KB  2026-10-21 14:01:18
+  backups\step7_20261021_142641\dashboard\rgon_alpha_chat.html              265.1KB  2026-10-21 14:01:18
+  backups\step7_20261021_161108\dashboard\rgon_alpha_chat.html              265.1KB  2026-10-21 14:01:18
+  backups\step7_20261021_142641\rgon_alpha_chat.html                        270.9KB  2026-10-21 14:01:18
+  backups\step7_20261021_161108\rgon_alpha_chat.html                        270.9KB  2026-10-21 14:01:18
+  backups\step6_20261021_140118\docs__rgon_alpha_chat.html                  263.4KB  2026-10-21 13:45:51
+  backups\step6_20261021_140118\dashboard__rgon_alpha_chat.html             263.4KB  2026-10-21 13:45:51
+  backups\step6_20261021_140118\rgon_alpha_chat.html                        269.4KB  2026-10-21 13:45:51
+  p2.htm                                                                       610B  2026-10-21 13:17:21
+  p1.htm                                                                       703B  2026-10-21 13:16:40
+  backups\step5_20261021_134551\docs__rgon_alpha_chat.html                  255.4KB  2026-10-21 12:37:27
+  backups\step5_20261021_134551\dashboard__rgon_alpha_chat.html             255.4KB  2026-10-21 12:37:27
+  backups\step5_20261021_134551\rgon_alpha_chat.html                        261.3KB  2026-10-21 12:37:27
+  backups\step4_20261021_123727\docs\rgon_alpha_chat.html                   238.5KB  2026-10-21 11:58:07
+  backups\step4_20261021_123727\dashboard\rgon_alpha_chat.html              238.5KB  2026-10-21 11:58:07
+  backups\step4_20261021_123727\rgon_alpha_chat.html                        244.4KB  2026-10-21 11:58:07
+  docs\index.html                                                           115.5KB  2026-10-21 06:04:57
+  dashboard\index.html                                                      115.5KB  2026-10-21 06:04:57
+  index.html                                                                115.5KB  2026-10-21 06:04:57
+  backups\auto_sync_20261021_060457\docs\rgon_alpha_chat.html               209.0KB  2026-10-21 00:11:03
+  backups\auto_sync_20261021_060457\dashboard\rgon_alpha_chat.html          209.0KB  2026-10-21 00:11:03
+  backups\auto_sync_20261021_060457\rgon_alpha_chat.html                    214.8KB  2026-10-21 00:11:02
+  backups\auto_sync_20261021_060457\docs\index.html                         115.5KB  2026-10-21 00:11:02
+  backups\auto_sync_20261021_060457\dashboard\index.html                    115.5KB  2026-10-21 00:11:01
+  backups\auto_sync_20261021_060457\index.html                              115.5KB  2026-10-21 00:11:01
+  backups\auto_sync_20261021_001100\rgon_alpha_chat.html                    185.4KB  2026-10-20 22:24:19
+  brain_basket\backups\auto_evolve_20261020_222414\rgon_alpha_chat.html     185.2KB  2026-10-20 21:06:41
+  backups\omni_link_ext_pre_v603_20261022_214441\popup.html                   5.3KB  2026-10-20 21:06:41
+  backups\rgon_alpha_chat_pre_v603_20261020_210641.html                     185.2KB  2026-10-20 21:06:09
+  backups\omni_link_ext_pre_v603_20261020_210641\popup.html                   5.3KB  2026-10-20 21:06:09
+  backups\auto_sync_20261021_001100\docs\rgon_alpha_chat.html               179.6KB  2026-10-20 18:17:21
+  backups\auto_sync_20261021_001100\dashboard\rgon_alpha_chat.html          179.6KB  2026-10-20 18:17:21
+  backups\rgon_alpha_chat_pre_v603_20261020_210609.html                     179.6KB  2026-10-20 18:17:21
+  backups\omni_v601_20261020_181720\docs\rgon_alpha_chat.html               171.0KB  2026-10-20 15:40:04
+  backups\omni_v601_20261020_181720\rgon_alpha_chat.html                    171.0KB  2026-10-20 15:40:04
+  backups\omni_v601_20261020_181720\dashboard\rgon_alpha_chat.html          171.0KB  2026-10-20 15:40:03
+  .rgon_ad_backups\20261019_233728_763976\docs\rgon_alpha_chat.html         132.3KB  2026-10-19 22:55:30
+  .rgon_ad_backups\20261019_233728_763976\rgon_alpha_chat.html              132.3KB  2026-10-19 22:55:30
+  .rgon_ad_backups\20261019_233728_763976\dashboard\rgon_alpha_chat.html    132.3KB  2026-10-19 22:55:30
+  .rgon_ad_backups\20261019_225530_354140\docs\rgon_alpha_chat.html         129.8KB  2026-10-19 22:36:06
+  .rgon_ad_backups\20261019_225530_354140\rgon_alpha_chat.html              129.8KB  2026-10-19 22:36:06
+  .rgon_ad_backups\20261019_225530_354140\dashboard\rgon_alpha_chat.html    129.8KB  2026-10-19 22:36:06
+  .rgon_ad_backups\20261019_223605_949210\docs\rgon_alpha_chat.html         128.4KB  2026-10-19 22:14:20
+  .rgon_ad_backups\20261019_223605_949210\rgon_alpha_chat.html              128.4KB  2026-10-19 22:14:20
+  .rgon_ad_backups\20261019_223605_949210\dashboard\rgon_alpha_chat.html    128.4KB  2026-10-19 22:14:20
+  .rgon_ad_backups\20261019_221420_150094\docs\rgon_alpha_chat.html          80.9KB  2026-10-19 20:54:33
+  .rgon_ad_backups\20261019_221420_150094\rgon_alpha_chat.html               80.9KB  2026-10-19 20:54:33
+  .rgon_ad_backups\20261019_221420_150094\dashboard\rgon_alpha_chat.html     80.9KB  2026-10-19 20:54:33
+  _backup_clean_ui\20261019205433\docs\rgon_alpha_chat.html                  76.6KB  2026-10-19 20:44:54
+  _backup_clean_ui\20261019205433\rgon_alpha_chat.html                       76.6KB  2026-10-19 20:44:53
+  _backup_clean_ui\20261019205433\dashboard\rgon_alpha_chat.html             76.6KB  2026-10-19 20:44:53
+  docs\departments\dept_closet.html                                          47.0KB  2026-10-19 20:10:55
+  departments\dept_closet.html                                               47.0KB  2026-10-19 20:10:55
+  dashboard\departments\dept_closet.html                                     47.0KB  2026-10-19 20:10:55
+  backups\auto_sync_20261021_001100\index.html                               85.5KB  2026-10-19 18:56:36
+  backups\auto_sync_20261021_001100\dashboard\index.html                     85.5KB  2026-10-19 18:56:36
+  backups\auto_sync_20261021_001100\docs\index.html                          85.5KB  2026-10-19 18:56:36
+  dashboard\safe_apps\safe_salary_planner.html                               14.4KB  2026-10-19 17:39:57
+  dashboard\safe_apps\safe_rich_dna_test.html                                20.4KB  2026-10-19 17:39:57
+  dashboard\safe_apps\safe_healing_sound.html                                15.0KB  2026-10-19 17:39:57
+  dashboard\safe_apps\safe_daily_routine.html                                14.7KB  2026-10-19 17:39:57
+  dashboard\safe_apps\safe_daily_lucky.html                                  17.5KB  2026-10-19 17:39:57
+  dashboard\departments\dept_vault.html                                      73.4KB  2026-10-19 17:39:57
+  departments\dept_vault.html                                                73.4KB  2026-10-19 17:39:57
+  docs\departments\dept_vault.html                                           73.4KB  2026-10-19 17:39:57
+  dashboard\departments\dept_treasury.html                                   38.1KB  2026-10-19 17:39:57
+  departments\dept_treasury.html                                             38.1KB  2026-10-19 17:39:57
+  docs\departments\dept_treasury.html                                        38.1KB  2026-10-19 17:39:57
+  dashboard\departments\dept_education.html                                  18.3KB  2026-10-19 17:39:57
+  departments\dept_education.html                                            18.3KB  2026-10-19 17:39:57
+  docs\departments\dept_education.html                                       18.3KB  2026-10-19 17:39:57
+  dashboard\departments\dept_media.html                                      93.4KB  2026-10-19 17:39:18
+  departments\dept_media.html                                                93.4KB  2026-10-19 17:39:18
+  docs\departments\dept_media.html                                           93.4KB  2026-10-19 17:39:18
+  dashboard\departments\dept_connect_ai.html                                152.4KB  2026-10-19 17:38:03
+  departments\dept_connect_ai.html                                          152.4KB  2026-10-19 17:38:03
+  docs\departments\dept_connect_ai.html                                     152.4KB  2026-10-19 17:38:03
+  offline.html                                                                3.5KB  2026-10-19 17:32:59
+  dashboard\offline.html                                                      3.5KB  2026-10-19 17:32:59
+  docs\offline.html                                                           3.5KB  2026-10-19 17:32:59
+  .swarm_sandbox\index.html                                                1019.5KB  2026-10-18 01:19:06
+  drafts_review\HEALTH_13_PREVIEW_LOCAL.html                                  9.6KB  2026-10-13 09:13:19
+  drafts_review\HEALTH_13_REVIEWED_LOCAL.html                                 3.9KB  2026-10-13 09:12:59
+  config\claw.html                                                           13.1KB  2026-06-15 21:41:03
+
+  루트 대시보드 존재: C:\Users\sangi\Downloads\shin-agent\rgon_alpha_audience.html
+
+==============================================================================
+[2-B] 바탕화면 바로가기 갱신 및 대시보드 오픈
+==============================================================================
+  열 대상: file:///C:/Users/sangi/Downloads/shin-agent/rgon_alpha_audience.html
+  갱신: C:\Users\sangi\Desktop\RGON_Dashboard.url
+  갱신: C:\Users\sangi\Desktop\open_rgon_dashboard.bat
+  webbrowser.open: 성공
+
+==============================================================================
+[3] RGON_EVOLUTION_LOG.md 일일 마감 기록 추가
+==============================================================================
+  백업: RGON_EVOLUTION_LOG.md.bak_20261023_072136
+  마감 기록 추가 완료: C:\Users\sangi\Downloads\shin-agent\RGON_EVOLUTION_LOG.md
+
+==============================================================================
+[4] 기억 저장소 파일 상태
+==============================================================================
+  파일                                크기  최근 수정                경로
+  ------------------------------------------------------------------------------------------
+  evolution_memory.json          7.0KB  2026-10-22 19:44:14  evolution_memory.json
+  memory_vault.json             20.9KB  2026-10-17 07:15:26  memory_vault.json
+  RGON_EVOLUTION_LOG.md          4.9KB  2026-10-23 07:21:44  RGON_EVOLUTION_LOG.md
+
+  ── RGON_EVOLUTION_LOG.md 마지막 15줄 ──
+  | - 아침 07:00 예약 작업(`RGON_Morning_Briefing_0700`, `\ConnectAI_Daily_Briefing`) 활성화(`ENABLE`) 확인 완료
+  | - 구버전 임시 파일 `backups/daily_omni_archive` 폴더 정리 완료
+  | 
+  | > 참고: 위 항목 중 클립보드 항목 외에는 이전 단계 결과를 기록한 것이며, 이 스크립트가 재검증하지는 않습니다.
+  | 
+  | 
+  | ## 🌙 일일 마감 (EOD) — 2026-10-23 07:21:44
+  | 
+  | - 클립보드(`{"shared":...}`) 자동 덮어쓰기 버그 진단 및 차단 조치 완료 (JS 0곳 / Python 0곳 비활성화, 원본은 `.bak_20261023_072136` 로 백업)
+  | - 콘솔 깜빡임 방지(`CREATE_NO_WINDOW`) 정비 완료 및 `rgon_auto_watcher.py` 정상 가동 확인
+  | - 로컬 8765 큐 브리지(`rgon_bridge_8765.py`) 문법 검증(`ast.parse`) 필터 적용 완료
+  | - 아침 07:00 예약 작업(`RGON_Morning_Briefing_0700`, `\ConnectAI_Daily_Briefing`) 활성화(`ENABLE`) 확인 완료
+  | - 구버전 임시 파일 `backups/daily_omni_archive` 폴더 정리 완료
+  | 
+  | > 참고: 위 항목 중 클립보드 항목 외에는 이전 단계 결과를 기록한 것이며, 이 스크립트가 재검증하지는 않습니다.

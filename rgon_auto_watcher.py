@@ -7,6 +7,22 @@ RGON 오토 기어 3단 — 24시간 무토큰 문지기 로봇 & 텔레그램 �
 - 4) 백그라운드에서도 윈도우 화면 최상단(TopMost) MessageBox 팝업 보장
 - 5) rgon_watcher.log 상세 로깅 기록
 """
+# ---- RGON_NOWINDOW_SHIM_BEGIN (모든 subprocess 호출을 콘솔 창 없이 실행) ----
+import subprocess as _rg_sp, sys as _rg_sys
+if _rg_sys.platform == "win32" and not getattr(_rg_sp, "_rgon_patched", False):
+    _rg_orig_init = _rg_sp.Popen.__init__
+    def _rg_init(self, *a, **kw):
+        kw["creationflags"] = kw.get("creationflags", 0) | 0x08000000
+        si = kw.get("startupinfo")
+        if si is None:
+            si = _rg_sp.STARTUPINFO()
+        si.dwFlags |= _rg_sp.STARTF_USESHOWWINDOW
+        si.wShowWindow = 0
+        kw["startupinfo"] = si
+        _rg_orig_init(self, *a, **kw)
+    _rg_sp.Popen.__init__ = _rg_init
+    _rg_sp._rgon_patched = True
+# ---- RGON_NOWINDOW_SHIM_END ----
 import os
 import re
 import sys
@@ -387,6 +403,87 @@ def main_loop():
         except Exception as ex:
             log_msg(f"main_loop 예외: {ex}")
         time.sleep(0.5)
+
+
+# === RGON_HTTP_QUEUE_SERVER_V2 ===
+import threading
+from http.server import BaseHTTPRequestHandler, HTTPServer
+
+QUEUE_PORTS = [1024, 1100, 1500, 2600, 3000, 3500, 4000, 4500, 5000, 5050, 5381, 7777, 8000, 8080, 8099, 8501, 8765, 8766, 8787, 9000, 9999, 10000, 11115, 11707, 15000, 20000, 21474, 40000, 50000, 60000, 65001, 65535]
+
+class RGONQueueHandler(BaseHTTPRequestHandler):
+    def log_message(self, format, *args):
+        pass
+
+    def _send_cors(self, status=200):
+        self.send_response(status)
+        self.send_header("Content-Type", "application/json; charset=utf-8")
+        self.send_header("Access-Control-Allow-Origin", "*")
+        self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+        self.send_header("Access-Control-Allow-Headers", "*")
+        self.end_headers()
+
+    def do_OPTIONS(self):
+        self._send_cors(200)
+
+    def do_GET(self):
+        self._send_cors(200)
+        self.wfile.write(b'{"ok": true, "status": "online", "job": null}')
+
+    def do_POST(self):
+        length = int(self.headers.get("Content-Length", 0))
+        raw = self.rfile.read(length).decode("utf-8", errors="replace") if length > 0 else ""
+        text_payload = raw
+        try:
+            data = json.loads(raw)
+            if isinstance(data, dict):
+                text_payload = (
+                    data.get("code") or data.get("text") or data.get("content")
+                    or data.get("prompt") or data.get("payload") or raw
+                )
+        except Exception:
+            pass
+
+        ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+        is_py = any(k in text_payload for k in ("import ", "def ", "if __name__", "# -*-"))
+        if is_py:
+            out_path = os.path.join(ROOT, f"omni_queue_{ts}.py")
+            with open(out_path, "w", encoding="utf-8") as f:
+                f.write(text_payload)
+        else:
+            out_path = os.path.join(ROOT, f"ahn_queue_{ts}.txt")
+            with open(out_path, "w", encoding="utf-8") as f:
+                f.write(text_payload)
+            inbox = os.path.join(ROOT, "ahn_inbox_latest.txt")
+            with open(inbox, "w", encoding="utf-8") as f:
+                f.write(text_payload)
+            try:
+                subprocess.run(["clip.exe"], input=text_payload.encode("utf-16le"), timeout=5)
+            except Exception:
+                pass
+            try:
+                send_tg(f"📮 [안총리 실행 큐 접수 성공!]\n클립보드 및 ahn_inbox_latest.txt 적재 완료!\n\n{text_payload[:300]}")
+            except Exception:
+                pass
+
+        self._send_cors(200)
+        resp = json.dumps({"ok": True, "status": "queued", "file": os.path.basename(out_path)})
+        self.wfile.write(resp.encode("utf-8"))
+
+
+def _start_queue_servers():
+    for port in QUEUE_PORTS:
+        def _serve(p=port):
+            try:
+                srv = HTTPServer(("127.0.0.1", p), RGONQueueHandler)
+                srv.serve_forever()
+            except Exception:
+                pass
+        t = threading.Thread(target=_serve, daemon=True)
+        t.start()
+
+_start_queue_servers()
+
 
 if __name__ == "__main__":
     main_loop()

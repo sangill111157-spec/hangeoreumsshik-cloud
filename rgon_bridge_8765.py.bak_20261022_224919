@@ -1,0 +1,70 @@
+# -*- coding: utf-8 -*-
+import json
+import sys
+import subprocess
+from datetime import datetime
+from pathlib import Path
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+
+BASE_DIR = Path(r"C:\Users\sangi\Downloads\shin-agent")
+BRIDGE_PY = BASE_DIR / "rgon_telegram_bridge.py"
+INBOX_TXT = BASE_DIR / "ahn_inbox_latest.txt"
+
+
+class Handler(BaseHTTPRequestHandler):
+    def log_message(self, fmt, *args):
+        pass
+
+    def _send(self, obj, status=200):
+        body = json.dumps(obj, ensure_ascii=False).encode("utf-8")
+        self.send_response(status)
+        self.send_header("Content-Type", "application/json; charset=utf-8")
+        self.send_header("Content-Length", str(len(body)))
+        self.send_header("Access-Control-Allow-Origin", "*")
+        self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+        self.send_header("Access-Control-Allow-Headers", "*")
+        self.end_headers()
+        self.wfile.write(body)
+
+    def do_OPTIONS(self):
+        self._send({"ok": True})
+
+    def do_GET(self):
+        self._send({"ok": True, "status": "online", "jobs": [], "job": None})
+
+    def do_POST(self):
+        n = int(self.headers.get("Content-Length", 0))
+        raw = self.rfile.read(n).decode("utf-8", errors="replace") if n > 0 else "{}"
+        try:
+            data = json.loads(raw)
+        except Exception:
+            data = {"code": raw}
+
+        code = data.get("code") or data.get("text") or data.get("content") or raw
+        fn = data.get("filename") or ""
+        if fn == "ping.txt" or code.strip() == "ping":
+            self._send({"ok": True, "status": "pong"})
+            return
+
+        ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+        is_py = fn.endswith(".py") or any(k in code for k in ("import ", "def ", "if __name__", "# -*-"))
+        if is_py:
+            out = BASE_DIR / f"omni_queue_{ts}.py"
+            out.write_text(code, encoding="utf-8")
+        else:
+            out = BASE_DIR / f"ahn_queue_{ts}.txt"
+            out.write_text(code, encoding="utf-8")
+            INBOX_TXT.write_text(code, encoding="utf-8")
+            try:
+                subprocess.run(["clip.exe"], input=code.encode("utf-16le"), timeout=5)
+            except Exception:
+                pass
+            if BRIDGE_PY.exists():
+                msg = f"📮 [안총리 실행 큐 등록 완료!]\n파일: {out.name}\n클립보드 복사 완료!\n\n{code[:350]}"
+                subprocess.Popen([sys.executable, str(BRIDGE_PY), "--send-text", msg], cwd=str(BASE_DIR))
+
+        self._send({"ok": True, "status": "queued", "file": out.name})
+
+
+if __name__ == "__main__":
+    ThreadingHTTPServer(("127.0.0.1", 8765), Handler).serve_forever()

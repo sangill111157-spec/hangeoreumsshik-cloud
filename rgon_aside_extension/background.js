@@ -1,9 +1,9 @@
 "use strict";
 // RGON Omni-Link v6.0.0 - background service worker (multi-tab neural router)
 
-const OMNI_VERSION = "6.0.8";
+const OMNI_VERSION = "6.0.0";
 const BRIDGE = "http://127.0.0.1:8765";
-const OMNI_TOKEN = "9c5330679c10470c340860488caed5c6";
+const OMNI_TOKEN = "bfd63676bb00046db6e55eaf2d631652";
 const AI_ROLES = ["claude", "gpt", "grok"];
 const ROLE_META = {
   rgon: { label: "르곤 독대실", icon: "🏛️" },
@@ -38,80 +38,6 @@ async function setStore(key, val) {
   await chrome.storage.local.set({ [key]: val });
 }
 
-// ---- v6.0.2: 흡수함 자동 삭제 / Copy 정화 헬퍼 (OMNI_V602_HELPERS)
-const ROUND_WINDOW_MS = 30 * 60 * 1000;
-const COPY_RE = /^Copy\s*/i;
-
-async function isAutoClean() {
-  return (await getStore("omni_autoclean", true)) !== false;
-}
-
-function sanitizeEntry(e) {
-  if (!e || typeof e.code !== "string" || e.kind === "page" || e.kind === "selection" || !COPY_RE.test(e.code)) return false;
-  e.code = e.code.replace(COPY_RE, "");
-  e.lines = e.code.split("\n").length;
-  e.bytes = new TextEncoder().encode(e.code).length;
-  return true;
-}
-
-function emptyShared() {
-  return { entries: {}, history: [], updated: Date.now() };
-}
-
-async function loadShared() {
-  return withLock(async () => {
-    const sh = await getStore("omni_shared", { entries: {}, history: [] });
-    sh.entries = sh.entries || {};
-    sh.history = sh.history || [];
-    let dirty = false;
-    for (const k of Object.keys(sh.entries)) {
-      if (sanitizeEntry(sh.entries[k])) dirty = true;
-    }
-    if (dirty) await setStore("omni_shared", sh);
-    return sh;
-  });
-}
-
-async function clearShared(role, wait) {
-  const sh = await withLock(async () => {
-    let cur;
-    if (!role) {
-      cur = emptyShared();
-    } else {
-      cur = await getStore("omni_shared", emptyShared());
-      cur.entries = cur.entries || {};
-      cur.history = (cur.history || []).filter((h) => h.role !== role);
-      delete cur.entries[role];
-      cur.updated = Date.now();
-    }
-    await setStore("omni_shared", cur);
-    return cur;
-  });
-  const p = bridgeFetch("/api/shared/replace", "POST", { shared: sh });
-  if (wait) await p;
-  broadcastAll({ type: "OMNI_STATE_PING", role: role || "*" });
-  return sh;
-}
-
-async function maybeAutoClean() {
-  await setStore("omni_round_ts", Date.now());
-  if (await isAutoClean()) {
-    await clearShared(null, true);
-    return true;
-  }
-  return false;
-}
-
-
-// ---- v6.0.3: 커스텀 신경망 역할 (Custom Neural Roles) 지원 ----
-async function getCustomRoles() {
-  const o = await chrome.storage.local.get("omni_custom_roles");
-  return o.omni_custom_roles || {};
-}
-async function setCustomRoles(roles) {
-  await chrome.storage.local.set({ omni_custom_roles: roles });
-}
-
 // ---------------------------------------------------------------- role mapping
 function roleFromText(s) {
   s = String(s || "");
@@ -121,7 +47,7 @@ function roleFromText(s) {
   return null;
 }
 
-function guessRole(tab, reported, override, customRoles) {
+function guessRole(tab, reported, override) {
   if (override) return override;
   let u;
   try { u = new URL(tab.url || ""); } catch (_) { return null; }
@@ -135,29 +61,21 @@ function guessRole(tab, reported, override, customRoles) {
   if (host === "genspark.ai" || host.endsWith(".genspark.ai")) {
     return reported || roleFromText(tab.title) || null;
   }
-  if (customRoles) {
-    for (const [ckey, cmeta] of Object.entries(customRoles)) {
-      if (!cmeta) continue;
-      if (cmeta.url && tab.url && (tab.url === cmeta.url || tab.url.startsWith(cmeta.url))) return ckey;
-      if (cmeta.origin && u.origin && u.origin.toLowerCase() === cmeta.origin.toLowerCase()) return ckey;
-    }
-  }
   return null;
 }
 
 async function scanTabs() {
-  const [tabs, rep, ovr, customs] = await Promise.all([
+  const [tabs, rep, ovr] = await Promise.all([
     chrome.tabs.query({}),
     getStore("omni_reported", {}),
-    getStore("omni_override", {}),
-    getStore("omni_custom_roles", {})
+    getStore("omni_override", {})
   ]);
   const list = [];
   const byRole = {};
   for (const t of tabs) {
     if (!t.id) continue;
     const r = rep[t.id] ? rep[t.id].role : null;
-    const role = guessRole(t, r, ovr[t.id], customs);
+    const role = guessRole(t, r, ovr[t.id]);
     if (!role) continue;
     const info = {
       tabId: t.id,
@@ -171,7 +89,7 @@ async function scanTabs() {
     list.push(info);
     (byRole[role] = byRole[role] || []).push(info);
   }
-  return { list, byRole, customRoles: customs };
+  return { list, byRole };
 }
 
 function pickTab(arr) {
@@ -204,7 +122,6 @@ async function sendToTab(tabId, msg) {
 
 async function dispatch(targets, prompt, autoSend, perRole) {
   const { byRole } = await scanTabs();
-  if ((targets || []).some((r) => pickTab(byRole[r]))) await maybeAutoClean();
   const results = await Promise.all((targets || []).map(async (role) => {
     const t = pickTab(byRole[role]);
     if (!t) return { role, ok: false, error: "열려 있는 탭 없음" };
@@ -234,60 +151,40 @@ async function bridgeFetch(path, method, body) {
   }
 }
 
-async function storeShared(role, entry, opts) {
-  sanitizeEntry(entry);
-  let trimmed = false;
-  const sh = await withLock(async () => {
-    const cur = await getStore("omni_shared", { entries: {}, history: [] });
-    cur.entries = cur.entries || {};
-    cur.history = cur.history || [];
-    if (opts && opts.trimStale && (await isAutoClean())) {
-      const roundTs = await getStore("omni_round_ts", 0);
-      const limit = Math.max(roundTs, (entry.ts || Date.now()) - ROUND_WINDOW_MS);
-      for (const k of Object.keys(cur.entries)) {
-        const ets = (cur.entries[k] && cur.entries[k].ts) || 0;
-        if (k !== role && ets < limit) { delete cur.entries[k]; trimmed = true; }
-      }
-      if (trimmed) cur.history = cur.history.filter((h) => h.role === role || !!cur.entries[h.role]);
-    }
-    cur.entries[role] = entry;
-    cur.history.unshift({ role, ts: entry.ts, lines: entry.lines, bytes: entry.bytes, lang: entry.lang, hash: entry.hash, url: entry.url });
-    cur.history = cur.history.slice(0, 40);
-    cur.updated = Date.now();
+async function storeShared(role, entry) {
+  await withLock(async () => {
+    const sh = await getStore("omni_shared", { entries: {}, history: [] });
+    sh.entries = sh.entries || {};
+    sh.history = sh.history || [];
+    sh.entries[role] = entry;
+    sh.history.unshift({ role, ts: entry.ts, lines: entry.lines, bytes: entry.bytes, lang: entry.lang, hash: entry.hash, url: entry.url });
+    sh.history = sh.history.slice(0, 40);
+    sh.updated = Date.now();
     try {
-      await setStore("omni_shared", cur);
+      await setStore("omni_shared", sh);
     } catch (e) {
       entry.code = String(entry.code || "").slice(0, 100000);
-      await setStore("omni_shared", cur);
+      await setStore("omni_shared", sh);
     }
-    return cur;
   });
-  if (trimmed) bridgeFetch("/api/shared/replace", "POST", { shared: sh }).catch(() => {});
-  else bridgeFetch("/api/shared", "POST", { role, entry }).catch(() => {});
+  bridgeFetch("/api/shared", "POST", { role, entry }).catch(() => {});
   broadcastAll({ type: "OMNI_STATE_PING", role });
 }
 
 async function collect(targets) {
   const { byRole } = await scanTabs();
-  const got = [];
   const results = await Promise.all((targets || []).map(async (role) => {
     const t = pickTab(byRole[role]);
     if (!t) return { role, ok: false, error: "열려 있는 탭 없음" };
     const r = await sendToTab(t.tabId, { type: "OMNI_GET_LAST_CODE" });
     if (r && r.ok && r.entry) {
       r.entry.role = role;
-      sanitizeEntry(r.entry);
-      got.push({ role, entry: r.entry });
+      await storeShared(role, r.entry);
       return { role, ok: true, lines: r.entry.lines, bytes: r.entry.bytes };
     }
     return { role, ok: false, error: (r && r.error) || "코드 블록 없음" };
   }));
-  let cleaned = false;
-  if (got.length) {
-    if (await isAutoClean()) { await clearShared(null, true); cleaned = true; }
-    for (const g of got) await storeShared(g.role, g.entry);
-  }
-  return { ok: results.some((x) => x.ok), results, cleaned };
+  return { ok: results.some((r) => r.ok), results };
 }
 
 async function broadcastAll(msg) {
@@ -405,24 +302,6 @@ async function handle(msg, sender) {
       scheduleBadge();
       return { ok: true };
     }
-    case "OMNI_GET_CUSTOM_ROLES":
-      return { ok: true, customRoles: await getCustomRoles() };
-    case "OMNI_SET_CUSTOM_ROLE": {
-      const cr = await getCustomRoles();
-      if (msg.roleKey && msg.roleMeta) {
-        cr[msg.roleKey] = msg.roleMeta;
-        await setCustomRoles(cr);
-      }
-      return { ok: true, customRoles: cr };
-    }
-    case "OMNI_DEL_CUSTOM_ROLE": {
-      const cr = await getCustomRoles();
-      if (msg.roleKey && cr[msg.roleKey]) {
-        delete cr[msg.roleKey];
-        await setCustomRoles(cr);
-      }
-      return { ok: true, customRoles: cr };
-    }
     case "OMNI_SET_OVERRIDE": {
       const id = msg.tabId || (sender.tab && sender.tab.id);
       if (!id) return { ok: false };
@@ -436,10 +315,10 @@ async function handle(msg, sender) {
       return { ok: true };
     }
     case "OMNI_SCAN": {
-      const { list, byRole, customRoles } = await scanTabs();
+      const { list, byRole } = await scanTabs();
       const counts = {};
       Object.keys(byRole).forEach((k) => (counts[k] = byRole[k].length));
-      return { ok: true, version: OMNI_VERSION, list, counts, customRoles, selfTabId: sender.tab ? sender.tab.id : null };
+      return { ok: true, version: OMNI_VERSION, list, counts, selfTabId: sender.tab ? sender.tab.id : null };
     }
     case "OMNI_DISPATCH":
       return dispatch(msg.targets, msg.prompt, msg.autoSend, msg.perRole);
@@ -447,30 +326,30 @@ async function handle(msg, sender) {
       return collect(msg.targets && msg.targets.length ? msg.targets : AI_ROLES);
     case "OMNI_STORE_SHARED":
       if (!msg.role || !msg.entry) return { ok: false, error: "invalid" };
-      await storeShared(msg.role, msg.entry, { trimStale: !!msg.auto });
+      await storeShared(msg.role, msg.entry);
       return { ok: true };
     case "OMNI_GET_SHARED":
-      return { ok: true, shared: await loadShared() };
-    case "OMNI_CLEAR_SHARED":
-      await clearShared(msg.role ? String(msg.role) : null);
-      return { ok: true, cleared: msg.role || "all" };
-    case "OMNI_SET_AUTOCLEAN":
-      await setStore("omni_autoclean", msg.value !== false);
-      return { ok: true, value: msg.value !== false };
-    case "OMNI_GET_AUTOCLEAN":
-      return { ok: true, value: await isAutoClean() };
-            case "OMNI_FOCUS": {
-      const { byRole, customRoles } = await scanTabs();
+      return { ok: true, shared: await getStore("omni_shared", { entries: {}, history: [] }) };
+    case "OMNI_FOCUS": {
+      const { byRole } = await scanTabs();
       const t = pickTab(byRole[msg.role]);
-      if (t) {
-        await focusTab(t);
-        return { ok: true, focused: true };
-      }
-      const cmeta = (customRoles && customRoles[msg.role]) || (await getStore("omni_custom_roles", {}))[msg.role];
-      if (cmeta && cmeta.url) {
-        return openUrl(cmeta.url);
-      }
-      return { ok: false, error: "열려 있는 탭 없음" };
+      if (!t) return { ok: false, error: "열려 있는 탭 없음" };
+      await focusTab(t);
+      return { ok: true };
+    }
+    case "OMNI_OPEN":
+      if (!/^https?:\/\//i.test(String(msg.url || ""))) return { ok: false, error: "http(s) URL만 허용" };
+      return openUrl(msg.url);
+    case "OMNI_OPEN_LINK":
+      return openLink(msg.key);
+    case "OMNI_SET_LINK": {
+      if (!/^https?:\/\//i.test(String(msg.url || ""))) return { ok: false, error: "http(s) URL만 허용" };
+      await withLock(async () => {
+        const l = await getStore("omni_links", {});
+        l[msg.key] = msg.url;
+        await setStore("omni_links", l);
+      });
+      return { ok: true };
     }
     case "OMNI_GET_LINKS":
       return { ok: true, links: Object.assign({}, DEFAULT_LINKS, await getStore("omni_links", {})) };
