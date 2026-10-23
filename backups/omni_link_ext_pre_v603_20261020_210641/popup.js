@@ -290,249 +290,234 @@ async function refreshAll() {
   send({ cmd: "sync" });
 })();
 
-/* [RGON-4BTN-V11-START] */
+/* [RGON-4BTN-V12-START] step12 자동 생성 블록 - 수동 편집 금지 */
 ;(function () {
   'use strict';
-  try {
-    if (typeof window === 'undefined' || typeof document === 'undefined') return;
-    if (window.__RGON_4BTN_V11__) return;
-    window.__RGON_4BTN_V11__ = true;
-  } catch (e) { return; }
+  if (typeof window === 'undefined' || typeof document === 'undefined') return;
+  if (window.__RGON_4BTN_V12__) return;
+  window.__RGON_4BTN_V12__ = true;
 
-  var SAVE_STRONG = ['shin-agent 저장', 'shin-agent'];
-  var SAVE_WEAK = ['저장'];
-  var DIRECT_KEYS = ['안총리 실행 큐', '실행 큐', '안총리 직통', '안총리'];
-  var BTN_SEL = 'button, [role="button"], input[type="button"], input[type="submit"]';
-  var INPUT_SEL = 'textarea, input[type="text"], input:not([type]), input[type="search"], [contenteditable="true"], [contenteditable=""], [contenteditable="plaintext-only"]';
-  var LOG_SEL = 'pre, output, [class*="log" i], [id*="log" i], [class*="preview" i], [id*="preview" i], [class*="output" i], [id*="output" i], [class*="result" i], [id*="result" i], [class*="status" i], [id*="status" i], [class*="history" i], [id*="history" i]';
-  var COLS4 = '1.2fr 0.9fr 1.2fr 1fr';
-  var COLS3 = '1.2fr 0.9fr 1fr';
+  var MARK = 'data-rgon-v12';
+  var CODE_SEL = 'textarea, pre, code, [contenteditable="true"]';
+  var CARD_SEL = '[class*="card" i], [class*="item" i], [class*="result" i], [data-card], article, li, details';
 
-  /* ── Shadow DOM 까지 관통하는 루트 수집 / 탐색 ── */
-  function collectRoots(root, out, seen) {
-    if (!root || seen.has(root)) return out;
-    seen.add(root);
-    out.push(root);
-    var all;
-    try { all = root.querySelectorAll('*'); } catch (e) { return out; }
-    for (var i = 0; i < all.length; i++) {
-      var el = all[i];
-      if (el.shadowRoot) collectRoots(el.shadowRoot, out, seen);
-      if (el.tagName === 'IFRAME') {
-        try { var d = el.contentDocument; if (d) collectRoots(d, out, seen); } catch (e) {}
+  function txt(el) { return ((el && (el.innerText || el.textContent)) || '').replace(/\s+/g, ' ').trim(); }
+  function ours(b) { return b.hasAttribute(MARK) || !!b.closest('[' + MARK + ']'); }
+  function isSave(b) { return !ours(b) && txt(b).indexOf('shin-agent 저장') !== -1; }
+  function isQueue(b) { return !ours(b) && txt(b).indexOf('안총리') !== -1; }
+  function is(b) { var t = txt(b); return !ours(b) && t.indexOf('복사') !== -1 && t.indexOf('흡수') === -1; }
+  function isTopAbsorb(b) {
+    var t = txt(b);
+    return !ours(b) && (t.indexOf('이 탭 코드 흡수') !== -1 || t.indexOf('화면 텍스트 흡수') !== -1);
+  }
+
+  /* ---------- DOM 탐색 (open shadow root 포함) ---------- */
+  var observed = new WeakSet();
+  function roots() {
+    var out = [document];
+    (function walk(r) {
+      var all = r.querySelectorAll('*');
+      for (var i = 0; i < all.length; i++) {
+        if (all[i].shadowRoot) { out.push(all[i].shadowRoot); walk(all[i].shadowRoot); }
       }
-    }
+    })(document);
     return out;
   }
-  function queryAllDeep(sel, root) {
-    var roots = collectRoots(root || document, [], new Set());
+  function buttons(pred) {
     var res = [];
-    roots.forEach(function (r) {
-      try { r.querySelectorAll(sel).forEach(function (e) { res.push(e); }); } catch (e) {}
+    roots().forEach(function (r) {
+      r.querySelectorAll('button, [role="button"]').forEach(function (b) { if (pred(b)) res.push(b); });
     });
     return res;
   }
-  try { window.__rgonQueryAllDeep = queryAllDeep; } catch (e) {}
+  function css(el, obj) { for (var k in obj) el.style.setProperty(k, obj[k], 'important'); }
 
-  function textOf(el) {
-    if (!el) return '';
-    var t = (el.tagName === 'INPUT') ? (el.value || '') : (el.innerText || el.textContent || '');
-    return String(t).replace(/\s+/g, ' ').trim();
+  var BTN_CSS = {
+    'overflow': 'visible', 'text-overflow': 'clip', 'white-space': 'normal',
+    'word-break': 'keep-all', 'overflow-wrap': 'anywhere',
+    'padding': '7px 10px', 'font-size': '12px', 'line-height': '1.3',
+    'min-width': '0', 'max-width': 'none', 'width': '100%', 'height': 'auto',
+    'min-height': '32px', 'box-sizing': 'border-box', 'text-align': 'center'
+  };
+  function styleBtn(b) {
+    css(b, BTN_CSS);
+    b.querySelectorAll('*').forEach(function (c) {
+      css(c, { 'overflow': 'visible', 'text-overflow': 'clip', 'white-space': 'normal', 'max-width': 'none' });
+    });
   }
-  function isOurs(el) { return !!(el && el.getAttribute && el.getAttribute('data-rgon-added')); }
 
-  function pick(btns, keys, exclude) {
-    for (var k = 0; k < keys.length; k++) {
-      for (var i = 0; i < btns.length; i++) {
-        var b = btns[i];
-        if (b === exclude || isOurs(b)) continue;
-        var t = textOf(b);
-        if (!t || t.length > 40) continue;
-        if (t.indexOf(keys[k]) !== -1) return b;
-      }
+  /* ---------- 카드 컨테이너 찾기 ---------- */
+  function countSaves(el, saves) { var n = 0; saves.forEach(function (s) { if (el.contains(s)) n++; }); return n; }
+  function hasTop(el, tops) { return tops.some(function (t) { return el.contains(t); }); }
+  function findCard(btn, saves, tops) {
+    var A = null, el = btn.parentElement, depth = 0;
+    while (el && el !== document.body && el !== document.documentElement && depth < 8) {
+      if (countSaves(el, saves) > 1 || hasTop(el, tops)) break;
+      if (el.querySelector(CODE_SEL)) { A = el; break; }
+      el = el.parentElement; depth++;
     }
-    return null;
+    var C = btn.closest(CARD_SEL);
+    if (C && C !== document.body && countSaves(C, saves) === 1 && !hasTop(C, tops) &&
+        (!A || C.contains(A))) return C;
+    return A || btn.parentElement;
   }
 
-  function nearCommon(a, b, levels) {
-    var cur = a;
-    for (var i = 0; i <= levels && cur; i++) {
-      if (cur.contains && cur.contains(b)) return true;
-      cur = cur.parentElement;
-    }
-    return false;
-  }
-
-  /* ── 패널 범위 판정 ── */
-  function getPanelRoot(el) {
-    var rn = el.getRootNode ? el.getRootNode() : null;
-    if (rn && rn.host) return rn;                                   // ShadowRoot 전체
-    if (location.protocol === 'chrome-extension:') return el.ownerDocument || document; // 사이드패널/팝업
-    var doc = el.ownerDocument || document;
-    var cur = el.parentElement, firstWithInput = null, fixedAnc = null;
-    for (var i = 0; i < 15 && cur && cur !== doc.body && cur !== doc.documentElement; i++) {
-      if (!firstWithInput && cur.querySelector(INPUT_SEL)) firstWithInput = cur;
-      try {
-        var pos = getComputedStyle(cur).position;
-        if (pos === 'fixed' || pos === 'sticky') fixedAnc = cur;
-      } catch (e) {}
-      cur = cur.parentElement;
-    }
-    return fixedAnc || firstWithInput || el.parentElement || doc.body;
-  }
-
-  /* ── 비우기 ── */
-  function setVal(el, v) {
-    var proto = el.tagName === 'TEXTAREA' ? HTMLTextAreaElement.prototype : HTMLInputElement.prototype;
+  /* ---------- 지우기 동작 ---------- */
+  function setVal(f, v) {
+    var proto = f.tagName === 'TEXTAREA' ? HTMLTextAreaElement.prototype : HTMLInputElement.prototype;
     var d = Object.getOwnPropertyDescriptor(proto, 'value');
-    if (d && d.set) d.set.call(el, v); else el.value = v;
-    el.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
-    el.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
+    if (d && d.set) d.set.call(f, v); else f.value = v;
+    f.dispatchEvent(new Event('input', { bubbles: true }));
+    f.dispatchEvent(new Event('change', { bubbles: true }));
   }
-  function clearInputs(scope) {
-    var n = 0;
-    queryAllDeep(INPUT_SEL, scope).forEach(function (el) {
-      try {
-        if (el.tagName === 'TEXTAREA' || el.tagName === 'INPUT') {
-          setVal(el, '');
-        } else {
-          el.innerHTML = '';
-          el.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
-        }
-        n++;
-      } catch (e) {}
+  function clearFields(scope) {
+    scope.querySelectorAll('textarea, input[type="text"], input[type="search"], input:not([type])')
+      .forEach(function (f) { if (!ours(f)) setVal(f, ''); });
+    scope.querySelectorAll('pre').forEach(function (p) { p.textContent = ''; });
+    scope.querySelectorAll('code').forEach(function (c) { if (!c.closest('pre')) c.textContent = ''; });
+    scope.querySelectorAll('[contenteditable="true"]').forEach(function (c) { c.textContent = ''; });
+  }
+  function hideCard(card) {
+    clearFields(card);
+    css(card, { 'display': 'none' });
+    card.setAttribute('data-rgon-v12-hidden', '1');
+    card.__rgonV12Snap = txt(card);
+  }
+  function toast(msg) {
+    try {
+      var t = document.createElement('div');
+      t.setAttribute(MARK, 'toast');
+      t.textContent = msg;
+      css(t, { 'position': 'fixed', 'left': '50%', 'bottom': '18px', 'transform': 'translateX(-50%)',
+        'background': '#222', 'color': '#fff', 'padding': '8px 14px', 'border-radius': '8px',
+        'font-size': '12px', 'z-index': '2147483647', 'opacity': '0.95' });
+      document.body.appendChild(t);
+      setTimeout(function () { t.remove(); }, 1600);
+    } catch (e) {}
+  }
+  function clearAll(ask) {
+    if (ask && !window.confirm('흡수창의 모든 카드와 입력창을 비울까요?')) return;
+    var saves = buttons(isSave), tops = buttons(isTopAbsorb);
+    saves.forEach(function (s) { hideCard(findCard(s, saves, tops)); });
+    roots().forEach(function (r) {
+      r.querySelectorAll('textarea').forEach(function (f) { if (!ours(f)) setVal(f, ''); });
     });
-    return n;
-  }
-  function clearLogs(scope, grid) {
-    var n = 0;
-    queryAllDeep(LOG_SEL, scope).forEach(function (el) {
-      try {
-        if (el.tagName === 'SCRIPT' || el.tagName === 'STYLE' || el.tagName === 'LINK') return;
-        if (grid && (el === grid || el.contains(grid) || grid.contains(el))) return;
-        if (el.matches(INPUT_SEL)) return;
-        if (el.querySelector(BTN_SEL + ',' + INPUT_SEL)) return;
-        if (!el.textContent) return;
-        el.textContent = '';
-        n++;
-      } catch (e) {}
-    });
-    return n;
-  }
-  function flash(btn, msg) {
-    if (btn.__rgonFlash) clearTimeout(btn.__rgonFlash);
-    if (!btn.__rgonLabel) btn.__rgonLabel = btn.textContent;
-    btn.textContent = msg;
-    btn.__rgonFlash = setTimeout(function () { btn.textContent = btn.__rgonLabel; btn.__rgonFlash = null; }, 900);
-  }
-
-  function styleCell(el) {
-    if (el.getAttribute('data-rgon-styled') === '1') return;
-    el.setAttribute('data-rgon-styled', '1');
-    var s = el.style;
-    s.setProperty('width', '100%', 'important');
-    s.setProperty('min-width', '0', 'important');
-    s.setProperty('max-width', '100%', 'important');
-    s.setProperty('margin', '0', 'important');
-    s.setProperty('box-sizing', 'border-box', 'important');
-    s.setProperty('white-space', 'nowrap', 'important');
-    s.setProperty('overflow', 'hidden', 'important');
-    s.setProperty('text-overflow', 'ellipsis', 'important');
-    s.setProperty('flex', 'none', 'important');
-  }
-
-  function makeBtn(doc, label, kind, ref) {
-    var b = doc.createElement('button');
-    b.type = 'button';
-    b.className = (ref && typeof ref.className === 'string') ? ref.className : '';
-    if (ref && ref.style && ref.style.cssText) b.style.cssText = ref.style.cssText;
-    b.setAttribute('data-rgon-added', kind);
-    b.textContent = label;
-    b.title = kind === 'clear' ? '입력칸 즉시 비우기' : '입력칸 + 로그/프리뷰 전체 즉시 초기화';
-    b.addEventListener('click', function (e) {
-      e.preventDefault();
-      e.stopPropagation();
-      var grid = b.closest('.rgon-4grid');
-      var scope = getPanelRoot(grid || b);
-      clearInputs(scope);
-      if (kind === 'clearall') {
-        clearLogs(scope, grid);
-        try { window.dispatchEvent(new CustomEvent('rgon:clear-all')); } catch (er) {}
-      } else {
-        try { window.dispatchEvent(new CustomEvent('rgon:clear')); } catch (er) {}
+    try {
+      var keys = window.RGON_V12_STORAGE_KEYS;  /* 필요 시 저장소 키 배열 지정 */
+      if (Array.isArray(keys) && keys.length && window.chrome && chrome.storage && chrome.storage.local) {
+        chrome.storage.local.remove(keys);
       }
-      flash(b, '✅ 비움');
-    }, true);
+    } catch (e) {}
+    try { window.dispatchEvent(new CustomEvent('rgon:clear-all')); } catch (e) {}
+    toast('🗑️ 흡수창을 모두 비웠습니다');
+  }
+
+  function makeBtn(label, kind, onClick) {
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.setAttribute(MARK, kind);
+    b.textContent = label;
+    b.title = label;
+    styleBtn(b);
+    css(b, { 'cursor': 'pointer', 'border-radius': '6px', 'border': '1px solid rgba(127,127,127,.35)',
+      'background': kind === 'all' || kind === 'top' ? '#fdecec' : '#f3f4f6', 'color': '#222' });
+    b.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); onClick(b); });
     return b;
   }
 
-  /* ── 1줄 4칸 그리드 구성 ── */
-  function enhance(saveBtn, directBtn) {
-    var doc = saveBtn.ownerDocument || document;
-    var grid = saveBtn.parentElement;
-    if (!grid) return;
-    if (!grid.classList.contains('rgon-4grid')) {
-      var g = doc.createElement('div');
-      g.className = 'rgon-4grid';
-      g.style.cssText = 'display:grid !important;grid-template-columns:' + COLS4 + ';gap:6px;width:100%;align-items:center;box-sizing:border-box;margin:4px 0;flex:1 1 100%;';
-      grid.insertBefore(g, saveBtn);
-      grid = g;
+  /* ---------- 카드별 버튼 배치 ---------- */
+  function ensureRow(saveBtn) {
+    var row = saveBtn.parentElement;
+    if (!row) return null;
+    if (row.hasAttribute(MARK) && row.getAttribute(MARK) === 'btnrow') return row;
+    var nonBtn = Array.prototype.filter.call(row.children, function (c) {
+      return !(c.matches('button, [role="button"]'));
+    }).length;
+    if (row.querySelector('textarea, pre, code, input, select') || nonBtn > 2) {
+      var wrap = document.createElement('div');
+      wrap.setAttribute(MARK, 'btnrow');
+      row.insertBefore(wrap, saveBtn);
+      Array.prototype.slice.call(row.children).forEach(function (c) {
+        if (c !== wrap && c.matches && c.matches('button, [role="button"]') &&
+            (is(c) || isSave(c) || isQueue(c))) wrap.appendChild(c);
+      });
+      row = wrap;
     }
-    if (!directBtn) directBtn = grid.querySelector(':scope > [data-rgon-direct="1"]');
-    var clearBtn = grid.querySelector(':scope > [data-rgon-added="clear"]') || makeBtn(doc, '🧹 지우기', 'clear', saveBtn);
-    var allBtn = grid.querySelector(':scope > [data-rgon-added="clearall"]') || makeBtn(doc, '🗑️ 전체 지우기', 'clearall', saveBtn);
+    return row;
+  }
+  function decorate(saveBtn, saves, tops) {
+    var row = ensureRow(saveBtn);
+    if (!row) return;
+    css(row, { 'display': 'grid', 'grid-template-columns': 'repeat(auto-fit, minmax(96px, 1fr))',
+      'gap': '6px', 'width': '100%', 'overflow': 'visible', 'flex': '1 1 100%',
+      'min-width': '0', 'box-sizing': 'border-box', 'grid-column': '1 / -1' });
+    var p = row.parentElement;
+    if (p && getComputedStyle(p).display.indexOf('flex') !== -1) css(p, { 'flex-wrap': 'wrap' });
+    Array.prototype.forEach.call(row.querySelectorAll('button, [role="button"]'), styleBtn);
 
-    var oldDirectParent = directBtn ? directBtn.parentElement : null;
-    saveBtn.setAttribute('data-rgon-save', '1');
-    if (directBtn) directBtn.setAttribute('data-rgon-direct', '1');
-
-    var order = [saveBtn, clearBtn];
-    if (directBtn) order.push(directBtn);
-    order.push(allBtn);
-
-    var same = grid.children.length === order.length;
-    if (same) for (var i = 0; i < order.length; i++) { if (grid.children[i] !== order[i]) { same = false; break; } }
-    if (!same) order.forEach(function (el) { grid.appendChild(el); });
-
-    order.forEach(styleCell);
-    var cols = directBtn ? COLS4 : COLS3;
-    if (grid.style.getPropertyValue('grid-template-columns') !== cols) {
-      grid.style.setProperty('grid-template-columns', cols, 'important');
-    }
-    if (oldDirectParent && oldDirectParent !== grid && !oldDirectParent.children.length && !textOf(oldDirectParent)) {
-      oldDirectParent.style.setProperty('display', 'none', 'important');
-    }
+    var next = row.nextElementSibling;
+    if (next && next.getAttribute(MARK) === 'row') return;
+    var er = document.createElement('div');
+    er.setAttribute(MARK, 'row');
+    css(er, { 'display': 'grid', 'grid-template-columns': '1fr 1fr', 'gap': '6px', 'width': '100%',
+      'margin-top': '6px', 'grid-column': '1 / -1', 'flex': '1 1 100%', 'box-sizing': 'border-box' });
+    er.appendChild(makeBtn('🧹 이 카드 지우기', 'one', function () {
+      var s = buttons(isSave), t = buttons(isTopAbsorb);
+      hideCard(findCard(saveBtn, s, t));
+      toast('🧹 카드를 지웠습니다');
+    }));
+    er.appendChild(makeBtn('🗑️ 전체 카드 지우기', 'all', function () { clearAll(true); }));
+    row.insertAdjacentElement('afterend', er);
   }
 
-  /* ── 전체 스캔 (루트별로 독립 판정) ── */
-  function scan() {
-    var roots;
-    try { roots = collectRoots(document, [], new Set()); } catch (e) { return; }
-    roots.forEach(function (root) {
-      var btns;
-      try { btns = Array.prototype.slice.call(root.querySelectorAll(BTN_SEL)); } catch (e) { return; }
-      if (!btns.length) return;
-      var isShadow = !!root.host;
-      var isExtPage = location.protocol === 'chrome-extension:';
-      var direct = pick(btns, DIRECT_KEYS, null);
-      var save = pick(btns, SAVE_STRONG, direct);
-      if (!save) {
-        var weak = pick(btns, SAVE_WEAK, direct);
-        if (weak && (isShadow || isExtPage || (direct && nearCommon(weak, direct, 3)))) save = weak;
-      }
-      if (!save) return;
-      if (direct && !isShadow && !isExtPage && !nearCommon(save, direct, 4)) direct = null;
-      try { enhance(save, direct); } catch (e) { try { console.warn('[RGON 4BTN] enhance 실패', e); } catch (x) {} }
+  function decorateTop(tops) {
+    var seen = new Set();
+    tops.forEach(function (b) {
+      var p = b.parentElement;
+      if (!p || seen.has(p)) return;
+      seen.add(p);
+      if (p.querySelector('[' + MARK + '="top"]')) return;
+      var last = tops.filter(function (x) { return x.parentElement === p; }).pop() || b;
+      var nb = makeBtn('🗑️ 흡수창 전체 비우기', 'top', function () { clearAll(true); });
+      css(nb, { 'width': 'auto' });
+      last.insertAdjacentElement('afterend', nb);
+      if (getComputedStyle(p).display.indexOf('flex') !== -1) css(p, { 'flex-wrap': 'wrap', 'gap': '6px' });
     });
   }
 
-  var timer = null;
-  function schedule() {
-    if (timer) return;
-    timer = setTimeout(function () { timer = null; scan(); }, 250);
+  function unhideIfRefilled() {
+    roots().forEach(function (r) {
+      r.querySelectorAll('[data-rgon-v12-hidden="1"]').forEach(function (c) {
+        var now = txt(c);
+        if (now && now !== c.__rgonV12Snap) {
+          c.style.removeProperty('display');
+          c.removeAttribute('data-rgon-v12-hidden');
+        }
+      });
+    });
   }
-  try { new MutationObserver(schedule).observe(document.documentElement || document, { childList: true, subtree: true }); } catch (e) {}
-  setInterval(scan, 1500);   // Shadow DOM 내부 변화는 MutationObserver 로 안 잡히므로 주기 스캔 병행
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', scan); else scan();
+
+  function scan() {
+    try {
+      var saves = buttons(isSave), tops = buttons(isTopAbsorb);
+      saves.forEach(function (s) { decorate(s, saves, tops); });   /* 모든 카드 반복 */
+      if (tops.length) decorateTop(tops);
+      unhideIfRefilled();
+      roots().forEach(observe);
+    } catch (e) { console.warn('[RGON-V12]', e); }
+  }
+
+  var timer = null;
+  function schedule() { clearTimeout(timer); timer = setTimeout(scan, 200); }
+  function observe(r) {
+    if (observed.has(r)) return;
+    observed.add(r);
+    new MutationObserver(schedule).observe(r === document ? document.documentElement : r,
+      { childList: true, subtree: true, characterData: true });
+  }
+
+  window.RGON_V12 = { scan: scan, clearAll: clearAll };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', scan);
+  else scan();
 })();
-/* [RGON-4BTN-V11-END] */
+/* [RGON-4BTN-V12-END] */
