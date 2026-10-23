@@ -10389,5 +10389,312 @@ else attempt(0);
 </script>
 <!-- === [RGON-BAR3-STABLE-END] === -->
 
+<!-- [RGON-STEP10-BARS-START] -->
+<style id="rgon-step10-bars-style">
+  .rgon-s10-force-show{display:block !important;visibility:visible !important;opacity:1 !important;}
+  .rgon-s10-replaced{display:none !important;}
+  .rgon-s10-acc-body{overflow:hidden;transition:max-height .28s ease,opacity .28s ease;}
+  #rgon-green-briefing-bar{display:block !important;margin:10px 0;}
+  #rgon-green-briefing-head{border:1px solid #065f46;background:rgba(6,78,59,0.35);color:#34d399;border-radius:10px;
+    padding:10px 14px;font-weight:700;display:flex;justify-content:space-between;align-items:center;cursor:pointer;user-select:none;}
+  #rgon-green-briefing-head .s10-hint{font-weight:500;font-size:12px;color:#6ee7b7;opacity:.85;}
+  #rgon-green-briefing-body{display:none;margin-top:6px;border:1px solid #065f46;border-radius:10px;
+    background:rgba(2,44,34,0.55);padding:12px;}
+  #rgon-green-briefing-body.s10-open{display:block !important;}
+  .rgon-s10-btn{border:1px solid #10b981;background:rgba(16,185,129,0.15);color:#6ee7b7;border-radius:8px;
+    padding:6px 10px;font-weight:700;font-size:12px;cursor:pointer;margin-right:6px;}
+  .rgon-s10-btn:hover{background:rgba(16,185,129,0.28);}
+  #rgon-green-briefing-meta{font-size:11px;color:#6ee7b7;opacity:.8;margin-top:6px;}
+  #rgon-green-briefing-pre{white-space:pre-wrap;word-break:break-word;max-height:420px;overflow:auto;color:#d1fae5;
+    font-size:13px;line-height:1.6;margin:8px 0 0;font-family:Consolas,'Malgun Gothic',monospace;}
+  #rgon-s10-handoff-btn{display:block;width:100%;box-sizing:border-box;margin:0 0 10px 0;padding:10px 12px;border-radius:10px;
+    border:1px solid #6366f1;background:rgba(99,102,241,0.2);color:#e0e7ff;font-weight:800;font-size:13px;cursor:pointer;text-align:left;}
+  #rgon-s10-handoff-btn:hover{background:rgba(99,102,241,0.35);}
+  #rgon-s10-toast{position:fixed;left:50%;bottom:32px;transform:translateX(-50%);background:#064e3b;color:#ecfdf5;
+    border:1px solid #10b981;border-radius:12px;padding:12px 18px;font-weight:700;font-size:14px;z-index:2147483647;
+    box-shadow:0 8px 30px rgba(0,0,0,.45);opacity:0;transition:opacity .25s ease;pointer-events:none;}
+  #rgon-s10-toast.s10-show{opacity:1;}
+</style>
+<script id="rgon-step10-bars-script">
+(function () {
+  'use strict';
+  if (window.RGON_STEP10_BARS) return;
+  window.RGON_STEP10_BARS = true;
+
+  var HANDOFF_TEXT = "[RGON 사령부 클라우드 직통 인수인계서 — 새 AI 즉시 장착용]\n생성 시각: {{NOW}}\n\n너는 이상일 대표님을 보좌하는 핵심 AI 보좌관이다.\n젠스파크 5시간 세션 초기화(또는 새 채팅방 교체)로 대화를 이어간다. 처음부터 다시 묻지 말고, 즉시 아래 GitHub 주소들을 확인하여 현재 진행 상황을 100% 파악한 뒤 작업을 이어가라.\n\n■ 1. 핵심 GitHub 주소 4종 (이 주소들을 먼저 읽어라)\n  1) https://github.com/sangill111157-spec/hangeoreumsshik-cloud\n  2) https://github.com/sangill111157-spec/hangeoreumsshik-cloud/commits/main\n  3) https://sangill111157-spec.github.io/hangeoreumsshik-cloud/rgon_alpha_chat.html\n  4) https://raw.githubusercontent.com/sangill111157-spec/hangeoreumsshik-cloud/main/rgon_brain_snapshot.json\n\n■ 2. 현재 시스템 구조 간단 요약\n  - 로컬 PC 작업 경로: C:\\Users\\sangi\\Downloads\\shin-agent\n  - 크롬 확장프로그램(우측 흡수창) 하단 4칸 버튼: [💾 shin-agent 저장 | 🧹 지우기 | ⚡ 안총리 직통 | 🗑️ 전체 지우기]\n  - 독대실 4대 아코디언 바: ① 🎯 4대 AI 분배 컨트롤러 ② 🛰️ 르곤-알파 실시간 브리핑 전문 ③ ⚡ 독대실에서 바로 분배하기 ④ 💬 르곤-알파 1:1 대화창\n\n■ 3. 절대 작업 및 보고 원칙\n  - 초등학생도 1초 만에 이해할 수 있게 쉽고 명확하게 핵심만 보고할 것.\n  - 코딩이 필요할 때는 클로드(Claude)가 안전 필터 거부 없이 100% 작성할 수 있도록 '순수 Python 3 표준 라이브러리 전용 + 로컬 파일 비파괴 패치 + 자동 git add/commit/push' 형태로 제공할 것.\n\n위 내용을 숙지하고 GitHub 최신 커밋을 확인한 즉시 '충성! 이상일 대표님! GitHub 최신 상태 확인 완료했습니다!'라고 보고하라.\n";
+  var KEY_BAR1 = '4대 AI 분배 컨트롤러';
+  var KEY_BAR2 = '실시간 브리핑 전문';
+  var KEY_BAR3 = '독대실에서 바로 분배하기';
+  var KEY_BAR4 = '1:1 대화창';
+  var greenOpen = false;
+  var origBriefing = '';
+
+  function norm(s) { return String(s || '').replace(/\s+/g, ' ').trim(); }
+
+  function toast(msg) {
+    var t = document.getElementById('rgon-s10-toast');
+    if (!t) { t = document.createElement('div'); t.id = 'rgon-s10-toast'; document.body.appendChild(t); }
+    t.textContent = msg;
+    t.classList.add('s10-show');
+    clearTimeout(t.__h);
+    t.__h = setTimeout(function () { t.classList.remove('s10-show'); }, 2200);
+  }
+
+  function copyText(txt, okMsg) {
+    function fallback() {
+      var ta = document.createElement('textarea');
+      ta.value = txt; ta.style.position = 'fixed'; ta.style.left = '-9999px';
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); toast(okMsg); } catch (e) { toast('⚠ 복사 실패'); }
+      document.body.removeChild(ta);
+    }
+    if (navigator.clipboard && window.isSecureContext !== false) {
+      navigator.clipboard.writeText(txt).then(function () { toast(okMsg); }, fallback);
+    } else fallback();
+  }
+
+  function isOwn(el) {
+    return !!(el && el.closest && el.closest('#rgon-green-briefing-bar,[data-s10-own],#rgon-v9-drawer,.rgon-v9-drawer,#rgon-s10-toast'));
+  }
+
+  function findHeader(key) {
+    if (!document.body) return null;
+    var w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null);
+    var n;
+    while ((n = w.nextNode())) {
+      if (!n.nodeValue || n.nodeValue.indexOf(key) === -1) continue;
+      var el = n.parentElement;
+      if (!el || isOwn(el)) continue;
+      if (/^(SCRIPT|STYLE|TEXTAREA|TITLE|OPTION|NOSCRIPT)$/.test(el.tagName)) continue;
+      var sum = el.closest('summary');
+      if (sum) {
+        var det = sum.parentElement && sum.parentElement.tagName === 'DETAILS' ? sum.parentElement : null;
+        return { header: sum, details: det };
+      }
+      var h = el;
+      while (h.parentElement && h.parentElement !== document.body && norm(h.parentElement.textContent).length <= key.length + 90) {
+        h = h.parentElement;
+      }
+      return { header: h, details: null };
+    }
+    return null;
+  }
+
+  function nextBody(header) {
+    var b = header.nextElementSibling;
+    while (b && (b.id === 'rgon-green-briefing-bar' || b.hasAttribute('data-s10-own') ||
+                 b.tagName === 'SCRIPT' || b.tagName === 'STYLE')) b = b.nextElementSibling;
+    return b;
+  }
+
+  function forceShow(el) {
+    var cur = el, guard = 0;
+    while (cur && cur !== document.body && guard++ < 6) {
+      if (cur.style && cur.style.display === 'none') cur.style.setProperty('display', 'block', 'important');
+      cur.removeAttribute('hidden');
+      cur = cur.parentElement;
+    }
+  }
+
+  function isOpen(body) {
+    if (!body || body.hidden) return false;
+    var cs = getComputedStyle(body);
+    if (cs.display === 'none' || cs.visibility === 'hidden' || cs.maxHeight === '0px') return false;
+    return body.offsetHeight > 0;
+  }
+
+  function bindAcc(header, body) {
+    if (!header || !body || header.getAttribute('data-s10-acc')) return;
+    header.setAttribute('data-s10-acc', '1');
+    header.style.cursor = 'pointer';
+    header.addEventListener('click', function (e) {
+      var ctl = e.target.closest && e.target.closest('button,input,textarea,select,a');
+      if (ctl && ctl !== header) return;
+      var wasOpen = isOpen(body);
+      setTimeout(function () {
+        if (isOpen(body) === wasOpen) {
+          if (wasOpen) {
+            body.style.setProperty('display', 'none', 'important');
+          } else {
+            body.removeAttribute('hidden');
+            body.style.setProperty('display', 'block', 'important');
+          }
+        }
+      }, 45);
+    });
+  }
+
+  function fixBar(key) {
+    var f = findHeader(key);
+    if (!f) return null;
+    if (f.details) {
+      forceShow(f.details);
+      f.details.classList.add('rgon-s10-force-show');
+      return f;
+    }
+    forceShow(f.header);
+    var body = nextBody(f.header);
+    if (body) bindAcc(f.header, body);
+    if (f.header.parentElement && f.header.parentElement !== document.body) {
+      forceShow(f.header.parentElement);
+    }
+    return f;
+  }
+
+  function pretty(v, ind) {
+    ind = ind || '';
+    if (v === null || v === undefined) return ind + '-';
+    if (typeof v !== 'object') return ind + String(v);
+    if (Array.isArray(v)) {
+      return v.map(function (x, i) {
+        return (x !== null && typeof x === 'object')
+          ? ind + '• [' + (i + 1) + ']\n' + pretty(x, ind + '   ')
+          : ind + '• ' + String(x);
+      }).join('\n');
+    }
+    return Object.keys(v).map(function (k) {
+      var x = v[k];
+      if (x !== null && typeof x === 'object') return ind + '▸ ' + k + '\n' + pretty(x, ind + '   ');
+      return ind + '▸ ' + k + ': ' + String(x);
+    }).join('\n');
+  }
+
+  function fetchJson(url) {
+    return fetch(url + '?t=' + Date.now(), { cache: 'no-store' }).then(function (r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    });
+  }
+
+  function loadBriefing() {
+    var pre = document.getElementById('rgon-green-briefing-pre');
+    var meta = document.getElementById('rgon-green-briefing-meta');
+    if (!pre) return;
+    pre.textContent = '⏳ 사령부 브리핑을 불러오는 중...';
+    Promise.allSettled([fetchJson('./rgon_brain_snapshot.json'), fetchJson('./rgon_command_status.json')])
+      .then(function (rs) {
+        var parts = [];
+        if (rs[0].status === 'fulfilled') parts.push('━━━━ 🧠 사령부 브레인 스냅샷 ━━━━\n' + pretty(rs[0].value));
+        if (rs[1].status === 'fulfilled') parts.push('━━━━ 📡 명령 실행 상태 ━━━━\n' + pretty(rs[1].value));
+        if (!parts.length) {
+          parts.push(origBriefing || '✅ 사령부 브리핑 대기 중입니다.');
+        } else if (origBriefing) {
+          parts.push('━━━━ 🛰️ 페이지 내 기존 브리핑 ━━━━\n' + origBriefing);
+        }
+        pre.textContent = parts.join('\n\n');
+        if (meta) meta.textContent = '마지막 갱신: ' + new Date().toLocaleString('ko-KR');
+      });
+  }
+
+  function setGreen(open) {
+    greenOpen = open;
+    var body = document.getElementById('rgon-green-briefing-body');
+    var arrow = document.getElementById('rgon-green-briefing-arrow');
+    if (body) body.classList.toggle('s10-open', open);
+    if (arrow) arrow.textContent = open ? '▲' : '▼';
+    if (open) loadBriefing();
+  }
+
+  function buildGreen() {
+    var bar = document.createElement('div');
+    bar.id = 'rgon-green-briefing-bar';
+    bar.setAttribute('data-s10-own', '1');
+    bar.innerHTML =
+      '<div id="rgon-green-briefing-head">' +
+        '<span><span id="rgon-green-briefing-arrow">▼</span> 🛰️ 르곤-알파 실시간 브리핑 전문</span>' +
+        '<span class="s10-hint">(클릭하여 열기/접기)</span>' +
+      '</div>' +
+      '<div id="rgon-green-briefing-body">' +
+        '<div>' +
+          '<button type="button" class="rgon-s10-btn" id="rgon-green-refresh">🔄 새로고침</button>' +
+          '<button type="button" class="rgon-s10-btn" id="rgon-green-copy">📋 브리핑 복사</button>' +
+        '</div>' +
+        '<div id="rgon-green-briefing-meta"></div>' +
+        '<pre id="rgon-green-briefing-pre"></pre>' +
+      '</div>';
+    bar.querySelector('#rgon-green-briefing-head').addEventListener('click', function (e) {
+      e.preventDefault(); e.stopPropagation();
+      setGreen(!greenOpen);
+    });
+    bar.querySelector('#rgon-green-briefing-body').addEventListener('click', function (e) { e.stopPropagation(); });
+    bar.querySelector('#rgon-green-refresh').addEventListener('click', function (e) {
+      e.preventDefault(); loadBriefing();
+    });
+    bar.querySelector('#rgon-green-copy').addEventListener('click', function (e) {
+      e.preventDefault();
+      var pre = document.getElementById('rgon-green-briefing-pre');
+      copyText(pre ? pre.textContent : '', '✅ 브리핑 전문이 복사되었습니다!');
+    });
+    return bar;
+  }
+
+  function insertAfter(ref, node) { ref.parentNode.insertBefore(node, ref.nextSibling); }
+
+  function ensureGreen() {
+    if (document.getElementById('rgon-green-briefing-bar')) return;
+    var bar = buildGreen();
+    var orig = findHeader(KEY_BAR2);
+    if (orig) {
+      var block = orig.details || orig.header;
+      if (orig.details) {
+        var s = orig.details.querySelector('summary');
+        origBriefing = (orig.details.innerText || orig.details.textContent || '')
+          .replace(s ? (s.innerText || s.textContent) : '', '').trim();
+      } else {
+        var ob = nextBody(orig.header);
+        if (ob) { origBriefing = (ob.innerText || ob.textContent || '').trim(); ob.classList.add('rgon-s10-replaced'); }
+      }
+      block.parentNode.insertBefore(bar, block);
+      block.classList.add('rgon-s10-replaced');
+    } else {
+      var b1 = findHeader(KEY_BAR1);
+      var b3 = findHeader(KEY_BAR3);
+      if (b1) {
+        var ref = b1.details || nextBody(b1.header) || b1.header;
+        insertAfter(ref, bar);
+      } else if (b3) {
+        var r3 = b3.details || b3.header;
+        r3.parentNode.insertBefore(bar, r3);
+      } else {
+        document.body.insertBefore(bar, document.body.firstChild);
+      }
+    }
+  }
+
+  function ensureHandoffBtn() {
+    if (document.getElementById('rgon-s10-handoff-btn')) return;
+    var drawer = document.querySelector('#rgon-v9-drawer, .rgon-v9-drawer, [id*="drawer"]');
+    if (!drawer) return;
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.id = 'rgon-s10-handoff-btn';
+    btn.textContent = '📋 새 AI 인수인계 전달서 복사 (5시간 세션 대비)';
+    btn.addEventListener('click', function (e) {
+      e.preventDefault(); e.stopPropagation();
+      var txt = HANDOFF_TEXT.replace('{{NOW}}', new Date().toLocaleString('ko-KR'));
+      copyText(txt, '✅ 새 AI 인수인계 전달서가 복사되었습니다!');
+    });
+    drawer.insertBefore(btn, drawer.firstChild);
+  }
+
+  function applyStep10() {
+    fixBar(KEY_BAR1);
+    ensureGreen();
+    fixBar(KEY_BAR3);
+    fixBar(KEY_BAR4);
+    ensureHandoffBtn();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', applyStep10);
+  } else {
+    applyStep10();
+  }
+  setTimeout(applyStep10, 400);
+  setTimeout(applyStep10, 1200);
+})();
+</script>
+<!-- [RGON-STEP10-BARS-END] -->
+
 </body>
 </html>
