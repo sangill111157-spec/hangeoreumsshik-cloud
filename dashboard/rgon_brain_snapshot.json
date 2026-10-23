@@ -1,8 +1,8 @@
 {
   "schema": "rgon_brain_snapshot/1",
-  "version": "v6.1.0-step10",
-  "generated_at_kst": "2026-10-21 07:28:57 KST",
-  "synced_at_kst": "2026-10-21 07:28:57 KST",
+  "version": "v6.2.0-step16",
+  "generated_at_kst": "2026-10-23 22:29:07 KST",
+  "synced_at_kst": "2026-10-23 22:29:07 KST",
   "sync_rate": "100.0%",
   "score": 100,
   "max_score": 100,
@@ -11,7 +11,7 @@
     "max": 100,
     "label": "100/100"
   },
-  "antibody_range": "R1~R7",
+  "antibody_range": "R1~R15 (15종)",
   "antibodies": [
     {
       "id": "R8_APPROVAL_BEFORE_CODE",
@@ -84,6 +84,21 @@
       "rule": "중복 인사말·반복 설명 금지, 깊이 사고 후 최종 1회만 단순 요약 보고",
       "status": "ACTIVE",
       "since": "v6.1.0-step10"
+    },
+    {
+      "id": "R13_NO_OBSERVER_DOM_WAR",
+      "rule": "기존 UI 스크립트가 이미 배치한 요소를 Observer/setInterval로 다시 옮기지 않는다. 신규 요소만 placeOnce(data-placed='1')로 1회 이동 후 영구 종료한다.",
+      "since": "2026-10-23"
+    },
+    {
+      "id": "R14_SHADOW_DOM_4BTN",
+      "rule": "크롬 확장프로그램 흡수창(Shadow DOM)의 모든 카드는 2행 버튼 배치와 지우개 버튼을 표준으로 갖춘다.",
+      "since": "2026-10-23"
+    },
+    {
+      "id": "R15_YOUTUBE_SKILL_SCOUT",
+      "rule": "영상 URL → 메타데이터·설명란 외부 링크·자막 요약, 채널 중앙값 대비 떡상 배수, 21훅 채점, 클로드 흡수 지시문·쇼츠 대본 자동 변환.",
+      "since": "2026-10-23"
     }
   ],
   "top_priority_id": "GEN-1",
@@ -862,5 +877,28 @@
     "pulse_beat": 8,
     "overall": "OK",
     "updated_at": "2026-10-22T17:54:25"
+  },
+  "today_achievements": [
+    "📱 모바일 3층 헤더 + 상단 5대 아코디언 바(남색·초록·청록·주황·보라) 완벽 정렬",
+    "🧩 크롬 확장프로그램 모든 카드 지우개 버튼 2행 패치 (R14 표준)",
+    "🔁 5시간 세션 한도 대비 '새 AI 인수인계' 버튼 장착",
+    "🔭 유튜브 최신 트렌드 & AI 스킬 흡수기 V13 구축 (시드 + 채널 떡상 영상 9개 분석, 최고 11.63배)",
+    "🧹 V14 DOM 충돌 블록 제거 + placeOnce 단발 배치(V15)로 깜빡임 해소 (R13 확립)",
+    "📜 CLAUDE.md(카파시 4대 원칙 + RGON 코딩 헌법) 및 CODE_MAP.md(코드 지도) 장착"
+  ],
+  "eod_step16": {
+    "date": "2026-10-23",
+    "closed_at_kst": "2026-10-23 22:29:07 KST",
+    "step_range": "Step 1~16",
+    "docs": [
+      "CLAUDE.md",
+      "CODE_MAP.md",
+      "RGON_EVOLUTION_LOG.md"
+    ],
+    "new_antibodies": [
+      "R13_NO_OBSERVER_DOM_WAR",
+      "R14_SHADOW_DOM_4BTN",
+      "R15_YOUTUBE_SKILL_SCOUT"
+    ]
   }
 }
