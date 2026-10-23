@@ -77,3 +77,14 @@
 - 구버전 임시 파일 `backups/daily_omni_archive` 폴더 정리 완료
 
 > 참고: 위 항목 중 클립보드 항목 외에는 이전 단계 결과를 기록한 것이며, 이 스크립트가 재검증하지는 않습니다.
+
+<!-- [RGON-EVOLUTION-STEP17-START] -->
+## Step 17 — 창립자 영혼 & 동양 3대 고전 헌법 (v6.3.0-step17)
+- 일시: 2026-10-23T23:36:16
+- 창립자 이상일 대표 [만물일체·한걸음씩 선언] 전문을 RGON_PHILOSOPHY.md 제0장 및 CLAUDE.md 제0조에 영구 수록
+- 명심보감 7대 AI 거버넌스 강령 · 도덕경 5대 아키텍처 법칙 · 주역 64괘 6비트 의사결정 엔진 장착
+- 궁변통구 자가치유: restore_secrets.py 자가치유판 설치 (환경변수 있을 때만 복원, 항상 exit 0) → analytics/report 잡 빨간불 차단
+- 항체 범위: R1~R17 (17종) · 신규: R16_SINGLE_CODEBLOCK_NO_INNER_FENCE, R17_FOUNDER_SOUL_EASTERN_WISDOM_CODEX
+- 오늘의 괘: 9. 풍천소축(風天小畜) · 6비트 111011 · 작은 축적 — 큰 변경 대신 소규모 개선을 쌓을 때.
+- 보호 파일(.html/.js/manifest.json) 수정: 0건 (SHA-256 전후 검증)
+<!-- [RGON-EVOLUTION-STEP17-END] -->

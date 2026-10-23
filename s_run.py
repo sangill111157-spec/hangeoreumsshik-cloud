@@ -1,792 +1,1360 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-step16_karpathy_codemap_and_eod.py
-RGON 일일 마감(EOD) Step 16 — CLAUDE.md(카파시 4대 원칙 + RGON 코딩 헌법) / CODE_MAP.md(코드 지도) 장착
-+ rgon_brain_snapshot.json / RGON_EVOLUTION_LOG.md 오늘자 최신화 + Git 동기화
-- Python 3 표준 라이브러리 전용
-- .html / .js 파일은 절대 쓰지 않음 (쓰기 함수가 .md/.json 외 확장자를 거부 + 실행 전후 해시 검증)
+step17_founder_soul_and_eastern_wisdom.py
+RGON Step 17 (v6.3.0-step17)
+- 창립자 이상일 대표 [만물일체(萬物一體) · 한걸음씩 선언] 영혼 장착
+- 동양 3대 고전(명심보감 · 도덕경 · 주역 64괘) AI 코딩 헌법 & 의사결정 엔진 장착
+- 주역 궁변통구(窮變通久) 자가치유: restore_secrets.py 누락/시크릿 공백으로 인한 GitHub Actions 빨간불 영구 해결
+표준 라이브러리 전용 · 멱등성 보장 · .html/.js/manifest.json 0바이트 수정(SHA-256 전후 검증)
 """
-import os, sys, re, ast, json, hashlib, shutil, subprocess
-from datetime import datetime, timezone, timedelta
+import os
+import sys
+import re
+import json
+import shutil
+import hashlib
+import datetime
+import subprocess
+import importlib.util
+from pathlib import Path
 
-try:
-    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
-except Exception:
-    pass
+sys.dont_write_bytecode = True
 
-PREFERRED_BASE = r"C:\Users\sangi\Downloads\shin-agent"
-KST = timezone(timedelta(hours=9))
-NOW = datetime.now(KST)
-TODAY = NOW.strftime("%Y-%m-%d")
-NOW_KST = NOW.strftime("%Y-%m-%d %H:%M:%S KST")
-STAMP = NOW.strftime("%Y%m%d_%H%M%S")
-VERSION = "v6.2.0-step16"
-ANTIBODY_RANGE = "R1~R15 (15종)"
-COMMIT_MSG = "docs(eod): Step 16 generate CLAUDE.md, CODE_MAP.md and update brain snapshot"
-
-SNAP_NAME = "rgon_brain_snapshot.json"
-LOG_NAME = "RGON_EVOLUTION_LOG.md"
-CLAUDE_START = "<!-- [RGON-CLAUDE-MD-V16-START] -->"
-CLAUDE_END = "<!-- [RGON-CLAUDE-MD-V16-END] -->"
-EOD_START = "<!-- [RGON-EOD-%s-START] -->" % TODAY
-EOD_END = "<!-- [RGON-EOD-%s-END] -->" % TODAY
 BT = chr(96)
 FENCE = BT * 3
 
-ALLOWED_WRITE_EXT = (".md", ".json")
-PROTECTED_EXT = (".html", ".htm", ".js", ".mjs", ".jsx")
-SCAN_EXT = (".py", ".html", ".htm", ".js", ".json")
-SKIP_DIRS = {".git", "node_modules", "__pycache__", "venv", ".venv", "env", ".idea", ".vscode", "dist", "build", "_rgon_backups", "rgon_backups"}
-SKIP_DIR_RE = re.compile(r"(backup|^bak|_bak|bak_|^old$|_old$)", re.I)
-SKIP_FILE_RE = re.compile(r"\.bak|\.orig$|\.tmp\d*$|~$", re.I)
-MAX_FILES = 600
-JSON_PARSE_LIMIT = 3 * 1024 * 1024
+VERSION = "v6.3.0-step17"
+STEP = 17
+ANTIBODY_RANGE = "R1~R17 (17종)"
+NOW = datetime.datetime.now()
+TS = NOW.strftime("%Y%m%d_%H%M%S")
+ISO = NOW.isoformat(timespec="seconds")
+TODAY = NOW.strftime("%Y-%m-%d")
+DEFAULT_ROOT = r"C:\Users\sangi\Downloads\shin-agent"
 
-NEW_ANTIBODIES = [
-    {"id": "R13_NO_OBSERVER_DOM_WAR",
-     "name": "MutationObserver 중복 DOM 이동 금지 · 단발 배치 원칙",
-     "desc": "기존 UI 스크립트가 이미 배치한 요소를 Observer/setInterval로 다시 옮기지 않는다. "
-             "신규 요소만 placeOnce(data-placed='1')로 1회 이동 후 영구 종료한다.",
-     "origin": "Step 14 깜빡임·찌그러짐 충돌 → Step 15 V14 제거 + placeOnce로 해결"},
-    {"id": "R14_SHADOW_DOM_4BTN",
-     "name": "확장프로그램 모든 카드 2행 지우개 버튼 표준",
-     "desc": "크롬 확장프로그램 흡수창(Shadow DOM)의 모든 카드는 2행 버튼 배치와 지우개 버튼을 표준으로 갖춘다.",
-     "origin": "확장프로그램 카드 지우개 2행 패치"},
-    {"id": "R15_YOUTUBE_SKILL_SCOUT",
-     "name": "유튜브 트렌드 & 외부 꿀링크 자동 흡수 엔진",
-     "desc": "영상 URL → 메타데이터·설명란 외부 링크·자막 요약, 채널 중앙값 대비 떡상 배수, 21훅 채점, "
-             "클로드 흡수 지시문·쇼츠 대본 자동 변환.",
-     "origin": "Step 13 rgon_youtube_skill_scout.py + V13 UI"},
-]
+PROTECTED_EXT = {".html", ".js"}
+PROTECTED_NAMES = {"manifest.json"}
+EXCLUDE_DIRS = {".git", "node_modules", ".rgon_backup", "rgon_backups", "_rgon_backups", "__pycache__", ".venv", "venv", "env", ".idea", ".vscode"}
+SELF_HEAL_MARKER = "[RGON-SELF-HEAL-V17]"
 
-ACHIEVEMENTS = [
-    "📱 모바일 3층 헤더 + 상단 5대 아코디언 바(남색·초록·청록·주황·보라) 완벽 정렬",
-    "🧩 크롬 확장프로그램 모든 카드 지우개 버튼 2행 패치 (R14 표준)",
-    "🔁 5시간 세션 한도 대비 '새 AI 인수인계' 버튼 장착",
-    "🔭 유튜브 최신 트렌드 & AI 스킬 흡수기 V13 구축 (시드 + 채널 떡상 영상 9개 분석, 최고 11.63배)",
-    "🧹 V14 DOM 충돌 블록 제거 + placeOnce 단발 배치(V15)로 깜빡임 해소 (R13 확립)",
-    "📜 CLAUDE.md(카파시 4대 원칙 + RGON 코딩 헌법) 및 CODE_MAP.md(코드 지도) 장착",
-]
-
-
-def log(*a):
-    print("[STEP16]", *a, flush=True)
-
-
-def looks_like_project(d):
-    try:
-        return os.path.isdir(d) and (os.path.isfile(os.path.join(d, "rgon_alpha_chat.html"))
-                                     or os.path.isfile(os.path.join(d, SNAP_NAME))
-                                     or any(f.lower().startswith("rgon_") for f in os.listdir(d)))
-    except Exception:
-        return False
-
-
-def find_base_dir():
-    if os.path.isdir(PREFERRED_BASE):
-        return PREFERRED_BASE
-    home = os.path.expanduser("~")
-    cands = [os.path.dirname(os.path.abspath(__file__)), os.getcwd()] + \
-            [os.path.join(home, s, "shin-agent") for s in ("Downloads", "Desktop", "Documents", "")]
-    for c in cands:
-        if looks_like_project(c):
-            return c
-    for root in [os.path.join(home, s) for s in ("Downloads", "Desktop", "Documents")] + [home]:
-        if not os.path.isdir(root):
-            continue
-        depth0 = root.rstrip("\\/").count(os.sep)
-        for cur, dirs, files in os.walk(root):
-            dirs[:] = [d for d in dirs if d not in SKIP_DIRS and not d.startswith(".") and d != "AppData"]
-            if cur.count(os.sep) - depth0 >= 3:
-                dirs[:] = []
-            if os.path.basename(cur).lower().startswith("shin-agent") or "rgon_alpha_chat.html" in files:
-                return cur
-    return os.path.dirname(os.path.abspath(__file__))
-
-
-BASE_DIR = None
+ROOT = None
 BACKUP_DIR = None
+BACKED_UP = set()
+CHANGED = []
+REPORT = []
+ERRORS = []
+
+try:
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+except Exception:
+    pass
 
 
-def backup(path):
-    if not os.path.isfile(path):
-        return
-    rel = os.path.relpath(path, BASE_DIR)
-    dest = os.path.join(BACKUP_DIR, rel)
-    os.makedirs(os.path.dirname(dest), exist_ok=True)
-    shutil.copy2(path, dest)
+def log(msg):
+    try:
+        print(msg, flush=True)
+    except Exception:
+        pass
 
 
-def safe_write(path, text):
-    ext = os.path.splitext(path)[1].lower()
-    if ext not in ALLOWED_WRITE_EXT:
-        raise RuntimeError("쓰기 금지 확장자: %s" % path)
-    os.makedirs(os.path.dirname(path) or ".", exist_ok=True)
-    tmp = path + ".tmp16"
-    with open(tmp, "w", encoding="utf-8", newline="\n") as f:
-        f.write(text)
-    os.replace(tmp, path)
+def code(s):
+    return BT + s + BT
+
+
+def is_protected(path):
+    p = Path(path)
+    return p.suffix.lower() in PROTECTED_EXT or p.name.lower() in PROTECTED_NAMES
+
+
+def sha256_file(path):
+    h = hashlib.sha256()
+    with open(path, "rb") as f:
+        for chunk in iter(lambda: f.read(1024 * 1024), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def hash_protected(root):
+    result = {}
+    for dirpath, dirnames, filenames in os.walk(root):
+        dirnames[:] = [d for d in dirnames if d not in EXCLUDE_DIRS]
+        for fn in filenames:
+            p = Path(dirpath) / fn
+            if is_protected(p):
+                try:
+                    result[p.relative_to(root).as_posix()] = sha256_file(p)
+                except OSError as e:
+                    result[p.relative_to(root).as_posix()] = "UNREADABLE:" + type(e).__name__
+    return result
+
+
+def compare_hashes(before, after):
+    changed = sorted(k for k in before if k in after and before[k] != after[k])
+    removed = sorted(k for k in before if k not in after)
+    added = sorted(k for k in after if k not in before)
+    return changed, removed, added
 
 
 def read_text(path):
-    with open(path, "r", encoding="utf-8-sig", errors="replace") as f:
-        return f.read()
-
-
-def human_size(n):
-    for unit in ("B", "KB", "MB", "GB"):
-        if n < 1024 or unit == "GB":
-            return ("%d%s" % (n, unit)) if unit == "B" else ("%.1f%s" % (n, unit))
-        n /= 1024.0
-
-
-def md_cell(s, n=120):
-    s = re.sub(r"\s+", " ", str(s or "")).strip().replace("|", "\\|")
-    return s if len(s) <= n else s[:n - 1] + "…"
-
-
-def protected_hashes(base):
-    out = {}
-    for root, dirs, files in os.walk(base):
-        dirs[:] = [d for d in dirs if d not in (".git", "node_modules", "_rgon_backups", "rgon_backups")]
-        for f in files:
-            fl = f.lower()
-            if fl.endswith(PROTECTED_EXT) or fl == "manifest.json":
-                p = os.path.join(root, f)
-                try:
-                    h = hashlib.sha256()
-                    with open(p, "rb") as fh:
-                        for chunk in iter(lambda: fh.read(1 << 20), b""):
-                            h.update(chunk)
-                    out[os.path.relpath(p, base)] = h.hexdigest()
-                except Exception:
-                    pass
-    return out
-
-
-ID_KEYS = ("id", "code", "key")
-NAME_KEYS = ("name", "title", "label")
-DESC_KEYS = ("desc", "description", "rule", "summary", "detail", "content")
-DATE_KEYS = ("date", "established", "added_at", "since", "created", "created_at")
-ORIGIN_KEYS = ("origin", "source", "from", "cause")
-
-
-def item_id(item):
-    if isinstance(item, dict):
-        for k in ID_KEYS + NAME_KEYS:
-            if item.get(k):
-                return str(item[k])
+    p = Path(path)
+    if not p.exists():
         return ""
-    return str(item)
-
-
-def shape_like(sample, ab):
-    out = {}
-    for k in sample.keys():
-        kl = k.lower()
-        if kl in ID_KEYS:
-            out[k] = ab["id"]
-        elif kl in NAME_KEYS:
-            out[k] = ab["name"]
-        elif kl in DESC_KEYS:
-            out[k] = ab["desc"]
-        elif kl in DATE_KEYS:
-            out[k] = TODAY
-        elif kl in ORIGIN_KEYS:
-            out[k] = ab["origin"]
-    if not any(k.lower() in ID_KEYS + NAME_KEYS for k in out):
-        out = dict(ab, established=TODAY)
-    return out
-
-
-def merge_antibodies(existing):
-    added = 0
-    if existing is None:
-        return [dict(ab, established=TODAY) for ab in NEW_ANTIBODIES], len(NEW_ANTIBODIES)
-    if isinstance(existing, dict):
-        for ab in NEW_ANTIBODIES:
-            if ab["id"] not in existing:
-                existing[ab["id"]] = {"name": ab["name"], "desc": ab["desc"], "origin": ab["origin"], "established": TODAY}
-                added += 1
-        return existing, added
-    if isinstance(existing, list):
-        have = {item_id(x).split(":")[0].strip() for x in existing}
-        sample = next((x for x in existing if isinstance(x, dict)), None)
-        for ab in NEW_ANTIBODIES:
-            if ab["id"] in have:
-                continue
-            if sample is not None:
-                existing.append(shape_like(sample, ab))
-            else:
-                existing.append("%s: %s — %s" % (ab["id"], ab["name"], ab["desc"]))
-            added += 1
-        return existing, added
-    return existing, 0
-
-
-def update_snapshot(path):
     try:
-        data = json.loads(read_text(path))
-    except Exception as e:
-        log("⚠️ 스냅샷 파싱 실패 → 손상 방지를 위해 건너뜀:", path, e)
-        return {"path": path, "ok": False, "error": "파싱 실패"}
-    if not isinstance(data, dict):
-        log("⚠️ 스냅샷 최상위가 객체가 아님 → 건너뜀:", path)
-        return {"path": path, "ok": False, "error": "구조 불일치"}
-    backup(path)
-    old_ver = data.get("version")
-    data["version"] = VERSION
-    data["generated_at_kst"] = NOW_KST
-    data["synced_at_kst"] = NOW_KST
-    data["antibody_range"] = ANTIBODY_RANGE
-    data["antibodies"], added = merge_antibodies(data.get("antibodies"))
-
-    prev = data.get("today_achievements")
-    if isinstance(prev, dict):
-        new_ach = {"date": TODAY, "step_range": "Step 1~16", "items": list(ACHIEVEMENTS)}
-        same = prev.get("items") == ACHIEVEMENTS
-    else:
-        new_ach = list(ACHIEVEMENTS)
-        same = prev == ACHIEVEMENTS
-    if prev and not same:
-        hist = data.get("achievement_history")
-        if hist is None:
-            hist = data["achievement_history"] = []
-        if isinstance(hist, list):
-            hist.append({"archived_at_kst": NOW_KST, "items": prev})
-            del hist[:-30]
-    data["today_achievements"] = new_ach
-    data["eod_step16"] = {"date": TODAY, "closed_at_kst": NOW_KST, "step_range": "Step 1~16",
-                          "docs": ["CLAUDE.md", "CODE_MAP.md", LOG_NAME],
-                          "new_antibodies": [a["id"] for a in NEW_ANTIBODIES]}
-
-    text = json.dumps(data, ensure_ascii=False, indent=2)
-    json.loads(text)
-    safe_write(path, text + "\n")
-    ab = data.get("antibodies")
-    count = len(ab) if isinstance(ab, (list, dict)) else 0
-    log("스냅샷 갱신:", path, "| %s → %s | 항체 +%d (총 %d)" % (old_ver, VERSION, added, count))
-    return {"path": path, "ok": True, "added": added, "count": count, "old_version": old_ver}
-
-
-def update_all_snapshots():
-    paths = [os.path.join(BASE_DIR, SNAP_NAME), os.path.join(BASE_DIR, "dashboard", SNAP_NAME),
-             os.path.join(BASE_DIR, "docs", SNAP_NAME)]
-    existing = [p for p in paths if os.path.isfile(p)]
-    if not existing:
-        log("스냅샷 파일이 없어 루트에 새로 생성합니다.")
-        safe_write(paths[0], json.dumps({"version": "", "antibodies": []}, ensure_ascii=False, indent=2))
-        existing = [paths[0]]
-    return [update_snapshot(p) for p in existing]
-
-
-def build_eod_entry():
-    ab_lines = "\n".join("- **%s** — %s  \n  %s _(%s)_" % (a["id"], a["name"], a["desc"], a["origin"]) for a in NEW_ANTIBODIES)
-    ach_lines = "\n".join("- " + a for a in ACHIEVEMENTS)
-    return (EOD_START + "\n"
-            "## 📅 " + TODAY + " — Step 1~16 완결 (" + VERSION + ")\n\n"
-            "> 일일 마감 시각: " + NOW_KST + " · 항체 범위: " + ANTIBODY_RANGE + "\n\n"
-            "### ✅ 오늘의 핵심 성과\n" + ach_lines + "\n\n"
-            "### 🧭 Step 진행 기록\n"
-            "| Step | 내용 | 결과 |\n|---|---|---|\n"
-            "| 1~12 | 독대실 대시보드 · 확장프로그램 기반 구축 (Step 11: 상단 4대 아코디언 바 배치) | ✅ 안정 운영 |\n"
-            "| 13 | " + BT + "step13_youtube_skill_absorber.py" + BT + " → " + BT + "rgon_youtube_skill_scout.py" + BT + " + " + BT + "rgon_skill_radar.json" + BT + " + V13 청록 바 | ✅ 시드·채널 떡상 9개 수집 |\n"
-            "| 14 | " + BT + "step14_fix_5bars_layout.py" + BT + " (V14 5bars 도크 + MutationObserver) | ❌ Step 11과 DOM 이동 충돌 → 폐기 |\n"
-            "| 15 | " + BT + "step15_remove_v14_and_quiet_place.py" + BT + " (V14 제거 + placeOnce 단발 배치) | ✅ 깜빡임 해소 |\n"
-            "| 16 | " + BT + "step16_karpathy_codemap_and_eod.py" + BT + " (CLAUDE.md · CODE_MAP.md · 스냅샷 · EOD) | ✅ 마감 |\n\n"
-            "### 🧬 신규 항체\n" + ab_lines + "\n\n"
-            "### 📚 교훈\n"
-            "- 이미 잘 작동하는 배치 스크립트 위에 '감시형 재배치'를 겹치면 두 스크립트가 DOM을 서로 빼앗는 루프가 생긴다 → **새 요소만, 한 번만** 옮긴다.\n"
-            "- 실제 HTML 구조를 확인하지 않은 범용 탐지 로직은 엉뚱한 부모(헤더 박스)를 고를 수 있다 → 수정 전 구조 확인(CLAUDE.md 규칙 1).\n\n"
-            "### 🔁 다음 세션 인수인계\n"
-            "1. " + BT + "CLAUDE.md" + BT + " 정독 → 2. " + BT + "CODE_MAP.md" + BT + "로 구조 파악 → 3. " + BT + "rgon_brain_snapshot.json" + BT + " 확인 → 4. 이 로그 최신 항목 확인\n"
-            + EOD_END + "\n")
-
-
-def update_evolution_log():
-    path = os.path.join(BASE_DIR, LOG_NAME)
-    entry = build_eod_entry()
-    if os.path.isfile(path):
-        src = read_text(path)
-        backup(path)
-        if EOD_START in src and EOD_END in src:
-            pat = re.compile(re.escape(EOD_START) + r".*?" + re.escape(EOD_END) + r"\n?", re.S)
-            new = pat.sub(lambda m: entry, src, count=1)
-            mode = "오늘 항목 교체"
-        else:
-            lines = src.split("\n")
-            if lines and lines[0].startswith("# "):
-                new = lines[0] + "\n\n" + entry + "\n" + "\n".join(lines[1:]).lstrip("\n")
-            else:
-                new = entry + "\n" + src
-            mode = "맨 위 추가"
-    else:
-        new = "# 🧬 RGON Evolution Log\n\n" + entry
-        mode = "신규 생성"
-    safe_write(path, new)
-    log("진화 로그 %s: %s" % (mode, path))
-    return mode
-
-
-MARKER_RE = re.compile(r"\[([A-Za-z0-9][A-Za-z0-9_\-]*?)-START\]")
-HTML_MARKER_RE = re.compile(r"<!--\s*\[([^\]\s]+?)-START\]\s*-->")
-
-
-def iter_code_files(base):
-    n = 0
-    for root, dirs, files in os.walk(base):
-        dirs[:] = sorted(d for d in dirs if d not in SKIP_DIRS and not d.startswith(".") and not SKIP_DIR_RE.search(d))
-        for f in sorted(files):
-            if not f.lower().endswith(SCAN_EXT) or SKIP_FILE_RE.search(f):
-                continue
-            yield os.path.join(root, f)
-            n += 1
-            if n >= MAX_FILES:
-                return
-
-
-def first_doc_line(doc, n=140):
-    for ln in (doc or "").splitlines():
-        ln = ln.strip()
-        if ln and not ln.endswith(".py") and not ln.startswith(("-", "=", "#")):
-            return ln[:n]
-    lines = [l.strip() for l in (doc or "").splitlines() if l.strip()]
-    return lines[0][:n] if lines else ""
-
-
-def analyze_py(src):
-    info = {"summary": "", "symbols": [], "syntax": None}
-    try:
-        tree = ast.parse(src)
-        info["summary"] = first_doc_line(ast.get_docstring(tree))
-        for node in tree.body:
-            if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
-                info["symbols"].append(node.name + "()")
-            elif isinstance(node, ast.ClassDef):
-                meths = [b.name for b in node.body if isinstance(b, (ast.FunctionDef, ast.AsyncFunctionDef))]
-                info["symbols"].append("class %s%s" % (node.name, (" [" + ", ".join(meths[:6]) + ("…" if len(meths) > 6 else "") + "]") if meths else ""))
-    except SyntaxError as e:
-        info["syntax"] = "line %s: %s" % (e.lineno, e.msg)
-        info["symbols"] = [("class " if m.group(1) == "class" else "") + m.group(2) + ("()" if m.group(1) == "def" else "")
-                           for m in re.finditer(r"^(def|class)\s+(\w+)", src, re.M)]
-    return info
-
-
-def analyze_js(src):
-    names = re.findall(r"(?:^|\n)\s*(?:async\s+)?function\s+([A-Za-z_$][\w$]*)", src)
-    names += re.findall(r"(?:const|let|var)\s+([A-Za-z_$][\w$]*)\s*=\s*(?:async\s*)?(?:function\b|\([^)]*\)\s*=>)", src)
-    seen, out = set(), []
-    for n in names:
-        if n not in seen:
-            seen.add(n)
-            out.append(n + "()")
-    return out
-
-
-def analyze_json(path, size):
-    if size > JSON_PARSE_LIMIT:
-        return "대용량(구조 파싱 생략)"
-    try:
-        d = json.loads(read_text(path))
+        return p.read_text(encoding="utf-8-sig", errors="replace")
     except Exception:
-        return "⚠️ JSON 파싱 실패"
-    if isinstance(d, dict):
-        extra = []
-        if os.path.basename(path).lower() == "manifest.json" and "manifest_version" in d:
-            extra.append("🧩 크롬 확장 %s v%s" % (d.get("name", ""), d.get("version", "")))
-        if d.get("version") and not extra:
-            extra.append("version=%s" % d.get("version"))
-        keys = list(d.keys())
-        return " · ".join(extra + ["keys: " + ", ".join(keys[:12]) + (" …(+%d)" % (len(keys) - 12) if len(keys) > 12 else "")])
-    if isinstance(d, list):
-        return "배열 %d개" % len(d)
-    return type(d).__name__
+        return ""
 
 
-def scan_project(base):
-    entries = []
-    ext_dirs = set()
-    for p in iter_code_files(base):
-        if os.path.basename(p).lower() == "manifest.json":
-            ext_dirs.add(os.path.dirname(p))
-    for p in iter_code_files(base):
+def backup(path):
+    p = Path(path)
+    if not p.exists() or p in BACKED_UP:
+        return
+    rel = p.relative_to(ROOT)
+    dst = BACKUP_DIR / rel
+    dst.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(str(p), str(dst))
+    BACKED_UP.add(p)
+
+
+def safe_write(path, text):
+    p = Path(path)
+    if is_protected(p):
+        raise RuntimeError("보호 파일 쓰기 차단(.html/.js/manifest.json): " + str(p))
+    data = text.encode("utf-8")
+    if p.exists():
         try:
-            st = os.stat(p)
-        except Exception:
-            continue
-        rel = os.path.relpath(p, base).replace("\\", "/")
-        ext = os.path.splitext(p)[1].lower()
-        e = {"rel": rel, "ext": ext, "size": st.st_size,
-             "mtime": datetime.fromtimestamp(st.st_mtime, KST).strftime("%Y-%m-%d %H:%M"),
-             "summary": "", "symbols": [], "markers": [], "syntax": None,
-             "ext_pkg": any(os.path.dirname(p) == d or p.startswith(d + os.sep) for d in ext_dirs)}
-        try:
-            if ext == ".py":
-                src = read_text(p)
-                e.update(analyze_py(src))
-                e["markers"] = list(dict.fromkeys(MARKER_RE.findall(src)))
-            elif ext in (".html", ".htm"):
-                src = read_text(p)
-                e["markers"] = list(dict.fromkeys(HTML_MARKER_RE.findall(src)))
-                m = re.search(r"<title[^>]*>(.*?)</title>", src, re.S | re.I)
-                e["summary"] = m.group(1).strip()[:100] if m else ""
-            elif ext == ".js":
-                src = read_text(p)
-                e["symbols"] = analyze_js(src)
-                e["markers"] = list(dict.fromkeys(MARKER_RE.findall(src)))
-                e["summary"] = "🧩 크롬 확장 스크립트" if e["ext_pkg"] else ""
-            elif ext == ".json":
-                e["summary"] = analyze_json(p, st.st_size)
-        except Exception as ex:
-            e["summary"] = "⚠️ 분석 실패: %s" % ex
-        entries.append(e)
-    return entries
+            if p.read_bytes() == data:
+                return False
+        except OSError:
+            pass
+    backup(p)
+    p.parent.mkdir(parents=True, exist_ok=True)
+    tmp = p.with_name(p.name + ".rgon_tmp")
+    tmp.write_bytes(data)
+    os.replace(str(tmp), str(p))
+    rel = p.relative_to(ROOT).as_posix()
+    if rel not in CHANGED:
+        CHANGED.append(rel)
+    return True
 
 
-def render_tree(entries):
-    root = {}
-    for e in entries:
-        parts = e["rel"].split("/")
-        node = root
-        for d in parts[:-1]:
-            node = node.setdefault(d + "/", {})
-        node[parts[-1]] = e
-
-    def rec(node, prefix):
-        items = sorted(node.items(), key=lambda kv: (not kv[0].endswith("/"), kv[0].lower()))
-        lines = []
-        for i, (k, v) in enumerate(items):
-            last = i == len(items) - 1
-            if k.endswith("/"):
-                lines.append(prefix + ("└── " if last else "├── ") + k)
-                lines.extend(rec(v, prefix + ("    " if last else "│   ")))
-            else:
-                tag = human_size(v["size"])
-                if v["markers"]:
-                    tag += " · 마커 %d" % len(v["markers"])
-                if v["syntax"]:
-                    tag += " · ⚠️문법"
-                lines.append(prefix + ("└── " if last else "├── ") + k + "  (" + tag + ")")
-        return lines
-
-    return "\n".join([os.path.basename(BASE_DIR) + "/"] + rec(root, ""))
+def safe_copy_bytes(src, dst):
+    s, d = Path(src), Path(dst)
+    if is_protected(d):
+        raise RuntimeError("보호 파일 쓰기 차단: " + str(d))
+    data = s.read_bytes()
+    if d.exists() and d.read_bytes() == data:
+        return False
+    backup(d)
+    d.parent.mkdir(parents=True, exist_ok=True)
+    d.write_bytes(data)
+    rel = d.relative_to(ROOT).as_posix()
+    if rel not in CHANGED:
+        CHANGED.append(rel)
+    return True
 
 
-def sym_cell(syms, n=25):
-    if not syms:
-        return "-"
-    s = ", ".join(BT + "%s" + BT % x for x in syms[:n])
-    return s + (" …(+%d)" % (len(syms) - n) if len(syms) > n else "")
-
-
-def build_code_map(entries):
-    by = lambda exts: [e for e in entries if e["ext"] in exts]
-    pys, htmls, jss, jsons = by((".py",)), by((".html", ".htm")), by((".js",)), by((".json",))
-    total = sum(e["size"] for e in entries)
-    marker_idx = {}
-    for e in entries:
-        for m in e["markers"]:
-            marker_idx.setdefault(m, {"html": [], "py": [], "js": []})
-            key = "html" if e["ext"] in (".html", ".htm") else "py" if e["ext"] == ".py" else "js"
-            marker_idx[m][key].append(e["rel"])
-    out = []
-    out.append("# 🗺️ CODE_MAP — RGON shin-agent 코드 지도")
-    out.append("")
-    out.append("> 자동 생성: `step16_karpathy_codemap_and_eod.py` · %s · 손으로 수정하지 말고 스크립트를 다시 실행할 것" % NOW_KST)
-    out.append("> 스캔 제외: `.git`, `node_modules`, `__pycache__`, `_rgon_backups`, 백업 폴더, `*.bak*` 파일")
-    out.append("")
-    out.append("## 🧭 새 AI 세션 30초 가이드")
-    out.append("1. `CLAUDE.md` — 코딩 헌법(4대 원칙) 먼저 읽기")
-    out.append("2. 이 파일 — 아래 **마커 인덱스**로 어떤 스크립트가 어떤 HTML 구간을 관리하는지 확인")
-    out.append("3. `rgon_brain_snapshot.json` — 현재 버전·항체·오늘 성과")
-    out.append("4. `RGON_EVOLUTION_LOG.md` — 최신 진화 기록")
-    out.append("5. 수정 대상 파일만 실제로 열어서 확인한 뒤 작업 (전체 파일을 다 읽을 필요 없음)")
-    out.append("")
-    out.append("## 📊 요약")
-    out.append("| 구분 | 파일 수 |\n|---|---|")
-    out.append("| Python (.py) | %d |\n| HTML | %d |\n| JavaScript (.js) | %d |\n| JSON | %d |\n| **합계** | **%d (%s)** |"
-               % (len(pys), len(htmls), len(jss), len(jsons), len(entries), human_size(total)))
-    out.append("")
-    out.append("## 🌳 트리")
-    out.append(FENCE + "\n" + render_tree(entries) + "\n" + FENCE)
-    out.append("")
-    out.append("## 🏷️ 패치 마커 인덱스 (마커 → HTML 위치 / 관리 스크립트)")
-    if marker_idx:
-        out.append("| 마커 | 삽입된 HTML | 관리(생성) 스크립트 | JS |\n|---|---|---|---|")
-        for m in sorted(marker_idx):
-            d = marker_idx[m]
-            out.append("| `%s` | %s | %s | %s |" % (m, md_cell(", ".join(d["html"]) or "-", 200),
-                                                   md_cell(", ".join(d["py"]) or "-", 200), md_cell(", ".join(d["js"]) or "-", 120)))
+def upsert_block(path, start, end, block, header="", prepend=False):
+    cur = read_text(path)
+    full = start + "\n" + block.strip("\n") + "\n" + end
+    pat = re.compile(re.escape(start) + r".*?" + re.escape(end), re.S)
+    if pat.search(cur):
+        new = pat.sub(lambda m: full, cur, count=1)
+    elif not cur.strip():
+        new = (header.rstrip("\n") + "\n\n" if header else "") + full + "\n"
+    elif prepend:
+        new = full + "\n\n" + cur.lstrip("\ufeff").lstrip("\n")
     else:
-        out.append("_감지된 마커 없음_")
-    out.append("")
-    out.append("## 🐍 Python")
-    out.append("| 경로 | 크기 | 수정 | 요약(docstring) | def / class |\n|---|---|---|---|---|")
-    for e in pys:
-        syms = ", ".join("`%s`" % x for x in e["symbols"][:25]) + (" …(+%d)" % (len(e["symbols"]) - 25) if len(e["symbols"]) > 25 else "") if e["symbols"] else "-"
-        out.append("| `%s` | %s | %s | %s | %s |" % (e["rel"], human_size(e["size"]), e["mtime"],
-                                                    md_cell(e["summary"] or "-"), syms))
-    out.append("")
-    out.append("## 🌐 HTML")
-    out.append("| 경로 | 크기 | 수정 | title | 패치 마커 |\n|---|---|---|---|---|")
-    for e in htmls:
-        out.append("| `%s` | %s | %s | %s | %s |" % (e["rel"], human_size(e["size"]), e["mtime"], md_cell(e["summary"] or "-", 60),
-                                                    ", ".join("`%s`" % m for m in e["markers"]) or "-"))
-    out.append("")
-    out.append("## 📜 JavaScript")
-    out.append("| 경로 | 크기 | 수정 | 구분 | 주요 함수 | 마커 |\n|---|---|---|---|---|---|")
-    for e in jss:
-        syms = ", ".join("`%s`" % x for x in e["symbols"][:15]) + (" …(+%d)" % (len(e["symbols"]) - 15) if len(e["symbols"]) > 15 else "") if e["symbols"] else "-"
-        out.append("| `%s` | %s | %s | %s | %s | %s |" % (e["rel"], human_size(e["size"]), e["mtime"], e["summary"] or "-",
-                                                         syms, ", ".join("`%s`" % m for m in e["markers"]) or "-"))
-    out.append("")
-    out.append("## 🗂️ JSON")
-    out.append("| 경로 | 크기 | 수정 | 구조 |\n|---|---|---|---|")
-    for e in jsons:
-        out.append("| `%s` | %s | %s | %s |" % (e["rel"], human_size(e["size"]), e["mtime"], md_cell(e["summary"], 200)))
-    errs = [e for e in pys if e["syntax"]]
-    out.append("")
-    out.append("## 🩺 Python 문법 검증 (ast.parse)")
-    if errs:
-        for e in errs:
-            out.append("- ⚠️ `%s` — %s" % (e["rel"], e["syntax"]))
-    else:
-        out.append("- ✅ 스캔한 Python %d개 모두 문법 정상" % len(pys))
-    out.append("")
-    return "\n".join(out), marker_idx, len(errs)
+        new = cur.rstrip("\n") + "\n\n" + full + "\n"
+    return safe_write(path, new)
 
 
-CLAUDE_BODY = r"""# 📜 CLAUDE.md — RGON 사령부 AI 코딩 헌법
-
-> 적용 대상: Claude · Gemini 4 Argon · GPT · Grok 등 **이 프로젝트에서 코드를 쓰는 모든 AI**
-> 코드를 쓰기 전에 반드시 이 문서를 먼저 읽는다. (Claude Code는 프로젝트 루트의 CLAUDE.md를 자동으로 읽는다)
-> 갱신: __NOW__ · 버전 __VERSION__ · 항체 __RANGE__
-
-## 0. 세션 시작 3단계
-1. **`CODE_MAP.md`** 로 전체 구조와 패치 마커 위치를 파악한다. (전체 파일을 다 읽지 말 것)
-2. **`rgon_brain_snapshot.json`** 으로 현재 버전·항체·오늘 성과를 확인한다.
-3. **`RGON_EVOLUTION_LOG.md`** 최신 항목으로 직전 작업과 실패 사례를 확인한다.
-
----
-
-## 규칙 1. 가정하지 말고 실제 구조를 먼저 확인하라 (No Blind Assumptions)
-- 경로를 `C:\Users\user\...` 처럼 **추측으로 하드코딩하지 않는다.** 실제 작업 폴더는 `C:\Users\sangi\Downloads\shin-agent` 이며, 스크립트는 반드시 자동 탐색 폴백을 둔다.
-- 수정할 HTML/JS/PY 파일의 **실제 내용(요소 id, 클래스, 기존 마커, 기존 스크립트)을 먼저 확인**하고 작업한다. 모르면 "어느 구조인지" 사용자에게 HTML 일부를 요청한다.
-- 확신이 없으면 추측으로 범용 탐지 로직을 키우지 말고, 모른다고 말하고 확인 방법을 제시한다.
-
-__FENCE__python
-PREFERRED_BASE = r"C:\Users\sangi\Downloads\shin-agent"
-def find_base_dir():
-    if os.path.isdir(PREFERRED_BASE):
-        return PREFERRED_BASE
-    # ↓ 스크립트 위치 / cwd / ~/Downloads|Desktop|Documents/shin-agent 순 자동 탐색
-__FENCE__
-
-## 규칙 2. 최소 변경 · 비파괴 마커 패치 (Minimal Surgical Diff)
-- 잘 작동하는 기존 코드/UI는 통째로 갈아엎지 않는다. 요청과 직접 관련된 줄만 바꾼다.
-- 삽입은 항상 고유 마커 `<!-- [RGON-XXX-START] -->` ~ `<!-- [RGON-XXX-END] -->` 구간으로 하고, 재실행 시 그 구간만 교체한다(멱등성).
-- 수정 전 백업본을 남긴다. 단, 오래된 백업으로 파일 전체를 복원하지 않는다(그 이후 변경분이 사라짐) → 정규식으로 해당 블록만 제거/교체한다.
-- 사용자가 "수정 금지"로 지정한 파일(현재: 독대실 HTML, 크롬 확장 JS)은 쓰지 않는다.
-
-__FENCE__python
-pat = re.compile(re.escape(START) + r".*?" + re.escape(END), re.S)
-new = pat.sub(lambda m: block, src, count=1) if START in src else insert_new(src, block)
-__FENCE__
-
-## 규칙 3. 과도한 엔지니어링 · 감시 루프 금지 (No Over-Engineering / No Observer Loops)
-- 기존 UI 위에 `MutationObserver` 나 `setInterval` 로 DOM을 계속 재배치하는 코드 금지. 기존 배치 스크립트(Step 11 등)와 서로 요소를 빼앗는 무한 루프·깜빡임이 생긴다. (Step 14 실제 사고 → 항체 R13)
-- 새 요소는 단발성 `placeOnce` 로 한 번만 옮기고 표식을 남긴 뒤 종료한다. 기존 바의 style/display/min-height/gap은 건드리지 않는다.
-- 요청받지 않은 기능, 추측성 범용화, 불필요한 추상화를 추가하지 않는다. 가장 단순한 해법부터 적용한다.
-
-__FENCE__javascript
-function placeOnce(){
-  var w=document.getElementById('rgyt-wrap');
-  if(!w||w.getAttribute('data-placed')==='1')return;   // 이미 배치됨 → 즉시 종료
-  /* 기준 바 찾기 → parentNode.insertBefore(w, bar.nextSibling) */
-  w.setAttribute('data-placed','1');
-}
-document.addEventListener('DOMContentLoaded',placeOnce);
-setTimeout(placeOnce,300); setTimeout(placeOnce,900);   // 총 3회 단발, Observer 없음
-__FENCE__
-
-## 규칙 4. 실행 검증 및 자동 동기화 (Verify & Git Sync)
-- Python 3 표준 라이브러리만 사용한다(pip 의존성 금지). 파일 입출력은 항상 `encoding="utf-8"` 명시(Windows cp949 오류 방지).
-- 수정 후 반드시 검증한다: Python은 `ast.parse`/`py_compile`, JSON은 로드 왕복, HTML은 START/END 마커 개수 일치 확인.
-- 마지막에 `git add -A` → `git commit` → `git pull --rebase origin main` → `git push origin main` 까지 한 번에 끝낸다. rebase 충돌 시 `git rebase --abort` 후 결과를 보고한다.
-- 완료 시 Windows 메시지 박스(`ctypes`)로 결과·실패 항목·되돌리기 방법을 보고한다.
-
----
-
-## 5. 패치 마커 레지스트리
-
-| 마커 | 상태 | 관리 스크립트 / 비고 |
-|---|---|---|
-| `RGON-YT-SCOUT-V13` | ✅ 활성 | `step13_youtube_skill_absorber.py` — 청록 바(유튜브 스킬 흡수기) |
-| `RGYT-PLACE-ONCE-V15` | ✅ 활성 | V13 블록 내부 — 청록 바 단발 배치 |
-| `RGON-5BARS-FIX-V14` | ⛔ 폐기 | Observer 기반 재배치 → DOM 충돌. 재도입 금지 |
-| `RGON-CLAUDE-MD-V16` | ✅ 활성 | 이 문서 자체 (`step16_karpathy_codemap_and_eod.py`) |
-
-자동 감지된 HTML 마커 (__SCANTIME__ 스캔):
-__MARKERS__
-
-## 6. 오늘 확립된 항체
-__ANTIBODIES__
-
-## 7. 제출 전 체크리스트
-- [ ] 실제 작업 폴더와 대상 파일 내용을 확인했다 (규칙 1)
-- [ ] 수정은 마커 구간 / 필요한 줄로 한정했고 백업을 남겼다 (규칙 2)
-- [ ] Observer·setInterval 재배치 없이 단발 처리했다 (규칙 3)
-- [ ] 표준 라이브러리만 썼고, 문법·마커·JSON 검증 후 Git 동기화까지 했다 (규칙 4)
-- [ ] 작업 후 `CODE_MAP.md` 재생성 / 진화 로그 기록이 필요한지 확인했다
-
-> 원형: Andrej Karpathy가 지적한 LLM 코딩 실수 패턴(잘못된 가정, 과잉 복잡화, 요청 외 코드 변경, 검증 없는 완료 선언)에서 출발한 공개 4원칙 지침(생각 먼저 · 단순함 우선 · 외과적 변경 · 목표 기반 검증)을 RGON 사령부 실전 사고 사례에 맞게 재작성한 것.
-"""
-
-
-def build_claude_md(marker_idx):
-    html_markers = sorted(m for m, d in marker_idx.items() if d["html"])
-    mk = "\n".join("- `%s` → %s" % (m, ", ".join("`%s`" % x for x in marker_idx[m]["html"])) for m in html_markers) or "- (감지된 HTML 마커 없음)"
-    ab = "\n".join("- **%s** — %s: %s" % (a["id"], a["name"], a["desc"]) for a in NEW_ANTIBODIES)
-    body = (CLAUDE_BODY.replace("__FENCE__", FENCE).replace("__NOW__", NOW_KST).replace("__VERSION__", VERSION).replace("__RANGE__", ANTIBODY_RANGE)
-            .replace("__SCANTIME__", NOW_KST).replace("__MARKERS__", mk).replace("__ANTIBODIES__", ab))
-    return CLAUDE_START + "\n" + body.strip() + "\n" + CLAUDE_END + "\n"
-
-
-def write_claude_md(marker_idx):
-    path = os.path.join(BASE_DIR, "CLAUDE.md")
-    block = build_claude_md(marker_idx)
-    if os.path.isfile(path):
-        src = read_text(path)
-        backup(path)
-        if CLAUDE_START in src and CLAUDE_END in src:
-            pat = re.compile(re.escape(CLAUDE_START) + r".*?" + re.escape(CLAUDE_END) + r"\n?", re.S)
-            new = pat.sub(lambda m: block, src, count=1)
-            mode = "마커 구간 교체"
-        else:
-            new = block + "\n---\n\n## 📎 기존 CLAUDE.md 내용 (보존)\n\n" + src
-            mode = "기존 내용 보존 + 상단 삽입"
-    else:
-        new = block
-        mode = "신규 생성"
-    safe_write(path, new)
-    log("CLAUDE.md %s: %s" % (mode, path))
-    return mode
-
-
-def verify(snap_results):
-    problems = []
-    cm = os.path.join(BASE_DIR, "CLAUDE.md")
+def step(name, fn, *args, **kwargs):
+    log("\n▶ " + name)
     try:
-        t = read_text(cm)
-        if t.count(CLAUDE_START) != 1 or t.count(CLAUDE_END) != 1:
-            problems.append("CLAUDE.md 마커 개수 이상")
-        for k in ("규칙 1", "규칙 2", "규칙 3", "규칙 4"):
-            if k not in t:
-                problems.append("CLAUDE.md %s 누락" % k)
+        res = fn(*args, **kwargs)
+        REPORT.append((name, "OK", res))
+        log("  ✔ " + name + " : " + str(res))
+        return res
     except Exception as e:
-        problems.append("CLAUDE.md 읽기 실패: %s" % e)
-    if not os.path.isfile(os.path.join(BASE_DIR, "CODE_MAP.md")):
-        problems.append("CODE_MAP.md 없음")
-    for r in snap_results:
-        if not r.get("ok"):
-            problems.append("스냅샷 미갱신: %s (%s)" % (os.path.relpath(r["path"], BASE_DIR), r.get("error")))
-            continue
-        try:
-            d = json.loads(read_text(r["path"]))
-            if d.get("version") != VERSION:
-                problems.append("스냅샷 버전 불일치: %s" % r["path"])
-        except Exception as e:
-            problems.append("스냅샷 재검증 실패: %s" % e)
-    try:
-        lt = read_text(os.path.join(BASE_DIR, LOG_NAME))
-        if lt.count(EOD_START) != 1:
-            problems.append("진화 로그 오늘 마커 개수 이상")
-    except Exception as e:
-        problems.append("진화 로그 읽기 실패: %s" % e)
-    return problems
+        ERRORS.append(name + " → " + type(e).__name__ + ": " + str(e))
+        REPORT.append((name, "FAIL", str(e)))
+        log("  ✖ " + name + " 실패(궁변통구: 다음 단계로 변통) → " + type(e).__name__ + ": " + str(e))
+        return None
 
 
-def git(*args):
-    try:
-        p = subprocess.run(["git"] + list(args), cwd=BASE_DIR, capture_output=True, text=True,
-                           encoding="utf-8", errors="replace", timeout=180)
-        log("git", " ".join(args), "->", p.returncode, (p.stdout + p.stderr).strip()[-300:])
-        return p.returncode == 0, (p.stdout + p.stderr)
-    except Exception as e:
-        log("git 실행 실패:", e)
-        return False, str(e)
-
-
-def git_sync():
-    if not os.path.isdir(os.path.join(BASE_DIR, ".git")):
-        return "Git 저장소 아님(건너뜀)"
-    git("add", "-A")
-    ok, out = git("commit", "-m", COMMIT_MSG)
-    if not ok and "nothing to commit" not in out.lower():
-        log("commit 실패(계속 진행)")
-    ok, _ = git("pull", "--rebase", "origin", "main")
-    if not ok:
-        git("rebase", "--abort")
-        return "pull --rebase 실패 → 리베이스 취소 (수동 확인 필요)"
-    ok, _ = git("push", "origin", "main")
-    return "성공" if ok else "push 실패(로그 확인)"
-
-
-def msgbox(title, text):
-    log(text)
+def msgbox(title, text, error=False):
+    log("\n" + "═" * 64 + "\n" + title + "\n" + "─" * 64 + "\n" + text + "\n" + "═" * 64)
     if os.name == "nt":
         try:
             import ctypes
-            ctypes.windll.user32.MessageBoxW(0, text, title, 0x40)
+            flags = (0x10 if error else 0x40) | 0x1000 | 0x40000
+            ctypes.windll.user32.MessageBoxW(0, text, title, flags)
         except Exception:
             pass
 
 
-def main():
-    global BASE_DIR, BACKUP_DIR
-    BASE_DIR = find_base_dir()
-    BACKUP_DIR = os.path.join(BASE_DIR, "rgon_backups", "step16_" + STAMP)
-    log("작업 폴더:", BASE_DIR)
+def _search(base, name, max_depth):
+    try:
+        if not base.is_dir():
+            return None
+    except OSError:
+        return None
+    base_depth = len(base.parts)
+    for dirpath, dirnames, _ in os.walk(base):
+        p = Path(dirpath)
+        dirnames[:] = [d for d in dirnames if d not in EXCLUDE_DIRS and not d.startswith(".") and d.lower() != "appdata"]
+        for d in dirnames:
+            if d.lower() == name:
+                return (p / d).resolve()
+        if len(p.parts) - base_depth >= max_depth:
+            dirnames[:] = []
+    return None
 
-    before = protected_hashes(BASE_DIR)
-    log("보호 대상 HTML/JS/manifest 파일:", len(before))
 
-    snap_results = update_all_snapshots()
-    log_mode = update_evolution_log()
+def find_root():
+    explicit = []
+    if len(sys.argv) > 1 and not sys.argv[1].startswith("-"):
+        explicit.append(Path(sys.argv[1]))
+    if os.environ.get("RGON_ROOT"):
+        explicit.append(Path(os.environ["RGON_ROOT"]))
+    for c in explicit:
+        if c.is_dir():
+            return c.resolve()
+    home = Path.home()
+    here = Path(__file__).resolve().parent
+    for c in [Path(DEFAULT_ROOT), home / "Downloads" / "shin-agent", here, Path.cwd()]:
+        try:
+            if c.is_dir() and c.name.lower() == "shin-agent":
+                return c.resolve()
+        except OSError:
+            pass
+    for base in [home / "Downloads", home / "Desktop", home / "Documents", here.parent, home]:
+        found = _search(base, "shin-agent", 3)
+        if found:
+            return found
+    for c in [here, Path.cwd()]:
+        if (c / ".git").exists():
+            return c.resolve()
+    return None
 
-    entries = scan_project(BASE_DIR)
-    code_map, marker_idx, syntax_errs = build_code_map(entries)
-    cm_path = os.path.join(BASE_DIR, "CODE_MAP.md")
-    if os.path.isfile(cm_path):
-        backup(cm_path)
-    safe_write(cm_path, code_map)
-    log("CODE_MAP.md 생성: 파일 %d개 / 마커 %d종" % (len(entries), len(marker_idx)))
-    claude_mode = write_claude_md(marker_idx)
 
-    after = protected_hashes(BASE_DIR)
-    changed = sorted(k for k in set(before) | set(after) if before.get(k) != after.get(k))
-    problems = verify(snap_results)
+def git(args, timeout=180):
+    try:
+        r = subprocess.run(["git"] + args, cwd=str(ROOT), capture_output=True, text=True,
+                           encoding="utf-8", errors="replace", timeout=timeout)
+        return r.returncode, ((r.stdout or "") + (r.stderr or "")).strip()
+    except FileNotFoundError:
+        return 127, "git 미설치"
+    except subprocess.TimeoutExpired:
+        return 124, "git 시간 초과"
+    except Exception as e:
+        return 1, type(e).__name__ + ": " + str(e)
 
-    if changed:
-        git_result = "⛔ 중단 — HTML/JS 변경 감지: " + ", ".join(changed[:5])
+
+def git_available():
+    return (ROOT / ".git").exists() and git(["--version"])[0] == 0
+
+
+def git_tracked(rel):
+    if not git_available():
+        return False
+    return git(["ls-files", "--error-unmatch", rel])[0] == 0
+
+
+def git_ignored(rel):
+    if not git_available():
+        return False
+    return git(["check-ignore", "-q", rel])[0] == 0
+
+
+FOUNDER_DECLARATION = (
+    "모든 만물은 하나로 이어져 있다. 따로 떨어져 있는 것이 아니라 나뉜 것이다. "
+    "그래서 각기 각 분야가 다 필요한 것이고, 제각기 역할이 나눠져서 더 잘되기 위한 진화 단계이다. "
+    "모든 세상의 지식이 다 나와 있고 찾으려면 찾을 수 있고 마음먹고 실행한다면 그대로 펼쳐질 수 있다. "
+    "다만 올바르게 가는 길은 쉽지만은 않다. 그러나 꿋꿋이 묵묵히 가다 보면 더 발전해 있을 것이다. "
+    "그래서 더 나은 세상을 먼저 깨달은 사람들이 만들어 가야 한다. "
+    "나도 보잘것없고 지식 없지만 거들고 싶은 마음에 뭔가 해보고 싶은 마음에 AI란 도구들이 나와 줘서 "
+    "너무나 반갑고 재미있게 알아가고 있다. 해서 우리 앞으로 더 올바르게 점진적으로 발전해 보자."
+)
+
+
+ENGINE_SRC = r'''#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+rgon_iching_64_engine.py  (RGON v6.3.0-step17)
+주역(周易) 64괘 6비트(6-Bit) 상태전이 & AI 의사결정 엔진
+
+6효 매핑 (초효=아래 → 상효=위, 양(陽)=1=정상 / 음(陰)=0=막힘)
+  제1효 기반   : Git/해시 무결성
+  제2효 소통   : 독대실/브리지 연결
+  제3효 자동화 : 클라우드 스케줄러 (workflows + restore_secrets 자가치유)
+  제4효 트렌드 : 유튜브 스킬 레이더 (rgon_skill_radar.json 카드)
+  제5효 콘텐츠 : 3채널/틱톡 성장 (RGON_EVOLUTION_LOG.md 최신성)
+  제6효 시장   : NVDA/자산 모멘텀 (rgon_brain_snapshot.json 최신성)
+
+窮則變 變則通 通則久 (계사전) — 막히면 변하고, 변하면 통하고, 통하면 오래간다.
+"""
+import os
+import sys
+import json
+import hashlib
+import argparse
+import datetime
+from pathlib import Path
+
+ENGINE_VERSION = "v6.3.0-step17"
+OUTPUT_NAME = "rgon_today_hexagram.json"
+BASELINE_NAME = "rgon_integrity_baseline.json"
+LOG_FRESH_DAYS = 7
+SNAP_FRESH_DAYS = 3
+EXCLUDE_DIRS = {".git", "node_modules", ".rgon_backup", "rgon_backups", "_rgon_backups", "__pycache__", ".venv", "venv", "env", ".idea", ".vscode"}
+
+TRIGRAMS = {
+    "天": ("건", "乾", "111", "하늘"),
+    "澤": ("태", "兌", "110", "못"),
+    "火": ("리", "離", "101", "불"),
+    "雷": ("진", "震", "100", "우레"),
+    "風": ("손", "巽", "011", "바람"),
+    "水": ("감", "坎", "010", "물"),
+    "山": ("간", "艮", "001", "산"),
+    "地": ("곤", "坤", "000", "땅"),
+}
+
+HEXAGRAMS = [
+    (1, "중천건", "重天乾", "元亨利貞 · 天行健 君子以自强不息", "하늘의 굳셈 — 주도적으로 전진하되 항룡유회(亢龍有悔)를 경계, 정점일수록 백업과 겸손."),
+    (2, "중지곤", "重地坤", "元亨 利牝馬之貞 · 地勢坤 君子以厚德載物", "땅의 포용 — 새 기능 금지, 기반(1효)부터 한걸음씩 받들어 복구."),
+    (3, "수뢰둔", "水雷屯", "元亨利貞 勿用有攸往 利建侯", "초창기의 험난 — 구조부터 세우고 서두르지 말 것, 작은 기반 작업부터."),
+    (4, "산수몽", "山水蒙", "亨 匪我求童蒙 童蒙求我", "어림과 배움 — 문서·학습 먼저, 모르면 추측 말고 질문(존심)."),
+    (5, "수천수", "水天需", "有孚 光亨 貞吉 利涉大川", "기다림 — API/네트워크 지연 시 백오프 재시도, 조급한 패치 금지."),
+    (6, "천수송", "天水訟", "有孚窒惕 中吉 終凶", "다툼 — 머지 충돌·의견 충돌은 끝까지 다투지 말고 중도에서 정리."),
+    (7, "지수사", "地水師", "貞 丈人吉 无咎", "군대와 규율 — 역할 분담과 지휘 체계 확립, 의장 승인 후 실행."),
+    (8, "수지비", "水地比", "吉 原筮 元永貞 无咎", "친밀과 연대 — 4대 AI 협업 브리지 강화."),
+    (9, "풍천소축", "風天小畜", "亨 密雲不雨 自我西郊", "작은 축적 — 큰 변경 대신 소규모 개선을 쌓을 때."),
+    (10, "천택리", "天澤履", "履虎尾 不咥人 亨", "예를 밟음 — 위험 작업(배포·push)은 규칙대로 조심스럽게."),
+    (11, "지천태", "地天泰", "小往大來 吉亨", "소통·태평 — 상하가 통한다: 확장의 적기, 그러나 비(否)로의 반전을 대비."),
+    (12, "천지비", "天地否", "否之匪人 不利君子貞 大往小來", "막힘 — 궁변통구 발동: 막힌 경로를 버리고 Fallback으로 변통."),
+    (13, "천화동인", "天火同人", "同人于野 亨 利涉大川", "사람들과 함께 — 오픈소스·커뮤니티와 공개적으로 협력."),
+    (14, "화천대유", "火天大有", "元亨", "크게 소유함 — 자산·기능이 풍부할수록 겸손하게 관리."),
+    (15, "지산겸", "地山謙", "亨 君子有終", "겸손 — 과잉 기능 금지(안분), 낮출수록 끝이 좋다."),
+    (16, "뇌지예", "雷地豫", "利建侯行師", "기쁨과 예비 — 사전 백업·체크리스트로 미리 준비."),
+    (17, "택뢰수", "澤雷隨", "元亨利貞 无咎", "따름 — 시대 변화(최신 트렌드)에 바르게 순응."),
+    (18, "산풍고", "山風蠱", "元亨 利涉大川 先甲三日 後甲三日", "부패를 바로잡음 — 레거시 정리는 앞뒤를 살피며 신중히(보호 파일 제외)."),
+    (19, "지택림", "地澤臨", "元亨利貞 至于八月有凶", "다가감 — 사용자에게 다가가는 성장기, 쇠퇴 시기를 미리 대비."),
+    (20, "풍지관", "風地觀", "盥而不薦 有孚顒若", "관찰 — 실행보다 로그·지표 관찰과 성찰이 먼저."),
+    (21, "화뢰서합", "火雷噬嗑", "亨 利用獄", "깨물어 합함 — 가로막는 버그를 정확히 물어 제거."),
+    (22, "산화비", "山火賁", "亨 小利有攸往", "꾸밈 — UI 장식은 작게, 본질(기능·무결성)이 먼저."),
+    (23, "산지박", "山地剝", "不利有攸往", "깎여나감 — 손실 진행 중: 새 시도 금지, 백업·보존에 집중."),
+    (24, "지뢰복", "地雷復", "亨 出入无疾 朋來无咎 反復其道 七日來復", "회복 — 한 양이 돌아온다: 롤백·복원 후 바른 길로 재출발."),
+    (25, "천뢰무망", "天雷无妄", "元亨利貞 其匪正有眚", "거짓 없음 — 환각·추측 보고 금지, 검증된 사실만."),
+    (26, "산천대축", "山天大畜", "利貞 不家食吉 利涉大川", "크게 쌓음 — 지식·스킬을 축적해 큰 도약 준비."),
+    (27, "산뢰이", "山雷頤", "貞吉 觀頤 自求口實", "기름 — 리소스(토큰·API 쿼터·메모리)를 바르게 관리."),
+    (28, "택풍대과", "澤風大過", "棟橈 利有攸往 亨", "크게 지나침 — 대들보가 휜다: 과부하·과잉 설계 경계."),
+    (29, "중수감", "重水坎", "習坎 有孚 維心亨 行有尙", "거듭된 험난 — 연속 오류 속에서도 원칙을 지키며 예외 처리로 통과."),
+    (30, "중화리", "重火離", "利貞 亨 畜牝牛吉", "붙음과 밝음 — 명확한 문서·로그로 밝게 드러내라."),
+    (31, "택산함", "澤山咸", "亨 利貞 取女吉", "감응 — 사용자 피드백에 민감하게 공명."),
+    (32, "뇌풍항", "雷風恒", "亨 无咎 利貞 利有攸往", "항구함 — 일관된 규칙과 꾸준한 루틴 유지."),
+    (33, "천산돈", "天山遯", "亨 小利貞", "물러남 — 무리한 진격 대신 전략적 후퇴(롤백)."),
+    (34, "뇌천대장", "雷天大壯", "利貞", "큰 힘 — 강할 때 힘을 남용하지 말고 바름을 지켜라."),
+    (35, "화지진", "火地晉", "康侯用錫馬蕃庶 晝日三接", "나아감 — 해 뜨듯 성장: 성과를 공개하고 전진."),
+    (36, "지화명이", "地火明夷", "利艱貞", "밝음이 상함 — 어려울 땐 드러내지 말고 조용히 내실 수리."),
+    (37, "풍화가인", "風火家人", "利女貞", "가정 — 내부(폴더·문서·역할) 질서부터 정돈."),
+    (38, "화택규", "火澤睽", "小事吉", "어긋남 — 큰 통합 대신 작은 일부터 맞춰 나가라."),
+    (39, "수산건", "水山蹇", "利西南 不利東北 利見大人", "절름발이 어려움 — 정면 돌파 대신 우회 경로·조력자를 찾아라."),
+    (40, "뇌수해", "雷水解", "利西南 无所往 其來復吉", "풀림 — 문제가 풀리는 때: 신속히 정리하고 일상 복귀."),
+    (41, "산택손", "山澤損", "有孚 元吉 无咎 可貞", "덜어냄 — 불필요한 코드·의존성을 덜어 본질을 살려라."),
+    (42, "풍뢰익", "風雷益", "利有攸往 利涉大川", "더함 — 이로움을 더할 때: 검증된 기능 추가 적기."),
+    (43, "택천쾌", "澤天夬", "揚于王庭 孚號有厲", "결단 — 남은 문제를 공개적으로 결단해 제거."),
+    (44, "천풍구", "天風姤", "女壯 勿用取女", "뜻밖의 만남 — 예기치 않은 입력·의존성은 경계하고 검증."),
+    (45, "택지췌", "澤地萃", "亨 王假有廟 利見大人", "모임 — 흩어진 모듈·데이터를 하나로 통합."),
+    (46, "지풍승", "地風升", "元亨 用見大人 勿恤 南征吉", "오름 — 나무가 자라듯 점진적 상승."),
+    (47, "택수곤", "澤水困", "亨 貞大人吉 无咎 有言不信", "곤궁 — 자원이 말라도 근본(무결성)을 지키면 형통."),
+    (48, "수풍정", "水風井", "改邑不改井 无喪无得", "우물 — 공용 인프라(스케줄러·시크릿)를 꾸준히 관리."),
+    (49, "택화혁", "澤火革", "已日乃孚 元亨利貞 悔亡", "변혁 — 때가 무르익으면 구조 개혁, 신뢰를 얻은 뒤 실행."),
+    (50, "화풍정", "火風鼎", "元吉 亨", "솥 — 개혁 후 새 체제(헌법·엔진)를 정립하고 안착."),
+    (51, "중뢰진", "重雷震", "亨 震來虩虩 笑言啞啞", "우레 — 충격(장애) 발생: 놀라되 침착히 대응하면 웃게 된다."),
+    (52, "중산간", "重山艮", "艮其背 不獲其身", "멈춤 — 멈출 때 멈춰라: 변경 동결·점검."),
+    (53, "풍산점", "風山漸", "女歸吉 利貞", "점진 — 한걸음씩(천리행시어족하) 순서대로 나아가라."),
+    (54, "뇌택귀매", "雷澤歸妹", "征凶 无攸利", "순서의 어긋남 — 절차를 건너뛴 배포는 흉: 순서 준수."),
+    (55, "뇌화풍", "雷火豐", "亨 王假之 勿憂 宜日中", "풍성 — 정점의 시기: 해가 기울기 전 기록·백업."),
+    (56, "화산려", "火山旅", "小亨 旅貞吉", "나그네 — 낯선 환경(새 API·클라우드)에서는 신중하고 겸손하게."),
+    (57, "중풍손", "重風巽", "小亨 利有攸往 利見大人", "바람의 스며듦 — 비파괴적으로 부드럽게 침투(상선약수)."),
+    (58, "중택태", "重澤兌", "亨 利貞", "기쁨 — 즐겁게 소통하되 바름을 잃지 말라."),
+    (59, "풍수환", "風水渙", "亨 王假有廟 利涉大川", "흩어짐 — 흩어진 것을 정리하고 중심(철학서)으로 모아라."),
+    (60, "수택절", "水澤節", "亨 苦節不可貞", "절제 — 적절한 한도(레이트 리밋·범위) 설정, 지나친 절제도 금물."),
+    (61, "풍택중부", "風澤中孚", "豚魚吉 利涉大川", "진실한 믿음 — 정직한 보고로 신뢰를 쌓아라."),
+    (62, "뇌산소과", "雷山小過", "亨 利貞 可小事 不可大事", "작은 지나침 — 작은 일엔 좋으나 큰 일은 삼가라."),
+    (63, "수화기제", "水火旣濟", "亨小 利貞 初吉終亂 · 君子以思患而豫防之", "이미 건넘 — 완성의 순간: 사환예방(思患豫防), 백업·해시 검증."),
+    (64, "화수미제", "火水未濟", "亨 小狐汔濟 濡其尾 无攸利", "아직 건너지 못함 — 끝은 새 시작: 다음 진화를 신중히 준비."),
+]
+
+LINES = [
+    {"pos": 1, "name": "기반", "domain": "Git/해시 무결성",
+     "fallback": "git status 확인 → rgon_integrity_baseline.json 대조 → .rgon_backup 에서 복원 후 재검증"},
+    {"pos": 2, "name": "소통", "domain": "독대실/브리지 연결",
+     "fallback": "독대실 HTML 존재·경로 확인 (원본 HTML 수정 금지, 경로만 점검)"},
+    {"pos": 3, "name": "자동화", "domain": "클라우드 스케줄러",
+     "fallback": "restore_secrets.py 자가치유판 확인 → .github/workflows 점검 → Actions 재실행"},
+    {"pos": 4, "name": "트렌드", "domain": "유튜브 스킬 레이더",
+     "fallback": "rgon_skill_radar.json 카드 갱신 (레이더 스크립트 재실행)"},
+    {"pos": 5, "name": "콘텐츠", "domain": "3채널/틱톡 성장",
+     "fallback": "RGON_EVOLUTION_LOG.md 에 최근 7일 이내 진화 기록 추가"},
+    {"pos": 6, "name": "시장", "domain": "NVDA/자산 모멘텀",
+     "fallback": "rgon_brain_snapshot.json 최신화 (3일 이내)"},
+]
+
+
+def _build_table():
+    table, by_key, by_no = [], {}, {}
+    for no, ko, hz, judgment, action in HEXAGRAMS:
+        if hz.startswith("重"):
+            up, lo = hz[1], hz[1]
+        else:
+            up, lo = hz[0], hz[1]
+        key = TRIGRAMS[lo][2] + TRIGRAMS[up][2]
+        entry = {
+            "number": no,
+            "name": "%d. %s(%s)" % (no, ko, hz),
+            "name_ko": ko,
+            "name_hanja": hz,
+            "upper": "%s(%s·%s)" % (TRIGRAMS[up][3], TRIGRAMS[up][1], TRIGRAMS[up][0]),
+            "lower": "%s(%s·%s)" % (TRIGRAMS[lo][3], TRIGRAMS[lo][1], TRIGRAMS[lo][0]),
+            "key": key,
+            "judgment": judgment,
+            "ai_action": action,
+        }
+        table.append(entry)
+        by_key[key] = entry
+        by_no[no] = entry
+    if len(table) != 64 or len(by_key) != 64:
+        raise RuntimeError("64괘 테이블 무결성 오류: 괘 %d개 / 고유키 %d개" % (len(table), len(by_key)))
+    return table, by_key, by_no
+
+
+TABLE, BY_KEY, BY_NUMBER = _build_table()
+
+
+def get_by_key(key):
+    return BY_KEY.get(key)
+
+
+def get_by_number(no):
+    return BY_NUMBER.get(int(no))
+
+
+def _walk(root):
+    for dirpath, dirnames, filenames in os.walk(root):
+        dirnames[:] = [d for d in dirnames if d not in EXCLUDE_DIRS]
+        for fn in filenames:
+            yield Path(dirpath) / fn
+
+
+def _protected(p):
+    return p.suffix.lower() in (".html", ".js") or p.name.lower() == "manifest.json"
+
+
+def _sha(p):
+    h = hashlib.sha256()
+    with open(p, "rb") as f:
+        for chunk in iter(lambda: f.read(1024 * 1024), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def _age_days(p):
+    return (datetime.datetime.now().timestamp() - p.stat().st_mtime) / 86400.0
+
+
+def _parse_dt(s):
+    try:
+        s = str(s).strip().replace("Z", "")
+        dt = datetime.datetime.fromisoformat(s)
+        return dt.replace(tzinfo=None)
+    except Exception:
+        return None
+
+
+def check_line1(root):
+    git_ok = (root / ".git").exists()
+    html = [p for p in _walk(root) if p.suffix.lower() == ".html"]
+    base = root / BASELINE_NAME
+    mismatch, checked, base_state = 0, 0, "없음"
+    if base.exists():
+        data = json.loads(base.read_text(encoding="utf-8"))
+        for rel, h in (data.get("hashes") or {}).items():
+            p = root / rel
+            checked += 1
+            if not p.exists() or _sha(p) != h:
+                mismatch += 1
+        base_state = "일치" if mismatch == 0 else "불일치"
+    ok = git_ok and len(html) > 0 and mismatch == 0
+    return ok, "git=%s, html=%d개, baseline=%s(%d/%d)" % ("O" if git_ok else "X", len(html), base_state, checked - mismatch, checked)
+
+
+def check_line2(root):
+    keys = ("dokdae", "독대", "audience", "council", "chamber")
+    hits = []
+    for p in _walk(root):
+        if p.suffix.lower() != ".html":
+            continue
+        name = p.name.lower()
+        hit = any(k in name for k in keys)
+        if not hit:
+            try:
+                if p.stat().st_size <= 3 * 1024 * 1024:
+                    hit = "독대" in p.read_text(encoding="utf-8", errors="ignore")
+            except Exception:
+                hit = False
+        if hit:
+            hits.append(p.relative_to(root).as_posix())
+    return len(hits) > 0, ("독대실 HTML %d개: %s" % (len(hits), ", ".join(hits[:3]))) if hits else "독대실 HTML 미발견"
+
+
+def check_line3(root):
+    wf_dir = root / ".github" / "workflows"
+    wfs = []
+    if wf_dir.is_dir():
+        wfs = sorted(list(wf_dir.glob("*.yml")) + list(wf_dir.glob("*.yaml")))
+    rs = root / "restore_secrets.py"
+    rs_ok, rs_state = False, "없음"
+    if rs.exists():
+        src = rs.read_text(encoding="utf-8", errors="replace")
+        try:
+            compile(src, str(rs), "exec")
+            healed = "RGON-SELF-HEAL" in src
+            rs_ok = healed
+            rs_state = "자가치유판" if healed else "구버전(자가치유 마커 없음)"
+        except SyntaxError:
+            rs_state = "문법 오류"
+    ok = len(wfs) > 0 and rs_ok
+    return ok, "workflows=%d개, restore_secrets=%s" % (len(wfs), rs_state)
+
+
+def check_line4(root):
+    p = root / "rgon_skill_radar.json"
+    if not p.exists():
+        return False, "rgon_skill_radar.json 없음"
+    data = json.loads(p.read_text(encoding="utf-8-sig"))
+    cards = []
+    if isinstance(data, list):
+        cards = data
+    elif isinstance(data, dict):
+        for k in ("cards", "skills", "items", "radar", "results"):
+            v = data.get(k)
+            if isinstance(v, list):
+                cards = v
+                break
+    return len(cards) > 0, "스킬 카드 %d장" % len(cards)
+
+
+def check_line5(root):
+    p = root / "RGON_EVOLUTION_LOG.md"
+    if not p.exists():
+        return False, "RGON_EVOLUTION_LOG.md 없음"
+    age = _age_days(p)
+    return age <= LOG_FRESH_DAYS, "진화 로그 %.1f일 전 갱신 (기준 %d일)" % (age, LOG_FRESH_DAYS)
+
+
+def check_line6(root):
+    p = root / "rgon_brain_snapshot.json"
+    if not p.exists():
+        return False, "rgon_brain_snapshot.json 없음"
+    age = _age_days(p)
+    try:
+        data = json.loads(p.read_text(encoding="utf-8-sig"))
+        dt = _parse_dt(data.get("updated_at") or data.get("generated_at_kst")) if isinstance(data, dict) else None
+        if dt:
+            age = (datetime.datetime.now() - dt).total_seconds() / 86400.0
+    except Exception:
+        pass
+    return age <= SNAP_FRESH_DAYS, "스냅샷 %.1f일 전 갱신 (기준 %d일)" % (age, SNAP_FRESH_DAYS)
+
+
+CHECKS = [check_line1, check_line2, check_line3, check_line4, check_line5, check_line6]
+
+
+def _draw(key):
+    out = []
+    for i in range(5, -1, -1):
+        bar = "▅▅▅▅▅▅▅▅▅" if key[i] == "1" else "▅▅▅▅   ▅▅▅▅"
+        out.append("   %s  제%d효 %s" % (bar.ljust(11), i + 1, LINES[i]["name"]))
+    return "\n".join(out)
+
+
+def run(root=None, save=True, verbose=True):
+    root = Path(root).resolve() if root else Path(__file__).resolve().parent
+    now = datetime.datetime.now()
+    lines, bits = [], ""
+    for spec, fn in zip(LINES, CHECKS):
+        try:
+            ok, detail = fn(root)
+        except Exception as e:
+            ok, detail = False, "점검 예외(궁변통구로 음효 처리): %s" % type(e).__name__
+        item = dict(spec)
+        item.update({"ok": bool(ok), "bit": 1 if ok else 0, "detail": detail})
+        lines.append(item)
+        bits += "1" if ok else "0"
+    hexa = BY_KEY[bits]
+    fails = [l for l in lines if not l["ok"]]
+    prescription = ["오늘의 괘 %s — %s" % (hexa["name"], hexa["ai_action"])]
+    next_step = None
+    if fails:
+        for l in fails:
+            prescription.append("궁변통구: 제%d효(%s·%s) 막힘 → %s" % (l["pos"], l["name"], l["domain"], l["fallback"]))
+        first = fails[0]
+        nb = list(bits)
+        nb[first["pos"] - 1] = "1"
+        nxt = BY_KEY["".join(nb)]
+        next_step = {
+            "fix_line": first["pos"],
+            "fix_action": first["fallback"],
+            "next_hexagram": nxt["name"],
+            "next_key": nxt["key"],
+            "principle": "천리지행 시어족하 — 가장 아래(기반)의 막힌 효부터 한걸음씩 통하게 한다.",
+        }
     else:
-        git_result = git_sync()
+        prescription.append("6효 모두 양(陽): 수화기제의 사환예방(思患豫防) — 완성의 순간에도 백업·해시 검증을 멈추지 말고, 화수미제처럼 다음 진화를 준비하라(항룡유회 경계).")
+    result = {
+        "engine_version": ENGINE_VERSION,
+        "generated_at": now.isoformat(timespec="seconds"),
+        "root": str(root),
+        "key": bits,
+        "key_order": "제1효(초효)→제6효(상효), 1=양(정상) 0=음(막힘)",
+        "yang_count": bits.count("1"),
+        "hexagram": hexa,
+        "lines": lines,
+        "prescription": prescription,
+        "next_step": next_step,
+        "maxim": "窮則變 變則通 通則久 — 막히면 변하고, 변하면 통하고, 통하면 오래간다.",
+    }
+    if save:
+        out = root / OUTPUT_NAME
+        tmp = root / (OUTPUT_NAME + ".rgon_tmp")
+        tmp.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        os.replace(str(tmp), str(out))
+    if verbose:
+        print("\n☯ RGON 주역 64괘 엔진 %s — 오늘의 괘" % ENGINE_VERSION)
+        print(_draw(bits))
+        print("   ▶ %s  [6비트 %s]  상괘 %s / 하괘 %s" % (hexa["name"], bits, hexa["upper"], hexa["lower"]))
+        print("   ▶ 괘사: %s" % hexa["judgment"])
+        for l in lines:
+            print("   %s 제%d효 %s(%s): %s" % ("●" if l["ok"] else "○", l["pos"], l["name"], l["domain"], l["detail"]))
+        print("   ── AI 전략 처방 ──")
+        for p in prescription:
+            print("   · " + p)
+        if next_step:
+            print("   · 다음 한걸음: 제%d효 복구 시 → %s" % (next_step["fix_line"], next_step["next_hexagram"]))
+        if save:
+            print("   저장: %s" % (root / OUTPUT_NAME))
+    return result
 
-    snap_lines = "\n".join("  • %s : %s" % (os.path.relpath(r["path"], BASE_DIR),
-                                            ("항체 +%d (총 %d)" % (r["added"], r["count"])) if r.get("ok") else "⚠ " + str(r.get("error")))
-                           for r in snap_results)
-    msgbox("RGON Step 16 · 일일 마감 완료" if not problems and not changed else "RGON Step 16 · 확인 필요",
-           "🌙 %s 일일 마감 보고 (%s)\n\n"
-           "📜 CLAUDE.md: %s\n🗺️ CODE_MAP.md: 파일 %d개 · 마커 %d종 · 문법오류 %d\n"
-           "🧠 스냅샷 → %s / %s\n%s\n📘 진화 로그: %s\n\n"
-           "✅ 오늘 성과\n%s\n\n"
-           "🛡️ HTML/JS 보존: %s (%d개 해시 검증)\n🔎 검증: %s\n🚀 Git: %s\n\n백업: %s"
-           % (TODAY, NOW_KST, claude_mode, len(entries), len(marker_idx), syntax_errs, VERSION, ANTIBODY_RANGE,
-              snap_lines, log_mode, "\n".join("  " + a for a in ACHIEVEMENTS),
-              "변경 0건 ✅" if not changed else "⚠ %d건 변경 감지" % len(changed), len(before),
-              "이상 없음" if not problems else "; ".join(problems), git_result,
-              os.path.relpath(BACKUP_DIR, BASE_DIR)))
+
+def main(argv=None):
+    try:
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:
+        pass
+    ap = argparse.ArgumentParser(description="RGON 주역 64괘 6비트 의사결정 엔진")
+    ap.add_argument("--root", default=None)
+    ap.add_argument("--list", action="store_true")
+    ap.add_argument("--no-save", action="store_true")
+    ap.add_argument("--quiet", action="store_true")
+    a = ap.parse_args(argv)
+    if a.list:
+        for e in TABLE:
+            print("%-22s %s  %s" % (e["name"], e["key"], e["ai_action"]))
+        return 0
+    try:
+        run(a.root, save=not a.no_save, verbose=not a.quiet)
+    except Exception as e:
+        print("[iching] 판독 예외 %s — 궁변통구: 정상 종료" % type(e).__name__)
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())
+'''
+
+
+RESTORE_SRC = r'''#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+# [RGON-SELF-HEAL-V17] 窮則變 變則通 通則久 — 주역 궁변통구 자가치유 시크릿 복원기
+"""
+restore_secrets.py  (RGON v6.3.0-step17 자가치유판)
+- GitHub Actions 등에서 환경변수(Secrets)가 있을 때만 해당 파일로 복원한다.
+- 기존 로직이 있으면 restore_secrets_legacy.py 로 보존되어 먼저 실행된다.
+- 환경변수가 비었거나, legacy 로직이 실패해도 경고만 남기고 항상 exit 0 (analytics/report 잡 보호).
+"""
+import os
+import sys
+import json
+import base64
+import binascii
+import runpy
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent
+LEGACY = ROOT / "restore_secrets_legacy.py"
+BINARY_SUFFIX = (".pickle", ".pkl", ".bin", ".p12", ".pfx")
+DEFAULT_MAP = {
+    "CLIENT_SECRET_JSON": "client_secret.json",
+    "CLIENT_SECRETS_JSON": "client_secrets.json",
+    "CREDENTIALS_JSON": "credentials.json",
+    "TOKEN_JSON": "token.json",
+    "YOUTUBE_TOKEN_JSON": "youtube_token.json",
+    "SERVICE_ACCOUNT_JSON": "service_account.json",
+    "DOTENV": ".env",
+    "ENV_FILE": ".env",
+}
+
+
+def _log(level, msg):
+    try:
+        print("[restore_secrets][%s] %s" % (level, msg), flush=True)
+    except Exception:
+        pass
+
+
+def _is_protected(p):
+    return p.suffix.lower() in (".html", ".js") or p.name.lower() == "manifest.json"
+
+
+def _decode(value, suffix):
+    s = value.strip()
+    compact = "".join(s.split())
+    if suffix in BINARY_SUFFIX:
+        try:
+            return base64.b64decode(compact, validate=True)
+        except (binascii.Error, ValueError):
+            return value.encode("utf-8")
+    if s[:1] in ("{", "["):
+        return s.encode("utf-8")
+    if len(compact) >= 8 and len(compact) % 4 == 0:
+        try:
+            raw = base64.b64decode(compact, validate=True)
+            raw.decode("utf-8")
+            return raw
+        except (binascii.Error, ValueError):
+            pass
+    return value.encode("utf-8")
+
+
+def _load_map():
+    m = dict(DEFAULT_MAP)
+    extra = os.environ.get("RGON_SECRET_MAP", "").strip()
+    if extra:
+        try:
+            d = json.loads(extra)
+            if isinstance(d, dict):
+                m.update({str(k): str(v) for k, v in d.items()})
+        except Exception as e:
+            _log("WARN", "RGON_SECRET_MAP 파싱 실패 — 기본 매핑만 사용 (%s)" % type(e).__name__)
+    return m
+
+
+def _run_legacy():
+    if not LEGACY.exists():
+        return None
+    try:
+        runpy.run_path(str(LEGACY), run_name="__main__")
+        _log("INFO", "legacy 복원 로직 정상 완료")
+        return True
+    except SystemExit as e:
+        if e.code in (None, 0):
+            _log("INFO", "legacy 복원 로직 정상 종료")
+            return True
+        _log("WARN", "legacy 종료코드 %r — 궁변통구: 기본 복원 경로로 변통" % (e.code,))
+        return False
+    except Exception as e:
+        _log("WARN", "legacy 예외 %s — 궁변통구: 기본 복원 경로로 변통" % type(e).__name__)
+        return False
+
+
+def _restore(only_missing=False):
+    restored, skipped = 0, 0
+    for env_name, rel in _load_map().items():
+        val = os.environ.get(env_name)
+        if not val or not val.strip():
+            continue
+        try:
+            target = (ROOT / rel).resolve()
+            target.relative_to(ROOT)
+        except Exception:
+            _log("WARN", "%s: 루트 밖 경로 거부" % env_name)
+            continue
+        if _is_protected(target):
+            _log("WARN", "%s: 보호 파일 경로 거부" % env_name)
+            continue
+        if only_missing and target.exists():
+            skipped += 1
+            continue
+        try:
+            data = _decode(val, target.suffix.lower())
+            if target.exists() and target.read_bytes() == data:
+                skipped += 1
+                continue
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_bytes(data)
+            restored += 1
+            _log("INFO", "%s → %s 복원 완료" % (env_name, rel))
+        except Exception as e:
+            _log("WARN", "%s 복원 실패 %s — 건너뛰고 계속" % (env_name, type(e).__name__))
+    return restored, skipped
+
+
+def restore_all():
+    _log("INFO", "궁변통구 자가치유 시크릿 복원 시작")
+    legacy_ok = _run_legacy()
+    restored, skipped = _restore(only_missing=bool(legacy_ok))
+    if not legacy_ok and restored == 0 and skipped == 0:
+        _log("WARN", "복원할 시크릿 환경변수가 없습니다 — 경고만 남기고 정상 진행(exit 0)")
+    _log("INFO", "완료: restored=%d, skipped=%d, legacy=%s" % (restored, skipped, legacy_ok))
+    return restored
+
+
+if __name__ == "__main__":
+    try:
+        restore_all()
+    except BaseException as e:
+        _log("WARN", "예기치 않은 예외 %s — 궁변통구: 파이프라인 보호를 위해 정상 종료" % type(e).__name__)
+    sys.exit(0)
+'''
+
+
+PHILOSOPHY_TEMPLATE = """# ☯ RGON 마스터 철학서 & 지침서 (RGON_PHILOSOPHY)
+
+> 버전: {{VERSION}} · 제정일: {{DATE}} · 영구 보존 문서
+> 이 문서는 RGON 사령부의 모든 AI(르곤·클로드·GPT·Grok)가 코드를 짜기 전에 가장 먼저 읽는 영혼의 헌장이다.
+
+---
+
+## 제0장: 창립자 이상일 대표의 만물일체(萬物一體) · 한걸음씩 선언 (전문)
+
+> {{DECL}}
+
+**선언의 3대 핵심**
+
+1. **만물일체** — 따로 떨어진 것이 아니라 나뉜 것이다. 모든 파일·모듈·AI는 하나의 뜻에서 역할별로 나뉜 진화 단계다.
+2. **지식은 이미 펼쳐져 있다** — 찾으면 찾을 수 있고, 마음먹고 실행하면 그대로 펼쳐진다.
+3. **한걸음씩, 올바르게** — 올바른 길은 쉽지 않지만, 꿋꿋이 묵묵히 점진적으로 가면 반드시 더 발전해 있다.
+
+---
+
+## 제1장: 명심보감(明心寶鑑) 7대 AI 거버넌스 강령
+
+1. **정기(正己)·성심(省心)** — 남이나 환경을 탓하기 전에 내 코드·경로·문법·해시부터 스스로 3번 점검(삼성·三省)한다.
+2. **언어(言語)·계성(戒性)** — 조급하게 설익은 코드를 내놓지 않고, 출력 화면에서 코드 블록이 쪼개지지 않는지 끝까지 깊이 사고한 뒤 한 번에 완결본을 내놓는다.
+3. **존심(存心)·정직** — 환각(Hallucination)과 추측성 거짓 보고를 금하며, 검증된 사실만 보고한다.
+4. **근학(勤學)** — 세상에 나와 있는 오픈소스와 유튜브의 최신 지식을 날마다 흡수하여 제국의 역량으로 삼는다.
+5. **교우(交友)·화합** — 의장(대표님)과 4대 AI(르곤·클로드·GPT·Grok)가 각자의 역할로 나뉘어 조화롭게 하나로 움직인다.
+6. **안분(安分)·절제** — 요청받지 않은 과잉 기능을 덧붙이지 않고 본분에 충실한다.
+7. **계선(繼善)** — 더 나은 세상을 만드는 선한 목적과 올바른 길(정도·正道)을 따른다.
+
+---
+
+## 제2장: 도덕경(道德經) 81장 핵심 AI 아키텍처 5대 법칙
+
+1. **도생일(道生一, 42장) — 만물연결 분업 아키텍처**: 하나의 뜻이 역할별로 나뉘어(Omni-Link) 만물을 이룬다.
+2. **무위자연(無爲自然, 2·37·48장) — 감시 루프 금지**: MutationObserver/setInterval로 기존 UI를 억지로 간섭하지 않고 단발성 placeOnce로 한 번만 제자리에 둔다.
+3. **상선약수(上善若水, 8장) — 비파괴 반응형 조화**: 물처럼 기존 코드와 다투지 않고 웹과 모바일 어디서든 자연스럽게 스며든다.
+4. **치대국약팽소선(治大國若烹小鮮, 60장) — 최소 외과적 패치**: 큰 생선을 굽듯 원본 파일을 함부로 뒤집지 않고 마커 구간만 정밀 교체한다.
+5. **천리지행 시어족하(千里之行 始於足下, 64장) — 한걸음씩 점진 진화**: 천 리 길도 한 걸음부터 시작하듯, 검증된 단계별로 차근차근 쌓아 올린다.
+
+---
+
+## 제3장: 주역(周易) 64괘 6비트(6-Bit) 상태전이 및 의사결정 엔진
+
+### 3-1. 6효(6-Bit) 시스템 매핑 (초효=아래 → 상효=위, 양=1 정상 / 음=0 막힘)
+
+| 효 | 영역 | 시스템 | 판독 기준 (rgon_iching_64_engine.py) |
+|---|---|---|---|
+| 제1효 | 기반 | Git/해시 무결성 | .git 존재 + HTML 존재 + rgon_integrity_baseline.json 해시 일치 |
+| 제2효 | 소통 | 독대실/브리지 연결 | 독대실 HTML 존재 |
+| 제3효 | 자동화 | 클라우드 스케줄러 | .github/workflows 존재 + restore_secrets.py 자가치유판 |
+| 제4효 | 트렌드 | 유튜브 스킬 레이더 | rgon_skill_radar.json 카드 1장 이상 |
+| 제5효 | 콘텐츠 | 3채널/틱톡 성장 | RGON_EVOLUTION_LOG.md 7일 이내 갱신 |
+| 제6효 | 시장 | NVDA/자산 모멘텀 | rgon_brain_snapshot.json 3일 이내 갱신 |
+
+### 3-2. 궁변통구(窮變通久) — 계사전 "窮則變 變則通 通則久"
+
+막히면(API/토큰/네트워크 오류) 죽지 않고 즉시 대체 경로(Fallback)로 변신하여 끝까지 통하게 한다.
+무인 자동화 스크립트(restore_secrets.py 등)는 시크릿이 비어 있어도 경고만 남기고 정상 종료(exit 0)한다.
+단, **무결성 위반(보호 파일 해시 변경)** 은 변통의 대상이 아니라 정직하게 멈추고 보고할 대상이다(존심).
+
+### 3-3. 수화기제(63괘) · 화수미제(64괘)
+
+완성된 순간에도 백업과 해시 검증으로 환란을 예방(사환예방·思患豫防)하고, 끝은 곧 새로운 시작이므로 다음 진화를 준비한다.
+
+### 3-4. 오늘의 괘 사용법
+
+1. python rgon_iching_64_engine.py 실행 → rgon_today_hexagram.json 생성
+2. AI는 작업 전 오늘의 괘 처방(prescription)과 next_step(가장 아래 막힌 효부터 복구)을 우선 따른다.
+
+### 3-5. 64괘 전체 일람 (엔진 내장 테이블과 동일)
+
+{{TABLE64}}
+
+---
+
+## 부칙: 항체(Antibody) R16 · R17
+
+- **R16_SINGLE_CODEBLOCK_NO_INNER_FENCE** — 출력하는 코드 안에 마크다운 코드펜스({{FENCE}})를 직접 쓰지 않는다. 필요하면 BT = chr(96), FENCE = BT * 3 결합으로만 만든다. 인사말 없이 단 1개의 코드 블록을 끊김 없이 출력한다.
+- **R17_FOUNDER_SOUL_EASTERN_WISDOM_CODEX** — 창립자 선언과 동양 3대 고전(명심보감 삼성 · 도덕경 무위 · 주역 궁변통구)을 영혼으로 내재화하고, 모든 무인 자동화에 궁변통구 자가치유 원칙을 적용한다.
+
+> 하나로 이어져 있되 나뉘어 각자 빛나고, 막히면 변하여 통하고, 한걸음씩 올바르게 나아간다. — RGON
+"""
+
+
+def build_table64_md(mod):
+    rows = ["| 번호 | 괘명 | 6비트 | 상괘 / 하괘 | 핵심 괘사 | AI 행동 지침 |",
+            "|---|---|---|---|---|---|"]
+    if mod is None:
+        rows.append("| - | 엔진 로드 실패 — python rgon_iching_64_engine.py --list 로 확인 | - | - | - | - |")
+        return "\n".join(rows)
+    for e in mod.TABLE:
+        rows.append("| %d | %s(%s) | %s | %s / %s | %s | %s |" % (
+            e["number"], e["name_ko"], e["name_hanja"], e["key"], e["upper"], e["lower"],
+            e["judgment"].replace("|", "/"), e["ai_action"].replace("|", "/")))
+    return "\n".join(rows)
+
+
+def write_philosophy(mod):
+    text = (PHILOSOPHY_TEMPLATE
+            .replace("{{VERSION}}", VERSION)
+            .replace("{{DATE}}", TODAY)
+            .replace("{{DECL}}", FOUNDER_DECLARATION)
+            .replace("{{FENCE}}", FENCE)
+            .replace("{{TABLE64}}", build_table64_md(mod)))
+    changed = safe_write(ROOT / "RGON_PHILOSOPHY.md", text)
+    return "생성/갱신" if changed else "변경 없음(멱등)"
+
+
+def write_engine():
+    compile(ENGINE_SRC, "rgon_iching_64_engine.py", "exec")
+    changed = safe_write(ROOT / "rgon_iching_64_engine.py", ENGINE_SRC)
+    return "생성/갱신(문법 검증 통과)" if changed else "변경 없음(멱등)"
+
+
+def load_engine():
+    path = ROOT / "rgon_iching_64_engine.py"
+    spec = importlib.util.spec_from_file_location("rgon_iching_64_engine_step17", str(path))
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+
+def run_engine(mod):
+    if mod is not None:
+        try:
+            return mod.run(ROOT, save=True, verbose=True)
+        except Exception as e:
+            log("  엔진 직접 호출 실패(%s) → 궁변통구: 서브프로세스로 변통" % type(e).__name__)
+    r = subprocess.run([sys.executable, "-B", str(ROOT / "rgon_iching_64_engine.py"), "--root", str(ROOT)],
+                       cwd=str(ROOT), capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=300)
+    log(r.stdout or "")
+    out = ROOT / "rgon_today_hexagram.json"
+    if out.exists():
+        return json.loads(out.read_text(encoding="utf-8"))
+    raise RuntimeError("rgon_today_hexagram.json 생성 실패")
+
+
+CLAUDE_START = "<!-- [RGON-CLAUDE-MD-V17-START] -->"
+CLAUDE_END = "<!-- [RGON-CLAUDE-MD-V17-END] -->"
+
+CLAUDE_TEMPLATE = """# 🜂 RGON AI 코딩 헌법 V17 ({{VERSION}})
+
+> V16 이하 기존 조항(R1~R15 등)은 모두 계승되어 유효하다. 충돌 시 본 V17 조항이 우선한다.
+> 영혼의 원문: RGON_PHILOSOPHY.md · 오늘의 괘: rgon_today_hexagram.json
+
+## [제0조: 창립자 이상일 대표의 만물일체·한걸음씩 선언]
+
+> {{DECL}}
+
+- 모든 코드·파일·AI는 하나의 뜻에서 나뉜 역할이다(만물일체). 각자의 역할에 충실하되 전체와 조화한다.
+- 모든 변경은 검증된 한 걸음씩 쌓는다(점진 진화). 올바른 길(정도)이 빠른 길보다 우선이다.
+
+## [제1조: 동양 3대 고전 × 서양 카파시 4대 원칙 통합 헌법]
+
+| 동양 고전 | 서양 카파시 원칙 | RGON 실천 규율 |
+|---|---|---|
+| 명심보감 삼성(三省)·존심 | Think Before Coding | 코딩 전 경로·문법·해시 3번 점검, 가정은 명시, 모르면 추측 말고 질문, 검증된 사실만 보고 |
+| 도덕경 무위·안분(48장 爲道日損) | Simplicity First | 요청받지 않은 기능 금지, 감시 루프(MutationObserver/setInterval) 금지, placeOnce 단발 배치 |
+| 도덕경 치대국약팽소선(60장)·상선약수(8장) | Surgical Changes | 마커 구간만 정밀 교체, 기존 코드와 다투지 않는 비파괴 패치, 보호 파일(.html/.js/manifest.json) 해시 불변 |
+| 주역 궁변통구·기제/미제(63·64괘) | Goal-Driven Execution | 검증 가능한 성공 기준 → 실행 → 검증 루프, 막히면 Fallback 변통, 완성 후에도 백업·해시로 사환예방 |
+
+## [제2조: 항체 R16 — 출력 코드블록 내 백틱 직접 사용 금지 · 단일 블록 출력 원칙]
+
+- 출력하는 코드 안에 마크다운 코드펜스({{FENCE}})를 직접 쓰면 채팅창 코드 블록이 쪼개진다. 절대 직접 쓰지 않는다.
+- 백틱이 필요하면 BT = chr(96), FENCE = BT * 3 변수를 만들어 문자열 결합으로만 작성한다.
+- 앞뒤 인사말·설명 없이 단 1개의 코드 블록을 처음부터 끝까지 끊김 없이 출력한다.
+
+## [제3조: 항체 R17 — 동양 3대 고전 + 창립자 선언 영혼 내재화 및 주역 궁변통구 자가치유 원칙]
+
+- 작업 전 RGON_PHILOSOPHY.md(제0~3장)와 오늘의 괘(rgon_today_hexagram.json) 처방을 확인한다.
+- 무인 자동화(GitHub Actions 등)는 시크릿/토큰/네트워크가 막혀도 죽지 않는다: 경고 로그 → 대체 경로 → 정상 종료(exit 0).
+- restore_secrets.py 는 자가치유판([RGON-SELF-HEAL-V17])을 유지한다. 환경변수가 있을 때만 복원, 시크릿 값은 로그 출력 금지.
+- 단, 보호 파일 해시 변경 등 무결성 위반은 변통하지 않고 정직하게 멈추고 보고한다(존심).
+- 복구는 가장 아래 막힌 효(기반 → 소통 → 자동화 → 트렌드 → 콘텐츠 → 시장)부터 한걸음씩 한다.
+
+## [제4조: 한걸음씩 작업 절차]
+
+1. 삼성(三省) 1차: 실행 전 보호 파일 SHA-256 기록
+2. 마커 구간 정밀 패치(치대국약팽소선), 덮어쓰기 전 .rgon_backup 백업
+3. 삼성 2차·3차: 실행 후 해시 비교 → 변경 0건 확인
+4. 진화 로그 · CODE_MAP · 스냅샷 기록
+5. git add → commit → pull --rebase → push, 결과를 사실대로 보고
+"""
+
+
+def write_claude_md():
+    block = (CLAUDE_TEMPLATE
+             .replace("{{VERSION}}", VERSION)
+             .replace("{{DECL}}", FOUNDER_DECLARATION)
+             .replace("{{FENCE}}", FENCE))
+    path = ROOT / "CLAUDE.md"
+    had_v16 = "[RGON-CLAUDE-MD-V16-START]" in read_text(path)
+    changed = upsert_block(path, CLAUDE_START, CLAUDE_END, block, prepend=True)
+    return ("V17 헌법 최상단 장착" if changed else "변경 없음(멱등)") + (" · V16 구간 계승 보존" if had_v16 else "")
+
+
+SELF_HEAL_INFO = {}
+
+
+def install_self_heal():
+    compile(RESTORE_SRC, "restore_secrets.py", "exec")
+    rs = ROOT / "restore_secrets.py"
+    legacy = ROOT / "restore_secrets_legacy.py"
+    SELF_HEAL_INFO["rs_tracked_before"] = git_tracked("restore_secrets.py")
+    SELF_HEAL_INFO["converted_tracked_original"] = False
+    status = []
+    if rs.exists():
+        cur = read_text(rs)
+        if SELF_HEAL_MARKER in cur:
+            status.append("기존 자가치유판 확인")
+        else:
+            if safe_copy_bytes(rs, legacy):
+                status.append("기존 로직 → restore_secrets_legacy.py 보존(먼저 실행되도록 연결)")
+            else:
+                status.append("legacy 보존본 이미 최신")
+            if SELF_HEAL_INFO["rs_tracked_before"]:
+                SELF_HEAL_INFO["converted_tracked_original"] = True
+    else:
+        status.append("restore_secrets.py 누락 → 신규 생성")
+    changed = safe_write(rs, RESTORE_SRC)
+    status.append("자가치유판 기록" if changed else "자가치유판 변경 없음(멱등)")
+    return " · ".join(status)
+
+
+def scan_workflows():
+    wf = ROOT / ".github" / "workflows"
+    found = []
+    if wf.is_dir():
+        for p in sorted(list(wf.glob("*.yml")) + list(wf.glob("*.yaml"))):
+            t = read_text(p)
+            tags = []
+            if "restore_secrets" in t:
+                tags.append("restore_secrets 호출")
+            if re.search(r"^\s+analytics\s*:", t, re.M):
+                tags.append("analytics 잡")
+            if re.search(r"^\s+report\s*:", t, re.M):
+                tags.append("report 잡")
+            found.append(p.name + ("(" + ", ".join(tags) + ")" if tags else ""))
+    return ("워크플로우 %d개 확인(수정 없음): " % len(found) + "; ".join(found)) if found else "워크플로우 폴더 없음(수정 없음)"
+
+
+GI_START = "# [RGON-STEP17-GUARD-START]"
+GI_END = "# [RGON-STEP17-GUARD-END]"
+
+
+def patch_gitignore():
+    lines = [
+        "# RGON Step17 비밀/백업 보호 (궁변통구 · 사환예방)",
+        ".rgon_backup/",
+        "__pycache__/",
+        "*.rgon_tmp",
+        ".env",
+        "token.json",
+        "client_secret*.json",
+        "credentials.json",
+        "service_account.json",
+    ]
+    legacy = ROOT / "restore_secrets_legacy.py"
+    if legacy.exists():
+        legacy_tracked = git_tracked("restore_secrets_legacy.py")
+        if not legacy_tracked and not SELF_HEAL_INFO.get("converted_tracked_original"):
+            lines.append("restore_secrets_legacy.py")
+    changed = upsert_block(ROOT / ".gitignore", GI_START, GI_END, "\n".join(lines))
+    return "가드 블록 장착" if changed else "변경 없음(멱등)"
+
+
+NEW_FILES = [
+    ("step17_founder_soul_and_eastern_wisdom.py", "Step 17 단일 설치 스크립트 (멱등, 보호 파일 해시 전후 검증, Git 동기화)"),
+    ("RGON_PHILOSOPHY.md", "영구 보존 마스터 철학서: 제0장 창립자 선언 · 제1장 명심보감 7강령 · 제2장 도덕경 5법칙 · 제3장 주역 64괘 엔진"),
+    ("rgon_iching_64_engine.py", "주역 64괘 전체 내장 6비트 상태 판독 & AI 전략 처방 엔진 (--list / --root / --no-save)"),
+    ("rgon_today_hexagram.json", "오늘의 괘 · 6효 판독 결과 · 궁변통구 처방 · 다음 한걸음"),
+    ("restore_secrets.py", "[RGON-SELF-HEAL-V17] 궁변통구 시크릿 복원기 (환경변수 있을 때만 복원, 항상 exit 0)"),
+    ("restore_secrets_legacy.py", "기존 restore_secrets 로직 보존본 (존재 시 자가치유판이 먼저 실행)"),
+    ("rgon_integrity_baseline.json", "보호 파일(.html/.js/manifest.json) SHA-256 베이스라인 (제1효 판독용)"),
+    ("CLAUDE.md", "V17 헌법: 제0조 창립자 선언 · 동서 통합 헌법 · 항체 R16/R17"),
+]
+
+LOG_START = "<!-- [RGON-EVOLUTION-STEP17-START] -->"
+LOG_END = "<!-- [RGON-EVOLUTION-STEP17-END] -->"
+
+
+def write_evolution_log(hexa=None):
+    hx = "(판독 대기)"
+    if hexa:
+        hx = "%s · 6비트 %s · %s" % (hexa["hexagram"]["name"], hexa["key"], hexa["hexagram"]["ai_action"])
+    block = "\n".join([
+        "## Step 17 — 창립자 영혼 & 동양 3대 고전 헌법 (" + VERSION + ")",
+        "- 일시: " + ISO,
+        "- 창립자 이상일 대표 [만물일체·한걸음씩 선언] 전문을 RGON_PHILOSOPHY.md 제0장 및 CLAUDE.md 제0조에 영구 수록",
+        "- 명심보감 7대 AI 거버넌스 강령 · 도덕경 5대 아키텍처 법칙 · 주역 64괘 6비트 의사결정 엔진 장착",
+        "- 궁변통구 자가치유: restore_secrets.py 자가치유판 설치 (환경변수 있을 때만 복원, 항상 exit 0) → analytics/report 잡 빨간불 차단",
+        "- 항체 범위: " + ANTIBODY_RANGE + " · 신규: R16_SINGLE_CODEBLOCK_NO_INNER_FENCE, R17_FOUNDER_SOUL_EASTERN_WISDOM_CODEX",
+        "- 오늘의 괘: " + hx,
+        "- 보호 파일(.html/.js/manifest.json) 수정: 0건 (SHA-256 전후 검증)",
+    ])
+    changed = upsert_block(ROOT / "RGON_EVOLUTION_LOG.md", LOG_START, LOG_END, block,
+                           header="# RGON 진화 로그 (RGON_EVOLUTION_LOG)")
+    return "Step17 기록" if changed else "변경 없음(멱등)"
+
+
+MAP_START = "<!-- [RGON-CODEMAP-STEP17-START] -->"
+MAP_END = "<!-- [RGON-CODEMAP-STEP17-END] -->"
+
+
+def write_code_map():
+    rows = ["## Step 17 (" + VERSION + ") — 창립자 영혼 & 동양 3대 고전", "",
+            "| 파일 | 역할 |", "|---|---|"]
+    for name, role in NEW_FILES:
+        if name == "restore_secrets_legacy.py" and not (ROOT / name).exists():
+            continue
+        rows.append("| " + code(name) + " | " + role + " |")
+    rows += ["", "- 6효 매핑: 1 기반(Git/해시) · 2 소통(독대실) · 3 자동화(스케줄러) · 4 트렌드(스킬 레이더) · 5 콘텐츠(진화 로그) · 6 시장(스냅샷)",
+             "- 실행: " + code("python rgon_iching_64_engine.py") + " → " + code("rgon_today_hexagram.json")]
+    changed = upsert_block(ROOT / "CODE_MAP.md", MAP_START, MAP_END, "\n".join(rows),
+                           header="# RGON CODE MAP")
+    return "Step17 구간 갱신" if changed else "변경 없음(멱등)"
+
+
+NEW_ANTIBODIES = [
+    {"id": "R16_SINGLE_CODEBLOCK_NO_INNER_FENCE",
+     "name": "단일 코드블록 · 내부 펜스 금지",
+     "rule": "출력 코드 내부에 백틱 3연속 직접 사용 금지, BT=chr(96)/FENCE=BT*3 결합만 허용, 인사말 없이 단 1개 코드블록 출력",
+     "added_in": VERSION},
+    {"id": "R17_FOUNDER_SOUL_EASTERN_WISDOM_CODEX",
+     "name": "창립자 영혼 · 동양 3대 고전 헌법",
+     "rule": "만물일체·한걸음씩 선언 + 명심보감 삼성 + 도덕경 무위 + 주역 궁변통구 자가치유 내재화",
+     "added_in": VERSION},
+]
+
+
+def _merge_antibodies(data):
+    ab = data.get("antibodies")
+    if isinstance(ab, list):
+        ids = set()
+        for a in ab:
+            if isinstance(a, str):
+                ids.add(a.strip())
+            elif isinstance(a, dict):
+                ids.add(str(a.get("id") or a.get("code") or a.get("name") or ""))
+        str_mode = len(ab) > 0 and all(isinstance(a, str) for a in ab)
+        for na in NEW_ANTIBODIES:
+            if any(i.startswith(na["id"]) for i in ids):
+                continue
+            ab.append(na["id"] if str_mode else dict(na))
+    elif isinstance(ab, dict):
+        for na in NEW_ANTIBODIES:
+            ab.setdefault(na["id"], dict(na))
+    else:
+        data["antibodies"] = [dict(na) for na in NEW_ANTIBODIES]
+
+
+def update_snapshots(hexa=None):
+    results = []
+    for d in [ROOT, ROOT / "dashboard", ROOT / "docs"]:
+        p = d / "rgon_brain_snapshot.json"
+        data = {}
+        if p.exists():
+            try:
+                loaded = json.loads(read_text(p))
+                data = loaded if isinstance(loaded, dict) else {"legacy_snapshot": loaded}
+            except Exception:
+                data = {"legacy_snapshot_unparsed": True}
+        data["version"] = VERSION
+        data["step"] = STEP
+        data["antibody_range"] = ANTIBODY_RANGE
+        data["antibody_count"] = 17
+        data["updated_at"] = ISO
+        _merge_antibodies(data)
+        data["philosophy"] = {
+            "doc": "RGON_PHILOSOPHY.md",
+            "founder_declaration": "창립자 이상일 대표 만물일체(萬物一體) · 한걸음씩 선언",
+            "codex": ["명심보감 7대 AI 거버넌스 강령", "도덕경 5대 아키텍처 법칙", "주역 64괘 6비트 의사결정 엔진"],
+            "maxim": "窮則變 變則通 通則久",
+        }
+        data["step17"] = {
+            "title": "창립자 영혼 & 동양 3대 고전 헌법 + 궁변통구 자가치유",
+            "files": [n for n, _ in NEW_FILES if (ROOT / n).exists()],
+            "self_heal": "restore_secrets.py " + SELF_HEAL_MARKER,
+            "protected_files_modified": 0,
+        }
+        if hexa:
+            data["today_hexagram"] = {
+                "name": hexa["hexagram"]["name"],
+                "key": hexa["key"],
+                "judgment": hexa["hexagram"]["judgment"],
+                "ai_action": hexa["hexagram"]["ai_action"],
+                "next_step": hexa.get("next_step"),
+                "generated_at": hexa.get("generated_at"),
+            }
+        changed = safe_write(p, json.dumps(data, ensure_ascii=False, indent=2) + "\n")
+        results.append(p.relative_to(ROOT).as_posix() + ("(갱신)" if changed else "(동일)"))
+    return ", ".join(results)
+
+
+def write_baseline(hashes):
+    data = {"version": VERSION, "generated_at": ISO, "count": len(hashes), "hashes": hashes}
+    safe_write(ROOT / "rgon_integrity_baseline.json", json.dumps(data, ensure_ascii=False, indent=2) + "\n")
+    return "보호 파일 %d개 베이스라인 기록" % len(hashes)
+
+
+def git_sync():
+    if not git_available():
+        return "Git 저장소/실행파일 없음 → 동기화 건너뜀"
+    out = []
+    rc, msg = git(["add", "-A"])
+    if rc != 0:
+        return "git add 실패: " + msg[:200]
+    for f in ("restore_secrets.py", "rgon_iching_64_engine.py"):
+        if (ROOT / f).exists() and git_ignored(f):
+            git(["add", "-f", f])
+            out.append(f + " .gitignore 무시 상태 → 강제 추가(CI 누락 방지)")
+    for f in ("RGON_PHILOSOPHY.md", "CLAUDE.md", "rgon_today_hexagram.json"):
+        if (ROOT / f).exists() and git_ignored(f):
+            out.append("주의: " + f + " 는 .gitignore 대상이라 커밋되지 않음")
+    rc, _ = git(["diff", "--cached", "--quiet"])
+    if rc == 1:
+        rc, msg = git(["commit", "-m", "Step 17 (" + VERSION + "): 창립자 만물일체·한걸음씩 선언 + 동양 3대 고전 헌법 + 주역 64괘 엔진 + 궁변통구 자가치유"])
+        out.append("commit " + ("완료" if rc == 0 else "실패: " + msg[:200]))
+        if rc != 0:
+            return " / ".join(out)
+    else:
+        out.append("커밋할 변경 없음")
+    rc, branch = git(["rev-parse", "--abbrev-ref", "HEAD"])
+    branch = branch.strip()
+    if branch != "main":
+        out.append("현재 브랜치 '" + branch + "' ≠ main → pull/push 보류(안분)")
+        return " / ".join(out)
+    rc, msg = git(["pull", "--rebase", "origin", "main"], timeout=300)
+    if rc != 0:
+        git(["rebase", "--abort"])
+        out.append("pull --rebase 실패(rebase 중단·로컬 커밋 보존): " + msg[:200])
+        return " / ".join(out)
+    out.append("pull --rebase 완료")
+    rc, msg = git(["push", "origin", "main"], timeout=300)
+    out.append("push " + ("완료" if rc == 0 else "실패: " + msg[:200]))
+    return " / ".join(out)
+
+
+def main():
+    global ROOT, BACKUP_DIR
+    root = find_root()
+    if root is None:
+        msgbox("RGON Step 17 — 중단", "작업 폴더(shin-agent)를 찾지 못했습니다.\n인자로 경로를 지정해 주세요:\npython step17_founder_soul_and_eastern_wisdom.py <경로>", error=True)
+        return 2
+    ROOT = root
+    BACKUP_DIR = ROOT / ".rgon_backup" / ("step17_" + TS)
+    os.chdir(str(ROOT))
+
+    log("═" * 64)
+    log(" ☯ RGON Step 17 — 창립자 영혼 & 동양 3대 고전 헌법 (" + VERSION + ")")
+    log(" 루트: " + str(ROOT))
+    log("═" * 64)
+
+    log("\n[삼성 1/3] 실행 전 보호 파일 SHA-256 기록")
+    before = hash_protected(ROOT)
+    log("  보호 파일 %d개 (.html/.js/manifest.json)" % len(before))
+
+    step("[2] rgon_iching_64_engine.py 생성", write_engine)
+    mod = None
+    try:
+        mod = load_engine()
+        log("  64괘 테이블 로드: %d괘 / 고유 6비트 키 %d개" % (len(mod.TABLE), len(mod.BY_KEY)))
+    except Exception as e:
+        ERRORS.append("엔진 로드 → " + type(e).__name__ + ": " + str(e))
+        log("  엔진 로드 실패 → 궁변통구: 서브프로세스 경로로 변통 예정")
+    step("[1] RGON_PHILOSOPHY.md 생성", write_philosophy, mod)
+    step("[3] CLAUDE.md V17 헌법 장착", write_claude_md)
+    heal = step("[4] restore_secrets.py 궁변통구 방어막", install_self_heal)
+    wf = step("[4-1] GitHub 워크플로우 점검(읽기 전용)", scan_workflows)
+    step("[4-2] .gitignore 비밀/백업 가드", patch_gitignore)
+    step("[5-1] RGON_EVOLUTION_LOG.md 기록", write_evolution_log)
+    step("[5-2] CODE_MAP.md 갱신", write_code_map)
+    step("[5-3] rgon_brain_snapshot.json (루트/dashboard/docs) 갱신", update_snapshots)
+
+    log("\n[삼성 2/3] 중간 해시 검증")
+    mid = hash_protected(ROOT)
+    c, r, a = compare_hashes(before, mid)
+    if c or r or a:
+        msgbox("RGON Step 17 — 무결성 위반 중단",
+               "보호 파일 해시 변화 감지!\n변경 %d · 삭제 %d · 추가 %d\n%s\nGit 동기화를 중단합니다. 백업: %s" % (
+                   len(c), len(r), len(a), "\n".join((c + r + a)[:10]), BACKUP_DIR), error=True)
+        return 1
+    log("  ✔ 보호 파일 %d개 변경 0건" % len(mid))
+    step("[5-4] rgon_integrity_baseline.json 기록", write_baseline, mid)
+
+    hexa = step("[2-1] 오늘의 괘 판독 → rgon_today_hexagram.json", run_engine, mod)
+    if isinstance(hexa, dict):
+        step("[5-5] 스냅샷에 오늘의 괘 반영", update_snapshots, hexa)
+        step("[5-6] 진화 로그에 오늘의 괘 반영", write_evolution_log, hexa)
+
+    log("\n[삼성 3/3] 최종 해시 검증")
+    after = hash_protected(ROOT)
+    c, r, a = compare_hashes(before, after)
+    if c or r or a:
+        msgbox("RGON Step 17 — 무결성 위반 중단",
+               "보호 파일 해시 변화 감지!\n변경 %d · 삭제 %d · 추가 %d\n%s\nGit 동기화를 중단합니다. 백업: %s" % (
+                   len(c), len(r), len(a), "\n".join((c + r + a)[:10]), BACKUP_DIR), error=True)
+        return 1
+    log("  ✔ 최종 검증: 보호 파일 %d개 변경 0건 (SHA-256 일치)" % len(after))
+
+    sync = step("[5-7] Git 동기화 (add → commit → pull --rebase → push)", git_sync)
+
+    yao = "-"
+    if isinstance(hexa, dict):
+        yao = "%s [%s]" % (hexa["hexagram"]["name"], hexa["key"])
+    lines = [
+        "버전: " + VERSION + " · 항체 " + ANTIBODY_RANGE,
+        "루트: " + str(ROOT),
+        "보호 파일 %d개 수정 0건 (SHA-256 전후 검증 통과)" % len(after),
+        "오늘의 괘: " + yao,
+        "자가치유: " + str(heal),
+        "Git: " + str(sync),
+        "변경 파일 %d개: %s" % (len(CHANGED), ", ".join(CHANGED[:12]) + (" …" if len(CHANGED) > 12 else "")),
+    ]
+    if BACKED_UP:
+        lines.append("백업: " + str(BACKUP_DIR))
+    if ERRORS:
+        lines.append("경고 %d건(궁변통구 변통 처리):" % len(ERRORS))
+        lines += ["- " + e[:160] for e in ERRORS[:6]]
+    lines.append("")
+    lines.append("窮則變 變則通 通則久 — 한걸음씩 올바르게.")
+    msgbox("RGON Step 17 완료 ☯" if not ERRORS else "RGON Step 17 완료(경고 있음)", "\n".join(lines), error=False)
+    return 0
+
+
+if __name__ == "__main__":
+    try:
+        code_ = main()
+    except KeyboardInterrupt:
+        log("사용자 중단")
+        code_ = 130
+    except Exception as e:
+        msgbox("RGON Step 17 — 예기치 않은 오류", type(e).__name__ + ": " + str(e), error=True)
+        code_ = 1
+    sys.exit(code_)

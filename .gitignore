@@ -156,3 +156,16 @@ v5_server_*.log
 ingredients_basket/backup_old_ceramic_mug*.jpg
 
 .env.telegram.local
+
+# [RGON-STEP17-GUARD-START]
+# RGON Step17 비밀/백업 보호 (궁변통구 · 사환예방)
+.rgon_backup/
+__pycache__/
+*.rgon_tmp
+.env
+token.json
+client_secret*.json
+credentials.json
+service_account.json
+restore_secrets_legacy.py
+# [RGON-STEP17-GUARD-END]

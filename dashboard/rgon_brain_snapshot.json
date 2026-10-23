@@ -1,6 +1,6 @@
 {
   "schema": "rgon_brain_snapshot/1",
-  "version": "v6.2.0-step16",
+  "version": "v6.3.0-step17",
   "generated_at_kst": "2026-10-23 22:29:07 KST",
   "synced_at_kst": "2026-10-23 22:29:07 KST",
   "sync_rate": "100.0%",
@@ -11,7 +11,7 @@
     "max": 100,
     "label": "100/100"
   },
-  "antibody_range": "R1~R15 (15종)",
+  "antibody_range": "R1~R17 (17종)",
   "antibodies": [
     {
       "id": "R8_APPROVAL_BEFORE_CODE",
@@ -99,6 +99,18 @@
       "id": "R15_YOUTUBE_SKILL_SCOUT",
       "rule": "영상 URL → 메타데이터·설명란 외부 링크·자막 요약, 채널 중앙값 대비 떡상 배수, 21훅 채점, 클로드 흡수 지시문·쇼츠 대본 자동 변환.",
       "since": "2026-10-23"
+    },
+    {
+      "id": "R16_SINGLE_CODEBLOCK_NO_INNER_FENCE",
+      "name": "단일 코드블록 · 내부 펜스 금지",
+      "rule": "출력 코드 내부에 백틱 3연속 직접 사용 금지, BT=chr(96)/FENCE=BT*3 결합만 허용, 인사말 없이 단 1개 코드블록 출력",
+      "added_in": "v6.3.0-step17"
+    },
+    {
+      "id": "R17_FOUNDER_SOUL_EASTERN_WISDOM_CODEX",
+      "name": "창립자 영혼 · 동양 3대 고전 헌법",
+      "rule": "만물일체·한걸음씩 선언 + 명심보감 삼성 + 도덕경 무위 + 주역 궁변통구 자가치유 내재화",
+      "added_in": "v6.3.0-step17"
     }
   ],
   "top_priority_id": "GEN-1",
@@ -900,5 +912,46 @@
       "R14_SHADOW_DOM_4BTN",
       "R15_YOUTUBE_SKILL_SCOUT"
     ]
+  },
+  "step": 17,
+  "antibody_count": 17,
+  "updated_at": "2026-10-23T23:36:16",
+  "philosophy": {
+    "doc": "RGON_PHILOSOPHY.md",
+    "founder_declaration": "창립자 이상일 대표 만물일체(萬物一體) · 한걸음씩 선언",
+    "codex": [
+      "명심보감 7대 AI 거버넌스 강령",
+      "도덕경 5대 아키텍처 법칙",
+      "주역 64괘 6비트 의사결정 엔진"
+    ],
+    "maxim": "窮則變 變則通 通則久"
+  },
+  "step17": {
+    "title": "창립자 영혼 & 동양 3대 고전 헌법 + 궁변통구 자가치유",
+    "files": [
+      "RGON_PHILOSOPHY.md",
+      "rgon_iching_64_engine.py",
+      "rgon_today_hexagram.json",
+      "restore_secrets.py",
+      "restore_secrets_legacy.py",
+      "rgon_integrity_baseline.json",
+      "CLAUDE.md"
+    ],
+    "self_heal": "restore_secrets.py [RGON-SELF-HEAL-V17]",
+    "protected_files_modified": 0
+  },
+  "today_hexagram": {
+    "name": "9. 풍천소축(風天小畜)",
+    "key": "111011",
+    "judgment": "亨 密雲不雨 自我西郊",
+    "ai_action": "작은 축적 — 큰 변경 대신 소규모 개선을 쌓을 때.",
+    "next_step": {
+      "fix_line": 4,
+      "fix_action": "rgon_skill_radar.json 카드 갱신 (레이더 스크립트 재실행)",
+      "next_hexagram": "1. 중천건(重天乾)",
+      "next_key": "111111",
+      "principle": "천리지행 시어족하 — 가장 아래(기반)의 막힌 효부터 한걸음씩 통하게 한다."
+    },
+    "generated_at": "2026-10-23T23:36:18"
   }
 }

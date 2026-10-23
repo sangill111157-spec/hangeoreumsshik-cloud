@@ -1249,3 +1249,21 @@ shin-agent/
 
 ## 🩺 Python 문법 검증 (ast.parse)
 - ✅ 스캔한 Python 551개 모두 문법 정상
+
+<!-- [RGON-CODEMAP-STEP17-START] -->
+## Step 17 (v6.3.0-step17) — 창립자 영혼 & 동양 3대 고전
+
+| 파일 | 역할 |
+|---|---|
+| `step17_founder_soul_and_eastern_wisdom.py` | Step 17 단일 설치 스크립트 (멱등, 보호 파일 해시 전후 검증, Git 동기화) |
+| `RGON_PHILOSOPHY.md` | 영구 보존 마스터 철학서: 제0장 창립자 선언 · 제1장 명심보감 7강령 · 제2장 도덕경 5법칙 · 제3장 주역 64괘 엔진 |
+| `rgon_iching_64_engine.py` | 주역 64괘 전체 내장 6비트 상태 판독 & AI 전략 처방 엔진 (--list / --root / --no-save) |
+| `rgon_today_hexagram.json` | 오늘의 괘 · 6효 판독 결과 · 궁변통구 처방 · 다음 한걸음 |
+| `restore_secrets.py` | [RGON-SELF-HEAL-V17] 궁변통구 시크릿 복원기 (환경변수 있을 때만 복원, 항상 exit 0) |
+| `restore_secrets_legacy.py` | 기존 restore_secrets 로직 보존본 (존재 시 자가치유판이 먼저 실행) |
+| `rgon_integrity_baseline.json` | 보호 파일(.html/.js/manifest.json) SHA-256 베이스라인 (제1효 판독용) |
+| `CLAUDE.md` | V17 헌법: 제0조 창립자 선언 · 동서 통합 헌법 · 항체 R16/R17 |
+
+- 6효 매핑: 1 기반(Git/해시) · 2 소통(독대실) · 3 자동화(스케줄러) · 4 트렌드(스킬 레이더) · 5 콘텐츠(진화 로그) · 6 시장(스냅샷)
+- 실행: `python rgon_iching_64_engine.py` → `rgon_today_hexagram.json`
+<!-- [RGON-CODEMAP-STEP17-END] -->
