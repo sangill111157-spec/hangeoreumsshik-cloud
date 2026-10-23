@@ -1052,7 +1052,7 @@
   "white_blood_cell": {
     "engine": "rgon_white_blood_cell.py",
     "ledger": "rgon_immune_ledger.json",
-    "health_score": 0,
+    "health_score": 100,
     "guarded_scripts": [
       "rgon_youtube_skill_scout.py",
       "control_tower_bot.py",

@@ -37,7 +37,7 @@ PROTECTED_EXTS = (".html", ".js")
 PROTECTED_NAMES = ("manifest.json",)
 SKIP_DIRS = {
     ".git", "__pycache__", "node_modules", ".venv", "venv",
-    ".rgon_backup", ".idea", ".vscode",
+    ".rgon_backup", ".idea", ".vscode", "backups", "archive", "old_backups",
 }
 
 CAUTION_HEX_NUMBERS = {6, 12, 23, 29, 36, 39, 47}
@@ -405,7 +405,7 @@ def find_latest_valid_backup(file_path, root_dir=None):
         if "wbc_quarantine" in dp:
             continue
         for fn in fns:
-            if fn.startswith(rel_key) or fn.startswith(base) or (base in fn):
+            if fn.startswith(rel_key + '.') or fn.startswith(base + '.'):
                 full = os.path.join(dp, fn)
                 try:
                     candidates.append((os.path.getmtime(full), full))
@@ -596,7 +596,7 @@ def patrol(root_dir=None, auto_heal=True):
             if low.endswith(".py"):
                 py_checked += 1
                 try:
-                    with open(full, "r", encoding="utf-8", errors="replace") as f:
+                    with open(full, "r", encoding="utf-8-sig", errors="replace") as f:
                         src = f.read()
                     ast.parse(src, filename=rel_p)
                     save_clean_snapshot(full, root)
@@ -613,7 +613,7 @@ def patrol(root_dir=None, auto_heal=True):
             elif low.endswith(".json"):
                 json_checked += 1
                 try:
-                    with open(full, "r", encoding="utf-8", errors="replace") as f:
+                    with open(full, "r", encoding="utf-8-sig", errors="replace") as f:
                         raw = f.read()
                     json.loads(raw)
                     if not is_protected_file(full):
@@ -631,7 +631,7 @@ def patrol(root_dir=None, auto_heal=True):
             elif low.endswith(".html"):
                 html_checked += 1
                 try:
-                    with open(full, "r", encoding="utf-8", errors="replace") as f:
+                    with open(full, "r", encoding="utf-8-sig", errors="replace") as f:
                         ht = f.read()
                     unb = _check_marker_balance(ht)
                     if unb:
