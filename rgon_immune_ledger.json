@@ -1,10 +1,10 @@
 {
   "schema": "rgon.immune.ledger.v1",
-  "version": "v11.19-AUTONOMOUS",
-  "current_step": 20,
-  "antibody_range": "R1~R20",
+  "version": "v11.20-MINDUNG-ECC",
+  "current_step": 21,
+  "antibody_range": "R1~R21",
   "principle": "만물은 하나로 이어져 있으며, 한 걸음씩 나아가면 반드시 이루어진다.",
-  "updated_at_kst": "2026-10-24T06:54:08",
+  "updated_at_kst": "2026-10-24T07:34:44",
   "health_score": 100,
   "inspection_mode": "standard",
   "today_hexagram": {
@@ -127,6 +127,14 @@
       "desc": "일일 자율 순환 루프(백혈구 순찰 → 영양분 소화·스킬 주조 → 3자 심판 → 주역 64괘 아침 브리핑) 무인 자동화",
       "step": 20,
       "version": "v11.19-AUTONOMOUS"
+    },
+    {
+      "id": "R21",
+      "title": "@Mindung-EasyAI 양분 흡수 — Matt Pocock(GLOSSARY.md · Spec/Tracer-Bullet Tickets 분업) + ECC(AgentShield 비밀키/설정 보안 스캔)",
+      "name": "@Mindung-EasyAI 양분 흡수 — Matt Pocock(GLOSSARY.md · Spec/Tracer-Bullet Tickets 분업) + ECC(AgentShield 비밀키/설정 보안 스캔)",
+      "text": "@Mindung-EasyAI 양분 흡수 — Matt Pocock(GLOSSARY.md · Spec/Tracer-Bullet Tickets 분업) + ECC(AgentShield 비밀키/설정 보안 스캔)",
+      "step": 21,
+      "added_at": "2026-10-24 07:34:37"
     }
   ],
   "fingerprints": {},
@@ -229,9 +237,18 @@
       "html_checked": 53,
       "errors": 0,
       "healed": 0
+    },
+    {
+      "timestamp_kst": "2026-10-24T07:34:44",
+      "health_score": 100,
+      "py_checked": 838,
+      "json_checked": 135,
+      "html_checked": 53,
+      "errors": 0,
+      "healed": 0
     }
   ],
-  "antibody_count": 20,
+  "antibody_count": 21,
   "step20": {
     "name": "일일 자율 순환 루프",
     "antibody": "R20",
@@ -239,5 +256,26 @@
     "workflow": ".github/workflows/rgon_daily_autonomous_cycle.yml",
     "schedule_kst": "07:00",
     "installed_on": "2026-10-24"
-  }
+  },
+  "step": 21,
+  "updated_at": "2026-10-24 07:34:37",
+  "step21": {
+    "skills": 18,
+    "glossary_terms": 15,
+    "self_test": true,
+    "agentshield": {
+      "critical": 0,
+      "advisory": 1
+    },
+    "channel": "@Mindung-EasyAI"
+  },
+  "events": [
+    {
+      "step": 21,
+      "version": "v11.20-MINDUNG-ECC",
+      "antibody": "R21",
+      "text": "@Mindung-EasyAI 양분 흡수 — Matt Pocock(GLOSSARY.md · Spec/Tracer-Bullet Tickets 분업) + ECC(AgentShield 비밀키/설정 보안 스캔)",
+      "at": "2026-10-24 07:34:37"
+    }
+  ]
 }

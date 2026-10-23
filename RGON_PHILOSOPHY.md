@@ -169,7 +169,7 @@
 
 <!-- RGON-STEP20-START -->
 ## [Step 20] v11.19-AUTONOMOUS — 일일 자율 순환 루프 (R20)
-- 버전: v11.19-AUTONOMOUS / 항체 범위: R1~R20
+- 버전: v11.20-MINDUNG-ECC / 항체 범위: R1~R21
 - R20: 일일 자율 순환 루프(백혈구 순찰 → 영양분 소화·스킬 주조 → 3자 심판 → 주역 64괘 아침 브리핑) 무인 자동화
 - 심장: rgon_daily_cycle.py (--run / --status / --self-test)
 - 4단계: 백혈구 순찰 → 영양분 3스푼 소화·SKILL.md 주조·TrinityCouncil 심의 → 주역 64괘 → MORNING_BRIEF.md / rgon_morning_brief.json
@@ -177,3 +177,8 @@
 - 보호: .html / .js / manifest.json 304개 단 1바이트도 수정 금지
 - 철학: 무위자연 — 환경변수가 없으면 조용히 로컬 브리핑만 갱신하고 물러난다(상선약수).
 <!-- RGON-STEP20-END -->
+
+<!-- RGON:STEP21:START -->
+## v11.20-MINDUNG-ECC — 공유 언어와 방패
+하나의 단어가 스무 단어를 대신하고(GLOSSARY), 얇은 관통 티켓이 큰 목표를 나누며(Tracer-Bullet), 방패(AgentShield)가 비밀을 지킨다. 항체 R1~R21.
+<!-- RGON:STEP21:END -->

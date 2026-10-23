@@ -28,7 +28,7 @@ import sys
 import traceback
 
 WBC_VERSION = "v11.17-WBC"
-ANTIBODY_RANGE = "R1~R20"
+ANTIBODY_RANGE = "R1~R21"
 LEDGER_FILENAME = "rgon_immune_ledger.json"
 HEXAGRAM_FILENAME = "rgon_hexagram_engine.py"
 PRINCIPLE = "만물은 하나로 이어져 있으며, 한 걸음씩 나아가면 반드시 이루어진다."
@@ -797,8 +797,8 @@ def main(argv=None):
     return 0
 
 
-# ===== RGON-STEP20-START (R20 antibody, v11.19-AUTONOMOUS) =====
-ANTIBODY_RANGE = "R1~R20"
+# ===== RGON-STEP20-START (R20 antibody, v11.20-MINDUNG-ECC) =====
+ANTIBODY_RANGE = "R1~R21"
 _RGON_R20_TEXT = "일일 자율 순환 루프(백혈구 순찰 → 영양분 소화·스킬 주조 → 3자 심판 → 주역 64괘 아침 브리핑) 무인 자동화"
 try:
     for _nm in ("DEFAULT_ANTIBODIES", "ANTIBODIES", "ANTIBODY_LIST", "ANTIBODY_RULES"):
@@ -819,6 +819,19 @@ except Exception:
     pass
 # ===== RGON-STEP20-END =====
 
+
+# >>> RGON-STEP21-R21 >>>
+ANTIBODY_RANGE = "R1~R21"
+_R21 = "@Mindung-EasyAI 양분 흡수 — Matt Pocock(GLOSSARY.md · Spec/Tracer-Bullet Tickets 분업) + ECC(AgentShield 비밀키/설정 보안 스캔)"
+for _n in ("DEFAULT_ANTIBODIES", "ANTIBODIES", "ANTIBODY_RULES", "ANTIBODY", "RULES"):
+    _d = globals().get(_n)
+    if isinstance(_d, dict) and "R21" not in _d:
+        _s = next(iter(_d.values()), "")
+        _d["R21"] = ({k: ("R21" if k in ("id", "code") else _R21 if isinstance(v, str) else v) for k, v in _s.items()}
+                     if isinstance(_s, dict) else _R21)
+    elif isinstance(_d, list) and not any("R21" in str(x) for x in _d):
+        _d.append({"id": "R21", "title": _R21, "name": _R21, "text": _R21, "step": 21} if _d and isinstance(_d[0], dict) else "R21: " + _R21)
+# <<< RGON-STEP21-R21 <<<
 
 if __name__ == "__main__":
     sys.exit(main())

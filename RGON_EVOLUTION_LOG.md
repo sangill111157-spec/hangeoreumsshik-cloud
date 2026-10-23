@@ -127,3 +127,10 @@
 python rgon_daily_cycle.py --run
 ```
 <!-- RGON-STEP20-END -->
+
+<!-- RGON:STEP21-LOG:START -->
+## 2026-10-24 07:34:37 · Step 21 · v11.20-MINDUNG-ECC
+- @Mindung-EasyAI 양분 4종 흡수 (mattpocock/skills · ECC · rea)
+- 신규 항체 R21: @Mindung-EasyAI 양분 흡수 — Matt Pocock(GLOSSARY.md · Spec/Tracer-Bullet Tickets 분업) + ECC(AgentShield 비밀키/설정 보안 스캔)
+- 항체 범위 R1~R20 → R1~R21
+<!-- RGON:STEP21-LOG:END -->

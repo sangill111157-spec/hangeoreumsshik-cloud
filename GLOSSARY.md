@@ -1,0 +1,25 @@
+# GLOSSARY — RGON 사령부 도메인 공유 언어 사전
+
+> Matt Pocock domain-glossary 방식 · 20단어 대신 1단어로 정확히 통한다.
+
+<!-- RGON:GLOSSARY:START -->
+버전: v11.20-MINDUNG-ECC · 항체 R1~R21 · 갱신 2026-10-24 07:34:37
+
+| 용어 | 정의 |
+|---|---|
+| **독대실** | 대표님과 르곤이 1:1로 전략을 결정하는 최상위 의사결정 공간. 모든 Step 지시서의 발령지. |
+| **흡수기(Absorber)** | 유튜브·깃허브 등 외부 양분을 수집·정제해 rgon_skill_radar.json 에 등록하는 모듈. |
+| **백혈구(WBC)** | rgon_white_blood_cell.py. 항체 규칙을 순찰(--patrol)하고 건강 점수(목표 100/100)를 산출. |
+| **면역 원장** | rgon_immune_ledger.json. 항체 추가·사건·Step 이력을 기록하는 불변 장부. |
+| **영양분 3스푼** | 한 번에 소화하는 양분을 핵심 소수로 제한해 과식(과잉 변경)을 막는 소화 원칙. |
+| **TrinityCouncil** | 르곤·Claude·GPT(+Grok) 다중 AI 합의 회의체. 설계/구현/구조/트렌드 분업. |
+| **삼성(三省) 해시** | 작업 전·중·후 3회 SHA-256 검증으로 보호 파일 무결성을 확인하는 절차. |
+| **상선약수 우회** | 장애물을 정면 돌파하지 않고 물처럼 대체 경로로 우회하는 오류 처리 철학. |
+| **무위자연 폴백** | 외부 의존 실패 시 표준 라이브러리 최소 동작으로 자연스럽게 복귀하는 안전장치. |
+| **단발 배치(placeOnce)** | UI·설정 요소를 단 한 번만 배치하는 멱등 원칙. 재실행해도 중복 없음. |
+| **보호 파일 304** | .html/.js/manifest.json 304개. 1바이트도 수정 불가(삼성 해시로 검증). |
+| **일일 자율 순환** | 레이더 → 소화(--digest) → 백혈구 순찰 → 스냅샷 → 원장 기록의 매일 자동 루프. |
+| **Spec & Tracer-Bullet Tickets** | Matt Pocock 방식. 목표→스펙→얇은 수직 관통 티켓(blocked_by·demo_path)으로 분업. |
+| **AgentShield** | ECC 방식 보안 백혈구. 비밀키 평문·보호 설정 무단 변경을 스캔(rgon_agentshield_report.json). |
+| **항체 R1~R21** | RGON 헌법 규칙 집합. R21 = @Mindung-EasyAI 양분 흡수 — Matt Pocock(GLOSSARY.md · Spec/Tracer-Bullet Tickets 분업) + ECC(AgentShield 비밀키/설정 보안 스캔) |
+<!-- RGON:GLOSSARY:END -->

@@ -1,6 +1,6 @@
 {
   "schema": "rgon_brain_snapshot/1",
-  "version": "v11.19-AUTONOMOUS",
+  "version": "v11.20-MINDUNG-ECC",
   "generated_at_kst": "2026-10-23 22:29:07 KST",
   "synced_at_kst": "2026-10-23 22:29:07 KST",
   "sync_rate": "100.0%",
@@ -11,7 +11,7 @@
     "max": 100,
     "label": "100/100"
   },
-  "antibody_range": "R1~R20",
+  "antibody_range": "R1~R21",
   "antibodies": [
     {
       "id": "R8_APPROVAL_BEFORE_CODE",
@@ -138,6 +138,13 @@
       "name": "일일 자율 순환 루프(백혈구 순찰 → 영양분 소화·스킬 주조 → 3자 심판 → 주역 64괘 아침 브리핑) 무인 자동화",
       "version": "v11.19-AUTONOMOUS",
       "step": 20
+    },
+    {
+      "id": "R21",
+      "title": "@Mindung-EasyAI 양분 흡수 — Matt Pocock(GLOSSARY.md · Spec/Tracer-Bullet Tickets 분업) + ECC(AgentShield 비밀키/설정 보안 스캔)",
+      "text": "@Mindung-EasyAI 양분 흡수 — Matt Pocock(GLOSSARY.md · Spec/Tracer-Bullet Tickets 분업) + ECC(AgentShield 비밀키/설정 보안 스캔)",
+      "step": 21,
+      "added_at": "2026-10-24 07:34:37"
     }
   ],
   "top_priority_id": "GEN-1",
@@ -940,9 +947,9 @@
       "R15_YOUTUBE_SKILL_SCOUT"
     ]
   },
-  "step": 17,
-  "antibody_count": 20,
-  "updated_at": "2026-10-23T23:36:16",
+  "step": 21,
+  "antibody_count": 21,
+  "updated_at": "2026-10-24 07:34:37",
   "philosophy": {
     "doc": "RGON_PHILOSOPHY.md",
     "founder_declaration": "창립자 이상일 대표 만물일체(萬物一體) · 한걸음씩 선언",
@@ -981,7 +988,7 @@
     },
     "generated_at": "2026-10-23T23:36:18"
   },
-  "current_step": 20,
+  "current_step": 21,
   "white_blood_cell": {
     "engine": "rgon_white_blood_cell.py",
     "ledger": "rgon_immune_ledger.json",
@@ -1051,5 +1058,16 @@
     "workflow": ".github/workflows/rgon_daily_autonomous_cycle.yml",
     "schedule_kst": "07:00",
     "installed_on": "2026-10-24"
-  }
+  },
+  "step21": {
+    "skills": 18,
+    "glossary_terms": 15,
+    "self_test": true,
+    "agentshield": {
+      "critical": 0,
+      "advisory": 1
+    },
+    "channel": "@Mindung-EasyAI"
+  },
+  "skill_count": 18
 }

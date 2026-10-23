@@ -160,10 +160,18 @@ setTimeout(placeOnce,300); setTimeout(placeOnce,900);   // 총 3회 단발, Obse
 
 <!-- RGON-STEP20-START -->
 ## [Step 20] v11.19-AUTONOMOUS — 일일 자율 순환 루프 (R20)
-- 버전: v11.19-AUTONOMOUS / 항체 범위: R1~R20
+- 버전: v11.20-MINDUNG-ECC / 항체 범위: R1~R21
 - R20: 일일 자율 순환 루프(백혈구 순찰 → 영양분 소화·스킬 주조 → 3자 심판 → 주역 64괘 아침 브리핑) 무인 자동화
 - 심장: rgon_daily_cycle.py (--run / --status / --self-test)
 - 4단계: 백혈구 순찰 → 영양분 3스푼 소화·SKILL.md 주조·TrinityCouncil 심의 → 주역 64괘 → MORNING_BRIEF.md / rgon_morning_brief.json
 - 클라우드: .github/workflows/rgon_daily_autonomous_cycle.yml (cron '0 22 * * *' = KST 07:00, workflow_dispatch, continue-on-error)
 - 보호: .html / .js / manifest.json 304개 단 1바이트도 수정 금지
 <!-- RGON-STEP20-END -->
+
+<!-- RGON:STEP21:START -->
+## Step 21 · v11.20-MINDUNG-ECC
+- 항체 범위: **R1~R21**
+- R21: @Mindung-EasyAI 양분 흡수 — Matt Pocock(GLOSSARY.md · Spec/Tracer-Bullet Tickets 분업) + ECC(AgentShield 비밀키/설정 보안 스캔)
+- 커밋 전 `python rgon_spec_ticket_Shield.py --run` (AgentShield) 필수
+- 작업 분해는 GLOSSARY.md 용어 + TICKETS_BOARD.md Frontier 우선
+<!-- RGON:STEP21:END -->
