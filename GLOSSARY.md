@@ -3,7 +3,7 @@
 > Matt Pocock domain-glossary 방식 · 20단어 대신 1단어로 정확히 통한다.
 
 <!-- RGON:GLOSSARY:START -->
-버전: v11.20-MINDUNG-ECC · 항체 R1~R21 · 갱신 2026-10-24 07:34:37
+버전: v11.21-CIRCULATION · 항체 R1~R22 · 갱신 2026-10-24 07:34:37
 
 | 용어 | 정의 |
 |---|---|
@@ -21,5 +21,5 @@
 | **일일 자율 순환** | 레이더 → 소화(--digest) → 백혈구 순찰 → 스냅샷 → 원장 기록의 매일 자동 루프. |
 | **Spec & Tracer-Bullet Tickets** | Matt Pocock 방식. 목표→스펙→얇은 수직 관통 티켓(blocked_by·demo_path)으로 분업. |
 | **AgentShield** | ECC 방식 보안 백혈구. 비밀키 평문·보호 설정 무단 변경을 스캔(rgon_agentshield_report.json). |
-| **항체 R1~R21** | RGON 헌법 규칙 집합. R21 = @Mindung-EasyAI 양분 흡수 — Matt Pocock(GLOSSARY.md · Spec/Tracer-Bullet Tickets 분업) + ECC(AgentShield 비밀키/설정 보안 스캔) |
+| **항체 R1~R22** | RGON 헌법 규칙 집합. R21 = @Mindung-EasyAI 양분 흡수 — Matt Pocock(GLOSSARY.md · Spec/Tracer-Bullet Tickets 분업) + ECC(AgentShield 비밀키/설정 보안 스캔) |
 <!-- RGON:GLOSSARY:END -->

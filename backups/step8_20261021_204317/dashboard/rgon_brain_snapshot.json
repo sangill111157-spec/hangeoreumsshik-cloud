@@ -1,0 +1,537 @@
+{
+  "schema": "rgon_brain_snapshot/1",
+  "version": "v6.0.8",
+  "generated_at_kst": "2026-10-21 07:28:57 KST",
+  "synced_at_kst": "2026-10-21 07:28:57 KST",
+  "sync_rate": "100.0%",
+  "score": 100,
+  "max_score": 100,
+  "self_diagnosis": {
+    "score": 100,
+    "max": 100,
+    "label": "100/100"
+  },
+  "antibody_range": "R1~R7",
+  "antibodies": [
+    {
+      "id": "R1",
+      "name": "항체 R1",
+      "status": "활성"
+    },
+    {
+      "id": "R2",
+      "name": "항체 R2",
+      "status": "활성"
+    },
+    {
+      "id": "R3",
+      "name": "항체 R3",
+      "status": "활성"
+    },
+    {
+      "id": "R4",
+      "name": "항체 R4",
+      "status": "활성"
+    },
+    {
+      "id": "R5",
+      "name": "항체 R5",
+      "status": "활성"
+    },
+    {
+      "id": "R6",
+      "name": "항체 R6",
+      "status": "활성"
+    },
+    {
+      "id": "R7",
+      "name": "항체 R7",
+      "status": "활성"
+    }
+  ],
+  "top_priority_id": "GEN-1",
+  "top_priority": "GEN-1 완전 무인 자가 진화 폐쇄 루프",
+  "tomorrow_top_priority": "GEN-1 완전 무인 자가 진화 폐쇄 루프",
+  "gen1_status": "장전 완료",
+  "gen1_pipeline": [
+    "관측 · 로그/오류 수집",
+    "진단 · 항체 R1~R7 대조",
+    "패치 · 후보 생성",
+    "검증 · 문법/회귀 점검",
+    "반영 · 백업 후 적용",
+    "기억 · 두뇌 장부 기록"
+  ],
+  "treasury": {
+    "balance": 0,
+    "currency": "KRW",
+    "status": "정상",
+    "label": "0원 정상"
+  },
+  "offices": [
+    {
+      "id": "C1",
+      "name": "제1청사",
+      "status": "정상"
+    },
+    {
+      "id": "C2",
+      "name": "제2청사",
+      "status": "정상"
+    },
+    {
+      "id": "C3",
+      "name": "제3청사",
+      "status": "정상"
+    },
+    {
+      "id": "C4",
+      "name": "제4청사",
+      "status": "정상"
+    },
+    {
+      "id": "C5",
+      "name": "제5청사",
+      "status": "정상"
+    },
+    {
+      "id": "C6",
+      "name": "제6청사",
+      "status": "정상"
+    }
+  ],
+  "tunnel": {
+    "url": "https://handled-polyester-suse-practitioner.trycloudflare.com",
+    "active_hint": null,
+    "has_tunnel": true
+  },
+  "ledger_files": [
+    "evolution_memory.json",
+    "brain_basket/master_schedule.json",
+    "treasury_ledger.json",
+    "tunnel_bridge.json",
+    "active_external_tunnel.json"
+  ],
+  "ledgers": {
+    "evolution_memory.json": {
+      "bytes": 12659,
+      "sha1": "44bb5dd1f562",
+      "origin": "root",
+      "mirrored": [
+        "root",
+        "dashboard",
+        "docs"
+      ],
+      "data": [
+        {
+          "priority": 1,
+          "task_id": "TOP1_SELF_EVOLVING_BRAIN",
+          "title": "전 에이전트 합심·융합 자율 진화 두뇌(Auto-Evolve Brain) 상시 가동",
+          "status": "ACTIVE_TOTAL_WAR",
+          "fusion": [
+            "DSPy",
+            "AlphaEvolve",
+            "Letta/Voyager",
+            "LangGraph Reflexion"
+          ],
+          "engine": "rgon_auto_evolve_brain.py v1.0",
+          "cadence": "상시 가동 + 매일 03:00 KST 외부 주방(GitHub Actions --ci) 무인 진화",
+          "owner": "사령관님",
+          "first_registered_at": "2026-10-20 22:24:14 KST",
+          "registered_at": "2026-10-20 22:24:14 KST"
+        },
+        {
+          "일시": "2026-10-19 23:48:36",
+          "구분": "잘한 점 (Well Done)",
+          "핵심항목": "최고 전문가 레버리지 분업 확립",
+          "상세내용": "기획/지시(르곤) -> 정밀 코드 작성(GPT 6.1 SOL / Claude Opus) -> 현장 즉시 실행(안총리) 체제로 시행착오를 줄이고 해결 속도를 극대화함",
+          "교훈_및_조치": "앞으로도 각자 가장 잘하는 영역에 집중하는 레버리지 원칙 유지",
+          "상태": "완료"
+        },
+        {
+          "일시": "2026-10-19 23:48:36",
+          "구분": "잘한 점 (Well Done)",
+          "핵심항목": "어사이드 지휘 패널 클린 완성본 구축",
+          "상세내용": "clean_ui.py로 불필요한 [5대 웹창 한꺼번에 모두 열기] 버튼을 완전히 제거하고 필요한 창만 개별 오픈 + 원클릭 복사 구조 완성",
+          "교훈_및_조치": "복잡한 과잉 버튼보다 직관적이고 깔끔한 실전 UI 유지",
+          "상태": "완료"
+        },
+        {
+          "일시": "2026-10-19 23:48:36",
+          "구분": "잘한 점 (Well Done)",
+          "핵심항목": "한 줄 지시 10초 광고 올인원 스튜디오(v4) 개통",
+          "상세내용": "'간단한 10초 광고 만들기 주제는 종이컵' 한 줄 입력으로 [0~3초 훅/3~7초 디테일/7~10초 클로징 기획안 + 9:16 세로 애니메이션 + TTS 나레이션 + WebM 다운로드 + 지휘패널 복사버튼 종이컵 자동변환] 달성",
+          "교훈_및_조치": "실제 테스트 한 줄을 던져보고 막히는 곳을 즉시 교정하는 실전 검증 방식 정착",
+          "상태": "완료"
+        },
+        {
+          "일시": "2026-10-19 23:48:36",
+          "구분": "못한 점 (To Improve)",
+          "핵심항목": "서비스워커(sw.js) 및 브라우저 캐시 잔류",
+          "상세내용": "로컬 개발 중 구버전 sw.js 캐시(836kB)가 남아 새 패치가 화면에 즉시 반영되지 않아 시간 소모 발생",
+          "교훈_및_조치": "로컬 자동 해제형 sw.js 적용 및 빌드 쿼리스트링(__rgon_ad_build)으로 재발 원천 차단",
+          "상태": "교정완료"
+        },
+        {
+          "일시": "2026-10-19 23:48:36",
+          "구분": "못한 점 (To Improve)",
+          "핵심항목": "백엔드 고정 매크로(앵무새) 응답 문제",
+          "상세내용": "창작/광고 지시를 내려도 기존 NVDA/청사 고정 멘트만 반복 출력하던 한계 발견",
+          "교훈_및_조치": "프론트엔드 광고 인터셉터로 매크로를 우회하고 주제 맞춤형 기획안 생성 엔진 장착",
+          "상태": "교정완료"
+        },
+        {
+          "일시": "2026-10-19 23:48:36",
+          "구분": "못한 점 (To Improve)",
+          "핵심항목": "채팅창 내부 DOM 덮어쓰기 및 미표시 현상",
+          "상세내용": "기존 채팅 피드 컨테이너 내부에 카드를 넣었을 때 화면 밖으로 밀리거나 리렌더링으로 사라지는 문제 발생",
+          "교훈_및_조치": "document.body 직속 최상위 고정 모달(v4, z-index:2147483640) 및 우측 하단 재열기 플로팅 배지로 100% 표시 보장",
+          "상태": "교정완료"
+        },
+        {
+          "일시": "2026-10-19 23:48:36",
+          "구분": "내일 진화 과제 (Next Step)",
+          "핵심항목": "야간 무인 자율 진화 & 영상 내 음성 통합 녹음",
+          "상세내용": "1) 다운로드 영상 파일에 성우 목소리까지 통합 녹음 2) 자는 동안 스스로 발전하고 구글 시트에 일일 성적표를 자동 누적하는 스케줄러 가동",
+          "교훈_및_조치": "무인 자동화 파이프라인 고도화",
+          "상태": "예정"
+        },
+        {
+          "일시": "2026-10-20 00:02:16",
+          "구분": "잘한 점 (Well Done)",
+          "핵심항목": "최고 전문가 레버리지 분업 확립",
+          "상세내용": "기획/지시(르곤) -> 정밀 코드 작성(GPT 6.1 SOL / Claude Opus) -> 현장 즉시 실행(안총리) 체제로 시행착오를 줄이고 해결 속도를 극대화함",
+          "교훈_및_조치": "앞으로도 각자 가장 잘하는 영역에 집중하는 레버리지 원칙 유지",
+          "상태": "완료"
+        },
+        {
+          "일시": "2026-10-20 00:02:16",
+          "구분": "잘한 점 (Well Done)",
+          "핵심항목": "어사이드 지휘 패널 클린 완성본 구축",
+          "상세내용": "clean_ui.py로 불필요한 [5대 웹창 한꺼번에 모두 열기] 버튼을 완전히 제거하고 필요한 창만 개별 오픈 + 원클릭 복사 구조 완성",
+          "교훈_및_조치": "복잡한 과잉 버튼보다 직관적이고 깔끔한 실전 UI 유지",
+          "상태": "완료"
+        },
+        {
+          "일시": "2026-10-20 00:02:16",
+          "구분": "잘한 점 (Well Done)",
+          "핵심항목": "한 줄 지시 10초 광고 올인원 스튜디오(v4) 개통",
+          "상세내용": "'간단한 10초 광고 만들기 주제는 종이컵' 한 줄 입력으로 [0~3초 훅/3~7초 디테일/7~10초 클로징 기획안 + 9:16 세로 애니메이션 + TTS 나레이션 + WebM 다운로드 + 지휘패널 복사버튼 종이컵 자동변환] 달성",
+          "교훈_및_조치": "실제 테스트 한 줄을 던져보고 막히는 곳을 즉시 교정하는 실전 검증 방식 정착",
+          "상태": "완료"
+        },
+        {
+          "일시": "2026-10-20 00:02:16",
+          "구분": "못한 점 (To Improve)",
+          "핵심항목": "서비스워커(sw.js) 및 브라우저 캐시 잔류",
+          "상세내용": "로컬 개발 중 구버전 sw.js 캐시(836kB)가 남아 새 패치가 화면에 즉시 반영되지 않아 시간 소모 발생",
+          "교훈_및_조치": "로컬 자동 해제형 sw.js 적용 및 빌드 쿼리스트링(__rgon_ad_build)으로 재발 원천 차단",
+          "상태": "교정완료"
+        },
+        {
+          "일시": "2026-10-20 00:02:16",
+          "구분": "못한 점 (To Improve)",
+          "핵심항목": "백엔드 고정 매크로(앵무새) 응답 문제",
+          "상세내용": "창작/광고 지시를 내려도 기존 NVDA/청사 고정 멘트만 반복 출력하던 한계 발견",
+          "교훈_및_조치": "프론트엔드 광고 인터셉터로 매크로를 우회하고 주제 맞춤형 기획안 생성 엔진 장착",
+          "상태": "교정완료"
+        },
+        {
+          "일시": "2026-10-20 00:02:16",
+          "구분": "못한 점 (To Improve)",
+          "핵심항목": "채팅창 내부 DOM 덮어쓰기 및 미표시 현상",
+          "상세내용": "기존 채팅 피드 컨테이너 내부에 카드를 넣었을 때 화면 밖으로 밀리거나 리렌더링으로 사라지는 문제 발생",
+          "교훈_및_조치": "document.body 직속 최상위 고정 모달(v4, z-index:2147483640) 및 우측 하단 재열기 플로팅 배지로 100% 표시 보장",
+          "상태": "교정완료"
+        },
+        {
+          "일시": "2026-10-20 00:02:16",
+          "구분": "내일 진화 과제 (Next Step)",
+          "핵심항목": "야간 무인 자율 진화 & 영상 내 음성 통합 녹음",
+          "상세내용": "1) 다운로드 영상 파일에 성우 목소리까지 통합 녹음 2) 자는 동안 스스로 발전하고 구글 시트에 일일 성적표를 자동 누적하는 스케줄러 가동",
+          "교훈_및_조치": "무인 자동화 파이프라인 고도화",
+          "상태": "예정"
+        },
+        {
+          "일시": "2026-10-20 21:08:06",
+          "구분": "잘한 점 (Well Done)",
+          "핵심항목": "커스텀 신경망 직접 쓰기(Custom Role) 탑재",
+          "상세내용": "사령관님 맞춤형 AI/신경망 탭 명칭을 직접 입력·등록하여 유연하게 감지·라우팅하는 만능 소통창 v6.0.3 완성",
+          "적용_및_조치": "rgon_aside_extension / omni_link_ext에 직접 쓰기 UI 및 상태 머신 반영",
+          "상태": "완료"
+        },
+        {
+          "일시": "2026-10-20 21:08:06",
+          "구분": "잘한 점 (Well Done)",
+          "핵심항목": "개별 체크/단독/전체 다중 디스패치 완성",
+          "상세내용": "체크박스 선택 발사, 단독 발사, 3종 전체 동시 발사 인터페이스를 구축하여 지시 대상 탭을 정밀 제어",
+          "적용_및_조치": "독대실 상단 및 확장 프로그램 팝업/사이드바에 멀티 타겟 디스패처 탑재",
+          "상태": "완료"
+        },
+        {
+          "일시": "2026-10-20 21:08:06",
+          "구분": "잘한 점 (Well Done)",
+          "핵심항목": "아레나 자동 흡수 및 자동 청소(Auto-Clean) 엔진",
+          "상세내용": "이전 라운드 잔여 코드 자동 정리 기능(#autoCleanAbs)과 'Copy' 접두어 3중 필터링을 통해 Best-of-Breed 아레나 분석 정밀도 극대화",
+          "적용_및_조치": "브리지 /api/shared/replace 및 클라이언트 샌드박스 정화 엔진 적용",
+          "상태": "완료"
+        },
+        {
+          "ts": "2026-10-20 22:24:27 KST",
+          "ci": false,
+          "generation": 1,
+          "health_before": 68,
+          "health_after": 100,
+          "heals": 2,
+          "new_antibodies": [],
+          "next_tasks": [
+            "LangGraph Reflexion 루프: 발사→흡수→비평→재발사 자동화",
+            "흡수함 응답 자동 채점 → 항체 자동 학습",
+            "R2 렌더 가드"
+          ],
+          "type": "AUTO_EVOLVE_RUN"
+        },
+        {
+          "type": "ANTIBODY_REGISTRATION",
+          "antibody": {
+            "id": "R7_TARGET_ROW_BADGE_ONLY_SCAN",
+            "name": "발사 대상 행 영구 보존 및 배지 전용 스캔",
+            "rule": "3.5초 주기 스캔(refreshScan) 시 체크박스 DOM(innerHTML)을 재생성하면 체크 상태가 초기화되므로, 행(Row)은 최초 1회만 빌드하고 주기적 스캔은 오직 연결 배지(textContent)만 갱신한다 (v6.0.7 완치)",
+            "version": "6.0.7",
+            "registered_at": "2026-10-20 23:37:32"
+          },
+          "ts": "2026-10-20 23:37:32"
+        },
+        {
+          "일시": "2026-10-20 23:37:32",
+          "구분": "잘한 점 (Well Done)",
+          "핵심항목": "Omni-Link v6.0.7 발사 대상 행 영구 보존 & 배지 전용 스캔 완치",
+          "상세내용": "Claude 마스터 패치 적용: 3.5초 주기 스캔 시 DOM 덮어쓰기 원천 차단 + 3중 체크 저장소(메모리/localStorage/chrome.storage) 연동 + R7 항체 수립",
+          "적용_및_조치": "rgon_aside_extension v6.0.7 반영, node --check 통과, Git 봉인",
+          "상태": "완료"
+        },
+        {
+          "일시": "2026-10-20 23:37:32",
+          "구분": "내일 진화 과제 (Next Step)",
+          "핵심항목": "GEN-1 완전 무인 자가 진화 폐쇄 루프 개통",
+          "상세내용": "사령관 한 줄 지시 -> 멀티 AI 발사 -> 완료 감지 -> 자동 수거 -> 문법/실행 자동 검증 -> 실패 시 교정 재발사 -> 승리 코드 자동 로컬 디스크 적용 파이프라인 완성",
+          "적용_및_조치": "자가 진화 두뇌(rgon_auto_evolve_brain.py) 연동 고도화",
+          "상태": "예정"
+        },
+        {
+          "type": "ANTIBODY_REGISTRATION",
+          "antibody": {
+            "id": "R7_TARGET_ROW_BADGE_ONLY_SCAN",
+            "name": "발사 대상 행 영구 보존 및 배지 전용 스캔",
+            "rule": "3.5초 주기 스캔(refreshScan) 시 체크박스 DOM(innerHTML)을 재생성하면 체크 상태가 초기화되므로, 행(Row)은 최초 1회만 빌드하고 주기적 스캔은 오직 연결 배지(textContent)만 갱신한다 (v6.0.7 완치)",
+            "version": "6.0.7",
+            "registered_at": "2026-10-20 23:38:04"
+          },
+          "ts": "2026-10-20 23:38:04"
+        },
+        {
+          "일시": "2026-10-20 23:38:04",
+          "구분": "잘한 점 (Well Done)",
+          "핵심항목": "Omni-Link v6.0.7 발사 대상 행 영구 보존 & 배지 전용 스캔 완치",
+          "상세내용": "Claude 마스터 패치 적용: 3.5초 주기 스캔 시 DOM 덮어쓰기 원천 차단 + 3중 체크 저장소(메모리/localStorage/chrome.storage) 연동 + R7 항체 수립",
+          "적용_및_조치": "rgon_aside_extension v6.0.7 반영, node --check 통과, Git 봉인",
+          "상태": "완료"
+        },
+        {
+          "일시": "2026-10-20 23:38:04",
+          "구분": "내일 진화 과제 (Next Step)",
+          "핵심항목": "GEN-1 완전 무인 자가 진화 폐쇄 루프 개통",
+          "상세내용": "사령관 한 줄 지시 -> 멀티 AI 발사 -> 완료 감지 -> 자동 수거 -> 문법/실행 자동 검증 -> 실패 시 교정 재발사 -> 승리 코드 자동 로컬 디스크 적용 파이프라인 완성",
+          "적용_및_조치": "자가 진화 두뇌(rgon_auto_evolve_brain.py) 연동 고도화",
+          "상태": "예정"
+        }
+      ]
+    },
+    "brain_basket/master_schedule.json": {
+      "bytes": 2857,
+      "sha1": "f444cdc8a22c",
+      "origin": "root",
+      "mirrored": [
+        "root",
+        "dashboard",
+        "docs"
+      ],
+      "data": {
+        "TOP_PRIORITY_1": {
+          "priority": 1,
+          "task_id": "TOP1_SELF_EVOLVING_BRAIN",
+          "title": "전 에이전트 합심·융합 자율 진화 두뇌(Auto-Evolve Brain) 상시 가동",
+          "status": "ACTIVE_TOTAL_WAR",
+          "fusion": [
+            "DSPy",
+            "AlphaEvolve",
+            "Letta/Voyager",
+            "LangGraph Reflexion"
+          ],
+          "engine": "rgon_auto_evolve_brain.py v1.0",
+          "cadence": "상시 가동 + 매일 03:00 KST 외부 주방(GitHub Actions --ci) 무인 진화",
+          "owner": "사령관님",
+          "first_registered_at": "2026-10-20 22:24:14 KST",
+          "registered_at": "2026-10-20 22:24:14 KST"
+        },
+        "schedules": [
+          {
+            "priority": 1,
+            "task_id": "GEN1_AUTONOMOUS_EVOLUTION_CLOSED_LOOP",
+            "title": "GEN-1 완전 무인 자가 진화 폐쇄 루프 개통",
+            "description": "사령관 한 줄 지시 -> 멀티 AI 발사 -> 완료 감지 -> 자동 수거 -> 문법/실행 자동 검증 -> 실패 시 자동 재발사 -> 승리 코드 자동 적용",
+            "target_date": "2026-10-21 (내일 아침)",
+            "status": "SCHEDULED_TOP1",
+            "engine": "rgon_auto_evolve_brain.py + omni_bridge.py /reflect",
+            "registered_at": "2026-10-20 23:38:04"
+          },
+          {
+            "priority": 1,
+            "task_id": "TOP1_SELF_EVOLVING_BRAIN",
+            "title": "전 에이전트 합심·융합 자율 진화 두뇌(Auto-Evolve Brain) 상시 가동",
+            "status": "ACTIVE_TOTAL_WAR",
+            "fusion": [
+              "DSPy",
+              "AlphaEvolve",
+              "Letta/Voyager",
+              "LangGraph Reflexion"
+            ],
+            "engine": "rgon_auto_evolve_brain.py v1.0",
+            "cadence": "상시 가동 + 매일 03:00 KST 외부 주방(GitHub Actions --ci) 무인 진화",
+            "owner": "사령관님",
+            "first_registered_at": "2026-10-20 22:24:14 KST",
+            "registered_at": "2026-10-20 22:24:14 KST"
+          }
+        ],
+        "R7_ANTIBODY": {
+          "id": "R7_TARGET_ROW_BADGE_ONLY_SCAN",
+          "name": "발사 대상 행 영구 보존 및 배지 전용 스캔",
+          "rule": "3.5초 주기 스캔(refreshScan) 시 체크박스 DOM(innerHTML)을 재생성하면 체크 상태가 초기화되므로, 행(Row)은 최초 1회만 빌드하고 주기적 스캔은 오직 연결 배지(textContent)만 갱신한다 (v6.0.7 완치)",
+          "version": "6.0.7",
+          "registered_at": "2026-10-20 23:38:04"
+        },
+        "NEXT_MORNING_TOP1": {
+          "priority": 1,
+          "task_id": "GEN1_AUTONOMOUS_EVOLUTION_CLOSED_LOOP",
+          "title": "GEN-1 완전 무인 자가 진화 폐쇄 루프 개통",
+          "description": "사령관 한 줄 지시 -> 멀티 AI 발사 -> 완료 감지 -> 자동 수거 -> 문법/실행 자동 검증 -> 실패 시 자동 재발사 -> 승리 코드 자동 적용",
+          "target_date": "2026-10-21 (내일 아침)",
+          "status": "SCHEDULED_TOP1",
+          "engine": "rgon_auto_evolve_brain.py + omni_bridge.py /reflect",
+          "registered_at": "2026-10-20 23:38:04"
+        }
+      }
+    },
+    "treasury_ledger.json": {
+      "bytes": 1552,
+      "sha1": "e51d4cbf8bc8",
+      "origin": "root",
+      "mirrored": [
+        "root",
+        "dashboard",
+        "docs"
+      ],
+      "data": {
+        "currency": "KRW",
+        "last_updated": "2026-10-19 19:06:17",
+        "total_in_krw": 0,
+        "total_out_krw": 0,
+        "net_profit_krw": 0,
+        "estimated_tax_3_3_krw": 0,
+        "disposable_net_krw": 0,
+        "allocation_50_25_15_10": {
+          "ceo_50_percent": 0,
+          "rnd_25_percent": 0,
+          "daughters_15_percent": 0,
+          "charity_10_percent": 0
+        },
+        "summary": {
+          "total_in": 0,
+          "total_out": 0,
+          "total_in_krw": 0,
+          "total_out_krw": 0,
+          "operating_profit": 0,
+          "tax_reserve_3_3": 0,
+          "estimated_tax_3_3_krw": 0,
+          "net_profit": 0,
+          "net_profit_krw": 0,
+          "disposable_net_krw": 0,
+          "allocations": {
+            "commander_life_50": 0,
+            "empire_rnd_25": 0,
+            "daughters_scholarship_15": 0,
+            "daughters_detail": {
+              "eunsol_5": 0,
+              "songhyo_5": 0,
+              "haesang_5": 0
+            },
+            "sharing_donation_10": 0
+          },
+          "allocation_50_25_15_10": {
+            "ceo_50_percent": 0,
+            "rnd_25_percent": 0,
+            "daughters_15_percent": 0,
+            "charity_10_percent": 0
+          }
+        },
+        "categories_in": {
+          "제휴·파트너스 수익 (쿠팡파트너스 등)": 0,
+          "음원·유튜브 수익 (Suno 30곡·쇼츠·라디오극)": 0,
+          "디지털 상품·웹앱 수익 (크몽·Gumroad)": 0,
+          "상생 후원금·기타 수입": 0
+        },
+        "categories_out": {
+          "AI·클라우드 서버비 (현재 0원 무료 방어중!)": 0,
+          "플랫폼 수수료·결제 수수료": 0,
+          "운영비·장비·기타 지출": 0
+        },
+        "records": [],
+        "transactions": []
+      }
+    },
+    "tunnel_bridge.json": {
+      "bytes": 361,
+      "sha1": "f648e9edc906",
+      "origin": "root",
+      "mirrored": [
+        "root",
+        "dashboard",
+        "docs"
+      ],
+      "data": {
+        "active_tunnel_url": "https://handled-polyester-suse-practitioner.trycloudflare.com",
+        "tunnel_url": "https://handled-polyester-suse-practitioner.trycloudflare.com",
+        "dashboard_url": "https://handled-polyester-suse-practitioner.trycloudflare.com/?v=960&tab=command",
+        "port": 8501,
+        "verified_status": 200,
+        "opened_at": "2026-10-20 23:47:42"
+      }
+    },
+    "active_external_tunnel.json": {
+      "bytes": 361,
+      "sha1": "f648e9edc906",
+      "origin": "root",
+      "mirrored": [
+        "root",
+        "dashboard",
+        "docs"
+      ],
+      "data": {
+        "active_tunnel_url": "https://handled-polyester-suse-practitioner.trycloudflare.com",
+        "tunnel_url": "https://handled-polyester-suse-practitioner.trycloudflare.com",
+        "dashboard_url": "https://handled-polyester-suse-practitioner.trycloudflare.com/?v=960&tab=command",
+        "port": 8501,
+        "verified_status": 200,
+        "opened_at": "2026-10-20 23:47:42"
+      }
+    }
+  },
+  "auto_builder": {
+    "last_run_kst": "2026-10-21 07:28:57 KST",
+    "trigger": "startup",
+    "ok": true,
+    "steps": {
+      "step1": "already-applied",
+      "step2": "already-applied"
+    }
+  }
+}

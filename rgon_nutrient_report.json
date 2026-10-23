@@ -1,0 +1,50 @@
+{
+  "version": "v11.21-CIRCULATION",
+  "antibody": "R19",
+  "antibody_range": "R1~R22",
+  "generated_at_kst": "2026-10-24 08:12:01 KST",
+  "wbc_linked": true,
+  "purifier": {
+    "ok": true,
+    "chars": 185
+  },
+  "forge": {
+    "created": 0,
+    "updated": 0,
+    "unchanged": 18,
+    "errors": 0,
+    "core": 5,
+    "radar": 13,
+    "count": 18
+  },
+  "skills_count": 18,
+  "decisions": [
+    {
+      "topic": "Markdown 정제기로 외부 웹·문서 지식을 AI 친화 Markdown으로 흡수",
+      "grade": "APPROVED_STEP_BY_STEP",
+      "composite": 85.5,
+      "bull": 80.8,
+      "bear": 22.2,
+      "hexagram": "#08-比",
+      "wbc_health": 100.0
+    },
+    {
+      "topic": "표준 SKILL.md 자동 주조로 스킬 지식 자가 증식 (현재 18개)",
+      "grade": "APPROVED_STEP_BY_STEP",
+      "composite": 90.0,
+      "bull": 85.5,
+      "bear": 14.2,
+      "hexagram": "#26-大畜",
+      "wbc_health": 100.0
+    },
+    {
+      "topic": "3자 찬반 심판기를 일일 스케줄 의사결정 게이트로 상시 연결",
+      "grade": "APPROVED_STEP_BY_STEP",
+      "composite": 81.7,
+      "bull": 69.8,
+      "bear": 22.2,
+      "hexagram": "#21-噬嗑",
+      "wbc_health": 100.0
+    }
+  ]
+}

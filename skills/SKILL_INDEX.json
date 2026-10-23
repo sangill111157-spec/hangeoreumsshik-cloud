@@ -1,0 +1,172 @@
+{
+  "version": "v11.21-CIRCULATION",
+  "antibody": "R19",
+  "generated_at_kst": "2026-10-24 08:11:52 KST",
+  "count": 18,
+  "skills": [
+    {
+      "slug": "1-36-45",
+      "name": "포토샵 1년 36만 원, 코딩 몰라도 '내 포토샵' 45분 만에 만들었습니다",
+      "category": "radar-discovery",
+      "hexagram_tag": "#18-蠱",
+      "source_url": "https://www.youtube.com/watch?v=KZhv8U90Nek",
+      "origin": "radar",
+      "path": "skills/1-36-45/SKILL.md"
+    },
+    {
+      "slug": "10-5",
+      "name": "클로드 스킬 10만 개, 진짜 쓸 건 5개",
+      "category": "radar-discovery",
+      "hexagram_tag": "#53-漸",
+      "source_url": "https://www.youtube.com/shorts/sBawrl18I9g",
+      "origin": "radar",
+      "path": "skills/10-5/SKILL.md"
+    },
+    {
+      "slug": "744b-ai-10",
+      "name": "744B AI가 노트북에서 무료? 한 글자에 10초 걸려요",
+      "category": "radar-discovery",
+      "hexagram_tag": "#09-小畜",
+      "source_url": "https://www.youtube.com/shorts/XMBAMBzqt44",
+      "origin": "radar",
+      "path": "skills/744b-ai-10/SKILL.md"
+    },
+    {
+      "slug": "ai-5",
+      "name": "클로드 글 AI 티 지우는 한 줄 5개",
+      "category": "radar-discovery",
+      "hexagram_tag": "#11-泰",
+      "source_url": "https://www.youtube.com/shorts/vN8DSorrz3A",
+      "origin": "radar",
+      "path": "skills/ai-5/SKILL.md"
+    },
+    {
+      "slug": "ecc-agentshield-harness",
+      "name": "ecc-agentshield-harness",
+      "category": "radar-discovery",
+      "hexagram_tag": "#36-明夷",
+      "source_url": "https://github.com/affaan-m/everything-claude-code",
+      "origin": "radar",
+      "path": "skills/ecc-agentshield-harness/SKILL.md"
+    },
+    {
+      "slug": "hexagram-64-wisdom",
+      "name": "Hexagram 64 Wisdom (주역 64괘 지혜)",
+      "category": "philosophy",
+      "hexagram_tag": "#01-乾",
+      "source_url": "local://rgon_hexagram_engine.py",
+      "origin": "core",
+      "path": "skills/hexagram-64-wisdom/SKILL.md"
+    },
+    {
+      "slug": "markdown-purifier",
+      "name": "Markdown Purifier (웹·문서 정제기)",
+      "category": "data-refinery",
+      "hexagram_tag": "#48-井",
+      "source_url": "https://github.com/apify/crawlee",
+      "origin": "core",
+      "path": "skills/markdown-purifier/SKILL.md"
+    },
+    {
+      "slug": "mattpocock-domain-glossary",
+      "name": "mattpocock-domain-glossary",
+      "category": "radar-discovery",
+      "hexagram_tag": "#60-節",
+      "source_url": "https://github.com/mattpocock/skills",
+      "origin": "radar",
+      "path": "skills/mattpocock-domain-glossary/SKILL.md"
+    },
+    {
+      "slug": "mattpocock-spec-tickets",
+      "name": "mattpocock-spec-tickets",
+      "category": "radar-discovery",
+      "hexagram_tag": "#50-鼎",
+      "source_url": "https://github.com/mattpocock/skills",
+      "origin": "radar",
+      "path": "skills/mattpocock-spec-tickets/SKILL.md"
+    },
+    {
+      "slug": "multi-agent-council",
+      "name": "Multi-Agent Council (3자 찬반 심판기)",
+      "category": "decision-making",
+      "hexagram_tag": "#13-同人",
+      "source_url": "https://github.com/HKUDS/AI-Trader",
+      "origin": "core",
+      "path": "skills/multi-agent-council/SKILL.md"
+    },
+    {
+      "slug": "rea-reverse-engineer-fusion",
+      "name": "rea-reverse-engineer-fusion",
+      "category": "radar-discovery",
+      "hexagram_tag": "#64-未濟",
+      "source_url": "https://github.com/morluto/rea",
+      "origin": "radar",
+      "path": "skills/rea-reverse-engineer-fusion/SKILL.md"
+    },
+    {
+      "slug": "skill-68768f44",
+      "name": "클로드 코드 쓰면 이 파일 하나는 꼭 넣으세요 (깃허브 별 22만)",
+      "category": "radar-discovery",
+      "hexagram_tag": "#63-既濟",
+      "source_url": "https://www.youtube.com/shorts/aVKugNP2wDU",
+      "origin": "radar",
+      "path": "skills/skill-68768f44/SKILL.md"
+    },
+    {
+      "slug": "skill-b25226d4",
+      "name": "내 이름 검색하면 나오는 것들, 클로드한테 싹 지우라고 했더니",
+      "category": "radar-discovery",
+      "hexagram_tag": "#26-大畜",
+      "source_url": "https://www.youtube.com/shorts/3aJmzVIxkqk",
+      "origin": "radar",
+      "path": "skills/skill-b25226d4/SKILL.md"
+    },
+    {
+      "slug": "skill-c5c55e6f",
+      "name": "클로드 코드 토큰 49배 줄인 무료 도구",
+      "category": "radar-discovery",
+      "hexagram_tag": "#59-渙",
+      "source_url": "https://www.youtube.com/shorts/StXGGNlNLOk",
+      "origin": "radar",
+      "path": "skills/skill-c5c55e6f/SKILL.md"
+    },
+    {
+      "slug": "skill-d33be764",
+      "name": "클로드 한도 걸려도 일 안 멈추는 법",
+      "category": "radar-discovery",
+      "hexagram_tag": "#49-革",
+      "source_url": "https://www.youtube.com/shorts/LjYOeBIwUsU",
+      "origin": "radar",
+      "path": "skills/skill-d33be764/SKILL.md"
+    },
+    {
+      "slug": "skill-f7938cb8",
+      "name": "클로드 회사가 무료로 푼 강의, 초보는 딱 이 3개만 들으세요",
+      "category": "radar-discovery",
+      "hexagram_tag": "#57-巽",
+      "source_url": "https://www.youtube.com/shorts/UtVFSMGKh28",
+      "origin": "radar",
+      "path": "skills/skill-f7938cb8/SKILL.md"
+    },
+    {
+      "slug": "wbc-self-healing",
+      "name": "WBC Self-Healing (백혈구 자가치유)",
+      "category": "immune-system",
+      "hexagram_tag": "#24-復",
+      "source_url": "local://rgon_white_blood_cell.py",
+      "origin": "core",
+      "path": "skills/wbc-self-healing/SKILL.md"
+    },
+    {
+      "slug": "youtube-trend-scout",
+      "name": "YouTube Trend Scout (유튜브 스킬 레이더)",
+      "category": "knowledge-intake",
+      "hexagram_tag": "#20-觀",
+      "source_url": "local://rgon_youtube_skill_scout.py",
+      "origin": "core",
+      "path": "skills/youtube-trend-scout/SKILL.md"
+    }
+  ],
+  "antibody_range": "R1~R22",
+  "synced_at_kst": "2026-10-24 08:12:01 KST"
+}

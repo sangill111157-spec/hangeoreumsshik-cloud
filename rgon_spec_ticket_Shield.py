@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 # agentshield:ignore-file  (정규식 정의 파일 — 오탐 방지 자기 제외)
-# rgon_spec_ticket_Shield.py — RGON v11.20-MINDUNG-ECC / 항체 R21
+# rgon_spec_ticket_Shield.py — RGON v11.21-CIRCULATION / 항체 R21
 # Matt Pocock to-spec/to-tickets 분업기 + ECC AgentShield 보안 백혈구 (표준 라이브러리 전용)
 import os, re, sys, json, time, shutil, tempfile
-VERSION = "v11.20-MINDUNG-ECC"
+VERSION = "v11.21-CIRCULATION"
+ANTIBODY_RANGE = "R1~R22"
 ROOT = os.path.dirname(os.path.abspath(__file__))
 EXCLUDE = {".git", "__pycache__", "node_modules", ".venv", "venv", ".rgon_backup", ".rgon_backups", ".idea", ".vscode", "backups", "archive", "old_backups"}
 AI_ROLES = {"르곤": "설계/검증", "Claude": "구현", "GPT": "구조", "Grok": "트렌드"}
@@ -185,6 +186,19 @@ def main(argv):
         print("  GLOSSARY 용어:", len(load_glossary(ROOT)), "/ 버전:", VERSION)
         return 0
     print("사용법: --run | --self-test | --status"); return 1
+
+# [RGON-STEP22-AUTOVERIFY-HOOK-START] (R22: 티켓 저장 후 실제 산출물 기반 자동 승격)
+import sys as _rg_sys, os as _rg_os, atexit as _rg_atexit
+if __name__ == '__main__' and '--run' in _rg_sys.argv:
+    def _rg_autoverify():
+        try:
+            _rg_sys.path.insert(0, _rg_os.path.dirname(_rg_os.path.abspath(__file__)))
+            import rgon_vascular_core as _rg_core
+            print('[R22 Auto-Verify]', _rg_core.auto_verify_tickets())
+        except Exception as _e:
+            print('[R22 Auto-Verify] 경고:', _e)
+    _rg_atexit.register(_rg_autoverify)
+# [RGON-STEP22-AUTOVERIFY-HOOK-END]
 
 if __name__ == "__main__":
     sys.exit(main(sys.argv))

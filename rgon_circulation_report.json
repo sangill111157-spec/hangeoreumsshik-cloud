@@ -1,0 +1,51 @@
+{
+  "at_kst": "2026-10-24 08:11:52 KST",
+  "version": "v11.21-CIRCULATION",
+  "organs": {
+    "1_radar": {
+      "ok": true,
+      "mindung": true,
+      "items": 13,
+      "channels": 2
+    },
+    "2_nutrient": {
+      "ok": true,
+      "rc": 0,
+      "skill_count": 18,
+      "report": true
+    },
+    "3_ticket_shield": {
+      "rc": 0,
+      "ok": true,
+      "auto_verify": {
+        "promoted": [],
+        "S22-01": "done",
+        "checks": {
+          "S21-01": true,
+          "S21-02": true,
+          "S21-03": true,
+          "S21-04": true,
+          "S21-05": true,
+          "S21-06": true
+        }
+      }
+    },
+    "4_wbc": {
+      "ok": true,
+      "rc": 0,
+      "health_score": 100
+    },
+    "5_iching": {
+      "name": "중천건(重天乾)",
+      "meaning": "자강불식(自強不息) — 스스로 강건히 쉬지 않고 정진한다",
+      "action": "상선약수(上善若水) · 삼성(三省) — 6대 기관을 물처럼 순환시키고 하루 세 번 무결성을 살핀다.",
+      "source": "rgon_daily_cycle",
+      "ok": true,
+      "rc": 0
+    },
+    "6_pulse_snapshot": {
+      "ok": true
+    }
+  },
+  "all_ok": true
+}

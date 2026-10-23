@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-rgon_nutrient_engine.py — RGON 영양분 3스푼 통합 흡수 엔진 (v11.18-NUTRIENT · 항체 R19)
+rgon_nutrient_engine.py — RGON 영양분 3스푼 통합 흡수 엔진 (v11.21-CIRCULATION · 항체 R19)
 
   1스푼 MarkdownPurifier : Crawlee / Firecrawl 스타일 웹·문서 → AI 친화 Markdown 정제기
   2스푼 SkillAutoForge   : VoltAgent / Composio 스타일 표준 SKILL.md 자동 주조기
@@ -30,9 +30,9 @@ import urllib.request
 from datetime import datetime, timedelta, timezone
 from html.parser import HTMLParser
 
-VERSION = "v11.18-NUTRIENT"
+VERSION = "v11.21-CIRCULATION"
 ANTIBODY = "R19"
-ANTIBODY_RANGE = "R1~R19"
+ANTIBODY_RANGE = "R1~R22"
 KST = timezone(timedelta(hours=9))
 BT = chr(96)
 FENCE = BT * 3

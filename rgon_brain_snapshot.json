@@ -1,8 +1,8 @@
 {
   "schema": "rgon_brain_snapshot/1",
-  "version": "v11.20-MINDUNG-ECC",
-  "generated_at_kst": "2026-10-23 22:29:07 KST",
-  "synced_at_kst": "2026-10-23 22:29:07 KST",
+  "version": "v11.21-CIRCULATION",
+  "generated_at_kst": "2026-10-24 08:11:52 KST",
+  "synced_at_kst": "2026-10-24 08:11:52 KST",
   "sync_rate": "100.0%",
   "score": 100,
   "max_score": 100,
@@ -11,7 +11,7 @@
     "max": 100,
     "label": "100/100"
   },
-  "antibody_range": "R1~R21",
+  "antibody_range": "R1~R22",
   "antibodies": [
     {
       "id": "R8_APPROVAL_BEFORE_CODE",
@@ -145,6 +145,11 @@
       "text": "@Mindung-EasyAI 양분 흡수 — Matt Pocock(GLOSSARY.md · Spec/Tracer-Bullet Tickets 분업) + ECC(AgentShield 비밀키/설정 보안 스캔)",
       "step": 21,
       "added_at": "2026-10-24 07:34:37"
+    },
+    {
+      "id": "R22",
+      "title": "자아성찰 전신 혈관 개통 — 레이더·영양분(SKILL.md)·티켓/AgentShield·백혈구(WBC)·주역64괘·스냅샷/클라우드 JSON 6대 기관 무결점 단일 순환",
+      "step": 22
     }
   ],
   "top_priority_id": "GEN-1",
@@ -1035,8 +1040,8 @@
       "R15_YOUTUBE_SKILL_SCOUT"
     ]
   },
-  "step": 21,
-  "antibody_count": 21,
+  "step": 22,
+  "antibody_count": 22,
   "updated_at": "2026-10-24 07:34:37",
   "philosophy": {
     "doc": "RGON_PHILOSOPHY.md",
@@ -1076,7 +1081,7 @@
     },
     "generated_at": "2026-10-23T23:36:18"
   },
-  "current_step": 21,
+  "current_step": 22,
   "white_blood_cell": {
     "engine": "rgon_white_blood_cell.py",
     "ledger": "rgon_immune_ledger.json",
@@ -1157,5 +1162,57 @@
     },
     "channel": "@Mindung-EasyAI"
   },
-  "skill_count": 18
+  "skill_count": 18,
+  "health_score": 100,
+  "vascular_circulation": {
+    "version": "v11.21-CIRCULATION",
+    "antibody_range": "R1~R22",
+    "antibody_R22": "자아성찰 전신 혈관 개통 — 레이더·영양분(SKILL.md)·티켓/AgentShield·백혈구(WBC)·주역64괘·스냅샷/클라우드 JSON 6대 기관 무결점 단일 순환",
+    "cycle_at_kst": "2026-10-24 08:11:52 KST",
+    "organs": {
+      "1_radar": true,
+      "2_nutrient": true,
+      "3_ticket_shield": true,
+      "4_wbc": true,
+      "5_iching": true,
+      "6_pulse_snapshot": true
+    },
+    "skill_count": 18,
+    "health_score": 100,
+    "radar_items": 13,
+    "tickets_S22_01": "done",
+    "iching": {
+      "name": "중천건(重天乾)",
+      "meaning": "자강불식(自強不息) — 스스로 강건히 쉬지 않고 정진한다",
+      "action": "상선약수(上善若水) · 삼성(三省) — 6대 기관을 물처럼 순환시키고 하루 세 번 무결성을 살핀다.",
+      "source": "rgon_daily_cycle"
+    },
+    "docs_synced": [
+      "GLOSSARY.md",
+      "CLAUDE.md",
+      "RGON_PHILOSOPHY.md",
+      "CODE_MAP.md",
+      "RGON_EVOLUTION_LOG.md",
+      "skills/SKILL_INDEX.json",
+      "rgon_immune_ledger.json"
+    ],
+    "engine_versions": {
+      "rgon_white_blood_cell.py": {
+        "version": "v11.21-CIRCULATION",
+        "antibody_range": "R1~R22"
+      },
+      "rgon_nutrient_engine.py": {
+        "version": "v11.21-CIRCULATION",
+        "antibody_range": "R1~R22"
+      },
+      "rgon_spec_ticket_Shield.py": {
+        "version": "v11.21-CIRCULATION",
+        "antibody_range": "R1~R22"
+      },
+      "rgon_daily_cycle.py": {
+        "version": "v11.21-CIRCULATION",
+        "antibody_range": "R1~R22"
+      }
+    }
+  }
 }

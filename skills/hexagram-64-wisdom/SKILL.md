@@ -7,7 +7,7 @@ created_at_kst: "2026-10-24 06:39:24 KST"
 hexagram_tag: "#01-乾"
 slug: "hexagram-64-wisdom"
 origin: "core"
-version: "v11.18-NUTRIENT"
+version: "v11.21-CIRCULATION"
 antibody: "R19"
 ---
 
@@ -24,7 +24,7 @@ antibody: "R19"
 - 모든 SKILL.md에 hexagram_tag 부여
 - 심판관이 괘의 길흉을 점수 보정(±5)에 반영
 
-## 안전 수칙 (백혈구 항체 R1~R19)
+## 안전 수칙 (백혈구 항체 R1~R22)
 
 - 괘는 성찰의 도구이며 위험 판단을 대체하지 않는다.
 - UI/확장 파일(.html · .js · manifest.json)은 단 1바이트도 수정하지 않는다 (R14·R15·R16·R18).
@@ -35,4 +35,4 @@ antibody: "R19"
 
 ---
 
-_RGON SkillAutoForge v11.18-NUTRIENT 자동 주조 · 출처: local://rgon_hexagram_engine.py_
+_RGON SkillAutoForge v11.21-CIRCULATION 자동 주조 · 출처: local://rgon_hexagram_engine.py_

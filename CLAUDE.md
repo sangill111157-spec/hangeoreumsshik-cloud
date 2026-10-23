@@ -1,7 +1,7 @@
 <!-- [RGON-CLAUDE-MD-V17-START] -->
 # 🜂 RGON AI 코딩 헌법 V17 (v6.3.0-step17)
 
-> V16 이하 기존 조항(R1~R15 등)은 모두 계승되어 유효하다. 충돌 시 본 V17 조항이 우선한다.
+> V16 이하 기존 조항(R1~R22 등)은 모두 계승되어 유효하다. 충돌 시 본 V17 조항이 우선한다.
 > 영혼의 원문: RGON_PHILOSOPHY.md · 오늘의 괘: rgon_today_hexagram.json
 
 ## [제0조: 창립자 이상일 대표의 만물일체·한걸음씩 선언]
@@ -48,7 +48,7 @@
 
 > 적용 대상: Claude · Gemini 4 Argon · GPT · Grok 등 **이 프로젝트에서 코드를 쓰는 모든 AI**
 > 코드를 쓰기 전에 반드시 이 문서를 먼저 읽는다. (Claude Code는 프로젝트 루트의 CLAUDE.md를 자동으로 읽는다)
-> 갱신: 2026-10-23 22:29:07 KST · 버전 v6.2.0-step16 · 항체 R1~R15 (15종)
+> 갱신: 2026-10-23 22:29:07 KST · 버전 v6.2.0-step16 · 항체 R1~R22 (15종)
 
 ## 0. 세션 시작 3단계
 1. **`CODE_MAP.md`** 로 전체 구조와 패치 마커 위치를 파악한다. (전체 파일을 다 읽지 말 것)
@@ -135,7 +135,7 @@ setTimeout(placeOnce,300); setTimeout(placeOnce,900);   // 총 3회 단발, Obse
 <!-- [RGON-CLAUDE-MD-V16-END] -->
 
 <!-- [RGON-STEP18-WBC-START] -->
-## R18. 백혈구(WBC) 자가치유 면역 엔진 (v11.17-WBC · 항체 R1~R19)
+## R18. 백혈구(WBC) 자가치유 면역 엔진 (v11.21-CIRCULATION · 항체 R1~R22)
 
 - **엔진 본체**: `rgon_white_blood_cell.py` / **면역 원장**: `rgon_immune_ledger.json`
 - **핵심 역할**: 오류 지문 채취(Fingerprint) · AST/JSON 무결성 순찰 · 자동 백업 복원(Rollback) · 상선약수(上善若水) 우회 실행(Bypass) · 주역 64괘 연동 · 동일 오류 3회 반복 시 중복 경보 차단(Anti-Repeat Suppression)
@@ -146,10 +146,10 @@ setTimeout(placeOnce,300); setTimeout(placeOnce,900);   // 총 3회 단발, Obse
 <!-- [RGON-STEP18-WBC-END] -->
 
 <!-- RGON:STEP19-CLAUDE:BEGIN -->
-## 🧬 Step 19 — v11.18-NUTRIENT (항체 R1~R19)
+## 🧬 Step 19 — v11.21-CIRCULATION (항체 R1~R22)
 
-- 현재 버전: v11.18-NUTRIENT (직전 단계: v11.17-WBC)
-- 항체 범위: R1~R19
+- 현재 버전: v11.21-CIRCULATION (직전 단계: v11.21-CIRCULATION)
+- 항체 범위: R1~R22
 - R19: Top 100 영양분 3스푼(Markdown 정제기 · 표준 SKILL.md 자동 주조기 · 3자 찬반 심판기) 통합 및 지식 자가 증식
 - 신규 모듈: rgon_nutrient_engine.py (MarkdownPurifier · SkillAutoForge · TrinityCouncil)
 - 명령: python rgon_nutrient_engine.py --digest / --status / --self-test
@@ -159,8 +159,8 @@ setTimeout(placeOnce,300); setTimeout(placeOnce,900);   // 총 3회 단발, Obse
 <!-- RGON:STEP19-CLAUDE:END -->
 
 <!-- RGON-STEP20-START -->
-## [Step 20] v11.19-AUTONOMOUS — 일일 자율 순환 루프 (R20)
-- 버전: v11.20-MINDUNG-ECC / 항체 범위: R1~R21
+## [Step 20] v11.21-CIRCULATION — 일일 자율 순환 루프 (R20)
+- 버전: v11.21-CIRCULATION / 항체 범위: R1~R22
 - R20: 일일 자율 순환 루프(백혈구 순찰 → 영양분 소화·스킬 주조 → 3자 심판 → 주역 64괘 아침 브리핑) 무인 자동화
 - 심장: rgon_daily_cycle.py (--run / --status / --self-test)
 - 4단계: 백혈구 순찰 → 영양분 3스푼 소화·SKILL.md 주조·TrinityCouncil 심의 → 주역 64괘 → MORNING_BRIEF.md / rgon_morning_brief.json
@@ -169,8 +169,8 @@ setTimeout(placeOnce,300); setTimeout(placeOnce,900);   // 총 3회 단발, Obse
 <!-- RGON-STEP20-END -->
 
 <!-- RGON:STEP21:START -->
-## Step 21 · v11.20-MINDUNG-ECC
-- 항체 범위: **R1~R21**
+## Step 21 · v11.21-CIRCULATION
+- 항체 범위: **R1~R22**
 - R21: @Mindung-EasyAI 양분 흡수 — Matt Pocock(GLOSSARY.md · Spec/Tracer-Bullet Tickets 분업) + ECC(AgentShield 비밀키/설정 보안 스캔)
 - 커밋 전 `python rgon_spec_ticket_Shield.py --run` (AgentShield) 필수
 - 작업 분해는 GLOSSARY.md 용어 + TICKETS_BOARD.md Frontier 우선

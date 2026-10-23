@@ -1,10 +1,10 @@
 {
   "schema": "rgon.immune.ledger.v1",
-  "version": "v11.20-MINDUNG-ECC",
-  "current_step": 21,
-  "antibody_range": "R1~R21",
+  "version": "v11.21-CIRCULATION",
+  "current_step": 22,
+  "antibody_range": "R1~R22",
   "principle": "만물은 하나로 이어져 있으며, 한 걸음씩 나아가면 반드시 이루어진다.",
-  "updated_at_kst": "2026-10-24T07:34:44",
+  "updated_at_kst": "2026-10-24 08:12:01 KST",
   "health_score": 100,
   "inspection_mode": "standard",
   "today_hexagram": {
@@ -135,9 +135,27 @@
       "text": "@Mindung-EasyAI 양분 흡수 — Matt Pocock(GLOSSARY.md · Spec/Tracer-Bullet Tickets 분업) + ECC(AgentShield 비밀키/설정 보안 스캔)",
       "step": 21,
       "added_at": "2026-10-24 07:34:37"
+    },
+    {
+      "id": "R22",
+      "title": "자아성찰 전신 혈관 개통 — 레이더·영양분(SKILL.md)·티켓/AgentShield·백혈구(WBC)·주역64괘·스냅샷/클라우드 JSON 6대 기관 무결점 단일 순환",
+      "name": "자아성찰 전신 혈관 개통 — 레이더·영양분(SKILL.md)·티켓/AgentShield·백혈구(WBC)·주역64괘·스냅샷/클라우드 JSON 6대 기관 무결점 단일 순환",
+      "step": 22
     }
   ],
-  "fingerprints": {},
+  "fingerprints": {
+    "3cf3c4ec29753bf7": {
+      "fingerprint": "3cf3c4ec29753bf7",
+      "exc_type": "KeyError",
+      "context": "self_test_bypass",
+      "sample_message": "'simulated_missing_key'",
+      "first_seen_kst": "2026-10-24T08:11:50",
+      "last_seen_kst": "2026-10-24T08:11:50",
+      "count": 1,
+      "suppressed": false,
+      "known_remedy": "R18 상선약수: adapt_dict 안전 키 매핑 및 기본값 반환"
+    }
+  },
   "healed_events": [
     {
       "timestamp_kst": "2026-10-24T06:08:25",
@@ -170,11 +188,28 @@
       "restored": true,
       "source_backup": "wbc_bom_sanitizer",
       "quarantined_to": null
+    },
+    {
+      "timestamp_kst": "2026-10-24T08:11:50",
+      "file": ".rgon_backup/wbc_selftest/_wbc_dummy_sample.py",
+      "reason": "self_test_syntax_error",
+      "restored": true,
+      "source_backup": ".rgon_backup/wbc_snapshots/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.clean",
+      "quarantined_to": ".rgon_backup/wbc_quarantine/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.20261024_081150.corrupt"
     }
   ],
   "bypass_log": [
     {
       "timestamp_kst": "2026-10-24T06:02:04",
+      "context": "self_test_bypass",
+      "exc_type": "KeyError",
+      "message": "'simulated_missing_key'",
+      "fingerprint": "3cf3c4ec29753bf7",
+      "suppressed": false,
+      "action": "default_value"
+    },
+    {
+      "timestamp_kst": "2026-10-24T08:11:50",
       "context": "self_test_bypass",
       "exc_type": "KeyError",
       "message": "'simulated_missing_key'",
@@ -246,9 +281,27 @@
       "html_checked": 53,
       "errors": 0,
       "healed": 0
+    },
+    {
+      "timestamp_kst": "2026-10-24T08:11:57",
+      "health_score": 100,
+      "py_checked": 839,
+      "json_checked": 135,
+      "html_checked": 53,
+      "errors": 0,
+      "healed": 0
+    },
+    {
+      "timestamp_kst": "2026-10-24T08:12:00",
+      "health_score": 100,
+      "py_checked": 839,
+      "json_checked": 135,
+      "html_checked": 53,
+      "errors": 0,
+      "healed": 0
     }
   ],
-  "antibody_count": 21,
+  "antibody_count": 22,
   "step20": {
     "name": "일일 자율 순환 루프",
     "antibody": "R20",
@@ -257,7 +310,7 @@
     "schedule_kst": "07:00",
     "installed_on": "2026-10-24"
   },
-  "step": 21,
+  "step": 22,
   "updated_at": "2026-10-24 07:34:37",
   "step21": {
     "skills": 18,

@@ -171,3 +171,26 @@ restore_secrets_legacy.py
 # [RGON-STEP17-GUARD-END]
 .rgon_backup*/
 .rgon_backups/
+
+# [RGON-STEP22-VASCULAR-ALLOW-START]
+# R22 클라우드 JSON 혈관 화이트리스트 (*.json 차단 예외 · 비밀 차단 규칙은 원본 유지)
+!rgon_brain_snapshot.json
+!dashboard/rgon_brain_snapshot.json
+!docs/rgon_brain_snapshot.json
+!rgon_immune_ledger.json
+!rgon_morning_brief.json
+!rgon_nutrient_report.json
+!rgon_council_decisions.json
+!rgon_active_tickets.json
+!rgon_agentshield_report.json
+!rgon_skill_radar.json
+!rgon_circulation_report.json
+!rgon_step22_report.json
+!skills/
+!skills/**
+!skills/SKILL_INDEX.json
+# 화이트리스트 이후 비밀 패턴 재차단(안전벨트)
+skills/**/*secret*
+skills/**/*token*
+skills/**/credentials*
+# [RGON-STEP22-VASCULAR-ALLOW-END]

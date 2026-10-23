@@ -7,7 +7,7 @@ created_at_kst: "2026-10-24 06:39:24 KST"
 hexagram_tag: "#20-觀"
 slug: "youtube-trend-scout"
 origin: "core"
-version: "v11.18-NUTRIENT"
+version: "v11.21-CIRCULATION"
 antibody: "R19"
 ---
 
@@ -24,7 +24,7 @@ antibody: "R19"
 - 스카우트 실행 후 run_nutrient_digest_safely()로 즉시 스킬 주조
 - 레이더 항목에 url·category를 채워 품질 향상
 
-## 안전 수칙 (백혈구 항체 R1~R19)
+## 안전 수칙 (백혈구 항체 R1~R22)
 
 - 저작권 있는 원문 전체를 저장하지 않고 요약·링크만 남긴다.
 - UI/확장 파일(.html · .js · manifest.json)은 단 1바이트도 수정하지 않는다 (R14·R15·R16·R18).
@@ -35,4 +35,4 @@ antibody: "R19"
 
 ---
 
-_RGON SkillAutoForge v11.18-NUTRIENT 자동 주조 · 출처: local://rgon_youtube_skill_scout.py_
+_RGON SkillAutoForge v11.21-CIRCULATION 자동 주조 · 출처: local://rgon_youtube_skill_scout.py_

@@ -7,7 +7,7 @@ created_at_kst: "2026-10-24 06:39:24 KST"
 hexagram_tag: "#24-復"
 slug: "wbc-self-healing"
 origin: "core"
-version: "v11.18-NUTRIENT"
+version: "v11.21-CIRCULATION"
 antibody: "R19"
 ---
 
@@ -25,7 +25,7 @@ antibody: "R19"
 - 새 단계 작업 전·후 순찰로 건강 점수 회귀 여부 확인
 - 위험한 호출은 run_safely(fn, ...)로 감싸기
 
-## 안전 수칙 (백혈구 항체 R1~R19)
+## 안전 수칙 (백혈구 항체 R1~R22)
 
 - 순찰이 100점 미만이면 다음 단계로 진행하지 않는다.
 - UI/확장 파일(.html · .js · manifest.json)은 단 1바이트도 수정하지 않는다 (R14·R15·R16·R18).
@@ -36,4 +36,4 @@ antibody: "R19"
 
 ---
 
-_RGON SkillAutoForge v11.18-NUTRIENT 자동 주조 · 출처: local://rgon_white_blood_cell.py_
+_RGON SkillAutoForge v11.21-CIRCULATION 자동 주조 · 출처: local://rgon_white_blood_cell.py_

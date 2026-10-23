@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 rgon_white_blood_cell.py
-RGON 백혈구(WBC: White Blood Cell) 자가치유 면역 엔진 (v11.17-WBC / 항체 R18)
+RGON 백혈구(WBC: White Blood Cell) 자가치유 면역 엔진 (v11.21-CIRCULATION / 항체 R18)
 
 6대 면역 기능:
   1. fingerprint(exc, context) : 오류 지문 채취 & 동일 지문 3회 이상 반복 경보 억제
@@ -27,8 +27,8 @@ import shutil
 import sys
 import traceback
 
-WBC_VERSION = "v11.17-WBC"
-ANTIBODY_RANGE = "R1~R21"
+WBC_VERSION = "v11.21-CIRCULATION"
+ANTIBODY_RANGE = "R1~R22"
 LEDGER_FILENAME = "rgon_immune_ledger.json"
 HEXAGRAM_FILENAME = "rgon_hexagram_engine.py"
 PRINCIPLE = "만물은 하나로 이어져 있으며, 한 걸음씩 나아가면 반드시 이루어진다."
@@ -797,8 +797,8 @@ def main(argv=None):
     return 0
 
 
-# ===== RGON-STEP20-START (R20 antibody, v11.20-MINDUNG-ECC) =====
-ANTIBODY_RANGE = "R1~R21"
+# ===== RGON-STEP20-START (R20 antibody, v11.21-CIRCULATION) =====
+ANTIBODY_RANGE = "R1~R22"
 _RGON_R20_TEXT = "일일 자율 순환 루프(백혈구 순찰 → 영양분 소화·스킬 주조 → 3자 심판 → 주역 64괘 아침 브리핑) 무인 자동화"
 try:
     for _nm in ("DEFAULT_ANTIBODIES", "ANTIBODIES", "ANTIBODY_LIST", "ANTIBODY_RULES"):
@@ -821,7 +821,7 @@ except Exception:
 
 
 # >>> RGON-STEP21-R21 >>>
-ANTIBODY_RANGE = "R1~R21"
+ANTIBODY_RANGE = "R1~R22"
 _R21 = "@Mindung-EasyAI 양분 흡수 — Matt Pocock(GLOSSARY.md · Spec/Tracer-Bullet Tickets 분업) + ECC(AgentShield 비밀키/설정 보안 스캔)"
 for _n in ("DEFAULT_ANTIBODIES", "ANTIBODIES", "ANTIBODY_RULES", "ANTIBODY", "RULES"):
     _d = globals().get(_n)
@@ -832,6 +832,15 @@ for _n in ("DEFAULT_ANTIBODIES", "ANTIBODIES", "ANTIBODY_RULES", "ANTIBODY", "RU
     elif isinstance(_d, list) and not any("R21" in str(x) for x in _d):
         _d.append({"id": "R21", "title": _R21, "name": _R21, "text": _R21, "step": 21} if _d and isinstance(_d[0], dict) else "R21: " + _R21)
 # <<< RGON-STEP21-R21 <<<
+
+# [RGON-STEP22-WBC-R22-START]
+ANTIBODY_RANGE = 'R1~R22'
+_R22_TXT = '자아성찰 전신 혈관 개통 — 레이더·영양분(SKILL.md)·티켓/AgentShield·백혈구(WBC)·주역64괘·스냅샷/클라우드 JSON 6대 기관 무결점 단일 순환'
+for _nm in ('DEFAULT_ANTIBODIES', 'ANTIBODIES', 'ANTIBODY_LIST'):
+    _lst = globals().get(_nm)
+    if isinstance(_lst, list) and not any('R22' in str(x) for x in _lst):
+        _lst.append({'id': 'R22', 'title': _R22_TXT, 'name': _R22_TXT, 'step': 22})
+# [RGON-STEP22-WBC-R22-END]
 
 if __name__ == "__main__":
     sys.exit(main())

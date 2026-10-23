@@ -784,7 +784,7 @@ shin-agent/
 | `create_regression_tests.py` | 3.6KB | 2026-09-25 09:55 | - | - |
 | `create_test_alert.py` | 2.6KB | 2026-08-30 18:14 | - | - |
 | `create_test_counter.py` | 1.8KB | 2026-08-30 18:16 | - | - |
-| `cross_dept_synergy_engine.py` | 26.3KB | 2026-10-19 11:09 | [v11.2-CROSS-DEPARTMENT-SYNERGY-RELAY-INSPECTION] | `calculate_hash()`, `safe_send_telegram()`, `run_grand_synergy_relay()`, `get_synergy_relay_status()` |
+| `cross_dept_synergy_engine.py` | 26.3KB | 2026-10-19 11:09 | [v11.21-CIRCULATION] | `calculate_hash()`, `safe_send_telegram()`, `run_grand_synergy_relay()`, `get_synergy_relay_status()` |
 | `deep_duplicate_scan.py` | 2.3KB | 2026-08-18 13:28 | - | - |
 | `deep_sweep_final_purger.py` | 16.6KB | 2026-10-18 23:29 | [v10.3-DEEP-SWEEP-FINAL-PURGE] | `purge_second_wave_files()`, `streamline_and_purify_keys()`, `execute_deep_sweep()` |
 | `delete_todo_sheet.py` | 1.5KB | 2026-08-26 15:28 | - | - |
@@ -1150,9 +1150,9 @@ shin-agent/
 | `restore_secrets.py` | 2.9KB | 2026-10-16 10:14 | ══════════════════════════════════════════════════════════════════ | `log()`, `restore_secrets()` |
 | `restore_slices.py` | 7.0KB | 2026-09-25 10:54 | - | - |
 | `rewrite_master_signal.py` | 11.7KB | 2026-08-22 00:19 | - | - |
-| `rgon_alpha_clone_engine.py` | 51.0KB | 2026-10-19 18:49 | [v11.4-RGON-ALPHA-DASHBOARD-COMMANDER-CLONE] | `safe_send_telegram()`, `sync_rgon_memory()`, `run_alpha_full_patrol()`, `execute_alpha_command()`, `get_alpha_status()`, `get_alpha_chat_history()`, `handle_alpha_chat_message()` |
+| `rgon_alpha_clone_engine.py` | 51.0KB | 2026-10-19 18:49 | [v11.21-CIRCULATION] | `safe_send_telegram()`, `sync_rgon_memory()`, `run_alpha_full_patrol()`, `execute_alpha_command()`, `get_alpha_status()`, `get_alpha_chat_history()`, `handle_alpha_chat_message()` |
 | `rgon_alpha_deep_button_auditor.py` | 11.5KB | 2026-10-19 11:11 | ══════════════════════════════════════════════════════════════════════════════ | `run_deep_button_audit()`, `get_button_audit_report()` |
-| `rgon_aside_browser_agent.py` | 38.3KB | 2026-10-19 20:10 | [v11.3-RGON-ASIDE-AGENTIC-BROWSER-ABSORPTION] | `load_memory()`, `save_memory()`, `safe_send_telegram()`, `get_page_context()`, `get_aside_status()`, `execute_sub_agents_7_channels()`, `execute_aside_command()`, `execute_all_in_one_multitab_mission()` |
+| `rgon_aside_browser_agent.py` | 38.3KB | 2026-10-19 20:10 | [v11.21-CIRCULATION] | `load_memory()`, `save_memory()`, `safe_send_telegram()`, `get_page_context()`, `get_aside_status()`, `execute_sub_agents_7_channels()`, `execute_aside_command()`, `execute_all_in_one_multitab_mission()` |
 | `rgon_auto_evolve_brain.py` | 62.4KB | 2026-10-20 22:23 | rgon_auto_evolve_brain.py — RGON 자가 진화 두뇌 엔진 v1.0 (TOP1 TOTAL WAR) | `now()`, `rel()`, `sha1_bytes()`, `sha1_file()`, `read_text()`, `backup()`, `write_text()`, `load_json()`, `save_json()`, `class AntibodyMemory [__init__, antibodies, get, hit, add_antibody, record_skill…]`, `count_copy()`, `strip_copy()`, `count_dom()`, `protect_dom()`, `ensure_nocache()`, `count_pollinations_logo()`, `add_nologo()`, `class PromptAndRecipeEvolver [__init__, _load, _items, _match, _find, _pkey…]`, `fnd()`, `health_score()`, `class SelfAuditorAndHealer [__init__, code_targets, watermark_images, _node_check_code, syntax_failures, _probe…]`, `class NextEvolutionGenerator [__init__, _candidates, generate, _to_clipboard]`, `class SheetsLink [__init__, connect, _ensure_tab, register_top, append]`, `_top1_entry()`, `_find_old()` …(+9) |
 | `rgon_auto_sync_daemon.py` | 5.4KB | 2026-10-17 20:51 | ⚡ 르곤-안실장 양방향 시그널 자동 캐치 & IN/OUT 무인 동기화 데몬 엔진 | `load_state()`, `save_state()`, `handle_in_signal()`, `handle_out_signal()`, `run_self_test()`, `main()` |
 | `rgon_auto_watcher.py` | 21.8KB | 2026-10-23 07:30 | RGON 오토 기어 3단 — 24시간 무토큰 문지기 로봇 & 텔레그램 리모컨 (rgon_auto_watcher.py) | `log_msg()`, `load_telegram_creds()`, `tg_send()`, `tg_get_updates()`, `r14_clean_code()`, `execute_omni_file()`, `set_clipboard()`, `prompt_ahn_queue_box()`, `scan_and_relocate_downloads()`, `check_and_process_ahn_text_queue()`, `get_latest_omni()`, `build_briefing_text()`, `prompt_pc_box()`, `main_loop()`, `class RGONQueueHandler [log_message, _send_cors, do_OPTIONS, do_GET, do_POST]`, `_start_queue_servers()` |
@@ -1228,7 +1228,7 @@ shin-agent/
 | `memory_vault.json` | 20.9KB | 2026-10-17 07:15 | 배열 18개 |
 | `morning_briefing_report.json` | 1.4KB | 2026-10-19 19:06 | version=v9.0-cheonbu-ep1-genesis · keys: version, generated_at, duty_commanders, headline, metrics, night_achievements |
 | `nvda_analysis_verification.json` | 3.3KB | 2026-08-19 12:14 | keys: timestamp, nvda_price, overall_signal, overall_confidence, consensus_score, bull_count, bear_count, neutral_count, signals, summary |
-| `nvda_trading_diagnosis_report.json` | 5.6KB | 2026-10-19 04:34 | version=v11.0-NVDA-TRADING-BOT-DEEP-DIAGNOSIS · keys: version, audit_date, auditor, target_system, four_core_diagnoses, status |
+| `nvda_trading_diagnosis_report.json` | 5.6KB | 2026-10-19 04:34 | version=v11.21-CIRCULATION · keys: version, audit_date, auditor, target_system, four_core_diagnoses, status |
 | `omni_agent_bus.json` | 39.3KB | 2026-10-19 19:06 | version=v8.0-cheongwadae-central-command · keys: system, version, registry, messages, latest_synergy_relay |
 | `omni_dispatch_queue.json` | 2.6KB | 2026-10-20 22:24 | 배열 1개 |
 | `omni_shared_clipboard.json` | 52B | 2026-10-20 17:31 | keys: entries, history, updated |
@@ -1269,17 +1269,17 @@ shin-agent/
 <!-- [RGON-CODEMAP-STEP17-END] -->
 
 <!-- [RGON-STEP18-WBC-START] -->
-## Step 18 코드 맵 (v11.17-WBC)
+## Step 18 코드 맵 (v11.21-CIRCULATION)
 
 - `rgon_white_blood_cell.py`: 백혈구 자가치유 & 면역 순찰 엔진 (patrol / run_safely / shield / adapt_dict / fingerprint / install_excepthook / link_hexagram)
-- `rgon_immune_ledger.json`: 면역 원장 (antibodies R1~R19, healed_events, bypass_log, fingerprints, suppressed_count, health_score)
+- `rgon_immune_ledger.json`: 면역 원장 (antibodies R1~R22, healed_events, bypass_log, fingerprints, suppressed_count, health_score)
 - `step18_white_blood_cell_immune_engine.py`: Step 18 설치 스크립트 (멱등)
 - 세이프가드 장착 대상: `rgon_youtube_skill_scout.py`, `control_tower_bot.py`, `telegram_morning_report.py`, `update_3channels_analytics.py`, `github_scout_adapter.py`, `agent_swarm_cloner.py`, `channel_agent.py`, `dept_sub_agents_corps.py`, `multi_agent_orchestrator.py`, `patch_omni_agent_bus_backend.py`, `patch_omni_agent_bus_frontend.py`, `qa_button_inspector_agent.py`, `rgon_aside_browser_agent.py`, `rgon_bridge_8765.py`, `tunnel_discovery_bridge.py`
 - 백업: `.rgon_backup/step18_*`, 스냅샷: `.rgon_backup/wbc_snapshots`, 격리: `.rgon_backup/wbc_quarantine`
 <!-- [RGON-STEP18-WBC-END] -->
 
 <!-- RGON:STEP19-CODEMAP:BEGIN -->
-## 🗺️ rgon_nutrient_engine.py — v11.18-NUTRIENT (R19)
+## 🗺️ rgon_nutrient_engine.py — v11.21-CIRCULATION (R19)
 
 - MarkdownPurifier: purify_html(html_text, source_url=''), fetch_and_purify(url, timeout=10), self_check()
 - SkillAutoForge: forge() / forge_from_radar(root_dir) → skills/<slug>/SKILL.md, SKILL_INDEX.json, README.md
@@ -1291,8 +1291,8 @@ shin-agent/
 <!-- RGON:STEP19-CODEMAP:END -->
 
 <!-- RGON-STEP20-START -->
-## [Step 20] v11.19-AUTONOMOUS — 일일 자율 순환 루프 (R20)
-- 버전: v11.20-MINDUNG-ECC / 항체 범위: R1~R21
+## [Step 20] v11.21-CIRCULATION — 일일 자율 순환 루프 (R20)
+- 버전: v11.21-CIRCULATION / 항체 범위: R1~R22
 - R20: 일일 자율 순환 루프(백혈구 순찰 → 영양분 소화·스킬 주조 → 3자 심판 → 주역 64괘 아침 브리핑) 무인 자동화
 - 심장: rgon_daily_cycle.py (--run / --status / --self-test)
 - 4단계: 백혈구 순찰 → 영양분 3스푼 소화·SKILL.md 주조·TrinityCouncil 심의 → 주역 64괘 → MORNING_BRIEF.md / rgon_morning_brief.json
@@ -1302,7 +1302,7 @@ shin-agent/
 <!-- RGON-STEP20-END -->
 
 <!-- RGON:STEP21:START -->
-## Step 21 (v11.20-MINDUNG-ECC)
+## Step 21 (v11.21-CIRCULATION)
 - `GLOSSARY.md` — 도메인 공유 언어 15선
 - `rgon_spec_ticket_Shield.py` — SpecTicketDecomposer · AgentShieldScanner (--run/--self-test/--status)
 - `rgon_active_tickets.json` · `TICKETS_BOARD.md` — 작업 그래프/Frontier

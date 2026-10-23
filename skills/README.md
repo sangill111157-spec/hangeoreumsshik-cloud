@@ -1,6 +1,6 @@
 # RGON Skills — 표준 SKILL.md 인덱스
 
-버전 v11.18-NUTRIENT · 항체 R1~R19 · 총 **18**개 스킬 (SkillAutoForge 자동 주조)
+버전 v11.21-CIRCULATION · 항체 R1~R22 · 총 **18**개 스킬 (SkillAutoForge 자동 주조)
 
 | # | 스킬 | 카테고리 | 괘 | 출처 |
 |---|---|---|---|---|
