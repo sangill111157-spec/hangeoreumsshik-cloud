@@ -28,7 +28,7 @@ import sys
 import traceback
 
 WBC_VERSION = "v11.17-WBC"
-ANTIBODY_RANGE = "R1~R18"
+ANTIBODY_RANGE = "R1~R19"
 LEDGER_FILENAME = "rgon_immune_ledger.json"
 HEXAGRAM_FILENAME = "rgon_hexagram_engine.py"
 PRINCIPLE = "만물은 하나로 이어져 있으며, 한 걸음씩 나아가면 반드시 이루어진다."
@@ -37,7 +37,7 @@ PROTECTED_EXTS = (".html", ".js")
 PROTECTED_NAMES = ("manifest.json",)
 SKIP_DIRS = {
     ".git", "__pycache__", "node_modules", ".venv", "venv",
-    ".rgon_backup", ".idea", ".vscode", "backups", "archive", "old_backups",
+    ".rgon_backup", ".rgon_backups", ".idea", ".vscode", "backups", "archive", "old_backups",
 }
 
 CAUTION_HEX_NUMBERS = {6, 12, 23, 29, 36, 39, 47}
@@ -62,6 +62,7 @@ DEFAULT_ANTIBODIES = [
     {"id": "R16", "title": "카파시 4대 원칙(CLAUDE.md) + CODE_MAP.md + 보호 파일 해시 잠금", "step": 16},
     {"id": "R17", "title": "창립자 만물일체·한걸음씩 철학 + 명심보감·도덕경·주역 64괘 엔진", "step": 17},
     {"id": "R18", "title": "백혈구(WBC) 자가치유 면역 엔진 — 오류 지문·AST/JSON 순찰·백업 복원·상선약수 우회·중복 경보 억제", "step": 18},
+    {"id": "R19", "title": "Top 100 영양분 3스푼(Markdown 정제기 · 표준 SKILL.md 자동 주조기 · 3자 찬반 심판기) 통합 및 지식 자가 증식", "step": 19},
 ]
 
 

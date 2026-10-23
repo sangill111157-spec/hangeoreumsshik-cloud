@@ -1,10 +1,10 @@
 {
   "schema": "rgon.immune.ledger.v1",
-  "version": "v11.17-WBC",
+  "version": "v11.18-NUTRIENT",
   "current_step": 18,
-  "antibody_range": "R1~R18",
+  "antibody_range": "R1~R19",
   "principle": "만물은 하나로 이어져 있으며, 한 걸음씩 나아가면 반드시 이루어진다.",
-  "updated_at_kst": "2026-10-24T06:08:28",
+  "updated_at_kst": "2026-10-24 06:39:28 KST",
   "health_score": 100,
   "inspection_mode": "standard",
   "today_hexagram": {
@@ -105,6 +105,20 @@
       "id": "R18",
       "title": "백혈구(WBC) 자가치유 면역 엔진 — 오류 지문·AST/JSON 순찰·백업 복원·상선약수 우회·중복 경보 억제",
       "step": 18
+    },
+    {
+      "id": "R19",
+      "title": "Top 100 영양분 3스푼(Markdown 정제기 · 표준 SKILL.md 자동 주조기 · 3자 찬반 심판기) 통합 및 지식 자가 증식",
+      "step": 19,
+      "name": "Top 100 영양분 3스푼",
+      "rule": "Top 100 영양분 3스푼(Markdown 정제기 · 표준 SKILL.md 자동 주조기 · 3자 찬반 심판기) 통합 및 지식 자가 증식",
+      "description": "Top 100 영양분 3스푼(Markdown 정제기 · 표준 SKILL.md 자동 주조기 · 3자 찬반 심판기) 통합 및 지식 자가 증식",
+      "added_in": "v11.18-NUTRIENT",
+      "added_at_kst": "2026-10-24 06:39:25 KST",
+      "guard": "python rgon_nutrient_engine.py --self-test",
+      "modules": [
+        "rgon_nutrient_engine.py"
+      ]
     }
   ],
   "fingerprints": {},
@@ -168,6 +182,24 @@
       "health_score": 100,
       "py_checked": 835,
       "json_checked": 129,
+      "html_checked": 53,
+      "errors": 0,
+      "healed": 0
+    },
+    {
+      "timestamp_kst": "2026-10-24T06:39:22",
+      "health_score": 100,
+      "py_checked": 835,
+      "json_checked": 129,
+      "html_checked": 53,
+      "errors": 0,
+      "healed": 0
+    },
+    {
+      "timestamp_kst": "2026-10-24T06:39:28",
+      "health_score": 100,
+      "py_checked": 836,
+      "json_checked": 132,
       "html_checked": 53,
       "errors": 0,
       "healed": 0

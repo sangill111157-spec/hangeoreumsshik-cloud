@@ -1272,8 +1272,20 @@ shin-agent/
 ## Step 18 코드 맵 (v11.17-WBC)
 
 - `rgon_white_blood_cell.py`: 백혈구 자가치유 & 면역 순찰 엔진 (patrol / run_safely / shield / adapt_dict / fingerprint / install_excepthook / link_hexagram)
-- `rgon_immune_ledger.json`: 면역 원장 (antibodies R1~R18, healed_events, bypass_log, fingerprints, suppressed_count, health_score)
+- `rgon_immune_ledger.json`: 면역 원장 (antibodies R1~R19, healed_events, bypass_log, fingerprints, suppressed_count, health_score)
 - `step18_white_blood_cell_immune_engine.py`: Step 18 설치 스크립트 (멱등)
 - 세이프가드 장착 대상: `rgon_youtube_skill_scout.py`, `control_tower_bot.py`, `telegram_morning_report.py`, `update_3channels_analytics.py`, `github_scout_adapter.py`, `agent_swarm_cloner.py`, `channel_agent.py`, `dept_sub_agents_corps.py`, `multi_agent_orchestrator.py`, `patch_omni_agent_bus_backend.py`, `patch_omni_agent_bus_frontend.py`, `qa_button_inspector_agent.py`, `rgon_aside_browser_agent.py`, `rgon_bridge_8765.py`, `tunnel_discovery_bridge.py`
 - 백업: `.rgon_backup/step18_*`, 스냅샷: `.rgon_backup/wbc_snapshots`, 격리: `.rgon_backup/wbc_quarantine`
 <!-- [RGON-STEP18-WBC-END] -->
+
+<!-- RGON:STEP19-CODEMAP:BEGIN -->
+## 🗺️ rgon_nutrient_engine.py — v11.18-NUTRIENT (R19)
+
+- MarkdownPurifier: purify_html(html_text, source_url=''), fetch_and_purify(url, timeout=10), self_check()
+- SkillAutoForge: forge() / forge_from_radar(root_dir) → skills/<slug>/SKILL.md, SKILL_INDEX.json, README.md
+- TrinityCouncil: bull() · bear() · judge() · deliberate(topic, metrics=None) → rgon_council_decisions.json
+- run_digest(root) → rgon_nutrient_report.json / show_status() / self_test()
+- run_safely(fn, ...): 백혈구 세이프가드 (예외 → 기본값 폴백 + rgon_nutrient_errors.log)
+- rgon_youtube_skill_scout.py: run_nutrient_digest_safely(root_dir=None) 훅 (마커 RGON:STEP19-NUTRIENT-HOOK)
+- step19_absorb_top100_nutrients.py: Step 19 일괄 설치·검증·동기화·푸시 스크립트
+<!-- RGON:STEP19-CODEMAP:END -->

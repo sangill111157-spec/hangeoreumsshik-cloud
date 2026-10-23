@@ -998,3 +998,19 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+# <<RGON:STEP19-NUTRIENT-HOOK:BEGIN>>
+def run_nutrient_digest_safely(root_dir=None):
+    """Step 19 (v11.18-NUTRIENT, R19): 영양분 3스푼 엔진을 백혈구 방식으로 안전 호출."""
+    try:
+        import os as _os
+        import sys as _sys
+        _root = root_dir or _os.path.dirname(_os.path.abspath(__file__))
+        if _root not in _sys.path:
+            _sys.path.insert(0, _root)
+        import rgon_nutrient_engine as _rne
+        return _rne.run_digest(_root)
+    except Exception as _e:
+        return {"ok": False, "error": "%s: %s" % (type(_e).__name__, _e)}
+# <<RGON:STEP19-NUTRIENT-HOOK:END>>

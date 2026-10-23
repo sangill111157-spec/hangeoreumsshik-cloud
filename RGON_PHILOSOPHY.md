@@ -155,3 +155,14 @@
 - **주역 64괘 연동**: `rgon_hexagram_engine.py` 의 오늘의 괘가 험난·경계 괘일 때 점검 모드를 강화(reinforced)한다.
 - **중복 경보 억제**: 동일 오류 지문(Fingerprint)이 3회 이상 반복되면 중복 경보를 잠재우고 면역 원장에만 조용히 기록한다.
 <!-- [RGON-STEP18-WBC-END] -->
+
+<!-- RGON:STEP19-PHILOSOPHY:BEGIN -->
+## 🍯 영양분 3스푼의 철학 — v11.18-NUTRIENT (R19)
+
+- 1스푼 정(井) — MarkdownPurifier: 우물은 맑은 물만 길어 올린다. 광고·추적·잡음을 걷어내고 지식의 본질만 마신다.
+- 2스푼 정(鼎) — SkillAutoForge: 솥은 새것을 세운다. 흡수한 지식을 표준 SKILL.md로 주조해 스스로 증식한다.
+- 3스푼 동인(同人) — TrinityCouncil: 낙관(Bull)과 신중(Bear)이 함께 앉고, 주역 심판관이 최종 판단한다.
+- 도덕경 64장: 千里之行 始於足下 — 모든 확장은 한 걸음씩(APPROVED_STEP_BY_STEP).
+- 도덕경 44장: 知足不辱 知止不殆 — 그칠 줄 아는 것이 R14(과잉 엔지니어링 금지)의 정신이다.
+- 명심보감 계선편: 勿以善小而不爲 — 작은 스킬 하나도 정성껏 주조한다.
+<!-- RGON:STEP19-PHILOSOPHY:END -->

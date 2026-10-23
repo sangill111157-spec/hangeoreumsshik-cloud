@@ -1,6 +1,6 @@
 {
   "schema": "rgon_brain_snapshot/1",
-  "version": "v11.17-WBC",
+  "version": "v11.18-NUTRIENT",
   "generated_at_kst": "2026-10-23 22:29:07 KST",
   "synced_at_kst": "2026-10-23 22:29:07 KST",
   "sync_rate": "100.0%",
@@ -11,7 +11,7 @@
     "max": 100,
     "label": "100/100"
   },
-  "antibody_range": "R1~R18",
+  "antibody_range": "R1~R19",
   "antibodies": [
     {
       "id": "R8_APPROVAL_BEFORE_CODE",
@@ -117,6 +117,20 @@
       "title": "오류 지문 채취(Fingerprint) · AST/JSON 무결성 순찰 · 자동 백업 복원(Rollback) · 상선약수(上善若水) 우회 실행(Bypass) · 주역 64괘 연동 · 동일 오류 3회 반복 시 중복 경보 차단(Anti-Repeat Suppression)",
       "step": 18,
       "added_kst": "2026-10-24"
+    },
+    {
+      "id": "R19",
+      "name": "Top 100 영양분 3스푼",
+      "title": "Top 100 영양분 3스푼(Markdown 정제기 · 표준 SKILL.md 자동 주조기 · 3자 찬반 심판기) 통합 및 지식 자가 증식",
+      "rule": "Top 100 영양분 3스푼(Markdown 정제기 · 표준 SKILL.md 자동 주조기 · 3자 찬반 심판기) 통합 및 지식 자가 증식",
+      "description": "Top 100 영양분 3스푼(Markdown 정제기 · 표준 SKILL.md 자동 주조기 · 3자 찬반 심판기) 통합 및 지식 자가 증식",
+      "added_in": "v11.18-NUTRIENT",
+      "step": 19,
+      "added_at_kst": "2026-10-24 06:39:25 KST",
+      "guard": "python rgon_nutrient_engine.py --self-test",
+      "modules": [
+        "rgon_nutrient_engine.py"
+      ]
     }
   ],
   "top_priority_id": "GEN-1",
@@ -1008,7 +1022,7 @@
     ]
   },
   "step": 17,
-  "antibody_count": 18,
+  "antibody_count": 19,
   "updated_at": "2026-10-23T23:36:16",
   "philosophy": {
     "doc": "RGON_PHILOSOPHY.md",
@@ -1073,5 +1087,42 @@
     "today_hexagram": "중천건(重天乾) — 자강불식(自強不息) — 스스로 강건히 쉬지 않고 정진한다",
     "principle": "만물은 하나로 이어져 있으며, 한 걸음씩 나아가면 반드시 이루어진다."
   },
-  "updated_at_kst": "2026-10-24T06:02:10"
+  "updated_at_kst": "2026-10-24 06:39:25 KST",
+  "last_step": 19,
+  "step19_nutrient": {
+    "skills_count": 14,
+    "selftest": "PASS 19/19",
+    "scout_hook": "HOOKED",
+    "decisions": [
+      {
+        "topic": "Markdown 정제기로 외부 웹·문서 지식을 AI 친화 Markdown으로 흡수",
+        "grade": "APPROVED_STEP_BY_STEP",
+        "composite": 85.5,
+        "bull": 80.8,
+        "bear": 22.2,
+        "hexagram": "#08-比",
+        "wbc_health": 100.0
+      },
+      {
+        "topic": "표준 SKILL.md 자동 주조로 스킬 지식 자가 증식 (현재 14개)",
+        "grade": "APPROVED_STEP_BY_STEP",
+        "composite": 90.0,
+        "bull": 85.5,
+        "bear": 14.2,
+        "hexagram": "#25-无妄",
+        "wbc_health": 100.0
+      },
+      {
+        "topic": "3자 찬반 심판기를 일일 스케줄 의사결정 게이트로 상시 연결",
+        "grade": "APPROVED_STEP_BY_STEP",
+        "composite": 81.7,
+        "bull": 69.8,
+        "bear": 22.2,
+        "hexagram": "#21-噬嗑",
+        "wbc_health": 100.0
+      }
+    ],
+    "antibody": "R19",
+    "rule": "Top 100 영양분 3스푼(Markdown 정제기 · 표준 SKILL.md 자동 주조기 · 3자 찬반 심판기) 통합 및 지식 자가 증식"
+  }
 }

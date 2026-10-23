@@ -135,7 +135,7 @@ setTimeout(placeOnce,300); setTimeout(placeOnce,900);   // 총 3회 단발, Obse
 <!-- [RGON-CLAUDE-MD-V16-END] -->
 
 <!-- [RGON-STEP18-WBC-START] -->
-## R18. 백혈구(WBC) 자가치유 면역 엔진 (v11.17-WBC · 항체 R1~R18)
+## R18. 백혈구(WBC) 자가치유 면역 엔진 (v11.17-WBC · 항체 R1~R19)
 
 - **엔진 본체**: `rgon_white_blood_cell.py` / **면역 원장**: `rgon_immune_ledger.json`
 - **핵심 역할**: 오류 지문 채취(Fingerprint) · AST/JSON 무결성 순찰 · 자동 백업 복원(Rollback) · 상선약수(上善若水) 우회 실행(Bypass) · 주역 64괘 연동 · 동일 오류 3회 반복 시 중복 경보 차단(Anti-Repeat Suppression)
@@ -144,3 +144,16 @@ setTimeout(placeOnce,300); setTimeout(placeOnce,900);   // 총 3회 단발, Obse
 - **CLI 점검 명령**: `python rgon_white_blood_cell.py --patrol` / `python rgon_white_blood_cell.py --status`
 - **절대 금기 준수**: `.html` / `.js` / `manifest.json` 수정 0건, `MutationObserver` · `setInterval` DOM 루프 금지(R14).
 <!-- [RGON-STEP18-WBC-END] -->
+
+<!-- RGON:STEP19-CLAUDE:BEGIN -->
+## 🧬 Step 19 — v11.18-NUTRIENT (항체 R1~R19)
+
+- 현재 버전: v11.18-NUTRIENT (직전 단계: v11.17-WBC)
+- 항체 범위: R1~R19
+- R19: Top 100 영양분 3스푼(Markdown 정제기 · 표준 SKILL.md 자동 주조기 · 3자 찬반 심판기) 통합 및 지식 자가 증식
+- 신규 모듈: rgon_nutrient_engine.py (MarkdownPurifier · SkillAutoForge · TrinityCouncil)
+- 명령: python rgon_nutrient_engine.py --digest / --status / --self-test
+- 산출물: skills/<slug>/SKILL.md, skills/SKILL_INDEX.json, skills/README.md, rgon_nutrient_report.json, rgon_council_decisions.json
+- 헌법 재확인: .html/.js/manifest.json 무수정(R14·R15·R16·R18), 표준 라이브러리만, UTF-8(utf-8-sig 읽기/utf-8 쓰기)
+- 새 스킬 도입 시: 3자 심판(deliberate)이 HOLD_AND_REFLECT면 진행하지 않는다.
+<!-- RGON:STEP19-CLAUDE:END -->
