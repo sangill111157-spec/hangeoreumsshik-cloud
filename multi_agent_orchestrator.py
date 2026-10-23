@@ -12,6 +12,13 @@ Omni-Nexus 5대 분산 멀티 에이전트 오케스트레이터 (multi_agent_or
   4. Agent-4 (꿈의 옷장·에듀테크): tab-daughters & dream_closet_future_master_app.html 전담
   5. Agent-5 (QA 무결성 감사관 - Guardian): DOM 트리 짝맞춤, 고아 태그 0개, 구역 침범 0건 자동 감사
 """
+# [RGON-WBC-GUARD-V18-START]
+try:
+    import rgon_white_blood_cell as _rgon_wbc
+    _rgon_wbc.install_excepthook('multi_agent_orchestrator.py')
+except Exception:
+    _rgon_wbc = None
+# [RGON-WBC-GUARD-V18-END]
 
 import os
 import re

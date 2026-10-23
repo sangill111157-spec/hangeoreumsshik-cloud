@@ -5,6 +5,13 @@ patch_omni_agent_bus_backend.py
 run_dashboard.py에 /api/omni-agent-bus GET/POST 엔드포인트 주입
 --------------------------------------------------------------------------------
 """
+# [RGON-WBC-GUARD-V18-START]
+try:
+    import rgon_white_blood_cell as _rgon_wbc
+    _rgon_wbc.install_excepthook('patch_omni_agent_bus_backend.py')
+except Exception:
+    _rgon_wbc = None
+# [RGON-WBC-GUARD-V18-END]
 
 import sys
 import json

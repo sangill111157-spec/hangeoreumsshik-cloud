@@ -5,6 +5,13 @@
 선구자들의 오픈소스(GitHub)를 실시간 답사하고 라이선스 안전성을 검증하여,
 우리 제국(8H 수면 음악 / 세 딸 인성학교 / 퀀트·NVDA / 경량 사령부)에 맞게 개조·흡수하는 엔진
 """
+# [RGON-WBC-GUARD-V18-START]
+try:
+    import rgon_white_blood_cell as _rgon_wbc
+    _rgon_wbc.install_excepthook('github_scout_adapter.py')
+except Exception:
+    _rgon_wbc = None
+# [RGON-WBC-GUARD-V18-END]
 
 import os
 import json

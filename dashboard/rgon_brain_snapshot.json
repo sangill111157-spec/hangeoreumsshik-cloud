@@ -1,6 +1,6 @@
 {
   "schema": "rgon_brain_snapshot/1",
-  "version": "v6.3.0-step17",
+  "version": "v11.17-WBC",
   "generated_at_kst": "2026-10-23 22:29:07 KST",
   "synced_at_kst": "2026-10-23 22:29:07 KST",
   "sync_rate": "100.0%",
@@ -11,7 +11,7 @@
     "max": 100,
     "label": "100/100"
   },
-  "antibody_range": "R1~R17 (17종)",
+  "antibody_range": "R1~R18",
   "antibodies": [
     {
       "id": "R8_APPROVAL_BEFORE_CODE",
@@ -111,6 +111,12 @@
       "name": "창립자 영혼 · 동양 3대 고전 헌법",
       "rule": "만물일체·한걸음씩 선언 + 명심보감 삼성 + 도덕경 무위 + 주역 궁변통구 자가치유 내재화",
       "added_in": "v6.3.0-step17"
+    },
+    {
+      "id": "R18",
+      "title": "오류 지문 채취(Fingerprint) · AST/JSON 무결성 순찰 · 자동 백업 복원(Rollback) · 상선약수(上善若水) 우회 실행(Bypass) · 주역 64괘 연동 · 동일 오류 3회 반복 시 중복 경보 차단(Anti-Repeat Suppression)",
+      "step": 18,
+      "added_kst": "2026-10-24"
     }
   ],
   "top_priority_id": "GEN-1",
@@ -914,7 +920,7 @@
     ]
   },
   "step": 17,
-  "antibody_count": 17,
+  "antibody_count": 18,
   "updated_at": "2026-10-23T23:36:16",
   "philosophy": {
     "doc": "RGON_PHILOSOPHY.md",
@@ -953,5 +959,31 @@
       "principle": "천리지행 시어족하 — 가장 아래(기반)의 막힌 효부터 한걸음씩 통하게 한다."
     },
     "generated_at": "2026-10-23T23:36:18"
-  }
+  },
+  "current_step": 18,
+  "white_blood_cell": {
+    "engine": "rgon_white_blood_cell.py",
+    "ledger": "rgon_immune_ledger.json",
+    "health_score": 0,
+    "guarded_scripts": [
+      "rgon_youtube_skill_scout.py",
+      "control_tower_bot.py",
+      "telegram_morning_report.py",
+      "update_3channels_analytics.py",
+      "github_scout_adapter.py",
+      "agent_swarm_cloner.py",
+      "channel_agent.py",
+      "dept_sub_agents_corps.py",
+      "multi_agent_orchestrator.py",
+      "patch_omni_agent_bus_backend.py",
+      "patch_omni_agent_bus_frontend.py",
+      "qa_button_inspector_agent.py",
+      "rgon_aside_browser_agent.py",
+      "rgon_bridge_8765.py",
+      "tunnel_discovery_bridge.py"
+    ],
+    "today_hexagram": "중천건(重天乾) — 자강불식(自強不息) — 스스로 강건히 쉬지 않고 정진한다",
+    "principle": "만물은 하나로 이어져 있으며, 한 걸음씩 나아가면 반드시 이루어진다."
+  },
+  "updated_at_kst": "2026-10-24T06:02:10"
 }

@@ -1,4 +1,11 @@
 # -*- coding: utf-8 -*-
+# [RGON-WBC-GUARD-V18-START]
+try:
+    import rgon_white_blood_cell as _rgon_wbc
+    _rgon_wbc.install_excepthook('telegram_morning_report.py')
+except Exception:
+    _rgon_wbc = None
+# [RGON-WBC-GUARD-V18-END]
 import pickle
 import sys
 import io

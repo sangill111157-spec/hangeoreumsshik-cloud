@@ -2,6 +2,13 @@
 """
 update_3channels_analytics.py — 3개 유튜브 채널 실시간 트래픽 갱신 및 시트 정합성 연동
 """
+# [RGON-WBC-GUARD-V18-START]
+try:
+    import rgon_white_blood_cell as _rgon_wbc
+    _rgon_wbc.install_excepthook('update_3channels_analytics.py')
+except Exception:
+    _rgon_wbc = None
+# [RGON-WBC-GUARD-V18-END]
 import os
 import sys
 import pickle

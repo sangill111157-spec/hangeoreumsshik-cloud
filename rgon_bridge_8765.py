@@ -1,4 +1,11 @@
 # -*- coding: utf-8 -*-
+# [RGON-WBC-GUARD-V18-START]
+try:
+    import rgon_white_blood_cell as _rgon_wbc
+    _rgon_wbc.install_excepthook('rgon_bridge_8765.py')
+except Exception:
+    _rgon_wbc = None
+# [RGON-WBC-GUARD-V18-END]
 # rgon_bridge_8765.py  (rgon_finish_step2_step3.py 가 생성)
 # - 127.0.0.1:8765 에서만 수신, POST /api/queue 만 처리
 # - "entry" 키가 포함된 JSON, 그 외 경로/메서드는 {"ok": true, "status": "ignored"}

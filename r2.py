@@ -1,23 +1,46 @@
-﻿
-import os, subprocess
+# -*- coding: utf-8 -*-
+import urllib.request, time, json, concurrent.futures
 
-p = "<style>#rgon-tools-drawer,#rgon-omni-top-drawer{width:100%!important;flex:0 0 100%!important}#dokdae-feed{display:flex!important;flex-direction:column!important;width:100%!important;flex:0 0 100%!important;min-height:46vh!important;max-height:62vh!important;overflow-y:auto!important}#dokdae-feed *{word-break:keep-all!important;writing-mode:horizontal-tb!important}</style><script>setInterval(function(){var f=document.getElementById('dokdae-feed'),t=document.getElementById('rgon-tools-drawer');if(f){var d=f.closest('details');while(d&&d.parentNode){d.parentNode.insertBefore(f,d.nextSibling);d=f.closest('details');}}if(t&&f&&f.parentNode&&t.parentNode!==f.parentNode){f.parentNode.insertBefore(t,f);}document.querySelectorAll('div,span').forEach(function(e){if(e.children.length<=2&&/5G\s*터널|^🟢$/.test((e.textContent||'').trim()))e.style.setProperty('display','none','important');});},400);</script>"
+def fetch_one(name, url):
+    t0 = time.time()
+    try:
+        req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            elapsed = time.time() - t0
+            return name, resp.status, elapsed
+    except urllib.error.HTTPError as e:
+        elapsed = time.time() - t0
+        return name, e.code, elapsed
+    except Exception as e:
+        elapsed = time.time() - t0
+        return name, str(e), elapsed
 
-for fn in ["rgon_alpha_chat.html","dashboard/rgon_alpha_chat.html","docs/rgon_alpha_chat.html"]:
+# =========================================================================
+# Scenario A: /risk/score and /rebalance/plan concurrent
+# =========================================================================
+print("=== Scenario A: /risk/score and /rebalance/plan concurrent ===")
+t0_a = time.time()
+with concurrent.futures.ThreadPoolExecutor(max_workers=2) as ex:
+    f_risk = ex.submit(fetch_one, '/risk/score', 'http://127.0.0.1:8000/api/risk/score')
+    f_reb = ex.submit(fetch_one, '/rebalance/plan', 'http://127.0.0.1:8000/api/rebalance/plan')
+    res_risk = f_risk.result()
+    res_reb = f_reb.result()
+t_total_a = time.time() - t0_a
 
-    if os.path.exists(fn):
+print(f"{res_risk[0]:20s} | Status: {res_risk[1]} | Time: {res_risk[2]:.3f}s")
+print(f"{res_reb[0]:20s} | Status: {res_reb[1]} | Time: {res_reb[2]:.3f}s")
+print(f"Scenario A Total Time: {t_total_a:.3f}s")
 
-        s = open(fn, encoding="utf-8").read()
+# =========================================================================
+# Scenario B: /rebalance/plan -> 0.1s -> /price
+# =========================================================================
+print("\n=== Scenario B: /rebalance/plan -> 0.1s -> /price ===")
+with concurrent.futures.ThreadPoolExecutor(max_workers=2) as ex:
+    f_reb = ex.submit(fetch_one, '/rebalance/plan', 'http://127.0.0.1:8000/api/rebalance/plan')
+    time.sleep(0.1)
+    f_price = ex.submit(fetch_one, '/price', 'http://127.0.0.1:8000/api/stock/NVDA/price')
+    res_price = f_price.result()
+    res_reb = f_reb.result()
 
-        open(fn, "w", encoding="utf-8").write(s.replace("</body>", p + "</body>"))
-
-        print("OK:", fn)
-
-subprocess.run(["git","add","-A"])
-
-subprocess.run(["git","commit","-m","fix: rescue dokdae feed full width"])
-
-subprocess.run(["git","push","origin","main"])
-
-print("ALL RESCUE DONE!")
-
+print(f"{res_price[0]:20s} | Status: {res_price[1]} | Time: {res_price[2]:.3f}s")
+print(f"{res_reb[0]:20s} | Status: {res_reb[1]} | Time: {res_reb[2]:.3f}s")

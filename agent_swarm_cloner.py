@@ -12,6 +12,13 @@
   - Clone-4 (꿈의 옷장·보이스 클론) : tab-daughters & dream_closet_future_master_app.html 전담
   - Clone-5 (Self-Healing QA 수호 클론) : DOM 고아 태그 자동 봉합, div 짝맞춤, 문법 검증 후 본체 병합
 """
+# [RGON-WBC-GUARD-V18-START]
+try:
+    import rgon_white_blood_cell as _rgon_wbc
+    _rgon_wbc.install_excepthook('agent_swarm_cloner.py')
+except Exception:
+    _rgon_wbc = None
+# [RGON-WBC-GUARD-V18-END]
 
 import os
 import re

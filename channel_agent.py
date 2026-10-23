@@ -1,3 +1,10 @@
+# [RGON-WBC-GUARD-V18-START]
+try:
+    import rgon_white_blood_cell as _rgon_wbc
+    _rgon_wbc.install_excepthook('channel_agent.py')
+except Exception:
+    _rgon_wbc = None
+# [RGON-WBC-GUARD-V18-END]
 # ══════════════════════════════════════════════════════════════
 #  한걸음씩 채널 매니저 에이전트 v1.0
 #  channel_agent.py

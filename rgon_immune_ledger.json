@@ -1,0 +1,414 @@
+{
+  "schema": "rgon.immune.ledger.v1",
+  "version": "v11.17-WBC",
+  "current_step": 18,
+  "antibody_range": "R1~R18",
+  "principle": "만물은 하나로 이어져 있으며, 한 걸음씩 나아가면 반드시 이루어진다.",
+  "updated_at_kst": "2026-10-24T06:02:09",
+  "health_score": 0,
+  "inspection_mode": "standard",
+  "today_hexagram": {
+    "available": false,
+    "number": null,
+    "name": "중천건(重天乾)",
+    "summary": "자강불식(自強不息) — 스스로 강건히 쉬지 않고 정진한다",
+    "inspection_mode": "standard"
+  },
+  "suppressed_count": 0,
+  "antibodies": [
+    {
+      "id": "R1",
+      "title": "단일 진실 공급원(SSOT) 준수 및 중복 상태 금지",
+      "step": 1
+    },
+    {
+      "id": "R2",
+      "title": "전 영역 UTF-8 입출력 명시 (Windows cp949 인코딩 오류 면역)",
+      "step": 2
+    },
+    {
+      "id": "R3",
+      "title": "작업 전 타임스탬프 백업 강제 및 원본 보존",
+      "step": 3
+    },
+    {
+      "id": "R4",
+      "title": "마커 기반 멱등(Idempotent) 패치로 재실행 안전 보장",
+      "step": 4
+    },
+    {
+      "id": "R5",
+      "title": "외부 네트워크·서브프로세스 타임아웃 및 안전 기본값",
+      "step": 5
+    },
+    {
+      "id": "R6",
+      "title": "로컬 브리지(8765) 오프라인 시 정적 폴백 동작 보장",
+      "step": 6
+    },
+    {
+      "id": "R7",
+      "title": "모바일·데스크톱 아코디언 바 겹침 방지 및 접힘 기본값",
+      "step": 7
+    },
+    {
+      "id": "R8",
+      "title": "실시간 브리핑 바 독립 데이터 경로 유지 및 잔상 차단",
+      "step": 8
+    },
+    {
+      "id": "R9",
+      "title": "단일 클린 엔진 통합 및 구 패치 블록 정리",
+      "step": 9
+    },
+    {
+      "id": "R10",
+      "title": "실제 실행 경로(Downloads\\shin-agent) 자동 탐색 및 동기화",
+      "step": 10
+    },
+    {
+      "id": "R11",
+      "title": "Shadow DOM open 전환 및 흡수기 4버튼 정밀 타겟팅",
+      "step": 11
+    },
+    {
+      "id": "R12",
+      "title": "흡수기 버튼 단일 배지(V12) 정리 및 중복 렌더링 차단",
+      "step": 12
+    },
+    {
+      "id": "R13",
+      "title": "유튜브 트렌드 & AI 스킬 흡수기 V13 정적 JSON 폴백 연동",
+      "step": 13
+    },
+    {
+      "id": "R14",
+      "title": "MutationObserver·setInterval DOM 재배치 루프 영구 금지",
+      "step": 14
+    },
+    {
+      "id": "R15",
+      "title": "단발성 placeOnce(data-placed=1) 정적 배치 원칙",
+      "step": 15
+    },
+    {
+      "id": "R16",
+      "title": "카파시 4대 원칙(CLAUDE.md) + CODE_MAP.md + 보호 파일 해시 잠금",
+      "step": 16
+    },
+    {
+      "id": "R17",
+      "title": "창립자 만물일체·한걸음씩 철학 + 명심보감·도덕경·주역 64괘 엔진",
+      "step": 17
+    },
+    {
+      "id": "R18",
+      "title": "백혈구(WBC) 자가치유 면역 엔진 — 오류 지문·AST/JSON 순찰·백업 복원·상선약수 우회·중복 경보 억제",
+      "step": 18
+    }
+  ],
+  "fingerprints": {
+    "3cf3c4ec29753bf7": {
+      "fingerprint": "3cf3c4ec29753bf7",
+      "exc_type": "KeyError",
+      "context": "self_test_bypass",
+      "sample_message": "'simulated_missing_key'",
+      "first_seen_kst": "2026-10-24T06:02:04",
+      "last_seen_kst": "2026-10-24T06:02:04",
+      "count": 1,
+      "suppressed": false,
+      "known_remedy": "R18 상선약수: adapt_dict 안전 키 매핑 및 기본값 반환"
+    },
+    "6fd2a612334b91b1": {
+      "fingerprint": "6fd2a612334b91b1",
+      "exc_type": "SyntaxError",
+      "context": "patrol:py:finish_boot.py",
+      "sample_message": "invalid non-printable character U+FEFF (finish_boot.py, line 1)",
+      "first_seen_kst": "2026-10-24T06:02:05",
+      "last_seen_kst": "2026-10-24T06:02:05",
+      "count": 1,
+      "suppressed": false,
+      "known_remedy": "R18 항체: 최근 정상 스냅샷/백업에서 자동 복원(auto_restore)"
+    },
+    "bfe0bff53ecb58e6": {
+      "fingerprint": "bfe0bff53ecb58e6",
+      "exc_type": "SyntaxError",
+      "context": "patrol:py:fix_boot_now.py",
+      "sample_message": "invalid non-printable character U+FEFF (fix_boot_now.py, line 1)",
+      "first_seen_kst": "2026-10-24T06:02:05",
+      "last_seen_kst": "2026-10-24T06:02:05",
+      "count": 1,
+      "suppressed": false,
+      "known_remedy": "R18 항체: 최근 정상 스냅샷/백업에서 자동 복원(auto_restore)"
+    },
+    "cfaa80a1e645890f": {
+      "fingerprint": "cfaa80a1e645890f",
+      "exc_type": "SyntaxError",
+      "context": "patrol:py:r2.py",
+      "sample_message": "invalid non-printable character U+FEFF (r2.py, line 1)",
+      "first_seen_kst": "2026-10-24T06:02:06",
+      "last_seen_kst": "2026-10-24T06:02:06",
+      "count": 1,
+      "suppressed": false,
+      "known_remedy": "R18 항체: 최근 정상 스냅샷/백업에서 자동 복원(auto_restore)"
+    },
+    "4c364f31e34d8e57": {
+      "fingerprint": "4c364f31e34d8e57",
+      "exc_type": "SyntaxError",
+      "context": "patrol:py:backups/daily_omni_archive/omni_rgon_20261022_113138.py",
+      "sample_message": "invalid character '🫡' (U+1FAE1) (backups/daily_omni_archive/omni_rgon_20261022_113138.py, line 91)",
+      "first_seen_kst": "2026-10-24T06:02:08",
+      "last_seen_kst": "2026-10-24T06:02:08",
+      "count": 1,
+      "suppressed": false,
+      "known_remedy": "R18 항체: 최근 정상 스냅샷/백업에서 자동 복원(auto_restore)"
+    },
+    "5154f356fccb48ab": {
+      "fingerprint": "5154f356fccb48ab",
+      "exc_type": "SyntaxError",
+      "context": "patrol:py:backups/daily_omni_archive/omni_rgon_20261022_125826.py",
+      "sample_message": "unmatched ']' (backups/daily_omni_archive/omni_rgon_20261022_125826.py, line 244)",
+      "first_seen_kst": "2026-10-24T06:02:08",
+      "last_seen_kst": "2026-10-24T06:02:08",
+      "count": 1,
+      "suppressed": false,
+      "known_remedy": "R18 항체: 최근 정상 스냅샷/백업에서 자동 복원(auto_restore)"
+    },
+    "ecbd0f7436982066": {
+      "fingerprint": "ecbd0f7436982066",
+      "exc_type": "SyntaxError",
+      "context": "patrol:py:backups/daily_omni_archive/omni_rgon_20261022_142309.py",
+      "sample_message": "unmatched ']' (backups/daily_omni_archive/omni_rgon_20261022_142309.py, line 363)",
+      "first_seen_kst": "2026-10-24T06:02:08",
+      "last_seen_kst": "2026-10-24T06:02:08",
+      "count": 1,
+      "suppressed": false,
+      "known_remedy": "R18 항체: 최근 정상 스냅샷/백업에서 자동 복원(auto_restore)"
+    },
+    "21b36f43850820ce": {
+      "fingerprint": "21b36f43850820ce",
+      "exc_type": "SyntaxError",
+      "context": "patrol:py:backups/daily_omni_archive/omni_rgon_20261022_145303.py",
+      "sample_message": "unmatched ']' (backups/daily_omni_archive/omni_rgon_20261022_145303.py, line 84)",
+      "first_seen_kst": "2026-10-24T06:02:08",
+      "last_seen_kst": "2026-10-24T06:02:08",
+      "count": 1,
+      "suppressed": false,
+      "known_remedy": "R18 항체: 최근 정상 스냅샷/백업에서 자동 복원(auto_restore)"
+    },
+    "d676cddceec6051b": {
+      "fingerprint": "d676cddceec6051b",
+      "exc_type": "SyntaxError",
+      "context": "patrol:py:backups/daily_omni_archive/omni_rgon_20261022_175958.py",
+      "sample_message": "unmatched ']' (backups/daily_omni_archive/omni_rgon_20261022_175958.py, line 135)",
+      "first_seen_kst": "2026-10-24T06:02:08",
+      "last_seen_kst": "2026-10-24T06:02:08",
+      "count": 1,
+      "suppressed": false,
+      "known_remedy": "R18 항체: 최근 정상 스냅샷/백업에서 자동 복원(auto_restore)"
+    },
+    "d734806bd6adc0fe": {
+      "fingerprint": "d734806bd6adc0fe",
+      "exc_type": "SyntaxError",
+      "context": "patrol:py:backups/daily_omni_archive/omni_rgon_20261022_181729.py",
+      "sample_message": "unmatched ']' (backups/daily_omni_archive/omni_rgon_20261022_181729.py, line 387)",
+      "first_seen_kst": "2026-10-24T06:02:08",
+      "last_seen_kst": "2026-10-24T06:02:08",
+      "count": 1,
+      "suppressed": false,
+      "known_remedy": "R18 항체: 최근 정상 스냅샷/백업에서 자동 복원(auto_restore)"
+    },
+    "01c2cf5a209c19b0": {
+      "fingerprint": "01c2cf5a209c19b0",
+      "exc_type": "SyntaxError",
+      "context": "patrol:py:backups/daily_omni_archive/omni_rgon_20261022_183118.py",
+      "sample_message": "unmatched ']' (backups/daily_omni_archive/omni_rgon_20261022_183118.py, line 238)",
+      "first_seen_kst": "2026-10-24T06:02:08",
+      "last_seen_kst": "2026-10-24T06:02:08",
+      "count": 1,
+      "suppressed": false,
+      "known_remedy": "R18 항체: 최근 정상 스냅샷/백업에서 자동 복원(auto_restore)"
+    },
+    "08675bcb7fe22af2": {
+      "fingerprint": "08675bcb7fe22af2",
+      "exc_type": "SyntaxError",
+      "context": "patrol:py:backups/daily_omni_archive/omni_rgon_20261022_184140.py",
+      "sample_message": "unmatched ']' (backups/daily_omni_archive/omni_rgon_20261022_184140.py, line 152)",
+      "first_seen_kst": "2026-10-24T06:02:08",
+      "last_seen_kst": "2026-10-24T06:02:08",
+      "count": 1,
+      "suppressed": false,
+      "known_remedy": "R18 항체: 최근 정상 스냅샷/백업에서 자동 복원(auto_restore)"
+    },
+    "fcda4a362b1c8f2b": {
+      "fingerprint": "fcda4a362b1c8f2b",
+      "exc_type": "SyntaxError",
+      "context": "patrol:py:backups/daily_omni_archive/omni_rgon_20261022_204457.py",
+      "sample_message": "invalid syntax (backups/daily_omni_archive/omni_rgon_20261022_204457.py, line 29)",
+      "first_seen_kst": "2026-10-24T06:02:08",
+      "last_seen_kst": "2026-10-24T06:02:08",
+      "count": 1,
+      "suppressed": false,
+      "known_remedy": "R18 항체: 최근 정상 스냅샷/백업에서 자동 복원(auto_restore)"
+    },
+    "32f29ef62c03e53f": {
+      "fingerprint": "32f29ef62c03e53f",
+      "exc_type": "JSONDecodeError",
+      "context": "patrol:json:config/veo_prompt_guide.json",
+      "sample_message": "Unexpected UTF-8 BOM (decode using utf-8-sig): line 1 column 1 (char 0)",
+      "first_seen_kst": "2026-10-24T06:02:08",
+      "last_seen_kst": "2026-10-24T06:02:08",
+      "count": 1,
+      "suppressed": false,
+      "known_remedy": "R18 항체: 손상 JSON 백업 복원(auto_restore) 또는 안전 기본값 우회"
+    }
+  },
+  "healed_events": [
+    {
+      "timestamp_kst": "2026-10-24T06:02:04",
+      "file": ".rgon_backup/wbc_selftest/_wbc_dummy_sample.py",
+      "reason": "self_test_syntax_error",
+      "restored": true,
+      "source_backup": ".rgon_backup/wbc_snapshots/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.clean",
+      "quarantined_to": ".rgon_backup/wbc_quarantine/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.20261024_060204.corrupt"
+    },
+    {
+      "timestamp_kst": "2026-10-24T06:02:05",
+      "file": "finish_boot.py",
+      "reason": "SyntaxError: invalid non-printable character U+FEFF (finish_boot.py, line 1)",
+      "restored": false,
+      "source_backup": null,
+      "quarantined_to": null,
+      "note": "유효한 정상 백업본을 찾지 못함"
+    },
+    {
+      "timestamp_kst": "2026-10-24T06:02:05",
+      "file": "fix_boot_now.py",
+      "reason": "SyntaxError: invalid non-printable character U+FEFF (fix_boot_now.py, line 1)",
+      "restored": false,
+      "source_backup": null,
+      "quarantined_to": null,
+      "note": "유효한 정상 백업본을 찾지 못함"
+    },
+    {
+      "timestamp_kst": "2026-10-24T06:02:06",
+      "file": "r2.py",
+      "reason": "SyntaxError: invalid non-printable character U+FEFF (r2.py, line 1)",
+      "restored": true,
+      "source_backup": ".rgon_backup/wbc_snapshots/benchmark_r2.py.clean",
+      "quarantined_to": ".rgon_backup/wbc_quarantine/r2.py.20261024_060206.corrupt"
+    },
+    {
+      "timestamp_kst": "2026-10-24T06:02:08",
+      "file": "backups/daily_omni_archive/omni_rgon_20261022_113138.py",
+      "reason": "SyntaxError: invalid character '🫡' (U+1FAE1) (backups/daily_omni_archive/omni_rgon_20261022_113138.py, line 91)",
+      "restored": false,
+      "source_backup": null,
+      "quarantined_to": null,
+      "note": "유효한 정상 백업본을 찾지 못함"
+    },
+    {
+      "timestamp_kst": "2026-10-24T06:02:08",
+      "file": "backups/daily_omni_archive/omni_rgon_20261022_125826.py",
+      "reason": "SyntaxError: unmatched ']' (backups/daily_omni_archive/omni_rgon_20261022_125826.py, line 244)",
+      "restored": false,
+      "source_backup": null,
+      "quarantined_to": null,
+      "note": "유효한 정상 백업본을 찾지 못함"
+    },
+    {
+      "timestamp_kst": "2026-10-24T06:02:08",
+      "file": "backups/daily_omni_archive/omni_rgon_20261022_142309.py",
+      "reason": "SyntaxError: unmatched ']' (backups/daily_omni_archive/omni_rgon_20261022_142309.py, line 363)",
+      "restored": false,
+      "source_backup": null,
+      "quarantined_to": null,
+      "note": "유효한 정상 백업본을 찾지 못함"
+    },
+    {
+      "timestamp_kst": "2026-10-24T06:02:08",
+      "file": "backups/daily_omni_archive/omni_rgon_20261022_145303.py",
+      "reason": "SyntaxError: unmatched ']' (backups/daily_omni_archive/omni_rgon_20261022_145303.py, line 84)",
+      "restored": false,
+      "source_backup": null,
+      "quarantined_to": null,
+      "note": "유효한 정상 백업본을 찾지 못함"
+    },
+    {
+      "timestamp_kst": "2026-10-24T06:02:08",
+      "file": "backups/daily_omni_archive/omni_rgon_20261022_175958.py",
+      "reason": "SyntaxError: unmatched ']' (backups/daily_omni_archive/omni_rgon_20261022_175958.py, line 135)",
+      "restored": false,
+      "source_backup": null,
+      "quarantined_to": null,
+      "note": "유효한 정상 백업본을 찾지 못함"
+    },
+    {
+      "timestamp_kst": "2026-10-24T06:02:08",
+      "file": "backups/daily_omni_archive/omni_rgon_20261022_181729.py",
+      "reason": "SyntaxError: unmatched ']' (backups/daily_omni_archive/omni_rgon_20261022_181729.py, line 387)",
+      "restored": false,
+      "source_backup": null,
+      "quarantined_to": null,
+      "note": "유효한 정상 백업본을 찾지 못함"
+    },
+    {
+      "timestamp_kst": "2026-10-24T06:02:08",
+      "file": "backups/daily_omni_archive/omni_rgon_20261022_183118.py",
+      "reason": "SyntaxError: unmatched ']' (backups/daily_omni_archive/omni_rgon_20261022_183118.py, line 238)",
+      "restored": false,
+      "source_backup": null,
+      "quarantined_to": null,
+      "note": "유효한 정상 백업본을 찾지 못함"
+    },
+    {
+      "timestamp_kst": "2026-10-24T06:02:08",
+      "file": "backups/daily_omni_archive/omni_rgon_20261022_184140.py",
+      "reason": "SyntaxError: unmatched ']' (backups/daily_omni_archive/omni_rgon_20261022_184140.py, line 152)",
+      "restored": false,
+      "source_backup": null,
+      "quarantined_to": null,
+      "note": "유효한 정상 백업본을 찾지 못함"
+    },
+    {
+      "timestamp_kst": "2026-10-24T06:02:08",
+      "file": "backups/daily_omni_archive/omni_rgon_20261022_204457.py",
+      "reason": "SyntaxError: invalid syntax (backups/daily_omni_archive/omni_rgon_20261022_204457.py, line 29)",
+      "restored": false,
+      "source_backup": null,
+      "quarantined_to": null,
+      "note": "유효한 정상 백업본을 찾지 못함"
+    },
+    {
+      "timestamp_kst": "2026-10-24T06:02:08",
+      "file": "config/veo_prompt_guide.json",
+      "reason": "JSONDecodeError: Unexpected UTF-8 BOM (decode using utf-8-sig): line 1 column 1 (char 0)",
+      "restored": false,
+      "source_backup": null,
+      "quarantined_to": null,
+      "note": "유효한 정상 백업본을 찾지 못함"
+    }
+  ],
+  "bypass_log": [
+    {
+      "timestamp_kst": "2026-10-24T06:02:04",
+      "context": "self_test_bypass",
+      "exc_type": "KeyError",
+      "message": "'simulated_missing_key'",
+      "fingerprint": "3cf3c4ec29753bf7",
+      "suppressed": false,
+      "action": "default_value"
+    }
+  ],
+  "patrol_history": [
+    {
+      "timestamp_kst": "2026-10-24T06:02:09",
+      "health_score": 0,
+      "py_checked": 938,
+      "json_checked": 225,
+      "html_checked": 134,
+      "errors": 12,
+      "healed": 1
+    }
+  ]
+}

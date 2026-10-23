@@ -8,6 +8,13 @@ Claude Opus 5.5 기반 무중단 터널 브릿지 및 자동 디스커버리 모
 - tunnel_bridge.json 및 docs/tunnel_bridge.json, dashboard/ 동기화
 - 헬스체크 수행 및 5G 실시간 연결 보장
 """
+# [RGON-WBC-GUARD-V18-START]
+try:
+    import rgon_white_blood_cell as _rgon_wbc
+    _rgon_wbc.install_excepthook('tunnel_discovery_bridge.py')
+except Exception:
+    _rgon_wbc = None
+# [RGON-WBC-GUARD-V18-END]
 
 import os
 import json

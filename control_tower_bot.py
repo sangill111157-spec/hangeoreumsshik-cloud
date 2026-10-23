@@ -13,6 +13,13 @@
       로컬 PC 부하 0%로 마이크로소프트 클라우드 Ubuntu 서버를 즉시 깨움!
 ══════════════════════════════════════════════════════════════════
 """
+# [RGON-WBC-GUARD-V18-START]
+try:
+    import rgon_white_blood_cell as _rgon_wbc
+    _rgon_wbc.install_excepthook('control_tower_bot.py')
+except Exception:
+    _rgon_wbc = None
+# [RGON-WBC-GUARD-V18-END]
 
 import os
 import sys

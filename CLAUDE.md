@@ -133,3 +133,14 @@ setTimeout(placeOnce,300); setTimeout(placeOnce,900);   // 총 3회 단발, Obse
 
 > 원형: Andrej Karpathy가 지적한 LLM 코딩 실수 패턴(잘못된 가정, 과잉 복잡화, 요청 외 코드 변경, 검증 없는 완료 선언)에서 출발한 공개 4원칙 지침(생각 먼저 · 단순함 우선 · 외과적 변경 · 목표 기반 검증)을 RGON 사령부 실전 사고 사례에 맞게 재작성한 것.
 <!-- [RGON-CLAUDE-MD-V16-END] -->
+
+<!-- [RGON-STEP18-WBC-START] -->
+## R18. 백혈구(WBC) 자가치유 면역 엔진 (v11.17-WBC · 항체 R1~R18)
+
+- **엔진 본체**: `rgon_white_blood_cell.py` / **면역 원장**: `rgon_immune_ledger.json`
+- **핵심 역할**: 오류 지문 채취(Fingerprint) · AST/JSON 무결성 순찰 · 자동 백업 복원(Rollback) · 상선약수(上善若水) 우회 실행(Bypass) · 주역 64괘 연동 · 동일 오류 3회 반복 시 중복 경보 차단(Anti-Repeat Suppression)
+- **세이프가드 장착 스크립트**: `rgon_youtube_skill_scout.py`, `control_tower_bot.py`, `telegram_morning_report.py`, `update_3channels_analytics.py`, `github_scout_adapter.py`, `agent_swarm_cloner.py`, `channel_agent.py`, `dept_sub_agents_corps.py`, `multi_agent_orchestrator.py`, `patch_omni_agent_bus_backend.py`, `patch_omni_agent_bus_frontend.py`, `qa_button_inspector_agent.py`, `rgon_aside_browser_agent.py`, `rgon_bridge_8765.py`, `tunnel_discovery_bridge.py`
+- **현재 건강 점수**: **0 / 100**
+- **CLI 점검 명령**: `python rgon_white_blood_cell.py --patrol` / `python rgon_white_blood_cell.py --status`
+- **절대 금기 준수**: `.html` / `.js` / `manifest.json` 수정 0건, `MutationObserver` · `setInterval` DOM 루프 금지(R14).
+<!-- [RGON-STEP18-WBC-END] -->

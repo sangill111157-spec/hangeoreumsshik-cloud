@@ -16,6 +16,13 @@ dept_sub_agents_corps.py
 6. ALPHA-D6 (알파-트레저리 / 💰 제6청사 수석 재무정산 보좌관): 실전 금고 0원 무오차 & 50:25:15:10
 ══════════════════════════════════════════════════════════════════════════
 """
+# [RGON-WBC-GUARD-V18-START]
+try:
+    import rgon_white_blood_cell as _rgon_wbc
+    _rgon_wbc.install_excepthook('dept_sub_agents_corps.py')
+except Exception:
+    _rgon_wbc = None
+# [RGON-WBC-GUARD-V18-END]
 
 import os
 import sys

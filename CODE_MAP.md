@@ -1267,3 +1267,13 @@ shin-agent/
 - 6효 매핑: 1 기반(Git/해시) · 2 소통(독대실) · 3 자동화(스케줄러) · 4 트렌드(스킬 레이더) · 5 콘텐츠(진화 로그) · 6 시장(스냅샷)
 - 실행: `python rgon_iching_64_engine.py` → `rgon_today_hexagram.json`
 <!-- [RGON-CODEMAP-STEP17-END] -->
+
+<!-- [RGON-STEP18-WBC-START] -->
+## Step 18 코드 맵 (v11.17-WBC)
+
+- `rgon_white_blood_cell.py`: 백혈구 자가치유 & 면역 순찰 엔진 (patrol / run_safely / shield / adapt_dict / fingerprint / install_excepthook / link_hexagram)
+- `rgon_immune_ledger.json`: 면역 원장 (antibodies R1~R18, healed_events, bypass_log, fingerprints, suppressed_count, health_score)
+- `step18_white_blood_cell_immune_engine.py`: Step 18 설치 스크립트 (멱등)
+- 세이프가드 장착 대상: `rgon_youtube_skill_scout.py`, `control_tower_bot.py`, `telegram_morning_report.py`, `update_3channels_analytics.py`, `github_scout_adapter.py`, `agent_swarm_cloner.py`, `channel_agent.py`, `dept_sub_agents_corps.py`, `multi_agent_orchestrator.py`, `patch_omni_agent_bus_backend.py`, `patch_omni_agent_bus_frontend.py`, `qa_button_inspector_agent.py`, `rgon_aside_browser_agent.py`, `rgon_bridge_8765.py`, `tunnel_discovery_bridge.py`
+- 백업: `.rgon_backup/step18_*`, 스냅샷: `.rgon_backup/wbc_snapshots`, 격리: `.rgon_backup/wbc_quarantine`
+<!-- [RGON-STEP18-WBC-END] -->

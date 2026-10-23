@@ -9,6 +9,13 @@ dashboard/index.html 및 dashboard/dream_closet_future_master_app.html에
 4. 캔버스 하단 배지 텍스트: "🔄 3D 360° 터치 회전 (좌우: 0° · 상하: 0°)"
 --------------------------------------------------------------------------------
 """
+# [RGON-WBC-GUARD-V18-START]
+try:
+    import rgon_white_blood_cell as _rgon_wbc
+    _rgon_wbc.install_excepthook('patch_omni_agent_bus_frontend.py')
+except Exception:
+    _rgon_wbc = None
+# [RGON-WBC-GUARD-V18-END]
 
 import sys
 import re

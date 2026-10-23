@@ -8,6 +8,13 @@ RGON YouTube Skill Scout v13 — 유튜브 트렌드 감지 & 지식·스킬 자
   python rgon_youtube_skill_scout.py --serve        (독대실 ⚡ 즉시 분석용 로컬 브리지 127.0.0.1:8765)
   옵션: --no-transcript  --base 경로  --port 8765
 """
+# [RGON-WBC-GUARD-V18-START]
+try:
+    import rgon_white_blood_cell as _rgon_wbc
+    _rgon_wbc.install_excepthook('rgon_youtube_skill_scout.py')
+except Exception:
+    _rgon_wbc = None
+# [RGON-WBC-GUARD-V18-END]
 import os, sys, re, json, html, time, statistics, argparse, threading
 import urllib.request, urllib.parse, urllib.error
 import xml.etree.ElementTree as ET

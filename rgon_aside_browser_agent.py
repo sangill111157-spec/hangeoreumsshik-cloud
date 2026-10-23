@@ -11,6 +11,13 @@ rgon_aside_browser_agent.py
 3. 로컬 메모리 (aside_local_memory.json) & 아티팩트 실물 영수증 (aside_artifacts/ASIDE_RUN_*.md)
 4. 대표님 스마트폰 텔레그램 실시간 영수증 직통 발송
 """
+# [RGON-WBC-GUARD-V18-START]
+try:
+    import rgon_white_blood_cell as _rgon_wbc
+    _rgon_wbc.install_excepthook('rgon_aside_browser_agent.py')
+except Exception:
+    _rgon_wbc = None
+# [RGON-WBC-GUARD-V18-END]
 
 import os
 import sys

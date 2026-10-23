@@ -11,6 +11,13 @@ qa_button_inspector_agent.py [QA-901]
 6. 5개 탭 DOM 누수 0건 격리 무결성 및 JS 문법(node --check) 검증
 --------------------------------------------------------------------------------
 """
+# [RGON-WBC-GUARD-V18-START]
+try:
+    import rgon_white_blood_cell as _rgon_wbc
+    _rgon_wbc.install_excepthook('qa_button_inspector_agent.py')
+except Exception:
+    _rgon_wbc = None
+# [RGON-WBC-GUARD-V18-END]
 
 import os
 import sys
