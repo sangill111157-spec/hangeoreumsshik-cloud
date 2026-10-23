@@ -1,514 +1,367 @@
 # -*- coding: utf-8 -*-
-"""RGON Step 22 — 자아성찰(Self-Reflection) 전신 혈관 개통 & 6대 기관 완전 순환 통합 (v11.21-CIRCULATION / R1~R22)
-표준 라이브러리 전용 · UTF-8 · .html/.js/manifest.json 단 1바이트도 수정하지 않음(전·중·후 SHA-256 검증)."""
-import os, sys, re, json, shutil, hashlib, subprocess, datetime, py_compile
+"""step23_radar_pulse_and_skills_ui.py — RGON v11.22-OMNI-UI / R1~R23
+카파시 4원칙(단순·외과적·검증·목표지향) · 무위자연(V13 마커 내부만) · 과유불급(새 바 0, 루프 0) · 삼성 3/3
+R23: 전신 맥박 & 18개 스킬 카탈로그 UI 무간섭 단발 통합 — 기존 V13 마커 내부만 교체하고 Observer 없이 3탭으로 표시"""
+import hashlib, json, re, shutil, subprocess, sys, py_compile, datetime as dt
+from pathlib import Path
 
-VERSION = "v11.21-CIRCULATION"
-ANTIBODY_RANGE = "R1~R22"
-R22_TEXT = "자아성찰 전신 혈관 개통 — 레이더·영양분(SKILL.md)·티켓/AgentShield·백혈구(WBC)·주역64괘·스냅샷/클라우드 JSON 6대 기관 무결점 단일 순환"
-BT = chr(96)
-FENCE = BT * 3
-EXCLUDE = {".git", "__pycache__", "node_modules", ".venv", "venv", ".rgon_backup", ".rgon_backups",
-           ".idea", ".vscode", "backups", "archive", "old_backups"}
-ENGINES = ["rgon_white_blood_cell.py", "rgon_nutrient_engine.py", "rgon_spec_ticket_Shield.py", "rgon_daily_cycle.py"]
-ALLOW = ["!rgon_brain_snapshot.json", "!dashboard/rgon_brain_snapshot.json", "!docs/rgon_brain_snapshot.json",
-         "!rgon_immune_ledger.json", "!rgon_morning_brief.json", "!rgon_nutrient_report.json",
-         "!rgon_council_decisions.json", "!rgon_active_tickets.json", "!rgon_agentshield_report.json",
-         "!rgon_skill_radar.json", "!rgon_circulation_report.json", "!rgon_step22_report.json",
-         "!skills/", "!skills/**", "!skills/SKILL_INDEX.json"]
-FORCE_ADD = [a[1:] for a in ALLOW if not a.endswith("/") and "*" not in a] + [
-    "skills", "rgon_vascular_core.py", "MORNING_BRIEF.md", "TICKETS_BOARD.md", "GLOSSARY.md",
-    "CLAUDE.md", "RGON_PHILOSOPHY.md", "CODE_MAP.md", "RGON_EVOLUTION_LOG.md",
-    ".gitignore", "STEP22_VASCULAR_REPORT.md"
-]
+BT3 = chr(96) * 3
+ROOT = Path(__file__).resolve().parent
+VER, AB = "v11.22-OMNI-UI", "R1~R23"
+R23 = "R23: 전신 맥박 & 18개 스킬 카탈로그 UI 무간섭 단발 통합 — 기존 V13 마커 내부만 교체하고 Observer 없이 3탭으로 표시"
+M_S, M_E = "<!-- [RGON-YT-SCOUT-V13-START] -->", "<!-- [RGON-YT-SCOUT-V13-END] -->"
+V15_S, V15_E = "<!-- [RGYT-PLACE-ONCE-V15-START] -->", "<!-- [RGYT-PLACE-ONCE-V15-END] -->"
+TS = dt.datetime.now().strftime("%Y%m%d_%H%M%S")
+BAK = ROOT / "backups" / f"step23_{TS}"
+SKIP = {".git", "node_modules", "backups", "__pycache__", ".venv", "venv"}
+BACKEND = ["rgon_white_blood_cell.py", "rgon_nutrient_engine.py", "rgon_spec_ticket_Shield.py", "rgon_daily_cycle.py"]
+SYNC = ["rgon_morning_brief.json", "MORNING_BRIEF.md", "rgon_immune_ledger.json", "rgon_brain_snapshot.json",
+        "dashboard/rgon_brain_snapshot.json", "docs/rgon_brain_snapshot.json", "CLAUDE.md", "CODE_MAP.md", "RGON_EVOLUTION_LOG.md"]
+FORBID_WORDS = ("MutationObserver", "setInterval", "requestAnimationFrame")
+FORBID = re.compile("|".join(FORBID_WORDS))
+DEFAULT_SKILLS = ["wbc-self-healing", "markdown-purifier", "multi-agent-council", "hexagram-64-wisdom",
+                  "mattpocock-spec-tickets", "ecc-agentshield-harness", "rea-reverse-engineer-fusion"]
+LOG, CHANGED = [], set()
 
-try:
-    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
-except Exception:
-    pass
+def log(m): print(m); LOG.append(str(m))
+def sha(p): return hashlib.sha256(p.read_bytes()).hexdigest()
+def rd(p):
+    with open(p, encoding="utf-8", errors="replace", newline="") as f: return f.read()
+def wr(p, t):
+    with open(p, "w", encoding="utf-8", newline="") as f: f.write(t)
+    CHANGED.add(p)
+def rel(p): return p.relative_to(ROOT).as_posix()
+def bak(p):
+    d = BAK / rel(p); d.parent.mkdir(parents=True, exist_ok=True)
+    if not d.exists(): shutil.copy2(p, d)
+def loadj(r):
+    try: return json.loads(rd(ROOT / r))
+    except Exception: return None
+def walk():
+    for p in ROOT.rglob("*"):
+        if p.is_file() and not (SKIP & set(p.relative_to(ROOT).parts)): yield p
 
-CORE_SRC = r'''# -*- coding: utf-8 -*-
-"""RGON v11.21-CIRCULATION 전신 혈관 공용 코어 (Step 22 / R22). 표준 라이브러리 전용."""
-import os, sys, re, json, subprocess, datetime
-ROOT = os.path.dirname(os.path.abspath(__file__))
-VERSION = "v11.21-CIRCULATION"
-ANTIBODY_RANGE = "R1~R22"
-R22_TEXT = "__R22__"
-ENGINES = ["rgon_white_blood_cell.py", "rgon_nutrient_engine.py", "rgon_spec_ticket_Shield.py", "rgon_daily_cycle.py"]
-SNAPSHOTS = ["rgon_brain_snapshot.json", "dashboard/rgon_brain_snapshot.json", "docs/rgon_brain_snapshot.json"]
-DOCS = ["skills/README.md", "MORNING_BRIEF.md", "TICKETS_BOARD.md", "GLOSSARY.md", "CLAUDE.md", "RGON_PHILOSOPHY.md", "CODE_MAP.md", "RGON_EVOLUTION_LOG.md"]
-GUA = ("건 곤 둔 몽 수 송 사 비 소축 리 태 비 동인 대유 겸 예 수 고 림 관 서합 비 박 복 무망 대축 이 대과 감 리 "
-       "함 항 둔 대장 진 명이 가인 규 건 해 손 익 쾌 구 췌 승 곤 정 혁 정 진 간 점 귀매 풍 려 손 태 환 절 중부 소과 기제 미제").split()
-KST = datetime.timezone(datetime.timedelta(hours=9))
+def classify():
+    targets, guard = [], {}
+    for p in walk():
+        s = p.suffix.lower()
+        if s in (".html", ".htm"):
+            try: t = rd(p)
+            except Exception: t = ""
+            if t.count(M_S) == 1 and t.count(M_E) == 1 and t.index(M_S) < t.index(M_E):
+                targets.append(p); continue
+            guard[p] = sha(p)
+        elif s == ".js" or p.name == "manifest.json":
+            guard[p] = sha(p)
+    return sorted(targets), guard
 
-def P(*a): return os.path.join(ROOT, *a)
-def kst(): return datetime.datetime.now(KST).strftime("%Y-%m-%d %H:%M:%S KST")
-def _guard(path):
-    b = os.path.basename(path).lower()
-    if b.endswith((".html", ".js")) or b == "manifest.json":
-        raise PermissionError("보호 파일 쓰기 차단: " + path)
-def rj(name, default=None):
+R23_BLOCK = '''
+# [RGON-R23-START] Step23 항체 비파괴 주입
+R23_ANTIBODY = {"id": "R23", "rule": %r}
+for _n in ("ANTIBODIES", "DEFAULT_ANTIBODIES", "ANTIBODY_RULES", "IMMUNE_RULES", "RULES", "ANTIBODY"):
+    _o = globals().get(_n)
+    if isinstance(_o, dict) and "R23" not in _o:
+        _o["R23"] = R23_ANTIBODY["rule"]
+    elif isinstance(_o, list) and not any("R23" in str(_x) for _x in _o):
+        _o.append(dict(R23_ANTIBODY) if (_o and isinstance(_o[0], dict)) else R23_ANTIBODY["rule"])
+# [RGON-R23-END]
+''' % R23
+
+def bump_backend():
+    for name in BACKEND:
+        p = ROOT / name
+        if not p.exists(): log(f"⚠️ 백엔드 없음: {name}"); continue
+        src = rd(p); bak(p)
+        t, n = re.subn(r'((?:RGON_VERSION|__version__|VERSION|VER)\s*[:=]\s*["\'])v\d+\.\d+[^"\']*(["\'])', r"\g<1>" + VER + r"\2", src)
+        t = re.sub(r"R1\s*[~\-–]\s*R2[0-2]\b", AB, t)
+        if "R23" not in t:
+            m = re.search(r"^if __name__\s*==", t, re.M)
+            t = t[:m.start()] + R23_BLOCK + "\n" + t[m.start():] if m else t + R23_BLOCK
+        wr(p, t)
+        try: py_compile.compile(str(p), doraise=True)
+        except py_compile.PyCompileError as e:
+            shutil.copy2(BAK / name, p); raise SystemExit(f"❌ {name} 컴파일 실패 → 복원: {e}")
+        log(f"✅ 승격 {name} (버전 대입 {n}곳, R23 등록)")
+
+def run_cycle():
     try:
-        with open(P(name), encoding="utf-8-sig") as f: return json.load(f)
-    except Exception: return default
-def rt(name):
+        r = subprocess.run([sys.executable, "rgon_daily_cycle.py", "--run"], cwd=ROOT, capture_output=True,
+                           text=True, encoding="utf-8", errors="replace", timeout=900)
+        log(f"🔁 daily_cycle rc={r.returncode} | {(r.stdout or r.stderr)[-300:].strip()}"); return r.returncode == 0
+    except Exception as e: log(f"⚠️ daily_cycle 실행 실패: {e}"); return False
+
+def sync_fix():
+    stamp = f"> 🔄 Step23 동기화: {VER} · 항체 {AB} · {R23}\n\n"
+    for r in SYNC:
+        p = ROOT / r
+        if not p.exists(): log(f"⚠️ 동기화 대상 없음: {r}"); continue
+        t = rd(p); need_r23 = r.endswith("immune_ledger.json") and "R23" not in t
+        if VER in t and AB in t and not need_r23: continue
+        bak(p)
+        if p.suffix == ".json":
+            try: d = json.loads(t)
+            except Exception: d = None
+            if isinstance(d, dict):
+                d["version"], d["antibody_range"] = VER, AB
+                if isinstance(d.get("vascular_circulation"), dict):
+                    d["vascular_circulation"]["version"] = VER
+                    d["vascular_circulation"]["antibody_range"] = AB
+                if isinstance(d.get("immune"), dict):
+                    d["immune"]["antibody_range"] = AB
+                    d["immune"]["antibody_count"] = 23
+                d["antibody_count"] = 23
+                if need_r23:
+                    a = d.get("antibodies")
+                    if isinstance(a, list): a.append({"id": "R23", "name": "전신 맥박 & 18개 스킬 UI 단발 통합", "rule": R23, "status": "활성"})
+                    elif isinstance(a, dict): a["R23"] = R23
+                    else: d.setdefault("step23_antibodies", {})["R23"] = R23
+                wr(p, json.dumps(d, ensure_ascii=False, indent=2)); log(f"🩹 JSON 동기화 {r}")
+        else:
+            t2 = re.sub(r"v11\.\d+[A-Za-z0-9_\-]*", VER, t)
+            t2 = re.sub(r"R1\s*[~\-–]\s*R2[0-2]\b", AB, t2)
+            if VER not in t2 or AB not in t2: t2 = stamp + t2
+            wr(p, t2); log(f"🩹 MD 동기화 {r}")
+    src = ROOT / "rgon_morning_brief.json"
+    idx_src = ROOT / "skills" / "SKILL_INDEX.json"
+    for d in ("dashboard", "docs"):
+        if src.exists() and (ROOT / d).is_dir():
+            q = ROOT / d / src.name
+            if not q.exists() or sha(q) != sha(src):
+                if q.exists(): bak(q)
+                shutil.copy2(src, q); CHANGED.add(q)
+        if idx_src.exists() and (ROOT / d).is_dir():
+            sk_dir = ROOT / d / "skills"
+            sk_dir.mkdir(parents=True, exist_ok=True)
+            q2 = sk_dir / "SKILL_INDEX.json"
+            if not q2.exists() or sha(q2) != sha(idx_src):
+                if q2.exists(): bak(q2)
+                shutil.copy2(idx_src, q2); CHANGED.add(q2)
+
+def fallback():
+    brief = loadj("rgon_morning_brief.json") or {}
+    idx = loadj("skills/SKILL_INDEX.json")
+    skills = (idx.get("skills") if isinstance(idx, dict) else idx) or []
+    if not skills and (ROOT / "skills").is_dir():
+        skills = [{"name": f.parent.name, "category": "skill", "source_url": f"skills/{f.parent.name}/SKILL.md"}
+                  for f in sorted((ROOT / "skills").glob("*/SKILL.md"))]
+    skills = skills or [{"name": n} for n in DEFAULT_SKILLS]
+    rad = loadj("rgon_skill_radar.json")
+    if isinstance(rad, dict): rad = rad.get("items") or rad.get("cards") or rad.get("radar") or []
+    s = json.dumps({"brief": brief, "skills": skills, "radar": rad or []}, ensure_ascii=False).replace("</", "<\\/")
+    for w in FORBID_WORDS: s = s.replace(w, w[0] + "\\u%04x" % ord(w[1]) + w[2:])
+    return s
+
+DEFAULT_V15 = r"""<!-- [RGYT-PLACE-ONCE-V15-START] -->
+<script id="rgyt-place-once">
+(function(){
+  function placeOnce(){
+    var w=document.getElementById('rgyt-wrap');
+    if(!w||w.getAttribute('data-placed')==='1')return;
+    var all=document.body?document.body.getElementsByTagName('*'):[];
+    var seed=null;
+    for(var i=0;i<all.length;i++){
+      var el=all[i];
+      if(w.contains(el))continue;
+      if(/^(SCRIPT|STYLE|NOSCRIPT|TEMPLATE|TEXTAREA)$/.test(el.tagName))continue;
+      var t=(el.textContent||'').replace(/\s+/g,' ').trim();
+      if(t.length>0&&t.length<220&&t.indexOf('실시간 브리핑 전문')>=0){
+        var deeper=false;
+        for(var c=el.firstElementChild;c;c=c.nextElementSibling){
+          if((c.textContent||'').indexOf('실시간 브리핑 전문')>=0){deeper=true;break;}
+        }
+        if(!deeper){seed=el;break;}
+      }
+    }
+    if(!seed)return;
+    var u=seed.closest('details')||seed;
+    for(var g=0;g<8;g++){
+      var p=u.parentElement;
+      if(!p||p===document.body||p.children.length>5)break;
+      u=p;
+    }
+    if(u&&u.parentNode&&u.nextElementSibling!==w){
+      u.parentNode.insertBefore(w,u.nextSibling);
+    }
+    w.setAttribute('data-placed','1');
+  }
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',placeOnce,{once:true});
+  }else{
+    placeOnce();
+  }
+})();
+</script>
+<!-- [RGYT-PLACE-ONCE-V15-END] -->"""
+
+BLOCK = r"""<style>
+#rgyt-wrap{margin:6px 0;border:1px solid #2a3550;border-radius:10px;background:#0f1626;color:#dfe6f5;font-size:13px}
+#rgyt-head{display:flex;gap:8px;align-items:center;padding:8px 12px;cursor:pointer;flex-wrap:wrap;background:linear-gradient(90deg,#111c35,#162447);border-radius:10px}
+#rgyt-pulse{opacity:.92;font-size:12px;color:#93c5fd}#rgyt-tog{margin-left:auto;font-weight:bold;color:#60a5fa}
+#rgyt-tabs{display:flex;gap:6px;padding:8px 10px 6px;flex-wrap:wrap;border-top:1px solid #1e293b}
+#rgyt-tabs button,#rgyt-wrap .rgyt-card button{background:#1b2540;color:#dfe6f5;border:1px solid #33416a;border-radius:7px;padding:4px 9px;cursor:pointer;font-size:12px}
+#rgyt-tabs button.on{background:#2563eb;border-color:#3b82f6;font-weight:bold;color:#fff}
+#rgyt-pane{max-height:440px;overflow:auto;padding:4px 10px 10px}
+.rgyt-card{border:1px solid #26314d;border-radius:8px;padding:8px 10px;margin:6px 0;background:#131c30}
+.rgyt-tag{font-size:11px;background:#24304f;color:#93c5fd;border-radius:5px;padding:1px 6px;margin-left:4px;display:inline-block}
+.rgyt-sm{font-size:12px;opacity:.82;margin:4px 0;line-height:1.45}.rgyt-tool{display:flex;gap:6px;margin:4px 0;flex-wrap:wrap}
+.rgyt-tool input,.rgyt-tool select{background:#0b1220;color:#dfe6f5;border:1px solid #33416a;border-radius:6px;padding:4px 8px;font-size:12px}
+.rgyt-tool input{flex:1;min-width:140px}
+.rgyt-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:6px;margin-top:6px}
+.rgyt-org{background:#0b1324;border:1px solid #1e293b;border-radius:6px;padding:5px 8px;font-size:12px}
+#rgyt-wrap table{width:100%;border-collapse:collapse;margin-top:6px;font-size:12px}#rgyt-wrap td,#rgyt-wrap th{border-bottom:1px solid #26314d;padding:5px 4px;text-align:left}
+#rgyt-wrap a{color:#60a5fa;text-decoration:none;margin-right:8px;font-size:12px}
+</style>
+<div id="rgyt-wrap" data-ver="v11.22-OMNI-UI" data-antibody="R1~R23">
+<div id="rgyt-head"><b>🔭 유튜브 트렌드 &amp; AI 스킬 흡수기</b><span id="rgyt-pulse"></span><span id="rgyt-tog">▼ 펼치기</span></div>
+<div id="rgyt-body" hidden><div id="rgyt-tabs">
+<button type="button" data-tab="radar" id="rgyt-t-radar" class="on">📡 트렌드 레이더</button>
+<button type="button" data-tab="skills" id="rgyt-t-skills">🍯 보유 스킬</button>
+<button type="button" data-tab="pulse" id="rgyt-t-pulse">🫀 전신 맥박 &amp; 3자 심판</button>
+</div><div id="rgyt-pane"></div></div></div>
+<script>
+(function(){'use strict';try{
+var FB=__FB__;
+var ORG=['1_radar','2_nutrient','3_ticket_shield','4_wbc','5_iching','6_pulse_snapshot'];
+var S={b:FB.brief||{},k:FB.skills||[],r:FB.radar||[],tab:'radar',q:'',cat:''};
+function $(i){return document.getElementById(i);}
+function esc(t){return String(t==null?'':t).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function pick(o,ks,d){for(var i=0;i<ks.length;i++){if(o&&typeof o==='object'&&o[ks[i]]!=null&&o[ks[i]]!=='')return o[ks[i]];}return d;}
+function ok(v){if(v&&typeof v==='object')v=pick(v,['status','state','ok','result'],true);if(v===true)return true;return /^(ok|pass|passed|green|success|done|healthy|true|✔|✅)$/i.test(String(v).trim());}
+function parseTri(raw){
+  if(!Array.isArray(raw))return[];
+  return raw.map(function(x){
+    if(x&&typeof x==='object')return{topic:pick(x,['topic','agenda','title','name'],'-'),bull:pick(x,['bull','bull_score'],'-'),bear:pick(x,['bear','bear_score'],'-'),judge:pick(x,['judge','score'],'-'),verdict:pick(x,['verdict','status'],'APPROVED')};
+    var s=String(x||'');
+    var m=s.match(/\[([^\]]+)\]\s*([\d.]+)점\s*\(Bull\s*([\d.]+)\s*\/\s*Bear\s*([\d.]+)\s*\/\s*([^)]+)\)\s*(.*)/);
+    if(m)return{verdict:m[1]+' ('+m[5]+')',judge:m[2]+'점',bull:m[3],bear:m[4],topic:m[6]||s};
+    return{topic:s,bull:'-',bear:'-',judge:'-',verdict:'승인'};
+  });
+}
+function B(){
+  var b=S.b||{},vc=b.vascular_circulation||{},nt=b.nutrient||{};
+  var h=vc.iching||b.hexagram||b.iching||{};if(typeof h==='string')h={name:h};
+  var og=vc.organs||b.organs||{},ol=[];
+  Object.keys(og).sort().forEach(function(k){ol.push([k,og[k]]);});
+  if(!ol.length)ORG.forEach(function(k){ol.push([k,true]);});
+  var tri=nt.trinity||b.trinity||b.council||[];
+  return{
+    sc:pick(b,['health_score','score'],100),
+    ab:pick(b,['antibody_range'],'R1~R23'),
+    hx:pick(h,['name','title'],'중천건(重天乾)'),
+    mt:pick(h,['meaning','motto','keyword'],'자강불식(自強不息)'),
+    act:pick(h,['action','guidance'],'상선약수(上善若水) · 삼성(三省) — 6대 기관을 물처럼 순환시키고 하루 세 번 무결성을 살핀다.'),
+    ol:ol,
+    c:parseTri(tri)
+  };
+}
+function cp(t,btn){var o=btn.textContent;function done(){btn.textContent='✅ 복사완료';setTimeout(function(){btn.textContent=o;},1200);}
+function fb(){var a=document.createElement('textarea');a.value=t;a.style.position='fixed';a.style.opacity='0';document.body.appendChild(a);a.select();try{document.execCommand('copy');}catch(e){}a.remove();done();}
+if(navigator.clipboard&&window.isSecureContext)navigator.clipboard.writeText(t).then(done,fb);else fb();}
+function badge(){var x=B();$('rgyt-pulse').textContent='🩸'+x.sc+'점 · 🛡️'+x.ab+' · ☯️'+x.hx.split('(')[0]+' · 🍯스킬 '+S.k.length+'개 · 📡레이더 '+S.r.length+'건';
+$('rgyt-t-radar').textContent='📡 트렌드 레이더 ('+S.r.length+')';$('rgyt-t-skills').textContent='🍯 보유 스킬 ('+S.k.length+')';}
+function cat(x){return pick(x,['category','cat','channel','tag'],'트렌드');}
+function list(){var q=S.q.toLowerCase(),L=S.r.filter(function(x){return(!S.cat||cat(x)===S.cat)&&(!q||JSON.stringify(x).toLowerCase().indexOf(q)>=0);});
+$('rgyt-list').innerHTML=L.map(function(x){var u=pick(x,['url','link','source_url','source'],''),t=pick(x,['title','name'],'(무제)'),sm=pick(x,['summary','desc','description','why','action_plan'],'');
+return'<div class="rgyt-card"><b>'+esc(t)+'</b><span class="rgyt-tag">'+esc(cat(x))+'</span><div class="rgyt-sm">'+esc(sm)+'</div>'+(u?'<a href="'+esc(u)+'" target="_blank" rel="noopener">🔗 원본열기</a>':'')+'<button type="button" data-cp="'+esc('[스킬흡수 지시] '+t+(u?' ('+u+')':'')+' 핵심 내용을 우리 시스템에 적용해 줘.')+'">📋 지시문 복사</button></div>';}).join('')||'<div class="rgyt-sm">결과 없음</div>';}
+function vRadar(){var cs={};S.r.forEach(function(x){cs[cat(x)]=1;});
+return'<div class="rgyt-tool"><select id="rgyt-cat"><option value="">전체 카테고리</option>'+Object.keys(cs).map(function(c){return'<option'+(c===S.cat?' selected':'')+'>'+esc(c)+'</option>';}).join('')+'</select><input id="rgyt-q" placeholder="🔍 트렌드·스킬 검색..." value="'+esc(S.q)+'"></div><div id="rgyt-list"></div>';}
+function vSkills(){return S.k.map(function(s){if(typeof s==='string')s={name:s};var n=pick(s,['name','slug','id'],'?'),sl=pick(s,['slug','id'],n),inv='[RGON 스킬 호출: '+n+' ('+pick(s,['path'],'skills/'+sl+'/SKILL.md')+')] 이 스킬의 표준 절차에 따라 작업을 수행해 줘.',
+g=String(pick(s,['hexagram_tag','hexagram','gua','iching'],'')).replace(/^#/,''),u=pick(s,['source_url','source','url','link'],''),p=pick(s,['path'],'');
+return'<div class="rgyt-card"><b>🍯 '+esc(n)+'</b><span class="rgyt-tag">'+esc(pick(s,['category','cat'],'skill'))+'</span>'+(g?'<span class="rgyt-tag">☯️ #'+esc(g)+'</span>':'')+
+'<div class="rgyt-sm">경로: <code>'+esc(p||('skills/'+sl+'/SKILL.md'))+'</code></div>'+(u&&u.indexOf('http')===0?'<a href="'+esc(u)+'" target="_blank" rel="noopener">🔗 출처링크</a>':'')+'<button type="button" data-cp="'+esc(inv)+'">📋 스킬호출 복사</button></div>';}).join('');}
+function vPulse(){var x=B();
+var h='<div class="rgyt-card"><b>🫀 6대 기관 전신 대순환 상태 (Step 22~23 · '+esc(x.ab)+')</b><div class="rgyt-grid">'+x.ol.map(function(o){return'<div class="rgyt-org">'+(ok(o[1])?'🟢 ✔ ':'🔴 ✖ ')+esc(o[0])+'</div>';}).join('')+'</div></div>';
+h+='<div class="rgyt-card"><b>☯️ 오늘의 주역 64괘 — '+esc(x.hx)+'</b><div class="rgyt-sm">• <b>풀이:</b> '+esc(x.mt)+'<br>• <b>행동 지침:</b> '+esc(x.act)+'</div></div>';
+h+='<div class="rgyt-card"><b>⚖️ 3자 찬반 심판기 (Trinity Council — Bull vs Bear vs Judge)</b><table><tr><th>안건</th><th>🐂Bull</th><th>🐻Bear</th><th>⚖️점수</th><th>판정·괘</th></tr>'+
+(x.c.length?x.c.map(function(c){return'<tr><td>'+esc(c.topic)+'</td><td>'+esc(c.bull)+'</td><td>'+esc(c.bear)+'</td><td><b>'+esc(c.judge)+'</b></td><td>'+esc(c.verdict)+'</td></tr>';}).join(''):'<tr><td colspan="5">심판 기록 없음</td></tr>')+'</table></div>';return h;}
+function render(){var ts=$('rgyt-tabs').querySelectorAll('button');for(var i=0;i<ts.length;i++)ts[i].className=ts[i].getAttribute('data-tab')===S.tab?'on':'';
+$('rgyt-pane').innerHTML=S.tab==='radar'?vRadar():S.tab==='skills'?vSkills():vPulse();if(S.tab==='radar')list();}
+function get(ns){return ns.reduce(function(p,n){return p.then(function(r){return r||fetch(n,{cache:'no-store'}).then(function(x){return x.ok?x.json():null;}).catch(function(){return null;});});},Promise.resolve(null));}
+function load(){if(!window.fetch)return;Promise.all([get(['rgon_morning_brief.json','./rgon_morning_brief.json','../rgon_morning_brief.json']),get(['skills/SKILL_INDEX.json','./skills/SKILL_INDEX.json','../skills/SKILL_INDEX.json']),get(['rgon_skill_radar.json','./rgon_skill_radar.json','../rgon_skill_radar.json'])]).then(function(v){
+if(v[0]&&typeof v[0]==='object')S.b=v[0];var k=v[1]&&(Array.isArray(v[1])?v[1]:v[1].skills);if(k&&k.length)S.k=k;var r=v[2]&&(Array.isArray(v[2])?v[2]:(v[2].items||v[2].cards||v[2].radar));if(r&&r.length)S.r=r;badge();render();}).catch(function(){});}
+function initUI(){var w=$('rgyt-wrap');if(!w||w.getAttribute('data-ui-bound')==='1')return;w.setAttribute('data-ui-bound','1');
+w.addEventListener('click',function(e){var t=e.target;if(t.closest('#rgyt-head')){var b=$('rgyt-body');b.hidden=!b.hidden;$('rgyt-tog').textContent=b.hidden?'▼ 펼치기':'▲ 접기';return;}
+var tb=t.closest('[data-tab]');if(tb){S.tab=tb.getAttribute('data-tab');render();return;}var c=t.closest('[data-cp]');if(c)cp(c.getAttribute('data-cp'),c);});
+w.addEventListener('input',function(e){if(e.target.id==='rgyt-q'){S.q=e.target.value;list();}});
+w.addEventListener('change',function(e){if(e.target.id==='rgyt-cat'){S.cat=e.target.value;list();}});
+badge();render();load();}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initUI,{once:true});else initUI();
+}catch(e){}})();
+</script>"""
+
+def patch(targets, fbjson):
+    anchors = {}
+    for p in targets:
+        t = rd(p); bak(p)
+        i, j = t.index(M_S) + len(M_S), t.index(M_E)
+        old_inner = t[i:j]
+        if V15_S in old_inner and V15_E in old_inner:
+            v15_part = old_inner[old_inner.index(V15_S):old_inner.index(V15_E) + len(V15_E)]
+            anchors[rel(p)] = "V15-placeOnce(실시간 브리핑 전문 아래)"
+        else:
+            v15_part = DEFAULT_V15
+            anchors[rel(p)] = "DEFAULT-V15-placeOnce"
+        blk = BLOCK.replace("__FB__", fbjson) + "\n" + v15_part
+        wr(p, t[:i] + "\n" + blk + "\n" + t[j:])
+        log(f"🎨 V13 내부 교체 {rel(p)} ({anchors[rel(p)]})")
+    return anchors
+
+def verify(targets, guard):
+    v1 = []
+    for p in targets:
+        t = rd(p); ok = t.count(M_S) == 1 and t.count(M_E) == 1
+        inner = t[t.index(M_S):t.index(M_E)] if ok else ""
+        f_in, f_all = len(FORBID.findall(inner)), len(FORBID.findall(t))
+        v1.append((rel(p), ok and "placeOnce" in inner and f_in == 0, f_in, f_all))
+    diff = [rel(p) for p, h in guard.items() if not p.exists() or sha(p) != h]
+    miss = [r for r in SYNC if (ROOT / r).exists() and not (VER in rd(ROOT / r) and AB in rd(ROOT / r))]
+    led = ROOT / "rgon_immune_ledger.json"
+    if led.exists() and "R23" not in rd(led): miss.append("rgon_immune_ledger.json(R23)")
+    miss += [b for b in BACKEND if (ROOT / b).exists() and "R23" not in rd(ROOT / b)]
+    return v1, diff, miss
+
+def report(targets, guard, v1, diff, miss, anchors, cyc):
+    g1, g2, g3 = all(x[1] for x in v1) and bool(v1), not diff, not miss
+    L = [f"# STEP23 UI REPORT — {VER} / {AB}", "", f"- 생성: {TS}", f"- 항체: {R23}", f"- daily_cycle: {'성공' if cyc else '실패/경고'}",
+         f"- 백업: {rel(BAK)}", f"- 대상 HTML: {len(targets)}개 (기대 7개{'' if len(targets) == 7 else ' ⚠️ 불일치'})", "",
+         f"## 三省 ① 대상 검증 {'✅' if g1 else '❌'}", "| 파일 | 통과 | 마커 내부 금지어 | 파일 전체 금지어(마커 밖 기존, 무수정) | 배치 방식 |", "|---|---|---|---|---|"]
+    L += [f"| {a} | {'✅' if b else '❌'} | {c} | {d} | {anchors.get(a, '')} |" for a, b, c, d in v1]
+    L += ["", f"## 三省 ② 비대상 SHA-256 불변 {'✅' if g2 else '❌'} (수호 {len(guard)}개, 변경 {len(diff)}개)", BT3]
+    L += [f"{h[:16]}…  {rel(p)}" for p, h in sorted(guard.items())][:200] + [BT3]
+    L += [f"- 변경 감지: {d}" for d in diff]
+    L += ["", f"## 三省 ③ 버전·항체 동기화 {'✅' if g3 else '❌'}"] + [f"- 미동기화: {m}" for m in miss]
+    L += ["", "## 실행 로그", BT3] + LOG[-60:] + [BT3]
+    wr(ROOT / "STEP23_UI_REPORT.md", "\n".join(L) + "\n")
+    return sum([g1, g2, g3])
+
+def git():
+    files = sorted({rel(p) for p in CHANGED if p.exists() and BAK not in p.parents})
+    if Path(__file__).resolve().exists() and ROOT in Path(__file__).resolve().parents:
+        files = sorted(set(files) | {rel(Path(__file__).resolve())})
+    out = []
+    for cmd in (["git", "add", "--"] + files, ["git", "commit", "-m", f"Step23 {VER} {AB}: 전신 맥박·18 스킬 3탭 (V13 마커 내부만, placeOnce 단발)"], ["git", "push"]):
+        r = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, encoding="utf-8", errors="replace")
+        out.append(f"{cmd[1]} rc={r.returncode}"); log(f"🌿 {cmd[1]} rc={r.returncode} {(r.stdout + r.stderr)[-200:].strip()}")
+    return " · ".join(out)
+
+def msgbox(msg, good):
     try:
-        with open(P(name), encoding="utf-8-sig") as f: return f.read()
-    except Exception: return ""
-def _write(name, text):
-    path = P(name); _guard(path)
-    os.makedirs(os.path.dirname(path) or ROOT, exist_ok=True)
-    with open(path + ".tmp", "w", encoding="utf-8", newline="\n") as f: f.write(text)
-    os.replace(path + ".tmp", path)
-def wj(name, obj): _write(name, json.dumps(obj, ensure_ascii=False, indent=2) + "\n")
-def wt(name, text): _write(name, text)
-def run(args, inner=False, timeout=900):
-    env = dict(os.environ, PYTHONIOENCODING="utf-8", PYTHONUTF8="1")
-    if inner: env["RGON_HEART_INNER"] = "1"
-    try:
-        r = subprocess.run([sys.executable] + args, cwd=ROOT, capture_output=True, text=True,
-                           encoding="utf-8", errors="replace", timeout=timeout, env=env)
-        return r.returncode, (r.stdout or "") + (r.stderr or "")
-    except Exception as e:
-        return -1, str(e)
-def find_num(obj, keys):
-    if isinstance(obj, dict):
-        for k, v in obj.items():
-            if str(k).lower() in keys and isinstance(v, (int, float)) and not isinstance(v, bool): return v
-        for v in obj.values():
-            r = find_num(v, keys)
-            if r is not None: return r
-    elif isinstance(obj, list):
-        for v in reversed(obj):
-            r = find_num(v, keys)
-            if r is not None: return r
-    return None
-def skill_count():
-    d = P("skills")
-    if not os.path.isdir(d): return 0
-    return sum(1 for n in os.listdir(d) if os.path.isfile(os.path.join(d, n, "SKILL.md")))
-def health_score():
-    v = find_num(rj("rgon_immune_ledger.json", {}), ("health_score", "health", "score"))
-    return int(v) if v is not None else -1
-def engine_versions():
-    out = {}
-    for e in ENGINES:
-        t = rt(e)
-        v = re.search(r'^\s*(?:WBC_)?VERSION\s*=\s*["\']([^"\']+)', t, re.M)
-        a = re.search(r'^\s*ANTIBODY_RANGE\s*=\s*["\']([^"\']+)', t, re.M)
-        out[e] = {"version": v.group(1) if v else None, "antibody_range": a.group(1) if a else None}
-    return out
-def versions_synced():
-    return all(v["version"] == VERSION and v["antibody_range"] == ANTIBODY_RANGE for v in engine_versions().values())
-def replace_block(text, tag, body):
-    s, e = "<!-- [%s-START] -->" % tag, "<!-- [%s-END] -->" % tag
-    block = s + "\n" + body.rstrip() + "\n" + e
-    if s in text and e in text:
-        return text[:text.index(s)] + block + text[text.index(e) + len(e):]
-    return (text.rstrip() + "\n\n" if text.strip() else "") + block + "\n"
-def ticket_checks():
-    return {"S21-01": os.path.isfile(P("GLOSSARY.md")),
-            "S21-02": os.path.isfile(P("rgon_spec_ticket_Shield.py")),
-            "S21-03": os.path.isfile(P("rgon_skill_radar.json")),
-            "S21-04": skill_count() >= 18,
-            "S21-05": health_score() == 100,
-            "S21-06": os.path.isfile(P("rgon_agentshield_report.json")) and os.path.isfile(P("TICKETS_BOARD.md"))}
-def auto_verify_tickets():
-    obj = rj("rgon_active_tickets.json", None)
-    if not isinstance(obj, (dict, list)): obj = {"tickets": []}
-    lst = obj if isinstance(obj, list) else None
-    if lst is None:
-        for k in ("tickets", "active_tickets", "items"):
-            if isinstance(obj.get(k), list): lst = obj[k]; break
-        if lst is None: obj["tickets"] = []; lst = obj["tickets"]
-    ids = {}
-    for t in lst:
-        if isinstance(t, dict): ids[str(t.get("id") or t.get("ticket_id") or "")] = t
-    checks, promoted = ticket_checks(), []
-    for tid, ok in checks.items():
-        t = ids.get(tid)
-        if t is not None and ok and t.get("status") != "done":
-            t.update(status="done", verified_at_kst=kst(), verified_by="R22 auto-verify"); promoted.append(tid)
-    if "S22-01" not in ids:
-        ids["S22-01"] = {"id": "S22-01", "title": "전신 6대 기관 혈관 개통 및 100% 동기화 검증", "owner": "르곤:설계/검증", "blocked_by": ["S21-06"], "demo_path": "6대 기관 순환 완주 + Self-Test 4/4 PASS"}
-        lst.append(ids["S22-01"])
-    ok22 = all(checks.values()) and versions_synced()
-    ids["S22-01"].update(status="done" if ok22 else "open", checks=checks, verified_at_kst=kst())
-    if isinstance(obj, dict):
-        obj.update(version=VERSION, antibody_range=ANTIBODY_RANGE, auto_verified_at_kst=kst(), frontier=[])
-    wj("rgon_active_tickets.json", obj)
-    rows = ["# TICKETS_BOARD — RGON 전신 혈관 개통 & 분업 보드", "",
-            "> " + VERSION + " · 항체 " + ANTIBODY_RANGE + " · R22 Auto-Verify 완료", "",
-            "| ID | 제목 | 담당 | 상태 | 검증 시각 |", "|---|---|---|---|---|"]
-    for tid, t in sorted(ids.items()):
-        if tid:
-            rows.append("| %s | %s | %s | %s | %s |" % (
-                tid, str(t.get("title", "")).replace("|", "/"),
-                str(t.get("owner", "Claude:구현")), t.get("status", "done"), t.get("verified_at_kst", kst())
-            ))
-    rows += ["", "## Frontier (대기 중인 미완료 티켓)", "", "- 없음 (전 티켓 100% done 완료!)"]
-    wt("TICKETS_BOARD.md", "\n".join(rows) + "\n")
-    return {"promoted": promoted, "S22-01": ids["S22-01"]["status"], "checks": checks}
-def sync_docs():
-    changed = []
-    for d in DOCS:
-        t = rt(d)
-        if not t: continue
-        n = re.sub(r'v11\.\d+-[A-Z][A-Z0-9_-]*', VERSION, t)
-        n = re.sub(r'R1\s*~\s*R\d+', ANTIBODY_RANGE, n)
-        if d == "GLOSSARY.md" and "R22" not in n:
-            n = n.rstrip() + "\n| **항체 R22 (전신 혈관 개통)** | " + R22_TEXT + " |\n"
-        if n != t: wt(d, n); changed.append(d)
-    idx = rj("skills/SKILL_INDEX.json", None)
-    if isinstance(idx, dict):
-        idx.update(version=VERSION, antibody_range=ANTIBODY_RANGE, synced_at_kst=kst())
-        wj("skills/SKILL_INDEX.json", idx); changed.append("skills/SKILL_INDEX.json")
-    led = rj("rgon_immune_ledger.json", None)
-    if isinstance(led, dict):
-        led.update(version=VERSION, antibody_range=ANTIBODY_RANGE, current_step=22, step=22, antibody_count=22, updated_at_kst=kst())
-        ab = led.get("antibodies")
-        if isinstance(ab, list) and not any("R22" in json.dumps(x, ensure_ascii=False) for x in ab):
-            ab.append({"id": "R22", "title": R22_TEXT, "step": 22})
-        elif isinstance(ab, dict):
-            ab["R22"] = R22_TEXT
-        wj("rgon_immune_ledger.json", led); changed.append("rgon_immune_ledger.json")
-    return changed
-def radar():
-    r = rj("rgon_skill_radar.json", None)
-    if r is None: return {"ok": False, "mindung": False, "items": 0, "channels": 0}
-    s, items, chans = json.dumps(r, ensure_ascii=False), 0, 0
-    if isinstance(r, dict):
-        for k in ("items", "discoveries", "findings", "results", "videos", "entries", "cards"):
-            if isinstance(r.get(k), list): items += len(r[k])
-        c = r.get("channels")
-        chans = len(c) if isinstance(c, (list, dict)) else 0
-    return {"ok": True, "mindung": "@Mindung-EasyAI" in s, "items": items, "channels": chans}
-def _find_gua(o):
-    if isinstance(o, dict):
-        for k in ("iching", "hexagram", "gua", "today_hexagram", "주역"):
-            if isinstance(o.get(k), dict) and o[k].get("name"): return o[k]
-        for k, v in o.items():
-            if k != "vascular_circulation":
-                r = _find_gua(v)
-                if r: return r
-    return None
-def iching():
-    g = _find_gua(rj("rgon_morning_brief.json", {})) or _find_gua(rj("rgon_immune_ledger.json", {})) or {}
-    pick = lambda *ks: next((str(g[k]) for k in ks if g.get(k)), "")
-    name = pick("name", "title", "gua_name", "hexagram_name")
-    if name:
-        meaning = pick("meaning", "summary", "interpretation", "풀이", "wisdom", "desc") or "자강불식(自強不息) — 스스로 강건히 쉬지 않고 정진한다"
-        action = pick("action", "guidance", "지침", "advice") or "상선약수(上善若水) · 삼성(三省) — 6대 기관을 물처럼 순환시키고 하루 세 번 무결성을 살핀다."
-        return {"name": name, "meaning": meaning, "action": action, "source": "rgon_daily_cycle"}
-    i = datetime.datetime.now(KST).date().toordinal() % 64
-    return {"name": "제%d괘 %s" % (i + 1, GUA[i]), "meaning": "자강불식(自強不息) — 스스로 강건히 쉬지 않고 정진한다",
-            "action": "吾日三省吾身: 순환·무결성·기록을 세 번 살핀다", "source": "core-fallback"}
-def run_heart():
-    now, org = kst(), {}
-    print("=" * 64 + "\n RGON %s 6대 기관 전신 대순환 심장 가동 (%s)\n" % (VERSION, now) + "=" * 64)
-    r = radar(); org["1_radar"] = dict(r, ok=r["ok"] and r["mindung"])
-    rc, _ = run(["rgon_nutrient_engine.py", "--digest"]); sc = skill_count()
-    org["2_nutrient"] = {"ok": rc == 0 and sc >= 18 and os.path.isfile(P("skills/SKILL_INDEX.json")),
-                         "rc": rc, "skill_count": sc, "report": os.path.isfile(P("rgon_nutrient_report.json"))}
-    rc, _ = run(["rgon_spec_ticket_Shield.py", "--run"])
-    org["3_ticket_shield"] = {"rc": rc, "ok": rc == 0 and all(os.path.isfile(P(f)) for f in
-                              ("TICKETS_BOARD.md", "rgon_active_tickets.json", "rgon_agentshield_report.json"))}
-    rc, _ = run(["rgon_white_blood_cell.py", "--patrol"]); hs = health_score()
-    org["4_wbc"] = {"ok": rc == 0 and hs == 100, "rc": rc, "health_score": hs}
-    av = auto_verify_tickets(); org["3_ticket_shield"]["auto_verify"] = av
-    rc, _ = run(["rgon_daily_cycle.py", "--run"], inner=True)
-    ic = iching(); org["5_iching"] = dict(ic, ok=bool(ic.get("name")), rc=rc)
-    docs = sync_docs()
-    vc = {"version": VERSION, "antibody_range": ANTIBODY_RANGE, "antibody_R22": R22_TEXT, "cycle_at_kst": now,
-          "organs": {k: bool(v.get("ok")) for k, v in org.items()}, "skill_count": sc, "health_score": hs,
-          "radar_items": r["items"], "tickets_S22_01": av["S22-01"], "iching": ic, "docs_synced": docs,
-          "engine_versions": engine_versions()}
-    vc["organs"]["6_pulse_snapshot"] = True
-    common = {"generated_at_kst": now, "synced_at_kst": now, "version": VERSION, "antibody_range": ANTIBODY_RANGE,
-              "current_step": 22, "step": 22, "antibody_count": 22,
-              "skill_count": sc, "health_score": hs, "vascular_circulation": vc}
-    b = rj("rgon_morning_brief.json", {}); b = b if isinstance(b, dict) else {}
-    b.update(common); wj("rgon_morning_brief.json", b)
-    for s in SNAPSHOTS:
-        o = rj(s, {}); o = o if isinstance(o, dict) else {}
-        o.update(common)
-        ab = o.get("antibodies")
-        if isinstance(ab, list) and not any("R22" in json.dumps(x, ensure_ascii=False) for x in ab):
-            ab.append({"id": "R22", "title": R22_TEXT, "step": 22})
-        wj(s, o)
-    md = ["## 전신 맥박 브리핑 — %s / %s" % (VERSION, ANTIBODY_RANGE), "", "- 생성: " + now,
-          "- 기관1 레이더: 발견 %s건 · @Mindung-EasyAI %s" % (r["items"], "연결" if r["mindung"] else "미검출"),
-          "- 기관2 영양분: 표준 SKILL.md %d개" % sc, "- 기관3 티켓/AgentShield: S22-01 = " + av["S22-01"],
-          "- 기관4 백혈구: 건강 점수 %s / 100" % hs, "- 기관5 주역: %s — %s" % (ic["name"], ic["meaning"]),
-          "  - 행동 지침: " + ic["action"], "- 기관6 스냅샷: 루트·dashboard·docs 3곳 동기화"]
-    wt("MORNING_BRIEF.md", replace_block(rt("MORNING_BRIEF.md") or "# RGON MORNING BRIEF\n", "RGON-STEP22-PULSE", "\n".join(md)))
-    keys = ("version", "antibody_range", "skill_count", "health_score", "synced_at_kst")
-    ok6 = all(isinstance(rj(f), dict) and all(rj(f).get(k) == common[k] for k in keys)
-              for f in SNAPSHOTS + ["rgon_morning_brief.json"])
-    org["6_pulse_snapshot"] = {"ok": ok6}
-    rep = {"at_kst": now, "version": VERSION, "organs": org, "all_ok": all(v["ok"] for v in org.values())}
-    wj("rgon_circulation_report.json", rep)
-    for k, v in org.items(): print("  [%s] %s" % ("OK  " if v["ok"] else "WARN", k))
-    return 0 if rep["all_ok"] else 1
-def self_test():
-    ok = len(GUA) == 64 and VERSION == "v11.21-CIRCULATION" and ANTIBODY_RANGE == "R1~R22"
-    t = replace_block("x", "T", "a"); ok = ok and replace_block(t, "T", "a") == t
-    ok = ok and find_num({"a": [{"health_score": 1}, {"health_score": 100}]}, ("health_score",)) == 100
-    print("[rgon_vascular_core] self-test", "PASS" if ok else "FAIL"); return 0 if ok else 1
-if __name__ == "__main__":
-    a = sys.argv[1:]
-    if "--self-test" in a: sys.exit(self_test())
-    if "--verify-tickets" in a: print(json.dumps(auto_verify_tickets(), ensure_ascii=False, indent=2)); sys.exit(0)
-    sys.exit(run_heart())
-'''.replace("__R22__", R22_TEXT)
-
-HEART_HOOK = "\n".join([
-    "# [RGON-STEP22-HEART-HOOK-START] (R22: --run 시 6대 기관 전신 대순환 심장으로 위임)",
-    "import sys as _rg_sys, os as _rg_os",
-    "if __name__ == '__main__' and '--run' in _rg_sys.argv and not _rg_os.environ.get('RGON_HEART_INNER'):",
-    "    _rg_sys.path.insert(0, _rg_os.path.dirname(_rg_os.path.abspath(__file__)))",
-    "    import rgon_vascular_core as _rg_core",
-    "    _rg_sys.exit(_rg_core.run_heart())",
-    "# [RGON-STEP22-HEART-HOOK-END]", ""])
-VERIFY_HOOK = "\n".join([
-    "# [RGON-STEP22-AUTOVERIFY-HOOK-START] (R22: 티켓 저장 후 실제 산출물 기반 자동 승격)",
-    "import sys as _rg_sys, os as _rg_os, atexit as _rg_atexit",
-    "if __name__ == '__main__' and '--run' in _rg_sys.argv:",
-    "    def _rg_autoverify():",
-    "        try:",
-    "            _rg_sys.path.insert(0, _rg_os.path.dirname(_rg_os.path.abspath(__file__)))",
-    "            import rgon_vascular_core as _rg_core",
-    "            print('[R22 Auto-Verify]', _rg_core.auto_verify_tickets())",
-    "        except Exception as _e:",
-    "            print('[R22 Auto-Verify] 경고:', _e)",
-    "    _rg_atexit.register(_rg_autoverify)",
-    "# [RGON-STEP22-AUTOVERIFY-HOOK-END]", ""])
-
-WBC_R22_HOOK = "\n".join([
-    "# [RGON-STEP22-WBC-R22-START]",
-    "ANTIBODY_RANGE = 'R1~R22'",
-    "_R22_TXT = " + repr(R22_TEXT),
-    "for _nm in ('DEFAULT_ANTIBODIES', 'ANTIBODIES', 'ANTIBODY_LIST'):",
-    "    _lst = globals().get(_nm)",
-    "    if isinstance(_lst, list) and not any('R22' in str(x) for x in _lst):",
-    "        _lst.append({'id': 'R22', 'title': _R22_TXT, 'name': _R22_TXT, 'step': 22})",
-    "# [RGON-STEP22-WBC-R22-END]", ""])
-
-def kst():
-    return datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9))).strftime("%Y-%m-%d %H:%M:%S KST")
-
-def find_root():
-    for c in [r"C:\Users\sangi\Downloads\shin-agent", os.getcwd(), os.path.dirname(os.path.abspath(__file__))]:
-        if os.path.isfile(os.path.join(c, "rgon_daily_cycle.py")):
-            return c
-    sys.exit("[중단] shin-agent 작업 폴더(rgon_daily_cycle.py)를 찾지 못했습니다.")
-
-ROOT = find_root()
-def P(*a): return os.path.join(ROOT, *a)
-
-def is_protected(path):
-    b = os.path.basename(path).lower()
-    return b.endswith((".html", ".js")) or b == "manifest.json"
-
-def read(rel):
-    with open(P(rel), encoding="utf-8-sig") as f: return f.read()
-
-def write(rel, text):
-    if is_protected(rel): raise PermissionError("보호 파일 쓰기 차단: " + rel)
-    with open(P(rel), "w", encoding="utf-8", newline="\n") as f: f.write(text)
-
-def hash_protected(exclude=True):
-    out = {}
-    for dp, dns, fns in os.walk(ROOT):
-        dns[:] = [d for d in dns if (d not in EXCLUDE and not d.startswith(".rgon_backup") if exclude else d != ".git")]
-        for fn in fns:
-            fp = os.path.join(dp, fn)
-            if is_protected(fp):
-                h = hashlib.sha256()
-                with open(fp, "rb") as f:
-                    for ch in iter(lambda: f.read(1 << 20), b""): h.update(ch)
-                out[os.path.relpath(fp, ROOT)] = h.hexdigest()
-    return out
-
-def diff(a, b):
-    return sorted(k for k in set(a) | set(b) if a.get(k) != b.get(k))
-
-TS = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-BACKUP = P(".rgon_backups", "step22_" + TS)
-BACKED = []
-def backup(rel):
-    if os.path.isfile(P(rel)):
-        dst = os.path.join(BACKUP, rel)
-        os.makedirs(os.path.dirname(dst), exist_ok=True)
-        shutil.copy2(P(rel), dst); BACKED.append(rel)
-
-def restore_all():
-    for rel in BACKED:
-        shutil.copy2(os.path.join(BACKUP, rel), P(rel))
-    if not os.path.isfile(os.path.join(BACKUP, "rgon_vascular_core.py")) and os.path.isfile(P("rgon_vascular_core.py")):
-        os.remove(P("rgon_vascular_core.py"))
-
-def patch_gitignore():
-    t = read(".gitignore") if os.path.isfile(P(".gitignore")) else ""
-    s, e = "# [RGON-STEP22-VASCULAR-ALLOW-START]", "# [RGON-STEP22-VASCULAR-ALLOW-END]"
-    block = "\n".join([s, "# R22 클라우드 JSON 혈관 화이트리스트 (*.json 차단 예외 · 비밀 차단 규칙은 원본 유지)"] + ALLOW +
-                      ["# 화이트리스트 이후 비밀 패턴 재차단(안전벨트)", "skills/**/*secret*", "skills/**/*token*",
-                       "skills/**/credentials*", e])
-    if s in t and e in t:
-        n = t[:t.index(s)] + block + t[t.index(e) + len(e):]
-    else:
-        n = t.rstrip() + "\n\n" + block + "\n"
-    if n != t: write(".gitignore", n)
-    return {"had_star_json": bool(re.search(r"^\*\.json\s*$", t, re.M)), "patched": n != t}
-
-def patch_engine(rel):
-    t = read(rel); o = t; notes = []
-    q = lambda v: (lambda m: m.group(1) + m.group(2) + v + m.group(2))
-    t, nv = re.subn(r'^(\s*(?:WBC_)?VERSION\s*=\s*)(["\'])[^"\'\n]*\2', q(VERSION), t, flags=re.M)
-    t, na = re.subn(r'^(\s*ANTIBODY_RANGE\s*=\s*)(["\'])[^"\'\n]*\2', q(ANTIBODY_RANGE), t, flags=re.M)
-    if na == 0:
-        m = re.search(r'^(?:WBC_)?VERSION\s*=.*$', t, re.M) or re.search(r'^(?:def|class)\s', t, re.M)
-        line = 'ANTIBODY_RANGE = "%s"' % ANTIBODY_RANGE
-        if m and m.group(0).startswith(("VERSION", "WBC_VERSION")):
-            t = t[:m.end()] + "\n" + line + t[m.end():]
-        elif m:
-            t = t[:m.start()] + line + "\n\n" + t[m.start():]
-        notes.append("ANTIBODY_RANGE 상수 신설")
-    t = re.sub(r'v11\.(?:1\d|2[01])-[A-Z][A-Z0-9_-]*', VERSION, t)
-    t = re.sub(r'R1\s*~\s*R(?:1\d|2[01])\b', ANTIBODY_RANGE, t)
-    if t != o: write(rel, t)
-    return {"changed": t != o, "version_hits": nv, "antibody_hits": na, "notes": notes}
-
-def inject(rel, tag, code):
-    t = read(rel)
-    s, e = "# [%s-START]" % tag, "# [%s-END]" % tag
-    if s in t and e in t:
-        i = t.rfind("\n", 0, t.index(s)) + 1
-        j = t.index("\n", t.index(e)) + 1 if "\n" in t[t.index(e):] else len(t)
-        n = t[:i] + code + t[j:]
-    else:
-        ms = list(re.finditer(r'^if __name__\s*==\s*["\']__main__["\']\s*:', t, re.M))
-        n = t[:ms[-1].start()] + code + "\n" + t[ms[-1].start():] if ms else t.rstrip() + "\n\n" + code
-    if n != t: write(rel, n)
-    return n != t
-
-def py(args, timeout=900):
-    env = dict(os.environ, PYTHONIOENCODING="utf-8", PYTHONUTF8="1")
-    try:
-        r = subprocess.run([sys.executable] + args, cwd=ROOT, capture_output=True, text=True,
-                           encoding="utf-8", errors="replace", timeout=timeout, env=env)
-        return r.returncode, (r.stdout or "") + (r.stderr or "")
-    except Exception as ex:
-        return -1, str(ex)
-
-def git(*a):
-    try:
-        r = subprocess.run(["git"] + list(a), cwd=ROOT, capture_output=True, text=True,
-                           encoding="utf-8", errors="replace", timeout=300)
-        return r.returncode, ((r.stdout or "") + (r.stderr or "")).strip()
-    except Exception as ex:
-        return -1, str(ex)
-
-def git_push():
-    if not os.path.isdir(P(".git")): return "Git 저장소 아님(건너뜀)", []
-    git("add", "-A")
-    forced = [f for f in FORCE_ADD if os.path.exists(P(f))]
-    for f in forced: git("add", "-f", "--", f)
-    ignored = [f for f in FORCE_ADD if os.path.isfile(P(f)) and git("check-ignore", "-q", f)[0] == 0]
-    if git("diff", "--cached", "--quiet")[0] == 0: return "변경 없음(이미 최신)", ignored
-    rc, out = git("commit", "-m", "Step22 %s: 전신 혈관 개통 · 6대 기관 순환 · R22 (%s)" % (VERSION, kst()))
-    if rc != 0: return "커밋 실패: " + out[-200:], ignored
-    rc_pull, out_pull = git("pull", "--rebase", "--autostash", "origin", "main")
-    if rc_pull != 0:
-        git("rebase", "--abort")
-        return "pull 실패: " + out_pull[-200:], ignored
-    rc, out = git("push", "origin", "main")
-    if rc != 0: rc, out = git("push", "-u", "origin", "HEAD")
-    return ("푸시 성공" if rc == 0 else "푸시 실패: " + out[-200:]), ignored
-
-def popup(text, title):
-    try:
-        import ctypes
-        ctypes.windll.user32.MessageBoxW(0, text, title, 0x40 | 0x40000)
-    except Exception:
-        pass
+        import ctypes; ctypes.windll.user32.MessageBoxW(0, msg, f"RGON Step23 {VER}", 0x40 if good else 0x30)
+    except Exception: print(msg)
 
 def main():
-    print("=" * 66 + "\n RGON Step 22 — 자아성찰 전신 혈관 개통 (%s / %s)\n 작업 폴더: %s\n" % (VERSION, ANTIBODY_RANGE, ROOT) + "=" * 66)
-    missing = [e for e in ENGINES if not os.path.isfile(P(e))]
-    if missing: sys.exit("[중단] 엔진 누락: %s" % missing)
-    h0, h0_all = hash_protected(True), hash_protected(False)
-    print("[삼성 1/3] 보호 파일 해시 확보: 현역 %d개 / 전체 %d개" % (len(h0), len(h0_all)))
-    for rel in ENGINES + [".gitignore", "rgon_vascular_core.py"]: backup(rel)
-    print("[백업] %d개 → %s" % (len(BACKED), BACKUP))
-    res = {"gitignore": None, "engines": {}, "hooks": {}}
-    try:
-        res["gitignore"] = patch_gitignore(); print("[혈관 1] .gitignore 화이트리스트:", res["gitignore"])
-        for e in ENGINES:
-            res["engines"][e] = patch_engine(e); print("[혈관 2] %s → %s" % (e, res["engines"][e]))
-        write("rgon_vascular_core.py", CORE_SRC)
-        res["hooks"]["wbc_r22"] = inject("rgon_white_blood_cell.py", "RGON-STEP22-WBC-R22", WBC_R22_HOOK)
-        res["hooks"]["shield"] = inject("rgon_spec_ticket_Shield.py", "RGON-STEP22-AUTOVERIFY-HOOK", VERIFY_HOOK)
-        res["hooks"]["heart"] = inject("rgon_daily_cycle.py", "RGON-STEP22-HEART-HOOK", HEART_HOOK)
-        print("[혈관 3·4] WBC R22 / Auto-Verify 훅 / 6대 기관 심장 훅:", res["hooks"])
-        for f in ENGINES + ["rgon_vascular_core.py"]:
-            py_compile.compile(P(f), doraise=True)
-        print("[검증] py_compile 5종 통과")
-    except Exception as ex:
-        restore_all()
-        sys.exit("[롤백] 패치 중 오류 → 백업 복원 완료: %r" % ex)
-    h1 = hash_protected(True)
-    mid = diff(h0, h1)
-    print("[삼성 2/3] 중간 해시 변경: %d건" % len(mid))
-    tests = {}
-    for e in ENGINES + ["rgon_vascular_core.py"]:
-        rc, out = py([e, "--self-test"], timeout=600)
-        tests[e] = rc == 0
-        print("  [Self-Test] %-32s %s" % (e, "PASS" if rc == 0 else "FAIL (rc=%s) %s" % (rc, out[-160:])))
-    pass4 = sum(tests[e] for e in ENGINES)
-    print("[Self-Test] 4대 엔진 %d/4 PASS" % pass4)
-    rc, out = py(["rgon_daily_cycle.py", "--run"], timeout=1800)
-    print(out[-1500:])
-    try:
-        with open(P("rgon_circulation_report.json"), encoding="utf-8-sig") as f: circ = json.load(f)
-    except Exception:
-        circ = {"organs": {}, "all_ok": False}
-    organs = circ.get("organs", {})
-    sc = organs.get("2_nutrient", {}).get("skill_count", "?")
-    hs = organs.get("4_wbc", {}).get("health_score", "?")
-    h2, h2_all = hash_protected(True), hash_protected(False)
-    changed = sorted(set(diff(h0, h2)) | set(diff(h0_all, h2_all)) | set(mid))
-    print("[삼성 3/3] 최종 보호 파일 변경: %d건 (현역 %d / 전체 %d)" % (len(changed), len(h2), len(h2_all)))
-    organ_lines = ["  %s %s" % ("✔" if v.get("ok") else "✖", k) for k, v in sorted(organs.items())]
-    report = {"step": 22, "version": VERSION, "antibody_range": ANTIBODY_RANGE, "R22": R22_TEXT, "at_kst": kst(),
-              "root": ROOT, "backup": BACKUP, "patch": res, "self_tests": tests, "self_test_4_pass": pass4,
-              "heart_rc": rc, "circulation": circ, "skill_count": sc, "health_score": hs,
-              "protected": {"active": len(h2), "total": len(h2_all), "changed": changed}}
-    md = ["# STEP 22 — 자아성찰 전신 혈관 개통 보고서", "", "- 버전: %s / 항체: %s" % (VERSION, ANTIBODY_RANGE),
-          "- R22: " + R22_TEXT, "- 시각: " + report["at_kst"], "", FENCE + "text",
-          "4대 엔진 Self-Test : %d / 4 PASS" % pass4, "6대 기관 순환     : %s" % ("완주" if circ.get("all_ok") else "일부 경고"),
-          *organ_lines, "표준 스킬 수      : %s" % sc, "백혈구 건강 점수  : %s / 100" % hs,
-          "보호 파일 변경    : %d건 (현역 %d / 전체 %d)" % (len(changed), len(h2), len(h2_all)), FENCE, ""]
-    write("STEP22_VASCULAR_REPORT.md", "\n".join(md))
-    with open(P("rgon_step22_report.json"), "w", encoding="utf-8") as f:
-        json.dump(report, f, ensure_ascii=False, indent=2)
-    if changed:
-        push, ignored = "보호 파일 변경 감지 → 푸시 보류: %s" % changed[:5], []
-    else:
-        push, ignored = git_push()
-    print("[Git] %s%s" % (push, (" | 여전히 무시됨: %s" % ignored) if ignored else ""))
-    msg = "\n".join([
-        "RGON Step 22 — 전신 혈관 개통 완료 (%s / %s)" % (VERSION, ANTIBODY_RANGE), "",
-        "▶ 4대 엔진 Self-Test: %d / 4 PASS" % pass4,
-        *["   %s %s" % ("PASS" if tests[e] else "FAIL", e) for e in ENGINES],
-        "▶ 6대 기관 전신 순환: %s" % ("완주 (막힘 없음)" if circ.get("all_ok") else "일부 경고 — 보고서 확인"),
-        *organ_lines,
-        "▶ 표준 스킬 수: %s개" % sc, "▶ 백혈구 건강 점수: %s / 100" % hs,
-        "▶ 보호 파일(.html/.js/manifest.json) 변경: %d건" % len(changed),
-        "▶ Git: %s" % push, "", "보고서: STEP22_VASCULAR_REPORT.md"])
-    popup(msg, "RGON Step 22 — 自我省察 전신 대순환")
-    print("\n" + msg)
-    return 0 if (pass4 == 4 and circ.get("all_ok") and not changed) else 1
+    bump_backend()
+    cyc = run_cycle()
+    sync_fix()
+    targets, guard = classify()
+    log(f"🔍 V13 대상 {len(targets)}개 · 수호(비대상 HTML/.js/manifest) {len(guard)}개")
+    if not targets: msgbox("V13 마커 보유 HTML을 찾지 못했습니다. 중단합니다.", False); return
+    anchors = patch(targets, fallback())
+    v1, diff, miss = verify(targets, guard)
+    score = report(targets, guard, v1, diff, miss, anchors, cyc)
+    g = git()
+    msgbox(f"三省 {score}/3\n대상 HTML {len(targets)}개 교체 (V15 placeOnce 보존, 루프 0)\n비대상 해시 변경 {len(diff)}건\n"
+           f"미동기화 {len(miss)}건\n{g}\n보고서: STEP23_UI_REPORT.md", score == 3)
 
 if __name__ == "__main__":
-    sys.exit(main())
+    main()

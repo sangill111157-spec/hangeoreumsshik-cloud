@@ -1,10 +1,10 @@
 {
   "schema": "rgon.immune.ledger.v1",
-  "version": "v11.21-CIRCULATION",
+  "version": "v11.22-OMNI-UI",
   "current_step": 22,
-  "antibody_range": "R1~R22",
+  "antibody_range": "R1~R23",
   "principle": "만물은 하나로 이어져 있으며, 한 걸음씩 나아가면 반드시 이루어진다.",
-  "updated_at_kst": "2026-10-24 08:12:01 KST",
+  "updated_at_kst": "2026-10-24 08:37:49 KST",
   "health_score": 100,
   "inspection_mode": "standard",
   "today_hexagram": {
@@ -141,6 +141,12 @@
       "title": "자아성찰 전신 혈관 개통 — 레이더·영양분(SKILL.md)·티켓/AgentShield·백혈구(WBC)·주역64괘·스냅샷/클라우드 JSON 6대 기관 무결점 단일 순환",
       "name": "자아성찰 전신 혈관 개통 — 레이더·영양분(SKILL.md)·티켓/AgentShield·백혈구(WBC)·주역64괘·스냅샷/클라우드 JSON 6대 기관 무결점 단일 순환",
       "step": 22
+    },
+    {
+      "id": "R23",
+      "name": "전신 맥박 & 18개 스킬 UI 단발 통합",
+      "rule": "R23: 전신 맥박 & 18개 스킬 카탈로그 UI 무간섭 단발 통합 — 기존 V13 마커 내부만 교체하고 Observer 없이 3탭으로 표시",
+      "status": "활성"
     }
   ],
   "fingerprints": {
@@ -299,9 +305,27 @@
       "html_checked": 53,
       "errors": 0,
       "healed": 0
+    },
+    {
+      "timestamp_kst": "2026-10-24T08:37:45",
+      "health_score": 100,
+      "py_checked": 839,
+      "json_checked": 137,
+      "html_checked": 53,
+      "errors": 0,
+      "healed": 0
+    },
+    {
+      "timestamp_kst": "2026-10-24T08:37:49",
+      "health_score": 100,
+      "py_checked": 839,
+      "json_checked": 137,
+      "html_checked": 53,
+      "errors": 0,
+      "healed": 0
     }
   ],
-  "antibody_count": 22,
+  "antibody_count": 23,
   "step20": {
     "name": "일일 자율 순환 루프",
     "antibody": "R20",
