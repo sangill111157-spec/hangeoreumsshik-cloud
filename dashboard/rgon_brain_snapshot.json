@@ -1,6 +1,6 @@
 {
   "schema": "rgon_brain_snapshot/1",
-  "version": "v11.18-NUTRIENT",
+  "version": "v11.19-AUTONOMOUS",
   "generated_at_kst": "2026-10-23 22:29:07 KST",
   "synced_at_kst": "2026-10-23 22:29:07 KST",
   "sync_rate": "100.0%",
@@ -11,7 +11,7 @@
     "max": 100,
     "label": "100/100"
   },
-  "antibody_range": "R1~R19",
+  "antibody_range": "R1~R20",
   "antibodies": [
     {
       "id": "R8_APPROVAL_BEFORE_CODE",
@@ -131,6 +131,13 @@
       "modules": [
         "rgon_nutrient_engine.py"
       ]
+    },
+    {
+      "id": "R20",
+      "title": "일일 자율 순환 루프(백혈구 순찰 → 영양분 소화·스킬 주조 → 3자 심판 → 주역 64괘 아침 브리핑) 무인 자동화",
+      "name": "일일 자율 순환 루프(백혈구 순찰 → 영양분 소화·스킬 주조 → 3자 심판 → 주역 64괘 아침 브리핑) 무인 자동화",
+      "version": "v11.19-AUTONOMOUS",
+      "step": 20
     }
   ],
   "top_priority_id": "GEN-1",
@@ -934,7 +941,7 @@
     ]
   },
   "step": 17,
-  "antibody_count": 19,
+  "antibody_count": 20,
   "updated_at": "2026-10-23T23:36:16",
   "philosophy": {
     "doc": "RGON_PHILOSOPHY.md",
@@ -974,7 +981,7 @@
     },
     "generated_at": "2026-10-23T23:36:18"
   },
-  "current_step": 18,
+  "current_step": 20,
   "white_blood_cell": {
     "engine": "rgon_white_blood_cell.py",
     "ledger": "rgon_immune_ledger.json",
@@ -1036,5 +1043,13 @@
     ],
     "antibody": "R19",
     "rule": "Top 100 영양분 3스푼(Markdown 정제기 · 표준 SKILL.md 자동 주조기 · 3자 찬반 심판기) 통합 및 지식 자가 증식"
+  },
+  "step20": {
+    "name": "일일 자율 순환 루프",
+    "antibody": "R20",
+    "heart": "rgon_daily_cycle.py",
+    "workflow": ".github/workflows/rgon_daily_autonomous_cycle.yml",
+    "schedule_kst": "07:00",
+    "installed_on": "2026-10-24"
   }
 }

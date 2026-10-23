@@ -166,3 +166,14 @@
 - 도덕경 44장: 知足不辱 知止不殆 — 그칠 줄 아는 것이 R14(과잉 엔지니어링 금지)의 정신이다.
 - 명심보감 계선편: 勿以善小而不爲 — 작은 스킬 하나도 정성껏 주조한다.
 <!-- RGON:STEP19-PHILOSOPHY:END -->
+
+<!-- RGON-STEP20-START -->
+## [Step 20] v11.19-AUTONOMOUS — 일일 자율 순환 루프 (R20)
+- 버전: v11.19-AUTONOMOUS / 항체 범위: R1~R20
+- R20: 일일 자율 순환 루프(백혈구 순찰 → 영양분 소화·스킬 주조 → 3자 심판 → 주역 64괘 아침 브리핑) 무인 자동화
+- 심장: rgon_daily_cycle.py (--run / --status / --self-test)
+- 4단계: 백혈구 순찰 → 영양분 3스푼 소화·SKILL.md 주조·TrinityCouncil 심의 → 주역 64괘 → MORNING_BRIEF.md / rgon_morning_brief.json
+- 클라우드: .github/workflows/rgon_daily_autonomous_cycle.yml (cron '0 22 * * *' = KST 07:00, workflow_dispatch, continue-on-error)
+- 보호: .html / .js / manifest.json 304개 단 1바이트도 수정 금지
+- 철학: 무위자연 — 환경변수가 없으면 조용히 로컬 브리핑만 갱신하고 물러난다(상선약수).
+<!-- RGON-STEP20-END -->

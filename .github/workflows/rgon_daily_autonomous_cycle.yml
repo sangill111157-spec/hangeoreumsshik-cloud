@@ -1,0 +1,36 @@
+# RGON-STEP20 v11.19-AUTONOMOUS R1~R20 — 일일 자율 순환 (KST 07:00)
+name: RGON Daily Autonomous Cycle
+on:
+  schedule:
+    - cron: '0 22 * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  daily-cycle:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        continue-on-error: true
+      - uses: actions/setup-python@v5
+        continue-on-error: true
+        with:
+          python-version: '3.11'
+      - name: Run RGON daily cycle
+        continue-on-error: true
+        env:
+          PYTHONIOENCODING: utf-8
+          PYTHONUTF8: '1'
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python rgon_daily_cycle.py --run || true
+      - name: Commit morning brief
+        continue-on-error: true
+        run: |
+          git config user.name "rgon-bot"
+          git config user.email "rgon-bot@users.noreply.github.com"
+          git add rgon_morning_brief.json MORNING_BRIEF.md || true
+          git diff --cached --quiet || git commit -m "RGON daily brief [skip ci]" || true
+          git pull --rebase --autostash origin main || true
+          git push origin main || true

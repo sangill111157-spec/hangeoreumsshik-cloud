@@ -28,7 +28,7 @@ import sys
 import traceback
 
 WBC_VERSION = "v11.17-WBC"
-ANTIBODY_RANGE = "R1~R19"
+ANTIBODY_RANGE = "R1~R20"
 LEDGER_FILENAME = "rgon_immune_ledger.json"
 HEXAGRAM_FILENAME = "rgon_hexagram_engine.py"
 PRINCIPLE = "만물은 하나로 이어져 있으며, 한 걸음씩 나아가면 반드시 이루어진다."
@@ -795,6 +795,29 @@ def main(argv=None):
     patrol(root, auto_heal=True)
     print(format_status(root))
     return 0
+
+
+# ===== RGON-STEP20-START (R20 antibody, v11.19-AUTONOMOUS) =====
+ANTIBODY_RANGE = "R1~R20"
+_RGON_R20_TEXT = "일일 자율 순환 루프(백혈구 순찰 → 영양분 소화·스킬 주조 → 3자 심판 → 주역 64괘 아침 브리핑) 무인 자동화"
+try:
+    for _nm in ("DEFAULT_ANTIBODIES", "ANTIBODIES", "ANTIBODY_LIST", "ANTIBODY_RULES"):
+        _ab = globals().get(_nm)
+        if isinstance(_ab, dict) and "R20" not in _ab:
+            _smp = next(iter(_ab.values()), None)
+            _ab["R20"] = {"id": "R20", "title": _RGON_R20_TEXT, "name": _RGON_R20_TEXT, "step": 20} if isinstance(_smp, dict) else _RGON_R20_TEXT
+        elif isinstance(_ab, list):
+            _ids = [str(x.get("id", "")) if isinstance(x, dict) else str(x[0] if isinstance(x, tuple) and x else x) for x in _ab]
+            if not any(i.startswith("R20") for i in _ids):
+                if _ab and isinstance(_ab[0], dict):
+                    _ab.append({"id": "R20", "title": _RGON_R20_TEXT, "name": _RGON_R20_TEXT, "desc": _RGON_R20_TEXT, "step": 20})
+                elif _ab and isinstance(_ab[0], tuple):
+                    _ab.append(("R20", _RGON_R20_TEXT))
+                else:
+                    _ab.append("R20: " + _RGON_R20_TEXT)
+except Exception:
+    pass
+# ===== RGON-STEP20-END =====
 
 
 if __name__ == "__main__":

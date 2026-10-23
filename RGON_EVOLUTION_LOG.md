@@ -112,3 +112,18 @@
 - 정제기 자체점검: OK · 자체 검증: PASS 19/19
 - 보호 파일: 304개 SHA-256 추적 (삼성 전·중·후 검증)
 <!-- RGON:STEP19-EVOLUTION:END -->
+
+<!-- RGON-STEP20-START -->
+## [Step 20] v11.19-AUTONOMOUS — 일일 자율 순환 루프 (R20)
+- 버전: v11.19-AUTONOMOUS / 항체 범위: R1~R20
+- R20: 일일 자율 순환 루프(백혈구 순찰 → 영양분 소화·스킬 주조 → 3자 심판 → 주역 64괘 아침 브리핑) 무인 자동화
+- 심장: rgon_daily_cycle.py (--run / --status / --self-test)
+- 4단계: 백혈구 순찰 → 영양분 3스푼 소화·SKILL.md 주조·TrinityCouncil 심의 → 주역 64괘 → MORNING_BRIEF.md / rgon_morning_brief.json
+- 클라우드: .github/workflows/rgon_daily_autonomous_cycle.yml (cron '0 22 * * *' = KST 07:00, workflow_dispatch, continue-on-error)
+- 보호: .html / .js / manifest.json 304개 단 1바이트도 수정 금지
+- 2026-10-24 장착. 실행:
+
+```bash
+python rgon_daily_cycle.py --run
+```
+<!-- RGON-STEP20-END -->
