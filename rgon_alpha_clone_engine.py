@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 rgon_alpha_clone_engine.py
-[v11.4-RGON-ALPHA-DASHBOARD-COMMANDER-CLONE]
+[v11.26-CREATOR-FORGE]
 제1수석보좌관 르곤(RGON-001) 두뇌·기억·철학 100% 복제 클론 에이전트
 - 공식 명칭: 대시보드 총괄관 르곤-알파 (RGON-ALPHA / RGON-DASH-002)
 - 청와대 4대 수뇌부: 이상일 대표님 ➔ 르곤 본체 ➔ 르곤-알파 ➔ 안총리
@@ -355,7 +355,7 @@ def get_alpha_status() -> dict:
         "briefing_message": last_patrol.get("briefing_message", "대시보드 전 기관 이상 무."),
         "briefing": last_patrol.get("briefing_message", "대시보드 전 기관 이상 무."),
         "treasury_zero_verified": True,
-        "engine_version": "v11.4-RGON-ALPHA-CLONE-ENGINE",
+        "engine_version": "v11.26-CREATOR-FORGE",
         "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     }
 

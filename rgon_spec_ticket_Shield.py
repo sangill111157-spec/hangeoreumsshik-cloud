@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 # agentshield:ignore-file  (정규식 정의 파일 — 오탐 방지 자기 제외)
-# rgon_spec_ticket_Shield.py — RGON v11.21-CIRCULATION / 항체 R21
+# rgon_spec_ticket_Shield.py — RGON v11.26-CREATOR-FORGE / 항체 R21
 # Matt Pocock to-spec/to-tickets 분업기 + ECC AgentShield 보안 백혈구 (표준 라이브러리 전용)
 import os, re, sys, json, time, shutil, tempfile
-VERSION = "v11.25-SELF-EVOLVE"
-ANTIBODY_RANGE = "R1~R26"
+VERSION = "v11.26-CREATOR-FORGE"
+ANTIBODY_RANGE = "R1~R27"
 ROOT = os.path.dirname(os.path.abspath(__file__))
 EXCLUDE = {".git", "__pycache__", "node_modules", ".venv", "venv", ".rgon_backup", ".rgon_backups", ".idea", ".vscode", "backups", "archive", "old_backups"}
 AI_ROLES = {"르곤": "설계/검증", "Claude": "구현", "GPT": "구조", "Grok": "트렌드"}

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""rgon_self_evolution_engine.py — v11.25-SELF-EVOLVE · R1~R26 · 표준 라이브러리 전용
+"""rgon_self_evolution_engine.py — v11.26-CREATOR-FORGE · R1~R27 · 표준 라이브러리 전용
 Skill2Gene(EvoMap GEP) + RatchetCurator(Amazon Ratchet) + SelfQuestioningLoop(AgentEvolver/MemSkill)
 사용: --run(심층 캡슐) --self-test --json --merge --ensure-index"""
 import hashlib, json, re, shutil, subprocess, sys, time
@@ -12,7 +12,7 @@ except Exception:
     pass
 
 ROOT = Path(__file__).resolve().parent
-VERSION, ANTI, NSKILL, SLUG = "v11.25-SELF-EVOLVE", "R1~R26", 21, "self-evolving-gene-ratchet"
+VERSION, ANTI, NSKILL, SLUG = "v11.26-CREATOR-FORGE", "R1~R27", 21, "self-evolving-gene-ratchet"
 DIRS = [ROOT, ROOT / "dashboard", ROOT / "docs"]
 ENTRY = {
     "slug": SLUG,
@@ -290,6 +290,11 @@ def main():
         out["pass"] = all(out["checks"].values())
     print(json.dumps(out, ensure_ascii=False, indent=2) if "--json" in a else "\n".join(f"{k}: {v}" for k, v in out.items()))
     return 0 if out.get("pass", True) else 1
+
+# >>> STEP27_SKILL23_HOOK (R27: 정식 스킬 23개 유지)
+import atexit as _rg_ax, os as _rg_os, subprocess as _rg_sp, sys as _rg_sys
+_rg_ax.register(lambda: _rg_sp.run([_rg_sys.executable, _rg_os.path.join(_rg_os.path.dirname(_rg_os.path.abspath(__file__)), "rgon_omni_creator_forge.py"), "--ensure-index"], capture_output=True))
+# <<< STEP27_SKILL23_HOOK
 
 if __name__ == "__main__":
     sys.exit(main())

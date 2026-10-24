@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 rgon_aside_browser_agent.py
-[v11.3-RGON-ASIDE-AGENTIC-BROWSER-ABSORPTION]
+[v11.26-CREATOR-FORGE]
 글로벌 AI 에이전트 브라우저 '어사이드(Aside)' 핵심 기술 100% 자체 역설계 엔진
 1. 문맥 자동 인지 (Context X-Ray): 현재 접속 청사/화면 실시간 식별 및 맞춤 추천
 2. 서브 에이전트 7대 채널 동시 자동 채움 (Sub-Agents Multi-Tab Autofill)
@@ -258,7 +258,7 @@ def get_aside_status(page_id: str = "command_main") -> dict:
             "channels": TARGET_7_CHANNELS,
             "ready_state": "ALL_READY_100_PERCENT"
         },
-        "engine_version": "v11.3-RGON-ASIDE-BROWSER-AGENT",
+        "engine_version": "v11.26-CREATOR-FORGE",
         "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     }
 

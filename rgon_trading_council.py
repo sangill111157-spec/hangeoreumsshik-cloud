@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""rgon_trading_council.py — v11.23-TRADING-COUNCIL · R24 실전 트레이딩 3자 찬반 심판기(Bull/Bear/Judge) + 주역 64괘 장세 필터.
+"""rgon_trading_council.py — v11.26-CREATOR-FORGE · R24 실전 트레이딩 3자 찬반 심판기(Bull/Bear/Judge) + 주역 64괘 장세 필터.
 표준 라이브러리 전용 · 프로젝트 상태는 읽기 전용(쓰기: rgon_trading_council.json, --merge 시 rgon_morning_brief.json 및 SKILL_INDEX.json 보존)."""
 import json, re, sys, shutil
 from pathlib import Path
 from datetime import datetime
 ROOT = Path(__file__).resolve().parent
-VER, AB = "v11.23-TRADING-COUNCIL", "R24"
+VER, AB = "v11.26-CREATOR-FORGE", "R24"
 OUT, BRIEF = ROOT / "rgon_trading_council.json", ROOT / "rgon_morning_brief.json"
 PAT = re.compile(r"^⚖️ \[([A-Z]+)\] (\d{1,3}\.\d)점 \(Bull (\d{1,3}\.\d) / Bear (\d{1,3}\.\d) / #(\d{2})-([^)\s]+)\) (.+)$")
 AGENDAS = [("TREASURY", "💰 금고 보존 & 포지션 사이징", 60, "수택절", "절제와 한도 수호", "도덕경 지족불욕(知足不辱)", 0.35),
@@ -90,7 +90,7 @@ def ensure_skill_index():
             "source_url": "local://rgon_trading_council.py"
         })
     d["version"] = VER
-    d["antibody_range"] = "R1~R26"
+    d["antibody_range"] = "R1~R27"
     d["count"] = len(lst)
     idx_p.parent.mkdir(parents=True, exist_ok=True)
     idx_p.write_text(json.dumps(d, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
@@ -111,10 +111,10 @@ def merge_brief(data):
     if isinstance(b.get("vascular_circulation"), dict):
         b["vascular_circulation"]["skill_count"] = sk_cnt
         b["vascular_circulation"]["version"] = VER
-        b["vascular_circulation"]["antibody_range"] = "R1~R26"
+        b["vascular_circulation"]["antibody_range"] = "R1~R27"
     if isinstance(b.get("council"), dict): b["council"]["trading"] = data["agendas"]
     else: b["trading_council"] = data["agendas"]
-    b["version"], b["antibody_range"], b["trading_council_at"] = VER, "R1~R26", data["generated_at"]
+    b["version"], b["antibody_range"], b["trading_council_at"] = VER, "R1~R27", data["generated_at"]
     BRIEF.write_text(json.dumps(b, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     for d in ("dashboard", "docs"):
         if (ROOT / d).is_dir(): shutil.copy2(BRIEF, ROOT / d / BRIEF.name)
@@ -144,7 +144,7 @@ def self_test():
     print(f"[SELF-TEST] OK — {VER} / {AB} · 4 agendas × {len(cases)} cases · parseTri 포맷 호환"); return 0
 
 # [RGON-OMNI-DISPATCH-R25-START] — Step25: 20번째 스킬 omni-skill-dispatcher 보존
-_OMNI_SKILL = {'slug': 'omni-skill-dispatcher', 'id': 'omni-skill-dispatcher', 'name': 'Omni Skill Dispatcher (만능 원터치 디스패처)', 'category': 'omni-dispatch', 'hexagram_tag': '#14-大有', 'origin': 'core', 'version': 'v11.25-SELF-EVOLVE', 'antibody': 'R25', 'path': 'skills/omni-skill-dispatcher/SKILL.md', 'source_url': 'local://step25_omni_skill_dispatcher.py', 'description': '독대실 3탭(트렌드·보유 스킬·3자 심판) 항목을 [⚡ 질문창 장전] 원터치로 질문창에 단발 장전하고 클립보드에도 복사'}
+_OMNI_SKILL = {'slug': 'omni-skill-dispatcher', 'id': 'omni-skill-dispatcher', 'name': 'Omni Skill Dispatcher (만능 원터치 디스패처)', 'category': 'omni-dispatch', 'hexagram_tag': '#14-大有', 'origin': 'core', 'version': 'v11.26-CREATOR-FORGE', 'antibody': 'R25', 'path': 'skills/omni-skill-dispatcher/SKILL.md', 'source_url': 'local://step25_omni_skill_dispatcher.py', 'description': '독대실 3탭(트렌드·보유 스킬·3자 심판) 항목을 [⚡ 질문창 장전] 원터치로 질문창에 단발 장전하고 클립보드에도 복사'}
 try:
     _omni_orig_ensure = ensure_skill_index
     def ensure_skill_index(*a, **k):
@@ -160,8 +160,8 @@ try:
                     _l.append(dict(_OMNI_SKILL))
                 if isinstance(_o, dict):
                     _o["count"] = len(_l)
-                    _o["version"] = "v11.25-SELF-EVOLVE"
-                    _o["antibody_range"] = "R1~R26"
+                    _o["version"] = "v11.26-CREATOR-FORGE"
+                    _o["antibody_range"] = "R1~R27"
                 _p.write_text(_j.dumps(_o, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
             except Exception:
                 pass
@@ -170,7 +170,7 @@ except NameError:
     pass
 # [RGON-OMNI-DISPATCH-R25-END]
 
-# [STEP26-HOOK] v11.25-SELF-EVOLVE · R26: 실행 종료 시 21번째 스킬(self-evolving-gene-ratchet) 인덱스 보존
+# [STEP26-HOOK] v11.26-CREATOR-FORGE · R26: 실행 종료 시 21번째 스킬(self-evolving-gene-ratchet) 인덱스 보존
 import atexit as _s26_ax, subprocess as _s26_sp, sys as _s26_sys, os as _s26_os
 _s26_ax.register(lambda: _s26_sp.run([_s26_sys.executable, _s26_os.path.join(_s26_os.path.dirname(_s26_os.path.abspath(__file__)), "rgon_self_evolution_engine.py"), "--ensure-index"], capture_output=True))
 

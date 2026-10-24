@@ -153,3 +153,11 @@ python rgon_daily_cycle.py --run
 - EvoMap Gene/Capsule + Amazon Ratchet + AgentEvolver 자문자답 흡수 (#49 택화혁)
 - R26: 자가진화 유전자(Gene·Capsule) & 라쳇(Ratchet) 기여도 거버넌스 상시 가동 — 경험은 전략 유전자로 압축하고 검증 없는 진화(Library Drift)는 원천 차단
 - ⚖️ [EVOLVE] 100.0점 (Bull 99.9 / Bear 0.1 / #49-택화혁) 🧬 자가진화 유전자(Gene·Capsule·Ratchet) — 유전자 21개·캡슐 100%·평균 기여도 +1.00
+
+<!-- STEP27:BEGIN -->
+## Step 27 · v11.26-CREATOR-FORGE · 항체 R1~R27 · 정식 스킬 23개 (사람의 4대 생명 단계: 오감 100% + 창조 100%)
+- R27: 오감(Live Omni-Sense & Stomper 킬리스트) + 창조 공방(SkillForge·Voyager 도구 자율 합성 & 격리 검증) 상시 가동 — 검증 통과(exit_code=0)한 도구만 정식 승격(혁고정신 革故鼎新)
+- 엔진: rgon_omni_creator_forge.py (LiveOmniSense·StomperKillGate #21-噬嗑 / TieredMemoryPromoter / AutonomousCreatorForge #50-鼎)
+- 창조 도구: custom_tools/stomper_signal_filter.py · kelly_hexagram_sizer.py · skill_synergy_composer.py (Surrogate Verifier 3단계 통과분만 승격)
+- 스킬 22 stomper-kill-list-gate(#21-噬嗑) · 스킬 23 autonomous-creator-forge(#50-鼎) · 카파시 4원칙 × 무위자연·과유불급·삼성 3/3
+<!-- STEP27:END -->

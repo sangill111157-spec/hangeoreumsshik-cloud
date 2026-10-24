@@ -1,8 +1,8 @@
 {
-  "version": "v11.25-SELF-EVOLVE",
+  "version": "v11.26-CREATOR-FORGE",
   "antibody": "R19",
   "generated_at_kst": "2026-10-24 12:31:39 KST",
-  "count": 21,
+  "count": 23,
   "skills": [
     {
       "slug": "1-36-45",
@@ -192,9 +192,42 @@
       "source_url": "local://rgon_youtube_skill_scout.py",
       "origin": "core",
       "path": "skills/youtube-trend-scout/SKILL.md"
+    },
+    {
+      "slug": "stomper-kill-list-gate",
+      "id": "stomper-kill-list-gate",
+      "name": "Stomper Kill-List & Live Omni-Sense (오감 센서 & 불량 시그널 분쇄기)",
+      "order": 22,
+      "hexagram_tag": "#21-噬嗑",
+      "hexagram": "#21-噬嗑",
+      "category": "omni-sense",
+      "origin": "core",
+      "description": "오감 후각: 사기·원금보장·러그풀·프롬프트 인젝션 사전 킬리스트 분쇄",
+      "path": "skills/stomper-kill-list-gate/SKILL.md",
+      "source_url": "local://rgon_omni_creator_forge.py",
+      "version": "v11.26-CREATOR-FORGE",
+      "antibody": "R27"
+    },
+    {
+      "slug": "autonomous-creator-forge",
+      "id": "autonomous-creator-forge",
+      "name": "Autonomous Creator Forge (화풍정 자율 도구 창조 공방)",
+      "order": 23,
+      "hexagram_tag": "#50-鼎",
+      "hexagram": "#50-鼎",
+      "category": "creator-forge",
+      "origin": "core",
+      "description": "SkillForge·Voyager·724-office 자율 도구 창조 + Surrogate Verifier 격리 검증",
+      "path": "skills/autonomous-creator-forge/SKILL.md",
+      "source_url": "local://rgon_omni_creator_forge.py",
+      "version": "v11.26-CREATOR-FORGE",
+      "antibody": "R27"
     }
   ],
-  "antibody_range": "R1~R26",
-  "skill_count": 21,
-  "synced_at_kst": "2026-10-24 12:31:48 KST"
+  "antibody_range": "R1~R27",
+  "skill_count": 23,
+  "synced_at_kst": "2026-10-24 12:31:48 KST",
+  "total": 23,
+  "antibodies": "R1~R27",
+  "updated": "2026-10-24T13:17:46"
 }

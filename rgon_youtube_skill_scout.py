@@ -27,7 +27,7 @@ try:
 except Exception:
     pass
 
-VERSION = "v11.25-SELF-EVOLVE"
+VERSION = "v11.26-CREATOR-FORGE"
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 RADAR_NAME = "rgon_skill_radar.json"
 KST = timezone(timedelta(hours=9))
@@ -1002,7 +1002,7 @@ if __name__ == "__main__":
 
 # <<RGON:STEP19-NUTRIENT-HOOK:BEGIN>>
 def run_nutrient_digest_safely(root_dir=None):
-    """Step 19 (v11.18-NUTRIENT, R19): 영양분 3스푼 엔진을 백혈구 방식으로 안전 호출."""
+    """Step 19 (v11.26-CREATOR-FORGE, R19): 영양분 3스푼 엔진을 백혈구 방식으로 안전 호출."""
     try:
         import os as _os
         import sys as _sys
