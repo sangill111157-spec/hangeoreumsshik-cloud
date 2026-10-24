@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""rgon_self_evolution_engine.py — v11.26-CREATOR-FORGE · R1~R29 · 표준 라이브러리 전용
+"""rgon_self_evolution_engine.py — v11.26-CREATOR-FORGE · R1~R31 · 표준 라이브러리 전용
 Skill2Gene(EvoMap GEP) + RatchetCurator(Amazon Ratchet) + SelfQuestioningLoop(AgentEvolver/MemSkill)
 사용: --run(심층 캡슐) --self-test --json --merge --ensure-index"""
 import hashlib, json, re, shutil, subprocess, sys, time
@@ -12,7 +12,7 @@ except Exception:
     pass
 
 ROOT = Path(__file__).resolve().parent
-VERSION, ANTI, NSKILL, SLUG = "v11.26-CREATOR-FORGE", "R1~R29", 21, "self-evolving-gene-ratchet"
+VERSION, ANTI, NSKILL, SLUG = "v11.26-CREATOR-FORGE", "R1~R31", 21, "self-evolving-gene-ratchet"
 DIRS = [ROOT, ROOT / "dashboard", ROOT / "docs"]
 ENTRY = {
     "slug": SLUG,

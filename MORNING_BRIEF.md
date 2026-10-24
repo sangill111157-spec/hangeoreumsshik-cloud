@@ -41,3 +41,8 @@
 ## 💧 아온(A-ON·芽溫) 3D 물방울 졸라맨 브리핑 (v11.29-ROAMING-AON · R1~R30 · 스킬 25)
 ⚖️ [AVATAR3D] 100.0점 (Bull 99.9 / Bear 0.1 / #04-산수몽) 💧 아온(A-ON·芽溫) 3D 입체 물방울 & 졸라맨 팔다리 육신 — 디즈니 7대 모션 법칙 & 8-Stop Liquid-Glass 3D 가동
 <!-- [RGON-STEP29-AON-3DDROP-END] -->
+
+<!-- [RGON-STEP31-EXCRETORY-START] -->
+## 🧹 배설기관(신장·대장) 정화 브리핑 (v11.30-EXCRETORY-CLEAN · R1~R31 · 스킬 27)
+⚖️ [CLEAN] 100.0점 (Bull 99.9 / Bear 0.1 / #40-뇌수해) 🧹 배설기관(신장·대장) 정화 엔진 가동 — 노폐물·중복 마커·캐시 찌꺼기 배출 완료 (비움이 곧 채움)
+<!-- [RGON-STEP31-EXCRETORY-END] -->

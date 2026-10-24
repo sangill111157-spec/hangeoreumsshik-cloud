@@ -1,1 +1,0 @@
-{"role":"rgon","entry":{"code":"그리 지금 윈도우창이 주기적으로 깜빡이듣이 하고 없어지고 반복 하고 있어","lang":"text","kind":"code","lines":1,"bytes":102,"funcs":[],"funcCount":0,"tryCount":0,"hasEntry":false,"score":-5,"blockCount":42,"hash":"2718851902","ts":1792675367386,"url":"https://www.genspark.ai/agents?id=71753d51-edb9-4651-9ea5-ef85fdd55530","title":"코드 레버리지 및 문제 해결 지시 요청","role":"rgon"}}

@@ -42,7 +42,7 @@ def ensure_index():
             if not md.exists():
                 md.parent.mkdir(parents=True, exist_ok=True)
                 md.write_text(f"---\nname: {slug}\nslug: {slug}\ndescription: {desc}\nhexagram_tag: '{hexa}'\ncategory: {cat}\nversion: {VER}\nantibody: R27\n---\n\n# {name} ({n}번째 정식 스킬)\n\n{desc}\n\n- 엔진: rgon_omni_creator_forge.py\n- 원칙: 무위자연 · 과유불급 · 삼성 3/3 · 혁고정신(革故鼎新)\n- AVOID: 검증 통과(exit_code=0)하지 못한 도구나 킬리스트 미통과 시그널은 절대 승격하지 않는다 (R27)\n", encoding="utf-8")
-    idx.update(skills=sk, count=len(sk), total=len(sk), skill_count=len(sk), version=VER, antibody_range="R1~R29", antibodies="R1~R29", updated=now())
+    idx.update(skills=sk, count=len(sk), total=len(sk), skill_count=len(sk), version=VER, antibody_range="R1~R31", antibodies="R1~R31", updated=now())
     for b in bases: wj(b / "SKILL_INDEX.json", idx)
     return {"count": len(sk), "places": [str(b.relative_to(ROOT)) for b in bases]}
 class StomperKillGate:
@@ -150,14 +150,14 @@ def merge(sense, forge):
         if isinstance(b.get("immune"), dict):
             b["immune"]["ok"] = True
             b["immune"]["health_score"] = 100
-            b["immune"]["antibody_range"] = "R1~R29"
+            b["immune"]["antibody_range"] = "R1~R31"
             b["immune"]["antibody_count"] = 27
         vc = b.setdefault("vascular_circulation", {}); org = vc.get("organs")
         if isinstance(org, list): org = {(o.get("id") or o.get("name") or str(n)) if isinstance(o, dict) else str(o): True for n, o in enumerate(org)}
         if not isinstance(org, dict) or not org: org = dict.fromkeys(("1_radar", "2_nutrient", "3_ticket_shield", "4_wbc", "5_iching", "6_pulse_snapshot"), True)
         org = {k: True for k in org}; org.setdefault("4_wbc", True); vc["organs"] = org
-        vc["version"] = VER; vc["antibody_range"] = "R1~R29"; vc["skill_count"] = 23
-        b.update(version=VER, antibody_range="R1~R29", antibodies="R1~R29", skill_count=23, skills_count=23); wj(p, b); done.append(str(p.relative_to(ROOT)))
+        vc["version"] = VER; vc["antibody_range"] = "R1~R31"; vc["skill_count"] = 23
+        b.update(version=VER, antibody_range="R1~R31", antibodies="R1~R31", skill_count=23, skills_count=23); wj(p, b); done.append(str(p.relative_to(ROOT)))
     return {"lines": lines, "briefs": done}
 def self_test():
     s, f, m = rj(ROOT / "rgon_omni_sense.json", {}) or {}, rj(ROOT / "rgon_creator_forge.json", {}) or {}, rj(ROOT / "rgon_tiered_memory.json", {}) or {}

@@ -1,8 +1,8 @@
 {
-  "version": "v11.29-ROAMING-AON",
+  "version": "v11.30-EXCRETORY-CLEAN",
   "antibody": "R19",
   "generated_at_kst": "2026-10-24 12:31:39 KST",
-  "count": 26,
+  "count": 27,
   "skills": [
     {
       "slug": "1-36-45",
@@ -255,13 +255,24 @@
       "path": "skills/free-roaming-waterdrop-pet/SKILL.md",
       "status": "official",
       "description": "뷰포트 무제한 자율 유영 & 소환/은신 스크린 펫 마스터 스킬(아온 A-ON)"
+    },
+    {
+      "slug": "excretory-entropy-gc",
+      "name": "배설기관(신장·대장) 노폐물 배출 & 엔트로피 정화 마스터",
+      "category": "excretory-gc",
+      "hexagram_tag": "#40-解",
+      "step": 31,
+      "version": "v11.30-EXCRETORY-CLEAN",
+      "path": "skills/excretory-entropy-gc/SKILL.md",
+      "status": "official",
+      "description": "ECC config-gc + reclaim-code-entropy + autoDream 기반 신장 여과·대장 압축·문서 중복 마커 정화·고아 코드 감사 스킬 (R31)"
     }
   ],
-  "antibody_range": "R1~R30",
+  "antibody_range": "R1~R31",
   "skill_count": 23,
   "synced_at_kst": "2026-10-24 12:31:48 KST",
-  "total": 26,
+  "total": 27,
   "antibodies": "R1~R27",
   "updated": "2026-10-24T13:17:46",
-  "immune": "R1~R30"
+  "immune": "R1~R31"
 }

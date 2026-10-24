@@ -1347,3 +1347,9 @@ shin-agent/
 - skills/character-detail-master-top1/SKILL.md — 25번째 정식 스킬 (캐릭터 디테일 TOP 1 마스터)
 - 독대실 V13 블록 — 💧 8-Stop 3D 물방울 + 깜찍 5겹 보석눈 + 관절형 졸라맨 팔다리 (V15 보존)
 <!-- [RGON-STEP29-AON-3DDROP-END] -->
+
+<!-- [RGON-STEP31-EXCRETORY-START] -->
+## Step 31 (v11.30-EXCRETORY-CLEAN · 배설기관 정화)
+- rgon_excretory_organ.py — 신장 여과·대장 백업 슬림화·autoDream 문서 중복 정화
+- rgon_excretion_report.json — 배설·정화 감사 리포트
+<!-- [RGON-STEP31-EXCRETORY-END] -->

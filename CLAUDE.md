@@ -209,3 +209,9 @@ setTimeout(placeOnce,300); setTimeout(placeOnce,900);   // 총 3회 단발, Obse
 - R29: 캐릭터 디테일 TOP 1 스킬 마스터 & 아온(A-ON·芽溫) 3D 물방울 졸라맨 육신 — 디즈니 7대 모션 법칙(스쿼시&스트레치·시차·팔로스루) + 8-Stop 3D Liquid-Glass/Claymorphism 입체 필터 + 관절형 졸라맨 팔다리 통합
 - 엔진: rgon_k_avatar_engine.py (--run/--merge/--self-test/--ensure-index/--json)
 <!-- [RGON-STEP29-AON-3DDROP-END] -->
+
+<!-- [RGON-STEP31-EXCRETORY-START] -->
+## 🧹 현재 상태 (Step 31 — 배설기관 정화 완료)
+- 버전 **v11.30-EXCRETORY-CLEAN** · 항체 **R1~R31** · 정식 스킬 **27개**
+- R31: 배설기관(신장·대장·뇌척수액 정화, 주역 #18 산풍고·#40 뇌수해) — ECC config-gc + reclaim-code-entropy + autoDream 기반으로 캐시·구백업·중복 마커·컨텍스트 찌꺼기를 안전 배출하여 엔트로피 0% 유지
+<!-- [RGON-STEP31-EXCRETORY-END] -->
