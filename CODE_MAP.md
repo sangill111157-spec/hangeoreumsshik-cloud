@@ -1,5 +1,10 @@
 # 🗺️ CODE_MAP — RGON shin-agent 코드 지도
 
+<!-- [RGON-STATUS-V25-START] -->
+> **현재 버전**: `v11.24-OMNI-DISPATCH` · 항체 `R1~R25` · 정식 스킬 **20개** (20번째: `omni-skill-dispatcher` · #14-大有 · omni-dispatch)
+> **R25: 연결·소통·만능 원터치 스킬 디스패처 — 보유 스킬·트렌드·3자 심판 결과를 독대실 질문창에 무간섭 단발 장전**
+<!-- [RGON-STATUS-V25-END] -->
+
 > 자동 생성: `step16_karpathy_codemap_and_eod.py` · 2026-10-23 22:29:07 KST · 손으로 수정하지 말고 스크립트를 다시 실행할 것
 > 스캔 제외: `.git`, `node_modules`, `__pycache__`, `_rgon_backups`, 백업 폴더, `*.bak*` 파일
 
@@ -637,7 +642,7 @@ shin-agent/
 | `activate_brain_and_push.py` | 51.2KB | 2026-10-20 15:39 | activate_brain_and_push.py | `log()`, `step()`, `ok()`, `warn()`, `fail()`, `now_kst()`, `stamp()`, `rel()`, `sha256()`, `read_json()`, `write_json()`, `run_cap()`, `run_stream()`, `ensure_pkg()`, `find_ffmpeg()`, `_lerp()`, `_font()`, `cover()`, `_overlay()`, `fetch_pollinations()`, `draw_paper_cup()`, `r1_replace_sample()`, `_walk_dicts()`, `_first()`, `_texts()` …(+27) |
 | `add_error_event_test.py` | 2.6KB | 2026-09-07 19:27 | - | - |
 | `add_test_node.py` | 3.5KB | 2026-09-14 09:00 | - | - |
-| `agency_stage_gate_scheduler.py` | 5.9KB | 2026-10-19 19:00 | [v12.3-AGENCY-STAGE-GATE-SCHEDULER] | `load_stage_gate_master()`, `save_stage_gate_master()`, `get_stage_gate_schedule()`, `evaluate_stage_gate_status()` |
+| `agency_stage_gate_scheduler.py` | 5.9KB | 2026-10-19 19:00 | [v11.24-OMNI-DISPATCH] | `load_stage_gate_master()`, `save_stage_gate_master()`, `get_stage_gate_schedule()`, `evaluate_stage_gate_status()` |
 | `agent_swarm_cloner.py` | 12.5KB | 2026-10-17 17:58 | 안실장 무한 복제 클론 스웜 & 외부 샌드박스 자가치유 엔진 (agent_swarm_cloner.py) | `prepare_sandbox()`, `class DOMHealer [audit_and_heal]`, `class SwarmOrchestrator [run_clone_1_command, run_clone_2_suno, run_clone_3_chat, run_clone_4_daughters, run_clone_5_qa_guardian, execute_swarm]` |
 | `amend_design1.py` | 1.6KB | 2026-08-21 15:53 | - | - |
 | `analyze_feed_all.py` | 2.7KB | 2026-08-18 13:28 | - | - |
@@ -762,7 +767,7 @@ shin-agent/
 | `check_verify_a32.py` | 455B | 2026-09-25 10:22 | - | - |
 | `check_verify_output.py` | 443B | 2026-09-25 10:04 | - | - |
 | `check_보정62.py` | 873B | 2026-09-16 12:22 | - | - |
-| `cheongwadae_comm_engine.py` | 23.5KB | 2026-10-19 10:26 | cheongwadae_comm_engine.py [v10.7: 대표님 ⇄ 르곤·안총리·6대 청사 실시간 양방향 지능형 소통 사령부 엔진] | `get_engine_secrets()`, `load_comm_log()`, `record_commander_inbox()`, `send_real_telegram_message()`, `gather_realtime_system_metrics()`, `call_gemini_ai()`, `process_direct_communication()`, `append_comm_message()` |
+| `cheongwadae_comm_engine.py` | 23.5KB | 2026-10-19 10:26 | cheongwadae_comm_engine.py [v11.24-OMNI-DISPATCH: 대표님 ⇄ 르곤·안총리·6대 청사 실시간 양방향 지능형 소통 사령부 엔진] | `get_engine_secrets()`, `load_comm_log()`, `record_commander_inbox()`, `send_real_telegram_message()`, `gather_realtime_system_metrics()`, `call_gemini_ai()`, `process_direct_communication()`, `append_comm_message()` |
 | `cheongwadae_guard.py` | 10.0KB | 2026-10-18 21:26 | cheongwadae_guard.py [청와대 경호처 - 부서 간 침범 원천 차단 & 차곡차곡 누적 보호 엔진] | `compute_file_hash()`, `get_cheongwadae_status()`, `save_golden_hashes()`, `verify_all_departments()` |
 | `clean_base_weights.py` | 1.5KB | 2026-08-21 16:20 | - | - |
 | `clean_conf_maps.py` | 891B | 2026-08-22 00:18 | - | - |
@@ -784,9 +789,9 @@ shin-agent/
 | `create_regression_tests.py` | 3.6KB | 2026-09-25 09:55 | - | - |
 | `create_test_alert.py` | 2.6KB | 2026-08-30 18:14 | - | - |
 | `create_test_counter.py` | 1.8KB | 2026-08-30 18:16 | - | - |
-| `cross_dept_synergy_engine.py` | 26.3KB | 2026-10-19 11:09 | [v11.23-TRADING-COUNCIL] | `calculate_hash()`, `safe_send_telegram()`, `run_grand_synergy_relay()`, `get_synergy_relay_status()` |
+| `cross_dept_synergy_engine.py` | 26.3KB | 2026-10-19 11:09 | [v11.24-OMNI-DISPATCH] | `calculate_hash()`, `safe_send_telegram()`, `run_grand_synergy_relay()`, `get_synergy_relay_status()` |
 | `deep_duplicate_scan.py` | 2.3KB | 2026-08-18 13:28 | - | - |
-| `deep_sweep_final_purger.py` | 16.6KB | 2026-10-18 23:29 | [v10.3-DEEP-SWEEP-FINAL-PURGE] | `purge_second_wave_files()`, `streamline_and_purify_keys()`, `execute_deep_sweep()` |
+| `deep_sweep_final_purger.py` | 16.6KB | 2026-10-18 23:29 | [v11.24-OMNI-DISPATCH] | `purge_second_wave_files()`, `streamline_and_purify_keys()`, `execute_deep_sweep()` |
 | `delete_todo_sheet.py` | 1.5KB | 2026-08-26 15:28 | - | - |
 | `dept_mission_backlog.py` | 18.4KB | 2026-10-18 21:21 | dept_mission_backlog.py [6대 부서 18대 클린룸 벤치마킹 일거리 엔진 & 실물 산출물 생성기] | `load_work_queue()`, `execute_department_task()`, `execute_all_18_tasks()`, `get_all_work_queue()`, `execute_task()`, `audit_backlog_integrity()` |
 | `dept_sub_agents_corps.py` | 17.1KB | 2026-10-19 10:41 | ══════════════════════════════════════════════════════════════════════════════ | `safe_send_telegram()`, `load_sub_agents_state()`, `save_sub_agents_state()`, `map_dept_to_agent_id()`, `inspect_dept_sub_agent()`, `dispatch_sub_agent()`, `dispatch_all_sub_agents()`, `get_sub_agents_status()` |
@@ -961,7 +966,7 @@ shin-agent/
 | `get_p43_hashes_final.py` | 751B | 2026-08-31 03:59 | - | - |
 | `get_paths_from_transcript.py` | 608B | 2026-08-19 11:23 | - | - |
 | `github_scout_adapter.py` | 25.0KB | 2026-10-17 06:15 | 🔭 한걸음씩 AI 제국 : 제2원(미래지향·공존개발팀) | `evaluate_license()`, `scout_github_repositories()`, `build_default_adaptation_plan()`, `generate_adaptation_plan_with_gemini()`, `get_rea_deep_dive_analysis()`, `get_super_trend_preset_analysis()`, `run_daily_cloud_scout()` |
-| `google_sheets_archaeologist.py` | 16.6KB | 2026-10-18 23:30 | [v10.3-GOOGLE-SHEETS-ARCHAEOLOGY] | `mask_sheet_id()`, `discover_google_cloud_sheets()`, `discover_local_spreadsheets()`, `analyze_sheet_historical_context()`, `conduct_archaeology()`, `generate_markdown_report()` |
+| `google_sheets_archaeologist.py` | 16.6KB | 2026-10-18 23:30 | [v11.24-OMNI-DISPATCH] | `mask_sheet_id()`, `discover_google_cloud_sheets()`, `discover_local_spreadsheets()`, `analyze_sheet_historical_context()`, `conduct_archaeology()`, `generate_markdown_report()` |
 | `grep_master_calls.py` | 616B | 2026-08-20 17:07 | - | - |
 | `grep_of_empty.py` | 325B | 2026-08-20 18:20 | - | - |
 | `grok_viral_schedule_engine.py` | 6.4KB | 2026-10-19 17:32 | Grok 4.7 기반 골든타임 바이럴 4대 편성표 및 Suno AI 프롬프트 스케줄러 엔진 | `class GrokViralScheduleEngine [__init__, _load_plan, get_full_plan, get_active_or_next_slot, get_pinned_comment, get_suno_prompt…]` |
@@ -1071,7 +1076,7 @@ shin-agent/
 | `nvda_trading_manager.py` | 11.3KB | 2026-10-19 04:59 | ══════════════════════════════════════════════════════════════════ | `get_nvda_trading_status()`, `run_nvda_unblock_test()`, `run_nvda_trading_audit()` |
 | `omni_claude_20261022_225837.py` | 21.1KB | 2026-10-23 07:30 | rgon_finish_step2_step3.py (Windows / Python 3 표준 라이브러리 전용) | `say()`, `section()`, `hidden_si()`, `run_hidden()`, `ps()`, `backup()`, `human()`, `guard()`, `find_chrome()`, `git_remote()`, `step_dashboard()`, `patch_no_window()`, `write_bridge()`, `running_scripts()`, `port_open()`, `start_if_absent()`, `enable_tasks()`, `step_patch_and_start()`, `step_archive()`, `step_memory()`, `step_heartbeat()`, `send_telegram()`, `main()` |
 | `omni_claude_20261022_231830.py` | 17.7KB | 2026-10-23 07:30 | rgon_local_cleanup.py (Python 3 표준 라이브러리 전용 / 네트워크 전송 없음) | `say()`, `section()`, `human()`, `fmt_time()`, `backup()`, `read_text()`, `write_text()`, `walk_files()`, `rel()`, `scan_clipboard_hits()`, `disable_js_clipboard()`, `neutralize_python_clip()`, `step_clipboard()`, `step_html()`, `step_shortcuts_and_open()`, `step_log()`, `find_memory_file()`, `step_memory_status()`, `save_summary()`, `main()` |
-| `one_touch_auto_executor.py` | 28.9KB | 2026-10-19 02:14 | one_touch_auto_executor.py [v10.6 원터치 무인 자동 집행 엔진 — One-Touch Autonomous Pipeline] | `_safe_telegram_notify()`, `_append_comm_and_consensus()`, `_append_google_sheets_queue()`, `execute_stitch_design_pipeline()`, `execute_hook_script_pipeline()`, `execute_bm_pipeline()`, `execute_all_8_agents_pipeline()`, `handle_one_touch_execute()` |
+| `one_touch_auto_executor.py` | 28.9KB | 2026-10-19 02:14 | one_touch_auto_executor.py [v11.24-OMNI-DISPATCH 원터치 무인 자동 집행 엔진 — One-Touch Autonomous Pipeline] | `_safe_telegram_notify()`, `_append_comm_and_consensus()`, `_append_google_sheets_queue()`, `execute_stitch_design_pipeline()`, `execute_hook_script_pipeline()`, `execute_bm_pipeline()`, `execute_all_8_agents_pipeline()`, `handle_one_touch_execute()` |
 | `patch_249.py` | 3.0KB | 2026-08-19 12:06 | - | - |
 | `patch_249_analyzer.py` | 749B | 2026-08-19 12:08 | - | - |
 | `patch_500.py` | 1.2KB | 2026-08-19 12:29 | - | - |
@@ -1131,7 +1136,7 @@ shin-agent/
 | `pwa_install_patch.py` | 4.5KB | 2026-10-22 15:53 | PWA 고정앱 패치: 매니페스트 상대경로 교정 + 왕관 아이콘 + head 메타 3줄. | `id_counts()`, `main()` |
 | `qa_50x_stress_inspector.py` | 11.7KB | 2026-10-18 23:34 | qa_50x_stress_inspector.py [v8.5 Department Mission Backlog 500회 가혹 검수기] | `check_scenario()`, `main()` |
 | `qa_button_inspector_agent.py` | 11.4KB | 2026-10-17 21:45 | qa_button_inspector_agent.py [QA-901] | `check_file_onclick_integrity()`, `check_angle_buttons_removal()`, `check_3d_and_face_synthesis()`, `check_node_syntax()`, `check_omni_agent_bus()`, `check_rgon_auto_sync_daemon()`, `check_swarm_dom_isolation()`, `main()` |
-| `quant_risk_engine.py` | 12.3KB | 2026-10-19 20:10 | [v12.0-GPT-6.1-SOL-QUANT-RISK-ENGINE] | `class RiskBudget`, `class ScoreBreakdown`, `score_entry()`, `check_16_entry_block_reasons()`, `make_entry_plan()`, `get_quant_risk_master_status()` |
+| `quant_risk_engine.py` | 12.3KB | 2026-10-19 20:10 | [v11.24-OMNI-DISPATCH.1-SOL-QUANT-RISK-ENGINE] | `class RiskBudget`, `class ScoreBreakdown`, `score_entry()`, `check_16_entry_block_reasons()`, `make_entry_plan()`, `get_quant_risk_master_status()` |
 | `query_enabled_test_ep.py` | 933B | 2026-08-21 22:42 | - | - |
 | `query_live_endpoints.py` | 1.1KB | 2026-08-21 22:07 | - | - |
 | `query_normal_live_final.py` | 354B | 2026-08-21 22:43 | - | - |
@@ -1150,9 +1155,9 @@ shin-agent/
 | `restore_secrets.py` | 2.9KB | 2026-10-16 10:14 | ══════════════════════════════════════════════════════════════════ | `log()`, `restore_secrets()` |
 | `restore_slices.py` | 7.0KB | 2026-09-25 10:54 | - | - |
 | `rewrite_master_signal.py` | 11.7KB | 2026-08-22 00:19 | - | - |
-| `rgon_alpha_clone_engine.py` | 51.0KB | 2026-10-19 18:49 | [v11.23-TRADING-COUNCIL] | `safe_send_telegram()`, `sync_rgon_memory()`, `run_alpha_full_patrol()`, `execute_alpha_command()`, `get_alpha_status()`, `get_alpha_chat_history()`, `handle_alpha_chat_message()` |
+| `rgon_alpha_clone_engine.py` | 51.0KB | 2026-10-19 18:49 | [v11.24-OMNI-DISPATCH] | `safe_send_telegram()`, `sync_rgon_memory()`, `run_alpha_full_patrol()`, `execute_alpha_command()`, `get_alpha_status()`, `get_alpha_chat_history()`, `handle_alpha_chat_message()` |
 | `rgon_alpha_deep_button_auditor.py` | 11.5KB | 2026-10-19 11:11 | ══════════════════════════════════════════════════════════════════════════════ | `run_deep_button_audit()`, `get_button_audit_report()` |
-| `rgon_aside_browser_agent.py` | 38.3KB | 2026-10-19 20:10 | [v11.23-TRADING-COUNCIL] | `load_memory()`, `save_memory()`, `safe_send_telegram()`, `get_page_context()`, `get_aside_status()`, `execute_sub_agents_7_channels()`, `execute_aside_command()`, `execute_all_in_one_multitab_mission()` |
+| `rgon_aside_browser_agent.py` | 38.3KB | 2026-10-19 20:10 | [v11.24-OMNI-DISPATCH] | `load_memory()`, `save_memory()`, `safe_send_telegram()`, `get_page_context()`, `get_aside_status()`, `execute_sub_agents_7_channels()`, `execute_aside_command()`, `execute_all_in_one_multitab_mission()` |
 | `rgon_auto_evolve_brain.py` | 62.4KB | 2026-10-20 22:23 | rgon_auto_evolve_brain.py — RGON 자가 진화 두뇌 엔진 v1.0 (TOP1 TOTAL WAR) | `now()`, `rel()`, `sha1_bytes()`, `sha1_file()`, `read_text()`, `backup()`, `write_text()`, `load_json()`, `save_json()`, `class AntibodyMemory [__init__, antibodies, get, hit, add_antibody, record_skill…]`, `count_copy()`, `strip_copy()`, `count_dom()`, `protect_dom()`, `ensure_nocache()`, `count_pollinations_logo()`, `add_nologo()`, `class PromptAndRecipeEvolver [__init__, _load, _items, _match, _find, _pkey…]`, `fnd()`, `health_score()`, `class SelfAuditorAndHealer [__init__, code_targets, watermark_images, _node_check_code, syntax_failures, _probe…]`, `class NextEvolutionGenerator [__init__, _candidates, generate, _to_clipboard]`, `class SheetsLink [__init__, connect, _ensure_tab, register_top, append]`, `_top1_entry()`, `_find_old()` …(+9) |
 | `rgon_auto_sync_daemon.py` | 5.4KB | 2026-10-17 20:51 | ⚡ 르곤-안실장 양방향 시그널 자동 캐치 & IN/OUT 무인 동기화 데몬 엔진 | `load_state()`, `save_state()`, `handle_in_signal()`, `handle_out_signal()`, `run_self_test()`, `main()` |
 | `rgon_auto_watcher.py` | 21.8KB | 2026-10-23 07:30 | RGON 오토 기어 3단 — 24시간 무토큰 문지기 로봇 & 텔레그램 리모컨 (rgon_auto_watcher.py) | `log_msg()`, `load_telegram_creds()`, `tg_send()`, `tg_get_updates()`, `r14_clean_code()`, `execute_omni_file()`, `set_clipboard()`, `prompt_ahn_queue_box()`, `scan_and_relocate_downloads()`, `check_and_process_ahn_text_queue()`, `get_latest_omni()`, `build_briefing_text()`, `prompt_pc_box()`, `main_loop()`, `class RGONQueueHandler [log_message, _send_cors, do_OPTIONS, do_GET, do_POST]`, `_start_queue_servers()` |
@@ -1189,7 +1194,7 @@ shin-agent/
 ## 🌐 HTML
 | 경로 | 크기 | 수정 | title | 패치 마커 |
 |---|---|---|---|---|
-| `index.html` | 205.2KB | 2026-10-23 19:20 | 청와대 중앙 컨트롤 타워 v10.0 \| Spatial Glass OS | `RGON-YT-SCOUT-V13`, `RGYT-PLACE-ONCE-V15` |
+| `index.html` | 205.2KB | 2026-10-23 19:20 | 청와대 중앙 컨트롤 타워 v11.24-OMNI-DISPATCH \| Spatial Glass OS | `RGON-YT-SCOUT-V13`, `RGYT-PLACE-ONCE-V15` |
 | `offline.html` | 3.5KB | 2026-10-19 17:32 | 청와대 AI 중앙 컨트롤타워 - 터널 재개통 대기 중 | - |
 | `p1.htm` | 703B | 2026-10-21 13:16 | - | - |
 | `p2.htm` | 610B | 2026-10-21 13:17 | - | - |
@@ -1209,26 +1214,26 @@ shin-agent/
 | `a4_a5_snapshot_output.json` | 8.5KB | 2026-08-25 23:56 | keys: s1, s2, real_elapsed |
 | `active_design_theme.json` | 412B | 2026-10-19 19:06 | keys: current_theme, theme_name, palette, applied_at, applied_by, css_path |
 | `active_external_tunnel.json` | 348B | 2026-10-21 10:11 | keys: active_tunnel_url, tunnel_url, dashboard_url, port, verified_status, opened_at |
-| `agency_stage_gate_master.json` | 12.4KB | 2026-10-19 18:46 | version=v12.3-STAGE-GATE-MASTER · keys: version, updated_at, agencies |
+| `agency_stage_gate_master.json` | 12.4KB | 2026-10-19 18:46 | version=v11.24-OMNI-DISPATCH · keys: version, updated_at, agencies |
 | `anchongri_exec_queue.json` | 3B | 2026-10-20 17:31 | 배열 0개 |
 | `aside_local_memory.json` | 24.9KB | 2026-10-19 20:17 | keys: engine, vault_security, recent_runs, active_sub_agents_count, last_updated, last_run, last_all_in_one |
-| `auto_production_queue.json` | 4.9KB | 2026-10-19 23:52 | version=v10.6-one-touch · keys: version, corps_latest, tasks |
-| `cheongwadae_comm_log.json` | 21.8KB | 2026-10-20 20:19 | version=v10.0-live-communication-hub · keys: version, channel_status, messages, updated_at |
+| `auto_production_queue.json` | 4.9KB | 2026-10-19 23:52 | version=v11.24-OMNI-DISPATCH · keys: version, corps_latest, tasks |
+| `cheongwadae_comm_log.json` | 21.8KB | 2026-10-20 20:19 | version=v11.24-OMNI-DISPATCH · keys: version, channel_status, messages, updated_at |
 | `cheongwadae_golden_hashes.json` | 3.5KB | 2026-10-19 19:07 | keys: departments, safe_apps |
 | `clean_isolated_metrics.json` | 8.9KB | 2026-08-26 00:11 | keys: s1, s2, mem1, mem2, mem3, real_elapsed_seconds |
 | `department_work_queue.json` | 12.6KB | 2026-10-19 19:06 | version=v8.5-cleanroom-work-queue · keys: version, updated_at, compliance_policy, departments |
-| `dept_sub_agents_state.json` | 7.2KB | 2026-10-21 07:48 | version=v11.23-TRADING-COUNCIL · keys: system, version, updated_at, parent_commander, sub_agents |
+| `dept_sub_agents_state.json` | 7.2KB | 2026-10-21 07:48 | version=v11.24-OMNI-DISPATCH · keys: system, version, updated_at, parent_commander, sub_agents |
 | `ecc_skills_vault.json` | 2.2KB | 2026-10-18 02:21 | version=v6.2-direct-photo · keys: system, name, version, total_skills, total_agents, categories, last_updated |
 | `evolution_memory.json` | 7.0KB | 2026-10-22 19:44 | 배열 14개 |
 | `google_sheets_history_report.json` | 145.3KB | 2026-10-22 19:44 | keys: report_version, generated_at, summary, sheets, evolution_sync_history |
 | `google_sheets_sync_queue.json` | 28.1KB | 2026-10-19 23:52 | 배열 33개 |
-| `grok_viral_master_plan.json` | 4.4KB | 2026-10-19 17:31 | version=v12.0-GROK-4.7-VIRAL-MASTER · keys: version, updated_at, engine, slots, profile_bio, zero_violation_guard |
+| `grok_viral_master_plan.json` | 4.4KB | 2026-10-19 17:31 | version=v11.24-OMNI-DISPATCH.7-VIRAL-MASTER · keys: version, updated_at, engine, slots, profile_bio, zero_violation_guard |
 | `latest_tunnel_info.json` | 328B | 2026-10-21 07:29 | keys: active_tunnel_url, tunnel_url, dashboard_url, port, verified_status, opened_at |
 | `master_analyze_response.json` | 3.3KB | 2026-08-19 11:56 | keys: status, symbol, master_score, signal, signal_ko, confidence, components, pod_signals, pod_allocation, recommendation, risks, timestamp |
 | `memory_vault.json` | 20.9KB | 2026-10-17 07:15 | 배열 18개 |
 | `morning_briefing_report.json` | 1.4KB | 2026-10-19 19:06 | version=v9.0-cheonbu-ep1-genesis · keys: version, generated_at, duty_commanders, headline, metrics, night_achievements |
 | `nvda_analysis_verification.json` | 3.3KB | 2026-08-19 12:14 | keys: timestamp, nvda_price, overall_signal, overall_confidence, consensus_score, bull_count, bear_count, neutral_count, signals, summary |
-| `nvda_trading_diagnosis_report.json` | 5.6KB | 2026-10-19 04:34 | version=v11.23-TRADING-COUNCIL · keys: version, audit_date, auditor, target_system, four_core_diagnoses, status |
+| `nvda_trading_diagnosis_report.json` | 5.6KB | 2026-10-19 04:34 | version=v11.24-OMNI-DISPATCH · keys: version, audit_date, auditor, target_system, four_core_diagnoses, status |
 | `omni_agent_bus.json` | 39.3KB | 2026-10-19 19:06 | version=v8.0-cheongwadae-central-command · keys: system, version, registry, messages, latest_synergy_relay |
 | `omni_dispatch_queue.json` | 2.6KB | 2026-10-20 22:24 | 배열 1개 |
 | `omni_shared_clipboard.json` | 52B | 2026-10-20 17:31 | keys: entries, history, updated |
@@ -1244,7 +1249,7 @@ shin-agent/
 | `rgon_brain_snapshot.json` | 39.9KB | 2026-10-23 22:29 | version=v6.2.0-step16 · keys: schema, version, generated_at_kst, synced_at_kst, sync_rate, score, max_score, self_diagnosis, antibody_range, antibodies, top_priority_id, top_priority …(+19) |
 | `rgon_constitution.json` | 1.8KB | 2026-10-21 20:57 | version=1.0.0-CONSTITUTION · keys: name, version, immutable, immutable_note, kill_switch, blast_radius_levels, gates, guardrails |
 | `rgon_schedule_roadmap.json` | 5.6KB | 2026-10-19 19:06 | version=v8.7-rgon-master-schedule · keys: version, commander, controller, prime_executor, updated_at, daily_schedule, weekly_schedule, monthly_schedule, yearly_schedule, last_executed_cycle |
-| `rgon_skill_radar.json` | 80.5KB | 2026-10-23 18:24 | version=v13.0 · keys: videos, channels, github_skills, version, generated_at, seed_urls, hook_engine, stats, attribution |
+| `rgon_skill_radar.json` | 80.5KB | 2026-10-23 18:24 | version=v11.24-OMNI-DISPATCH · keys: videos, channels, github_skills, version, generated_at, seed_urls, hook_engine, stats, attribution |
 | `rgon_watcher_state.json` | 108B | 2026-10-22 21:55 | keys: last_file, last_mtime, last_update_id |
 
 ## 🩺 Python 문법 검증 (ast.parse)
@@ -1269,17 +1274,17 @@ shin-agent/
 <!-- [RGON-CODEMAP-STEP17-END] -->
 
 <!-- [RGON-STEP18-WBC-START] -->
-## Step 18 코드 맵 (v11.23-TRADING-COUNCIL)
+## Step 18 코드 맵 (v11.24-OMNI-DISPATCH)
 
 - `rgon_white_blood_cell.py`: 백혈구 자가치유 & 면역 순찰 엔진 (patrol / run_safely / shield / adapt_dict / fingerprint / install_excepthook / link_hexagram)
-- `rgon_immune_ledger.json`: 면역 원장 (antibodies R1~R24, healed_events, bypass_log, fingerprints, suppressed_count, health_score)
+- `rgon_immune_ledger.json`: 면역 원장 (antibodies R1~R25, healed_events, bypass_log, fingerprints, suppressed_count, health_score)
 - `step18_white_blood_cell_immune_engine.py`: Step 18 설치 스크립트 (멱등)
 - 세이프가드 장착 대상: `rgon_youtube_skill_scout.py`, `control_tower_bot.py`, `telegram_morning_report.py`, `update_3channels_analytics.py`, `github_scout_adapter.py`, `agent_swarm_cloner.py`, `channel_agent.py`, `dept_sub_agents_corps.py`, `multi_agent_orchestrator.py`, `patch_omni_agent_bus_backend.py`, `patch_omni_agent_bus_frontend.py`, `qa_button_inspector_agent.py`, `rgon_aside_browser_agent.py`, `rgon_bridge_8765.py`, `tunnel_discovery_bridge.py`
 - 백업: `.rgon_backup/step18_*`, 스냅샷: `.rgon_backup/wbc_snapshots`, 격리: `.rgon_backup/wbc_quarantine`
 <!-- [RGON-STEP18-WBC-END] -->
 
 <!-- RGON:STEP19-CODEMAP:BEGIN -->
-## 🗺️ rgon_nutrient_engine.py — v11.23-TRADING-COUNCIL (R19)
+## 🗺️ rgon_nutrient_engine.py — v11.24-OMNI-DISPATCH (R19)
 
 - MarkdownPurifier: purify_html(html_text, source_url=''), fetch_and_purify(url, timeout=10), self_check()
 - SkillAutoForge: forge() / forge_from_radar(root_dir) → skills/<slug>/SKILL.md, SKILL_INDEX.json, README.md
@@ -1291,8 +1296,8 @@ shin-agent/
 <!-- RGON:STEP19-CODEMAP:END -->
 
 <!-- RGON-STEP20-START -->
-## [Step 20] v11.23-TRADING-COUNCIL — 일일 자율 순환 루프 (R20)
-- 버전: v11.23-TRADING-COUNCIL / 항체 범위: R1~R24
+## [Step 20] v11.24-OMNI-DISPATCH — 일일 자율 순환 루프 (R20)
+- 버전: v11.24-OMNI-DISPATCH / 항체 범위: R1~R25
 - R20: 일일 자율 순환 루프(백혈구 순찰 → 영양분 소화·스킬 주조 → 3자 심판 → 주역 64괘 아침 브리핑) 무인 자동화
 - 심장: rgon_daily_cycle.py (--run / --status / --self-test)
 - 4단계: 백혈구 순찰 → 영양분 3스푼 소화·SKILL.md 주조·TrinityCouncil 심의 → 주역 64괘 → MORNING_BRIEF.md / rgon_morning_brief.json
@@ -1302,7 +1307,7 @@ shin-agent/
 <!-- RGON-STEP20-END -->
 
 <!-- RGON:STEP21:START -->
-## Step 21 (v11.23-TRADING-COUNCIL)
+## Step 21 (v11.24-OMNI-DISPATCH)
 - `GLOSSARY.md` — 도메인 공유 언어 15선
 - `rgon_spec_ticket_Shield.py` — SpecTicketDecomposer · AgentShieldScanner (--run/--self-test/--status)
 - `rgon_active_tickets.json` · `TICKETS_BOARD.md` — 작업 그래프/Frontier
@@ -1311,7 +1316,7 @@ shin-agent/
 <!-- RGON:STEP21:END -->
 
 <!-- STEP24 -->
-## v11.23-TRADING-COUNCIL (Step 24)
+## v11.24-OMNI-DISPATCH (Step 24)
 - `rgon_trading_council.py`: Bull/Bear/Judge 3자 심판 + 주역 64괘 필터 → `rgon_trading_council.json`, `--merge`로 brief 병합
 - `skills/trinity-trading-council/SKILL.md`: 19번째 정식 스킬
 - `rgon_daily_cycle.py`: STEP24 훅(atexit)으로 순환 시 자동 실행

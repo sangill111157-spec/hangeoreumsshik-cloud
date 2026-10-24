@@ -1,6 +1,6 @@
 {
-  "version": "v11.23-TRADING-COUNCIL",
-  "antibody_range": "R1~R24",
+  "version": "v11.24-OMNI-DISPATCH",
+  "antibody_range": "R1~R25",
   "r20": "일일 자율 순환 루프(백혈구 순찰 → 영양분 소화·스킬 주조 → 3자 심판 → 주역 64괘 아침 브리핑) 무인 자동화",
   "generated_at": "2026-10-24T09:03:09+09:00",
   "date": "2026-10-24",
@@ -9,14 +9,14 @@
     "ok": false,
     "health_score": 100,
     "heals": 0,
-    "antibody_range": "R1~R23",
+    "antibody_range": "R1~R25",
     "antibody_count": 23,
     "tail": "in-agent\\rgon_white_blood_cell.py\", line 857, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"C:\\Users\\sangi\\Downloads\\shin-agent\\rgon_white_blood_cell.py\", line 780, in main\n    rep = patrol(root, auto_heal=True)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\sangi\\Downloads\\shin-agent\\rgon_white_blood_cell.py\", line 687, in patrol\n    ledger = load_ledger(root)\n             ^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\sangi\\Downloads\\shin-agent\\rgon_white_blood_cell.py\", line 173, in load_ledger\n    merged[\"title\"] = ab[\"title\"]\n                      ~~^^^^^^^^^\nKeyError: 'title'"
   },
   "nutrient": {
     "ran": true,
     "ok": true,
-    "skill_total": 19,
+    "skill_total": 20,
     "new_skills": 0,
     "updated_skills": 0,
     "trinity": [
@@ -36,7 +36,7 @@
     "source": "rgon_immune_ledger.today_hexagram"
   },
   "telegram": "skipped(no env)",
-  "skill_count": 19,
+  "skill_count": 20,
   "trading_council": [
     {
       "id": "TREASURY",
@@ -111,8 +111,8 @@
   "antibody_count": 22,
   "health_score": 100,
   "vascular_circulation": {
-    "version": "v11.23-TRADING-COUNCIL",
-    "antibody_range": "R1~R24",
+    "version": "v11.24-OMNI-DISPATCH",
+    "antibody_range": "R1~R25",
     "antibody_R22": "자아성찰 전신 혈관 개통 — 레이더·영양분(SKILL.md)·티켓/AgentShield·백혈구(WBC)·주역64괘·스냅샷/클라우드 JSON 6대 기관 무결점 단일 순환",
     "cycle_at_kst": "2026-10-24 09:03:01 KST",
     "organs": {
@@ -123,7 +123,7 @@
       "5_iching": true,
       "6_pulse_snapshot": true
     },
-    "skill_count": 19,
+    "skill_count": 20,
     "health_score": 100,
     "radar_items": 13,
     "tickets_S22_01": "done",
@@ -144,21 +144,23 @@
     ],
     "engine_versions": {
       "rgon_white_blood_cell.py": {
-        "version": "v11.23-TRADING-COUNCIL",
-        "antibody_range": "R1~R24"
+        "version": "v11.24-OMNI-DISPATCH",
+        "antibody_range": "R1~R25"
       },
       "rgon_nutrient_engine.py": {
-        "version": "v11.23-TRADING-COUNCIL",
-        "antibody_range": "R1~R24"
+        "version": "v11.24-OMNI-DISPATCH",
+        "antibody_range": "R1~R25"
       },
       "rgon_spec_ticket_Shield.py": {
-        "version": "v11.23-TRADING-COUNCIL",
-        "antibody_range": "R1~R24"
+        "version": "v11.24-OMNI-DISPATCH",
+        "antibody_range": "R1~R25"
       },
       "rgon_daily_cycle.py": {
-        "version": "v11.23-TRADING-COUNCIL",
-        "antibody_range": "R1~R24"
+        "version": "v11.24-OMNI-DISPATCH",
+        "antibody_range": "R1~R25"
       }
     }
-  }
+  },
+  "skills_count": 20,
+  "last_sync": "Step25 2026-10-24 09:19:38"
 }

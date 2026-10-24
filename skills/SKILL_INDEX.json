@@ -1,8 +1,8 @@
 {
-  "version": "v11.23-TRADING-COUNCIL",
+  "version": "v11.24-OMNI-DISPATCH",
   "antibody": "R19",
   "generated_at_kst": "2026-10-24 09:03:01 KST",
-  "count": 19,
+  "count": 20,
   "skills": [
     {
       "slug": "1-36-45",
@@ -175,9 +175,23 @@
       "origin": "core",
       "path": "skills/trinity-trading-council/SKILL.md",
       "source_url": "local://rgon_trading_council.py"
+    },
+    {
+      "slug": "omni-skill-dispatcher",
+      "id": "omni-skill-dispatcher",
+      "name": "Omni Skill Dispatcher (만능 원터치 디스패처)",
+      "category": "omni-dispatch",
+      "hexagram_tag": "#14-大有",
+      "origin": "core",
+      "version": "v11.24-OMNI-DISPATCH",
+      "antibody": "R25",
+      "path": "skills/omni-skill-dispatcher/SKILL.md",
+      "source_url": "local://step25_omni_skill_dispatcher.py",
+      "description": "독대실 3탭(트렌드·보유 스킬·3자 심판) 항목을 [⚡ 질문창 장전] 원터치로 질문창에 단발 장전하고 클립보드에도 복사"
     }
   ],
-  "antibody_range": "R1~R24",
+  "antibody_range": "R1~R25",
   "synced_at_kst": "2026-10-24 09:03:09 KST",
-  "updated_at": "2026-10-24T09:03:10"
+  "updated_at": "2026-10-24T09:03:10",
+  "updated": "2026-10-24 09:19:38"
 }
