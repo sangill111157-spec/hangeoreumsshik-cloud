@@ -1,8 +1,8 @@
 {
-  "version": "v11.35-AON-PLAYGROUND-BRAT",
-  "antibody": "R1~R36",
+  "version": "v11.36-AON-ICHING-DAO",
+  "antibody": "R1~R37",
   "generated_at_kst": "2026-10-24 12:31:39 KST",
-  "count": 32,
+  "count": 33,
   "skills": [
     {
       "slug": "1-36-45",
@@ -310,6 +310,14 @@
       "antibody": "R36",
       "version": "v11.35-AON-PLAYGROUND-BRAT",
       "description": "아온(A-ON) 창틀 탈출 노트북 전체 놀이터 오버레이 & 게으름·찡찡·보채기·쓰담쓰담 8대 FSM 생명체 페르소나 스킬"
+    },
+    {
+      "id": 33,
+      "name": "aon-iching-dao-oracle",
+      "path": "skills/aon-iching-dao-oracle/SKILL.md",
+      "antibody": "R37",
+      "version": "v11.36-AON-ICHING-DAO",
+      "description": "아온(A-ON) 주역 64괘·정통 음력 매화역수·육효 시운 도술관 & 음양 미니 물방울 분신술 스킬"
     }
   ],
   "antibody_range": "R1~R35",

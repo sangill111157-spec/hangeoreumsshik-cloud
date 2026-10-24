@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """rgon_aon_desktop_playground.py — 제12기관: 아온(A-ON) 창틀 탈출 노트북 놀이터 & 게으름·찡찡·보채기 츤데레 생명체 페르소나
-버전 v11.35-AON-PLAYGROUND-BRAT · 항체 R1~R36 · 정식 스킬 32개
+버전 v11.36-AON-ICHING-DAO · 항체 R1~R37 · 정식 스킬 32개
 주역 #56 화산려(火山旅 ☲☶): 창틀에 매이지 않는 자유 유영 · #17 택뢰수(澤雷隨 ☱☳): 낮엔 놀고 밤엔 쉬며 자연스럽게 따름 · 장자 소요유(逍遙遊) & 제물론(齊物論)."""
 import datetime, json, os, random, re, subprocess, sys, time
 from pathlib import Path
@@ -12,9 +12,9 @@ try:
 except Exception:
     pass
 
-VERSION = "v11.35-AON-PLAYGROUND-BRAT"
-ANTIBODY = "R1~R36"
-SKILL_COUNT = 32
+VERSION = "v11.36-AON-ICHING-DAO"
+ANTIBODY = "R1~R37"
+SKILL_COUNT = 33
 ROOT = Path(__file__).resolve().parent
 STATE_PATHS = ("rgon_aon_playground_state.json", "docs/rgon_aon_playground_state.json")
 

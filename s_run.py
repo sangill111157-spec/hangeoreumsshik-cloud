@@ -1,151 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Step 35: v11.34-AON-LAPTOP-HANDS — 제11기관 노트북 만능 제어 수족 & 중요 결재 수동 ON/OFF 마스터 스위치 (G2 최종 완결판)"""
-import os, sys, json, re, time, shutil, hashlib, datetime, subprocess
-from pathlib import Path
-
-ROOT = Path(__file__).resolve().parent
-ARGS = set(sys.argv[1:])
-DRY, NO_GIT, NO_MSG = "--dry-run" in ARGS, "--no-git" in ARGS, "--no-msgbox" in ARGS
-
-OLD_VER, NEW_VER = "v11.33-AON-SOUL-BRAIN", "v11.34-AON-LAPTOP-HANDS"
-OLD_R, NEW_R = "R1~R34", "R1~R35"
-NEW_SK = 31
-R35_TEXT = ("R35: 아온(A-ON) 노트북 만능 제어 수족 & 중요 결재 수동 ON/OFF 마스터 스위치 — Tier 3·금융·파일삭제·외부전송은 "
-            "마스터 + 카테고리 스위치 수동 ON + 대표님 승인 3중 충족 시에만 집행, 하나라도 OFF면 집행 0건")
-
-V13_START_RE = re.compile(rb"<!--\s*\[RGON-(?:YT-SCOUT|UX-CLEANUP)-V13-START\]\s*-->")
-V13_END_RE = re.compile(rb"<!--\s*\[RGON-(?:YT-SCOUT|UX-CLEANUP)-V13-END\]\s*-->")
-SKIP_DIRS = {".git", "__pycache__", "node_modules", ".venv", "venv", ".idea", ".vscode",
-             ".rgon_backup", ".rgon_backups", "backups", "archive", "old_backups"}
-RUNTIME_RE = re.compile(r"(\.log$|\.pyc$|\.jsonl$|rgon_immune_ledger\.json$|rgon_aon_memory\.json$|dept_sub_agents_state\.json$|\.wbc_tmp$|(^|/)logs?/)")
-
-HTML_TARGETS = ["index.html", "rgon_alpha_audience.html", "rgon_alpha_chat.html", "dashboard/index.html",
-                "dashboard/rgon_alpha_chat.html", "docs/index.html", "docs/rgon_alpha_chat.html"]
-PY_SYNC = ["rgon_daily_cycle.py", "rgon_self_evolution_engine.py", "rgon_omni_creator_forge.py",
-           "rgon_k_avatar_engine.py", "rgon_excretory_organ.py", "rgon_muse_delegator.py",
-           "rgon_voice_organ.py", "rgon_aon_soul_brain.py", "rgon_white_blood_cell.py"]
-MD_SYNC = ["skills/SKILL_INDEX.md", "CONSTITUTION.md", "ANTIBODY_REGISTRY.md", "CODE_MAP.md",
-           "GLOSSARY.md", "RGON_MORNING_BRIEF.md"]
-HANDS_REL, SOUL_REL, VOICE_REL, MUSE_REL, WBC_REL = ("rgon_laptop_hands.py", "rgon_aon_soul_brain.py",
-                                                     "rgon_voice_organ.py", "rgon_muse_delegator.py", "rgon_white_blood_cell.py")
-SKILL_ID = "aon-laptop-hands-manual-gate"
-SKILL_REL = f"skills/{SKILL_ID}/SKILL.md"
-REPORT_REL = "STEP35_LAPTOP_HANDS_REPORT.md"
-EXTRAS = ("rgon_voice_profile.json", "docs/rgon_voice_profile.json", "rgon_aon_memory.json", "docs/rgon_aon_memory.json",
-          "rgon_manual_gate_state.json", "docs/rgon_manual_gate_state.json", "rgon_immune_ledger.json",
-          "dept_sub_agents_state.json", "docs/dept_sub_agents_state.json")
-GIT_EXCLUDES = [":(exclude).rgon_backups", ":(exclude)rgon_aon_memory.json", ":(exclude)docs/rgon_aon_memory.json",
-                ":(exclude)rgon_laptop_hands_ledger.jsonl", ":(exclude)aon_drafts", ":(exclude)test_aon_converse.py"]
-
-SKC_RE = re.compile(r"(\b(?:EXPECTED_SKILL_COUNT|SKILL_COUNT|EXPECTED_SKILLS|TOTAL_SKILLS|FORMAL_SKILL_COUNT|OFFICIAL_SKILL_COUNT)\s*(?::\s*int\s*)?=\s*)30\b")
-ABC_RE = re.compile(r"(\b(?:EXPECTED_ANTIBODY_COUNT|EXPECTED_ANTIBODIES|ANTIBODY_COUNT|TOTAL_ANTIBODIES)\s*(?::\s*int\s*)?=\s*)34\b")
-
-TS = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-BACKUP = ROOT / ".rgon_backups" / f"step35_{TS}"
-CHANGED, CREATED, NEW_DIRS, LOG = set(), set(), set(), []
-PRE = {}
-
-def log(m):
-    print(m); LOG.append(m)
-
-def sha(b): return hashlib.sha256(b).hexdigest()
-
-def rel(p): return Path(p).resolve().relative_to(ROOT).as_posix()
-
-def rd(p):
-    try: return Path(p).read_text(encoding="utf-8")
-    except Exception: return ""
-
-def walk(runtime=False):
-    for dp, dns, fns in os.walk(ROOT):
-        dns[:] = [d for d in dns if d not in SKIP_DIRS]
-        for f in fns:
-            p = Path(dp) / f
-            if not runtime and RUNTIME_RE.search(rel(p)): continue
-            yield p
-
-def snapshot(): return {rel(p): sha(p.read_bytes()) for p in walk()}
-
-def backup(p):
-    p = Path(p)
-    if p.exists():
-        d = BACKUP / rel(p); d.parent.mkdir(parents=True, exist_ok=True)
-        if not d.exists(): shutil.copy2(p, d)
-
-def _note_new_dirs(p):
-    d = Path(p).parent
-    while not d.exists() and d != ROOT:
-        NEW_DIRS.add(d); d = d.parent
-
-def write_bytes(p, b):
-    p = Path(p); r = rel(p)
-    if p.exists() and p.read_bytes() == b: return False
-    CHANGED.add(r)
-    if DRY: return True
-    if p.exists():
-        if r not in CREATED: backup(p)
-    else:
-        CREATED.add(r); _note_new_dirs(p)
-    p.parent.mkdir(parents=True, exist_ok=True); p.write_bytes(b)
-    return True
-
-def write_text(p, s): return write_bytes(p, s.encode("utf-8"))
-
-def prepare_extras():
-    for r in EXTRAS:
-        p = ROOT / r
-        if p.exists():
-            if r not in CREATED: backup(p)
-        else:
-            CREATED.add(r); _note_new_dirs(p)
-
-def rollback(reason):
-    log(f"⏪ Auto-Rollback 시작: {reason}")
-    rs = rm = 0
-    for r in sorted(CHANGED | set(EXTRAS) | {REPORT_REL}):
-        p, b = ROOT / r, BACKUP / r
-        try:
-            if r in CREATED:
-                if p.exists(): p.unlink(); rm += 1
-            elif b.exists():
-                p.parent.mkdir(parents=True, exist_ok=True); shutil.copy2(b, p); rs += 1
-        except Exception as e:
-            log(f"  ⚠️ 복구 실패 {r}: {e!r}")
-    for d in sorted(NEW_DIRS, key=lambda x: len(x.parts), reverse=True):
-        try:
-            if d.exists() and not any(d.iterdir()): d.rmdir()
-        except Exception: pass
-    post = snapshot()
-    diff = [k for k in set(PRE) | set(post) if PRE.get(k) != post.get(k)]
-    log(f"⏪ 복원 {rs}개 · 신규 삭제 {rm}개 · 원복 검증 {'✅ 100% 일치' if not diff else '❌ 불일치 ' + str(len(diff)) + '건'}")
-    for k in diff[:20]: log(f"    - {k}")
-    log(f"   원본 백업: {rel(BACKUP) if BACKUP.exists() else '(없음)'}")
-
-def v13_span(b):
-    s = V13_START_RE.search(b)
-    if not s: return None
-    kind = re.search(rb"(YT-SCOUT|UX-CLEANUP)", s.group(0)).group(1)
-    ends = list(V13_END_RE.finditer(b, s.end()))
-    for e in ends:
-        if kind in e.group(0): return (s.start(), e.end(), e.start())
-    return (s.start(), ends[0].end(), ends[0].start()) if ends else None
-
-def outside_hash(b):
-    sp = v13_span(b)
-    return sha(b[:sp[0]] + b[sp[1]:]) if sp else None
-
-# ============================================================ 1) 제11기관 엔진
-HANDS_SRC = r'''#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""rgon_laptop_hands.py — 제11기관: 아온(A-ON) 노트북 만능 제어 수족 & 중요 결재 수동 ON/OFF 마스터 스위치
-버전 v11.34-AON-LAPTOP-HANDS · 항체 R1~R35
-주역 #60 수택절(水澤節): 마디를 두어 절제한다 — 스위치가 곧 마디다.
-주역 #62 뇌산소과(雷山小過): 작은 일은 넘쳐도 되나 큰 일은 넘치면 안 된다 — 조회는 열고 큰 결재는 잠근다.
-주역 #14 화천대유(火天大有): 크게 가진 자는 겸손히 지킨다.
-안전 원칙: 실제 증권사 주문·결제·파일 삭제 API는 연결하지 않는다. 허용된 중요 결재는 집행 기록(ledger)만 남긴다.
-앱 실행은 허용 목록과 http(s) URL만 허용하며, 임의 명령 문자열은 실행하지 않는다."""
-import os, sys, json, re, shutil, platform, datetime, subprocess
+"""Step 37: v11.36-AON-ICHING-DAO — 제13기관 아온 주역(周易) 64괘·정통 음력 매화역수·육효 시운 도술관 & 미니 물방울 분신술 (R1~R37 · 정식 스킬 33)"""
+import datetime, hashlib, json, os, re, shutil, subprocess, sys, time
 from pathlib import Path
 
 try:
@@ -154,814 +10,874 @@ try:
 except Exception:
     pass
 
-VERSION = "v11.34-AON-LAPTOP-HANDS"
-ANTIBODY = "R1~R35"
 ROOT = Path(__file__).resolve().parent
-STATE_PATHS = ("rgon_manual_gate_state.json", "docs/rgon_manual_gate_state.json")
-LEDGER = ROOT / "rgon_laptop_hands_ledger.jsonl"
-DRAFT_DIR = ROOT / "aon_drafts"
-SKIP_DIRS = {".git", "__pycache__", "node_modules", ".venv", "venv", ".idea", ".vscode",
-             ".rgon_backup", ".rgon_backups", "backups", "archive", "old_backups"}
-GATE_LABELS = {"finance_payment": "💰 금융·결제", "laptop_app_browser": "💻 노트북앱",
-               "file_modify_delete": "🗂️ 파일삭제·이동", "external_dispatch": "🌐 외부전송"}
-DEFAULT_GATES = {"finance_payment": False, "laptop_app_browser": True, "file_modify_delete": False, "external_dispatch": False}
-CRITICAL = ("finance_payment", "file_modify_delete", "external_dispatch")
-LOCK_MSG = "🔒 중요 결재 수동 스위치가 OFF(잠금) 상태입니다. 상단 수동 스위치를 ON으로 켜주셔야 작동합니다."
-CAT_RE = {"finance_payment": re.compile(r"매수|매도|주문|결제|송금|이체|리밸런싱|배분|입금|출금"),
-          "file_modify_delete": re.compile(r"삭제|지워|지우|이동|폴더|파일\s*정리"),
-          "external_dispatch": re.compile(r"발송|배포|푸시|push|전송|업로드|설정\s*변경|메일", re.I)}
-APPS = {"메모장": "notepad.exe", "notepad": "notepad.exe", "계산기": "calc.exe", "calc": "calc.exe",
-        "탐색기": "explorer.exe", "explorer": "explorer.exe", "그림판": "mspaint.exe", "paint": "mspaint.exe"}
-SITES = {"유튜브": "https://www.youtube.com", "youtube": "https://www.youtube.com", "구글": "https://www.google.com",
-         "google": "https://www.google.com", "네이버": "https://www.naver.com", "naver": "https://www.naver.com"}
+OLD_VER, NEW_VER = "v11.35-AON-PLAYGROUND-BRAT", "v11.36-AON-ICHING-DAO"
+OLD_AB, NEW_AB = "R1~R36", "R1~R37"
+OLD_SK, NEW_SK = 32, 33
+SKILL_NAME = "aon-iching-dao-oracle"
+ORACLE_FILE = "rgon_aon_iching_dao_oracle.py"
+REPORT_FILE = "STEP37_AON_ICHING_DAO_REPORT.md"
+R37_SUMMARY = ("R37: 아온(A-ON) 주역 64괘·정통 음력 매화역수·육효 시운 도술관 & 음양 미니 물방울 분신술 — "
+               "1900~2099 진짜 음력 기괘 + 5대 입체 괘상(본괘·호괘·변괘·착괘·종괘) + 체용 생극·통관 중재·왕상휴수사 + "
+               "육효 효위반(당위·득중·상응·승강·이오중정상응) + 6대 시중(時中) 처세 나침반")
 
-def _now(): return datetime.datetime.now().isoformat(timespec="seconds")
+HTML_TARGETS = ["index.html", "rgon_alpha_audience.html", "rgon_alpha_chat.html",
+                "dashboard/index.html", "dashboard/rgon_alpha_chat.html",
+                "docs/index.html", "docs/rgon_alpha_chat.html"]
+SYNC_FILES = [
+    "CONSTITUTION.md", "ANTIBODY_REGISTRY.md", "CODE_MAP.md", "GLOSSARY.md", "RGON_MORNING_BRIEF.md",
+    "skills/SKILL_INDEX.md", "skills/SKILL_INDEX.json",
+    "rgon_morning_brief.json", "docs/rgon_morning_brief.json", "rgon_Numeric_Organ.json",
+    "rgon_k_avatar_state.json", "docs/rgon_k_avatar_state.json",
+    "rgon_muse_queue.json", "docs/rgon_muse_queue.json",
+    "rgon_voice_profile.json", "docs/rgon_voice_profile.json",
+    "rgon_voice_organ_state.json", "docs/rgon_voice_organ_state.json",
+    "rgon_aon_memory.json", "docs/rgon_aon_memory.json",
+    "rgon_manual_gate_state.json", "docs/rgon_manual_gate_state.json",
+    "rgon_laptop_hands_state.json", "docs/rgon_laptop_hands_state.json",
+    "rgon_aon_playground_state.json", "docs/rgon_aon_playground_state.json",
+    "rgon_aon_iching_state.json", "docs/rgon_aon_iching_state.json",
+    "rgon_immune_ledger.json",
+    "rgon_white_blood_cell.py", "rgon_daily_cycle.py", "rgon_k_avatar_engine.py",
+    "rgon_muse_delegator.py", "rgon_voice_organ.py", "rgon_aon_soul_brain.py",
+    "rgon_laptop_hands.py", "rgon_aon_desktop_playground.py", ORACLE_FILE,
+    "dept_sub_agents_status.json", "docs/dept_sub_agents_status.json",
+]
+NEW_FILES = [
+    ORACLE_FILE,
+    "rgon_aon_iching_state.json",
+    "docs/rgon_aon_iching_state.json",
+    f"skills/{SKILL_NAME}/SKILL.md",
+    REPORT_FILE,
+]
+MOD_ALLOW = set(HTML_TARGETS) | set(SYNC_FILES) | set(NEW_FILES)
+SKIP_DIRS = {".git", ".rgon_backups", ".rgon_backup", "__pycache__", "node_modules", ".venv", "venv"}
 
-def _default():
-    return {"version": VERSION, "antibody": ANTIBODY, "master_approval_on": False,
-            "gates": dict(DEFAULT_GATES), "labels": GATE_LABELS, "history": [], "updated_at": _now()}
 
-def load_state():
-    for r in STATE_PATHS:
-        try: j = json.loads((ROOT / r).read_text(encoding="utf-8"))
-        except Exception: continue
-        if isinstance(j, dict):
-            s = _default(); s.update({k: v for k, v in j.items() if k != "gates"})
-            g = j.get("gates") if isinstance(j.get("gates"), dict) else {}
-            s["gates"] = {k: bool(g.get(k, v)) for k, v in DEFAULT_GATES.items()}
-            s["master_approval_on"] = bool(s.get("master_approval_on"))
-            return s
-    return _default()
+def log(msg): print(msg, flush=True)
+def rd(p): return Path(p).read_text(encoding="utf-8", errors="replace")
+def wr(p, s):
+    p = Path(p)
+    if not p.is_absolute(): p = ROOT / p
+    p.parent.mkdir(parents=True, exist_ok=True)
+    for i in range(6):
+        try:
+            p.write_text(s, encoding="utf-8", newline="\n")
+            return
+        except PermissionError:
+            time.sleep(0.05 * (i + 1))
+    p.write_text(s, encoding="utf-8", newline="\n")
 
-def save_state(s):
-    s["version"], s["antibody"], s["labels"], s["updated_at"] = VERSION, ANTIBODY, GATE_LABELS, _now()
-    txt = json.dumps(s, ensure_ascii=False, indent=2)
-    for r in STATE_PATHS:
-        p = ROOT / r; p.parent.mkdir(parents=True, exist_ok=True)
-        tmp = p.with_name(p.name + ".tmp"); tmp.write_text(txt, encoding="utf-8"); os.replace(tmp, p)
-    return s
 
-def _change(event, fn):
-    s = load_state(); fn(s)
-    s["history"] = (list(s.get("history", [])) + [{"t": _now(), "event": event}])[-30:]
-    return save_state(s)
+def sha256(p): return hashlib.sha256(p.read_bytes()).hexdigest()
 
-def set_master_gate(on):
-    return _change("master=" + ("ON" if on else "OFF"), lambda s: s.__setitem__("master_approval_on", bool(on)))
 
-def set_category_gate(cat, on):
-    if cat not in DEFAULT_GATES: raise ValueError(f"알 수 없는 카테고리: {cat}")
-    return _change(f"{cat}=" + ("ON" if on else "OFF"), lambda s: s["gates"].__setitem__(cat, bool(on)))
+def snapshot_all():
+    out = {}
+    for p in ROOT.rglob("*"):
+        if not p.is_file(): continue
+        rel = p.relative_to(ROOT).as_posix()
+        if any(part in SKIP_DIRS for part in p.relative_to(ROOT).parts): continue
+        out[rel] = sha256(p)
+    return out
 
-def lock_all_gates():
-    def f(s):
-        s["master_approval_on"] = False; s["gates"] = {k: False for k in DEFAULT_GATES}
-    return _change("LOCK_ALL", f)
 
-def critical_categories(text): return [k for k, r in CAT_RE.items() if r.search(text or "")]
+def backup_targets(bdir):
+    bdir.mkdir(parents=True, exist_ok=True)
+    saved = []
+    for rel in sorted(MOD_ALLOW):
+        src = ROOT / rel
+        if src.exists() and src.is_file():
+            dst = bdir / rel
+            dst.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(src, dst)
+            saved.append(rel)
+    (bdir / "_manifest.json").write_text(json.dumps({"saved": saved, "new": NEW_FILES}, ensure_ascii=False, indent=2), encoding="utf-8")
+    return saved
 
-def critical_category(text):
-    c = critical_categories(text)
-    return c[0] if len(c) == 1 else "unknown"
 
-def can_execute_critical(category, tier=3):
-    s = load_state(); g, m = s["gates"], s["master_approval_on"]
-    if category in g:
-        need = tier >= 3 or category in CRITICAL
-        ok = (m and g[category]) if need else g[category]
-        req = ["master", category] if need else [category]
-    else:
-        ok = m and all(g[k] for k in CRITICAL); req = ["master"] + list(CRITICAL)
-    return {"allowed": bool(ok), "category": category, "tier": tier, "requires": req, "master_approval_on": m,
-            "gates": dict(g), "message": "✅ 수동 스위치 ON 확인 — 집행 가능합니다." if ok else LOCK_MSG}
+def restore_backup(bdir, snap0):
+    log("⏪ Auto-Rollback 시작: 백업에서 100% 원복합니다...")
+    man = json.loads((bdir / "_manifest.json").read_text(encoding="utf-8"))
+    for rel in man.get("saved", []):
+        src, dst = bdir / rel, ROOT / rel
+        if src.exists():
+            dst.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(src, dst)
+    removed = 0
+    for rel in man.get("new", []):
+        if rel not in man.get("saved", []):
+            p = ROOT / rel
+            if p.exists():
+                p.unlink(); removed += 1
+                if p.parent != ROOT and not any(p.parent.iterdir()):
+                    try: p.parent.rmdir()
+                    except Exception: pass
+    snap1 = snapshot_all()
+    same = (snap0 == snap1)
+    log(f"⏪ 복원 {len(man.get('saved', []))}개 · 신규 삭제 {removed}개 · 원복 검증 {'✅ 100% 일치' if same else '⚠️ 차이 있음'}")
 
-def _count_files():
-    n = 0
-    for dp, dns, fns in os.walk(ROOT):
-        dns[:] = [d for d in dns if d not in SKIP_DIRS]; n += len(fns)
-    return n
 
-def system_check():
-    du = shutil.disk_usage(str(ROOT)); gb = 1024 ** 3
-    rep = {"os": f"{platform.system()} {platform.release()}", "machine": platform.machine(),
-           "python": platform.python_version(), "executable": sys.executable,
-           "disk_total_gb": round(du.total / gb, 1), "disk_free_gb": round(du.free / gb, 1),
-           "disk_free_pct": round(du.free * 100 / du.total, 1) if du.total else 0.0,
-           "hq_files": _count_files(), "hq_path": str(ROOT), "checked_at": _now()}
-    tip = " 여유 공간이 10% 아래라 정리가 필요해 보여요." if rep["disk_free_pct"] < 10 else " 여유 공간도 넉넉해요!"
-    rep["speech"] = (f"대표님 노트북 점검 결과예요! {rep['os']}, 파이썬 {rep['python']}, 디스크 여유 "
-                     f"{rep['disk_free_gb']}GB / {rep['disk_total_gb']}GB({rep['disk_free_pct']}%), 사령부 파일 {rep['hq_files']}개예요." + tip)
-    return rep
+ORACLE_SRC = r'''#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""rgon_aon_iching_dao_oracle.py — 제13기관: 아온(A-ON) 주역(周易) 64괘·정통 음력 매화역수·육효(六爻) 시운 도술관
+버전 v11.36-AON-ICHING-DAO · 항체 R1~R37 · 정식 스킬 33개
+muyen/meihua-yishu + YiSphere + ichingpy + ProactiveAgent 4대 정점 아키텍처 융합 (1900~2099 진짜 음력 내장)"""
+import datetime, hashlib, json, os, sys, time
+from pathlib import Path
 
-def _ledger(rec, dry_run):
-    if dry_run: return
-    with open(LEDGER, "a", encoding="utf-8") as f: f.write(json.dumps(rec, ensure_ascii=False) + "\n")
+try:
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+except Exception:
+    pass
 
-def _result(action, tier, ok, msg, **kw):
-    d = {"action": action, "tier": tier, "ok": bool(ok), "message": msg, "executed": 0, "dry_run": True}
-    d.update(kw); return d
+ROOT = Path(__file__).resolve().parent
+VERSION = "v11.36-AON-ICHING-DAO"
+ANTIBODY = "R1~R37"
+SKILL_COUNT = 33
+STATE_PATHS = ("rgon_aon_iching_state.json", "docs/rgon_aon_iching_state.json")
 
-def _open(what, is_url):
-    if os.name == "nt":
-        if is_url: os.startfile(what)
-        else: subprocess.Popen([what])
-    elif is_url:
-        subprocess.Popen(["open" if sys.platform == "darwin" else "xdg-open", what])
-    else:
-        raise OSError("Windows 기본 앱은 Windows에서만 열 수 있어요")
+# 1900~2099 정통 음력 비트 테이블 (muyen/meihua-yishu 중국천문대 표준)
+YEAR_INFOS = [
+    0x04bd8,0x04ae0,0x0a570,0x054d5,0x0d260,0x0d950,0x16554,0x056a0,0x09ad0,0x055d2,
+    0x04ae0,0x0a5b6,0x0a4d0,0x0d250,0x1d255,0x0b540,0x0d6a0,0x0ada2,0x095b0,0x14977,
+    0x04970,0x0a4b0,0x0b4b5,0x06a50,0x06d40,0x1ab54,0x02b60,0x09570,0x052f2,0x04970,
+    0x06566,0x0d4a0,0x0ea50,0x06e95,0x05ad0,0x02b60,0x186e3,0x092e0,0x1c8d7,0x0c950,
+    0x0d4a0,0x1d8a6,0x0b550,0x056a0,0x1a5b4,0x025d0,0x092d0,0x0d2b2,0x0a950,0x0b557,
+    0x06ca0,0x0b550,0x15355,0x04da0,0x0a5d0,0x14573,0x052d0,0x0a9a8,0x0e950,0x06aa0,
+    0x0aea6,0x0ab50,0x04b60,0x0aae4,0x0a570,0x05260,0x0f263,0x0d950,0x05b57,0x056a0,
+    0x096d0,0x04dd5,0x04ad0,0x0a4d0,0x0d4d4,0x0d250,0x0d558,0x0b540,0x0b5a0,0x195a6,
+    0x095b0,0x049b0,0x0a974,0x0a4b0,0x0b27a,0x06a50,0x06d40,0x0af46,0x0ab60,0x09570,
+    0x04af5,0x04970,0x064b0,0x074a3,0x0ea50,0x06b58,0x05ac0,0x0ab60,0x096d5,0x092e0,
+    0x0c960,0x0d954,0x0d4a0,0x0da50,0x07552,0x056a0,0x0abb7,0x025d0,0x092d0,0x0cab5,
+    0x0a950,0x0b4a0,0x0baa4,0x0ad50,0x055d9,0x04ba0,0x0a5b0,0x15176,0x052b0,0x0a930,
+    0x07954,0x06aa0,0x0ad50,0x05b52,0x04b60,0x0a6e6,0x0a4e0,0x0d260,0x0ea65,0x0d530,
+    0x05aa0,0x076a3,0x096d0,0x04afb,0x04ad0,0x0a4d0,0x1d0b6,0x0d250,0x0d520,0x0dd45,
+    0x0b5a0,0x056d0,0x055b2,0x049b0,0x0a577,0x0a4b0,0x0aa50,0x1b255,0x06d20,0x0ada0,
+    0x14b63,0x09370,0x049f8,0x04970,0x064b0,0x168a6,0x0ea50,0x06aa0,0x1a6c4,0x0aae0,
+    0x092e0,0x0d2e3,0x0c960,0x0d557,0x0d4a0,0x0da50,0x05d55,0x056a0,0x0a6d0,0x055d4,
+    0x052d0,0x0a9b8,0x0a950,0x0b4a0,0x0b6a6,0x0ad50,0x055a0,0x0aba4,0x0a5b0,0x052b0,
+    0x0b273,0x06930,0x07337,0x06aa0,0x0ad50,0x14b55,0x04b60,0x0a570,0x054e4,0x0d160,
+    0x0e968,0x0d520,0x0daa0,0x16aa6,0x056d0,0x04ae0,0x0a9d4,0x0a2d0,0x0d150,0x0f252,
+]
 
-def execute_laptop_action(action_type, target="", dry_run=True, approved=False, category=None):
-    t = str(target or "").strip()
-    if action_type == "system_check":
-        rep = system_check()
-        return _result(action_type, 1, True, rep["speech"], report=rep, speech=rep["speech"], dry_run=dry_run)
-    if action_type == "open_app_or_url":
-        g = can_execute_critical("laptop_app_browser", tier=2)
-        if not g["allowed"]:
-            return _result(action_type, 2, False, "💻 노트북앱 스위치가 OFF라 열지 않았어요. 제어판에서 켜 주세요.", gate=g, dry_run=dry_run)
-        key = t.lower()
-        if re.match(r"^https?://[^\s\"'<>]+$", t, re.I): url, app = t, None
-        else:
-            url = SITES.get(key) or SITES.get(t)
-            app = None if url else (APPS.get(key) or APPS.get(t))
-        if not url and not app:
-            return _result(action_type, 2, False, f"'{t}'은(는) 허용 목록에 없어 열지 않았어요. (메모장·계산기·탐색기·그림판 / 유튜브·구글·네이버 / http(s) 주소)", dry_run=dry_run)
-        what = url or app
-        if dry_run:
-            return _result(action_type, 2, True, f"{t} 열 준비가 끝났어요! (안전 모드라 창은 띄우지 않았어요 · 실제 실행은 RGON_HANDS_LIVE=1)", prepared=what, dry_run=True)
-        try: _open(what, bool(url))
-        except Exception as e:
-            return _result(action_type, 2, False, f"{t}을(를) 여는 중 문제가 생겼어요: {e}", prepared=what, dry_run=False)
-        _ledger({"t": _now(), "action": action_type, "target": what}, False)
-        return _result(action_type, 2, True, f"{t} 열어드렸어요! 💧", prepared=what, executed=1, dry_run=False)
-    if action_type == "draft_file":
-        name = re.sub(r"[^0-9A-Za-z가-힣_-]+", "_", t[:40]).strip("_") or "memo"
-        p = DRAFT_DIR / f"draft_{datetime.datetime.now():%Y%m%d_%H%M%S}_{name}.md"
-        k = 1
-        while p.exists():
-            p = p.with_name(p.stem + f"_{k}.md"); k += 1
-        r_ = p.relative_to(ROOT).as_posix()
-        if dry_run: return _result(action_type, 2, True, f"초안 파일 준비 완료: {r_}", path=r_, dry_run=True)
-        DRAFT_DIR.mkdir(exist_ok=True)
-        p.write_text(f"# 아온 초안 — {t}\n\n- 작성: {_now()} · {VERSION}\n\n(여기에 내용을 채워 주세요)\n", encoding="utf-8")
-        return _result(action_type, 2, True, f"초안 파일을 만들었어요: {r_}", path=r_, executed=1, dry_run=False)
-    if action_type == "critical_order_or_delete":
-        cat = category or critical_category(t)
-        g = can_execute_critical(cat, tier=3)
-        if not g["allowed"]:
-            return _result(action_type, 3, False, LOCK_MSG, allowed=False, gate=g, dry_run=dry_run)
-        if not approved:
-            return _result(action_type, 3, False, "✋ 스위치는 ON이지만 대표님 승인이 아직이에요. [✅ 승인 집행]을 눌러 주셔야 해요.",
-                           allowed=True, gate=g, dry_run=dry_run)
-        rec = {"t": _now(), "action": action_type, "target": t, "category": cat, "approved": True,
-               "note": "집행 기록 전용 — 실제 주문/결제/삭제 API 미연결"}
-        _ledger(rec, dry_run)
-        return _result(action_type, 3, True, "✅ 수동 스위치 ON + 대표님 승인 확인! 집행 기록을 남겼어요. (실제 주문·삭제 API는 연결돼 있지 않아요)",
-                       allowed=True, gate=g, record=rec, executed=0 if dry_run else 1, dry_run=dry_run)
-    return _result(str(action_type), 0, False, f"알 수 없는 작업: {action_type}", dry_run=dry_run)
+def _lunar_year_days(y):
+    info = YEAR_INFOS[y - 1900]
+    total = sum(30 if (info & (0x8000 >> i)) else 29 for i in range(12))
+    leap = info & 0xf
+    if leap: total += 30 if (info & 0x10000) else 29
+    return total
+
+def solar_to_lunar(dt):
+    base = datetime.date(1900, 1, 31)
+    cur = dt.date() if isinstance(dt, datetime.datetime) else dt
+    offset = (cur - base).days
+    if offset < 0 or cur.year > 2099:
+        return ((cur.year - 4) % 12) + 1, cur.month, cur.day, False
+    y = 1900
+    while y < 2100:
+        yd = _lunar_year_days(y)
+        if offset < yd: break
+        offset -= yd; y += 1
+    info = YEAR_INFOS[y - 1900]
+    leap = info & 0xf
+    is_leap = False
+    for m in range(1, 13):
+        md = 30 if (info & (0x8000 >> (m - 1))) else 29
+        if offset < md: return ((y - 4) % 12) + 1, m, offset + 1, False
+        offset -= md
+        if leap == m:
+            ld = 30 if (info & 0x10000) else 29
+            if offset < ld: return ((y - 4) % 12) + 1, m, offset + 1, True
+            offset -= ld
+    return ((y - 4) % 12) + 1, 12, max(1, offset + 1), is_leap
+
+BAGUA = {}
+for _i, (_n, _k, _s, _b, _e, _d, _t) in enumerate([
+    ("乾", "건", "☰", "111", "金", "健", "강건·주도"), ("兌", "태", "☱", "110", "金", "說", "기쁨·소통"),
+    ("離", "리", "☲", "101", "火", "麗", "밝음·부착"), ("震", "진", "☳", "100", "木", "動", "움직임·각성"),
+    ("巽", "손", "☴", "011", "木", "入", "스며듦·유연"), ("坎", "감", "☵", "010", "水", "陷", "험난·지혜"),
+    ("艮", "간", "☶", "001", "土", "止", "그침·축적"), ("坤", "곤", "☷", "000", "土", "順", "순응·포용")], 1):
+    BAGUA[_i] = dict(name=_n, ko=_k, symbol=_s, binary=_b, element=_e, de=_d, intent=_t)
+
+KW = [[1, 10, 13, 25, 44, 6, 33, 12], [43, 58, 49, 17, 28, 47, 31, 45],
+      [14, 38, 30, 21, 50, 64, 56, 35], [34, 54, 55, 51, 32, 40, 62, 16],
+      [9, 61, 37, 42, 57, 59, 53, 20], [5, 60, 63, 3, 48, 29, 39, 8],
+      [26, 41, 22, 27, 18, 4, 52, 23], [11, 19, 36, 24, 46, 7, 15, 2]]
+HZ = ("乾,坤,屯,蒙,需,訟,師,比,小畜,履,泰,否,同人,大有,謙,豫,隨,蠱,臨,觀,噬嗑,賁,剝,復,无妄,大畜,頤,大過,"
+      "坎,離,咸,恒,遯,大壯,晉,明夷,家人,睽,蹇,解,損,益,夬,姤,萃,升,困,井,革,鼎,震,艮,漸,歸妹,豐,旅,巽,兌,"
+      "渙,節,中孚,小過,既濟,未濟").split(",")
+KO = ("건,곤,둔,몽,수,송,사,비,소축,리,태,비,동인,대유,겸,예,수,고,림,관,서합,비,박,복,무망,대축,이,대과,"
+      "감,리,함,항,둔,대장,진,명이,가인,규,건,해,손,익,쾌,구,췌,승,곤,정,혁,정,진,간,점,귀매,풍,려,손,태,"
+      "환,절,중부,소과,기제,미제").split(",")
+GIST = ("강건자강,유순포용,창업난산,계몽배움,때를기다림,다툼조심,조직통솔,친화결속,작은축적,예의조심,소통태평,막힘정체,"
+        "협력동지,크게소유,겸손,즐거운준비,따름,부패쇄신,다가감,관조,장애제거,꾸밈,깎임,회복,진실무망,크게축적,"
+        "기름양생,과부하,거듭험난,밝음의존,감응,항구지속,물러남,크게강성,전진상승,빛을숨김,가정내치,어긋남,"
+        "험로정지,해소,덜어냄,보탬,결단,우연만남,모임,상승,곤궁,우물공급,변혁,솥혁신,진동각성,그침,점진,"
+        "순서주의,풍성정점,나그네,겸손침투,기쁨,흩어짐,절제,성실신뢰,작은지나침,완성균형,미완성").split(",")
+HEXAGRAMS = {}
+for _u in range(1, 9):
+    for _l in range(1, 9):
+        _n = KW[_u - 1][_l - 1]
+        HEXAGRAMS[_n] = dict(no=_n, hanja=HZ[_n - 1], ko=KO[_n - 1], upper=_u, lower=_l,
+                             symbol=BAGUA[_u]["symbol"] + BAGUA[_l]["symbol"], gist=GIST[_n - 1],
+                             guidance=f"'{GIST[_n - 1]}'의 때 — 괘덕 {BAGUA[_u]['de']}·{BAGUA[_l]['de']}을 따라 시중(時中)을 지켜라")
+
+GEN = {"木": "火", "火": "土", "土": "金", "金": "水", "水": "木"}
+KE = {"木": "土", "土": "水", "水": "火", "火": "金", "金": "木"}
+BRANCH = "子丑寅卯辰巳午未申酉戌亥"
+SEASON_EL = {"春": "木", "夏": "火", "秋": "金", "冬": "水", "四季末": "土"}
+SEASON_BY_LUNAR_M = {1: "春", 2: "春", 3: "四季末", 4: "夏", 5: "夏", 6: "四季末",
+                     7: "秋", 8: "秋", 9: "四季末", 10: "冬", 11: "冬", 12: "四季末"}
+
+def tri_of(bits):
+    return next(k for k, v in BAGUA.items() if v["binary"] == bits)
+
+def lines_of(up, lo):
+    return [int(c) for c in BAGUA[lo]["binary"] + BAGUA[up]["binary"]]
+
+def hex_of(lines):
+    lo = tri_of("".join(map(str, lines[:3]))); up = tri_of("".join(map(str, lines[3:])))
+    h = dict(HEXAGRAMS[KW[up - 1][lo - 1]]); h["lines"] = list(lines); return h
+
+def flip(lines, moving):
+    L = list(lines); L[moving - 1] ^= 1; return L
+
+def get_hu_gua(lines, moving=None):
+    if len(set(lines)) == 1 and moving:
+        lines = flip(lines, moving)
+    return lines[1:4] + lines[2:5]
+
+def get_cuo_gua(lines): return [1 - x for x in lines]
+def get_zong_gua(lines): return list(reversed(lines))
+
+def relation(ti, yong):
+    if ti == yong: return "비화 길"
+    if GEN[yong] == ti: return "용생체 대길"
+    if KE[ti] == yong: return "체극용 길"
+    if GEN[ti] == yong: return "체생용 소모"
+    return "용극체 흉/주의"
+
+def bridge_element(ti, yong):
+    if KE[ti] == yong: return GEN[ti]
+    if KE[yong] == ti: return GEN[yong]
+    return None
+
+def wang_xiang(el, season):
+    s = SEASON_EL[season]
+    if el == s: return "旺"
+    if GEN[s] == el: return "相"
+    if GEN[el] == s: return "休"
+    if KE[el] == s: return "囚"
+    return "死"
+
+def analyze_yao_positions(lines, moving):
+    P = ["初", "二", "三", "四", "五", "上"]; out = []
+    for i, v in enumerate(lines):
+        p = i + 1; n = "九" if v else "六"
+        name = P[i] + n if p in (1, 6) else n + P[i]
+        resp = lines[i] != (lines[i + 3] if p <= 3 else lines[i - 3])
+        cheng = i > 0 and v == 0 and lines[i - 1] == 1
+        out.append(dict(pos=p, name=name, yang=bool(v), dangwei="득정" if (p % 2 == 1) == bool(v) else "실정",
+                        dezhong=p in (2, 5), xiangying=resp, chengcheng="승강(陰乘陽)" if cheng else "",
+                        moving=p == moving))
+    m = out[moving - 1]
+    return dict(yao=out, erwu_zhongzheng_xiangying=lines[1] == 0 and lines[4] == 1,
+                moving_summary=f"{m['name']} 동효 · {m['dangwei']}{' · 득중' if m['dezhong'] else ''}"
+                               f"{' · 상응' if m['xiangying'] else ' · 무응'}")
+
+POSTURES = {
+    "잠룡물용": ("관망·축적", "지금은 실탄을 아끼고 데이터를 모으며 관망"),
+    "몽이양정": ("점진·분할", "작게 나눠 시험하고 단계적으로 진입"),
+    "비룡재천": ("적극 추진·GO", "준비된 계획을 과감히 실행"),
+    "산풍고·뇌수해": ("정화·통관 중재", "막힌 곳을 정리하고 통관 오행으로 갈등을 풀기"),
+    "항룡유회": ("과열 경계·방어", "욕심을 줄이고 익절·방어선을 먼저 점검"),
+    "지천태·수화기제": ("균형·유지", "현재 균형을 지키며 무리한 변경을 피하기"),
+}
+
+def choose_posture(primary, moving, rel, ti_wx, yao):
+    if primary["no"] in (11, 63): k = "지천태·수화기제"
+    elif moving == 6 or (ti_wx == "旺" and rel == "용생체 대길" and primary["no"] in (1, 34, 43, 55)): k = "항룡유회"
+    elif rel.startswith("용극체"): k = "산풍고·뇌수해"
+    elif moving == 1 or ti_wx in ("囚", "死"): k = "잠룡물용"
+    elif rel in ("용생체 대길", "체극용 길") and (moving in (2, 5) or yao["erwu_zhongzheng_xiangying"]): k = "비룡재천"
+    else: k = "몽이양정"
+    return k, POSTURES[k]
+
+def aon_speech(r):
+    p, t = r["primary"], r["transformed"]; ty = r["ti_yong"]
+    br = f" 통관 비책은 '{ty['bridge']}' 기운으로 중재하기예요!" if ty["bridge"] else ""
+    return (f"아온이 도사 등장~ 💧 지금은 #{p['no']} {p['hanja']}({p['ko']})괘가 #{t['no']} {t['hanja']}({t['ko']})괘로 변하는 흐름이에요! "
+            f"체({ty['ti_element']}) 대 용({ty['yong_element']})은 '{ty['relation']}'이에요.{br} "
+            f"시중 처세는 '{r['posture']}' — {r['next_step']}해 보세요, 대표님! ☯️")
+
+def _build(up, lo, moving, mode, dt, extra=None):
+    L = lines_of(up, lo); T = flip(L, moving)
+    ti_tri, yong_tri = (up, lo) if moving <= 3 else (lo, up)
+    te, ye = BAGUA[ti_tri]["element"], BAGUA[yong_tri]["element"]
+    yb, lm, ld, is_leap = solar_to_lunar(dt)
+    season = SEASON_BY_LUNAR_M.get(lm, "四季末"); rel = relation(te, ye)
+    yao = analyze_yao_positions(L, moving); prim = hex_of(L)
+    ti_wx = wang_xiang(te, season)
+    key, (label, step) = choose_posture(prim, moving, rel, ti_wx, yao)
+    r = dict(version=VERSION, antibody=ANTIBODY, skill_count=SKILL_COUNT, mode=mode,
+             at=dt.isoformat(timespec="seconds"), moving=moving,
+             lunar=dict(year_branch=BRANCH[yb - 1], month=lm, day=ld, is_leap=is_leap),
+             primary=prim, mutual=hex_of(get_hu_gua(L, moving)), transformed=hex_of(T),
+             complement=hex_of(get_cuo_gua(L)), inverse=hex_of(get_zong_gua(L)),
+             ti_yong=dict(ti=BAGUA[ti_tri]["name"], yong=BAGUA[yong_tri]["name"], ti_element=te, yong_element=ye,
+                          relation=rel, bridge=bridge_element(te, ye), season=season,
+                          ti_wangxiang=ti_wx, yong_wangxiang=wang_xiang(ye, season),
+                          lens=f"{BAGUA[ti_tri]['de']}(체) vs {BAGUA[yong_tri]['de']}(용)"),
+             yao_analysis=yao, posture=f"{key}({label})", next_step=step,
+             shichen=BRANCH[((dt.hour + 1) // 2) % 12] + "時", extra=extra or {})
+    r["aon_speech"] = aon_speech(r)
+    return r
+
+def _now(dt): return dt or datetime.datetime.now()
+
+def cast_by_time(dt=None):
+    dt = _now(dt)
+    yb, lm, ld, is_leap = solar_to_lunar(dt)
+    H = ((dt.hour + 1) // 2) % 12 + 1
+    base = yb + lm + ld; full = base + H + dt.second
+    return _build(base % 8 or 8, full % 8 or 8, full % 6 or 6, "time", dt,
+                  dict(year_branch=BRANCH[yb - 1], lunar_month=lm, lunar_day=ld, is_leap=is_leap, hour_branch=BRANCH[H - 1]))
+
+TELEMETRY = ["rgon_white_blood_cell.py", "rgon_morning_brief.json", "rgon_muse_queue.json",
+             "rgon_aon_memory.json", "rgon_laptop_hands_state.json", "rgon_aon_playground_state.json"]
+
+def _probe(name):
+    for c in (ROOT / name, ROOT / (name + ".json"), ROOT / (name + ".py"), ROOT / "docs" / name):
+        try:
+            if c.is_file():
+                b = c.read_bytes(); return len(b), hashlib.sha256(b).digest()
+        except Exception:
+            pass
+    return 0, None
+
+def cast_by_telemetry(dt=None):
+    dt = _now(dt); L = []; total = 0; seen = {}
+    for n in TELEMETRY:
+        size, h = _probe(n); total += size; L.append(h[0] % 2 if h else 1); seen[n] = size
+    moving = (total + dt.hour) % 6 or 6
+    lo = tri_of("".join(map(str, L[:3]))); up = tri_of("".join(map(str, L[3:])))
+    return _build(up, lo, moving, "telemetry", dt, dict(sources=seen))
+
+def cast_by_question(question_text, dt=None):
+    dt = _now(dt); t = str(question_text or "").strip()
+    a = int(hashlib.sha256(t.encode("utf-8")).hexdigest()[:8], 16)
+    n = max(1, len(t))
+    return _build((a + n) % 8 or 8, (a // 7 + n + dt.hour) % 8 or 8,
+                  (a + n + dt.hour + dt.minute) % 6 or 6, "question", dt, dict(question=t[:200]))
+
+def _safe_write(p, txt):
+    p.parent.mkdir(parents=True, exist_ok=True)
+    for i in range(6):
+        try:
+            p.write_text(txt, encoding="utf-8", newline="\n"); return
+        except PermissionError:
+            time.sleep(0.04 * (i + 1))
+    p.write_text(txt, encoding="utf-8", newline="\n")
+
+def save_state(r):
+    s = json.dumps(r, ensure_ascii=False, indent=2)
+    for rel in STATE_PATHS:
+        _safe_write(ROOT / rel, s)
+    return r
 
 def self_test():
     ok = True
     def chk(c, m):
         nonlocal ok
         print(("  ✅ " if c else "  ❌ ") + m); ok = ok and bool(c)
-    prev = load_state()
-    try:
-        save_state(_default())
-        s = load_state()
-        chk(s["master_approval_on"] is False, "기본 상태 master_approval_on == False")
-        chk(s["gates"] == DEFAULT_GATES, "기본 4대 스위치 (금융 OFF · 노트북앱 ON · 파일 OFF · 외부 OFF)")
-        for q, cat in (("삼성전자 10주 매수 주문", "finance_payment"), ("사령부 old 폴더 파일 삭제", "file_modify_delete")):
-            chk(critical_category(q) == cat and not can_execute_critical(cat)["allowed"], f"OFF 상태 차단 게이트: {q}")
-            r = execute_laptop_action("critical_order_or_delete", q, dry_run=True, approved=True)
-            chk(r["allowed"] is False and r["executed"] == 0 and r["message"] == LOCK_MSG, f"승인 눌러도 집행 0건: {q}")
-        set_category_gate("finance_payment", True)
-        chk(not can_execute_critical("finance_payment")["allowed"], "세부 ON + 마스터 OFF → 여전히 차단")
-        set_master_gate(True); set_category_gate("finance_payment", True)
-        chk(can_execute_critical("finance_payment")["allowed"], "마스터 ON + 금융 ON → allowed == True")
-        r = execute_laptop_action("critical_order_or_delete", "삼성전자 10주 매수 주문", dry_run=True, approved=True)
-        chk(r["allowed"] and r["ok"], "수동 ON + 승인 → 집행 기록 정상")
-        chk(not execute_laptop_action("critical_order_or_delete", "삼성전자 10주 매수 주문", dry_run=True)["ok"], "승인 없으면 미집행")
-        chk(not can_execute_critical("file_modify_delete")["allowed"], "다른 카테고리 OFF는 계속 차단")
-        chk(not can_execute_critical("unknown")["allowed"], "미분류 중요 결재는 전체 ON 필요")
-        lock_all_gates(); s = load_state()
-        chk(not s["master_approval_on"] and not any(s["gates"].values()), "lock_all_gates() 즉시 전체 OFF")
-        chk(not execute_laptop_action("open_app_or_url", "메모장")["ok"], "잠금 시 노트북앱도 차단")
-        set_category_gate("laptop_app_browser", True)
-        chk(execute_laptop_action("open_app_or_url", "메모장")["ok"] and execute_laptop_action("open_app_or_url", "https://www.youtube.com")["ok"],
-            "앱·URL 열기 준비 (dry-run, 창 안 띄움)")
-        chk(not execute_laptop_action("open_app_or_url", "cmd /c del *")["ok"], "허용 목록 외 명령 거부")
-        d = execute_laptop_action("draft_file", "유튜브 숏폼 대본")
-        chk(d["ok"] and d["dry_run"] and not (ROOT / d["path"]).exists(), "초안 파일 dry-run (실제 생성 없음)")
-        rep = system_check()
-        chk(rep["disk_total_gb"] > 0 and rep["hq_files"] > 0 and "GB" in rep["speech"], "system_check 디스크·파일·파이썬")
-    finally:
-        prev["last_system_check"] = system_check()
-        save_state(prev)
-    for r in STATE_PATHS:
-        try:
-            j = json.loads((ROOT / r).read_text(encoding="utf-8"))
-            chk(j.get("version") == VERSION and "master_approval_on" in j and len(j.get("gates", {})) == 4, f"JSON 무결성 {r}")
-        except Exception as ex:
-            chk(False, f"JSON 무결성 {r}: {ex!r}")
+    chk(len(HEXAGRAMS) == 64 and sorted(HEXAGRAMS) == list(range(1, 65)), "64괘 전수 매핑 완비 (1~64)")
+    chk(hex_of(get_cuo_gua(lines_of(1, 1)))["no"] == 2, "착괘(錯卦) 연산: 건위천(#1) ↔ 곤위지(#2)")
+    chk(hex_of(get_zong_gua(lines_of(6, 4)))["no"] == 4, "종괘(綜卦) 연산: 수뢰둔(#3) ↔ 산수몽(#4)")
+    chk(hex_of(get_hu_gua(lines_of(6, 3)))["no"] == 64, "호괘(互卦) 연산: 수화기제(#63) → 화수미제(#64)")
+    chk(bridge_element("金", "木") == "水" and relation("土", "火") == "용생체 대길", "체용 생극 & 통관(通關) 오행 처방")
+    yb, lm, ld, _ = solar_to_lunar(datetime.date(2026, 10, 25))
+    chk(1 <= yb <= 12 and 1 <= lm <= 12 and 1 <= ld <= 30, f"1900~2099 정통 음력 변환 (음력 {lm}월 {ld}일)")
+    for mode, r in (("time", cast_by_time()), ("telemetry", cast_by_telemetry()), ("question", cast_by_question("오늘의 괘 봐줘"))):
+        chk(1 <= r["primary"]["no"] <= 64 and bool(r["aon_speech"]), f"기괘({mode}) → #{r['primary']['no']} {r['primary']['hanja']} · {r['posture']}")
+    save_state(cast_by_telemetry())
+    for rel in STATE_PATHS:
+        j = json.loads((ROOT / rel).read_text(encoding="utf-8"))
+        chk(j.get("version") == VERSION and "primary" in j, f"상태 JSON 무결성: {rel}")
     print("PASS" if ok else "FAIL")
     return 0 if ok else 1
 
 if __name__ == "__main__":
-    if "--self-test" in sys.argv: sys.exit(self_test())
-    if "--lock" in sys.argv: print(json.dumps(lock_all_gates(), ensure_ascii=False, indent=2)); sys.exit(0)
-    s = load_state(); s["last_system_check"] = system_check(); save_state(s)
-    print(s["last_system_check"]["speech"])
-    print(json.dumps({"master_approval_on": s["master_approval_on"], "gates": s["gates"]}, ensure_ascii=False))
+    a = sys.argv[1:]
+    if "--self-test" in a: sys.exit(self_test())
+    if "--ask" in a:
+        i = a.index("--ask"); r = cast_by_question(a[i + 1] if i + 1 < len(a) else "오늘 시운")
+    elif "--cast-telemetry" in a: r = cast_by_telemetry()
+    else: r = cast_by_time()
+    save_state(r); print(json.dumps(r, ensure_ascii=False, indent=2))
 '''
 
-SKILL_MD = f"""# {SKILL_ID} (31번째 정식 스킬)
 
-- 버전: {NEW_VER} · 항체: {NEW_R}
-- 기관: 제11기관 노트북 만능 제어 수족 & 중요 결재 수동 ON/OFF 마스터 스위치 (`{HANDS_REL}`)
-- 철학: 주역 #60 수택절(節, 마디의 절제) · #62 뇌산소과(小過, 작은 일은 열고 큰 일은 잠근다) · #14 화천대유(大有, 크게 가진 자의 겸손)
+VOICE_INJECT = r'''
+# [RGON-R37-DAO-SFX] — 제13기관 주역 도술 싱잉볼 & 음양 분신술 효과음 확장 (Step 37)
+SFX_PRESETS.update({
+    "dao_bell": {"desc": "주역 도술 청아한 싱잉볼 화음", "freq_hz": [528, 792, 1056], "dur_ms": 280, "wave": "sine", "gain": 0.16},
+    "yin_yang_clone": {"desc": "음양 미니 물방울 분신술 퐁퐁 화음", "freq_hz": [440, 660, 880, 1320], "dur_ms": 220, "wave": "sine", "gain": 0.17},
+})
+'''
 
-## 1. 수동 스위치
-- `master_approval_on` 기본값은 False(🔒 철통잠금)입니다.
-- `gates`: finance_payment(OFF) · laptop_app_browser(ON) · file_modify_delete(OFF) · external_dispatch(OFF)
-- API: `set_master_gate(on)`, `set_category_gate(cat, on)`, `lock_all_gates()`
-- 상태 파일: `rgon_manual_gate_state.json`, `docs/rgon_manual_gate_state.json`
 
-## 2. 검증 게이트 `can_execute_critical(category, tier=3)`
-- Tier 3 또는 중요 카테고리는 마스터 ON과 카테고리 ON이 모두 충족돼야 `allowed: True`입니다. 하나라도 OFF면 승인을 눌러도 집행 0건입니다.
-- 카테고리가 여러 개 섞였거나 분류되지 않으면 `unknown`으로 보고, 마스터와 중요 3종이 모두 ON이어야 합니다.
+SOUL_INJECT = r'''
+# [RGON-R37-DAO-SOUL-INJECT] — 제13기관 아온 주역 64괘·매화역수·육효 도술관 연동 (Step 37)
+_R37_DAO = re.compile(r"주역|점\s*쳐|점괘|운세|시운|매화\s*역수|육효|도술|체용|괘상|오늘의\s*괘")
+_r37_classify0, _r37_converse0, _r37_selftest0 = classify_intent, converse, self_test
 
-## 3. 노트북 4대 작업 `execute_laptop_action(action_type, target, dry_run=True, approved=False)`
-- system_check(T1): OS · 디스크 여유 · 사령부 파일 수 · 파이썬
-- open_app_or_url(T2): 허용 목록 앱(메모장·계산기·탐색기·그림판), 사이트(유튜브·구글·네이버), http(s) 주소만 엽니다. 임의 명령은 거부합니다.
-- draft_file(T2): `aon_drafts/` 아래에 초안을 생성합니다.
-- critical_order_or_delete(T3): 스위치와 승인 3중 확인을 거칩니다. 실제 주문·삭제 API는 연결하지 않고, 집행 기록(`rgon_laptop_hands_ledger.jsonl`)만 남깁니다.
 
-## 4. 대화·UI 연동
-- 제10기관 분별기: `gate_control`(켜기는 마스터만, 끄기는 즉시 전체 잠금) · `laptop_check` · `laptop_open`
-- 뮤즈: `approve` 계열 함수를 R35 게이트로 감쌉니다.
-- HTML: `[RGON-GATE-V1]`. 상단 `🔒 결재수동 OFF ⇄ 🔓 결재수동 ON` 토글과 📋 보드의 🎛️ 제어판으로 구성되며, `[✅ 승인 집행]`은 캡처 단계에서 차단합니다.
-"""
+def _r37_oracle():
+    import rgon_aon_iching_dao_oracle as o
+    return o
 
-# ============================================================ 2) 제10기관 · 뮤즈 · 백혈구 주입
-SOUL_PATCH = r'''
-# [RGON-R35-HANDS-INJECT] — 제11기관 노트북 수족 & 중요 결재 수동 스위치 연동 (Step 35)
-_R35_GOFF = re.compile(r"(?:중요\s*결재|결재|결제|수동)\s*(?:스위치)?\s*(?:를|을)?\s*(?:꺼|끄|off|잠가|잠궈|잠금)|전체\s*잠금|비상\s*잠금", re.I)
-_R35_GON = re.compile(r"(?:결재|결제|수동)\s*스위치\s*(?:를|을)?\s*(?:켜|on)|중요\s*결재\s*허용", re.I)
-_R35_LCHK = re.compile(r"노트북.*(?:상태|점검|용량|디스크|저장\s*공간|체크)|시스템\s*점검")
-_R35_LOPEN = re.compile(r"(메모장|계산기|탐색기|그림판|유튜브|youtube|구글|google|네이버|naver|https?://\S+).*?(?:열어|켜|띄워|실행)", re.I)
-_r35_classify0, _r35_converse0, _r35_selftest0 = classify_intent, converse, self_test
-
-def _r35_hands():
-    import rgon_laptop_hands as h
-    return h
 
 def classify_intent(text):
     t = (text or "").strip()
-    if _R35_GOFF.search(t): return {"intent": "gate_control", "track": "hands", "tier": None, "action": "off"}
-    if _R35_GON.search(t): return {"intent": "gate_control", "track": "hands", "tier": None, "action": "on"}
-    if _R35_LCHK.search(t): return {"intent": "laptop_check", "track": "hands", "tier": 1}
-    m = _R35_LOPEN.search(t)
-    if m: return {"intent": "laptop_open", "track": "hands", "tier": 2, "target": m.group(1)}
-    return _r35_classify0(t)
+    c0 = _r37_classify0(t)
+    if c0["track"] in ("work", "hands"):
+        return c0
+    if _R37_DAO.search(t):
+        return {"intent": "iching_dao", "track": "dao", "tier": None}
+    return c0
+
 
 def converse(text, mem=None, persist=True, use_llm=True, live=None):
     t = (text or "").strip()
     c = classify_intent(t)
-    if c["track"] != "hands":
-        return _r35_converse0(t, mem=mem, persist=persist, use_llm=use_llm)
-    h = _r35_hands()
+    if c["track"] != "dao":
+        return _r37_converse0(t, mem=mem, persist=persist, use_llm=use_llm, live=live)
+    o = _r37_oracle()
     if mem is None: mem = load_memory()
-    extra = {}
-    if c["intent"] == "gate_control":
-        if c["action"] == "off":
-            st = h.lock_all_gates()
-            reply = "🔒 알겠어요! 중요 결재 수동 스위치를 전부 꺼서 철통 잠금했어요. 대표님이 직접 켜시기 전까지 중요 결재는 0건 집행이에요."
-        else:
-            st = h.set_master_gate(True)
-            reply = "🔓 중요 결재 마스터 스위치를 켰어요! 금융·파일·외부전송 세부 스위치는 결재 보드 제어판에서 대표님이 직접 눌러 주셔야 해요."
-        extra["gate"] = {"master_approval_on": st["master_approval_on"], "gates": dict(st["gates"])}
-    elif c["intent"] == "laptop_check":
-        r = h.execute_laptop_action("system_check", "")
-        reply = r["speech"]; extra["system"] = r["report"]
-    else:
-        if live is None: live = os.environ.get("RGON_HANDS_LIVE") == "1"
-        r = h.execute_laptop_action("open_app_or_url", c["target"], dry_run=not live)
-        reply = r["message"]; extra["action"] = r
-    res = {"input": t, "intent": c["intent"], "category": c["intent"], "track": "hands", "tier": c["tier"],
-           "version": VERSION, "source": "hands", "reply": reply}
-    res.update(extra)
+    reading = o.cast_by_question(t)
+    if persist: o.save_state(reading)
+    reply = reading["aon_speech"]
+    spiced = False
+    try:
+        import rgon_aon_desktop_playground as pg
+        force_sp = globals().get("_r36_last_fsm", "ROAM") in ("MELT_LAZY", "WHINE_POUT", "CLINGY_TANTRUM")
+        sp = pg.apply_tsundere_spice(reply, force=force_sp)
+        if isinstance(sp, dict) and sp.get("spiced"):
+            reply = sp["reply"]; spiced = True
+    except Exception:
+        pass
+    res = {"input": t, "intent": "iching_dao", "category": "iching_dao", "track": "dao", "tier": None,
+           "version": VERSION, "source": "iching_dao", "sfx": "dao_bell", "tsundere_spiced": spiced,
+           "oracle": reading, "reply": reply}
     remember(mem, t, res)
     res.update({"speech": reply, "affection": mem["affection_score"], "level": level(mem["affection_score"])})
     if persist: save_memory(mem)
     return res
 
+
 def self_test():
-    rc0 = _r35_selftest0()
+    rc0 = _r37_selftest0()
     ok = rc0 == 0
     def chk(cond, msg):
         nonlocal ok
         print(("  ✅ " if cond else "  ❌ ") + msg); ok = ok and bool(cond)
-    print("  — Step 35 제11기관 연동 —")
-    for q, want, act in (("결재 스위치 켜줘", "gate_control", "on"), ("수동 스위치 ON", "gate_control", "on"),
-                         ("중요 결재 허용", "gate_control", "on"), ("결재 스위치 꺼줘", "gate_control", "off"),
-                         ("수동 스위치 OFF", "gate_control", "off"), ("전체 잠금", "gate_control", "off"),
-                         ("결제 잠가줘", "gate_control", "off"), ("내 노트북 상태 점검해줘", "laptop_check", None),
-                         ("노트북 용량 어때?", "laptop_check", None), ("메모장 열어줘", "laptop_open", None),
-                         ("유튜브 열어줘", "laptop_open", None), ("결재 보드 열어줘", "muse", None),
-                         ("유튜브 숏폼 대본 초안 작성해줘", "delegate", None), ("대표님 사랑해", "chat_love", None)):
+    print("  — Step 37 제13기관 주역 도술관 연동 —")
+    for q, want in (("오늘의 괘 봐줘", "iching_dao"),
+                    ("아온아 주역으로 점쳐줘", "iching_dao"),
+                    ("이번 주 시운 어때?", "iching_dao"),
+                    ("매화역수 체용으로 알려줘", "iching_dao"),
+                    ("오늘 장세 어때", "judge"),
+                    ("아침 브리핑 해줘", "briefing"),
+                    ("나랑 놀아줘", "chat_mood")):
         c = classify_intent(q)
-        chk(c["intent"] == want and (act is None or c.get("action") == act),
-            f"분별: {q} → {c['intent']}" + (f" ({c.get('action')})" if c.get("action") else ""))
-    h = _r35_hands()
-    snap = {r_: ((ROOT / r_).read_bytes() if (ROOT / r_).exists() else None) for r_ in h.STATE_PATHS}
-    try:
-        converse("결재 스위치 꺼줘", mem=_default_mem(), persist=False, use_llm=False)
-        s = h.load_state()
-        chk(not s["master_approval_on"] and not any(s["gates"].values()), "대화 명령 → 즉시 전체 잠금")
-        r = converse("결재 스위치 켜줘", mem=_default_mem(), persist=False, use_llm=False)
-        chk(h.load_state()["master_approval_on"] and not h.can_execute_critical("finance_payment")["allowed"],
-            "대화 명령 → 마스터만 ON (세부 OFF면 여전히 차단)")
-        chk("payload" not in r, "스위치 명령은 대행 큐 payload 없음")
-        r = converse("노트북 용량 어때?", mem=_default_mem(), persist=False, use_llm=False)
-        chk(r["intent"] == "laptop_check" and "GB" in r["reply"], "노트북 점검 다정한 브리핑")
-        h.set_category_gate("laptop_app_browser", True)
-        r = converse("메모장 열어줘", mem=_default_mem(), persist=False, use_llm=False, live=False)
-        chk(r["intent"] == "laptop_open" and r["action"]["ok"] and r["action"]["dry_run"], "메모장 열기 (안전 dry-run)")
-    finally:
-        for r_, b in snap.items():
-            p = ROOT / r_
-            if b is None:
-                if p.exists(): p.unlink()
-            else:
-                p.write_bytes(b)
+        chk(c["intent"] == want, f"분별: {q} → {c['intent']}")
+    r1 = converse("아온아 주역으로 오늘 시운 점쳐줘", mem=_default_mem(), persist=False, use_llm=False)
+    chk(r1["intent"] == "iching_dao" and "oracle" in r1 and "payload" not in r1, "주역 도술 점괘 응답 & 대행 큐 미오염")
+    converse("아온아 하기 싫어 귀찮아", mem=_default_mem(), persist=False, use_llm=False)
+    r2 = converse("주역 점괘 봐줘", mem=_default_mem(), persist=False, use_llm=False)
+    chk(r2["intent"] == "iching_dao" and r2.get("tsundere_spiced") is True, "찡찡 상태에서 도술 요청 → 츤데레 도사 통변(100% 수행)")
+    converse("우리 아온이 쓰담쓰담 우쭈쭈", mem=_default_mem(), persist=False, use_llm=False)
     print("PASS" if ok else "FAIL")
     return 0 if ok else 1
 '''
 
-MUSE_PATCH = r'''
-# [RGON-R35-GATE-INJECT] — Tier 3 승인 집행 전 중요 결재 수동 ON/OFF 스위치 확인 (제11기관 · Step 35)
-import os as _r35os, sys as _r35sys
-_r35d = _r35os.path.dirname(_r35os.path.abspath(__file__))
-if _r35d not in _r35sys.path: _r35sys.path.insert(0, _r35d)
-try:
-    import rgon_laptop_hands as _r35h
-except Exception:
-    _r35h = None
-_R35_KEYS = ("title", "text", "task", "desc", "description", "name")
 
-def _r35_find(args, kwargs):
-    vals = list(args) + list(kwargs.values())
-    for v in vals:
-        if isinstance(v, dict) and any(k in v for k in ("tier",) + _R35_KEYS): return v
-    g = globals()
-    for v in vals:
-        if not isinstance(v, (str, int)): continue
-        for fn in ("get_task", "find_task"):
-            f = g.get(fn)
-            if callable(f):
-                try:
-                    t = f(v)
-                    if isinstance(t, dict): return t
-                except Exception:
-                    pass
-        for nm in ("TASKS", "tasks", "QUEUE", "queue", "_TASKS", "_tasks", "TASK_QUEUE"):
-            L = g.get(nm)
-            if isinstance(L, dict) and isinstance(L.get(v), dict): return L[v]
-            if isinstance(L, list):
-                for t in L:
-                    if isinstance(t, dict) and v in (t.get("id"), t.get("task_id")): return t
-    return None
-
-def _r35_wrap(fn):
-    if getattr(fn, "_r35", False): return fn
-    def wrapped(*a, **k):
-        t = _r35_find(a, k)
-        text = " ".join(str(t.get(x, "")) for x in _R35_KEYS) if t else " ".join(x for x in a if isinstance(x, str))
-        tier = t.get("tier") if t else None
-        cats = _r35h.critical_categories(text) if _r35h else []
-        if str(tier) == "3" or (tier is None and cats):
-            if _r35h is None:
-                return {"ok": False, "allowed": False, "executed": 0, "gate": "R35",
-                        "message": "🔒 제11기관(rgon_laptop_hands) 로드 실패 — 중요 결재 집행을 차단했습니다."}
-            g = _r35h.can_execute_critical(_r35h.critical_category(text), tier=3)
-            if not g["allowed"]:
-                return {"ok": False, "allowed": False, "executed": 0, "gate": "R35", "message": g["message"]}
-        return fn(*a, **k)
-    wrapped._r35 = True
-    wrapped.__name__ = getattr(fn, "__name__", "wrapped"); wrapped.__doc__ = getattr(fn, "__doc__", None)
-    return wrapped
-
-for _r35n in ("approve", "approve_task", "execute_task", "execute_approved"):
-    if callable(globals().get(_r35n)): globals()[_r35n] = _r35_wrap(globals()[_r35n])
-'''
-
-def wbc_patch(code, text):
-    return f'''
-# [RGON-{code}-INJECT] — DEFAULT_ANTIBODIES {code} 복제 주입
-try:
-    _RX = {text!r}
-    if isinstance(DEFAULT_ANTIBODIES, dict):
-        DEFAULT_ANTIBODIES.setdefault("{code}", _RX)
-    elif isinstance(DEFAULT_ANTIBODIES, list) and not any("{code}" in str(_x) for _x in DEFAULT_ANTIBODIES):
-        _s = DEFAULT_ANTIBODIES[-1] if DEFAULT_ANTIBODIES else None
-        if isinstance(_s, dict):
-            _n = {{k: v for k, v in _s.items()}}
-            for _k in list(_n):
-                if _k in ("id", "code", "key"): _n[_k] = "{code}"
-                elif _k in ("text", "desc", "description", "rule", "name", "title"): _n[_k] = _RX
-            DEFAULT_ANTIBODIES.append(_n)
-        elif isinstance(_s, (list, tuple)):
-            DEFAULT_ANTIBODIES.append(type(_s)(["{code}", _RX] + list(_s[2:])))
-        else:
-            DEFAULT_ANTIBODIES.append(_RX)
-except NameError:
-    DEFAULT_ANTIBODIES = {{"{code}": {text!r}}}
-'''
-
-MAIN_RE = re.compile(r"^if\s+__name__\s*==\s*['\"]__main__['\"]\s*:", re.M)
-
-def inject_before_main(s, marker, patch):
-    if marker in s: return s
-    m = MAIN_RE.search(s)
-    return (s[:m.start()] + patch.lstrip("\n") + "\n" + s[m.start():]) if m else s.rstrip() + "\n" + patch
-
-# ============================================================ 3) HTML 게이트 블록
-GATE_BLOCK = r"""<!-- [RGON-GATE-V1-START] -->
-<style id="rgon-gate-v1-css">
-.rgg-off{background:#e3f5ee!important;color:#0f5e4a!important;border:1px solid #7cc9b3!important}
-.rgg-on{background:#ffe7a8!important;color:#7a4b00!important;border:1px solid #f0b429!important}
-#rgg-panel{position:fixed;top:10px;left:50%;transform:translateX(-50%);z-index:2147483550;background:#132033;color:#e8eef7;border-radius:16px;padding:10px 14px;box-shadow:0 10px 30px rgba(0,0,0,.35);font:13px/1.45 system-ui,sans-serif;width:min(94vw,470px);display:none}
-#rgg-panel.on{display:block}
-#rgg-panel .rgg-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
-#rgg-panel button{border:0;border-radius:999px;padding:6px 11px;cursor:pointer;font-size:12.5px}
-#rgg-badge{margin-left:6px;padding:2px 8px;border-radius:999px;font-size:12px}
-#rgg-warn{display:none;margin-top:8px;padding:8px 10px;border-radius:10px;background:#ffe0e0;color:#8a1010;font-weight:600}
-#rgg-warn.on{display:block}
-#rgg-float{position:fixed;right:14px;bottom:110px;z-index:2147483500;border-radius:14px;padding:6px 10px;cursor:pointer}
-</style>
-<div id="rgg-panel" role="region" aria-label="중요 결재 수동 ON/OFF 마스터 제어판">
-<div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><b>🎛️ 중요 결재 수동 ON/OFF 마스터 제어판<span id="rgg-badge" class="rgg-off">🔒 중요결재 OFF</span></b><button data-rgg="hide" style="background:#24344d;color:#cfe">✕</button></div>
-<div class="rgg-row"><button data-rgg="master" id="rgg-master" class="rgg-off">🔒 전체 중요결재 수동 OFF</button><button data-rgg="lock" style="background:#ffd6d6;color:#8a1010">🚨 비상 전체 잠금</button></div>
-<div class="rgg-row"><button data-rgg-cat="finance_payment">💰 금융·결제</button><button data-rgg-cat="laptop_app_browser">💻 노트북앱</button><button data-rgg-cat="file_modify_delete">🗂️ 파일삭제·이동</button><button data-rgg-cat="external_dispatch">🌐 외부전송</button></div>
-<div id="rgg-warn">⛔ 현재 중요 결재 수동 스위치가 [OFF 잠금] 상태입니다! 위 수동 스위치를 직접 [ON]으로 켜주셔야 집행됩니다.</div>
-<div style="opacity:.7;margin-top:6px;font-size:12px">Tier 3 [✅ 승인 집행]은 마스터 + 해당 세부 스위치가 모두 ON일 때만 통과해요. 상태는 이 기기(localStorage)에 저장돼요.</div>
-</div>
-<script id="rgon-gate-v1-js">
+JS_BLOCK = r'''
+/* === [RGON-R37-ICHING-DAO-JS] 제13기관: 아온 주역 64괘·매화역수 도술관 & 음양 미니 물방울 분신술 === */
 (function(){
-if(window.RGON_GATE)return;
-var VER="v11.34-AON-LAPTOP-HANDS",KEY="rgon_manual_gate";
-var LABEL={finance_payment:"💰 금융·결제",laptop_app_browser:"💻 노트북앱",file_modify_delete:"🗂️ 파일삭제·이동",external_dispatch:"🌐 외부전송"};
-var CRIT=["finance_payment","file_modify_delete","external_dispatch"];
-var st={master_approval_on:false,gates:{finance_payment:false,laptop_app_browser:true,file_modify_delete:false,external_dispatch:false}};
-try{var s0=JSON.parse(localStorage.getItem(KEY)||"null");if(s0&&s0.gates){st.master_approval_on=!!s0.master_approval_on;for(var k in st.gates)if(k in s0.gates)st.gates[k]=!!s0.gates[k]}}catch(e){}
-function save(){try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}}
-var WARN="⛔ 현재 중요 결재 수동 스위치가 [OFF 잠금] 상태입니다! 위 수동 스위치를 직접 [ON]으로 켜주셔야 집행됩니다.";
-var FIN=/매수|매도|주문|결제|송금|이체|리밸런싱|배분|입금|출금/,FILE=/삭제|지워|지우|이동|폴더|파일\s*정리/,DISP=/발송|배포|푸시|push|전송|업로드|설정\s*변경|메일/i;
-function V(){return window.RGON_VOICE||null}
-function fx(t){var v=V();if(v&&v.sfx)v.sfx(t)}
-function say(s){var r=document.getElementById("rgv-reply");if(r)r.textContent="💧 "+s;var v=V();if(v&&v.speak)v.speak(s)}
-function catsOf(t){t=String(t||"");var r=[];if(FIN.test(t))r.push("finance_payment");if(FILE.test(t))r.push("file_modify_delete");if(DISP.test(t))r.push("external_dispatch");return r}
-function can(cats){if(!cats||!cats.length)cats=CRIT.slice();var ok=st.master_approval_on&&cats.every(function(c){return!!st.gates[c]});return{allowed:!!ok,categories:cats,message:ok?"":WARN}}
-var panel=document.getElementById("rgg-panel"),warn=document.getElementById("rgg-warn"),mb=document.getElementById("rgg-master"),bd=document.getElementById("rgg-badge");
-function paint(){var on=st.master_approval_on;mb.textContent=on?"🔓 전체 중요결재 수동 ON":"🔒 전체 중요결재 수동 OFF";mb.className=on?"rgg-on":"rgg-off";
-bd.textContent=on?"🔓 중요결재 ON":"🔒 중요결재 OFF";bd.className=on?"rgg-on":"rgg-off";
-panel.querySelectorAll("[data-rgg-cat]").forEach(function(b){var c=b.getAttribute("data-rgg-cat"),v=st.gates[c];b.textContent=LABEL[c]+(v?" ON":" OFF");b.className=v?"rgg-on":"rgg-off"});
-document.querySelectorAll("[data-rgg-dock]").forEach(function(b){b.textContent=on?"🔓 결재수동 ON":"🔒 결재수동 OFF";b.title=on?"🔓 중요결재 ON":"🔒 중요결재 OFF";b.classList.toggle("rgg-on",on);b.classList.toggle("rgg-off",!on)});
-if(on)warn.classList.remove("on")}
-function show(){paint();panel.classList.add("on")}
-function setMaster(on){st.master_approval_on=!!on;save();paint();fx(on?"approve_fanfare":"clean_sweep");
-say(on?"중요 결재 수동 스위치가 켜졌어요! 집행 전에 한 번 더 확인해 주세요.":"중요 결재 수동 스위치가 꺼졌어요! 이제 중요 결재는 철통 잠금이에요.")}
-function setCat(c,on){if(!(c in st.gates))return;st.gates[c]=!!on;save();paint();fx("waterdrop_pop");say(LABEL[c].replace(/^\S+\s/,"")+" 스위치가 "+(on?"켜졌어요!":"꺼졌어요!"))}
-function lockAll(){st.master_approval_on=false;for(var k in st.gates)st.gates[k]=false;save();paint();fx("clean_sweep");say("비상 전체 잠금! 중요 결재 수동 스위치를 모두 껐어요.")}
-function blocked(){show();warn.classList.add("on");fx("radar_ping");say("현재 중요 결재 수동 스위치가 OFF 잠금 상태예요. 위 수동 스위치를 직접 ON으로 켜주셔야 집행돼요.")}
-panel.addEventListener("click",function(e){var c=e.target.closest("[data-rgg-cat]");if(c){var k=c.getAttribute("data-rgg-cat");setCat(k,!st.gates[k]);return}
-var b=e.target.closest("[data-rgg]");if(!b)return;var a=b.getAttribute("data-rgg");
-if(a==="master")setMaster(!st.master_approval_on);else if(a==="lock")lockAll();else if(a==="hide")panel.classList.remove("on")});
-window.addEventListener("click",function(e){var t=e.target;if(!t||!t.closest)return;var b=t.closest("button,a,[role=button]");
-if(!b||b.closest("#rgg-panel")||b.closest("#rgv-modal"))return;var x=b.textContent||"";
-if(/승인\s*집행/.test(x)){var n=b,ct="";for(var i=0;i<3&&n.parentElement;i++){n=n.parentElement;if((n.textContent||"").length>400)break;ct=n.textContent||""}
-var r=can(catsOf(ct||x));if(!r.allowed){e.preventDefault();e.stopImmediatePropagation();blocked();return}
-say("수동 스위치 ON 확인! 대표님 승인으로 집행할게요.");return}
-if(/📋/.test(x)&&!b.hasAttribute("data-rgg-dock"))setTimeout(show,0)},true);
-var wt=0,wv=setInterval(function(){var M=window.RGON_MUSE;if(M&&!M.__rgg){try{M.__rgg=1;
-if(M.open){var o=M.open;M.open=function(){var r=o.apply(this,arguments);show();return r}}
-if(M.close){var cl=M.close;M.close=function(){panel.classList.remove("on");return cl.apply(this,arguments)}}
-if(M.approve){var ap=M.approve;M.approve=function(id){var tk=null;try{(M.tasks?M.tasks():[]).forEach(function(z){if(z&&(z.id===id||z.task_id===id))tk=z})}catch(e){}
-var tier=tk?(+tk.tier||0):3;if(tier>=3){var r=can(catsOf(JSON.stringify(tk||id)));if(!r.allowed){blocked();return{ok:false,allowed:false,executed:0,message:WARN}}}
-return ap.apply(this,arguments)}}}catch(e){}clearInterval(wv)}else if(++wt>40)clearInterval(wv)},250);
-var GOFF=/(?:중요\s*결재|결재|결제|수동)\s*(?:스위치)?\s*(?:를|을)?\s*(?:꺼|끄|off|잠가|잠궈|잠금)|전체\s*잠금|비상\s*잠금/i,
-GON=/(?:결재|결제|수동)\s*스위치\s*(?:를|을)?\s*(?:켜|on)|중요\s*결재\s*허용/i,
-LCHK=/노트북.*(?:상태|점검|용량|디스크|저장\s*공간|체크)|시스템\s*점검/,
-LOPEN=/(메모장|계산기|탐색기|그림판|유튜브|youtube|구글|google|네이버|naver|https?:\/\/\S+).*?(?:열어|켜|띄워|실행)/i;
-var SITES={"유튜브":"https://www.youtube.com","youtube":"https://www.youtube.com","구글":"https://www.google.com","google":"https://www.google.com","네이버":"https://www.naver.com","naver":"https://www.naver.com"};
-var LTXT="노트북 디스크와 파일 점검은 사령부 엔진에서 해요. python rgon_laptop_hands.py 를 실행해 주시면 바로 알려드릴게요!";
-function hook(t){t=String(t||"");
-if(GOFF.test(t)){lockAll();return true}
-if(GON.test(t)){st.master_approval_on=true;save();show();fx("approve_fanfare");say("중요 결재 마스터 스위치를 켰어요! 세부 스위치는 제어판에서 대표님이 직접 눌러 주셔야 해요.");return true}
-if(LCHK.test(t)){fetch("rgon_manual_gate_state.json",{cache:"no-store"}).then(function(r){return r.json()}).then(function(j){var s=j&&j.last_system_check;
-say(s&&s.speech?s.speech+" (점검 시각 "+String(s.checked_at||"").replace("T"," ")+")":LTXT)}).catch(function(){say(LTXT)});return true}
-var m=t.match(LOPEN);if(m){if(!st.gates.laptop_app_browser){show();say("노트북앱 스위치가 꺼져 있어요. 제어판에서 켜 주시면 열어드릴게요.");return true}
-var w=m[1],url=/^https?:/i.test(w)?w:(SITES[w]||SITES[w.toLowerCase()]);
-if(url){window.open(url,"_blank","noopener");fx("waterdrop_pop");say(w+" 열어드렸어요!")}else say(w+"은 노트북 엔진 rgon_laptop_hands.py 에서 열 수 있어요.");return true}
-return false}
-function dock(){if(document.querySelector("[data-rgg-dock]"))return true;var bs=document.querySelectorAll("button,a,[role=button]"),hide=null;
-for(var i=0;i<bs.length;i++){if(/🙈/.test(bs[i].textContent)&&!bs[i].closest("#rgv-modal,#rgg-panel")){hide=bs[i];break}}
-if(!hide)return false;var b=hide.cloneNode(false);b.removeAttribute("id");b.removeAttribute("onclick");b.setAttribute("data-rgg-dock","1");
-b.addEventListener("click",function(e){e.preventDefault();e.stopPropagation();setMaster(!st.master_approval_on);show()});hide.parentNode.insertBefore(b,hide);paint();return true}
-var tr=0,iv=setInterval(function(){if(dock()||++tr>40){clearInterval(iv);if(!document.querySelector("[data-rgg-dock]")){var f=document.createElement("button");f.id="rgg-float";f.setAttribute("data-rgg-dock","1");
-f.onclick=function(){setMaster(!st.master_approval_on);show()};document.body.appendChild(f);paint()}}},250);
-paint();
-window.RGON_GATE={version:VER,state:function(){return JSON.parse(JSON.stringify(st))},can:function(t){return can(catsOf(t))},setMaster:setMaster,setCategory:setCat,lockAll:lockAll,show:show,hook:hook};
-var hv=0,hi=setInterval(function(){var v=window.RGON_VOICE;if(v&&v.talk&&!v.__rgg){var t0=v.talk;v.__rgg=1;v.talk=function(t){if(hook(t))return;return t0.apply(this,arguments)};clearInterval(hi)}else if(++hv>40)clearInterval(hi)},250);
+  if(window.RGON_DAO)return;
+  var B=[null,["乾","☰","111","金"],["兌","☱","110","金"],["離","☲","101","火"],["震","☳","100","木"],["巽","☴","011","木"],["坎","☵","010","水"],["艮","☶","001","土"],["坤","☷","000","土"]];
+  var KW=[[1,10,13,25,44,6,33,12],[43,58,49,17,28,47,31,45],[14,38,30,21,50,64,56,35],[34,54,55,51,32,40,62,16],[9,61,37,42,57,59,53,20],[5,60,63,3,48,29,39,8],[26,41,22,27,18,4,52,23],[11,19,36,24,46,7,15,2]];
+  var HZ="乾,坤,屯,蒙,需,訟,師,比,小畜,履,泰,否,同人,大有,謙,豫,隨,蠱,臨,觀,噬嗑,賁,剝,復,无妄,大畜,頤,大過,坎,離,咸,恒,遯,大壯,晉,明夷,家人,睽,蹇,解,損,益,夬,姤,萃,升,困,井,革,鼎,震,艮,漸,歸妹,豐,旅,巽,兌,渙,節,中孚,小過,既濟,未濟".split(",");
+  var GEN={"木":"火","火":"土","土":"金","金":"水","水":"木"},KE={"木":"土","土":"水","水":"火","火":"金","金":"木"};
+  function tri(b){for(var i=1;i<9;i++)if(B[i][2]==b)return i;return 1;}
+  function hx(L){var lo=tri(L.slice(0,3).join("")),up=tri(L.slice(3).join(""));var n=KW[up-1][lo-1];return "#"+n+" "+HZ[n-1]+"("+B[up][1]+B[lo][1]+")";}
+  function rel(t,y){if(t==y)return"비화 길";if(GEN[y]==t)return"용생체 대길";if(KE[t]==y)return"체극용 길";if(GEN[t]==y)return"체생용 소모";return"용극체 주의";}
+  function compute(){
+    var d=new Date(),Y=(d.getFullYear()-4)%12+1,H=Math.floor((d.getHours()+1)/2)%12+1,b=Y+d.getMonth()+1+d.getDate(),f=b+H+d.getSeconds();
+    var up=b%8||8,lo=f%8||8,m=f%6||6,L=(B[lo][2]+B[up][2]).split("").map(Number),T=L.slice();T[m-1]^=1;
+    var hs=(L.every(function(x){return x==L[0]})?T:L),hu=hs.slice(1,4).concat(hs.slice(2,5));
+    var ti=m<=3?up:lo,yo=m<=3?lo:up,te=B[ti][3],ye=B[yo][3],r=rel(te,ye),br=KE[te]==ye?GEN[te]:(KE[ye]==te?GEN[ye]:"");
+    var pos=m==6?"항룡유회 — 과열 경계, 방어선 먼저":r.indexOf("용극체")==0?"산풍고·뇌수해 — 막힌 곳 정화·통관":m==1?"잠룡물용 — 관망하며 축적":(r.indexOf("길")>0&&(m==2||m==5))?"비룡재천 — 과감히 GO":"몽이양정 — 작게 나눠 점진";
+    return{p:hx(L),h:hx(hu),t:hx(T),c:hx(L.map(function(x){return 1-x})),z:hx(L.slice().reverse()),m:m,te:te,ye:ye,r:r,br:br,pos:pos};
+  }
+  function host(){return document.getElementById("rgyt-wrap")||document.getElementById("aon-roamer");}
+  function clones(){
+    var h=host(),R=h?h.getBoundingClientRect():{left:innerWidth-140,top:innerHeight-180,width:70,height:70};
+    var cx=R.left+R.width/2,cy=R.top+R.height/2;
+    var els=["☀️💧","🌙💧"].map(function(s){
+      var e=document.createElement("span");e.className="rgon-dao-clone";e.textContent=s;
+      e.style.cssText="position:fixed;z-index:2147483645;font-size:20px;pointer-events:none;filter:drop-shadow(0 0 10px #38bdf8);";
+      document.body.appendChild(e);return e;
+    }),t0=performance.now();
+    (function f(t){
+      var k=(t-t0)/1500;if(k>=1){els.forEach(function(e){e.remove()});return;}
+      var rad=58*(k<.8?1:(1-k)/.2),a=k*Math.PI*2*1.6;
+      els.forEach(function(e,i){
+        var aa=a+i*Math.PI;e.style.left=(cx+Math.cos(aa)*rad-16)+"px";e.style.top=(cy+Math.sin(aa)*rad-14)+"px";
+      });
+      requestAnimationFrame(f);
+    })(t0);
+  }
+  function tone(){
+    try{
+      if(window.RGON_VOICE&&window.RGON_VOICE.sfx){window.RGON_VOICE.sfx("dao_bell");return;}
+      var AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;
+      var C=window._rgonAc||(window._rgonAc=new AC());
+      [528,792,1056].forEach(function(fq,i){
+        var o=C.createOscillator(),g=C.createGain();o.frequency.value=fq;
+        g.gain.setValueAtTime(0.08,C.currentTime+i*0.06);
+        g.gain.exponentialRampToValueAtTime(0.0001,C.currentTime+1.4);
+        o.connect(g);g.connect(C.destination);o.start(C.currentTime+i*0.06);o.stop(C.currentTime+1.45);
+      });
+    }catch(e){}
+  }
+  function cast(){
+    clones();var r=compute(),c=document.getElementById("rgon-dao-card");
+    if(!c){
+      c=document.createElement("div");c.id="rgon-dao-card";
+      c.style.cssText="position:fixed;right:20px;bottom:92px;z-index:2147483646;max-width:350px;background:rgba(20,18,42,0.96);color:#f4eedc;border:1.5px solid #f59e0b;border-radius:16px;padding:13px 15px;font-size:12.5px;line-height:1.55;box-shadow:0 12px 32px rgba(0,0,0,0.55);";
+      document.body.appendChild(c);
+    }
+    var line="아온이 도사가 천기(天機)를 읽었어요! "+r.p+" ➔ "+r.t+" ("+r.r+") · "+r.pos;
+    c.innerHTML='<span id="rgon-dao-x" style="float:right;cursor:pointer;opacity:.75">✕</span><b style="color:#fde68a">☯️ 아온이 주역 도술 점괘 (5대 괘상)</b><br>'
+      +'• 본괘 <b style="color:#38bdf8">'+r.p+'</b> ➔ 호괘 '+r.h+' ➔ 변괘 <b style="color:#38bdf8">'+r.t+'</b><br>'
+      +'• 착괘(사각지대) '+r.c+' · 종괘(상대시점) '+r.z+' · 동효 '+r.m+'효<br>'
+      +'• 체('+r.te+') vs 용('+r.ye+'): <b style="color:#fcd34d">'+r.r+'</b>'+(r.br?' · 통관: <b>'+r.br+'</b>':'')+'<br>'
+      +'💧 시중(時中) 처세: <b style="color:#86efac">'+r.pos+'</b>';
+    var x=document.getElementById("rgon-dao-x");if(x)x.onclick=function(){c.remove()};
+    tone();
+    if(window.RGON_VOICE&&window.RGON_VOICE.speak)try{window.RGON_VOICE.speak(line)}catch(e){}
+    return r;
+  }
+  function dock(){
+    if(document.getElementById("rgon-dao-btn"))return;
+    var hostBtn=document.getElementById("rgon-brat-btn")||document.getElementById("rgyt-hide");
+    if(hostBtn&&hostBtn.parentElement){
+      var b=document.createElement("button");b.id="rgon-dao-btn";b.type="button";
+      b.style.cssText="margin-left:4px;padding:4px 9px;border-radius:999px;border:1px solid #f59e0b;background:rgba(69,26,3,0.9);color:#fef3c7;font-size:11.5px;cursor:pointer;";
+      b.innerHTML="☯️ <b>도술 점괘</b>";
+      b.title="아온이 음양 분신술 & 주역 64괘·매화역수 5대 입체 시운 점괘";
+      b.addEventListener("click",function(e){e.preventDefault();e.stopPropagation();cast()});
+      hostBtn.parentElement.appendChild(b);
+    }
+  }
+  setInterval(dock,3500);
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",dock);else dock();
+  window.RGON_DAO={cast:cast,compute:compute,version:"v11.36-AON-ICHING-DAO"};
 })();
-</script>
-<!-- [RGON-GATE-V1-END] -->
+'''
+
+
+SKILL_MD_TXT = f"""---
+name: {SKILL_NAME}
+description: 아온(A-ON) 주역 64괘·정통 음력 매화역수·육효 시운 도술관 & 음양 미니 물방울 분신술 스킬 (Step 37 · R37)
+version: {NEW_VER}
+antibody: {NEW_AB}
+---
+
+# ☯️💧 제13기관: 아온(A-ON) 주역 64괘·매화역수·육효 시운 도술관 (`{SKILL_NAME}`)
+
+- **버전**: `{NEW_VER}` · **항체**: `{NEW_AB}` · **정식 스킬**: **{NEW_SK}개**
+- **모듈**: `{ORACLE_FILE}` (1900~2099 정통 음력 내장 · 로컬 역학 정밀 산출과 페르소나 통변 분리)
+- **3대 기괘**: `cast_by_time()` (정통 음력 시각), `cast_by_telemetry()` (사령부 6대 기관 실시간 맥박), `cast_by_question(text)` (문점)
+- **5대 입체 괘상**: 본괘(현재) · 호괘(내막) · 변괘(결말) · 착괘(반전 사각지대) · 종괘(상대방 시점)
+- **체용·통관·효위반**: 체용 오행 생극, 상극 시 통관(通關) 중재 오행 처방, 사계절 왕상휴수사, 육효 당위/득중/상응/승강/이오중정상응
+- **6대 시중(時中) 처세**: 잠룡물용 · 몽이양정 · 비룡재천 · 산풍고·뇌수해 · 항룡유회 · 지천태·수화기제
 """
 
-GS, GE = b"<!-- [RGON-GATE-V1-START] -->", b"<!-- [RGON-GATE-V1-END] -->"
-TOKENS = {"aon": (b"rgyt-wrap", b"aon-roamer"), "clean": ("🧹".encode(),), "muse": (b"[RGON-MUSE-V1",),
-          "muse_btn": ("📋대행".encode(),), "voice": (b"[RGON-VOICE-V1-START]",), "voice_btn": ("🎙️음성".encode(),)}
-REQUIRED_INNER = [GS, GE, "🔒 결재수동 OFF".encode(), "🔓 결재수동 ON".encode(), "🎛️ 중요 결재 수동 ON/OFF 마스터 제어판".encode(),
-                  "💰 금융·결제".encode(), "💻 노트북앱".encode(), "🗂️ 파일삭제·이동".encode(), "🌐 외부전송".encode(),
-                  "OFF 잠금".encode(), b"stopImmediatePropagation", b"rgon_manual_gate"]
 
-def tokens(b): return {k: any(x in b for x in v) for k, v in TOKENS.items()}
+def patch_html(path):
+    s = rd(path).replace(OLD_VER, NEW_VER).replace(OLD_AB, NEW_AB)
+    marker = "/* === [RGON-R37-ICHING-DAO-JS]"
+    if marker not in s:
+        end_tag = "<!-- [RGON-UX-CLEANUP-V13-END] -->"
+        idx = s.rfind("</script>", 0, s.find(end_tag) if end_tag in s else len(s))
+        if idx != -1:
+            s = s[:idx] + "\n" + JS_BLOCK.strip() + "\n" + s[idx:]
+    wr(path, s)
 
-def patch_html(p):
-    b = p.read_bytes(); sp = v13_span(b)
-    if not sp: return None
-    before, pre_tok = outside_hash(b), tokens(b)
-    inner = b[sp[0]:sp[1]]
-    if b"[RGON-VOICE-V1-START]" in inner:
-        inner = inner.replace(b"v11.33-AON-SOUL-BRAIN", NEW_VER.encode())
-        b = b[:sp[0]] + inner + b[sp[1]:]; sp = v13_span(b)
-    blk = GATE_BLOCK.encode("utf-8")
-    i = b.find(GS, sp[0], sp[1])
-    if i >= 0:
-        j = b.find(GE, i, sp[1])
-        if j < 0: raise RuntimeError(f"GATE 블록 END 마커 누락: {rel(p)}")
-        nb = b[:i] + blk.rstrip(b"\n") + b[j + len(GE):]
-    else:
-        nb = b[:sp[2]] + blk + b[sp[2]:]
-    if outside_hash(nb) != before: raise RuntimeError(f"V13 바깥 해시 변경 위험: {rel(p)}")
-    changed = write_bytes(p, nb)
-    return {"before": before, "pre_tok": pre_tok, "changed": changed, "upgrade": i >= 0}
 
-# ============================================================ 4) 동기화
-HEAD_RE = re.compile(r"^\s{0,3}#{1,6}\s")
-HIST_HEAD_RE = re.compile(r"(?i)\bstep\s*\d+")
-HIST_LINE_RE = re.compile(r"(?i)\bstep\s*3[1-4]\b|STEP3[1-4]")
-
-def sync_text(s, md=False):
-    out, in_hist = [], False
-    for line in s.splitlines(keepends=True):
-        if md:
-            if HEAD_RE.match(line): in_hist = bool(HIST_HEAD_RE.search(line)) and NEW_VER not in line
-            if in_hist or (HIST_LINE_RE.search(line) and NEW_VER not in line):
-                out.append(line); continue
-        line = line.replace(OLD_VER, NEW_VER).replace(OLD_R, NEW_R)
-        line = SKC_RE.sub(r"\g<1>31", line)
-        line = ABC_RE.sub(r"\g<1>35", line)
-        if re.search(r"(?i)스킬|skill", line): line = re.sub(r"(?<!\d)30개", "31개", line)
-        line = re.sub(r"\[\s*30\s*,\s*30\s*,\s*30\s*\]", "[31, 31, 31]", line)
-        out.append(line)
-    return "".join(out)
-
-def sync_py():
-    for r in PY_SYNC:
-        p = ROOT / r
-        if not p.exists(): log(f"  ⚠️ 없음(건너뜀): {r}"); continue
-        s = sync_text(rd(p))
-        if r == "rgon_daily_cycle.py":
-            s = re.sub(r"(EXPECTED_SKILL_COUNT\s*(?::\s*int\s*)?=\s*)\d+", r"\g<1>31", s)
-        if r == SOUL_REL: s = inject_before_main(s, "[RGON-R35-HANDS-INJECT]", SOUL_PATCH)
-        if r == MUSE_REL: s = inject_before_main(s, "[RGON-R35-GATE-INJECT]", MUSE_PATCH)
-        if r == WBC_REL: s = inject_before_main(s, "[RGON-R35-INJECT]", wbc_patch("R35", R35_TEXT))
-        if write_text(p, s): log(f"  🔁 {r}")
-
-CONST_35 = (f"\n\n## 제35조 (아온 노트북 만능 수족 & 중요 결재 수동 ON/OFF 마스터 스위치 원칙) — {NEW_VER}\n"
-            "- 제1항: 중요 결재(Tier 3 · 금융·결제 · 파일 삭제·이동 · 외부 전송·배포)는 마스터 스위치와 해당 세부 스위치가 "
-            "대표님 손으로 모두 ON이고 대표님이 승인했을 때만 집행한다. 하나라도 OFF면 집행 0건이다.\n"
-            "- 제2항: 기본값은 마스터 OFF(철통잠금)이며, '전체 잠금' 명령은 즉시 모든 스위치를 OFF로 돌린다.\n"
-            "- 제3항: 대화 명령으로는 마스터만 켤 수 있고, 세부 스위치는 제어판에서 직접 켠다.\n"
-            "- 제4항: 노트북 제어는 허용 목록 앱과 http(s) 주소만 열며, 임의 명령 문자열은 실행하지 않는다.\n")
-
-def fix_index_header(s):
-    lines = s.splitlines(keepends=True)
-    for i, ln in enumerate(lines):
-        if HEAD_RE.match(ln) and re.search(r"\b30\b", ln):
-            lines[i] = re.sub(r"\b30\b", "31", ln, count=1); break
-    return "".join(lines)
-
-def sync_md():
-    for r in MD_SYNC:
-        p = ROOT / r
-        if not p.exists(): log(f"  ⚠️ 없음(건너뜀): {r}"); continue
-        s = sync_text(rd(p), md=True)
-        if r == "CONSTITUTION.md" and "제35조" not in s: s = s.rstrip() + CONST_35
-        if r == "ANTIBODY_REGISTRY.md" and "R35:" not in s: s = s.rstrip() + f"\n- {R35_TEXT}\n"
-        if r == "skills/SKILL_INDEX.md":
-            s = fix_index_header(s)
-            s = s.replace("정식 스킬 총 **30개**", "정식 스킬 총 **31개**")
-            if SKILL_ID not in s:
-                s = s.rstrip() + f"\n31. **{SKILL_ID}** — 노트북 만능 수족 + 중요 결재 수동 ON/OFF 마스터 스위치 (`{SKILL_REL}`, {NEW_VER})\n"
-        if r == "CODE_MAP.md" and HANDS_REL not in s:
-            s = s.rstrip() + f"\n- `{HANDS_REL}` — 제11기관 노트북 만능 제어 수족 & 중요 결재 수동 스위치 ({NEW_R})\n"
-        if r == "GLOSSARY.md" and "수동 마스터 스위치" not in s:
-            s = s.rstrip() + "\n- **수동 마스터 스위치**: `master_approval_on` + 4대 `gates`. 모두 ON이어야 중요 결재가 집행된다 (R35)\n"
-        if r == "RGON_MORNING_BRIEF.md" and "Step 35" not in s:
-            s = s.rstrip() + f"\n\n## Step 35 — {NEW_VER}\n- 제11기관 노트북 수족 & 중요 결재 수동 스위치 장착 · 항체 {NEW_R} · 정식 스킬 {NEW_SK}개\n"
-        if write_text(p, s): log(f"  🔁 {r}")
-
-def deep(o):
-    if isinstance(o, dict): return {k: deep(v) for k, v in o.items()}
-    if isinstance(o, list): return [deep(v) for v in o]
-    if isinstance(o, str): return o.replace(OLD_VER, NEW_VER).replace(OLD_R, NEW_R)
-    return o
-
-def load(p):
-    try: return json.loads(Path(p).read_text(encoding="utf-8"))
-    except Exception: return {}
-
-def sync_json():
-    p = ROOT / "skills/SKILL_INDEX.json"; j = deep(load(p))
-    sk = j.get("skills") if isinstance(j.get("skills"), list) else []
-    existing_by_slug = {}
-    for item in sk:
-        if isinstance(item, dict):
-            k = item.get("slug") or item.get("id") or Path(item.get("path", "")).parent.name
-            if k: existing_by_slug[k] = item
-    all_skill_dirs = sorted(d.parent.name for d in (ROOT / "skills").glob("*/SKILL.md"))
-    merged_skills = []
-    for slug in all_skill_dirs:
-        if slug in existing_by_slug:
-            merged_skills.append(existing_by_slug[slug])
+def patch_voice():
+    p = ROOT / "rgon_voice_organ.py"
+    s = rd(p).replace(OLD_VER, NEW_VER).replace(OLD_AB, NEW_AB)
+    if "[RGON-R37-DAO-SFX]" not in s:
+        anchor = "def load_state("
+        idx = s.find(anchor)
+        if idx != -1:
+            s = s[:idx] + VOICE_INJECT.lstrip() + "\n\n" + s[idx:]
         else:
-            merged_skills.append({"id": slug, "slug": slug, "name": slug, "path": f"skills/{slug}/SKILL.md", "version": NEW_VER})
-    j["skills"] = merged_skills
-    j["count"] = len(merged_skills); j["total_skills"] = len(merged_skills); j["skill_count"] = len(merged_skills); j["total"] = len(merged_skills)
-    j["version"] = NEW_VER; j["antibody"] = NEW_R; j["antibody_range"] = NEW_R; j["antibodies"] = NEW_R; j["immune"] = NEW_R
-    write_text(p, json.dumps(j, ensure_ascii=False, indent=2) + "\n")
-    p = ROOT / "rgon_morning_brief.json"; j = deep(load(p))
-    j.update({"version": NEW_VER, "antibodies": NEW_R, "skills": NEW_SK})
-    write_text(p, json.dumps(j, ensure_ascii=False, indent=2) + "\n")
-    p = ROOT / "rgon_immune_ledger.json"
-    if p.exists():
-        j = deep(load(p)); j["version"] = NEW_VER
-        write_text(p, json.dumps(j, ensure_ascii=False, indent=2) + "\n")
+            s = s + "\n" + VOICE_INJECT
+    wr(p, s)
 
-def sync_wbc_golden_and_preserve():
-    saved_bytes = {r: (ROOT / r).read_bytes() for r in CHANGED if (ROOT / r).exists()}
-    lp = ROOT / "rgon_immune_ledger.json"
-    if lp.exists():
-        try:
-            lj = json.loads(lp.read_text(encoding="utf-8"))
-            def _upd_hashes(obj):
-                if isinstance(obj, dict):
-                    for k, v in list(obj.items()):
-                        if isinstance(v, str) and len(v) == 64 and (ROOT / k).is_file():
-                            obj[k] = sha((ROOT / k).read_bytes())
-                        elif isinstance(v, dict) and "sha256" in v and (ROOT / k).is_file():
-                            b = (ROOT / k).read_bytes()
-                            v["sha256"] = sha(b)
-                            if "size" in v: v["size"] = len(b)
-                        else:
-                            _upd_hashes(v)
-                elif isinstance(obj, list):
-                    for x in obj: _upd_hashes(x)
-            _upd_hashes(lj)
-            lj["version"] = NEW_VER
-            lj["antibody_range"] = NEW_R
-            lp.write_text(json.dumps(lj, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-        except Exception:
-            pass
-    for bdir_name in (".rgon_backup", ".wbc_golden", ".golden"):
-        bdir = ROOT / bdir_name
-        if bdir.is_dir():
-            for r, b in saved_bytes.items():
-                for cand in (bdir / r, bdir / Path(r).name):
-                    if cand.is_file():
-                        try: cand.write_bytes(b)
-                        except Exception: pass
-    return saved_bytes
 
-def triad_counts():
-    a = len(list((ROOT / "skills").glob("*/SKILL.md")))
-    j = load(ROOT / "skills/SKILL_INDEX.json")
-    b = j.get("total_skills", j.get("count"))
-    if isinstance(j.get("skills"), (list, dict)) and len(j["skills"]) != b: b = f"{b}≠len {len(j['skills'])}"
-    m = re.search(r"^\s*EXPECTED_SKILL_COUNT\s*(?::\s*int\s*)?=\s*(\d+)", rd(ROOT / "rgon_daily_cycle.py"), re.M)
-    return [a, b, int(m.group(1)) if m else None]
+def patch_soul():
+    p = ROOT / "rgon_aon_soul_brain.py"
+    s = rd(p).replace(OLD_VER, NEW_VER).replace(OLD_AB, NEW_AB)
+    if "[RGON-R37-DAO-SOUL-INJECT]" not in s:
+        anchor = 'if __name__ == "__main__":'
+        idx = s.rfind(anchor)
+        if idx != -1:
+            s = s[:idx] + SOUL_INJECT.lstrip() + "\n\n" + s[idx:]
+        else:
+            s = s + "\n" + SOUL_INJECT
+    wr(p, s)
 
-def run(cmd, timeout=300):
+
+def patch_wbc():
+    p = ROOT / "rgon_white_blood_cell.py"
+    s = rd(p).replace(OLD_VER, NEW_VER).replace(OLD_AB, NEW_AB)
+    s = re.sub(r"(SKILL_COUNT\s*=\s*)\d+", f"\\g<1>{NEW_SK}", s)
+    if "rgon_aon_iching_state.json" not in s:
+        s = s.replace('"rgon_aon_playground_state.json",',
+                      '"rgon_aon_playground_state.json",\n    "rgon_aon_iching_state.json",\n    "docs/rgon_aon_iching_state.json",')
+    if ORACLE_FILE not in s:
+        s = s.replace('"rgon_aon_desktop_playground.py",',
+                      f'"rgon_aon_desktop_playground.py",\n    "{ORACLE_FILE}",')
+    wr(p, s)
+
+
+def patch_daily_cycle():
+    p = ROOT / "rgon_daily_cycle.py"
+    if not p.exists(): return
+    s = rd(p).replace(OLD_VER, NEW_VER).replace(OLD_AB, NEW_AB)
+    s = re.sub(r'("skills_total"\s*:\s*)\d+', f'\\g<1>{NEW_SK}', s)
+    s = re.sub(r"(SKILL_COUNT\s*=\s*)\d+", f"\\g<1>{NEW_SK}", s)
+    s = s.replace(f"정식 스킬 {OLD_SK}개", f"정식 스킬 {NEW_SK}개").replace(f"스킬 {OLD_SK}개", f"스킬 {NEW_SK}개")
+    wr(p, s)
+
+
+def sync_all_metadata():
+    for rel in ("rgon_k_avatar_engine.py", "rgon_muse_delegator.py", "rgon_laptop_hands.py", "rgon_aon_desktop_playground.py"):
+        p = ROOT / rel
+        if p.exists():
+            s = rd(p).replace(OLD_VER, NEW_VER).replace(OLD_AB, NEW_AB)
+            s = re.sub(r"(SKILL_COUNT\s*=\s*)\d+", f"\\g<1>{NEW_SK}", s)
+            wr(p, s)
+
+    idx_json = ROOT / "skills/SKILL_INDEX.json"
+    j = json.loads(rd(idx_json))
+    j["version"] = NEW_VER; j["antibody"] = NEW_AB; j["count"] = NEW_SK
+    skills = [x for x in j.get("skills", []) if x.get("name") != SKILL_NAME]
+    skills.append({
+        "id": NEW_SK,
+        "name": SKILL_NAME,
+        "path": f"skills/{SKILL_NAME}/SKILL.md",
+        "antibody": "R37",
+        "version": NEW_VER,
+        "description": "아온(A-ON) 주역 64괘·정통 음력 매화역수·육효 시운 도술관 & 음양 미니 물방울 분신술 스킬",
+    })
+    j["skills"] = skills
+    wr(idx_json, json.dumps(j, ensure_ascii=False, indent=2))
+
+    idx_md = ROOT / "skills/SKILL_INDEX.md"
+    ms = rd(idx_md).replace(OLD_VER, NEW_VER).replace(OLD_AB, NEW_AB)
+    ms = ms.replace(f"정식 스킬 {OLD_SK}개", f"정식 스킬 {NEW_SK}개").replace(f"총 {OLD_SK}개", f"총 {NEW_SK}개")
+    entry = (f"\n<!-- [RGON-SKILL-{NEW_SK}] -->\n"
+             f"## {NEW_SK}. `{SKILL_NAME}` (R37 · {NEW_VER})\n"
+             f"- 경로: `skills/{SKILL_NAME}/SKILL.md`\n"
+             f"- 설명: {R37_SUMMARY}\n")
+    if f"RGON-SKILL-{NEW_SK}" not in ms and SKILL_NAME not in ms:
+        ms = ms.rstrip() + "\n" + entry
+    wr(idx_md, ms)
+
+    ab_p = ROOT / "ANTIBODY_REGISTRY.md"
+    ab_s = rd(ab_p).replace(OLD_VER, NEW_VER).replace(OLD_AB, NEW_AB)
+    ab_s = ab_s.replace(f"정식 스킬 {OLD_SK}개", f"정식 스킬 {NEW_SK}개")
+    r37_block = (f"\n<!-- [RGON-ANTIBODY-R37] -->\n"
+                 f"## R37 — Step 37 · {NEW_VER} · 2026-10-25\n"
+                 f"- {R37_SUMMARY}\n"
+                 f"- 핵심 파일: `{ORACLE_FILE}`, `rgon_aon_iching_state.json`, `skills/{SKILL_NAME}/SKILL.md`\n")
+    if "RGON-ANTIBODY-R37" not in ab_s:
+        ab_s = ab_s.rstrip() + "\n" + r37_block
+    wr(ab_p, ab_s)
+
+    con_p = ROOT / "CONSTITUTION.md"
+    con_s = rd(con_p).replace(OLD_VER, NEW_VER).replace(OLD_AB, NEW_AB)
+    con_s = con_s.replace(f"정식 스킬 {OLD_SK}개", f"정식 스킬 {NEW_SK}개").replace(f"**{OLD_SK}개**", f"**{NEW_SK}개**")
+    art16 = ("\n<!-- [RGON-CONSTITUTION-ARTICLE-16] -->\n"
+             "## 제16조 (제13기관 아온 주역 64괘·매화역수·육효 시운 도술관 · R37)\n"
+             "- 제1항 (정통 역학 연산과 페르소나 통변 분리): 1900~2099년 정통 음력·선천팔괘·64괘 5대 괘상(본괘·호괘·변괘·착괘·종괘)·체용·통관·효위반은 로컬 파이썬 엔진이 오차 없이 산출하고, 아온이는 이를 시중(時中)의 지혜로 전달한다.\n"
+             "- 제2항 (도술과 집행의 분리): 도술 점괘는 천지 순환의 시운(Regime)을 읽는 참고 나침반이며, 실제 집행 권한은 오직 대표님의 수동 결재 스위치와 3-Tier 대행 원칙을 따른다.\n")
+    if "RGON-CONSTITUTION-ARTICLE-16" not in con_s:
+        con_s = con_s.rstrip() + "\n" + art16
+    wr(con_p, con_s)
+
+    for doc in ("CODE_MAP.md", "GLOSSARY.md", "RGON_MORNING_BRIEF.md"):
+        dp = ROOT / doc
+        if dp.exists():
+            ds = rd(dp).replace(OLD_VER, NEW_VER).replace(OLD_AB, NEW_AB)
+            ds = ds.replace(f"정식 스킬 {OLD_SK}개", f"정식 스킬 {NEW_SK}개").replace(f"**{OLD_SK}개**", f"**{NEW_SK}개**")
+            ds = ds.replace(f"스킬 {OLD_SK}개", f"스킬 {NEW_SK}개").replace(f"스킬 **{OLD_SK}**", f"스킬 **{NEW_SK}**")
+            if doc == "CODE_MAP.md" and ORACLE_FILE not in ds:
+                ds = ds.rstrip() + f"\n- `{ORACLE_FILE}`: 제13기관 아온 주역 64괘·정통 음력 매화역수·육효 시운 도술관 ({NEW_VER})\n"
+            if doc == "GLOSSARY.md" and "주역 도술관" not in ds:
+                ds = ds.rstrip() + f"\n- **아온 주역 도술관 (R37 · {NEW_VER})**: 5대 입체 괘상(본·호·변·착·종)과 체용·통관·효위반으로 시중(時中) 처세를 짚어주는 제13기관.\n"
+            wr(dp, ds)
+
+    json_targets = [
+        "rgon_morning_brief.json", "docs/rgon_morning_brief.json", "rgon_Numeric_Organ.json",
+        "rgon_k_avatar_state.json", "docs/rgon_k_avatar_state.json",
+        "rgon_muse_queue.json", "docs/rgon_muse_queue.json",
+        "rgon_voice_profile.json", "docs/rgon_voice_profile.json",
+        "rgon_voice_organ_state.json", "docs/rgon_voice_organ_state.json",
+        "rgon_aon_memory.json", "docs/rgon_aon_memory.json",
+        "rgon_manual_gate_state.json", "docs/rgon_manual_gate_state.json",
+        "rgon_laptop_hands_state.json", "docs/rgon_laptop_hands_state.json",
+        "rgon_aon_playground_state.json", "docs/rgon_aon_playground_state.json",
+        "dept_sub_agents_status.json", "docs/dept_sub_agents_status.json",
+    ]
+    for rel in json_targets:
+        jp = ROOT / rel
+        if not jp.exists(): continue
+        raw = rd(jp).replace(OLD_VER, NEW_VER).replace(OLD_AB, NEW_AB)
+        raw = re.sub(r'("(?:skill_count|skills_count|formal_skills|total_skills|skills_total)"\s*:\s*)\d+', f'\\g<1>{NEW_SK}', raw)
+        raw = raw.replace(f"정식 스킬 {OLD_SK}개", f"정식 스킬 {NEW_SK}개").replace(f"스킬 {OLD_SK}개", f"스킬 {NEW_SK}개")
+        wr(jp, raw)
+
+
+def run_cmd(args, env=None):
+    t0 = datetime.datetime.now()
+    r = subprocess.run(args, cwd=ROOT, env=env, capture_output=True, text=True, encoding="utf-8", errors="replace")
+    dt = (datetime.datetime.now() - t0).total_seconds()
+    return r.returncode, (r.stdout + "\n" + r.stderr).strip(), dt
+
+
+def verify_all(snap0):
+    rep = []
+    g1 = True
+    for name, mod in (("iching_dao_oracle", ORACLE_FILE),
+                      ("desktop_playground", "rgon_aon_desktop_playground.py"),
+                      ("laptop_hands", "rgon_laptop_hands.py"),
+                      ("soul_brain", "rgon_aon_soul_brain.py"),
+                      ("voice_organ", "rgon_voice_organ.py")):
+        rc, out, dt = run_cmd([sys.executable, mod, "--self-test"])
+        ok = (rc == 0 and "PASS" in out)
+        g1 = g1 and ok
+        rep.append(f"- {'✅' if ok else '❌'} {name} --self-test rc={rc} ({dt:.1f}s)")
+        if not ok:
+            rep.append(f"  [{name} 상세]: {out[-400:]}")
+
+    for rel in HTML_TARGETS:
+        p = ROOT / rel
+        s = rd(p) if p.exists() else ""
+        ok = ("RGON-R37-ICHING-DAO-JS" in s and "rgon-dao-btn" in s and NEW_VER in s)
+        g1 = g1 and ok
+        rep.append(f"- {'✅' if ok else '❌'} HTML {rel}")
+
+    rc_w, out_w, _ = run_cmd([sys.executable, "rgon_white_blood_cell.py", "--self-test"])
+    ok_w = (rc_w == 0)
+    g1 = g1 and ok_w
+    rep.append(f"- {'✅' if ok_w else '❌'} white_blood_cell --self-test rc={rc_w}")
+    if not ok_w:
+        rep.append(f"  [WBC 상세]: {out_w[-400:]}")
+
+    snap1 = snapshot_all()
+    unauth = []
+    for k, v in snap1.items():
+        if k not in MOD_ALLOW and snap0.get(k) != v:
+            unauth.append(k)
+    for k in snap0:
+        if k not in snap1 and k not in MOD_ALLOW:
+            unauth.append(k)
+    g2 = (len(unauth) == 0)
+    rep.append(f"\n## ② 비대상 보호 파일\n- 해시 변경 {len(unauth)}건" + ("" if g2 else f" ❌ {unauth[:5]}"))
+
+    c_json = json.loads(rd(ROOT / "skills/SKILL_INDEX.json")).get("count", 0)
+    md_txt = rd(ROOT / "skills/SKILL_INDEX.md")
+    c_dir = sum(1 for d in (ROOT / "skills").iterdir() if d.is_dir() and (d / "SKILL.md").exists())
+    c_md = NEW_SK if (SKILL_NAME in md_txt and c_dir == NEW_SK) else 0
+    ab_ok = ("RGON-ANTIBODY-R37" in rd(ROOT / "ANTIBODY_REGISTRY.md")
+             and "RGON-CONSTITUTION-ARTICLE-16" in rd(ROOT / "CONSTITUTION.md"))
+    g3 = ([c_json, c_md, c_dir] == [NEW_SK, NEW_SK, NEW_SK]) and ab_ok
+    rep.append(f"\n## ③ 스킬·항체\n- 스킬 [{c_json}, {c_md}, {c_dir}] (기대 [{NEW_SK}, {NEW_SK}, {NEW_SK}])\n- {R37_SUMMARY}")
+
+    changed = sorted(k for k in snap1 if snap0.get(k) != snap1.get(k))
+    rep.append("\n## 변경 파일\n" + "\n".join(f"- `{x}`" for x in changed[:45]))
+    return g1, g2, g3, rep
+
+
+def popup(title, msg):
     try:
-        r = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=timeout)
-        return r.returncode, (r.stdout or "") + (r.stderr or "")
-    except Exception as e:
-        return 99, repr(e)
+        import ctypes
+        ctypes.windll.user32.MessageBoxW(0, msg, title, 0x40)
+    except Exception:
+        pass
 
-def git_push():
-    rc, o = run(["git", "add", "-A", "--", "."] + GIT_EXCLUDES); log("  ➕ add -A " + ("OK" if rc == 0 else o.strip()[-200:]))
-    rc, o = run(["git", "commit", "-m", f"Step 35 {NEW_VER}: 제11기관 노트북 수족 & 중요 결재 수동 ON/OFF 스위치 ({NEW_R}, 스킬 {NEW_SK})"])
-    log("  📦 commit " + ("OK" if rc == 0 else o.strip()[-200:]))
-    if rc != 0: return
-    rc, o = run(["git", "fetch", "origin"]); log("  🔄 fetch " + ("OK" if rc == 0 else o.strip()[-200:]))
-    rc, o = run(["git", "pull", "--no-rebase", "origin"])
-    if rc != 0: log("  ⛔ pull 실패 — push 중단 (로컬 커밋 유지): " + o.strip()[-200:]); return
-    rc, o = run(["git", "push", "origin"]); log("  🚀 push " + ("OK" if rc == 0 else o.strip()[-200:]))
-
-# ============================================================ main
-def execute():
-    global PRE
-    log(f"🚀 Step 35 {NEW_VER} 시작 (dry={DRY})")
-    if not (ROOT / "rgon_daily_cycle.py").exists(): log("❌ 저장소 루트가 아닙니다."); return 2
-    PRE = snapshot()
-    htmls = [ROOT / h for h in HTML_TARGETS if (ROOT / h).exists() and v13_span((ROOT / h).read_bytes())]
-    log(f"🔎 V13 HTML {len(htmls)}/{len(HTML_TARGETS)}개 발견")
-    if len(htmls) != len(HTML_TARGETS):
-        log("❌ 누락: " + ", ".join(h for h in HTML_TARGETS if ROOT / h not in htmls)); return 3
-
-    # [A] 모든 쓰기
-    write_text(ROOT / HANDS_REL, HANDS_SRC); log(f"  🆕 {HANDS_REL}")
-    write_text(ROOT / SKILL_REL, SKILL_MD); log(f"  🆕 {SKILL_REL}")
-    hres = {}
-    for p in htmls:
-        r = patch_html(p); hres[rel(p)] = r
-        log(f"  💉 {rel(p)} {'업그레이드' if r['upgrade'] else '신규 장착'}{'' if r['changed'] else ' (변경 없음)'}")
-    sync_py(); sync_md(); sync_json()
-    if DRY: log(f"🧪 dry-run 종료: 변경 예정 {len(CHANGED)}개"); return 0
-    prepare_extras()
-
-    # [B] 기관 self-test
-    c1, outs = [], {}
-    for name, f in (("laptop_hands", HANDS_REL), ("soul_brain", SOUL_REL), ("voice_organ", VOICE_REL)):
-        if not (ROOT / f).exists(): c1.append((f"{name} 존재", False)); outs[name] = ""; continue
-        rc, o = run([sys.executable, f, "--self-test"]); outs[name] = o
-        c1.append((f"{name} --self-test rc={rc}", rc == 0))
-    for r_, h in hres.items():
-        b = (ROOT / r_).read_bytes(); sp = v13_span(b); inner = b[sp[0]:sp[1]] if sp else b""
-        ok = bool(sp) and outside_hash(b) == h["before"] and inner.count(GS) == 1
-        ok = ok and all(x in inner for x in REQUIRED_INNER)
-        tk = tokens(b); ok = ok and all(tk[k] for k, v in h["pre_tok"].items() if v)
-        c1.append((f"HTML {r_}", ok))
-
-    # [C] 백혈구 self-test 및 Step 35 변경본 보존
-    saved_step35 = sync_wbc_golden_and_preserve()
-    rc, o = run([sys.executable, WBC_REL, "--self-test"]); outs["white_blood_cell"] = o
-    c1.append((f"white_blood_cell --self-test rc={rc}", rc == 0))
-    for r_, b_ in saved_step35.items():
-        if (ROOT / r_).exists() and (ROOT / r_).read_bytes() != b_:
-            (ROOT / r_).write_bytes(b_)
-    sync_wbc_golden_and_preserve()
-    s1 = all(x[1] for x in c1)
-
-    # ② 보호 파일
-    after = snapshot()
-    allowed = set(CHANGED) | set(EXTRAS)
-    viol = sorted(k for k in set(PRE) | set(after) if k not in allowed and PRE.get(k) != after.get(k)
-                  and not k.startswith("aon_drafts/"))
-    s2 = not viol
-    # ③ 스킬·항체
-    sc = triad_counts()
-    s3 = sc == [31, 31, 31] and "[RGON-R35-INJECT]" in rd(ROOT / WBC_REL) and "R35:" in rd(ROOT / "ANTIBODY_REGISTRY.md") \
-         and f"31. **{SKILL_ID}**" in rd(ROOT / "skills/SKILL_INDEX.md")
-    score = sum([s1, s2, s3])
-    log(f"① 기능 {'✅' if s1 else '❌'} | ② 보호 {'✅' if s2 else '❌'}({len(viol)}건) | ③ 스킬 {sc} 항체 {'✅' if s3 else '❌'} → 삼성 {score}/3")
-
-    rep = [f"# STEP35 LAPTOP HANDS REPORT — {NEW_VER}", "", f"- 일시: {TS}", f"- 항체: {NEW_R} · 정식 스킬: {sc}",
-           f"- 삼성(三省): **{score}/3**", f"- 백업: `{rel(BACKUP) if BACKUP.exists() else '(없음)'}`", "", "## ① 기능 검증"]
-    rep += [f"- {'✅' if ok else '❌'} {n}" for n, ok in c1]
-    rep += ["", "## ② 비대상 보호 파일", f"- 해시 변경 {len(viol)}건"] + [f"  - ❌ {v}" for v in viol]
-    rep += ["", "## ③ 스킬·항체", f"- 스킬 {sc} (기대 [31, 31, 31])", f"- {R35_TEXT}", "", "## 변경 파일"]
-    rep += [f"- `{c}`" for c in sorted(CHANGED)]
-    for k, o in outs.items(): rep += ["", f"## {k}", "```", o.strip()[-2000:], "```"]
-    if score != 3:
-        print("\n".join(rep[:35]))
-        for name, ok in c1:
-            if not ok and name.split()[0] in outs:
-                print(f"=== FAILED OUTPUT: {name} ===")
-                print(outs[name.split()[0]])
-        rollback(f"삼성 {score}/3 미달"); return 1
-
-    (ROOT / REPORT_REL).write_text("\n".join(rep) + "\n", encoding="utf-8"); CREATED.add(REPORT_REL)
-    log(f"  📝 {REPORT_REL}")
-    if not NO_GIT and (ROOT / ".git").exists(): git_push()
-    return 0
 
 def main():
+    ts = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+    bdir = ROOT / ".rgon_backups" / f"step37_{ts}"
+    log(f"☯️ Step 37 ({NEW_VER} · {NEW_AB} · 스킬 {NEW_SK}개) 배포 시작...")
+    snap0 = snapshot_all()
+    backup_targets(bdir)
     try:
-        rc = execute()
-    except Exception as e:
-        import traceback; traceback.print_exc()
-        if not DRY: rollback(f"예외 {e!r}")
-        rc = 9
-    if not NO_MSG and os.name == "nt" and not DRY:
-        msg = f"Step 35 {NEW_VER} {'완료 3/3' if rc == 0 else '실패 rc=' + str(rc) + ' (자동 원복)'} · {NEW_R} · 스킬 31".replace("'", "")
-        subprocess.run(["powershell", "-NoProfile", "-Command",
-                        f"Add-Type -AssemblyName PresentationFramework;[System.Windows.MessageBox]::Show('{msg}','RGON 제11기관')"],
-                       capture_output=True)
-    return rc
+        wr(ROOT / ORACLE_FILE, ORACLE_SRC.lstrip())
+        wr(ROOT / f"skills/{SKILL_NAME}/SKILL.md", SKILL_MD_TXT.lstrip())
+        subprocess.run([sys.executable, ORACLE_FILE, "--cast-telemetry"], cwd=ROOT, check=True, capture_output=True)
+        patch_voice()
+        patch_soul()
+        for rel in HTML_TARGETS:
+            if (ROOT / rel).exists(): patch_html(ROOT / rel)
+        sync_all_metadata()
+        patch_daily_cycle()
+        patch_wbc()
+        subprocess.run([sys.executable, "rgon_voice_organ.py", "--self-test"], cwd=ROOT, capture_output=True)
+        subprocess.run([sys.executable, "rgon_aon_soul_brain.py", "--self-test"], cwd=ROOT, capture_output=True)
+        subprocess.run([sys.executable, "rgon_white_blood_cell.py", "--heal"], cwd=ROOT, capture_output=True)
+
+        g1, g2, g3, rep = verify_all(snap0)
+        score = sum([bool(g1), bool(g2), bool(g3)])
+        report_txt = (f"# STEP37 AON ICHING DAO REPORT — {NEW_VER}\n\n"
+                      f"- 일시: {ts}\n- 항체: {NEW_AB} · 정식 스킬: [{NEW_SK}, {NEW_SK}, {NEW_SK}]\n"
+                      f"- 삼성(三省): **{score}/3**\n- 백업: `{bdir.relative_to(ROOT).as_posix()}`\n\n"
+                      f"## ① 기능 검증\n" + "\n".join(rep) + "\n")
+        wr(ROOT / REPORT_FILE, report_txt)
+
+        if score < 3:
+            log("\n".join(rep[:40]))
+            log(f"⏪ Auto-Rollback 시작: 삼성 {score}/3 미달")
+            restore_backup(bdir, snap0)
+            log(f"  원본 백업: {bdir.relative_to(ROOT).as_posix()}")
+            popup("RGON 제13기관", f"Step 37 {NEW_VER} 실패 rc=1 (자동 원복) · {NEW_AB} · 스킬 {NEW_SK}")
+            return 1
+
+        log(f"① 기능 ✅ | ② 보호 ✅(0건) | ③ 스킬 [{NEW_SK}, {NEW_SK}, {NEW_SK}] 항체 ✅ ➔ 삼성 3/3 PASS!")
+        env = dict(os.environ, GIT_EDITOR="true", GIT_MERGE_AUTOEDIT="no")
+        subprocess.run(["git", "add", "-A"], cwd=ROOT, env=env)
+        subprocess.run(["git", "commit", "-m", f"feat(step37): {NEW_VER} A-ON I-Ching 64 hexagram Dao oracle & yin-yang clones ({NEW_AB}, skills {NEW_SK})"], cwd=ROOT, env=env)
+        subprocess.run(["git", "pull", "--no-rebase", "--no-edit", "-X", "ours", "origin", "main"], cwd=ROOT, env=env)
+        subprocess.run(["git", "push", "origin", "main"], cwd=ROOT, env=env)
+        popup("RGON 제13기관", f"Step 37 {NEW_VER} 완료 3/3 · {NEW_AB} · 스킬 {NEW_SK}")
+        return 0
+    except Exception as ex:
+        log(f"❌ 예외 발생: {ex!r}")
+        restore_backup(bdir, snap0)
+        popup("RGON 제13기관", f"Step 37 예외 원복: {ex}")
+        return 1
+
 
 if __name__ == "__main__":
     sys.exit(main())

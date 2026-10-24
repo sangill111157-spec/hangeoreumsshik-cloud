@@ -38,7 +38,7 @@
     "source": "rgon_immune_ledger.today_hexagram"
   },
   "telegram": "skipped(no env)",
-  "skill_count": 32,
+  "skill_count": 33,
   "trading_council": [
     {
       "id": "TREASURY",
@@ -125,7 +125,7 @@
       "5_iching": true,
       "6_pulse_snapshot": true
     },
-    "skill_count": 32,
+    "skill_count": 33,
     "health_score": 100,
     "radar_items": 13,
     "tickets_S22_01": "done",
@@ -161,6 +161,6 @@
       }
     }
   },
-  "skills_count": 32,
+  "skills_count": 33,
   "antibodies": "R1~R27"
 }

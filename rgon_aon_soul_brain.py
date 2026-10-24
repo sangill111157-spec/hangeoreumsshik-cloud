@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """rgon_aon_soul_brain.py — 제10기관: 아온(A-ON) 감성·인격 대화 두뇌 & 해마 기억 기관
-버전 v11.35-AON-PLAYGROUND-BRAT · 항체 R1~R36
+버전 v11.36-AON-ICHING-DAO · 항체 R1~R37
 주역 #31 택산함(澤山咸 ☱☶): 聖人感人心而天下和平 — 무심의 감응으로 마음이 깊이 통함.
 주역 #61 풍택중부(風澤中孚 ☴☱): 鶴鳴在陰 其子和之 — 지극한 정성과 믿음으로 교감함.
 2-Track 원칙: 감정·일상 교감(chat_*)은 절대 대행 큐에 넣지 않고, 명시적 업무 지시만 3-Tier 대행(delegate)으로 보낸다."""
@@ -14,8 +14,8 @@ try:
 except Exception:
     pass
 
-VERSION = "v11.35-AON-PLAYGROUND-BRAT"
-ANTIBODY = "R1~R36"
+VERSION = "v11.36-AON-ICHING-DAO"
+ANTIBODY = "R1~R37"
 ROOT = Path(__file__).resolve().parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
@@ -421,6 +421,80 @@ def self_test():
         "찡찡 상태에서 업무 지시 → 말로는 투정해도 대행 큐 100% 등록(Tsundere Spice)")
     r3 = converse("우리 아온이 쓰담쓰담 우쭈쭈", mem=_default_mem(), persist=False, use_llm=False)
     chk(r3["fsm_state"] == "SPOILED_HAPPY", "쓰담쓰담 달래기 → 헤벌쭉 애교 복귀")
+    print("PASS" if ok else "FAIL")
+    return 0 if ok else 1
+
+
+# [RGON-R37-DAO-SOUL-INJECT] — 제13기관 아온 주역 64괘·매화역수·육효 도술관 연동 (Step 37)
+_R37_DAO = re.compile(r"주역|점\s*쳐|점괘|운세|시운|매화\s*역수|육효|도술|체용|괘상|오늘의\s*괘")
+_r37_classify0, _r37_converse0, _r37_selftest0 = classify_intent, converse, self_test
+
+
+def _r37_oracle():
+    import rgon_aon_iching_dao_oracle as o
+    return o
+
+
+def classify_intent(text):
+    t = (text or "").strip()
+    c0 = _r37_classify0(t)
+    if c0["track"] in ("work", "hands"):
+        return c0
+    if _R37_DAO.search(t):
+        return {"intent": "iching_dao", "track": "dao", "tier": None}
+    return c0
+
+
+def converse(text, mem=None, persist=True, use_llm=True, live=None):
+    t = (text or "").strip()
+    c = classify_intent(t)
+    if c["track"] != "dao":
+        return _r37_converse0(t, mem=mem, persist=persist, use_llm=use_llm, live=live)
+    o = _r37_oracle()
+    if mem is None: mem = load_memory()
+    reading = o.cast_by_question(t)
+    if persist: o.save_state(reading)
+    reply = reading["aon_speech"]
+    spiced = False
+    try:
+        import rgon_aon_desktop_playground as pg
+        force_sp = globals().get("_r36_last_fsm", "ROAM") in ("MELT_LAZY", "WHINE_POUT", "CLINGY_TANTRUM")
+        sp = pg.apply_tsundere_spice(reply, force=force_sp)
+        if isinstance(sp, dict) and sp.get("spiced"):
+            reply = sp["reply"]; spiced = True
+    except Exception:
+        pass
+    res = {"input": t, "intent": "iching_dao", "category": "iching_dao", "track": "dao", "tier": None,
+           "version": VERSION, "source": "iching_dao", "sfx": "dao_bell", "tsundere_spiced": spiced,
+           "oracle": reading, "reply": reply}
+    remember(mem, t, res)
+    res.update({"speech": reply, "affection": mem["affection_score"], "level": level(mem["affection_score"])})
+    if persist: save_memory(mem)
+    return res
+
+
+def self_test():
+    rc0 = _r37_selftest0()
+    ok = rc0 == 0
+    def chk(cond, msg):
+        nonlocal ok
+        print(("  ✅ " if cond else "  ❌ ") + msg); ok = ok and bool(cond)
+    print("  — Step 37 제13기관 주역 도술관 연동 —")
+    for q, want in (("오늘의 괘 봐줘", "iching_dao"),
+                    ("아온아 주역으로 점쳐줘", "iching_dao"),
+                    ("이번 주 시운 어때?", "iching_dao"),
+                    ("매화역수 체용으로 알려줘", "iching_dao"),
+                    ("오늘 장세 어때", "judge"),
+                    ("아침 브리핑 해줘", "briefing"),
+                    ("나랑 놀아줘", "chat_mood")):
+        c = classify_intent(q)
+        chk(c["intent"] == want, f"분별: {q} → {c['intent']}")
+    r1 = converse("아온아 주역으로 오늘 시운 점쳐줘", mem=_default_mem(), persist=False, use_llm=False)
+    chk(r1["intent"] == "iching_dao" and "oracle" in r1 and "payload" not in r1, "주역 도술 점괘 응답 & 대행 큐 미오염")
+    converse("아온아 하기 싫어 귀찮아", mem=_default_mem(), persist=False, use_llm=False)
+    r2 = converse("주역 점괘 봐줘", mem=_default_mem(), persist=False, use_llm=False)
+    chk(r2["intent"] == "iching_dao" and r2.get("tsundere_spiced") is True, "찡찡 상태에서 도술 요청 → 츤데레 도사 통변(100% 수행)")
+    converse("우리 아온이 쓰담쓰담 우쭈쭈", mem=_default_mem(), persist=False, use_llm=False)
     print("PASS" if ok else "FAIL")
     return 0 if ok else 1
 

@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 rgon_muse_delegator.py — RGON 제8기관: 자율 대행·위임 집행 기관 (Muse Delegation Engine)
-v11.35-AON-PLAYGROUND-BRAT · R1~R36 · 정식 스킬 31개
+v11.36-AON-ICHING-DAO · R1~R37 · 정식 스킬 31개
 
 주역 #14 화천대유(火天大有) ☲☰ : 크게 소유하고 만물을 막힘없이 대행한다 → Tier 1 AUTO / Tier 2 NOTIFY
 주역 #64 화수미제(火水未濟) ☲☵ : 신중하게 분별하여 끝까지 완수한다   → Tier 3 HITL_GATE (대표님 결재)
@@ -22,8 +22,8 @@ try:
 except Exception:
     pass
 
-VERSION = "v11.35-AON-PLAYGROUND-BRAT"
-ANTIBODY = "R1~R36"
+VERSION = "v11.36-AON-ICHING-DAO"
+ANTIBODY = "R1~R37"
 ORGAN = "제8기관: 자율 대행·위임 집행 기관 (Muse Delegation Engine)"
 ROOT = Path(__file__).resolve().parent
 TASK_FILE = ROOT / "rgon_muse_tasks.json"

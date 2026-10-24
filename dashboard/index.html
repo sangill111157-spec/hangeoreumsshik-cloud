@@ -2558,7 +2558,7 @@ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",
 <script id="rgon-voice-v1-js">
 (function(){
 if(window.RGON_VOICE)return;
-var VER="v11.35-AON-PLAYGROUND-BRAT";
+var VER="v11.36-AON-ICHING-DAO";
 var KEY="rgon_voice_cfg",cfg={muted:false,pitch:1.18,rate:1.05};
 try{Object.assign(cfg,JSON.parse(localStorage.getItem(KEY)||"{}"))}catch(e){}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(cfg))}catch(e){}}
@@ -2704,7 +2704,7 @@ memory:function(){return JSON.parse(JSON.stringify(mem))},get muted(){return cfg
 <script id="rgon-gate-v1-js">
 (function(){
 if(window.RGON_GATE)return;
-var VER="v11.35-AON-PLAYGROUND-BRAT",KEY="rgon_manual_gate";
+var VER="v11.36-AON-ICHING-DAO",KEY="rgon_manual_gate";
 var LABEL={finance_payment:"💰 금융·결제",laptop_app_browser:"💻 노트북앱",file_modify_delete:"🗂️ 파일삭제·이동",external_dispatch:"🌐 외부전송"};
 var CRIT=["finance_payment","file_modify_delete","external_dispatch"];
 var st={master_approval_on:false,gates:{finance_payment:false,laptop_app_browser:true,file_modify_delete:false,external_dispatch:false}};
@@ -2885,6 +2885,90 @@ var hv=0,hi=setInterval(function(){var v=window.RGON_VOICE;if(v&&v.talk&&!v.__rg
   },4000);
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",dock);else dock();
   window.RGON_PLAYGROUND={states:STATES,getState:function(){return st},setState:function(c){applyVisual(c,true)},cycle:cycle,pet:petSpoil};
+})();
+
+/* === [RGON-R37-ICHING-DAO-JS] 제13기관: 아온 주역 64괘·매화역수 도술관 & 음양 미니 물방울 분신술 === */
+(function(){
+  if(window.RGON_DAO)return;
+  var B=[null,["乾","☰","111","金"],["兌","☱","110","金"],["離","☲","101","火"],["震","☳","100","木"],["巽","☴","011","木"],["坎","☵","010","水"],["艮","☶","001","土"],["坤","☷","000","土"]];
+  var KW=[[1,10,13,25,44,6,33,12],[43,58,49,17,28,47,31,45],[14,38,30,21,50,64,56,35],[34,54,55,51,32,40,62,16],[9,61,37,42,57,59,53,20],[5,60,63,3,48,29,39,8],[26,41,22,27,18,4,52,23],[11,19,36,24,46,7,15,2]];
+  var HZ="乾,坤,屯,蒙,需,訟,師,比,小畜,履,泰,否,同人,大有,謙,豫,隨,蠱,臨,觀,噬嗑,賁,剝,復,无妄,大畜,頤,大過,坎,離,咸,恒,遯,大壯,晉,明夷,家人,睽,蹇,解,損,益,夬,姤,萃,升,困,井,革,鼎,震,艮,漸,歸妹,豐,旅,巽,兌,渙,節,中孚,小過,既濟,未濟".split(",");
+  var GEN={"木":"火","火":"土","土":"金","金":"水","水":"木"},KE={"木":"土","土":"水","水":"火","火":"金","金":"木"};
+  function tri(b){for(var i=1;i<9;i++)if(B[i][2]==b)return i;return 1;}
+  function hx(L){var lo=tri(L.slice(0,3).join("")),up=tri(L.slice(3).join(""));var n=KW[up-1][lo-1];return "#"+n+" "+HZ[n-1]+"("+B[up][1]+B[lo][1]+")";}
+  function rel(t,y){if(t==y)return"비화 길";if(GEN[y]==t)return"용생체 대길";if(KE[t]==y)return"체극용 길";if(GEN[t]==y)return"체생용 소모";return"용극체 주의";}
+  function compute(){
+    var d=new Date(),Y=(d.getFullYear()-4)%12+1,H=Math.floor((d.getHours()+1)/2)%12+1,b=Y+d.getMonth()+1+d.getDate(),f=b+H+d.getSeconds();
+    var up=b%8||8,lo=f%8||8,m=f%6||6,L=(B[lo][2]+B[up][2]).split("").map(Number),T=L.slice();T[m-1]^=1;
+    var hs=(L.every(function(x){return x==L[0]})?T:L),hu=hs.slice(1,4).concat(hs.slice(2,5));
+    var ti=m<=3?up:lo,yo=m<=3?lo:up,te=B[ti][3],ye=B[yo][3],r=rel(te,ye),br=KE[te]==ye?GEN[te]:(KE[ye]==te?GEN[ye]:"");
+    var pos=m==6?"항룡유회 — 과열 경계, 방어선 먼저":r.indexOf("용극체")==0?"산풍고·뇌수해 — 막힌 곳 정화·통관":m==1?"잠룡물용 — 관망하며 축적":(r.indexOf("길")>0&&(m==2||m==5))?"비룡재천 — 과감히 GO":"몽이양정 — 작게 나눠 점진";
+    return{p:hx(L),h:hx(hu),t:hx(T),c:hx(L.map(function(x){return 1-x})),z:hx(L.slice().reverse()),m:m,te:te,ye:ye,r:r,br:br,pos:pos};
+  }
+  function host(){return document.getElementById("rgyt-wrap")||document.getElementById("aon-roamer");}
+  function clones(){
+    var h=host(),R=h?h.getBoundingClientRect():{left:innerWidth-140,top:innerHeight-180,width:70,height:70};
+    var cx=R.left+R.width/2,cy=R.top+R.height/2;
+    var els=["☀️💧","🌙💧"].map(function(s){
+      var e=document.createElement("span");e.className="rgon-dao-clone";e.textContent=s;
+      e.style.cssText="position:fixed;z-index:2147483645;font-size:20px;pointer-events:none;filter:drop-shadow(0 0 10px #38bdf8);";
+      document.body.appendChild(e);return e;
+    }),t0=performance.now();
+    (function f(t){
+      var k=(t-t0)/1500;if(k>=1){els.forEach(function(e){e.remove()});return;}
+      var rad=58*(k<.8?1:(1-k)/.2),a=k*Math.PI*2*1.6;
+      els.forEach(function(e,i){
+        var aa=a+i*Math.PI;e.style.left=(cx+Math.cos(aa)*rad-16)+"px";e.style.top=(cy+Math.sin(aa)*rad-14)+"px";
+      });
+      requestAnimationFrame(f);
+    })(t0);
+  }
+  function tone(){
+    try{
+      if(window.RGON_VOICE&&window.RGON_VOICE.sfx){window.RGON_VOICE.sfx("dao_bell");return;}
+      var AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;
+      var C=window._rgonAc||(window._rgonAc=new AC());
+      [528,792,1056].forEach(function(fq,i){
+        var o=C.createOscillator(),g=C.createGain();o.frequency.value=fq;
+        g.gain.setValueAtTime(0.08,C.currentTime+i*0.06);
+        g.gain.exponentialRampToValueAtTime(0.0001,C.currentTime+1.4);
+        o.connect(g);g.connect(C.destination);o.start(C.currentTime+i*0.06);o.stop(C.currentTime+1.45);
+      });
+    }catch(e){}
+  }
+  function cast(){
+    clones();var r=compute(),c=document.getElementById("rgon-dao-card");
+    if(!c){
+      c=document.createElement("div");c.id="rgon-dao-card";
+      c.style.cssText="position:fixed;right:20px;bottom:92px;z-index:2147483646;max-width:350px;background:rgba(20,18,42,0.96);color:#f4eedc;border:1.5px solid #f59e0b;border-radius:16px;padding:13px 15px;font-size:12.5px;line-height:1.55;box-shadow:0 12px 32px rgba(0,0,0,0.55);";
+      document.body.appendChild(c);
+    }
+    var line="아온이 도사가 천기(天機)를 읽었어요! "+r.p+" ➔ "+r.t+" ("+r.r+") · "+r.pos;
+    c.innerHTML='<span id="rgon-dao-x" style="float:right;cursor:pointer;opacity:.75">✕</span><b style="color:#fde68a">☯️ 아온이 주역 도술 점괘 (5대 괘상)</b><br>'
+      +'• 본괘 <b style="color:#38bdf8">'+r.p+'</b> ➔ 호괘 '+r.h+' ➔ 변괘 <b style="color:#38bdf8">'+r.t+'</b><br>'
+      +'• 착괘(사각지대) '+r.c+' · 종괘(상대시점) '+r.z+' · 동효 '+r.m+'효<br>'
+      +'• 체('+r.te+') vs 용('+r.ye+'): <b style="color:#fcd34d">'+r.r+'</b>'+(r.br?' · 통관: <b>'+r.br+'</b>':'')+'<br>'
+      +'💧 시중(時中) 처세: <b style="color:#86efac">'+r.pos+'</b>';
+    var x=document.getElementById("rgon-dao-x");if(x)x.onclick=function(){c.remove()};
+    tone();
+    if(window.RGON_VOICE&&window.RGON_VOICE.speak)try{window.RGON_VOICE.speak(line)}catch(e){}
+    return r;
+  }
+  function dock(){
+    if(document.getElementById("rgon-dao-btn"))return;
+    var hostBtn=document.getElementById("rgon-brat-btn")||document.getElementById("rgyt-hide");
+    if(hostBtn&&hostBtn.parentElement){
+      var b=document.createElement("button");b.id="rgon-dao-btn";b.type="button";
+      b.style.cssText="margin-left:4px;padding:4px 9px;border-radius:999px;border:1px solid #f59e0b;background:rgba(69,26,3,0.9);color:#fef3c7;font-size:11.5px;cursor:pointer;";
+      b.innerHTML="☯️ <b>도술 점괘</b>";
+      b.title="아온이 음양 분신술 & 주역 64괘·매화역수 5대 입체 시운 점괘";
+      b.addEventListener("click",function(e){e.preventDefault();e.stopPropagation();cast()});
+      hostBtn.parentElement.appendChild(b);
+    }
+  }
+  setInterval(dock,3500);
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",dock);else dock();
+  window.RGON_DAO={cast:cast,compute:compute,version:"v11.36-AON-ICHING-DAO"};
 })();
 </script>
 <!-- [RGON-GATE-V1-END] -->
