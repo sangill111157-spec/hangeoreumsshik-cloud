@@ -1,8 +1,8 @@
 {
-  "version": "v11.21-CIRCULATION",
+  "version": "v11.23-TRADING-COUNCIL",
   "antibody": "R19",
-  "generated_at_kst": "2026-10-24 08:11:52 KST",
-  "count": 18,
+  "generated_at_kst": "2026-10-24 09:03:01 KST",
+  "count": 19,
   "skills": [
     {
       "slug": "1-36-45",
@@ -165,8 +165,19 @@
       "source_url": "local://rgon_youtube_skill_scout.py",
       "origin": "core",
       "path": "skills/youtube-trend-scout/SKILL.md"
+    },
+    {
+      "slug": "trinity-trading-council",
+      "id": "trinity-trading-council",
+      "name": "Trinity Trading Council (3자 트레이딩 심판기)",
+      "category": "trading-council",
+      "hexagram_tag": "#63-既濟",
+      "origin": "core",
+      "path": "skills/trinity-trading-council/SKILL.md",
+      "source_url": "local://rgon_trading_council.py"
     }
   ],
-  "antibody_range": "R1~R22",
-  "synced_at_kst": "2026-10-24 08:12:01 KST"
+  "antibody_range": "R1~R24",
+  "synced_at_kst": "2026-10-24 09:03:09 KST",
+  "updated_at": "2026-10-24T09:03:10"
 }

@@ -1,6 +1,6 @@
 {
-  "at_kst": "2026-10-24 08:11:52 KST",
-  "version": "v11.21-CIRCULATION",
+  "at_kst": "2026-10-24 09:03:01 KST",
+  "version": "v11.23-TRADING-COUNCIL",
   "organs": {
     "1_radar": {
       "ok": true,
@@ -31,8 +31,8 @@
       }
     },
     "4_wbc": {
-      "ok": true,
-      "rc": 0,
+      "ok": false,
+      "rc": 1,
       "health_score": 100
     },
     "5_iching": {
@@ -47,5 +47,5 @@
       "ok": true
     }
   },
-  "all_ok": true
+  "all_ok": false
 }

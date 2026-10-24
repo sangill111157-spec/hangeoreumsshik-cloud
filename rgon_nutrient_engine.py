@@ -30,9 +30,9 @@ import urllib.request
 from datetime import datetime, timedelta, timezone
 from html.parser import HTMLParser
 
-VERSION = "v11.22-OMNI-UI"
+VERSION = "v11.23-TRADING-COUNCIL"
 ANTIBODY = "R19"
-ANTIBODY_RANGE = "R1~R23"
+ANTIBODY_RANGE = "R1~R24"
 KST = timezone(timedelta(hours=9))
 BT = chr(96)
 FENCE = BT * 3
@@ -1026,6 +1026,17 @@ def main(argv=None):
         return 0
     return show_status(a.root)
 
+
+
+# [RGON-R24-START] Step24 항체 비파괴 주입
+R24_ANTIBODY = {"id": "R24", "rule": 'R24: 실전 트레이딩 3자 찬반 심판기(Bull/Bear/Judge) & 주역 64괘 리스크 필터 상시 가동 — 금고 보존(지족불욕·사환예방) 최우선 검증'}
+for _n in ("ANTIBODIES", "DEFAULT_ANTIBODIES", "ANTIBODY_RULES", "IMMUNE_RULES", "RULES", "ANTIBODY"):
+    _o = globals().get(_n)
+    if isinstance(_o, dict) and "R24" not in _o:
+        _o["R24"] = R24_ANTIBODY["rule"]
+    elif isinstance(_o, list) and not any("R24" in str(_x) for _x in _o):
+        _o.append(dict(R24_ANTIBODY) if (_o and isinstance(_o[0], dict)) else R24_ANTIBODY["rule"])
+# [RGON-R24-END]
 
 if __name__ == "__main__":
     sys.exit(main())

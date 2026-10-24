@@ -1,8 +1,8 @@
 {
-  "version": "v11.21-CIRCULATION",
+  "version": "v11.23-TRADING-COUNCIL",
   "goal": "Step 21 @Mindung-EasyAI 양분 흡수",
   "goal_glossary": [],
-  "generated_at": "2026-10-24 08:11:53",
+  "generated_at": "2026-10-24 09:03:01",
   "frontier": [],
   "tickets": [
     {
@@ -12,9 +12,7 @@
       "blocked_by": [],
       "glossary": [],
       "demo_path": "S21-01 증빙: 산출물 존재 + self-test PASS",
-      "status": "done",
-      "verified_at_kst": "2026-10-24 08:11:54 KST",
-      "verified_by": "R22 auto-verify"
+      "status": "done"
     },
     {
       "id": "S21-02",
@@ -25,9 +23,7 @@
       ],
       "glossary": [],
       "demo_path": "S21-02 증빙: 산출물 존재 + self-test PASS",
-      "status": "done",
-      "verified_at_kst": "2026-10-24 08:11:54 KST",
-      "verified_by": "R22 auto-verify"
+      "status": "done"
     },
     {
       "id": "S21-03",
@@ -40,9 +36,7 @@
         "AgentShield"
       ],
       "demo_path": "S21-03 증빙: 산출물 존재 + self-test PASS",
-      "status": "done",
-      "verified_at_kst": "2026-10-24 08:11:54 KST",
-      "verified_by": "R22 auto-verify"
+      "status": "done"
     },
     {
       "id": "S21-04",
@@ -51,9 +45,7 @@
       "blocked_by": [],
       "glossary": [],
       "demo_path": "S21-04 증빙: 산출물 존재 + self-test PASS",
-      "status": "done",
-      "verified_at_kst": "2026-10-24 08:11:54 KST",
-      "verified_by": "R22 auto-verify"
+      "status": "done"
     },
     {
       "id": "S21-05",
@@ -64,9 +56,7 @@
       ],
       "glossary": [],
       "demo_path": "S21-05 증빙: 산출물 존재 + self-test PASS",
-      "status": "done",
-      "verified_at_kst": "2026-10-24 08:11:54 KST",
-      "verified_by": "R22 auto-verify"
+      "status": "done"
     },
     {
       "id": "S21-06",
@@ -82,9 +72,7 @@
         "보호 파일 304"
       ],
       "demo_path": "S21-06 증빙: 산출물 존재 + self-test PASS",
-      "status": "done",
-      "verified_at_kst": "2026-10-24 08:11:54 KST",
-      "verified_by": "R22 auto-verify"
+      "status": "done"
     },
     {
       "id": "S22-01",
@@ -103,9 +91,9 @@
         "S21-05": true,
         "S21-06": true
       },
-      "verified_at_kst": "2026-10-24 08:11:57 KST"
+      "verified_at_kst": "2026-10-24 09:03:05 KST"
     }
   ],
-  "antibody_range": "R1~R22",
-  "auto_verified_at_kst": "2026-10-24 08:11:57 KST"
+  "antibody_range": "R1~R24",
+  "auto_verified_at_kst": "2026-10-24 09:03:05 KST"
 }

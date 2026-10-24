@@ -1,0 +1,352 @@
+{
+  "schema": "rgon.immune.ledger.v1",
+  "version": "v11.21-CIRCULATION",
+  "current_step": 22,
+  "antibody_range": "R1~R22",
+  "principle": "만물은 하나로 이어져 있으며, 한 걸음씩 나아가면 반드시 이루어진다.",
+  "updated_at_kst": "2026-10-24 08:37:49 KST",
+  "health_score": 100,
+  "inspection_mode": "standard",
+  "today_hexagram": {
+    "available": false,
+    "number": null,
+    "name": "중천건(重天乾)",
+    "summary": "자강불식(自強不息) — 스스로 강건히 쉬지 않고 정진한다",
+    "inspection_mode": "standard"
+  },
+  "suppressed_count": 0,
+  "antibodies": [
+    {
+      "id": "R1",
+      "title": "단일 진실 공급원(SSOT) 준수 및 중복 상태 금지",
+      "step": 1
+    },
+    {
+      "id": "R2",
+      "title": "전 영역 UTF-8 입출력 명시 (Windows cp949 인코딩 오류 면역)",
+      "step": 2
+    },
+    {
+      "id": "R3",
+      "title": "작업 전 타임스탬프 백업 강제 및 원본 보존",
+      "step": 3
+    },
+    {
+      "id": "R4",
+      "title": "마커 기반 멱등(Idempotent) 패치로 재실행 안전 보장",
+      "step": 4
+    },
+    {
+      "id": "R5",
+      "title": "외부 네트워크·서브프로세스 타임아웃 및 안전 기본값",
+      "step": 5
+    },
+    {
+      "id": "R6",
+      "title": "로컬 브리지(8765) 오프라인 시 정적 폴백 동작 보장",
+      "step": 6
+    },
+    {
+      "id": "R7",
+      "title": "모바일·데스크톱 아코디언 바 겹침 방지 및 접힘 기본값",
+      "step": 7
+    },
+    {
+      "id": "R8",
+      "title": "실시간 브리핑 바 독립 데이터 경로 유지 및 잔상 차단",
+      "step": 8
+    },
+    {
+      "id": "R9",
+      "title": "단일 클린 엔진 통합 및 구 패치 블록 정리",
+      "step": 9
+    },
+    {
+      "id": "R10",
+      "title": "실제 실행 경로(Downloads\\shin-agent) 자동 탐색 및 동기화",
+      "step": 10
+    },
+    {
+      "id": "R11",
+      "title": "Shadow DOM open 전환 및 흡수기 4버튼 정밀 타겟팅",
+      "step": 11
+    },
+    {
+      "id": "R12",
+      "title": "흡수기 버튼 단일 배지(V12) 정리 및 중복 렌더링 차단",
+      "step": 12
+    },
+    {
+      "id": "R13",
+      "title": "유튜브 트렌드 & AI 스킬 흡수기 V13 정적 JSON 폴백 연동",
+      "step": 13
+    },
+    {
+      "id": "R14",
+      "title": "MutationObserver·setInterval DOM 재배치 루프 영구 금지",
+      "step": 14
+    },
+    {
+      "id": "R15",
+      "title": "단발성 placeOnce(data-placed=1) 정적 배치 원칙",
+      "step": 15
+    },
+    {
+      "id": "R16",
+      "title": "카파시 4대 원칙(CLAUDE.md) + CODE_MAP.md + 보호 파일 해시 잠금",
+      "step": 16
+    },
+    {
+      "id": "R17",
+      "title": "창립자 만물일체·한걸음씩 철학 + 명심보감·도덕경·주역 64괘 엔진",
+      "step": 17
+    },
+    {
+      "id": "R18",
+      "title": "백혈구(WBC) 자가치유 면역 엔진 — 오류 지문·AST/JSON 순찰·백업 복원·상선약수 우회·중복 경보 억제",
+      "step": 18
+    },
+    {
+      "id": "R19",
+      "title": "Top 100 영양분 3스푼(Markdown 정제기 · 표준 SKILL.md 자동 주조기 · 3자 찬반 심판기) 통합 및 지식 자가 증식",
+      "step": 19,
+      "name": "Top 100 영양분 3스푼",
+      "rule": "Top 100 영양분 3스푼(Markdown 정제기 · 표준 SKILL.md 자동 주조기 · 3자 찬반 심판기) 통합 및 지식 자가 증식",
+      "description": "Top 100 영양분 3스푼(Markdown 정제기 · 표준 SKILL.md 자동 주조기 · 3자 찬반 심판기) 통합 및 지식 자가 증식",
+      "added_in": "v11.18-NUTRIENT",
+      "added_at_kst": "2026-10-24 06:39:25 KST",
+      "guard": "python rgon_nutrient_engine.py --self-test",
+      "modules": [
+        "rgon_nutrient_engine.py"
+      ]
+    },
+    {
+      "id": "R20",
+      "title": "일일 자율 순환 루프(백혈구 순찰 → 영양분 소화·스킬 주조 → 3자 심판 → 주역 64괘 아침 브리핑) 무인 자동화",
+      "name": "일일 자율 순환 루프(백혈구 순찰 → 영양분 소화·스킬 주조 → 3자 심판 → 주역 64괘 아침 브리핑) 무인 자동화",
+      "desc": "일일 자율 순환 루프(백혈구 순찰 → 영양분 소화·스킬 주조 → 3자 심판 → 주역 64괘 아침 브리핑) 무인 자동화",
+      "step": 20,
+      "version": "v11.19-AUTONOMOUS"
+    },
+    {
+      "id": "R21",
+      "title": "@Mindung-EasyAI 양분 흡수 — Matt Pocock(GLOSSARY.md · Spec/Tracer-Bullet Tickets 분업) + ECC(AgentShield 비밀키/설정 보안 스캔)",
+      "name": "@Mindung-EasyAI 양분 흡수 — Matt Pocock(GLOSSARY.md · Spec/Tracer-Bullet Tickets 분업) + ECC(AgentShield 비밀키/설정 보안 스캔)",
+      "text": "@Mindung-EasyAI 양분 흡수 — Matt Pocock(GLOSSARY.md · Spec/Tracer-Bullet Tickets 분업) + ECC(AgentShield 비밀키/설정 보안 스캔)",
+      "step": 21,
+      "added_at": "2026-10-24 07:34:37"
+    },
+    {
+      "id": "R22",
+      "title": "자아성찰 전신 혈관 개통 — 레이더·영양분(SKILL.md)·티켓/AgentShield·백혈구(WBC)·주역64괘·스냅샷/클라우드 JSON 6대 기관 무결점 단일 순환",
+      "name": "자아성찰 전신 혈관 개통 — 레이더·영양분(SKILL.md)·티켓/AgentShield·백혈구(WBC)·주역64괘·스냅샷/클라우드 JSON 6대 기관 무결점 단일 순환",
+      "step": 22
+    }
+  ],
+  "fingerprints": {
+    "3cf3c4ec29753bf7": {
+      "fingerprint": "3cf3c4ec29753bf7",
+      "exc_type": "KeyError",
+      "context": "self_test_bypass",
+      "sample_message": "'simulated_missing_key'",
+      "first_seen_kst": "2026-10-24T08:11:50",
+      "last_seen_kst": "2026-10-24T08:11:50",
+      "count": 1,
+      "suppressed": false,
+      "known_remedy": "R18 상선약수: adapt_dict 안전 키 매핑 및 기본값 반환"
+    }
+  },
+  "healed_events": [
+    {
+      "timestamp_kst": "2026-10-24T06:08:25",
+      "file": "r2.py(격리본 BOM 제거 원복)",
+      "reason": "UTF-8 BOM(U+FEFF) 유령 문자 감염 자동 제거 완치",
+      "restored": true,
+      "source_backup": "wbc_bom_sanitizer",
+      "quarantined_to": null
+    },
+    {
+      "timestamp_kst": "2026-10-24T06:08:25",
+      "file": "finish_boot.py",
+      "reason": "UTF-8 BOM(U+FEFF) 유령 문자 감염 자동 제거 완치",
+      "restored": true,
+      "source_backup": "wbc_bom_sanitizer",
+      "quarantined_to": null
+    },
+    {
+      "timestamp_kst": "2026-10-24T06:08:25",
+      "file": "fix_boot_now.py",
+      "reason": "UTF-8 BOM(U+FEFF) 유령 문자 감염 자동 제거 완치",
+      "restored": true,
+      "source_backup": "wbc_bom_sanitizer",
+      "quarantined_to": null
+    },
+    {
+      "timestamp_kst": "2026-10-24T06:08:25",
+      "file": "config/veo_prompt_guide.json",
+      "reason": "UTF-8 BOM(U+FEFF) 유령 문자 감염 자동 제거 완치",
+      "restored": true,
+      "source_backup": "wbc_bom_sanitizer",
+      "quarantined_to": null
+    },
+    {
+      "timestamp_kst": "2026-10-24T08:11:50",
+      "file": ".rgon_backup/wbc_selftest/_wbc_dummy_sample.py",
+      "reason": "self_test_syntax_error",
+      "restored": true,
+      "source_backup": ".rgon_backup/wbc_snapshots/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.clean",
+      "quarantined_to": ".rgon_backup/wbc_quarantine/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.20261024_081150.corrupt"
+    }
+  ],
+  "bypass_log": [
+    {
+      "timestamp_kst": "2026-10-24T06:02:04",
+      "context": "self_test_bypass",
+      "exc_type": "KeyError",
+      "message": "'simulated_missing_key'",
+      "fingerprint": "3cf3c4ec29753bf7",
+      "suppressed": false,
+      "action": "default_value"
+    },
+    {
+      "timestamp_kst": "2026-10-24T08:11:50",
+      "context": "self_test_bypass",
+      "exc_type": "KeyError",
+      "message": "'simulated_missing_key'",
+      "fingerprint": "3cf3c4ec29753bf7",
+      "suppressed": false,
+      "action": "default_value"
+    }
+  ],
+  "patrol_history": [
+    {
+      "timestamp_kst": "2026-10-24T06:02:09",
+      "health_score": 0,
+      "py_checked": 938,
+      "json_checked": 225,
+      "html_checked": 134,
+      "errors": 12,
+      "healed": 1
+    },
+    {
+      "timestamp_kst": "2026-10-24T06:08:28",
+      "health_score": 100,
+      "py_checked": 835,
+      "json_checked": 129,
+      "html_checked": 53,
+      "errors": 0,
+      "healed": 0
+    },
+    {
+      "timestamp_kst": "2026-10-24T06:39:22",
+      "health_score": 100,
+      "py_checked": 835,
+      "json_checked": 129,
+      "html_checked": 53,
+      "errors": 0,
+      "healed": 0
+    },
+    {
+      "timestamp_kst": "2026-10-24T06:39:28",
+      "health_score": 100,
+      "py_checked": 836,
+      "json_checked": 132,
+      "html_checked": 53,
+      "errors": 0,
+      "healed": 0
+    },
+    {
+      "timestamp_kst": "2026-10-24T06:54:04",
+      "health_score": 100,
+      "py_checked": 837,
+      "json_checked": 132,
+      "html_checked": 53,
+      "errors": 0,
+      "healed": 0
+    },
+    {
+      "timestamp_kst": "2026-10-24T06:54:08",
+      "health_score": 100,
+      "py_checked": 837,
+      "json_checked": 133,
+      "html_checked": 53,
+      "errors": 0,
+      "healed": 0
+    },
+    {
+      "timestamp_kst": "2026-10-24T07:34:44",
+      "health_score": 100,
+      "py_checked": 838,
+      "json_checked": 135,
+      "html_checked": 53,
+      "errors": 0,
+      "healed": 0
+    },
+    {
+      "timestamp_kst": "2026-10-24T08:11:57",
+      "health_score": 100,
+      "py_checked": 839,
+      "json_checked": 135,
+      "html_checked": 53,
+      "errors": 0,
+      "healed": 0
+    },
+    {
+      "timestamp_kst": "2026-10-24T08:12:00",
+      "health_score": 100,
+      "py_checked": 839,
+      "json_checked": 135,
+      "html_checked": 53,
+      "errors": 0,
+      "healed": 0
+    },
+    {
+      "timestamp_kst": "2026-10-24T08:37:45",
+      "health_score": 100,
+      "py_checked": 839,
+      "json_checked": 137,
+      "html_checked": 53,
+      "errors": 0,
+      "healed": 0
+    },
+    {
+      "timestamp_kst": "2026-10-24T08:37:49",
+      "health_score": 100,
+      "py_checked": 839,
+      "json_checked": 137,
+      "html_checked": 53,
+      "errors": 0,
+      "healed": 0
+    }
+  ],
+  "antibody_count": 22,
+  "step20": {
+    "name": "일일 자율 순환 루프",
+    "antibody": "R20",
+    "heart": "rgon_daily_cycle.py",
+    "workflow": ".github/workflows/rgon_daily_autonomous_cycle.yml",
+    "schedule_kst": "07:00",
+    "installed_on": "2026-10-24"
+  },
+  "step": 22,
+  "updated_at": "2026-10-24 07:34:37",
+  "step21": {
+    "skills": 18,
+    "glossary_terms": 15,
+    "self_test": true,
+    "agentshield": {
+      "critical": 0,
+      "advisory": 1
+    },
+    "channel": "@Mindung-EasyAI"
+  },
+  "events": [
+    {
+      "step": 21,
+      "version": "v11.20-MINDUNG-ECC",
+      "antibody": "R21",
+      "text": "@Mindung-EasyAI 양분 흡수 — Matt Pocock(GLOSSARY.md · Spec/Tracer-Bullet Tickets 분업) + ECC(AgentShield 비밀키/설정 보안 스캔)",
+      "at": "2026-10-24 07:34:37"
+    }
+  ]
+}

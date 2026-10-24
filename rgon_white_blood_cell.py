@@ -27,8 +27,8 @@ import shutil
 import sys
 import traceback
 
-WBC_VERSION = "v11.22-OMNI-UI"
-ANTIBODY_RANGE = "R1~R23"
+WBC_VERSION = "v11.23-TRADING-COUNCIL"
+ANTIBODY_RANGE = "R1~R24"
 LEDGER_FILENAME = "rgon_immune_ledger.json"
 HEXAGRAM_FILENAME = "rgon_hexagram_engine.py"
 PRINCIPLE = "만물은 하나로 이어져 있으며, 한 걸음씩 나아가면 반드시 이루어진다."
@@ -798,7 +798,7 @@ def main(argv=None):
 
 
 # ===== RGON-STEP20-START (R20 antibody, v11.21-CIRCULATION) =====
-ANTIBODY_RANGE = "R1~R23"
+ANTIBODY_RANGE = "R1~R24"
 _RGON_R20_TEXT = "일일 자율 순환 루프(백혈구 순찰 → 영양분 소화·스킬 주조 → 3자 심판 → 주역 64괘 아침 브리핑) 무인 자동화"
 try:
     for _nm in ("DEFAULT_ANTIBODIES", "ANTIBODIES", "ANTIBODY_LIST", "ANTIBODY_RULES"):
@@ -821,7 +821,7 @@ except Exception:
 
 
 # >>> RGON-STEP21-R21 >>>
-ANTIBODY_RANGE = "R1~R23"
+ANTIBODY_RANGE = "R1~R24"
 _R21 = "@Mindung-EasyAI 양분 흡수 — Matt Pocock(GLOSSARY.md · Spec/Tracer-Bullet Tickets 분업) + ECC(AgentShield 비밀키/설정 보안 스캔)"
 for _n in ("DEFAULT_ANTIBODIES", "ANTIBODIES", "ANTIBODY_RULES", "ANTIBODY", "RULES"):
     _d = globals().get(_n)
@@ -834,13 +834,24 @@ for _n in ("DEFAULT_ANTIBODIES", "ANTIBODIES", "ANTIBODY_RULES", "ANTIBODY", "RU
 # <<< RGON-STEP21-R21 <<<
 
 # [RGON-STEP22-WBC-R22-START]
-ANTIBODY_RANGE = 'R1~R23'
+ANTIBODY_RANGE = 'R1~R24'
 _R22_TXT = '자아성찰 전신 혈관 개통 — 레이더·영양분(SKILL.md)·티켓/AgentShield·백혈구(WBC)·주역64괘·스냅샷/클라우드 JSON 6대 기관 무결점 단일 순환'
 for _nm in ('DEFAULT_ANTIBODIES', 'ANTIBODIES', 'ANTIBODY_LIST'):
     _lst = globals().get(_nm)
     if isinstance(_lst, list) and not any('R22' in str(x) for x in _lst):
         _lst.append({'id': 'R22', 'title': _R22_TXT, 'name': _R22_TXT, 'step': 22})
 # [RGON-STEP22-WBC-R22-END]
+
+
+# [RGON-R24-START] Step24 항체 비파괴 주입
+R24_ANTIBODY = {"id": "R24", "rule": 'R24: 실전 트레이딩 3자 찬반 심판기(Bull/Bear/Judge) & 주역 64괘 리스크 필터 상시 가동 — 금고 보존(지족불욕·사환예방) 최우선 검증'}
+for _n in ("ANTIBODIES", "DEFAULT_ANTIBODIES", "ANTIBODY_RULES", "IMMUNE_RULES", "RULES", "ANTIBODY"):
+    _o = globals().get(_n)
+    if isinstance(_o, dict) and "R24" not in _o:
+        _o["R24"] = R24_ANTIBODY["rule"]
+    elif isinstance(_o, list) and not any("R24" in str(_x) for _x in _o):
+        _o.append(dict(R24_ANTIBODY) if (_o and isinstance(_o[0], dict)) else R24_ANTIBODY["rule"])
+# [RGON-R24-END]
 
 if __name__ == "__main__":
     sys.exit(main())

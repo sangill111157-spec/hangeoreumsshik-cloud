@@ -7,7 +7,7 @@ created_at_kst: "2026-10-24 06:39:24 KST"
 hexagram_tag: "#48-井"
 slug: "markdown-purifier"
 origin: "core"
-version: "v11.21-CIRCULATION"
+version: "v11.23-TRADING-COUNCIL"
 antibody: "R19"
 ---
 
@@ -25,7 +25,7 @@ antibody: "R19"
 - md = purify_html(html_text, source_url)
 - res = fetch_and_purify(url, timeout=10)  # 실패 시 fallback=True
 
-## 안전 수칙 (백혈구 항체 R1~R22)
+## 안전 수칙 (백혈구 항체 R1~R24)
 
 - http/https 이외 스킴은 차단한다.
 - robots·이용약관을 존중하고 과도한 요청을 보내지 않는다.
@@ -37,4 +37,4 @@ antibody: "R19"
 
 ---
 
-_RGON SkillAutoForge v11.21-CIRCULATION 자동 주조 · 출처: https://github.com/apify/crawlee_
+_RGON SkillAutoForge v11.23-TRADING-COUNCIL 자동 주조 · 출처: https://github.com/apify/crawlee_

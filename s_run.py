@@ -1,367 +1,423 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""step23_radar_pulse_and_skills_ui.py — RGON v11.22-OMNI-UI / R1~R23
-카파시 4원칙(단순·외과적·검증·목표지향) · 무위자연(V13 마커 내부만) · 과유불급(새 바 0, 루프 0) · 삼성 3/3
-R23: 전신 맥박 & 18개 스킬 카탈로그 UI 무간섭 단발 통합 — 기존 V13 마커 내부만 교체하고 Observer 없이 3탭으로 표시"""
-import hashlib, json, re, shutil, subprocess, sys, py_compile, datetime as dt
+"""step24_trinity_trading_council.py — RGON Step 24 · v11.23-TRADING-COUNCIL · 항체 R1~R24
+카파시 4원칙: ①먼저 생각(전·중·후 해시 선측정) ②단순함(표준 라이브러리, 단일 파일) ③외과적 수정(UI 무접촉, 마커 기반 멱등 패치) ④목표 기반(삼성 3/3 통과 시에만 커밋)
+명심보감 「忍一時之忿 免百日之憂」 서두르지 않고 검증 / 도덕경 「知足不辱 知止不殆」 금고 보존 최우선 / 주역 #60절·#01건·#63기제·#64미제"""
+import ctypes, hashlib, json, os, py_compile, re, shutil, subprocess, sys
+from datetime import datetime
 from pathlib import Path
 
-BT3 = chr(96) * 3
 ROOT = Path(__file__).resolve().parent
-VER, AB = "v11.22-OMNI-UI", "R1~R23"
-R23 = "R23: 전신 맥박 & 18개 스킬 카탈로그 UI 무간섭 단발 통합 — 기존 V13 마커 내부만 교체하고 Observer 없이 3탭으로 표시"
-M_S, M_E = "<!-- [RGON-YT-SCOUT-V13-START] -->", "<!-- [RGON-YT-SCOUT-V13-END] -->"
-V15_S, V15_E = "<!-- [RGYT-PLACE-ONCE-V15-START] -->", "<!-- [RGYT-PLACE-ONCE-V15-END] -->"
-TS = dt.datetime.now().strftime("%Y%m%d_%H%M%S")
-BAK = ROOT / "backups" / f"step23_{TS}"
-SKIP = {".git", "node_modules", "backups", "__pycache__", ".venv", "venv"}
-BACKEND = ["rgon_white_blood_cell.py", "rgon_nutrient_engine.py", "rgon_spec_ticket_Shield.py", "rgon_daily_cycle.py"]
-SYNC = ["rgon_morning_brief.json", "MORNING_BRIEF.md", "rgon_immune_ledger.json", "rgon_brain_snapshot.json",
-        "dashboard/rgon_brain_snapshot.json", "docs/rgon_brain_snapshot.json", "CLAUDE.md", "CODE_MAP.md", "RGON_EVOLUTION_LOG.md"]
-FORBID_WORDS = ("MutationObserver", "setInterval", "requestAnimationFrame")
-FORBID = re.compile("|".join(FORBID_WORDS))
-DEFAULT_SKILLS = ["wbc-self-healing", "markdown-purifier", "multi-agent-council", "hexagram-64-wisdom",
-                  "mattpocock-spec-tickets", "ecc-agentshield-harness", "rea-reverse-engineer-fusion"]
-LOG, CHANGED = [], set()
+VER, AB_RANGE, NEW_AB = "v11.23-TRADING-COUNCIL", "R1~R24", "R24"
+R24_TEXT = "R24: 실전 트레이딩 3자 찬반 심판기(Bull/Bear/Judge) & 주역 64괘 리스크 필터 상시 가동 — 금고 보존(지족불욕·사환예방) 최우선 검증"
+BT3 = chr(96) * 3
+SKILL_ID, TARGET_SKILLS = "trinity-trading-council", 19
+GUAS = ("#60-수택절", "#01-중천건", "#63-수화기제", "#64-화수미제")
+SKIP = {".git", "node_modules", "__pycache__", ".venv", "venv", "backups"}
+OLDV = re.compile(r"v11\.(?:1\d|2[0-3])-[A-Z][A-Z0-9_-]*")
+OLDR = re.compile(r"R1\s*[~\-–]\s*R(?:1\d|2[0-3])\b")
+VERLINE = re.compile(r"(?i)version|버전|현재|current|항체|antibod")
+LOG = []
+if hasattr(sys.stdout, "reconfigure"): sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
-def log(m): print(m); LOG.append(str(m))
-def sha(p): return hashlib.sha256(p.read_bytes()).hexdigest()
-def rd(p):
-    with open(p, encoding="utf-8", errors="replace", newline="") as f: return f.read()
-def wr(p, t):
-    with open(p, "w", encoding="utf-8", newline="") as f: f.write(t)
-    CHANGED.add(p)
-def rel(p): return p.relative_to(ROOT).as_posix()
-def bak(p):
-    d = BAK / rel(p); d.parent.mkdir(parents=True, exist_ok=True)
-    if not d.exists(): shutil.copy2(p, d)
-def loadj(r):
-    try: return json.loads(rd(ROOT / r))
-    except Exception: return None
-def walk():
-    for p in ROOT.rglob("*"):
-        if p.is_file() and not (SKIP & set(p.relative_to(ROOT).parts)): yield p
+MOD = r'''#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""rgon_trading_council.py — v11.23-TRADING-COUNCIL · R24 실전 트레이딩 3자 찬반 심판기(Bull/Bear/Judge) + 주역 64괘 장세 필터.
+표준 라이브러리 전용 · 프로젝트 상태는 읽기 전용(쓰기: rgon_trading_council.json, --merge 시 rgon_morning_brief.json 및 SKILL_INDEX.json 보존)."""
+import json, re, sys, shutil
+from pathlib import Path
+from datetime import datetime
+ROOT = Path(__file__).resolve().parent
+VER, AB = "v11.23-TRADING-COUNCIL", "R24"
+OUT, BRIEF = ROOT / "rgon_trading_council.json", ROOT / "rgon_morning_brief.json"
+PAT = re.compile(r"^⚖️ \[([A-Z]+)\] (\d{1,3}\.\d)점 \(Bull (\d{1,3}\.\d) / Bear (\d{1,3}\.\d) / #(\d{2})-([^)\s]+)\) (.+)$")
+AGENDAS = [("TREASURY", "💰 금고 보존 & 포지션 사이징", 60, "수택절", "절제와 한도 수호", "도덕경 지족불욕(知足不辱)", 0.35),
+           ("MOMENTUM", "📈 추세 돌파 & 모멘텀 타점 검증", 1, "중천건", "자강불식·항룡유회 경계", "亢龍有悔 — 과열 추격 금지", 0.55),
+           ("STOPLOSS", "🛡️ 변동성 방어 & 손절/익절 규율", 63, "수화기제", "사환예방(思患豫防)", "君子以思患而豫防之", 0.40),
+           ("XVERIFY", "🔄 멀티에이전트 시그널 교차검증", 64, "화수미제", "신변물거방(慎辨物居方)", "君子以慎辨物居方", 0.50)]
+SKIP = {".git", "node_modules", "__pycache__", ".venv", "venv", "dashboard", "docs", "backups"}
 
-def classify():
-    targets, guard = [], {}
-    for p in walk():
-        s = p.suffix.lower()
-        if s in (".html", ".htm"):
-            try: t = rd(p)
-            except Exception: t = ""
-            if t.count(M_S) == 1 and t.count(M_E) == 1 and t.index(M_S) < t.index(M_E):
-                targets.append(p); continue
-            guard[p] = sha(p)
-        elif s == ".js" or p.name == "manifest.json":
-            guard[p] = sha(p)
-    return sorted(targets), guard
+def load(p):
+    try: return json.loads(Path(p).read_text(encoding="utf-8"))
+    except Exception: return {}
 
-R23_BLOCK = '''
-# [RGON-R23-START] Step23 항체 비파괴 주입
-R23_ANTIBODY = {"id": "R23", "rule": %r}
-for _n in ("ANTIBODIES", "DEFAULT_ANTIBODIES", "ANTIBODY_RULES", "IMMUNE_RULES", "RULES", "ANTIBODY"):
-    _o = globals().get(_n)
-    if isinstance(_o, dict) and "R23" not in _o:
-        _o["R23"] = R23_ANTIBODY["rule"]
-    elif isinstance(_o, list) and not any("R23" in str(_x) for _x in _o):
-        _o.append(dict(R23_ANTIBODY) if (_o and isinstance(_o[0], dict)) else R23_ANTIBODY["rule"])
-# [RGON-R23-END]
-''' % R23
+def find(o, keys, depth=0):
+    if depth > 4 or not isinstance(o, dict): return None
+    for k in keys:
+        v = o.get(k)
+        if isinstance(v, (int, float)) and not isinstance(v, bool): return float(v)
+    for v in o.values():
+        r = find(v, keys, depth + 1)
+        if r is not None: return r
+    return None
 
-def bump_backend():
-    for name in BACKEND:
-        p = ROOT / name
-        if not p.exists(): log(f"⚠️ 백엔드 없음: {name}"); continue
-        src = rd(p); bak(p)
-        t, n = re.subn(r'((?:RGON_VERSION|__version__|VERSION|VER)\s*[:=]\s*["\'])v\d+\.\d+[^"\']*(["\'])', r"\g<1>" + VER + r"\2", src)
-        t = re.sub(r"R1\s*[~\-–]\s*R2[0-2]\b", AB, t)
-        if "R23" not in t:
-            m = re.search(r"^if __name__\s*==", t, re.M)
-            t = t[:m.start()] + R23_BLOCK + "\n" + t[m.start():] if m else t + R23_BLOCK
-        wr(p, t)
-        try: py_compile.compile(str(p), doraise=True)
-        except py_compile.PyCompileError as e:
-            shutil.copy2(BAK / name, p); raise SystemExit(f"❌ {name} 컴파일 실패 → 복원: {e}")
-        log(f"✅ 승격 {name} (버전 대입 {n}곳, R23 등록)")
+def facts(snap=None):
+    snap = load(ROOT / "rgon_brain_snapshot.json") if snap is None else snap
+    tr, off = snap.get("treasury") or {}, snap.get("offices") or {}
+    bots, sl = [], 0
+    for p in ROOT.rglob("*.py"):
+        n = p.name.lower()
+        if SKIP & set(p.relative_to(ROOT).parts) or n.startswith("step") or n == "rgon_trading_council.py": continue
+        if any(k in n for k in ("strateg", "bot", "trade", "trading", "signal", "backtest")): bots.append(p)
+    for p in bots[:40]:
+        try: t = p.read_text(encoding="utf-8", errors="ignore")[:200000]
+        except Exception: continue
+        if re.search(r"stop_?loss|take_?profit|손절|익절|trailing", t, re.I): sl += 1
+    h = find(snap, ("health_score", "wbc_score", "immune_score", "health", "score"))
+    dd = find(tr, ("drawdown", "mdd", "max_drawdown")) or 0.0
+    dd = dd * 100 if 0 < abs(dd) <= 1 else dd
+    return {"health": max(0.0, min(100.0, 100.0 if h is None else h)), "bots": len(bots), "sl_files": sl,
+            "balance": find(tr, ("balance", "equity", "total", "krw", "cash", "usdt")),
+            "risk_cap": find(tr, ("risk_cap", "max_position", "position_cap", "max_risk")),
+            "drawdown": abs(dd), "offices": len(off) if isinstance(off, (dict, list)) else 0,
+            "bot_files": [p.relative_to(ROOT).as_posix() for p in bots[:12]]}
 
-def run_cycle():
-    try:
-        r = subprocess.run([sys.executable, "rgon_daily_cycle.py", "--run"], cwd=ROOT, capture_output=True,
-                           text=True, encoding="utf-8", errors="replace", timeout=900)
-        log(f"🔁 daily_cycle rc={r.returncode} | {(r.stdout or r.stderr)[-300:].strip()}"); return r.returncode == 0
-    except Exception as e: log(f"⚠️ daily_cycle 실행 실패: {e}"); return False
+def clamp(x): return round(max(0.0, min(100.0, x)), 1)
 
-def sync_fix():
-    stamp = f"> 🔄 Step23 동기화: {VER} · 항체 {AB} · {R23}\n\n"
-    for r in SYNC:
-        p = ROOT / r
-        if not p.exists(): log(f"⚠️ 동기화 대상 없음: {r}"); continue
-        t = rd(p); need_r23 = r.endswith("immune_ledger.json") and "R23" not in t
-        if VER in t and AB in t and not need_r23: continue
-        bak(p)
-        if p.suffix == ".json":
-            try: d = json.loads(t)
-            except Exception: d = None
-            if isinstance(d, dict):
-                d["version"], d["antibody_range"] = VER, AB
-                if isinstance(d.get("vascular_circulation"), dict):
-                    d["vascular_circulation"]["version"] = VER
-                    d["vascular_circulation"]["antibody_range"] = AB
-                if isinstance(d.get("immune"), dict):
-                    d["immune"]["antibody_range"] = AB
-                    d["immune"]["antibody_count"] = 23
-                d["antibody_count"] = 23
-                if need_r23:
-                    a = d.get("antibodies")
-                    if isinstance(a, list): a.append({"id": "R23", "name": "전신 맥박 & 18개 스킬 UI 단발 통합", "rule": R23, "status": "활성"})
-                    elif isinstance(a, dict): a["R23"] = R23
-                    else: d.setdefault("step23_antibodies", {})["R23"] = R23
-                wr(p, json.dumps(d, ensure_ascii=False, indent=2)); log(f"🩹 JSON 동기화 {r}")
-        else:
-            t2 = re.sub(r"v11\.\d+[A-Za-z0-9_\-]*", VER, t)
-            t2 = re.sub(r"R1\s*[~\-–]\s*R2[0-2]\b", AB, t2)
-            if VER not in t2 or AB not in t2: t2 = stamp + t2
-            wr(p, t2); log(f"🩹 MD 동기화 {r}")
-    src = ROOT / "rgon_morning_brief.json"
-    idx_src = ROOT / "skills" / "SKILL_INDEX.json"
+def build(f):
+    h, n, dd, o, sl = f["health"], f["bots"], f["drawdown"], f["offices"], f["sl_files"]
+    has_tr = f["balance"] is not None
+    raw = {"TREASURY": (68 + min(n, 5) * 3 + (6 if f["balance"] else 0) + (h - 50) * .2,
+                        22 + dd * 1.5 + (6 if not f["risk_cap"] else 0) + (15 if not has_tr and h < 50 else 0)),
+           "MOMENTUM": (66 + min(n, 6) * 3 + (h - 50) * .25, 24 + (20 if n == 0 and h < 50 else 0) + dd * .8),
+           "STOPLOSS": (65 + min(sl, 3) * 6 + (h - 50) * .2, 20 + (35 if sl == 0 and h < 50 else 0) + dd),
+           "XVERIFY": (68 + min(o, 8) * 2.5 + min(n, 4) * 2, 22 + (25 if o < 2 and h < 50 else 0))}
+    items = []
+    for aid, title, no, gua, mean, motto, w in AGENDAS:
+        bull, bear = clamp(raw[aid][0]), clamp(raw[aid][1])
+        if aid == "MOMENTUM" and bull >= 85: bear = clamp(bear + 15)
+        j = clamp(w * bull + (1 - w) * (100 - bear))
+        code = "GO" if j >= 65 else "HOLD" if j >= 50 else "DEFEND"
+        if aid == "TREASURY" and bear >= 60: code = "DEFEND"
+        act = {"GO": "조건 충족, 한도 내 집행 허용", "HOLD": "관망, 추가 확인 후 분할 진입", "DEFEND": "방어, 신규 진입 보류·한도 축소"}[code]
+        line = f"⚖️ [{code}] {j:.1f}점 (Bull {bull:.1f} / Bear {bear:.1f} / #{no:02d}-{gua}) {title} — {act} · {mean} · {motto}"
+        items.append({"id": aid, "title": title, "verdict": code, "judge": j, "bull": bull, "bear": bear,
+                      "hexagram": {"no": no, "name": gua, "meaning": mean}, "motto": motto, "action": act, "line": line})
+    return items
+
+def ensure_skill_index():
+    idx_p = ROOT / "skills" / "SKILL_INDEX.json"
+    d = load(idx_p)
+    if not isinstance(d, dict): d = {"skills": d if isinstance(d, list) else []}
+    lst = d.setdefault("skills", [])
+    if not any("trinity-trading-council" in json.dumps(s, ensure_ascii=False) for s in lst):
+        lst.append({
+            "slug": "trinity-trading-council",
+            "id": "trinity-trading-council",
+            "name": "Trinity Trading Council (3자 트레이딩 심판기)",
+            "category": "trading-council",
+            "hexagram_tag": "#63-既濟",
+            "origin": "core",
+            "path": "skills/trinity-trading-council/SKILL.md",
+            "source_url": "local://rgon_trading_council.py"
+        })
+    d["version"] = VER
+    d["antibody_range"] = "R1~R24"
+    d["count"] = len(lst)
+    idx_p.parent.mkdir(parents=True, exist_ok=True)
+    idx_p.write_text(json.dumps(d, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    for m in ("dashboard/skills", "docs/skills"):
+        (ROOT / m).mkdir(parents=True, exist_ok=True)
+        shutil.copy2(idx_p, ROOT / m / "SKILL_INDEX.json")
+    return len(lst)
+
+def merge_brief(data):
+    sk_cnt = ensure_skill_index()
+    b = load(BRIEF) or {}
+    if not isinstance(b.get("nutrient"), dict): b["nutrient"] = {}
+    titles = [a[1] for a in AGENDAS]
+    sys_lines = [x for x in (b["nutrient"].get("trinity") or []) if not any(t in str(x) for t in titles)]
+    b["nutrient"]["trinity"] = sys_lines[:3] + data["trinity_lines"]
+    b["nutrient"]["skill_total"] = sk_cnt
+    b["skill_count"] = sk_cnt
+    if isinstance(b.get("vascular_circulation"), dict):
+        b["vascular_circulation"]["skill_count"] = sk_cnt
+        b["vascular_circulation"]["version"] = VER
+        b["vascular_circulation"]["antibody_range"] = "R1~R24"
+    if isinstance(b.get("council"), dict): b["council"]["trading"] = data["agendas"]
+    else: b["trading_council"] = data["agendas"]
+    b["version"], b["antibody_range"], b["trading_council_at"] = VER, "R1~R24", data["generated_at"]
+    BRIEF.write_text(json.dumps(b, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     for d in ("dashboard", "docs"):
-        if src.exists() and (ROOT / d).is_dir():
-            q = ROOT / d / src.name
-            if not q.exists() or sha(q) != sha(src):
-                if q.exists(): bak(q)
-                shutil.copy2(src, q); CHANGED.add(q)
-        if idx_src.exists() and (ROOT / d).is_dir():
-            sk_dir = ROOT / d / "skills"
-            sk_dir.mkdir(parents=True, exist_ok=True)
-            q2 = sk_dir / "SKILL_INDEX.json"
-            if not q2.exists() or sha(q2) != sha(idx_src):
-                if q2.exists(): bak(q2)
-                shutil.copy2(idx_src, q2); CHANGED.add(q2)
+        if (ROOT / d).is_dir(): shutil.copy2(BRIEF, ROOT / d / BRIEF.name)
 
-def fallback():
-    brief = loadj("rgon_morning_brief.json") or {}
-    idx = loadj("skills/SKILL_INDEX.json")
-    skills = (idx.get("skills") if isinstance(idx, dict) else idx) or []
-    if not skills and (ROOT / "skills").is_dir():
-        skills = [{"name": f.parent.name, "category": "skill", "source_url": f"skills/{f.parent.name}/SKILL.md"}
-                  for f in sorted((ROOT / "skills").glob("*/SKILL.md"))]
-    skills = skills or [{"name": n} for n in DEFAULT_SKILLS]
-    rad = loadj("rgon_skill_radar.json")
-    if isinstance(rad, dict): rad = rad.get("items") or rad.get("cards") or rad.get("radar") or []
-    s = json.dumps({"brief": brief, "skills": skills, "radar": rad or []}, ensure_ascii=False).replace("</", "<\\/")
-    for w in FORBID_WORDS: s = s.replace(w, w[0] + "\\u%04x" % ord(w[1]) + w[2:])
-    return s
+def run(merge=False, quiet=False):
+    f = facts(); items = build(f)
+    data = {"version": VER, "antibody": AB, "generated_at": datetime.now().isoformat(timespec="seconds"),
+            "facts": f, "agendas": items, "trinity_lines": [i["line"] for i in items],
+            "overall": {"avg_judge": clamp(sum(i["judge"] for i in items) / 4),
+                        "weakest": min(items, key=lambda x: x["judge"])["id"], "treasury_guard": items[0]["verdict"]}}
+    OUT.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    if merge: merge_brief(data)
+    if not quiet: print("\n".join(data["trinity_lines"]))
+    return data
 
-DEFAULT_V15 = r"""<!-- [RGYT-PLACE-ONCE-V15-START] -->
-<script id="rgyt-place-once">
-(function(){
-  function placeOnce(){
-    var w=document.getElementById('rgyt-wrap');
-    if(!w||w.getAttribute('data-placed')==='1')return;
-    var all=document.body?document.body.getElementsByTagName('*'):[];
-    var seed=null;
-    for(var i=0;i<all.length;i++){
-      var el=all[i];
-      if(w.contains(el))continue;
-      if(/^(SCRIPT|STYLE|NOSCRIPT|TEMPLATE|TEXTAREA)$/.test(el.tagName))continue;
-      var t=(el.textContent||'').replace(/\s+/g,' ').trim();
-      if(t.length>0&&t.length<220&&t.indexOf('실시간 브리핑 전문')>=0){
-        var deeper=false;
-        for(var c=el.firstElementChild;c;c=c.nextElementSibling){
-          if((c.textContent||'').indexOf('실시간 브리핑 전문')>=0){deeper=true;break;}
-        }
-        if(!deeper){seed=el;break;}
-      }
-    }
-    if(!seed)return;
-    var u=seed.closest('details')||seed;
-    for(var g=0;g<8;g++){
-      var p=u.parentElement;
-      if(!p||p===document.body||p.children.length>5)break;
-      u=p;
-    }
-    if(u&&u.parentNode&&u.nextElementSibling!==w){
-      u.parentNode.insertBefore(w,u.nextSibling);
-    }
-    w.setAttribute('data-placed','1');
-  }
-  if(document.readyState==='loading'){
-    document.addEventListener('DOMContentLoaded',placeOnce,{once:true});
-  }else{
-    placeOnce();
-  }
-})();
-</script>
-<!-- [RGYT-PLACE-ONCE-V15-END] -->"""
-
-BLOCK = r"""<style>
-#rgyt-wrap{margin:6px 0;border:1px solid #2a3550;border-radius:10px;background:#0f1626;color:#dfe6f5;font-size:13px}
-#rgyt-head{display:flex;gap:8px;align-items:center;padding:8px 12px;cursor:pointer;flex-wrap:wrap;background:linear-gradient(90deg,#111c35,#162447);border-radius:10px}
-#rgyt-pulse{opacity:.92;font-size:12px;color:#93c5fd}#rgyt-tog{margin-left:auto;font-weight:bold;color:#60a5fa}
-#rgyt-tabs{display:flex;gap:6px;padding:8px 10px 6px;flex-wrap:wrap;border-top:1px solid #1e293b}
-#rgyt-tabs button,#rgyt-wrap .rgyt-card button{background:#1b2540;color:#dfe6f5;border:1px solid #33416a;border-radius:7px;padding:4px 9px;cursor:pointer;font-size:12px}
-#rgyt-tabs button.on{background:#2563eb;border-color:#3b82f6;font-weight:bold;color:#fff}
-#rgyt-pane{max-height:440px;overflow:auto;padding:4px 10px 10px}
-.rgyt-card{border:1px solid #26314d;border-radius:8px;padding:8px 10px;margin:6px 0;background:#131c30}
-.rgyt-tag{font-size:11px;background:#24304f;color:#93c5fd;border-radius:5px;padding:1px 6px;margin-left:4px;display:inline-block}
-.rgyt-sm{font-size:12px;opacity:.82;margin:4px 0;line-height:1.45}.rgyt-tool{display:flex;gap:6px;margin:4px 0;flex-wrap:wrap}
-.rgyt-tool input,.rgyt-tool select{background:#0b1220;color:#dfe6f5;border:1px solid #33416a;border-radius:6px;padding:4px 8px;font-size:12px}
-.rgyt-tool input{flex:1;min-width:140px}
-.rgyt-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:6px;margin-top:6px}
-.rgyt-org{background:#0b1324;border:1px solid #1e293b;border-radius:6px;padding:5px 8px;font-size:12px}
-#rgyt-wrap table{width:100%;border-collapse:collapse;margin-top:6px;font-size:12px}#rgyt-wrap td,#rgyt-wrap th{border-bottom:1px solid #26314d;padding:5px 4px;text-align:left}
-#rgyt-wrap a{color:#60a5fa;text-decoration:none;margin-right:8px;font-size:12px}
-</style>
-<div id="rgyt-wrap" data-ver="v11.22-OMNI-UI" data-antibody="R1~R23">
-<div id="rgyt-head"><b>🔭 유튜브 트렌드 &amp; AI 스킬 흡수기</b><span id="rgyt-pulse"></span><span id="rgyt-tog">▼ 펼치기</span></div>
-<div id="rgyt-body" hidden><div id="rgyt-tabs">
-<button type="button" data-tab="radar" id="rgyt-t-radar" class="on">📡 트렌드 레이더</button>
-<button type="button" data-tab="skills" id="rgyt-t-skills">🍯 보유 스킬</button>
-<button type="button" data-tab="pulse" id="rgyt-t-pulse">🫀 전신 맥박 &amp; 3자 심판</button>
-</div><div id="rgyt-pane"></div></div></div>
-<script>
-(function(){'use strict';try{
-var FB=__FB__;
-var ORG=['1_radar','2_nutrient','3_ticket_shield','4_wbc','5_iching','6_pulse_snapshot'];
-var S={b:FB.brief||{},k:FB.skills||[],r:FB.radar||[],tab:'radar',q:'',cat:''};
-function $(i){return document.getElementById(i);}
-function esc(t){return String(t==null?'':t).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
-function pick(o,ks,d){for(var i=0;i<ks.length;i++){if(o&&typeof o==='object'&&o[ks[i]]!=null&&o[ks[i]]!=='')return o[ks[i]];}return d;}
-function ok(v){if(v&&typeof v==='object')v=pick(v,['status','state','ok','result'],true);if(v===true)return true;return /^(ok|pass|passed|green|success|done|healthy|true|✔|✅)$/i.test(String(v).trim());}
-function parseTri(raw){
-  if(!Array.isArray(raw))return[];
-  return raw.map(function(x){
-    if(x&&typeof x==='object')return{topic:pick(x,['topic','agenda','title','name'],'-'),bull:pick(x,['bull','bull_score'],'-'),bear:pick(x,['bear','bear_score'],'-'),judge:pick(x,['judge','score'],'-'),verdict:pick(x,['verdict','status'],'APPROVED')};
-    var s=String(x||'');
-    var m=s.match(/\[([^\]]+)\]\s*([\d.]+)점\s*\(Bull\s*([\d.]+)\s*\/\s*Bear\s*([\d.]+)\s*\/\s*([^)]+)\)\s*(.*)/);
-    if(m)return{verdict:m[1]+' ('+m[5]+')',judge:m[2]+'점',bull:m[3],bear:m[4],topic:m[6]||s};
-    return{topic:s,bull:'-',bear:'-',judge:'-',verdict:'승인'};
-  });
-}
-function B(){
-  var b=S.b||{},vc=b.vascular_circulation||{},nt=b.nutrient||{};
-  var h=vc.iching||b.hexagram||b.iching||{};if(typeof h==='string')h={name:h};
-  var og=vc.organs||b.organs||{},ol=[];
-  Object.keys(og).sort().forEach(function(k){ol.push([k,og[k]]);});
-  if(!ol.length)ORG.forEach(function(k){ol.push([k,true]);});
-  var tri=nt.trinity||b.trinity||b.council||[];
-  return{
-    sc:pick(b,['health_score','score'],100),
-    ab:pick(b,['antibody_range'],'R1~R23'),
-    hx:pick(h,['name','title'],'중천건(重天乾)'),
-    mt:pick(h,['meaning','motto','keyword'],'자강불식(自強不息)'),
-    act:pick(h,['action','guidance'],'상선약수(上善若水) · 삼성(三省) — 6대 기관을 물처럼 순환시키고 하루 세 번 무결성을 살핀다.'),
-    ol:ol,
-    c:parseTri(tri)
-  };
-}
-function cp(t,btn){var o=btn.textContent;function done(){btn.textContent='✅ 복사완료';setTimeout(function(){btn.textContent=o;},1200);}
-function fb(){var a=document.createElement('textarea');a.value=t;a.style.position='fixed';a.style.opacity='0';document.body.appendChild(a);a.select();try{document.execCommand('copy');}catch(e){}a.remove();done();}
-if(navigator.clipboard&&window.isSecureContext)navigator.clipboard.writeText(t).then(done,fb);else fb();}
-function badge(){var x=B();$('rgyt-pulse').textContent='🩸'+x.sc+'점 · 🛡️'+x.ab+' · ☯️'+x.hx.split('(')[0]+' · 🍯스킬 '+S.k.length+'개 · 📡레이더 '+S.r.length+'건';
-$('rgyt-t-radar').textContent='📡 트렌드 레이더 ('+S.r.length+')';$('rgyt-t-skills').textContent='🍯 보유 스킬 ('+S.k.length+')';}
-function cat(x){return pick(x,['category','cat','channel','tag'],'트렌드');}
-function list(){var q=S.q.toLowerCase(),L=S.r.filter(function(x){return(!S.cat||cat(x)===S.cat)&&(!q||JSON.stringify(x).toLowerCase().indexOf(q)>=0);});
-$('rgyt-list').innerHTML=L.map(function(x){var u=pick(x,['url','link','source_url','source'],''),t=pick(x,['title','name'],'(무제)'),sm=pick(x,['summary','desc','description','why','action_plan'],'');
-return'<div class="rgyt-card"><b>'+esc(t)+'</b><span class="rgyt-tag">'+esc(cat(x))+'</span><div class="rgyt-sm">'+esc(sm)+'</div>'+(u?'<a href="'+esc(u)+'" target="_blank" rel="noopener">🔗 원본열기</a>':'')+'<button type="button" data-cp="'+esc('[스킬흡수 지시] '+t+(u?' ('+u+')':'')+' 핵심 내용을 우리 시스템에 적용해 줘.')+'">📋 지시문 복사</button></div>';}).join('')||'<div class="rgyt-sm">결과 없음</div>';}
-function vRadar(){var cs={};S.r.forEach(function(x){cs[cat(x)]=1;});
-return'<div class="rgyt-tool"><select id="rgyt-cat"><option value="">전체 카테고리</option>'+Object.keys(cs).map(function(c){return'<option'+(c===S.cat?' selected':'')+'>'+esc(c)+'</option>';}).join('')+'</select><input id="rgyt-q" placeholder="🔍 트렌드·스킬 검색..." value="'+esc(S.q)+'"></div><div id="rgyt-list"></div>';}
-function vSkills(){return S.k.map(function(s){if(typeof s==='string')s={name:s};var n=pick(s,['name','slug','id'],'?'),sl=pick(s,['slug','id'],n),inv='[RGON 스킬 호출: '+n+' ('+pick(s,['path'],'skills/'+sl+'/SKILL.md')+')] 이 스킬의 표준 절차에 따라 작업을 수행해 줘.',
-g=String(pick(s,['hexagram_tag','hexagram','gua','iching'],'')).replace(/^#/,''),u=pick(s,['source_url','source','url','link'],''),p=pick(s,['path'],'');
-return'<div class="rgyt-card"><b>🍯 '+esc(n)+'</b><span class="rgyt-tag">'+esc(pick(s,['category','cat'],'skill'))+'</span>'+(g?'<span class="rgyt-tag">☯️ #'+esc(g)+'</span>':'')+
-'<div class="rgyt-sm">경로: <code>'+esc(p||('skills/'+sl+'/SKILL.md'))+'</code></div>'+(u&&u.indexOf('http')===0?'<a href="'+esc(u)+'" target="_blank" rel="noopener">🔗 출처링크</a>':'')+'<button type="button" data-cp="'+esc(inv)+'">📋 스킬호출 복사</button></div>';}).join('');}
-function vPulse(){var x=B();
-var h='<div class="rgyt-card"><b>🫀 6대 기관 전신 대순환 상태 (Step 22~23 · '+esc(x.ab)+')</b><div class="rgyt-grid">'+x.ol.map(function(o){return'<div class="rgyt-org">'+(ok(o[1])?'🟢 ✔ ':'🔴 ✖ ')+esc(o[0])+'</div>';}).join('')+'</div></div>';
-h+='<div class="rgyt-card"><b>☯️ 오늘의 주역 64괘 — '+esc(x.hx)+'</b><div class="rgyt-sm">• <b>풀이:</b> '+esc(x.mt)+'<br>• <b>행동 지침:</b> '+esc(x.act)+'</div></div>';
-h+='<div class="rgyt-card"><b>⚖️ 3자 찬반 심판기 (Trinity Council — Bull vs Bear vs Judge)</b><table><tr><th>안건</th><th>🐂Bull</th><th>🐻Bear</th><th>⚖️점수</th><th>판정·괘</th></tr>'+
-(x.c.length?x.c.map(function(c){return'<tr><td>'+esc(c.topic)+'</td><td>'+esc(c.bull)+'</td><td>'+esc(c.bear)+'</td><td><b>'+esc(c.judge)+'</b></td><td>'+esc(c.verdict)+'</td></tr>';}).join(''):'<tr><td colspan="5">심판 기록 없음</td></tr>')+'</table></div>';return h;}
-function render(){var ts=$('rgyt-tabs').querySelectorAll('button');for(var i=0;i<ts.length;i++)ts[i].className=ts[i].getAttribute('data-tab')===S.tab?'on':'';
-$('rgyt-pane').innerHTML=S.tab==='radar'?vRadar():S.tab==='skills'?vSkills():vPulse();if(S.tab==='radar')list();}
-function get(ns){return ns.reduce(function(p,n){return p.then(function(r){return r||fetch(n,{cache:'no-store'}).then(function(x){return x.ok?x.json():null;}).catch(function(){return null;});});},Promise.resolve(null));}
-function load(){if(!window.fetch)return;Promise.all([get(['rgon_morning_brief.json','./rgon_morning_brief.json','../rgon_morning_brief.json']),get(['skills/SKILL_INDEX.json','./skills/SKILL_INDEX.json','../skills/SKILL_INDEX.json']),get(['rgon_skill_radar.json','./rgon_skill_radar.json','../rgon_skill_radar.json'])]).then(function(v){
-if(v[0]&&typeof v[0]==='object')S.b=v[0];var k=v[1]&&(Array.isArray(v[1])?v[1]:v[1].skills);if(k&&k.length)S.k=k;var r=v[2]&&(Array.isArray(v[2])?v[2]:(v[2].items||v[2].cards||v[2].radar));if(r&&r.length)S.r=r;badge();render();}).catch(function(){});}
-function initUI(){var w=$('rgyt-wrap');if(!w||w.getAttribute('data-ui-bound')==='1')return;w.setAttribute('data-ui-bound','1');
-w.addEventListener('click',function(e){var t=e.target;if(t.closest('#rgyt-head')){var b=$('rgyt-body');b.hidden=!b.hidden;$('rgyt-tog').textContent=b.hidden?'▼ 펼치기':'▲ 접기';return;}
-var tb=t.closest('[data-tab]');if(tb){S.tab=tb.getAttribute('data-tab');render();return;}var c=t.closest('[data-cp]');if(c)cp(c.getAttribute('data-cp'),c);});
-w.addEventListener('input',function(e){if(e.target.id==='rgyt-q'){S.q=e.target.value;list();}});
-w.addEventListener('change',function(e){if(e.target.id==='rgyt-cat'){S.cat=e.target.value;list();}});
-badge();render();load();}
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initUI,{once:true});else initUI();
-}catch(e){}})();
-</script>"""
-
-def patch(targets, fbjson):
-    anchors = {}
-    for p in targets:
-        t = rd(p); bak(p)
-        i, j = t.index(M_S) + len(M_S), t.index(M_E)
-        old_inner = t[i:j]
-        if V15_S in old_inner and V15_E in old_inner:
-            v15_part = old_inner[old_inner.index(V15_S):old_inner.index(V15_E) + len(V15_E)]
-            anchors[rel(p)] = "V15-placeOnce(실시간 브리핑 전문 아래)"
-        else:
-            v15_part = DEFAULT_V15
-            anchors[rel(p)] = "DEFAULT-V15-placeOnce"
-        blk = BLOCK.replace("__FB__", fbjson) + "\n" + v15_part
-        wr(p, t[:i] + "\n" + blk + "\n" + t[j:])
-        log(f"🎨 V13 내부 교체 {rel(p)} ({anchors[rel(p)]})")
-    return anchors
-
-def verify(targets, guard):
-    v1 = []
-    for p in targets:
-        t = rd(p); ok = t.count(M_S) == 1 and t.count(M_E) == 1
-        inner = t[t.index(M_S):t.index(M_E)] if ok else ""
-        f_in, f_all = len(FORBID.findall(inner)), len(FORBID.findall(t))
-        v1.append((rel(p), ok and "placeOnce" in inner and f_in == 0, f_in, f_all))
-    diff = [rel(p) for p, h in guard.items() if not p.exists() or sha(p) != h]
-    miss = [r for r in SYNC if (ROOT / r).exists() and not (VER in rd(ROOT / r) and AB in rd(ROOT / r))]
-    led = ROOT / "rgon_immune_ledger.json"
-    if led.exists() and "R23" not in rd(led): miss.append("rgon_immune_ledger.json(R23)")
-    miss += [b for b in BACKEND if (ROOT / b).exists() and "R23" not in rd(ROOT / b)]
-    return v1, diff, miss
-
-def report(targets, guard, v1, diff, miss, anchors, cyc):
-    g1, g2, g3 = all(x[1] for x in v1) and bool(v1), not diff, not miss
-    L = [f"# STEP23 UI REPORT — {VER} / {AB}", "", f"- 생성: {TS}", f"- 항체: {R23}", f"- daily_cycle: {'성공' if cyc else '실패/경고'}",
-         f"- 백업: {rel(BAK)}", f"- 대상 HTML: {len(targets)}개 (기대 7개{'' if len(targets) == 7 else ' ⚠️ 불일치'})", "",
-         f"## 三省 ① 대상 검증 {'✅' if g1 else '❌'}", "| 파일 | 통과 | 마커 내부 금지어 | 파일 전체 금지어(마커 밖 기존, 무수정) | 배치 방식 |", "|---|---|---|---|---|"]
-    L += [f"| {a} | {'✅' if b else '❌'} | {c} | {d} | {anchors.get(a, '')} |" for a, b, c, d in v1]
-    L += ["", f"## 三省 ② 비대상 SHA-256 불변 {'✅' if g2 else '❌'} (수호 {len(guard)}개, 변경 {len(diff)}개)", BT3]
-    L += [f"{h[:16]}…  {rel(p)}" for p, h in sorted(guard.items())][:200] + [BT3]
-    L += [f"- 변경 감지: {d}" for d in diff]
-    L += ["", f"## 三省 ③ 버전·항체 동기화 {'✅' if g3 else '❌'}"] + [f"- 미동기화: {m}" for m in miss]
-    L += ["", "## 실행 로그", BT3] + LOG[-60:] + [BT3]
-    wr(ROOT / "STEP23_UI_REPORT.md", "\n".join(L) + "\n")
-    return sum([g1, g2, g3])
-
-def git():
-    files = sorted({rel(p) for p in CHANGED if p.exists() and BAK not in p.parents})
-    if Path(__file__).resolve().exists() and ROOT in Path(__file__).resolve().parents:
-        files = sorted(set(files) | {rel(Path(__file__).resolve())})
-    out = []
-    for cmd in (["git", "add", "--"] + files, ["git", "commit", "-m", f"Step23 {VER} {AB}: 전신 맥박·18 스킬 3탭 (V13 마커 내부만, placeOnce 단발)"], ["git", "push"]):
-        r = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, encoding="utf-8", errors="replace")
-        out.append(f"{cmd[1]} rc={r.returncode}"); log(f"🌿 {cmd[1]} rc={r.returncode} {(r.stdout + r.stderr)[-200:].strip()}")
-    return " · ".join(out)
-
-def msgbox(msg, good):
-    try:
-        import ctypes; ctypes.windll.user32.MessageBoxW(0, msg, f"RGON Step23 {VER}", 0x40 if good else 0x30)
-    except Exception: print(msg)
-
-def main():
-    bump_backend()
-    cyc = run_cycle()
-    sync_fix()
-    targets, guard = classify()
-    log(f"🔍 V13 대상 {len(targets)}개 · 수호(비대상 HTML/.js/manifest) {len(guard)}개")
-    if not targets: msgbox("V13 마커 보유 HTML을 찾지 못했습니다. 중단합니다.", False); return
-    anchors = patch(targets, fallback())
-    v1, diff, miss = verify(targets, guard)
-    score = report(targets, guard, v1, diff, miss, anchors, cyc)
-    g = git()
-    msgbox(f"三省 {score}/3\n대상 HTML {len(targets)}개 교체 (V15 placeOnce 보존, 루프 0)\n비대상 해시 변경 {len(diff)}건\n"
-           f"미동기화 {len(miss)}건\n{g}\n보고서: STEP23_UI_REPORT.md", score == 3)
+def self_test():
+    base = {"bot_files": [], "balance": None, "risk_cap": None}
+    cases = [facts(), facts({}), dict(base, health=100, bots=9, sl_files=5, balance=1e6, risk_cap=2, drawdown=0, offices=9),
+             dict(base, health=0, bots=0, sl_files=0, drawdown=80, offices=0)]
+    for f in cases:
+        items = build(f); assert len(items) == 4
+        for i in items:
+            m = PAT.match(i["line"]); assert m, i["line"]
+            assert m.group(1) == i["verdict"] and float(m.group(2)) == i["judge"]
+            assert all(0 <= i[k] <= 100 for k in ("judge", "bull", "bear"))
+    assert build(cases[3])[0]["verdict"] == "DEFEND", "금고 위기 시 반드시 DEFEND"
+    print(f"[SELF-TEST] OK — {VER} / {AB} · 4 agendas × {len(cases)} cases · parseTri 포맷 호환"); return 0
 
 if __name__ == "__main__":
-    main()
+    a = sys.argv[1:]
+    if hasattr(sys.stdout, "reconfigure"): sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    if "--self-test" in a: sys.exit(self_test())
+    if "--json" in a: print(json.dumps(run("--merge" in a, quiet=True), ensure_ascii=False, indent=2)); sys.exit(0)
+    if "--run" in a or "--merge" in a: run("--merge" in a)
+    else: print(__doc__ + "\n사용법: --run [--merge] | --self-test | --json")
+'''
+
+HOOK = r'''# >>> STEP24_TRADING_COUNCIL_HOOK (R24 · v11.23-TRADING-COUNCIL)
+import atexit as _s24_atexit, subprocess as _s24_sp, sys as _s24_sys, os as _s24_os
+def _s24_trading_council():
+    try:
+        _p = _s24_os.path.join(_s24_os.path.dirname(_s24_os.path.abspath(__file__)), "rgon_trading_council.py")
+        if _s24_os.path.exists(_p): _s24_sp.run([_s24_sys.executable, _p, "--run", "--merge"], timeout=300)
+    except Exception as _e: print("[R24] trading council hook skipped:", _e)
+if __name__ == "__main__": _s24_atexit.register(_s24_trading_council)
+# <<< STEP24_TRADING_COUNCIL_HOOK
+'''
+
+R24_BLOCK = '''
+# [RGON-R24-START] Step24 항체 비파괴 주입
+R24_ANTIBODY = {"id": "R24", "rule": %r}
+for _n in ("ANTIBODIES", "DEFAULT_ANTIBODIES", "ANTIBODY_RULES", "IMMUNE_RULES", "RULES", "ANTIBODY"):
+    _o = globals().get(_n)
+    if isinstance(_o, dict) and "R24" not in _o:
+        _o["R24"] = R24_ANTIBODY["rule"]
+    elif isinstance(_o, list) and not any("R24" in str(_x) for _x in _o):
+        _o.append(dict(R24_ANTIBODY) if (_o and isinstance(_o[0], dict)) else R24_ANTIBODY["rule"])
+# [RGON-R24-END]
+''' % R24_TEXT
+
+def say(m): print(m); LOG.append(str(m))
+def rd(p): return Path(p).read_text(encoding="utf-8", errors="replace") if Path(p).exists() else ""
+def wr(p, t): Path(p).parent.mkdir(parents=True, exist_ok=True); Path(p).write_text(t, encoding="utf-8")
+def jload(p):
+    try: return json.loads(rd(p)) if Path(p).exists() else None
+    except Exception: return None
+def jsave(p, d): wr(p, json.dumps(d, ensure_ascii=False, indent=2) + "\n")
+def compiles(p):
+    try: py_compile.compile(str(p), doraise=True); return True
+    except Exception as e: say(f"  ❌ 컴파일 실패 {Path(p).name}: {e}"); return False
+def run(cmd, timeout=600):
+    try:
+        r = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, encoding="utf-8", errors="replace",
+                           timeout=timeout, env=dict(os.environ, PYTHONIOENCODING="utf-8"))
+        return r.returncode, (r.stdout + r.stderr).strip()
+    except Exception as e: return -1, str(e)
+
+def hashes():
+    r = {}
+    for p in ROOT.rglob("*"):
+        rel = p.relative_to(ROOT)
+        if p.is_file() and not (SKIP & set(rel.parts)) and (p.suffix.lower() in (".html", ".js") or p.name == "manifest.json"):
+            r[rel.as_posix()] = hashlib.sha256(p.read_bytes()).hexdigest()
+    return r
+def diff(a, b): return sorted(k for k in set(a) | set(b) if a.get(k) != b.get(k))
+
+def upsert(t, block):
+    blk = f"<!-- STEP24 -->\n{block.strip()}\n<!-- /STEP24 -->"
+    if "<!-- STEP24 -->" in t: return re.sub(r"<!-- STEP24 -->.*?<!-- /STEP24 -->", lambda m: blk, t, flags=re.S)
+    return t.rstrip() + "\n\n" + blk + "\n"
+
+def bump_line(l): return OLDR.sub(AB_RANGE, OLDV.sub(VER, l)) if VERLINE.search(l) else l
+def top_bump(d):
+    for k, v in list(d.items()):
+        if isinstance(v, str): d[k] = OLDR.sub(AB_RANGE, OLDV.sub(VER, v))
+    d["version"], d["antibody_range"] = VER, AB_RANGE
+
+def forge_skill():
+    rows = "\n".join(f"| {i+1} | {t} | {g} | {w} |" for i, (t, g, w) in enumerate([
+        ("💰 금고 보존 & 포지션 사이징", "#60 수택절(水澤節)", "지족불욕(知足不辱), 한도 수호"),
+        ("📈 추세 돌파 & 모멘텀 타점", "#01 중천건(重天乾)", "자강불식, 항룡유회 경계"),
+        ("🛡️ 변동성 방어 & 손절/익절", "#63 수화기제(水火既濟)", "사환예방(思患豫防)"),
+        ("🔄 멀티에이전트 시그널 교차검증", "#64 화수미제(火水未濟)", "신변물거방(慎辨物居方)")]))
+    md = f"""---
+name: {SKILL_ID}
+version: {VER}
+antibody: {NEW_AB}
+entry: rgon_trading_council.py
+---
+# ⚖️ Trinity Trading Council — 3자 찬반 심판기 + 주역 64괘 장세 필터
+
+{R24_TEXT}
+
+## 실행
+{BT3}bash
+python rgon_trading_council.py --self-test     # 포맷·경계값 검증
+python rgon_trading_council.py --run --merge   # 판정 후 morning brief(nutrient.trinity)에 병합
+python rgon_trading_council.py --json          # 구조화 결과 출력
+{BT3}
+
+## 안건 & 괘
+| # | 안건 | 괘 | 고전 지혜 |
+|---|---|---|---|
+{rows}
+
+## 판정 규칙
+- Judge = w·Bull + (1−w)·(100−Bear) → GO ≥ 65 / HOLD ≥ 50 / 그 외 DEFEND
+- 금고(TREASURY) Bear ≥ 60이면 무조건 DEFEND (지족불욕 · R24)
+- 모멘텀 Bull ≥ 85이면 Bear +15 (항룡유회)
+
+## 출력 포맷 (Step 23 parseTri 호환)
+`⚖️ [GO|HOLD|DEFEND] XX.X점 (Bull XX.X / Bear XX.X / #NN-괘명) 안건 — 판단`
+"""
+    wr(ROOT / "skills" / SKILL_ID / "SKILL.md", md); say(f"  ✓ skills/{SKILL_ID}/SKILL.md 주조")
+
+def register_skill():
+    root = ROOT / "skills" / "SKILL_INDEX.json"
+    d = jload(root)
+    d = {"skills": []} if d is None else d
+    lst = d if isinstance(d, list) else d.setdefault("skills", [])
+    if not any(SKILL_ID in json.dumps(s, ensure_ascii=False) for s in lst):
+        lst.append({
+            "slug": SKILL_ID,
+            "id": SKILL_ID,
+            "name": "Trinity Trading Council (3자 트레이딩 심판기)",
+            "category": "trading-council",
+            "hexagram_tag": "#63-既濟",
+            "origin": "core",
+            "path": f"skills/{SKILL_ID}/SKILL.md",
+            "source_url": "local://rgon_trading_council.py",
+            "version": VER,
+            "antibody": NEW_AB
+        })
+    if isinstance(d, dict):
+        d.update(version=VER, antibody_range=AB_RANGE, count=len(lst), updated_at=datetime.now().isoformat(timespec="seconds"))
+    jsave(root, d)
+    for m in ("dashboard/skills", "docs/skills"):
+        (ROOT / m).mkdir(parents=True, exist_ok=True); shutil.copy2(root, ROOT / m / "SKILL_INDEX.json")
+    counts = {}
+    for p in ("skills", "dashboard/skills", "docs/skills"):
+        x = jload(ROOT / p / "SKILL_INDEX.json"); counts[p] = len(x if isinstance(x, list) else (x or {}).get("skills", []))
+    say(f"  ✓ SKILL_INDEX 등재·미러 → {counts}"); return counts
+
+def patch_backends_and_cycle():
+    bumped = []
+    for p in sorted(ROOT.glob("rgon_*.py")):
+        if p.name == "rgon_trading_council.py": continue
+        t = rd(p); orig = t
+        t = re.sub(r'((?:RGON_VERSION|__version__|VERSION|VER)\s*[:=]\s*["\'])v\d+\.\d+[^"\']*(["\'])', r"\g<1>" + VER + r"\2", t)
+        t = OLDR.sub(AB_RANGE, t)
+        if p.name in ("rgon_white_blood_cell.py", "rgon_nutrient_engine.py", "rgon_spec_ticket_Shield.py", "rgon_daily_cycle.py") and "R24_ANTIBODY" not in t:
+            m = re.search(r'^if __name__\s*==\s*["\']__main__["\']', t, re.M)
+            t = t[:m.start()] + R24_BLOCK + "\n" + t[m.start():] if m else t + R24_BLOCK
+        if p.name == "rgon_daily_cycle.py" and "STEP24_TRADING_COUNCIL_HOOK" not in t:
+            m = re.search(r'^if __name__\s*==\s*["\']__main__["\']', t, re.M)
+            t = t[:m.start()] + HOOK + "\n" + t[m.start():] if m else t.rstrip() + "\n\n" + HOOK
+        if t != orig:
+            wr(p, t)
+            if compiles(p): bumped.append(p.name)
+            else: wr(p, orig)
+    say(f"  ✓ 백엔드 버전·R24·순환훅 장착: {bumped}")
+
+def sync_versions(n_skills):
+    council = jload(ROOT / "rgon_trading_council.json") or {}
+    lines = council.get("trinity_lines", [])
+    led_p = ROOT / "rgon_immune_ledger.json"; led = jload(led_p)
+    led = led if isinstance(led, dict) else {}
+    top_bump(led)
+    led["antibody_count"] = 24
+    k = next((k for k in ("antibodies", "rules", "immune_rules", "antibody_rules") if k in led), "antibodies")
+    v = led.get(k)
+    if isinstance(v, dict): v[NEW_AB] = R24_TEXT
+    else:
+        v = v if isinstance(v, list) else []
+        if not any(NEW_AB in str(x)[:12] or (isinstance(x, dict) and x.get("id") == NEW_AB) for x in v):
+            v.append({"id": NEW_AB, "name": "실전 트레이딩 3자 심판 & 주역 리스크 필터", "rule": R24_TEXT, "status": "활성"} if v and isinstance(v[0], dict) else R24_TEXT)
+    led[k] = v; jsave(led_p, led); say("  ✓ rgon_immune_ledger.json → R24 등록")
+    snap_p = ROOT / "rgon_brain_snapshot.json"; snap = jload(snap_p)
+    snap = snap if isinstance(snap, dict) else {}
+    top_bump(snap); snap["skills_count"] = n_skills; snap["trading_council"] = council.get("overall", {})
+    jsave(snap_p, snap)
+    for m in ("dashboard", "docs"):
+        if (ROOT / m).is_dir(): shutil.copy2(snap_p, ROOT / m / snap_p.name)
+    say("  ✓ rgon_brain_snapshot.json 3곳 동기화")
+    blocks = {"CLAUDE.md": f"## 🐉 현재 버전: {VER} · 항체 {AB_RANGE}\n- {R24_TEXT}\n- 실전 트레이딩 판단 전 반드시 `rgon_trading_council.py --run` 결과를 확인한다(금고 DEFEND면 신규 진입 금지).",
+              "CODE_MAP.md": f"## {VER} (Step 24)\n- `rgon_trading_council.py`: Bull/Bear/Judge 3자 심판 + 주역 64괘 필터 → `rgon_trading_council.json`, `--merge`로 brief 병합\n- `skills/{SKILL_ID}/SKILL.md`: {n_skills}번째 정식 스킬\n- `rgon_daily_cycle.py`: STEP24 훅(atexit)으로 순환 시 자동 실행",
+              "MORNING_BRIEF.md": f"## ⚖️ 실전 트레이딩 3자 심판 ({VER} · {AB_RANGE})\n" + "\n".join(f"- {l}" for l in lines)}
+    for name, blk in blocks.items():
+        p = ROOT / name; t = rd(p) or f"# {name[:-3]}\n"
+        t2 = OLDR.sub(AB_RANGE, OLDV.sub(VER, t))
+        wr(p, upsert(t2, blk))
+    lp = ROOT / "RGON_EVOLUTION_LOG.md"; t = rd(lp) or "# RGON EVOLUTION LOG\n"
+    t = OLDR.sub(AB_RANGE, OLDV.sub(VER, t))
+    if f"## {VER}" not in t:
+        wr(lp, t.rstrip() + f"\n\n## {VER} — Step 24 ({datetime.now():%Y-%m-%d})\n- {R24_TEXT}\n- 안건 4종(#60 수택절·#01 중천건·#63 수화기제·#64 화수미제), 스킬 {n_skills}종, nutrient.trinity 7건 체계\n")
+    else:
+        wr(lp, t)
+    say("  ✓ CLAUDE.md · CODE_MAP.md · MORNING_BRIEF.md · RGON_EVOLUTION_LOG.md 동기화")
+
+def verify(counts):
+    c = []
+    for n in ("CLAUDE.md", "CODE_MAP.md", "MORNING_BRIEF.md", "RGON_EVOLUTION_LOG.md", "rgon_immune_ledger.json", "rgon_trading_council.json",
+              "rgon_morning_brief.json", "rgon_brain_snapshot.json", "dashboard/rgon_brain_snapshot.json", "docs/rgon_brain_snapshot.json",
+              "dashboard/rgon_morning_brief.json", "docs/rgon_morning_brief.json"):
+        if "/" in n and not (ROOT / n).parent.is_dir(): continue
+        c.append((f"{n} ⊃ {VER}", VER in rd(ROOT / n)))
+    c.append((f"CLAUDE.md ⊃ {AB_RANGE}", AB_RANGE in rd(ROOT / "CLAUDE.md")))
+    c.append(("ledger ⊃ R24", "R24" in rd(ROOT / "rgon_immune_ledger.json")))
+    tri = (((jload(ROOT / "rgon_morning_brief.json") or {}).get("nutrient") or {}).get("trinity")) or []
+    c.append((f"nutrient.trinity 트레이딩 4건 (총 {len(tri)}건)", sum(any(g in str(x) for g in GUAS) for x in tri) == 4))
+    c.append((f"SKILL_INDEX 3곳 동일·{TARGET_SKILLS}개 이상 {counts}", len(set(counts.values())) == 1 and min(counts.values()) >= TARGET_SKILLS))
+    return c
+
+def notify(title, msg):
+    try:
+        if os.name == "nt": ctypes.windll.user32.MessageBoxW(0, msg, title, 0x40 | 0x1000)
+    except Exception as e: print("[알림창 생략]", e)
+
+def main():
+    t0 = datetime.now(); say(f"🐉 RGON Step 24 — {VER} / {AB_RANGE} 시작 ({t0:%Y-%m-%d %H:%M:%S})")
+    pre = hashes(); say(f"[三省 前] 보호 파일 {len(pre)}개 SHA-256 기록")
+    wr(ROOT / "rgon_trading_council.py", MOD); ok_mod = compiles(ROOT / "rgon_trading_council.py")
+    say(f"  {'✓' if ok_mod else '❌'} rgon_trading_council.py 생성")
+    patch_backends_and_cycle()
+    rc_st, out = run([sys.executable, "rgon_trading_council.py", "--self-test"], 180); say("  " + out)
+    mid = hashes(); say(f"[三省 中] 보호 파일 변경 {len(diff(pre, mid))}건")
+    if (ROOT / "rgon_daily_cycle.py").exists():
+        rc_dc, out = run([sys.executable, "rgon_daily_cycle.py", "--run"], 900); say(f"  ↻ rgon_daily_cycle.py rc={rc_dc}")
+    forge_skill()
+    counts = register_skill()
+    rc_run, out = run([sys.executable, "rgon_trading_council.py", "--run", "--merge"], 300); say(out)
+    counts = register_skill()
+    sync_versions(counts["skills"])
+    comp_fail = [p.name for p in sorted(ROOT.glob("rgon_*.py")) if not compiles(p)]
+    post = hashes(); changed = sorted(set(diff(pre, mid)) | set(diff(pre, post)))
+    checks = verify(counts)
+    s1, s2, s3 = rc_st == 0 and rc_run == 0 and ok_mod and not comp_fail, not changed and len(pre) == len(post), all(ok for _, ok in checks)
+    say(f"[三省 ①] self-test·컴파일 {'PASS' if s1 else 'FAIL'} {comp_fail or ''}")
+    say(f"[三省 ②] 보호 파일 {len(post)}개 · 변경 {len(changed)}건 → {'PASS' if s2 else 'FAIL ' + str(changed)}")
+    say(f"[三省 ③] 버전·항체·스킬 동기화 {'PASS' if s3 else 'FAIL'}")
+    for n, ok_c in checks:
+        if not ok_c: say(f"  ⚠️ 미통과 항목: {n}")
+    council = jload(ROOT / "rgon_trading_council.json") or {}
+    rep = [f"# STEP24 TRADING COUNCIL REPORT — {VER} / {AB_RANGE}", f"- 실행: {t0:%Y-%m-%d %H:%M:%S} → {datetime.now():%H:%M:%S}",
+           f"- 삼성 3/3: ① {'✅' if s1 else '❌'} ② {'✅' if s2 else '❌'} ③ {'✅' if s3 else '❌'}", f"- {R24_TEXT}",
+           "\n## ⚖️ 실전 트레이딩 심판 결과", *[f"- {l}" for l in council.get("trinity_lines", [])],
+           f"- 종합: {council.get('overall', {})}", "\n## 동기화 검증", *[f"- {'✅' if ok_c else '❌'} {n}" for n, ok_c in checks],
+           f"\n## 보호 파일 SHA-256 ({len(post)}개, 변경 {len(changed)}건)", BT3, *[f"{h[:16]}  {k}" for k, h in sorted(post.items())][:200], BT3,
+           "\n## 실행 로그", BT3, *LOG[-60:], BT3]
+    wr(ROOT / "STEP24_TRADING_COUNCIL_REPORT.md", "\n".join(rep) + "\n")
+    ok = s1 and s2 and s3; git_msg = "삼성 미통과로 커밋 보류 (목표 기반 원칙)"
+    if ok and (ROOT / ".git").exists():
+        run(["git", "add", "-A"])
+        rc_c, oc = run(["git", "commit", "-m", f"Step24: {VER} — Bull/Bear/Judge 트레이딩 심판기 + 주역 64괘 필터 ({AB_RANGE}, {counts['skills']} skills)"])
+        rc_p, op = run(["git", "push"], 240); git_msg = f"commit rc={rc_c} / push rc={rc_p} {op[-160:]}"
+    elif ok: git_msg = "git 저장소 아님, 푸시 생략"
+    say(f"[GIT] {git_msg}")
+    tri = council.get("trinity_lines", [])
+    notify(f"RGON Step 24 {'완료 ✅' if ok else '점검 필요 ⚠️'}",
+           f"{VER} / {AB_RANGE}\n삼성 3/3: {'PASS' if s1 else 'FAIL'} · {'PASS' if s2 else 'FAIL'} · {'PASS' if s3 else 'FAIL'}\n"
+           f"보호 파일 변경: {len(changed)}건 · 스킬: {counts['skills']}개\n\n" + "\n".join(l.split(' — ')[0] for l in tri) + f"\n\nGIT: {git_msg[:120]}")
+    sys.exit(0 if ok else 1)
+
+if __name__ == "__main__": main()

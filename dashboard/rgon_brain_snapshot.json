@@ -1,8 +1,8 @@
 {
   "schema": "rgon_brain_snapshot/1",
-  "version": "v11.21-CIRCULATION",
-  "generated_at_kst": "2026-10-24 08:11:52 KST",
-  "synced_at_kst": "2026-10-24 08:11:52 KST",
+  "version": "v11.23-TRADING-COUNCIL",
+  "generated_at_kst": "2026-10-24 09:03:01 KST",
+  "synced_at_kst": "2026-10-24 09:03:01 KST",
   "sync_rate": "100.0%",
   "score": 100,
   "max_score": 100,
@@ -11,7 +11,7 @@
     "max": 100,
     "label": "100/100"
   },
-  "antibody_range": "R1~R22",
+  "antibody_range": "R1~R24",
   "antibodies": [
     {
       "id": "R8_APPROVAL_BEFORE_CODE",
@@ -637,6 +637,94 @@
       "step2": "already-applied"
     }
   },
+  "antibody_realnames": [
+    {
+      "id": "R1",
+      "name": "PS 따옴표 함정 방지",
+      "label": "R1: PS 따옴표 함정 방지",
+      "status": "활성"
+    },
+    {
+      "id": "R2",
+      "name": "모바일 가로폭 보호",
+      "label": "R2: 모바일 가로폭 보호",
+      "status": "활성"
+    },
+    {
+      "id": "R3",
+      "name": "체크박스 선택 보존",
+      "label": "R3: 체크박스 선택 보존",
+      "status": "활성"
+    },
+    {
+      "id": "R4",
+      "name": "정적 JSON 폴백",
+      "label": "R4: 정적 JSON 폴백",
+      "status": "활성"
+    },
+    {
+      "id": "R5",
+      "name": "서랍 빈여백 제거",
+      "label": "R5: 서랍 빈여백 제거",
+      "status": "활성"
+    },
+    {
+      "id": "R6",
+      "name": "세로 글자 깨짐 방지",
+      "label": "R6: 세로 글자 깨짐 방지",
+      "status": "활성"
+    },
+    {
+      "id": "R7",
+      "name": "배지 깜빡임 방지",
+      "label": "R7: 배지 깜빡임 방지",
+      "status": "활성"
+    },
+    {
+      "id": "R8",
+      "name": "승인(Y) 전 코드 금지",
+      "label": "R8: 승인(Y) 전 코드 금지",
+      "status": "활성"
+    },
+    {
+      "id": "R9",
+      "name": "단일 코드블록 원칙",
+      "label": "R9: 단일 코드블록 원칙",
+      "status": "활성"
+    },
+    {
+      "id": "R10",
+      "name": "자기참조 오판 방지",
+      "label": "R10: 자기참조 오판 방지",
+      "status": "활성"
+    },
+    {
+      "id": "R11",
+      "name": "최소 변경 Top1 선택",
+      "label": "R11: 최소 변경 Top1 선택",
+      "status": "활성"
+    },
+    {
+      "id": "R12",
+      "name": "중복 반복출력 금지",
+      "label": "R12: 중복 반복출력 금지",
+      "status": "활성"
+    },
+    {
+      "id": "R13",
+      "name": "0바이트 덮어쓰기 금지",
+      "label": "R13: 0바이트 덮어쓰기 금지",
+      "status": "활성"
+    },
+    {
+      "id": "R14",
+      "name": "코드 끝 찌꺼기 자동 정화",
+      "label": "R14: 코드 끝 찌꺼기 자동 정화",
+      "status": "활성"
+    }
+  ],
+  "antibody_summary": "항체 R1~R24 (14종)",
+  "antibody_realname_updated": "2026-10-22T11:17:02",
   "agency_pulse": {
     "version": "1.0",
     "engine": "scripts/rgon_agency_pulse.py",
@@ -1077,15 +1165,15 @@
   "skill_count": 18,
   "health_score": 100,
   "vascular_circulation": {
-    "version": "v11.21-CIRCULATION",
-    "antibody_range": "R1~R22",
+    "version": "v11.23-TRADING-COUNCIL",
+    "antibody_range": "R1~R24",
     "antibody_R22": "자아성찰 전신 혈관 개통 — 레이더·영양분(SKILL.md)·티켓/AgentShield·백혈구(WBC)·주역64괘·스냅샷/클라우드 JSON 6대 기관 무결점 단일 순환",
-    "cycle_at_kst": "2026-10-24 08:11:52 KST",
+    "cycle_at_kst": "2026-10-24 09:03:01 KST",
     "organs": {
       "1_radar": true,
       "2_nutrient": true,
       "3_ticket_shield": true,
-      "4_wbc": true,
+      "4_wbc": false,
       "5_iching": true,
       "6_pulse_snapshot": true
     },
@@ -1110,21 +1198,27 @@
     ],
     "engine_versions": {
       "rgon_white_blood_cell.py": {
-        "version": "v11.21-CIRCULATION",
-        "antibody_range": "R1~R22"
+        "version": "v11.23-TRADING-COUNCIL",
+        "antibody_range": "R1~R24"
       },
       "rgon_nutrient_engine.py": {
-        "version": "v11.21-CIRCULATION",
-        "antibody_range": "R1~R22"
+        "version": "v11.23-TRADING-COUNCIL",
+        "antibody_range": "R1~R24"
       },
       "rgon_spec_ticket_Shield.py": {
-        "version": "v11.21-CIRCULATION",
-        "antibody_range": "R1~R22"
+        "version": "v11.23-TRADING-COUNCIL",
+        "antibody_range": "R1~R24"
       },
       "rgon_daily_cycle.py": {
-        "version": "v11.21-CIRCULATION",
-        "antibody_range": "R1~R22"
+        "version": "v11.23-TRADING-COUNCIL",
+        "antibody_range": "R1~R24"
       }
     }
+  },
+  "skills_count": 19,
+  "trading_council": {
+    "avg_judge": 82.4,
+    "weakest": "TREASURY",
+    "treasury_guard": "GO"
   }
 }

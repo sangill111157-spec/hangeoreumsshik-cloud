@@ -1,8 +1,8 @@
 {
   "schema": "rgon_brain_snapshot/1",
-  "version": "v11.21-CIRCULATION",
-  "generated_at_kst": "2026-10-24 08:11:52 KST",
-  "synced_at_kst": "2026-10-24 08:11:52 KST",
+  "version": "v11.23-TRADING-COUNCIL",
+  "generated_at_kst": "2026-10-24 09:03:01 KST",
+  "synced_at_kst": "2026-10-24 09:03:01 KST",
   "sync_rate": "100.0%",
   "score": 100,
   "max_score": 100,
@@ -11,7 +11,7 @@
     "max": 100,
     "label": "100/100"
   },
-  "antibody_range": "R1~R22",
+  "antibody_range": "R1~R24",
   "antibodies": [
     {
       "id": "R8_APPROVAL_BEFORE_CODE",
@@ -723,7 +723,7 @@
       "status": "활성"
     }
   ],
-  "antibody_summary": "항체 R1~R14 (14종)",
+  "antibody_summary": "항체 R1~R24 (14종)",
   "antibody_realname_updated": "2026-10-22T11:17:02",
   "agency_pulse": {
     "version": "1.0",
@@ -1165,15 +1165,15 @@
   "skill_count": 18,
   "health_score": 100,
   "vascular_circulation": {
-    "version": "v11.21-CIRCULATION",
-    "antibody_range": "R1~R22",
+    "version": "v11.23-TRADING-COUNCIL",
+    "antibody_range": "R1~R24",
     "antibody_R22": "자아성찰 전신 혈관 개통 — 레이더·영양분(SKILL.md)·티켓/AgentShield·백혈구(WBC)·주역64괘·스냅샷/클라우드 JSON 6대 기관 무결점 단일 순환",
-    "cycle_at_kst": "2026-10-24 08:11:52 KST",
+    "cycle_at_kst": "2026-10-24 09:03:01 KST",
     "organs": {
       "1_radar": true,
       "2_nutrient": true,
       "3_ticket_shield": true,
-      "4_wbc": true,
+      "4_wbc": false,
       "5_iching": true,
       "6_pulse_snapshot": true
     },
@@ -1198,21 +1198,27 @@
     ],
     "engine_versions": {
       "rgon_white_blood_cell.py": {
-        "version": "v11.21-CIRCULATION",
-        "antibody_range": "R1~R22"
+        "version": "v11.23-TRADING-COUNCIL",
+        "antibody_range": "R1~R24"
       },
       "rgon_nutrient_engine.py": {
-        "version": "v11.21-CIRCULATION",
-        "antibody_range": "R1~R22"
+        "version": "v11.23-TRADING-COUNCIL",
+        "antibody_range": "R1~R24"
       },
       "rgon_spec_ticket_Shield.py": {
-        "version": "v11.21-CIRCULATION",
-        "antibody_range": "R1~R22"
+        "version": "v11.23-TRADING-COUNCIL",
+        "antibody_range": "R1~R24"
       },
       "rgon_daily_cycle.py": {
-        "version": "v11.21-CIRCULATION",
-        "antibody_range": "R1~R22"
+        "version": "v11.23-TRADING-COUNCIL",
+        "antibody_range": "R1~R24"
       }
     }
+  },
+  "skills_count": 19,
+  "trading_council": {
+    "avg_judge": 82.4,
+    "weakest": "TREASURY",
+    "treasury_guard": "GO"
   }
 }

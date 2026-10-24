@@ -27,7 +27,7 @@ try:
 except Exception:
     pass
 
-VERSION = "v13.0"
+VERSION = "v11.23-TRADING-COUNCIL"
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 RADAR_NAME = "rgon_skill_radar.json"
 KST = timezone(timedelta(hours=9))

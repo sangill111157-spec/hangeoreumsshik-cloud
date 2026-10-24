@@ -3,8 +3,8 @@
 # rgon_spec_ticket_Shield.py — RGON v11.21-CIRCULATION / 항체 R21
 # Matt Pocock to-spec/to-tickets 분업기 + ECC AgentShield 보안 백혈구 (표준 라이브러리 전용)
 import os, re, sys, json, time, shutil, tempfile
-VERSION = "v11.22-OMNI-UI"
-ANTIBODY_RANGE = "R1~R23"
+VERSION = "v11.23-TRADING-COUNCIL"
+ANTIBODY_RANGE = "R1~R24"
 ROOT = os.path.dirname(os.path.abspath(__file__))
 EXCLUDE = {".git", "__pycache__", "node_modules", ".venv", "venv", ".rgon_backup", ".rgon_backups", ".idea", ".vscode", "backups", "archive", "old_backups"}
 AI_ROLES = {"르곤": "설계/검증", "Claude": "구현", "GPT": "구조", "Grok": "트렌드"}
@@ -189,6 +189,17 @@ def main(argv):
 
 # [RGON-STEP22-AUTOVERIFY-HOOK-START] (R22: 티켓 저장 후 실제 산출물 기반 자동 승격)
 import sys as _rg_sys, os as _rg_os, atexit as _rg_atexit
+
+# [RGON-R24-START] Step24 항체 비파괴 주입
+R24_ANTIBODY = {"id": "R24", "rule": 'R24: 실전 트레이딩 3자 찬반 심판기(Bull/Bear/Judge) & 주역 64괘 리스크 필터 상시 가동 — 금고 보존(지족불욕·사환예방) 최우선 검증'}
+for _n in ("ANTIBODIES", "DEFAULT_ANTIBODIES", "ANTIBODY_RULES", "IMMUNE_RULES", "RULES", "ANTIBODY"):
+    _o = globals().get(_n)
+    if isinstance(_o, dict) and "R24" not in _o:
+        _o["R24"] = R24_ANTIBODY["rule"]
+    elif isinstance(_o, list) and not any("R24" in str(_x) for _x in _o):
+        _o.append(dict(R24_ANTIBODY) if (_o and isinstance(_o[0], dict)) else R24_ANTIBODY["rule"])
+# [RGON-R24-END]
+
 if __name__ == '__main__' and '--run' in _rg_sys.argv:
     def _rg_autoverify():
         try:
