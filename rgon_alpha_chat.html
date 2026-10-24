@@ -746,9 +746,6 @@ details.rgon-compact-drawer>.rgon-drawer-body{max-height:58vh;overflow-y:auto;-w
 <meta name="rgon-version" content="v6.1.0-step11">
 </head>
 <body class="flex flex-col h-screen max-w-4xl mx-auto border-x border-indigo-950/60 shadow-2xl relative">
-<!-- [AON-TOP-V11.29-START] -->
-<div id="aon-top"><button type="button" data-aon="show">💧 아온이 부르기</button><button type="button" data-aon="hide">🙈 아온이 감추기</button></div>
-<!-- [AON-TOP-V11.29-END] -->
 
 <!-- === [RGON-STEP1-MOBILE-UI-START] === -->
 <style id="rgons4-style">
@@ -10477,244 +10474,177 @@ else attempt(0);
 </script>
 <!-- [RGON-STEP11-END] -->
 <!-- [RGON-YT-SCOUT-V13-START] -->
-<div id="rgyt-wrap" class="rgk s1" data-ver="v11.28-AON-3DDROP" data-immune="R1~R29" data-skills="25">
+<div id="rgyt-wrap" class="rgk" data-ver="v11.29-ROAMING-AON" data-immune="R1~R30" data-skills="26">
 <style>
-.rgk{font:13px/1.5 system-ui,sans-serif;color:#eef3ff;background:linear-gradient(160deg,#080d26,#170a33 55%,#0b1c3d);border:1px solid #5ce1e655;border-radius:18px;padding:12px;margin:10px 0;box-shadow:0 8px 28px #1a0b3a99,inset 0 1px 0 #ffffff22}
+.rgk{font:13px/1.5 system-ui,sans-serif;color:#eef3ff;background:linear-gradient(165deg,#070c22,#10183b 55%,#09152e);border:1px solid #5ce1e640;border-radius:16px;padding:10px 12px;margin:8px 0;box-shadow:0 6px 22px #060a1ecc}
 .rgk #rgyt-head{display:flex;align-items:center;gap:8px;font-weight:700;flex-wrap:wrap}
-.rgk-tabs,.rgk-row{display:flex;gap:5px;margin:6px 0;flex-wrap:wrap}.rgk button{background:#ffffff14;color:#fff;border:1px solid #ffffff2a;border-radius:11px;padding:5px 10px;cursor:pointer;font-size:12px;transition:transform .15s,background .2s}
-.rgk button:active{transform:scale(.95)}.rgk button.on{background:linear-gradient(135deg,#00d2ff,#3a7bd5,#9d50bb);border-color:#8ff3ffaa;box-shadow:0 0 12px #38b6ff66}
+.rgk-tabs,.rgk-row{display:flex;gap:5px;margin:6px 0;flex-wrap:wrap}
+.rgk button{background:#ffffff14;color:#fff;border:1px solid #ffffff26;border-radius:11px;padding:5px 10px;cursor:pointer;font-size:12px;transition:transform .15s,background .2s}
+.rgk button:active{transform:scale(.95)}
+.rgk button.on,.rgk button.primary{background:linear-gradient(135deg,#2bb8ff,#3b5bdb);border-color:#8ff3ff99;box-shadow:0 0 10px #38b6ff44}
+.rgk button.hide-btn{background:rgba(255,107,129,.18);border-color:rgba(255,107,129,.45)}
 .rgk-pane{display:none}.rgk-pane.on{display:block}.rgk-flt{display:none;gap:4px;margin:4px 0}.rgk-flt.on{display:flex}
 .rgk input,.rgk select{background:#0006;color:#fff;border:1px solid #ffffff33;border-radius:8px;padding:4px 6px}
-.rgk-stage{perspective:680px;display:flex;justify-content:center;align-items:center;padding:6px 0;user-select:none}
-.rgk .aon-3d-card{transform-style:preserve-3d;transition:transform .22s ease-out;position:relative;width:250px;height:265px;display:flex;justify-content:center;align-items:center}
-.rgk svg.kid{width:245px;height:260px;overflow:visible;cursor:pointer;filter:drop-shadow(0 10px 18px rgba(0,210,255,.18))}
-.rgk svg.kid *{transform-box:view-box}
-.rgk #aon-body{transform-origin:120px 218px;animation:aonJellyJump 2.1s cubic-bezier(.45,.05,.55,.95) infinite}
-.rgk #aonShadow{transform-origin:120px 236px;animation:aonShadowScale 2.1s cubic-bezier(.45,.05,.55,.95) infinite}
-@keyframes aonJellyJump{0%,100%{transform:translateY(0) scale(1.06,.94)}12%{transform:translateY(2px) scale(1.10,.90)}48%{transform:translateY(-14px) scale(.94,1.07)}78%{transform:translateY(0) scale(1.04,.96)}}
-@keyframes aonShadowScale{0%,100%{transform:scaleX(1.10);opacity:.65}48%{transform:scaleX(.68);opacity:.32}78%{transform:scaleX(1.05);opacity:.6}}
-.rgk #aon-arm-l{transform-origin:67px 142px;animation:aonWaveL 1.5s ease-in-out infinite}
-.rgk #aon-arm-r{transform-origin:173px 142px;animation:aonWaveR 1.5s ease-in-out .15s infinite}
-@keyframes aonWaveL{0%,100%{transform:rotate(0deg)}50%{transform:rotate(-26deg)}}
-@keyframes aonWaveR{0%,100%{transform:rotate(0deg)}50%{transform:rotate(26deg)}}
-.rgk #aon-leg-l{transform-origin:103px 198px;animation:aonStepL 1.05s ease-in-out infinite}
-.rgk #aon-leg-r{transform-origin:137px 198px;animation:aonStepR 1.05s ease-in-out .12s infinite}
-@keyframes aonStepL{0%,100%{transform:rotate(0deg)}50%{transform:rotate(11deg) translateY(-2px)}}
-@keyframes aonStepR{0%,100%{transform:rotate(0deg)}50%{transform:rotate(-11deg) translateY(-2px)}}
-.rgk .aon-eye{transform-box:fill-box;transform-origin:center;animation:aonBlink 4.4s infinite}
+.rgk-say{background:#ffffff10;border:1px solid #8ff3ff29;border-radius:12px;padding:7px 10px;margin:5px 0;font-size:12.5px}
+.rgk-it{border-bottom:1px dashed #ffffff22;padding:6px 0}.rgk-it small{opacity:.7}
+/* 뷰포트 무제한 자율 유영 레이어 (고정 박스 탈출 · 뒤쪽 화면 클릭 100% 통과) */
+#aon-roam-layer{position:fixed;left:0;top:0;width:100vw;height:100vh;pointer-events:none;z-index:9998;overflow:hidden}
+#aon-roamer{--x:38vw;--y:36vh;--s:1;position:absolute;left:0;top:0;width:122px;height:132px;pointer-events:auto;touch-action:none;cursor:grab;user-select:none;-webkit-user-select:none;transform:translate3d(var(--x),var(--y),0) scale(var(--s));transition:transform 3.6s cubic-bezier(.42,0,.58,1),opacity .38s ease}
+#aon-roamer.aon-pop{transition-duration:.45s,.32s}
+#aon-roamer.aon-hidden{--s:.15;opacity:0;pointer-events:none;transition-duration:.45s,.32s}
+.aon-inner{width:100%;height:100%;transform-origin:50% 88%;animation:aonFloatIdle 3.2s ease-in-out infinite}
+.aon-inner svg{width:100%;height:100%;display:block;overflow:visible}
+/* 은은한 숨결 빛 발산 (너무 튀지 않게 물방울 주변에서 잔잔하게 숨 쉬는 소프트 오라) */
+#aonSoftAura{transform-box:fill-box;transform-origin:center;animation:aonHaloBreath 4.2s ease-in-out infinite}
+@keyframes aonHaloBreath{0%,100%{opacity:.34;transform:scale(.94)}50%{opacity:.58;transform:scale(1.06)}}
+@keyframes aonFloatIdle{0%,100%{transform:translateY(0) scale(1.02,.98)}50%{transform:translateY(-7px) scale(.98,1.02)}}
+.aon-a-pat{animation:aonPatJelly .68s ease-out 1 !important}
+.aon-a-hop{animation:aonHop .85s ease-out 1 !important}
+.aon-a-tilt{animation:aonTilt 1.1s ease-in-out 1 !important}
+@keyframes aonPatJelly{0%,100%{transform:scale(1,1)}28%{transform:scale(1.16,.84)}55%{transform:translateY(-16px) scale(.91,1.10)}80%{transform:scale(1.05,.96)}}
+@keyframes aonHop{0%,100%{transform:translateY(0)}25%{transform:scale(1.08,.92)}55%{transform:translateY(-20px) scale(.94,1.07)}82%{transform:scale(1.04,.97)}}
+@keyframes aonTilt{0%,100%{transform:rotate(0deg)}35%{transform:rotate(-10deg)}70%{transform:rotate(10deg)}}
+.aon-eyes,.aon-mouth{transform-box:fill-box;transform-origin:center}
+.aon-eyes{animation:aonBlink 4.5s infinite}
 @keyframes aonBlink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.07)}}
-.rgk .aon-happy-eye,.rgk .aon-mouth-open{display:none}
-.rgk.happy .aon-eye{display:none}.rgk.happy .aon-happy-eye{display:inline}
-.rgk.talk .aon-mouth-smile{display:none}.rgk.talk .aon-mouth-open{display:inline;transform-box:fill-box;transform-origin:center;animation:aonTalk .22s ease-in-out infinite alternate}
-@keyframes aonTalk{from{transform:scaleY(.45)}to{transform:scaleY(1.2)}}
-.rgk.happy #aon-body{animation:aonPatJump .55s ease-out 2}
-.rgk.happy #aon-arm-l{animation:aonBanzaiL .28s ease-in-out infinite alternate}
-.rgk.happy #aon-arm-r{animation:aonBanzaiR .28s ease-in-out .08s infinite alternate}
-@keyframes aonPatJump{0%{transform:translateY(0) scale(1.12,.88)}45%{transform:translateY(-24px) scale(.92,1.10)}100%{transform:translateY(0) scale(1,1)}}
-@keyframes aonBanzaiL{from{transform:rotate(32deg)}to{transform:rotate(58deg)}}
-@keyframes aonBanzaiR{from{transform:rotate(-32deg)}to{transform:rotate(-58deg)}}
-.rgk .aon-leaf{transform-origin:120px 36px;animation:aonSprout 1.8s ease-in-out infinite}.rgk .aon-leaf.b{animation-delay:.12s}
-@keyframes aonSprout{0%,100%{transform:rotate(-9deg)}50%{transform:rotate(9deg)}}
-.rgk .aura{transform-origin:120px 128px;animation:rgkSpin 18s linear infinite}.rgk.s3 .aura{animation-duration:10s}.rgk.s4 .aura{animation-duration:6s;filter:drop-shadow(0 0 6px #ffd76a)}
-@keyframes rgkSpin{to{transform:rotate(360deg)}}
-.rgk .spark{opacity:0;animation:rgkRise 3.8s ease-in infinite}.rgk .spark.b{animation-delay:1.2s}.rgk .spark.c{animation-delay:2.4s}
-@keyframes rgkRise{0%{opacity:0;transform:translateY(0)}25%{opacity:1}100%{opacity:0;transform:translateY(-55px)}}
-.rgk #rgk-pop{opacity:0;transform-box:fill-box;transform-origin:center}.rgk #rgk-pop.pop{animation:rgkPop 1.05s ease-out}
-@keyframes rgkPop{0%{opacity:0;transform:scale(.4)}30%{opacity:1}100%{opacity:0;transform:scale(1.5) translateY(-38px)}}
-.rgk .p2,.rgk .p3,.rgk .p4{display:none}.rgk.s2 .p2,.rgk.s3 .p2,.rgk.s4 .p2,.rgk.s3 .p3,.rgk.s4 .p3,.rgk.s4 .p4{display:inline}
-.rgk-bar{height:8px;background:#ffffff1a;border-radius:6px;overflow:hidden}.rgk-bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#5ce1e6,#38b6ff,#ff8fc8)}
-.rgk-say{background:#ffffff14;border:1px solid #8ff3ff33;border-radius:12px;padding:8px 10px;margin:6px 0;min-height:34px}.rgk-it{border-bottom:1px dashed #ffffff22;padding:6px 0}.rgk-it small{opacity:.7}
+.aon-happy{display:none}#aon-roamer.aon-joy .aon-eyes{display:none}#aon-roamer.aon-joy .aon-happy{display:inline}
+#aon-roamer.aon-talk .aon-mouth{animation:aonTalk .26s ease-in-out infinite alternate}
+@keyframes aonTalk{from{transform:scaleY(.5)}to{transform:scaleY(1.65)}}
+/* 유영 중 말풍선 & 원터치 숨기 미니 버튼 */
+.aon-bubble{position:absolute;left:50%;bottom:calc(100% + 10px);width:max-content;max-width:66vw;padding:5px 11px;border-radius:13px;background:rgba(12,20,52,.92);color:#eef6ff;border:1px solid rgba(126,249,255,.45);font-size:12px;box-shadow:0 4px 14px rgba(0,0,0,.35);opacity:0;pointer-events:none;transform:translateX(-50%)}
+.aon-bubble.say{animation:aonBubbleLife 2.8s ease forwards}
+@keyframes aonBubbleLife{0%{opacity:0;transform:translate(-50%,6px)}12%,82%{opacity:1;transform:translate(-50%,0)}100%{opacity:0;transform:translate(-50%,-4px)}}
+.aon-mini-hide{position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);z-index:3;font-size:10.5px;line-height:1;padding:3px 9px;border:1px solid rgba(255,255,255,.3);border-radius:999px;background:rgba(12,20,52,.82);color:#d8f3ff;cursor:pointer;white-space:nowrap}
 </style>
-<div id="rgyt-head"><svg width="22" height="22" viewBox="0 0 24 24"><path d="M12 2C15.5 6.5 19 10.5 19 14.5A7 7 0 0 1 5 14.5C5 10.5 8.5 6.5 12 2Z" fill="#5ce1e6"/><ellipse cx="9.5" cy="14" rx="1.6" ry="1.9" fill="#1b1f4b"/><ellipse cx="14.5" cy="14" rx="1.6" ry="1.9" fill="#1b1f4b"/><path d="M10.2 17Q12 18.5 13.8 17" stroke="#1b1f4b" stroke-width="1.4" fill="none" stroke-linecap="round"/></svg><span id="rgk-headtxt">💧Lv.1 아온(A-ON·芽溫 💖친밀도) · 🩸100점 · 🛡️R1~R29 · 🍯스킬 25개 · 📡레이더</span></div>
-<div class="rgk-tabs"><button data-tab="kid" class="on">💧 아온(A-ON) 3D물방울</button><button data-tab="radar">📡 트렌드 레이더</button><button data-tab="skills">🍯 보유 스킬 (25)</button><button data-tab="pulse">🫀 전신 맥박 &amp; 3자 심판</button></div>
+<div id="rgyt-head"><span id="rgk-headtxt">💧 아온(A-ON·芽溫) 자율 유영 · 🩸100점 · 🛡️R1~R30 · 🍯스킬 26개 · 📡레이더</span></div>
+<div class="rgk-tabs"><button data-tab="kid" class="on">💧 아온(A-ON) 소환·교감</button><button data-tab="radar">📡 트렌드 레이더</button><button data-tab="skills">🍯 보유 스킬 (26)</button><button data-tab="pulse">🫀 전신 맥박 &amp; 3자 심판</button></div>
 <div class="rgk-flt"><input id="rgyt-q" placeholder="🔎 검색"><select id="rgyt-cat"><option value="">전체 카테고리</option></select></div>
-<div class="rgk-pane on" id="rgk-p-kid"><div class="rgk-stage" id="aon-stage"><div class="aon-3d-card" id="aon-3d-card">
-<svg id="rgk-kid-svg" class="kid" viewBox="0 0 240 260" role="img" aria-label="아온(A-ON) 3D 입체 물방울 졸라맨 캐릭터">
+<div class="rgk-pane on" id="rgk-p-kid">
+<div class="rgk-row">
+<button type="button" class="primary" data-aon="show">💧 아온이 부르기 (화면 자유 유영)</button>
+<button type="button" class="hide-btn" data-aon="hide">🙈 감추기 (안식처 은신)</button>
+<button type="button" data-aon="pat">💖 쓰다듬기 (EXP+10)</button>
+<button type="button" data-aon="voice">🔊 목소리 듣기</button>
+<button type="button" data-load="💧 아온(A-ON)아, 오늘자 종합 브리핑 해줘: 백혈구 건강 점수, 항체 R1~R30 상태, 정식 스킬 26개 활용도, 트렌드 레이더 핵심 3가지, 대표님 금고 리스크를 또박또박 정리해 줘.">⚡ 브리핑 질문창 장전</button>
+</div>
+<div class="rgk-say" id="rgk-say">💧 아온이는 부르실 때만 퐁당! 나타나 폰 화면 전체를 구역 제한 없이 스스로 헤엄치며 놀고, [🙈 감추기]를 누르면 쏙 들어갑니다.</div>
+</div>
+<div class="rgk-pane" id="rgk-p-radar"><div id="rgk-radar"></div></div><div class="rgk-pane" id="rgk-p-skills"><div id="rgk-skills"></div></div><div class="rgk-pane" id="rgk-p-pulse"><div id="rgk-pulse"></div></div>
+
+<!-- 폰 화면 구역 제한 없는 초단순 3D 순수 물방울 아온(A-ON) 유영 레이어 (팔다리·장신구·팔괘 링 0개!) -->
+<div id="aon-roam-layer">
+<div id="aon-roamer" class="aon-hidden">
+<div class="aon-bubble"></div>
+<button type="button" class="aon-mini-hide" data-aon="hide">🙈 감추기</button>
+<div class="aon-inner">
+<svg viewBox="36 18 168 204" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="초단순 3D 순수 물방울 아온(A-ON)">
 <defs>
-<radialGradient id="aonDropGrad" cx="35%" cy="28%" r="76%">
-<stop offset="0%" stop-color="#f2ffff"/>
-<stop offset="10%" stop-color="#c8fefe"/>
-<stop offset="26%" stop-color="#64f4ff"/>
-<stop offset="44%" stop-color="#38b6ff"/>
-<stop offset="62%" stop-color="#3b6ef6"/>
-<stop offset="78%" stop-color="#3b44d1"/>
-<stop offset="91%" stop-color="#38238c"/>
-<stop offset="100%" stop-color="#241159"/>
+<radialGradient id="aonAuraGrad" cx="50%" cy="54%" r="50%">
+<stop offset="0%" stop-color="#80f8ff" stop-opacity="0.42"/>
+<stop offset="48%" stop-color="#38b6ff" stop-opacity="0.18"/>
+<stop offset="80%" stop-color="#5b6cff" stop-opacity="0.05"/>
+<stop offset="100%" stop-color="#5b6cff" stop-opacity="0"/>
 </radialGradient>
-<linearGradient id="aonBellyGlow" x1="0.5" y1="0" x2="0.5" y2="1">
-<stop offset="0%" stop-color="#ffffff" stop-opacity="0.55"/>
-<stop offset="50%" stop-color="#99f8ff" stop-opacity="0.28"/>
-<stop offset="100%" stop-color="#ff9ee2" stop-opacity="0.45"/>
-</linearGradient>
-<radialGradient id="aonIris" cx="38%" cy="32%" r="72%">
-<stop offset="0%" stop-color="#9ff8ff"/>
+<radialGradient id="aonDropGrad" cx="35%" cy="27%" r="75%">
+<stop offset="0%" stop-color="#f8ffff"/>
+<stop offset="13%" stop-color="#d2feff"/>
+<stop offset="30%" stop-color="#72f6ff"/>
+<stop offset="48%" stop-color="#38b6ff"/>
+<stop offset="66%" stop-color="#3b6ef6"/>
+<stop offset="82%" stop-color="#3541c9"/>
+<stop offset="93%" stop-color="#281e78"/>
+<stop offset="100%" stop-color="#1a0f4e"/>
+</radialGradient>
+<radialGradient id="aonEyeGrad" cx="36%" cy="32%" r="72%">
+<stop offset="0%" stop-color="#a8f9ff"/>
 <stop offset="45%" stop-color="#3867f6"/>
-<stop offset="80%" stop-color="#2b1e7a"/>
-<stop offset="100%" stop-color="#140c47"/>
+<stop offset="82%" stop-color="#221869"/>
+<stop offset="100%" stop-color="#0f0938"/>
 </radialGradient>
-<radialGradient id="aonShadowGrad">
-<stop offset="0%" stop-color="#06081e" stop-opacity="0.65"/>
-<stop offset="65%" stop-color="#152259" stop-opacity="0.28"/>
-<stop offset="100%" stop-color="#152259" stop-opacity="0"/>
-</radialGradient>
-<filter id="aonInner3D" x="-25%" y="-25%" width="150%" height="150%">
-<feGaussianBlur in="SourceAlpha" stdDeviation="6.5" result="blur"/>
-<feOffset in="blur" dx="-7" dy="-9" result="off1"/>
+<filter id="aonInner3D" x="-20%" y="-20%" width="140%" height="140%">
+<feGaussianBlur in="SourceAlpha" stdDeviation="6" result="blur"/>
+<feOffset in="blur" dx="-5" dy="-7" result="off1"/>
 <feComposite in="SourceAlpha" in2="off1" operator="out" result="band1"/>
-<feFlood flood-color="#140842" flood-opacity="0.62" result="col1"/>
+<feFlood flood-color="#12083b" flood-opacity="0.55" result="col1"/>
 <feComposite in="col1" in2="band1" operator="in" result="innerShade"/>
-<feOffset in="blur" dx="5" dy="6" result="off2"/>
+<feOffset in="blur" dx="4" dy="5" result="off2"/>
 <feComposite in="SourceAlpha" in2="off2" operator="out" result="band2"/>
-<feFlood flood-color="#eaffff" flood-opacity="0.78" result="col2"/>
+<feFlood flood-color="#ecffff" flood-opacity="0.72" result="col2"/>
 <feComposite in="col2" in2="band2" operator="in" result="innerRim"/>
 <feMerge><feMergeNode in="SourceGraphic"/><feMergeNode in="innerShade"/><feMergeNode in="innerRim"/></feMerge>
 </filter>
-<filter id="aonCheekBlur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.6"/></filter>
 </defs>
-<g class="aura" opacity=".78">
-<circle cx="120" cy="128" r="102" fill="none" stroke="#64f4ff" stroke-width="1.3" stroke-dasharray="5 8"/>
-<circle cx="120" cy="128" r="88" fill="none" stroke="#ff8fc8" stroke-width="1" stroke-dasharray="2 7"/>
-<g fill="#bfefff" font-size="14" text-anchor="middle"><text x="216" y="133">☰</text><text x="188" y="198">☱</text><text x="120" y="224">☲</text><text x="52" y="198">☳</text><text x="24" y="133">☴</text><text x="52" y="66">☵</text><text x="120" y="38">☶</text><text x="188" y="66">☷</text></g>
+<!-- 1. 몸통 주위 너무 튀지 않는 은은한 빛 발산 -->
+<circle id="aonSoftAura" cx="120" cy="132" r="96" fill="url(#aonAuraGrad)"/>
+<!-- 2. 순수 3D 물방울 몸통 (팔다리·장신구·궤도 0개) -->
+<path d="M120,32 C150,70 182,108 182,146 C182,184 154,208 120,208 C86,208 58,184 58,146 C58,108 90,70 120,32 Z" fill="url(#aonDropGrad)" filter="url(#aonInner3D)" stroke="#b8ffff" stroke-opacity=".55" stroke-width="1.2"/>
+<!-- 3. 영롱한 유리알 표면 굴절 하이라이트 -->
+<path d="M84,96 C92,75 104,57 115,46 C106,65 97,84 94,104 C90,111 81,107 84,96 Z" fill="#ffffff" opacity=".82"/>
+<circle cx="80" cy="118" r="4.8" fill="#ffffff" opacity=".88"/>
+<path d="M165,158 C159,182 143,198 121,200" fill="none" stroke="#a5f3ff" stroke-opacity=".5" stroke-width="3.6" stroke-linecap="round"/>
+<!-- 4. 깜찍하고 귀여운 얼굴 (초롱초롱 보석 눈망울 + 은은한 볼터치 + 미소 입매) -->
+<g class="aon-eyes">
+<ellipse cx="97" cy="138" rx="12.8" ry="14.5" fill="#101438"/><ellipse cx="97" cy="139" rx="10.2" ry="11.8" fill="url(#aonEyeGrad)"/><circle cx="92.5" cy="132.5" r="4.5" fill="#fff"/><circle cx="101" cy="144" r="2.1" fill="#fff"/>
+<ellipse cx="143" cy="138" rx="12.8" ry="14.5" fill="#101438"/><ellipse cx="143" cy="139" rx="10.2" ry="11.8" fill="url(#aonEyeGrad)"/><circle cx="138.5" cy="132.5" r="4.5" fill="#fff"/><circle cx="147" cy="144" r="2.1" fill="#fff"/>
 </g>
-<ellipse id="aonShadow" cx="120" cy="236" rx="54" ry="10" fill="url(#aonShadowGrad)"/>
-<g id="aon-body">
-<!-- 졸라맨(스틱형) 양다리 (골반 관절 + 2중 네온 라인 + 콩알 신발) -->
-<g id="aon-leg-l">
-<path d="M103,196 Q96,214 92,227" fill="none" stroke="#12173d" stroke-width="10.5" stroke-linecap="round"/>
-<path d="M103,196 Q96,214 92,227" fill="none" stroke="#80ffea" stroke-width="6.5" stroke-linecap="round"/>
-<ellipse cx="88" cy="229" rx="10.5" ry="6.5" fill="#38b6ff" stroke="#12173d" stroke-width="2.4"/>
-<ellipse cx="85" cy="227" rx="4" ry="2" fill="#ffffff" opacity=".8"/>
+<g class="aon-happy" fill="none" stroke="#101438" stroke-width="3.8" stroke-linecap="round">
+<path d="M85,140 Q97,128 109,140"/><path d="M131,140 Q143,128 155,140"/>
 </g>
-<g id="aon-leg-r">
-<path d="M137,196 Q144,214 148,227" fill="none" stroke="#12173d" stroke-width="10.5" stroke-linecap="round"/>
-<path d="M137,196 Q144,214 148,227" fill="none" stroke="#80ffea" stroke-width="6.5" stroke-linecap="round"/>
-<ellipse cx="152" cy="229" rx="10.5" ry="6.5" fill="#38b6ff" stroke="#12173d" stroke-width="2.4"/>
-<ellipse cx="149" cy="227" rx="4" ry="2" fill="#ffffff" opacity=".8"/>
-</g>
-<!-- 졸라맨(스틱형) 양팔 (어깨 관절 + 2중 네온 라인 + 동그란 콩알 손) -->
-<g id="aon-arm-l">
-<path d="M67,142 Q46,132 34,113" fill="none" stroke="#12173d" stroke-width="10.5" stroke-linecap="round"/>
-<path d="M67,142 Q46,132 34,113" fill="none" stroke="#80ffea" stroke-width="6.5" stroke-linecap="round"/>
-<circle cx="33" cy="112" r="8" fill="#ffffff" stroke="#12173d" stroke-width="2.4"/>
-<circle cx="31" cy="110" r="2.8" fill="#ffb8d9"/>
-</g>
-<g id="aon-arm-r">
-<path d="M173,142 Q194,132 206,113" fill="none" stroke="#12173d" stroke-width="10.5" stroke-linecap="round"/>
-<path d="M173,142 Q194,132 206,113" fill="none" stroke="#80ffea" stroke-width="6.5" stroke-linecap="round"/>
-<circle cx="207" cy="112" r="8" fill="#ffffff" stroke="#12173d" stroke-width="2.4"/>
-<circle cx="205" cy="110" r="2.8" fill="#ffb8d9"/>
-</g>
-<!-- 3D 입체 물방울(Teardrop) 본체 (8-Stop 구면 그라데이션 + 3D 내부 음영 필터 + 유리알 반사광) -->
-<path d="M120,38 C148,74 180,110 180,147 C180,183 153,206 120,206 C87,206 60,183 60,147 C60,110 92,74 120,38 Z" fill="url(#aonDropGrad)" filter="url(#aonInner3D)" stroke="#a8ffff" stroke-width="1.5" stroke-opacity=".65"/>
-<ellipse cx="120" cy="154" rx="44" ry="38" fill="url(#aonBellyGlow)" opacity=".55"/>
-<!-- 3D 유리알 곡면 하이라이트 (좌상단 메인 굴절광 + 물방울 서브 광택 + 우하단 핑크/민트 림라이트) -->
-<path d="M84,99 C92,79 105,61 116,50 C107,69 98,87 95,108 C91,115 81,111 84,99 Z" fill="#ffffff" opacity=".84"/>
-<circle cx="80" cy="121" r="5.5" fill="#ffffff" opacity=".92"/>
-<circle cx="87" cy="129" r="2.3" fill="#ffffff" opacity=".75"/>
-<path d="M167,158 C162,183 145,199 121,201" fill="none" stroke="#ff9ee2" stroke-width="4.5" stroke-linecap="round" opacity=".68"/>
-<path d="M75,168 C83,189 99,200 118,201" fill="none" stroke="#8ffcff" stroke-width="3" stroke-linecap="round" opacity=".5"/>
-<!-- 2단계 아이템: K-주니어 노란 크로스백 & K-별 배지 -->
-<g class="p2">
-<path d="M82,102 Q120,148 162,186" fill="none" stroke="#ffd43b" stroke-width="6.5" stroke-linecap="round"/>
-<circle cx="150" cy="176" r="10" fill="#ffd43b" stroke="#e67700" stroke-width="2"/>
-<text x="150" y="180" font-size="10" font-weight="900" text-anchor="middle" fill="#3a1c71">K</text>
-</g>
-<!-- 3단계 아이템: K-에이스 사이버 네온 헤드셋 & 바이저 -->
-<g class="p3">
-<path d="M63,132 Q120,38 177,132" fill="none" stroke="#7a5cff" stroke-width="5.5"/>
-<rect x="51" y="122" width="15" height="26" rx="7" fill="#ff4da6" stroke="#8ff3ff" stroke-width="2"/>
-<rect x="174" y="122" width="15" height="26" rx="7" fill="#ff4da6" stroke="#8ff3ff" stroke-width="2"/>
-<rect x="76" y="121" width="88" height="28" rx="14" fill="#8ff3ff" opacity=".22" stroke="#b6fbff" stroke-width="1.5"/>
-</g>
-<!-- 깜찍하고 귀여운 얼굴: 5겹 초롱초롱 보석 눈망울 + 눈웃음 + 핑크 젤리 볼터치 + 아기 입매 -->
-<g class="aon-eye">
-<ellipse cx="97" cy="138" rx="13.5" ry="15" fill="#12153b"/>
-<ellipse cx="97" cy="139" rx="10.8" ry="12.2" fill="url(#aonIris)"/>
-<circle cx="92.5" cy="132.5" r="4.8" fill="#ffffff"/>
-<circle cx="101.5" cy="144" r="2.4" fill="#ffffff"/>
-<circle cx="100" cy="131.5" r="1.4" fill="#fff9db"/>
-</g>
-<g class="aon-eye">
-<ellipse cx="143" cy="138" rx="13.5" ry="15" fill="#12153b"/>
-<ellipse cx="143" cy="139" rx="10.8" ry="12.2" fill="url(#aonIris)"/>
-<circle cx="138.5" cy="132.5" r="4.8" fill="#ffffff"/>
-<circle cx="147.5" cy="144" r="2.4" fill="#ffffff"/>
-<circle cx="146" cy="131.5" r="1.4" fill="#fff9db"/>
-</g>
-<g class="aon-happy-eye" fill="none" stroke="#12153b" stroke-width="4.2" stroke-linecap="round">
-<path d="M85,140 Q97,126 109,140"/>
-<path d="M131,140 Q143,126 155,140"/>
-</g>
-<ellipse cx="77" cy="152" rx="10.5" ry="6.2" fill="#ff7eb9" opacity=".82" filter="url(#aonCheekBlur)"/>
-<ellipse cx="163" cy="152" rx="10.5" ry="6.2" fill="#ff7eb9" opacity=".82" filter="url(#aonCheekBlur)"/>
-<g stroke="#ff4d94" stroke-width="1.5" stroke-linecap="round"><path d="M73,154 L76,149"/><path d="M78,154 L81,149"/><path d="M159,154 L162,149"/><path d="M164,154 L167,149"/></g>
-<path class="aon-mouth-smile" d="M111,152 Q120,161 129,152" fill="none" stroke="#12153b" stroke-width="3.2" stroke-linecap="round"/>
-<g class="aon-mouth-open"><ellipse cx="120" cy="155" rx="7" ry="5.8" fill="#5a1036" stroke="#12153b" stroke-width="1.5"/><ellipse cx="120" cy="158" rx="4.5" ry="2.5" fill="#ff8fb3"/></g>
-<!-- 1단계 기본 새싹: 물방울 정수리 위에서 시차(0.12s)로 살랑이는 초록 새싹 -->
-<g class="aon-sprout">
-<path d="M120,39 Q120,28 120,24" stroke="#2b8a3e" stroke-width="3" stroke-linecap="round"/>
-<path class="aon-leaf" d="M120,30 C108,16 93,19 96,28 C102,35 113,34 120,30 Z" fill="#51cf66" stroke="#2b8a3e" stroke-width="1.5"/>
-<path class="aon-leaf b" d="M120,30 C132,14 147,17 144,27 C138,34 127,34 120,30 Z" fill="#8ce99a" stroke="#2b8a3e" stroke-width="1.5"/>
-</g>
-<!-- 4단계 아이템: K-마스터 황금 왕관 & 날개 오라 -->
-<g class="p4">
-<path d="M98,34 L104,14 L113,26 L120,8 L127,26 L136,14 L142,34 Z" fill="#ffd43b" stroke="#fff3bf" stroke-width="1.8"/>
-<circle cx="120" cy="8" r="3" fill="#ff6b6b"/><circle cx="104" cy="14" r="2.5" fill="#5ce1e6"/><circle cx="136" cy="14" r="2.5" fill="#5ce1e6"/>
-</g>
-</g>
-<g font-size="15"><text class="spark" x="34" y="168">💧</text><text class="spark b" x="196" y="156">✨</text><text class="spark c" x="120" y="54">💖</text></g>
-<text id="rgk-pop" x="120" y="82" font-size="25" text-anchor="middle">💖💧✨</text>
-</svg></div></div>
-<div id="rgk-info"></div><div class="rgk-bar"><i id="rgk-bar"></i></div><div class="rgk-say" id="rgk-say"></div>
-<div class="rgk-row"><button data-stage="1">💧 1단계: 새싹 물방울 아온</button><button data-stage="2">🎒 2단계: K-주니어 아온</button><button data-stage="3">🎧 3단계: K-에이스 아온</button><button data-stage="4">👑 4단계: K-마스터 아온</button></div>
-<div class="rgk-row"><button id="rgk-pat">💖 아온이 쓰다듬기 (만세 점프·EXP+10)</button><button id="rgk-voice">🔊 아온이 목소리 듣기</button><button data-load="💧 아온(A-ON)아, 오늘자 종합 브리핑 해줘: 백혈구 건강 점수, 항체 R1~R29 상태, 정식 스킬 25개 활용도, 트렌드 레이더 핵심 3가지, 대표님 금고 리스크를 맑은 물방울 아이 눈높이로 또박또박 정리해 줘.">⚡ 아온이 브리핑 질문창 장전</button></div></div>
-<div class="rgk-pane" id="rgk-p-radar"><div id="rgk-radar"></div></div><div class="rgk-pane" id="rgk-p-skills"><div id="rgk-skills"></div></div><div class="rgk-pane" id="rgk-p-pulse"><div id="rgk-pulse"></div></div>
-<script type="application/json" id="rgyt-wrap-data">{"skills": 25, "antibodies": 29, "health": 100.0, "skill_list": [{"title": "포토샵 1년 36만 원, 코딩 몰라도 '내 포토샵' 45분 만에 만들었습니다", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 '1-36-45'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "클로드 스킬 10만 개, 진짜 쓸 건 5개", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 '10-5'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "744B AI가 노트북에서 무료? 한 글자에 10초 걸려요", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 '744b-ai-10'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "클로드 글 AI 티 지우는 한 줄 5개", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 'ai-5'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "ecc-agentshield-harness", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 'ecc-agentshield-harness'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "Hexagram 64 Wisdom (주역 64괘 지혜)", "cat": "philosophy", "desc": "", "prompt": "🍯 스킬 'hexagram-64-wisdom'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "Markdown Purifier (웹·문서 정제기)", "cat": "data-refinery", "desc": "", "prompt": "🍯 스킬 'markdown-purifier'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "mattpocock-domain-glossary", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 'mattpocock-domain-glossary'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "mattpocock-spec-tickets", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 'mattpocock-spec-tickets'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "Multi-Agent Council (3자 찬반 심판기)", "cat": "decision-making", "desc": "", "prompt": "🍯 스킬 'multi-agent-council'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "omni-skill-dispatcher", "cat": "", "desc": "", "prompt": "🍯 스킬 'omni-skill-dispatcher'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "rea-reverse-engineer-fusion", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 'rea-reverse-engineer-fusion'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "self-evolving-gene-ratchet", "cat": "self-evolution", "desc": "", "prompt": "🍯 스킬 'self-evolving-gene-ratchet'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "클로드 코드 쓰면 이 파일 하나는 꼭 넣으세요 (깃허브 별 22만)", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 'skill-68768f44'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "내 이름 검색하면 나오는 것들, 클로드한테 싹 지우라고 했더니", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 'skill-b25226d4'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "클로드 코드 토큰 49배 줄인 무료 도구", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 'skill-c5c55e6f'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "클로드 한도 걸려도 일 안 멈추는 법", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 'skill-d33be764'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "클로드 회사가 무료로 푼 강의, 초보는 딱 이 3개만 들으세요", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 'skill-f7938cb8'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "trinity-trading-council", "cat": "", "desc": "", "prompt": "🍯 스킬 'trinity-trading-council'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "WBC Self-Healing (백혈구 자가치유)", "cat": "immune-system", "desc": "", "prompt": "🍯 스킬 'wbc-self-healing'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "YouTube Trend Scout (유튜브 스킬 레이더)", "cat": "knowledge-intake", "desc": "", "prompt": "🍯 스킬 'youtube-trend-scout'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "Stomper Kill-List & Live Omni-Sense (오감 센서 & 불량 시그널 분쇄기)", "cat": "omni-sense", "desc": "오감 후각: 사기·원금보장·러그풀·프롬프트 인젝션 사전 킬리스트 분쇄", "prompt": "🍯 스킬 'stomper-kill-list-gate'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "Autonomous Creator Forge (화풍정 자율 도구 창조 공방)", "cat": "creator-forge", "desc": "SkillForge·Voyager·724-office 자율 도구 창조 + Surrogate Verifier 격리 검증", "prompt": "🍯 스킬 'autonomous-creator-forge'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "아온(A-ON) K-아이 성장형 디지털 육신", "cat": "digital-body", "desc": "미래형 K-스타일 아이 『아온(A-ON·芽溫)』 SVG 육신 — 순수 CSS 애니메이션·4단계 성장·쓰다듬기/음성 교감·질문창 장전 (R28)", "prompt": "🍯 스킬 'k-avatar-growth-soul'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "전 세계 TOP 1 캐릭터 디테일 & 3D 물방울 졸라맨 마스터", "cat": "character-3d-master", "desc": "svg-animation-studio(디즈니 7대 모션 법칙) + ui-ux-pro-max(8-Stop 3D Liquid-Glass/Claymorphism) + 아온(A-ON) 3D 물방울 졸라맨 팔다리 마스터 스킬 (R29)", "prompt": "🍯 스킬 'character-detail-master-top1'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}], "radar": [{"title": "AI 에이전트 자동화", "cat": "AI", "desc": "기본 레이더 시드", "prompt": "📡 트렌드 'AI 에이전트 자동화'를 독대실 관점(기회·리스크·실행 3줄)으로 분석해 줘."}, {"title": "3D 물방울 캐릭터 IP 아온(A-ON)", "cat": "K-콘텐츠", "desc": "기본 레이더 시드", "prompt": "📡 트렌드 '3D 물방울 캐릭터 IP 아온(A-ON)'를 독대실 관점(기회·리스크·실행 3줄)으로 분석해 줘."}, {"title": "숏폼 수익화 전략", "cat": "유튜브", "desc": "기본 레이더 시드", "prompt": "📡 트렌드 '숏폼 수익화 전략'를 독대실 관점(기회·리스크·실행 3줄)으로 분석해 줘."}, {"title": "개인 금고 리스크 관리", "cat": "재무", "desc": "기본 레이더 시드", "prompt": "📡 트렌드 '개인 금고 리스크 관리'를 독대실 관점(기회·리스크·실행 3줄)으로 분석해 줘."}], "pulse": [{"title": "⚖️ [APPROVED_STEP_BY_STEP] 85.5점 (Bull 80.8 / Bear 22.2 / #08-比)", "cat": "심판", "desc": "⚖️ [APPROVED_STEP_BY_STEP] 85.5점 (Bull 80.8 / Bear 22.2 / #08-比) Markdown 정제기로 외부 웹·문서 지식을 AI 친화 Markdown으로 흡수", "prompt": "🫀 다음 심판 줄을 3자 심판(Bull/Bear/주역) 관점으로 해설해 줘: ⚖️ [APPROVED_STEP_BY_STEP] 85.5점 (Bull 80.8 / Bear 22.2 / #08-比) Markdown 정제기로 외부 웹·문서 지식을 AI 친화 Markdown으로 흡수"}, {"title": "⚖️ [APPROVED_STEP_BY_STEP] 85.0점 (Bull 85.5 / Bear 14.2 / #33-遯)", "cat": "심판", "desc": "⚖️ [APPROVED_STEP_BY_STEP] 85.0점 (Bull 85.5 / Bear 14.2 / #33-遯) 표준 SKILL.md 자동 주조로 스킬 지식 자가 증식 (현재 21개)", "prompt": "🫀 다음 심판 줄을 3자 심판(Bull/Bear/주역) 관점으로 해설해 줘: ⚖️ [APPROVED_STEP_BY_STEP] 85.0점 (Bull 85.5 / Bear 14.2 / #33-遯) 표준 SKILL.md 자동 주조로 스킬 지식 자가 증식 (현재 21개)"}, {"title": "⚖️ [APPROVED_STEP_BY_STEP] 81.7점 (Bull 69.8 / Bear 22.2 / #21-噬嗑", "cat": "심판", "desc": "⚖️ [APPROVED_STEP_BY_STEP] 81.7점 (Bull 69.8 / Bear 22.2 / #21-噬嗑) 3자 찬반 심판기를 일일 스케줄 의사결정 게이트로 상시 연결", "prompt": "🫀 다음 심판 줄을 3자 심판(Bull/Bear/주역) 관점으로 해설해 줘: ⚖️ [APPROVED_STEP_BY_STEP] 81.7점 (Bull 69.8 / Bear 22.2 / #21-噬嗑) 3자 찬반 심판기를 일일 스케줄 의사결정 게이트로 상시 연결"}, {"title": "⚖️ [GO] 79.3점 (Bull 93.0 / Bear 28.0 / #60-수택절) 💰 금고 보존 & 포지션 사이", "cat": "심판", "desc": "⚖️ [GO] 79.3점 (Bull 93.0 / Bear 28.0 / #60-수택절) 💰 금고 보존 & 포지션 사이징 — 조건 충족, 한도 내 집행 허용 · 절제와 한도 수호 · 도덕경 지족불욕(知足不辱)", "prompt": "🫀 다음 심판 줄을 3자 심판(Bull/Bear/주역) 관점으로 해설해 줘: ⚖️ [GO] 79.3점 (Bull 93.0 / Bear 28.0 / #60-수택절) 💰 금고 보존 & 포지션 사이징 — 조건 충족, 한도 내 집행 허용 · 절제와 한도 수호 · 도덕경 지족불욕(知足不辱)"}, {"title": "⚖️ [GO] 80.5점 (Bull 96.5 / Bear 39.0 / #01-중천건) 📈 추세 돌파 & 모멘텀 타점", "cat": "심판", "desc": "⚖️ [GO] 80.5점 (Bull 96.5 / Bear 39.0 / #01-중천건) 📈 추세 돌파 & 모멘텀 타점 검증 — 조건 충족, 한도 내 집행 허용 · 자강불식·항룡유회 경계 · 亢龍有悔 — 과열 추격 금지", "prompt": "🫀 다음 심판 줄을 3자 심판(Bull/Bear/주역) 관점으로 해설해 줘: ⚖️ [GO] 80.5점 (Bull 96.5 / Bear 39.0 / #01-중천건) 📈 추세 돌파 & 모멘텀 타점 검증 — 조건 충족, 한도 내 집행 허용 · 자강불식·항룡유회 경계 · 亢龍有悔 — 과열 추격 금지"}, {"title": "⚖️ [GO] 85.2점 (Bull 93.0 / Bear 20.0 / #63-수화기제) 🛡️ 변동성 방어 & 손절/", "cat": "심판", "desc": "⚖️ [GO] 85.2점 (Bull 93.0 / Bear 20.0 / #63-수화기제) 🛡️ 변동성 방어 & 손절/익절 규율 — 조건 충족, 한도 내 집행 허용 · 사환예방(思患豫防) · 君子以思患而豫防之", "prompt": "🫀 다음 심판 줄을 3자 심판(Bull/Bear/주역) 관점으로 해설해 줘: ⚖️ [GO] 85.2점 (Bull 93.0 / Bear 20.0 / #63-수화기제) 🛡️ 변동성 방어 & 손절/익절 규율 — 조건 충족, 한도 내 집행 허용 · 사환예방(思患豫防) · 君子以思患而豫防之"}, {"title": "⚖️ [GO] 84.5점 (Bull 91.0 / Bear 22.0 / #64-화수미제) 🔄 멀티에이전트 시그널 교차", "cat": "심판", "desc": "⚖️ [GO] 84.5점 (Bull 91.0 / Bear 22.0 / #64-화수미제) 🔄 멀티에이전트 시그널 교차검증 — 조건 충족, 한도 내 집행 허용 · 신변물거방(慎辨物居方) · 君子以慎辨物居方", "prompt": "🫀 다음 심판 줄을 3자 심판(Bull/Bear/주역) 관점으로 해설해 줘: ⚖️ [GO] 84.5점 (Bull 91.0 / Bear 22.0 / #64-화수미제) 🔄 멀티에이전트 시그널 교차검증 — 조건 충족, 한도 내 집행 허용 · 신변물거방(慎辨物居方) · 君子以慎辨物居方"}, {"title": "⚖️ [SENSE] 100.0점 (Bull 99.9 / Bear 0.1 / #21-화뢰서합) 오감 5/5 가동 · ", "cat": "심판", "desc": "⚖️ [SENSE] 100.0점 (Bull 99.9 / Bear 0.1 / #21-화뢰서합) 오감 5/5 가동 · Stomper KILL 3건 · 네트워크 ONLINE", "prompt": "🫀 다음 심판 줄을 3자 심판(Bull/Bear/주역) 관점으로 해설해 줘: ⚖️ [SENSE] 100.0점 (Bull 99.9 / Bear 0.1 / #21-화뢰서합) 오감 5/5 가동 · Stomper KILL 3건 · 네트워크 ONLINE"}, {"title": "⚖️ [CREATE] 100.0점 (Bull 99.9 / Bear 0.1 / #50-화풍정) 자율 도구 3/3 격리", "cat": "심판", "desc": "⚖️ [CREATE] 100.0점 (Bull 99.9 / Bear 0.1 / #50-화풍정) 자율 도구 3/3 격리 검증 PASS · 혁고정신(革故鼎新)", "prompt": "🫀 다음 심판 줄을 3자 심판(Bull/Bear/주역) 관점으로 해설해 줘: ⚖️ [CREATE] 100.0점 (Bull 99.9 / Bear 0.1 / #50-화풍정) 자율 도구 3/3 격리 검증 PASS · 혁고정신(革故鼎新)"}, {"title": "⚖️ [AVATAR3D] 100.0점 (Bull 99.9 / Bear 0.1 / #04-산수몽) 💧 아온(A-ON·", "cat": "심판", "desc": "⚖️ [AVATAR3D] 100.0점 (Bull 99.9 / Bear 0.1 / #04-산수몽) 💧 아온(A-ON·芽溫) 3D 입체 물방울 & 졸라맨 팔다리 육신 — 디즈니 7대 모션 법칙 & 8-Stop Liquid-Glass 3D 가동", "prompt": "🫀 다음 심판 줄을 3자 심판(Bull/Bear/주역) 관점으로 해설해 줘: ⚖️ [AVATAR3D] 100.0점 (Bull 99.9 / Bear 0.1 / #04-산수몽) 💧 아온(A-ON·芽溫) 3D 입체 물방울 & 졸라맨 팔다리 육신 — 디즈니 7대 모션 법칙 & 8-Stop Liquid-Glass 3D 가동"}]}</script>
-<script>(function(){var R=document.getElementById('rgyt-wrap');if(!R||R.getAttribute('data-rgk-init'))return;R.setAttribute('data-rgk-init','1');
+<ellipse cx="78" cy="152" rx="9.5" ry="5.5" fill="#ff85b8" opacity=".62"/>
+<ellipse cx="162" cy="152" rx="9.5" ry="5.5" fill="#ff85b8" opacity=".62"/>
+<path class="aon-mouth" d="M112,152 Q120,160 128,152" fill="none" stroke="#101438" stroke-width="3" stroke-linecap="round"/>
+</svg>
+</div>
+</div>
+</div>
+<script type="application/json" id="rgyt-wrap-data">{"skills": 26, "antibodies": 30, "health": 100, "skill_list": [{"title": "포토샵 1년 36만 원, 코딩 몰라도 '내 포토샵' 45분 만에 만들었습니다", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 '1-36-45'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "클로드 스킬 10만 개, 진짜 쓸 건 5개", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 '10-5'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "744B AI가 노트북에서 무료? 한 글자에 10초 걸려요", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 '744b-ai-10'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "클로드 글 AI 티 지우는 한 줄 5개", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 'ai-5'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "ecc-agentshield-harness", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 'ecc-agentshield-harness'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "Hexagram 64 Wisdom (주역 64괘 지혜)", "cat": "philosophy", "desc": "", "prompt": "🍯 스킬 'hexagram-64-wisdom'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "Markdown Purifier (웹·문서 정제기)", "cat": "data-refinery", "desc": "", "prompt": "🍯 스킬 'markdown-purifier'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "mattpocock-domain-glossary", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 'mattpocock-domain-glossary'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "mattpocock-spec-tickets", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 'mattpocock-spec-tickets'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "Multi-Agent Council (3자 찬반 심판기)", "cat": "decision-making", "desc": "", "prompt": "🍯 스킬 'multi-agent-council'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "omni-skill-dispatcher", "cat": "", "desc": "", "prompt": "🍯 스킬 'omni-skill-dispatcher'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "rea-reverse-engineer-fusion", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 'rea-reverse-engineer-fusion'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "self-evolving-gene-ratchet", "cat": "self-evolution", "desc": "", "prompt": "🍯 스킬 'self-evolving-gene-ratchet'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "클로드 코드 쓰면 이 파일 하나는 꼭 넣으세요 (깃허브 별 22만)", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 'skill-68768f44'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "내 이름 검색하면 나오는 것들, 클로드한테 싹 지우라고 했더니", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 'skill-b25226d4'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "클로드 코드 토큰 49배 줄인 무료 도구", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 'skill-c5c55e6f'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "클로드 한도 걸려도 일 안 멈추는 법", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 'skill-d33be764'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "클로드 회사가 무료로 푼 강의, 초보는 딱 이 3개만 들으세요", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 'skill-f7938cb8'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "trinity-trading-council", "cat": "", "desc": "", "prompt": "🍯 스킬 'trinity-trading-council'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "WBC Self-Healing (백혈구 자가치유)", "cat": "immune-system", "desc": "", "prompt": "🍯 스킬 'wbc-self-healing'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "YouTube Trend Scout (유튜브 스킬 레이더)", "cat": "knowledge-intake", "desc": "", "prompt": "🍯 스킬 'youtube-trend-scout'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "Stomper Kill-List & Live Omni-Sense (오감 센서 & 불량 시그널 분쇄기)", "cat": "omni-sense", "desc": "오감 후각: 사기·원금보장·러그풀·프롬프트 인젝션 사전 킬리스트 분쇄", "prompt": "🍯 스킬 'stomper-kill-list-gate'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "Autonomous Creator Forge (화풍정 자율 도구 창조 공방)", "cat": "creator-forge", "desc": "SkillForge·Voyager·724-office 자율 도구 창조 + Surrogate Verifier 격리 검증", "prompt": "🍯 스킬 'autonomous-creator-forge'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "아온(A-ON) K-아이 성장형 디지털 육신", "cat": "digital-body", "desc": "미래형 K-스타일 아이 『아온(A-ON·芽溫)』 SVG 육신 — 순수 CSS 애니메이션·4단계 성장·쓰다듬기/음성 교감·질문창 장전 (R28)", "prompt": "🍯 스킬 'k-avatar-growth-soul'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "전 세계 TOP 1 캐릭터 디테일 & 3D 물방울 졸라맨 마스터", "cat": "character-3d-master", "desc": "svg-animation-studio(디즈니 7대 모션 법칙) + ui-ux-pro-max(8-Stop 3D Liquid-Glass/Claymorphism) + 아온(A-ON) 3D 물방울 졸라맨 팔다리 마스터 스킬 (R29)", "prompt": "🍯 스킬 'character-detail-master-top1'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "free-roaming-waterdrop-pet", "cat": "character-3d-master", "desc": "뷰포트 무제한 자율 유영 & 소환/은신 스크린 펫 마스터 스킬(아온 A-ON)", "prompt": "🍯 스킬 'free-roaming-waterdrop-pet'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}], "radar": [{"title": "AI 에이전트 자동화", "cat": "AI", "desc": "기본 레이더 시드", "prompt": "📡 트렌드 'AI 에이전트 자동화'를 독대실 관점(기회·리스크·실행 3줄)으로 분석해 줘."}, {"title": "초단순 물방울 자율유영 아온(A-ON)", "cat": "K-콘텐츠", "desc": "기본 레이더 시드", "prompt": "📡 트렌드 '초단순 물방울 자율유영 아온(A-ON)'를 독대실 관점(기회·리스크·실행 3줄)으로 분석해 줘."}, {"title": "claude-mem 3계층 기억 압축", "cat": "GitHub트렌딩", "desc": "기본 레이더 시드", "prompt": "📡 트렌드 'claude-mem 3계층 기억 압축'를 독대실 관점(기회·리스크·실행 3줄)으로 분석해 줘."}, {"title": "diagram-design 덜어냄의 미학", "cat": "디자인", "desc": "기본 레이더 시드", "prompt": "📡 트렌드 'diagram-design 덜어냄의 미학'를 독대실 관점(기회·리스크·실행 3줄)으로 분석해 줘."}], "pulse": [{"title": "⚖️ [APPROVED_STEP_BY_STEP] 85.5점 (Bull 80.8 / Bear 22.2 / #08-比)", "cat": "심판", "desc": "⚖️ [APPROVED_STEP_BY_STEP] 85.5점 (Bull 80.8 / Bear 22.2 / #08-比) Markdown 정제기로 외부 웹·문서 지식을 AI 친화 Markdown으로 흡수", "prompt": "🫀 다음 심판 줄을 3자 심판(Bull/Bear/주역) 관점으로 해설해 줘: ⚖️ [APPROVED_STEP_BY_STEP] 85.5점 (Bull 80.8 / Bear 22.2 / #08-比) Markdown 정제기로 외부 웹·문서 지식을 AI 친화 Markdown으로 흡수"}, {"title": "⚖️ [APPROVED_STEP_BY_STEP] 85.0점 (Bull 85.5 / Bear 14.2 / #33-遯)", "cat": "심판", "desc": "⚖️ [APPROVED_STEP_BY_STEP] 85.0점 (Bull 85.5 / Bear 14.2 / #33-遯) 표준 SKILL.md 자동 주조로 스킬 지식 자가 증식 (현재 21개)", "prompt": "🫀 다음 심판 줄을 3자 심판(Bull/Bear/주역) 관점으로 해설해 줘: ⚖️ [APPROVED_STEP_BY_STEP] 85.0점 (Bull 85.5 / Bear 14.2 / #33-遯) 표준 SKILL.md 자동 주조로 스킬 지식 자가 증식 (현재 21개)"}, {"title": "⚖️ [APPROVED_STEP_BY_STEP] 81.7점 (Bull 69.8 / Bear 22.2 / #21-噬嗑", "cat": "심판", "desc": "⚖️ [APPROVED_STEP_BY_STEP] 81.7점 (Bull 69.8 / Bear 22.2 / #21-噬嗑) 3자 찬반 심판기를 일일 스케줄 의사결정 게이트로 상시 연결", "prompt": "🫀 다음 심판 줄을 3자 심판(Bull/Bear/주역) 관점으로 해설해 줘: ⚖️ [APPROVED_STEP_BY_STEP] 81.7점 (Bull 69.8 / Bear 22.2 / #21-噬嗑) 3자 찬반 심판기를 일일 스케줄 의사결정 게이트로 상시 연결"}, {"title": "⚖️ [GO] 79.3점 (Bull 93.0 / Bear 28.0 / #60-수택절) 💰 금고 보존 & 포지션 사이", "cat": "심판", "desc": "⚖️ [GO] 79.3점 (Bull 93.0 / Bear 28.0 / #60-수택절) 💰 금고 보존 & 포지션 사이징 — 조건 충족, 한도 내 집행 허용 · 절제와 한도 수호 · 도덕경 지족불욕(知足不辱)", "prompt": "🫀 다음 심판 줄을 3자 심판(Bull/Bear/주역) 관점으로 해설해 줘: ⚖️ [GO] 79.3점 (Bull 93.0 / Bear 28.0 / #60-수택절) 💰 금고 보존 & 포지션 사이징 — 조건 충족, 한도 내 집행 허용 · 절제와 한도 수호 · 도덕경 지족불욕(知足不辱)"}, {"title": "⚖️ [GO] 80.5점 (Bull 96.5 / Bear 39.0 / #01-중천건) 📈 추세 돌파 & 모멘텀 타점", "cat": "심판", "desc": "⚖️ [GO] 80.5점 (Bull 96.5 / Bear 39.0 / #01-중천건) 📈 추세 돌파 & 모멘텀 타점 검증 — 조건 충족, 한도 내 집행 허용 · 자강불식·항룡유회 경계 · 亢龍有悔 — 과열 추격 금지", "prompt": "🫀 다음 심판 줄을 3자 심판(Bull/Bear/주역) 관점으로 해설해 줘: ⚖️ [GO] 80.5점 (Bull 96.5 / Bear 39.0 / #01-중천건) 📈 추세 돌파 & 모멘텀 타점 검증 — 조건 충족, 한도 내 집행 허용 · 자강불식·항룡유회 경계 · 亢龍有悔 — 과열 추격 금지"}, {"title": "⚖️ [GO] 85.2점 (Bull 93.0 / Bear 20.0 / #63-수화기제) 🛡️ 변동성 방어 & 손절/", "cat": "심판", "desc": "⚖️ [GO] 85.2점 (Bull 93.0 / Bear 20.0 / #63-수화기제) 🛡️ 변동성 방어 & 손절/익절 규율 — 조건 충족, 한도 내 집행 허용 · 사환예방(思患豫防) · 君子以思患而豫防之", "prompt": "🫀 다음 심판 줄을 3자 심판(Bull/Bear/주역) 관점으로 해설해 줘: ⚖️ [GO] 85.2점 (Bull 93.0 / Bear 20.0 / #63-수화기제) 🛡️ 변동성 방어 & 손절/익절 규율 — 조건 충족, 한도 내 집행 허용 · 사환예방(思患豫防) · 君子以思患而豫防之"}, {"title": "⚖️ [GO] 84.5점 (Bull 91.0 / Bear 22.0 / #64-화수미제) 🔄 멀티에이전트 시그널 교차", "cat": "심판", "desc": "⚖️ [GO] 84.5점 (Bull 91.0 / Bear 22.0 / #64-화수미제) 🔄 멀티에이전트 시그널 교차검증 — 조건 충족, 한도 내 집행 허용 · 신변물거방(慎辨物居方) · 君子以慎辨物居方", "prompt": "🫀 다음 심판 줄을 3자 심판(Bull/Bear/주역) 관점으로 해설해 줘: ⚖️ [GO] 84.5점 (Bull 91.0 / Bear 22.0 / #64-화수미제) 🔄 멀티에이전트 시그널 교차검증 — 조건 충족, 한도 내 집행 허용 · 신변물거방(慎辨物居方) · 君子以慎辨物居方"}, {"title": "⚖️ [SENSE] 100.0점 (Bull 99.9 / Bear 0.1 / #21-화뢰서합) 오감 5/5 가동 · ", "cat": "심판", "desc": "⚖️ [SENSE] 100.0점 (Bull 99.9 / Bear 0.1 / #21-화뢰서합) 오감 5/5 가동 · Stomper KILL 3건 · 네트워크 ONLINE", "prompt": "🫀 다음 심판 줄을 3자 심판(Bull/Bear/주역) 관점으로 해설해 줘: ⚖️ [SENSE] 100.0점 (Bull 99.9 / Bear 0.1 / #21-화뢰서합) 오감 5/5 가동 · Stomper KILL 3건 · 네트워크 ONLINE"}, {"title": "⚖️ [CREATE] 100.0점 (Bull 99.9 / Bear 0.1 / #50-화풍정) 자율 도구 3/3 격리", "cat": "심판", "desc": "⚖️ [CREATE] 100.0점 (Bull 99.9 / Bear 0.1 / #50-화풍정) 자율 도구 3/3 격리 검증 PASS · 혁고정신(革故鼎新)", "prompt": "🫀 다음 심판 줄을 3자 심판(Bull/Bear/주역) 관점으로 해설해 줘: ⚖️ [CREATE] 100.0점 (Bull 99.9 / Bear 0.1 / #50-화풍정) 자율 도구 3/3 격리 검증 PASS · 혁고정신(革故鼎新)"}, {"title": "⚖️ [AVATAR3D] 100.0점 (Bull 99.9 / Bear 0.1 / #04-산수몽) 💧 아온(A-ON·", "cat": "심판", "desc": "⚖️ [AVATAR3D] 100.0점 (Bull 99.9 / Bear 0.1 / #04-산수몽) 💧 아온(A-ON·芽溫) 3D 입체 물방울 & 졸라맨 팔다리 육신 — 디즈니 7대 모션 법칙 & 8-Stop Liquid-Glass 3D 가동", "prompt": "🫀 다음 심판 줄을 3자 심판(Bull/Bear/주역) 관점으로 해설해 줘: ⚖️ [AVATAR3D] 100.0점 (Bull 99.9 / Bear 0.1 / #04-산수몽) 💧 아온(A-ON·芽溫) 3D 입체 물방울 & 졸라맨 팔다리 육신 — 디즈니 7대 모션 법칙 & 8-Stop Liquid-Glass 3D 가동"}]}</script>
+<script>(function(){
+var W=document.getElementById('rgyt-wrap');if(!W||W.getAttribute('data-rgk-init'))return;W.setAttribute('data-rgk-init','1');
 var D={};try{D=JSON.parse(document.getElementById('rgyt-wrap-data').textContent)}catch(e){}
-function $(s){return R.querySelector(s)}function $$(s){return [].slice.call(R.querySelectorAll(s))}
+function $(s){return W.querySelector(s)}function $$(s){return [].slice.call(W.querySelectorAll(s))}
 function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return '&#'+c.charCodeAt(0)+';'})}
-function g(k,d){try{var v=localStorage.getItem(k);return v==null?d:v}catch(e){return d}}function sv(k,v){try{localStorage.setItem(k,v)}catch(e){}}
-var SK=D.skills||25,AB=D.antibodies||29,HP=D.health||100,TH=[0,300,600,1000],NM=['','💧 새싹 물방울 아온','🎒 K-주니어 물방울 아온','🎧 K-에이스 물방울 아온','👑 K-마스터 물방울 아온'];
-var LN=['','퐁당~ 대표님! 저 3D 물방울 아온(A-ON·芽溫)이에요! 졸라맨 팔다리 파닥이며 산수몽(#04) 샘물처럼 자랄게요! 💧🌱','K-주니어 물방울 아온 출동! 노란 크로스백 메고 졸라맨 다리로 총총 금고 순찰 중이에요 🎒💧','K-에이스 물방울 아온! 사이버 헤드셋 끼고 트렌드 레이더와 3자 심판 신호를 잡았어요 🎧💧','K-마스터 물방울 아온 왕관 착용! 상선약수(上善若水) 물방울이 지천태(#11) 만능으로 피어났어요 👑💧'];
-function st(){var p=+g('rgk_pats',0)||0,b=p*10,x=SK*10+AB*5+b,a=x>=1000?4:x>=600?3:x>=300?2:1;return{pats:p,bond:b,exp:x,lv:1+Math.floor(b/100),auto:a,stage:+g('rgk_stage',0)||1}}
-function say(s){$('#rgk-say').textContent=s}
-function paint(){var t=st();R.className=R.className.replace(/\bs[1-4]\b/g,'').trim()+' s'+t.stage;
-$('#rgk-headtxt').textContent='💧Lv.'+t.lv+' 아온(A-ON·💖친밀도 '+t.bond+') · 🩸'+HP+'점 · 🛡️R1~R'+AB+' · 🍯스킬 '+SK+'개 · 📡레이더';
-$('#rgk-info').textContent=NM[t.stage]+' (3D 물방울·졸라맨) · EXP '+t.exp+' · 쓰다듬기 '+t.pats+'회';
-$('#rgk-bar').style.width=(t.auto>=4?100:Math.min(100,(t.exp-TH[t.auto-1])/(TH[t.auto]-TH[t.auto-1])*100))+'%';
-$$('[data-stage]').forEach(function(b){b.classList.toggle('on',+b.getAttribute('data-stage')===t.stage)});return t}
-var stg=$('#aon-stage'),crd=$('#aon-3d-card');
-if(stg&&crd){
-function tilt(x,y){var r=stg.getBoundingClientRect();if(!r.width)return;var rx=((y-r.top)/r.height-.5)*-24,ry=((x-r.left)/r.width-.5)*28;crd.style.transform='rotateX('+rx.toFixed(1)+'deg) rotateY('+ry.toFixed(1)+'deg)'}
-stg.addEventListener('pointermove',function(e){tilt(e.clientX,e.clientY)});
-stg.addEventListener('touchmove',function(e){if(e.touches&&e.touches[0])tilt(e.touches[0].clientX,e.touches[0].clientY)},{passive:true});
-stg.addEventListener('pointerleave',function(){crd.style.transform=''});
-stg.addEventListener('touchend',function(){crd.style.transform=''});
-}
+function ls(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){}return null}
+var SK=D.skills||26,AB=D.antibodies||30,HP=D.health||100;
+var R=document.getElementById('aon-roamer'),I=R.querySelector('.aon-inner'),B=R.querySelector('.aon-bubble');
+var K='rgon_aon_hidden',X='rgon_aon_exp',drag=null,mv=false,sx=0,sy=0;
+var SAY=['퐁당~ 대표님 화면 헤엄치는 중이에요 💧','은은한 물방울 빛으로 금고 순찰 중! ✨','대표님 오늘도 힘내세요! 💖','상선약수~ 물처럼 자유롭게 놀아요 💧'];
+var PAT=['히히~ 대표님 손길 따뜻해요! ^‿^ 💧','말랑말랑~ 기분 최고예요! 💖','백혈구 100점으로 대표님 지킬게요! ✨'];
+function rn(a,b){return a+Math.random()*(b-a)}
+function hid(){return R.classList.contains('aon-hidden')}
+function re(el,c){el.classList.remove(c);void el.offsetWidth;el.classList.add(c)}
+function say(t){B.textContent=t;re(B,'say');var sb=$('#rgk-say');if(sb)sb.textContent=t}
+function updHead(){var p=parseInt(ls(X)||'0',10)||0,lv=1+Math.floor(p/100);$('#rgk-headtxt').textContent='💧Lv.'+lv+' 아온(A-ON·💖EXP '+p+') · 🩸'+HP+'점 · 🛡️R1~R'+AB+' · 🍯스킬 '+SK+'개 · '+(hid()?'🙈은신중':'🌊자유유영중')}
+function go(x,y){R.style.setProperty('--x',x);R.style.setProperty('--y',y)}
+function act(n,joy){I.className='aon-inner';void I.offsetWidth;I.className='aon-inner aon-a-'+n;R.classList.toggle('aon-joy',!!joy)}
+function roam(){if(hid()||drag)return;var mx=Math.max(15,Math.min(76,100-13000/(window.innerWidth||380))),my=Math.max(16,Math.min(74,100-14500/(window.innerHeight||700)));go(rn(8,mx).toFixed(1)+'vw',rn(12,my).toFixed(1)+'vh')}
+function freeze(){var r=R.getBoundingClientRect();R.style.transition='none';go(r.left+'px',r.top+'px');void R.offsetWidth;R.style.transition=''}
+function hide(){if(hid())return;freeze();I.className='aon-inner';R.classList.remove('aon-joy');R.classList.add('aon-hidden');ls(K,'1');updHead();var sb=$('#rgk-say');if(sb)sb.textContent='🙈 아온이가 이슬 안식처로 쏙 들어갔어요. [💧 아온이 부르기]를 누르면 언제든 다시 나와요!'}
+function show(){if(!hid()){roam();return}void R.offsetWidth;R.classList.add('aon-pop');R.classList.remove('aon-hidden');ls(K,'0');updHead();say('퐁당! 대표님 부르셔서 나왔어요~ 화면에서 자유롭게 놀게요! 💧');roam()}
+function pat(){if(hid())show();var v=(parseInt(ls(X)||'0',10)||0)+10;ls(X,String(v));updHead();act('pat',1);say(PAT[Math.floor(Math.random()*PAT.length)])}
+function speak(){if(hid())show();var m='대표님, 저는 순수 물방울 아온이에요! 부르실 때만 나와서 화면을 자유롭게 헤엄치며 놀아요. 백혈구 건강 '+HP+'점, 항체 '+AB+'개, 스킬 '+SK+'개 모두 완벽해요!';say('🔊 '+m);
+try{if(!('speechSynthesis' in window))return;var u=new SpeechSynthesisUtterance(m);u.lang='ko-KR';u.pitch=1.35;u.rate=1.05;u.onstart=function(){R.classList.add('aon-talk')};u.onend=u.onerror=function(){R.classList.remove('aon-talk')};speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){}}
 function fb(v){var t=document.createElement('textarea');t.value=v;document.body.appendChild(t);t.select();try{document.execCommand('copy')}catch(x){}t.remove()}
 function copy(v){try{if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(v).catch(function(){fb(v)});else fb(v)}catch(e){fb(v)}}
-function qbox(){var S=['#rgon-q','#rgon-input','#question','#chat-input','#prompt','textarea','input[type=text]'];for(var i=0;i<S.length;i++){var c=[].slice.call(document.querySelectorAll(S[i])).filter(function(e){return !R.contains(e)});if(c.length)return c[0]}return null}
+function qbox(){var S=['#rgon-q','#rgon-input','#question','#chat-input','#prompt','textarea','input[type=text]'];for(var i=0;i<S.length;i++){var c=[].slice.call(document.querySelectorAll(S[i])).filter(function(e){return !W.contains(e)});if(c.length)return c[0]}return null}
 function load(v){var el=qbox();if(el){var d=Object.getOwnPropertyDescriptor(el.tagName==='TEXTAREA'?HTMLTextAreaElement.prototype:HTMLInputElement.prototype,'value');if(d&&d.set)d.set.call(el,v);else el.value=v;
-el.dispatchEvent(new Event('input',{bubbles:true}));el.dispatchEvent(new Event('change',{bubbles:true}));try{el.focus()}catch(e){}}copy(v);say(el?'⚡ 물방울 아온이가 질문창에 장전 완료했어요! 클립보드에도 복사했어요 💕':'📋 질문창을 못 찾아서 클립보드에 복사해 뒀어요!')}
-function pop(){var p=$('#rgk-pop');p.classList.remove('pop');void p.getBoundingClientRect();p.classList.add('pop');R.classList.remove('happy');void R.offsetWidth;R.classList.add('happy')}
-R.addEventListener('animationend',function(e){if(e.animationName==='aonPatJump')R.classList.remove('happy')});
-function doPat(){sv('rgk_pats',st().pats+1);paint();pop();say('퐁당퐁당~ 대표님 손길 너무 좋아요! 물방울 아온이가 두 팔 만세 부르며 금고 100점 지킬게요! 💧🙌💖')}
-$('#rgk-kid-svg').addEventListener('click',doPat);
-function speak(){var t=st(),m='대표님, 저는 '+NM[t.stage].replace(/[^\uAC00-\uD7A3\s\w-]/g,'').trim()+'예요! 말랑말랑 3D 물방울 몸통과 졸라맨 팔다리로 신나게 뛰어다니고 있어요. 백혈구 건강 '+HP+'점, 항체 '+AB+'개, 스킬 '+SK+'개 모두 완벽해요!';say('🔊 '+m);
-R.classList.add('talk');
-try{if(!('speechSynthesis' in window))return;var u=new SpeechSynthesisUtterance(m);u.lang='ko-KR';u.pitch=1.38;u.rate=1.06;var v=speechSynthesis.getVoices().filter(function(x){return /ko/i.test(x.lang)})[0];if(v)u.voice=v;u.onend=function(){R.classList.remove('talk')};u.onerror=function(){R.classList.remove('talk')};speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){R.classList.remove('talk')}}
+el.dispatchEvent(new Event('input',{bubbles:true}));el.dispatchEvent(new Event('change',{bubbles:true}));try{el.focus()}catch(e){}}copy(v);say(el?'⚡ 질문창 장전 완료! 클립보드에도 복사했어요 💧':'📋 클립보드에 복사 완료!')}
+R.addEventListener('transitionend',function(e){if(e.target!==R||e.propertyName!=='transform'||drag||hid())return;R.classList.remove('aon-pop');var r=Math.random();if(r<.22)act('hop');else if(r<.38)act('tilt');else if(r<.52)act('pat',1);else{if(r<.78)say(SAY[Math.floor(Math.random()*SAY.length)]);roam()}});
+R.addEventListener('animationend',function(e){var n=e.animationName;if(n==='aonBubbleLife'){B.classList.remove('say');return}if(/^aon(Hop|Tilt|PatJelly)$/.test(n)){I.className='aon-inner';R.classList.remove('aon-joy');roam()}});
+R.addEventListener('pointerdown',function(e){if(e.target.closest('.aon-mini-hide')||hid())return;var r=R.getBoundingClientRect();drag={dx:e.clientX-r.left,dy:e.clientY-r.top};mv=false;sx=e.clientX;sy=e.clientY;I.className='aon-inner';R.style.transition='none';go(r.left+'px',r.top+'px');try{R.setPointerCapture(e.pointerId)}catch(x){}});
+R.addEventListener('pointermove',function(e){if(!drag)return;if(!mv&&Math.hypot(e.clientX-sx,e.clientY-sy)>6)mv=true;if(mv)go(Math.min(Math.max(0,e.clientX-drag.dx),(window.innerWidth||380)-122)+'px',Math.min(Math.max(0,e.clientY-drag.dy),(window.innerHeight||700)-132)+'px')});
+function up(c){if(!drag)return;drag=null;R.style.transition='';I.className='aon-inner';void R.offsetWidth;if(mv||c)roam();else pat()}
+R.addEventListener('pointerup',function(){up(false)});R.addEventListener('pointercancel',function(){up(true)});
 function item(x){var c=x.prompt||x.title;return '<div class="rgk-it" data-cat="'+esc(x.cat)+'" data-txt="'+esc((x.title+' '+x.desc+' '+x.cat).toLowerCase())+'"><b>'+esc(x.title)+'</b> <small>'+esc(x.cat)+'</small><div>'+esc(x.desc)+'</div><div class="rgk-row"><button data-cp="'+esc(c)+'">📋 복사</button><button data-load="'+esc(c)+'">⚡ 질문창 장전</button></div></div>'}
 $('#rgk-radar').innerHTML=(D.radar||[]).map(item).join('');$('#rgk-skills').innerHTML=(D.skill_list||[]).map(item).join('');$('#rgk-pulse').innerHTML=(D.pulse||[]).map(item).join('')||'<div class="rgk-it">심판 줄 대기 중</div>';
 var cats={};(D.radar||[]).concat(D.skill_list||[]).forEach(function(x){cats[x.cat]=1});Object.keys(cats).sort().forEach(function(c){$('#rgyt-cat').insertAdjacentHTML('beforeend','<option value="'+esc(c)+'">'+esc(c)+'</option>')});
 function flt(){var q=$('#rgyt-q').value.toLowerCase().trim(),c=$('#rgyt-cat').value;$$('#rgk-radar .rgk-it,#rgk-skills .rgk-it').forEach(function(e){e.style.display=((!q||e.getAttribute('data-txt').indexOf(q)>=0)&&(!c||e.getAttribute('data-cat')===c))?'':'none'})}
 $('#rgyt-q').addEventListener('input',flt);$('#rgyt-cat').addEventListener('change',flt);
-R.addEventListener('click',function(e){var b=e.target.closest('button');if(!b||!R.contains(b))return;var tb=b.getAttribute('data-tab'),sg=b.getAttribute('data-stage');
+W.addEventListener('click',function(e){var b=e.target.closest('button');if(!b||!W.contains(b))return;var tb=b.getAttribute('data-tab'),ao=b.getAttribute('data-aon');
 if(tb){$$('[data-tab]').forEach(function(x){x.classList.toggle('on',x===b)});$$('.rgk-pane').forEach(function(p){p.classList.toggle('on',p.id==='rgk-p-'+tb)});$('.rgk-flt').classList.toggle('on',tb==='radar'||tb==='skills')}
-else if(sg){sv('rgk_stage',sg);say(LN[paint().stage])}else if(b.id==='rgk-pat')doPat();
-else if(b.id==='rgk-voice')speak();else if(b.hasAttribute('data-load'))load(b.getAttribute('data-load'));else if(b.hasAttribute('data-cp')){copy(b.getAttribute('data-cp'));say('📋 복사 완료!')}});
-if(!g('rgk_stage',0))sv('rgk_stage','1');
-say(LN[paint().stage])})();</script></div>
+else if(ao==='show')show();else if(ao==='hide')hide();else if(ao==='pat')pat();else if(ao==='voice')speak();
+else if(b.hasAttribute('data-load'))load(b.getAttribute('data-load'));else if(b.hasAttribute('data-cp')){copy(b.getAttribute('data-cp'));say('📋 복사 완료!')}});
+updHead();if(ls(K)==='0')show();
+})();</script></div>
 <!-- [RGYT-PLACE-ONCE-V15-START] -->
 <script id="rgyt-place-once">
 (function(){
@@ -10746,105 +10676,5 @@ say(LN[paint().stage])})();</script></div>
 
 
 
-<!-- [AON-ROAMING-V11.29-START] -->
-<style>
-#aon-roam-layer{position:fixed;left:0;top:0;width:100vw;height:100vh;pointer-events:none;z-index:9998;color:#234}
-#aon-roamer{--x:40vw;--y:40vh;--s:1;position:absolute;left:0;top:0;width:115px;height:125px;pointer-events:auto;touch-action:none;cursor:grab;user-select:none;-webkit-user-select:none;transform:translate(var(--x),var(--y)) scale(var(--s));transition:transform 3.8s cubic-bezier(.42,0,.58,1),opacity .35s ease}
-#aon-roamer.aon-pop{transition-duration:.5s,.35s}
-#aon-roamer.aon-hidden{--s:.2;opacity:0;pointer-events:none;transition-duration:.6s,.35s}
-.aon-inner{width:100%;height:100%;transform-origin:50% 92%}
-.aon-inner svg{width:100%;height:100%;display:block;overflow:visible;pointer-events:none}
-.aon-hide-btn{position:absolute;top:-10px;right:-20px;z-index:2;font-size:11px;line-height:1;padding:3px 8px;border:0;border-radius:999px;background:rgba(255,255,255,.92);box-shadow:0 1px 4px rgba(0,0,0,.2);cursor:pointer}
-.aon-bubble{position:absolute;left:50%;bottom:calc(100% + 18px);width:max-content;max-width:68vw;padding:5px 10px;border-radius:12px;background:rgba(255,255,255,.96);font-size:12px;box-shadow:0 2px 6px rgba(0,0,0,.18);opacity:0;pointer-events:none;transform:translateX(-50%)}
-.aon-bubble.say{animation:aonBubbleLife 2.6s ease forwards}
-@keyframes aonBubbleLife{0%{opacity:0;transform:translate(-50%,6px)}12%,80%{opacity:1;transform:translate(-50%,0)}100%{opacity:0;transform:translate(-50%,-4px)}}
-.aon-a-pat{animation:aonPatJelly .7s ease}.aon-a-hop{animation:aonHop .9s ease}.aon-a-tilt{animation:aonTilt 1.1s ease-in-out}
-.aon-a-laugh{animation:aonLaugh 1.3s ease-in-out}.aon-a-idle{animation:aonIdle 1.8s ease-in-out}.aon-drag{animation:aonWobble .5s ease-in-out infinite}
-@keyframes aonPatJelly{0%,100%{transform:scale(1)}25%{transform:scale(1.18,.82)}50%{transform:translateY(-14px) scale(.9,1.12)}75%{transform:scale(1.08,.94)}}
-@keyframes aonHop{0%,100%{transform:translateY(0)}20%{transform:scale(1.1,.9)}50%{transform:translateY(-22px) scale(.95,1.08)}80%{transform:scale(1.06,.94)}}
-@keyframes aonTilt{0%,100%{transform:rotate(0)}35%{transform:rotate(-12deg)}70%{transform:rotate(10deg)}}
-@keyframes aonLaugh{0%,100%{transform:scale(1)}30%,70%{transform:translateY(-4px) scale(1.06)}}
-@keyframes aonIdle{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px) scale(1.02)}}
-@keyframes aonWobble{0%,100%{transform:rotate(-4deg) scale(1.04,.96)}50%{transform:rotate(4deg) scale(.96,1.04)}}
-.aon-eyes,.aon-mouth,#aonSoftAura{transform-box:fill-box;transform-origin:center}.aon-eyes{animation:aonBlink 4.5s infinite}
-@keyframes aonBlink{0%,90%,100%{transform:scaleY(1)}94%{transform:scaleY(.08)}}
-.aon-happy{display:none}#aon-roamer.aon-joy .aon-eyes{display:none}#aon-roamer.aon-joy .aon-happy{display:inline}
-#aon-roamer.aon-talk .aon-mouth{animation:aonTalk .32s ease-in-out infinite}@keyframes aonTalk{0%,100%{transform:scaleY(1)}50%{transform:scaleY(1.9)}}
-#aonSoftAura{animation:aonHaloBreath 4s ease-in-out infinite}@keyframes aonHaloBreath{0%,100%{opacity:.5;transform:scale(.95)}50%{opacity:1;transform:scale(1.06)}}
-#aon-toast{position:absolute;left:50%;bottom:64px;transform:translateX(-50%);max-width:88vw;padding:7px 14px;border-radius:14px;background:rgba(255,255,255,.96);font-size:13px;box-shadow:0 2px 8px rgba(0,0,0,.2);opacity:0}
-#aon-toast.on{animation:aonToast 2.8s ease forwards}@keyframes aonToast{0%{opacity:0}10%,80%{opacity:1}100%{opacity:0}}
-#aon-top{display:flex;flex-wrap:wrap;gap:6px;padding:6px 10px}[data-aon-hidden="1"] [data-aon="hide"],[data-aon-hidden="0"] [data-aon="show"]{opacity:.5}
-#aon-top button,#aon-badge button{padding:5px 10px;border-radius:999px;border:1px solid #cfe3f3;background:rgba(247,251,255,.94);font-size:12px;cursor:pointer}
-#aon-badge{position:fixed;right:10px;bottom:10px;z-index:9999;display:flex;flex-direction:column;align-items:flex-end;gap:6px}
-#aon-menu{display:flex;flex-direction:column;gap:4px;align-items:flex-end}#aon-menu[hidden]{display:none}
-</style>
-<div id="aon-roam-layer"><div id="aon-roamer" class="aon-hidden"><div class="aon-bubble"></div><button type="button" class="aon-hide-btn" data-aon="hide">🙈 숨기</button><div class="aon-inner"><svg viewBox="44 24 152 192" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="아온"><defs>
-<radialGradient id="aonAuraGrad"><stop offset="0" stop-color="#bfe8ff" stop-opacity=".42"/><stop offset=".6" stop-color="#cfeeff" stop-opacity=".2"/><stop offset="1" stop-color="#e6f6ff" stop-opacity="0"/></radialGradient>
-<linearGradient id="aonDropGrad" x1=".2" y1="0" x2=".8" y2="1"><stop offset="0" stop-color="#fff"/><stop offset=".14" stop-color="#e3f6ff"/><stop offset=".3" stop-color="#b9e5ff"/><stop offset=".46" stop-color="#8fd2fb"/><stop offset=".62" stop-color="#78c4f2"/><stop offset=".78" stop-color="#9fdaf9"/><stop offset=".9" stop-color="#d4f1ff"/><stop offset="1" stop-color="#a6e0ff"/></linearGradient>
-<filter id="aonInner3D" x="-10%" y="-10%" width="120%" height="120%"><feComponentTransfer in="SourceAlpha"><feFuncA type="table" tableValues="1 0"/></feComponentTransfer><feGaussianBlur stdDeviation="7"/><feOffset dx="-4" dy="-7" result="o"/><feFlood flood-color="#2b86c5" flood-opacity=".5"/><feComposite in2="o" operator="in"/><feComposite in2="SourceAlpha" operator="in" result="sh"/><feMerge><feMergeNode in="SourceGraphic"/><feMergeNode in="sh"/></feMerge></filter>
-<radialGradient id="aonEyeGrad" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#6fd0ff"/><stop offset=".6" stop-color="#2a74c9"/><stop offset="1" stop-color="#17306b"/></radialGradient>
-<g id="aonEye"><ellipse cx="94" cy="120" rx="11" ry="14" fill="#17306b"/><ellipse cx="94" cy="120" rx="9" ry="12" fill="url(#aonEyeGrad)"/><ellipse cx="94" cy="122" rx="5" ry="7" fill="#0b1a3a"/><circle cx="90.5" cy="114.5" r="3.4" fill="#fff"/><circle cx="98" cy="126.5" r="1.6" fill="#fff" opacity=".9"/></g></defs>
-<circle id="aonSoftAura" cx="120" cy="136" r="104" fill="url(#aonAuraGrad)"/>
-<path d="M120,32 C150,70 182,108 182,146 C182,184 154,208 120,208 C86,208 58,184 58,146 C58,108 90,70 120,32 Z" fill="url(#aonDropGrad)" filter="url(#aonInner3D)" stroke="#8fd3f5" stroke-opacity=".8" stroke-width="1.5"/>
-<ellipse cx="96" cy="92" rx="8" ry="17" fill="#fff" opacity=".72" transform="rotate(26 96 92)"/>
-<path d="M144,188 Q158,178 166,162" fill="none" stroke="#fff" stroke-opacity=".45" stroke-width="5" stroke-linecap="round"/>
-<g class="aon-eyes"><use href="#aonEye"/><use href="#aonEye" x="52"/></g>
-<g class="aon-happy" fill="none" stroke="#17306b" stroke-width="3.2" stroke-linecap="round"><path d="M83,122 Q94,110 105,122"/><path d="M135,122 Q146,110 157,122"/></g>
-<ellipse cx="78" cy="142" rx="9" ry="5.5" fill="#ffb59c" opacity=".5"/><ellipse cx="162" cy="142" rx="9" ry="5.5" fill="#ffb59c" opacity=".5"/>
-<path class="aon-mouth" d="M108,146 Q120,158 132,146" fill="none" stroke="#c0527a" stroke-width="3" stroke-linecap="round"/></svg></div></div><div id="aon-toast"></div></div>
-<div id="aon-badge"><div id="aon-menu" hidden><button type="button" data-aon="show">💧 아온이 부르기</button><button type="button" data-aon="hide">🙈 아온이 감추기</button><button type="button" data-aon="pat">💖 쓰다듬기</button><button type="button" data-aon="voice">🔊 아온이 목소리 듣기</button><button type="button" data-aon="brief" data-load="aon-briefing">⚡ 아온이 브리핑 질문창 장전</button></div><button type="button" data-aon="menu">💧 <span id="aon-exp">EXP 0</span></button></div>
-<script>
-(function(){
-var R=document.getElementById('aon-roamer');if(!R)return;
-var I=R.querySelector('.aon-inner'),B=R.querySelector('.aon-bubble'),T=document.getElementById('aon-toast'),D=document.documentElement;
-var K='rgon_aon_hidden',X='rgon_aon_exp',drag=null,mv=false,sx=0,sy=0;
-var SAY=['퐁당~ 오늘도 같이 놀아요! 💧','살랑살랑~ 기분 좋아요','이슬 한 방울 충전 완료!','대표님 최고예요 ✨','여기저기 구경 중이에요~'];
-var PAT=['헤헤, 쓰다듬어 주셔서 좋아요 ^ ‿ ^','말랑말랑~ 기분 좋아요! 💖','또 쓰다듬어 주세요~ 💧'];
-function ls(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v);}catch(e){}return null;}
-function rn(a,b){return a+Math.random()*(b-a);}
-function hid(){return R.classList.contains('aon-hidden');}
-function re(el,c){el.classList.remove(c);void el.offsetWidth;el.classList.add(c);}
-function say(t){B.textContent=t;re(B,'say');}
-function toast(t){T.textContent=t;re(T,'on');}
-function exp(d){var v=(parseInt(ls(X),10)||0)+d;ls(X,String(v));var s=document.getElementById('aon-exp');if(s)s.textContent='EXP '+v;}
-function go(x,y){R.style.setProperty('--x',x);R.style.setProperty('--y',y);}
-function act(n,joy){I.className='aon-inner';void I.offsetWidth;I.className='aon-inner aon-a-'+n;R.classList.toggle('aon-joy',!!joy);}
-function roam(){if(hid()||drag)return;go(rn(12,Math.max(13,Math.min(78,100-12000/innerWidth))).toFixed(1)+'vw',rn(14,Math.max(15,Math.min(76,100-13500/innerHeight))).toFixed(1)+'vh');}
-function freeze(){var r=R.getBoundingClientRect();R.style.transition='none';go(r.left+'px',r.top+'px');void R.offsetWidth;R.style.transition='';}
-function hide(){if(hid())return;freeze();I.className='aon-inner';R.classList.remove('aon-joy');R.classList.add('aon-hidden');D.setAttribute('data-aon-hidden','1');ls(K,'1');toast('퐁당~ 부르실 때까지 이슬 속에 숨어 있을게요! 💧');}
-function show(){if(!hid())return;void R.offsetWidth;R.classList.add('aon-pop');R.classList.remove('aon-hidden');D.setAttribute('data-aon-hidden','0');ls(K,'0');toast('퐁당! 짜잔~ 나왔어요 💧');roam();}
-function pat(){if(hid()){show();return;}exp(10);act('pat',1);say(PAT[Math.floor(Math.random()*PAT.length)]);}
-function speak(){if(hid())show();var t='안녕하세요 대표님, 아온이에요! 오늘도 같이 힘내요.';
- if(!window.speechSynthesis){say('이 기기에선 목소리를 못 내요 🥲');return;}
- var u=new SpeechSynthesisUtterance(t);u.lang='ko-KR';u.onstart=function(){R.classList.add('aon-talk');};u.onend=u.onerror=function(){R.classList.remove('aon-talk');};
- speechSynthesis.cancel();speechSynthesis.speak(u);say(t);}
-function brief(){var q=document.querySelector('textarea,input[type="text"],input[type="search"]');
- if(!q){say('질문창을 찾지 못했어요 🥲');return;}
- q.value='아온이 브리핑: 오늘의 핵심 현황과 다음 할 일을 3줄로 요약해 줘.';q.dispatchEvent(new Event('input',{bubbles:true}));q.focus();say('질문창 장전 완료! ⚡');}
-R.addEventListener('transitionend',function(e){
- if(e.target!==R||e.propertyName!=='transform'||drag||hid())return;
- R.classList.remove('aon-pop');var r=Math.random();
- if(r<.2)act('hop');else if(r<.34)act('tilt');else if(r<.48)act('laugh',1);else if(r<.58)act('idle');
- else{if(r<.8)say(SAY[Math.floor(Math.random()*SAY.length)]);roam();}});
-R.addEventListener('animationend',function(e){var n=e.animationName;
- if(n==='aonBubbleLife'){B.classList.remove('say');return;}
- if(/^aon(Hop|Tilt|Laugh|Idle|PatJelly)$/.test(n)){I.className='aon-inner';R.classList.remove('aon-joy');roam();}});
-R.addEventListener('pointerdown',function(e){if(e.target.closest('.aon-hide-btn')||hid())return;
- var r=R.getBoundingClientRect();drag={dx:e.clientX-r.left,dy:e.clientY-r.top};mv=false;sx=e.clientX;sy=e.clientY;
- I.className='aon-inner';R.style.transition='none';go(r.left+'px',r.top+'px');R.setPointerCapture(e.pointerId);});
-R.addEventListener('pointermove',function(e){if(!drag)return;
- if(!mv&&Math.hypot(e.clientX-sx,e.clientY-sy)>6){mv=true;I.className='aon-inner aon-drag';}
- if(mv)go(Math.min(Math.max(0,e.clientX-drag.dx),innerWidth-115)+'px',Math.min(Math.max(0,e.clientY-drag.dy),innerHeight-125)+'px');});
-function up(c){if(!drag)return;drag=null;R.style.transition='';I.className='aon-inner';void R.offsetWidth;if(mv||c)roam();else pat();}
-R.addEventListener('pointerup',function(){up(false);});R.addEventListener('pointercancel',function(){up(true);});
-document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-aon]');if(!b)return;var a=b.getAttribute('data-aon');
- if(a==='show')show();else if(a==='hide')hide();else if(a==='pat')pat();else if(a==='voice')speak();else if(a==='brief')brief();
- else if(a==='menu'){var m=document.getElementById('aon-menu');m.hidden=!m.hidden;}});
-var tp=document.querySelector('[role="tabpanel"],.tab-pane,.tab-content'),tb=document.getElementById('aon-top');
-if(tp&&tb&&!tp.querySelector('[data-aon-tab]')){var c=tb.cloneNode(true);c.removeAttribute('id');c.setAttribute('data-aon-tab','1');tp.insertBefore(c,tp.firstChild);}
-exp(0);D.setAttribute('data-aon-hidden','1');if(ls(K)==='0')show();
-})();
-</script>
-<!-- [AON-ROAMING-V11.29-END] -->
 </body>
 </html>
