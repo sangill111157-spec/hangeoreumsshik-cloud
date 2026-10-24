@@ -1,8 +1,8 @@
 {
-  "version": "v11.30-EXCRETORY-CLEAN",
-  "antibody": "R19",
+  "version": "v11.31-MUSE-DELEGATION",
+  "antibody": "R1~R32",
   "generated_at_kst": "2026-10-24 12:31:39 KST",
-  "count": 27,
+  "count": 28,
   "skills": [
     {
       "slug": "1-36-45",
@@ -262,17 +262,31 @@
       "category": "excretory-gc",
       "hexagram_tag": "#40-解",
       "step": 31,
-      "version": "v11.30-EXCRETORY-CLEAN",
+      "version": "v11.31-MUSE-DELEGATION",
       "path": "skills/excretory-entropy-gc/SKILL.md",
       "status": "official",
       "description": "ECC config-gc + reclaim-code-entropy + autoDream 기반 신장 여과·대장 압축·문서 중복 마커 정화·고아 코드 감사 스킬 (R31)"
+    },
+    {
+      "no": 28,
+      "id": "muse-autonomous-delegator",
+      "name": "muse-autonomous-delegator",
+      "slug": "muse-autonomous-delegator",
+      "title": "뮤즈 자율 대행·위임 집행 (Muse Delegation Engine)",
+      "path": "skills/muse-autonomous-delegator/SKILL.md",
+      "category": "제8기관 · 자율 대행",
+      "antibody": "R32",
+      "version": "v11.31-MUSE-DELEGATION",
+      "added": "2026-10-24",
+      "description": "메타 뮤즈(Muse Wonder & Muse Charm) + 3-Tier HITL 안전 승인 게이트 + 아온 다이내믹 아일랜드 통합 프로토콜"
     }
   ],
-  "antibody_range": "R1~R31",
+  "antibody_range": "R1~R32",
   "skill_count": 23,
   "synced_at_kst": "2026-10-24 12:31:48 KST",
   "total": 27,
   "antibodies": "R1~R27",
   "updated": "2026-10-24T13:17:46",
-  "immune": "R1~R31"
+  "immune": "R1~R32",
+  "total_skills": 28
 }

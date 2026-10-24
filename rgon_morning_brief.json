@@ -1,6 +1,6 @@
 {
-  "version": "v11.30-EXCRETORY-CLEAN",
-  "antibody_range": "R1~R31",
+  "version": "v11.31-MUSE-DELEGATION",
+  "antibody_range": "R1~R32",
   "r20": "일일 자율 순환 루프(백혈구 순찰 → 영양분 소화·스킬 주조 → 3자 심판 → 주역 64괘 아침 브리핑) 무인 자동화",
   "generated_at": "2026-10-24T12:31:48+09:00",
   "date": "2026-10-24",
@@ -38,7 +38,7 @@
     "source": "rgon_immune_ledger.today_hexagram"
   },
   "telegram": "skipped(no env)",
-  "skill_count": 27,
+  "skill_count": 28,
   "trading_council": [
     {
       "id": "TREASURY",
@@ -162,5 +162,31 @@
     }
   },
   "skills_count": 23,
-  "antibodies": "R1~R27"
+  "antibodies": "R1~R27",
+  "muse_delegation": {
+    "version": "v11.31-MUSE-DELEGATION",
+    "antibody": "R1~R32",
+    "summary": {
+      "total": 5,
+      "tier1": 2,
+      "tier2": 1,
+      "tier3": 2,
+      "pending_approval": 2,
+      "approved_done": 0,
+      "on_hold": 0,
+      "done": 2,
+      "done_notified": 1
+    },
+    "updated_at": "2026-10-24 19:22:18",
+    "pending": [
+      {
+        "id": "T4",
+        "title": "[대표님 결재 대기] 금일 3자 심판 GO 시그널 종목 비중 확대 리밸런싱 대행안"
+      },
+      {
+        "id": "T5",
+        "title": "[대표님 결재 대기] 차세대 자율 진화 스킬(SkillAutoForge) 클라우드 배포 승인안"
+      }
+    ]
+  }
 }

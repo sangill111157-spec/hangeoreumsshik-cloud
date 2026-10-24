@@ -1353,3 +1353,10 @@ shin-agent/
 - rgon_excretory_organ.py — 신장 여과·대장 백업 슬림화·autoDream 문서 중복 정화
 - rgon_excretion_report.json — 배설·정화 감사 리포트
 <!-- [RGON-STEP31-EXCRETORY-END] -->
+
+<!-- [RGON-CODEMAP-STEP32] -->
+## Step 32 — 제8기관: 자율 대행·위임 집행 기관 (v11.31-MUSE-DELEGATION)
+- `rgon_muse_delegator.py`: Muse Wonder 비동기 위임 큐 + 3-Tier HITL 게이트 (`--self-test`, `--list`, `--add`, `--approve`, `--hold`)
+- `rgon_muse_tasks.json` / `docs/rgon_muse_tasks.json`: 대행 작업 큐 (sha256 무결성)
+- `skills/muse-autonomous-delegator/SKILL.md`: 28번째 정식 스킬
+- 7개 HTML V13 블록(YT-SCOUT-V13 / UX-CLEANUP-V13) 내부 `[RGON-MUSE-V1]`: 아온 다이내믹 아일랜드 + 📋대행 독 + 결재 보드

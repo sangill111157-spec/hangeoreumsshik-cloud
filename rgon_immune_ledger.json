@@ -1,10 +1,10 @@
 {
   "schema": "rgon.immune.ledger.v1",
-  "version": "v11.30-EXCRETORY-CLEAN",
+  "version": "v11.31-MUSE-DELEGATION",
   "current_step": 27,
-  "antibody_range": "R1~R31",
+  "antibody_range": "R1~R32",
   "principle": "만물은 하나로 이어져 있으며, 한 걸음씩 나아가면 반드시 이루어진다.",
-  "updated_at_kst": "2026-10-24T18:40:55",
+  "updated_at_kst": "2026-10-24T19:22:20",
   "health_score": 100,
   "inspection_mode": "standard",
   "today_hexagram": {
@@ -14,7 +14,7 @@
     "summary": "자강불식(自強不息) — 스스로 강건히 쉬지 않고 정진한다",
     "inspection_mode": "standard"
   },
-  "suppressed_count": 4,
+  "suppressed_count": 5,
   "antibodies": [
     {
       "id": "R1",
@@ -278,6 +278,14 @@
       "name": "배설기관(신장·대장) 노폐물 배출 & 엔트로피 정화 엔진",
       "rule": "R31: 배설기관(신장·대장·뇌척수액 정화, 주역 #18 산풍고·#40 뇌수해) — ECC config-gc + reclaim-code-entropy + autoDream 기반으로 캐시·구백업·중복 마커·컨텍스트 찌꺼기를 안전 배출하여 엔트로피 0% 유지",
       "status": "active"
+    },
+    {
+      "id": "R32",
+      "step": 31,
+      "title": "배설기관(신장·대장) 노폐물 배출 & 엔트로피 정화 엔진",
+      "name": "배설기관 엔트로피 정화",
+      "rule": "R32: 메타 뮤즈(Muse) 3대 대행 기관 — 비동기 위임 작업큐(Muse Wonder) · 3등급 안전 승인 게이트(HITL) · 아온 다이내믹 아일랜드(Muse Charm) 통합",
+      "status": "active"
     }
   ],
   "fingerprints": {
@@ -287,8 +295,8 @@
       "context": "self_test_bypass",
       "sample_message": "'simulated_missing_key'",
       "first_seen_kst": "2026-10-24T08:11:50",
-      "last_seen_kst": "2026-10-24T18:40:55",
-      "count": 6,
+      "last_seen_kst": "2026-10-24T19:22:20",
+      "count": 7,
       "suppressed": true,
       "known_remedy": "R18 상선약수: adapt_dict 안전 키 매핑 및 기본값 반환"
     }
@@ -373,6 +381,14 @@
       "restored": true,
       "source_backup": ".rgon_backup/wbc_snapshots/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.clean",
       "quarantined_to": ".rgon_backup/wbc_quarantine/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.20261024_184055.corrupt"
+    },
+    {
+      "timestamp_kst": "2026-10-24T19:22:20",
+      "file": ".rgon_backup/wbc_selftest/_wbc_dummy_sample.py",
+      "reason": "self_test_syntax_error",
+      "restored": true,
+      "source_backup": ".rgon_backup/wbc_snapshots/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.clean",
+      "quarantined_to": ".rgon_backup/wbc_quarantine/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.20261024_192220.corrupt"
     }
   ],
   "bypass_log": [
@@ -432,6 +448,15 @@
     },
     {
       "timestamp_kst": "2026-10-24T18:40:55",
+      "context": "self_test_bypass",
+      "exc_type": "KeyError",
+      "message": "'simulated_missing_key'",
+      "fingerprint": "3cf3c4ec29753bf7",
+      "suppressed": true,
+      "action": "default_value"
+    },
+    {
+      "timestamp_kst": "2026-10-24T19:22:20",
       "context": "self_test_bypass",
       "exc_type": "KeyError",
       "message": "'simulated_missing_key'",
@@ -574,6 +599,6 @@
   "skill_count": 23,
   "skills_count": 23,
   "last_sync": "Step25 2026-10-24 09:19:38",
-  "range": "R1~R31",
+  "range": "R1~R32",
   "count": 31
 }

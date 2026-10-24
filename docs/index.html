@@ -2382,6 +2382,137 @@ updHead();if(ls(K)==='0')show();
 })();
 </script>
 <!-- [RGYT-PLACE-ONCE-V15-END] -->
+<!-- [RGON-MUSE-V1-START] -->
+<!-- R32 · v11.31-MUSE-DELEGATION · Muse Wonder 위임큐 · Muse Charm 다이내믹 아일랜드 · 3-Tier HITL 게이트 -->
+<style id="rgmuse-style">
+#rgmuse-island{position:fixed;left:50%;top:10px;z-index:2147483600;display:flex;align-items:center;gap:6px;padding:5px 12px 5px 9px;border-radius:999px;background:rgba(8,12,26,.84);color:#eaf7ff;font:600 12px/1.25 system-ui,-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;letter-spacing:.2px;white-space:nowrap;box-shadow:0 0 0 1px rgba(150,225,255,.38),0 6px 22px rgba(70,170,255,.38),inset 0 0 14px rgba(120,210,255,.2);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);cursor:pointer;user-select:none;opacity:0;visibility:hidden;pointer-events:none;transform:translate(-50%,-100%) scale(.82);transition:opacity .35s ease,visibility .35s,transform .38s cubic-bezier(.2,.9,.3,1.25),left .14s linear,top .14s linear}
+#rgmuse-island.below{transform:translate(-50%,0) scale(.82)}
+#rgmuse-island.on{opacity:1;visibility:visible;pointer-events:auto;transform:translate(-50%,-100%) scale(1)}
+#rgmuse-island.on.below{transform:translate(-50%,0) scale(1)}
+#rgmuse-island:hover{box-shadow:0 0 0 1px rgba(170,235,255,.6),0 8px 28px rgba(90,190,255,.55),inset 0 0 16px rgba(140,220,255,.28)}
+#rgmuse-island .rgmuse-dot{width:7px;height:7px;border-radius:50%;background:#ffd24d;box-shadow:0 0 8px #ffd24d;animation:rgmusePulse 1.6s ease-in-out infinite}
+#rgmuse-island.pop{animation:rgmusePop .7s ease}
+@keyframes rgmusePulse{0%,100%{opacity:1;box-shadow:0 0 6px #ffd24d}50%{opacity:.55;box-shadow:0 0 14px #ffd24d}}
+@keyframes rgmusePop{0%{filter:brightness(1)}40%{filter:brightness(1.6) drop-shadow(0 0 10px rgba(255,220,120,.9))}100%{filter:brightness(1)}}
+#rgmuse-bubble{position:fixed;left:50%;top:70px;z-index:2147483620;max-width:min(320px,80vw);padding:8px 12px;border-radius:14px;background:rgba(255,255,255,.96);color:#0b2440;font:600 13px/1.4 system-ui,-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;box-shadow:0 8px 26px rgba(40,140,255,.35),0 0 0 1px rgba(120,200,255,.5);opacity:0;visibility:hidden;pointer-events:none;transform:translate(-50%,-100%);transition:opacity .3s,visibility .3s}
+#rgmuse-bubble.below{transform:translate(-50%,0)}
+#rgmuse-bubble.on{opacity:1;visibility:visible}
+#rgmuse-fab{position:fixed;right:18px;bottom:18px;z-index:2147483590;padding:8px 12px;border:0;border-radius:999px;background:rgba(10,16,34,.86);color:#eaf7ff;font:700 13px system-ui,-apple-system,"Malgun Gothic",sans-serif;box-shadow:0 0 0 1px rgba(150,225,255,.35),0 6px 20px rgba(70,170,255,.35);cursor:pointer}
+#rgmuse-overlay{position:fixed;inset:0;z-index:2147483640;display:none;align-items:center;justify-content:center;background:rgba(3,7,18,.56);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+#rgmuse-overlay.on{display:flex}
+#rgmuse-board{box-sizing:border-box;width:min(740px,94vw);max-height:88vh;overflow:auto;padding:18px;border-radius:20px;background:linear-gradient(160deg,#101a36 0%,#0a1124 100%);color:#e8f2ff;font:14px/1.5 system-ui,-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;box-shadow:0 0 0 1px rgba(140,210,255,.28),0 24px 70px rgba(0,0,0,.55),0 0 40px rgba(80,170,255,.18)}
+#rgmuse-board *{box-sizing:border-box}
+.rgmuse-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:12px}
+.rgmuse-h1{font-size:17px;font-weight:800}
+.rgmuse-sub{font-size:11.5px;opacity:.7;margin-top:2px}
+.rgmuse-x{border:0;background:rgba(255,255,255,.08);color:#fff;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:15px;flex:none}
+.rgmuse-in{display:flex;gap:8px}
+#rgmuse-input{flex:1;min-width:0;padding:10px 12px;border-radius:12px;border:1px solid rgba(140,210,255,.35);background:rgba(255,255,255,.06);color:#fff;font-size:14px;outline:none}
+#rgmuse-input:focus{border-color:#7fd3ff;box-shadow:0 0 0 3px rgba(127,211,255,.18)}
+#rgmuse-go{padding:10px 14px;border:0;border-radius:12px;background:linear-gradient(135deg,#3aa8ff,#7b6bff);color:#fff;font-weight:800;cursor:pointer;white-space:nowrap}
+.rgmuse-fw{display:inline-flex;gap:6px;align-items:center;margin:8px 0 4px;font-size:12px;opacity:.85;cursor:pointer}
+.rgmuse-legend{font-size:11.5px;opacity:.65;margin-bottom:10px}
+#rgmuse-sum{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:6px}
+.rgmuse-chip{padding:3px 10px;border-radius:999px;background:rgba(255,255,255,.07);font-size:12px}
+.rgmuse-sec{margin-top:12px}
+.rgmuse-sec-h{font-weight:800;font-size:13px;margin-bottom:6px}
+.rgmuse-sec-h span{opacity:.6;font-weight:600}
+.rgmuse-card{padding:10px 12px;border-radius:14px;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.07);margin-bottom:8px}
+.rgmuse-card.st-PENDING_APPROVAL{border-color:rgba(255,210,77,.55);box-shadow:0 0 18px rgba(255,210,77,.12)}
+.rgmuse-card.st-APPROVED_DONE{border-color:rgba(120,220,255,.5)}
+.rgmuse-card.st-ON_HOLD{opacity:.8}
+.rgmuse-row{display:flex;justify-content:space-between;gap:8px;font-size:12px;opacity:.85}
+.rgmuse-title{font-weight:700;margin:3px 0}
+.rgmuse-plan{margin:6px 0 4px 18px;padding:0;font-size:12.5px;opacity:.9}
+.rgmuse-eff,.rgmuse-risk,.rgmuse-res{font-size:12.5px;opacity:.88;margin-top:3px}
+.rgmuse-acts{display:flex;gap:8px;margin-top:8px}
+.rgmuse-acts button{border:0;border-radius:10px;padding:7px 12px;font-weight:800;cursor:pointer}
+.rgmuse-ok{background:linear-gradient(135deg,#2fd27a,#19a8ff);color:#fff}
+.rgmuse-hold{background:rgba(255,255,255,.1);color:#fff}
+</style>
+<script id="rgmuse-script">
+(function(){
+"use strict";
+if(window.__RGON_MUSE_V1__)return;window.__RGON_MUSE_V1__=true;
+var VERSION="v11.31-MUSE-DELEGATION",ANTIBODY="R1~R32",LS_KEY="rgon_muse_tasks_v1";
+var SEED=[{"id": "T1", "title": "백혈구 6대 면역 순찰 및 32.5MB 정화 상태 유지 점검", "tier": 1, "tier_code": "AUTO", "tier_label": "🟢 자동 집행", "status": "DONE", "iching": "#14 화천대유 — 막힘없이 대행", "created_at": "2026-10-24T19:22:20", "source": "seed", "done_at": "2026-10-24T19:22:20", "category": "immune-patrol", "result": "백혈구 6대 면역 순찰 대행 완료 · Step 31 정화 상태(구백업 29개·캐시 32.5MB 배출) 재축적 감시 등록"}, {"id": "T2", "title": "오감 센서 외부 GitHub 트렌드 & Stomper 해독 스캔", "tier": 1, "tier_code": "AUTO", "tier_label": "🟢 자동 집행", "status": "DONE", "iching": "#14 화천대유 — 막힘없이 대행", "created_at": "2026-10-24T19:22:20", "source": "seed", "done_at": "2026-10-24T19:22:20", "category": "five-sense-radar", "result": "오감 레이더 외부 트렌드 스캔 대행 완료 · 신호는 Tier 2 스킬 초안 합성 후보로 이관"}, {"id": "T3", "title": "주역 #14 화천대유 기반 3자 찬반 심판(Bull/Bear/Judge) 포트폴리오 시뮬레이션", "tier": 2, "tier_code": "NOTIFY", "tier_label": "🔵 선집행 후보고", "status": "DONE_NOTIFIED", "iching": "#14 화천대유 — 막힘없이 대행", "created_at": "2026-10-24T19:22:20", "source": "seed", "done_at": "2026-10-24T19:22:20", "category": "tri-judge-sim", "report": "3자 심판(Bull/Bear/Judge) 시뮬레이션 선집행 후 보고 — 실제 주문·자산 변경 0건(시뮬레이션 전용). Judge GO 시그널은 T4 결재안으로 이관"}, {"id": "T4", "title": "[대표님 결재 대기] 금일 3자 심판 GO 시그널 종목 비중 확대 리밸런싱 대행안", "tier": 3, "tier_code": "HITL_GATE", "tier_label": "🟡 대표님 결재 대기", "status": "PENDING_APPROVAL", "iching": "#64 화수미제 — 신중히 분별하여 끝까지 완수", "created_at": "2026-10-24T19:22:20", "source": "seed", "category": "asset-rebalance", "plan": ["① T3 3자 심판 GO 판정 종목 목록 확정", "② 현재 비중 스냅샷 저장 및 롤백 지점 확보", "③ 종목당 비중 상한·현금 비중 하한 등 리스크 한도 내 리밸런싱 드라이런", "④ 대표님 [✅ 승인] 수신 시에만 리밸런싱 대행안 집행", "⑤ 집행 결과를 아침 브리핑·독대실에 보고"], "expected_effect": "GO 시그널 종목 노출을 리스크 한도 내에서 정렬 (수익 보장 아님 · 최종 판단은 대표님)", "risk": "실전 자산 변동·시장 리스크 — 승인 전 집행 0건 (HITL 게이트 봉인)"}, {"id": "T5", "title": "[대표님 결재 대기] 차세대 자율 진화 스킬(SkillAutoForge) 클라우드 배포 승인안", "tier": 3, "tier_code": "HITL_GATE", "tier_label": "🟡 대표님 결재 대기", "status": "PENDING_APPROVAL", "iching": "#64 화수미제 — 신중히 분별하여 끝까지 완수", "created_at": "2026-10-24T19:22:20", "source": "seed", "category": "skill-deploy", "plan": ["① SkillAutoForge 초안 스킬 목록·변경 범위 확정", "② 백혈구 self-test 및 삼성(三省) 3/3 사전 검증", "③ 배포 대상(GitHub Pages/클라우드) 드라이런 및 롤백 커밋 지정", "④ 대표님 [✅ 승인] 수신 시에만 클라우드 배포 집행", "⑤ 배포 후 스킬 수·항체·버전 동기화 재검증 보고"], "expected_effect": "자율 진화 스킬의 검증된 버전만 클라우드에 반영하여 진화 속도와 안전성을 동시 확보", "risk": "핵심 설정·배포 변경 — 승인 전 집행 0건 (화수미제: 끝까지 신중)"}];
+var KW3=["매수","매도","리밸런싱","비중","자산","배분","주문","결제","송금","이체","계좌","투자","배포","deploy","설정 변경","설정변경","핵심 설정","삭제","권한","결재","승인","push","출금","대출"];
+var KW2=["분석","초안","시뮬레이션","심판","합성","리서치","조사","요약","보고서","트렌드","비교","검토","예측","평가","설계"];
+var TIER={1:{k:"t1",code:"AUTO",label:"🟢 Tier 1 · AUTO 자동 집행"},2:{k:"t2",code:"NOTIFY",label:"🔵 Tier 2 · NOTIFY 선집행 후보고"},3:{k:"t3",code:"HITL_GATE",label:"🟡 Tier 3 · HITL 대표님 결재"}};
+var ST={DONE:"✅ 자동 완수",DONE_NOTIFIED:"🔵 완수·보고",RUNNING:"⏳ 대행 중",PENDING_APPROVAL:"🟡 결재 대기",APPROVED_DONE:"💧 승인 집행 완료",ON_HOLD:"⏸️ 보류"};
+var RANK={RUNNING:0,PENDING_APPROVAL:0,ON_HOLD:1,DONE:2,DONE_NOTIFIED:2,APPROVED_DONE:3};
+var tasks=[],lastPending=-1,bubbleTimer=null;
+function aonEl(){return document.getElementById("rgyt-wrap")||document.getElementById("aon-roamer");}
+function nowIso(){var d=new Date(),p=function(n){return(n<10?"0":"")+n;};return d.getFullYear()+"-"+p(d.getMonth()+1)+"-"+p(d.getDate())+"T"+p(d.getHours())+":"+p(d.getMinutes())+":"+p(d.getSeconds());}
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
+function loadLocal(){try{var d=JSON.parse(localStorage.getItem(LS_KEY)||"null");return d&&d.tasks?d.tasks:[];}catch(e){return[];}}
+function saveLocal(){try{localStorage.setItem(LS_KEY,JSON.stringify({version:VERSION,antibody:ANTIBODY,saved_at:nowIso(),tasks:tasks}));}catch(e){}}
+function merge(base,local){var map={},order=[];(base||[]).forEach(function(t){if(t&&t.id&&!map[t.id]){map[t.id]=JSON.parse(JSON.stringify(t));order.push(t.id);}});(local||[]).forEach(function(t){if(!t||!t.id)return;var a=map[t.id];if(!a){map[t.id]=t;order.push(t.id);return;}if((RANK[t.status]||0)>=(RANK[a.status]||0))map[t.id]=Object.assign({},a,t);});return order.map(function(id){return map[id];});}
+function find(id){for(var i=0;i<tasks.length;i++)if(tasks[i].id===id)return tasks[i];return null;}
+function pendingCount(){var n=0;tasks.forEach(function(t){if(t.status==="PENDING_APPROVAL")n++;});return n;}
+function classify(text){var s=String(text||"").toLowerCase(),i;for(i=0;i<KW3.length;i++)if(s.indexOf(KW3[i].toLowerCase())>=0)return 3;for(i=0;i<KW2.length;i++)if(s.indexOf(KW2[i].toLowerCase())>=0)return 2;return 1;}
+function planFor(title){return{plan:["① 대상·범위 확정: "+title,"② 현재 상태 스냅샷 저장 및 롤백 지점 확보","③ 드라이런(시뮬레이션)으로 영향도·리스크 계산","④ 대표님 [✅ 승인] 수신 시에만 실제 집행 (HITL 게이트)","⑤ 집행 후 결과 검증 및 아침 브리핑·독대실 보고"],effect:"대표님의 판단 시간을 절약하면서 중요 작업을 계획서 기반으로 안전하게 대행",risk:"중요 변경 작업 — 대표님 승인 전 실제 집행 0건 (화수미제: 신중 분별)"};}
+function nextId(){var n=0;tasks.forEach(function(t){var m=/^T(\d+)$/.exec(String(t.id||""));if(m)n=Math.max(n,parseInt(m[1],10));});return"T"+(n+1);}
+function visibleRect(el){if(!el)return null;var cs=window.getComputedStyle(el);if(cs.display==="none"||cs.visibility==="hidden"||parseFloat(cs.opacity||"1")<0.05)return null;var r=el.getBoundingClientRect();if(r.width<2||r.height<2)return null;if(r.bottom<0||r.right<0||r.top>window.innerHeight||r.left>window.innerWidth)return null;return r;}
+function joy(){var w=aonEl();if(w&&w.animate){try{w.animate([{filter:"none"},{filter:"brightness(1.35) drop-shadow(0 0 18px rgba(140,230,255,.95))"},{filter:"none"}],{duration:1300,easing:"ease-in-out"});}catch(e){}}}
+function say(msg){var fns=["rgytSay","aonSay","rgytSpeak","aonSpeak","rgonAonSay","showAonBubble"];for(var i=0;i<fns.length;i++){var f=window[fns[i]];if(typeof f==="function"){try{f(msg);return;}catch(e){}}}
+var bb=document.getElementById("rgmuse-bubble");if(!bb)return;bb.textContent=msg;var r=visibleRect(aonEl());var x=r?r.left+r.width/2:window.innerWidth/2,y=r?r.top-12:72,below=false;if(r&&y<60){y=r.bottom+12;below=true;}x=Math.max(90,Math.min(window.innerWidth-90,x));bb.style.left=x+"px";bb.style.top=y+"px";bb.classList.toggle("below",below);bb.classList.add("on");clearTimeout(bubbleTimer);bubbleTimer=setTimeout(function(){bb.classList.remove("on");},3600);}
+function forwardToDokdae(text,tier){var sel=["#dokdae-input","#dokdaeInput","#dokdae_input","textarea[placeholder*='독대']","input[placeholder*='독대']","textarea[placeholder*='질문']","input[placeholder*='질문']"];for(var i=0;i<sel.length;i++){var el=null;try{el=document.querySelector(sel[i]);}catch(e){}if(el&&el.id!=="rgmuse-input"){el.value="[📋 뮤즈 대행 · Tier "+tier+"] "+text;try{el.dispatchEvent(new Event("input",{bubbles:true}));}catch(e){}return true;}}return false;}
+function finish2(id,silent){var t=find(id);if(!t||t.status!=="RUNNING")return;t.status="DONE_NOTIFIED";t.done_at=nowIso();t.report="요약 보고: ‘"+t.title+"’ 분석/초안 작업을 선집행 완료했습니다. 상세 내용은 독대실에서 이어서 확인하세요.";saveLocal();refresh();if(!silent)say("보고드립니다! Tier 2 대행 작업 완수 🔵✨");}
+function addTask(text,forward){text=String(text||"").trim();if(!text)return;var tier=classify(text),t={id:nextId(),title:text,tier:tier,tier_code:TIER[tier].code,tier_label:TIER[tier].label,created_at:nowIso(),source:"dynamic-island",iching:tier===3?"#64 화수미제 — 신중히 분별하여 끝까지 완수":"#14 화천대유 — 막힘없이 대행"};
+if(tier===1){t.status="DONE";t.done_at=nowIso();t.result="Tier 1 AUTO — 아온이 즉시 자율 완수했습니다.";tasks.push(t);say("Tier 1 자동 집행! 바로 끝냈어요 💧");}
+else if(tier===2){t.status="RUNNING";tasks.push(t);say("Tier 2 분석 대행 시작! 끝나면 바로 보고드릴게요 🔵");setTimeout(function(){finish2(t.id);},1400);}
+else{var p=planFor(text);t.status="PENDING_APPROVAL";t.plan=p.plan;t.expected_effect=p.effect;t.risk=p.risk;tasks.push(t);say("중요 작업이라 실행 계획서를 올렸어요. 대표님 결재를 기다릴게요 🟡");}
+saveLocal();refresh();if(forward)forwardToDokdae(text,tier);}
+function approve(id){var t=find(id);if(!t||Number(t.tier)!==3)return;if(t.status!=="PENDING_APPROVAL"&&t.status!=="ON_HOLD")return;t.status="APPROVED_DONE";t.approved_at=nowIso();t.approved_by="대표님";t.result="대표님 승인 → 아온이 대행 집행 완료";saveLocal();refresh();say("대표님 승인 완료! 즉시 대행 집행했습니다 💧✨");joy();}
+function hold(id){var t=find(id);if(!t||Number(t.tier)!==3||t.status!=="PENDING_APPROVAL")return;t.status="ON_HOLD";t.held_at=nowIso();saveLocal();refresh();say("알겠습니다. 보류해 두고 다시 여쭐게요 ⏸️");}
+function card(t){var h='<div class="rgmuse-card st-'+esc(t.status)+'"><div class="rgmuse-row"><b>'+esc(t.id)+'</b><span>'+(ST[t.status]||esc(t.status))+'</span></div><div class="rgmuse-title">'+esc(t.title)+'</div>';
+if(t.plan&&t.plan.length){h+='<ol class="rgmuse-plan">';t.plan.forEach(function(s){h+='<li>'+esc(String(s).replace(/^[①②③④⑤⑥⑦⑧⑨]\s*/,""))+'</li>';});h+='</ol>';}
+if(t.expected_effect)h+='<div class="rgmuse-eff">🎯 기대효과: '+esc(t.expected_effect)+'</div>';
+if(t.risk)h+='<div class="rgmuse-risk">⚠️ 리스크: '+esc(t.risk)+'</div>';
+var res=t.report||t.result;if(res)h+='<div class="rgmuse-res">📝 '+esc(res)+'</div>';
+if(Number(t.tier)===3&&(t.status==="PENDING_APPROVAL"||t.status==="ON_HOLD")){h+='<div class="rgmuse-acts"><button type="button" class="rgmuse-ok" data-act="approve" data-id="'+esc(t.id)+'">✅ 승인 집행</button>';if(t.status==="PENDING_APPROVAL")h+='<button type="button" class="rgmuse-hold" data-act="hold" data-id="'+esc(t.id)+'">⏸️ 보류</button>';h+='</div>';}
+return h+'</div>';}
+function renderBoard(){var list=document.getElementById("rgmuse-list"),sum=document.getElementById("rgmuse-sum");if(!list||!sum)return;var g={1:[],2:[],3:[]},c={p:0,a:0,h:0,d:0};
+tasks.forEach(function(t){(g[Number(t.tier)]||g[1]).push(t);if(t.status==="PENDING_APPROVAL")c.p++;else if(t.status==="APPROVED_DONE")c.a++;else if(t.status==="ON_HOLD")c.h++;else c.d++;});
+sum.innerHTML='<span class="rgmuse-chip">🟡 결재 대기 '+c.p+'</span><span class="rgmuse-chip">💧 승인 집행 '+c.a+'</span><span class="rgmuse-chip">⏸️ 보류 '+c.h+'</span><span class="rgmuse-chip">✅ 자율 완수 '+c.d+'</span>';
+var h="";[3,2,1].forEach(function(k){var arr=g[k];if(!arr.length)return;arr=arr.slice().sort(function(a,b){return(RANK[a.status]||0)-(RANK[b.status]||0);});h+='<div class="rgmuse-sec '+TIER[k].k+'"><div class="rgmuse-sec-h">'+TIER[k].label+' <span>'+arr.length+'건</span></div>';arr.forEach(function(t){h+=card(t);});h+='</div>';});
+list.innerHTML=h;}
+function refresh(){var n=pendingCount(),isl=document.getElementById("rgmuse-island");if(isl){var tx=isl.querySelector(".rgmuse-txt");if(tx)tx.textContent="📋 결재 "+n+"건";if(lastPending>=0&&n>lastPending){isl.classList.remove("pop");void isl.offsetWidth;isl.classList.add("pop");}}
+lastPending=n;var db=document.getElementById("rgmuse-dock-btn");if(db)db.title="뮤즈(Muse) 자율 대행 & 대표님 결재 보드 — 결재 대기 "+n+"건";renderBoard();}
+function openBoard(){var o=document.getElementById("rgmuse-overlay");if(!o)return;renderBoard();o.classList.add("on");setTimeout(function(){var i=document.getElementById("rgmuse-input");if(i)i.focus();},60);}
+function closeBoard(){var o=document.getElementById("rgmuse-overlay");if(o)o.classList.remove("on");}
+function submit(){var i=document.getElementById("rgmuse-input"),f=document.getElementById("rgmuse-fwd");if(!i||!i.value.trim())return;addTask(i.value,f&&f.checked);i.value="";}
+function ensureUI(){if(document.getElementById("rgmuse-island"))return;
+var isl=document.createElement("div");isl.id="rgmuse-island";isl.setAttribute("role","button");isl.setAttribute("aria-label","뮤즈 결재 대기 보드 열기");isl.innerHTML='<span class="rgmuse-dot"></span><span class="rgmuse-txt">📋 결재 0건</span>';isl.addEventListener("click",function(e){e.stopPropagation();openBoard();});document.body.appendChild(isl);
+var bb=document.createElement("div");bb.id="rgmuse-bubble";document.body.appendChild(bb);
+var ov=document.createElement("div");ov.id="rgmuse-overlay";ov.innerHTML='<div id="rgmuse-board" role="dialog" aria-modal="true" aria-label="뮤즈 자율 대행 보드"><div class="rgmuse-head"><div><div class="rgmuse-h1">📋 뮤즈(Muse) 자율 대행 &amp; 대표님 결재 보드</div><div class="rgmuse-sub">'+VERSION+' · '+ANTIBODY+' · ☲☰ #14 화천대유 · ☲☵ #64 화수미제</div></div><button type="button" class="rgmuse-x" data-act="close" aria-label="닫기">✕</button></div><div class="rgmuse-in"><input id="rgmuse-input" type="text" placeholder="아온아, 이 작업 대신 해줘..." autocomplete="off"><button type="button" id="rgmuse-go" data-act="go">🚀 대행 지시</button></div><label class="rgmuse-fw"><input type="checkbox" id="rgmuse-fwd"> 독대실 질문창에도 함께 전달</label><div class="rgmuse-legend">🟢 자동 집행 · 🔵 선집행 후보고 · 🟡 대표님 결재 후 집행 — 키워드로 자동 분류</div><div id="rgmuse-sum"></div><div id="rgmuse-list"></div></div>';
+ov.addEventListener("click",function(e){if(e.target===ov){closeBoard();return;}var b=e.target.closest?e.target.closest("[data-act]"):null;if(!b)return;var a=b.getAttribute("data-act"),id=b.getAttribute("data-id");if(a==="close")closeBoard();else if(a==="go")submit();else if(a==="approve")approve(id);else if(a==="hold")hold(id);});
+document.body.appendChild(ov);
+var inp=document.getElementById("rgmuse-input");if(inp)inp.addEventListener("keydown",function(e){if(e.key==="Enter"&&!e.isComposing){e.preventDefault();submit();}});
+document.addEventListener("keydown",function(e){if(e.key==="Escape")closeBoard();});}
+function findDockBtn(sym,word){var els=document.querySelectorAll("button,[role='button'],a"),best=null;for(var i=0;i<els.length;i++){var e=els[i];if(e.id&&e.id.indexOf("rgmuse")===0)continue;var tx=e.textContent||"";if(tx.indexOf(sym)>=0&&(!word||tx.indexOf(word)>=0)){if(!best||tx.length<(best.textContent||"").length)best=e;}}return best;}
+function injectDock(){if(document.getElementById("rgmuse-dock-btn"))return true;var clean=findDockBtn("🧹","정화")||findDockBtn("🧹"),hide=findDockBtn("🙈"),ref=clean||hide;if(!ref||!ref.parentNode)return false;
+var b=document.createElement("button");b.type="button";b.id="rgmuse-dock-btn";b.className=ref.className||"";if(ref.getAttribute("style"))b.setAttribute("style",ref.getAttribute("style"));b.textContent="📋대행";b.title="뮤즈(Muse) 자율 대행 & 대표님 결재 보드";b.addEventListener("click",function(e){e.preventDefault();e.stopPropagation();openBoard();});
+if(clean&&hide&&hide.parentNode===clean.parentNode)clean.parentNode.insertBefore(b,hide);else if(clean)clean.parentNode.insertBefore(b,clean.nextSibling);else hide.parentNode.insertBefore(b,hide);
+var fab=document.getElementById("rgmuse-fab");if(fab&&fab.parentNode)fab.parentNode.removeChild(fab);refresh();return true;}
+function fallbackFab(){if(document.getElementById("rgmuse-dock-btn")||document.getElementById("rgmuse-fab"))return;var f=document.createElement("button");f.type="button";f.id="rgmuse-fab";f.textContent="📋대행";f.title="뮤즈(Muse) 자율 대행 & 대표님 결재 보드";f.addEventListener("click",function(e){e.stopPropagation();openBoard();});document.body.appendChild(f);}
+function place(){var isl=document.getElementById("rgmuse-island");if(!isl)return;if(pendingCount()<=0){isl.classList.remove("on");return;}
+var r=visibleRect(aonEl()),x,y,below=false;
+if(r){x=r.left+r.width/2;y=r.top-6;if(y<34){y=r.bottom+6;below=true;}}
+else{var r2=visibleRect(document.getElementById("rgmuse-dock-btn"))||visibleRect(document.getElementById("rgmuse-fab"));if(r2){x=r2.left+r2.width/2;y=r2.top-6;if(y<34){y=r2.bottom+6;below=true;}}else{x=window.innerWidth/2;y=10;below=true;}}
+x=Math.max(60,Math.min(window.innerWidth-60,x));isl.style.left=x+"px";isl.style.top=y+"px";isl.classList.toggle("below",below);isl.classList.add("on");}
+function loop(){try{place();}catch(e){}window.requestAnimationFrame(loop);}
+function init(){ensureUI();tasks=merge(SEED,loadLocal());tasks.forEach(function(t){if(t.status==="RUNNING")finish2(t.id,true);});refresh();
+var tries=0;(function retry(){if(injectDock())return;if(++tries<30)setTimeout(retry,500);else fallbackFab();})();
+var pend=false;try{new MutationObserver(function(){if(pend||document.getElementById("rgmuse-dock-btn"))return;pend=true;setTimeout(function(){pend=false;injectDock();},300);}).observe(document.body,{childList:true,subtree:true});}catch(e){}
+window.requestAnimationFrame(loop);
+try{if(location.protocol!=="file:"&&window.fetch){fetch("rgon_muse_tasks.json",{cache:"no-store"}).then(function(r){return r.ok?r.json():null;}).then(function(d){if(d&&d.tasks&&d.tasks.length){tasks=merge(merge(SEED,d.tasks),loadLocal());refresh();}}).catch(function(){});}}catch(e){}
+window.RGON_MUSE={open:openBoard,close:closeBoard,add:addTask,approve:approve,hold:hold,tasks:function(){return tasks.slice();},classify:classify,version:VERSION};}
+if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);else init();
+})();
+</script>
+<!-- [RGON-MUSE-V1-END] -->
 <!-- [RGON-YT-SCOUT-V13-END] -->
 
 </body>

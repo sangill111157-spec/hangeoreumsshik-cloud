@@ -29,3 +29,11 @@
 ## Step 28 도메인 용어
 - **아온 (A-ON · 芽溫)**: 주역 #04 산수몽(새싹 아이)에서 #53 풍산점(점진 성장)을 거쳐 #11 지천태(연결·소통·만능)로 자라나는 RGON 사령부의 미래형 K-스타일 디지털 육신.
 <!-- [RGON-STEP28-K-AVATAR-END] -->
+
+<!-- [RGON-GLOSSARY-STEP32] -->
+## Step 32 용어 (v11.31-MUSE-DELEGATION)
+- **Muse Wonder**: 대표님 지시를 끝까지 자율 수행하는 비동기 대행 작업 큐
+- **Muse Charm**: 아온 다이내믹 아일랜드. 결재 대기 건수를 알려 주는 캡슐 배지(`📋 결재 N건`)
+- **3-Tier HITL Gate**: 🟢 AUTO(자동 집행) · 🔵 NOTIFY(선집행 후보고) · 🟡 HITL_GATE(대표님 결재 후 집행)
+- **PENDING_APPROVAL / APPROVED_DONE / ON_HOLD**: Tier 3 상태 (결재 대기 / 승인 집행 완료 / 보류)
+- **화천대유(#14) · 화수미제(#64)**: 막힘없는 대행 · 신중한 분별과 완수

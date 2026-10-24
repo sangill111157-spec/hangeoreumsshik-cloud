@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 rgon_white_blood_cell.py
-RGON 백혈구(WBC: White Blood Cell) 자가치유 면역 엔진 (v11.30-EXCRETORY-CLEAN / 항체 R18)
+RGON 백혈구(WBC: White Blood Cell) 자가치유 면역 엔진 (v11.31-MUSE-DELEGATION / 항체 R18)
 
 6대 면역 기능:
   1. fingerprint(exc, context) : 오류 지문 채취 & 동일 지문 3회 이상 반복 경보 억제
@@ -27,8 +27,8 @@ import shutil
 import sys
 import traceback
 
-WBC_VERSION = "v11.30-EXCRETORY-CLEAN"
-ANTIBODY_RANGE = "R1~R31"
+WBC_VERSION = "v11.31-MUSE-DELEGATION"
+ANTIBODY_RANGE = "R1~R32"
 LEDGER_FILENAME = "rgon_immune_ledger.json"
 HEXAGRAM_FILENAME = "rgon_hexagram_engine.py"
 PRINCIPLE = "만물은 하나로 이어져 있으며, 한 걸음씩 나아가면 반드시 이루어진다."
@@ -66,6 +66,7 @@ DEFAULT_ANTIBODIES = [
     {"id": "R28", "step": 28, "title": "아온(A-ON) K-아이 성장형 디지털 육신", "name": "아온(A-ON) 성장형 디지털 육신", "rule": "R28: 미래형 K-스타일 성장형 디지털 육신 아온(A-ON·芽溫, 산수몽 #04·풍산점 #53·지천태 #11) — 순수 CSS 애니메이션으로 루프 없이 생동감을 구현하고 시스템 진화에 맞춰 4단계로 점진 성장", "status": "active"},
     {"id": "R29", "step": 29, "title": "캐릭터 디테일 TOP 1 마스터 & 아온(A-ON) 3D 물방울 졸라맨 육신", "name": "아온(A-ON) 3D 물방울 졸라맨 육신", "rule": "R29: 캐릭터 디테일 TOP 1 스킬 마스터 & 아온(A-ON·芽溫) 3D 물방울 졸라맨 육신 — 디즈니 7대 모션 법칙(스쿼시&스트레치·시차·팔로스루) + 8-Stop 3D Liquid-Glass/Claymorphism 입체 필터 + 관절형 졸라맨 팔다리 통합", "status": "active"},
     {"id": "R31", "step": 31, "title": "배설기관(신장·대장) 노폐물 배출 & 엔트로피 정화 엔진", "name": "배설기관 엔트로피 정화", "rule": "R31: 배설기관(신장·대장·뇌척수액 정화, 주역 #18 산풍고·#40 뇌수해) — ECC config-gc + reclaim-code-entropy + autoDream 기반으로 캐시·구백업·중복 마커·컨텍스트 찌꺼기를 안전 배출하여 엔트로피 0% 유지", "status": "active"},
+    {"id": "R32", "step": 31, "title": "배설기관(신장·대장) 노폐물 배출 & 엔트로피 정화 엔진", "name": "배설기관 엔트로피 정화", "rule": "R32: 메타 뮤즈(Muse) 3대 대행 기관 — 비동기 위임 작업큐(Muse Wonder) · 3등급 안전 승인 게이트(HITL) · 아온 다이내믹 아일랜드(Muse Charm) 통합", "status": "active"},
 ]
 def _kst_now():
     return datetime.datetime.now(
@@ -798,8 +799,8 @@ def main(argv=None):
     return 0
 
 
-# ===== RGON-STEP20-START (R20 antibody, v11.30-EXCRETORY-CLEAN) =====
-ANTIBODY_RANGE = "R1~R31"
+# ===== RGON-STEP20-START (R20 antibody, v11.31-MUSE-DELEGATION) =====
+ANTIBODY_RANGE = "R1~R32"
 _RGON_R20_TEXT = "일일 자율 순환 루프(백혈구 순찰 → 영양분 소화·스킬 주조 → 3자 심판 → 주역 64괘 아침 브리핑) 무인 자동화"
 try:
     for _nm in ("DEFAULT_ANTIBODIES", "ANTIBODIES", "ANTIBODY_LIST", "ANTIBODY_RULES"):
@@ -822,7 +823,7 @@ except Exception:
 
 
 # >>> RGON-STEP21-R21 >>>
-ANTIBODY_RANGE = "R1~R31"
+ANTIBODY_RANGE = "R1~R32"
 _R21 = "@Mindung-EasyAI 양분 흡수 — Matt Pocock(GLOSSARY.md · Spec/Tracer-Bullet Tickets 분업) + ECC(AgentShield 비밀키/설정 보안 스캔)"
 for _n in ("DEFAULT_ANTIBODIES", "ANTIBODIES", "ANTIBODY_RULES", "ANTIBODY", "RULES"):
     _d = globals().get(_n)
@@ -835,7 +836,7 @@ for _n in ("DEFAULT_ANTIBODIES", "ANTIBODIES", "ANTIBODY_RULES", "ANTIBODY", "RU
 # <<< RGON-STEP21-R21 <<<
 
 # [RGON-STEP22-WBC-R22-START]
-ANTIBODY_RANGE = 'R1~R31'
+ANTIBODY_RANGE = 'R1~R32'
 _R22_TXT = '자아성찰 전신 혈관 개통 — 레이더·영양분(SKILL.md)·티켓/AgentShield·백혈구(WBC)·주역64괘·스냅샷/클라우드 JSON 6대 기관 무결점 단일 순환'
 for _nm in ('DEFAULT_ANTIBODIES', 'ANTIBODIES', 'ANTIBODY_LIST'):
     _lst = globals().get(_nm)
