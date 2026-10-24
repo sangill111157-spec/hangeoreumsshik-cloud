@@ -167,3 +167,9 @@ python rgon_daily_cycle.py --run
 - R28: 미래형 K-스타일 성장형 디지털 육신 아온(A-ON·芽溫, 산수몽 #04·풍산점 #53·지천태 #11) — 순수 CSS 애니메이션으로 루프 없이 생동감을 구현하고 시스템 진화에 맞춰 4단계로 점진 성장
 - 24번째 정식 스킬 `k-avatar-growth-soul` 주조 · 4탭 독대실 UI · 순수 CSS 애니메이션(루프 0)
 <!-- [RGON-STEP28-K-AVATAR-END] -->
+
+<!-- [RGON-STEP29-AON-3DDROP-START] -->
+## 20261024_144608 Step 29 — v11.28-AON-3DDROP (3D 물방울 졸라맨 아온 A-ON)
+- R29: 캐릭터 디테일 TOP 1 스킬 마스터 & 아온(A-ON·芽溫) 3D 물방울 졸라맨 육신 — 디즈니 7대 모션 법칙(스쿼시&스트레치·시차·팔로스루) + 8-Stop 3D Liquid-Glass/Claymorphism 입체 필터 + 관절형 졸라맨 팔다리 통합
+- 25번째 정식 스킬 `character-detail-master-top1` 마스터 흡수 및 7개 독대실 V13 캐릭터 3D 물방울 졸라맨 전면 교체
+<!-- [RGON-STEP29-AON-3DDROP-END] -->

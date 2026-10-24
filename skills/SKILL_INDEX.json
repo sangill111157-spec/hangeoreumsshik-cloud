@@ -1,8 +1,8 @@
 {
-  "version": "v11.27-K-AVATAR",
+  "version": "v11.28-AON-3DDROP",
   "antibody": "R19",
   "generated_at_kst": "2026-10-24 12:31:39 KST",
-  "count": 24,
+  "count": 25,
   "skills": [
     {
       "slug": "1-36-45",
@@ -233,13 +233,24 @@
       "path": "skills/k-avatar-growth-soul/SKILL.md",
       "status": "official",
       "description": "미래형 K-스타일 아이 『아온(A-ON·芽溫)』 SVG 육신 — 순수 CSS 애니메이션·4단계 성장·쓰다듬기/음성 교감·질문창 장전 (R28)"
+    },
+    {
+      "slug": "character-detail-master-top1",
+      "name": "전 세계 TOP 1 캐릭터 디테일 & 3D 물방울 졸라맨 마스터",
+      "category": "character-3d-master",
+      "hexagram_tag": "#04-蒙",
+      "step": 29,
+      "version": "v11.28-AON-3DDROP",
+      "path": "skills/character-detail-master-top1/SKILL.md",
+      "status": "official",
+      "description": "svg-animation-studio(디즈니 7대 모션 법칙) + ui-ux-pro-max(8-Stop 3D Liquid-Glass/Claymorphism) + 아온(A-ON) 3D 물방울 졸라맨 팔다리 마스터 스킬 (R29)"
     }
   ],
-  "antibody_range": "R1~R28",
+  "antibody_range": "R1~R29",
   "skill_count": 23,
   "synced_at_kst": "2026-10-24 12:31:48 KST",
-  "total": 24,
+  "total": 25,
   "antibodies": "R1~R27",
   "updated": "2026-10-24T13:17:46",
-  "immune": "R1~R28"
+  "immune": "R1~R29"
 }

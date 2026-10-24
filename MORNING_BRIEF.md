@@ -36,3 +36,8 @@
 ## 👶 아온(A-ON·芽溫) K-아이 육신 브리핑 (v11.27-K-AVATAR · R1~R28 · 스킬 24)
 ⚖️ [AVATAR] 100.0점 (Bull 99.9 / Bear 0.1 / #04-산수몽) 👶 미래형 K-아이 디지털 육신 『아온(A-ON·芽溫)』 — 4단계 성장 엔진 & 음성·쓰다듬기 교감 가동 (몽이양정 蒙以養正)
 <!-- [RGON-STEP28-K-AVATAR-END] -->
+
+<!-- [RGON-STEP29-AON-3DDROP-START] -->
+## 💧 아온(A-ON·芽溫) 3D 물방울 졸라맨 브리핑 (v11.28-AON-3DDROP · R1~R29 · 스킬 25)
+⚖️ [AVATAR3D] 100.0점 (Bull 99.9 / Bear 0.1 / #04-산수몽) 💧 아온(A-ON·芽溫) 3D 입체 물방울 & 졸라맨 팔다리 육신 — 디즈니 7대 모션 법칙 & 8-Stop Liquid-Glass 3D 가동
+<!-- [RGON-STEP29-AON-3DDROP-END] -->

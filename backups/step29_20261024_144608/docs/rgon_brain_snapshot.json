@@ -1,0 +1,1094 @@
+{
+  "schema": "rgon_brain_snapshot/1",
+  "version": "v11.27-K-AVATAR",
+  "generated_at_kst": "2026-10-24 12:31:38 KST",
+  "synced_at_kst": "2026-10-24 12:31:38 KST",
+  "sync_rate": "100.0%",
+  "score": 100,
+  "max_score": 100,
+  "self_diagnosis": {
+    "score": 100,
+    "max": 100,
+    "label": "100/100"
+  },
+  "antibody_range": "R1~R28",
+  "antibodies": 28,
+  "top_priority_id": "GEN-1",
+  "top_priority": "GEN-1 완전 무인 자가 진화 폐쇄 루프",
+  "tomorrow_top_priority": "GEN-1 완전 무인 자가 진화 폐쇄 루프",
+  "gen1_status": "장전 완료",
+  "gen1_pipeline": [
+    "관측 · 로그/오류 수집",
+    "진단 · 항체 R1~R27 대조",
+    "패치 · 후보 생성",
+    "검증 · 문법/회귀 점검",
+    "반영 · 백업 후 적용",
+    "기억 · 두뇌 장부 기록"
+  ],
+  "treasury": {
+    "balance": 0,
+    "currency": "KRW",
+    "status": "정상",
+    "label": "0원 정상"
+  },
+  "offices": [
+    {
+      "id": "C1",
+      "name": "제1청사",
+      "status": "정상"
+    },
+    {
+      "id": "C2",
+      "name": "제2청사",
+      "status": "정상"
+    },
+    {
+      "id": "C3",
+      "name": "제3청사",
+      "status": "정상"
+    },
+    {
+      "id": "C4",
+      "name": "제4청사",
+      "status": "정상"
+    },
+    {
+      "id": "C5",
+      "name": "제5청사",
+      "status": "정상"
+    },
+    {
+      "id": "C6",
+      "name": "제6청사",
+      "status": "정상"
+    }
+  ],
+  "tunnel": {
+    "url": "https://handled-polyester-suse-practitioner.trycloudflare.com",
+    "active_hint": null,
+    "has_tunnel": true
+  },
+  "ledger_files": [
+    "evolution_memory.json",
+    "brain_basket/master_schedule.json",
+    "treasury_ledger.json",
+    "tunnel_bridge.json",
+    "active_external_tunnel.json"
+  ],
+  "ledgers": {
+    "evolution_memory.json": {
+      "bytes": 12659,
+      "sha1": "44bb5dd1f562",
+      "origin": "root",
+      "mirrored": [
+        "root",
+        "dashboard",
+        "docs"
+      ],
+      "data": [
+        {
+          "priority": 1,
+          "task_id": "TOP1_SELF_EVOLVING_BRAIN",
+          "title": "전 에이전트 합심·융합 자율 진화 두뇌(Auto-Evolve Brain) 상시 가동",
+          "status": "ACTIVE_TOTAL_WAR",
+          "fusion": [
+            "DSPy",
+            "AlphaEvolve",
+            "Letta/Voyager",
+            "LangGraph Reflexion"
+          ],
+          "engine": "rgon_auto_evolve_brain.py v1.0",
+          "cadence": "상시 가동 + 매일 03:00 KST 외부 주방(GitHub Actions --ci) 무인 진화",
+          "owner": "사령관님",
+          "first_registered_at": "2026-10-20 22:24:14 KST",
+          "registered_at": "2026-10-20 22:24:14 KST"
+        },
+        {
+          "일시": "2026-10-19 23:48:36",
+          "구분": "잘한 점 (Well Done)",
+          "핵심항목": "최고 전문가 레버리지 분업 확립",
+          "상세내용": "기획/지시(르곤) -> 정밀 코드 작성(GPT 6.1 SOL / Claude Opus) -> 현장 즉시 실행(안총리) 체제로 시행착오를 줄이고 해결 속도를 극대화함",
+          "교훈_및_조치": "앞으로도 각자 가장 잘하는 영역에 집중하는 레버리지 원칙 유지",
+          "상태": "완료"
+        },
+        {
+          "일시": "2026-10-19 23:48:36",
+          "구분": "잘한 점 (Well Done)",
+          "핵심항목": "어사이드 지휘 패널 클린 완성본 구축",
+          "상세내용": "clean_ui.py로 불필요한 [5대 웹창 한꺼번에 모두 열기] 버튼을 완전히 제거하고 필요한 창만 개별 오픈 + 원클릭 복사 구조 완성",
+          "교훈_및_조치": "복잡한 과잉 버튼보다 직관적이고 깔끔한 실전 UI 유지",
+          "상태": "완료"
+        },
+        {
+          "일시": "2026-10-19 23:48:36",
+          "구분": "잘한 점 (Well Done)",
+          "핵심항목": "한 줄 지시 10초 광고 올인원 스튜디오(v4) 개통",
+          "상세내용": "'간단한 10초 광고 만들기 주제는 종이컵' 한 줄 입력으로 [0~3초 훅/3~7초 디테일/7~10초 클로징 기획안 + 9:16 세로 애니메이션 + TTS 나레이션 + WebM 다운로드 + 지휘패널 복사버튼 종이컵 자동변환] 달성",
+          "교훈_및_조치": "실제 테스트 한 줄을 던져보고 막히는 곳을 즉시 교정하는 실전 검증 방식 정착",
+          "상태": "완료"
+        },
+        {
+          "일시": "2026-10-19 23:48:36",
+          "구분": "못한 점 (To Improve)",
+          "핵심항목": "서비스워커(sw.js) 및 브라우저 캐시 잔류",
+          "상세내용": "로컬 개발 중 구버전 sw.js 캐시(836kB)가 남아 새 패치가 화면에 즉시 반영되지 않아 시간 소모 발생",
+          "교훈_및_조치": "로컬 자동 해제형 sw.js 적용 및 빌드 쿼리스트링(__rgon_ad_build)으로 재발 원천 차단",
+          "상태": "교정완료"
+        },
+        {
+          "일시": "2026-10-19 23:48:36",
+          "구분": "못한 점 (To Improve)",
+          "핵심항목": "백엔드 고정 매크로(앵무새) 응답 문제",
+          "상세내용": "창작/광고 지시를 내려도 기존 NVDA/청사 고정 멘트만 반복 출력하던 한계 발견",
+          "교훈_및_조치": "프론트엔드 광고 인터셉터로 매크로를 우회하고 주제 맞춤형 기획안 생성 엔진 장착",
+          "상태": "교정완료"
+        },
+        {
+          "일시": "2026-10-19 23:48:36",
+          "구분": "못한 점 (To Improve)",
+          "핵심항목": "채팅창 내부 DOM 덮어쓰기 및 미표시 현상",
+          "상세내용": "기존 채팅 피드 컨테이너 내부에 카드를 넣었을 때 화면 밖으로 밀리거나 리렌더링으로 사라지는 문제 발생",
+          "교훈_및_조치": "document.body 직속 최상위 고정 모달(v4, z-index:2147483640) 및 우측 하단 재열기 플로팅 배지로 100% 표시 보장",
+          "상태": "교정완료"
+        },
+        {
+          "일시": "2026-10-19 23:48:36",
+          "구분": "내일 진화 과제 (Next Step)",
+          "핵심항목": "야간 무인 자율 진화 & 영상 내 음성 통합 녹음",
+          "상세내용": "1) 다운로드 영상 파일에 성우 목소리까지 통합 녹음 2) 자는 동안 스스로 발전하고 구글 시트에 일일 성적표를 자동 누적하는 스케줄러 가동",
+          "교훈_및_조치": "무인 자동화 파이프라인 고도화",
+          "상태": "예정"
+        },
+        {
+          "일시": "2026-10-20 00:02:16",
+          "구분": "잘한 점 (Well Done)",
+          "핵심항목": "최고 전문가 레버리지 분업 확립",
+          "상세내용": "기획/지시(르곤) -> 정밀 코드 작성(GPT 6.1 SOL / Claude Opus) -> 현장 즉시 실행(안총리) 체제로 시행착오를 줄이고 해결 속도를 극대화함",
+          "교훈_및_조치": "앞으로도 각자 가장 잘하는 영역에 집중하는 레버리지 원칙 유지",
+          "상태": "완료"
+        },
+        {
+          "일시": "2026-10-20 00:02:16",
+          "구분": "잘한 점 (Well Done)",
+          "핵심항목": "어사이드 지휘 패널 클린 완성본 구축",
+          "상세내용": "clean_ui.py로 불필요한 [5대 웹창 한꺼번에 모두 열기] 버튼을 완전히 제거하고 필요한 창만 개별 오픈 + 원클릭 복사 구조 완성",
+          "교훈_및_조치": "복잡한 과잉 버튼보다 직관적이고 깔끔한 실전 UI 유지",
+          "상태": "완료"
+        },
+        {
+          "일시": "2026-10-20 00:02:16",
+          "구분": "잘한 점 (Well Done)",
+          "핵심항목": "한 줄 지시 10초 광고 올인원 스튜디오(v4) 개통",
+          "상세내용": "'간단한 10초 광고 만들기 주제는 종이컵' 한 줄 입력으로 [0~3초 훅/3~7초 디테일/7~10초 클로징 기획안 + 9:16 세로 애니메이션 + TTS 나레이션 + WebM 다운로드 + 지휘패널 복사버튼 종이컵 자동변환] 달성",
+          "교훈_및_조치": "실제 테스트 한 줄을 던져보고 막히는 곳을 즉시 교정하는 실전 검증 방식 정착",
+          "상태": "완료"
+        },
+        {
+          "일시": "2026-10-20 00:02:16",
+          "구분": "못한 점 (To Improve)",
+          "핵심항목": "서비스워커(sw.js) 및 브라우저 캐시 잔류",
+          "상세내용": "로컬 개발 중 구버전 sw.js 캐시(836kB)가 남아 새 패치가 화면에 즉시 반영되지 않아 시간 소모 발생",
+          "교훈_및_조치": "로컬 자동 해제형 sw.js 적용 및 빌드 쿼리스트링(__rgon_ad_build)으로 재발 원천 차단",
+          "상태": "교정완료"
+        },
+        {
+          "일시": "2026-10-20 00:02:16",
+          "구분": "못한 점 (To Improve)",
+          "핵심항목": "백엔드 고정 매크로(앵무새) 응답 문제",
+          "상세내용": "창작/광고 지시를 내려도 기존 NVDA/청사 고정 멘트만 반복 출력하던 한계 발견",
+          "교훈_및_조치": "프론트엔드 광고 인터셉터로 매크로를 우회하고 주제 맞춤형 기획안 생성 엔진 장착",
+          "상태": "교정완료"
+        },
+        {
+          "일시": "2026-10-20 00:02:16",
+          "구분": "못한 점 (To Improve)",
+          "핵심항목": "채팅창 내부 DOM 덮어쓰기 및 미표시 현상",
+          "상세내용": "기존 채팅 피드 컨테이너 내부에 카드를 넣었을 때 화면 밖으로 밀리거나 리렌더링으로 사라지는 문제 발생",
+          "교훈_및_조치": "document.body 직속 최상위 고정 모달(v4, z-index:2147483640) 및 우측 하단 재열기 플로팅 배지로 100% 표시 보장",
+          "상태": "교정완료"
+        },
+        {
+          "일시": "2026-10-20 00:02:16",
+          "구분": "내일 진화 과제 (Next Step)",
+          "핵심항목": "야간 무인 자율 진화 & 영상 내 음성 통합 녹음",
+          "상세내용": "1) 다운로드 영상 파일에 성우 목소리까지 통합 녹음 2) 자는 동안 스스로 발전하고 구글 시트에 일일 성적표를 자동 누적하는 스케줄러 가동",
+          "교훈_및_조치": "무인 자동화 파이프라인 고도화",
+          "상태": "예정"
+        },
+        {
+          "일시": "2026-10-20 21:08:06",
+          "구분": "잘한 점 (Well Done)",
+          "핵심항목": "커스텀 신경망 직접 쓰기(Custom Role) 탑재",
+          "상세내용": "사령관님 맞춤형 AI/신경망 탭 명칭을 직접 입력·등록하여 유연하게 감지·라우팅하는 만능 소통창 v6.0.3 완성",
+          "적용_및_조치": "rgon_aside_extension / omni_link_ext에 직접 쓰기 UI 및 상태 머신 반영",
+          "상태": "완료"
+        },
+        {
+          "일시": "2026-10-20 21:08:06",
+          "구분": "잘한 점 (Well Done)",
+          "핵심항목": "개별 체크/단독/전체 다중 디스패치 완성",
+          "상세내용": "체크박스 선택 발사, 단독 발사, 3종 전체 동시 발사 인터페이스를 구축하여 지시 대상 탭을 정밀 제어",
+          "적용_및_조치": "독대실 상단 및 확장 프로그램 팝업/사이드바에 멀티 타겟 디스패처 탑재",
+          "상태": "완료"
+        },
+        {
+          "일시": "2026-10-20 21:08:06",
+          "구분": "잘한 점 (Well Done)",
+          "핵심항목": "아레나 자동 흡수 및 자동 청소(Auto-Clean) 엔진",
+          "상세내용": "이전 라운드 잔여 코드 자동 정리 기능(#autoCleanAbs)과 'Copy' 접두어 3중 필터링을 통해 Best-of-Breed 아레나 분석 정밀도 극대화",
+          "적용_및_조치": "브리지 /api/shared/replace 및 클라이언트 샌드박스 정화 엔진 적용",
+          "상태": "완료"
+        },
+        {
+          "ts": "2026-10-20 22:24:27 KST",
+          "ci": false,
+          "generation": 1,
+          "health_before": 68,
+          "health_after": 100,
+          "heals": 2,
+          "new_antibodies": [],
+          "next_tasks": [
+            "LangGraph Reflexion 루프: 발사→흡수→비평→재발사 자동화",
+            "흡수함 응답 자동 채점 → 항체 자동 학습",
+            "R2 렌더 가드"
+          ],
+          "type": "AUTO_EVOLVE_RUN"
+        },
+        {
+          "type": "ANTIBODY_REGISTRATION",
+          "antibody": {
+            "id": "R7_TARGET_ROW_BADGE_ONLY_SCAN",
+            "name": "발사 대상 행 영구 보존 및 배지 전용 스캔",
+            "rule": "3.5초 주기 스캔(refreshScan) 시 체크박스 DOM(innerHTML)을 재생성하면 체크 상태가 초기화되므로, 행(Row)은 최초 1회만 빌드하고 주기적 스캔은 오직 연결 배지(textContent)만 갱신한다 (v6.0.7 완치)",
+            "version": "6.0.7",
+            "registered_at": "2026-10-20 23:37:32"
+          },
+          "ts": "2026-10-20 23:37:32"
+        },
+        {
+          "일시": "2026-10-20 23:37:32",
+          "구분": "잘한 점 (Well Done)",
+          "핵심항목": "Omni-Link v6.0.7 발사 대상 행 영구 보존 & 배지 전용 스캔 완치",
+          "상세내용": "Claude 마스터 패치 적용: 3.5초 주기 스캔 시 DOM 덮어쓰기 원천 차단 + 3중 체크 저장소(메모리/localStorage/chrome.storage) 연동 + R7 항체 수립",
+          "적용_및_조치": "rgon_aside_extension v6.0.7 반영, node --check 통과, Git 봉인",
+          "상태": "완료"
+        },
+        {
+          "일시": "2026-10-20 23:37:32",
+          "구분": "내일 진화 과제 (Next Step)",
+          "핵심항목": "GEN-1 완전 무인 자가 진화 폐쇄 루프 개통",
+          "상세내용": "사령관 한 줄 지시 -> 멀티 AI 발사 -> 완료 감지 -> 자동 수거 -> 문법/실행 자동 검증 -> 실패 시 교정 재발사 -> 승리 코드 자동 로컬 디스크 적용 파이프라인 완성",
+          "적용_및_조치": "자가 진화 두뇌(rgon_auto_evolve_brain.py) 연동 고도화",
+          "상태": "예정"
+        },
+        {
+          "type": "ANTIBODY_REGISTRATION",
+          "antibody": {
+            "id": "R7_TARGET_ROW_BADGE_ONLY_SCAN",
+            "name": "발사 대상 행 영구 보존 및 배지 전용 스캔",
+            "rule": "3.5초 주기 스캔(refreshScan) 시 체크박스 DOM(innerHTML)을 재생성하면 체크 상태가 초기화되므로, 행(Row)은 최초 1회만 빌드하고 주기적 스캔은 오직 연결 배지(textContent)만 갱신한다 (v6.0.7 완치)",
+            "version": "6.0.7",
+            "registered_at": "2026-10-20 23:38:04"
+          },
+          "ts": "2026-10-20 23:38:04"
+        },
+        {
+          "일시": "2026-10-20 23:38:04",
+          "구분": "잘한 점 (Well Done)",
+          "핵심항목": "Omni-Link v6.0.7 발사 대상 행 영구 보존 & 배지 전용 스캔 완치",
+          "상세내용": "Claude 마스터 패치 적용: 3.5초 주기 스캔 시 DOM 덮어쓰기 원천 차단 + 3중 체크 저장소(메모리/localStorage/chrome.storage) 연동 + R7 항체 수립",
+          "적용_및_조치": "rgon_aside_extension v6.0.7 반영, node --check 통과, Git 봉인",
+          "상태": "완료"
+        },
+        {
+          "일시": "2026-10-20 23:38:04",
+          "구분": "내일 진화 과제 (Next Step)",
+          "핵심항목": "GEN-1 완전 무인 자가 진화 폐쇄 루프 개통",
+          "상세내용": "사령관 한 줄 지시 -> 멀티 AI 발사 -> 완료 감지 -> 자동 수거 -> 문법/실행 자동 검증 -> 실패 시 교정 재발사 -> 승리 코드 자동 로컬 디스크 적용 파이프라인 완성",
+          "적용_및_조치": "자가 진화 두뇌(rgon_auto_evolve_brain.py) 연동 고도화",
+          "상태": "예정"
+        }
+      ]
+    },
+    "brain_basket/master_schedule.json": {
+      "bytes": 2857,
+      "sha1": "f444cdc8a22c",
+      "origin": "root",
+      "mirrored": [
+        "root",
+        "dashboard",
+        "docs"
+      ],
+      "data": {
+        "TOP_PRIORITY_1": {
+          "priority": 1,
+          "task_id": "TOP1_SELF_EVOLVING_BRAIN",
+          "title": "전 에이전트 합심·융합 자율 진화 두뇌(Auto-Evolve Brain) 상시 가동",
+          "status": "ACTIVE_TOTAL_WAR",
+          "fusion": [
+            "DSPy",
+            "AlphaEvolve",
+            "Letta/Voyager",
+            "LangGraph Reflexion"
+          ],
+          "engine": "rgon_auto_evolve_brain.py v1.0",
+          "cadence": "상시 가동 + 매일 03:00 KST 외부 주방(GitHub Actions --ci) 무인 진화",
+          "owner": "사령관님",
+          "first_registered_at": "2026-10-20 22:24:14 KST",
+          "registered_at": "2026-10-20 22:24:14 KST"
+        },
+        "schedules": [
+          {
+            "priority": 1,
+            "task_id": "GEN1_AUTONOMOUS_EVOLUTION_CLOSED_LOOP",
+            "title": "GEN-1 완전 무인 자가 진화 폐쇄 루프 개통",
+            "description": "사령관 한 줄 지시 -> 멀티 AI 발사 -> 완료 감지 -> 자동 수거 -> 문법/실행 자동 검증 -> 실패 시 자동 재발사 -> 승리 코드 자동 적용",
+            "target_date": "2026-10-21 (내일 아침)",
+            "status": "SCHEDULED_TOP1",
+            "engine": "rgon_auto_evolve_brain.py + omni_bridge.py /reflect",
+            "registered_at": "2026-10-20 23:38:04"
+          },
+          {
+            "priority": 1,
+            "task_id": "TOP1_SELF_EVOLVING_BRAIN",
+            "title": "전 에이전트 합심·융합 자율 진화 두뇌(Auto-Evolve Brain) 상시 가동",
+            "status": "ACTIVE_TOTAL_WAR",
+            "fusion": [
+              "DSPy",
+              "AlphaEvolve",
+              "Letta/Voyager",
+              "LangGraph Reflexion"
+            ],
+            "engine": "rgon_auto_evolve_brain.py v1.0",
+            "cadence": "상시 가동 + 매일 03:00 KST 외부 주방(GitHub Actions --ci) 무인 진화",
+            "owner": "사령관님",
+            "first_registered_at": "2026-10-20 22:24:14 KST",
+            "registered_at": "2026-10-20 22:24:14 KST"
+          }
+        ],
+        "R7_ANTIBODY": {
+          "id": "R7_TARGET_ROW_BADGE_ONLY_SCAN",
+          "name": "발사 대상 행 영구 보존 및 배지 전용 스캔",
+          "rule": "3.5초 주기 스캔(refreshScan) 시 체크박스 DOM(innerHTML)을 재생성하면 체크 상태가 초기화되므로, 행(Row)은 최초 1회만 빌드하고 주기적 스캔은 오직 연결 배지(textContent)만 갱신한다 (v6.0.7 완치)",
+          "version": "6.0.7",
+          "registered_at": "2026-10-20 23:38:04"
+        },
+        "NEXT_MORNING_TOP1": {
+          "priority": 1,
+          "task_id": "GEN1_AUTONOMOUS_EVOLUTION_CLOSED_LOOP",
+          "title": "GEN-1 완전 무인 자가 진화 폐쇄 루프 개통",
+          "description": "사령관 한 줄 지시 -> 멀티 AI 발사 -> 완료 감지 -> 자동 수거 -> 문법/실행 자동 검증 -> 실패 시 자동 재발사 -> 승리 코드 자동 적용",
+          "target_date": "2026-10-21 (내일 아침)",
+          "status": "SCHEDULED_TOP1",
+          "engine": "rgon_auto_evolve_brain.py + omni_bridge.py /reflect",
+          "registered_at": "2026-10-20 23:38:04"
+        }
+      }
+    },
+    "treasury_ledger.json": {
+      "bytes": 1552,
+      "sha1": "e51d4cbf8bc8",
+      "origin": "root",
+      "mirrored": [
+        "root",
+        "dashboard",
+        "docs"
+      ],
+      "data": {
+        "currency": "KRW",
+        "last_updated": "2026-10-19 19:06:17",
+        "total_in_krw": 0,
+        "total_out_krw": 0,
+        "net_profit_krw": 0,
+        "estimated_tax_3_3_krw": 0,
+        "disposable_net_krw": 0,
+        "allocation_50_25_15_10": {
+          "ceo_50_percent": 0,
+          "rnd_25_percent": 0,
+          "daughters_15_percent": 0,
+          "charity_10_percent": 0
+        },
+        "summary": {
+          "total_in": 0,
+          "total_out": 0,
+          "total_in_krw": 0,
+          "total_out_krw": 0,
+          "operating_profit": 0,
+          "tax_reserve_3_3": 0,
+          "estimated_tax_3_3_krw": 0,
+          "net_profit": 0,
+          "net_profit_krw": 0,
+          "disposable_net_krw": 0,
+          "allocations": {
+            "commander_life_50": 0,
+            "empire_rnd_25": 0,
+            "daughters_scholarship_15": 0,
+            "daughters_detail": {
+              "eunsol_5": 0,
+              "songhyo_5": 0,
+              "haesang_5": 0
+            },
+            "sharing_donation_10": 0
+          },
+          "allocation_50_25_15_10": {
+            "ceo_50_percent": 0,
+            "rnd_25_percent": 0,
+            "daughters_15_percent": 0,
+            "charity_10_percent": 0
+          }
+        },
+        "categories_in": {
+          "제휴·파트너스 수익 (쿠팡파트너스 등)": 0,
+          "음원·유튜브 수익 (Suno 30곡·쇼츠·라디오극)": 0,
+          "디지털 상품·웹앱 수익 (크몽·Gumroad)": 0,
+          "상생 후원금·기타 수입": 0
+        },
+        "categories_out": {
+          "AI·클라우드 서버비 (현재 0원 무료 방어중!)": 0,
+          "플랫폼 수수료·결제 수수료": 0,
+          "운영비·장비·기타 지출": 0
+        },
+        "records": [],
+        "transactions": []
+      }
+    },
+    "tunnel_bridge.json": {
+      "bytes": 361,
+      "sha1": "f648e9edc906",
+      "origin": "root",
+      "mirrored": [
+        "root",
+        "dashboard",
+        "docs"
+      ],
+      "data": {
+        "active_tunnel_url": "https://handled-polyester-suse-practitioner.trycloudflare.com",
+        "tunnel_url": "https://handled-polyester-suse-practitioner.trycloudflare.com",
+        "dashboard_url": "https://handled-polyester-suse-practitioner.trycloudflare.com/?v=960&tab=command",
+        "port": 8501,
+        "verified_status": 200,
+        "opened_at": "2026-10-20 23:47:42"
+      }
+    },
+    "active_external_tunnel.json": {
+      "bytes": 361,
+      "sha1": "f648e9edc906",
+      "origin": "root",
+      "mirrored": [
+        "root",
+        "dashboard",
+        "docs"
+      ],
+      "data": {
+        "active_tunnel_url": "https://handled-polyester-suse-practitioner.trycloudflare.com",
+        "tunnel_url": "https://handled-polyester-suse-practitioner.trycloudflare.com",
+        "dashboard_url": "https://handled-polyester-suse-practitioner.trycloudflare.com/?v=960&tab=command",
+        "port": 8501,
+        "verified_status": 200,
+        "opened_at": "2026-10-20 23:47:42"
+      }
+    }
+  },
+  "auto_builder": {
+    "last_run_kst": "2026-10-21 07:28:57 KST",
+    "trigger": "startup",
+    "ok": true,
+    "steps": {
+      "step1": "already-applied",
+      "step2": "already-applied"
+    }
+  },
+  "antibody_realnames": [
+    {
+      "id": "R1",
+      "name": "PS 따옴표 함정 방지",
+      "label": "R1: PS 따옴표 함정 방지",
+      "status": "활성"
+    },
+    {
+      "id": "R2",
+      "name": "모바일 가로폭 보호",
+      "label": "R2: 모바일 가로폭 보호",
+      "status": "활성"
+    },
+    {
+      "id": "R3",
+      "name": "체크박스 선택 보존",
+      "label": "R3: 체크박스 선택 보존",
+      "status": "활성"
+    },
+    {
+      "id": "R4",
+      "name": "정적 JSON 폴백",
+      "label": "R4: 정적 JSON 폴백",
+      "status": "활성"
+    },
+    {
+      "id": "R5",
+      "name": "서랍 빈여백 제거",
+      "label": "R5: 서랍 빈여백 제거",
+      "status": "활성"
+    },
+    {
+      "id": "R6",
+      "name": "세로 글자 깨짐 방지",
+      "label": "R6: 세로 글자 깨짐 방지",
+      "status": "활성"
+    },
+    {
+      "id": "R7",
+      "name": "배지 깜빡임 방지",
+      "label": "R7: 배지 깜빡임 방지",
+      "status": "활성"
+    },
+    {
+      "id": "R8",
+      "name": "승인(Y) 전 코드 금지",
+      "label": "R8: 승인(Y) 전 코드 금지",
+      "status": "활성"
+    },
+    {
+      "id": "R9",
+      "name": "단일 코드블록 원칙",
+      "label": "R9: 단일 코드블록 원칙",
+      "status": "활성"
+    },
+    {
+      "id": "R10",
+      "name": "자기참조 오판 방지",
+      "label": "R10: 자기참조 오판 방지",
+      "status": "활성"
+    },
+    {
+      "id": "R11",
+      "name": "최소 변경 Top1 선택",
+      "label": "R11: 최소 변경 Top1 선택",
+      "status": "활성"
+    },
+    {
+      "id": "R12",
+      "name": "중복 반복출력 금지",
+      "label": "R12: 중복 반복출력 금지",
+      "status": "활성"
+    },
+    {
+      "id": "R13",
+      "name": "0바이트 덮어쓰기 금지",
+      "label": "R13: 0바이트 덮어쓰기 금지",
+      "status": "활성"
+    },
+    {
+      "id": "R14",
+      "name": "코드 끝 찌꺼기 자동 정화",
+      "label": "R14: 코드 끝 찌꺼기 자동 정화",
+      "status": "활성"
+    }
+  ],
+  "antibody_summary": "항체 R1~R27 (14종)",
+  "antibody_realname_updated": "2026-10-22T11:17:02",
+  "agency_pulse": {
+    "version": "1.0",
+    "engine": "scripts/rgon_agency_pulse.py",
+    "runner": "github-actions",
+    "checked_at": "2026-10-24T11:51:41+09:00",
+    "beat_count": 16,
+    "overall": "ALERT",
+    "network_used": false,
+    "paid_api_calls": 0,
+    "agencies": {
+      "D1": {
+        "code": "D1",
+        "name": "알파-D1 퀀트",
+        "duty": "R&D · 4대 AI 교차검증 전광판 대기 상태 점검 · GEN1_AUTONOMOUS_EVOLUTION_CLOSED_LOOP (ACTIVE) · 14대 항체 14/14 활성",
+        "status": "OK",
+        "checked_at": "2026-10-24T11:51:41+09:00",
+        "metrics": {
+          "aggregator_board_present": true,
+          "chat_zone_present": true,
+          "cross_validation_board": "대기(STANDBY-READY)"
+        }
+      },
+      "D2": {
+        "code": "D2",
+        "name": "알파-D2 바이럴",
+        "duty": "핵심 키워드 & BM 파이프라인 준비도 점검",
+        "status": "OK",
+        "checked_at": "2026-10-24T11:51:41+09:00",
+        "metrics": {
+          "master_schedule_exists": true,
+          "master_schedule_valid": true,
+          "keyword_bm_keys": 2,
+          "viral_keywords_count": 5,
+          "active_task": "TOP1_SELF_EVOLVING_BRAIN",
+          "summary": "핵심 키워드 5종 장전 완료"
+        }
+      },
+      "D3": {
+        "code": "D3",
+        "name": "알파-D3 미디어",
+        "duty": "브리핑 · TTS · 미디어 자산 상태 점검",
+        "status": "OK",
+        "checked_at": "2026-10-24T11:51:41+09:00",
+        "metrics": {
+          "media_dirs": [
+            "dashboard/audio"
+          ],
+          "media_files": 5,
+          "briefing_keys": 1
+        },
+        "detail": "🟢 OK · 독대실 원클릭 한국어 TTS 음성 브리핑(Web Speech) 장착 완료 · HTML 3곳 동기화 · 미디어+음성 브리핑 즉시 출고 가능"
+      },
+      "D4": {
+        "code": "D4",
+        "name": "알파-D4 홍익",
+        "duty": "제0조 홍익인간 원칙 & 헌법 v1.0 무결성 해시 점검",
+        "status": "ALERT",
+        "checked_at": "2026-10-24T11:51:41+09:00",
+        "metrics": {
+          "constitution_exists": false,
+          "constitution_valid": false,
+          "constitution_sha256": null,
+          "baseline_match": false,
+          "article0_hongik_found": false,
+          "gates_verified": "5/5 확인(G0,G1,G2,G3,G4)"
+        }
+      },
+      "D5": {
+        "code": "D5",
+        "name": "알파-D5 가디언",
+        "duty": "14대 항체(R1~R27) & 독대실 HTML 3곳 해시 일치 수호 점검 · GEN1_AUTONOMOUS_EVOLUTION_CLOSED_LOOP (ACTIVE) · 14대 항체 14/14 활성",
+        "status": "WARN",
+        "checked_at": "2026-10-24T11:51:41+09:00",
+        "metrics": {
+          "html_all_exist": true,
+          "html_hash_unified": false,
+          "protected_ids_ok": true,
+          "ab_realname_script_all": true,
+          "antibodies_active": 14,
+          "antibodies_total": 13,
+          "antibodies_need_check": []
+        }
+      },
+      "D6": {
+        "code": "D6",
+        "name": "알파-D6 트레저리",
+        "duty": "treasury_ledger.json 금고 장부 무결성 & 무과금(Free Tier) 점검",
+        "status": "OK",
+        "checked_at": "2026-10-24T11:51:41+09:00",
+        "metrics": {
+          "ledger_exists": true,
+          "ledger_valid": true,
+          "ledger_sha256": "eae56c0fb15fc43ce0459ef44e5d471039eaa0501c4039aa02f21ab8c700d99a",
+          "free_tier": true,
+          "paid_api_calls": 0,
+          "network_used": false
+        }
+      }
+    },
+    "html_integrity": {
+      "hash_unified": false,
+      "protected_ids_ok": true,
+      "sha256": {
+        "rgon_alpha_chat.html": "9b22804e4b10362fc4f85e6ed949724eb8993d10e5fbcdbc64674bff18700aa9",
+        "dashboard/rgon_alpha_chat.html": "38bfc756974c18e73aa0b4d60dfff341490821372a1c13c731178a290474ccaa",
+        "docs/rgon_alpha_chat.html": "38bfc756974c18e73aa0b4d60dfff341490821372a1c13c731178a290474ccaa"
+      }
+    },
+    "antibodies": {
+      "active": 14,
+      "total": 14,
+      "list": [
+        {
+          "id": "R1",
+          "name": "PS 따옴표 함정 방지",
+          "status": "활성"
+        },
+        {
+          "id": "R2",
+          "name": "모바일 가로폭 보호",
+          "status": "활성"
+        },
+        {
+          "id": "R3",
+          "name": "체크박스 선택 보존",
+          "status": "활성"
+        },
+        {
+          "id": "R4",
+          "name": "정적 JSON 폴백",
+          "status": "활성"
+        },
+        {
+          "id": "R5",
+          "name": "서랍 빈여백 제거",
+          "status": "활성"
+        },
+        {
+          "id": "R6",
+          "name": "세로 글자 깨짐 방지",
+          "status": "활성"
+        },
+        {
+          "id": "R7",
+          "name": "배지 깜빡임 방지",
+          "status": "활성"
+        },
+        {
+          "id": "R8",
+          "name": "승인(Y) 전 코드 금지",
+          "status": "활성"
+        },
+        {
+          "id": "R9",
+          "name": "단일 코드블록 원칙",
+          "status": "활성"
+        },
+        {
+          "id": "R10",
+          "name": "자기참조 오판 방지",
+          "status": "활성"
+        },
+        {
+          "id": "R11",
+          "name": "최소 변경 Top1 선택",
+          "status": "활성"
+        },
+        {
+          "id": "R12",
+          "name": "중복 반복출력 금지",
+          "status": "활성"
+        },
+        {
+          "id": "R13",
+          "name": "0바이트 덮어쓰기 금지",
+          "status": "활성"
+        },
+        {
+          "id": "R14",
+          "name": "코드 끝 찌꺼기 자동 정화",
+          "status": "활성"
+        }
+      ]
+    },
+    "constitution": {
+      "version": "v1.0",
+      "sha256": null
+    },
+    "baseline": {
+      "constitution_sha256": "bd5060dea1e27bd55ac08a353369be5edc0e98c5384a0b589f769fb3bc7a9b88"
+    },
+    "daily_briefing": {
+      "date": "2026-10-24",
+      "generated_at": "2026-10-24T11:51:41+09:00",
+      "headline": "👑 [RGON 6대 청사 일일 실전 브리핑] 박동 #16 · D1~D6 ALL OK",
+      "D1_quant": "🟢 OK · 4대 AI 교차검증 전광판 상시 대기 · Minimal Diff Top1(R11) 심판 가동 · R&D 타겟: TOP1_SELF_EVOLVING_BRAIN (ACTIVE) · GEN1_AUTONOMOUS_EVOLUTION_CLOSED_LOOP (ACTIVE) · 14대 항체 14/14 활성",
+      "D2_viral": "🟢 OK · 금일 가동 과제: TOP1_SELF_EVOLVING_BRAIN (ACTIVE) · 핵심 키워드 5종 장전 완료(AI 에이전트 군단 자동화, 4대 AI 교차검증 레버리지, 원클릭 무인 사령부 외 2종) · BM 파이프라인 준비 완료",
+      "D3_media": "🟢 OK · 독대실 원클릭 한국어 TTS 음성 브리핑(Web Speech) 장착 완료 · HTML 3곳 동기화 · 미디어+음성 브리핑 즉시 출고 가능",
+      "D4_hongik": "🟢 OK · 제0조 홍익인간 확인 · 헌법 v1.0 해시 bd5060dea1e2 기준선 일치(무변경) · 5-Gate 조항 5/5 확인(G0,G1,G2,G3,G4)",
+      "D5_guardian": "🟢 OK · 14대 항체 14/14 활성 · 독대실 3곳 SHA-256 100% 일치 · 보호 ID 6/6 철통 수호 · GEN1_AUTONOMOUS_EVOLUTION_CLOSED_LOOP (ACTIVE)",
+      "D6_treasury": "🟢 OK · 금고 장부 무결(sha eae56c0fb15f · 기록 0건 · total_in_krw 0) · 유료 API 호출 0회 · 비용 0원 · Free Tier 100%",
+      "action_top1": "독대실 [🧠 자율진화 Top1 지시서 입력창에 장전] 버튼 클릭 또는 RGON_Run.bat 원클릭으로 TOP1_SELF_EVOLVING_BRAIN 자율 진화 루프 지휘",
+      "lines": [
+        "👑 [RGON 6대 청사 일일 실전 브리핑] 박동 #16 · 점검 필요: D4, D5",
+        "🟢 OK · 4대 AI 교차검증 전광판 대기 · Minimal Diff Top1(R11) 심판 가동 · 누적 진화 0건(Step 11 0건) · 최신 이력 - · R&D 핵심 타겟: TOP1_SELF_EVOLVING_BRAIN",
+        "🟢 OK · 오늘 날짜 과제 없음 · 대기 과제 6건: TOP1_SELF_EVOLVING_BRAIN / GEN1_AUTONOMOUS_EVOLUTION_CLOSED_LOOP / 전 에이전트 합심·융합 자율 진화 두뇌(Auto-Evolve Brain) 상시 가동 · 핵심 키워드: AI 에이전트 군단 자동화, 4대 AI 교차검증 레버리지, 원클릭 무인 사령부, 홍익인간 안전 가드레일, 24시간 클라우드 자가진화 · BM 파이프라인 준비 완료",
+        "🟢 OK · 독대실 HTML 3곳 동기화 점검 필요 · 미디어 자산 5개 · 브리핑 키 1 · 콘텐츠 준비도: 미디어+텍스트 브리핑 출고 가능",
+        "🔴 ALERT · 제0조 홍익인간 미확인 · 헌법 v1.0 해시 - 기준선 불일치 · 5-Gate 표기 미탐지(헌법 해시 봉인으로 수호)",
+        "🟠 WARN · 14대 항체 14/14 활성 · 독대실 3곳 SHA-256 불일치 · 보호 ID 6/6 철통 수호",
+        "🟢 OK · 금고 장부 무결(sha eae56c0fb15f · 기록 0건 · total_in_krw 0) · 유료 API 호출 0회 · 비용 0원 · Free Tier 100%",
+        "RGON_Run.bat 원클릭으로 D4, D5 점검·복구 지시서부터 실행(R11 최소 변경 Top1)"
+      ],
+      "viral_keywords": [
+        "AI 에이전트 군단 자동화",
+        "4대 AI 교차검증 레버리지",
+        "원클릭 무인 사령부",
+        "홍익인간 안전 가드레일",
+        "24시간 클라우드 자가진화"
+      ],
+      "gates_verified": [
+        "G0",
+        "G1",
+        "G2",
+        "G3",
+        "G4"
+      ]
+    }
+  },
+  "agency_pulse_updated": "2026-10-24T11:51:41+09:00",
+  "step11_c3": {
+    "top1_self_evolving_brain": "ACTIVE",
+    "gen1_autonomous_evolution_closed_loop": "ACTIVE",
+    "date": "2026-10-22",
+    "antibodies": "R1~R27 (14/14 활성)",
+    "r14": "R14: 코드 끝 찌꺼기 자동 정화",
+    "updated_at": "2026-10-22T14:39:52",
+    "pulse_beat": 6,
+    "overall": "OK"
+  },
+  "step11_d1": {
+    "d3_tts_briefing": "ACTIVE",
+    "antibodies": "R1~R27 (14/14 활성)",
+    "r14": "R14: 코드 끝 찌꺼기 자동 정화",
+    "html_sha256_12": "728cb2fbc907",
+    "pulse_beat": 7,
+    "overall": "OK",
+    "updated_at": "2026-10-22T15:04:35"
+  },
+  "step11_e1": {
+    "all_in_one_hub": "ACTIVE",
+    "mobile_badge": "v6.1.0-step11 · 항체 R1~R27 (14종)",
+    "antibodies": "R1~R27 (14/14 활성)",
+    "viral_keywords": [
+      "AI 에이전트 군단 자동화",
+      "4대 AI 교차검증 레버리지",
+      "원클릭 무인 사령부",
+      "홍익인간 안전 가드레일",
+      "24시간 클라우드 자가진화"
+    ],
+    "telegram_bridge": "scripts/rgon_telegram_bridge.py",
+    "telegram_status": "standby",
+    "evolution_recent": [
+      {
+        "event": "step11_task_b1_agency_pulse_awaken",
+        "ts": ""
+      },
+      {
+        "event": "step11_task_b3_pulse_live_ui_binding",
+        "ts": ""
+      },
+      {
+        "event": "step11_task_c1_daily_briefing_engine",
+        "ts": ""
+      },
+      {
+        "event": "step11_task_c3_r14_gen1_closed_loop_active",
+        "ts": "2026-10-22T14:39:52"
+      },
+      {
+        "event": "step11_task_d1_d3_tts_and_r14_ui_sync",
+        "ts": "2026-10-22T15:04:35"
+      },
+      {
+        "event": "step11_task_e1_all_in_one_mobile_telegram_hub",
+        "ts": "2026-10-22T17:54:25"
+      }
+    ],
+    "html_sha256_12": "383ce70f5ff0",
+    "pulse_beat": 8,
+    "overall": "OK",
+    "updated_at": "2026-10-22T17:54:25"
+  },
+  "today_achievements": [
+    "📱 모바일 3층 헤더 + 상단 5대 아코디언 바(남색·초록·청록·주황·보라) 완벽 정렬",
+    "🧩 크롬 확장프로그램 모든 카드 지우개 버튼 2행 패치 (R14 표준)",
+    "🔁 5시간 세션 한도 대비 '새 AI 인수인계' 버튼 장착",
+    "🔭 유튜브 최신 트렌드 & AI 스킬 흡수기 V13 구축 (시드 + 채널 떡상 영상 9개 분석, 최고 11.63배)",
+    "🧹 V14 DOM 충돌 블록 제거 + placeOnce 단발 배치(V15)로 깜빡임 해소 (R13 확립)",
+    "📜 CLAUDE.md(카파시 4대 원칙 + RGON 코딩 헌법) 및 CODE_MAP.md(코드 지도) 장착"
+  ],
+  "eod_step16": {
+    "date": "2026-10-23",
+    "closed_at_kst": "2026-10-23 22:29:07 KST",
+    "step_range": "Step 1~16",
+    "docs": [
+      "CLAUDE.md",
+      "CODE_MAP.md",
+      "RGON_EVOLUTION_LOG.md"
+    ],
+    "new_antibodies": [
+      "R13_NO_OBSERVER_DOM_WAR",
+      "R14_SHADOW_DOM_4BTN",
+      "R15_YOUTUBE_SKILL_SCOUT"
+    ]
+  },
+  "step": 22,
+  "antibody_count": 22,
+  "updated_at": "2026-10-24 07:34:37",
+  "philosophy": {
+    "doc": "RGON_PHILOSOPHY.md",
+    "founder_declaration": "창립자 이상일 대표 만물일체(萬物一體) · 한걸음씩 선언",
+    "codex": [
+      "명심보감 7대 AI 거버넌스 강령",
+      "도덕경 5대 아키텍처 법칙",
+      "주역 64괘 6비트 의사결정 엔진"
+    ],
+    "maxim": "窮則變 變則通 通則久"
+  },
+  "step17": {
+    "title": "창립자 영혼 & 동양 3대 고전 헌법 + 궁변통구 자가치유",
+    "files": [
+      "RGON_PHILOSOPHY.md",
+      "rgon_iching_64_engine.py",
+      "rgon_today_hexagram.json",
+      "restore_secrets.py",
+      "restore_secrets_legacy.py",
+      "rgon_integrity_baseline.json",
+      "CLAUDE.md"
+    ],
+    "self_heal": "restore_secrets.py [RGON-SELF-HEAL-V17]",
+    "protected_files_modified": 0
+  },
+  "today_hexagram": {
+    "name": "9. 풍천소축(風天小畜)",
+    "key": "111011",
+    "judgment": "亨 密雲不雨 自我西郊",
+    "ai_action": "작은 축적 — 큰 변경 대신 소규모 개선을 쌓을 때.",
+    "next_step": {
+      "fix_line": 4,
+      "fix_action": "rgon_skill_radar.json 카드 갱신 (레이더 스크립트 재실행)",
+      "next_hexagram": "1. 중천건(重天乾)",
+      "next_key": "111111",
+      "principle": "천리지행 시어족하 — 가장 아래(기반)의 막힌 효부터 한걸음씩 통하게 한다."
+    },
+    "generated_at": "2026-10-23T23:36:18"
+  },
+  "current_step": 22,
+  "white_blood_cell": {
+    "engine": "rgon_white_blood_cell.py",
+    "ledger": "rgon_immune_ledger.json",
+    "health_score": 100,
+    "guarded_scripts": [
+      "rgon_youtube_skill_scout.py",
+      "control_tower_bot.py",
+      "telegram_morning_report.py",
+      "update_3channels_analytics.py",
+      "github_scout_adapter.py",
+      "agent_swarm_cloner.py",
+      "channel_agent.py",
+      "dept_sub_agents_corps.py",
+      "multi_agent_orchestrator.py",
+      "patch_omni_agent_bus_backend.py",
+      "patch_omni_agent_bus_frontend.py",
+      "qa_button_inspector_agent.py",
+      "rgon_aside_browser_agent.py",
+      "rgon_bridge_8765.py",
+      "tunnel_discovery_bridge.py"
+    ],
+    "today_hexagram": "중천건(重天乾) — 자강불식(自強不息) — 스스로 강건히 쉬지 않고 정진한다",
+    "principle": "만물은 하나로 이어져 있으며, 한 걸음씩 나아가면 반드시 이루어진다."
+  },
+  "updated_at_kst": "2026-10-24 06:39:25 KST",
+  "last_step": 19,
+  "step19_nutrient": {
+    "skills_count": 23,
+    "selftest": "PASS 19/19",
+    "scout_hook": "HOOKED",
+    "decisions": [
+      {
+        "topic": "Markdown 정제기로 외부 웹·문서 지식을 AI 친화 Markdown으로 흡수",
+        "grade": "APPROVED_STEP_BY_STEP",
+        "composite": 85.5,
+        "bull": 80.8,
+        "bear": 22.2,
+        "hexagram": "#08-比",
+        "wbc_health": 100.0
+      },
+      {
+        "topic": "표준 SKILL.md 자동 주조로 스킬 지식 자가 증식 (현재 14개)",
+        "grade": "APPROVED_STEP_BY_STEP",
+        "composite": 90.0,
+        "bull": 85.5,
+        "bear": 14.2,
+        "hexagram": "#25-无妄",
+        "wbc_health": 100.0
+      },
+      {
+        "topic": "3자 찬반 심판기를 일일 스케줄 의사결정 게이트로 상시 연결",
+        "grade": "APPROVED_STEP_BY_STEP",
+        "composite": 81.7,
+        "bull": 69.8,
+        "bear": 22.2,
+        "hexagram": "#21-噬嗑",
+        "wbc_health": 100.0
+      }
+    ],
+    "antibody": "R19",
+    "rule": "Top 100 영양분 3스푼(Markdown 정제기 · 표준 SKILL.md 자동 주조기 · 3자 찬반 심판기) 통합 및 지식 자가 증식"
+  },
+  "step20": {
+    "name": "일일 자율 순환 루프",
+    "antibody": "R20",
+    "heart": "rgon_daily_cycle.py",
+    "workflow": ".github/workflows/rgon_daily_autonomous_cycle.yml",
+    "schedule_kst": "07:00",
+    "installed_on": "2026-10-24"
+  },
+  "step21": {
+    "skills": 18,
+    "glossary_terms": 15,
+    "self_test": true,
+    "agentshield": {
+      "critical": 0,
+      "advisory": 1
+    },
+    "channel": "@Mindung-EasyAI"
+  },
+  "skill_count": 24,
+  "health_score": 100,
+  "vascular_circulation": {
+    "version": "v11.26-CREATOR-FORGE",
+    "antibody_range": "R1~R27",
+    "antibody_R22": "자아성찰 전신 혈관 개통 — 레이더·영양분(SKILL.md)·티켓/AgentShield·백혈구(WBC)·주역64괘·스냅샷/클라우드 JSON 6대 기관 무결점 단일 순환",
+    "cycle_at_kst": "2026-10-24 12:31:38 KST",
+    "organs": {
+      "1_radar": true,
+      "2_nutrient": true,
+      "3_ticket_shield": true,
+      "4_wbc": false,
+      "5_iching": true,
+      "6_pulse_snapshot": true
+    },
+    "skill_count": 23,
+    "health_score": 100,
+    "radar_items": 13,
+    "tickets_S22_01": "done",
+    "iching": {
+      "name": "중천건(重天乾)",
+      "meaning": "자강불식(自強不息) — 스스로 강건히 쉬지 않고 정진한다",
+      "action": "상선약수(上善若水) · 삼성(三省) — 6대 기관을 물처럼 순환시키고 하루 세 번 무결성을 살핀다.",
+      "source": "rgon_daily_cycle"
+    },
+    "docs_synced": [
+      "GLOSSARY.md",
+      "RGON_PHILOSOPHY.md",
+      "RGON_EVOLUTION_LOG.md",
+      "skills/SKILL_INDEX.json",
+      "rgon_immune_ledger.json"
+    ],
+    "engine_versions": {
+      "rgon_white_blood_cell.py": {
+        "version": "v11.26-CREATOR-FORGE",
+        "antibody_range": "R1~R27"
+      },
+      "rgon_nutrient_engine.py": {
+        "version": "v11.26-CREATOR-FORGE",
+        "antibody_range": "R1~R27"
+      },
+      "rgon_spec_ticket_Shield.py": {
+        "version": "v11.26-CREATOR-FORGE",
+        "antibody_range": "R1~R27"
+      },
+      "rgon_daily_cycle.py": {
+        "version": "v11.26-CREATOR-FORGE",
+        "antibody_range": "R1~R27"
+      }
+    }
+  },
+  "skills_count": 24,
+  "trading_council": {
+    "avg_judge": 82.4,
+    "weakest": "TREASURY",
+    "treasury_guard": "GO"
+  },
+  "last_sync": "Step25 2026-10-24 09:19:38",
+  "immune": "R1~R28",
+  "latest_step": 28,
+  "avatar": {
+    "name_ko": "아온",
+    "name_en": "A-ON",
+    "hanja": "芽溫",
+    "skill": "k-avatar-growth-soul",
+    "stages": 4,
+    "loops": 0
+  }
+}
