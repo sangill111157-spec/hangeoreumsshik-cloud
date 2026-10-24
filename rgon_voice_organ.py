@@ -1,19 +1,24 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""rgon_voice_organ.py — 제9기관: 성대·청각 음성 교감 기관 (v11.32-AON-VOICE-SYNTH, R1~R33)
-주역 #51 진위뢰(震爲雷 ☳☳): 우레처럼 맑은 울림으로 만물을 깨움.
-주역 #61 풍택중부(風澤中孚 ☴☱): 鶴鳴在陰 其子和之 — 진실한 목소리로 마음이 서로 통함."""
-import os, sys, json, re
+"""rgon_voice_organ.py — 제9기관: 성대·청각 음성 교감 기관 (v11.33-AON-SOUL-BRAIN, R1~R34)
+주역 #51 진위뢰(震爲雷 ☳☳) · #61 풍택중부(風澤中孚 ☴☱).
+의도 분별은 제10기관 rgon_aon_soul_brain.converse()에 위임한다 (감정·일상 대화는 대행 큐에 넣지 않음)."""
+import os, sys, json
 from pathlib import Path
 
 try:
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
 except Exception:
     pass
 
-VERSION = "v11.32-AON-VOICE-SYNTH"
-ANTIBODY = "R1~R33"
+VERSION = "v11.33-AON-SOUL-BRAIN"
+ANTIBODY = "R1~R34"
 ROOT = Path(__file__).resolve().parent
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+import rgon_aon_soul_brain as soul
+
 ICHING = {
     "51": {"name": "진위뢰(震爲雷 ☳☳)", "meaning": "우레처럼 맑은 울림으로 만물을 깨움"},
     "61": {"name": "풍택중부(風澤中孚 ☴☱)", "meaning": "진실한 목소리로 마음이 서로 통함 — 鶴鳴在陰 其子和之"},
@@ -43,51 +48,24 @@ SOUND_RECIPES = {
 }
 VOICE_PROFILE = {"lang": "ko-KR", "pitch": 1.18, "rate": 1.05, "volume": 1.0, "muted": False,
                  "preferred_voices": ["Microsoft SunHi Online (Natural)", "Google 한국의", "Yuna", "ko-KR"]}
-ROUTES = [("briefing", ("브리핑", "아침")), ("judge", ("심판", "종목", "장세")), ("muse", ("결재", "대행"))]
-TIER3_KW = ("매수", "매도", "주문", "송금", "이체", "결제", "삭제", "배포", "푸시", "push", "발송", "계약", "리밸런싱", "배분")
-TIER2_KW = ("수정", "작성", "생성", "업로드", "편집", "변경", "등록", "정리", "분석", "시뮬레이션", "초안")
 
-def classify_tier(text):
-    try:
-        import rgon_muse_delegator as md
-        for fn in ("classify_tier", "classify_task", "classify"):
-            f = getattr(md, fn, None)
-            if callable(f):
-                r = f(text)
-                if isinstance(r, int) and r in (1, 2, 3): return r
-                if isinstance(r, dict) and r.get("tier") in (1, 2, 3): return r["tier"]
-    except Exception:
-        pass
-    if any(k in text for k in TIER3_KW): return 3
-    if any(k in text for k in TIER2_KW): return 2
-    return 1
-
-def _load_json(rel):
-    p = ROOT / rel
-    try: return json.loads(p.read_text(encoding="utf-8"))
-    except Exception: return {}
-
-def parse_voice_command(text):
-    t = (text or "").strip()
-    for intent, kws in ROUTES:
-        if any(k in t for k in kws):
-            if intent == "briefing":
-                b = _load_json("rgon_morning_brief.json")
-                summ = b.get("summary") or b.get("headline") or "오늘도 사령부는 정상 가동 중이에요"
-                return {"intent": "briefing", "speech": f"대표님, 아침 브리핑이에요. {summ}. 오늘의 괘는 {ICHING['51']['name']}입니다."}
-            if intent == "judge":
-                return {"intent": "judge", "speech": "3자 심판 요약이에요. 찬성, 반대, 중립 의견을 레이더에서 확인해 주세요.", "open": "judge"}
-            return {"intent": "muse", "speech": "뮤즈 대행 보드를 열게요. 결재 대기 작업을 확인해 주세요.", "open": "muse"}
-    tier = classify_tier(t)
-    return {"intent": "delegate", "payload": {"title": t, "tier": tier, "source": "voice", "status": "PENDING_APPROVAL" if tier == 3 else "DONE"},
-            "speech": f"알겠어요! '{t}' 작업을 Tier {tier}로 대행 큐에 올렸어요." + (" 승인해 주셔야 집행해요." if tier == 3 else "")}
+def parse_voice_command(text, persist=True, use_llm=True):
+    r = soul.converse(text, persist=persist, use_llm=use_llm)
+    out = {"intent": r["intent"], "category": r["category"], "speech": r["speech"], "reply": r["reply"],
+           "affection": r["affection"], "level": r["level"], "source": r.get("source")}
+    if r["intent"] == "delegate":
+        out["tier"] = r["tier"]; out["payload"] = r["payload"]
+    if r.get("open"): out["open"] = r["open"]
+    if r["intent"] == "chat": out.update({"sfx": "waterdrop_pop", "joy": True})
+    return out
 
 def state():
     return {"version": VERSION, "antibody": ANTIBODY, "organ": "제9기관 성대·청각 음성 교감 기관",
-            "iching": ICHING, "voice_profile": VOICE_PROFILE, "sound_recipes": SOUND_RECIPES}
+            "brain": "제10기관 rgon_aon_soul_brain", "iching": ICHING,
+            "voice_profile": VOICE_PROFILE, "sound_recipes": SOUND_RECIPES}
 
 def save():
-    s = json.dumps(state(), ensure_ascii=False, indent=2) + "\n"
+    s = json.dumps(state(), ensure_ascii=False, indent=2)
     for r in ("rgon_voice_profile.json", "docs/rgon_voice_profile.json"):
         p = ROOT / r; p.parent.mkdir(parents=True, exist_ok=True); p.write_text(s, encoding="utf-8")
 
@@ -95,25 +73,29 @@ def self_test():
     ok = True
     def chk(c, m):
         nonlocal ok
-        print(("  ✅ " if c else "  ❌ ") + m); ok = ok and c
+        print(("  ✅ " if c else "  ❌ ") + m); ok = ok and bool(c)
     chk(len(SOUND_RECIPES) == 6, "사운드 레시피 6종")
     wd = SOUND_RECIPES["waterdrop_pop"]["notes"][0]
     chk(wd["f0"] == 520 and wd["f1"] == 1180 and abs(wd["dur"] - 0.14) < 1e-9, "waterdrop_pop 520→1180Hz 0.14s")
     for k, r in SOUND_RECIPES.items():
         e = r["env"]
         good = all(20 <= n["f0"] <= 20000 and 20 <= n["f1"] <= 20000 and n["dur"] > 0 for n in r["notes"])
-        good = good and 0 < e["a"] < 0.1 and e["d"] > 0 and 0 < e["peak"] <= 0.5
-        chk(good, f"{k} 주파수/엔벨로프")
+        chk(good and 0 < e["a"] < 0.1 and e["d"] > 0 and 0 < e["peak"] <= 0.5, f"{k} 주파수/엔벨로프")
     chk(VOICE_PROFILE["pitch"] == 1.18 and VOICE_PROFILE["rate"] == 1.05 and VOICE_PROFILE["lang"] == "ko-KR", "K-아이 보이스 프로필")
-    chk(parse_voice_command("아침 브리핑 해줘")["intent"] == "briefing", "라우팅: 브리핑")
-    chk(parse_voice_command("오늘 장세 어때")["intent"] == "judge", "라우팅: 심판")
-    chk(parse_voice_command("결재 보여줘")["intent"] == "muse", "라우팅: 대행")
-    d = parse_voice_command("삼성전자 매수 주문 넣어줘")
-    chk(d["intent"] == "delegate" and d["payload"]["tier"] == 3, "라우팅: 대행 큐 Tier 3")
+    qa = [("아침 브리핑 해줘", "briefing", None), ("오늘 장세 어때", "judge", None),
+          ("엔비디아 주식 10주 매수 주문 넣어줘", "delegate", 3), ("유튜브 숏폼 대본 초안 작성해줘", "delegate", 2),
+          ("너 오늘 기분 어때", "chat", None), ("대표님 사랑해", "chat", None), ("결재 보여줘", "muse", None)]
+    for q, want, tier in qa:
+        r = parse_voice_command(q, persist=False, use_llm=False)
+        good = r["intent"] == want and (tier is None or r.get("tier") == tier) and bool(r.get("speech"))
+        if want == "chat": good = good and "payload" not in r
+        chk(good, f"안총리 질문: {q} → {r['intent']}" + (f" T{r.get('tier')}" if r.get("tier") else ""))
     save()
     for r in ("rgon_voice_profile.json", "docs/rgon_voice_profile.json"):
-        try: j = json.loads((ROOT / r).read_text(encoding="utf-8")); chk(j.get("version") == VERSION, f"JSON 무결성 {r}")
-        except Exception as ex: chk(False, f"JSON 무결성 {r}: {ex}")
+        try:
+            j = json.loads((ROOT / r).read_text(encoding="utf-8")); chk(j.get("version") == VERSION, f"JSON 무결성 {r}")
+        except Exception as ex:
+            chk(False, f"JSON 무결성 {r}: {ex!r}")
     print("PASS" if ok else "FAIL")
     return 0 if ok else 1
 

@@ -1361,3 +1361,4 @@ shin-agent/
 - `skills/muse-autonomous-delegator/SKILL.md`: 28번째 정식 스킬
 - 7개 HTML V13 블록(YT-SCOUT-V13 / UX-CLEANUP-V13) 내부 `[RGON-MUSE-V1]`: 아온 다이내믹 아일랜드 + 📋대행 독 + 결재 보드
 - `rgon_voice_organ.py` — 제9기관 성대·청각 음성 교감 기관 (R1~R33)
+- `rgon_aon_soul_brain.py` — 제10기관 감성·인격 대화 두뇌 & 해마 기억 기관 (R1~R34)

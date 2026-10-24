@@ -38,3 +38,5 @@
 - **PENDING_APPROVAL / APPROVED_DONE / ON_HOLD**: Tier 3 상태 (결재 대기 / 승인 집행 완료 / 보류)
 - **화천대유(#14) · 화수미제(#64)**: 막힘없는 대행 · 신중한 분별과 완수
 - **RGON_VOICE**: Web Audio 무파일 SFX(`sfx`) + K-아이 TTS(`speak`) + STT 대행(`listen`) 전역 API
+- **해마 기억장**: `rgon_aon_memory.json` — 친밀도·누적 대화·최근 20건·선호 키워드
+- **2-Track 분별**: 감정·일상(chat)은 대화로, 명시적 업무(delegate)만 3-Tier 대행 큐로

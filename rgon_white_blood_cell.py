@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 rgon_white_blood_cell.py
-RGON 백혈구(WBC: White Blood Cell) 자가치유 면역 엔진 (v11.32-AON-VOICE-SYNTH / 항체 R18)
+RGON 백혈구(WBC: White Blood Cell) 자가치유 면역 엔진 (v11.33-AON-SOUL-BRAIN / 항체 R18)
 
 6대 면역 기능:
   1. fingerprint(exc, context) : 오류 지문 채취 & 동일 지문 3회 이상 반복 경보 억제
@@ -27,8 +27,8 @@ import shutil
 import sys
 import traceback
 
-WBC_VERSION = "v11.32-AON-VOICE-SYNTH"
-ANTIBODY_RANGE = "R1~R33"
+WBC_VERSION = "v11.33-AON-SOUL-BRAIN"
+ANTIBODY_RANGE = "R1~R34"
 LEDGER_FILENAME = "rgon_immune_ledger.json"
 HEXAGRAM_FILENAME = "rgon_hexagram_engine.py"
 PRINCIPLE = "만물은 하나로 이어져 있으며, 한 걸음씩 나아가면 반드시 이루어진다."
@@ -799,8 +799,8 @@ def main(argv=None):
     return 0
 
 
-# ===== RGON-STEP20-START (R20 antibody, v11.32-AON-VOICE-SYNTH) =====
-ANTIBODY_RANGE = "R1~R33"
+# ===== RGON-STEP20-START (R20 antibody, v11.33-AON-SOUL-BRAIN) =====
+ANTIBODY_RANGE = "R1~R34"
 _RGON_R20_TEXT = "일일 자율 순환 루프(백혈구 순찰 → 영양분 소화·스킬 주조 → 3자 심판 → 주역 64괘 아침 브리핑) 무인 자동화"
 try:
     for _nm in ("DEFAULT_ANTIBODIES", "ANTIBODIES", "ANTIBODY_LIST", "ANTIBODY_RULES"):
@@ -823,7 +823,7 @@ except Exception:
 
 
 # >>> RGON-STEP21-R21 >>>
-ANTIBODY_RANGE = "R1~R33"
+ANTIBODY_RANGE = "R1~R34"
 _R21 = "@Mindung-EasyAI 양분 흡수 — Matt Pocock(GLOSSARY.md · Spec/Tracer-Bullet Tickets 분업) + ECC(AgentShield 비밀키/설정 보안 스캔)"
 for _n in ("DEFAULT_ANTIBODIES", "ANTIBODIES", "ANTIBODY_RULES", "ANTIBODY", "RULES"):
     _d = globals().get(_n)
@@ -836,7 +836,7 @@ for _n in ("DEFAULT_ANTIBODIES", "ANTIBODIES", "ANTIBODY_RULES", "ANTIBODY", "RU
 # <<< RGON-STEP21-R21 <<<
 
 # [RGON-STEP22-WBC-R22-START]
-ANTIBODY_RANGE = 'R1~R33'
+ANTIBODY_RANGE = 'R1~R34'
 _R22_TXT = '자아성찰 전신 혈관 개통 — 레이더·영양분(SKILL.md)·티켓/AgentShield·백혈구(WBC)·주역64괘·스냅샷/클라우드 JSON 6대 기관 무결점 단일 순환'
 for _nm in ('DEFAULT_ANTIBODIES', 'ANTIBODIES', 'ANTIBODY_LIST'):
     _lst = globals().get(_nm)
@@ -883,6 +883,26 @@ try:
             DEFAULT_ANTIBODIES.append(_R33)
 except NameError:
     DEFAULT_ANTIBODIES = {"R33": 'R33: 성대·청각 음성 교감 기관 — Web Audio API 무파일 물방울 신디사이저(Procedural SFX) + K-아이 뉴럴 음성 합성(Web Speech TTS) + 핸즈프리 음성 대행 명령(STT) 통합'}
+
+# [RGON-R34-INJECT] — DEFAULT_ANTIBODIES R34 복제 주입
+try:
+    _RX = 'R34: 아온(A-ON) 감성·인격 대화 두뇌 & 해마 기억 기관 — 일상/감정 교감과 업무 대행(Tier 1~3) 정밀 분별 라우터 + K-아이 페르소나 대화 엔진 + 친밀도·해마 기억장 통합'
+    if isinstance(DEFAULT_ANTIBODIES, dict):
+        DEFAULT_ANTIBODIES.setdefault("R34", _RX)
+    elif isinstance(DEFAULT_ANTIBODIES, list) and not any("R34" in str(_x) for _x in DEFAULT_ANTIBODIES):
+        _s = DEFAULT_ANTIBODIES[-1] if DEFAULT_ANTIBODIES else None
+        if isinstance(_s, dict):
+            _n = {k: v for k, v in _s.items()}
+            for _k in list(_n):
+                if _k in ("id", "code", "key"): _n[_k] = "R34"
+                elif _k in ("text", "desc", "description", "rule", "name", "title"): _n[_k] = _RX
+            DEFAULT_ANTIBODIES.append(_n)
+        elif isinstance(_s, (list, tuple)):
+            DEFAULT_ANTIBODIES.append(type(_s)(["R34", _RX] + list(_s[2:])))
+        else:
+            DEFAULT_ANTIBODIES.append(_RX)
+except NameError:
+    DEFAULT_ANTIBODIES = {"R34": 'R34: 아온(A-ON) 감성·인격 대화 두뇌 & 해마 기억 기관 — 일상/감정 교감과 업무 대행(Tier 1~3) 정밀 분별 라우터 + K-아이 페르소나 대화 엔진 + 친밀도·해마 기억장 통합'}
 
 if __name__ == "__main__":
     sys.exit(main())

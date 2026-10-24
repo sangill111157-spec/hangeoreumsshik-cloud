@@ -1,6 +1,6 @@
 {
-  "version": "v11.32-AON-VOICE-SYNTH",
-  "antibody_range": "R1~R33",
+  "version": "v11.33-AON-SOUL-BRAIN",
+  "antibody_range": "R1~R34",
   "r20": "일일 자율 순환 루프(백혈구 순찰 → 영양분 소화·스킬 주조 → 3자 심판 → 주역 64괘 아침 브리핑) 무인 자동화",
   "generated_at": "2026-10-24T12:31:48+09:00",
   "date": "2026-10-24",
@@ -162,10 +162,10 @@
     }
   },
   "skills_count": 23,
-  "antibodies": "R1~R33",
+  "antibodies": "R1~R34",
   "muse_delegation": {
-    "version": "v11.32-AON-VOICE-SYNTH",
-    "antibody": "R1~R33",
+    "version": "v11.33-AON-SOUL-BRAIN",
+    "antibody": "R1~R34",
     "summary": {
       "total": 5,
       "tier1": 2,
@@ -189,5 +189,5 @@
       }
     ]
   },
-  "skills": 29
+  "skills": 30
 }
