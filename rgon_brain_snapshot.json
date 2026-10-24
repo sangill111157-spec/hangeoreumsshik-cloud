@@ -1,8 +1,8 @@
 {
   "schema": "rgon_brain_snapshot/1",
   "version": "v11.25-SELF-EVOLVE",
-  "generated_at_kst": "2026-10-24 09:03:01 KST",
-  "synced_at_kst": "2026-10-24 09:03:01 KST",
+  "generated_at_kst": "2026-10-24 12:31:38 KST",
+  "synced_at_kst": "2026-10-24 12:31:38 KST",
   "sync_rate": "100.0%",
   "score": 100,
   "max_score": 100,
@@ -1168,7 +1168,7 @@
     "version": "v11.25-SELF-EVOLVE",
     "antibody_range": "R1~R26",
     "antibody_R22": "자아성찰 전신 혈관 개통 — 레이더·영양분(SKILL.md)·티켓/AgentShield·백혈구(WBC)·주역64괘·스냅샷/클라우드 JSON 6대 기관 무결점 단일 순환",
-    "cycle_at_kst": "2026-10-24 09:03:01 KST",
+    "cycle_at_kst": "2026-10-24 12:31:38 KST",
     "organs": {
       "1_radar": true,
       "2_nutrient": true,
@@ -1177,7 +1177,7 @@
       "5_iching": true,
       "6_pulse_snapshot": true
     },
-    "skill_count": 20,
+    "skill_count": 21,
     "health_score": 100,
     "radar_items": 13,
     "tickets_S22_01": "done",
@@ -1189,9 +1189,7 @@
     },
     "docs_synced": [
       "GLOSSARY.md",
-      "CLAUDE.md",
       "RGON_PHILOSOPHY.md",
-      "CODE_MAP.md",
       "RGON_EVOLUTION_LOG.md",
       "skills/SKILL_INDEX.json",
       "rgon_immune_ledger.json"

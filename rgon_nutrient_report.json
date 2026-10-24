@@ -1,8 +1,8 @@
 {
-  "version": "v11.23-TRADING-COUNCIL",
+  "version": "v11.25-SELF-EVOLVE",
   "antibody": "R19",
-  "antibody_range": "R1~R24",
-  "generated_at_kst": "2026-10-24 09:03:09 KST",
+  "antibody_range": "R1~R26",
+  "generated_at_kst": "2026-10-24 12:31:47 KST",
   "wbc_linked": true,
   "purifier": {
     "ok": true,
@@ -15,9 +15,9 @@
     "errors": 0,
     "core": 5,
     "radar": 13,
-    "count": 18
+    "count": 21
   },
-  "skills_count": 18,
+  "skills_count": 21,
   "decisions": [
     {
       "topic": "Markdown 정제기로 외부 웹·문서 지식을 AI 친화 Markdown으로 흡수",
@@ -29,12 +29,12 @@
       "wbc_health": 100.0
     },
     {
-      "topic": "표준 SKILL.md 자동 주조로 스킬 지식 자가 증식 (현재 18개)",
+      "topic": "표준 SKILL.md 자동 주조로 스킬 지식 자가 증식 (현재 21개)",
       "grade": "APPROVED_STEP_BY_STEP",
-      "composite": 90.0,
+      "composite": 85.0,
       "bull": 85.5,
       "bear": 14.2,
-      "hexagram": "#26-大畜",
+      "hexagram": "#33-遯",
       "wbc_health": 100.0
     },
     {

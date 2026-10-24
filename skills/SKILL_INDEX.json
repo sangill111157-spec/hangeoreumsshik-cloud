@@ -1,7 +1,7 @@
 {
   "version": "v11.25-SELF-EVOLVE",
   "antibody": "R19",
-  "generated_at_kst": "2026-10-24 09:03:01 KST",
+  "generated_at_kst": "2026-10-24 12:31:39 KST",
   "count": 21,
   "skills": [
     {
@@ -95,6 +95,15 @@
       "path": "skills/multi-agent-council/SKILL.md"
     },
     {
+      "slug": "omni-skill-dispatcher",
+      "name": "omni-skill-dispatcher",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/omni-skill-dispatcher/SKILL.md"
+    },
+    {
       "slug": "rea-reverse-engineer-fusion",
       "name": "rea-reverse-engineer-fusion",
       "category": "radar-discovery",
@@ -102,6 +111,15 @@
       "source_url": "https://github.com/morluto/rea",
       "origin": "radar",
       "path": "skills/rea-reverse-engineer-fusion/SKILL.md"
+    },
+    {
+      "slug": "self-evolving-gene-ratchet",
+      "name": "self-evolving-gene-ratchet",
+      "category": "self-evolution",
+      "hexagram_tag": "#49-革",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/self-evolving-gene-ratchet/SKILL.md"
     },
     {
       "slug": "skill-68768f44",
@@ -149,6 +167,15 @@
       "path": "skills/skill-f7938cb8/SKILL.md"
     },
     {
+      "slug": "trinity-trading-council",
+      "name": "trinity-trading-council",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/trinity-trading-council/SKILL.md"
+    },
+    {
       "slug": "wbc-self-healing",
       "name": "WBC Self-Healing (백혈구 자가치유)",
       "category": "immune-system",
@@ -165,44 +192,9 @@
       "source_url": "local://rgon_youtube_skill_scout.py",
       "origin": "core",
       "path": "skills/youtube-trend-scout/SKILL.md"
-    },
-    {
-      "slug": "trinity-trading-council",
-      "id": "trinity-trading-council",
-      "name": "Trinity Trading Council (3자 트레이딩 심판기)",
-      "category": "trading-council",
-      "hexagram_tag": "#63-既濟",
-      "origin": "core",
-      "path": "skills/trinity-trading-council/SKILL.md",
-      "source_url": "local://rgon_trading_council.py"
-    },
-    {
-      "slug": "omni-skill-dispatcher",
-      "id": "omni-skill-dispatcher",
-      "name": "Omni Skill Dispatcher (만능 원터치 디스패처)",
-      "category": "omni-dispatch",
-      "hexagram_tag": "#14-大有",
-      "origin": "core",
-      "version": "v11.24-OMNI-DISPATCH",
-      "antibody": "R25",
-      "path": "skills/omni-skill-dispatcher/SKILL.md",
-      "source_url": "local://step25_omni_skill_dispatcher.py",
-      "description": "독대실 3탭(트렌드·보유 스킬·3자 심판) 항목을 [⚡ 질문창 장전] 원터치로 질문창에 단발 장전하고 클립보드에도 복사"
-    },
-    {
-      "slug": "self-evolving-gene-ratchet",
-      "name": "Self-Evolving Gene Ratchet",
-      "category": "self-evolution",
-      "hexagram_tag": "#49-革",
-      "path": "skills/self-evolving-gene-ratchet/SKILL.md",
-      "antibody": "R26",
-      "version": "v11.25-SELF-EVOLVE",
-      "do_not_retire": true
     }
   ],
   "antibody_range": "R1~R26",
-  "synced_at_kst": "2026-10-24 09:03:09 KST",
-  "updated_at": "2026-10-24T09:03:10",
-  "updated": "2026-10-24 09:19:38",
-  "skill_count": 21
+  "skill_count": 21,
+  "synced_at_kst": "2026-10-24 12:31:48 KST"
 }

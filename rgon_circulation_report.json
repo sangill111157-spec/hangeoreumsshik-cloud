@@ -1,6 +1,6 @@
 {
-  "at_kst": "2026-10-24 09:03:01 KST",
-  "version": "v11.23-TRADING-COUNCIL",
+  "at_kst": "2026-10-24 12:31:38 KST",
+  "version": "v11.25-SELF-EVOLVE",
   "organs": {
     "1_radar": {
       "ok": true,
@@ -11,7 +11,7 @@
     "2_nutrient": {
       "ok": true,
       "rc": 0,
-      "skill_count": 18,
+      "skill_count": 21,
       "report": true
     },
     "3_ticket_shield": {

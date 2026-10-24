@@ -1,8 +1,8 @@
 {
-  "version": "v11.23-TRADING-COUNCIL",
+  "version": "v11.25-SELF-EVOLVE",
   "goal": "Step 21 @Mindung-EasyAI 양분 흡수",
   "goal_glossary": [],
-  "generated_at": "2026-10-24 09:03:01",
+  "generated_at": "2026-10-24 12:31:39",
   "frontier": [],
   "tickets": [
     {
@@ -91,9 +91,9 @@
         "S21-05": true,
         "S21-06": true
       },
-      "verified_at_kst": "2026-10-24 09:03:05 KST"
+      "verified_at_kst": "2026-10-24 12:31:44 KST"
     }
   ],
-  "antibody_range": "R1~R24",
-  "auto_verified_at_kst": "2026-10-24 09:03:05 KST"
+  "antibody_range": "R1~R26",
+  "auto_verified_at_kst": "2026-10-24 12:31:44 KST"
 }

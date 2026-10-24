@@ -4,7 +4,7 @@
   "current_step": 22,
   "antibody_range": "R1~R26",
   "principle": "만물은 하나로 이어져 있으며, 한 걸음씩 나아가면 반드시 이루어진다.",
-  "updated_at_kst": "2026-10-24 09:03:09 KST",
+  "updated_at_kst": "2026-10-24 12:31:48 KST",
   "health_score": 100,
   "inspection_mode": "standard",
   "today_hexagram": {
@@ -19,92 +19,146 @@
     {
       "id": "R1",
       "title": "단일 진실 공급원(SSOT) 준수 및 중복 상태 금지",
-      "step": 1
+      "step": 1,
+      "name": "단일 진실 공급원(SSOT) 준수 및 중복 상태 금지",
+      "rule": "단일 진실 공급원(SSOT) 준수 및 중복 상태 금지",
+      "status": "active"
     },
     {
       "id": "R2",
       "title": "전 영역 UTF-8 입출력 명시 (Windows cp949 인코딩 오류 면역)",
-      "step": 2
+      "step": 2,
+      "name": "전 영역 UTF-8 입출력 명시 (Windows cp949 인코딩 오류 면역)",
+      "rule": "전 영역 UTF-8 입출력 명시 (Windows cp949 인코딩 오류 면역)",
+      "status": "active"
     },
     {
       "id": "R3",
       "title": "작업 전 타임스탬프 백업 강제 및 원본 보존",
-      "step": 3
+      "step": 3,
+      "name": "작업 전 타임스탬프 백업 강제 및 원본 보존",
+      "rule": "작업 전 타임스탬프 백업 강제 및 원본 보존",
+      "status": "active"
     },
     {
       "id": "R4",
       "title": "마커 기반 멱등(Idempotent) 패치로 재실행 안전 보장",
-      "step": 4
+      "step": 4,
+      "name": "마커 기반 멱등(Idempotent) 패치로 재실행 안전 보장",
+      "rule": "마커 기반 멱등(Idempotent) 패치로 재실행 안전 보장",
+      "status": "active"
     },
     {
       "id": "R5",
       "title": "외부 네트워크·서브프로세스 타임아웃 및 안전 기본값",
-      "step": 5
+      "step": 5,
+      "name": "외부 네트워크·서브프로세스 타임아웃 및 안전 기본값",
+      "rule": "외부 네트워크·서브프로세스 타임아웃 및 안전 기본값",
+      "status": "active"
     },
     {
       "id": "R6",
       "title": "로컬 브리지(8765) 오프라인 시 정적 폴백 동작 보장",
-      "step": 6
+      "step": 6,
+      "name": "로컬 브리지(8765) 오프라인 시 정적 폴백 동작 보장",
+      "rule": "로컬 브리지(8765) 오프라인 시 정적 폴백 동작 보장",
+      "status": "active"
     },
     {
       "id": "R7",
       "title": "모바일·데스크톱 아코디언 바 겹침 방지 및 접힘 기본값",
-      "step": 7
+      "step": 7,
+      "name": "모바일·데스크톱 아코디언 바 겹침 방지 및 접힘 기본값",
+      "rule": "모바일·데스크톱 아코디언 바 겹침 방지 및 접힘 기본값",
+      "status": "active"
     },
     {
       "id": "R8",
       "title": "실시간 브리핑 바 독립 데이터 경로 유지 및 잔상 차단",
-      "step": 8
+      "step": 8,
+      "name": "실시간 브리핑 바 독립 데이터 경로 유지 및 잔상 차단",
+      "rule": "실시간 브리핑 바 독립 데이터 경로 유지 및 잔상 차단",
+      "status": "active"
     },
     {
       "id": "R9",
       "title": "단일 클린 엔진 통합 및 구 패치 블록 정리",
-      "step": 9
+      "step": 9,
+      "name": "단일 클린 엔진 통합 및 구 패치 블록 정리",
+      "rule": "단일 클린 엔진 통합 및 구 패치 블록 정리",
+      "status": "active"
     },
     {
       "id": "R10",
       "title": "실제 실행 경로(Downloads\\shin-agent) 자동 탐색 및 동기화",
-      "step": 10
+      "step": 10,
+      "name": "실제 실행 경로(Downloads\\shin-agent) 자동 탐색 및 동기화",
+      "rule": "실제 실행 경로(Downloads\\shin-agent) 자동 탐색 및 동기화",
+      "status": "active"
     },
     {
       "id": "R11",
       "title": "Shadow DOM open 전환 및 흡수기 4버튼 정밀 타겟팅",
-      "step": 11
+      "step": 11,
+      "name": "Shadow DOM open 전환 및 흡수기 4버튼 정밀 타겟팅",
+      "rule": "Shadow DOM open 전환 및 흡수기 4버튼 정밀 타겟팅",
+      "status": "active"
     },
     {
       "id": "R12",
       "title": "흡수기 버튼 단일 배지(V12) 정리 및 중복 렌더링 차단",
-      "step": 12
+      "step": 12,
+      "name": "흡수기 버튼 단일 배지(V12) 정리 및 중복 렌더링 차단",
+      "rule": "흡수기 버튼 단일 배지(V12) 정리 및 중복 렌더링 차단",
+      "status": "active"
     },
     {
       "id": "R13",
       "title": "유튜브 트렌드 & AI 스킬 흡수기 V13 정적 JSON 폴백 연동",
-      "step": 13
+      "step": 13,
+      "name": "유튜브 트렌드 & AI 스킬 흡수기 V13 정적 JSON 폴백 연동",
+      "rule": "유튜브 트렌드 & AI 스킬 흡수기 V13 정적 JSON 폴백 연동",
+      "status": "active"
     },
     {
       "id": "R14",
       "title": "MutationObserver·setInterval DOM 재배치 루프 영구 금지",
-      "step": 14
+      "step": 14,
+      "name": "MutationObserver·setInterval DOM 재배치 루프 영구 금지",
+      "rule": "MutationObserver·setInterval DOM 재배치 루프 영구 금지",
+      "status": "active"
     },
     {
       "id": "R15",
       "title": "단발성 placeOnce(data-placed=1) 정적 배치 원칙",
-      "step": 15
+      "step": 15,
+      "name": "단발성 placeOnce(data-placed=1) 정적 배치 원칙",
+      "rule": "단발성 placeOnce(data-placed=1) 정적 배치 원칙",
+      "status": "active"
     },
     {
       "id": "R16",
       "title": "카파시 4대 원칙(CLAUDE.md) + CODE_MAP.md + 보호 파일 해시 잠금",
-      "step": 16
+      "step": 16,
+      "name": "카파시 4대 원칙(CLAUDE.md) + CODE_MAP.md + 보호 파일 해시 잠금",
+      "rule": "카파시 4대 원칙(CLAUDE.md) + CODE_MAP.md + 보호 파일 해시 잠금",
+      "status": "active"
     },
     {
       "id": "R17",
       "title": "창립자 만물일체·한걸음씩 철학 + 명심보감·도덕경·주역 64괘 엔진",
-      "step": 17
+      "step": 17,
+      "name": "창립자 만물일체·한걸음씩 철학 + 명심보감·도덕경·주역 64괘 엔진",
+      "rule": "창립자 만물일체·한걸음씩 철학 + 명심보감·도덕경·주역 64괘 엔진",
+      "status": "active"
     },
     {
       "id": "R18",
       "title": "백혈구(WBC) 자가치유 면역 엔진 — 오류 지문·AST/JSON 순찰·백업 복원·상선약수 우회·중복 경보 억제",
-      "step": 18
+      "step": 18,
+      "name": "백혈구(WBC) 자가치유 면역 엔진 — 오류 지문·AST/JSON 순찰·백업 복원·상선약수 우회·중복 경보 억제",
+      "rule": "백혈구(WBC) 자가치유 면역 엔진 — 오류 지문·AST/JSON 순찰·백업 복원·상선약수 우회·중복 경보 억제",
+      "status": "active"
     },
     {
       "id": "R19",
@@ -118,7 +172,8 @@
       "guard": "python rgon_nutrient_engine.py --self-test",
       "modules": [
         "rgon_nutrient_engine.py"
-      ]
+      ],
+      "status": "active"
     },
     {
       "id": "R20",
@@ -126,7 +181,9 @@
       "name": "일일 자율 순환 루프(백혈구 순찰 → 영양분 소화·스킬 주조 → 3자 심판 → 주역 64괘 아침 브리핑) 무인 자동화",
       "desc": "일일 자율 순환 루프(백혈구 순찰 → 영양분 소화·스킬 주조 → 3자 심판 → 주역 64괘 아침 브리핑) 무인 자동화",
       "step": 20,
-      "version": "v11.25-SELF-EVOLVE"
+      "version": "v11.25-SELF-EVOLVE",
+      "rule": "일일 자율 순환 루프(백혈구 순찰 → 영양분 소화·스킬 주조 → 3자 심판 → 주역 64괘 아침 브리핑) 무인 자동화",
+      "status": "active"
     },
     {
       "id": "R21",
@@ -134,25 +191,31 @@
       "name": "@Mindung-EasyAI 양분 흡수 — Matt Pocock(GLOSSARY.md · Spec/Tracer-Bullet Tickets 분업) + ECC(AgentShield 비밀키/설정 보안 스캔)",
       "text": "@Mindung-EasyAI 양분 흡수 — Matt Pocock(GLOSSARY.md · Spec/Tracer-Bullet Tickets 분업) + ECC(AgentShield 비밀키/설정 보안 스캔)",
       "step": 21,
-      "added_at": "2026-10-24 07:34:37"
+      "added_at": "2026-10-24 07:34:37",
+      "rule": "@Mindung-EasyAI 양분 흡수 — Matt Pocock(GLOSSARY.md · Spec/Tracer-Bullet Tickets 분업) + ECC(AgentShield 비밀키/설정 보안 스캔)",
+      "status": "active"
     },
     {
       "id": "R22",
       "title": "자아성찰 전신 혈관 개통 — 레이더·영양분(SKILL.md)·티켓/AgentShield·백혈구(WBC)·주역64괘·스냅샷/클라우드 JSON 6대 기관 무결점 단일 순환",
       "name": "자아성찰 전신 혈관 개통 — 레이더·영양분(SKILL.md)·티켓/AgentShield·백혈구(WBC)·주역64괘·스냅샷/클라우드 JSON 6대 기관 무결점 단일 순환",
-      "step": 22
+      "step": 22,
+      "rule": "자아성찰 전신 혈관 개통 — 레이더·영양분(SKILL.md)·티켓/AgentShield·백혈구(WBC)·주역64괘·스냅샷/클라우드 JSON 6대 기관 무결점 단일 순환",
+      "status": "active"
     },
     {
       "id": "R23",
       "name": "전신 맥박 & 18개 스킬 UI 단발 통합",
       "rule": "R23: 전신 맥박 & 18개 스킬 카탈로그 UI 무간섭 단발 통합 — 기존 V13 마커 내부만 교체하고 Observer 없이 3탭으로 표시",
-      "status": "활성"
+      "status": "활성",
+      "title": "전신 맥박 & 18개 스킬 UI 단발 통합"
     },
     {
       "id": "R24",
       "name": "실전 트레이딩 3자 심판 & 주역 리스크 필터",
       "rule": "R24: 실전 트레이딩 3자 찬반 심판기(Bull/Bear/Judge) & 주역 64괘 리스크 필터 상시 가동 — 금고 보존(지족불욕·사환예방) 최우선 검증",
-      "status": "활성"
+      "status": "활성",
+      "title": "실전 트레이딩 3자 심판 & 주역 리스크 필터"
     },
     {
       "id": "R25",
@@ -160,13 +223,17 @@
       "rule": "R25: 연결·소통·만능 원터치 스킬 디스패처 — 보유 스킬·트렌드·3자 심판 결과를 독대실 질문창에 무간섭 단발 장전",
       "version": "v11.25-SELF-EVOLVE",
       "status": "활성",
-      "added": "2026-10-24 09:19:38"
+      "added": "2026-10-24 09:19:38",
+      "title": "원터치 만능 스킬 디스패처"
     },
     {
       "id": "R26",
       "rule": "자가진화 유전자(Gene·Capsule) & 라쳇(Ratchet) 기여도 거버넌스 상시 가동 — 경험은 전략 유전자로 압축하고 검증 없는 진화(Library Drift)는 원천 차단",
       "since": "v11.25-SELF-EVOLVE",
-      "added": "2026-10-24"
+      "added": "2026-10-24",
+      "title": "자가진화 유전자(Gene·Capsule) & 라쳇(Ratchet) 기여도 거버넌스 상시 가동 — 경험은 전략 유전자로 압축하고 검증 없는 진화(Library Drift)는 원천 차단",
+      "name": "자가진화 유전자(Gene·Capsule) & 라쳇(Ratchet) 기여도 거버넌스 상시 가동 — 경험은 전략 유전자로 압축하고 검증 없는 진화(Library Drift)는 원천 차단",
+      "status": "active"
     }
   ],
   "fingerprints": {
@@ -345,7 +412,7 @@
       "healed": 0
     }
   ],
-  "antibody_count": 25,
+  "antibody_count": 22,
   "step20": {
     "name": "일일 자율 순환 루프",
     "antibody": "R20",

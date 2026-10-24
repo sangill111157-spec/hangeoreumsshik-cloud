@@ -170,7 +170,7 @@ def load_ledger(root_dir=None):
         prev = existing.get(ab["id"])
         if isinstance(prev, dict):
             merged.update(prev)
-        merged["title"] = ab["title"]
+        merged["title"] = (ab.get("title") or ab.get("name") or ab.get("rule") or ab.get("id", ""))
         merged["step"] = ab["step"]
         existing[ab["id"]] = merged
     def _ab_key(k):
