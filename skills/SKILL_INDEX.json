@@ -1,8 +1,8 @@
 {
-  "version": "v11.24-OMNI-DISPATCH",
+  "version": "v11.25-SELF-EVOLVE",
   "antibody": "R19",
   "generated_at_kst": "2026-10-24 09:03:01 KST",
-  "count": 20,
+  "count": 21,
   "skills": [
     {
       "slug": "1-36-45",
@@ -188,10 +188,21 @@
       "path": "skills/omni-skill-dispatcher/SKILL.md",
       "source_url": "local://step25_omni_skill_dispatcher.py",
       "description": "독대실 3탭(트렌드·보유 스킬·3자 심판) 항목을 [⚡ 질문창 장전] 원터치로 질문창에 단발 장전하고 클립보드에도 복사"
+    },
+    {
+      "slug": "self-evolving-gene-ratchet",
+      "name": "Self-Evolving Gene Ratchet",
+      "category": "self-evolution",
+      "hexagram_tag": "#49-革",
+      "path": "skills/self-evolving-gene-ratchet/SKILL.md",
+      "antibody": "R26",
+      "version": "v11.25-SELF-EVOLVE",
+      "do_not_retire": true
     }
   ],
-  "antibody_range": "R1~R25",
+  "antibody_range": "R1~R26",
   "synced_at_kst": "2026-10-24 09:03:09 KST",
   "updated_at": "2026-10-24T09:03:10",
-  "updated": "2026-10-24 09:19:38"
+  "updated": "2026-10-24 09:19:38",
+  "skill_count": 21
 }

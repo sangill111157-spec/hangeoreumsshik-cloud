@@ -148,3 +148,8 @@ python rgon_daily_cycle.py --run
 - 20번째 스킬 `omni-skill-dispatcher` (#14-大有) 주조
 - 독대실 3탭 `[⚡ 질문창 장전]`(data-load) 원터치 디스패처 장착 (V13 내부, V15 placeOnce 보존)
 - 항체 R1~R25 승격 — R25: 연결·소통·만능 원터치 스킬 디스패처 — 보유 스킬·트렌드·3자 심판 결과를 독대실 질문창에 무간섭 단발 장전
+
+## 2026-10-24 10:35 · Step 26 · v11.25-SELF-EVOLVE · R1~R26 · 스킬 21개
+- EvoMap Gene/Capsule + Amazon Ratchet + AgentEvolver 자문자답 흡수 (#49 택화혁)
+- R26: 자가진화 유전자(Gene·Capsule) & 라쳇(Ratchet) 기여도 거버넌스 상시 가동 — 경험은 전략 유전자로 압축하고 검증 없는 진화(Library Drift)는 원천 차단
+- ⚖️ [EVOLVE] 100.0점 (Bull 99.9 / Bear 0.1 / #49-택화혁) 🧬 자가진화 유전자(Gene·Capsule·Ratchet) — 유전자 21개·캡슐 100%·평균 기여도 +1.00

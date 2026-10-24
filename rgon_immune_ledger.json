@@ -1,8 +1,8 @@
 {
   "schema": "rgon.immune.ledger.v1",
-  "version": "v11.24-OMNI-DISPATCH",
+  "version": "v11.25-SELF-EVOLVE",
   "current_step": 22,
-  "antibody_range": "R1~R25",
+  "antibody_range": "R1~R26",
   "principle": "만물은 하나로 이어져 있으며, 한 걸음씩 나아가면 반드시 이루어진다.",
   "updated_at_kst": "2026-10-24 09:03:09 KST",
   "health_score": 100,
@@ -126,7 +126,7 @@
       "name": "일일 자율 순환 루프(백혈구 순찰 → 영양분 소화·스킬 주조 → 3자 심판 → 주역 64괘 아침 브리핑) 무인 자동화",
       "desc": "일일 자율 순환 루프(백혈구 순찰 → 영양분 소화·스킬 주조 → 3자 심판 → 주역 64괘 아침 브리핑) 무인 자동화",
       "step": 20,
-      "version": "v11.24-OMNI-DISPATCH"
+      "version": "v11.25-SELF-EVOLVE"
     },
     {
       "id": "R21",
@@ -158,9 +158,15 @@
       "id": "R25",
       "name": "원터치 만능 스킬 디스패처",
       "rule": "R25: 연결·소통·만능 원터치 스킬 디스패처 — 보유 스킬·트렌드·3자 심판 결과를 독대실 질문창에 무간섭 단발 장전",
-      "version": "v11.24-OMNI-DISPATCH",
+      "version": "v11.25-SELF-EVOLVE",
       "status": "활성",
       "added": "2026-10-24 09:19:38"
+    },
+    {
+      "id": "R26",
+      "rule": "자가진화 유전자(Gene·Capsule) & 라쳇(Ratchet) 기여도 거버넌스 상시 가동 — 경험은 전략 유전자로 압축하고 검증 없는 진화(Library Drift)는 원천 차단",
+      "since": "v11.25-SELF-EVOLVE",
+      "added": "2026-10-24"
     }
   ],
   "fingerprints": {
@@ -363,13 +369,13 @@
   "events": [
     {
       "step": 21,
-      "version": "v11.24-OMNI-DISPATCH",
+      "version": "v11.25-SELF-EVOLVE",
       "antibody": "R21",
       "text": "@Mindung-EasyAI 양분 흡수 — Matt Pocock(GLOSSARY.md · Spec/Tracer-Bullet Tickets 분업) + ECC(AgentShield 비밀키/설정 보안 스캔)",
       "at": "2026-10-24 07:34:37"
     }
   ],
-  "skill_count": 20,
+  "skill_count": 21,
   "skills_count": 20,
   "last_sync": "Step25 2026-10-24 09:19:38"
 }

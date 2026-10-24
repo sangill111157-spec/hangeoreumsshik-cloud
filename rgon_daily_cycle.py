@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# RGON Daily Autonomous Cycle — v11.21-CIRCULATION / R1~R25
+# RGON Daily Autonomous Cycle — v11.21-CIRCULATION / R1~R26
 # R20: 일일 자율 순환 루프(백혈구 순찰 → 영양분 소화·스킬 주조 → 3자 심판 → 주역 64괘 아침 브리핑) 무인 자동화
 # 사용: python rgon_daily_cycle.py --run | --status | --self-test
 # 원칙: 표준 라이브러리만 · UTF-8 · 보호 파일 무접촉 · 실패해도 조용히 종료(무위자연·상선약수)
 import os, sys, re, json, shutil, subprocess, datetime, importlib, tempfile, urllib.request, urllib.parse
 
-VERSION = "v11.24-OMNI-DISPATCH"
-ANTIBODY_RANGE = "R1~R25"
+VERSION = "v11.25-SELF-EVOLVE"
+ANTIBODY_RANGE = "R1~R26"
 R20_TEXT = "일일 자율 순환 루프(백혈구 순찰 → 영양분 소화·스킬 주조 → 3자 심판 → 주역 64괘 아침 브리핑) 무인 자동화"
 ROOT = os.path.dirname(os.path.abspath(__file__))
 KST = datetime.timezone(datetime.timedelta(hours=9))
@@ -242,7 +242,7 @@ def self_test():
         checks.append(bool(cond))
         print(("PASS " if cond else "FAIL ") + name)
     chk("version", VERSION == "v11.21-CIRCULATION")
-    chk("antibody range", ANTIBODY_RANGE == "R1~R25")
+    chk("antibody range", ANTIBODY_RANGE == "R1~R26")
     chk("64 hexagrams", len(HEXAGRAMS) == 64 and len(set(HEXAGRAMS)) == 64)
     chk("norm dict", (_norm_hex({"name": "건위천", "meaning": "m"}) or {}).get("name") == "건위천")
     chk("norm str", (_norm_hex("지천태") or {}).get("name") == "지천태")
@@ -254,7 +254,7 @@ def self_test():
         chk("brief json", os.path.exists(os.path.join(tmp, BRIEF_JSON)))
         chk("brief md", os.path.exists(os.path.join(tmp, BRIEF_MD)))
         t = get_daily_brief_text(tmp)
-        chk("brief text", isinstance(t, str) and "R1~R25" in t and "100 / 100" in t)
+        chk("brief text", isinstance(t, str) and "R1~R26" in t and "100 / 100" in t)
         chk("brief text (empty root)", isinstance(get_daily_brief_text(os.path.join(tmp, "none")), str))
     finally:
         shutil.rmtree(tmp, ignore_errors=True)
@@ -319,6 +319,10 @@ if __name__ == '__main__' and '--run' in _rg_sys.argv and not _rg_os.environ.get
     import rgon_vascular_core as _rg_core
     _rg_sys.exit(_rg_core.run_heart())
 # [RGON-STEP22-HEART-HOOK-END]
+
+# [STEP26-HOOK] v11.25-SELF-EVOLVE · R26: 실행 종료 시 21번째 스킬(self-evolving-gene-ratchet) 인덱스 보존
+import atexit as _s26_ax, subprocess as _s26_sp, sys as _s26_sys, os as _s26_os
+_s26_ax.register(lambda: _s26_sp.run([_s26_sys.executable, _s26_os.path.join(_s26_os.path.dirname(_s26_os.path.abspath(__file__)), "rgon_self_evolution_engine.py"), "--ensure-index"], capture_output=True))
 
 if __name__ == "__main__":
     main()

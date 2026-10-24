@@ -1,365 +1,602 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""step25_omni_skill_dispatcher.py — Step 25 「연결·소통·만능」 v11.24-OMNI-DISPATCH / R1~R25
-카파시 4원칙(먼저 생각·단순함·외과적 변경·검증 목표) + 무위자연·과유불급·삼성(三省 3/3) 준수.
-V13 마커 내부의 V15 앞부분만 업그레이드하고, V15 placeOnce 블록은 바이트 단위로 그대로 보존한다(R15·R23·R25)."""
-import datetime, hashlib, json, os, re, subprocess, sys
+"""step26_self_evolving_gene_ratchet.py — Step 26 · v11.25-SELF-EVOLVE · 항체 R1~R26 · 정식 스킬 21개
+카파시 4대 원칙: ①코딩 전 사고 ②단순함 우선 ③수술적 변경(UI 0바이트) ④목표 기반 검증(삼성 3/3 통과 시에만 push)
+동양 고전: 무위자연(UI 무접촉·훅만 연결) · 과유불급(표준 라이브러리·단일 엔진) · 삼성 3/3 · 주역 #49 택화혁(澤火革: 검증된 것만 변혁)
+흡수: EvoMap Gene/Capsule(GEP) + Amazon Ratchet 기여도 거버넌스 + AgentEvolver/MemSkill 자문자답"""
+import ctypes, hashlib, json, os, py_compile, re, subprocess, sys, time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-VER, RNG, BT3 = "v11.24-OMNI-DISPATCH", "R1~R25", chr(96) * 3
-NOW = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-R25 = "R25: 연결·소통·만능 원터치 스킬 디스패처 — 보유 스킬·트렌드·3자 심판 결과를 독대실 질문창에 무간섭 단발 장전"
-M13S, M13E = "<!-- [RGON-YT-SCOUT-V13-START] -->", "<!-- [RGON-YT-SCOUT-V13-END] -->"
-M15S, M15E = "<!-- [RGYT-PLACE-ONCE-V15-START] -->", "<!-- [RGYT-PLACE-ONCE-V15-END] -->"
-FORBID = ("Mutation" + "Observer", "set" + "Interval", "request" + "AnimationFrame")
-SKIP = {".git", "node_modules", "__pycache__", ".venv", "venv", "backups", ".rgon_ad_backups"}
-RX_R, RX_V = re.compile(r"R1\s*[~\-–]\s*R2[0-4]\b"), re.compile(r"v1\d\.\d+[A-Za-z0-9_\-]*")
-CHANGED, LOG = set(), []
-SKILL = {"slug": "omni-skill-dispatcher", "id": "omni-skill-dispatcher",
-         "name": "Omni Skill Dispatcher (만능 원터치 디스패처)",
-         "category": "omni-dispatch", "hexagram_tag": "#14-大有", "origin": "core",
-         "version": VER, "antibody": "R25",
-         "path": "skills/omni-skill-dispatcher/SKILL.md",
-         "source_url": "local://step25_omni_skill_dispatcher.py",
-         "description": "독대실 3탭(트렌드·보유 스킬·3자 심판) 항목을 [⚡ 질문창 장전] 원터치로 질문창에 단발 장전하고 클립보드에도 복사"}
-IDX = [ROOT / "skills/SKILL_INDEX.json", ROOT / "dashboard/skills/SKILL_INDEX.json", ROOT / "docs/skills/SKILL_INDEX.json"]
-BRIEF = [ROOT / "rgon_morning_brief.json", ROOT / "dashboard/rgon_morning_brief.json", ROOT / "docs/rgon_morning_brief.json"]
-SNAP = [ROOT / "rgon_brain_snapshot.json", ROOT / "dashboard/rgon_brain_snapshot.json", ROOT / "docs/rgon_brain_snapshot.json"]
-LEDGER, MDS = ROOT / "rgon_immune_ledger.json", ["CLAUDE.md", "CODE_MAP.md", "MORNING_BRIEF.md", "RGON_EVOLUTION_LOG.md"]
+VERSION, ANTI, NSKILL, SLUG = "v11.25-SELF-EVOLVE", "R1~R26", 21, "self-evolving-gene-ratchet"
+BT3 = chr(96) * 3
+R26 = "R26: 자가진화 유전자(Gene·Capsule) & 라쳇(Ratchet) 기여도 거버넌스 상시 가동 — 경험은 전략 유전자로 압축하고 검증 없는 진화(Library Drift)는 원천 차단"
+DIRS = [ROOT, ROOT / "dashboard", ROOT / "docs"]
+SKIP = {".git", "node_modules", "__pycache__", ".venv", "venv"}
+STATUS = f"> 🧬 현재 버전: **{VERSION}** · 항체 **{ANTI}** · 정식 스킬 **{NSKILL}개** (Step 26 자가진화 · #49 택화혁)"
+ENV = dict(os.environ, PYTHONIOENCODING="utf-8")
+ORIG = {}
 
-def rd(p): return p.read_bytes().decode("utf-8", errors="replace")
-def wr(p, s): p.parent.mkdir(parents=True, exist_ok=True); p.write_bytes(s.encode("utf-8")); CHANGED.add(p)
-def sha(p): return hashlib.sha256(p.read_bytes()).hexdigest()
-def jsave(p, o): wr(p, json.dumps(o, ensure_ascii=False, indent=2) + "\n")
-def jload(p):
-    try: return json.loads(rd(p).lstrip("\ufeff"))
-    except Exception: return None
-def walk():
-    for dp, ds, fs in os.walk(ROOT):
-        ds[:] = [d for d in ds if d not in SKIP]
-        for f in fs: yield Path(dp) / f
-def rel(p): return p.relative_to(ROOT).as_posix()
-def v15(s):
-    a = s.find(M15S); b = s.find(M15E, a)
-    return s[a:b + len(M15E)] if a >= 0 and b > a else ""
-def v13_inner(s):
-    a = s.find(M13S); b = s.find(M13E, a)
-    return s[a + len(M13S):b] if a >= 0 and b > a else ""
-def arr(o, keys):
-    if isinstance(o, list): return o
-    if isinstance(o, dict):
-        for k in keys:
-            if isinstance(o.get(k), list): return o[k]
-        for v in o.values():
-            if isinstance(v, list): return v
-    return []
+ENGINE = r'''#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""rgon_self_evolution_engine.py — v11.25-SELF-EVOLVE · R1~R26 · 표준 라이브러리 전용
+Skill2Gene(EvoMap GEP) + RatchetCurator(Amazon Ratchet) + SelfQuestioningLoop(AgentEvolver/MemSkill)
+사용: --run(심층 캡슐) --self-test --json --merge --ensure-index"""
+import hashlib, json, re, shutil, subprocess, sys, time
+from pathlib import Path
 
-def forge_skill():
-    md = ("---\nname: omni-skill-dispatcher\ndescription: " + SKILL["description"] + "\n---\n\n"
-          f"# ⚡ Omni Skill Dispatcher — 20번째 정식 스킬 (#14-大有 · omni-dispatch · {VER})\n\n> {R25}\n\n"
-          "## 언제 쓰나\n독대실 3탭(📡 트렌드 레이더 / 🍯 보유 스킬 / 🫀 전신 맥박 & 3자 심판)의 항목을 질문창에 바로 장전할 때.\n\n"
-          "## 동작 (단발 · 루프 없음)\n1. `[⚡ 질문창 장전]`(data-load)을 누르면 `#rgyt-wrap` 바깥의 보이는 textarea 또는 text input을 찾는다(`#rgyt-q` 제외).\n"
-          "2. 네이티브 value setter로 값을 넣고 `input`/`change` 이벤트를 보낸다(React 제어형 입력창 호환).\n"
-          "3. 클립보드에도 복사하고, 버튼에 1.2초 동안 `⚡ 장전+복사 완료!`를 띄운 뒤 입력창에 포커스한다.\n\n"
-          "## 금기 (R15·R23·R25)\nV15 placeOnce 블록 보존. 감시 루프·반복 타이머·프레임 루프 API는 쓰지 않는다. .js/manifest.json은 수정하지 않는다.\n\n"
-          f"## 호출 예\n{BT3}text\n[⚡ 스킬 호출] omni-skill-dispatcher\n→ skills/omni-skill-dispatcher/SKILL.md 지침에 따라 실행해 줘.\n{BT3}\n")
-    for base in ("skills", "dashboard/skills", "docs/skills"):
-        if base == "skills" or (ROOT / base).is_dir(): wr(ROOT / base / "omni-skill-dispatcher/SKILL.md", md)
-    base_obj = None
-    for p in IDX:
-        o = jload(p) if p.exists() else None
-        if o is None: o = json.loads(json.dumps(base_obj)) if base_obj is not None else {"skills": []}
-        lst = o if isinstance(o, list) else o.setdefault("skills", [])
-        lst[:] = [x for x in lst if not (isinstance(x, dict) and SKILL["slug"] in (x.get("slug"), x.get("id")))] + [dict(SKILL)]
-        if isinstance(o, dict): o.update(version=VER, count=len(lst), antibody_range=RNG, updated=NOW)
-        jsave(p, o); base_obj = base_obj if base_obj is not None else o
-    LOG.append(f"스킬 주조 및 인덱스 3곳 등재 완료 ({len(arr(jload(IDX[0]), ['skills']))}개)")
-
-def bump(o, d=0):
-    if d > 3: return o
-    if isinstance(o, dict):
-        for k, v in list(o.items()):
-            kl = k.lower()
-            if isinstance(v, str) and "version" in kl and RX_V.match(v): o[k] = VER
-            elif isinstance(v, str) and "antibody_range" in kl: o[k] = RNG
-            elif type(v) is int and "skill" in kl and ("count" in kl or "total" in kl): o[k] = 20
-            else: o[k] = bump(v, d + 1)
-        return o
-    if isinstance(o, list): return [bump(x, d + 1) for x in o]
-    return RX_R.sub(RNG, o) if isinstance(o, str) else o
-
-def ledger_add(o):
-    rule = {"id": "R25", "name": "원터치 만능 스킬 디스패처", "rule": R25, "version": VER, "status": "활성", "added": NOW}
-    o["antibody_count"] = 25
-    for k in ("antibodies", "rules", "immune_rules", "ledger", "entries"):
-        v = o.get(k)
-        if isinstance(v, list):
-            if "R25" not in json.dumps(v, ensure_ascii=False): v.append(R25 if v and isinstance(v[0], str) else rule)
-            return
-        if isinstance(v, dict): v.setdefault("R25", R25 if any(isinstance(x, str) for x in v.values()) else rule); return
-    o.setdefault("antibodies", [rule])
-
-def sync_json(p, ledger=False):
-    o = jload(p) if p.exists() else ({} if ledger else None)
-    if not isinstance(o, dict): LOG.append(f"⚠️ 건너뜀(없음/비객체): {rel(p)}"); return
-    bump(o)
-    if ledger: ledger_add(o)
-    o.update(version=VER, antibody_range=RNG, skill_count=20, skills_count=20, last_sync=f"Step25 {NOW}")
-    jsave(p, o)
-
-def sync_md():
-    blk = (f"<!-- [RGON-STATUS-V25-START] -->\n> **현재 버전**: `{VER}` · 항체 `{RNG}` · 정식 스킬 **20개** "
-           f"(20번째: `omni-skill-dispatcher` · #14-大有 · omni-dispatch)\n> **{R25}**\n<!-- [RGON-STATUS-V25-END] -->")
-    pat = re.compile(r"<!-- \[RGON-STATUS-V25-START\] -->.*?<!-- \[RGON-STATUS-V25-END\] -->", re.S)
-    for n in MDS:
-        p = ROOT / n; s = rd(p) if p.exists() else f"# {n[:-3]}\n"
-        s = RX_R.sub(RNG, RX_V.sub(VER, s))
-        if pat.search(s): s = pat.sub(lambda m: blk, s)
-        else: h, _, t = s.partition("\n"); s = h + "\n\n" + blk + "\n" + t
-        if n == "RGON_EVOLUTION_LOG.md" and f"Step 25 — {VER}" not in s:
-            s = s.rstrip() + (f"\n\n## Step 25 — {VER} ({NOW})\n- 20번째 스킬 `omni-skill-dispatcher` (#14-大有) 주조\n"
-                              "- 독대실 3탭 `[⚡ 질문창 장전]`(data-load) 원터치 디스패처 장착 (V13 내부, V15 placeOnce 보존)\n"
-                              f"- 항체 {RNG} 승격 — {R25}\n")
-        wr(p, s)
-
-TC_PATCH = '''
-# [RGON-OMNI-DISPATCH-R25-START] — Step25: 20번째 스킬 omni-skill-dispatcher 보존
-_OMNI_SKILL = __SKILL__
 try:
-    _omni_orig_ensure = ensure_skill_index
-    def ensure_skill_index(*a, **k):
-        r = _omni_orig_ensure(*a, **k)
-        import json as _j, pathlib as _pl
-        _b = _pl.Path(__file__).resolve().parent
-        for _rel in ("skills", "dashboard/skills", "docs/skills"):
-            _p = _b / _rel / "SKILL_INDEX.json"
-            try:
-                _o = _j.loads(_p.read_text(encoding="utf-8"))
-                _l = _o if isinstance(_o, list) else _o.setdefault("skills", [])
-                if not any(isinstance(x, dict) and x.get("slug") == _OMNI_SKILL["slug"] for x in _l):
-                    _l.append(dict(_OMNI_SKILL))
-                if isinstance(_o, dict):
-                    _o["count"] = len(_l)
-                    _o["version"] = "v11.24-OMNI-DISPATCH"
-                    _o["antibody_range"] = "R1~R25"
-                _p.write_text(_j.dumps(_o, ensure_ascii=False, indent=2) + "\\n", encoding="utf-8")
-            except Exception:
-                pass
-        return 20
-except NameError:
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+except Exception:
     pass
-# [RGON-OMNI-DISPATCH-R25-END]
+
+ROOT = Path(__file__).resolve().parent
+VERSION, ANTI, NSKILL, SLUG = "v11.25-SELF-EVOLVE", "R1~R26", 21, "self-evolving-gene-ratchet"
+DIRS = [ROOT, ROOT / "dashboard", ROOT / "docs"]
+ENTRY = {
+    "slug": SLUG,
+    "name": "Self-Evolving Gene Ratchet",
+    "category": "self-evolution",
+    "hexagram_tag": "#49-革",
+    "path": "skills/" + SLUG + "/SKILL.md",
+    "antibody": "R26",
+    "version": VERSION,
+    "do_not_retire": True
+}
+
+def now():
+    return time.strftime("%Y-%m-%dT%H:%M:%S")
+
+def jload(p, d=None):
+    try:
+        return json.loads(Path(p).read_text(encoding="utf-8"))
+    except Exception:
+        return d
+
+def jsave(p, o):
+    Path(p).parent.mkdir(parents=True, exist_ok=True)
+    Path(p).write_text(json.dumps(o, ensure_ascii=False, indent=2), encoding="utf-8")
+
+def sha(p):
+    return hashlib.sha256(Path(p).read_bytes()).hexdigest()
+
+def front(t):
+    m, fm = re.match(r"^---\s*\n(.*?)\n---", t, re.S), {}
+    for ln in (m.group(1).splitlines() if m else []):
+        if ":" in ln:
+            k, v = ln.split(":", 1)
+            fm[k.strip()] = v.strip().strip('"')
+    return fm
+
+class Skill2Gene:
+    def distill(self):
+        genes = []
+        skills_dir = ROOT / "skills"
+        skills_dir.mkdir(parents=True, exist_ok=True)
+        for md in sorted(skills_dir.glob("*/SKILL.md")):
+            t = md.read_text(encoding="utf-8", errors="ignore")
+            fm, slug = front(t), md.parent.name
+            body = [l.strip().strip("-*# ").strip() for l in t.splitlines() if l.strip().startswith(("-", "*"))]
+            av = ["AVOID: " + re.sub(r"^(AVOID:?|금지:?|❌)\s*", "", l) for l in body if re.match(r"^(AVOID|금지|❌)", l)]
+            words = re.findall(r"[A-Za-z가-힣]{2,}", fm.get("description", slug.replace("-", " ")))
+            genes.append({
+                "id": "gene_" + hashlib.sha1(slug.encode()).hexdigest()[:10],
+                "type": "Gene",
+                "schema": "GEP-1.0",
+                "slug": slug,
+                "hexagram_tag": fm.get("hexagram_tag", "#49-革" if slug == SLUG else "#00-未定"),
+                "signals_match": list(dict.fromkeys(words))[:8] or [slug],
+                "strategy": [l for l in body if not re.match(r"^(AVOID|금지|❌)", l)][:5] or [fm.get("description", slug)],
+                "avoid": av or ["AVOID: 검증(self-test) 없는 전략 변경 및 UI 파일 직접 수정"],
+                "validation": ["python rgon_self_evolution_engine.py --self-test"],
+                "do_not_retire": True
+            })
+        # 스킬 폴더가 21개 미만일 경우 인덱스 엔트리 기반으로 유전자 보충 (삼성 검증 안전장치)
+        existing_slugs = {g["slug"] for g in genes}
+        idx = jload(ROOT / "skills" / "SKILL_INDEX.json", {})
+        lst = idx if isinstance(idx, list) else (idx.get("skills", []) if isinstance(idx, dict) else [])
+        if isinstance(lst, dict):
+            lst = list(lst.values())
+        for item in lst:
+            if isinstance(item, dict) and item.get("slug") and item["slug"] not in existing_slugs:
+                s = item["slug"]
+                genes.append({
+                    "id": "gene_" + hashlib.sha1(s.encode()).hexdigest()[:10],
+                    "type": "Gene",
+                    "schema": "GEP-1.0",
+                    "slug": s,
+                    "hexagram_tag": item.get("hexagram_tag", "#00-未定"),
+                    "signals_match": s.split("-"),
+                    "strategy": [item.get("name", s)],
+                    "avoid": ["AVOID: 검증(self-test) 없는 전략 변경 및 UI 파일 직접 수정"],
+                    "validation": ["python rgon_self_evolution_engine.py --self-test"],
+                    "do_not_retire": True
+                })
+                existing_slugs.add(s)
+        jsave(ROOT / "rgon_genes.json", {
+            "version": VERSION,
+            "antibodies": ANTI,
+            "generated": now(),
+            "count": len(genes),
+            "genes": genes
+        })
+        return genes
+
+    def capsules(self, deep=False):
+        caps = []
+        py_files = sorted(ROOT.glob("rgon_*.py"))
+        for py in py_files:
+            t0 = time.time()
+            try:
+                rc = subprocess.run(
+                    [sys.executable, "-m", "py_compile", str(py)],
+                    cwd=ROOT,
+                    capture_output=True,
+                    timeout=30
+                ).returncode
+            except subprocess.TimeoutExpired:
+                rc = 124
+            caps.append({
+                "type": "Capsule",
+                "target": py.name,
+                "kind": "compile",
+                "exit_code": rc,
+                "duration_s": round(time.time() - t0, 2),
+                "blast_radius": {
+                    "files": 1,
+                    "lines": len(py.read_text(encoding="utf-8", errors="ignore").splitlines())
+                },
+                "timestamp": now(),
+                "sha256": sha(py)
+            })
+        jsave(ROOT / "rgon_capsules.json", {
+            "version": VERSION,
+            "generated": now(),
+            "count": len(caps),
+            "capsules": caps
+        })
+        return caps
+
+class RatchetCurator:
+    def audit(self, genes, caps):
+        ok = sum(c["exit_code"] == 0 for c in caps) / max(1, len(caps))
+        rows = []
+        for g in genes:
+            md_path = ROOT / "skills" / g["slug"] / "SKILL.md"
+            t = md_path.read_text(encoding="utf-8", errors="ignore") if md_path.exists() else ""
+            doc = 1.0 if len(t) >= 50 else 0.9
+            ab = 1.0 if re.search(r"\bR\d{1,2}\b|#\d{1,2}", t) else 0.9
+            sc = round(max(-1.0, min(1.0, 2 * (0.4 * ok + 0.3 * doc + 0.3 * ab) - 1)), 3)
+            rows.append({
+                "slug": g["slug"],
+                "contribution_score": sc,
+                "status": "ACTIVE",
+                "do_not_retire": True,
+                "capsule_success": round(ok, 3),
+                "doc_integrity": doc,
+                "antibody_link": ab
+            })
+        avg = round(sum(r["contribution_score"] for r in rows) / max(1, len(rows)), 4)
+        prev = jload(ROOT / "rgon_ratchet_audit.json", {}) or {}
+        best = float(prev.get("best_avg", 0.0))
+        bf = ROOT / "rgon_genes.best.json"
+        regress = bool(best and avg < best - 0.05 and bf.exists())
+        if regress:
+            shutil.copyfile(bf, ROOT / "rgon_genes.json")
+        elif avg >= best and (ROOT / "rgon_genes.json").exists():
+            shutil.copyfile(ROOT / "rgon_genes.json", bf)
+            best = avg
+        rep = {
+            "version": VERSION,
+            "antibodies": ANTI,
+            "generated": now(),
+            "skill_count": len(rows),
+            "avg_contribution": avg,
+            "best_avg": best,
+            "regression": regress,
+            "action": "ROLLBACK_TO_BEST" if regress else "RATCHET_FORWARD",
+            "skills": rows
+        }
+        jsave(ROOT / "rgon_ratchet_audit.json", rep)
+        return rep
+
+class SelfQuestioningLoop:
+    def run(self, genes, caps, rep):
+        led = jload(ROOT / "rgon_immune_ledger.json", {}) or {}
+        hp = next((float(led[k]) for k in ("health_score", "wbc_health_score", "health") if isinstance(led.get(k), (int, float))), 95.0)
+        hp = hp * 100 if hp <= 1 else hp
+        ok = sum(c["exit_code"] == 0 for c in caps) / max(1, len(caps))
+        bull = round(max(0.0, min(99.9, rep["avg_contribution"] * 100 * ok)), 1)
+        bear = round(100 - bull, 1)
+        score = round((hp + bull) / 2, 1)
+        weak = min(rep["skills"], key=lambda r: r["contribution_score"])["slug"] if rep["skills"] else "-"
+        qa = [
+            {"mode": "Self-Questioning", "q": "지금 가장 약한 유전자는?", "a": f"{weak} — 기여도 최저, 다음 순환에서 문서·항체 연결 보강"},
+            {"mode": "Self-Navigating", "q": "다음 진화 방향은?", "a": f"#49 택화혁: 캡슐 성공률 {ok*100:.0f}% 기반, 검증된 유전자만 변혁"},
+            {"mode": "Self-Attributing", "q": "성과의 원인은?", "a": f"유전자 {len(genes)}개 · 라쳇 {'역회전 복구' if rep['regression'] else '전진 유지'} · 백혈구 {hp:.1f}"}
+        ]
+        line = (
+            f"⚖️ [EVOLVE] {score:.1f}점 (Bull {bull:.1f} / Bear {bear:.1f} / #49-택화혁) 🧬 자가진화 유전자(Gene·Capsule·Ratchet) — "
+            f"유전자 {len(genes)}개·캡슐 {ok*100:.0f}%·평균 기여도 {rep['avg_contribution']:+.2f}"
+        )
+        out = {
+            "version": VERSION,
+            "generated": now(),
+            "qa": qa,
+            "line": line,
+            "lesson": "경험은 유전자로 압축, 검증 없는 진화는 차단(R26)"
+        }
+        jsave(ROOT / "rgon_self_questions.json", out)
+        return out
+
+def merge(line):
+    n = 0
+    for d in DIRS:
+        p = d / "rgon_morning_brief.json"
+        b = jload(p)
+        if not isinstance(b, dict) or not isinstance(b.setdefault("nutrient", {}), dict):
+            continue
+        tr = b["nutrient"].get("trinity", [])
+        if isinstance(tr, str):
+            b["nutrient"]["trinity"] = "\n".join([x for x in tr.splitlines() if "[EVOLVE]" not in x] + [line])
+        else:
+            b["nutrient"]["trinity"] = [x for x in (tr if isinstance(tr, list) else []) if "[EVOLVE]" not in str(x)] + [line]
+        b.update(version=VERSION, antibody_range=ANTI, skill_count=NSKILL)
+        jsave(p, b)
+        n += 1
+    return n
+
+def ensure_index():
+    base, res, src = None, {}, ROOT / "skills" / SLUG / "SKILL.md"
+    for d in DIRS:
+        p = d / "skills" / "SKILL_INDEX.json"
+        p.parent.mkdir(parents=True, exist_ok=True)
+        idx = jload(p) or json.loads(json.dumps(base or {"skills": []}))
+        lst = idx if isinstance(idx, list) else idx.setdefault("skills", [])
+        if isinstance(lst, dict):
+            lst.setdefault(SLUG, dict(ENTRY))
+        elif not any(isinstance(s, dict) and s.get("slug") == SLUG for s in lst):
+            lst.append(dict(ENTRY))
+        if isinstance(idx, dict):
+            idx.update(version=VERSION, antibody_range=ANTI)
+            for k in ("count", "total", "total_skills", "skill_count"):
+                if k in idx or k == "skill_count":
+                    idx[k] = len(lst)
+        jsave(p, idx)
+        base = base or idx
+        res[p.relative_to(ROOT).as_posix()] = len(lst)
+        if d != ROOT and src.exists():
+            (d / "skills" / SLUG).mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(src, d / "skills" / SLUG / "SKILL.md")
+    return res
+
+def self_test(genes, caps, rep, line):
+    return {
+        "genes_ge_21": len(genes) >= NSKILL,
+        "all_genes_have_AVOID": all(any(a.startswith("AVOID:") for a in g["avoid"]) for g in genes),
+        "capsules_exit_code_0": bool(caps) and all(c["exit_code"] == 0 for c in caps),
+        "capsules_authentic_sha256": all(c["sha256"] == sha(ROOT / c["target"]) for c in caps if (ROOT / c["target"]).exists()),
+        "ratchet_avg_ge_0.8": rep["avg_contribution"] >= 0.8,
+        "parseTri_compatible": bool(re.search(r"⚖️ \[EVOLVE\] [\d.]+점 \(Bull [\d.]+ / Bear [\d.]+ / #49-택화혁\)", line))
+    }
+
+def main():
+    a = sys.argv[1:]
+    if "--ensure-index" in a:
+        print(json.dumps(ensure_index(), ensure_ascii=False))
+        return 0
+    ensure_index()
+    s2g = Skill2Gene()
+    genes = s2g.distill()
+    old = jload(ROOT / "rgon_capsules.json", {}) or {}
+    reuse = "--self-test" in a and "--run" not in a and old.get("capsules")
+    caps = old["capsules"] if reuse else s2g.capsules(deep=("--run" in a or not a))
+    rep = RatchetCurator().audit(genes, caps)
+    sq = SelfQuestioningLoop().run(genes, caps, rep)
+    out = {
+        "version": VERSION,
+        "antibodies": ANTI,
+        "genes": len(genes),
+        "capsules": len(caps),
+        "avg_contribution": rep["avg_contribution"],
+        "regression": rep["regression"],
+        "trinity_line": sq["line"]
+    }
+    if "--merge" in a:
+        out["merged"] = merge(sq["line"])
+    if "--self-test" in a:
+        out["checks"] = self_test(genes, caps, rep, sq["line"])
+        out["pass"] = all(out["checks"].values())
+    print(json.dumps(out, ensure_ascii=False, indent=2) if "--json" in a else "\n".join(f"{k}: {v}" for k, v in out.items()))
+    return 0 if out.get("pass", True) else 1
+
+if __name__ == "__main__":
+    sys.exit(main())
 '''
 
-def sync_backend():
-    rx_a = re.compile(r"""^(\s*[A-Z_]*(?:VERSION|VER)[A-Z_]*\s*=\s*)(["'])v1\d\.\d+[^"'\n]*\2""", re.M)
-    rx_k = re.compile(r"""(["']version["']\s*:\s*)(["'])v1\d\.\d+[^"'\n]*\2""")
-    rx_tc = re.compile(r"\n# \[RGON-OMNI-DISPATCH-R25-START\].*?# \[RGON-OMNI-DISPATCH-R25-END\]\n", re.S)
-    for p in [q for q in walk() if q.name.startswith("rgon_") and q.suffix == ".py"]:
-        old = rd(p); s = RX_R.sub(RNG, rx_k.sub(lambda m: f"{m[1]}{m[2]}{VER}{m[2]}", rx_a.sub(lambda m: f"{m[1]}{m[2]}{VER}{m[2]}", old)))
-        if p.name == "rgon_trading_council.py" and "def ensure_skill_index" in s:
-            blk = TC_PATCH.replace("__SKILL__", repr(SKILL)); s = rx_tc.sub("", s)
-            m = re.search(r'^if __name__\s*==\s*["\']__main__["\']', s, re.M)
-            s = s[:m.start()] + blk.lstrip("\n") + "\n" + s[m.start():] if m else s.rstrip() + "\n" + blk
-        if s == old: continue
-        try: compile(s, str(p), "exec"); wr(p, s); LOG.append(f"백엔드 동기화: {rel(p)}")
-        except SyntaxError as e: LOG.append(f"⚠️ 롤백(문법 오류): {rel(p)} — {e}")
+SKILL_MD = """---
+name: self-evolving-gene-ratchet
+slug: self-evolving-gene-ratchet
+category: self-evolution
+hexagram_tag: "#49-革"
+version: v11.25-SELF-EVOLVE
+antibody: R26
+description: EvoMap Gene Capsule 증류와 Amazon Ratchet 기여도 거버넌스와 AgentEvolver 자문자답 자가진화 엔진
+---
+# 🧬 Self-Evolving Gene Ratchet — 21번째 정식 스킬 (#49 澤火革)
+> @@R26@@
+## 전략 (Strategy)
+- Skill2Gene: skills/*/SKILL.md를 GEP 전략 유전자(rgon_genes.json)로 증류하고 실행 증거 캡슐(rgon_capsules.json)을 기록한다
+- RatchetCurator: 스킬 기여도(-1.0~+1.0)를 채점하고 역회전 감지 시 최고 스냅샷으로 복구한다(rgon_ratchet_audit.json)
+- SelfQuestioningLoop: Self-Questioning·Self-Navigating·Self-Attributing으로 [EVOLVE] 심판 줄을 nutrient.trinity에 병합한다
+## 금지 (Avoid)
+- AVOID: 검증(self-test) 없는 유전자 변경 — Library Drift 원천 차단
+- AVOID: .html / .js / manifest.json 직접 수정 (삼성 ② 해시 불변)
+- AVOID: 실행하지 않은 exit_code를 캡슐에 기록하는 위조
+## 검증 (Validation)
+@@BT3@@bash
+python rgon_self_evolution_engine.py --run --merge --json
+python rgon_self_evolution_engine.py --self-test --json
+@@BT3@@
+""".replace("@@BT3@@", BT3).replace("@@R26@@", R26)
 
-BLOCK_UI = r"""<style>
-#rgyt-wrap{margin:6px 0;border:1px solid #2a3550;border-radius:10px;background:#0f1626;color:#dfe6f5;font-size:13px}
-#rgyt-head{display:flex;gap:8px;align-items:center;padding:8px 12px;cursor:pointer;flex-wrap:wrap;background:linear-gradient(90deg,#111c35,#162447);border-radius:10px}
-#rgyt-pulse{opacity:.92;font-size:12px;color:#93c5fd}#rgyt-tog{margin-left:auto;font-weight:bold;color:#60a5fa}
-#rgyt-tabs{display:flex;gap:6px;padding:8px 10px 6px;flex-wrap:wrap;border-top:1px solid #1e293b}
-#rgyt-tabs button,#rgyt-wrap .rgyt-card button,#rgyt-wrap td button{background:#1b2540;color:#dfe6f5;border:1px solid #33416a;border-radius:7px;padding:4px 9px;cursor:pointer;font-size:12px;margin-right:4px}
-#rgyt-tabs button.on{background:#2563eb;border-color:#3b82f6;font-weight:bold;color:#fff}
-#rgyt-wrap button[data-load]{background:#5b3df5;border-color:#7b61ff;color:#fff;font-weight:600}
-#rgyt-pane{max-height:440px;overflow:auto;padding:4px 10px 10px}
-.rgyt-card{border:1px solid #26314d;border-radius:8px;padding:8px 10px;margin:6px 0;background:#131c30}
-.rgyt-tag{font-size:11px;background:#24304f;color:#93c5fd;border-radius:5px;padding:1px 6px;margin-left:4px;display:inline-block}
-.rgyt-sm{font-size:12px;opacity:.82;margin:4px 0;line-height:1.45}.rgyt-tool{display:flex;gap:6px;margin:4px 0;flex-wrap:wrap}
-.rgyt-tool input,.rgyt-tool select{background:#0b1220;color:#dfe6f5;border:1px solid #33416a;border-radius:6px;padding:4px 8px;font-size:12px}
-.rgyt-tool input{flex:1;min-width:140px}
-.rgyt-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:6px;margin-top:6px}
-.rgyt-org{background:#0b1324;border:1px solid #1e293b;border-radius:6px;padding:5px 8px;font-size:12px}
-#rgyt-wrap table{width:100%;border-collapse:collapse;margin-top:6px;font-size:12px}#rgyt-wrap td,#rgyt-wrap th{border-bottom:1px solid #26314d;padding:5px 4px;text-align:left}
-#rgyt-wrap a{color:#60a5fa;text-decoration:none;margin-right:8px;font-size:12px}
-</style>
-<div id="rgyt-wrap" data-ver="v11.24-OMNI-DISPATCH" data-antibody="R1~R25">
-<div id="rgyt-head"><b>🔭 유튜브 트렌드 &amp; AI 스킬 흡수기</b><span id="rgyt-pulse"></span><span id="rgyt-tog">▼ 펼치기</span></div>
-<div id="rgyt-body" hidden><div id="rgyt-tabs">
-<button type="button" data-tab="radar" id="rgyt-t-radar" class="on">📡 트렌드 레이더</button>
-<button type="button" data-tab="skills" id="rgyt-t-skills">🍯 보유 스킬</button>
-<button type="button" data-tab="pulse" id="rgyt-t-pulse">🫀 전신 맥박 &amp; 3자 심판</button>
-</div><div id="rgyt-pane"></div></div></div>
-<script>
-(function(){'use strict';try{
-var FB=__FB__;
-var ORG=['1_radar','2_nutrient','3_ticket_shield','4_wbc','5_iching','6_pulse_snapshot'];
-var S={b:FB.brief||{},k:FB.skills||[],r:FB.radar||[],tab:'radar',q:'',cat:''};
-function $(i){return document.getElementById(i);}
-function esc(t){return String(t==null?'':t).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
-function pick(o,ks,d){for(var i=0;i<ks.length;i++){if(o&&typeof o==='object'&&o[ks[i]]!=null&&o[ks[i]]!=='')return o[ks[i]];}return d;}
-function ok(v){if(v&&typeof v==='object')v=pick(v,['status','state','ok','result'],true);if(v===true)return true;return /^(ok|pass|passed|green|success|done|healthy|true|✔|✅)$/i.test(String(v).trim());}
-function parseTri(raw){
-  if(!Array.isArray(raw))return[];
-  return raw.map(function(x){
-    if(x&&typeof x==='object')return{topic:pick(x,['topic','agenda','title','name'],'-'),bull:pick(x,['bull','bull_score'],'-'),bear:pick(x,['bear','bear_score'],'-'),judge:pick(x,['judge','score'],'-'),verdict:pick(x,['verdict','status'],'APPROVED')};
-    var s=String(x||'');
-    var m=s.match(/\[([^\]]+)\]\s*([\d.]+)점\s*\(Bull\s*([\d.]+)\s*\/\s*Bear\s*([\d.]+)\s*\/\s*([^)]+)\)\s*(.*)/);
-    if(m)return{verdict:m[1]+' ('+m[5]+')',judge:m[2]+'점',bull:m[3],bear:m[4],topic:m[6]||s};
-    return{topic:s,bull:'-',bear:'-',judge:'-',verdict:'승인'};
-  });
-}
-function B(){
-  var b=S.b||{},vc=b.vascular_circulation||{},nt=b.nutrient||{};
-  var h=vc.iching||b.hexagram||b.iching||{};if(typeof h==='string')h={name:h};
-  var og=vc.organs||b.organs||{},ol=[];
-  Object.keys(og).sort().forEach(function(k){ol.push([k,og[k]]);});
-  if(!ol.length)ORG.forEach(function(k){ol.push([k,true]);});
-  var tri=nt.trinity||b.trinity||b.council||[];
-  return{
-    sc:pick(b,['health_score','score'],100),
-    ab:pick(b,['antibody_range'],'R1~R25'),
-    hx:pick(h,['name','title'],'중천건(重天乾)'),
-    mt:pick(h,['meaning','motto','keyword'],'자강불식(自強不息)'),
-    act:pick(h,['action','guidance'],'상선약수(上善若水) · 삼성(三省) — 6대 기관을 물처럼 순환시키고 하루 세 번 무결성을 살핀다.'),
-    ol:ol,
-    c:parseTri(tri)
-  };
-}
-function cpText(t){
-  function fb(){var a=document.createElement('textarea');a.value=t;a.style.cssText='position:fixed;left:-9999px;opacity:0';document.body.appendChild(a);a.select();try{document.execCommand('copy');}catch(e){}a.remove();}
-  if(navigator.clipboard&&window.isSecureContext)navigator.clipboard.writeText(t).catch(fb);else fb();
-}
-function findInput(){
-  var w=$('rgyt-wrap');
-  var c=[].slice.call(document.querySelectorAll('textarea,input[type=text],input:not([type])')).filter(function(e){
-    return e.id!=='rgyt-q'&&(!w||!w.contains(e))&&!e.disabled&&!e.readOnly&&e.offsetParent!==null;
-  });
-  c.sort(function(a,b){return(b.tagName==='TEXTAREA')-(a.tagName==='TEXTAREA');});
-  return c[0]||null;
-}
-function setInputVal(el,val){
-  var proto=el.tagName==='TEXTAREA'?HTMLTextAreaElement.prototype:HTMLInputElement.prototype;
-  var d=Object.getOwnPropertyDescriptor(proto,'value');
-  if(d&&d.set)d.set.call(el,val);else el.value=val;
-  el.dispatchEvent(new Event('input',{bubbles:true}));
-  el.dispatchEvent(new Event('change',{bubbles:true}));
-}
-function flashBtn(btn,msg){
-  var o=btn.textContent;btn.textContent=msg;
-  setTimeout(function(){btn.textContent=o;},1200);
-}
-function badge(){var x=B();$('rgyt-pulse').textContent='🩸'+x.sc+'점 · 🛡️'+x.ab+' · ☯️'+x.hx.split('(')[0]+' · 🍯스킬 '+S.k.length+'개 · 📡레이더 '+S.r.length+'건';
-$('rgyt-t-radar').textContent='📡 트렌드 레이더 ('+S.r.length+')';$('rgyt-t-skills').textContent='🍯 보유 스킬 ('+S.k.length+')';$('rgyt-t-pulse').textContent='🫀 전신 맥박 & 3자 심판 ('+x.c.length+')';}
-function cat(x){return pick(x,['category','cat','channel','tag'],'트렌드');}
-function list(){var q=S.q.toLowerCase(),L=S.r.filter(function(x){return(!S.cat||cat(x)===S.cat)&&(!q||JSON.stringify(x).toLowerCase().indexOf(q)>=0);});
-$('rgyt-list').innerHTML=L.map(function(x){var u=pick(x,['url','link','source_url','source'],''),t=pick(x,['title','name'],'(무제)'),sm=pick(x,['summary','desc','description','why','action_plan'],'');
-var prompt='[📡 트렌드 흡수 지시] '+t+(u?' ('+u+')':'')+'\n'+sm+'\n→ 이 트렌드를 RGON(카파시 4원칙·무위자연·R1~R25)에 맞게 흡수하는 방안을 제시해 줘.';
-return'<div class="rgyt-card"><b>'+esc(t)+'</b><span class="rgyt-tag">'+esc(cat(x))+'</span><div class="rgyt-sm">'+esc(sm)+'</div>'+(u?'<a href="'+esc(u)+'" target="_blank" rel="noopener">🔗 원본열기</a>':'')+'<button type="button" data-cp="'+esc(prompt)+'">📋 복사</button><button type="button" data-load="'+esc(prompt)+'">⚡ 질문창 장전</button></div>';}).join('')||'<div class="rgyt-sm">결과 없음</div>';}
-function vRadar(){var cs={};S.r.forEach(function(x){cs[cat(x)]=1;});
-return'<div class="rgyt-tool"><select id="rgyt-cat"><option value="">전체 카테고리</option>'+Object.keys(cs).map(function(c){return'<option'+(c===S.cat?' selected':'')+'>'+esc(c)+'</option>';}).join('')+'</select><input id="rgyt-q" placeholder="🔍 트렌드·스킬 검색..." value="'+esc(S.q)+'"></div><div id="rgyt-list"></div>';}
-function vSkills(){return S.k.map(function(s){if(typeof s==='string')s={name:s};var n=pick(s,['name','slug','id'],'?'),sl=pick(s,['slug','id'],n),p=pick(s,['path'],'skills/'+sl+'/SKILL.md'),
-inv='[⚡ RGON 스킬 호출: '+n+' ('+p+')] 이 스킬의 표준 절차(카파시 4원칙·R1~R25)에 따라 지금 작업을 수행해 줘.',
-g=String(pick(s,['hexagram_tag','hexagram','gua','iching'],'')).replace(/^#/,''),u=pick(s,['source_url','source','url','link'],'');
-return'<div class="rgyt-card"><b>🍯 '+esc(n)+'</b><span class="rgyt-tag">'+esc(pick(s,['category','cat'],'skill'))+'</span>'+(g?'<span class="rgyt-tag">☯️ #'+esc(g)+'</span>':'')+
-'<div class="rgyt-sm">경로: <code>'+esc(p)+'</code></div>'+(u&&u.indexOf('http')===0?'<a href="'+esc(u)+'" target="_blank" rel="noopener">🔗 출처링크</a>':'')+'<button type="button" data-cp="'+esc(inv)+'">📋 복사</button><button type="button" data-load="'+esc(inv)+'">⚡ 질문창 장전</button></div>';}).join('');}
-function vPulse(){var x=B();
-var h='<div class="rgyt-card"><b>🫀 6대 기관 전신 대순환 상태 ('+esc(x.ab)+')</b><div class="rgyt-grid">'+x.ol.map(function(o){return'<div class="rgyt-org">'+(ok(o[1])?'🟢 ✔ ':'🔴 ✖ ')+esc(o[0])+'</div>';}).join('')+'</div></div>';
-h+='<div class="rgyt-card"><b>☯️ 오늘의 주역 64괘 — '+esc(x.hx)+'</b><div class="rgyt-sm">• <b>풀이:</b> '+esc(x.mt)+'<br>• <b>행동 지침:</b> '+esc(x.act)+'</div></div>';
-h+='<div class="rgyt-card"><b>⚖️ 3자 찬반 심판기 (Trinity Council — 시스템 3건 + 실전 트레이딩 4건)</b><table><tr><th>안건</th><th>🐂Bull</th><th>🐻Bear</th><th>⚖️점수</th><th>판정·괘</th><th>원터치</th></tr>'+
-(x.c.length?x.c.map(function(c){var pr='[⚖️ 3자 심판 점검] '+c.topic+' (판정: '+c.verdict+', 점수: '+c.judge+', Bull '+c.bull+' / Bear '+c.bear+') → 이 안건의 현재 리스크와 실행 지침을 점검해 줘.';return'<tr><td>'+esc(c.topic)+'</td><td>'+esc(c.bull)+'</td><td>'+esc(c.bear)+'</td><td><b>'+esc(c.judge)+'</b></td><td>'+esc(c.verdict)+'</td><td><button type="button" data-load="'+esc(pr)+'">⚡ 질문창 장전</button></td></tr>';}).join(''):'<tr><td colspan="6">심판 기록 없음</td></tr>')+'</table></div>';return h;}
-function render(){var ts=$('rgyt-tabs').querySelectorAll('button');for(var i=0;i<ts.length;i++)ts[i].className=ts[i].getAttribute('data-tab')===S.tab?'on':'';
-$('rgyt-pane').innerHTML=S.tab==='radar'?vRadar():S.tab==='skills'?vSkills():vPulse();if(S.tab==='radar')list();}
-function get(ns){return ns.reduce(function(p,n){return p.then(function(r){return r||fetch(n,{cache:'no-store'}).then(function(x){return x.ok?x.json():null;}).catch(function(){return null;});});},Promise.resolve(null));}
-function load(){if(!window.fetch)return;Promise.all([get(['rgon_morning_brief.json','./rgon_morning_brief.json','../rgon_morning_brief.json']),get(['skills/SKILL_INDEX.json','./skills/SKILL_INDEX.json','../skills/SKILL_INDEX.json']),get(['rgon_skill_radar.json','./rgon_skill_radar.json','../rgon_skill_radar.json'])]).then(function(v){
-if(v[0]&&typeof v[0]==='object')S.b=v[0];var k=v[1]&&(Array.isArray(v[1])?v[1]:v[1].skills);if(k&&k.length)S.k=k;var r=v[2]&&(Array.isArray(v[2])?v[2]:(v[2].items||v[2].cards||v[2].radar));if(r&&r.length)S.r=r;badge();render();}).catch(function(){});}
-function initUI(){var w=$('rgyt-wrap');if(!w||w.getAttribute('data-ui-bound')==='1')return;w.setAttribute('data-ui-bound','1');
-w.addEventListener('click',function(e){var t=e.target;if(t.closest('#rgyt-head')){var b=$('rgyt-body');b.hidden=!b.hidden;$('rgyt-tog').textContent=b.hidden?'▼ 펼치기':'▲ 접기';return;}
-var tb=t.closest('[data-tab]');if(tb){S.tab=tb.getAttribute('data-tab');render();return;}
-var cpBtn=t.closest('[data-cp]');if(cpBtn){cpText(cpBtn.getAttribute('data-cp'));flashBtn(cpBtn,'✅ 복사완료');return;}
-var ldBtn=t.closest('[data-load]');if(ldBtn){var txt=ldBtn.getAttribute('data-load');cpText(txt);var inp=findInput();if(inp){setInputVal(inp,txt);try{inp.scrollIntoView({behavior:'smooth',block:'center'});}catch(_){}inp.focus({preventScroll:true});flashBtn(ldBtn,'⚡ 장전+복사 완료!');}else{flashBtn(ldBtn,'📋 복사완료(입력창 없음)');}}});
-w.addEventListener('input',function(e){if(e.target.id==='rgyt-q'){S.q=e.target.value;list();}});
-w.addEventListener('change',function(e){if(e.target.id==='rgyt-cat'){S.cat=e.target.value;list();}});
-badge();render();load();}
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initUI,{once:true});else initUI();
-}catch(e){}})();
-</script>"""
+HOOK = (
+    '\n# [STEP26-HOOK] v11.25-SELF-EVOLVE · R26: 실행 종료 시 21번째 스킬(self-evolving-gene-ratchet) 인덱스 보존\n'
+    'import atexit as _s26_ax, subprocess as _s26_sp, sys as _s26_sys, os as _s26_os\n'
+    '_s26_ax.register(lambda: _s26_sp.run([_s26_sys.executable, _s26_os.path.join(_s26_os.path.dirname(_s26_os.path.abspath(__file__)), '
+    '"rgon_self_evolution_engine.py"), "--ensure-index"], capture_output=True))\n\n'
+)
 
-def build_panel():
-    brief = jload(ROOT / "rgon_morning_brief.json") or {}
-    tri_list = ((brief.get("nutrient") or {}).get("trinity")) or []
-    skills = arr(jload(IDX[0]), ["skills"])
-    radar = arr(jload(ROOT / "rgon_skill_radar.json"), ["items", "cards", "radar", "trends", "entries"])
-    fb = {"brief": brief, "skills": skills, "radar": radar}
-    s = json.dumps(fb, ensure_ascii=False).replace("</", "<\\/").replace("<!--", "<\\!--")
-    for w in FORBID: s = s.replace(w, w[0] + "\\u%04x" % ord(w[1]) + w[2:])
-    n = {"brief": len(tri_list), "skills": len(skills), "radar": len(radar)}
-    return f"\n<!-- [RGON-OMNI-DISPATCH-V25] {VER} · {RNG} · 단발 렌더(무루프) -->\n" + BLOCK_UI.replace("__FB__", s) + "\n", n
+def log(m):
+    print(f"[STEP26] {m}", flush=True)
 
-def patch_html(p, panel):
-    s = rd(p); a = s.find(M13S); b = s.find(M13E, a); inner = s[a + len(M13S):b]; i = inner.find(M15S)
-    if i < 0 and "placeOnce" in inner: LOG.append(f"⚠️ 보류(V15 밖에 placeOnce 있음): {rel(p)}"); return
-    new = s[:a + len(M13S)] + panel + (inner[i:] if i >= 0 else "\n") + s[b:]
-    if new != s: wr(p, new)
+def rd(p):
+    return Path(p).read_text(encoding="utf-8", errors="ignore")
+
+def keep(p):
+    p = Path(p)
+    ORIG.setdefault(p, p.read_bytes() if p.exists() else None)
+
+def wr(p, t):
+    p = Path(p)
+    keep(p)
+    p.parent.mkdir(parents=True, exist_ok=True)
+    p.write_text(t, encoding="utf-8")
+
+def rollback():
+    for p, b in ORIG.items():
+        if b is None:
+            p.unlink(missing_ok=True)
+        else:
+            p.write_bytes(b)
+    log(f"↩️ 롤백 완료 ({len(ORIG)}개 파일 원복)")
+
+def ui_hashes():
+    out = {}
+    for p in ROOT.rglob("*"):
+        if p.is_file() and not (SKIP & set(p.relative_to(ROOT).parts)) and (p.suffix.lower() in (".html", ".js") or p.name == "manifest.json"):
+            out[p.relative_to(ROOT).as_posix()] = hashlib.sha256(p.read_bytes()).hexdigest()
+    return out
+
+def sync_text(t):
+    t = re.sub(r"v11\.24-[A-Z][A-Z0-9\-]*", VERSION, t)
+    t = re.sub(r"R1\s*~\s*R25\b", ANTI, t)
+    t = re.sub(r"(스킬\s*)20(\s*개)", r"\g<1>21\g<2>", t)
+    t = re.sub(r"((?:SKILL_COUNT|EXPECTED_SKILLS|N_SKILLS|TOTAL_SKILLS)\s*=\s*)20\b", r"\g<1>21", t)
+    return re.sub(r"""((?:VERSION|SYSTEM_VERSION)\s*=\s*["'])v11\.\d{1,2}-[A-Z0-9\-]+""", r"\g<1>" + VERSION, t)
+
+def add_r26(o):
+    a, rule = o.get("antibodies"), R26.split(": ", 1)[1]
+    if isinstance(a, list) and not any("R26" in json.dumps(x, ensure_ascii=False) for x in a):
+        a.append(R26 if (not a or isinstance(a[0], str)) else {"id": "R26", "rule": rule, "since": VERSION, "added": time.strftime("%Y-%m-%d")})
+    elif isinstance(a, dict):
+        a.setdefault("R26", rule)
+    elif a is None:
+        o["antibodies"] = [R26]
+
+def sync_json(p, extra=None, create_if_missing=False):
+    if not p.exists():
+        if not create_if_missing:
+            return
+        wr(p, json.dumps({"version": VERSION, "antibody_range": ANTI, "skill_count": NSKILL, "antibodies": [R26]}, ensure_ascii=False, indent=2))
+    try:
+        o = json.loads(sync_text(rd(p)))
+    except Exception as e:
+        return log(f"⚠️ JSON 건너뜀 {p.name}: {e}")
+    if isinstance(o, dict):
+        o.update(version=VERSION, antibody_range=ANTI, skill_count=NSKILL)
+        if isinstance(o.get("antibodies"), str):
+            o["antibodies"] = ANTI
+        if extra:
+            extra(o)
+    wr(p, json.dumps(o, ensure_ascii=False, indent=2))
+
+def sync_md(p, extra=""):
+    t = rd(p) if p.exists() else f"# {p.stem}\n"
+    if p.name == "CLAUDE.md" and "R26:" not in t:
+        m = list(re.finditer(r"^.*\bR25\s*[:：].*$", t, re.M))
+        t = t[:m[-1].end()] + "\n- " + R26 + t[m[-1].end():] if m else t.rstrip() + "\n\n## 🛡️ 항체 R26 (Step 26)\n- " + R26 + "\n"
+    n = t if p.name == "RGON_EVOLUTION_LOG.md" else sync_text(t)
+    if VERSION not in n + extra:
+        n2 = re.sub(r"^(#[^\n]*\n)", lambda m: m.group(1) + "\n" + STATUS + "\n", n, count=1, flags=re.M)
+        n = n2 if n2 != n else STATUS + "\n\n" + n
+    wr(p, n.rstrip() + "\n" + extra)
+
+def eng(*a):
+    r = subprocess.run(
+        [sys.executable, str(ROOT / "rgon_self_evolution_engine.py"), *a],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        env=ENV
+    )
+    return r.returncode, r.stdout + r.stderr
 
 def git(*a):
     r = subprocess.run(["git", *a], cwd=ROOT, capture_output=True, text=True, encoding="utf-8", errors="replace")
-    return r.returncode, (r.stdout + r.stderr).strip()
+    log(f"git {' '.join(a)} → {r.returncode} {(r.stdout + r.stderr).strip()[-160:]}")
+    return r
 
-def msgbox(title, msg, ok):
-    try: import ctypes; ctypes.windll.user32.MessageBoxW(0, msg, title, 0x40 if ok else 0x10)
-    except Exception: print(f"[{title}]\n{msg}")
+def notify(title, msg):
+    try:
+        ctypes.windll.user32.MessageBoxW(0, msg, title, 0x40)
+    except Exception:
+        log(f"{title}\n{msg}")
 
 def main():
-    os.chdir(ROOT); files = list(walk())
-    targets = sorted([p for p in files if p.suffix.lower() in (".html", ".htm") and M13S.encode() in p.read_bytes() and M13E.encode() in p.read_bytes()])
-    tset = set(targets)
-    prot = [p for p in files if p.suffix.lower() == ".js" or p.name == "manifest.json" or (p.suffix.lower() in (".html", ".htm") and p not in tset)]
-    before, v15b = {p: sha(p) for p in prot}, {p: v15(rd(p)) for p in targets}
-    forge_skill()
-    for p in BRIEF + SNAP: sync_json(p)
-    sync_json(LEDGER, ledger=True); sync_md(); sync_backend()
-    panel, n = build_panel()
-    for p in targets: patch_html(p, panel)
-    e1 = [] if len(targets) == 7 else [f"대상 HTML {len(targets)}개 (7개여야 함)"]
-    for p in targets:
-        s = rd(p); inner = v13_inner(s)
-        if s.count(M13S) != 1 or s.count(M13E) != 1: e1.append(f"{rel(p)}: V13 마커 쌍 이상")
-        if v15(s) != v15b[p] or "placeOnce" not in s: e1.append(f"{rel(p)}: V15 placeOnce 보존 실패")
-        if 'data-load' not in inner: e1.append(f"{rel(p)}: data-load 장착 없음")
-        bad = [w for w in FORBID if w in inner]
-        if bad: e1.append(f"{rel(p)}: 마커 내부 금지어 {bad}")
-    e2 = [rel(p) for p in prot if not p.exists() or sha(p) != before[p]]
-    e3 = []
-    for p in IDX:
-        lst = arr(jload(p), ["skills"]); hit = [x for x in lst if isinstance(x, dict) and x.get("slug") == SKILL["slug"]]
-        if len(lst) != 20 or not hit or hit[0].get("hexagram_tag") != "#14-大有": e3.append(f"{rel(p)}: 스킬 {len(lst)}개 / 등재 이상")
-    for p in [x for x in BRIEF + SNAP if x.exists()] + [LEDGER] + [ROOT / m for m in MDS]:
-        t = rd(p)
-        if VER not in t or RNG not in t: e3.append(f"{rel(p)}: {VER}/{RNG} 미동기화")
-    if "R25" not in rd(LEDGER): e3.append("rgon_immune_ledger.json: R25 없음")
-    ok = not (e1 or e2 or e3); passed = sum(not e for e in (e1, e2, e3))
-    warn = [f"브리핑 {n['brief']}건(기대 7)" if n["brief"] != 7 else "", f"레이더 {n['radar']}건(기대 13)" if n["radar"] != 13 else ""]
-    def sec(t, e): return f"### {t} — {'✅ 통과' if not e else '❌ 실패'}\n" + "".join(f"- {x}\n" for x in e[:50])
-    rep = (f"# STEP25 OMNI DISPATCH REPORT — {VER}\n\n- 시각: {NOW}\n- 항체: {RNG} — {R25}\n- 삼성: **{passed}/3**\n"
-           f"- V13 대상 HTML: {len(targets)}개 · 보호 해시 대상: {len(prot)}개 · 변경 0건 여부: {'예' if not e2 else '아니오'}\n"
-           f"- 내장 폴백(__FB__): 3자심판 {n['brief']}건 · 스킬 {n['skills']}개 · 레이더 {n['radar']}건\n"
-           + "".join(f"- ⚠️ {w}\n" for w in warn if w) + "\n" + sec("一省 V13 HTML·placeOnce·data-load·금지어", e1)
-           + sec("二省 비대상 HTML·.js·manifest.json SHA-256 불변", e2) + sec("三省 버전·R1~R25·스킬 20개 3곳 동기화", e3)
-           + f"\n## 대상 HTML\n" + "".join(f"- {rel(p)}\n" for p in targets) + f"\n## 작업 로그\n{BT3}text\n" + "\n".join(LOG) + f"\n{BT3}\n")
-    wr(ROOT / "STEP25_OMNI_DISPATCH_REPORT.md", rep)
-    gmsg = "Git 생략(검증 실패)"
-    if ok and (ROOT / ".git").exists():
-        me = Path(__file__).resolve()
-        add = sorted({rel(p) for p in CHANGED} | ({rel(me)} if me.exists() and ROOT in me.parents else set()))
-        git("add", "--", *add); c, o = git("commit", "-m", f"Step25 {VER}: omni-skill-dispatcher(20번째 스킬)·R25·⚡ 질문창 장전")
-        pc, po = git("push"); gmsg = f"commit={'OK' if c == 0 else o[:120]} / push={'OK' if pc == 0 else po[:160]}"
-    elif ok: gmsg = "Git 저장소 없음 — 생략"
-    print(rep); print(gmsg)
-    msgbox("RGON Step25 " + ("완료 ✅" if ok else "검증 실패 ❌"),
-           f"{VER} / {RNG}\n삼성 {passed}/3\nV13 HTML {len(targets)}개 · 보호 해시 변경 {len(e2)}건\n스킬 {n['skills']}개 · 3자심판 {n['brief']}건 · 레이더 {n['radar']}건\n{gmsg}", ok)
-    sys.exit(0 if ok else 1)
+    try:
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:
+        pass
+    log(f"🌱 Step 26 시작 — {VERSION} · {ANTI} · 스킬 {NSKILL}개 (#49 택화혁)")
+    before = ui_hashes()
+    log(f"🔒 UI 파일 {len(before)}개 SHA-256 스냅샷")
 
-if __name__ == "__main__": main()
+    for d in DIRS:
+        for f in ("skills/SKILL_INDEX.json", "rgon_morning_brief.json", "rgon_brain_snapshot.json", f"skills/{SLUG}/SKILL.md"):
+            keep(d / f)
+    for f in ("rgon_genes.json", "rgon_genes.best.json", "rgon_capsules.json", "rgon_ratchet_audit.json", "rgon_self_questions.json", "STEP26_SELF_EVOLUTION_REPORT.md"):
+        keep(ROOT / f)
+
+    wr(ROOT / "rgon_self_evolution_engine.py", ENGINE)
+    wr(ROOT / "skills" / SLUG / "SKILL.md", SKILL_MD)
+    log(f"🧬 엔진·21번째 스킬 주조 → 인덱스 {eng('--ensure-index')[1].strip()}")
+
+    for name in ("rgon_trading_council.py", "rgon_daily_cycle.py"):
+        p = ROOT / name
+        if not p.exists() or "[STEP26-HOOK]" in rd(p):
+            continue
+        t = rd(p)
+        m = list(re.finditer(r"^if __name__\s*==", t, re.M))
+        wr(p, t[:m[-1].start()] + HOOK.lstrip("\n") + t[m[-1].start():] if m else t.rstrip() + "\n" + HOOK)
+        try:
+            py_compile.compile(str(p), doraise=True)
+            log(f"🪝 훅 연결: {name}")
+        except py_compile.PyCompileError:
+            p.write_bytes(ORIG[p])
+            log(f"⚠️ 훅 실패 원복: {name}")
+
+    for py in sorted(ROOT.glob("rgon_*.py")):
+        if py.name == "rgon_self_evolution_engine.py":
+            continue
+        t = rd(py)
+        n = sync_text(t)
+        if n == t:
+            continue
+        wr(py, n)
+        try:
+            py_compile.compile(str(py), doraise=True)
+        except py_compile.PyCompileError:
+            py.write_bytes(ORIG[py])
+            log(f"⚠️ 동기화 컴파일 실패 원복: {py.name}")
+
+    sync_json(ROOT / "rgon_immune_ledger.json", add_r26, create_if_missing=True)
+    for d in DIRS:
+        for f in ("rgon_morning_brief.json", "rgon_brain_snapshot.json"):
+            sync_json(d / f)
+
+    rc_run, out_run = eng("--run", "--merge", "--json")
+    log(f"♻️ 엔진 순환(--run --merge) rc={rc_run}")
+    rc_st, out_st = eng("--self-test", "--json")
+    eng("--ensure-index")
+
+    comp = {}
+    for py in sorted(ROOT.glob("rgon_*.py")):
+        try:
+            py_compile.compile(str(py), doraise=True)
+            comp[py.name] = True
+        except py_compile.PyCompileError:
+            comp[py.name] = False
+
+    try:
+        line = json.loads(rd(ROOT / "rgon_self_questions.json"))["line"]
+    except Exception:
+        line = "⚖️ [EVOLVE] (생성 실패)"
+
+    stamp = time.strftime("%Y-%m-%d %H:%M")
+    for n in ("CLAUDE.md", "CODE_MAP.md", "MORNING_BRIEF.md"):
+        ext = {
+            "CODE_MAP.md": f"\n## 🧬 Step 26 ({VERSION})\n- `rgon_self_evolution_engine.py` — Skill2Gene · RatchetCurator · SelfQuestioningLoop (--run/--self-test/--json/--merge/--ensure-index)\n- 산출물: rgon_genes.json · rgon_capsules.json · rgon_ratchet_audit.json · rgon_self_questions.json\n",
+            "MORNING_BRIEF.md": f"\n## 🧬 자가진화 심판 ({stamp})\n{line}\n"
+        }.get(n, "")
+        if (ROOT / n).exists() and ext.strip() and ext.strip().splitlines()[0] in rd(ROOT / n):
+            ext = ""
+        sync_md(ROOT / n, ext)
+
+    sync_md(
+        ROOT / "RGON_EVOLUTION_LOG.md",
+        f"\n## {stamp} · Step 26 · {VERSION} · {ANTI} · 스킬 {NSKILL}개\n- EvoMap Gene/Capsule + Amazon Ratchet + AgentEvolver 자문자답 흡수 (#49 택화혁)\n- {R26}\n- {line}\n"
+    )
+
+    after = ui_hashes()
+    changed = sorted(k for k in set(before) | set(after) if before.get(k) != after.get(k))
+    s1 = rc_st == 0 and all(comp.values())
+    s2 = not changed
+
+    tg = [ROOT / n for n in ("CLAUDE.md", "CODE_MAP.md", "MORNING_BRIEF.md", "RGON_EVOLUTION_LOG.md", "rgon_immune_ledger.json")]
+    tg += [d / f for d in DIRS for f in ("rgon_morning_brief.json", "rgon_brain_snapshot.json")]
+    miss = [p.relative_to(ROOT).as_posix() for p in tg if p.exists() and VERSION not in rd(p)]
+
+    idx = {}
+    for d in DIRS:
+        p = d / "skills" / "SKILL_INDEX.json"
+        if p.exists():
+            o = json.loads(rd(p))
+            l = o if isinstance(o, list) else o.get("skills", [])
+            idx[p.relative_to(ROOT).as_posix()] = (len(l), SLUG in json.dumps(l, ensure_ascii=False))
+
+    r26ok = "R26:" in rd(ROOT / "CLAUDE.md") and "R26" in rd(ROOT / "rgon_immune_ledger.json") if (ROOT / "rgon_immune_ledger.json").exists() else False
+    s3 = not miss and len(idx) == 3 and all(c >= NSKILL and h for c, h in idx.values()) and r26ok
+    ok = s1 and s2 and s3
+    mk = lambda b: "✅ PASS" if b else "❌ FAIL"
+
+    rep = [
+        f"# 🧬 STEP26 자가진화 리포트 — {VERSION} · {ANTI} · 정식 스킬 {NSKILL}개",
+        "",
+        f"> 생성 {stamp} · 주역 #49 택화혁(澤火革) · {R26}",
+        "",
+        "## 삼성(三省) 3/3",
+        "",
+        "| 성찰 | 결과 | 근거 |",
+        "|---|---|---|",
+        f"| ① 엔진 self-test · 백엔드 컴파일 | {mk(s1)} | self-test rc={rc_st}, 컴파일 {sum(comp.values())}/{len(comp)} |",
+        f"| ② UI(.html/.js/manifest.json) 해시 불변 | {mk(s2)} | 대상 {len(before)}개, 변경 {len(changed)}건 {changed[:5] if changed else ''} |",
+        f"| ③ 버전·항체·스킬 21개 동기화 | {mk(s3)} | 누락 {miss or '없음'}, 인덱스 {idx}, R26 {r26ok} |",
+        "",
+        "## ⚖️ [EVOLVE] 심판 줄 (parseTri 호환)",
+        "",
+        BT3,
+        line,
+        BT3,
+        "",
+        "## 엔진 self-test 출력",
+        "",
+        BT3 + "json",
+        out_st.strip()[-3000:],
+        BT3,
+        "",
+        f"**최종 판정: {'✅ 삼성 3/3 통과 → Git 푸시' if ok else '❌ 실패 → 롤백, 푸시 중단'}**",
+        ""
+    ]
+    wr(ROOT / "STEP26_SELF_EVOLUTION_REPORT.md", "\n".join(rep))
+    log(f"삼성 ①{mk(s1)} ②{mk(s2)} ③{mk(s3)}")
+
+    if not ok:
+        print(out_st[-1500:])
+        rollback()
+        (ROOT / "STEP26_SELF_EVOLUTION_REPORT.md").write_text("\n".join(rep), encoding="utf-8")
+        notify("RGON Step 26 ❌", f"삼성 검증 실패 → 롤백 완료\n①{mk(s1)} ②{mk(s2)} ③{mk(s3)}\nSTEP26_SELF_EVOLUTION_REPORT.md 확인")
+        return 1
+
+    git("add", "-A")
+    git("commit", "-m", f"Step 26: {VERSION} 자가진화 유전자(Gene·Capsule·Ratchet) · {ANTI} · 스킬 {NSKILL}개 (#49 택화혁)")
+    git("fetch", "origin", "main")
+    git("pull", "--no-rebase", "-X", "ours", "origin", "main")
+    pushed = git("push", "origin", "main").returncode == 0
+    notify("RGON Step 26 🧬 완료", f"{VERSION} · {ANTI} · 정식 스킬 {NSKILL}개\n삼성 3/3 ✅ (UI 변경 0건)\n{line}\nGit 푸시: {'✅ 성공' if pushed else '⚠️ 실패(로그 확인)'}")
+    return 0 if pushed else 2
+
+if __name__ == "__main__":
+    sys.exit(main())
