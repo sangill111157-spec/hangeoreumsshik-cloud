@@ -590,8 +590,8 @@
     "version": "1.0",
     "engine": "scripts/rgon_agency_pulse.py",
     "runner": "github-actions",
-    "checked_at": "2026-10-24T19:06:06+09:00",
-    "beat_count": 17,
+    "checked_at": "2026-10-25T00:12:40+09:00",
+    "beat_count": 18,
     "overall": "ALERT",
     "network_used": false,
     "paid_api_calls": 0,
@@ -601,7 +601,7 @@
         "name": "알파-D1 퀀트",
         "duty": "R&D · 4대 AI 교차검증 전광판 대기 상태 점검 · GEN1_AUTONOMOUS_EVOLUTION_CLOSED_LOOP (ACTIVE) · 14대 항체 14/14 활성",
         "status": "OK",
-        "checked_at": "2026-10-24T19:06:06+09:00",
+        "checked_at": "2026-10-25T00:12:40+09:00",
         "metrics": {
           "aggregator_board_present": true,
           "chat_zone_present": true,
@@ -613,7 +613,7 @@
         "name": "알파-D2 바이럴",
         "duty": "핵심 키워드 & BM 파이프라인 준비도 점검",
         "status": "OK",
-        "checked_at": "2026-10-24T19:06:06+09:00",
+        "checked_at": "2026-10-25T00:12:40+09:00",
         "metrics": {
           "master_schedule_exists": true,
           "master_schedule_valid": true,
@@ -628,7 +628,7 @@
         "name": "알파-D3 미디어",
         "duty": "브리핑 · TTS · 미디어 자산 상태 점검",
         "status": "OK",
-        "checked_at": "2026-10-24T19:06:06+09:00",
+        "checked_at": "2026-10-25T00:12:40+09:00",
         "metrics": {
           "media_dirs": [
             "dashboard/audio"
@@ -643,7 +643,7 @@
         "name": "알파-D4 홍익",
         "duty": "제0조 홍익인간 원칙 & 헌법 v1.0 무결성 해시 점검",
         "status": "ALERT",
-        "checked_at": "2026-10-24T19:06:06+09:00",
+        "checked_at": "2026-10-25T00:12:40+09:00",
         "metrics": {
           "constitution_exists": false,
           "constitution_valid": false,
@@ -658,7 +658,7 @@
         "name": "알파-D5 가디언",
         "duty": "14대 항체(R1~R14) & 독대실 HTML 3곳 해시 일치 수호 점검 · GEN1_AUTONOMOUS_EVOLUTION_CLOSED_LOOP (ACTIVE) · 14대 항체 14/14 활성",
         "status": "WARN",
-        "checked_at": "2026-10-24T19:06:06+09:00",
+        "checked_at": "2026-10-25T00:12:40+09:00",
         "metrics": {
           "html_all_exist": true,
           "html_hash_unified": false,
@@ -674,7 +674,7 @@
         "name": "알파-D6 트레저리",
         "duty": "treasury_ledger.json 금고 장부 무결성 & 무과금(Free Tier) 점검",
         "status": "OK",
-        "checked_at": "2026-10-24T19:06:06+09:00",
+        "checked_at": "2026-10-25T00:12:40+09:00",
         "metrics": {
           "ledger_exists": true,
           "ledger_valid": true,
@@ -689,9 +689,9 @@
       "hash_unified": false,
       "protected_ids_ok": true,
       "sha256": {
-        "rgon_alpha_chat.html": "92336b256e567f49397c45f2984aadfc50eb03f6d0dcc7eee452e2c1a8dc2958",
-        "dashboard/rgon_alpha_chat.html": "0c373c6a17223b50e7731f39cbee4bd32d8ed8ac78368a4f289d72c85253cb72",
-        "docs/rgon_alpha_chat.html": "0c373c6a17223b50e7731f39cbee4bd32d8ed8ac78368a4f289d72c85253cb72"
+        "rgon_alpha_chat.html": "a381e74b9cc4dbf1ed430ad6d7a8657f42438c95cf18013807e9ab38644c825b",
+        "dashboard/rgon_alpha_chat.html": "8a7417a6c0419fc1b1ee0cb94ee864e8dc51bc5670f4a89cf6e7cb5bdefa0821",
+        "docs/rgon_alpha_chat.html": "8a7417a6c0419fc1b1ee0cb94ee864e8dc51bc5670f4a89cf6e7cb5bdefa0821"
       }
     },
     "antibodies": {
@@ -778,9 +778,9 @@
       "constitution_sha256": "bd5060dea1e27bd55ac08a353369be5edc0e98c5384a0b589f769fb3bc7a9b88"
     },
     "daily_briefing": {
-      "date": "2026-10-24",
-      "generated_at": "2026-10-24T19:06:06+09:00",
-      "headline": "👑 [RGON 6대 청사 일일 실전 브리핑] 박동 #17 · D1~D6 ALL OK",
+      "date": "2026-10-25",
+      "generated_at": "2026-10-25T00:12:40+09:00",
+      "headline": "👑 [RGON 6대 청사 일일 실전 브리핑] 박동 #18 · D1~D6 ALL OK",
       "D1_quant": "🟢 OK · 4대 AI 교차검증 전광판 상시 대기 · Minimal Diff Top1(R11) 심판 가동 · R&D 타겟: TOP1_SELF_EVOLVING_BRAIN (ACTIVE) · GEN1_AUTONOMOUS_EVOLUTION_CLOSED_LOOP (ACTIVE) · 14대 항체 14/14 활성",
       "D2_viral": "🟢 OK · 금일 가동 과제: TOP1_SELF_EVOLVING_BRAIN (ACTIVE) · 핵심 키워드 5종 장전 완료(AI 에이전트 군단 자동화, 4대 AI 교차검증 레버리지, 원클릭 무인 사령부 외 2종) · BM 파이프라인 준비 완료",
       "D3_media": "🟢 OK · 독대실 원클릭 한국어 TTS 음성 브리핑(Web Speech) 장착 완료 · HTML 3곳 동기화 · 미디어+음성 브리핑 즉시 출고 가능",
@@ -789,7 +789,7 @@
       "D6_treasury": "🟢 OK · 금고 장부 무결(sha eae56c0fb15f · 기록 0건 · total_in_krw 0) · 유료 API 호출 0회 · 비용 0원 · Free Tier 100%",
       "action_top1": "독대실 [🧠 자율진화 Top1 지시서 입력창에 장전] 버튼 클릭 또는 RGON_Run.bat 원클릭으로 TOP1_SELF_EVOLVING_BRAIN 자율 진화 루프 지휘",
       "lines": [
-        "👑 [RGON 6대 청사 일일 실전 브리핑] 박동 #17 · 점검 필요: D4, D5",
+        "👑 [RGON 6대 청사 일일 실전 브리핑] 박동 #18 · 점검 필요: D4, D5",
         "🟢 OK · 4대 AI 교차검증 전광판 대기 · Minimal Diff Top1(R11) 심판 가동 · 누적 진화 0건(Step 11 0건) · 최신 이력 - · R&D 핵심 타겟: TOP1_SELF_EVOLVING_BRAIN",
         "🟢 OK · 오늘 날짜 과제 없음 · 대기 과제 6건: TOP1_SELF_EVOLVING_BRAIN / GEN1_AUTONOMOUS_EVOLUTION_CLOSED_LOOP / 전 에이전트 합심·융합 자율 진화 두뇌(Auto-Evolve Brain) 상시 가동 · 핵심 키워드: AI 에이전트 군단 자동화, 4대 AI 교차검증 레버리지, 원클릭 무인 사령부, 홍익인간 안전 가드레일, 24시간 클라우드 자가진화 · BM 파이프라인 준비 완료",
         "🟢 OK · 독대실 HTML 3곳 동기화 점검 필요 · 미디어 자산 5개 · 브리핑 키 1 · 콘텐츠 준비도: 미디어+텍스트 브리핑 출고 가능",
@@ -814,7 +814,7 @@
       ]
     }
   },
-  "agency_pulse_updated": "2026-10-24T19:06:06+09:00",
+  "agency_pulse_updated": "2026-10-25T00:12:40+09:00",
   "step11_c3": {
     "top1_self_evolving_brain": "ACTIVE",
     "gen1_autonomous_evolution_closed_loop": "ACTIVE",
