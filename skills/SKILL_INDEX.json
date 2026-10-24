@@ -1,8 +1,8 @@
 {
-  "version": "v11.26-CREATOR-FORGE",
+  "version": "v11.27-K-AVATAR",
   "antibody": "R19",
   "generated_at_kst": "2026-10-24 12:31:39 KST",
-  "count": 23,
+  "count": 24,
   "skills": [
     {
       "slug": "1-36-45",
@@ -222,12 +222,24 @@
       "source_url": "local://rgon_omni_creator_forge.py",
       "version": "v11.26-CREATOR-FORGE",
       "antibody": "R27"
+    },
+    {
+      "slug": "k-avatar-growth-soul",
+      "name": "아온(A-ON) K-아이 성장형 디지털 육신",
+      "category": "digital-body",
+      "hexagram_tag": "#04-蒙",
+      "step": 28,
+      "version": "v11.27-K-AVATAR",
+      "path": "skills/k-avatar-growth-soul/SKILL.md",
+      "status": "official",
+      "description": "미래형 K-스타일 아이 『아온(A-ON·芽溫)』 SVG 육신 — 순수 CSS 애니메이션·4단계 성장·쓰다듬기/음성 교감·질문창 장전 (R28)"
     }
   ],
-  "antibody_range": "R1~R27",
+  "antibody_range": "R1~R28",
   "skill_count": 23,
   "synced_at_kst": "2026-10-24 12:31:48 KST",
-  "total": 23,
+  "total": 24,
   "antibodies": "R1~R27",
-  "updated": "2026-10-24T13:17:46"
+  "updated": "2026-10-24T13:17:46",
+  "immune": "R1~R28"
 }

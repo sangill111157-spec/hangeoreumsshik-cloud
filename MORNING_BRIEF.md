@@ -31,3 +31,8 @@
 - 창조 도구: custom_tools/stomper_signal_filter.py · kelly_hexagram_sizer.py · skill_synergy_composer.py (Surrogate Verifier 3단계 통과분만 승격)
 - 스킬 22 stomper-kill-list-gate(#21-噬嗑) · 스킬 23 autonomous-creator-forge(#50-鼎) · 카파시 4원칙 × 무위자연·과유불급·삼성 3/3
 <!-- STEP27:END -->
+
+<!-- [RGON-STEP28-K-AVATAR-START] -->
+## 👶 아온(A-ON·芽溫) K-아이 육신 브리핑 (v11.27-K-AVATAR · R1~R28 · 스킬 24)
+⚖️ [AVATAR] 100.0점 (Bull 99.9 / Bear 0.1 / #04-산수몽) 👶 미래형 K-아이 디지털 육신 『아온(A-ON·芽溫)』 — 4단계 성장 엔진 & 음성·쓰다듬기 교감 가동 (몽이양정 蒙以養正)
+<!-- [RGON-STEP28-K-AVATAR-END] -->

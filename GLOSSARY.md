@@ -24,3 +24,8 @@
 | **항체 R1~R26** | RGON 헌법 규칙 집합. R21 = @Mindung-EasyAI 양분 흡수 — Matt Pocock(GLOSSARY.md · Spec/Tracer-Bullet Tickets 분업) + ECC(AgentShield 비밀키/설정 보안 스캔) |
 <!-- RGON:GLOSSARY:END -->
 | **항체 R22 (전신 혈관 개통)** | 자아성찰 전신 혈관 개통 — 레이더·영양분(SKILL.md)·티켓/AgentShield·백혈구(WBC)·주역64괘·스냅샷/클라우드 JSON 6대 기관 무결점 단일 순환 |
+
+<!-- [RGON-STEP28-K-AVATAR-START] -->
+## Step 28 도메인 용어
+- **아온 (A-ON · 芽溫)**: 주역 #04 산수몽(새싹 아이)에서 #53 풍산점(점진 성장)을 거쳐 #11 지천태(연결·소통·만능)로 자라나는 RGON 사령부의 미래형 K-스타일 디지털 육신.
+<!-- [RGON-STEP28-K-AVATAR-END] -->

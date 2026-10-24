@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 rgon_white_blood_cell.py
-RGON 백혈구(WBC: White Blood Cell) 자가치유 면역 엔진 (v11.26-CREATOR-FORGE / 항체 R18)
+RGON 백혈구(WBC: White Blood Cell) 자가치유 면역 엔진 (v11.27-K-AVATAR / 항체 R18)
 
 6대 면역 기능:
   1. fingerprint(exc, context) : 오류 지문 채취 & 동일 지문 3회 이상 반복 경보 억제
@@ -27,8 +27,8 @@ import shutil
 import sys
 import traceback
 
-WBC_VERSION = "v11.26-CREATOR-FORGE"
-ANTIBODY_RANGE = "R1~R27"
+WBC_VERSION = "v11.27-K-AVATAR"
+ANTIBODY_RANGE = "R1~R28"
 LEDGER_FILENAME = "rgon_immune_ledger.json"
 HEXAGRAM_FILENAME = "rgon_hexagram_engine.py"
 PRINCIPLE = "만물은 하나로 이어져 있으며, 한 걸음씩 나아가면 반드시 이루어진다."
@@ -63,9 +63,8 @@ DEFAULT_ANTIBODIES = [
     {"id": "R17", "title": "창립자 만물일체·한걸음씩 철학 + 명심보감·도덕경·주역 64괘 엔진", "step": 17},
     {"id": "R18", "title": "백혈구(WBC) 자가치유 면역 엔진 — 오류 지문·AST/JSON 순찰·백업 복원·상선약수 우회·중복 경보 억제", "step": 18},
     {"id": "R19", "title": "Top 100 영양분 3스푼(Markdown 정제기 · 표준 SKILL.md 자동 주조기 · 3자 찬반 심판기) 통합 및 지식 자가 증식", "step": 19},
+    {"id": "R28", "step": 28, "title": "아온(A-ON) K-아이 성장형 디지털 육신", "name": "아온(A-ON) 성장형 디지털 육신", "rule": "R28: 미래형 K-스타일 성장형 디지털 육신 아온(A-ON·芽溫, 산수몽 #04·풍산점 #53·지천태 #11) — 순수 CSS 애니메이션으로 루프 없이 생동감을 구현하고 시스템 진화에 맞춰 4단계로 점진 성장", "status": "active"},
 ]
-
-
 def _kst_now():
     return datetime.datetime.now(
         datetime.timezone(datetime.timedelta(hours=9))
@@ -797,8 +796,8 @@ def main(argv=None):
     return 0
 
 
-# ===== RGON-STEP20-START (R20 antibody, v11.26-CREATOR-FORGE) =====
-ANTIBODY_RANGE = "R1~R27"
+# ===== RGON-STEP20-START (R20 antibody, v11.27-K-AVATAR) =====
+ANTIBODY_RANGE = "R1~R28"
 _RGON_R20_TEXT = "일일 자율 순환 루프(백혈구 순찰 → 영양분 소화·스킬 주조 → 3자 심판 → 주역 64괘 아침 브리핑) 무인 자동화"
 try:
     for _nm in ("DEFAULT_ANTIBODIES", "ANTIBODIES", "ANTIBODY_LIST", "ANTIBODY_RULES"):
@@ -821,7 +820,7 @@ except Exception:
 
 
 # >>> RGON-STEP21-R21 >>>
-ANTIBODY_RANGE = "R1~R27"
+ANTIBODY_RANGE = "R1~R28"
 _R21 = "@Mindung-EasyAI 양분 흡수 — Matt Pocock(GLOSSARY.md · Spec/Tracer-Bullet Tickets 분업) + ECC(AgentShield 비밀키/설정 보안 스캔)"
 for _n in ("DEFAULT_ANTIBODIES", "ANTIBODIES", "ANTIBODY_RULES", "ANTIBODY", "RULES"):
     _d = globals().get(_n)
@@ -834,7 +833,7 @@ for _n in ("DEFAULT_ANTIBODIES", "ANTIBODIES", "ANTIBODY_RULES", "ANTIBODY", "RU
 # <<< RGON-STEP21-R21 <<<
 
 # [RGON-STEP22-WBC-R22-START]
-ANTIBODY_RANGE = 'R1~R27'
+ANTIBODY_RANGE = 'R1~R28'
 _R22_TXT = '자아성찰 전신 혈관 개통 — 레이더·영양분(SKILL.md)·티켓/AgentShield·백혈구(WBC)·주역64괘·스냅샷/클라우드 JSON 6대 기관 무결점 단일 순환'
 for _nm in ('DEFAULT_ANTIBODIES', 'ANTIBODIES', 'ANTIBODY_LIST'):
     _lst = globals().get(_nm)

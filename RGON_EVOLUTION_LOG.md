@@ -161,3 +161,9 @@ python rgon_daily_cycle.py --run
 - 창조 도구: custom_tools/stomper_signal_filter.py · kelly_hexagram_sizer.py · skill_synergy_composer.py (Surrogate Verifier 3단계 통과분만 승격)
 - 스킬 22 stomper-kill-list-gate(#21-噬嗑) · 스킬 23 autonomous-creator-forge(#50-鼎) · 카파시 4원칙 × 무위자연·과유불급·삼성 3/3
 <!-- STEP27:END -->
+
+<!-- [RGON-STEP28-K-AVATAR-START] -->
+## 20261024_135939 Step 28 — v11.27-K-AVATAR (아온 A-ON·芽溫 탄생)
+- R28: 미래형 K-스타일 성장형 디지털 육신 아온(A-ON·芽溫, 산수몽 #04·풍산점 #53·지천태 #11) — 순수 CSS 애니메이션으로 루프 없이 생동감을 구현하고 시스템 진화에 맞춰 4단계로 점진 성장
+- 24번째 정식 스킬 `k-avatar-growth-soul` 주조 · 4탭 독대실 UI · 순수 CSS 애니메이션(루프 0)
+<!-- [RGON-STEP28-K-AVATAR-END] -->

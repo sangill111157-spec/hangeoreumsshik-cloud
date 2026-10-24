@@ -1333,3 +1333,11 @@ shin-agent/
 - 창조 도구: custom_tools/stomper_signal_filter.py · kelly_hexagram_sizer.py · skill_synergy_composer.py (Surrogate Verifier 3단계 통과분만 승격)
 - 스킬 22 stomper-kill-list-gate(#21-噬嗑) · 스킬 23 autonomous-creator-forge(#50-鼎) · 카파시 4원칙 × 무위자연·과유불급·삼성 3/3
 <!-- STEP27:END -->
+
+<!-- [RGON-STEP28-K-AVATAR-START] -->
+## Step 28 (v11.27-K-AVATAR · 아온 A-ON)
+- rgon_k_avatar_engine.py — 아온(A-ON·芽溫) 성장 상태 계산·심판 줄 병합
+- rgon_k_avatar_state.json — 성장 상태
+- skills/k-avatar-growth-soul/SKILL.md — 24번째 정식 스킬
+- 독대실 V13 블록 — 👶 아온(A-ON) 육신 탭 (V15 placeOnce 보존)
+<!-- [RGON-STEP28-K-AVATAR-END] -->

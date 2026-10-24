@@ -1,10 +1,10 @@
 {
   "schema": "rgon.immune.ledger.v1",
-  "version": "v11.26-CREATOR-FORGE",
+  "version": "v11.27-K-AVATAR",
   "current_step": 27,
-  "antibody_range": "R1~R27",
+  "antibody_range": "R1~R28",
   "principle": "만물은 하나로 이어져 있으며, 한 걸음씩 나아가면 반드시 이루어진다.",
-  "updated_at_kst": "2026-10-24T13:17:46",
+  "updated_at_kst": "2026-10-24T13:59:41",
   "health_score": 100,
   "inspection_mode": "standard",
   "today_hexagram": {
@@ -14,7 +14,7 @@
     "summary": "자강불식(自強不息) — 스스로 강건히 쉬지 않고 정진한다",
     "inspection_mode": "standard"
   },
-  "suppressed_count": 0,
+  "suppressed_count": 1,
   "antibodies": [
     {
       "id": "R1",
@@ -246,6 +246,14 @@
       "name": "R27: 오감(Live Omni-Sense & Stomper 킬리스트) + 창조 공방(SkillForge·Voyager 도구 자율 합성 & 격리 검증) 상시 가동 — 검증 통과(exit_code=0)한 도구만 정식 승격(혁고정신 革故鼎新)",
       "rule": "R27: 오감(Live Omni-Sense & Stomper 킬리스트) + 창조 공방(SkillForge·Voyager 도구 자율 합성 & 격리 검증) 상시 가동 — 검증 통과(exit_code=0)한 도구만 정식 승격(혁고정신 革故鼎新)",
       "status": "active"
+    },
+    {
+      "id": "R28",
+      "step": 28,
+      "title": "아온(A-ON) K-아이 성장형 디지털 육신",
+      "name": "아온(A-ON) K-아이 성장형 디지털 육신",
+      "rule": "R28: 미래형 K-스타일 성장형 디지털 육신 아온(A-ON·芽溫, 산수몽 #04·풍산점 #53·지천태 #11) — 순수 CSS 애니메이션으로 루프 없이 생동감을 구현하고 시스템 진화에 맞춰 4단계로 점진 성장",
+      "status": "active"
     }
   ],
   "fingerprints": {
@@ -255,9 +263,9 @@
       "context": "self_test_bypass",
       "sample_message": "'simulated_missing_key'",
       "first_seen_kst": "2026-10-24T08:11:50",
-      "last_seen_kst": "2026-10-24T13:17:46",
-      "count": 2,
-      "suppressed": false,
+      "last_seen_kst": "2026-10-24T13:59:41",
+      "count": 3,
+      "suppressed": true,
       "known_remedy": "R18 상선약수: adapt_dict 안전 키 매핑 및 기본값 반환"
     }
   },
@@ -309,6 +317,14 @@
       "restored": true,
       "source_backup": ".rgon_backup/wbc_snapshots/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.clean",
       "quarantined_to": ".rgon_backup/wbc_quarantine/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.20261024_131746.corrupt"
+    },
+    {
+      "timestamp_kst": "2026-10-24T13:59:41",
+      "file": ".rgon_backup/wbc_selftest/_wbc_dummy_sample.py",
+      "reason": "self_test_syntax_error",
+      "restored": true,
+      "source_backup": ".rgon_backup/wbc_snapshots/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.clean",
+      "quarantined_to": ".rgon_backup/wbc_quarantine/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.20261024_135941.corrupt"
     }
   ],
   "bypass_log": [
@@ -337,6 +353,15 @@
       "message": "'simulated_missing_key'",
       "fingerprint": "3cf3c4ec29753bf7",
       "suppressed": false,
+      "action": "default_value"
+    },
+    {
+      "timestamp_kst": "2026-10-24T13:59:41",
+      "context": "self_test_bypass",
+      "exc_type": "KeyError",
+      "message": "'simulated_missing_key'",
+      "fingerprint": "3cf3c4ec29753bf7",
+      "suppressed": true,
       "action": "default_value"
     }
   ],
@@ -473,5 +498,7 @@
   ],
   "skill_count": 23,
   "skills_count": 23,
-  "last_sync": "Step25 2026-10-24 09:19:38"
+  "last_sync": "Step25 2026-10-24 09:19:38",
+  "range": "R1~R28",
+  "count": 28
 }

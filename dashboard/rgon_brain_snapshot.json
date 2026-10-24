@@ -1,6 +1,6 @@
 {
   "schema": "rgon_brain_snapshot/1",
-  "version": "v11.26-CREATOR-FORGE",
+  "version": "v11.27-K-AVATAR",
   "generated_at_kst": "2026-10-24 12:31:38 KST",
   "synced_at_kst": "2026-10-24 12:31:38 KST",
   "sync_rate": "100.0%",
@@ -11,147 +11,8 @@
     "max": 100,
     "label": "100/100"
   },
-  "antibody_range": "R1~R27",
-  "antibodies": [
-    {
-      "id": "R8_APPROVAL_BEFORE_CODE",
-      "rule": "G1 대표님 명시적 승인(Y) 전 실행 스크립트/코드 선발급 절대 금지",
-      "status": "ACTIVE",
-      "since": "v6.0.9-constitution"
-    },
-    {
-      "id": "R9_SINGLE_PY_BLOCK_FOR_ABSORBER",
-      "rule": "흡수기(AI 탭 코드 수거) 사용 시 마지막 블록 오수거 방지를 위해 단일 python 코드 블록 1개만 출력",
-      "status": "ACTIVE",
-      "since": "v6.0.9-constitution"
-    },
-    {
-      "id": "R10_NO_SELF_MATCH_IN_GUARD",
-      "rule": "검증 스크립트 내부 문자열이 자기 자신의 카운트 검사를 실패시키는 자기모순(Self-Match) 금지",
-      "status": "ACTIVE",
-      "since": "v6.0.9-constitution"
-    },
-    {
-      "id": "R11_CROSS_VALIDATION_MIN_DIFF_TOP1",
-      "rule": "교차검증 시 기계적 테스트 통과 후보 중 변경량(diff)이 가장 작은 Top 1 선택 및 거부권(Veto) 우선",
-      "status": "ACTIVE",
-      "since": "v6.0.9-constitution"
-    },
-    {
-      "id": "R1_NO_POWERSHELL_QUOTE_TRAP",
-      "rule": "PowerShell 따옴표 충돌 및 500자 잘림 방지",
-      "status": "ACTIVE",
-      "since": "v6.0.9-constitution"
-    },
-    {
-      "id": "R2_SAFE_JSON_FALLBACK",
-      "rule": "GitHub Pages 404 HTML 응답 시 JSON 파싱 에러 방어",
-      "status": "ACTIVE",
-      "since": "v6.0.9-constitution"
-    },
-    {
-      "id": "R3_ZERO_CLICK_AUTO_SYNC",
-      "rule": "페이지 로드 및 15초 주기 무클릭 자동 동기화",
-      "status": "ACTIVE",
-      "since": "v6.0.9-constitution"
-    },
-    {
-      "id": "R4_UNIFIED_4PILLAR_ROLES",
-      "rule": "르곤/Claude/GPT/Grok 4대 AI 역할 통일 및 깜빡임 차단",
-      "status": "ACTIVE",
-      "since": "v6.0.9-constitution"
-    },
-    {
-      "id": "R5_UNTRAP_DOKDAE_FEED",
-      "rule": "독대실 대화창 서랍 감금 해방 및 가로 정렬 유지",
-      "status": "ACTIVE",
-      "since": "v6.0.9-constitution"
-    },
-    {
-      "id": "R6_SOLO_DISPATCH_UNIFY",
-      "rule": "상하단 4대 AI 단독/선택/전체 발사 버튼 100% 통일",
-      "status": "ACTIVE",
-      "since": "v6.0.9-constitution"
-    },
-    {
-      "id": "R7_TARGET_ROW_BADGE_ONLY_SCAN",
-      "rule": "3.5초 스캔 시 체크박스 덮어쓰기 금지(배지만 갱신)",
-      "status": "ACTIVE",
-      "since": "v6.0.9-constitution"
-    },
-    {
-      "id": "R12_SINGLE_FINAL_OUTPUT_ONLY",
-      "rule": "중복 인사말·반복 설명 금지, 깊이 사고 후 최종 1회만 단순 요약 보고",
-      "status": "ACTIVE",
-      "since": "v6.1.0-step10"
-    },
-    {
-      "id": "R13_NO_OBSERVER_DOM_WAR",
-      "rule": "기존 UI 스크립트가 이미 배치한 요소를 Observer/setInterval로 다시 옮기지 않는다. 신규 요소만 placeOnce(data-placed='1')로 1회 이동 후 영구 종료한다.",
-      "since": "2026-10-23"
-    },
-    {
-      "id": "R14_SHADOW_DOM_4BTN",
-      "rule": "크롬 확장프로그램 흡수창(Shadow DOM)의 모든 카드는 2행 버튼 배치와 지우개 버튼을 표준으로 갖춘다.",
-      "since": "2026-10-23"
-    },
-    {
-      "id": "R15_YOUTUBE_SKILL_SCOUT",
-      "rule": "영상 URL → 메타데이터·설명란 외부 링크·자막 요약, 채널 중앙값 대비 떡상 배수, 21훅 채점, 클로드 흡수 지시문·쇼츠 대본 자동 변환.",
-      "since": "2026-10-23"
-    },
-    {
-      "id": "R16_SINGLE_CODEBLOCK_NO_INNER_FENCE",
-      "name": "단일 코드블록 · 내부 펜스 금지",
-      "rule": "출력 코드 내부에 백틱 3연속 직접 사용 금지, BT=chr(96)/FENCE=BT*3 결합만 허용, 인사말 없이 단 1개 코드블록 출력",
-      "added_in": "v6.3.0-step17"
-    },
-    {
-      "id": "R17_FOUNDER_SOUL_EASTERN_WISDOM_CODEX",
-      "name": "창립자 영혼 · 동양 3대 고전 헌법",
-      "rule": "만물일체·한걸음씩 선언 + 명심보감 삼성 + 도덕경 무위 + 주역 궁변통구 자가치유 내재화",
-      "added_in": "v6.3.0-step17"
-    },
-    {
-      "id": "R18",
-      "title": "오류 지문 채취(Fingerprint) · AST/JSON 무결성 순찰 · 자동 백업 복원(Rollback) · 상선약수(上善若水) 우회 실행(Bypass) · 주역 64괘 연동 · 동일 오류 3회 반복 시 중복 경보 차단(Anti-Repeat Suppression)",
-      "step": 18,
-      "added_kst": "2026-10-24"
-    },
-    {
-      "id": "R19",
-      "name": "Top 100 영양분 3스푼",
-      "title": "Top 100 영양분 3스푼(Markdown 정제기 · 표준 SKILL.md 자동 주조기 · 3자 찬반 심판기) 통합 및 지식 자가 증식",
-      "rule": "Top 100 영양분 3스푼(Markdown 정제기 · 표준 SKILL.md 자동 주조기 · 3자 찬반 심판기) 통합 및 지식 자가 증식",
-      "description": "Top 100 영양분 3스푼(Markdown 정제기 · 표준 SKILL.md 자동 주조기 · 3자 찬반 심판기) 통합 및 지식 자가 증식",
-      "added_in": "v11.26-CREATOR-FORGE",
-      "step": 19,
-      "added_at_kst": "2026-10-24 06:39:25 KST",
-      "guard": "python rgon_nutrient_engine.py --self-test",
-      "modules": [
-        "rgon_nutrient_engine.py"
-      ]
-    },
-    {
-      "id": "R20",
-      "title": "일일 자율 순환 루프(백혈구 순찰 → 영양분 소화·스킬 주조 → 3자 심판 → 주역 64괘 아침 브리핑) 무인 자동화",
-      "name": "일일 자율 순환 루프(백혈구 순찰 → 영양분 소화·스킬 주조 → 3자 심판 → 주역 64괘 아침 브리핑) 무인 자동화",
-      "version": "v11.26-CREATOR-FORGE",
-      "step": 20
-    },
-    {
-      "id": "R21",
-      "title": "@Mindung-EasyAI 양분 흡수 — Matt Pocock(GLOSSARY.md · Spec/Tracer-Bullet Tickets 분업) + ECC(AgentShield 비밀키/설정 보안 스캔)",
-      "text": "@Mindung-EasyAI 양분 흡수 — Matt Pocock(GLOSSARY.md · Spec/Tracer-Bullet Tickets 분업) + ECC(AgentShield 비밀키/설정 보안 스캔)",
-      "step": 21,
-      "added_at": "2026-10-24 07:34:37"
-    },
-    {
-      "id": "R22",
-      "title": "자아성찰 전신 혈관 개통 — 레이더·영양분(SKILL.md)·티켓/AgentShield·백혈구(WBC)·주역64괘·스냅샷/클라우드 JSON 6대 기관 무결점 단일 순환",
-      "step": 22
-    }
-  ],
+  "antibody_range": "R1~R28",
+  "antibodies": 28,
   "top_priority_id": "GEN-1",
   "top_priority": "GEN-1 완전 무인 자가 진화 폐쇄 루프",
   "tomorrow_top_priority": "GEN-1 완전 무인 자가 진화 폐쇄 루프",
@@ -1162,7 +1023,7 @@
     },
     "channel": "@Mindung-EasyAI"
   },
-  "skill_count": 23,
+  "skill_count": 24,
   "health_score": 100,
   "vascular_circulation": {
     "version": "v11.26-CREATOR-FORGE",
@@ -1213,11 +1074,21 @@
       }
     }
   },
-  "skills_count": 23,
+  "skills_count": 24,
   "trading_council": {
     "avg_judge": 82.4,
     "weakest": "TREASURY",
     "treasury_guard": "GO"
   },
-  "last_sync": "Step25 2026-10-24 09:19:38"
+  "last_sync": "Step25 2026-10-24 09:19:38",
+  "immune": "R1~R28",
+  "latest_step": 28,
+  "avatar": {
+    "name_ko": "아온",
+    "name_en": "A-ON",
+    "hanja": "芽溫",
+    "skill": "k-avatar-growth-soul",
+    "stages": 4,
+    "loops": 0
+  }
 }
