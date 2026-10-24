@@ -1343,7 +1343,7 @@ shin-agent/
 <!-- [RGON-STEP28-K-AVATAR-END] -->
 
 <!-- [RGON-STEP29-AON-3DDROP-START] -->
-## Step 29 (v11.28-AON-3DDROP · 3D 물방울 졸라맨 아온)
+## Step 29 (v11.29-ROAMING-AON · 3D 물방울 졸라맨 아온)
 - skills/character-detail-master-top1/SKILL.md — 25번째 정식 스킬 (캐릭터 디테일 TOP 1 마스터)
 - 독대실 V13 블록 — 💧 8-Stop 3D 물방울 + 깜찍 5겹 보석눈 + 관절형 졸라맨 팔다리 (V15 보존)
 <!-- [RGON-STEP29-AON-3DDROP-END] -->

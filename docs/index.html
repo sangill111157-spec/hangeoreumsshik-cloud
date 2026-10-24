@@ -716,6 +716,10 @@
   <script src="/pwa_bootstrap.js" defer></script>
 </head>
 <body class="min-h-screen pb-24 relative select-none sm:select-text">
+<!-- [AON-TOP-V11.29-START] -->
+<div id="aon-top"><button type="button" data-aon="show">💧 아온이 부르기</button><button type="button" data-aon="hide">🙈 아온이 감추기</button></div>
+<!-- [AON-TOP-V11.29-END] -->
+
 
   <!-- 오로라 앰비언트 광원 레이어 -->
   <div class="aurora-bg">
@@ -2451,5 +2455,106 @@ say(LN[paint().stage])})();</script></div>
 </script>
 <!-- [RGYT-PLACE-ONCE-V15-END] -->
 <!-- [RGON-YT-SCOUT-V13-END] -->
+
+<!-- [AON-ROAMING-V11.29-START] -->
+<style>
+#aon-roam-layer{position:fixed;left:0;top:0;width:100vw;height:100vh;pointer-events:none;z-index:9998;color:#234}
+#aon-roamer{--x:40vw;--y:40vh;--s:1;position:absolute;left:0;top:0;width:115px;height:125px;pointer-events:auto;touch-action:none;cursor:grab;user-select:none;-webkit-user-select:none;transform:translate(var(--x),var(--y)) scale(var(--s));transition:transform 3.8s cubic-bezier(.42,0,.58,1),opacity .35s ease}
+#aon-roamer.aon-pop{transition-duration:.5s,.35s}
+#aon-roamer.aon-hidden{--s:.2;opacity:0;pointer-events:none;transition-duration:.6s,.35s}
+.aon-inner{width:100%;height:100%;transform-origin:50% 92%}
+.aon-inner svg{width:100%;height:100%;display:block;overflow:visible;pointer-events:none}
+.aon-hide-btn{position:absolute;top:-10px;right:-20px;z-index:2;font-size:11px;line-height:1;padding:3px 8px;border:0;border-radius:999px;background:rgba(255,255,255,.92);box-shadow:0 1px 4px rgba(0,0,0,.2);cursor:pointer}
+.aon-bubble{position:absolute;left:50%;bottom:calc(100% + 18px);width:max-content;max-width:68vw;padding:5px 10px;border-radius:12px;background:rgba(255,255,255,.96);font-size:12px;box-shadow:0 2px 6px rgba(0,0,0,.18);opacity:0;pointer-events:none;transform:translateX(-50%)}
+.aon-bubble.say{animation:aonBubbleLife 2.6s ease forwards}
+@keyframes aonBubbleLife{0%{opacity:0;transform:translate(-50%,6px)}12%,80%{opacity:1;transform:translate(-50%,0)}100%{opacity:0;transform:translate(-50%,-4px)}}
+.aon-a-pat{animation:aonPatJelly .7s ease}.aon-a-hop{animation:aonHop .9s ease}.aon-a-tilt{animation:aonTilt 1.1s ease-in-out}
+.aon-a-laugh{animation:aonLaugh 1.3s ease-in-out}.aon-a-idle{animation:aonIdle 1.8s ease-in-out}.aon-drag{animation:aonWobble .5s ease-in-out infinite}
+@keyframes aonPatJelly{0%,100%{transform:scale(1)}25%{transform:scale(1.18,.82)}50%{transform:translateY(-14px) scale(.9,1.12)}75%{transform:scale(1.08,.94)}}
+@keyframes aonHop{0%,100%{transform:translateY(0)}20%{transform:scale(1.1,.9)}50%{transform:translateY(-22px) scale(.95,1.08)}80%{transform:scale(1.06,.94)}}
+@keyframes aonTilt{0%,100%{transform:rotate(0)}35%{transform:rotate(-12deg)}70%{transform:rotate(10deg)}}
+@keyframes aonLaugh{0%,100%{transform:scale(1)}30%,70%{transform:translateY(-4px) scale(1.06)}}
+@keyframes aonIdle{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px) scale(1.02)}}
+@keyframes aonWobble{0%,100%{transform:rotate(-4deg) scale(1.04,.96)}50%{transform:rotate(4deg) scale(.96,1.04)}}
+.aon-eyes,.aon-mouth,#aonSoftAura{transform-box:fill-box;transform-origin:center}.aon-eyes{animation:aonBlink 4.5s infinite}
+@keyframes aonBlink{0%,90%,100%{transform:scaleY(1)}94%{transform:scaleY(.08)}}
+.aon-happy{display:none}#aon-roamer.aon-joy .aon-eyes{display:none}#aon-roamer.aon-joy .aon-happy{display:inline}
+#aon-roamer.aon-talk .aon-mouth{animation:aonTalk .32s ease-in-out infinite}@keyframes aonTalk{0%,100%{transform:scaleY(1)}50%{transform:scaleY(1.9)}}
+#aonSoftAura{animation:aonHaloBreath 4s ease-in-out infinite}@keyframes aonHaloBreath{0%,100%{opacity:.5;transform:scale(.95)}50%{opacity:1;transform:scale(1.06)}}
+#aon-toast{position:absolute;left:50%;bottom:64px;transform:translateX(-50%);max-width:88vw;padding:7px 14px;border-radius:14px;background:rgba(255,255,255,.96);font-size:13px;box-shadow:0 2px 8px rgba(0,0,0,.2);opacity:0}
+#aon-toast.on{animation:aonToast 2.8s ease forwards}@keyframes aonToast{0%{opacity:0}10%,80%{opacity:1}100%{opacity:0}}
+#aon-top{display:flex;flex-wrap:wrap;gap:6px;padding:6px 10px}[data-aon-hidden="1"] [data-aon="hide"],[data-aon-hidden="0"] [data-aon="show"]{opacity:.5}
+#aon-top button,#aon-badge button{padding:5px 10px;border-radius:999px;border:1px solid #cfe3f3;background:rgba(247,251,255,.94);font-size:12px;cursor:pointer}
+#aon-badge{position:fixed;right:10px;bottom:10px;z-index:9999;display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+#aon-menu{display:flex;flex-direction:column;gap:4px;align-items:flex-end}#aon-menu[hidden]{display:none}
+</style>
+<div id="aon-roam-layer"><div id="aon-roamer" class="aon-hidden"><div class="aon-bubble"></div><button type="button" class="aon-hide-btn" data-aon="hide">🙈 숨기</button><div class="aon-inner"><svg viewBox="44 24 152 192" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="아온"><defs>
+<radialGradient id="aonAuraGrad"><stop offset="0" stop-color="#bfe8ff" stop-opacity=".42"/><stop offset=".6" stop-color="#cfeeff" stop-opacity=".2"/><stop offset="1" stop-color="#e6f6ff" stop-opacity="0"/></radialGradient>
+<linearGradient id="aonDropGrad" x1=".2" y1="0" x2=".8" y2="1"><stop offset="0" stop-color="#fff"/><stop offset=".14" stop-color="#e3f6ff"/><stop offset=".3" stop-color="#b9e5ff"/><stop offset=".46" stop-color="#8fd2fb"/><stop offset=".62" stop-color="#78c4f2"/><stop offset=".78" stop-color="#9fdaf9"/><stop offset=".9" stop-color="#d4f1ff"/><stop offset="1" stop-color="#a6e0ff"/></linearGradient>
+<filter id="aonInner3D" x="-10%" y="-10%" width="120%" height="120%"><feComponentTransfer in="SourceAlpha"><feFuncA type="table" tableValues="1 0"/></feComponentTransfer><feGaussianBlur stdDeviation="7"/><feOffset dx="-4" dy="-7" result="o"/><feFlood flood-color="#2b86c5" flood-opacity=".5"/><feComposite in2="o" operator="in"/><feComposite in2="SourceAlpha" operator="in" result="sh"/><feMerge><feMergeNode in="SourceGraphic"/><feMergeNode in="sh"/></feMerge></filter>
+<radialGradient id="aonEyeGrad" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#6fd0ff"/><stop offset=".6" stop-color="#2a74c9"/><stop offset="1" stop-color="#17306b"/></radialGradient>
+<g id="aonEye"><ellipse cx="94" cy="120" rx="11" ry="14" fill="#17306b"/><ellipse cx="94" cy="120" rx="9" ry="12" fill="url(#aonEyeGrad)"/><ellipse cx="94" cy="122" rx="5" ry="7" fill="#0b1a3a"/><circle cx="90.5" cy="114.5" r="3.4" fill="#fff"/><circle cx="98" cy="126.5" r="1.6" fill="#fff" opacity=".9"/></g></defs>
+<circle id="aonSoftAura" cx="120" cy="136" r="104" fill="url(#aonAuraGrad)"/>
+<path d="M120,32 C150,70 182,108 182,146 C182,184 154,208 120,208 C86,208 58,184 58,146 C58,108 90,70 120,32 Z" fill="url(#aonDropGrad)" filter="url(#aonInner3D)" stroke="#8fd3f5" stroke-opacity=".8" stroke-width="1.5"/>
+<ellipse cx="96" cy="92" rx="8" ry="17" fill="#fff" opacity=".72" transform="rotate(26 96 92)"/>
+<path d="M144,188 Q158,178 166,162" fill="none" stroke="#fff" stroke-opacity=".45" stroke-width="5" stroke-linecap="round"/>
+<g class="aon-eyes"><use href="#aonEye"/><use href="#aonEye" x="52"/></g>
+<g class="aon-happy" fill="none" stroke="#17306b" stroke-width="3.2" stroke-linecap="round"><path d="M83,122 Q94,110 105,122"/><path d="M135,122 Q146,110 157,122"/></g>
+<ellipse cx="78" cy="142" rx="9" ry="5.5" fill="#ffb59c" opacity=".5"/><ellipse cx="162" cy="142" rx="9" ry="5.5" fill="#ffb59c" opacity=".5"/>
+<path class="aon-mouth" d="M108,146 Q120,158 132,146" fill="none" stroke="#c0527a" stroke-width="3" stroke-linecap="round"/></svg></div></div><div id="aon-toast"></div></div>
+<div id="aon-badge"><div id="aon-menu" hidden><button type="button" data-aon="show">💧 아온이 부르기</button><button type="button" data-aon="hide">🙈 아온이 감추기</button><button type="button" data-aon="pat">💖 쓰다듬기</button><button type="button" data-aon="voice">🔊 아온이 목소리 듣기</button><button type="button" data-aon="brief" data-load="aon-briefing">⚡ 아온이 브리핑 질문창 장전</button></div><button type="button" data-aon="menu">💧 <span id="aon-exp">EXP 0</span></button></div>
+<script>
+(function(){
+var R=document.getElementById('aon-roamer');if(!R)return;
+var I=R.querySelector('.aon-inner'),B=R.querySelector('.aon-bubble'),T=document.getElementById('aon-toast'),D=document.documentElement;
+var K='rgon_aon_hidden',X='rgon_aon_exp',drag=null,mv=false,sx=0,sy=0;
+var SAY=['퐁당~ 오늘도 같이 놀아요! 💧','살랑살랑~ 기분 좋아요','이슬 한 방울 충전 완료!','대표님 최고예요 ✨','여기저기 구경 중이에요~'];
+var PAT=['헤헤, 쓰다듬어 주셔서 좋아요 ^ ‿ ^','말랑말랑~ 기분 좋아요! 💖','또 쓰다듬어 주세요~ 💧'];
+function ls(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v);}catch(e){}return null;}
+function rn(a,b){return a+Math.random()*(b-a);}
+function hid(){return R.classList.contains('aon-hidden');}
+function re(el,c){el.classList.remove(c);void el.offsetWidth;el.classList.add(c);}
+function say(t){B.textContent=t;re(B,'say');}
+function toast(t){T.textContent=t;re(T,'on');}
+function exp(d){var v=(parseInt(ls(X),10)||0)+d;ls(X,String(v));var s=document.getElementById('aon-exp');if(s)s.textContent='EXP '+v;}
+function go(x,y){R.style.setProperty('--x',x);R.style.setProperty('--y',y);}
+function act(n,joy){I.className='aon-inner';void I.offsetWidth;I.className='aon-inner aon-a-'+n;R.classList.toggle('aon-joy',!!joy);}
+function roam(){if(hid()||drag)return;go(rn(12,Math.max(13,Math.min(78,100-12000/innerWidth))).toFixed(1)+'vw',rn(14,Math.max(15,Math.min(76,100-13500/innerHeight))).toFixed(1)+'vh');}
+function freeze(){var r=R.getBoundingClientRect();R.style.transition='none';go(r.left+'px',r.top+'px');void R.offsetWidth;R.style.transition='';}
+function hide(){if(hid())return;freeze();I.className='aon-inner';R.classList.remove('aon-joy');R.classList.add('aon-hidden');D.setAttribute('data-aon-hidden','1');ls(K,'1');toast('퐁당~ 부르실 때까지 이슬 속에 숨어 있을게요! 💧');}
+function show(){if(!hid())return;void R.offsetWidth;R.classList.add('aon-pop');R.classList.remove('aon-hidden');D.setAttribute('data-aon-hidden','0');ls(K,'0');toast('퐁당! 짜잔~ 나왔어요 💧');roam();}
+function pat(){if(hid()){show();return;}exp(10);act('pat',1);say(PAT[Math.floor(Math.random()*PAT.length)]);}
+function speak(){if(hid())show();var t='안녕하세요 대표님, 아온이에요! 오늘도 같이 힘내요.';
+ if(!window.speechSynthesis){say('이 기기에선 목소리를 못 내요 🥲');return;}
+ var u=new SpeechSynthesisUtterance(t);u.lang='ko-KR';u.onstart=function(){R.classList.add('aon-talk');};u.onend=u.onerror=function(){R.classList.remove('aon-talk');};
+ speechSynthesis.cancel();speechSynthesis.speak(u);say(t);}
+function brief(){var q=document.querySelector('textarea,input[type="text"],input[type="search"]');
+ if(!q){say('질문창을 찾지 못했어요 🥲');return;}
+ q.value='아온이 브리핑: 오늘의 핵심 현황과 다음 할 일을 3줄로 요약해 줘.';q.dispatchEvent(new Event('input',{bubbles:true}));q.focus();say('질문창 장전 완료! ⚡');}
+R.addEventListener('transitionend',function(e){
+ if(e.target!==R||e.propertyName!=='transform'||drag||hid())return;
+ R.classList.remove('aon-pop');var r=Math.random();
+ if(r<.2)act('hop');else if(r<.34)act('tilt');else if(r<.48)act('laugh',1);else if(r<.58)act('idle');
+ else{if(r<.8)say(SAY[Math.floor(Math.random()*SAY.length)]);roam();}});
+R.addEventListener('animationend',function(e){var n=e.animationName;
+ if(n==='aonBubbleLife'){B.classList.remove('say');return;}
+ if(/^aon(Hop|Tilt|Laugh|Idle|PatJelly)$/.test(n)){I.className='aon-inner';R.classList.remove('aon-joy');roam();}});
+R.addEventListener('pointerdown',function(e){if(e.target.closest('.aon-hide-btn')||hid())return;
+ var r=R.getBoundingClientRect();drag={dx:e.clientX-r.left,dy:e.clientY-r.top};mv=false;sx=e.clientX;sy=e.clientY;
+ I.className='aon-inner';R.style.transition='none';go(r.left+'px',r.top+'px');R.setPointerCapture(e.pointerId);});
+R.addEventListener('pointermove',function(e){if(!drag)return;
+ if(!mv&&Math.hypot(e.clientX-sx,e.clientY-sy)>6){mv=true;I.className='aon-inner aon-drag';}
+ if(mv)go(Math.min(Math.max(0,e.clientX-drag.dx),innerWidth-115)+'px',Math.min(Math.max(0,e.clientY-drag.dy),innerHeight-125)+'px');});
+function up(c){if(!drag)return;drag=null;R.style.transition='';I.className='aon-inner';void R.offsetWidth;if(mv||c)roam();else pat();}
+R.addEventListener('pointerup',function(){up(false);});R.addEventListener('pointercancel',function(){up(true);});
+document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-aon]');if(!b)return;var a=b.getAttribute('data-aon');
+ if(a==='show')show();else if(a==='hide')hide();else if(a==='pat')pat();else if(a==='voice')speak();else if(a==='brief')brief();
+ else if(a==='menu'){var m=document.getElementById('aon-menu');m.hidden=!m.hidden;}});
+var tp=document.querySelector('[role="tabpanel"],.tab-pane,.tab-content'),tb=document.getElementById('aon-top');
+if(tp&&tb&&!tp.querySelector('[data-aon-tab]')){var c=tb.cloneNode(true);c.removeAttribute('id');c.setAttribute('data-aon-tab','1');tp.insertBefore(c,tp.firstChild);}
+exp(0);D.setAttribute('data-aon-hidden','1');if(ls(K)==='0')show();
+})();
+</script>
+<!-- [AON-ROAMING-V11.29-END] -->
 </body>
 </html>

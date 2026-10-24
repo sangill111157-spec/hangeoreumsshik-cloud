@@ -173,3 +173,9 @@ python rgon_daily_cycle.py --run
 - R29: 캐릭터 디테일 TOP 1 스킬 마스터 & 아온(A-ON·芽溫) 3D 물방울 졸라맨 육신 — 디즈니 7대 모션 법칙(스쿼시&스트레치·시차·팔로스루) + 8-Stop 3D Liquid-Glass/Claymorphism 입체 필터 + 관절형 졸라맨 팔다리 통합
 - 25번째 정식 스킬 `character-detail-master-top1` 마스터 흡수 및 7개 독대실 V13 캐릭터 3D 물방울 졸라맨 전면 교체
 <!-- [RGON-STEP29-AON-3DDROP-END] -->
+
+
+## v11.29-ROAMING-AON · R1~R30 · Step 30
+- 아온(A-ON·芽溫) 초단순 3D 순수 물방울 & 뷰포트 무제한 자율 유영(장자 소요유·노자 상선약수) — 팔다리·장신구·회전 궤도를 모두 비워내고 은은한 숨결 빛만 남긴 채, 부를 때만 나타나 폰 화면 전체를 루프 없이 스스로 놀고 반응하며 감추기 시 안식처로 은신
+- 정식 스킬 26개 (신규 free-roaming-waterdrop-pet)
+- 2026-10-24T15:27:57

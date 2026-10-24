@@ -1,10 +1,10 @@
 {
   "schema": "rgon.immune.ledger.v1",
-  "version": "v11.28-AON-3DDROP",
+  "version": "v11.29-ROAMING-AON",
   "current_step": 27,
-  "antibody_range": "R1~R29",
+  "antibody_range": "R1~R30",
   "principle": "만물은 하나로 이어져 있으며, 한 걸음씩 나아가면 반드시 이루어진다.",
-  "updated_at_kst": "2026-10-24T14:46:09",
+  "updated_at_kst": "2026-10-24T15:27:59",
   "health_score": 100,
   "inspection_mode": "standard",
   "today_hexagram": {
@@ -14,7 +14,7 @@
     "summary": "자강불식(自強不息) — 스스로 강건히 쉬지 않고 정진한다",
     "inspection_mode": "standard"
   },
-  "suppressed_count": 2,
+  "suppressed_count": 3,
   "antibodies": [
     {
       "id": "R1",
@@ -262,6 +262,14 @@
       "name": "캐릭터 디테일 TOP 1 마스터 & 아온(A-ON) 3D 물방울 졸라맨 육신",
       "rule": "R29: 캐릭터 디테일 TOP 1 스킬 마스터 & 아온(A-ON·芽溫) 3D 물방울 졸라맨 육신 — 디즈니 7대 모션 법칙(스쿼시&스트레치·시차·팔로스루) + 8-Stop 3D Liquid-Glass/Claymorphism 입체 필터 + 관절형 졸라맨 팔다리 통합",
       "status": "active"
+    },
+    {
+      "id": "R30",
+      "step": 29,
+      "title": "캐릭터 디테일 TOP 1 마스터 & 아온(A-ON) 3D 물방울 졸라맨 육신",
+      "name": "R30",
+      "rule": "아온(A-ON·芽溫) 초단순 3D 순수 물방울 & 뷰포트 무제한 자율 유영(장자 소요유·노자 상선약수) — 팔다리·장신구·회전 궤도를 모두 비워내고 은은한 숨결 빛만 남긴 채, 부를 때만 나타나 폰 화면 전체를 루프 없이 스스로 놀고 반응하며 감추기 시 안식처로 은신",
+      "status": "active"
     }
   ],
   "fingerprints": {
@@ -271,8 +279,8 @@
       "context": "self_test_bypass",
       "sample_message": "'simulated_missing_key'",
       "first_seen_kst": "2026-10-24T08:11:50",
-      "last_seen_kst": "2026-10-24T14:46:09",
-      "count": 4,
+      "last_seen_kst": "2026-10-24T15:27:59",
+      "count": 5,
       "suppressed": true,
       "known_remedy": "R18 상선약수: adapt_dict 안전 키 매핑 및 기본값 반환"
     }
@@ -341,6 +349,14 @@
       "restored": true,
       "source_backup": ".rgon_backup/wbc_snapshots/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.clean",
       "quarantined_to": ".rgon_backup/wbc_quarantine/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.20261024_144609.corrupt"
+    },
+    {
+      "timestamp_kst": "2026-10-24T15:27:59",
+      "file": ".rgon_backup/wbc_selftest/_wbc_dummy_sample.py",
+      "reason": "self_test_syntax_error",
+      "restored": true,
+      "source_backup": ".rgon_backup/wbc_snapshots/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.clean",
+      "quarantined_to": ".rgon_backup/wbc_quarantine/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.20261024_152759.corrupt"
     }
   ],
   "bypass_log": [
@@ -382,6 +398,15 @@
     },
     {
       "timestamp_kst": "2026-10-24T14:46:09",
+      "context": "self_test_bypass",
+      "exc_type": "KeyError",
+      "message": "'simulated_missing_key'",
+      "fingerprint": "3cf3c4ec29753bf7",
+      "suppressed": true,
+      "action": "default_value"
+    },
+    {
+      "timestamp_kst": "2026-10-24T15:27:59",
       "context": "self_test_bypass",
       "exc_type": "KeyError",
       "message": "'simulated_missing_key'",
@@ -524,6 +549,6 @@
   "skill_count": 23,
   "skills_count": 23,
   "last_sync": "Step25 2026-10-24 09:19:38",
-  "range": "R1~R29",
-  "count": 29
+  "range": "R1~R30",
+  "count": 30
 }

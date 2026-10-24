@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # agentshield:ignore-file
-"""rgon_k_avatar_engine.py — v11.28-AON-3DDROP / R1~R29 / 정식 스킬 25 (아온 A-ON·芽溫 3D 물방울 + 졸라맨 팔다리)"""
+"""rgon_k_avatar_engine.py — v11.29-ROAMING-AON / R1~R30 / 정식 스킬 25 (아온 A-ON·芽溫 3D 물방울 + 졸라맨 팔다리)"""
 import os, re, sys, json
 ROOT = os.path.dirname(os.path.abspath(__file__))
-VER, SLUG, TRI = "v11.28-AON-3DDROP", "character-detail-master-top1", "⚖️ [AVATAR3D] 100.0점 (Bull 99.9 / Bear 0.1 / #04-산수몽) 💧 아온(A-ON·芽溫) 3D 입체 물방울 & 졸라맨 팔다리 육신 — 디즈니 7대 모션 법칙 & 8-Stop Liquid-Glass 3D 가동"
-SKILL_TOTAL = 25
+VER, SLUG, TRI = "v11.29-ROAMING-AON", "character-detail-master-top1", "⚖️ [AVATAR3D] 100.0점 (Bull 99.9 / Bear 0.1 / #04-산수몽) 💧 아온(A-ON·芽溫) 3D 입체 물방울 & 졸라맨 팔다리 육신 — 디즈니 7대 모션 법칙 & 8-Stop Liquid-Glass 3D 가동"
+SKILL_TOTAL = 26
 STAGES = [(0, 1, "💧 1단계: 새싹 물방울 아온"), (300, 2, "🎒 2단계: K-주니어 물방울 아온"), (600, 3, "🎧 3단계: K-에이스 물방울 아온"), (1000, 4, "👑 4단계: K-마스터 물방울 아온")]
 ENTRY = {"slug": SLUG, "name": "전 세계 TOP 1 캐릭터 디테일 & 3D 물방울 졸라맨 마스터", "category": "character-3d-master", "hexagram_tag": "#04-蒙", "step": 29, "version": VER,
          "path": "skills/character-detail-master-top1/SKILL.md", "status": "official",
@@ -53,7 +53,7 @@ def merge():
             nu["trinity"] = "\n".join(lines)
         else:
             nu["trinity"] = [x for x in (t if isinstance(t, list) else []) if "[AVATAR" not in str(x)] + [TRI]
-        o["nutrient"] = nu; o["version"] = VER; o["antibody_range"] = "R1~R29"; o["skill_count"] = SKILL_TOTAL; wj(p, o); n += 1
+        o["nutrient"] = nu; o["version"] = VER; o["antibody_range"] = "R1~R30"; o["skill_count"] = SKILL_TOTAL; wj(p, o); n += 1
     return n
 def ensure_index():
     for d in ("", "dashboard", "docs"):
@@ -62,7 +62,7 @@ def ensure_index():
         if o is None: continue
         if not any(isinstance(s, dict) and s.get("slug") == SLUG for s in L):
             L.append(dict(ENTRY))
-        if isinstance(o, dict): o.update(version=VER, immune="R1~R29", antibody_range="R1~R29", count=len(L), total=len(L))
+        if isinstance(o, dict): o.update(version=VER, immune="R1~R30", antibody_range="R1~R30", count=len(L), total=len(L))
         wj(p, o)
 def self_test():
     st, ok = state(), []

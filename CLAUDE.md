@@ -205,7 +205,7 @@ setTimeout(placeOnce,300); setTimeout(placeOnce,900);   // 총 3회 단발, Obse
 
 <!-- [RGON-STEP29-AON-3DDROP-START] -->
 ## 💧 현재 상태 (Step 29 — 3D 물방울 졸라맨 아온 A-ON)
-- 버전 **v11.28-AON-3DDROP** · 항체 **R1~R29** · 정식 스킬 **25개**
+- 버전 **v11.29-ROAMING-AON** · 항체 **R1~R30** · 정식 스킬 **25개**
 - R29: 캐릭터 디테일 TOP 1 스킬 마스터 & 아온(A-ON·芽溫) 3D 물방울 졸라맨 육신 — 디즈니 7대 모션 법칙(스쿼시&스트레치·시차·팔로스루) + 8-Stop 3D Liquid-Glass/Claymorphism 입체 필터 + 관절형 졸라맨 팔다리 통합
 - 엔진: rgon_k_avatar_engine.py (--run/--merge/--self-test/--ensure-index/--json)
 <!-- [RGON-STEP29-AON-3DDROP-END] -->

@@ -38,6 +38,6 @@
 <!-- [RGON-STEP28-K-AVATAR-END] -->
 
 <!-- [RGON-STEP29-AON-3DDROP-START] -->
-## 💧 아온(A-ON·芽溫) 3D 물방울 졸라맨 브리핑 (v11.28-AON-3DDROP · R1~R29 · 스킬 25)
+## 💧 아온(A-ON·芽溫) 3D 물방울 졸라맨 브리핑 (v11.29-ROAMING-AON · R1~R30 · 스킬 25)
 ⚖️ [AVATAR3D] 100.0점 (Bull 99.9 / Bear 0.1 / #04-산수몽) 💧 아온(A-ON·芽溫) 3D 입체 물방울 & 졸라맨 팔다리 육신 — 디즈니 7대 모션 법칙 & 8-Stop Liquid-Glass 3D 가동
 <!-- [RGON-STEP29-AON-3DDROP-END] -->

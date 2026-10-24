@@ -1,6 +1,6 @@
 {
   "schema": "rgon_brain_snapshot/1",
-  "version": "v11.28-AON-3DDROP",
+  "version": "v11.29-ROAMING-AON",
   "generated_at_kst": "2026-10-24 12:31:38 KST",
   "synced_at_kst": "2026-10-24 12:31:38 KST",
   "sync_rate": "100.0%",
@@ -11,8 +11,8 @@
     "max": 100,
     "label": "100/100"
   },
-  "antibody_range": "R1~R29",
-  "antibodies": 29,
+  "antibody_range": "R1~R30",
+  "antibodies": 30,
   "top_priority_id": "GEN-1",
   "top_priority": "GEN-1 완전 무인 자가 진화 폐쇄 루프",
   "tomorrow_top_priority": "GEN-1 완전 무인 자가 진화 폐쇄 루프",
@@ -1023,7 +1023,7 @@
     },
     "channel": "@Mindung-EasyAI"
   },
-  "skill_count": 25,
+  "skill_count": 26,
   "health_score": 100,
   "vascular_circulation": {
     "version": "v11.26-CREATOR-FORGE",
@@ -1074,14 +1074,14 @@
       }
     }
   },
-  "skills_count": 25,
+  "skills_count": 26,
   "trading_council": {
     "avg_judge": 82.4,
     "weakest": "TREASURY",
     "treasury_guard": "GO"
   },
   "last_sync": "Step25 2026-10-24 09:19:38",
-  "immune": "R1~R29",
+  "immune": "R1~R30",
   "latest_step": 29,
   "avatar": {
     "name_ko": "아온",
