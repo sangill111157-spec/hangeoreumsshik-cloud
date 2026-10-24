@@ -2558,7 +2558,7 @@ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",
 <script id="rgon-voice-v1-js">
 (function(){
 if(window.RGON_VOICE)return;
-var VER="v11.33-AON-SOUL-BRAIN";
+var VER="v11.34-AON-LAPTOP-HANDS";
 var KEY="rgon_voice_cfg",cfg={muted:false,pitch:1.18,rate:1.05};
 try{Object.assign(cfg,JSON.parse(localStorage.getItem(KEY)||"{}"))}catch(e){}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(cfg))}catch(e){}}
@@ -2681,6 +2681,96 @@ memory:function(){return JSON.parse(JSON.stringify(mem))},get muted(){return cfg
 })();
 </script>
 <!-- [RGON-VOICE-V1-END] -->
+<!-- [RGON-GATE-V1-START] -->
+<style id="rgon-gate-v1-css">
+.rgg-off{background:#e3f5ee!important;color:#0f5e4a!important;border:1px solid #7cc9b3!important}
+.rgg-on{background:#ffe7a8!important;color:#7a4b00!important;border:1px solid #f0b429!important}
+#rgg-panel{position:fixed;top:10px;left:50%;transform:translateX(-50%);z-index:2147483550;background:#132033;color:#e8eef7;border-radius:16px;padding:10px 14px;box-shadow:0 10px 30px rgba(0,0,0,.35);font:13px/1.45 system-ui,sans-serif;width:min(94vw,470px);display:none}
+#rgg-panel.on{display:block}
+#rgg-panel .rgg-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+#rgg-panel button{border:0;border-radius:999px;padding:6px 11px;cursor:pointer;font-size:12.5px}
+#rgg-badge{margin-left:6px;padding:2px 8px;border-radius:999px;font-size:12px}
+#rgg-warn{display:none;margin-top:8px;padding:8px 10px;border-radius:10px;background:#ffe0e0;color:#8a1010;font-weight:600}
+#rgg-warn.on{display:block}
+#rgg-float{position:fixed;right:14px;bottom:110px;z-index:2147483500;border-radius:14px;padding:6px 10px;cursor:pointer}
+</style>
+<div id="rgg-panel" role="region" aria-label="중요 결재 수동 ON/OFF 마스터 제어판">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><b>🎛️ 중요 결재 수동 ON/OFF 마스터 제어판<span id="rgg-badge" class="rgg-off">🔒 중요결재 OFF</span></b><button data-rgg="hide" style="background:#24344d;color:#cfe">✕</button></div>
+<div class="rgg-row"><button data-rgg="master" id="rgg-master" class="rgg-off">🔒 전체 중요결재 수동 OFF</button><button data-rgg="lock" style="background:#ffd6d6;color:#8a1010">🚨 비상 전체 잠금</button></div>
+<div class="rgg-row"><button data-rgg-cat="finance_payment">💰 금융·결제</button><button data-rgg-cat="laptop_app_browser">💻 노트북앱</button><button data-rgg-cat="file_modify_delete">🗂️ 파일삭제·이동</button><button data-rgg-cat="external_dispatch">🌐 외부전송</button></div>
+<div id="rgg-warn">⛔ 현재 중요 결재 수동 스위치가 [OFF 잠금] 상태입니다! 위 수동 스위치를 직접 [ON]으로 켜주셔야 집행됩니다.</div>
+<div style="opacity:.7;margin-top:6px;font-size:12px">Tier 3 [✅ 승인 집행]은 마스터 + 해당 세부 스위치가 모두 ON일 때만 통과해요. 상태는 이 기기(localStorage)에 저장돼요.</div>
+</div>
+<script id="rgon-gate-v1-js">
+(function(){
+if(window.RGON_GATE)return;
+var VER="v11.34-AON-LAPTOP-HANDS",KEY="rgon_manual_gate";
+var LABEL={finance_payment:"💰 금융·결제",laptop_app_browser:"💻 노트북앱",file_modify_delete:"🗂️ 파일삭제·이동",external_dispatch:"🌐 외부전송"};
+var CRIT=["finance_payment","file_modify_delete","external_dispatch"];
+var st={master_approval_on:false,gates:{finance_payment:false,laptop_app_browser:true,file_modify_delete:false,external_dispatch:false}};
+try{var s0=JSON.parse(localStorage.getItem(KEY)||"null");if(s0&&s0.gates){st.master_approval_on=!!s0.master_approval_on;for(var k in st.gates)if(k in s0.gates)st.gates[k]=!!s0.gates[k]}}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}}
+var WARN="⛔ 현재 중요 결재 수동 스위치가 [OFF 잠금] 상태입니다! 위 수동 스위치를 직접 [ON]으로 켜주셔야 집행됩니다.";
+var FIN=/매수|매도|주문|결제|송금|이체|리밸런싱|배분|입금|출금/,FILE=/삭제|지워|지우|이동|폴더|파일\s*정리/,DISP=/발송|배포|푸시|push|전송|업로드|설정\s*변경|메일/i;
+function V(){return window.RGON_VOICE||null}
+function fx(t){var v=V();if(v&&v.sfx)v.sfx(t)}
+function say(s){var r=document.getElementById("rgv-reply");if(r)r.textContent="💧 "+s;var v=V();if(v&&v.speak)v.speak(s)}
+function catsOf(t){t=String(t||"");var r=[];if(FIN.test(t))r.push("finance_payment");if(FILE.test(t))r.push("file_modify_delete");if(DISP.test(t))r.push("external_dispatch");return r}
+function can(cats){if(!cats||!cats.length)cats=CRIT.slice();var ok=st.master_approval_on&&cats.every(function(c){return!!st.gates[c]});return{allowed:!!ok,categories:cats,message:ok?"":WARN}}
+var panel=document.getElementById("rgg-panel"),warn=document.getElementById("rgg-warn"),mb=document.getElementById("rgg-master"),bd=document.getElementById("rgg-badge");
+function paint(){var on=st.master_approval_on;mb.textContent=on?"🔓 전체 중요결재 수동 ON":"🔒 전체 중요결재 수동 OFF";mb.className=on?"rgg-on":"rgg-off";
+bd.textContent=on?"🔓 중요결재 ON":"🔒 중요결재 OFF";bd.className=on?"rgg-on":"rgg-off";
+panel.querySelectorAll("[data-rgg-cat]").forEach(function(b){var c=b.getAttribute("data-rgg-cat"),v=st.gates[c];b.textContent=LABEL[c]+(v?" ON":" OFF");b.className=v?"rgg-on":"rgg-off"});
+document.querySelectorAll("[data-rgg-dock]").forEach(function(b){b.textContent=on?"🔓 결재수동 ON":"🔒 결재수동 OFF";b.title=on?"🔓 중요결재 ON":"🔒 중요결재 OFF";b.classList.toggle("rgg-on",on);b.classList.toggle("rgg-off",!on)});
+if(on)warn.classList.remove("on")}
+function show(){paint();panel.classList.add("on")}
+function setMaster(on){st.master_approval_on=!!on;save();paint();fx(on?"approve_fanfare":"clean_sweep");
+say(on?"중요 결재 수동 스위치가 켜졌어요! 집행 전에 한 번 더 확인해 주세요.":"중요 결재 수동 스위치가 꺼졌어요! 이제 중요 결재는 철통 잠금이에요.")}
+function setCat(c,on){if(!(c in st.gates))return;st.gates[c]=!!on;save();paint();fx("waterdrop_pop");say(LABEL[c].replace(/^\S+\s/,"")+" 스위치가 "+(on?"켜졌어요!":"꺼졌어요!"))}
+function lockAll(){st.master_approval_on=false;for(var k in st.gates)st.gates[k]=false;save();paint();fx("clean_sweep");say("비상 전체 잠금! 중요 결재 수동 스위치를 모두 껐어요.")}
+function blocked(){show();warn.classList.add("on");fx("radar_ping");say("현재 중요 결재 수동 스위치가 OFF 잠금 상태예요. 위 수동 스위치를 직접 ON으로 켜주셔야 집행돼요.")}
+panel.addEventListener("click",function(e){var c=e.target.closest("[data-rgg-cat]");if(c){var k=c.getAttribute("data-rgg-cat");setCat(k,!st.gates[k]);return}
+var b=e.target.closest("[data-rgg]");if(!b)return;var a=b.getAttribute("data-rgg");
+if(a==="master")setMaster(!st.master_approval_on);else if(a==="lock")lockAll();else if(a==="hide")panel.classList.remove("on")});
+window.addEventListener("click",function(e){var t=e.target;if(!t||!t.closest)return;var b=t.closest("button,a,[role=button]");
+if(!b||b.closest("#rgg-panel")||b.closest("#rgv-modal"))return;var x=b.textContent||"";
+if(/승인\s*집행/.test(x)){var n=b,ct="";for(var i=0;i<3&&n.parentElement;i++){n=n.parentElement;if((n.textContent||"").length>400)break;ct=n.textContent||""}
+var r=can(catsOf(ct||x));if(!r.allowed){e.preventDefault();e.stopImmediatePropagation();blocked();return}
+say("수동 스위치 ON 확인! 대표님 승인으로 집행할게요.");return}
+if(/📋/.test(x)&&!b.hasAttribute("data-rgg-dock"))setTimeout(show,0)},true);
+var wt=0,wv=setInterval(function(){var M=window.RGON_MUSE;if(M&&!M.__rgg){try{M.__rgg=1;
+if(M.open){var o=M.open;M.open=function(){var r=o.apply(this,arguments);show();return r}}
+if(M.close){var cl=M.close;M.close=function(){panel.classList.remove("on");return cl.apply(this,arguments)}}
+if(M.approve){var ap=M.approve;M.approve=function(id){var tk=null;try{(M.tasks?M.tasks():[]).forEach(function(z){if(z&&(z.id===id||z.task_id===id))tk=z})}catch(e){}
+var tier=tk?(+tk.tier||0):3;if(tier>=3){var r=can(catsOf(JSON.stringify(tk||id)));if(!r.allowed){blocked();return{ok:false,allowed:false,executed:0,message:WARN}}}
+return ap.apply(this,arguments)}}}catch(e){}clearInterval(wv)}else if(++wt>40)clearInterval(wv)},250);
+var GOFF=/(?:중요\s*결재|결재|결제|수동)\s*(?:스위치)?\s*(?:를|을)?\s*(?:꺼|끄|off|잠가|잠궈|잠금)|전체\s*잠금|비상\s*잠금/i,
+GON=/(?:결재|결제|수동)\s*스위치\s*(?:를|을)?\s*(?:켜|on)|중요\s*결재\s*허용/i,
+LCHK=/노트북.*(?:상태|점검|용량|디스크|저장\s*공간|체크)|시스템\s*점검/,
+LOPEN=/(메모장|계산기|탐색기|그림판|유튜브|youtube|구글|google|네이버|naver|https?:\/\/\S+).*?(?:열어|켜|띄워|실행)/i;
+var SITES={"유튜브":"https://www.youtube.com","youtube":"https://www.youtube.com","구글":"https://www.google.com","google":"https://www.google.com","네이버":"https://www.naver.com","naver":"https://www.naver.com"};
+var LTXT="노트북 디스크와 파일 점검은 사령부 엔진에서 해요. python rgon_laptop_hands.py 를 실행해 주시면 바로 알려드릴게요!";
+function hook(t){t=String(t||"");
+if(GOFF.test(t)){lockAll();return true}
+if(GON.test(t)){st.master_approval_on=true;save();show();fx("approve_fanfare");say("중요 결재 마스터 스위치를 켰어요! 세부 스위치는 제어판에서 대표님이 직접 눌러 주셔야 해요.");return true}
+if(LCHK.test(t)){fetch("rgon_manual_gate_state.json",{cache:"no-store"}).then(function(r){return r.json()}).then(function(j){var s=j&&j.last_system_check;
+say(s&&s.speech?s.speech+" (점검 시각 "+String(s.checked_at||"").replace("T"," ")+")":LTXT)}).catch(function(){say(LTXT)});return true}
+var m=t.match(LOPEN);if(m){if(!st.gates.laptop_app_browser){show();say("노트북앱 스위치가 꺼져 있어요. 제어판에서 켜 주시면 열어드릴게요.");return true}
+var w=m[1],url=/^https?:/i.test(w)?w:(SITES[w]||SITES[w.toLowerCase()]);
+if(url){window.open(url,"_blank","noopener");fx("waterdrop_pop");say(w+" 열어드렸어요!")}else say(w+"은 노트북 엔진 rgon_laptop_hands.py 에서 열 수 있어요.");return true}
+return false}
+function dock(){if(document.querySelector("[data-rgg-dock]"))return true;var bs=document.querySelectorAll("button,a,[role=button]"),hide=null;
+for(var i=0;i<bs.length;i++){if(/🙈/.test(bs[i].textContent)&&!bs[i].closest("#rgv-modal,#rgg-panel")){hide=bs[i];break}}
+if(!hide)return false;var b=hide.cloneNode(false);b.removeAttribute("id");b.removeAttribute("onclick");b.setAttribute("data-rgg-dock","1");
+b.addEventListener("click",function(e){e.preventDefault();e.stopPropagation();setMaster(!st.master_approval_on);show()});hide.parentNode.insertBefore(b,hide);paint();return true}
+var tr=0,iv=setInterval(function(){if(dock()||++tr>40){clearInterval(iv);if(!document.querySelector("[data-rgg-dock]")){var f=document.createElement("button");f.id="rgg-float";f.setAttribute("data-rgg-dock","1");
+f.onclick=function(){setMaster(!st.master_approval_on);show()};document.body.appendChild(f);paint()}}},250);
+paint();
+window.RGON_GATE={version:VER,state:function(){return JSON.parse(JSON.stringify(st))},can:function(t){return can(catsOf(t))},setMaster:setMaster,setCategory:setCat,lockAll:lockAll,show:show,hook:hook};
+var hv=0,hi=setInterval(function(){var v=window.RGON_VOICE;if(v&&v.talk&&!v.__rgg){var t0=v.talk;v.__rgg=1;v.talk=function(t){if(hook(t))return;return t0.apply(this,arguments)};clearInterval(hi)}else if(++hv>40)clearInterval(hi)},250);
+})();
+</script>
+<!-- [RGON-GATE-V1-END] -->
 <!-- [RGON-YT-SCOUT-V13-END] -->
 
 </body>

@@ -40,3 +40,4 @@
 - **RGON_VOICE**: Web Audio 무파일 SFX(`sfx`) + K-아이 TTS(`speak`) + STT 대행(`listen`) 전역 API
 - **해마 기억장**: `rgon_aon_memory.json` — 친밀도·누적 대화·최근 20건·선호 키워드
 - **2-Track 분별**: 감정·일상(chat)은 대화로, 명시적 업무(delegate)만 3-Tier 대행 큐로
+- **수동 마스터 스위치**: `master_approval_on` + 4대 `gates`. 모두 ON이어야 중요 결재가 집행된다 (R35)

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """rgon_aon_soul_brain.py — 제10기관: 아온(A-ON) 감성·인격 대화 두뇌 & 해마 기억 기관
-버전 v11.33-AON-SOUL-BRAIN · 항체 R1~R34
+버전 v11.34-AON-LAPTOP-HANDS · 항체 R1~R35
 주역 #31 택산함(澤山咸 ☱☶): 聖人感人心而天下和平 — 무심의 감응으로 마음이 깊이 통함.
 주역 #61 풍택중부(風澤中孚 ☴☱): 鶴鳴在陰 其子和之 — 지극한 정성과 믿음으로 교감함.
 2-Track 원칙: 감정·일상 교감(chat_*)은 절대 대행 큐에 넣지 않고, 명시적 업무 지시만 3-Tier 대행(delegate)으로 보낸다."""
@@ -14,8 +14,8 @@ try:
 except Exception:
     pass
 
-VERSION = "v11.33-AON-SOUL-BRAIN"
-ANTIBODY = "R1~R34"
+VERSION = "v11.34-AON-LAPTOP-HANDS"
+ANTIBODY = "R1~R35"
 ROOT = Path(__file__).resolve().parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
@@ -248,6 +248,99 @@ def self_test():
             chk(j.get("version") == VERSION and "affection_score" in j, f"JSON 무결성 {r_}")
         except Exception as ex:
             chk(False, f"JSON 무결성 {r_}: {ex!r}")
+    print("PASS" if ok else "FAIL")
+    return 0 if ok else 1
+
+# [RGON-R35-HANDS-INJECT] — 제11기관 노트북 수족 & 중요 결재 수동 스위치 연동 (Step 35)
+_R35_GOFF = re.compile(r"(?:중요\s*결재|결재|결제|수동)\s*(?:스위치)?\s*(?:를|을)?\s*(?:꺼|끄|off|잠가|잠궈|잠금)|전체\s*잠금|비상\s*잠금", re.I)
+_R35_GON = re.compile(r"(?:결재|결제|수동)\s*스위치\s*(?:를|을)?\s*(?:켜|on)|중요\s*결재\s*허용", re.I)
+_R35_LCHK = re.compile(r"노트북.*(?:상태|점검|용량|디스크|저장\s*공간|체크)|시스템\s*점검")
+_R35_LOPEN = re.compile(r"(메모장|계산기|탐색기|그림판|유튜브|youtube|구글|google|네이버|naver|https?://\S+).*?(?:열어|켜|띄워|실행)", re.I)
+_r35_classify0, _r35_converse0, _r35_selftest0 = classify_intent, converse, self_test
+
+def _r35_hands():
+    import rgon_laptop_hands as h
+    return h
+
+def classify_intent(text):
+    t = (text or "").strip()
+    if _R35_GOFF.search(t): return {"intent": "gate_control", "track": "hands", "tier": None, "action": "off"}
+    if _R35_GON.search(t): return {"intent": "gate_control", "track": "hands", "tier": None, "action": "on"}
+    if _R35_LCHK.search(t): return {"intent": "laptop_check", "track": "hands", "tier": 1}
+    m = _R35_LOPEN.search(t)
+    if m: return {"intent": "laptop_open", "track": "hands", "tier": 2, "target": m.group(1)}
+    return _r35_classify0(t)
+
+def converse(text, mem=None, persist=True, use_llm=True, live=None):
+    t = (text or "").strip()
+    c = classify_intent(t)
+    if c["track"] != "hands":
+        return _r35_converse0(t, mem=mem, persist=persist, use_llm=use_llm)
+    h = _r35_hands()
+    if mem is None: mem = load_memory()
+    extra = {}
+    if c["intent"] == "gate_control":
+        if c["action"] == "off":
+            st = h.lock_all_gates()
+            reply = "🔒 알겠어요! 중요 결재 수동 스위치를 전부 꺼서 철통 잠금했어요. 대표님이 직접 켜시기 전까지 중요 결재는 0건 집행이에요."
+        else:
+            st = h.set_master_gate(True)
+            reply = "🔓 중요 결재 마스터 스위치를 켰어요! 금융·파일·외부전송 세부 스위치는 결재 보드 제어판에서 대표님이 직접 눌러 주셔야 해요."
+        extra["gate"] = {"master_approval_on": st["master_approval_on"], "gates": dict(st["gates"])}
+    elif c["intent"] == "laptop_check":
+        r = h.execute_laptop_action("system_check", "")
+        reply = r["speech"]; extra["system"] = r["report"]
+    else:
+        if live is None: live = os.environ.get("RGON_HANDS_LIVE") == "1"
+        r = h.execute_laptop_action("open_app_or_url", c["target"], dry_run=not live)
+        reply = r["message"]; extra["action"] = r
+    res = {"input": t, "intent": c["intent"], "category": c["intent"], "track": "hands", "tier": c["tier"],
+           "version": VERSION, "source": "hands", "reply": reply}
+    res.update(extra)
+    remember(mem, t, res)
+    res.update({"speech": reply, "affection": mem["affection_score"], "level": level(mem["affection_score"])})
+    if persist: save_memory(mem)
+    return res
+
+def self_test():
+    rc0 = _r35_selftest0()
+    ok = rc0 == 0
+    def chk(cond, msg):
+        nonlocal ok
+        print(("  ✅ " if cond else "  ❌ ") + msg); ok = ok and bool(cond)
+    print("  — Step 35 제11기관 연동 —")
+    for q, want, act in (("결재 스위치 켜줘", "gate_control", "on"), ("수동 스위치 ON", "gate_control", "on"),
+                         ("중요 결재 허용", "gate_control", "on"), ("결재 스위치 꺼줘", "gate_control", "off"),
+                         ("수동 스위치 OFF", "gate_control", "off"), ("전체 잠금", "gate_control", "off"),
+                         ("결제 잠가줘", "gate_control", "off"), ("내 노트북 상태 점검해줘", "laptop_check", None),
+                         ("노트북 용량 어때?", "laptop_check", None), ("메모장 열어줘", "laptop_open", None),
+                         ("유튜브 열어줘", "laptop_open", None), ("결재 보드 열어줘", "muse", None),
+                         ("유튜브 숏폼 대본 초안 작성해줘", "delegate", None), ("대표님 사랑해", "chat_love", None)):
+        c = classify_intent(q)
+        chk(c["intent"] == want and (act is None or c.get("action") == act),
+            f"분별: {q} → {c['intent']}" + (f" ({c.get('action')})" if c.get("action") else ""))
+    h = _r35_hands()
+    snap = {r_: ((ROOT / r_).read_bytes() if (ROOT / r_).exists() else None) for r_ in h.STATE_PATHS}
+    try:
+        converse("결재 스위치 꺼줘", mem=_default_mem(), persist=False, use_llm=False)
+        s = h.load_state()
+        chk(not s["master_approval_on"] and not any(s["gates"].values()), "대화 명령 → 즉시 전체 잠금")
+        r = converse("결재 스위치 켜줘", mem=_default_mem(), persist=False, use_llm=False)
+        chk(h.load_state()["master_approval_on"] and not h.can_execute_critical("finance_payment")["allowed"],
+            "대화 명령 → 마스터만 ON (세부 OFF면 여전히 차단)")
+        chk("payload" not in r, "스위치 명령은 대행 큐 payload 없음")
+        r = converse("노트북 용량 어때?", mem=_default_mem(), persist=False, use_llm=False)
+        chk(r["intent"] == "laptop_check" and "GB" in r["reply"], "노트북 점검 다정한 브리핑")
+        h.set_category_gate("laptop_app_browser", True)
+        r = converse("메모장 열어줘", mem=_default_mem(), persist=False, use_llm=False, live=False)
+        chk(r["intent"] == "laptop_open" and r["action"]["ok"] and r["action"]["dry_run"], "메모장 열기 (안전 dry-run)")
+    finally:
+        for r_, b in snap.items():
+            p = ROOT / r_
+            if b is None:
+                if p.exists(): p.unlink()
+            else:
+                p.write_bytes(b)
     print("PASS" if ok else "FAIL")
     return 0 if ok else 1
 

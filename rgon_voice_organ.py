@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""rgon_voice_organ.py — 제9기관: 성대·청각 음성 교감 기관 (v11.33-AON-SOUL-BRAIN, R1~R34)
+"""rgon_voice_organ.py — 제9기관: 성대·청각 음성 교감 기관 (v11.34-AON-LAPTOP-HANDS, R1~R35)
 주역 #51 진위뢰(震爲雷 ☳☳) · #61 풍택중부(風澤中孚 ☴☱).
 의도 분별은 제10기관 rgon_aon_soul_brain.converse()에 위임한다 (감정·일상 대화는 대행 큐에 넣지 않음)."""
 import os, sys, json
@@ -12,8 +12,8 @@ try:
 except Exception:
     pass
 
-VERSION = "v11.33-AON-SOUL-BRAIN"
-ANTIBODY = "R1~R34"
+VERSION = "v11.34-AON-LAPTOP-HANDS"
+ANTIBODY = "R1~R35"
 ROOT = Path(__file__).resolve().parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))

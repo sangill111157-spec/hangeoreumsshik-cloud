@@ -1,8 +1,8 @@
 {
   "schema": "rgon.immune.ledger.v1",
-  "version": "v11.33-AON-SOUL-BRAIN",
+  "version": "v11.34-AON-LAPTOP-HANDS",
   "current_step": 27,
-  "antibody_range": "R1~R34",
+  "antibody_range": "R1~R35",
   "principle": "만물은 하나로 이어져 있으며, 한 걸음씩 나아가면 반드시 이루어진다.",
   "updated_at_kst": "2026-10-24T23:41:24",
   "health_score": 100,
@@ -645,6 +645,6 @@
   "skill_count": 23,
   "skills_count": 23,
   "last_sync": "Step25 2026-10-24 09:19:38",
-  "range": "R1~R34",
+  "range": "R1~R35",
   "count": 31
 }

@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 rgon_muse_delegator.py — RGON 제8기관: 자율 대행·위임 집행 기관 (Muse Delegation Engine)
-v11.33-AON-SOUL-BRAIN · R1~R34 · 정식 스킬 30개
+v11.34-AON-LAPTOP-HANDS · R1~R35 · 정식 스킬 31개
 
 주역 #14 화천대유(火天大有) ☲☰ : 크게 소유하고 만물을 막힘없이 대행한다 → Tier 1 AUTO / Tier 2 NOTIFY
 주역 #64 화수미제(火水未濟) ☲☵ : 신중하게 분별하여 끝까지 완수한다   → Tier 3 HITL_GATE (대표님 결재)
@@ -22,8 +22,8 @@ try:
 except Exception:
     pass
 
-VERSION = "v11.33-AON-SOUL-BRAIN"
-ANTIBODY = "R1~R34"
+VERSION = "v11.34-AON-LAPTOP-HANDS"
+ANTIBODY = "R1~R35"
 ORGAN = "제8기관: 자율 대행·위임 집행 기관 (Muse Delegation Engine)"
 ROOT = Path(__file__).resolve().parent
 TASK_FILE = ROOT / "rgon_muse_tasks.json"
@@ -314,6 +314,61 @@ def main(argv):
     print("  → 결재 대기 %d건 · 승인 집행 %d건 · 보류 %d건" % (s["pending_approval"], s["approved_done"], s["on_hold"]))
     return 0
 
+
+# [RGON-R35-GATE-INJECT] — Tier 3 승인 집행 전 중요 결재 수동 ON/OFF 스위치 확인 (제11기관 · Step 35)
+import os as _r35os, sys as _r35sys
+_r35d = _r35os.path.dirname(_r35os.path.abspath(__file__))
+if _r35d not in _r35sys.path: _r35sys.path.insert(0, _r35d)
+try:
+    import rgon_laptop_hands as _r35h
+except Exception:
+    _r35h = None
+_R35_KEYS = ("title", "text", "task", "desc", "description", "name")
+
+def _r35_find(args, kwargs):
+    vals = list(args) + list(kwargs.values())
+    for v in vals:
+        if isinstance(v, dict) and any(k in v for k in ("tier",) + _R35_KEYS): return v
+    g = globals()
+    for v in vals:
+        if not isinstance(v, (str, int)): continue
+        for fn in ("get_task", "find_task"):
+            f = g.get(fn)
+            if callable(f):
+                try:
+                    t = f(v)
+                    if isinstance(t, dict): return t
+                except Exception:
+                    pass
+        for nm in ("TASKS", "tasks", "QUEUE", "queue", "_TASKS", "_tasks", "TASK_QUEUE"):
+            L = g.get(nm)
+            if isinstance(L, dict) and isinstance(L.get(v), dict): return L[v]
+            if isinstance(L, list):
+                for t in L:
+                    if isinstance(t, dict) and v in (t.get("id"), t.get("task_id")): return t
+    return None
+
+def _r35_wrap(fn):
+    if getattr(fn, "_r35", False): return fn
+    def wrapped(*a, **k):
+        t = _r35_find(a, k)
+        text = " ".join(str(t.get(x, "")) for x in _R35_KEYS) if t else " ".join(x for x in a if isinstance(x, str))
+        tier = t.get("tier") if t else None
+        cats = _r35h.critical_categories(text) if _r35h else []
+        if str(tier) == "3" or (tier is None and cats):
+            if _r35h is None:
+                return {"ok": False, "allowed": False, "executed": 0, "gate": "R35",
+                        "message": "🔒 제11기관(rgon_laptop_hands) 로드 실패 — 중요 결재 집행을 차단했습니다."}
+            g = _r35h.can_execute_critical(_r35h.critical_category(text), tier=3)
+            if not g["allowed"]:
+                return {"ok": False, "allowed": False, "executed": 0, "gate": "R35", "message": g["message"]}
+        return fn(*a, **k)
+    wrapped._r35 = True
+    wrapped.__name__ = getattr(fn, "__name__", "wrapped"); wrapped.__doc__ = getattr(fn, "__doc__", None)
+    return wrapped
+
+for _r35n in ("approve", "approve_task", "execute_task", "execute_approved"):
+    if callable(globals().get(_r35n)): globals()[_r35n] = _r35_wrap(globals()[_r35n])
 
 if __name__ == "__main__":
     sys.exit(main(sys.argv[1:]))

@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# RGON Daily Autonomous Cycle — v11.26-CREATOR-FORGE / R1~R34
+# RGON Daily Autonomous Cycle — v11.26-CREATOR-FORGE / R1~R35
 # R20: 일일 자율 순환 루프(백혈구 순찰 → 영양분 소화·스킬 주조 → 3자 심판 → 주역 64괘 아침 브리핑) 무인 자동화
 # 사용: python rgon_daily_cycle.py --run | --status | --self-test
 # 원칙: 표준 라이브러리만 · UTF-8 · 보호 파일 무접촉 · 실패해도 조용히 종료(무위자연·상선약수)
 import os, sys, re, json, shutil, subprocess, datetime, importlib, tempfile, urllib.request, urllib.parse
 
-VERSION = "v11.33-AON-SOUL-BRAIN"
-ANTIBODY_RANGE = "R1~R34"
+VERSION = "v11.34-AON-LAPTOP-HANDS"
+ANTIBODY_RANGE = "R1~R35"
 R20_TEXT = "일일 자율 순환 루프(백혈구 순찰 → 영양분 소화·스킬 주조 → 3자 심판 → 주역 64괘 아침 브리핑) 무인 자동화"
 ROOT = os.path.dirname(os.path.abspath(__file__))
 KST = datetime.timezone(datetime.timedelta(hours=9))
@@ -242,7 +242,7 @@ def self_test():
         checks.append(bool(cond))
         print(("PASS " if cond else "FAIL ") + name)
     chk("version", VERSION == "v11.26-CREATOR-FORGE")
-    chk("antibody range", ANTIBODY_RANGE == "R1~R34")
+    chk("antibody range", ANTIBODY_RANGE == "R1~R35")
     chk("64 hexagrams", len(HEXAGRAMS) == 64 and len(set(HEXAGRAMS)) == 64)
     chk("norm dict", (_norm_hex({"name": "건위천", "meaning": "m"}) or {}).get("name") == "건위천")
     chk("norm str", (_norm_hex("지천태") or {}).get("name") == "지천태")
@@ -254,7 +254,7 @@ def self_test():
         chk("brief json", os.path.exists(os.path.join(tmp, BRIEF_JSON)))
         chk("brief md", os.path.exists(os.path.join(tmp, BRIEF_MD)))
         t = get_daily_brief_text(tmp)
-        chk("brief text", isinstance(t, str) and "R1~R34" in t and "100 / 100" in t)
+        chk("brief text", isinstance(t, str) and "R1~R35" in t and "100 / 100" in t)
         chk("brief text (empty root)", isinstance(get_daily_brief_text(os.path.join(tmp, "none")), str))
     finally:
         shutil.rmtree(tmp, ignore_errors=True)
@@ -326,7 +326,7 @@ _s26_ax.register(lambda: _s26_sp.run([_s26_sys.executable, _s26_os.path.join(_s2
 
 # >>> STEP27_SKILL23_HOOK (R27: 정식 스킬 23개 유지)
 import atexit as _rg_ax, os as _rg_os, subprocess as _rg_sp, sys as _rg_sys
-EXPECTED_SKILL_COUNT = 30  # Step 32 · v11.33-AON-SOUL-BRAIN
+EXPECTED_SKILL_COUNT = 31  # Step 32 · v11.34-AON-LAPTOP-HANDS
 _rg_ax.register(lambda: _rg_sp.run([_rg_sys.executable, _rg_os.path.join(_rg_os.path.dirname(_rg_os.path.abspath(__file__)), "rgon_omni_creator_forge.py"), "--ensure-index"], capture_output=True))
 # <<< STEP27_SKILL23_HOOK
 

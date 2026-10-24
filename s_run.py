@@ -1,13 +1,151 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-step32_muse_delegation_and_dynamic_island.py  (G2 교차검증 + V13 마커 호환 반영판)
-RGON Step 32 — v11.31-MUSE-DELEGATION · 항체 R1~R32 · 정식 스킬 28개
-【제8기관: 자율 대행·위임 집행 기관 (Muse Delegation Engine)】
-  Muse Wonder(비동기 위임큐) · 3-Tier HITL 안전 승인 게이트 · Muse Charm(아온 다이내믹 아일랜드)
-표준 라이브러리 전용: os, sys, json, re, time, shutil, hashlib, datetime, subprocess, pathlib
-"""
+"""Step 35: v11.34-AON-LAPTOP-HANDS — 제11기관 노트북 만능 제어 수족 & 중요 결재 수동 ON/OFF 마스터 스위치 (G2 최종 완결판)"""
 import os, sys, json, re, time, shutil, hashlib, datetime, subprocess
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent
+ARGS = set(sys.argv[1:])
+DRY, NO_GIT, NO_MSG = "--dry-run" in ARGS, "--no-git" in ARGS, "--no-msgbox" in ARGS
+
+OLD_VER, NEW_VER = "v11.33-AON-SOUL-BRAIN", "v11.34-AON-LAPTOP-HANDS"
+OLD_R, NEW_R = "R1~R34", "R1~R35"
+NEW_SK = 31
+R35_TEXT = ("R35: 아온(A-ON) 노트북 만능 제어 수족 & 중요 결재 수동 ON/OFF 마스터 스위치 — Tier 3·금융·파일삭제·외부전송은 "
+            "마스터 + 카테고리 스위치 수동 ON + 대표님 승인 3중 충족 시에만 집행, 하나라도 OFF면 집행 0건")
+
+V13_START_RE = re.compile(rb"<!--\s*\[RGON-(?:YT-SCOUT|UX-CLEANUP)-V13-START\]\s*-->")
+V13_END_RE = re.compile(rb"<!--\s*\[RGON-(?:YT-SCOUT|UX-CLEANUP)-V13-END\]\s*-->")
+SKIP_DIRS = {".git", "__pycache__", "node_modules", ".venv", "venv", ".idea", ".vscode",
+             ".rgon_backup", ".rgon_backups", "backups", "archive", "old_backups"}
+RUNTIME_RE = re.compile(r"(\.log$|\.pyc$|\.jsonl$|rgon_immune_ledger\.json$|rgon_aon_memory\.json$|dept_sub_agents_state\.json$|\.wbc_tmp$|(^|/)logs?/)")
+
+HTML_TARGETS = ["index.html", "rgon_alpha_audience.html", "rgon_alpha_chat.html", "dashboard/index.html",
+                "dashboard/rgon_alpha_chat.html", "docs/index.html", "docs/rgon_alpha_chat.html"]
+PY_SYNC = ["rgon_daily_cycle.py", "rgon_self_evolution_engine.py", "rgon_omni_creator_forge.py",
+           "rgon_k_avatar_engine.py", "rgon_excretory_organ.py", "rgon_muse_delegator.py",
+           "rgon_voice_organ.py", "rgon_aon_soul_brain.py", "rgon_white_blood_cell.py"]
+MD_SYNC = ["skills/SKILL_INDEX.md", "CONSTITUTION.md", "ANTIBODY_REGISTRY.md", "CODE_MAP.md",
+           "GLOSSARY.md", "RGON_MORNING_BRIEF.md"]
+HANDS_REL, SOUL_REL, VOICE_REL, MUSE_REL, WBC_REL = ("rgon_laptop_hands.py", "rgon_aon_soul_brain.py",
+                                                     "rgon_voice_organ.py", "rgon_muse_delegator.py", "rgon_white_blood_cell.py")
+SKILL_ID = "aon-laptop-hands-manual-gate"
+SKILL_REL = f"skills/{SKILL_ID}/SKILL.md"
+REPORT_REL = "STEP35_LAPTOP_HANDS_REPORT.md"
+EXTRAS = ("rgon_voice_profile.json", "docs/rgon_voice_profile.json", "rgon_aon_memory.json", "docs/rgon_aon_memory.json",
+          "rgon_manual_gate_state.json", "docs/rgon_manual_gate_state.json", "rgon_immune_ledger.json",
+          "dept_sub_agents_state.json", "docs/dept_sub_agents_state.json")
+GIT_EXCLUDES = [":(exclude).rgon_backups", ":(exclude)rgon_aon_memory.json", ":(exclude)docs/rgon_aon_memory.json",
+                ":(exclude)rgon_laptop_hands_ledger.jsonl", ":(exclude)aon_drafts", ":(exclude)test_aon_converse.py"]
+
+SKC_RE = re.compile(r"(\b(?:EXPECTED_SKILL_COUNT|SKILL_COUNT|EXPECTED_SKILLS|TOTAL_SKILLS|FORMAL_SKILL_COUNT|OFFICIAL_SKILL_COUNT)\s*(?::\s*int\s*)?=\s*)30\b")
+ABC_RE = re.compile(r"(\b(?:EXPECTED_ANTIBODY_COUNT|EXPECTED_ANTIBODIES|ANTIBODY_COUNT|TOTAL_ANTIBODIES)\s*(?::\s*int\s*)?=\s*)34\b")
+
+TS = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+BACKUP = ROOT / ".rgon_backups" / f"step35_{TS}"
+CHANGED, CREATED, NEW_DIRS, LOG = set(), set(), set(), []
+PRE = {}
+
+def log(m):
+    print(m); LOG.append(m)
+
+def sha(b): return hashlib.sha256(b).hexdigest()
+
+def rel(p): return Path(p).resolve().relative_to(ROOT).as_posix()
+
+def rd(p):
+    try: return Path(p).read_text(encoding="utf-8")
+    except Exception: return ""
+
+def walk(runtime=False):
+    for dp, dns, fns in os.walk(ROOT):
+        dns[:] = [d for d in dns if d not in SKIP_DIRS]
+        for f in fns:
+            p = Path(dp) / f
+            if not runtime and RUNTIME_RE.search(rel(p)): continue
+            yield p
+
+def snapshot(): return {rel(p): sha(p.read_bytes()) for p in walk()}
+
+def backup(p):
+    p = Path(p)
+    if p.exists():
+        d = BACKUP / rel(p); d.parent.mkdir(parents=True, exist_ok=True)
+        if not d.exists(): shutil.copy2(p, d)
+
+def _note_new_dirs(p):
+    d = Path(p).parent
+    while not d.exists() and d != ROOT:
+        NEW_DIRS.add(d); d = d.parent
+
+def write_bytes(p, b):
+    p = Path(p); r = rel(p)
+    if p.exists() and p.read_bytes() == b: return False
+    CHANGED.add(r)
+    if DRY: return True
+    if p.exists():
+        if r not in CREATED: backup(p)
+    else:
+        CREATED.add(r); _note_new_dirs(p)
+    p.parent.mkdir(parents=True, exist_ok=True); p.write_bytes(b)
+    return True
+
+def write_text(p, s): return write_bytes(p, s.encode("utf-8"))
+
+def prepare_extras():
+    for r in EXTRAS:
+        p = ROOT / r
+        if p.exists():
+            if r not in CREATED: backup(p)
+        else:
+            CREATED.add(r); _note_new_dirs(p)
+
+def rollback(reason):
+    log(f"⏪ Auto-Rollback 시작: {reason}")
+    rs = rm = 0
+    for r in sorted(CHANGED | set(EXTRAS) | {REPORT_REL}):
+        p, b = ROOT / r, BACKUP / r
+        try:
+            if r in CREATED:
+                if p.exists(): p.unlink(); rm += 1
+            elif b.exists():
+                p.parent.mkdir(parents=True, exist_ok=True); shutil.copy2(b, p); rs += 1
+        except Exception as e:
+            log(f"  ⚠️ 복구 실패 {r}: {e!r}")
+    for d in sorted(NEW_DIRS, key=lambda x: len(x.parts), reverse=True):
+        try:
+            if d.exists() and not any(d.iterdir()): d.rmdir()
+        except Exception: pass
+    post = snapshot()
+    diff = [k for k in set(PRE) | set(post) if PRE.get(k) != post.get(k)]
+    log(f"⏪ 복원 {rs}개 · 신규 삭제 {rm}개 · 원복 검증 {'✅ 100% 일치' if not diff else '❌ 불일치 ' + str(len(diff)) + '건'}")
+    for k in diff[:20]: log(f"    - {k}")
+    log(f"   원본 백업: {rel(BACKUP) if BACKUP.exists() else '(없음)'}")
+
+def v13_span(b):
+    s = V13_START_RE.search(b)
+    if not s: return None
+    kind = re.search(rb"(YT-SCOUT|UX-CLEANUP)", s.group(0)).group(1)
+    ends = list(V13_END_RE.finditer(b, s.end()))
+    for e in ends:
+        if kind in e.group(0): return (s.start(), e.end(), e.start())
+    return (s.start(), ends[0].end(), ends[0].start()) if ends else None
+
+def outside_hash(b):
+    sp = v13_span(b)
+    return sha(b[:sp[0]] + b[sp[1]:]) if sp else None
+
+# ============================================================ 1) 제11기관 엔진
+HANDS_SRC = r'''#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""rgon_laptop_hands.py — 제11기관: 아온(A-ON) 노트북 만능 제어 수족 & 중요 결재 수동 ON/OFF 마스터 스위치
+버전 v11.34-AON-LAPTOP-HANDS · 항체 R1~R35
+주역 #60 수택절(水澤節): 마디를 두어 절제한다 — 스위치가 곧 마디다.
+주역 #62 뇌산소과(雷山小過): 작은 일은 넘쳐도 되나 큰 일은 넘치면 안 된다 — 조회는 열고 큰 결재는 잠근다.
+주역 #14 화천대유(火天大有): 크게 가진 자는 겸손히 지킨다.
+안전 원칙: 실제 증권사 주문·결제·파일 삭제 API는 연결하지 않는다. 허용된 중요 결재는 집행 기록(ledger)만 남긴다.
+앱 실행은 허용 목록과 http(s) URL만 허용하며, 임의 명령 문자열은 실행하지 않는다."""
+import os, sys, json, re, shutil, platform, datetime, subprocess
 from pathlib import Path
 
 try:
@@ -16,1478 +154,814 @@ try:
 except Exception:
     pass
 
-# ====================================================================
-# 0. 상수
-# ====================================================================
-ROOT = Path(os.environ.get("RGON_ROOT") or Path(__file__).resolve().parent).resolve()
-OLD_VER, NEW_VER = "v11.30-EXCRETORY-CLEAN", "v11.31-MUSE-DELEGATION"
-OLD_AB, NEW_AB = "R1~R31", "R1~R32"
-OLD_SK, NEW_SK = 27, 28
-SKILL_SLUG = "muse-autonomous-delegator"
-SKILL_REL = f"skills/{SKILL_SLUG}/SKILL.md"
-R32_TEXT = ("R32: 메타 뮤즈(Muse) 3대 대행 기관 — 비동기 위임 작업큐(Muse Wonder) · "
-            "3등급 안전 승인 게이트(HITL) · 아온 다이내믹 아일랜드(Muse Charm) 통합")
-R32_DESC = R32_TEXT.split(": ", 1)[1]
-ENGINE_REL = "rgon_muse_delegator.py"
-WBC_REL = "rgon_white_blood_cell.py"
-LEDGER_REL = "rgon_immune_ledger.json"
-TASK_REL, DOCS_TASK_REL = "rgon_muse_tasks.json", "docs/rgon_muse_tasks.json"
-REPORT_REL = "STEP32_MUSE_DELEGATION_REPORT.md"
-# [수정 1] YT-SCOUT-V13 / UX-CLEANUP-V13 마커 모두 허용
-V13_START_RE = re.compile(rb"<!--\s*\[RGON-(?:YT-SCOUT|UX-CLEANUP)-V13-START\]\s*-->")
-V13_END_RE = re.compile(rb"<!--\s*\[RGON-(?:YT-SCOUT|UX-CLEANUP)-V13-END\]\s*-->")
-V13_ANY_RE = re.compile(rb"\[RGON-[A-Z0-9\-]*V13-(?:START|END)\]")
-MUSE_START, MUSE_END = "<!-- [RGON-MUSE-V1-START] -->", "<!-- [RGON-MUSE-V1-END] -->"
-MUSE_BLOCK_RE = re.compile(re.escape(MUSE_START) + r".*?" + re.escape(MUSE_END) + r"\n?", re.S)
-# 백혈구 self-test 산출물(.rgon_backup/wbc_snapshots, wbc_quarantine 등) 스냅샷 제외
+VERSION = "v11.34-AON-LAPTOP-HANDS"
+ANTIBODY = "R1~R35"
+ROOT = Path(__file__).resolve().parent
+STATE_PATHS = ("rgon_manual_gate_state.json", "docs/rgon_manual_gate_state.json")
+LEDGER = ROOT / "rgon_laptop_hands_ledger.jsonl"
+DRAFT_DIR = ROOT / "aon_drafts"
 SKIP_DIRS = {".git", "__pycache__", "node_modules", ".venv", "venv", ".idea", ".vscode",
              ".rgon_backup", ".rgon_backups", "backups", "archive", "old_backups"}
-# 백혈구 self-test 가 갱신하는 면역 원장·임시파일 오탐 방지
-RUNTIME_RE = re.compile(r"(\.log$|\.pyc$|\.jsonl$|rgon_immune_ledger\.json$|\.wbc_tmp$|(^|/)logs?/)")
-TODAY = datetime.date.today().isoformat()
-STAMP = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-EXPECTED_HTML = 7
+GATE_LABELS = {"finance_payment": "💰 금융·결제", "laptop_app_browser": "💻 노트북앱",
+               "file_modify_delete": "🗂️ 파일삭제·이동", "external_dispatch": "🌐 외부전송"}
+DEFAULT_GATES = {"finance_payment": False, "laptop_app_browser": True, "file_modify_delete": False, "external_dispatch": False}
+CRITICAL = ("finance_payment", "file_modify_delete", "external_dispatch")
+LOCK_MSG = "🔒 중요 결재 수동 스위치가 OFF(잠금) 상태입니다. 상단 수동 스위치를 ON으로 켜주셔야 작동합니다."
+CAT_RE = {"finance_payment": re.compile(r"매수|매도|주문|결제|송금|이체|리밸런싱|배분|입금|출금"),
+          "file_modify_delete": re.compile(r"삭제|지워|지우|이동|폴더|파일\s*정리"),
+          "external_dispatch": re.compile(r"발송|배포|푸시|push|전송|업로드|설정\s*변경|메일", re.I)}
+APPS = {"메모장": "notepad.exe", "notepad": "notepad.exe", "계산기": "calc.exe", "calc": "calc.exe",
+        "탐색기": "explorer.exe", "explorer": "explorer.exe", "그림판": "mspaint.exe", "paint": "mspaint.exe"}
+SITES = {"유튜브": "https://www.youtube.com", "youtube": "https://www.youtube.com", "구글": "https://www.google.com",
+         "google": "https://www.google.com", "네이버": "https://www.naver.com", "naver": "https://www.naver.com"}
 
-AB_RE = re.compile(r"R1(\s*[~\-–～]\s*)R31(?!\d)")
-HIST_LINE = re.compile(r"(Step\s*31|STEP\s*31|\bR31\s*[:|\]\)]|\|\s*\**R31\b)")
-KO_COUNT = [
-    (re.compile(r"(스킬[^\n\d<]{0,8}?)27(\s*개)"), r"\g<1>28\g<2>"),
-    (re.compile(r"(?<!\d)27(\s*개\s*(?:의\s*)?(?:정식\s*)?스킬)"), r"28\g<1>"),
-]
-PY_COUNT = [
-    (re.compile(r"(\b(?:EXPECTED_SKILL_COUNT|SKILL_COUNT|EXPECTED_SKILLS|TOTAL_SKILLS|"
-                r"FORMAL_SKILL_COUNT|OFFICIAL_SKILL_COUNT)\s*[:=]\s*)27\b"), r"\g<1>28"),
-    (re.compile(r"""(["'](?:total_skills|skill_count|skills_count|expected_skill_count|"""
-                r"""formal_skills|official_skills)["']\s*:\s*)27\b"""), r"\g<1>28"),
-    (re.compile(r"\[27,\s*27,\s*27\]"), "[28, 28, 28]"),
-] + KO_COUNT
-AB_COUNT = [
-    (re.compile(r"(\b(?:EXPECTED_ANTIBODY_COUNT|ANTIBODY_COUNT|EXPECTED_ANTIBODIES|TOTAL_ANTIBODIES|"
-                r"NUM_ANTIBODIES)\s*(?::\s*int\s*)?=\s*)31\b"), r"\g<1>32"),
-]
-DOC_COUNT = [
-    (re.compile(r"""(["']?(?:count|total_skills|skill_count|skills_count|expected_skill_count|"""
-                r"""EXPECTED_SKILL_COUNT)["']?\s*[:=]\s*)27\b"""), r"\g<1>28"),
-    (re.compile(r"\b27(\s*(?:formal\s+|official\s+)?skills\b)", re.I), r"28\g<1>"),
-    (re.compile(r"(?<!\d)27\s*/\s*27(?!\d)"), "28/28"),
-    (re.compile(r"\[27,\s*27,\s*27\]"), "[28, 28, 28]"),
-] + KO_COUNT
-COUNT_KEYS = {"count", "total_skills", "skill_count", "skills_count", "expected_skill_count",
-              "formal_skills", "official_skills", "num_skills"}
+def _now(): return datetime.datetime.now().isoformat(timespec="seconds")
 
-LOG, ORIGINALS, TARGETS = [], {}, set()
+def _default():
+    return {"version": VERSION, "antibody": ANTIBODY, "master_approval_on": False,
+            "gates": dict(DEFAULT_GATES), "labels": GATE_LABELS, "history": [], "updated_at": _now()}
 
+def load_state():
+    for r in STATE_PATHS:
+        try: j = json.loads((ROOT / r).read_text(encoding="utf-8"))
+        except Exception: continue
+        if isinstance(j, dict):
+            s = _default(); s.update({k: v for k, v in j.items() if k != "gates"})
+            g = j.get("gates") if isinstance(j.get("gates"), dict) else {}
+            s["gates"] = {k: bool(g.get(k, v)) for k, v in DEFAULT_GATES.items()}
+            s["master_approval_on"] = bool(s.get("master_approval_on"))
+            return s
+    return _default()
 
-def log(msg=""):
-    print(msg)
-    LOG.append(str(msg))
+def save_state(s):
+    s["version"], s["antibody"], s["labels"], s["updated_at"] = VERSION, ANTIBODY, GATE_LABELS, _now()
+    txt = json.dumps(s, ensure_ascii=False, indent=2)
+    for r in STATE_PATHS:
+        p = ROOT / r; p.parent.mkdir(parents=True, exist_ok=True)
+        tmp = p.with_name(p.name + ".tmp"); tmp.write_text(txt, encoding="utf-8"); os.replace(tmp, p)
+    return s
 
+def _change(event, fn):
+    s = load_state(); fn(s)
+    s["history"] = (list(s.get("history", [])) + [{"t": _now(), "event": event}])[-30:]
+    return save_state(s)
 
-def relp(p):
-    return Path(os.path.relpath(str(p), str(ROOT))).as_posix()
+def set_master_gate(on):
+    return _change("master=" + ("ON" if on else "OFF"), lambda s: s.__setitem__("master_approval_on", bool(on)))
 
+def set_category_gate(cat, on):
+    if cat not in DEFAULT_GATES: raise ValueError(f"알 수 없는 카테고리: {cat}")
+    return _change(f"{cat}=" + ("ON" if on else "OFF"), lambda s: s["gates"].__setitem__(cat, bool(on)))
 
-def sha_bytes(b):
-    return hashlib.sha256(b).hexdigest()
+def lock_all_gates():
+    def f(s):
+        s["master_approval_on"] = False; s["gates"] = {k: False for k in DEFAULT_GATES}
+    return _change("LOCK_ALL", f)
 
+def critical_categories(text): return [k for k, r in CAT_RE.items() if r.search(text or "")]
 
-# ====================================================================
-# 1. 안전 쓰기 / 롤백 (백업 파일 0개 — 메모리 롤백)
-# ====================================================================
-def track(p):
-    p = Path(p)
-    TARGETS.add(relp(p))
-    if p not in ORIGINALS:
-        ORIGINALS[p] = p.read_bytes() if p.exists() else None
+def critical_category(text):
+    c = critical_categories(text)
+    return c[0] if len(c) == 1 else "unknown"
 
-
-def write_bytes(p, data):
-    p = Path(p)
-    track(p)
-    p.parent.mkdir(parents=True, exist_ok=True)
-    if p.exists() and p.read_bytes() == data:
-        return False
-    p.write_bytes(data)
-    return True
-
-
-def write_text(p, text, bom=False):
-    return write_bytes(p, (b"\xef\xbb\xbf" if bom else b"") + text.encode("utf-8"))
-
-
-def rollback():
-    log("⏪ 롤백 실행 — 변경 파일 원상 복구")
-    for p, b in ORIGINALS.items():
-        try:
-            if b is None:
-                if p.exists():
-                    p.unlink()
-            else:
-                p.write_bytes(b)
-        except Exception as e:
-            log(f"  ⚠️ 롤백 실패 {relp(p)}: {e!r}")
-    d = ROOT / "skills" / SKILL_SLUG
-    try:
-        if d.exists() and not any(d.iterdir()):
-            d.rmdir()
-    except Exception:
-        pass
-
-
-# ====================================================================
-# 2. 해시 스냅샷
-# ====================================================================
-def iter_files():
-    for dp, dns, fns in os.walk(ROOT):
-        dns[:] = [d for d in dns if d not in SKIP_DIRS]
-        for f in fns:
-            yield Path(dp) / f
-
-
-def snapshot():
-    out = {}
-    for p in iter_files():
-        try:
-            out[relp(p)] = sha_bytes(p.read_bytes())
-        except Exception:
-            pass
-    return out
-
-
-def diff_snap(a, b, exclude):
-    changed, deleted, created = [], [], []
-    for k, v in a.items():
-        if k in exclude:
-            continue
-        if k not in b:
-            deleted.append(k)
-        elif b[k] != v:
-            changed.append(k)
-    for k in b:
-        if k not in a and k not in exclude:
-            created.append(k)
-    return changed, deleted, created
-
-
-def run(cmd, timeout=900):
-    env = dict(os.environ, PYTHONIOENCODING="utf-8", PYTHONUTF8="1")
-    try:
-        r = subprocess.run(cmd, cwd=str(ROOT), capture_output=True, text=True, encoding="utf-8",
-                           errors="replace", env=env, timeout=timeout)
-        return r.returncode, (r.stdout or "") + (r.stderr or "")
-    except Exception as e:
-        return 999, repr(e)
-
-
-# ====================================================================
-# 3. 신규 백엔드 엔진 소스: rgon_muse_delegator.py
-# ====================================================================
-ENGINE_SRC = r'''#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-rgon_muse_delegator.py — RGON 제8기관: 자율 대행·위임 집행 기관 (Muse Delegation Engine)
-v11.31-MUSE-DELEGATION · R1~R32 · 정식 스킬 28개
-
-주역 #14 화천대유(火天大有) ☲☰ : 크게 소유하고 만물을 막힘없이 대행한다 → Tier 1 AUTO / Tier 2 NOTIFY
-주역 #64 화수미제(火水未濟) ☲☵ : 신중하게 분별하여 끝까지 완수한다   → Tier 3 HITL_GATE (대표님 결재)
-
-사용법:
-  python rgon_muse_delegator.py --self-test
-  python rgon_muse_delegator.py --list
-  python rgon_muse_delegator.py --add "작업 내용"
-  python rgon_muse_delegator.py --approve T4
-  python rgon_muse_delegator.py --hold T5
-"""
-import os, sys, json, re, time, hashlib, datetime
-from pathlib import Path
-
-try:
-    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
-except Exception:
-    pass
-
-VERSION = "v11.31-MUSE-DELEGATION"
-ANTIBODY = "R1~R32"
-ORGAN = "제8기관: 자율 대행·위임 집행 기관 (Muse Delegation Engine)"
-ROOT = Path(__file__).resolve().parent
-TASK_FILE = ROOT / "rgon_muse_tasks.json"
-DOCS_TASK_FILE = ROOT / "docs" / "rgon_muse_tasks.json"
-
-ICHING = {
-    "14": {"name": "화천대유(火天大有)", "symbol": "☲☰",
-           "meaning": "크게 소유하고 만물을 막힘없이 대행함", "applies_to": "Tier 1 AUTO · Tier 2 NOTIFY"},
-    "64": {"name": "화수미제(火水未濟)", "symbol": "☲☵",
-           "meaning": "신중하게 분별하여 끝까지 완수함", "applies_to": "Tier 3 HITL_GATE"},
-}
-TIERS = {
-    1: {"code": "AUTO", "label": "🟢 자동 집행", "final_status": "DONE"},
-    2: {"code": "NOTIFY", "label": "🔵 선집행 후보고", "final_status": "DONE_NOTIFIED"},
-    3: {"code": "HITL_GATE", "label": "🟡 대표님 결재 대기", "final_status": "PENDING_APPROVAL"},
-}
-VALID_STATUS = {"DONE", "DONE_NOTIFIED", "PENDING_APPROVAL", "APPROVED_DONE", "ON_HOLD"}
-KW_TIER3 = ["매수", "매도", "리밸런싱", "비중", "자산", "배분", "주문", "결제", "송금", "이체", "계좌",
-            "투자", "배포", "deploy", "설정 변경", "설정변경", "핵심 설정", "삭제", "권한", "결재",
-            "승인", "push", "출금", "대출"]
-KW_TIER2 = ["분석", "초안", "시뮬레이션", "심판", "합성", "리서치", "조사", "요약", "보고서", "트렌드",
-            "비교", "검토", "예측", "평가", "설계"]
-SEED_IDS = ["T1", "T2", "T3", "T4", "T5"]
-SEED_TIERS = {"T1": 1, "T2": 1, "T3": 2, "T4": 3, "T5": 3}
-
-
-def now():
-    return datetime.datetime.now().isoformat(timespec="seconds")
-
-
-def classify(text):
-    s = str(text or "").lower()
-    for k in KW_TIER3:
-        if k.lower() in s:
-            return 3
-    for k in KW_TIER2:
-        if k.lower() in s:
-            return 2
-    return 1
-
-
-def plan_for(title):
-    return {
-        "plan": [f"① 대상·범위 확정: {title}",
-                 "② 현재 상태 스냅샷 저장 및 롤백 지점 확보",
-                 "③ 드라이런(시뮬레이션)으로 영향도·리스크 계산",
-                 "④ 대표님 [✅ 승인] 수신 시에만 실제 집행 (HITL 게이트)",
-                 "⑤ 집행 후 결과 검증 및 아침 브리핑·독대실 보고"],
-        "expected_effect": "대표님의 판단 시간을 절약하면서 중요 작업을 계획서 기반으로 안전하게 대행",
-        "risk": "중요 변경 작업 — 대표님 승인 전 실제 집행 0건 (화수미제: 신중 분별)",
-    }
-
-
-def _task(tid, title, tier, ts=None, **extra):
-    ts = ts or now()
-    t = {"id": tid, "title": title, "tier": tier, "tier_code": TIERS[tier]["code"],
-         "tier_label": TIERS[tier]["label"], "status": TIERS[tier]["final_status"],
-         "iching": "#64 화수미제 — 신중히 분별하여 끝까지 완수" if tier == 3 else "#14 화천대유 — 막힘없이 대행",
-         "created_at": ts, "source": "seed"}
-    if tier in (1, 2):
-        t["done_at"] = ts
-    t.update(extra)
-    return t
-
-
-def seed_tasks():
-    ts = now()
-    return [
-        _task("T1", "백혈구 6대 면역 순찰 및 32.5MB 정화 상태 유지 점검", 1, ts, category="immune-patrol",
-              result="백혈구 6대 면역 순찰 대행 완료 · Step 31 정화 상태(구백업 29개·캐시 32.5MB 배출) 재축적 감시 등록"),
-        _task("T2", "오감 센서 외부 GitHub 트렌드 & Stomper 해독 스캔", 1, ts, category="five-sense-radar",
-              result="오감 레이더 외부 트렌드 스캔 대행 완료 · 신호는 Tier 2 스킬 초안 합성 후보로 이관"),
-        _task("T3", "주역 #14 화천대유 기반 3자 찬반 심판(Bull/Bear/Judge) 포트폴리오 시뮬레이션", 2, ts,
-              category="tri-judge-sim",
-              report="3자 심판(Bull/Bear/Judge) 시뮬레이션 선집행 후 보고 — 실제 주문·자산 변경 0건(시뮬레이션 전용). "
-                     "Judge GO 시그널은 T4 결재안으로 이관"),
-        _task("T4", "[대표님 결재 대기] 금일 3자 심판 GO 시그널 종목 비중 확대 리밸런싱 대행안", 3, ts,
-              category="asset-rebalance",
-              plan=["① T3 3자 심판 GO 판정 종목 목록 확정",
-                    "② 현재 비중 스냅샷 저장 및 롤백 지점 확보",
-                    "③ 종목당 비중 상한·현금 비중 하한 등 리스크 한도 내 리밸런싱 드라이런",
-                    "④ 대표님 [✅ 승인] 수신 시에만 리밸런싱 대행안 집행",
-                    "⑤ 집행 결과를 아침 브리핑·독대실에 보고"],
-              expected_effect="GO 시그널 종목 노출을 리스크 한도 내에서 정렬 (수익 보장 아님 · 최종 판단은 대표님)",
-              risk="실전 자산 변동·시장 리스크 — 승인 전 집행 0건 (HITL 게이트 봉인)"),
-        _task("T5", "[대표님 결재 대기] 차세대 자율 진화 스킬(SkillAutoForge) 클라우드 배포 승인안", 3, ts,
-              category="skill-deploy",
-              plan=["① SkillAutoForge 초안 스킬 목록·변경 범위 확정",
-                    "② 백혈구 self-test 및 삼성(三省) 3/3 사전 검증",
-                    "③ 배포 대상(GitHub Pages/클라우드) 드라이런 및 롤백 커밋 지정",
-                    "④ 대표님 [✅ 승인] 수신 시에만 클라우드 배포 집행",
-                    "⑤ 배포 후 스킬 수·항체·버전 동기화 재검증 보고"],
-              expected_effect="자율 진화 스킬의 검증된 버전만 클라우드에 반영하여 진화 속도와 안전성을 동시 확보",
-              risk="핵심 설정·배포 변경 — 승인 전 집행 0건 (화수미제: 끝까지 신중)"),
-    ]
-
-
-def digest(tasks):
-    s = json.dumps(tasks, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
-    return hashlib.sha256(s.encode("utf-8")).hexdigest()
-
-
-def summarize(tasks):
-    c = {"total": len(tasks), "tier1": 0, "tier2": 0, "tier3": 0, "pending_approval": 0,
-         "approved_done": 0, "on_hold": 0, "done": 0, "done_notified": 0}
-    for t in tasks:
-        c["tier%d" % int(t.get("tier", 1))] = c.get("tier%d" % int(t.get("tier", 1)), 0) + 1
-        st = t.get("status")
-        key = {"PENDING_APPROVAL": "pending_approval", "APPROVED_DONE": "approved_done", "ON_HOLD": "on_hold",
-               "DONE": "done", "DONE_NOTIFIED": "done_notified"}.get(st)
-        if key:
-            c[key] += 1
-    return c
-
-
-def build_doc(tasks):
-    return {"organ": ORGAN, "version": VERSION, "antibody": ANTIBODY, "iching": ICHING,
-            "tiers": {str(k): v for k, v in TIERS.items()}, "updated_at": now(),
-            "summary": summarize(tasks), "tasks": tasks,
-            "integrity": {"algo": "sha256", "tasks_sha256": digest(tasks)}}
-
-
-def load_tasks():
-    if TASK_FILE.exists():
-        try:
-            d = json.loads(TASK_FILE.read_text(encoding="utf-8"))
-            if isinstance(d, dict) and isinstance(d.get("tasks"), list):
-                return [t for t in d["tasks"] if isinstance(t, dict) and t.get("id")]
-        except Exception:
-            pass
-    return []
-
-
-def save_tasks(tasks):
-    doc = build_doc(tasks)
-    txt = json.dumps(doc, ensure_ascii=False, indent=2) + "\n"
-    for p in (TASK_FILE, DOCS_TASK_FILE):
-        p.parent.mkdir(parents=True, exist_ok=True)
-        tmp = p.with_name(p.name + ".tmp")
-        tmp.write_text(txt, encoding="utf-8")
-        os.replace(str(tmp), str(p))
-    return doc
-
-
-def ensure_seed():
-    existing = load_tasks()
-    by_id = {}
-    for t in existing:
-        by_id[t["id"]] = t
-    out = []
-    for s in seed_tasks():
-        out.append(by_id.pop(s["id"], s))
-    out.extend(by_id.values())
-    return out
-
-
-def next_id(tasks):
-    n = 0
-    for t in tasks:
-        m = re.match(r"^T(\d+)$", str(t.get("id", "")))
-        if m:
-            n = max(n, int(m.group(1)))
-    return "T%d" % (n + 1)
-
-
-def add_task(tasks, title, source="cli"):
-    tier = classify(title)
-    t = _task(next_id(tasks), str(title).strip(), tier, source=source)
-    if tier == 1:
-        t["result"] = "Tier 1 AUTO — 아온이 즉시 자율 완수"
-    elif tier == 2:
-        t["report"] = "Tier 2 NOTIFY — 분석/초안 작업 선집행 완료, 요약 보고"
+def can_execute_critical(category, tier=3):
+    s = load_state(); g, m = s["gates"], s["master_approval_on"]
+    if category in g:
+        need = tier >= 3 or category in CRITICAL
+        ok = (m and g[category]) if need else g[category]
+        req = ["master", category] if need else [category]
     else:
-        t.update(plan_for(t["title"]))
-    tasks.append(t)
-    return t
+        ok = m and all(g[k] for k in CRITICAL); req = ["master"] + list(CRITICAL)
+    return {"allowed": bool(ok), "category": category, "tier": tier, "requires": req, "master_approval_on": m,
+            "gates": dict(g), "message": "✅ 수동 스위치 ON 확인 — 집행 가능합니다." if ok else LOCK_MSG}
 
+def _count_files():
+    n = 0
+    for dp, dns, fns in os.walk(ROOT):
+        dns[:] = [d for d in dns if d not in SKIP_DIRS]; n += len(fns)
+    return n
 
-def _find(tasks, tid):
-    for t in tasks:
-        if t.get("id") == tid:
-            return t
-    raise KeyError("작업 없음: %s" % tid)
+def system_check():
+    du = shutil.disk_usage(str(ROOT)); gb = 1024 ** 3
+    rep = {"os": f"{platform.system()} {platform.release()}", "machine": platform.machine(),
+           "python": platform.python_version(), "executable": sys.executable,
+           "disk_total_gb": round(du.total / gb, 1), "disk_free_gb": round(du.free / gb, 1),
+           "disk_free_pct": round(du.free * 100 / du.total, 1) if du.total else 0.0,
+           "hq_files": _count_files(), "hq_path": str(ROOT), "checked_at": _now()}
+    tip = " 여유 공간이 10% 아래라 정리가 필요해 보여요." if rep["disk_free_pct"] < 10 else " 여유 공간도 넉넉해요!"
+    rep["speech"] = (f"대표님 노트북 점검 결과예요! {rep['os']}, 파이썬 {rep['python']}, 디스크 여유 "
+                     f"{rep['disk_free_gb']}GB / {rep['disk_total_gb']}GB({rep['disk_free_pct']}%), 사령부 파일 {rep['hq_files']}개예요." + tip)
+    return rep
 
+def _ledger(rec, dry_run):
+    if dry_run: return
+    with open(LEDGER, "a", encoding="utf-8") as f: f.write(json.dumps(rec, ensure_ascii=False) + "\n")
 
-def approve(tasks, tid):
-    t = _find(tasks, tid)
-    if int(t.get("tier", 0)) != 3:
-        raise ValueError("Tier 3(HITL_GATE) 작업만 결재 대상입니다: %s" % tid)
-    if t.get("status") not in ("PENDING_APPROVAL", "ON_HOLD"):
-        raise ValueError("결재 가능한 상태가 아닙니다: %s (%s)" % (tid, t.get("status")))
-    t["status"] = "APPROVED_DONE"
-    t["approved_at"] = now()
-    t["approved_by"] = "대표님"
-    t["result"] = "대표님 승인 → 아온이 대행 집행 완료"
-    return t
+def _result(action, tier, ok, msg, **kw):
+    d = {"action": action, "tier": tier, "ok": bool(ok), "message": msg, "executed": 0, "dry_run": True}
+    d.update(kw); return d
 
+def _open(what, is_url):
+    if os.name == "nt":
+        if is_url: os.startfile(what)
+        else: subprocess.Popen([what])
+    elif is_url:
+        subprocess.Popen(["open" if sys.platform == "darwin" else "xdg-open", what])
+    else:
+        raise OSError("Windows 기본 앱은 Windows에서만 열 수 있어요")
 
-def hold(tasks, tid):
-    t = _find(tasks, tid)
-    if int(t.get("tier", 0)) != 3 or t.get("status") != "PENDING_APPROVAL":
-        raise ValueError("보류 가능한 결재 대기 작업이 아닙니다: %s" % tid)
-    t["status"] = "ON_HOLD"
-    t["held_at"] = now()
-    return t
-
+def execute_laptop_action(action_type, target="", dry_run=True, approved=False, category=None):
+    t = str(target or "").strip()
+    if action_type == "system_check":
+        rep = system_check()
+        return _result(action_type, 1, True, rep["speech"], report=rep, speech=rep["speech"], dry_run=dry_run)
+    if action_type == "open_app_or_url":
+        g = can_execute_critical("laptop_app_browser", tier=2)
+        if not g["allowed"]:
+            return _result(action_type, 2, False, "💻 노트북앱 스위치가 OFF라 열지 않았어요. 제어판에서 켜 주세요.", gate=g, dry_run=dry_run)
+        key = t.lower()
+        if re.match(r"^https?://[^\s\"'<>]+$", t, re.I): url, app = t, None
+        else:
+            url = SITES.get(key) or SITES.get(t)
+            app = None if url else (APPS.get(key) or APPS.get(t))
+        if not url and not app:
+            return _result(action_type, 2, False, f"'{t}'은(는) 허용 목록에 없어 열지 않았어요. (메모장·계산기·탐색기·그림판 / 유튜브·구글·네이버 / http(s) 주소)", dry_run=dry_run)
+        what = url or app
+        if dry_run:
+            return _result(action_type, 2, True, f"{t} 열 준비가 끝났어요! (안전 모드라 창은 띄우지 않았어요 · 실제 실행은 RGON_HANDS_LIVE=1)", prepared=what, dry_run=True)
+        try: _open(what, bool(url))
+        except Exception as e:
+            return _result(action_type, 2, False, f"{t}을(를) 여는 중 문제가 생겼어요: {e}", prepared=what, dry_run=False)
+        _ledger({"t": _now(), "action": action_type, "target": what}, False)
+        return _result(action_type, 2, True, f"{t} 열어드렸어요! 💧", prepared=what, executed=1, dry_run=False)
+    if action_type == "draft_file":
+        name = re.sub(r"[^0-9A-Za-z가-힣_-]+", "_", t[:40]).strip("_") or "memo"
+        p = DRAFT_DIR / f"draft_{datetime.datetime.now():%Y%m%d_%H%M%S}_{name}.md"
+        k = 1
+        while p.exists():
+            p = p.with_name(p.stem + f"_{k}.md"); k += 1
+        r_ = p.relative_to(ROOT).as_posix()
+        if dry_run: return _result(action_type, 2, True, f"초안 파일 준비 완료: {r_}", path=r_, dry_run=True)
+        DRAFT_DIR.mkdir(exist_ok=True)
+        p.write_text(f"# 아온 초안 — {t}\n\n- 작성: {_now()} · {VERSION}\n\n(여기에 내용을 채워 주세요)\n", encoding="utf-8")
+        return _result(action_type, 2, True, f"초안 파일을 만들었어요: {r_}", path=r_, executed=1, dry_run=False)
+    if action_type == "critical_order_or_delete":
+        cat = category or critical_category(t)
+        g = can_execute_critical(cat, tier=3)
+        if not g["allowed"]:
+            return _result(action_type, 3, False, LOCK_MSG, allowed=False, gate=g, dry_run=dry_run)
+        if not approved:
+            return _result(action_type, 3, False, "✋ 스위치는 ON이지만 대표님 승인이 아직이에요. [✅ 승인 집행]을 눌러 주셔야 해요.",
+                           allowed=True, gate=g, dry_run=dry_run)
+        rec = {"t": _now(), "action": action_type, "target": t, "category": cat, "approved": True,
+               "note": "집행 기록 전용 — 실제 주문/결제/삭제 API 미연결"}
+        _ledger(rec, dry_run)
+        return _result(action_type, 3, True, "✅ 수동 스위치 ON + 대표님 승인 확인! 집행 기록을 남겼어요. (실제 주문·삭제 API는 연결돼 있지 않아요)",
+                       allowed=True, gate=g, record=rec, executed=0 if dry_run else 1, dry_run=dry_run)
+    return _result(str(action_type), 0, False, f"알 수 없는 작업: {action_type}", dry_run=dry_run)
 
 def self_test():
-    checks = []
-
-    def ok(name, cond):
-        checks.append(bool(cond))
-        print(("  [PASS] " if cond else "  [FAIL] ") + name)
-
-    print("🧪 %s self-test · %s · %s" % (ORGAN, VERSION, ANTIBODY))
-    print("   ☲☰ #14 %s / ☲☵ #64 %s" % (ICHING["14"]["meaning"], ICHING["64"]["meaning"]))
-    tasks = ensure_seed()
-    doc = save_tasks(tasks)
-    ids = [t.get("id") for t in tasks]
-    ok("시드 대행 작업 5건 생성/보존 (T1~T5)", all(i in ids for i in SEED_IDS))
-    ok("Tier 분류 일치 (T1,T2=1 · T3=2 · T4,T5=3)",
-       all(int(_find(tasks, i).get("tier")) == SEED_TIERS[i] for i in SEED_IDS))
-    ok("T1/T2 상태 DONE", all(_find(tasks, i).get("status") == "DONE" for i in ("T1", "T2")))
-    ok("T3 상태 DONE_NOTIFIED", _find(tasks, "T3").get("status") == "DONE_NOTIFIED")
-    ok("T4/T5 HITL 상태 유효 (PENDING_APPROVAL/APPROVED_DONE/ON_HOLD)",
-       all(_find(tasks, i).get("status") in ("PENDING_APPROVAL", "APPROVED_DONE", "ON_HOLD") for i in ("T4", "T5")))
-    ok("모든 상태값 유효", all(t.get("status") in VALID_STATUS for t in tasks))
-    ok("Tier 3 결재안에 실행계획서·기대효과 존재",
-       all(t.get("plan") and t.get("expected_effect") for t in tasks if int(t.get("tier", 0)) == 3))
+    ok = True
+    def chk(c, m):
+        nonlocal ok
+        print(("  ✅ " if c else "  ❌ ") + m); ok = ok and bool(c)
+    prev = load_state()
     try:
-        d1 = json.loads(TASK_FILE.read_text(encoding="utf-8"))
-        d2 = json.loads(DOCS_TASK_FILE.read_text(encoding="utf-8"))
-        ok("JSON 무결성 (sha256 일치)", d1["integrity"]["tasks_sha256"] == digest(d1["tasks"]))
-        ok("docs/ 사본 동기화", d1["tasks"] == d2["tasks"])
-        ok("버전·항체 표기", d1.get("version") == VERSION and d1.get("antibody") == ANTIBODY)
-    except Exception as e:
-        ok("JSON 로드 실패: %r" % (e,), False)
-    samples = [("아침 브리핑 최신화해줘", 1), ("백혈구 순찰", 1), ("신규 트렌드 스킬 초안 합성", 2),
-               ("자산 배분 리밸런싱 실행", 3), ("핵심 설정 변경", 3)]
-    ok("키워드 Tier 자동 분류", all(classify(s) == e for s, e in samples))
-    mem = json.loads(json.dumps(tasks, ensure_ascii=False))
-    blocked = False
-    try:
-        approve(mem, "T1")
-    except ValueError:
-        blocked = True
-    ok("HITL 게이트: Tier 1 결재 시도 차단", blocked)
-    t = add_task(mem, "자산 배분 리밸런싱 실행", source="self-test")
-    ok("신규 Tier 3 작업 → PENDING_APPROVAL", t["status"] == "PENDING_APPROVAL")
-    approve(mem, t["id"])
-    ok("승인 시 APPROVED_DONE 전이 (메모리 전용, 저장 안 함)", t["status"] == "APPROVED_DONE")
-    passed = all(checks)
-    print("PASS" if passed else "FAIL")
-    return 0 if passed else 1
-
-
-def main(argv):
-    if "--self-test" in argv:
-        return self_test()
-    tasks = ensure_seed()
-    if "--add" in argv:
-        i = argv.index("--add")
-        title = " ".join(argv[i + 1:]).strip()
-        if not title:
-            print("작업 내용을 입력하세요.")
-            return 2
-        t = add_task(tasks, title)
-        save_tasks(tasks)
-        print("📋 대행 등록: %s [%s] %s → %s" % (t["id"], t["tier_label"], t["title"], t["status"]))
-        return 0
-    for flag, fn in (("--approve", approve), ("--hold", hold)):
-        if flag in argv:
-            i = argv.index(flag)
-            tid = argv[i + 1] if len(argv) > i + 1 else ""
-            try:
-                t = fn(tasks, tid)
-            except (KeyError, ValueError) as e:
-                print("⛔ %s" % e)
-                return 1
-            save_tasks(tasks)
-            print("✅ %s → %s" % (t["id"], t["status"]))
-            return 0
-    save_tasks(tasks)
-    print("📋 %s · %s" % (ORGAN, VERSION))
-    for t in tasks:
-        print("  %-4s %-14s %-17s %s" % (t["id"], t.get("tier_label", ""), t.get("status", ""), t.get("title", "")))
-    s = summarize(tasks)
-    print("  → 결재 대기 %d건 · 승인 집행 %d건 · 보류 %d건" % (s["pending_approval"], s["approved_done"], s["on_hold"]))
-    return 0
-
+        save_state(_default())
+        s = load_state()
+        chk(s["master_approval_on"] is False, "기본 상태 master_approval_on == False")
+        chk(s["gates"] == DEFAULT_GATES, "기본 4대 스위치 (금융 OFF · 노트북앱 ON · 파일 OFF · 외부 OFF)")
+        for q, cat in (("삼성전자 10주 매수 주문", "finance_payment"), ("사령부 old 폴더 파일 삭제", "file_modify_delete")):
+            chk(critical_category(q) == cat and not can_execute_critical(cat)["allowed"], f"OFF 상태 차단 게이트: {q}")
+            r = execute_laptop_action("critical_order_or_delete", q, dry_run=True, approved=True)
+            chk(r["allowed"] is False and r["executed"] == 0 and r["message"] == LOCK_MSG, f"승인 눌러도 집행 0건: {q}")
+        set_category_gate("finance_payment", True)
+        chk(not can_execute_critical("finance_payment")["allowed"], "세부 ON + 마스터 OFF → 여전히 차단")
+        set_master_gate(True); set_category_gate("finance_payment", True)
+        chk(can_execute_critical("finance_payment")["allowed"], "마스터 ON + 금융 ON → allowed == True")
+        r = execute_laptop_action("critical_order_or_delete", "삼성전자 10주 매수 주문", dry_run=True, approved=True)
+        chk(r["allowed"] and r["ok"], "수동 ON + 승인 → 집행 기록 정상")
+        chk(not execute_laptop_action("critical_order_or_delete", "삼성전자 10주 매수 주문", dry_run=True)["ok"], "승인 없으면 미집행")
+        chk(not can_execute_critical("file_modify_delete")["allowed"], "다른 카테고리 OFF는 계속 차단")
+        chk(not can_execute_critical("unknown")["allowed"], "미분류 중요 결재는 전체 ON 필요")
+        lock_all_gates(); s = load_state()
+        chk(not s["master_approval_on"] and not any(s["gates"].values()), "lock_all_gates() 즉시 전체 OFF")
+        chk(not execute_laptop_action("open_app_or_url", "메모장")["ok"], "잠금 시 노트북앱도 차단")
+        set_category_gate("laptop_app_browser", True)
+        chk(execute_laptop_action("open_app_or_url", "메모장")["ok"] and execute_laptop_action("open_app_or_url", "https://www.youtube.com")["ok"],
+            "앱·URL 열기 준비 (dry-run, 창 안 띄움)")
+        chk(not execute_laptop_action("open_app_or_url", "cmd /c del *")["ok"], "허용 목록 외 명령 거부")
+        d = execute_laptop_action("draft_file", "유튜브 숏폼 대본")
+        chk(d["ok"] and d["dry_run"] and not (ROOT / d["path"]).exists(), "초안 파일 dry-run (실제 생성 없음)")
+        rep = system_check()
+        chk(rep["disk_total_gb"] > 0 and rep["hq_files"] > 0 and "GB" in rep["speech"], "system_check 디스크·파일·파이썬")
+    finally:
+        prev["last_system_check"] = system_check()
+        save_state(prev)
+    for r in STATE_PATHS:
+        try:
+            j = json.loads((ROOT / r).read_text(encoding="utf-8"))
+            chk(j.get("version") == VERSION and "master_approval_on" in j and len(j.get("gates", {})) == 4, f"JSON 무결성 {r}")
+        except Exception as ex:
+            chk(False, f"JSON 무결성 {r}: {ex!r}")
+    print("PASS" if ok else "FAIL")
+    return 0 if ok else 1
 
 if __name__ == "__main__":
-    sys.exit(main(sys.argv[1:]))
+    if "--self-test" in sys.argv: sys.exit(self_test())
+    if "--lock" in sys.argv: print(json.dumps(lock_all_gates(), ensure_ascii=False, indent=2)); sys.exit(0)
+    s = load_state(); s["last_system_check"] = system_check(); save_state(s)
+    print(s["last_system_check"]["speech"])
+    print(json.dumps({"master_approval_on": s["master_approval_on"], "gates": s["gates"]}, ensure_ascii=False))
 '''
 
-# ====================================================================
-# 4. 28번째 정식 스킬
-# ====================================================================
-SKILL_MD = """---
-name: muse-autonomous-delegator
-description: 메타 뮤즈(Muse Wonder & Muse Charm) 방식의 자율 대행·위임 집행 프로토콜. 대표님 지시를 3-Tier HITL 게이트로 분류해 안전 작업은 즉시 완수하고, 분석 작업은 선집행 후 보고하며, 중요 작업은 실행계획서와 함께 결재를 기다린다. 아온 다이내믹 아일랜드 캡슐로 결재 대기를 알린다.
-version: """ + NEW_VER + """
-antibody: R32
-organ: 제8기관 — 자율 대행·위임 집행 기관 (Muse Delegation Engine)
----
+SKILL_MD = f"""# {SKILL_ID} (31번째 정식 스킬)
 
-# 📋 Muse Autonomous Delegator — 28번째 정식 스킬
+- 버전: {NEW_VER} · 항체: {NEW_R}
+- 기관: 제11기관 노트북 만능 제어 수족 & 중요 결재 수동 ON/OFF 마스터 스위치 (`{HANDS_REL}`)
+- 철학: 주역 #60 수택절(節, 마디의 절제) · #62 뇌산소과(小過, 작은 일은 열고 큰 일은 잠근다) · #14 화천대유(大有, 크게 가진 자의 겸손)
 
-> """ + R32_TEXT + """
-> 버전 `""" + NEW_VER + """` · 항체 `""" + NEW_AB + """` · 정식 스킬 28개
+## 1. 수동 스위치
+- `master_approval_on` 기본값은 False(🔒 철통잠금)입니다.
+- `gates`: finance_payment(OFF) · laptop_app_browser(ON) · file_modify_delete(OFF) · external_dispatch(OFF)
+- API: `set_master_gate(on)`, `set_category_gate(cat, on)`, `lock_all_gates()`
+- 상태 파일: `rgon_manual_gate_state.json`, `docs/rgon_manual_gate_state.json`
 
-## 1. 철학 (주역)
-- **#14 화천대유(火天大有) ☲☰**: 크게 소유하고 만물을 막힘없이 대행한다. Tier 1·2는 묻지 않고 끝까지 처리한다.
-- **#64 화수미제(火水未濟) ☲☵**: 신중하게 분별하여 끝까지 완수한다. Tier 3은 계획서를 쓰고 대표님 결재를 받은 뒤에만 집행한다.
+## 2. 검증 게이트 `can_execute_critical(category, tier=3)`
+- Tier 3 또는 중요 카테고리는 마스터 ON과 카테고리 ON이 모두 충족돼야 `allowed: True`입니다. 하나라도 OFF면 승인을 눌러도 집행 0건입니다.
+- 카테고리가 여러 개 섞였거나 분류되지 않으면 `unknown`으로 보고, 마스터와 중요 3종이 모두 ON이어야 합니다.
 
-## 2. Muse Wonder: 비동기 대행 작업 큐
-- 저장소: `rgon_muse_tasks.json` + `docs/rgon_muse_tasks.json` (원자적 동시 저장, sha256 무결성 필드)
-- 엔진: `rgon_muse_delegator.py` (`--self-test`, `--list`, `--add`, `--approve`, `--hold`)
-- 상태 전이: `DONE` · `DONE_NOTIFIED` · `PENDING_APPROVAL → APPROVED_DONE | ON_HOLD`
+## 3. 노트북 4대 작업 `execute_laptop_action(action_type, target, dry_run=True, approved=False)`
+- system_check(T1): OS · 디스크 여유 · 사령부 파일 수 · 파이썬
+- open_app_or_url(T2): 허용 목록 앱(메모장·계산기·탐색기·그림판), 사이트(유튜브·구글·네이버), http(s) 주소만 엽니다. 임의 명령은 거부합니다.
+- draft_file(T2): `aon_drafts/` 아래에 초안을 생성합니다.
+- critical_order_or_delete(T3): 스위치와 승인 3중 확인을 거칩니다. 실제 주문·삭제 API는 연결하지 않고, 집행 기록(`rgon_laptop_hands_ledger.jsonl`)만 남깁니다.
 
-## 3. 3-Tier HITL 안전 승인 게이트
-| Tier | 코드 | 표시 | 예시 | 최종 상태 |
-|---|---|---|---|---|
-| 1 | AUTO | 🟢 자동 집행 | 아침 브리핑 최신화, 백혈구 순찰, 오감 레이더 스캔, 배설·정화(autoDream) | DONE |
-| 2 | NOTIFY | 🔵 선집행 후보고 | 트렌드 스킬 초안 합성, 3자 찬반 심판 시뮬레이션 | DONE_NOTIFIED |
-| 3 | HITL_GATE | 🟡 대표님 결재 대기 | 실전 자산 배분 변경, 핵심 설정 변경, 클라우드 배포 | PENDING_APPROVAL → APPROVED_DONE |
-
-- 분류 규칙: Tier 3 키워드(매수·매도·리밸런싱·비중·자산·배분·주문·송금·배포·설정 변경·삭제·권한 등)를 먼저 보고, Tier 2 키워드(분석·초안·시뮬레이션·심판·합성·리서치·요약·트렌드 등)를 그다음에 보며, 둘 다 없으면 Tier 1로 본다.
-- **절대 규칙**: Tier 3 작업은 `[✅ 승인 집행]` 없이는 절대 집행하지 않는다. Tier 1/2 작업에는 결재 버튼을 노출하지 않는다.
-
-## 4. Muse Charm: 아온 다이내믹 아일랜드
-- 결재 대기가 1건 이상이면 순수 3D 물방울 아온(`#rgyt-wrap` 또는 `#aon-roamer`) 머리 위에 `📋 결재 N건` 캡슐을 띄운다. 아온이 숨어 있으면 `📋대행` 버튼 옆에, 그것도 없으면 화면 상단 중앙에 띄운다.
-- 미니 독: `🔍레이더 · 📈3자심판 · 🧹정화 · 📋대행 · 🙈숨기기` 순서를 따른다. 기존 버튼과 아온 형태(팔다리·장신구·회전궤도 0개)는 그대로 둔다.
-- 대행 보드: 입력창(`아온아, 이 작업 대신 해줘...`) + `🚀 대행 지시`로 즉시 분류하고 큐에 넣는다. 독대실 질문창 전달은 선택 사항이다.
-- 승인하면 `APPROVED_DONE`이 되고, 아온 말풍선 `대표님 승인 완료! 즉시 대행 집행했습니다 💧✨`와 오라 반짝임이 나온다. 상태는 `localStorage`(`rgon_muse_tasks_v1`)에 보존한다.
-- V13 블록 마커: `[RGON-YT-SCOUT-V13-START/END]` 또는 `[RGON-UX-CLEANUP-V13-START/END]` 내부에만 주입한다.
-
-## 5. 검증 (삼성 三省)
-1. `python rgon_muse_delegator.py --self-test` → `PASS`, rc=0
-2. 비대상 보호 파일 SHA-256 변경 0건
-3. 스킬 수 `[28, 28, 28]`, 항체 `R1~R32` 일치
+## 4. 대화·UI 연동
+- 제10기관 분별기: `gate_control`(켜기는 마스터만, 끄기는 즉시 전체 잠금) · `laptop_check` · `laptop_open`
+- 뮤즈: `approve` 계열 함수를 R35 게이트로 감쌉니다.
+- HTML: `[RGON-GATE-V1]`. 상단 `🔒 결재수동 OFF ⇄ 🔓 결재수동 ON` 토글과 📋 보드의 🎛️ 제어판으로 구성되며, `[✅ 승인 집행]`은 캡처 단계에서 차단합니다.
 """
 
-# ====================================================================
-# 5. V13 블록 내부 삽입: 아온 뮤즈 다이내믹 아일랜드 & 📋대행 독
-# ====================================================================
-MUSE_BLOCK_TEMPLATE = r"""<!-- [RGON-MUSE-V1-START] -->
-<!-- R32 · v11.31-MUSE-DELEGATION · Muse Wonder 위임큐 · Muse Charm 다이내믹 아일랜드 · 3-Tier HITL 게이트 -->
-<style id="rgmuse-style">
-#rgmuse-island{position:fixed;left:50%;top:10px;z-index:2147483600;display:flex;align-items:center;gap:6px;padding:5px 12px 5px 9px;border-radius:999px;background:rgba(8,12,26,.84);color:#eaf7ff;font:600 12px/1.25 system-ui,-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;letter-spacing:.2px;white-space:nowrap;box-shadow:0 0 0 1px rgba(150,225,255,.38),0 6px 22px rgba(70,170,255,.38),inset 0 0 14px rgba(120,210,255,.2);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);cursor:pointer;user-select:none;opacity:0;visibility:hidden;pointer-events:none;transform:translate(-50%,-100%) scale(.82);transition:opacity .35s ease,visibility .35s,transform .38s cubic-bezier(.2,.9,.3,1.25),left .14s linear,top .14s linear}
-#rgmuse-island.below{transform:translate(-50%,0) scale(.82)}
-#rgmuse-island.on{opacity:1;visibility:visible;pointer-events:auto;transform:translate(-50%,-100%) scale(1)}
-#rgmuse-island.on.below{transform:translate(-50%,0) scale(1)}
-#rgmuse-island:hover{box-shadow:0 0 0 1px rgba(170,235,255,.6),0 8px 28px rgba(90,190,255,.55),inset 0 0 16px rgba(140,220,255,.28)}
-#rgmuse-island .rgmuse-dot{width:7px;height:7px;border-radius:50%;background:#ffd24d;box-shadow:0 0 8px #ffd24d;animation:rgmusePulse 1.6s ease-in-out infinite}
-#rgmuse-island.pop{animation:rgmusePop .7s ease}
-@keyframes rgmusePulse{0%,100%{opacity:1;box-shadow:0 0 6px #ffd24d}50%{opacity:.55;box-shadow:0 0 14px #ffd24d}}
-@keyframes rgmusePop{0%{filter:brightness(1)}40%{filter:brightness(1.6) drop-shadow(0 0 10px rgba(255,220,120,.9))}100%{filter:brightness(1)}}
-#rgmuse-bubble{position:fixed;left:50%;top:70px;z-index:2147483620;max-width:min(320px,80vw);padding:8px 12px;border-radius:14px;background:rgba(255,255,255,.96);color:#0b2440;font:600 13px/1.4 system-ui,-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;box-shadow:0 8px 26px rgba(40,140,255,.35),0 0 0 1px rgba(120,200,255,.5);opacity:0;visibility:hidden;pointer-events:none;transform:translate(-50%,-100%);transition:opacity .3s,visibility .3s}
-#rgmuse-bubble.below{transform:translate(-50%,0)}
-#rgmuse-bubble.on{opacity:1;visibility:visible}
-#rgmuse-fab{position:fixed;right:18px;bottom:18px;z-index:2147483590;padding:8px 12px;border:0;border-radius:999px;background:rgba(10,16,34,.86);color:#eaf7ff;font:700 13px system-ui,-apple-system,"Malgun Gothic",sans-serif;box-shadow:0 0 0 1px rgba(150,225,255,.35),0 6px 20px rgba(70,170,255,.35);cursor:pointer}
-#rgmuse-overlay{position:fixed;inset:0;z-index:2147483640;display:none;align-items:center;justify-content:center;background:rgba(3,7,18,.56);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
-#rgmuse-overlay.on{display:flex}
-#rgmuse-board{box-sizing:border-box;width:min(740px,94vw);max-height:88vh;overflow:auto;padding:18px;border-radius:20px;background:linear-gradient(160deg,#101a36 0%,#0a1124 100%);color:#e8f2ff;font:14px/1.5 system-ui,-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;box-shadow:0 0 0 1px rgba(140,210,255,.28),0 24px 70px rgba(0,0,0,.55),0 0 40px rgba(80,170,255,.18)}
-#rgmuse-board *{box-sizing:border-box}
-.rgmuse-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:12px}
-.rgmuse-h1{font-size:17px;font-weight:800}
-.rgmuse-sub{font-size:11.5px;opacity:.7;margin-top:2px}
-.rgmuse-x{border:0;background:rgba(255,255,255,.08);color:#fff;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:15px;flex:none}
-.rgmuse-in{display:flex;gap:8px}
-#rgmuse-input{flex:1;min-width:0;padding:10px 12px;border-radius:12px;border:1px solid rgba(140,210,255,.35);background:rgba(255,255,255,.06);color:#fff;font-size:14px;outline:none}
-#rgmuse-input:focus{border-color:#7fd3ff;box-shadow:0 0 0 3px rgba(127,211,255,.18)}
-#rgmuse-go{padding:10px 14px;border:0;border-radius:12px;background:linear-gradient(135deg,#3aa8ff,#7b6bff);color:#fff;font-weight:800;cursor:pointer;white-space:nowrap}
-.rgmuse-fw{display:inline-flex;gap:6px;align-items:center;margin:8px 0 4px;font-size:12px;opacity:.85;cursor:pointer}
-.rgmuse-legend{font-size:11.5px;opacity:.65;margin-bottom:10px}
-#rgmuse-sum{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:6px}
-.rgmuse-chip{padding:3px 10px;border-radius:999px;background:rgba(255,255,255,.07);font-size:12px}
-.rgmuse-sec{margin-top:12px}
-.rgmuse-sec-h{font-weight:800;font-size:13px;margin-bottom:6px}
-.rgmuse-sec-h span{opacity:.6;font-weight:600}
-.rgmuse-card{padding:10px 12px;border-radius:14px;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.07);margin-bottom:8px}
-.rgmuse-card.st-PENDING_APPROVAL{border-color:rgba(255,210,77,.55);box-shadow:0 0 18px rgba(255,210,77,.12)}
-.rgmuse-card.st-APPROVED_DONE{border-color:rgba(120,220,255,.5)}
-.rgmuse-card.st-ON_HOLD{opacity:.8}
-.rgmuse-row{display:flex;justify-content:space-between;gap:8px;font-size:12px;opacity:.85}
-.rgmuse-title{font-weight:700;margin:3px 0}
-.rgmuse-plan{margin:6px 0 4px 18px;padding:0;font-size:12.5px;opacity:.9}
-.rgmuse-eff,.rgmuse-risk,.rgmuse-res{font-size:12.5px;opacity:.88;margin-top:3px}
-.rgmuse-acts{display:flex;gap:8px;margin-top:8px}
-.rgmuse-acts button{border:0;border-radius:10px;padding:7px 12px;font-weight:800;cursor:pointer}
-.rgmuse-ok{background:linear-gradient(135deg,#2fd27a,#19a8ff);color:#fff}
-.rgmuse-hold{background:rgba(255,255,255,.1);color:#fff}
+# ============================================================ 2) 제10기관 · 뮤즈 · 백혈구 주입
+SOUL_PATCH = r'''
+# [RGON-R35-HANDS-INJECT] — 제11기관 노트북 수족 & 중요 결재 수동 스위치 연동 (Step 35)
+_R35_GOFF = re.compile(r"(?:중요\s*결재|결재|결제|수동)\s*(?:스위치)?\s*(?:를|을)?\s*(?:꺼|끄|off|잠가|잠궈|잠금)|전체\s*잠금|비상\s*잠금", re.I)
+_R35_GON = re.compile(r"(?:결재|결제|수동)\s*스위치\s*(?:를|을)?\s*(?:켜|on)|중요\s*결재\s*허용", re.I)
+_R35_LCHK = re.compile(r"노트북.*(?:상태|점검|용량|디스크|저장\s*공간|체크)|시스템\s*점검")
+_R35_LOPEN = re.compile(r"(메모장|계산기|탐색기|그림판|유튜브|youtube|구글|google|네이버|naver|https?://\S+).*?(?:열어|켜|띄워|실행)", re.I)
+_r35_classify0, _r35_converse0, _r35_selftest0 = classify_intent, converse, self_test
+
+def _r35_hands():
+    import rgon_laptop_hands as h
+    return h
+
+def classify_intent(text):
+    t = (text or "").strip()
+    if _R35_GOFF.search(t): return {"intent": "gate_control", "track": "hands", "tier": None, "action": "off"}
+    if _R35_GON.search(t): return {"intent": "gate_control", "track": "hands", "tier": None, "action": "on"}
+    if _R35_LCHK.search(t): return {"intent": "laptop_check", "track": "hands", "tier": 1}
+    m = _R35_LOPEN.search(t)
+    if m: return {"intent": "laptop_open", "track": "hands", "tier": 2, "target": m.group(1)}
+    return _r35_classify0(t)
+
+def converse(text, mem=None, persist=True, use_llm=True, live=None):
+    t = (text or "").strip()
+    c = classify_intent(t)
+    if c["track"] != "hands":
+        return _r35_converse0(t, mem=mem, persist=persist, use_llm=use_llm)
+    h = _r35_hands()
+    if mem is None: mem = load_memory()
+    extra = {}
+    if c["intent"] == "gate_control":
+        if c["action"] == "off":
+            st = h.lock_all_gates()
+            reply = "🔒 알겠어요! 중요 결재 수동 스위치를 전부 꺼서 철통 잠금했어요. 대표님이 직접 켜시기 전까지 중요 결재는 0건 집행이에요."
+        else:
+            st = h.set_master_gate(True)
+            reply = "🔓 중요 결재 마스터 스위치를 켰어요! 금융·파일·외부전송 세부 스위치는 결재 보드 제어판에서 대표님이 직접 눌러 주셔야 해요."
+        extra["gate"] = {"master_approval_on": st["master_approval_on"], "gates": dict(st["gates"])}
+    elif c["intent"] == "laptop_check":
+        r = h.execute_laptop_action("system_check", "")
+        reply = r["speech"]; extra["system"] = r["report"]
+    else:
+        if live is None: live = os.environ.get("RGON_HANDS_LIVE") == "1"
+        r = h.execute_laptop_action("open_app_or_url", c["target"], dry_run=not live)
+        reply = r["message"]; extra["action"] = r
+    res = {"input": t, "intent": c["intent"], "category": c["intent"], "track": "hands", "tier": c["tier"],
+           "version": VERSION, "source": "hands", "reply": reply}
+    res.update(extra)
+    remember(mem, t, res)
+    res.update({"speech": reply, "affection": mem["affection_score"], "level": level(mem["affection_score"])})
+    if persist: save_memory(mem)
+    return res
+
+def self_test():
+    rc0 = _r35_selftest0()
+    ok = rc0 == 0
+    def chk(cond, msg):
+        nonlocal ok
+        print(("  ✅ " if cond else "  ❌ ") + msg); ok = ok and bool(cond)
+    print("  — Step 35 제11기관 연동 —")
+    for q, want, act in (("결재 스위치 켜줘", "gate_control", "on"), ("수동 스위치 ON", "gate_control", "on"),
+                         ("중요 결재 허용", "gate_control", "on"), ("결재 스위치 꺼줘", "gate_control", "off"),
+                         ("수동 스위치 OFF", "gate_control", "off"), ("전체 잠금", "gate_control", "off"),
+                         ("결제 잠가줘", "gate_control", "off"), ("내 노트북 상태 점검해줘", "laptop_check", None),
+                         ("노트북 용량 어때?", "laptop_check", None), ("메모장 열어줘", "laptop_open", None),
+                         ("유튜브 열어줘", "laptop_open", None), ("결재 보드 열어줘", "muse", None),
+                         ("유튜브 숏폼 대본 초안 작성해줘", "delegate", None), ("대표님 사랑해", "chat_love", None)):
+        c = classify_intent(q)
+        chk(c["intent"] == want and (act is None or c.get("action") == act),
+            f"분별: {q} → {c['intent']}" + (f" ({c.get('action')})" if c.get("action") else ""))
+    h = _r35_hands()
+    snap = {r_: ((ROOT / r_).read_bytes() if (ROOT / r_).exists() else None) for r_ in h.STATE_PATHS}
+    try:
+        converse("결재 스위치 꺼줘", mem=_default_mem(), persist=False, use_llm=False)
+        s = h.load_state()
+        chk(not s["master_approval_on"] and not any(s["gates"].values()), "대화 명령 → 즉시 전체 잠금")
+        r = converse("결재 스위치 켜줘", mem=_default_mem(), persist=False, use_llm=False)
+        chk(h.load_state()["master_approval_on"] and not h.can_execute_critical("finance_payment")["allowed"],
+            "대화 명령 → 마스터만 ON (세부 OFF면 여전히 차단)")
+        chk("payload" not in r, "스위치 명령은 대행 큐 payload 없음")
+        r = converse("노트북 용량 어때?", mem=_default_mem(), persist=False, use_llm=False)
+        chk(r["intent"] == "laptop_check" and "GB" in r["reply"], "노트북 점검 다정한 브리핑")
+        h.set_category_gate("laptop_app_browser", True)
+        r = converse("메모장 열어줘", mem=_default_mem(), persist=False, use_llm=False, live=False)
+        chk(r["intent"] == "laptop_open" and r["action"]["ok"] and r["action"]["dry_run"], "메모장 열기 (안전 dry-run)")
+    finally:
+        for r_, b in snap.items():
+            p = ROOT / r_
+            if b is None:
+                if p.exists(): p.unlink()
+            else:
+                p.write_bytes(b)
+    print("PASS" if ok else "FAIL")
+    return 0 if ok else 1
+'''
+
+MUSE_PATCH = r'''
+# [RGON-R35-GATE-INJECT] — Tier 3 승인 집행 전 중요 결재 수동 ON/OFF 스위치 확인 (제11기관 · Step 35)
+import os as _r35os, sys as _r35sys
+_r35d = _r35os.path.dirname(_r35os.path.abspath(__file__))
+if _r35d not in _r35sys.path: _r35sys.path.insert(0, _r35d)
+try:
+    import rgon_laptop_hands as _r35h
+except Exception:
+    _r35h = None
+_R35_KEYS = ("title", "text", "task", "desc", "description", "name")
+
+def _r35_find(args, kwargs):
+    vals = list(args) + list(kwargs.values())
+    for v in vals:
+        if isinstance(v, dict) and any(k in v for k in ("tier",) + _R35_KEYS): return v
+    g = globals()
+    for v in vals:
+        if not isinstance(v, (str, int)): continue
+        for fn in ("get_task", "find_task"):
+            f = g.get(fn)
+            if callable(f):
+                try:
+                    t = f(v)
+                    if isinstance(t, dict): return t
+                except Exception:
+                    pass
+        for nm in ("TASKS", "tasks", "QUEUE", "queue", "_TASKS", "_tasks", "TASK_QUEUE"):
+            L = g.get(nm)
+            if isinstance(L, dict) and isinstance(L.get(v), dict): return L[v]
+            if isinstance(L, list):
+                for t in L:
+                    if isinstance(t, dict) and v in (t.get("id"), t.get("task_id")): return t
+    return None
+
+def _r35_wrap(fn):
+    if getattr(fn, "_r35", False): return fn
+    def wrapped(*a, **k):
+        t = _r35_find(a, k)
+        text = " ".join(str(t.get(x, "")) for x in _R35_KEYS) if t else " ".join(x for x in a if isinstance(x, str))
+        tier = t.get("tier") if t else None
+        cats = _r35h.critical_categories(text) if _r35h else []
+        if str(tier) == "3" or (tier is None and cats):
+            if _r35h is None:
+                return {"ok": False, "allowed": False, "executed": 0, "gate": "R35",
+                        "message": "🔒 제11기관(rgon_laptop_hands) 로드 실패 — 중요 결재 집행을 차단했습니다."}
+            g = _r35h.can_execute_critical(_r35h.critical_category(text), tier=3)
+            if not g["allowed"]:
+                return {"ok": False, "allowed": False, "executed": 0, "gate": "R35", "message": g["message"]}
+        return fn(*a, **k)
+    wrapped._r35 = True
+    wrapped.__name__ = getattr(fn, "__name__", "wrapped"); wrapped.__doc__ = getattr(fn, "__doc__", None)
+    return wrapped
+
+for _r35n in ("approve", "approve_task", "execute_task", "execute_approved"):
+    if callable(globals().get(_r35n)): globals()[_r35n] = _r35_wrap(globals()[_r35n])
+'''
+
+def wbc_patch(code, text):
+    return f'''
+# [RGON-{code}-INJECT] — DEFAULT_ANTIBODIES {code} 복제 주입
+try:
+    _RX = {text!r}
+    if isinstance(DEFAULT_ANTIBODIES, dict):
+        DEFAULT_ANTIBODIES.setdefault("{code}", _RX)
+    elif isinstance(DEFAULT_ANTIBODIES, list) and not any("{code}" in str(_x) for _x in DEFAULT_ANTIBODIES):
+        _s = DEFAULT_ANTIBODIES[-1] if DEFAULT_ANTIBODIES else None
+        if isinstance(_s, dict):
+            _n = {{k: v for k, v in _s.items()}}
+            for _k in list(_n):
+                if _k in ("id", "code", "key"): _n[_k] = "{code}"
+                elif _k in ("text", "desc", "description", "rule", "name", "title"): _n[_k] = _RX
+            DEFAULT_ANTIBODIES.append(_n)
+        elif isinstance(_s, (list, tuple)):
+            DEFAULT_ANTIBODIES.append(type(_s)(["{code}", _RX] + list(_s[2:])))
+        else:
+            DEFAULT_ANTIBODIES.append(_RX)
+except NameError:
+    DEFAULT_ANTIBODIES = {{"{code}": {text!r}}}
+'''
+
+MAIN_RE = re.compile(r"^if\s+__name__\s*==\s*['\"]__main__['\"]\s*:", re.M)
+
+def inject_before_main(s, marker, patch):
+    if marker in s: return s
+    m = MAIN_RE.search(s)
+    return (s[:m.start()] + patch.lstrip("\n") + "\n" + s[m.start():]) if m else s.rstrip() + "\n" + patch
+
+# ============================================================ 3) HTML 게이트 블록
+GATE_BLOCK = r"""<!-- [RGON-GATE-V1-START] -->
+<style id="rgon-gate-v1-css">
+.rgg-off{background:#e3f5ee!important;color:#0f5e4a!important;border:1px solid #7cc9b3!important}
+.rgg-on{background:#ffe7a8!important;color:#7a4b00!important;border:1px solid #f0b429!important}
+#rgg-panel{position:fixed;top:10px;left:50%;transform:translateX(-50%);z-index:2147483550;background:#132033;color:#e8eef7;border-radius:16px;padding:10px 14px;box-shadow:0 10px 30px rgba(0,0,0,.35);font:13px/1.45 system-ui,sans-serif;width:min(94vw,470px);display:none}
+#rgg-panel.on{display:block}
+#rgg-panel .rgg-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+#rgg-panel button{border:0;border-radius:999px;padding:6px 11px;cursor:pointer;font-size:12.5px}
+#rgg-badge{margin-left:6px;padding:2px 8px;border-radius:999px;font-size:12px}
+#rgg-warn{display:none;margin-top:8px;padding:8px 10px;border-radius:10px;background:#ffe0e0;color:#8a1010;font-weight:600}
+#rgg-warn.on{display:block}
+#rgg-float{position:fixed;right:14px;bottom:110px;z-index:2147483500;border-radius:14px;padding:6px 10px;cursor:pointer}
 </style>
-<script id="rgmuse-script">
+<div id="rgg-panel" role="region" aria-label="중요 결재 수동 ON/OFF 마스터 제어판">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><b>🎛️ 중요 결재 수동 ON/OFF 마스터 제어판<span id="rgg-badge" class="rgg-off">🔒 중요결재 OFF</span></b><button data-rgg="hide" style="background:#24344d;color:#cfe">✕</button></div>
+<div class="rgg-row"><button data-rgg="master" id="rgg-master" class="rgg-off">🔒 전체 중요결재 수동 OFF</button><button data-rgg="lock" style="background:#ffd6d6;color:#8a1010">🚨 비상 전체 잠금</button></div>
+<div class="rgg-row"><button data-rgg-cat="finance_payment">💰 금융·결제</button><button data-rgg-cat="laptop_app_browser">💻 노트북앱</button><button data-rgg-cat="file_modify_delete">🗂️ 파일삭제·이동</button><button data-rgg-cat="external_dispatch">🌐 외부전송</button></div>
+<div id="rgg-warn">⛔ 현재 중요 결재 수동 스위치가 [OFF 잠금] 상태입니다! 위 수동 스위치를 직접 [ON]으로 켜주셔야 집행됩니다.</div>
+<div style="opacity:.7;margin-top:6px;font-size:12px">Tier 3 [✅ 승인 집행]은 마스터 + 해당 세부 스위치가 모두 ON일 때만 통과해요. 상태는 이 기기(localStorage)에 저장돼요.</div>
+</div>
+<script id="rgon-gate-v1-js">
 (function(){
-"use strict";
-if(window.__RGON_MUSE_V1__)return;window.__RGON_MUSE_V1__=true;
-var VERSION="v11.31-MUSE-DELEGATION",ANTIBODY="R1~R32",LS_KEY="rgon_muse_tasks_v1";
-var SEED=__RGMUSE_SEED__;
-var KW3=["매수","매도","리밸런싱","비중","자산","배분","주문","결제","송금","이체","계좌","투자","배포","deploy","설정 변경","설정변경","핵심 설정","삭제","권한","결재","승인","push","출금","대출"];
-var KW2=["분석","초안","시뮬레이션","심판","합성","리서치","조사","요약","보고서","트렌드","비교","검토","예측","평가","설계"];
-var TIER={1:{k:"t1",code:"AUTO",label:"🟢 Tier 1 · AUTO 자동 집행"},2:{k:"t2",code:"NOTIFY",label:"🔵 Tier 2 · NOTIFY 선집행 후보고"},3:{k:"t3",code:"HITL_GATE",label:"🟡 Tier 3 · HITL 대표님 결재"}};
-var ST={DONE:"✅ 자동 완수",DONE_NOTIFIED:"🔵 완수·보고",RUNNING:"⏳ 대행 중",PENDING_APPROVAL:"🟡 결재 대기",APPROVED_DONE:"💧 승인 집행 완료",ON_HOLD:"⏸️ 보류"};
-var RANK={RUNNING:0,PENDING_APPROVAL:0,ON_HOLD:1,DONE:2,DONE_NOTIFIED:2,APPROVED_DONE:3};
-var tasks=[],lastPending=-1,bubbleTimer=null;
-function aonEl(){return document.getElementById("rgyt-wrap")||document.getElementById("aon-roamer");}
-function nowIso(){var d=new Date(),p=function(n){return(n<10?"0":"")+n;};return d.getFullYear()+"-"+p(d.getMonth()+1)+"-"+p(d.getDate())+"T"+p(d.getHours())+":"+p(d.getMinutes())+":"+p(d.getSeconds());}
-function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
-function loadLocal(){try{var d=JSON.parse(localStorage.getItem(LS_KEY)||"null");return d&&d.tasks?d.tasks:[];}catch(e){return[];}}
-function saveLocal(){try{localStorage.setItem(LS_KEY,JSON.stringify({version:VERSION,antibody:ANTIBODY,saved_at:nowIso(),tasks:tasks}));}catch(e){}}
-function merge(base,local){var map={},order=[];(base||[]).forEach(function(t){if(t&&t.id&&!map[t.id]){map[t.id]=JSON.parse(JSON.stringify(t));order.push(t.id);}});(local||[]).forEach(function(t){if(!t||!t.id)return;var a=map[t.id];if(!a){map[t.id]=t;order.push(t.id);return;}if((RANK[t.status]||0)>=(RANK[a.status]||0))map[t.id]=Object.assign({},a,t);});return order.map(function(id){return map[id];});}
-function find(id){for(var i=0;i<tasks.length;i++)if(tasks[i].id===id)return tasks[i];return null;}
-function pendingCount(){var n=0;tasks.forEach(function(t){if(t.status==="PENDING_APPROVAL")n++;});return n;}
-function classify(text){var s=String(text||"").toLowerCase(),i;for(i=0;i<KW3.length;i++)if(s.indexOf(KW3[i].toLowerCase())>=0)return 3;for(i=0;i<KW2.length;i++)if(s.indexOf(KW2[i].toLowerCase())>=0)return 2;return 1;}
-function planFor(title){return{plan:["① 대상·범위 확정: "+title,"② 현재 상태 스냅샷 저장 및 롤백 지점 확보","③ 드라이런(시뮬레이션)으로 영향도·리스크 계산","④ 대표님 [✅ 승인] 수신 시에만 실제 집행 (HITL 게이트)","⑤ 집행 후 결과 검증 및 아침 브리핑·독대실 보고"],effect:"대표님의 판단 시간을 절약하면서 중요 작업을 계획서 기반으로 안전하게 대행",risk:"중요 변경 작업 — 대표님 승인 전 실제 집행 0건 (화수미제: 신중 분별)"};}
-function nextId(){var n=0;tasks.forEach(function(t){var m=/^T(\d+)$/.exec(String(t.id||""));if(m)n=Math.max(n,parseInt(m[1],10));});return"T"+(n+1);}
-function visibleRect(el){if(!el)return null;var cs=window.getComputedStyle(el);if(cs.display==="none"||cs.visibility==="hidden"||parseFloat(cs.opacity||"1")<0.05)return null;var r=el.getBoundingClientRect();if(r.width<2||r.height<2)return null;if(r.bottom<0||r.right<0||r.top>window.innerHeight||r.left>window.innerWidth)return null;return r;}
-function joy(){var w=aonEl();if(w&&w.animate){try{w.animate([{filter:"none"},{filter:"brightness(1.35) drop-shadow(0 0 18px rgba(140,230,255,.95))"},{filter:"none"}],{duration:1300,easing:"ease-in-out"});}catch(e){}}}
-function say(msg){var fns=["rgytSay","aonSay","rgytSpeak","aonSpeak","rgonAonSay","showAonBubble"];for(var i=0;i<fns.length;i++){var f=window[fns[i]];if(typeof f==="function"){try{f(msg);return;}catch(e){}}}
-var bb=document.getElementById("rgmuse-bubble");if(!bb)return;bb.textContent=msg;var r=visibleRect(aonEl());var x=r?r.left+r.width/2:window.innerWidth/2,y=r?r.top-12:72,below=false;if(r&&y<60){y=r.bottom+12;below=true;}x=Math.max(90,Math.min(window.innerWidth-90,x));bb.style.left=x+"px";bb.style.top=y+"px";bb.classList.toggle("below",below);bb.classList.add("on");clearTimeout(bubbleTimer);bubbleTimer=setTimeout(function(){bb.classList.remove("on");},3600);}
-function forwardToDokdae(text,tier){var sel=["#dokdae-input","#dokdaeInput","#dokdae_input","textarea[placeholder*='독대']","input[placeholder*='독대']","textarea[placeholder*='질문']","input[placeholder*='질문']"];for(var i=0;i<sel.length;i++){var el=null;try{el=document.querySelector(sel[i]);}catch(e){}if(el&&el.id!=="rgmuse-input"){el.value="[📋 뮤즈 대행 · Tier "+tier+"] "+text;try{el.dispatchEvent(new Event("input",{bubbles:true}));}catch(e){}return true;}}return false;}
-function finish2(id,silent){var t=find(id);if(!t||t.status!=="RUNNING")return;t.status="DONE_NOTIFIED";t.done_at=nowIso();t.report="요약 보고: ‘"+t.title+"’ 분석/초안 작업을 선집행 완료했습니다. 상세 내용은 독대실에서 이어서 확인하세요.";saveLocal();refresh();if(!silent)say("보고드립니다! Tier 2 대행 작업 완수 🔵✨");}
-function addTask(text,forward){text=String(text||"").trim();if(!text)return;var tier=classify(text),t={id:nextId(),title:text,tier:tier,tier_code:TIER[tier].code,tier_label:TIER[tier].label,created_at:nowIso(),source:"dynamic-island",iching:tier===3?"#64 화수미제 — 신중히 분별하여 끝까지 완수":"#14 화천대유 — 막힘없이 대행"};
-if(tier===1){t.status="DONE";t.done_at=nowIso();t.result="Tier 1 AUTO — 아온이 즉시 자율 완수했습니다.";tasks.push(t);say("Tier 1 자동 집행! 바로 끝냈어요 💧");}
-else if(tier===2){t.status="RUNNING";tasks.push(t);say("Tier 2 분석 대행 시작! 끝나면 바로 보고드릴게요 🔵");setTimeout(function(){finish2(t.id);},1400);}
-else{var p=planFor(text);t.status="PENDING_APPROVAL";t.plan=p.plan;t.expected_effect=p.effect;t.risk=p.risk;tasks.push(t);say("중요 작업이라 실행 계획서를 올렸어요. 대표님 결재를 기다릴게요 🟡");}
-saveLocal();refresh();if(forward)forwardToDokdae(text,tier);}
-function approve(id){var t=find(id);if(!t||Number(t.tier)!==3)return;if(t.status!=="PENDING_APPROVAL"&&t.status!=="ON_HOLD")return;t.status="APPROVED_DONE";t.approved_at=nowIso();t.approved_by="대표님";t.result="대표님 승인 → 아온이 대행 집행 완료";saveLocal();refresh();say("대표님 승인 완료! 즉시 대행 집행했습니다 💧✨");joy();}
-function hold(id){var t=find(id);if(!t||Number(t.tier)!==3||t.status!=="PENDING_APPROVAL")return;t.status="ON_HOLD";t.held_at=nowIso();saveLocal();refresh();say("알겠습니다. 보류해 두고 다시 여쭐게요 ⏸️");}
-function card(t){var h='<div class="rgmuse-card st-'+esc(t.status)+'"><div class="rgmuse-row"><b>'+esc(t.id)+'</b><span>'+(ST[t.status]||esc(t.status))+'</span></div><div class="rgmuse-title">'+esc(t.title)+'</div>';
-if(t.plan&&t.plan.length){h+='<ol class="rgmuse-plan">';t.plan.forEach(function(s){h+='<li>'+esc(String(s).replace(/^[①②③④⑤⑥⑦⑧⑨]\s*/,""))+'</li>';});h+='</ol>';}
-if(t.expected_effect)h+='<div class="rgmuse-eff">🎯 기대효과: '+esc(t.expected_effect)+'</div>';
-if(t.risk)h+='<div class="rgmuse-risk">⚠️ 리스크: '+esc(t.risk)+'</div>';
-var res=t.report||t.result;if(res)h+='<div class="rgmuse-res">📝 '+esc(res)+'</div>';
-if(Number(t.tier)===3&&(t.status==="PENDING_APPROVAL"||t.status==="ON_HOLD")){h+='<div class="rgmuse-acts"><button type="button" class="rgmuse-ok" data-act="approve" data-id="'+esc(t.id)+'">✅ 승인 집행</button>';if(t.status==="PENDING_APPROVAL")h+='<button type="button" class="rgmuse-hold" data-act="hold" data-id="'+esc(t.id)+'">⏸️ 보류</button>';h+='</div>';}
-return h+'</div>';}
-function renderBoard(){var list=document.getElementById("rgmuse-list"),sum=document.getElementById("rgmuse-sum");if(!list||!sum)return;var g={1:[],2:[],3:[]},c={p:0,a:0,h:0,d:0};
-tasks.forEach(function(t){(g[Number(t.tier)]||g[1]).push(t);if(t.status==="PENDING_APPROVAL")c.p++;else if(t.status==="APPROVED_DONE")c.a++;else if(t.status==="ON_HOLD")c.h++;else c.d++;});
-sum.innerHTML='<span class="rgmuse-chip">🟡 결재 대기 '+c.p+'</span><span class="rgmuse-chip">💧 승인 집행 '+c.a+'</span><span class="rgmuse-chip">⏸️ 보류 '+c.h+'</span><span class="rgmuse-chip">✅ 자율 완수 '+c.d+'</span>';
-var h="";[3,2,1].forEach(function(k){var arr=g[k];if(!arr.length)return;arr=arr.slice().sort(function(a,b){return(RANK[a.status]||0)-(RANK[b.status]||0);});h+='<div class="rgmuse-sec '+TIER[k].k+'"><div class="rgmuse-sec-h">'+TIER[k].label+' <span>'+arr.length+'건</span></div>';arr.forEach(function(t){h+=card(t);});h+='</div>';});
-list.innerHTML=h;}
-function refresh(){var n=pendingCount(),isl=document.getElementById("rgmuse-island");if(isl){var tx=isl.querySelector(".rgmuse-txt");if(tx)tx.textContent="📋 결재 "+n+"건";if(lastPending>=0&&n>lastPending){isl.classList.remove("pop");void isl.offsetWidth;isl.classList.add("pop");}}
-lastPending=n;var db=document.getElementById("rgmuse-dock-btn");if(db)db.title="뮤즈(Muse) 자율 대행 & 대표님 결재 보드 — 결재 대기 "+n+"건";renderBoard();}
-function openBoard(){var o=document.getElementById("rgmuse-overlay");if(!o)return;renderBoard();o.classList.add("on");setTimeout(function(){var i=document.getElementById("rgmuse-input");if(i)i.focus();},60);}
-function closeBoard(){var o=document.getElementById("rgmuse-overlay");if(o)o.classList.remove("on");}
-function submit(){var i=document.getElementById("rgmuse-input"),f=document.getElementById("rgmuse-fwd");if(!i||!i.value.trim())return;addTask(i.value,f&&f.checked);i.value="";}
-function ensureUI(){if(document.getElementById("rgmuse-island"))return;
-var isl=document.createElement("div");isl.id="rgmuse-island";isl.setAttribute("role","button");isl.setAttribute("aria-label","뮤즈 결재 대기 보드 열기");isl.innerHTML='<span class="rgmuse-dot"></span><span class="rgmuse-txt">📋 결재 0건</span>';isl.addEventListener("click",function(e){e.stopPropagation();openBoard();});document.body.appendChild(isl);
-var bb=document.createElement("div");bb.id="rgmuse-bubble";document.body.appendChild(bb);
-var ov=document.createElement("div");ov.id="rgmuse-overlay";ov.innerHTML='<div id="rgmuse-board" role="dialog" aria-modal="true" aria-label="뮤즈 자율 대행 보드"><div class="rgmuse-head"><div><div class="rgmuse-h1">📋 뮤즈(Muse) 자율 대행 &amp; 대표님 결재 보드</div><div class="rgmuse-sub">'+VERSION+' · '+ANTIBODY+' · ☲☰ #14 화천대유 · ☲☵ #64 화수미제</div></div><button type="button" class="rgmuse-x" data-act="close" aria-label="닫기">✕</button></div><div class="rgmuse-in"><input id="rgmuse-input" type="text" placeholder="아온아, 이 작업 대신 해줘..." autocomplete="off"><button type="button" id="rgmuse-go" data-act="go">🚀 대행 지시</button></div><label class="rgmuse-fw"><input type="checkbox" id="rgmuse-fwd"> 독대실 질문창에도 함께 전달</label><div class="rgmuse-legend">🟢 자동 집행 · 🔵 선집행 후보고 · 🟡 대표님 결재 후 집행 — 키워드로 자동 분류</div><div id="rgmuse-sum"></div><div id="rgmuse-list"></div></div>';
-ov.addEventListener("click",function(e){if(e.target===ov){closeBoard();return;}var b=e.target.closest?e.target.closest("[data-act]"):null;if(!b)return;var a=b.getAttribute("data-act"),id=b.getAttribute("data-id");if(a==="close")closeBoard();else if(a==="go")submit();else if(a==="approve")approve(id);else if(a==="hold")hold(id);});
-document.body.appendChild(ov);
-var inp=document.getElementById("rgmuse-input");if(inp)inp.addEventListener("keydown",function(e){if(e.key==="Enter"&&!e.isComposing){e.preventDefault();submit();}});
-document.addEventListener("keydown",function(e){if(e.key==="Escape")closeBoard();});}
-function findDockBtn(sym,word){var els=document.querySelectorAll("button,[role='button'],a"),best=null;for(var i=0;i<els.length;i++){var e=els[i];if(e.id&&e.id.indexOf("rgmuse")===0)continue;var tx=e.textContent||"";if(tx.indexOf(sym)>=0&&(!word||tx.indexOf(word)>=0)){if(!best||tx.length<(best.textContent||"").length)best=e;}}return best;}
-function injectDock(){if(document.getElementById("rgmuse-dock-btn"))return true;var clean=findDockBtn("🧹","정화")||findDockBtn("🧹"),hide=findDockBtn("🙈"),ref=clean||hide;if(!ref||!ref.parentNode)return false;
-var b=document.createElement("button");b.type="button";b.id="rgmuse-dock-btn";b.className=ref.className||"";if(ref.getAttribute("style"))b.setAttribute("style",ref.getAttribute("style"));b.textContent="📋대행";b.title="뮤즈(Muse) 자율 대행 & 대표님 결재 보드";b.addEventListener("click",function(e){e.preventDefault();e.stopPropagation();openBoard();});
-if(clean&&hide&&hide.parentNode===clean.parentNode)clean.parentNode.insertBefore(b,hide);else if(clean)clean.parentNode.insertBefore(b,clean.nextSibling);else hide.parentNode.insertBefore(b,hide);
-var fab=document.getElementById("rgmuse-fab");if(fab&&fab.parentNode)fab.parentNode.removeChild(fab);refresh();return true;}
-function fallbackFab(){if(document.getElementById("rgmuse-dock-btn")||document.getElementById("rgmuse-fab"))return;var f=document.createElement("button");f.type="button";f.id="rgmuse-fab";f.textContent="📋대행";f.title="뮤즈(Muse) 자율 대행 & 대표님 결재 보드";f.addEventListener("click",function(e){e.stopPropagation();openBoard();});document.body.appendChild(f);}
-function place(){var isl=document.getElementById("rgmuse-island");if(!isl)return;if(pendingCount()<=0){isl.classList.remove("on");return;}
-var r=visibleRect(aonEl()),x,y,below=false;
-if(r){x=r.left+r.width/2;y=r.top-6;if(y<34){y=r.bottom+6;below=true;}}
-else{var r2=visibleRect(document.getElementById("rgmuse-dock-btn"))||visibleRect(document.getElementById("rgmuse-fab"));if(r2){x=r2.left+r2.width/2;y=r2.top-6;if(y<34){y=r2.bottom+6;below=true;}}else{x=window.innerWidth/2;y=10;below=true;}}
-x=Math.max(60,Math.min(window.innerWidth-60,x));isl.style.left=x+"px";isl.style.top=y+"px";isl.classList.toggle("below",below);isl.classList.add("on");}
-function loop(){try{place();}catch(e){}window.requestAnimationFrame(loop);}
-function init(){ensureUI();tasks=merge(SEED,loadLocal());tasks.forEach(function(t){if(t.status==="RUNNING")finish2(t.id,true);});refresh();
-var tries=0;(function retry(){if(injectDock())return;if(++tries<30)setTimeout(retry,500);else fallbackFab();})();
-var pend=false;try{new MutationObserver(function(){if(pend||document.getElementById("rgmuse-dock-btn"))return;pend=true;setTimeout(function(){pend=false;injectDock();},300);}).observe(document.body,{childList:true,subtree:true});}catch(e){}
-window.requestAnimationFrame(loop);
-try{if(location.protocol!=="file:"&&window.fetch){fetch("rgon_muse_tasks.json",{cache:"no-store"}).then(function(r){return r.ok?r.json():null;}).then(function(d){if(d&&d.tasks&&d.tasks.length){tasks=merge(merge(SEED,d.tasks),loadLocal());refresh();}}).catch(function(){});}}catch(e){}
-window.RGON_MUSE={open:openBoard,close:closeBoard,add:addTask,approve:approve,hold:hold,tasks:function(){return tasks.slice();},classify:classify,version:VERSION};}
-if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);else init();
+if(window.RGON_GATE)return;
+var VER="v11.34-AON-LAPTOP-HANDS",KEY="rgon_manual_gate";
+var LABEL={finance_payment:"💰 금융·결제",laptop_app_browser:"💻 노트북앱",file_modify_delete:"🗂️ 파일삭제·이동",external_dispatch:"🌐 외부전송"};
+var CRIT=["finance_payment","file_modify_delete","external_dispatch"];
+var st={master_approval_on:false,gates:{finance_payment:false,laptop_app_browser:true,file_modify_delete:false,external_dispatch:false}};
+try{var s0=JSON.parse(localStorage.getItem(KEY)||"null");if(s0&&s0.gates){st.master_approval_on=!!s0.master_approval_on;for(var k in st.gates)if(k in s0.gates)st.gates[k]=!!s0.gates[k]}}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}}
+var WARN="⛔ 현재 중요 결재 수동 스위치가 [OFF 잠금] 상태입니다! 위 수동 스위치를 직접 [ON]으로 켜주셔야 집행됩니다.";
+var FIN=/매수|매도|주문|결제|송금|이체|리밸런싱|배분|입금|출금/,FILE=/삭제|지워|지우|이동|폴더|파일\s*정리/,DISP=/발송|배포|푸시|push|전송|업로드|설정\s*변경|메일/i;
+function V(){return window.RGON_VOICE||null}
+function fx(t){var v=V();if(v&&v.sfx)v.sfx(t)}
+function say(s){var r=document.getElementById("rgv-reply");if(r)r.textContent="💧 "+s;var v=V();if(v&&v.speak)v.speak(s)}
+function catsOf(t){t=String(t||"");var r=[];if(FIN.test(t))r.push("finance_payment");if(FILE.test(t))r.push("file_modify_delete");if(DISP.test(t))r.push("external_dispatch");return r}
+function can(cats){if(!cats||!cats.length)cats=CRIT.slice();var ok=st.master_approval_on&&cats.every(function(c){return!!st.gates[c]});return{allowed:!!ok,categories:cats,message:ok?"":WARN}}
+var panel=document.getElementById("rgg-panel"),warn=document.getElementById("rgg-warn"),mb=document.getElementById("rgg-master"),bd=document.getElementById("rgg-badge");
+function paint(){var on=st.master_approval_on;mb.textContent=on?"🔓 전체 중요결재 수동 ON":"🔒 전체 중요결재 수동 OFF";mb.className=on?"rgg-on":"rgg-off";
+bd.textContent=on?"🔓 중요결재 ON":"🔒 중요결재 OFF";bd.className=on?"rgg-on":"rgg-off";
+panel.querySelectorAll("[data-rgg-cat]").forEach(function(b){var c=b.getAttribute("data-rgg-cat"),v=st.gates[c];b.textContent=LABEL[c]+(v?" ON":" OFF");b.className=v?"rgg-on":"rgg-off"});
+document.querySelectorAll("[data-rgg-dock]").forEach(function(b){b.textContent=on?"🔓 결재수동 ON":"🔒 결재수동 OFF";b.title=on?"🔓 중요결재 ON":"🔒 중요결재 OFF";b.classList.toggle("rgg-on",on);b.classList.toggle("rgg-off",!on)});
+if(on)warn.classList.remove("on")}
+function show(){paint();panel.classList.add("on")}
+function setMaster(on){st.master_approval_on=!!on;save();paint();fx(on?"approve_fanfare":"clean_sweep");
+say(on?"중요 결재 수동 스위치가 켜졌어요! 집행 전에 한 번 더 확인해 주세요.":"중요 결재 수동 스위치가 꺼졌어요! 이제 중요 결재는 철통 잠금이에요.")}
+function setCat(c,on){if(!(c in st.gates))return;st.gates[c]=!!on;save();paint();fx("waterdrop_pop");say(LABEL[c].replace(/^\S+\s/,"")+" 스위치가 "+(on?"켜졌어요!":"꺼졌어요!"))}
+function lockAll(){st.master_approval_on=false;for(var k in st.gates)st.gates[k]=false;save();paint();fx("clean_sweep");say("비상 전체 잠금! 중요 결재 수동 스위치를 모두 껐어요.")}
+function blocked(){show();warn.classList.add("on");fx("radar_ping");say("현재 중요 결재 수동 스위치가 OFF 잠금 상태예요. 위 수동 스위치를 직접 ON으로 켜주셔야 집행돼요.")}
+panel.addEventListener("click",function(e){var c=e.target.closest("[data-rgg-cat]");if(c){var k=c.getAttribute("data-rgg-cat");setCat(k,!st.gates[k]);return}
+var b=e.target.closest("[data-rgg]");if(!b)return;var a=b.getAttribute("data-rgg");
+if(a==="master")setMaster(!st.master_approval_on);else if(a==="lock")lockAll();else if(a==="hide")panel.classList.remove("on")});
+window.addEventListener("click",function(e){var t=e.target;if(!t||!t.closest)return;var b=t.closest("button,a,[role=button]");
+if(!b||b.closest("#rgg-panel")||b.closest("#rgv-modal"))return;var x=b.textContent||"";
+if(/승인\s*집행/.test(x)){var n=b,ct="";for(var i=0;i<3&&n.parentElement;i++){n=n.parentElement;if((n.textContent||"").length>400)break;ct=n.textContent||""}
+var r=can(catsOf(ct||x));if(!r.allowed){e.preventDefault();e.stopImmediatePropagation();blocked();return}
+say("수동 스위치 ON 확인! 대표님 승인으로 집행할게요.");return}
+if(/📋/.test(x)&&!b.hasAttribute("data-rgg-dock"))setTimeout(show,0)},true);
+var wt=0,wv=setInterval(function(){var M=window.RGON_MUSE;if(M&&!M.__rgg){try{M.__rgg=1;
+if(M.open){var o=M.open;M.open=function(){var r=o.apply(this,arguments);show();return r}}
+if(M.close){var cl=M.close;M.close=function(){panel.classList.remove("on");return cl.apply(this,arguments)}}
+if(M.approve){var ap=M.approve;M.approve=function(id){var tk=null;try{(M.tasks?M.tasks():[]).forEach(function(z){if(z&&(z.id===id||z.task_id===id))tk=z})}catch(e){}
+var tier=tk?(+tk.tier||0):3;if(tier>=3){var r=can(catsOf(JSON.stringify(tk||id)));if(!r.allowed){blocked();return{ok:false,allowed:false,executed:0,message:WARN}}}
+return ap.apply(this,arguments)}}}catch(e){}clearInterval(wv)}else if(++wt>40)clearInterval(wv)},250);
+var GOFF=/(?:중요\s*결재|결재|결제|수동)\s*(?:스위치)?\s*(?:를|을)?\s*(?:꺼|끄|off|잠가|잠궈|잠금)|전체\s*잠금|비상\s*잠금/i,
+GON=/(?:결재|결제|수동)\s*스위치\s*(?:를|을)?\s*(?:켜|on)|중요\s*결재\s*허용/i,
+LCHK=/노트북.*(?:상태|점검|용량|디스크|저장\s*공간|체크)|시스템\s*점검/,
+LOPEN=/(메모장|계산기|탐색기|그림판|유튜브|youtube|구글|google|네이버|naver|https?:\/\/\S+).*?(?:열어|켜|띄워|실행)/i;
+var SITES={"유튜브":"https://www.youtube.com","youtube":"https://www.youtube.com","구글":"https://www.google.com","google":"https://www.google.com","네이버":"https://www.naver.com","naver":"https://www.naver.com"};
+var LTXT="노트북 디스크와 파일 점검은 사령부 엔진에서 해요. python rgon_laptop_hands.py 를 실행해 주시면 바로 알려드릴게요!";
+function hook(t){t=String(t||"");
+if(GOFF.test(t)){lockAll();return true}
+if(GON.test(t)){st.master_approval_on=true;save();show();fx("approve_fanfare");say("중요 결재 마스터 스위치를 켰어요! 세부 스위치는 제어판에서 대표님이 직접 눌러 주셔야 해요.");return true}
+if(LCHK.test(t)){fetch("rgon_manual_gate_state.json",{cache:"no-store"}).then(function(r){return r.json()}).then(function(j){var s=j&&j.last_system_check;
+say(s&&s.speech?s.speech+" (점검 시각 "+String(s.checked_at||"").replace("T"," ")+")":LTXT)}).catch(function(){say(LTXT)});return true}
+var m=t.match(LOPEN);if(m){if(!st.gates.laptop_app_browser){show();say("노트북앱 스위치가 꺼져 있어요. 제어판에서 켜 주시면 열어드릴게요.");return true}
+var w=m[1],url=/^https?:/i.test(w)?w:(SITES[w]||SITES[w.toLowerCase()]);
+if(url){window.open(url,"_blank","noopener");fx("waterdrop_pop");say(w+" 열어드렸어요!")}else say(w+"은 노트북 엔진 rgon_laptop_hands.py 에서 열 수 있어요.");return true}
+return false}
+function dock(){if(document.querySelector("[data-rgg-dock]"))return true;var bs=document.querySelectorAll("button,a,[role=button]"),hide=null;
+for(var i=0;i<bs.length;i++){if(/🙈/.test(bs[i].textContent)&&!bs[i].closest("#rgv-modal,#rgg-panel")){hide=bs[i];break}}
+if(!hide)return false;var b=hide.cloneNode(false);b.removeAttribute("id");b.removeAttribute("onclick");b.setAttribute("data-rgg-dock","1");
+b.addEventListener("click",function(e){e.preventDefault();e.stopPropagation();setMaster(!st.master_approval_on);show()});hide.parentNode.insertBefore(b,hide);paint();return true}
+var tr=0,iv=setInterval(function(){if(dock()||++tr>40){clearInterval(iv);if(!document.querySelector("[data-rgg-dock]")){var f=document.createElement("button");f.id="rgg-float";f.setAttribute("data-rgg-dock","1");
+f.onclick=function(){setMaster(!st.master_approval_on);show()};document.body.appendChild(f);paint()}}},250);
+paint();
+window.RGON_GATE={version:VER,state:function(){return JSON.parse(JSON.stringify(st))},can:function(t){return can(catsOf(t))},setMaster:setMaster,setCategory:setCat,lockAll:lockAll,show:show,hook:hook};
+var hv=0,hi=setInterval(function(){var v=window.RGON_VOICE;if(v&&v.talk&&!v.__rgg){var t0=v.talk;v.__rgg=1;v.talk=function(t){if(hook(t))return;return t0.apply(this,arguments)};clearInterval(hi)}else if(++hv>40)clearInterval(hi)},250);
 })();
 </script>
-<!-- [RGON-MUSE-V1-END] -->
+<!-- [RGON-GATE-V1-END] -->
 """
 
+GS, GE = b"<!-- [RGON-GATE-V1-START] -->", b"<!-- [RGON-GATE-V1-END] -->"
+TOKENS = {"aon": (b"rgyt-wrap", b"aon-roamer"), "clean": ("🧹".encode(),), "muse": (b"[RGON-MUSE-V1",),
+          "muse_btn": ("📋대행".encode(),), "voice": (b"[RGON-VOICE-V1-START]",), "voice_btn": ("🎙️음성".encode(),)}
+REQUIRED_INNER = [GS, GE, "🔒 결재수동 OFF".encode(), "🔓 결재수동 ON".encode(), "🎛️ 중요 결재 수동 ON/OFF 마스터 제어판".encode(),
+                  "💰 금융·결제".encode(), "💻 노트북앱".encode(), "🗂️ 파일삭제·이동".encode(), "🌐 외부전송".encode(),
+                  "OFF 잠금".encode(), b"stopImmediatePropagation", b"rgon_manual_gate"]
 
-# ====================================================================
-# 6. 텍스트 동기화 유틸
-# ====================================================================
-def sync_text(text, is_md, is_py):
-    out = []
-    for ln in text.splitlines(keepends=True):
-        if is_md and HIST_LINE.search(ln):
-            out.append(ln)  # Step 31 역사 기록 줄은 보존
-            continue
-        ln = ln.replace(OLD_VER, NEW_VER)
-        ln = AB_RE.sub(r"R1\g<1>R32", ln)
-        for rx, rp in (PY_COUNT if is_py else DOC_COUNT):
-            ln = rx.sub(rp, ln)
-        out.append(ln)
+def tokens(b): return {k: any(x in b for x in v) for k, v in TOKENS.items()}
+
+def patch_html(p):
+    b = p.read_bytes(); sp = v13_span(b)
+    if not sp: return None
+    before, pre_tok = outside_hash(b), tokens(b)
+    inner = b[sp[0]:sp[1]]
+    if b"[RGON-VOICE-V1-START]" in inner:
+        inner = inner.replace(b"v11.33-AON-SOUL-BRAIN", NEW_VER.encode())
+        b = b[:sp[0]] + inner + b[sp[1]:]; sp = v13_span(b)
+    blk = GATE_BLOCK.encode("utf-8")
+    i = b.find(GS, sp[0], sp[1])
+    if i >= 0:
+        j = b.find(GE, i, sp[1])
+        if j < 0: raise RuntimeError(f"GATE 블록 END 마커 누락: {rel(p)}")
+        nb = b[:i] + blk.rstrip(b"\n") + b[j + len(GE):]
+    else:
+        nb = b[:sp[2]] + blk + b[sp[2]:]
+    if outside_hash(nb) != before: raise RuntimeError(f"V13 바깥 해시 변경 위험: {rel(p)}")
+    changed = write_bytes(p, nb)
+    return {"before": before, "pre_tok": pre_tok, "changed": changed, "upgrade": i >= 0}
+
+# ============================================================ 4) 동기화
+HEAD_RE = re.compile(r"^\s{0,3}#{1,6}\s")
+HIST_HEAD_RE = re.compile(r"(?i)\bstep\s*\d+")
+HIST_LINE_RE = re.compile(r"(?i)\bstep\s*3[1-4]\b|STEP3[1-4]")
+
+def sync_text(s, md=False):
+    out, in_hist = [], False
+    for line in s.splitlines(keepends=True):
+        if md:
+            if HEAD_RE.match(line): in_hist = bool(HIST_HEAD_RE.search(line)) and NEW_VER not in line
+            if in_hist or (HIST_LINE_RE.search(line) and NEW_VER not in line):
+                out.append(line); continue
+        line = line.replace(OLD_VER, NEW_VER).replace(OLD_R, NEW_R)
+        line = SKC_RE.sub(r"\g<1>31", line)
+        line = ABC_RE.sub(r"\g<1>35", line)
+        if re.search(r"(?i)스킬|skill", line): line = re.sub(r"(?<!\d)30개", "31개", line)
+        line = re.sub(r"\[\s*30\s*,\s*30\s*,\s*30\s*\]", "[31, 31, 31]", line)
+        out.append(line)
     return "".join(out)
 
+def sync_py():
+    for r in PY_SYNC:
+        p = ROOT / r
+        if not p.exists(): log(f"  ⚠️ 없음(건너뜀): {r}"); continue
+        s = sync_text(rd(p))
+        if r == "rgon_daily_cycle.py":
+            s = re.sub(r"(EXPECTED_SKILL_COUNT\s*(?::\s*int\s*)?=\s*)\d+", r"\g<1>31", s)
+        if r == SOUL_REL: s = inject_before_main(s, "[RGON-R35-HANDS-INJECT]", SOUL_PATCH)
+        if r == MUSE_REL: s = inject_before_main(s, "[RGON-R35-GATE-INJECT]", MUSE_PATCH)
+        if r == WBC_REL: s = inject_before_main(s, "[RGON-R35-INJECT]", wbc_patch("R35", R35_TEXT))
+        if write_text(p, s): log(f"  🔁 {r}")
 
-def walk_json(o, key=None, counts=True):
-    if isinstance(o, dict):
-        return {k: walk_json(v, k, counts) for k, v in o.items()}
-    if isinstance(o, list):
-        return [walk_json(v, key, counts) for v in o]
-    if isinstance(o, str):
-        return AB_RE.sub(r"R1\g<1>R32", o.replace(OLD_VER, NEW_VER))
-    if counts and isinstance(o, int) and not isinstance(o, bool) and o == OLD_SK and key in COUNT_KEYS:
-        return NEW_SK
+CONST_35 = (f"\n\n## 제35조 (아온 노트북 만능 수족 & 중요 결재 수동 ON/OFF 마스터 스위치 원칙) — {NEW_VER}\n"
+            "- 제1항: 중요 결재(Tier 3 · 금융·결제 · 파일 삭제·이동 · 외부 전송·배포)는 마스터 스위치와 해당 세부 스위치가 "
+            "대표님 손으로 모두 ON이고 대표님이 승인했을 때만 집행한다. 하나라도 OFF면 집행 0건이다.\n"
+            "- 제2항: 기본값은 마스터 OFF(철통잠금)이며, '전체 잠금' 명령은 즉시 모든 스위치를 OFF로 돌린다.\n"
+            "- 제3항: 대화 명령으로는 마스터만 켤 수 있고, 세부 스위치는 제어판에서 직접 켠다.\n"
+            "- 제4항: 노트북 제어는 허용 목록 앱과 http(s) 주소만 열며, 임의 명령 문자열은 실행하지 않는다.\n")
+
+def fix_index_header(s):
+    lines = s.splitlines(keepends=True)
+    for i, ln in enumerate(lines):
+        if HEAD_RE.match(ln) and re.search(r"\b30\b", ln):
+            lines[i] = re.sub(r"\b30\b", "31", ln, count=1); break
+    return "".join(lines)
+
+def sync_md():
+    for r in MD_SYNC:
+        p = ROOT / r
+        if not p.exists(): log(f"  ⚠️ 없음(건너뜀): {r}"); continue
+        s = sync_text(rd(p), md=True)
+        if r == "CONSTITUTION.md" and "제35조" not in s: s = s.rstrip() + CONST_35
+        if r == "ANTIBODY_REGISTRY.md" and "R35:" not in s: s = s.rstrip() + f"\n- {R35_TEXT}\n"
+        if r == "skills/SKILL_INDEX.md":
+            s = fix_index_header(s)
+            s = s.replace("정식 스킬 총 **30개**", "정식 스킬 총 **31개**")
+            if SKILL_ID not in s:
+                s = s.rstrip() + f"\n31. **{SKILL_ID}** — 노트북 만능 수족 + 중요 결재 수동 ON/OFF 마스터 스위치 (`{SKILL_REL}`, {NEW_VER})\n"
+        if r == "CODE_MAP.md" and HANDS_REL not in s:
+            s = s.rstrip() + f"\n- `{HANDS_REL}` — 제11기관 노트북 만능 제어 수족 & 중요 결재 수동 스위치 ({NEW_R})\n"
+        if r == "GLOSSARY.md" and "수동 마스터 스위치" not in s:
+            s = s.rstrip() + "\n- **수동 마스터 스위치**: `master_approval_on` + 4대 `gates`. 모두 ON이어야 중요 결재가 집행된다 (R35)\n"
+        if r == "RGON_MORNING_BRIEF.md" and "Step 35" not in s:
+            s = s.rstrip() + f"\n\n## Step 35 — {NEW_VER}\n- 제11기관 노트북 수족 & 중요 결재 수동 스위치 장착 · 항체 {NEW_R} · 정식 스킬 {NEW_SK}개\n"
+        if write_text(p, s): log(f"  🔁 {r}")
+
+def deep(o):
+    if isinstance(o, dict): return {k: deep(v) for k, v in o.items()}
+    if isinstance(o, list): return [deep(v) for v in o]
+    if isinstance(o, str): return o.replace(OLD_VER, NEW_VER).replace(OLD_R, NEW_R)
     return o
 
-
-def nl_of(text):
-    return "\r\n" if "\r\n" in text else "\n"
-
-
-def append_section(text, section):
-    nl = nl_of(text)
-    sec = section.replace("\r\n", "\n").replace("\n", nl)
-    if not text.endswith(("\n", "\r\n")):
-        text += nl
-    return text + nl + sec + ("" if sec.endswith(nl) else nl)
-
-
-def insert_table_row(text, key_rx, cells):
-    lines = text.splitlines(keepends=True)
-    idx = None
-    for i, ln in enumerate(lines):
-        if ln.lstrip().startswith("|") and re.search(key_rx, ln):
-            idx = i
-    if idx is None:
-        return None
-    ref = lines[idx]
-    ncol = ref.strip().strip("|").count("|") + 1
-    cells = list(cells)
-    if len(cells) > ncol:
-        cs = cells[:ncol - 1] + [" / ".join(cells[ncol - 1:])]
-    else:
-        cs = cells + [""] * (ncol - len(cells))
-    nl = "\r\n" if ref.endswith("\r\n") else "\n"
-    if not ref.endswith(("\n", "\r\n")):
-        lines[idx] = ref + nl
-    lines.insert(idx + 1, "| " + " | ".join(cs) + " |" + nl)
-    return "".join(lines)
-
-
-def insert_after_imports(text, add_lines):
-    nl = nl_of(text)
-    lines = text.splitlines(keepends=True)
-    last, i = -1, 0
-    while i < min(len(lines), 400):
-        ln = lines[i]
-        if re.match(r"^(import\s+\S|from\s+\S+\s+import\s)", ln):
-            j = i
-            if "(" in ln and ")" not in ln:
-                while j < len(lines) - 1 and ")" not in lines[j]:
-                    j += 1
-            elif ln.rstrip().endswith("\\"):
-                while j < len(lines) - 1 and lines[j].rstrip().endswith("\\"):
-                    j += 1
-            last, i = j, j + 1
-            continue
-        i += 1
-    block = "".join(l + nl for l in add_lines)
-    if last < 0:
-        k = 0
-        while k < len(lines) and (lines[k].startswith("#!") or re.match(r"^#.*coding[:=]", lines[k])):
-            k += 1
-        lines.insert(k, block)
-    else:
-        if not lines[last].endswith(("\n", "\r\n")):
-            lines[last] += nl
-        lines.insert(last + 1, block)
-    return "".join(lines)
-
-
-def detect_indent(text):
-    m = re.search(r'\n( +)"', text)
-    return len(m.group(1)) if m else 2
-
-
-def load_muse_summary():
-    try:
-        d = json.loads((ROOT / TASK_REL).read_text(encoding="utf-8"))
-        return d.get("summary", {}), d.get("tasks", [])
-    except Exception:
-        return {}, []
-
-
-# ====================================================================
-# 6-1. rgon_white_blood_cell.py DEFAULT_ANTIBODIES 에 R32 주입
-# ====================================================================
-STR_LIT_RE = re.compile(r'("""|\'\'\'|"|\')((?:\\.|(?!\1)[^\\])*?)\1', re.S)
-
-R32_RUNTIME_PATCH = '''
-# [RGON-R32-ANTIBODY-PATCH] Step 32 · v11.31-MUSE-DELEGATION · R1~R32
-def _rgon_add_r32(ab):
-    desc = __DESC__
-    full = __FULL__
-    text_keys = ("name", "title", "desc", "description", "text", "label", "summary", "rule")
-    num_keys = ("no", "num", "index", "number", "order", "seq")
-    if "R32" in repr(ab):
-        return ab
-
-    def _clone(sample):
-        if isinstance(sample, dict):
-            v = dict(sample)
-            for k in list(v):
-                x = v[k]
-                if isinstance(x, str):
-                    if x.strip().upper().startswith("R") and x.strip()[1:].isdigit():
-                        v[k] = "R32"
-                    elif k in text_keys:
-                        v[k] = desc
-                    else:
-                        v[k] = x.replace("R31", "R32").replace("Step 31", "Step 32")
-                elif isinstance(x, int) and not isinstance(x, bool) and k in num_keys:
-                    v[k] = 32
-            return v
-        if isinstance(sample, (tuple, list)):
-            out = []
-            for x in sample:
-                if isinstance(x, str) and x.strip().upper().startswith("R") and x.strip()[1:].isdigit():
-                    out.append("R32")
-                elif isinstance(x, str) and len(x) > 8:
-                    out.append(desc)
-                else:
-                    out.append(x)
-            return type(sample)(out)
-        return full
-
-    if isinstance(ab, dict):
-        ab = dict(ab)
-        vals = list(ab.values())
-        sample = vals[-1] if vals else None
-        ab["R32"] = _clone(sample) if isinstance(sample, (dict, list, tuple)) else desc
-        return ab
-    seq = list(ab)
-    seq.append(_clone(seq[-1] if seq else None))
-    return tuple(seq) if isinstance(ab, tuple) else seq
-
-
-DEFAULT_ANTIBODIES = _rgon_add_r32(DEFAULT_ANTIBODIES)
-'''
-
-
-def _scan_close(text, i):
-    """text[i] 가 여는 괄호일 때 (닫는 괄호 인덱스, 최상위 원소 구간 목록) 반환."""
-    pairs = {"[": "]", "{": "}", "(": ")"}
-    stack = [pairs[text[i]]]
-    j, n = i + 1, len(text)
-    elems, start = [], i + 1
-    while j < n:
-        c = text[j]
-        if c == "#":
-            k = text.find("\n", j)
-            j = n if k < 0 else k
-            continue
-        if c in "\"'":
-            q3 = text[j:j + 3]
-            if q3 in ('"""', "'''"):
-                k = text.find(q3, j + 3)
-                if k < 0:
-                    return None
-                j = k + 3
-                continue
-            k = j + 1
-            while k < n and text[k] != c:
-                if text[k] == "\\":
-                    k += 1
-                elif text[k] == "\n":
-                    break
-                k += 1
-            j = k + 1
-            continue
-        if c in pairs:
-            stack.append(pairs[c])
-        elif c in ")]}":
-            if not stack or c != stack[-1]:
-                return None
-            stack.pop()
-            if not stack:
-                elems.append((start, j))
-                return j, elems
-        elif c == "," and len(stack) == 1:
-            elems.append((start, j))
-            start = j + 1
-        j += 1
-    return None
-
-
-def _is_real(seg):
-    return bool(re.sub(r"#[^\n]*", "", seg).strip())
-
-
-def _py_quote(content, q):
-    if len(q) == 3:
-        return q + content.replace("\\", "\\\\") + q
-    return q + content.replace("\\", "\\\\").replace(q, "\\" + q) + q
-
-
-def _clone_r31_element(seg):
-    body = seg.lstrip()
-    while body.startswith("#"):
-        k = body.find("\n")
-        if k < 0:
-            return None
-        body = body[k + 1:].lstrip()
-    lines = body.rstrip().split("\n")
-    while len(lines) > 1 and lines[-1].strip().startswith("#"):
-        lines.pop()
-    body = "\n".join(lines).rstrip()
-    if not body:
-        return None
-
-    def subrest(s):
-        s = re.sub(r"\bR31\b", "R32", s)
-        s = re.sub(r"(Step\s*|STEP\s*|step)31\b", r"\g<1>32", s)
-        s = s.replace(OLD_VER, NEW_VER)
-        s = re.sub(r"""((?:["'](?:no|num|index|number|order|seq)["']|\b(?:no|num|index|number|order|seq))\s*[:=]\s*)31\b""",
-                   r"\g<1>32", s)
-        return s
-
-    best = None
-    for m in STR_LIT_RE.finditer(body):
-        c = m.group(2)
-        if re.fullmatch(r"\s*R\d+\s*", c):
-            continue
-        if best is None or len(c) > len(best.group(2)):
-            best = m
-    if best is None:
-        return subrest(body)
-    c = best.group(2).strip()
-    newc = R32_TEXT if re.match(r"R31\b", c) else R32_DESC
-    lit = _py_quote(newc, best.group(1))
-    return subrest(body[:best.start()]) + lit + subrest(body[best.end():])
-
-
-def _insert_literal(text, op, ce, elems):
-    real = [(s, e) for s, e in elems if _is_real(text[s:e])]
-    if not real:
-        return None
-    tmpl = None
-    for s, e in real:
-        if re.search(r"\bR31\b", text[s:e]):
-            tmpl = (s, e)
-    if tmpl is None:
-        return None
-    new_el = _clone_r31_element(text[tmpl[0]:tmpl[1]])
-    if not new_el:
-        return None
-    nl = nl_of(text)
-    multiline = "\n" in text[op:ce]
-    ts = text[tmpl[0]:tmpl[1]]
-    lead = ts[:len(ts) - len(ts.lstrip())]
-    indent = lead.split("\n")[-1].replace("\r", "") if "\n" in lead else ""
-    if multiline and not indent:
-        indent = "    "
-    ls, le = real[-1]
-    if le < ce and text[le] == ",":
-        pos = le + 1
-        ins = (nl + indent if multiline else " ") + new_el + ","
-    else:
-        code = text[ls:le].rstrip()
-        lines = code.split("\n")
-        while len(lines) > 1 and lines[-1].strip().startswith("#"):
-            lines.pop()
-        code = "\n".join(lines).rstrip()
-        pos = ls + len(code)
-        ins = "," + (nl + indent if multiline else " ") + new_el
-    return text[:pos] + ins + text[pos:]
-
-
-def _runtime_patch(text, ce, indent):
-    nl = nl_of(text)
-    k = text.find("\n", ce)
-    pos = len(text) if k < 0 else k + 1
-    patch = R32_RUNTIME_PATCH.replace("__DESC__", repr(R32_DESC)).replace("__FULL__", repr(R32_TEXT))
-    body = "".join((indent + l + nl) if l.strip() else nl for l in patch.strip("\n").split("\n"))
-    return text[:pos] + ("" if k >= 0 else nl) + nl + body + text[pos:]
-
-
-def _compiles(src, name):
-    try:
-        compile(src, name, "exec")
-        return True
-    except SyntaxError:
-        return False
-
-
-def h_wbc(text, orig):
-    for rx, rp in AB_COUNT:
-        text = rx.sub(rp, text)
-    if "[RGON-R32-ANTIBODY-PATCH]" in text:
-        return text
-    m = re.search(r"^([ \t]*)DEFAULT_ANTIBODIES\s*(?::[^=\n]+)?=\s*([\[\{\(])", text, re.M)
-    if not m:
-        log("  ⚠️ rgon_white_blood_cell.py: DEFAULT_ANTIBODIES 리터럴 미발견 — R32 항목 주입 건너뜀")
-        return text
-    op = m.end() - 1
-    sc = _scan_close(text, op)
-    if sc is None:
-        log("  ⚠️ rgon_white_blood_cell.py: DEFAULT_ANTIBODIES 괄호 해석 실패 — R32 주입 건너뜀")
-        return text
-    ce, elems = sc
-    if re.search(r"(?<![~\-–～])\bR32\b", text[op:ce]):
-        log("  ＝ DEFAULT_ANTIBODIES 에 R32 이미 존재")
-        return text
-    cand = _insert_literal(text, op, ce, elems)
-    if cand is not None and _compiles(cand, WBC_REL):
-        log("  🧬 DEFAULT_ANTIBODIES 리터럴에 R32 항목 추가 (R31 형식 복제)")
-        return cand
-    cand = _runtime_patch(text, ce, m.group(1))
-    if _compiles(cand, WBC_REL):
-        log("  🧬 DEFAULT_ANTIBODIES 직후 R32 런타임 패치 추가 (구조 자동 대응)")
-        return cand
-    log("  ⚠️ R32 주입 시 구문 오류 — 원문 유지")
-    return text
-
-
-# ====================================================================
-# 7. 파일별 핸들러
-# ====================================================================
-def h_daily(text, orig):
-    if re.search(r"\bEXPECTED_SKILL_COUNT\s*[:=]", text):
-        text = re.sub(r"(\bEXPECTED_SKILL_COUNT\s*(?::\s*int\s*)?=\s*)\d+", r"\g<1>28", text)
-    else:
-        text = insert_after_imports(text, ["EXPECTED_SKILL_COUNT = 28  # Step 32 · v11.31-MUSE-DELEGATION"])
-    add = []
-    if NEW_VER not in text:
-        add.append(f'RGON_VERSION_STEP32 = "{NEW_VER}"')
-    if NEW_AB not in text:
-        add.append(f'RGON_ANTIBODY_RANGE = "{NEW_AB}"  # R32: Muse Delegation Engine')
-    if add:
-        text = insert_after_imports(text, add)
-    return text
-
-
-def h_skill_md(text, orig):
-    if SKILL_SLUG in orig:
-        return text
-    cells = ["28", f"`{SKILL_SLUG}`", "뮤즈 자율 대행·위임 집행 (Muse Wonder · 3-Tier HITL · Dynamic Island)",
-             f"`{SKILL_REL}`", "R32", NEW_VER]
-    t2 = insert_table_row(text, r"^\s*\|\s*\**\s*27\s*\**\s*\|", cells)
-    if t2 is not None:
-        return t2
-    return append_section(text, f"<!-- [RGON-SKILL-28] -->\n## 28. `{SKILL_SLUG}` (R32 · {NEW_VER})\n"
-                                f"- 경로: `{SKILL_REL}`\n- 설명: 메타 뮤즈(Muse Wonder & Muse Charm) + 3-Tier HITL Gate + "
-                                f"아온 다이내믹 아일랜드 알림 캡슐 통합 프로토콜\n- 정식 스킬 총 **28개**\n")
-
-
-def h_skill_json(d, orig):
-    entry = {"no": 28, "id": SKILL_SLUG, "name": SKILL_SLUG, "slug": SKILL_SLUG,
-             "title": "뮤즈 자율 대행·위임 집행 (Muse Delegation Engine)", "path": SKILL_REL,
-             "category": "제8기관 · 자율 대행", "antibody": "R32", "version": NEW_VER, "added": TODAY,
-             "description": "메타 뮤즈(Muse Wonder & Muse Charm) + 3-Tier HITL 안전 승인 게이트 + 아온 다이내믹 아일랜드 통합 프로토콜"}
-
-    def fit(template):
-        if isinstance(template, dict):
-            for k in ("id", "no", "index", "num", "number"):
-                if isinstance(template.get(k), int) and not isinstance(template.get(k), bool):
-                    entry[k] = 28
-        return entry
-
-    def has(container):
-        return SKILL_SLUG in json.dumps(container, ensure_ascii=False)
-
-    if isinstance(d, list):
-        if not has(d):
-            d.append(fit(d[-1] if d else None))
-        return d
-    if isinstance(d, dict):
-        container = None
-        for k in ("skills", "items", "entries", "index", "list"):
-            if isinstance(d.get(k), (list, dict)):
-                container = d[k]
-                break
-        if container is None:
-            d["skills"] = container = []
-        if isinstance(container, list):
-            if not has(container):
-                container.append(fit(container[-1] if container else None))
-        elif SKILL_SLUG not in container:
-            vals = list(container.values())
-            container[SKILL_SLUG] = fit(vals[-1] if vals else None)
-        d["count"] = NEW_SK
-        d["total_skills"] = NEW_SK
-        if "version" in d:
-            d["version"] = NEW_VER
-        if "antibody" in d or "antibodies" in d:
-            d["antibody" if "antibody" in d else "antibodies"] = NEW_AB
-    return d
-
-
-def has_r32(orig):
-    return re.search(r"\bR32\s*[:|\]\)]|\|\s*\**R32\b|\*\*R32\*\*", orig) is not None
-
-
-def h_constitution(text, orig):
-    if has_r32(orig):
-        return text
-    return append_section(text, f"<!-- [RGON-CONSTITUTION-R32] -->\n## 제32조 (R32) 자율 대행·위임 집행 헌법 — {NEW_VER} · {NEW_AB}\n"
-                                f"- {R32_TEXT}\n"
-                                "- 제1항 (화천대유 #14): Tier 1 AUTO, Tier 2 NOTIFY 작업은 막힘없이 끝까지 대행한다.\n"
-                                "- 제2항 (화수미제 #64): Tier 3 HITL_GATE 작업은 실행계획서·기대효과·리스크를 작성한 뒤 "
-                                "대표님 [✅ 승인 집행] 이후에만 집행한다. 승인 전 실제 집행은 0건이다.\n"
-                                "- 제3항: Tier 1/2 작업에는 결재 버튼을 노출하지 않고, Tier 3 작업은 결재 없이 자동 집행하지 않는다.\n"
-                                "- 제4항: 아온(#rgyt-wrap / #aon-roamer) 순수 3D 물방울 형태와 기존 미니 독 버튼(🔍레이더·📈3자심판·🧹정화·🙈숨기기)은 그대로 보존한다.\n")
-
-
-def h_antibody(text, orig):
-    if has_r32(orig):
-        return text
-    cells = ["R32", R32_DESC, "Step 32", NEW_VER, TODAY]
-    t2 = insert_table_row(text, r"^\s*\|\s*\**\s*R31\b", cells)
-    if t2 is not None:
-        return t2
-    return append_section(text, f"<!-- [RGON-ANTIBODY-R32] -->\n## R32 — Step 32 · {NEW_VER} · {TODAY}\n- {R32_TEXT}\n"
-                                f"- 엔진: `{ENGINE_REL}` · 스킬: `{SKILL_REL}` · 큐: `{TASK_REL}`\n")
-
-
-def h_codemap(text, orig):
-    if ENGINE_REL in orig:
-        return text
-    return append_section(text, f"<!-- [RGON-CODEMAP-STEP32] -->\n## Step 32 — 제8기관: 자율 대행·위임 집행 기관 ({NEW_VER})\n"
-                                f"- `{ENGINE_REL}`: Muse Wonder 비동기 위임 큐 + 3-Tier HITL 게이트 (`--self-test`, `--list`, `--add`, `--approve`, `--hold`)\n"
-                                f"- `{TASK_REL}` / `{DOCS_TASK_REL}`: 대행 작업 큐 (sha256 무결성)\n"
-                                f"- `{SKILL_REL}`: 28번째 정식 스킬\n"
-                                "- 7개 HTML V13 블록(YT-SCOUT-V13 / UX-CLEANUP-V13) 내부 `[RGON-MUSE-V1]`: 아온 다이내믹 아일랜드 + 📋대행 독 + 결재 보드\n")
-
-
-def h_glossary(text, orig):
-    if "Muse Wonder" in orig:
-        return text
-    return append_section(text, f"<!-- [RGON-GLOSSARY-STEP32] -->\n## Step 32 용어 ({NEW_VER})\n"
-                                "- **Muse Wonder**: 대표님 지시를 끝까지 자율 수행하는 비동기 대행 작업 큐\n"
-                                "- **Muse Charm**: 아온 다이내믹 아일랜드. 결재 대기 건수를 알려 주는 캡슐 배지(`📋 결재 N건`)\n"
-                                "- **3-Tier HITL Gate**: 🟢 AUTO(자동 집행) · 🔵 NOTIFY(선집행 후보고) · 🟡 HITL_GATE(대표님 결재 후 집행)\n"
-                                "- **PENDING_APPROVAL / APPROVED_DONE / ON_HOLD**: Tier 3 상태 (결재 대기 / 승인 집행 완료 / 보류)\n"
-                                "- **화천대유(#14) · 화수미제(#64)**: 막힘없는 대행 · 신중한 분별과 완수\n")
-
-
-def h_brief_md(text, orig):
-    if "[RGON-BRIEF-STEP32]" in orig:
-        return text
-    s, tasks = load_muse_summary()
-    pend = [t for t in tasks if t.get("status") == "PENDING_APPROVAL"]
-    lines = "".join(f"  - 🟡 {t.get('id')}: {t.get('title')}\n" for t in pend)
-    return append_section(text, f"<!-- [RGON-BRIEF-STEP32] -->\n## 📋 뮤즈 대행 브리핑 ({NEW_VER} · {NEW_AB} · 정식 스킬 28개)\n"
-                                f"- 대행 큐 {s.get('total', 0)}건 · 자동 완수 {s.get('done', 0)} · 선집행 보고 {s.get('done_notified', 0)} · "
-                                f"결재 대기 {s.get('pending_approval', 0)}\n" + lines)
-
-
-def h_brief_json(d, orig):
-    if isinstance(d, dict):
-        s, tasks = load_muse_summary()
-        d["muse_delegation"] = {"version": NEW_VER, "antibody": NEW_AB, "summary": s, "updated_at": STAMP,
-                                "pending": [{"id": t.get("id"), "title": t.get("title")} for t in tasks
-                                            if t.get("status") == "PENDING_APPROVAL"]}
-        for k in ("version", "rgon_version"):
-            if k in d:
-                d[k] = NEW_VER
-    return d
-
-
-def h_ledger(d, orig):
-    """면역 원장: 버전·항체 표기만 동기화 (카운트·이력 데이터는 보존)."""
-    if isinstance(d, dict):
-        for k in ("version", "rgon_version", "current_version"):
-            if k in d and isinstance(d[k], str):
-                d[k] = NEW_VER
-        for k in ("antibody", "antibodies", "antibody_range"):
-            if k in d and isinstance(d[k], str):
-                d[k] = NEW_AB
-    return d
-
-
-# ====================================================================
-# 8. 동기화 실행
-# ====================================================================
-PY_SYNC = ["rgon_daily_cycle.py", "rgon_self_evolution_engine.py", "rgon_omni_creator_forge.py",
-           "rgon_k_avatar_engine.py", "rgon_excretory_organ.py", WBC_REL]
-MD_SYNC = {"skills/SKILL_INDEX.md": h_skill_md, "CONSTITUTION.md": h_constitution,
-           "ANTIBODY_REGISTRY.md": h_antibody, "CODE_MAP.md": h_codemap, "GLOSSARY.md": h_glossary,
-           "RGON_MORNING_BRIEF.md": h_brief_md}
-# (핸들러, 없으면 생성 여부, 스킬 카운트 키 치환 여부)
-JSON_SYNC = {"skills/SKILL_INDEX.json": (h_skill_json, True, True),
-             "rgon_morning_brief.json": (h_brief_json, True, True),
-             LEDGER_REL: (h_ledger, False, False)}
-
-
-def read_text(p):
-    b = p.read_bytes()
-    bom = b.startswith(b"\xef\xbb\xbf")
-    return b[3:].decode("utf-8") if bom else b.decode("utf-8"), bom
-
-
-def sync_all():
-    for rel in PY_SYNC:
-        p = ROOT / rel
-        if not p.exists():
-            log(f"  ⚠️ 없음(건너뜀): {rel}")
-            continue
-        text, bom = read_text(p)
-        new = sync_text(text, False, True)
-        if rel == "rgon_daily_cycle.py":
-            new = h_daily(new, text)
-        if rel == WBC_REL:
-            new = h_wbc(new, text)
-        if not _compiles(new, rel):
-            raise RuntimeError(f"{rel} 동기화 후 구문 오류 — 롤백")
-        log(f"  {'✏️' if write_text(p, new, bom) else '＝'} {rel}")
-    for rel, fn in MD_SYNC.items():
-        p = ROOT / rel
-        if not p.exists():
-            log(f"  ⚠️ 없음 → 새로 생성: {rel}")
-            text, bom = f"# {Path(rel).stem}\n", False
+def load(p):
+    try: return json.loads(Path(p).read_text(encoding="utf-8"))
+    except Exception: return {}
+
+def sync_json():
+    p = ROOT / "skills/SKILL_INDEX.json"; j = deep(load(p))
+    sk = j.get("skills") if isinstance(j.get("skills"), list) else []
+    existing_by_slug = {}
+    for item in sk:
+        if isinstance(item, dict):
+            k = item.get("slug") or item.get("id") or Path(item.get("path", "")).parent.name
+            if k: existing_by_slug[k] = item
+    all_skill_dirs = sorted(d.parent.name for d in (ROOT / "skills").glob("*/SKILL.md"))
+    merged_skills = []
+    for slug in all_skill_dirs:
+        if slug in existing_by_slug:
+            merged_skills.append(existing_by_slug[slug])
         else:
-            text, bom = read_text(p)
-        new = fn(sync_text(text, True, False), text)
-        log(f"  {'✏️' if write_text(p, new, bom) else '＝'} {rel}")
-    for rel, (fn, create, counts) in JSON_SYNC.items():
-        p = ROOT / rel
-        if p.exists():
-            text, bom = read_text(p)
-            try:
-                d = json.loads(text)
-            except Exception:
-                new = AB_RE.sub(r"R1\g<1>R32", text.replace(OLD_VER, NEW_VER))
-                log(f"  {'✏️' if write_text(p, new, bom) else '＝'} {rel} (JSON 파싱 불가 → 텍스트 동기화)")
-                continue
-        elif create:
-            log(f"  ⚠️ 없음 → 새로 생성: {rel}")
-            text, bom, d = "{}", False, {}
-        else:
-            log(f"  ⚠️ 없음(건너뜀): {rel}")
-            continue
-        d = fn(walk_json(d, counts=counts), text)
-        ind = detect_indent(text)
-        log(f"  {'✏️' if write_text(p, json.dumps(d, ensure_ascii=False, indent=ind) + chr(10), bom) else '＝'} {rel}")
-
-
-# ====================================================================
-# 9. HTML V13 블록 주입 (YT-SCOUT-V13 / UX-CLEANUP-V13 호환)
-# ====================================================================
-def v13_span(b):
-    """같은 종류(YT-SCOUT ↔ YT-SCOUT, UX-CLEANUP ↔ UX-CLEANUP)의 START·END 쌍을 찾아
-    (START 마커 끝 인덱스, END 마커 시작 인덱스) 반환. 없으면 None."""
-    for ms in V13_START_RE.finditer(b):
-        kind = b"YT-SCOUT" if b"YT-SCOUT" in ms.group(0) else b"UX-CLEANUP"
-        for me in V13_END_RE.finditer(b, ms.end()):
-            if kind in me.group(0):
-                return ms.end(), me.start()
-    return None
-
-
-def find_v13_htmls():
-    out = []
-    for p in iter_files():
-        if p.suffix.lower() in (".html", ".htm"):
-            try:
-                b = p.read_bytes()
-            except Exception:
-                continue
-            if v13_span(b):
-                out.append(p)
-    return sorted(out)
-
-
-def diagnose_v13_markers():
-    found = {}
-    for p in iter_files():
-        if p.suffix.lower() in (".html", ".htm"):
-            try:
-                b = p.read_bytes()
-            except Exception:
-                continue
-            for m in set(V13_ANY_RE.findall(b)):
-                found.setdefault(m.decode("utf-8", "replace"), []).append(relp(p))
-    if not found:
-        log("  (진단) HTML 내 RGON-*-V13 마커가 전혀 없습니다.")
-    for k, v in sorted(found.items()):
-        log(f"  (진단) {k}: {len(v)}개 파일 — {', '.join(v[:7])}{' …' if len(v) > 7 else ''}")
-
-
-def build_muse_block():
-    _, tasks = load_muse_summary()
-    seed = json.dumps(tasks, ensure_ascii=False).replace("</", "<\\/")
-    return MUSE_BLOCK_TEMPLATE.replace("__RGMUSE_SEED__", seed)
-
-
-def inject_html(p, block):
-    b = p.read_bytes()
-    sp = v13_span(b)
-    if not sp:
-        raise RuntimeError(f"V13 마커 이상: {relp(p)}")
-    pre, inner, post = b[:sp[0]], b[sp[0]:sp[1]], b[sp[1]:]
-    inner_t = MUSE_BLOCK_RE.sub("", inner.decode("utf-8"))
-    nl = "\r\n" if b"\r\n" in inner else "\n"
-    if not inner_t.endswith(("\n", "\r\n")):
-        inner_t += nl
-    inner_t += block.replace("\n", nl) if nl == "\r\n" else block
-    new = pre + inner_t.encode("utf-8") + post
-    nsp = v13_span(new)
-    assert nsp and new[:nsp[0]] == pre and new[nsp[1]:] == post, "V13 바깥 영역 변형 감지"
-    return write_bytes(p, new), sha_bytes(pre) + sha_bytes(post)
-
-
-def outside_hash(b):
-    sp = v13_span(b)
-    if not sp:
-        return ""
-    return sha_bytes(b[:sp[0]]) + sha_bytes(b[sp[1]:])
-
-
-# ====================================================================
-# 10. 검증
-# ====================================================================
-def count_skills():
-    sd = ROOT / "skills"
-    dirs = sum(1 for d in sd.iterdir() if d.is_dir() and (d / "SKILL.md").exists()) if sd.exists() else 0
-    try:
-        j = json.loads(read_text(sd / "SKILL_INDEX.json")[0])
-        jc = j.get("total_skills", j.get("count")) if isinstance(j, dict) else len(j)
-    except Exception:
-        jc = None
-    m = re.search(r"\bEXPECTED_SKILL_COUNT\s*(?::\s*int\s*)?=\s*(\d+)", read_text(ROOT / "rgon_daily_cycle.py")[0]) \
-        if (ROOT / "rgon_daily_cycle.py").exists() else None
-    return [dirs, jc, int(m.group(1)) if m else None]
-
-
-def check_antibody():
-    bad = []
-    for rel in ["rgon_daily_cycle.py", "CONSTITUTION.md", "ANTIBODY_REGISTRY.md", "skills/SKILL_INDEX.md"]:
-        p = ROOT / rel
-        if p.exists():
-            t = read_text(p)[0]
-            if NEW_AB not in t and "R32" not in t:
-                bad.append(rel)
-    p = ROOT / WBC_REL
+            merged_skills.append({"id": slug, "slug": slug, "name": slug, "path": f"skills/{slug}/SKILL.md", "version": NEW_VER})
+    j["skills"] = merged_skills
+    j["count"] = len(merged_skills); j["total_skills"] = len(merged_skills); j["skill_count"] = len(merged_skills); j["total"] = len(merged_skills)
+    j["version"] = NEW_VER; j["antibody"] = NEW_R; j["antibody_range"] = NEW_R; j["antibodies"] = NEW_R; j["immune"] = NEW_R
+    write_text(p, json.dumps(j, ensure_ascii=False, indent=2) + "\n")
+    p = ROOT / "rgon_morning_brief.json"; j = deep(load(p))
+    j.update({"version": NEW_VER, "antibodies": NEW_R, "skills": NEW_SK})
+    write_text(p, json.dumps(j, ensure_ascii=False, indent=2) + "\n")
+    p = ROOT / "rgon_immune_ledger.json"
     if p.exists():
-        t = read_text(p)[0]
-        if OLD_AB in t or OLD_VER in t:
-            bad.append(f"{WBC_REL}(구버전 잔존)")
-        if "DEFAULT_ANTIBODIES" in t and not re.search(r"(?<![~\-–～])\bR32\b", t):
-            bad.append(f"{WBC_REL}(DEFAULT_ANTIBODIES R32 없음)")
-    return bad
+        j = deep(load(p)); j["version"] = NEW_VER
+        write_text(p, json.dumps(j, ensure_ascii=False, indent=2) + "\n")
 
+def sync_wbc_golden_and_preserve():
+    saved_bytes = {r: (ROOT / r).read_bytes() for r in CHANGED if (ROOT / r).exists()}
+    lp = ROOT / "rgon_immune_ledger.json"
+    if lp.exists():
+        try:
+            lj = json.loads(lp.read_text(encoding="utf-8"))
+            def _upd_hashes(obj):
+                if isinstance(obj, dict):
+                    for k, v in list(obj.items()):
+                        if isinstance(v, str) and len(v) == 64 and (ROOT / k).is_file():
+                            obj[k] = sha((ROOT / k).read_bytes())
+                        elif isinstance(v, dict) and "sha256" in v and (ROOT / k).is_file():
+                            b = (ROOT / k).read_bytes()
+                            v["sha256"] = sha(b)
+                            if "size" in v: v["size"] = len(b)
+                        else:
+                            _upd_hashes(v)
+                elif isinstance(obj, list):
+                    for x in obj: _upd_hashes(x)
+            _upd_hashes(lj)
+            lj["version"] = NEW_VER
+            lj["antibody_range"] = NEW_R
+            lp.write_text(json.dumps(lj, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        except Exception:
+            pass
+    for bdir_name in (".rgon_backup", ".wbc_golden", ".golden"):
+        bdir = ROOT / bdir_name
+        if bdir.is_dir():
+            for r, b in saved_bytes.items():
+                for cand in (bdir / r, bdir / Path(r).name):
+                    if cand.is_file():
+                        try: cand.write_bytes(b)
+                        except Exception: pass
+    return saved_bytes
 
-def msgbox(title, text):
-    if os.name != "nt":
-        return
+def triad_counts():
+    a = len(list((ROOT / "skills").glob("*/SKILL.md")))
+    j = load(ROOT / "skills/SKILL_INDEX.json")
+    b = j.get("total_skills", j.get("count"))
+    if isinstance(j.get("skills"), (list, dict)) and len(j["skills"]) != b: b = f"{b}≠len {len(j['skills'])}"
+    m = re.search(r"^\s*EXPECTED_SKILL_COUNT\s*(?::\s*int\s*)?=\s*(\d+)", rd(ROOT / "rgon_daily_cycle.py"), re.M)
+    return [a, b, int(m.group(1)) if m else None]
+
+def run(cmd, timeout=300):
     try:
-        ps = ("Add-Type -AssemblyName PresentationFramework;[System.Windows.MessageBox]::Show("
-              f"'{text.replace(chr(39), chr(39) * 2)}','{title.replace(chr(39), chr(39) * 2)}')")
-        subprocess.Popen(["powershell", "-NoProfile", "-Command", ps], creationflags=0x08000000)
-    except Exception:
-        pass
-
-
-def git_sync():
-    if not (ROOT / ".git").exists():
-        log("  ⚠️ .git 없음 — Git 동기화 건너뜀")
-        return "SKIP"
-    steps = [["git", "add", "-A"],
-             ["git", "commit", "-m", f"Step 32: {NEW_VER} · {NEW_AB} · 정식 스킬 28개 — Muse Delegation Engine"],
-             ["git", "fetch", "origin"], ["git", "pull", "--no-rebase", "origin"], ["git", "push", "origin"]]
-    for c in steps:
-        rc, out = run(c, 300)
-        log(f"  $ {' '.join(c[:3])} → rc={rc}")
-        if rc != 0 and not (c[1] == "commit" and "nothing to commit" in out):
-            log("    " + out.strip()[-400:])
-            if c[1] in ("pull", "push"):
-                return "FAIL"
-    return "OK"
-
-
-# ====================================================================
-# 11. 메인
-# ====================================================================
-def main():
-    no_git, no_box = "--no-git" in sys.argv, "--no-msgbox" in sys.argv
-    t0 = time.time()
-    log(f"💧 RGON Step 32 — {NEW_VER} · {NEW_AB} · 스킬 {NEW_SK}개 @ {ROOT}")
-    if not (ROOT / "rgon_daily_cycle.py").exists():
-        log("⛔ 저장소 루트가 아닙니다 (rgon_daily_cycle.py 없음)")
-        return 2
-    before = snapshot()
-    htmls = find_v13_htmls()
-    log(f"🔎 V13 HTML {len(htmls)}개 발견 (YT-SCOUT-V13 / UX-CLEANUP-V13)")
-    for p in htmls:
-        log(f"   · {relp(p)}")
-    if len(htmls) != EXPECTED_HTML:
-        log(f"⛔ V13 HTML 수 불일치 (기대 {EXPECTED_HTML})")
-        diagnose_v13_markers()
-        return 2
-    html_out_before = {p: outside_hash(p.read_bytes()) for p in htmls}
-    results = {}
-    try:
-        log("① 엔진·큐·스킬 생성")
-        write_text(ROOT / ENGINE_REL, ENGINE_SRC)
-        track(ROOT / TASK_REL); track(ROOT / DOCS_TASK_REL)
-        for tmp in (TASK_REL + ".tmp", DOCS_TASK_REL + ".tmp"):
-            TARGETS.add(tmp)
-        rc, out = run([sys.executable, ENGINE_REL, "--self-test"])
-        log(out.strip())
-        results["muse_selftest"] = rc
-        if rc != 0:
-            raise RuntimeError("rgon_muse_delegator.py --self-test 실패")
-        write_text(ROOT / SKILL_REL, SKILL_MD)
-
-        log("② 버전·항체·스킬 수 동기화 (백혈구·면역 원장 포함)")
-        sync_all()
-
-        log("③ HTML V13 내부 뮤즈 다이내믹 아일랜드 주입")
-        block = build_muse_block()
-        for p in htmls:
-            ch, _ = inject_html(p, block)
-            log(f"  {'✏️' if ch else '＝'} {relp(p)}")
-
-        log("④ 백혈구 self-test")
-        wbc = ROOT / WBC_REL
-        rc2, out2 = run([sys.executable, wbc.name, "--self-test"]) if wbc.exists() else (998, f"{WBC_REL} 없음")
-        log(out2.strip()[-1500:])
-        results["wbc_selftest"] = rc2
-
-        log("⑤ 삼성(三省) 3/3 검증")
-        html_ok = []
-        for p in htmls:
-            b = p.read_bytes(); t = b.decode("utf-8", "replace")
-            # [수정 2] #rgyt-wrap 또는 #aon-roamer 둘 다 허용
-            html_ok.append(v13_span(b) is not None and ("rgyt-wrap" in t or "aon-roamer" in t)
-                           and "📋대행" in t and MUSE_START in t and outside_hash(b) == html_out_before[p])
-        for p, okv in zip(htmls, html_ok):
-            if not okv:
-                log(f"    ✗ HTML 검증 실패: {relp(p)}")
-        s1 = rc == 0 and rc2 == 0 and all(html_ok)
-        after = snapshot()
-        ch, de, cr = diff_snap(before, after, TARGETS)
-        ch = [x for x in ch if not RUNTIME_RE.search(x)]
-        de = [x for x in de if not RUNTIME_RE.search(x)]
-        cr = [x for x in cr if not RUNTIME_RE.search(x)]
-        s2 = not ch and not de
-        counts, ab_bad = count_skills(), check_antibody()
-        s3 = counts == [28, 28, 28] and not ab_bad
-        log(f"  三省① self-test·HTML: {'PASS' if s1 else 'FAIL'} (muse rc={rc}, wbc rc={rc2}, html {sum(html_ok)}/{len(htmls)})")
-        log(f"  三省② 보호 파일 변경 0건: {'PASS' if s2 else 'FAIL'} (변경 {len(ch)} · 삭제 {len(de)} · 신규 {len(cr)}) "
-            f"보호 {len(before) - len([k for k in before if k in TARGETS])}개")
-        for x in (ch + de)[:20]:
-            log(f"    ✗ {x}")
-        log(f"  三省③ 스킬 {counts} · 항체 {NEW_AB}: {'PASS' if s3 else 'FAIL'} {ab_bad or ''}")
-        score = sum([s1, s2, s3])
-        if score != 3:
-            raise RuntimeError(f"삼성 {score}/3 — 실패")
+        r = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=timeout)
+        return r.returncode, (r.stdout or "") + (r.stderr or "")
     except Exception as e:
-        log(f"⛔ {e}")
-        rollback()
-        if not no_box:
-            msgbox("RGON Step 32 실패", f"Step 32 실패 및 롤백: {e}")
-        return 1
+        return 99, repr(e)
 
-    s, tasks = load_muse_summary()
-    report = (f"# STEP 32 — MUSE DELEGATION REPORT\n\n- 일시: {STAMP}\n- 버전: `{NEW_VER}` · 항체 `{NEW_AB}` · 정식 스킬 **28개**\n"
-              f"- {R32_TEXT}\n- 삼성(三省): **3/3 PASS**\n  1. muse self-test rc=0 · 백혈구 self-test rc=0 · HTML {len(htmls)}/7 "
-              f"(V13 YT-SCOUT/UX-CLEANUP · #rgyt-wrap/#aon-roamer · 📋대행)\n"
-              f"  2. 비대상 보호 파일 해시 변경 0건 (백업 디렉터리·면역 원장·런타임 파일 제외)\n"
-              f"  3. 스킬 `[28, 28, 28]` · 항체 `{NEW_AB}` (백혈구 DEFAULT_ANTIBODIES R32 포함)\n\n"
-              f"## 대행 큐 ({s.get('total', 0)}건 · 결재 대기 {s.get('pending_approval', 0)}건)\n"
-              + "".join(f"- {t.get('id')} [{t.get('tier_label')}] `{t.get('status')}` {t.get('title')}\n" for t in tasks)
-              + "\n## 변경 대상 파일\n" + "".join(f"- `{x}`\n" for x in sorted(TARGETS) if not x.endswith(".tmp"))
-              + f"\n## 실행 로그\n```\n" + "\n".join(LOG[-80:]) + "\n```\n")
-    write_text(ROOT / REPORT_REL, report)
-    log(f"📝 보고서: {REPORT_REL}")
+def git_push():
+    rc, o = run(["git", "add", "-A", "--", "."] + GIT_EXCLUDES); log("  ➕ add -A " + ("OK" if rc == 0 else o.strip()[-200:]))
+    rc, o = run(["git", "commit", "-m", f"Step 35 {NEW_VER}: 제11기관 노트북 수족 & 중요 결재 수동 ON/OFF 스위치 ({NEW_R}, 스킬 {NEW_SK})"])
+    log("  📦 commit " + ("OK" if rc == 0 else o.strip()[-200:]))
+    if rc != 0: return
+    rc, o = run(["git", "fetch", "origin"]); log("  🔄 fetch " + ("OK" if rc == 0 else o.strip()[-200:]))
+    rc, o = run(["git", "pull", "--no-rebase", "origin"])
+    if rc != 0: log("  ⛔ pull 실패 — push 중단 (로컬 커밋 유지): " + o.strip()[-200:]); return
+    rc, o = run(["git", "push", "origin"]); log("  🚀 push " + ("OK" if rc == 0 else o.strip()[-200:]))
 
-    g = "SKIP" if no_git else git_sync()
-    log(f"☁️ Git 동기화: {g}")
-    msg = (f"Step 32 완료 · {NEW_VER}\n항체 {NEW_AB} · 정식 스킬 28개\n삼성 3/3 PASS · 결재 대기 "
-           f"{s.get('pending_approval', 0)}건\nGit: {g} · {time.time() - t0:.1f}s")
-    log("✅ " + msg.replace("\n", " | "))
-    if not no_box:
-        msgbox("RGON Step 32 — Muse Delegation", msg)
+# ============================================================ main
+def execute():
+    global PRE
+    log(f"🚀 Step 35 {NEW_VER} 시작 (dry={DRY})")
+    if not (ROOT / "rgon_daily_cycle.py").exists(): log("❌ 저장소 루트가 아닙니다."); return 2
+    PRE = snapshot()
+    htmls = [ROOT / h for h in HTML_TARGETS if (ROOT / h).exists() and v13_span((ROOT / h).read_bytes())]
+    log(f"🔎 V13 HTML {len(htmls)}/{len(HTML_TARGETS)}개 발견")
+    if len(htmls) != len(HTML_TARGETS):
+        log("❌ 누락: " + ", ".join(h for h in HTML_TARGETS if ROOT / h not in htmls)); return 3
+
+    # [A] 모든 쓰기
+    write_text(ROOT / HANDS_REL, HANDS_SRC); log(f"  🆕 {HANDS_REL}")
+    write_text(ROOT / SKILL_REL, SKILL_MD); log(f"  🆕 {SKILL_REL}")
+    hres = {}
+    for p in htmls:
+        r = patch_html(p); hres[rel(p)] = r
+        log(f"  💉 {rel(p)} {'업그레이드' if r['upgrade'] else '신규 장착'}{'' if r['changed'] else ' (변경 없음)'}")
+    sync_py(); sync_md(); sync_json()
+    if DRY: log(f"🧪 dry-run 종료: 변경 예정 {len(CHANGED)}개"); return 0
+    prepare_extras()
+
+    # [B] 기관 self-test
+    c1, outs = [], {}
+    for name, f in (("laptop_hands", HANDS_REL), ("soul_brain", SOUL_REL), ("voice_organ", VOICE_REL)):
+        if not (ROOT / f).exists(): c1.append((f"{name} 존재", False)); outs[name] = ""; continue
+        rc, o = run([sys.executable, f, "--self-test"]); outs[name] = o
+        c1.append((f"{name} --self-test rc={rc}", rc == 0))
+    for r_, h in hres.items():
+        b = (ROOT / r_).read_bytes(); sp = v13_span(b); inner = b[sp[0]:sp[1]] if sp else b""
+        ok = bool(sp) and outside_hash(b) == h["before"] and inner.count(GS) == 1
+        ok = ok and all(x in inner for x in REQUIRED_INNER)
+        tk = tokens(b); ok = ok and all(tk[k] for k, v in h["pre_tok"].items() if v)
+        c1.append((f"HTML {r_}", ok))
+
+    # [C] 백혈구 self-test 및 Step 35 변경본 보존
+    saved_step35 = sync_wbc_golden_and_preserve()
+    rc, o = run([sys.executable, WBC_REL, "--self-test"]); outs["white_blood_cell"] = o
+    c1.append((f"white_blood_cell --self-test rc={rc}", rc == 0))
+    for r_, b_ in saved_step35.items():
+        if (ROOT / r_).exists() and (ROOT / r_).read_bytes() != b_:
+            (ROOT / r_).write_bytes(b_)
+    sync_wbc_golden_and_preserve()
+    s1 = all(x[1] for x in c1)
+
+    # ② 보호 파일
+    after = snapshot()
+    allowed = set(CHANGED) | set(EXTRAS)
+    viol = sorted(k for k in set(PRE) | set(after) if k not in allowed and PRE.get(k) != after.get(k)
+                  and not k.startswith("aon_drafts/"))
+    s2 = not viol
+    # ③ 스킬·항체
+    sc = triad_counts()
+    s3 = sc == [31, 31, 31] and "[RGON-R35-INJECT]" in rd(ROOT / WBC_REL) and "R35:" in rd(ROOT / "ANTIBODY_REGISTRY.md") \
+         and f"31. **{SKILL_ID}**" in rd(ROOT / "skills/SKILL_INDEX.md")
+    score = sum([s1, s2, s3])
+    log(f"① 기능 {'✅' if s1 else '❌'} | ② 보호 {'✅' if s2 else '❌'}({len(viol)}건) | ③ 스킬 {sc} 항체 {'✅' if s3 else '❌'} → 삼성 {score}/3")
+
+    rep = [f"# STEP35 LAPTOP HANDS REPORT — {NEW_VER}", "", f"- 일시: {TS}", f"- 항체: {NEW_R} · 정식 스킬: {sc}",
+           f"- 삼성(三省): **{score}/3**", f"- 백업: `{rel(BACKUP) if BACKUP.exists() else '(없음)'}`", "", "## ① 기능 검증"]
+    rep += [f"- {'✅' if ok else '❌'} {n}" for n, ok in c1]
+    rep += ["", "## ② 비대상 보호 파일", f"- 해시 변경 {len(viol)}건"] + [f"  - ❌ {v}" for v in viol]
+    rep += ["", "## ③ 스킬·항체", f"- 스킬 {sc} (기대 [31, 31, 31])", f"- {R35_TEXT}", "", "## 변경 파일"]
+    rep += [f"- `{c}`" for c in sorted(CHANGED)]
+    for k, o in outs.items(): rep += ["", f"## {k}", "```", o.strip()[-2000:], "```"]
+    if score != 3:
+        print("\n".join(rep[:35]))
+        for name, ok in c1:
+            if not ok and name.split()[0] in outs:
+                print(f"=== FAILED OUTPUT: {name} ===")
+                print(outs[name.split()[0]])
+        rollback(f"삼성 {score}/3 미달"); return 1
+
+    (ROOT / REPORT_REL).write_text("\n".join(rep) + "\n", encoding="utf-8"); CREATED.add(REPORT_REL)
+    log(f"  📝 {REPORT_REL}")
+    if not NO_GIT and (ROOT / ".git").exists(): git_push()
     return 0
 
+def main():
+    try:
+        rc = execute()
+    except Exception as e:
+        import traceback; traceback.print_exc()
+        if not DRY: rollback(f"예외 {e!r}")
+        rc = 9
+    if not NO_MSG and os.name == "nt" and not DRY:
+        msg = f"Step 35 {NEW_VER} {'완료 3/3' if rc == 0 else '실패 rc=' + str(rc) + ' (자동 원복)'} · {NEW_R} · 스킬 31".replace("'", "")
+        subprocess.run(["powershell", "-NoProfile", "-Command",
+                        f"Add-Type -AssemblyName PresentationFramework;[System.Windows.MessageBox]::Show('{msg}','RGON 제11기관')"],
+                       capture_output=True)
+    return rc
 
 if __name__ == "__main__":
     sys.exit(main())
