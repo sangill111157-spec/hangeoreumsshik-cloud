@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # agentshield:ignore-file
-"""rgon_k_avatar_engine.py — v11.29-ROAMING-AON / R1~R32 / 정식 스킬 25 (아온 A-ON·芽溫 3D 물방울 + 졸라맨 팔다리)"""
+"""rgon_k_avatar_engine.py — v11.29-ROAMING-AON / R1~R33 / 정식 스킬 25 (아온 A-ON·芽溫 3D 물방울 + 졸라맨 팔다리)"""
 import os, re, sys, json
 ROOT = os.path.dirname(os.path.abspath(__file__))
 VER, SLUG, TRI = "v11.29-ROAMING-AON", "character-detail-master-top1", "⚖️ [AVATAR3D] 100.0점 (Bull 99.9 / Bear 0.1 / #04-산수몽) 💧 아온(A-ON·芽溫) 3D 입체 물방울 & 졸라맨 팔다리 육신 — 디즈니 7대 모션 법칙 & 8-Stop Liquid-Glass 3D 가동"
@@ -53,7 +53,7 @@ def merge():
             nu["trinity"] = "\n".join(lines)
         else:
             nu["trinity"] = [x for x in (t if isinstance(t, list) else []) if "[AVATAR" not in str(x)] + [TRI]
-        o["nutrient"] = nu; o["version"] = VER; o["antibody_range"] = "R1~R32"; o["skill_count"] = SKILL_TOTAL; wj(p, o); n += 1
+        o["nutrient"] = nu; o["version"] = VER; o["antibody_range"] = "R1~R33"; o["skill_count"] = SKILL_TOTAL; wj(p, o); n += 1
     return n
 def ensure_index():
     for d in ("", "dashboard", "docs"):
@@ -62,7 +62,7 @@ def ensure_index():
         if o is None: continue
         if not any(isinstance(s, dict) and s.get("slug") == SLUG for s in L):
             L.append(dict(ENTRY))
-        if isinstance(o, dict): o.update(version=VER, immune="R1~R32", antibody_range="R1~R32", count=len(L), total=len(L))
+        if isinstance(o, dict): o.update(version=VER, immune="R1~R33", antibody_range="R1~R33", count=len(L), total=len(L))
         wj(p, o)
 def self_test():
     st, ok = state(), []

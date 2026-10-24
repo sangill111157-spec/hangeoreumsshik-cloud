@@ -1,8 +1,8 @@
 {
-  "version": "v11.31-MUSE-DELEGATION",
-  "antibody": "R1~R32",
+  "version": "v11.32-AON-VOICE-SYNTH",
+  "antibody": "R1~R33",
   "generated_at_kst": "2026-10-24 12:31:39 KST",
-  "count": 28,
+  "count": 29,
   "skills": [
     {
       "slug": "1-36-45",
@@ -262,7 +262,7 @@
       "category": "excretory-gc",
       "hexagram_tag": "#40-解",
       "step": 31,
-      "version": "v11.31-MUSE-DELEGATION",
+      "version": "v11.32-AON-VOICE-SYNTH",
       "path": "skills/excretory-entropy-gc/SKILL.md",
       "status": "official",
       "description": "ECC config-gc + reclaim-code-entropy + autoDream 기반 신장 여과·대장 압축·문서 중복 마커 정화·고아 코드 감사 스킬 (R31)"
@@ -276,17 +276,28 @@
       "path": "skills/muse-autonomous-delegator/SKILL.md",
       "category": "제8기관 · 자율 대행",
       "antibody": "R32",
-      "version": "v11.31-MUSE-DELEGATION",
+      "version": "v11.32-AON-VOICE-SYNTH",
       "added": "2026-10-24",
       "description": "메타 뮤즈(Muse Wonder & Muse Charm) + 3-Tier HITL 안전 승인 게이트 + 아온 다이내믹 아일랜드 통합 프로토콜"
+    },
+    {
+      "no": 29,
+      "id": "aon-procedural-voice-synth",
+      "name": "aon-procedural-voice-synth",
+      "slug": "aon-procedural-voice-synth",
+      "title": "아온 무파일 물방울 신디사이저 & K-아이 음성 교감 (A-ON Voice Organ)",
+      "path": "skills/aon-procedural-voice-synth/SKILL.md",
+      "category": "제9기관 · 음성 교감",
+      "antibody": "R33",
+      "version": "v11.32-AON-VOICE-SYNTH"
     }
   ],
-  "antibody_range": "R1~R32",
+  "antibody_range": "R1~R33",
   "skill_count": 23,
   "synced_at_kst": "2026-10-24 12:31:48 KST",
   "total": 27,
   "antibodies": "R1~R27",
   "updated": "2026-10-24T13:17:46",
-  "immune": "R1~R32",
-  "total_skills": 28
+  "immune": "R1~R33",
+  "total_skills": 29
 }

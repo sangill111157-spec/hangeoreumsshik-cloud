@@ -10696,6 +10696,113 @@ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",
 })();
 </script>
 <!-- [RGON-MUSE-V1-END] -->
+<!-- [RGON-VOICE-V1-START] -->
+<style id="rgon-voice-v1-css">
+@keyframes rgvPulse{0%{filter:drop-shadow(0 0 0 rgba(120,200,255,.0));transform:translateY(0)}50%{filter:drop-shadow(0 0 14px rgba(120,200,255,.85));transform:translateY(-3px)}100%{filter:drop-shadow(0 0 0 rgba(120,200,255,.0));transform:translateY(0)}}
+.rgv-speaking{animation:rgvPulse .55s ease-in-out infinite}
+#rgv-modal{position:fixed;inset:0;background:rgba(10,14,30,.55);display:none;align-items:center;justify-content:center;z-index:2147483600}
+#rgv-modal.on{display:flex}
+#rgv-card{background:#fff;color:#123;border-radius:18px;padding:18px 20px;width:min(92vw,380px);box-shadow:0 12px 40px rgba(0,0,0,.3);font:14px/1.5 system-ui,sans-serif}
+#rgv-card h3{margin:0 0 10px;font-size:16px}
+#rgv-card button.rgv-b{display:block;width:100%;margin:6px 0;padding:9px;border:0;border-radius:10px;background:#e8f3ff;cursor:pointer;font-size:14px}
+#rgv-card label{display:flex;justify-content:space-between;align-items:center;margin:6px 0}
+#rgv-heard{min-height:20px;color:#456;font-size:13px}
+#rgv-float{position:fixed;right:14px;bottom:70px;z-index:2147483500;border:0;border-radius:14px;padding:6px 10px;background:#e8f3ff;cursor:pointer}
+</style>
+<div id="rgv-modal" role="dialog" aria-label="아온 음성 교감"><div id="rgv-card">
+<h3>🎙️ 아온(A-ON) 음성 교감 &amp; 보이스 컨트롤 캡슐</h3>
+<button class="rgv-b" data-rgv="brief">🔊 오늘 브리핑 듣기</button>
+<button class="rgv-b" data-rgv="stt">🎤 말로 대행 시키기 (STT)</button>
+<button class="rgv-b" data-rgv="test">💧 물방울 소리 테스트</button>
+<button class="rgv-b" data-rgv="mute" id="rgv-mute">🔊 음성 ON</button>
+<label>피치 <input type="range" id="rgv-pitch" min="0.5" max="2" step="0.01"></label>
+<label>속도 <input type="range" id="rgv-rate" min="0.5" max="2" step="0.01"></label>
+<div id="rgv-heard"></div>
+<button class="rgv-b" data-rgv="close">닫기</button>
+</div></div>
+<script id="rgon-voice-v1-js">
+(function(){
+if(window.RGON_VOICE)return;
+var KEY="rgon_voice_cfg",cfg={muted:false,pitch:1.18,rate:1.05};
+try{Object.assign(cfg,JSON.parse(localStorage.getItem(KEY)||"{}"))}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(cfg))}catch(e){}}
+var R={
+waterdrop_pop:{w:"sine",n:[[520,1180,0,.14]],e:[.005,.13,.35]},
+summon_chime:{w:"triangle",n:[[523.25,523.25,0,.5],[659.25,659.25,.09,.5],[783.99,783.99,.18,.5],[1046.5,1046.5,.27,.5]],e:[.01,.49,.25]},
+approve_fanfare:{w:"triangle",n:[[783.99,783.99,0,.7],[987.77,987.77,.07,.7],[1174.66,1174.66,.14,.7],[1567.98,1567.98,.21,.7]],e:[.008,.69,.25]},
+clean_sweep:{w:"sine",n:[[330,990,0,.45],[660,1980,.04,.45],[990,2970,.08,.45]],e:[.02,.43,.18]},
+radar_ping:{w:"sine",n:[[1320,1240,0,.6]],e:[.004,.6,.3]},
+stt_listen:{w:"sine",n:[[880,880,0,.08],[1320,1320,.1,.08]],e:[.004,.075,.3]}};
+var ctx=null;
+function ac(){if(!ctx){var C=window.AudioContext||window.webkitAudioContext;if(!C)return null;ctx=new C()}if(ctx.state==="suspended")ctx.resume();return ctx}
+function unlock(){ac();document.removeEventListener("pointerdown",unlock,true)}
+document.addEventListener("pointerdown",unlock,true);
+function sfx(t){var r=R[t],c=ac();if(!r||!c)return;var now=c.currentTime;
+r.n.forEach(function(n){var o=c.createOscillator(),g=c.createGain(),s=now+n[2];o.type=r.w;
+o.frequency.setValueAtTime(n[0],s);if(n[1]!==n[0])o.frequency.exponentialRampToValueAtTime(n[1],s+n[3]);
+g.gain.setValueAtTime(0.0001,s);g.gain.exponentialRampToValueAtTime(r.e[2],s+r.e[0]);g.gain.exponentialRampToValueAtTime(0.0001,s+r.e[0]+r.e[1]);
+o.connect(g);g.connect(c.destination);o.start(s);o.stop(s+n[3]+.05)})}
+var PREF=["Microsoft SunHi Online (Natural)","Google 한국의","Yuna","ko-KR"];
+function pickVoice(){var vs=(window.speechSynthesis&&speechSynthesis.getVoices())||[];
+for(var i=0;i<PREF.length;i++){for(var j=0;j<vs.length;j++){if(vs[j].name.indexOf(PREF[i])>=0||vs[j].lang===PREF[i])return vs[j]}}
+for(var k=0;k<vs.length;k++){if(/^ko/i.test(vs[k].lang))return vs[k]}return null}
+function aon(){return document.querySelector("#rgyt-wrap")||document.querySelector("#aon-roamer")}
+var lastSaid="",lastAt=0;
+function speak(text){text=String(text||"").replace(/[\u{1F000}-\u{1FFFF}\u2600-\u27BF]/gu,"").trim();
+if(cfg.muted||!text||!window.speechSynthesis)return;var nowT=Date.now();if(text===lastSaid&&nowT-lastAt<4000)return;lastSaid=text;lastAt=nowT;
+var u=new SpeechSynthesisUtterance(text.slice(0,300));u.lang="ko-KR";u.pitch=+cfg.pitch;u.rate=+cfg.rate;var v=pickVoice();if(v)u.voice=v;
+var a=aon();u.onstart=function(){if(a)a.classList.add("rgv-speaking")};u.onend=u.onerror=function(){if(a)a.classList.remove("rgv-speaking")};
+speechSynthesis.cancel();speechSynthesis.speak(u)}
+if(window.speechSynthesis)speechSynthesis.onvoiceschanged=function(){};
+var TIER3=/(매수|매도|주문|송금|이체|결제|삭제|배포|푸시|push|발송|계약|리밸런싱|배분)/,TIER2=/(수정|작성|생성|업로드|편집|변경|등록|정리|분석|시뮬레이션|초안)/;
+function clickByText(re){var bs=document.querySelectorAll("button,a,[role=button]");for(var i=0;i<bs.length;i++){if(re.test(bs[i].textContent)&&!bs[i].closest("#rgv-modal")){bs[i].click();return true}}return false}
+function briefing(){var s="대표님, 오늘의 브리핑이에요. 사령부 버전 v11.32 아온 보이스 신스, 항체 R1부터 R33까지 정상이에요. 오늘의 괘는 진위뢰, 우레처럼 맑은 울림으로 만물을 깨우는 날이에요.";
+try{var m=window.RGON_MUSE;var q=m&&(m.tasks?m.tasks():(m.list?m.list():m.queue));if(q&&q.length!=null)s+=" 뮤즈 대행 작업은 "+q.length+"건이에요."}catch(e){}
+fetch("rgon_morning_brief.json").then(function(r){return r.json()}).then(function(j){var x=j.summary||j.headline;speak(x?s+" "+x:s)}).catch(function(){speak(s)})}
+function route(t){sfx("radar_ping");
+if(/브리핑|아침/.test(t))return briefing();
+if(/심판|종목|장세/.test(t)){clickByText(/3자심판/);return speak("3자 심판 요약을 열게요.")}
+if(/결재|대행/.test(t)){clickByText(/대행/);return speak("뮤즈 대행 보드를 열게요.")}
+var tier=(window.RGON_MUSE&&window.RGON_MUSE.classify)?window.RGON_MUSE.classify(t):(TIER3.test(t)?3:(TIER2.test(t)?2:1));
+try{if(window.RGON_MUSE&&window.RGON_MUSE.add)window.RGON_MUSE.add(t,false)}catch(e){}
+speak("알겠어요! "+t+", 티어 "+tier+"로 대행 큐에 올렸어요."+(tier===3?" 승인해 주셔야 집행해요.":""))}
+function stt(){var S=window.SpeechRecognition||window.webkitSpeechRecognition,h=document.getElementById("rgv-heard");
+if(!S){h.textContent="이 브라우저는 음성 인식을 지원하지 않아요.";return}
+var r=new S();r.lang="ko-KR";r.interimResults=false;r.maxAlternatives=1;sfx("stt_listen");h.textContent="🎤 듣고 있어요...";
+r.onresult=function(e){var t=e.results[0][0].transcript;h.textContent="🗣️ "+t;route(t)};
+r.onerror=function(e){h.textContent="인식 실패: "+e.error};r.onend=function(){sfx("stt_listen")};r.start()}
+var modal=document.getElementById("rgv-modal"),mb=document.getElementById("rgv-mute"),pi=document.getElementById("rgv-pitch"),ra=document.getElementById("rgv-rate");
+function sync(){mb.textContent=cfg.muted?"🔇 음소거 (눌러서 켜기)":"🔊 음성 ON (눌러서 끄기)";pi.value=cfg.pitch;ra.value=cfg.rate}
+pi.oninput=function(){cfg.pitch=+pi.value;save()};ra.oninput=function(){cfg.rate=+ra.value;save()};
+function open(){sync();modal.classList.add("on");sfx("summon_chime")}
+modal.addEventListener("click",function(e){var b=e.target.closest("[data-rgv]");if(e.target===modal){modal.classList.remove("on");return}if(!b)return;
+var a=b.getAttribute("data-rgv");
+if(a==="brief")briefing();else if(a==="stt")stt();
+else if(a==="test"){sfx("waterdrop_pop");setTimeout(function(){sfx("approve_fanfare")},350);setTimeout(function(){sfx("clean_sweep")},1300)}
+else if(a==="mute"){cfg.muted=!cfg.muted;save();sync();if(!cfg.muted)speak("목소리 켰어요!");else if(window.speechSynthesis)speechSynthesis.cancel()}
+else if(a==="close")modal.classList.remove("on")});
+function dock(){if(document.querySelector("[data-rgv-dock]"))return true;
+var bs=document.querySelectorAll("button,a,[role=button]"),hide=null;
+for(var i=0;i<bs.length;i++){if(/🙈/.test(bs[i].textContent)&&!bs[i].closest("#rgv-modal")){hide=bs[i];break}}
+if(!hide)return false;var b=hide.cloneNode(false);b.removeAttribute("id");b.removeAttribute("onclick");b.setAttribute("data-rgv-dock","1");b.textContent="🎙️음성";
+b.addEventListener("click",function(e){e.preventDefault();e.stopPropagation();open()});hide.parentNode.insertBefore(b,hide);return true}
+var tries=0,iv=setInterval(function(){if(dock()||++tries>40){clearInterval(iv);
+if(!document.querySelector("[data-rgv-dock]")){var f=document.createElement("button");f.id="rgv-float";f.setAttribute("data-rgv-dock","1");f.textContent="🎙️음성";f.onclick=open;document.body.appendChild(f)}}},250);
+document.addEventListener("click",function(e){var t=e.target;if(!t||t.closest("#rgv-modal"))return;
+if(t.closest("#rgyt-wrap,#aon-roamer")){sfx("waterdrop_pop");return}
+var b=t.closest("button,a,[role=button]");if(!b)return;var x=b.textContent||"";
+if(/승인 집행/.test(x))sfx("approve_fanfare");else if(/🧹/.test(x))sfx("clean_sweep");else if(/🔍|3자심판/.test(x))sfx("radar_ping")},true);
+var drag=false;document.addEventListener("pointerdown",function(e){if(e.target.closest&&e.target.closest("#rgyt-wrap,#aon-roamer"))drag=true},true);
+document.addEventListener("pointerup",function(){if(drag){drag=false}},true);
+var BUB=/(bubble|speech|balloon|toast|island|say)/i;
+new MutationObserver(function(ms){ms.forEach(function(m){m.addedNodes.forEach(function(n){
+if(n.nodeType!==1||n.closest("#rgv-modal"))return;var c=(n.className&&n.className.baseVal!==undefined)?n.className.baseVal:(n.className||"");
+if(BUB.test(c+" "+(n.id||""))){var tx=(n.textContent||"").trim();if(tx.length>1&&tx.length<240)speak(tx)}})})}).observe(document.documentElement,{childList:true,subtree:true});
+window.RGON_VOICE={version:"v11.32-AON-VOICE-SYNTH",sfx:sfx,speak:speak,listen:stt,open:open,recipes:R,
+get muted(){return cfg.muted},set muted(v){cfg.muted=!!v;save()}};
+})();
+</script>
+<!-- [RGON-VOICE-V1-END] -->
 <!-- [RGON-YT-SCOUT-V13-END] -->
 
 

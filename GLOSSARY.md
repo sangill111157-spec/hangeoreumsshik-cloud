@@ -37,3 +37,4 @@
 - **3-Tier HITL Gate**: 🟢 AUTO(자동 집행) · 🔵 NOTIFY(선집행 후보고) · 🟡 HITL_GATE(대표님 결재 후 집행)
 - **PENDING_APPROVAL / APPROVED_DONE / ON_HOLD**: Tier 3 상태 (결재 대기 / 승인 집행 완료 / 보류)
 - **화천대유(#14) · 화수미제(#64)**: 막힘없는 대행 · 신중한 분별과 완수
+- **RGON_VOICE**: Web Audio 무파일 SFX(`sfx`) + K-아이 TTS(`speak`) + STT 대행(`listen`) 전역 API

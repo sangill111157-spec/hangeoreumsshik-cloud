@@ -1360,3 +1360,4 @@ shin-agent/
 - `rgon_muse_tasks.json` / `docs/rgon_muse_tasks.json`: 대행 작업 큐 (sha256 무결성)
 - `skills/muse-autonomous-delegator/SKILL.md`: 28번째 정식 스킬
 - 7개 HTML V13 블록(YT-SCOUT-V13 / UX-CLEANUP-V13) 내부 `[RGON-MUSE-V1]`: 아온 다이내믹 아일랜드 + 📋대행 독 + 결재 보드
+- `rgon_voice_organ.py` — 제9기관 성대·청각 음성 교감 기관 (R1~R33)
