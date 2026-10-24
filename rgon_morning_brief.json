@@ -1,6 +1,6 @@
 {
-  "version": "v11.34-AON-LAPTOP-HANDS",
-  "antibody_range": "R1~R35",
+  "version": "v11.35-AON-PLAYGROUND-BRAT",
+  "antibody_range": "R1~R36",
   "r20": "일일 자율 순환 루프(백혈구 순찰 → 영양분 소화·스킬 주조 → 3자 심판 → 주역 64괘 아침 브리핑) 무인 자동화",
   "generated_at": "2026-10-24T12:31:48+09:00",
   "date": "2026-10-24",
@@ -38,7 +38,7 @@
     "source": "rgon_immune_ledger.today_hexagram"
   },
   "telegram": "skipped(no env)",
-  "skill_count": 29,
+  "skill_count": 32,
   "trading_council": [
     {
       "id": "TREASURY",
@@ -125,7 +125,7 @@
       "5_iching": true,
       "6_pulse_snapshot": true
     },
-    "skill_count": 23,
+    "skill_count": 32,
     "health_score": 100,
     "radar_items": 13,
     "tickets_S22_01": "done",
@@ -161,11 +161,11 @@
       }
     }
   },
-  "skills_count": 23,
-  "antibodies": "R1~R35",
+  "skills_count": 32,
+  "antibodies": "R1~R36",
   "muse_delegation": {
-    "version": "v11.34-AON-LAPTOP-HANDS",
-    "antibody": "R1~R35",
+    "version": "v11.35-AON-PLAYGROUND-BRAT",
+    "antibody": "R1~R36",
     "summary": {
       "total": 5,
       "tier1": 2,

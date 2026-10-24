@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """rgon_aon_soul_brain.py — 제10기관: 아온(A-ON) 감성·인격 대화 두뇌 & 해마 기억 기관
-버전 v11.34-AON-LAPTOP-HANDS · 항체 R1~R35
+버전 v11.35-AON-PLAYGROUND-BRAT · 항체 R1~R36
 주역 #31 택산함(澤山咸 ☱☶): 聖人感人心而天下和平 — 무심의 감응으로 마음이 깊이 통함.
 주역 #61 풍택중부(風澤中孚 ☴☱): 鶴鳴在陰 其子和之 — 지극한 정성과 믿음으로 교감함.
 2-Track 원칙: 감정·일상 교감(chat_*)은 절대 대행 큐에 넣지 않고, 명시적 업무 지시만 3-Tier 대행(delegate)으로 보낸다."""
@@ -14,8 +14,8 @@ try:
 except Exception:
     pass
 
-VERSION = "v11.34-AON-LAPTOP-HANDS"
-ANTIBODY = "R1~R35"
+VERSION = "v11.35-AON-PLAYGROUND-BRAT"
+ANTIBODY = "R1~R36"
 ROOT = Path(__file__).resolve().parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
@@ -343,6 +343,87 @@ def self_test():
                 p.write_bytes(b)
     print("PASS" if ok else "FAIL")
     return 0 if ok else 1
+
+# [RGON-R36-BRAT-SOUL-INJECT] — 제12기관 아온 놀이터 & 게으름·찡찡·보채기·쓰담쓰담 감성 분별 연동 (Step 36)
+_R36_WHINE = re.compile(r"하기\s*싫|귀찮|찡찡|투정|안\s*할래|툴툴")
+_R36_LAZY = re.compile(r"게으름|널브러|빈둥|바닥에\s*녹|납작.*쉬|뒹굴")
+_R36_CLING = re.compile(r"심심해|관심\s*줘|안\s*놀아|삐질|삐졌|보채|나만\s*봐")
+_R36_SPOIL = re.compile(r"쓰담|쓰다듬|우쭈쭈|토닥토닥|착하다\s*아온|기특해\s*아온")
+_R36_PLAY = re.compile(r"놀이터\s*모드|창틀\s*벗어|바탕화면.*놀|자유롭게\s*놀아")
+_r36_classify0, _r36_converse0, _r36_selftest0 = classify_intent, converse, self_test
+_r36_last_fsm = "ROAM"
+
+
+def _r36_pg():
+    import rgon_aon_desktop_playground as pg
+    return pg
+
+
+def classify_intent(text):
+    t = (text or "").strip()
+    c0 = _r36_classify0(t)
+    if c0["track"] in ("work", "hands"):
+        return c0
+    if _R36_SPOIL.search(t): return {"intent": "brat_spoiled", "track": "brat", "tier": None, "fsm": "SPOILED_HAPPY"}
+    if _R36_WHINE.search(t): return {"intent": "brat_whine", "track": "brat", "tier": None, "fsm": "WHINE_POUT"}
+    if _R36_CLING.search(t): return {"intent": "brat_clingy", "track": "brat", "tier": None, "fsm": "CLINGY_TANTRUM"}
+    if _R36_LAZY.search(t): return {"intent": "brat_lazy", "track": "brat", "tier": None, "fsm": "MELT_LAZY"}
+    if _R36_PLAY.search(t): return {"intent": "playground_roam", "track": "brat", "tier": None, "fsm": "ROAM"}
+    return c0
+
+
+def converse(text, mem=None, persist=True, use_llm=True, live=None):
+    global _r36_last_fsm
+    t = (text or "").strip()
+    c = classify_intent(t)
+    pg = _r36_pg()
+    if c["track"] == "brat":
+        if mem is None: mem = load_memory()
+        tr = pg.transition(c["fsm"], reason=c["intent"], persist=persist)
+        _r36_last_fsm = tr["fsm_state"]
+        res = {"input": t, "intent": c["intent"], "category": c["intent"], "track": "brat", "tier": None,
+               "version": VERSION, "source": "playground_brat", "fsm_state": tr["fsm_state"],
+               "squash": tr["squash"], "sfx": tr["sfx"], "reply": tr["speech"]}
+        remember(mem, t, res)
+        res.update({"speech": tr["speech"], "affection": mem["affection_score"], "level": level(mem["affection_score"])})
+        if persist: save_memory(mem)
+        return res
+    res = _r36_converse0(t, mem=mem, persist=persist, use_llm=use_llm, live=live)
+    if res.get("track") == "work" and res.get("intent") == "delegate":
+        force_spice = _r36_last_fsm in ("MELT_LAZY", "WHINE_POUT", "CLINGY_TANTRUM")
+        sp = pg.apply_tsundere_spice(res["reply"], force=force_spice)
+        res["tsundere_spiced"] = sp["spiced"]
+        if sp["spiced"]:
+            res["reply"] = sp["reply"]; res["speech"] = sp["reply"]
+    return res
+
+
+def self_test():
+    rc0 = _r36_selftest0()
+    ok = rc0 == 0
+    def chk(cond, msg):
+        nonlocal ok
+        print(("  ✅ " if cond else "  ❌ ") + msg); ok = ok and bool(cond)
+    print("  — Step 36 제12기관 장난꾸러기·놀이터 연동 —")
+    for q, want in (("아온아 하기 싫어 귀찮아", "brat_whine"),
+                    ("바닥에 널브러져서 게으름 피워볼래", "brat_lazy"),
+                    ("아온아 심심해 관심 줘 안 놀아주면 삐질 거야", "brat_clingy"),
+                    ("우리 아온이 쓰담쓰담 우쭈쭈", "brat_spoiled"),
+                    ("창틀 벗어나서 자유롭게 놀아", "playground_roam"),
+                    ("엔비디아 주식 10주 매수 주문 넣어줘", "delegate"),
+                    ("결재 스위치 꺼줘", "gate_control")):
+        c = classify_intent(q)
+        chk(c["intent"] == want, f"분별: {q} → {c['intent']}")
+    r1 = converse("아온아 하기 싫어 귀찮아", mem=_default_mem(), persist=False, use_llm=False)
+    chk(r1["fsm_state"] == "WHINE_POUT" and "payload" not in r1, "찡찡 투정 대화는 대행 큐 payload 없음")
+    r2 = converse("유튜브 숏폼 대본 초안 작성해줘", mem=_default_mem(), persist=False, use_llm=False)
+    chk(r2["intent"] == "delegate" and r2.get("tsundere_spiced") is True and "Tier 2" in r2["reply"],
+        "찡찡 상태에서 업무 지시 → 말로는 투정해도 대행 큐 100% 등록(Tsundere Spice)")
+    r3 = converse("우리 아온이 쓰담쓰담 우쭈쭈", mem=_default_mem(), persist=False, use_llm=False)
+    chk(r3["fsm_state"] == "SPOILED_HAPPY", "쓰담쓰담 달래기 → 헤벌쭉 애교 복귀")
+    print("PASS" if ok else "FAIL")
+    return 0 if ok else 1
+
 
 if __name__ == "__main__":
     if "--self-test" in sys.argv: sys.exit(self_test())

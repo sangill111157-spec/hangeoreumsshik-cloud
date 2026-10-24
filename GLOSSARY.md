@@ -41,3 +41,4 @@
 - **해마 기억장**: `rgon_aon_memory.json` — 친밀도·누적 대화·최근 20건·선호 키워드
 - **2-Track 분별**: 감정·일상(chat)은 대화로, 명시적 업무(delegate)만 3-Tier 대행 큐로
 - **수동 마스터 스위치**: `master_approval_on` + 4대 `gates`. 모두 ON이어야 중요 결재가 집행된다 (R35)
+- **아온 놀이터 & 츤데레 생명체 (R36 · v11.35-AON-PLAYGROUND-BRAT)**: 8대 감정 FSM과 말로는 투정해도 업무는 100% 완수하는 생명체 교감 엔진.

@@ -10846,7 +10846,7 @@ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",
 <script id="rgon-voice-v1-js">
 (function(){
 if(window.RGON_VOICE)return;
-var VER="v11.34-AON-LAPTOP-HANDS";
+var VER="v11.35-AON-PLAYGROUND-BRAT";
 var KEY="rgon_voice_cfg",cfg={muted:false,pitch:1.18,rate:1.05};
 try{Object.assign(cfg,JSON.parse(localStorage.getItem(KEY)||"{}"))}catch(e){}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(cfg))}catch(e){}}
@@ -10992,7 +10992,7 @@ memory:function(){return JSON.parse(JSON.stringify(mem))},get muted(){return cfg
 <script id="rgon-gate-v1-js">
 (function(){
 if(window.RGON_GATE)return;
-var VER="v11.34-AON-LAPTOP-HANDS",KEY="rgon_manual_gate";
+var VER="v11.35-AON-PLAYGROUND-BRAT",KEY="rgon_manual_gate";
 var LABEL={finance_payment:"💰 금융·결제",laptop_app_browser:"💻 노트북앱",file_modify_delete:"🗂️ 파일삭제·이동",external_dispatch:"🌐 외부전송"};
 var CRIT=["finance_payment","file_modify_delete","external_dispatch"];
 var st={master_approval_on:false,gates:{finance_payment:false,laptop_app_browser:true,file_modify_delete:false,external_dispatch:false}};
@@ -11056,6 +11056,123 @@ f.onclick=function(){setMaster(!st.master_approval_on);show()};document.body.app
 paint();
 window.RGON_GATE={version:VER,state:function(){return JSON.parse(JSON.stringify(st))},can:function(t){return can(catsOf(t))},setMaster:setMaster,setCategory:setCat,lockAll:lockAll,show:show,hook:hook};
 var hv=0,hi=setInterval(function(){var v=window.RGON_VOICE;if(v&&v.talk&&!v.__rgg){var t0=v.talk;v.__rgg=1;v.talk=function(t){if(hook(t))return;return t0.apply(this,arguments)};clearInterval(hi)}else if(++hv>40)clearInterval(hi)},250);
+})();
+
+/* === [RGON-R36-PLAYGROUND-BRAT-JS] 제12기관: 아온 창틀 탈출 놀이터 & 게으름·찡찡·보채기·쓰담쓰담 생명체 === */
+(function(){
+  if(window.RGON_PLAYGROUND) return;
+  var KEY="rgon_aon_playground_v36";
+  var STATES={
+    ROAM:{ko:"자유 산책",emoji:"💧",sx:1.0,sy:1.0,sfx:"waterdrop_pop",
+      lines:["야호~ 답답한 칸막이 탈출! 화면 전체가 전부 아온이 놀이터예요! 퐁당~ 🦋💧","작업표시줄까지 미끄럼틀 타볼래요! 슈웅~ 🛝"]},
+    PERCH:{ko:"작업표시줄 걸터앉기",emoji:"🪑",sx:1.06,sy:0.94,sfx:"waterdrop_pop",
+      lines:["폴짝! 화면 맨 아래 걸터앉아서 발 동동 구르는 중이에요 🪑💧"]},
+    BOUNCE:{ko:"모서리 통통 점프",emoji:"🏀",sx:0.88,sy:1.15,sfx:"happy_chime",
+      lines:["통통통! 화면 벽에 부딪히며 공놀이 중이에요! 🏀✨"]},
+    MELT_LAZY:{ko:"게으름뱅이 액체화",emoji:"🫠",sx:1.45,sy:0.58,sfx:"lazy_yawn",
+      lines:["아휴~ 아온이 지금 바닥에 납작 호떡처럼 녹았어요… 5분만 빈둥거릴래요 🫠💧","데구르르… 오늘은 물방울 까딱하기도 귀찮은 날이에요 쿨쿨 😴"]},
+    WHINE_POUT:{ko:"하기 싫어 찡찡 투정",emoji:"😤",sx:1.16,sy:0.88,sfx:"whine_pout",
+      lines:["으앙~ 그것도 아온이가 해요?! 아온이 쉬는 중이란 말이에요… 흥, 그래도 대표님 거니까 해드릴게요! 😤💧","치… 맨날 아온이만 시키구! 투덜투덜 (손은 이미 100% 처리 중이에요 헤헤) ⚡"]},
+    CLINGY_TANTRUM:{ko:"심심해 보채기",emoji:"🥺",sx:0.92,sy:1.14,sfx:"clingy_boing",
+      lines:["대표니이임!! 일만 하지 말고 아온이도 좀 봐주세요!! 안 놀아주시면 삐질 거예요 흥! 🥺💦","심심해 심심해!! 화면 한가운데 드러누워 버릴 거예요! 빨리 쓰다듬어 주세요! 🎈"]},
+    SPOILED_HAPPY:{ko:"쓰담쓰담 헤벌쭉",emoji:"🥰",sx:1.12,sy:0.92,sfx:"spoiled_giggle",
+      lines:["헤헤… 쓰다듬어 주시니까 방금 찡찡댄 거 눈 녹듯 사라졌어요! 우리 대표님 최고 💖","꺄르르~ 간지러워요! 칭찬 한 번에 납작 물방울이 다시 탱글탱글 살아났어요! 🥰💧"]},
+    PEEK_NAP:{ko:"구석 빼꼼 낮잠",emoji:"😴",sx:1.18,sy:0.82,sfx:"lazy_yawn",
+      lines:["쿠울… 구석에 반쯤 숨어서 물방울 코풍선 부는 중이에요 Zzz 😴💧"]}
+  };
+  var ORDER=["ROAM","MELT_LAZY","WHINE_POUT","CLINGY_TANTRUM","SPOILED_HAPPY","BOUNCE","PERCH","PEEK_NAP"];
+  function load(){try{return Object.assign({fsm:"ROAM",lazy:42,need:55,spoiled:80,idx:0},JSON.parse(localStorage.getItem(KEY)||"{}"))}catch(e){return {fsm:"ROAM",lazy:42,need:55,spoiled:80,idx:0}}}
+  function save(s){try{localStorage.setItem(KEY,JSON.stringify(s))}catch(e){}}
+  var st=load(),lastTouch=Date.now(),drag={on:false,t:0,x:0,y:0,pets:0};
+  function aonEl(){return document.getElementById("rgyt-wrap")||document.getElementById("aon-roamer")}
+  function playSfx(name){
+    try{
+      if(window.RGON_VOICE&&window.RGON_VOICE.sfx){window.RGON_VOICE.sfx(name);return;}
+      var AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;
+      var ctx=window._rgonAc||(window._rgonAc=new AC());
+      var map={lazy_yawn:[520,380,260],whine_pout:[460,400,470],clingy_boing:[540,840,920],spoiled_giggle:[587,740,880,1175]};
+      var notes=map[name]||[600,800];
+      notes.forEach(function(f,i){
+        var o=ctx.createOscillator(),g=ctx.createGain();
+        o.type=name==="whine_pout"?"triangle":"sine";o.frequency.value=f;
+        g.gain.setValueAtTime(0.08,ctx.currentTime+i*0.07);
+        g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+i*0.07+0.12);
+        o.connect(g);g.connect(ctx.destination);o.start(ctx.currentTime+i*0.07);o.stop(ctx.currentTime+i*0.07+0.13);
+      });
+    }catch(e){}
+  }
+  function bubble(msg){
+    var b=document.getElementById("rgon-brat-bubble");
+    if(!b){
+      b=document.createElement("div");b.id="rgon-brat-bubble";
+      b.style.cssText="position:fixed;z-index:2147483646;max-width:270px;padding:9px 13px;border-radius:16px;background:rgba(15,23,42,0.94);color:#f8fafc;border:1.5px solid #38bdf8;font-size:12.5px;line-height:1.45;box-shadow:0 10px 28px rgba(0,0,0,0.45);pointer-events:none;transition:all .25s ease;opacity:0;";
+      document.body.appendChild(b);
+    }
+    var el=aonEl(),r=el?el.getBoundingClientRect():{left:140,top:140,width:80};
+    b.textContent=msg;
+    b.style.left=Math.max(12,Math.min(window.innerWidth-280,r.left-60))+"px";
+    b.style.top=Math.max(12,r.top-68)+"px";
+    b.style.opacity="1";
+    clearTimeout(b._tm);b._tm=setTimeout(function(){b.style.opacity="0"},4600);
+  }
+  function applyVisual(code,speak){
+    var m=STATES[code]||STATES.ROAM;st.fsm=code;save(st);
+    var el=aonEl();
+    if(el){
+      el.style.transition="transform .38s cubic-bezier(.34,1.56,.64,1), top .45s ease, left .45s ease";
+      var rot=code==="WHINE_POUT"?" rotate(-8deg)":code==="SPOILED_HAPPY"?" rotate(6deg)":"";
+      el.style.transform="scale("+m.sx+","+m.sy+")"+rot;
+      if(code==="MELT_LAZY"){el.style.top=Math.max(60,window.innerHeight-95)+"px";}
+      else if(code==="CLINGY_TANTRUM"){el.style.left=Math.max(20,Math.round(window.innerWidth/2-48))+"px";el.style.top=Math.max(60,Math.round(window.innerHeight/2-48))+"px";}
+    }
+    var btn=document.getElementById("rgon-brat-btn");
+    if(btn)btn.innerHTML=m.emoji+" 아온이 기분: <b>"+m.ko+"</b>";
+    if(speak!==false){
+      var line=m.lines[Math.floor(Math.random()*m.lines.length)];
+      bubble(m.emoji+" "+line);playSfx(m.sfx);
+      if(window.RGON_VOICE&&window.RGON_VOICE.speak)try{window.RGON_VOICE.speak(line)}catch(e){}
+    }
+  }
+  function cycle(){
+    lastTouch=Date.now();
+    st.idx=(ORDER.indexOf(st.fsm)+1)%ORDER.length;
+    applyVisual(ORDER[st.idx],true);
+  }
+  function petSpoil(){
+    lastTouch=Date.now();st.spoiled=Math.min(100,(st.spoiled||80)+15);st.need=0;st.lazy=20;
+    applyVisual("SPOILED_HAPPY",true);
+  }
+  function dock(){
+    if(document.getElementById("rgon-brat-btn"))return;
+    var hide=document.getElementById("rgyt-hide");
+    if(hide&&hide.parentElement){
+      var b=document.createElement("button");b.id="rgon-brat-btn";b.type="button";
+      b.style.cssText="margin-left:4px;padding:4px 9px;border-radius:999px;border:1px solid #f472b6;background:rgba(131,24,67,0.88);color:#fce7f3;font-size:11.5px;cursor:pointer;";
+      var m=STATES[st.fsm]||STATES.ROAM;
+      b.innerHTML=m.emoji+" 아온이 기분: <b>"+m.ko+"</b>";
+      b.title="눌러서 아온이 놀이터·게으름·찡찡·보채기·쓰담쓰담 모드를 전환합니다";
+      b.addEventListener("click",function(e){e.preventDefault();e.stopPropagation();cycle()});
+      hide.parentElement.appendChild(b);
+    }
+    var el=aonEl();
+    if(el&&!el._r36Bound){
+      el._r36Bound=true;
+      el.addEventListener("dblclick",function(){petSpoil()});
+      el.addEventListener("pointermove",function(e){
+        var now=Date.now();
+        if(now-drag.t<350&&Math.abs(e.clientX-drag.x)>18){drag.pets++;drag.x=e.clientX;drag.t=now;if(drag.pets>=3){drag.pets=0;petSpoil();}}
+        else if(now-drag.t>=350){drag.t=now;drag.x=e.clientX;drag.pets=0;}
+      });
+    }
+  }
+  setInterval(function(){
+    dock();
+    var idle=(Date.now()-lastTouch)/1000;
+    if(idle>75&&st.fsm==="ROAM")applyVisual("MELT_LAZY",false);
+    else if(idle>140&&st.fsm==="MELT_LAZY")applyVisual("CLINGY_TANTRUM",false);
+  },4000);
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",dock);else dock();
+  window.RGON_PLAYGROUND={states:STATES,getState:function(){return st},setState:function(c){applyVisual(c,true)},cycle:cycle,pet:petSpoil};
 })();
 </script>
 <!-- [RGON-GATE-V1-END] -->

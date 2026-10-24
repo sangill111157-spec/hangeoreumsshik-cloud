@@ -1,8 +1,8 @@
 {
-  "version": "v11.34-AON-LAPTOP-HANDS",
-  "antibody": "R1~R35",
+  "version": "v11.35-AON-PLAYGROUND-BRAT",
+  "antibody": "R1~R36",
   "generated_at_kst": "2026-10-24 12:31:39 KST",
-  "count": 31,
+  "count": 32,
   "skills": [
     {
       "slug": "1-36-45",
@@ -302,6 +302,14 @@
       "source_url": "local://rgon_youtube_skill_scout.py",
       "origin": "core",
       "path": "skills/youtube-trend-scout/SKILL.md"
+    },
+    {
+      "id": 32,
+      "name": "aon-desktop-playground-brat",
+      "path": "skills/aon-desktop-playground-brat/SKILL.md",
+      "antibody": "R36",
+      "version": "v11.35-AON-PLAYGROUND-BRAT",
+      "description": "아온(A-ON) 창틀 탈출 노트북 전체 놀이터 오버레이 & 게으름·찡찡·보채기·쓰담쓰담 8대 FSM 생명체 페르소나 스킬"
     }
   ],
   "antibody_range": "R1~R35",

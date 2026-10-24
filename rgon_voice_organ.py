@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""rgon_voice_organ.py — 제9기관: 성대·청각 음성 교감 기관 (v11.34-AON-LAPTOP-HANDS, R1~R35)
+"""rgon_voice_organ.py — 제9기관: 성대·청각 음성 교감 기관 (v11.35-AON-PLAYGROUND-BRAT, R1~R36)
 주역 #51 진위뢰(震爲雷 ☳☳) · #61 풍택중부(風澤中孚 ☴☱).
 의도 분별은 제10기관 rgon_aon_soul_brain.converse()에 위임한다 (감정·일상 대화는 대행 큐에 넣지 않음)."""
 import os, sys, json
@@ -12,8 +12,8 @@ try:
 except Exception:
     pass
 
-VERSION = "v11.34-AON-LAPTOP-HANDS"
-ANTIBODY = "R1~R35"
+VERSION = "v11.35-AON-PLAYGROUND-BRAT"
+ANTIBODY = "R1~R36"
 ROOT = Path(__file__).resolve().parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
@@ -104,3 +104,12 @@ if __name__ == "__main__":
     if len(sys.argv) > 1 and not sys.argv[1].startswith("--"):
         print(json.dumps(parse_voice_command(" ".join(sys.argv[1:])), ensure_ascii=False, indent=2)); sys.exit(0)
     save(); print(json.dumps(state(), ensure_ascii=False)[:400]); sys.exit(0)
+
+
+# [RGON-R36-BRAT-SFX] — 제12기관 게으름·찡찡·보채기·헤벌쭉 4종 감정 효과음 확장 (Step 36)
+SFX_PRESETS.update({
+    "lazy_yawn": {"desc": "게으름뱅이 하품 (나른한 하강 슬라이드)", "freq_hz": [520, 390, 280], "dur_ms": 260, "wave": "sine", "gain": 0.14},
+    "whine_pout": {"desc": "하기 싫어 찡찡 투정 (뾰로통 워블 버즈)", "freq_hz": [460, 410, 470, 380], "dur_ms": 190, "wave": "triangle", "gain": 0.16},
+    "clingy_boing": {"desc": "심심해 보채기 통통 점프 (2연속 스프링 보잉)", "freq_hz": [540, 820, 580, 920], "dur_ms": 180, "wave": "sine", "gain": 0.18},
+    "spoiled_giggle": {"desc": "쓰담쓰담 헤벌쭉 꺄르르 아르페지오", "freq_hz": [587, 740, 880, 1175], "dur_ms": 220, "wave": "sine", "gain": 0.17},
+})
