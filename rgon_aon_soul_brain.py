@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """rgon_aon_soul_brain.py — 제10기관: 아온(A-ON) 감성·인격 대화 두뇌 & 해마 기억 기관
-버전 v11.36-AON-ICHING-DAO · 항체 R1~R37
+버전 v11.37-AON-OMNI-INSIGHT · 항체 R1~R38
 주역 #31 택산함(澤山咸 ☱☶): 聖人感人心而天下和平 — 무심의 감응으로 마음이 깊이 통함.
 주역 #61 풍택중부(風澤中孚 ☴☱): 鶴鳴在陰 其子和之 — 지극한 정성과 믿음으로 교감함.
 2-Track 원칙: 감정·일상 교감(chat_*)은 절대 대행 큐에 넣지 않고, 명시적 업무 지시만 3-Tier 대행(delegate)으로 보낸다."""
@@ -14,8 +14,8 @@ try:
 except Exception:
     pass
 
-VERSION = "v11.36-AON-ICHING-DAO"
-ANTIBODY = "R1~R37"
+VERSION = "v11.37-AON-OMNI-INSIGHT"
+ANTIBODY = "R1~R38"
 ROOT = Path(__file__).resolve().parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
@@ -495,6 +495,111 @@ def self_test():
     r2 = converse("주역 점괘 봐줘", mem=_default_mem(), persist=False, use_llm=False)
     chk(r2["intent"] == "iching_dao" and r2.get("tsundere_spiced") is True, "찡찡 상태에서 도술 요청 → 츤데레 도사 통변(100% 수행)")
     converse("우리 아온이 쓰담쓰담 우쭈쭈", mem=_default_mem(), persist=False, use_llm=False)
+    print("PASS" if ok else "FAIL")
+    return 0 if ok else 1
+
+
+# [RGON-R38-INSIGHT-SOUL-INJECT] — 제14기관 아온 만물 격물치지 전방위 통찰안 연동 (Step 38)
+_R38_INSIGHT = re.compile(r"(통찰|원리|이치|본질|격물치지|제1원리|제\s*1\s*원리|급소|파악해|간파|해부|이미지\s*분석|영상\s*분석)")
+_R38_PREFIX = ("으앙~ 만물의 이치까지 꿰뚫어 보려면 아온이 눈동자 반짝반짝 힘줘야 하는데요… "
+               "흥, 대표님이 궁금해하시니까 아온이 혜안(慧眼)으로 단박에 간파해 드릴게요! 👉 ")
+_r38_classify0, _r38_converse0, _r38_selftest0 = classify_intent, converse, self_test
+
+
+def _r38_insight_eye():
+    import rgon_aon_omni_insight_eye as eye
+    return eye
+
+
+def _r38_is_insight(text):
+    t = str(text or "").strip()
+    if not _R38_INSIGHT.search(t):
+        return False
+    c0 = _r38_classify0(t)
+    if c0.get("track") in ("hands", "dao") or c0.get("intent") in ("briefing", "judge", "gate_control", "iching_dao"):
+        return False
+    return True
+
+
+def classify_intent(text):
+    t = (text or "").strip()
+    c0 = _r38_classify0(t)
+    if c0.get("track") in ("hands", "dao") or c0.get("intent") in ("briefing", "judge", "gate_control", "iching_dao"):
+        return c0
+    if _R38_INSIGHT.search(t):
+        return {"intent": "omni_insight", "track": "insight", "tier": None}
+    return c0
+
+
+def converse(text, mem=None, persist=True, use_llm=True, live=None):
+    t = (text or "").strip()
+    c = classify_intent(t)
+    if c.get("track") != "insight":
+        return _r38_converse0(t, mem=mem, persist=persist, use_llm=use_llm, live=live)
+    eye = _r38_insight_eye()
+    if mem is None:
+        mem = load_memory()
+    insight = eye.analyze_omni_insight(t)
+    if persist:
+        eye.save_state(insight)
+    reply = insight["aon_speech"]
+    spiced = False
+    try:
+        import rgon_aon_desktop_playground as pg
+        st_fsm = pg.load_state().get("fsm_state", "ROAM")
+        force_sp = st_fsm in ("MELT_LAZY", "WHINE_POUT", "CLINGY_TANTRUM") or str(globals().get("_r36_last_fsm", "")) in ("MELT_LAZY", "WHINE_POUT", "CLINGY_TANTRUM")
+        sp = pg.apply_tsundere_spice(reply, force=force_sp)
+        if isinstance(sp, dict) and sp.get("spiced"):
+            reply = _R38_PREFIX + sp["reply"]
+            spiced = True
+    except Exception:
+        pass
+    res = {
+        "input": t, "intent": "omni_insight", "category": "omni_insight", "track": "insight", "tier": None,
+        "version": VERSION, "source": "omni_insight", "sfx": "insight_flash", "tsundere_spiced": spiced,
+        "insight": insight, "reply": reply, "text": reply
+    }
+    remember(mem, t, res)
+    res.update({"speech": reply, "affection": mem["affection_score"], "level": level(mem["affection_score"])})
+    if persist:
+        save_memory(mem)
+    return res
+
+
+def self_test():
+    rc0 = _r38_selftest0()
+    ok = rc0 == 0
+    def chk(cond, msg):
+        nonlocal ok
+        print(("  ✅ " if cond else "  ❌ ") + msg)
+        ok = ok and bool(cond)
+    print("  — Step 38 제14기관 만물 격물치지 연동 —")
+    for q, want in (("오늘 이 현상의 이치가 뭐지?", "omni_insight"),
+                    ("이 사진 이미지 분석해서 본질과 급소 간파해봐", "omni_insight"),
+                    ("이 쇼츠 영상 분석 부탁해 https://youtu.be/abc123", "omni_insight"),
+                    ("격물치지 제1원리로 해부해줘", "omni_insight"),
+                    ("오늘 장세 어때", "judge"),
+                    ("아침 브리핑 해줘", "briefing"),
+                    ("나랑 놀아줘", "chat_mood"),
+                    ("주역 점괘 봐줘", "iching_dao")):
+        c = classify_intent(q)
+        chk(c["intent"] == want, f"분별: {q} → {c['intent']}")
+    eye = _r38_insight_eye()
+    pg = _r36_pg()
+    snap_i = {r: ((ROOT / r).read_bytes() if (ROOT / r).exists() else None) for r in eye.STATE_PATHS}
+    snap_p = {r: ((ROOT / r).read_bytes() if (ROOT / r).exists() else None) for r in pg.STATE_PATHS}
+    try:
+        r1 = converse("이차 전지 시장의 근본 원리 파악해줘", mem=_default_mem(), persist=False, use_llm=False)
+        chk(r1["intent"] == "omni_insight" and "insight" in r1 and "payload" not in r1, "통찰안 응답 & 대행 큐 미오염")
+        pg.transition("WHINE_POUT", reason="test", persist=True)
+        r2 = converse("이 현상 간파해봐", mem=_default_mem(), persist=False, use_llm=False)
+        chk(r2["intent"] == "omni_insight" and r2.get("tsundere_spiced") is True, "찡찡이 상태에서 통찰 요청 → 츤데레 혜안 통변")
+        pg.transition("SPOILED_HAPPY", reason="test", persist=True)
+    finally:
+        for r, b in snap_i.items():
+            if b is not None: (ROOT / r).write_bytes(b)
+        for r, b in snap_p.items():
+            if b is not None: (ROOT / r).write_bytes(b)
     print("PASS" if ok else "FAIL")
     return 0 if ok else 1
 

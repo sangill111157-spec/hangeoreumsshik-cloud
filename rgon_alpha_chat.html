@@ -10846,7 +10846,7 @@ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",
 <script id="rgon-voice-v1-js">
 (function(){
 if(window.RGON_VOICE)return;
-var VER="v11.36-AON-ICHING-DAO";
+var VER="v11.37-AON-OMNI-INSIGHT";
 var KEY="rgon_voice_cfg",cfg={muted:false,pitch:1.18,rate:1.05};
 try{Object.assign(cfg,JSON.parse(localStorage.getItem(KEY)||"{}"))}catch(e){}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(cfg))}catch(e){}}
@@ -10992,7 +10992,7 @@ memory:function(){return JSON.parse(JSON.stringify(mem))},get muted(){return cfg
 <script id="rgon-gate-v1-js">
 (function(){
 if(window.RGON_GATE)return;
-var VER="v11.36-AON-ICHING-DAO",KEY="rgon_manual_gate";
+var VER="v11.37-AON-OMNI-INSIGHT",KEY="rgon_manual_gate";
 var LABEL={finance_payment:"💰 금융·결제",laptop_app_browser:"💻 노트북앱",file_modify_delete:"🗂️ 파일삭제·이동",external_dispatch:"🌐 외부전송"};
 var CRIT=["finance_payment","file_modify_delete","external_dispatch"];
 var st={master_approval_on:false,gates:{finance_payment:false,laptop_app_browser:true,file_modify_delete:false,external_dispatch:false}};
@@ -11256,8 +11256,72 @@ var hv=0,hi=setInterval(function(){var v=window.RGON_VOICE;if(v&&v.talk&&!v.__rg
   }
   setInterval(dock,3500);
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",dock);else dock();
-  window.RGON_DAO={cast:cast,compute:compute,version:"v11.36-AON-ICHING-DAO"};
+  window.RGON_DAO={cast:cast,compute:compute,version:"v11.37-AON-OMNI-INSIGHT"};
 })();
+
+/* === [RGON-R38-OMNI-INSIGHT-JS] 제14기관: 아온 만물 격물치지 전방위 통찰안 & Canvas 실측 스캐너 === */
+(function(){if(window.RGON_INSIGHT)return;
+var st=document.createElement("style");
+st.textContent='#rgon-insight-btn{margin:0 4px;padding:4px 10px;border-radius:999px;border:1px solid #2fb8a6;background:rgba(14,42,42,0.92);color:#bff5ea;cursor:pointer;font-size:11.5px}'+
+'.rgon-ins-ring{position:fixed;z-index:2147483645;border-radius:50%;pointer-events:none;border:3px solid #39d5c0;box-shadow:0 0 18px #ffd76a,inset 0 0 12px #39d5c0;animation:rgonInsRing 1.3s ease-out forwards}'+
+'@keyframes rgonInsRing{0%{transform:scale(.2);opacity:1}100%{transform:scale(3.2);opacity:0}}'+
+'#rgon-insight-card{position:fixed;right:20px;bottom:90px;z-index:2147483646;width:370px;max-height:72vh;overflow:auto;background:rgba(11,31,34,0.96);color:#e8fbf6;border:1.5px solid #2fb8a6;border-radius:16px;padding:14px 16px;font-size:12.5px;line-height:1.55;box-shadow:0 12px 32px rgba(0,0,0,0.6)}'+
+'#rgon-insight-card b{color:#ffd76a}#rgon-insight-card .x{float:right;cursor:pointer;opacity:.75}'+
+'#rgon-insight-card textarea{width:100%;height:58px;margin:6px 0;background:#06181a;color:#e8fbf6;border:1px solid #2fb8a6;border-radius:8px;padding:6px;font-size:12px}'+
+'#rgon-insight-card button{margin:2px;padding:4px 10px;border-radius:10px;border:1px solid #2fb8a6;background:#123c3c;color:#bff5ea;cursor:pointer;font-size:11.5px}'+
+'#rgon-ins-drop{border:1px dashed #2fb8a6;border-radius:8px;padding:8px;text-align:center;opacity:.9;margin-top:6px}';
+if(document.head)document.head.appendChild(st);
+var ABS=/(무조건|절대|반드시|100\s*%|전부|항상|결코|확실히|완벽|필승)/g;
+var D=[["market",/(주식|코인|장세|시장|금리|환율|매수|매도|폭락|급등|비트코인|이차\s*전지|반도체)/,"R","진입 전 손절선·비중 상한 먼저 정하기","헤드라인 과잉 소비·잦은 매매","가격은 기대의 변화에 반응하고 기대는 유동성·실적에 수렴한다","중개자·큰손·정보 판매자","실제 자금 흐름과 기간"],
+["relationship",/(친구|연인|가족|동료|상사|관계|서운|갈등|대화)/,"R","상대 기대를 한 문장으로 직접 확인","속으로만 쌓는 해석","사람은 이해받는다고 느낄 때 마음을 연다","양측의 인정 욕구","상대가 실제로 기대한 것"],
+["tech",/(코드|버그|서버|AI|모델|앱|시스템|자동화|에러|배포|API)/,"B","가장 느린 한 단계만 먼저 개선","실행 안 되는 코드·수동 반복","시스템 속도는 가장 느린 단계가 정한다","플랫폼·도구 판매자","실행 로그와 재현 조건"],
+["business",/(매출|고객|사업|마케팅|가격|영업|창업|경쟁|이익)/,"R","이탈 이유 상위 1개 제거","측정 안 되는 광고비·회의","가치를 비용보다 싸게 반복 전달하는 구조","고객·경쟁사·광고 플랫폼","코호트 유지율·단위 경제성"],
+["content",/(유튜브|쇼츠|조회수|구독|썸네일|콘텐츠|youtu)/,"R","첫 화면·첫 문장 훅 하나 고치기","도입부 인사·반복 설명","주의는 희소하고 추천은 체류 행동을 따른다","플랫폼·제작자·광고주","시청 지속 그래프와 유입 경로"]];
+var G=["general",null,"B","가장 큰 제약 하나만 먼저 풀기","끝없는 정보 수집","결과는 구조가 만든다","설명하는 쪽·결정하는 쪽","당사자들의 실제 욕구와 제약"];
+var VIS=["visual",null,"B","주제 한 곳에만 대비 집중","주제와 무관한 배경 정보","시선은 대비가 크고 정보가 몰린 곳으로 먼저 간다","만든 사람·보는 사람","프레임 밖 맥락과 제작 의도"];
+function host(){return document.getElementById("rgyt-wrap")||document.getElementById("aon-roamer")}
+function rings(){var h=host(),R=h?h.getBoundingClientRect():{left:innerWidth-120,top:innerHeight-160,width:60,height:60};
+["#39d5c0","#ffd76a","#9be7ff"].forEach(function(c,i){setTimeout(function(){var e=document.createElement("div");e.className="rgon-ins-ring";var s=Math.max(R.width,R.height,50);
+e.style.cssText+="width:"+s+"px;height:"+s+"px;left:"+(R.left+R.width/2-s/2)+"px;top:"+(R.top+R.height/2-s/2)+"px;border-color:"+c;document.body.appendChild(e);setTimeout(function(){e.remove()},1400)},i*220)})}
+function tone(){try{var V=window.RGON_VOICE;if(V){if(V.sfx)return V.sfx("insight_flash");if(V.playSfx)return V.playSfx("insight_flash")}
+var C=new(window.AudioContext||window.webkitAudioContext)();[660,990,1320,1760].forEach(function(f,i){var o=C.createOscillator(),g=C.createGain();o.type="sine";o.frequency.value=f;var t=C.currentTime+i*.07;g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.07,t+.03);g.gain.exponentialRampToValueAtTime(.0001,t+1.4);o.connect(g);g.connect(C.destination);o.start(t);o.stop(t+1.5)})}catch(e){}}
+function say(s){try{var V=window.RGON_VOICE;if(V&&V.speak)return V.speak(s);var u=new SpeechSynthesisUtterance(s);u.lang="ko-KR";u.pitch=1.35;speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){}}
+function analyze(text,known,mod){var d=G;if(mod=="image")d=VIS;for(var i=0;i<D.length;i++)if(D[i][1].test(text)){d=D[i];break}if(mod=="video"&&d===G)d=D[4];
+var ab=(text.match(ABS)||[]),weak=known.length<=1,st=ab.length&&weak?"HIGH":(ab.length||weak?"MED":"LOW"),ver=st=="LOW"?"CONSISTENT":"FRAGILE";
+var conf=Math.max(15,Math.min(85,40+Math.min(known.length,5)*6-ab.length*6-(ver=="FRAGILE"?10:0)));
+var ess=d[5]+" — 급소는 '"+d[3]+"'";
+return{mod:mod,dom:d[0],L0:{known:known,abs:ab},L1:d[5],L2:{loop:d[2],lev:d[3],dw:d[4]},L4:{interest:d[6],blind:d[7],inv:st,verdict:ver},L5:{ess:ess,conf:conf},
+speech:"아온이 혜안 반짝~ 대표님, 이건 "+d[2]+" 루프로 움직이는 구조예요! 한 줄 본질은요, "+ess+". 신뢰도는 "+conf+"퍼센트예요"+(ver=="FRAGILE"?". 아직 흔들릴 수 있으니 "+d[7]+"부터 확인해 봐요!":"!")}}
+function render(r){var o=document.getElementById("rgon-ins-out");if(!o)return;
+o.innerHTML='<hr style="border-color:#1e3a3a;margin:8px 0"><b>L0 사실</b> '+(r.L0.known.join(" · ")||"직접 진술만")+(r.L0.abs.length?' · 단정어 ⚠️ '+r.L0.abs.join(","):"")+
+'<br><b>L1 근본 원리</b> '+r.L1+'<br><b>L2 급소</b> '+r.L2.lev+' · <b>병목</b> '+r.L2.dw+' ('+r.L2.loop+' 루프)'+
+'<br><b>L4 이해관계</b> '+r.L4.interest+' · 맹점: '+r.L4.blind+' · 반전 강도 '+r.L4.inv+' → <b>'+r.L4.verdict+'</b>'+
+'<br><b>L5 👁️ 한 줄 통찰</b> '+r.L5.ess+' (신뢰도 '+r.L5.conf+'%)';
+var bb=document.querySelector("#rgyt-bubble,.rgyt-bubble,#aon-bubble,#rgon-brat-bubble");if(bb){bb.textContent=r.speech;bb.style.opacity="1";}say(r.speech)}
+function measure(file){var fr=new FileReader();fr.onload=function(){var im=new Image();im.onload=function(){var W=im.naturalWidth,H=im.naturalHeight,s=Math.min(1,200/Math.max(W,H)),w=Math.max(1,Math.round(W*s)),h=Math.max(1,Math.round(H*s));
+var c=document.createElement("canvas");c.width=w;c.height=h;var x=c.getContext("2d");x.drawImage(im,0,0,w,h);var p=x.getImageData(0,0,w,h).data,n=0,t=0,q=0,R=0,Gg=0,B=0,cx=0,cy=0;
+for(var y=0;y<h;y++)for(var xx=0;xx<w;xx++){var i=(y*w+xx)*4,L=.299*p[i]+.587*p[i+1]+.114*p[i+2];n++;t+=L;q+=L*L;R+=p[i];Gg+=p[i+1];B+=p[i+2];cx+=xx*L;cy+=y*L}
+var m=t/n,sd=Math.sqrt(Math.max(0,q/n-m*m)),fx=t?cx/t/w:.5,fy=t?cy/t/h:.5;
+var known=[W+"×"+H+"px","밝기 "+(m/255).toFixed(2),"대비 "+(sd/255).toFixed(2),"RGB "+Math.round(R/n)+"/"+Math.round(Gg/n)+"/"+Math.round(B/n),"구도 중심 ("+fx.toFixed(2)+","+fy.toFixed(2)+")"];
+render(analyze(file.name||"이미지",known,"image"))};im.src=fr.result};fr.readAsDataURL(file)}
+function runText(){var v=(document.getElementById("rgon-ins-txt")||{}).value||"";if(!v.trim())return;
+var vid=/(youtube\.com|youtu\.be|\/shorts\/|\.mp4|영상|동영상|쇼츠)/i.test(v),known=[];var m=v.match(/(?:v=|youtu\.be\/|shorts\/)([\w-]{6,})/);if(m)known.push("영상 ID "+m[1]);
+var nums=v.match(/\d+(?:\.\d+)?\s*(?:%|원|달러|배|명|년)?/g);if(nums)known.push("수치 "+nums.slice(0,4).join(","));
+render(analyze(v,known,vid?"video":"speech"))}
+function open(){rings();tone();var c=document.getElementById("rgon-insight-card");if(c){c.remove();return}
+c=document.createElement("div");c.id="rgon-insight-card";
+c.innerHTML='<span class="x">✕</span><b>👁️ 아온이 만물 통찰 스캐너 (L0~L5)</b><div id="rgon-ins-drop">🖼️ 이미지를 드롭하거나 <button id="rgon-ins-pick">파일 선택</button><input id="rgon-ins-file" type="file" accept="image/*" style="display:none"></div>'+
+'<textarea id="rgon-ins-txt" placeholder="🎬 영상 링크·설명 또는 💬 말·현상을 입력하세요"></textarea><button id="rgon-ins-go">격물치지 해부</button><div id="rgon-ins-out"></div>';
+document.body.appendChild(c);c.querySelector(".x").onclick=function(){c.remove()};
+var f=c.querySelector("#rgon-ins-file");c.querySelector("#rgon-ins-pick").onclick=function(){f.click()};f.onchange=function(){if(f.files[0])measure(f.files[0])};
+c.querySelector("#rgon-ins-go").onclick=runText;
+c.addEventListener("dragover",function(e){e.preventDefault()});c.addEventListener("drop",function(e){e.preventDefault();var fl=e.dataTransfer.files[0];
+if(fl&&/^image\//.test(fl.type))measure(fl);else{var u=e.dataTransfer.getData("text");if(u){c.querySelector("#rgon-ins-txt").value=u;runText()}}})}
+function mount(){if(document.getElementById("rgon-insight-btn"))return true;var b=document.createElement("button");b.id="rgon-insight-btn";b.type="button";b.innerHTML="👁️ <b>만물 통찰</b>";
+b.addEventListener("click",function(e){e.preventDefault();e.stopPropagation();open()});
+var a=document.getElementById("rgon-dao-btn")||document.getElementById("rgon-brat-btn")||document.getElementById("rgyt-hide");if(a&&a.parentNode){a.parentNode.appendChild(b);return true}return false}
+window.RGON_INSIGHT={open:open,analyze:analyze,version:"v11.37-AON-OMNI-INSIGHT"};
+setInterval(mount,3000);if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",mount);else mount()})();
 </script>
 <!-- [RGON-GATE-V1-END] -->
 <!-- [RGON-YT-SCOUT-V13-END] -->

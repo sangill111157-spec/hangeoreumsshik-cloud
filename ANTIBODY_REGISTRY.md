@@ -10,11 +10,17 @@
 - R35: 아온(A-ON) 노트북 만능 제어 수족 & 중요 결재 수동 ON/OFF 마스터 스위치 — Tier 3·금융·파일삭제·외부전송은 마스터 + 카테고리 스위치 수동 ON + 대표님 승인 3중 충족 시에만 집행, 하나라도 OFF면 집행 0건
 
 <!-- [RGON-ANTIBODY-R36] -->
-## R36 — Step 36 · v11.36-AON-ICHING-DAO · 2026-10-25
+## R36 — Step 36 · v11.37-AON-OMNI-INSIGHT · 2026-10-25
 - R36: 아온(A-ON) 창틀 탈출 노트북 전체 놀이터 오버레이 & 게으름·찡찡·보채기 츤데레 생명체 페르소나 — 8대 놀이터 FSM(ROAM·PERCH·BOUNCE·MELT_LAZY·WHINE_POUT·CLINGY_TANTRUM·SPOILED_HAPPY·PEEK_NAP) + 말로는 투정해도 업무는 100% 처리하는 tsundere_spice 원칙
 - 핵심 파일: `rgon_aon_desktop_playground.py`, `rgon_aon_playground_state.json`, `skills/aon-desktop-playground-brat/SKILL.md`
 
 <!-- [RGON-ANTIBODY-R37] -->
-## R37 — Step 37 · v11.36-AON-ICHING-DAO · 2026-10-25
+## R37 — Step 37 · v11.37-AON-OMNI-INSIGHT · 2026-10-25
 - R37: 아온(A-ON) 주역 64괘·정통 음력 매화역수·육효 시운 도술관 & 음양 미니 물방울 분신술 — 1900~2099 진짜 음력 기괘 + 5대 입체 괘상(본괘·호괘·변괘·착괘·종괘) + 체용 생극·통관 중재·왕상휴수사 + 육효 효위반(당위·득중·상응·승강·이오중정상응) + 6대 시중(時中) 처세 나침반
 - 핵심 파일: `rgon_aon_iching_dao_oracle.py`, `rgon_aon_iching_state.json`, `skills/aon-iching-dao-oracle/SKILL.md`
+
+<!-- [RGON-ANTIBODY-R38] -->
+## R38 — Step 38 · v11.37-AON-OMNI-INSIGHT · 2026-10-25
+- R38: 아온(A-ON) 만물 격물치지 전방위 통찰안 — 이미지(PNG 픽셀·헤더·Canvas 실측)·영상(YouTube/Shorts·MP4 길이·기승전결 변화율)·말/현상 OTA 능동 지각 + FPCOS 6계층(L0 사실/추론/미지/단정어 ➔ L1 제1원리·사성제 ➔ L2 R/B 루프·급소·군더더기 ➔ L3 멘탈모델·주역 ➔ L4 섀도게이트 반전검증 ➔ L5 한줄본질·신뢰도≤85%)
+- 한계: 규칙 기반 실측(객체·장면 의미 미판정), 신뢰도 상한 85%, 집행 권한 없음(결재 게이트 준수)
+- 핵심 파일: `rgon_aon_omni_insight_eye.py`, `rgon_aon_insight_state.json`, `skills/aon-omni-insight-eye/SKILL.md`

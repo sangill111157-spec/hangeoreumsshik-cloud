@@ -1,8 +1,8 @@
 {
-  "version": "v11.36-AON-ICHING-DAO",
-  "antibody": "R1~R37",
+  "version": "v11.37-AON-OMNI-INSIGHT",
+  "antibody": "R1~R38",
   "generated_at_kst": "2026-10-24 12:31:39 KST",
-  "count": 33,
+  "count": 34,
   "skills": [
     {
       "slug": "1-36-45",
@@ -318,6 +318,14 @@
       "antibody": "R37",
       "version": "v11.36-AON-ICHING-DAO",
       "description": "아온(A-ON) 주역 64괘·정통 음력 매화역수·육효 시운 도술관 & 음양 미니 물방울 분신술 스킬"
+    },
+    {
+      "id": 34,
+      "name": "aon-omni-insight-eye",
+      "path": "skills/aon-omni-insight-eye/SKILL.md",
+      "antibody": "R38",
+      "version": "v11.37-AON-OMNI-INSIGHT",
+      "description": "아온(A-ON) 만물 격물치지 통찰안 — 이미지·영상·말/현상 OTA 능동 지각 + FPCOS L0~L5 해부 스킬"
     }
   ],
   "antibody_range": "R1~R35",

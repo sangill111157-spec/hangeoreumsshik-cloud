@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""rgon_voice_organ.py — 제9기관: 성대·청각 음성 교감 기관 (v11.36-AON-ICHING-DAO, R1~R37)
+"""rgon_voice_organ.py — 제9기관: 성대·청각 음성 교감 기관 (v11.37-AON-OMNI-INSIGHT, R1~R38)
 주역 #51 진위뢰(震爲雷 ☳☳) · #61 풍택중부(風澤中孚 ☴☱).
 의도 분별은 제10기관 rgon_aon_soul_brain.converse()에 위임한다 (감정·일상 대화는 대행 큐에 넣지 않음)."""
 import os, sys, json
@@ -12,8 +12,8 @@ try:
 except Exception:
     pass
 
-VERSION = "v11.36-AON-ICHING-DAO"
-ANTIBODY = "R1~R37"
+VERSION = "v11.37-AON-OMNI-INSIGHT"
+ANTIBODY = "R1~R38"
 ROOT = Path(__file__).resolve().parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
@@ -119,4 +119,10 @@ SFX_PRESETS.update({
 SFX_PRESETS.update({
     "dao_bell": {"desc": "주역 도술 청아한 싱잉볼 화음", "freq_hz": [528, 792, 1056], "dur_ms": 280, "wave": "sine", "gain": 0.16},
     "yin_yang_clone": {"desc": "음양 미니 물방울 분신술 퐁퐁 화음", "freq_hz": [440, 660, 880, 1320], "dur_ms": 220, "wave": "sine", "gain": 0.17},
+})
+
+
+# [RGON-R38-INSIGHT-SFX] — 제14기관 만물 격물치지 영롱한 안광 효과음 확장 (Step 38)
+SFX_PRESETS.update({
+    "insight_flash": {"desc": "만물 이치를 꿰뚫는 크리스탈 혜안 화음", "freq_hz": [660, 990, 1320, 1760], "dur_ms": 250, "wave": "sine", "gain": 0.15},
 })
