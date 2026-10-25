@@ -2,12 +2,12 @@
 # -*- coding: utf-8 -*-
 # agentshield:ignore-file
 """rgon_excretory_organ.py — RGON 사령부 제7기관: 배설·정화계(신장·대장·뇌척수액 세척) 엔진
-버전: v11.41-AON-HYDRO-CYCLE / 항체: R1~R42 / 주역 #18 산풍고(蠱) · #40 뇌수해(解)
+버전: v11.42-AON-OMNI-NEXUS / 항체: R1~R43 / 주역 #18 산풍고(蠱) · #40 뇌수해(解)
 흡수 기술: ECC config-gc + reclaim-code-entropy + Four Pillars autoDream Compaction"""
 import os, re, sys, json, shutil, datetime
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
-VER, SLUG, TRI = "v11.41-AON-HYDRO-CYCLE", "excretory-entropy-gc", "⚖️ [CLEAN] 100.0점 (Bull 99.9 / Bear 0.1 / #40-뇌수해) 🧹 배설기관(신장·대장) 정화 엔진 가동 — 노폐물·중복 마커·캐시 찌꺼기 배출 완료 (비움이 곧 채움)"
+VER, SLUG, TRI = "v11.42-AON-OMNI-NEXUS", "excretory-entropy-gc", "⚖️ [CLEAN] 100.0점 (Bull 99.9 / Bear 0.1 / #40-뇌수해) 🧹 배설기관(신장·대장) 정화 엔진 가동 — 노폐물·중복 마커·캐시 찌꺼기 배출 완료 (비움이 곧 채움)"
 
 def rj(p, d=None):
     try:
@@ -101,7 +101,7 @@ def autodream_doc_compaction():
                 seen.add(tag); dedup.append(xs)
         dedup.append(TRI)
         nu["trinity"] = "\n".join(dedup) if isinstance(t, str) else dedup
-        o["nutrient"] = nu; o["version"] = VER; o["antibody_range"] = "R1~R42"; o["skill_count"] = 27
+        o["nutrient"] = nu; o["version"] = VER; o["antibody_range"] = "R1~R43"; o["skill_count"] = 27
         wj(p, o)
     return {"compacted_docs": cleaned_docs, "trinity_dedup_ok": True}
 
@@ -152,8 +152,8 @@ def self_test():
 
 # ==== [RGON-R40-SYNAPSE-HOOK-START] ====
 # R40 — 구버전 덮어쓰기 차단
-VER = "v11.41-AON-HYDRO-CYCLE"
-for _n40, _v40 in (("VERSION", VER), ("ANTIBODY_RANGE", "R1~R42"), ("SKILL_COUNT", 36), ("EXPECTED_SKILL_COUNT", 36)):
+VER = "v11.42-AON-OMNI-NEXUS"
+for _n40, _v40 in (("VERSION", VER), ("ANTIBODY_RANGE", "R1~R43"), ("SKILL_COUNT", 36), ("EXPECTED_SKILL_COUNT", 36)):
     if _n40 in globals():
         globals()[_n40] = _v40
 # ==== [RGON-R40-SYNAPSE-HOOK-END] ====

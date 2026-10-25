@@ -1,8 +1,8 @@
 {
-  "version": "v11.41-AON-HYDRO-CYCLE",
-  "antibody": "R1~R42",
-  "generated_at_kst": "2026-10-25T23:34:44+09:00",
-  "count": 38,
+  "version": "v11.42-AON-OMNI-NEXUS",
+  "antibody": "R1~R43",
+  "generated_at_kst": "2026-10-26T00:17:30+09:00",
+  "count": 39,
   "skills": [
     {
       "slug": "1-36-45",
@@ -391,13 +391,27 @@
       "title": "제18기관 아온 상선약수 수순환 자율 대사 & 여백 창조 (損·蠱→井→坎·節→旣濟·未濟)",
       "description": "노자 상선약수·허실상생과 주역 水 순환 4괘상(#41 산택손·#18 산풍고→#48 수풍정→#29 중수감·#60 수택절→#63 수화기제·#64 화수미제)으로 고인 캐시·임시파일·오래된 백업을 3등급(TIER1_KEEP/TIER2_SAFE_EMPTY/TIER3_GATE_HOLD)으로 분류하고, 기억을 정수로 증류하며, 여백 지수·유동성 지수와 물의 순환 처방을 산출하는 항상성 기관",
       "organ": "제18기관"
+    },
+    {
+      "no": 39,
+      "slug": "aon-omni-nexus-synthesizer",
+      "antibody": "R43",
+      "version": "v11.42-AON-OMNI-NEXUS",
+      "path": "skills/aon-omni-nexus-synthesizer/SKILL.md",
+      "id": "aon-omni-nexus-synthesizer",
+      "name": "aon-omni-nexus-synthesizer",
+      "skill": "",
+      "number": 37,
+      "title": "제19기관 아온 연결·소통·만능 대집약체 코어 (泰·比→咸·中孚→大有·鼎)",
+      "description": "주역 3대 집약 괘상(#11 지천태·#08 수지비 만물연결, #31 택산함·#61 풍택중부 초감각소통, #14 화천대유·#50 화풍정 만능융합연성)으로 사령부 전 기관(제1~19기관)과 39개 정식 스킬, 7개 대시보드, 6대 부서를 단일 넥서스로 결속하고 최적 스킬 체인을 조립·실행하는 만능 대집약체 코어",
+      "organ": "제19기관"
     }
   ],
-  "antibodies": "R1~R42",
-  "antibody_range": "R1~R42",
-  "immune": "R1~R42",
-  "total": 38,
-  "skill_count": 38,
-  "total_skills": 38,
-  "updated": "2026-10-25T23:35:04"
+  "antibodies": "R1~R43",
+  "antibody_range": "R1~R43",
+  "immune": "R1~R43",
+  "total": 39,
+  "skill_count": 39,
+  "total_skills": 39,
+  "updated": "2026-10-26T00:17:50"
 }

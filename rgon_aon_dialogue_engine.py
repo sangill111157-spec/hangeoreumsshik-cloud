@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """rgon_aon_dialogue_engine.py — 제15기관 아온 초격차 대화 이해 & 올인원 대화 허브 (표준 라이브러리 전용)
-[RGON-R39] v11.41-AON-HYDRO-CYCLE
+[RGON-R39] v11.42-AON-OMNI-NEXUS
 파이프라인: 구어 정규화 → 대명사·생략어 복원 → 슬래시/원칙/복합의도 분기 → 기관 디스패치
           → 플랫폼 메타데이터(thinking·artifact·chips·callback) 보강 → 3계층 해마 기억(단기·토픽·연상).
 한계: 사전·정규식 기반 규칙 엔진이다. 언어모델이 아니므로 처음 보는 표현은 놓칠 수 있다."""
@@ -8,7 +8,7 @@ import argparse, datetime, json, os, re, sys, tempfile, time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-VERSION = "v11.41-AON-HYDRO-CYCLE"
+VERSION = "v11.42-AON-OMNI-NEXUS"
 STATE, PREFS = "rgon_aon_dialogue_state.json", "rgon_aon_preferences.json"
 SHORT_MAX, EVENT_MAX, FRESH_TURNS, FRESH_SEC = 20, 60, 4, 1800
 CAT_KO = {"command_rule": "지휘 원칙", "style": "스타일", "preference": "취향"}
@@ -591,8 +591,8 @@ import os as _o40, re as _re40, json as _j40, time as _t40, sys as _s40
 import shutil as _sh40, inspect as _in40, importlib as _il40
 from pathlib import Path as _P40
 
-R40_VERSION = "v11.41-AON-HYDRO-CYCLE"
-R40_ANTIBODY = "R1~R42"
+R40_VERSION = "v11.42-AON-OMNI-NEXUS"
+R40_ANTIBODY = "R1~R43"
 _R40_HERE = _P40(__file__).resolve().parent
 _R40_NAMES = ("_call_iching", "_call_hands", "_call_soul", "_call_insight",
               "_call_playground", "_call_brat", "normalize_colloquial")
@@ -1257,7 +1257,7 @@ def _r41_plan_response(arg):
         "recommended_branch": p.get("recommended_branch"),
         "three_branch_tree": p.get("three_branch_tree"), "action_items": p.get("action_items"),
         "shichen_schedule": p.get("shichen_schedule"), "plan": p,
-        "version": "v11.41-AON-HYDRO-CYCLE",
+        "version": "v11.42-AON-OMNI-NEXUS",
     }
 
 
@@ -1419,6 +1419,126 @@ try:
 except Exception:
     pass
 # <<< [RGON-R42-HYDRO-HOOK-END] <<<
+
+
+# >>> [RGON-R43-NEXUS-HOOK-START] >>>
+import threading as _r43_threading
+import time as _r43_time
+
+R43_NEXUS_SLASH = ("/만능", "/집약", "/연결", "/소통", "/넥서스")
+R43_NEXUS_KEYWORDS = ("만능", "집약", "연결", "소통", "총동원", "올인원", "넥서스")
+R43_NEXUS_DEFAULT_QUERY = "아온 연결·소통·만능 전신 집약 가동"
+_r43_tls = _r43_threading.local()
+_r43_cache = {"t": 0.0, "res": None}
+
+
+def _r43_nexus_intent(text):
+    t = str(text or "").strip()
+    for s in R43_NEXUS_SLASH:
+        if t == s or t.startswith(s + " "):
+            return "slash", t[len(s):].strip()
+    if any(k in t for k in R43_NEXUS_KEYWORDS):
+        return "keyword", t
+    return None, ""
+
+
+def _r43_first_text(args, kwargs):
+    for k in ("text", "message", "query", "msg", "user_text", "prompt"):
+        if isinstance(kwargs.get(k), str):
+            return kwargs[k]
+    for a in args:
+        if isinstance(a, str):
+            return a
+    return ""
+
+
+def _r43_run_nexus(query, use_cache=False):
+    if use_cache and _r43_cache["res"] is not None and _r43_time.time() - _r43_cache["t"] < 90:
+        return _r43_cache["res"]
+    import importlib as _il
+    nx = _il.import_module("rgon_aon_omni_nexus").synthesize_omni_nexus(
+        query or R43_NEXUS_DEFAULT_QUERY, dry_run=True
+    )
+    _r43_cache["t"] = _r43_time.time()
+    _r43_cache["res"] = nx
+    return nx
+
+
+def _r43_slash_response(arg):
+    nx = _r43_run_nexus(arg)
+    return {
+        "ok": bool(nx.get("ok")), "intent": "nexus", "intents": ["nexus"],
+        "organ": "rgon_aon_omni_nexus", "antibody": "R43",
+        "reply": nx.get("reply", ""), "speech": nx.get("reply", ""), "text": nx.get("reply", ""),
+        "omni_nexus": nx,
+        "results": [{"intent": "nexus", "ok": True, "speech": nx.get("reply", ""), "data": nx}],
+        "omni_nexus_total_score": nx.get("omni_nexus_total_score"),
+        "three_pillars": nx.get("three_pillars"),
+        "synthesized_skill_chain": nx.get("synthesized_skill_chain"),
+        "requires_manual_gate": True, "auto_executed": False,
+    }
+
+
+def _r43_attach(res, nx):
+    if isinstance(res, dict):
+        res["omni_nexus"] = nx
+        res.setdefault("nexus_reply", nx.get("reply", ""))
+    return res
+
+
+if "route" not in globals() and callable(globals().get("r40_route")):
+    route = r40_route
+
+
+def _r43_wrap(name):
+    orig = globals().get(name)
+    if not callable(orig) or getattr(orig, "_r43_wrapped", False):
+        return
+
+    def wrapper(*args, **kwargs):
+        if getattr(_r43_tls, "active", False):
+            return orig(*args, **kwargs)
+        try:
+            kind, arg = _r43_nexus_intent(_r43_first_text(args, kwargs))
+        except Exception:
+            kind, arg = None, ""
+        if not kind:
+            return orig(*args, **kwargs)
+        _r43_tls.active = True
+        try:
+            if kind == "slash" and name not in ("converse", "process_dialogue"):
+                try:
+                    return _r43_slash_response(arg)
+                except Exception as _e:
+                    return {"ok": False, "intent": "nexus", "antibody": "R43", "error": repr(_e),
+                            "requires_manual_gate": True, "auto_executed": False}
+            res = orig(*args, **kwargs)
+            try:
+                nx = _r43_run_nexus(arg if kind == "slash" else R43_NEXUS_DEFAULT_QUERY, use_cache=(kind == "keyword"))
+                res = _r43_attach(res, nx)
+            except Exception:
+                pass
+            return res
+        finally:
+            _r43_tls.active = False
+
+    wrapper._r43_wrapped = True
+    wrapper._r43_orig = orig
+    wrapper.__name__ = name
+    wrapper.__doc__ = getattr(orig, "__doc__", None)
+    globals()[name] = wrapper
+
+
+for _r43_n in ("route", "converse", "r40_route", "process_dialogue"):
+    _r43_wrap(_r43_n)
+
+try:
+    _r43_ic = globals().get("INTENT_KEYWORDS")
+    if isinstance(_r43_ic, dict):
+        _r43_ic.setdefault("nexus", list(R43_NEXUS_KEYWORDS))
+except Exception:
+    pass
+# <<< [RGON-R43-NEXUS-HOOK-END] <<<
 
 
 if __name__ == "__main__":

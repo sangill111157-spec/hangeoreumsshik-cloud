@@ -31,7 +31,7 @@
 - 핵심: 구어 정규화 · 대명사 복원 · 능동 경청 원칙 각인 · 복합 의도 분해 · 슬래시 7종 · 3계층 해마 기억
 
 <!-- [RGON-R40-SKILL-START] -->
-### R40 · v11.41-AON-HYDRO-CYCLE · 항체 R1~R42 · 정식 스킬 38개
+### R40 · v11.42-AON-OMNI-NEXUS · 항체 R1~R43 · 정식 스킬 39개
 - `1-36-45` — (SKILL_INDEX.json 동기화 보정)
 - `10-5` — (SKILL_INDEX.json 동기화 보정)
 - `744b-ai-10` — (SKILL_INDEX.json 동기화 보정)
@@ -65,3 +65,4 @@
 <!-- [RGON-R41-SKILL-SYNC] -->
 - **#37** `aon-iching-strategic-planner` — 제17기관 아온 주역 64괘 시운 전략 기획관 (WOOP·OODA·12시진·3분기 트리) (`skills/aon-iching-strategic-planner/SKILL.md`)
 | 38 | `aon-hydro-cycle-homeostasis` | 제18기관 아온 상선약수 수순환 자율 대사 & 여백 창조 (損·蠱→井→坎·節→旣濟·未濟) | R42 | `skills/aon-hydro-cycle-homeostasis/SKILL.md` |
+| 39 | `aon-omni-nexus-synthesizer` | 제19기관 아온 연결·소통·만능 대집약체 코어 (泰·比→咸·中孚→大有·鼎) | R43 | `skills/aon-omni-nexus-synthesizer/SKILL.md` |
