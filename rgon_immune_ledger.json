@@ -1,10 +1,10 @@
 {
   "schema": "rgon.immune.ledger.v1",
-  "version": "v11.42-AON-OMNI-NEXUS",
+  "version": "v11.43-AON-LIVE-UI-HEALER",
   "current_step": 22,
-  "antibody_range": "R1~R43",
+  "antibody_range": "R1~R44",
   "principle": "만물은 하나로 이어져 있으며, 한 걸음씩 나아가면 반드시 이루어진다.",
-  "updated_at_kst": "2026-10-26T00:25:48",
+  "updated_at_kst": "2026-10-26T08:42:31",
   "health_score": 100,
   "inspection_mode": "standard",
   "today_hexagram": {
@@ -14,7 +14,7 @@
     "summary": "자강불식(自強不息) — 스스로 강건히 쉬지 않고 정진한다",
     "inspection_mode": "standard"
   },
-  "suppressed_count": 23,
+  "suppressed_count": 27,
   "antibodies": [
     {
       "id": "R1",
@@ -181,7 +181,7 @@
       "name": "일일 자율 순환 루프(백혈구 순찰 → 영양분 소화·스킬 주조 → 3자 심판 → 주역 64괘 아침 브리핑) 무인 자동화",
       "desc": "일일 자율 순환 루프(백혈구 순찰 → 영양분 소화·스킬 주조 → 3자 심판 → 주역 64괘 아침 브리핑) 무인 자동화",
       "step": 20,
-      "version": "v11.42-AON-OMNI-NEXUS",
+      "version": "v11.43-AON-LIVE-UI-HEALER",
       "rule": "일일 자율 순환 루프(백혈구 순찰 → 영양분 소화·스킬 주조 → 3자 심판 → 주역 64괘 아침 브리핑) 무인 자동화",
       "status": "active"
     },
@@ -223,7 +223,7 @@
       "id": "R25",
       "name": "원터치 만능 스킬 디스패처",
       "rule": "R25: 연결·소통·만능 원터치 스킬 디스패처 — 보유 스킬·트렌드·3자 심판 결과를 독대실 질문창에 무간섭 단발 장전",
-      "version": "v11.42-AON-OMNI-NEXUS",
+      "version": "v11.43-AON-LIVE-UI-HEALER",
       "status": "활성",
       "added": "2026-10-24 09:19:38",
       "title": "원터치 만능 스킬 디스패처",
@@ -313,8 +313,8 @@
       "context": "self_test_bypass",
       "sample_message": "'simulated_missing_key'",
       "first_seen_kst": "2026-10-24T08:11:50",
-      "last_seen_kst": "2026-10-26T00:25:48",
-      "count": 25,
+      "last_seen_kst": "2026-10-26T08:42:31",
+      "count": 29,
       "suppressed": true,
       "known_remedy": "R18 상선약수: adapt_dict 안전 키 매핑 및 기본값 반환"
     }
@@ -551,6 +551,38 @@
       "restored": true,
       "source_backup": ".rgon_backup/wbc_snapshots/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.clean",
       "quarantined_to": ".rgon_backup/wbc_quarantine/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.20261026_002548.corrupt"
+    },
+    {
+      "timestamp_kst": "2026-10-26T08:28:07",
+      "file": ".rgon_backup/wbc_selftest/_wbc_dummy_sample.py",
+      "reason": "self_test_syntax_error",
+      "restored": true,
+      "source_backup": ".rgon_backup/wbc_snapshots/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.clean",
+      "quarantined_to": ".rgon_backup/wbc_quarantine/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.20261026_082807.corrupt"
+    },
+    {
+      "timestamp_kst": "2026-10-26T08:29:52",
+      "file": ".rgon_backup/wbc_selftest/_wbc_dummy_sample.py",
+      "reason": "self_test_syntax_error",
+      "restored": true,
+      "source_backup": ".rgon_backup/wbc_snapshots/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.clean",
+      "quarantined_to": ".rgon_backup/wbc_quarantine/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.20261026_082952.corrupt"
+    },
+    {
+      "timestamp_kst": "2026-10-26T08:37:42",
+      "file": ".rgon_backup/wbc_selftest/_wbc_dummy_sample.py",
+      "reason": "self_test_syntax_error",
+      "restored": true,
+      "source_backup": ".rgon_backup/wbc_snapshots/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.clean",
+      "quarantined_to": ".rgon_backup/wbc_quarantine/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.20261026_083742.corrupt"
+    },
+    {
+      "timestamp_kst": "2026-10-26T08:42:31",
+      "file": ".rgon_backup/wbc_selftest/_wbc_dummy_sample.py",
+      "reason": "self_test_syntax_error",
+      "restored": true,
+      "source_backup": ".rgon_backup/wbc_snapshots/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.clean",
+      "quarantined_to": ".rgon_backup/wbc_quarantine/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.20261026_084231.corrupt"
     }
   ],
   "bypass_log": [
@@ -787,6 +819,42 @@
       "fingerprint": "3cf3c4ec29753bf7",
       "suppressed": true,
       "action": "default_value"
+    },
+    {
+      "timestamp_kst": "2026-10-26T08:28:07",
+      "context": "self_test_bypass",
+      "exc_type": "KeyError",
+      "message": "'simulated_missing_key'",
+      "fingerprint": "3cf3c4ec29753bf7",
+      "suppressed": true,
+      "action": "default_value"
+    },
+    {
+      "timestamp_kst": "2026-10-26T08:29:52",
+      "context": "self_test_bypass",
+      "exc_type": "KeyError",
+      "message": "'simulated_missing_key'",
+      "fingerprint": "3cf3c4ec29753bf7",
+      "suppressed": true,
+      "action": "default_value"
+    },
+    {
+      "timestamp_kst": "2026-10-26T08:37:42",
+      "context": "self_test_bypass",
+      "exc_type": "KeyError",
+      "message": "'simulated_missing_key'",
+      "fingerprint": "3cf3c4ec29753bf7",
+      "suppressed": true,
+      "action": "default_value"
+    },
+    {
+      "timestamp_kst": "2026-10-26T08:42:31",
+      "context": "self_test_bypass",
+      "exc_type": "KeyError",
+      "message": "'simulated_missing_key'",
+      "fingerprint": "3cf3c4ec29753bf7",
+      "suppressed": true,
+      "action": "default_value"
     }
   ],
   "patrol_history": [
@@ -920,7 +988,7 @@
   "antibody_count": 22,
   "step20": {
     "name": "일일 자율 순환 루프",
-    "antibody": "R1~R43",
+    "antibody": "R1~R44",
     "heart": "rgon_daily_cycle.py",
     "workflow": ".github/workflows/rgon_daily_autonomous_cycle.yml",
     "schedule_kst": "07:00",
@@ -941,8 +1009,8 @@
   "events": [
     {
       "step": 21,
-      "version": "v11.42-AON-OMNI-NEXUS",
-      "antibody": "R1~R43",
+      "version": "v11.43-AON-LIVE-UI-HEALER",
+      "antibody": "R1~R44",
       "text": "@Mindung-EasyAI 양분 흡수 — Matt Pocock(GLOSSARY.md · Spec/Tracer-Bullet Tickets 분업) + ECC(AgentShield 비밀키/설정 보안 스캔)",
       "at": "2026-10-24 07:34:37"
     }

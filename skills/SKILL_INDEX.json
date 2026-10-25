@@ -1,8 +1,8 @@
 {
-  "version": "v11.42-AON-OMNI-NEXUS",
-  "antibody": "R1~R43",
+  "version": "v11.43-AON-LIVE-UI-HEALER",
+  "antibody": "R1~R44",
   "generated_at_kst": "2026-10-26 00:23:49 KST",
-  "count": 39,
+  "count": 40,
   "skills": [
     {
       "slug": "1-36-45",
@@ -354,14 +354,24 @@
       "source_url": "local://rgon_youtube_skill_scout.py",
       "origin": "core",
       "path": "skills/youtube-trend-scout/SKILL.md"
+    },
+    {
+      "id": 40,
+      "name": "aon-live-ui-self-healer",
+      "slug": "aon-live-ui-self-healer",
+      "version": "v11.43-AON-LIVE-UI-HEALER",
+      "antibody": "R44",
+      "organ": 20,
+      "path": "skills/aon-live-ui-self-healer/SKILL.md",
+      "description": "아온 실전 UI 전수 클릭·동작 검증 & 자가배선 수리 (제20기관, R44)"
     }
   ],
-  "total": 39,
-  "skill_count": 39,
-  "antibody_range": "R1~R43",
-  "antibodies": "R1~R43",
-  "updated": "2026-10-26T00:25:50",
+  "total": 40,
+  "skill_count": 40,
+  "antibody_range": "R1~R44",
+  "antibodies": "R1~R44",
+  "updated": "2026-10-26T08:42:34",
   "synced_at_kst": "2026-10-26 00:24:55 KST",
-  "immune": "R1~R43",
-  "total_skills": 39
+  "immune": "R1~R44",
+  "total_skills": 40
 }

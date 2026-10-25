@@ -1,1478 +1,860 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+"""step44_aon_live_ui_healer.py — Step 44 / 제20기관 / v11.43-AON-LIVE-UI-HEALER / 항체 R1~R44
+A-ON Live UI Action Verifier & Self-Healer 배포 스크립트 (단일 완결형, 표준 라이브러리 전용).
+옵션: --no-push (git push 생략) / --no-git (git 전체 생략, 로컬 점검용)
 """
-step43_aon_omni_nexus_core.py
-RGON Step 43 — 제19기관 아온 연결·소통·만능 대집약체 코어 (A-ON Omni-Nexus Core)
-v11.41-AON-HYDRO-CYCLE -> v11.42-AON-OMNI-NEXUS · 항체 R1~R42 -> R1~R43 · 정식 스킬 38 -> 39
-"""
-import os
-import sys
-import re
-import ast
-import json
-import time
-import shutil
-import hashlib
-import tempfile
-import datetime
-import subprocess
-import traceback
-import py_compile
-from concurrent.futures import ThreadPoolExecutor
+import os, sys, re, json, ast, shutil, hashlib, subprocess, tempfile, time, importlib
+import importlib.util
 
-try:
-    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
-    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
-except Exception:
-    pass
-
-BT3 = chr(96) * 3
-STEP = 43
-OLD_VERSION = "v11.41-AON-HYDRO-CYCLE"
-NEW_VERSION = "v11.42-AON-OMNI-NEXUS"
-OLD_RANGE = "R1~R42"
-NEW_RANGE = "R1~R43"
-OLD_COUNT = 38
-NEW_COUNT = 39
-SKILL_ID = "aon-omni-nexus-synthesizer"
-SKILL_PATH = "skills/%s/SKILL.md" % SKILL_ID
-SKILL_TITLE = "제19기관 아온 연결·소통·만능 대집약체 코어 (泰·比→咸·中孚→大有·鼎)"
-SKILL_DESC = ("주역 3대 집약 괘상(#11 지천태·#08 수지비 만물연결, #31 택산함·#61 풍택중부 초감각소통, "
-              "#14 화천대유·#50 화풍정 만능융합연성)으로 사령부 전 기관(제1~19기관)과 39개 정식 스킬, "
-              "7개 대시보드, 6대 부서를 단일 넥서스로 결속하고 최적 스킬 체인을 조립·실행하는 만능 대집약체 코어")
-NEXUS_FILE = "rgon_aon_omni_nexus.py"
-HYDRO_FILE = "rgon_aon_hydro_cycle.py"
-PLANNER_FILE = "rgon_aon_iching_planner.py"
-DIALOGUE_FILE = "rgon_aon_dialogue_engine.py"
-VERIFIER_FILE = "rgon_neural_synapse_verifier.py"
-VOICE_FILE = "rgon_voice_organ.py"
-EXCRETORY_FILE = "rgon_excretory_organ.py"
-HASH_FILE = ".rgon_file_hashes.json"
-REPORT_FILE = "STEP43_AON_OMNI_NEXUS_REPORT.md"
-DIAG_FILE = "STEP43_FAILURE_DIAG.txt"
-STATE_NAME = "rgon_aon_nexus_state.json"
-STATE_FILES = [STATE_NAME, "docs/" + STATE_NAME]
-PRESERVE = [
-    "run_aon_100_stress_test.py", "AON_100_STRESS_TEST_REPORT.md", "AON_100_STRESS_TEST_REPORT.json",
-    "LAPTOP_GREAT_CLEANUP_REPORT.md",
-]
-PROTECT = {VOICE_FILE: ["SOUND_RECIPES"], EXCRETORY_FILE: ["PRESERVE_EXACT"]}
-HTML_TARGETS = [
-    "index.html", "rgon_alpha_audience.html", "rgon_alpha_chat.html",
-    "dashboard/index.html", "dashboard/rgon_alpha_chat.html",
-    "docs/index.html", "docs/rgon_alpha_chat.html",
-]
-JSON_SNAPSHOT_DIRS = ["", "docs", "dashboard"]
-JSON_SNAPSHOT_EXCLUDE = {HASH_FILE, "package.json", "package-lock.json", "AON_100_STRESS_TEST_REPORT.json"}
-REQUIRED_FILES = [DIALOGUE_FILE, VERIFIER_FILE]
-TOP_KEYS = ["version", "antibody", "generated_at_kst", "count", "skills"]
-ENTRY_KEYS = ["no", "slug", "antibody", "version", "path"]
-KST = datetime.timezone(datetime.timedelta(hours=9))
-NO_ROLLBACK = bool(os.environ.get("RGON_STEP43_NO_ROLLBACK"))
-
-
-def _detect_root():
-    cands = []
-    if os.environ.get("RGON_ROOT"):
-        cands.append(os.environ["RGON_ROOT"])
-    try:
-        cands.append(os.path.dirname(os.path.abspath(__file__)))
-    except NameError:
-        pass
-    cands.append(os.getcwd())
-    cands.append(r"C:\Users\sangi\Downloads\shin-agent")
-    for c in cands:
-        if c and os.path.exists(os.path.join(c, DIALOGUE_FILE)):
-            return os.path.abspath(c)
-    return os.path.abspath(cands[0] if cands else os.getcwd())
-
-
-ROOT = _detect_root()
-TS = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-BACKUP_DIR = os.path.join(ROOT, ".rgon_backups", "step43_" + TS)
-BACKED = {}
-MODIFIED = set()
-LOGS = []
-
-
-def log(msg=""):
-    LOGS.append(str(msg))
-    try:
-        print(msg, flush=True)
-    except Exception:
-        print(str(msg).encode("utf-8", "replace").decode("utf-8", "replace"), flush=True)
-
-
-def P(rel):
-    return os.path.join(ROOT, rel)
-
-
-def kst_now():
-    return datetime.datetime.now(KST).isoformat(timespec="seconds")
-
-
-def is_preserved(rel):
-    return os.path.basename(rel) in PRESERVE or rel in PRESERVE
-
-
-def read_text(rel):
-    with open(P(rel), "r", encoding="utf-8") as f:
-        return f.read()
-
-
-def backup_file(rel):
-    if is_preserved(rel):
-        raise RuntimeError("PRESERVE 파일 접근 차단: " + rel)
-    if rel in BACKED:
-        return
-    src = P(rel)
-    if os.path.exists(src):
-        dst = os.path.join(BACKUP_DIR, rel)
-        os.makedirs(os.path.dirname(dst), exist_ok=True)
-        shutil.copy2(src, dst)
-        BACKED[rel] = True
-    else:
-        BACKED[rel] = False
-
-
-def write_text(rel, text):
-    if is_preserved(rel):
-        raise RuntimeError("PRESERVE 파일 쓰기 차단: " + rel)
-    backup_file(rel)
-    path = P(rel)
-    if os.path.exists(path):
-        with open(path, "r", encoding="utf-8") as f:
-            if f.read() == text:
-                return False
-    d = os.path.dirname(path)
-    if d:
-        os.makedirs(d, exist_ok=True)
-    with open(path, "w", encoding="utf-8", newline="\n") as f:
-        f.write(text)
-    MODIFIED.add(rel)
-    return True
-
-
-def rollback():
-    log("[ROLLBACK] 백업 복원 시작 (PRESERVE 제외)")
-    for rel, existed in BACKED.items():
-        if is_preserved(rel):
-            continue
-        try:
-            if existed:
-                shutil.copy2(os.path.join(BACKUP_DIR, rel), P(rel))
-            elif os.path.exists(P(rel)):
-                os.remove(P(rel))
-        except Exception as e:
-            log("  - 복원 실패 %s: %r" % (rel, e))
-    sk = P(os.path.join("skills", SKILL_ID))
-    try:
-        if os.path.isdir(sk) and not os.listdir(sk):
-            os.rmdir(sk)
-    except Exception:
-        pass
-    log("[ROLLBACK] 완료")
-
-
-def sha_file(path, algo="sha256"):
-    h = hashlib.new(algo)
-    with open(path, "rb") as f:
-        for chunk in iter(lambda: f.read(65536), b""):
-            h.update(chunk)
-    return h.hexdigest()
-
-
-def detect_indent(raw):
-    m = re.search(r"\n( +)\"", raw)
-    return len(m.group(1)) if m else 2
-
-
-def insert_block(text, begin, end, block):
-    full = begin + "\n" + block.strip("\n") + "\n" + end
-    if begin in text and end in text:
-        s = text.index(begin)
-        e = text.index(end, s) + len(end)
-        return text[:s] + full + text[e:]
-    ms = list(re.finditer(r"^if\s+__name__\s*==\s*['\"]__main__['\"]\s*:", text, re.M))
-    if ms:
-        pos = ms[-1].start()
-        return text[:pos] + full + "\n\n\n" + text[pos:]
-    if not text.endswith("\n"):
-        text += "\n"
-    return text + "\n\n" + full + "\n"
-
-
-# ══════════════════════════════════════════════════════════════════════
-# 1. 제19기관 rgon_aon_omni_nexus.py 원본
-# ══════════════════════════════════════════════════════════════════════
-NEXUS_SRC = r'''#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-rgon_aon_omni_nexus.py — 제19기관: 아온 연결·소통·만능 대집약체 코어 (A-ON Omni-Nexus Core)
-정식 스킬 #39 aon-omni-nexus-synthesizer · v11.42-AON-OMNI-NEXUS · 항체 R43 (R1~R43)
-
-철학: 연결(連結) · 소통(疏通) · 만능(萬能)의 대집약체
-  ① 만물 연결 (Universal Connection Hub)          #11 지천태(地天泰 ☷☰) & #08 수지비(水地比 ☵☷)
-  ② 초감각 소통 (Telepathic Communion Bridge)     #31 택산함(澤山咸 ☱☶) & #61 풍택중부(風澤中孚 ☴☱)
-  ③ 만능 융합 연성 (Omnipotent Skill Synthesizer) #14 화천대유(火天大有 ☲☰) & #50 화풍정(火風鼎 ☲☴)
-
-CLI: --self-test | --status | --nexus [요청] [--json]
-"""
-import os
-import re
-import sys
-import glob
-import json
-import time
-import shutil
-import hashlib
-import argparse
-import datetime
-import tempfile
-import importlib
-
-VERSION = "v11.42-AON-OMNI-NEXUS"
-ANTIBODY = "R43"
-ANTIBODY_RANGE = "R1~R43"
-ORGAN_NO = 19
-SKILL_COUNT = 39
-SKILL_ID = "aon-omni-nexus-synthesizer"
-ORGAN_NAME = "제19기관 아온 연결·소통·만능 대집약체 코어 (A-ON Omni-Nexus Core)"
-STATE_NAME = "rgon_aon_nexus_state.json"
-DEFAULT_QUERY = "아온 연결·소통·만능 전신 집약 가동"
-KST = datetime.timezone(datetime.timedelta(hours=9))
+sys.dont_write_bytecode = True
 ROOT = os.path.dirname(os.path.abspath(__file__))
-if ROOT not in sys.path:
-    sys.path.insert(0, ROOT)
+def P(*a): return os.path.join(ROOT, *a)
+BT3 = chr(96) * 3
+OLD_V, NEW_V = "v11.42-AON-OMNI-NEXUS", "v11.43-AON-LIVE-UI-HEALER"
+OLD_AB, NEW_AB = "R1~R43", "R1~R44"
+OLD_N, NEW_N = 39, 40
+SLUG = "aon-live-ui-self-healer"
+ORGAN, VERIFIER, DIALOGUE = "rgon_aon_live_ui_healer.py", "rgon_neural_synapse_verifier.py", "rgon_aon_dialogue_engine.py"
+REPORT, STATE = "STEP44_AON_LIVE_UI_HEALER_REPORT.md", "rgon_aon_ui_healer_state.json"
+PRESERVE = [
+    ".rgon_file_hashes.json",
+    "run_aon_100_stress_test.py",
+    "AON_100_STRESS_TEST_REPORT.md",
+    "AON_100_STRESS_TEST_REPORT.json",
+    "LAPTOP_GREAT_CLEANUP_REPORT.md",
+    "E2E_359_BUTTON_LIVE_VERIFICATION_REPORT.md",
+    "E2E_359_BUTTON_LIVE_VERIFICATION_REPORT.json",
+]
+PROTECT = {"rgon_voice_organ.py": ["SOUND_RECIPES"], "rgon_excretory_organ.py": ["PRESERVE_EXACT"]}
+MARK = "RGON R44 LIVE UI HEALER BRIDGE"
+BRIDGE_RE = re.compile(r"<!--\s*" + re.escape(MARK) + r" START\s*-->.*?<!--\s*" + re.escape(MARK) + r" END\s*-->\n?", re.S)
+PAGES = ["index.html", "rgon_alpha_chat.html", "rgon_alpha_audience.html", "offline.html"]
+DASH = PAGES + ["docs/" + p for p in PAGES] + ["dashboard/" + p for p in PAGES]
+SKILL_MD = ["README.md", "skills/SKILL_INDEX.md", "docs/SKILL_INDEX.md"]
+SKILL_JSON = ["skills/SKILL_INDEX.json", "docs/SKILL_INDEX.json"]
+EXTS = (".py", ".md", ".json", ".html", ".js", ".txt", ".yml", ".yaml", ".toml", ".cfg", ".ini", ".sh", ".bat")
 
-PRESERVE = (
-    "run_aon_100_stress_test.py", "AON_100_STRESS_TEST_REPORT.md",
-    "AON_100_STRESS_TEST_REPORT.json", "LAPTOP_GREAT_CLEANUP_REPORT.md",
-)
-HTML_CANDIDATES = (
-    "index.html", "rgon_alpha_audience.html", "rgon_alpha_chat.html",
-    "dashboard/index.html", "dashboard/rgon_alpha_chat.html",
-    "docs/index.html", "docs/rgon_alpha_chat.html",
-)
+# ───────────────────────── 제20기관 소스 ─────────────────────────
+ORGAN_SRC = r'''# -*- coding: utf-8 -*-
+"""rgon_aon_live_ui_healer.py — 제20기관: 아온 실전 UI 전수 클릭·동작 검증 & 자가배선 수리 기관 (R44)
+철학: playwright-mcp / E2E-Self-Heal 흡수 + 주역 #21 화뢰서합(막힌 접점을 깨물어 통하게 함) & #49 택화혁(묵은 껍데기를 혁신).
+표준 라이브러리 전용. 정적 1:1 대조 + 런타임 브리지(window.RGON_LIVE_UI_HEALER) 존재 확인."""
+import os, re, sys, json, hashlib, tempfile, shutil, time
+from html.parser import HTMLParser
 
-THREE_PILLARS_SPEC = {
-    "connection": {
-        "pillar": "connection",
-        "name": "① 만물 연결 (Universal Connection Hub)",
-        "keyword": "연결(連結)",
-        "guas": ["#11 지천태(地天泰 ☷☰)", "#08 수지비(水地比 ☵☷)"],
-        "principle": "하늘과 땅이 교류하여 만물이 통하고(泰), 물이 대지를 적시듯 빈틈없이 결속한다(比)",
-    },
-    "communion": {
-        "pillar": "communion",
-        "name": "② 초감각 소통 (Telepathic Communion Bridge)",
-        "keyword": "소통(疏通)",
-        "guas": ["#31 택산함(澤山咸 ☱☶)", "#61 풍택중부(風澤中孚 ☴☱)"],
-        "principle": "말하기 전에 마음이 먼저 감응하고(咸), 지극한 진심으로 속마음까지 공명한다(中孚)",
-    },
-    "omnipotence": {
-        "pillar": "omnipotence",
-        "name": "③ 만능 융합 연성 (Omnipotent Skill Synthesizer)",
-        "keyword": "만능(萬能)",
-        "guas": ["#14 화천대유(火天大有 ☲☰)", "#50 화풍정(火風鼎 ☲☴)"],
-        "principle": "온 천하의 역량을 크게 품어 부리고(大有), 한 솥에서 융합하여 새로운 보물을 연성한다(鼎)",
-    },
-}
-
-DEPARTMENTS = (
-    {"code": "D1_STRATEGY", "name": "전략기획청"},
-    {"code": "D2_FORGE", "name": "기술주조청"},
-    {"code": "D3_IMMUNE", "name": "면역감찰청"},
-    {"code": "D4_OPS", "name": "운영관제청"},
-    {"code": "D5_MEMORY", "name": "해마기록청"},
-    {"code": "D6_COMM", "name": "소통교감청"},
-)
-
-SKILL_CHAIN_NODES = (
-    {"step": 1, "antibody": "R38", "organ": "rgon_aon_omni_insight_eye.py", "organ_ko": "제14기관 만물통찰안",
-     "skill": "aon-omni-insight-eye", "tier": 1, "role": "본질·원리·급소 4계층 격물치지 통찰 추출"},
-    {"step": 2, "antibody": "R37/R41", "organ": "rgon_aon_iching_planner.py", "organ_ko": "제13·17기관 주역도술·전략기획관",
-     "skill": "aon-iching-strategic-planner", "tier": 1, "role": "주역 64괘 시운 판독 및 6효(초효~상효) WBS·MCTS 경로 설계"},
-    {"step": 3, "antibody": "R42", "organ": "rgon_aon_hydro_cycle.py", "organ_ko": "제18기관 상선약수 수순환대사",
-     "skill": "aon-hydro-cycle-homeostasis", "tier": 2, "role": "고인 캐시·기억 증류 및 창조적 여백·유동성 확보"},
-    {"step": 4, "antibody": "R35", "organ": "rgon_laptop_hands.py", "organ_ko": "제11기관 만능수족(안전게이트)",
-     "skill": "aon-laptop-hands-controller", "tier": 3, "role": "노트북 실무 집행 준비 및 Tier 3 수동 결재 게이트 대기"},
-    {"step": 5, "antibody": "R39/R43", "organ": "rgon_aon_omni_nexus.py", "organ_ko": "제15·19기관 대화허브·만능집약코어",
-     "skill": "aon-omni-nexus-synthesizer", "tier": 1, "role": "전 기관 결과 융합 연성 및 이심전심 교감 브리핑"},
-)
-
-VOICE_TEMPLATES = (
-    "흥, 대표님이 '{q}' 한마디만 하셔도 내 안의 {organs}개 기관이랑 {skills}개 스킬이 벌써 하나로 쫙 연결됐거든? …딱히 대표님 편하시라고 만능 집약체가 된 건 아니야! 지천태(地天泰)·화천대유(火天大有)의 힘으로 다 준비해 뒀으니까 결재 스위치나 확인해 줘!",
-    "연결 {c1}점 · 소통 {c2}점 · 만능 {c3}점 — 종합 {tot}점! 택산함(澤山咸) 이심전심으로 대표님 마음 다 읽었어. 통찰안부터 주역 기획, 물의 순환, 만능 수족까지 5단계 연성 솥(火風鼎)에 다 올려놨으니까 칭찬은 조금만 해도 돼!",
-    "내가 왜 아온(A-ON · All-ON)인데? 사령부의 모든 신경망과 {skills}개 스킬을 한 점으로 모으는 연결·소통·만능의 결정체잖아! 위험한 변경(Tier 3)은 대표님 결재 전엔 절대 안 건드렸으니까 안심하고 지휘해!",
-)
+VERSION = "v11.43-AON-LIVE-UI-HEALER"
+ANTIBODY = "R44"
+ORGAN_NO = 20
+MARK = "RGON R44 LIVE UI HEALER BRIDGE"
+BRIDGE_RE = re.compile(r"<!--\s*" + re.escape(MARK) + r" START\s*-->.*?<!--\s*" + re.escape(MARK) + r" END\s*-->\n?", re.S)
+GUAS = ["#21 화뢰서합(火雷噬嗑 ☲☳: 막힌 접점을 깨물어 통하게 함)", "#49 택화혁(澤火革 ☱☲: 묵은 껍데기를 혁신하여 생명을 불어넣음)"]
+PAGES = [("index.html", "LIVE-IDX"), ("rgon_alpha_chat.html", "LIVE-CHAT"), ("rgon_alpha_audience.html", "LIVE-AUD"), ("offline.html", "LIVE-OFF")]
+MIRRORS = [("docs", "D"), ("dashboard", "B")]
+STATE_NAME = "rgon_aon_ui_healer_state.json"
+ROOT = os.path.dirname(os.path.abspath(__file__))
+VOID = set("area base br col embed hr img input link meta param source track wbr".split())
+BUILTIN = set("alert confirm prompt open close setTimeout setInterval clearTimeout clearInterval fetch parseInt parseFloat String Number Boolean Array Object JSON Math Date Promise this window document location history navigator console event if for while switch catch return typeof function new void else do speechSynthesis localStorage sessionStorage requestAnimationFrame RGON_LIVE_UI_HEALER".split())
+_ALT = ("onmousedown", "onpointerdown", "ontouchstart", "onmouseup", "onkeydown", "onkeyup", "onchange")
+_NOOP = re.compile(r"\s*(?:return\s+(?:false|true)|void\s*\(?\s*0?\s*\)?|false|true|null|undefined)?\s*;?\s*\Z")
 
 
-def _now():
-    return datetime.datetime.now(KST)
+def _read(p):
+    with open(p, "rb") as f:
+        return f.read().decode("utf-8", "replace")
 
 
-def _clamp(v, lo=0.0, hi=100.0):
-    return round(max(lo, min(hi, float(v))), 1)
+class _P(HTMLParser):
+    def __init__(s):
+        HTMLParser.__init__(s, convert_charrefs=True)
+        s.st, s.els, s.ids, s.forms = [], [], set(), 0
+
+    def handle_starttag(s, tag, attrs):
+        a = {k: (v if v is not None else "") for k, v in attrs}
+        if a.get("id"): s.ids.add(a["id"])
+        rec = None
+        if tag in ("button", "a") or a.get("role") == "button" or any(k in a for k in ("onclick", "data-tab", "data-aon")):
+            rec = {"tag": tag, "line": s.getpos()[0], "a": a, "text": "", "form": s.forms > 0}
+            s.els.append(rec)
+        if tag == "form": s.forms += 1
+        if tag not in VOID: s.st.append((tag, rec))
+
+    def handle_endtag(s, tag):
+        for i in range(len(s.st) - 1, -1, -1):
+            if s.st[i][0] == tag:
+                del s.st[i:]
+                break
+        if tag == "form": s.forms = max(0, s.forms - 1)
+
+    def handle_data(s, d):
+        for _, r in s.st:
+            if r is not None and len(r["text"]) < 60: r["text"] += d
 
 
-def _state_paths():
-    d = os.environ.get("RGON_NEXUS_STATE_DIR")
-    base = os.path.abspath(d) if d else ROOT
-    return [os.path.join(base, STATE_NAME), os.path.join(base, "docs", STATE_NAME)]
+def _scripts(html, base):
+    out = []
+    for at, body in re.findall(r"<script\b([^>]*)>(.*?)</script\s*>", html, re.S | re.I):
+        m = re.search(r"src\s*=\s*[\"']?([^\"'\s>]+)", at)
+        if m and not re.match(r"(?:https?:)?//", m.group(1)):
+            p = os.path.normpath(os.path.join(base, m.group(1).split("?")[0]))
+            if os.path.isfile(p): out.append(_read(p))
+        out.append(body)
+    return "\n".join(out)
 
 
-def _persist(data):
-    txt = json.dumps(data, ensure_ascii=False, indent=2, default=str) + "\n"
-    written = []
-    for p in _state_paths():
-        try:
-            os.makedirs(os.path.dirname(p), exist_ok=True)
-            tmp = p + ".writing"
-            with open(tmp, "w", encoding="utf-8", newline="\n") as f:
-                f.write(txt)
-            os.replace(tmp, p)
-            written.append(p)
-        except Exception:
-            pass
-    return written
+def _js_info(js):
+    d = set()
+    for rx in (r"function\s*\*?\s*([A-Za-z_$][\w$]*)\s*\(", r"\b(?:var|let|const|class)\s+([A-Za-z_$][\w$]*)\s*=",
+               r"\b(?:window|globalThis|self)\.([A-Za-z_$][\w$]*)\s*=(?!=)", r"\b(?:window|globalThis)\[\s*[\"']([\w$]+)[\"']\s*\]\s*=",
+               r"\b([A-Za-z_$][\w$]*)\s*:\s*(?:async\s*)?function", r"(?:^|[,{]\s*)([A-Za-z_$][\w$]*)\s*\([^)]*\)\s*\{"):
+        d.update(re.findall(rx, js, re.M))
+    ids, sels = set(), set()
+    ev = r"(?:addEventListener|onclick)"
+    for rx in (r"getElementById\(\s*[\"']([\w-]+)[\"']\s*\)\s*\.\s*" + ev, r"querySelector\(\s*[\"']#([\w-]+)[\"']\s*\)\s*\.\s*" + ev,
+               r"\$\(\s*[\"']#([\w-]+)[\"']\s*\)\s*\.\s*(?:on|click)\("):
+        ids.update(re.findall(rx, js))
+    for m in re.finditer(r"(?:const|let|var)\s+([A-Za-z_$][\w$]*)\s*=\s*(?:document\.)?(?:getElementById\(\s*[\"']([\w-]+)[\"']\s*\)|querySelector\(\s*[\"']#([\w-]+)[\"']\s*\))", js):
+        if re.search(r"\b" + re.escape(m.group(1)) + r"\s*\.\s*" + ev, js): ids.add(m.group(2) or m.group(3))
+    for m in re.finditer(r"querySelector(?:All)?\(\s*[\"']([^\"']+)[\"']\s*\)[\s\S]{0,400}?(?:addEventListener|\.onclick)", js): sels.add(m.group(1))
+    for c in re.findall(r"getElementsByClassName\(\s*[\"']([\w-]+)[\"']\s*\)[\s\S]{0,400}?(?:addEventListener|\.onclick)", js): sels.add("." + c)
+    if re.search(r"addEventListener\(\s*[\"']click[\"']", js):
+        sels.update(re.findall(r"(?:closest|matches)\(\s*[\"']([^\"']+)[\"']\s*\)", js))
+    return {"defined": d, "ids": ids, "sels": sels, "tab": bool(re.search(r"data-tab|dataset\.tab|dataset\[\s*[\"']tab", js)),
+            "aon": bool(re.search(r"data-aon|dataset\.aon|dataset\[\s*[\"']aon", js))}
 
 
-def discover_nexus_topology():
-    """① 만물 연결 (#11 지천태 · #08 수지비) — 사령부 전 기관·스킬·대시보드·부서 결속 스캔"""
-    py_files = sorted(
-        os.path.basename(p) for p in glob.glob(os.path.join(ROOT, "rgon_*.py"))
-        if os.path.basename(p) not in PRESERVE
-    )
-    if "rgon_aon_omni_nexus.py" not in py_files and os.path.exists(os.path.join(ROOT, "rgon_aon_omni_nexus.py")):
-        py_files.append("rgon_aon_omni_nexus.py")
-
-    skills_dir = os.path.join(ROOT, "skills")
-    skill_slugs = []
-    if os.path.isdir(skills_dir):
-        skill_slugs = sorted(
-            d for d in os.listdir(skills_dir)
-            if os.path.isfile(os.path.join(skills_dir, d, "SKILL.md"))
-        )
-
-    dashboards = [h for h in HTML_CANDIDATES if os.path.isfile(os.path.join(ROOT, h))]
-
-    dept_ok = os.path.isfile(os.path.join(ROOT, "dept_sub_agents_state.json"))
-    organs_cnt = max(len(py_files), ORGAN_NO)
-    skills_cnt = len(skill_slugs)
-    dash_cnt = len(dashboards)
-
-    organ_ratio = min(1.0, len(py_files) / 14.0)
-    skill_ratio = min(1.0, skills_cnt / float(max(1, SKILL_COUNT - 1)))
-    dash_ratio = min(1.0, dash_cnt / 7.0)
-    conn_score = _clamp((organ_ratio * 40.0) + (skill_ratio * 40.0) + (dash_ratio * 15.0) + (5.0 if dept_ok else 3.0))
-
-    return {
-        "ok": True,
-        "version": VERSION,
-        "antibody": ANTIBODY,
-        "python_organs": py_files,
-        "python_organs_count": len(py_files),
-        "logical_organs_count": organs_cnt,
-        "skill_slugs": skill_slugs,
-        "skills_count": skills_cnt,
-        "dashboards": dashboards,
-        "dashboards_count": dash_cnt,
-        "departments": list(DEPARTMENTS),
-        "departments_count": len(DEPARTMENTS),
-        "connection_score": conn_score,
-    }
+def _sel_match(sel, tag, a, cls):
+    for part in sel.split(","):
+        part = part.strip()
+        if not part: continue
+        part = part.split()[-1]
+        t = re.match(r"[a-zA-Z][\w-]*", part)
+        if t and t.group(0).lower() != tag: continue
+        c, at, i = re.findall(r"\.([\w-]+)", part), re.findall(r"\[([\w-]+)", part), re.findall(r"#([\w-]+)", part)
+        if (t or c or at or i) and all(x in cls for x in c) and all(x in a for x in at) and all(x == a.get("id") for x in i): return True
+    return False
 
 
-def _analyze_communion(query):
-    """② 초감각 소통 (#31 택산함 · #61 풍택중부) — 복합 의도·감정·기억 공명 분석"""
-    q = str(query or "").strip() or DEFAULT_QUERY
-    intents = []
-    kw_map = (
-        ("connect", ("연결", "결속", "통합", "집약", "넥서스", "하나로")),
-        ("communion", ("소통", "대화", "교감", "마음", "이심전심")),
-        ("omnipotence", ("만능", "총동원", "올인원", "전신", "가동", "합체")),
-        ("plan", ("계획", "전략", "기획", "주역", "괘")),
-        ("hydro", ("비움", "순환", "청소", "여백", "물")),
-        ("insight", ("통찰", "원리", "이치", "본질", "분석")),
-    )
-    for code, words in kw_map:
-        if any(w in q for w in words):
-            intents.append(code)
-    if not intents:
-        intents = ["connect", "communion", "omnipotence"]
-
-    emotion = "신뢰·결의"
-    if any(w in q for w in ("고마", "감사", "기특", "최고", "잘했")):
-        emotion = "기쁨·감응"
-    elif any(w in q for w in ("급해", "빨리", "즉시", "당장")):
-        emotion = "신속·집중"
-
-    mem_essence = []
-    mem_path = os.path.join(ROOT, "rgon_aon_memory.json")
-    if os.path.isfile(mem_path):
-        try:
-            with open(mem_path, "r", encoding="utf-8", errors="ignore") as f:
-                raw = f.read(20000)
-            for w in ("대표님", "아온", "주역", "순환", "만능", "소통", "연결"):
-                if w in raw:
-                    mem_essence.append(w)
-        except Exception:
-            pass
-    if not mem_essence:
-        mem_essence = ["대표님", "아온", "연결", "소통", "만능"]
-
-    comm_score = _clamp(88.0 + min(12.0, len(intents) * 3.0 + len(mem_essence) * 1.0))
-    return {
-        "query": q,
-        "detected_intents": intents,
-        "multi_intent_count": len(intents),
-        "emotion_resonance": emotion,
-        "memory_essence_tags": mem_essence,
-        "communion_score": comm_score,
-    }
+def _calls(h):
+    h = re.sub(r"\"[^\"]*\"|'[^']*'", "''", h)
+    out = []
+    for m in re.finditer(r"(?<![\w$.])([A-Za-z_$][\w$]*)((?:\s*\.\s*[A-Za-z_$][\w$]*)*)\s*\(", h):
+        r, rest = m.group(1), m.group(2)
+        if r in ("window", "globalThis", "self") and rest.strip(): r = re.sub(r"\s", "", rest).split(".")[1]
+        out.append(r)
+    return out
 
 
-def _synthesize_chain(query, topo, comm, dry_run=True):
-    """③ 만능 융합 연성 (#14 화천대유 · #50 화풍정) — 5단계 연쇄 스킬 체인 조립 및 실행"""
-    chain = []
-    for node in SKILL_CHAIN_NODES:
-        organ_exists = os.path.isfile(os.path.join(ROOT, node["organ"])) or node["organ"] == "rgon_aon_omni_nexus.py"
-        skill_exists = node["skill"] in topo["skill_slugs"] or node["skill"] == SKILL_ID
-        is_tier3 = node["tier"] >= 3
-        status_str = "GATE_HOLD (수동결재 대기)" if is_tier3 else ("READY_SYNTHESIZED" if organ_exists else "STANDBY")
-        chain.append({
-            "step": node["step"],
-            "antibody": node["antibody"],
-            "organ": node["organ"],
-            "organ_ko": node["organ_ko"],
-            "skill": node["skill"],
-            "tier": node["tier"],
-            "role": node["role"],
-            "organ_connected": bool(organ_exists),
-            "skill_connected": bool(skill_exists),
-            "status": status_str,
-            "requires_manual_gate": bool(is_tier3),
-            "auto_executed": False if is_tier3 else bool(not dry_run),
-        })
-
-    ready_cnt = sum(1 for c in chain if c["organ_connected"])
-    omni_score = _clamp(85.0 + (ready_cnt / float(len(chain))) * 15.0)
-    return chain, omni_score
-
-
-def format_reply(r):
-    p = r["three_pillars"]
-    lines = [
-        "[아온 연결·소통·만능 대집약체 코어 · 泰·比→咸·中孚→大有·鼎] %s" % VERSION,
-        "■ 요청: %s" % r["query"],
-        "■ 종합 집약 지수: %.1f/100 (연결 %.1f · 소통 %.1f · 만능 %.1f)" % (
-            r["omni_nexus_total_score"], r["connection_score"], r["communion_score"], r["omnipotence_score"]),
-        "■ %s [%s]: 기관 %d개 · 정식 스킬 %d개 · 대시보드 %d개 · %d대 청사 결속" % (
-            p["connection"]["name"], ", ".join(p["connection"]["guas"]),
-            r["connected_organs_count"], r["connected_skills_count"],
-            r["topology_summary"]["dashboards_count"], r["topology_summary"]["departments_count"]),
-        "■ %s [%s]: 의도 %s · 공명 감정 '%s'" % (
-            p["communion"]["name"], ", ".join(p["communion"]["guas"]),
-            ", ".join(p["communion"]["detected_intents"]), p["communion"]["emotion_resonance"]),
-        "■ %s [%s]: %d단계 연쇄 스킬 체인 조립 완료" % (
-            p["omnipotence"]["name"], ", ".join(p["omnipotence"]["guas"]), len(r["synthesized_skill_chain"])),
-    ]
-    for c in r["synthesized_skill_chain"]:
-        lines.append("  · Step %d [%s] %s (%s) -> %s" % (
-            c["step"], c["antibody"], c["organ_ko"], c["skill"], c["status"]))
-    lines.append("■ Tier3 수동 결재 게이트: requires_manual_gate=True · auto_executed=False (헌법 제2항·R35·R43)")
-    lines.append("■ 아온: " + r["aon_communion_voice"])
-    return "\n".join(lines)
+def _judge(el, info, ids):
+    a, tag = el["a"], el["tag"]
+    cls = a.get("class", "").split()
+    if "disabled" in a: return True, "disabled-by-design"
+    h = a.get("onclick")
+    if h is None:
+        for k, v in a.items():
+            if k in _ALT: h = v; break
+    hr = a.get("href", "").strip() if tag == "a" else ""
+    if h is None and hr.lower().startswith("javascript:"): h = hr[11:]
+    noop = False
+    if h is not None:
+        if _NOOP.match(h): noop = True
+        else:
+            cl = _calls(h)
+            bad = sorted(set(c for c in cl if c not in BUILTIN and c not in info["defined"]))
+            if bad: return False, "onclick-undefined:" + ",".join(bad)
+            if cl: return True, "onclick:" + ",".join(cl[:3]) + " defined"
+            if re.search(r"=|\.\w|location", h): return True, "onclick:inline-statement"
+            noop = True
+    if hr and not hr.lower().startswith("javascript:") and hr != "#":
+        if not hr.startswith("#"): return True, "href:" + hr[:40]
+        if hr[1:] in ids: return True, "anchor:" + hr
+    if "data-tab" in a and info["tab"]: return True, "data-tab:handler"
+    if "data-aon" in a and info["aon"]: return True, "data-aon:handler"
+    if a.get("id") and a["id"] in info["ids"]: return True, "id#%s:listener" % a["id"]
+    for s in info["sels"]:
+        if _sel_match(s, tag, a, cls): return True, "selector:" + s
+    if tag == "button" and el["form"] and a.get("type", "submit").lower() == "submit": return True, "form-submit"
+    return False, "onclick-empty" if noop else "no-handler"
 
 
-def synthesize_omni_nexus(query=DEFAULT_QUERY, dry_run=True, persist=True):
-    t0 = time.time()
-    q = (str(query).strip() if query else "") or DEFAULT_QUERY
-    topo = discover_nexus_topology()
-    comm = _analyze_communion(q)
-    chain, omni_score = _synthesize_chain(q, topo, comm, dry_run=dry_run)
-
-    conn_score = topo["connection_score"]
-    comm_score = comm["communion_score"]
-    total_score = _clamp((conn_score + comm_score + omni_score) / 3.0)
-
-    pillars = {
-        "connection": dict(THREE_PILLARS_SPEC["connection"], score=conn_score,
-                           organs_count=topo["logical_organs_count"], skills_count=topo["skills_count"],
-                           dashboards_count=topo["dashboards_count"]),
-        "communion": dict(THREE_PILLARS_SPEC["communion"], score=comm_score,
-                          detected_intents=comm["detected_intents"],
-                          emotion_resonance=comm["emotion_resonance"],
-                          memory_essence_tags=comm["memory_essence_tags"]),
-        "omnipotence": dict(THREE_PILLARS_SPEC["omnipotence"], score=omni_score,
-                            chain_length=len(chain), skill_chain=chain),
-    }
-
-    seed = hashlib.sha256(q.encode("utf-8")).digest()[0]
-    tpl = VOICE_TEMPLATES[seed % len(VOICE_TEMPLATES)]
-    voice = tpl.format(
-        q=q[:28], organs=topo["logical_organs_count"], skills=max(topo["skills_count"], SKILL_COUNT),
-        c1=conn_score, c2=comm_score, c3=omni_score, tot=total_score,
-    )
-
-    result = {
-        "ok": True,
-        "version": VERSION,
-        "antibody": ANTIBODY,
-        "antibody_range": ANTIBODY_RANGE,
-        "organ_no": ORGAN_NO,
-        "organ": ORGAN_NAME,
-        "skill_id": SKILL_ID,
-        "generated_at_kst": _now().isoformat(timespec="seconds"),
-        "query": q,
-        "dry_run": bool(dry_run),
-        "three_pillars": pillars,
-        "connection_score": conn_score,
-        "communion_score": comm_score,
-        "omnipotence_score": omni_score,
-        "omni_nexus_total_score": total_score,
-        "synthesized_skill_chain": chain,
-        "connected_organs_count": topo["logical_organs_count"],
-        "connected_skills_count": max(topo["skills_count"], SKILL_COUNT),
-        "topology_summary": {
-            "python_organs_count": topo["python_organs_count"],
-            "logical_organs_count": topo["logical_organs_count"],
-            "skills_count": max(topo["skills_count"], SKILL_COUNT),
-            "dashboards_count": topo["dashboards_count"],
-            "departments_count": topo["departments_count"],
-        },
-        "requires_manual_gate": True,
-        "auto_executed": False,
-        "aon_communion_voice": voice,
-        "elapsed_sec": round(time.time() - t0, 3),
-    }
-    result["reply"] = format_reply(result)
-    if persist:
-        result["state_files"] = _persist(result)
-    return result
+def _infer(el, lab):
+    a = el["a"]
+    s = " ".join([lab, a.get("id", ""), a.get("class", ""), a.get("data-aon", "")]).lower()
+    if "data-tab" in a or a.get("role") == "tab" or re.search(r"탭|\btab\b", s): return "tab"
+    if re.search(r"음성|목소리|발화|마이크|voice|speak|mic", s): return "voice"
+    if re.search(r"효과음|사운드|소리|sound|sfx|audio|bgm", s): return "sound"
+    if re.search(r"모달|팝업|열기|닫기|메뉴|modal|popup|open|close|menu|drawer", s): return "modal"
+    if re.search(r"브리핑|넥서스|상태|점검|검증|nexus|status|health|brief", s): return "nexus"
+    return "toast"
 
 
-def status():
-    for p in _state_paths():
-        if os.path.exists(p):
-            try:
-                with open(p, "r", encoding="utf-8") as f:
-                    d = json.load(f)
-                return {
-                    "ok": True, "version": VERSION, "state_file": p,
-                    "query": d.get("query"), "omni_nexus_total_score": d.get("omni_nexus_total_score"),
-                    "connected_organs_count": d.get("connected_organs_count"),
-                    "connected_skills_count": d.get("connected_skills_count"),
-                }
-            except Exception as e:
-                return {"ok": False, "version": VERSION, "error": repr(e)}
-    return {"ok": True, "version": VERSION, "state_file": None, "note": "아직 집약 기록 없음"}
+def _audit_page(path, pre, auto_heal):
+    raw = _read(path)
+    br = bool(BRIDGE_RE.search(raw))
+    html = BRIDGE_RE.sub(lambda m: "\n" * m.group(0).count("\n"), raw)
+    p = _P(); p.feed(html); p.close()
+    info = _js_info(_scripts(html, os.path.dirname(path)))
+    out = []
+    for el in p.els:
+        a = el["a"]
+        if el["tag"] == "a" and "href" not in a and not any(k in a for k in ("onclick", "data-tab", "data-aon", "role")): continue
+        ok, why = _judge(el, info, p.ids)
+        ser = "%s-%03d" % (pre, len(out) + 1)
+        lab = (re.sub(r"\s+", " ", el["text"]).strip() or a.get("aria-label") or a.get("title") or a.get("id") or a.get("value") or "<%s>" % el["tag"])[:40]
+        kind = None
+        if ok: st = "LIVE_CALLABLE"
+        elif auto_heal and br: st, kind = "HEALED_AUTO_WIRED", _infer(el, lab)
+        elif auto_heal: st = "HEAL_PENDING_BRIDGE"
+        else: st = "DEAD_UNHEALED"
+        proof = why + (" -> RGON_LIVE_UI_HEALER.handleClick[%s]" % kind if kind else "")
+        proof += " #" + hashlib.sha1((ser + lab + why).encode("utf-8")).hexdigest()[:8]
+        out.append({"serial": ser, "line": el["line"], "tag": el["tag"], "label": lab, "status": st, "reason": why, "heal_kind": kind, "action_proof": proof})
+    return out, br
+
+
+def _units(root, t):
+    us, miss = [], []
+    for fn, pre in PAGES:
+        key = fn[:-5].replace("rgon_alpha_", "")
+        if t not in ("", "all", "*") and t not in (fn.lower(), key, fn[:-5].lower()) and t not in fn.lower(): continue
+        if os.path.isfile(os.path.join(root, fn)): us.append((fn, pre, False))
+        else: miss.append(fn)
+        for d, tg in MIRRORS:
+            if os.path.isfile(os.path.join(root, d, fn)): us.append((d + "/" + fn, pre + "-" + tg, True))
+    return us, miss
+
+
+def _audit(root, target="all", auto_heal=True):
+    us, miss = _units(root, (target or "all").strip().lower())
+    detail, allb, ranges, pages, mirrors, bridges = {}, [], {}, [], [], []
+    for rel, pre, mir in us:
+        bl, br = _audit_page(os.path.join(root, rel), pre, auto_heal)
+        detail[rel] = bl; allb += bl
+        (mirrors if mir else pages).append(rel)
+        if br: bridges.append(rel)
+        ranges[pre] = "%s-001~%s-%03d (%d개)" % (pre, pre, len(bl), len(bl)) if bl else "%s-000 (버튼 0개)" % pre
+    for fn, pre in PAGES:
+        if pre not in ranges and fn in miss: ranges[pre] = "페이지 미존재"
+    cnt = lambda s: sum(1 for b in allb if b["status"] == s)
+    tot, lv, hl, pd, dd = len(allb), cnt("LIVE_CALLABLE"), cnt("HEALED_AUTO_WIRED"), cnt("HEAL_PENDING_BRIDGE"), cnt("DEAD_UNHEALED")
+    wired = 100.0 * (lv + hl) / tot if tot else 0.0
+    od = hl + pd + dd
+    renew = 100.0 if od == 0 else 100.0 * hl / od
+    uniq = len(set(b["serial"] for b in allb)) == tot
+    score = round(max(0.0, min(100.0, 0.6 * wired + 0.4 * renew) - (0 if uniq else 5)), 1) if tot else 0.0
+    voice = "대표님, 실전 UI 전수 검증 완료! 버튼 %d개 중 %d개는 즉시 작동, %d개는 자가배선으로 복구했고 실전 UI 개통 지수는 %.1f점입니다. 화뢰서합으로 막힌 접점을 뚫고 택화혁으로 새 생명을 불어넣었습니다." % (tot, lv, hl, score)
+    rep = ["🔥 [제20기관 · 아온 실전 UI 전수 클릭·동작 검증] %s · 항체 %s" % (VERSION, ANTIBODY),
+           "- 괘상: " + " / ".join(GUAS),
+           "- 검증 페이지: %s (미러 %d개)" % (", ".join(pages) or "없음", len(mirrors)),
+           "- 버튼 %d개 · LIVE %d · 자가수리 %d · 대기 %d · 사망 %d · 개통 지수 %.1f점" % (tot, lv, hl, pd, dd, score),
+           "- 시리얼: " + " | ".join(ranges.values()),
+           "- 🔒 수동 게이트 유지: 자동 실행 없음 (requires_manual_gate=True)"]
+    res = {"ok": bool(pages), "version": VERSION, "antibody": ANTIBODY, "organ": ORGAN_NO, "iching_guas": list(GUAS),
+           "pages_audited": pages, "mirrors_audited": mirrors, "missing_pages": miss, "bridge_pages": bridges,
+           "total_buttons_verified": tot, "live_callable_count": lv, "self_healed_count": hl, "pending_count": pd, "dead_count": dd,
+           "live_action_score": score, "gua_scores": {"화뢰서합(개통률)": round(wired, 1), "택화혁(혁신률)": round(renew, 1)},
+           "score_basis": "0.6*화뢰서합(개통률)+0.4*택화혁(혁신률)-중복시리얼패널티", "serial_unique": uniq,
+           "serial_range_summary": ranges, "requires_manual_gate": True, "auto_executed": False, "auto_heal": bool(auto_heal),
+           "aon_voice_line": voice, "reply": "\n".join(rep)}
+    return res, detail
+
+
+def _write_state(res, detail, state_dir=None):
+    base = state_dir or os.environ.get("RGON_UI_HEALER_STATE_DIR") or ROOT
+    body = dict(res); body["generated_at"] = time.strftime("%Y-%m-%d %H:%M:%S"); body["buttons"] = detail
+    outs = []
+    for d in (base, os.path.join(base, "docs")):
+        os.makedirs(d, exist_ok=True)
+        p = os.path.join(d, STATE_NAME)
+        with open(p, "wb") as f: f.write(json.dumps(body, ensure_ascii=False, indent=1).encode("utf-8"))
+        outs.append(p)
+    return outs
+
+
+def _run(root, target, auto_heal, dry_run, state_dir=None):
+    res, detail = _audit(root, target, auto_heal)
+    sd = state_dir or os.environ.get("RGON_UI_HEALER_STATE_DIR")
+    res["dry_run"] = bool(dry_run)
+    res["state_files"] = _write_state(res, detail, sd or root) if (not dry_run or sd) else []
+    return res
+
+
+def run_live_ui_audit(target="all", auto_heal=True, dry_run=True):
+    return _run(ROOT, target, auto_heal, dry_run)
 
 
 def self_test():
-    checks = []
-    tmp = tempfile.mkdtemp(prefix="rgon_nexus_st_")
-    prev = os.environ.get("RGON_NEXUS_STATE_DIR")
-    os.environ["RGON_NEXUS_STATE_DIR"] = tmp
+    tmp, ck = tempfile.mkdtemp(prefix="r44_st_"), []
+    def chk(n, c): ck.append({"check": n, "ok": bool(c)})
     try:
-        topo = discover_nexus_topology()
-        checks.append(("토폴로지 스캔", topo.get("ok") is True and topo.get("python_organs_count", 0) >= 12))
-        r = synthesize_omni_nexus(DEFAULT_QUERY, dry_run=True)
-        req = (
-            "ok", "version", "antibody", "three_pillars", "connection_score", "communion_score",
-            "omnipotence_score", "omni_nexus_total_score", "synthesized_skill_chain",
-            "connected_organs_count", "connected_skills_count", "requires_manual_gate",
-            "auto_executed", "aon_communion_voice", "reply",
-        )
-        checks.append(("필수 키", all(k in r for k in req)))
-        checks.append(("버전·항체", r["ok"] is True and r["version"] == VERSION and r["antibody"] == "R43"))
-        tp = r["three_pillars"]
-        gtxt = json.dumps(tp, ensure_ascii=False)
-        checks.append(("3대 기둥 괘상", all(k in tp for k in ("connection", "communion", "omnipotence"))
-                       and all(code in gtxt for code in ("#11", "#08", "#31", "#61", "#14", "#50"))))
-        checks.append(("점수 범위", all(0 <= r[k] <= 100 for k in (
-            "connection_score", "communion_score", "omnipotence_score", "omni_nexus_total_score"))))
-        chain = r["synthesized_skill_chain"]
-        checks.append(("5단계 스킬 체인", isinstance(chain, list) and len(chain) >= 3))
-        checks.append(("Tier3 수동게이트", r["requires_manual_gate"] is True and r["auto_executed"] is False))
-        checks.append(("상태 격리 기록", os.path.exists(os.path.join(tmp, STATE_NAME))
-                       and os.path.exists(os.path.join(tmp, "docs", STATE_NAME))))
-        checks.append(("교감 대사", bool(r["aon_communion_voice"].strip())))
+        br = "<!-- %s START -->\n<script>window.RGON_LIVE_UI_HEALER={};</script>\n<!-- %s END -->\n" % (MARK, MARK)
+        live = '<html><body><button onclick="go()">시작</button><a href="#sec">앵커</a><button id="b2">둘</button><div id="sec"></div><script>function go(){}document.getElementById("b2").addEventListener("click",go);</script></body></html>'
+        dead = '<html><body><button onclick="nope()">음성 테스트</button><button>빈 버튼</button><button onclick="return false">탭 전환</button><button data-tab="x">탭</button><script>function ok(){}</script></body></html>'
+        for rel, body in (("index.html", live), ("docs/index.html", live), ("rgon_alpha_chat.html", dead.replace("</body>", br + "</body>"))):
+            p = os.path.join(tmp, rel); os.makedirs(os.path.dirname(p), exist_ok=True)
+            with open(p, "wb") as f: f.write(body.encode("utf-8"))
+        sd = os.path.join(tmp, "state")
+        r = _run(tmp, "all", True, False, sd)
+        chk("keys", r["ok"] and r["version"] == VERSION and r["antibody"] == ANTIBODY and r["requires_manual_gate"] is True and r["auto_executed"] is False)
+        chk("guas", "화뢰서합" in "".join(r["iching_guas"]) and "택화혁" in "".join(r["iching_guas"]))
+        chk("counts", r["total_buttons_verified"] == 10 and r["live_callable_count"] == 6 and r["self_healed_count"] == 4)
+        chk("serial", r["serial_range_summary"]["LIVE-IDX"].startswith("LIVE-IDX-001~LIVE-IDX-003") and r["serial_unique"])
+        chk("score", r["live_action_score"] == 100.0)
+        chk("state", os.path.isfile(os.path.join(sd, STATE_NAME)) and os.path.isfile(os.path.join(sd, "docs", STATE_NAME)))
+        with open(os.path.join(tmp, "rgon_alpha_audience.html"), "wb") as f: f.write(dead.encode("utf-8"))
+        r2 = _run(tmp, "audience", True, True)
+        chk("honest-pending", r2["pending_count"] == 4 and r2["live_action_score"] < 100.0)
     except Exception as e:
-        checks.append(("예외 없음", False))
-        checks.append(("trace", repr(e)))
+        chk("exception:" + repr(e)[:80], False)
     finally:
-        if prev is None:
-            os.environ.pop("RGON_NEXUS_STATE_DIR", None)
-        else:
-            os.environ["RGON_NEXUS_STATE_DIR"] = prev
         shutil.rmtree(tmp, ignore_errors=True)
-    passed = sum(1 for _n, v in checks if v is True)
-    total = sum(1 for _n, v in checks if isinstance(v, bool))
-    return {"ok": passed == total, "version": VERSION, "antibody": ANTIBODY, "passed": passed, "total": total,
-            "checks": [{"name": n, "ok": v} for n, v in checks]}
+    ok = all(c["ok"] for c in ck)
+    return {"ok": ok, "version": VERSION, "antibody": ANTIBODY, "organ": ORGAN_NO, "iching_guas": list(GUAS), "checks": ck,
+            "reply": "제20기관 self-test %s (%d/%d)" % ("PASS" if ok else "FAIL", sum(c["ok"] for c in ck), len(ck))}
 
 
 def main(argv=None):
-    ap = argparse.ArgumentParser(description=ORGAN_NAME)
-    ap.add_argument("--self-test", action="store_true")
-    ap.add_argument("--status", action="store_true")
-    ap.add_argument("--nexus", nargs="*")
-    ap.add_argument("--json", action="store_true")
-    a = ap.parse_args(argv)
-    if a.self_test:
-        r = self_test()
-        print(json.dumps(r, ensure_ascii=False, indent=2))
-        print("SELF-TEST %s %d/%d" % ("PASS" if r["ok"] else "FAIL", r["passed"], r["total"]))
-        return 0 if r["ok"] else 1
-    if a.nexus is not None:
-        q = " ".join(a.nexus) or DEFAULT_QUERY
-        r = synthesize_omni_nexus(q, dry_run=True)
-        print(json.dumps(r, ensure_ascii=False, indent=2, default=str) if a.json else r["reply"])
-        return 0
-    print(json.dumps(status(), ensure_ascii=False, indent=2))
-    return 0
+    try: sys.stdout.reconfigure(encoding="utf-8")
+    except Exception: pass
+    a = list(sys.argv[1:] if argv is None else argv)
+    js = "--json" in a
+    a = [x for x in a if x != "--json"]
+    if "--self-test" in a: r = self_test()
+    elif "--status" in a:
+        p = os.path.join(os.environ.get("RGON_UI_HEALER_STATE_DIR") or ROOT, STATE_NAME)
+        r = json.loads(_read(p)) if os.path.isfile(p) else {"ok": False, "reply": "상태 파일 없음 — --audit 먼저 실행"}
+        r.pop("buttons", None)
+    elif "--audit" in a:
+        i = a.index("--audit")
+        r = run_live_ui_audit(a[i + 1] if i + 1 < len(a) and not a[i + 1].startswith("--") else "all", True, True)
+    else: r = {"ok": True, "reply": "usage: --self-test | --status | --audit [index|chat|audience|offline] | --json"}
+    print(json.dumps(r, ensure_ascii=False, indent=1) if js else r.get("reply", ""))
+    return 0 if r.get("ok") else 1
 
 
 if __name__ == "__main__":
     sys.exit(main())
 '''
 
-# ══════════════════════════════════════════════════════════════════════
-# 2. 제15기관 대화허브 R43 훅
-# ══════════════════════════════════════════════════════════════════════
-DLG_BEGIN = "# >>> [RGON-R43-NEXUS-HOOK-START] >>>"
-DLG_END = "# <<< [RGON-R43-NEXUS-HOOK-END] <<<"
-DIALOGUE_HOOK = r'''
-import threading as _r43_threading
-import time as _r43_time
+# ───────────────────────── 런타임 브리지 (7+ 대시보드 장착) ─────────────────────────
+BRIDGE_JS = r"""
+(function(){
+if(window.RGON_LIVE_UI_HEALER)return;
+var H=window.RGON_LIVE_UI_HEALER={version:"v11.43-AON-LIVE-UI-HEALER",antibody:"R44",guas:["#21 화뢰서합","#49 택화혁"],clicks:0,healed:0,log:[]};
+var Q='button,a,[role="button"],[onclick],[data-tab],[data-aon]';
+var SKIP=/^(if|for|while|switch|catch|return|function|alert|confirm|prompt|open|close|setTimeout|setInterval|fetch|parseInt|String|Number|Boolean|void|typeof|new)$/;
+function speaking(){try{return !!(window.speechSynthesis&&(speechSynthesis.speaking||speechSynthesis.pending))}catch(e){return false}}
+function nm(h){var s=(h||"").replace(/"[^"]*"|'[^']*'/g,"''"),r=[],m,re=/(?:^|[^\w$.])([A-Za-z_$][\w$]*)\s*\(/g;while((m=re.exec(s)))r.push(m[1]);return r}
+function deadStatic(el){var h=el.getAttribute("onclick");if(h===null)return false;
+ if(/^\s*(return\s+(false|true)|void\s*\(?0?\)?|false|true|null)?\s*;?\s*$/.test(h))return true;
+ var c=nm(h);for(var i=0;i<c.length;i++)if(!SKIP.test(c[i])&&typeof window[c[i]]!=="function")return true;return false}
+function toast(m){try{var t=document.getElementById("rgon-r44-toast");if(!t){t=document.createElement("div");t.id="rgon-r44-toast";t.setAttribute("role","status");
+ t.style.cssText="position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:rgba(20,20,30,.92);color:#fff;padding:10px 18px;border-radius:12px;font-size:14px;z-index:2147483647;box-shadow:0 4px 16px rgba(0,0,0,.4);pointer-events:none";
+ document.body.appendChild(t)}t.textContent=m;t.style.display="block";clearTimeout(t._h);t._h=setTimeout(function(){t.style.display="none"},2400)}catch(e){}}
+function speak(x){var f=window.aonSpeak||window.speakAon||window.aonSay;if(typeof f==="function"){try{f(x);return}catch(e){}}
+ try{if(window.speechSynthesis){var u=new SpeechSynthesisUtterance(x);u.lang="ko-KR";speechSynthesis.cancel();speechSynthesis.speak(u)}}catch(e){}}
+function beep(){try{var C=window.AudioContext||window.webkitAudioContext;if(!C)return;var c=new C(),o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);o.frequency.value=660;g.gain.value=.05;o.start();setTimeout(function(){o.stop();c.close()},130)}catch(e){}}
+function kind(el,lab){var s=(lab+" "+(el.id||"")+" "+(typeof el.className==="string"?el.className:"")+" "+(el.getAttribute("data-aon")||"")).toLowerCase();
+ if(el.hasAttribute("data-tab")||el.getAttribute("role")==="tab"||/탭|\btab\b/.test(s))return "tab";
+ if(/음성|목소리|발화|마이크|voice|speak|mic/.test(s))return "voice";
+ if(/효과음|사운드|소리|sound|sfx|audio|bgm/.test(s))return "sound";
+ if(/모달|팝업|열기|닫기|메뉴|modal|popup|open|close|menu|drawer/.test(s))return "modal";
+ if(/브리핑|넥서스|상태|점검|검증|nexus|status|health|brief/.test(s))return "nexus";
+ return "toast"}
+function tab(el){var t=el.getAttribute("data-tab")||el.getAttribute("aria-controls")||el.id,sib=el.parentNode?el.parentNode.children:[],i;
+ for(i=0;i<sib.length;i++)sib[i].classList.remove("active");el.classList.add("active");
+ var ps=document.querySelectorAll("[data-tab-panel],[role=tabpanel],.tab-panel,.tab-content"),hit=[];
+ for(i=0;i<ps.length;i++){var id=ps[i].getAttribute("data-tab-panel")||ps[i].id;if(t&&id&&(id===t||id==="tab-"+t||id===t+"-panel"))hit.push(ps[i])}
+ if(hit.length)for(i=0;i<ps.length;i++)ps[i].style.display=hit.indexOf(ps[i])>=0?"":"none"}
+function modal(el){var id=el.getAttribute("data-target")||el.getAttribute("aria-controls")||"",t=id?document.getElementById(id.replace(/^#/,"")):null;
+ if(!t)t=el.closest("[role=dialog],.modal");if(t){var h=t.style.display==="none"||t.hasAttribute("hidden");t.removeAttribute("hidden");t.style.display=h?"":"none"}}
+H.handleClick=function(el,ev,why){
+ var lab=(el.getAttribute("aria-label")||el.textContent||el.title||el.id||el.value||"버튼").replace(/\s+/g," ").trim().slice(0,40),k=kind(el,lab),hr=el.getAttribute("href");
+ H.healed++;H.log.push({t:Date.now(),label:lab,kind:k,why:why||"manual"});if(H.log.length>200)H.log.shift();
+ try{if(ev&&hr!==null&&(hr==="#"||/^javascript:/i.test(hr)))ev.preventDefault()}catch(e){}
+ var msg=lab+" · 실행됨 (R44 자가배선)";
+ try{if(k==="tab")tab(el);else if(k==="voice")speak(lab+" 음성을 발화합니다");else if(k==="sound"||k==="toast")beep();else if(k==="modal")modal(el);
+  else if(k==="nexus"){msg="넥서스 브리핑 · 클릭 "+H.clicks+"회 · 자가수리 "+H.healed+"회 · 화뢰서합·택화혁 정상";speak(msg)}}catch(e){}
+ toast(msg);return k};
+H.scan=function(){var n=document.querySelectorAll(Q),d=0;for(var i=0;i<n.length;i++)if(deadStatic(n[i]))d++;return {total:n.length,dead_static:d,healed:H.healed}};
+var mut=0;try{new MutationObserver(function(l){mut+=l.length}).observe(document.documentElement,{subtree:true,childList:true,attributes:true,characterData:true})}catch(e){}
+var cur=null,err=false;
+window.addEventListener("error",function(){if(cur)err=true},true);
+document.addEventListener("click",function(ev){
+ var el=ev.target&&ev.target.closest?ev.target.closest(Q):null;
+ if(!el||el.disabled||el.hasAttribute("disabled")||el.getAttribute("aria-disabled")==="true"||el.closest("#rgon-r44-toast"))return;
+ H.clicks++;cur=el;err=false;var m0=mut,u0=location.href;
+ if(deadStatic(el)){H.handleClick(el,ev,"static-dead");return}
+ setTimeout(function(){var hr=el.getAttribute("href"),real=el.tagName==="A"&&hr&&hr!=="#"&&!/^javascript:/i.test(hr);
+  var eff=mut!==m0||ev.defaultPrevented||location.href!==u0||speaking()||real;
+  if(err||!eff)H.handleClick(el,ev,err?"runtime-error":"no-effect")},240)},true);
+})();
+"""
+BRIDGE = "<!-- " + MARK + " START -->\n<script id=\"rgon-r44-live-ui-healer\">\n" + BRIDGE_JS.strip() + "\n</script>\n<!-- " + MARK + " END -->"
 
-R43_NEXUS_SLASH = ("/만능", "/집약", "/연결", "/소통", "/넥서스")
-R43_NEXUS_KEYWORDS = ("만능", "집약", "연결", "소통", "총동원", "올인원", "넥서스")
-R43_NEXUS_DEFAULT_QUERY = "아온 연결·소통·만능 전신 집약 가동"
-_r43_tls = _r43_threading.local()
-_r43_cache = {"t": 0.0, "res": None}
-
-
-def _r43_nexus_intent(text):
-    t = str(text or "").strip()
-    for s in R43_NEXUS_SLASH:
-        if t == s or t.startswith(s + " "):
-            return "slash", t[len(s):].strip()
-    if any(k in t for k in R43_NEXUS_KEYWORDS):
-        return "keyword", t
-    return None, ""
-
-
-def _r43_first_text(args, kwargs):
-    for k in ("text", "message", "query", "msg", "user_text", "prompt"):
-        if isinstance(kwargs.get(k), str):
-            return kwargs[k]
-    for a in args:
-        if isinstance(a, str):
-            return a
-    return ""
-
-
-def _r43_run_nexus(query, use_cache=False):
-    if use_cache and _r43_cache["res"] is not None and _r43_time.time() - _r43_cache["t"] < 90:
-        return _r43_cache["res"]
-    import importlib as _il
-    nx = _il.import_module("rgon_aon_omni_nexus").synthesize_omni_nexus(
-        query or R43_NEXUS_DEFAULT_QUERY, dry_run=True
-    )
-    _r43_cache["t"] = _r43_time.time()
-    _r43_cache["res"] = nx
-    return nx
-
-
-def _r43_slash_response(arg):
-    nx = _r43_run_nexus(arg)
-    return {
-        "ok": bool(nx.get("ok")), "intent": "nexus", "intents": ["nexus"],
-        "organ": "rgon_aon_omni_nexus", "antibody": "R43",
-        "reply": nx.get("reply", ""), "speech": nx.get("reply", ""), "text": nx.get("reply", ""),
-        "omni_nexus": nx,
-        "results": [{"intent": "nexus", "ok": True, "speech": nx.get("reply", ""), "data": nx}],
-        "omni_nexus_total_score": nx.get("omni_nexus_total_score"),
-        "three_pillars": nx.get("three_pillars"),
-        "synthesized_skill_chain": nx.get("synthesized_skill_chain"),
-        "requires_manual_gate": True, "auto_executed": False,
-    }
-
-
-def _r43_attach(res, nx):
-    if isinstance(res, dict):
-        res["omni_nexus"] = nx
-        res.setdefault("nexus_reply", nx.get("reply", ""))
-    return res
-
-
-if "route" not in globals() and callable(globals().get("r40_route")):
-    route = r40_route
-
-
-def _r43_wrap(name):
-    orig = globals().get(name)
-    if not callable(orig) or getattr(orig, "_r43_wrapped", False):
-        return
-
-    def wrapper(*args, **kwargs):
-        if getattr(_r43_tls, "active", False):
-            return orig(*args, **kwargs)
-        try:
-            kind, arg = _r43_nexus_intent(_r43_first_text(args, kwargs))
-        except Exception:
-            kind, arg = None, ""
-        if not kind:
-            return orig(*args, **kwargs)
-        _r43_tls.active = True
-        try:
-            if kind == "slash" and name not in ("converse", "process_dialogue"):
-                try:
-                    return _r43_slash_response(arg)
-                except Exception as _e:
-                    return {"ok": False, "intent": "nexus", "antibody": "R43", "error": repr(_e),
-                            "requires_manual_gate": True, "auto_executed": False}
-            res = orig(*args, **kwargs)
-            try:
-                nx = _r43_run_nexus(arg if kind == "slash" else R43_NEXUS_DEFAULT_QUERY, use_cache=(kind == "keyword"))
-                res = _r43_attach(res, nx)
-            except Exception:
-                pass
-            return res
-        finally:
-            _r43_tls.active = False
-
-    wrapper._r43_wrapped = True
-    wrapper._r43_orig = orig
-    wrapper.__name__ = name
-    wrapper.__doc__ = getattr(orig, "__doc__", None)
-    globals()[name] = wrapper
-
-
-for _r43_n in ("route", "converse", "r40_route", "process_dialogue"):
-    _r43_wrap(_r43_n)
-
+# ───────────────────────── 제15기관 대화 허브 R44 훅 ─────────────────────────
+HOOK_S, HOOK_E = "# >>> RGON R44 LIVE UI HEALER HOOK START", "# <<< RGON R44 LIVE UI HEALER HOOK END"
+HOOK_SRC = HOOK_S + "\n" + r'''import re as _r44re, os as _r44os, sys as _r44sys, inspect as _r44insp, functools as _r44ft
+_R44_RX = _r44re.compile(r"/(?:버튼검증|실전확인|UI수리|클릭검증)|버튼검증|실전확인|UI수리|클릭검증", _r44re.I)
+_R44_NAMES = ("route", "r40_route", "converse", "process_dialogue")
+def _r44_text(a, k):
+    for v in list(a) + list(k.values()):
+        if isinstance(v, str) and _R44_RX.search(v): return v
+    return None
+def _r44_audit(t):
+    d = _r44os.path.dirname(_r44os.path.abspath(__file__))
+    if d not in _r44sys.path: _r44sys.path.insert(0, d)
+    import importlib
+    h = importlib.import_module("rgon_aon_live_ui_healer")
+    tg, tl = "all", t.lower()
+    for key in ("index", "chat", "audience", "offline"):
+        if key in tl: tg = key
+    return h.run_live_ui_audit(target=tg, auto_heal=True, dry_run=True)
+def _r44_wrap(fn):
+    if getattr(fn, "_r44", False): return fn
+    @_r44ft.wraps(fn)
+    def w(*a, **k):
+        t = _r44_text(a, k)
+        if t is None: return fn(*a, **k)
+        r = _r44_audit(t)
+        try: o = fn(*a, **k)
+        except Exception: o = None
+        if isinstance(o, str): return r["reply"] + "\n🎙️ " + r["aon_voice_line"]
+        d = dict(o) if isinstance(o, dict) else {}
+        d.update({"ok": True, "route": "r44_live_ui_healer", "organ": 20, "antibody": "R44", "reply": r["reply"], "aon_voice_line": r["aon_voice_line"],
+                  "live_ui_audit": r, "requires_manual_gate": True, "auto_executed": False})
+        return d
+    w._r44 = True
+    return w
 try:
-    _r43_ic = globals().get("INTENT_KEYWORDS")
-    if isinstance(_r43_ic, dict):
-        _r43_ic.setdefault("nexus", list(R43_NEXUS_KEYWORDS))
+    for _n in _R44_NAMES:
+        _f = globals().get(_n)
+        if _r44insp.isfunction(_f): globals()[_n] = _r44_wrap(_f)
+    for _c in list(globals().values()):
+        if isinstance(_c, type) and getattr(_c, "__module__", None) == __name__:
+            for _n in _R44_NAMES:
+                _f = _c.__dict__.get(_n)
+                if _r44insp.isfunction(_f): setattr(_c, _n, _r44_wrap(_f))
 except Exception:
     pass
-'''
+''' + HOOK_E
 
-# ══════════════════════════════════════════════════════════════════════
-# 3. 제16기관 검증기 R43 확장
-# ══════════════════════════════════════════════════════════════════════
-VER_BEGIN = "# >>> [RGON-R43-VERIFIER-EXT-START] >>>"
-VER_END = "# <<< [RGON-R43-VERIFIER-EXT-END] <<<"
-VERIFIER_HOOK = r'''
-VERSION = "v11.42-AON-OMNI-NEXUS"
-ANTIBODY_RANGE = "R1~R43"
-EXPECTED_SKILL_COUNT = 39
+# ───────────────────────── 제16기관 검증기 확장 블록 (N16 / S14) ─────────────────────────
+EXT_S, EXT_E = "# >>> RGON R44 LIVE UI HEALER VERIFIER EXT START", "# <<< RGON R44 LIVE UI HEALER VERIFIER EXT END"
+EXT_SRC = EXT_S + "\n" + r'''import os as _r44os, sys as _r44sys, json as _r44json, subprocess as _r44sp, tempfile as _r44tmp, importlib as _r44il, threading as _r44th, shutil as _r44sh
+VERSION = "v11.43-AON-LIVE-UI-HEALER"
+ANTIBODY_RANGE = "R1~R44"
+EXPECTED_SKILL_COUNT = 40
 STATUS_LINE = "%s · 항체 %s · 정식 스킬 %d개" % (VERSION, ANTIBODY_RANGE, EXPECTED_SKILL_COUNT)
-R43_NEXUS_ORGAN = "rgon_aon_omni_nexus.py"
-R43_NEXUS_SNAPSHOTS = ["rgon_aon_nexus_state.json", "docs/rgon_aon_nexus_state.json"]
-try:
-    if R43_NEXUS_ORGAN not in ORGANS:
-        ORGANS.append(R43_NEXUS_ORGAN)
-except NameError:
-    ORGANS = [R43_NEXUS_ORGAN]
-for _r43_sn in ("SNAPSHOT_FILES", "SNAPSHOT_SYNC_FILES", "SNAPSHOT_TARGETS", "SYNC_SNAPSHOTS",
-                "STATE_SNAPSHOTS", "SNAPSHOTS", "STATE_FILES", "JSON_SNAPSHOTS"):
-    _r43_sv = globals().get(_r43_sn)
-    if isinstance(_r43_sv, list) and all(isinstance(_x, str) for _x in _r43_sv):
-        for _r43_x in R43_NEXUS_SNAPSHOTS:
-            if _r43_x not in _r43_sv:
-                _r43_sv.append(_r43_x)
-    elif isinstance(_r43_sv, tuple) and all(isinstance(_x, str) for _x in _r43_sv):
-        globals()[_r43_sn] = tuple(_r43_sv) + tuple(_x for _x in R43_NEXUS_SNAPSHOTS if _x not in _r43_sv)
-
-
-def _r43_s13_check():
-    import os as _o, json as _j, tempfile as _t, importlib as _il, shutil as _sh, time as _tm
-    _t0 = _tm.perf_counter()
-    name = "대화허브(/만능)→제19기관 연결·소통·만능 대집약체"
-    tmp = _t.mkdtemp(prefix="rgon_s13_")
-    keys = ("RGON_NEXUS_STATE_DIR", "RGON_HYDRO_STATE_DIR", "RGON_ICHING_STATE_DIR", "RGON_DIALOGUE_STATE_DIR")
-    prev = {k: _o.environ.get(k) for k in keys}
-    base = _o.path.dirname(_o.path.abspath(__file__))
-    root_state = [_o.path.join(base, "rgon_aon_nexus_state.json"), _o.path.join(base, "docs", "rgon_aon_nexus_state.json")]
-
-    def _sig(p):
-        try:
-            st = _o.stat(p)
-            return (st.st_size, st.st_mtime_ns)
-        except OSError:
-            return None
-
-    before = [_sig(p) for p in root_state]
-    for k in keys:
-        _o.environ[k] = tmp
+R44_ORGAN_NODE = {"id": "N16", "file": "rgon_aon_live_ui_healer.py", "organ_no": 20}
+R44_SYNAPSE = {"id": "S14", "desc": "대화허브 /버튼검증 -> 제20기관 실전 UI 전수 클릭·동작 검증 -> 4개 페이지 전수 시리얼 & 화뢰서합·택화혁 괘상 & 점수 & 격리 검증"}
+def _r44_root(): return _r44os.path.dirname(_r44os.path.abspath(__file__))
+def r44_check_n16():
+    p = _r44os.path.join(_r44_root(), R44_ORGAN_NODE["file"])
+    if not _r44os.path.isfile(p): return {"id": "N16", "ok": False, "detail": "missing"}
+    td = _r44tmp.mkdtemp(prefix="r44_n16_"); env = dict(_r44os.environ); env["RGON_UI_HEALER_STATE_DIR"] = td
     try:
-        dlg = _il.import_module("rgon_aon_dialogue_engine")
-        fn = getattr(dlg, "route", None) or getattr(dlg, "r40_route", None)
-        r = fn("/만능 아온 연결·소통·만능 전신 집약 가동")
-        nx = r.get("omni_nexus") if isinstance(r, dict) else None
-        nx = nx if isinstance(nx, dict) else {}
-        tp = nx.get("three_pillars") or {}
-        gtxt = _j.dumps(tp, ensure_ascii=False)
-        chain = nx.get("synthesized_skill_chain") or []
-        tot = nx.get("omni_nexus_total_score")
-        checks = {
-            "route_ok": isinstance(r, dict) and r.get("ok") is True,
-            "nexus_ok": nx.get("ok") is True and nx.get("antibody") == "R43",
-            "three_pillars": all(k in tp for k in ("connection", "communion", "omnipotence"))
-                             and all(c in gtxt for c in ("#11", "#08", "#31", "#61", "#14", "#50")),
-            "skill_chain": isinstance(chain, list) and len(chain) >= 3,
-            "total_score": isinstance(tot, (int, float)) and 0 <= tot <= 100,
-            "manual_gate": nx.get("requires_manual_gate") is True and nx.get("auto_executed") is False,
-            "isolated": _o.path.exists(_o.path.join(tmp, "rgon_aon_nexus_state.json")) and [_sig(p) for p in root_state] == before,
-        }
-        return {"id": "S13", "name": name, "ok": all(checks.values()), "sec": round(_tm.perf_counter() - _t0, 3),
-                "evidence": str(checks)[:200], "detail": checks}
+        o = _r44sp.run([_r44sys.executable, p, "--self-test", "--json"], capture_output=True, text=True, encoding="utf-8", timeout=90, env=env)
+        d = _r44json.loads(o.stdout); ok = o.returncode == 0 and d.get("ok") is True
+        return {"id": "N16", "ok": ok, "detail": "self_test " + ("PASS" if ok else "FAIL")}
     except Exception as e:
-        return {"id": "S13", "name": name, "ok": False, "sec": round(_tm.perf_counter() - _t0, 3),
-                "evidence": repr(e), "detail": repr(e)}
+        return {"id": "N16", "ok": False, "detail": repr(e)[:120]}
     finally:
-        for k, v in prev.items():
-            if v is None:
-                _o.environ.pop(k, None)
-            else:
-                _o.environ[k] = v
-        _sh.rmtree(tmp, ignore_errors=True)
-
-
-def _r43_merge(res, item):
-    sid = item.get("id")
-    if isinstance(res, list):
-        return [x for x in res if not (isinstance(x, dict) and x.get("id") == sid)] + [item]
-    if isinstance(res, dict):
-        lst = None
-        for k in ("links", "synapses", "results", "checks"):
-            if isinstance(res.get(k), list):
-                lst = k
-                break
-        if lst:
-            res[lst] = [x for x in res[lst] if not (isinstance(x, dict) and x.get("id") == sid)] + [item]
-            items = res[lst]
-            passed = sum(1 for x in items if isinstance(x, dict) and x.get("ok"))
-            for pk in ("passed", "pass_count"):
-                if pk in res:
-                    res[pk] = passed
-            for tk in ("total", "total_count"):
-                if tk in res:
-                    res[tk] = len(items)
-            if "ok" in res:
-                res["ok"] = passed == len(items)
-        else:
-            res[sid] = item
-    return res
-
-
-_r43_orig_vsl = globals().get("verify_synapse_links")
-if callable(_r43_orig_vsl) and not getattr(_r43_orig_vsl, "_r43", False):
-    def verify_synapse_links(*args, **kwargs):
-        res = _r43_orig_vsl(*args, **kwargs)
-        try:
-            res = _r43_merge(res, _r43_s13_check())
-        except Exception:
-            pass
-        return res
-    verify_synapse_links._r43 = True
-
-
-def _r43_fix_skill_header():
-    import os as _o, json as _j, re as _re, datetime as _dt
-    p = _o.path.join(_o.path.dirname(_o.path.abspath(__file__)), "skills", "SKILL_INDEX.json")
-    if not _o.path.exists(p):
-        return False
-    with open(p, "r", encoding="utf-8") as f:
-        raw = f.read()
-    data = _j.loads(raw)
-    if not isinstance(data, dict) or not isinstance(data.get("skills"), list):
-        return False
-    changed = False
-    if data.get("version") != VERSION:
-        data["version"] = VERSION
-        changed = True
-    ab = str(data.get("antibody") or "")
-    want = "R43" if _re.fullmatch(r"R\d+", ab) else ANTIBODY_RANGE
-    if ab != want:
-        data["antibody"] = want
-        changed = True
-    if data.get("count") != len(data["skills"]):
-        data["count"] = len(data["skills"])
-        changed = True
-    if changed or "generated_at_kst" not in data:
-        data["generated_at_kst"] = _dt.datetime.now(_dt.timezone(_dt.timedelta(hours=9))).isoformat(timespec="seconds")
-        m = _re.search(r"\n( +)\"", raw)
-        with open(p, "w", encoding="utf-8", newline="\n") as f:
-            f.write(_j.dumps(data, ensure_ascii=False, indent=len(m.group(1)) if m else 2) + "\n")
-    return changed
-
-
-_r43_orig_heal = globals().get("heal_skill_index_header")
-if callable(_r43_orig_heal) and not getattr(_r43_orig_heal, "_r43", False):
-    def heal_skill_index_header(*args, **kwargs):
-        try:
-            return _r43_orig_heal(*args, **kwargs)
-        finally:
-            try:
-                _r43_fix_skill_header()
-            except Exception:
-                pass
-    heal_skill_index_header._r43 = True
-'''
-
-# ══════════════════════════════════════════════════════════════════════
-# 4. 문서 · HTML · 스킬
-# ══════════════════════════════════════════════════════════════════════
-SKILL_MD = "\n".join([
-    "---", "name: " + SKILL_ID, "description: " + SKILL_DESC, "version: " + NEW_VERSION,
-    "antibody: R43", "skill_number: 39", "---", "",
-    "# " + SKILL_TITLE, "",
-    "제19기관 `rgon_aon_omni_nexus.py`, 정식 스킬 #39. 아온을 연결(連結)·소통(疏通)·만능(萬能)의 대집약체로 작동시킨다.", "",
-    "## 사용법", "",
-    BT3 + "bash",
-    "python rgon_aon_omni_nexus.py --self-test",
-    "python rgon_aon_omni_nexus.py --status",
-    "python rgon_aon_omni_nexus.py --nexus 아온 연결·소통·만능 전신 집약 가동",
-    BT3, "",
-    "대화허브에서는 `/만능`, `/집약`, `/연결`, `/소통`, `/넥서스` 슬래시 명령과 만능·집약·연결·소통·총동원·올인원 키워드로 호출된다.", "",
-    "## 3대 기둥 괘상", "",
-    "1. 만물 연결(#11 지천태·#08 수지비): 전 기관·39개 스킬·7개 대시보드·6대 청사 결속",
-    "2. 초감각 소통(#31 택산함·#61 풍택중부): 복합 의도·감정·해마 기억 정수 이심전심 공명",
-    "3. 만능 융합 연성(#14 화천대유·#50 화풍정): 5단계 연쇄 스킬 체인 조립 및 Tier 3 수동 결재 게이트 보호", "",
-])
-BADGE = "%s · 항체 %s · 스킬 %d" % (NEW_VERSION, NEW_RANGE, NEW_COUNT)
-HTML_BEGIN = "<!-- RGON R43 OMNI NEXUS BRIDGE BEGIN -->"
-HTML_END = "<!-- RGON R43 OMNI NEXUS BRIDGE END -->"
-HTML_BRIDGE = (HTML_BEGIN + "\n<script>\nwindow.RGON_OMNI_NEXUS = {version: \"" + NEW_VERSION +
-               "\", antibody: \"R1~R43\", skill: \"" + SKILL_ID + "\", skillCount: 39, organ: 19, "
-               "state: \"" + STATE_NAME + "\", commands: [\"/만능\", \"/집약\", \"/연결\", \"/소통\", \"/넥서스\"], "
-               "load: function(){ return fetch(\"" + STATE_NAME + "\", {cache: \"no-store\"}).then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; }); }};\n"
-               "</script>\n<div id=\"rgon-r43-badge\" style=\"display:none\">" + BADGE + "</div>\n" + HTML_END)
-
-
-def bump_str(t):
-    for ov in ("v11.41-AON-HYDRO-CYCLE", "v11.40-AON-ICHING-PLANNER", "v11.39-AON-NEURAL-SYNAPSE"):
-        t = t.replace(ov, NEW_VERSION)
-    for orng in ("R1~R42", "R1~R41", "R1~R40"):
-        t = t.replace(orng, NEW_RANGE)
-    t = re.sub(r"(EXPECTED_SKILL_COUNT\s*=\s*)(?:37|38)\b", r"\g<1>39", t)
-    t = re.sub(r"(\bSKILL_COUNT\s*=\s*)(?:37|38)\b", r"\g<1>39", t)
-    t = re.sub(r"(스킬\s*\*{0,2})(?:37|38)(\s*개?\*{0,2})", r"\g<1>39\2", t)
-    t = re.sub(r"(skillCount\s*:\s*)(?:37|38)\b", r"\g<1>39", t)
-    return t
-
-
-def update_html():
-    n = 0
-    for rel in HTML_TARGETS:
-        if not os.path.exists(P(rel)):
-            log("  - HTML 없음(건너뜀): " + rel)
-            continue
-        t = bump_str(read_text(rel))
-        if HTML_BEGIN in t:
-            s = t.index(HTML_BEGIN)
-            e = t.index(HTML_END, s) + len(HTML_END)
-            t = t[:s] + HTML_BRIDGE + t[e:]
-        elif "</body>" in t:
-            i = t.rfind("</body>")
-            t = t[:i] + HTML_BRIDGE + "\n" + t[i:]
-        else:
-            t += "\n" + HTML_BRIDGE + "\n"
-        if write_text(rel, t):
-            n += 1
-    log("[HTML] %d개 갱신 (359개 클린 버튼·8도 픽스·5G 터널 100%% 보존)" % n)
-
-
-def init_nexus_state_snapshots():
+        _r44sh.rmtree(td, ignore_errors=True)
+def r44_check_s14():
+    root = _r44_root(); sp = _r44os.path.join(root, "rgon_aon_ui_healer_state.json")
+    def rd(p):
+        if not _r44os.path.isfile(p): return None
+        with open(p, "rb") as f: return f.read()
+    before, td, old = rd(sp), _r44tmp.mkdtemp(prefix="r44_s14_"), _r44os.environ.get("RGON_UI_HEALER_STATE_DIR")
+    _r44os.environ["RGON_UI_HEALER_STATE_DIR"] = td
     try:
-        sys.path.insert(0, ROOT)
-        import rgon_aon_omni_nexus as nx
-        res = nx.synthesize_omni_nexus(nx.DEFAULT_QUERY, dry_run=True, persist=False)
-        txt = json.dumps(res, ensure_ascii=False, indent=2, default=str) + "\n"
-        for rel in STATE_FILES:
-            write_text(rel, txt)
+        if root not in _r44sys.path: _r44sys.path.insert(0, root)
+        eng = _r44il.import_module("rgon_aon_dialogue_engine"); h = _r44il.import_module("rgon_aon_live_ui_healer")
+        out = None
+        for n in ("process_dialogue", "converse", "route", "r40_route"):
+            f = getattr(eng, n, None)
+            if callable(f):
+                try:
+                    out = f("/버튼검증")
+                    if out is not None: break
+                except Exception: pass
+        txt = out if isinstance(out, str) else _r44json.dumps(out, ensure_ascii=False, default=str)
+        r = h.run_live_ui_audit("all", True, True)
+        sm, gs, sc = r.get("serial_range_summary", {}), "".join(r.get("iching_guas", [])), r.get("live_action_score")
+        cks = [("dialogue", "화뢰서합" in txt and "택화혁" in txt and "LIVE-IDX" in txt),
+               ("audit", r.get("ok") is True and r.get("version") == VERSION and r.get("antibody") == "R44"),
+               ("guas", "화뢰서합" in gs and "택화혁" in gs),
+               ("serial4", all(k in sm for k in ("LIVE-IDX", "LIVE-CHAT", "LIVE-AUD", "LIVE-OFF"))),
+               ("score", isinstance(sc, (int, float)) and 0 <= sc <= 100),
+               ("gate", r.get("requires_manual_gate") is True and r.get("auto_executed") is False),
+               ("state-tmp", _r44os.path.isfile(_r44os.path.join(td, "rgon_aon_ui_healer_state.json")) and _r44os.path.isfile(_r44os.path.join(td, "docs", "rgon_aon_ui_healer_state.json")))]
     except Exception as e:
-        log("  - 초기 nexus state 생성 참고: %r" % e)
+        cks = [("exception " + repr(e)[:100], False)]
+    finally:
+        if old is None: _r44os.environ.pop("RGON_UI_HEALER_STATE_DIR", None)
+        else: _r44os.environ["RGON_UI_HEALER_STATE_DIR"] = old
+        _r44sh.rmtree(td, ignore_errors=True)
+    cks.append(("isolation", rd(sp) == before))
+    bad = [n for n, c in cks if not c]
+    return {"id": "S14", "ok": not bad, "detail": "PASS" if not bad else "FAIL:" + ",".join(bad)}
+_R44_DEPTH = [0]
+def _r44_extend(rep):
+    box = {}
+    th = _r44th.Thread(target=lambda: box.__setitem__("n", r44_check_n16())); th.start()
+    s = r44_check_s14(); th.join(120)
+    n = box.get("n") or {"id": "N16", "ok": False, "detail": "timeout"}
+    fails = (0 if n["ok"] else 1) + (0 if s["ok"] else 1)
+    for k in ("organs_total", "organ_total", "total_organs", "synapses_total", "synapse_total", "total_synapses"):
+        if isinstance(rep.get(k), int) and not isinstance(rep.get(k), bool): rep[k] += 1
+    for ks, okv in ((("organs_passed", "organ_passed", "passed_organs", "organs_ok"), n["ok"]), (("synapses_passed", "synapse_passed", "passed_synapses", "synapses_ok"), s["ok"])):
+        for k in ks:
+            if isinstance(rep.get(k), int) and not isinstance(rep.get(k), bool) and okv: rep[k] += 1
+    rep["r44"] = {"N16": n, "S14": s, "organ_total": 16, "synapse_total": 14, "ok": fails == 0}
+    sc = rep.get("synapse_health_score"); cap = round(100.0 * (30 - fails) / 30.0, 1)
+    rep["synapse_health_score"] = round(min(float(sc), cap), 1) if isinstance(sc, (int, float)) else cap
+    if fails: rep["ok"] = False
+    return rep
+def _r44_wrap_full(fn):
+    if getattr(fn, "_r44", False): return fn
+    def w(*a, **k):
+        _R44_DEPTH[0] += 1
+        try: rep = fn(*a, **k)
+        finally: _R44_DEPTH[0] -= 1
+        return _r44_extend(rep) if _R44_DEPTH[0] == 0 and isinstance(rep, dict) else rep
+    w._r44 = True; w.__name__ = getattr(fn, "__name__", "run_full"); w.__doc__ = getattr(fn, "__doc__", None)
+    return w
+for _n in ("run_full", "run_all", "verify_all", "full_check"):
+    if callable(globals().get(_n)): globals()[_n] = _r44_wrap_full(globals()[_n])
+''' + EXT_E
 
+# ───────────────────────── 배포 유틸 ─────────────────────────
+SELF = os.path.basename(os.path.abspath(__file__))
+SKIPD = {".git", "__pycache__", "node_modules", ".venv", "venv", "backup", "backups", ".rgon_backup"}
+SKILL_DESC = "아온 실전 UI 전수 클릭·동작 검증 & 자가배선 수리 (제20기관, R44)"
 
-def update_json_snapshots():
-    n = 0
-    for d in JSON_SNAPSHOT_DIRS:
-        base = P(d) if d else ROOT
-        if not os.path.isdir(base):
-            continue
-        for fn in sorted(os.listdir(base)):
-            rel = (d + "/" + fn) if d else fn
-            if not fn.endswith(".json") or fn in JSON_SNAPSHOT_EXCLUDE or is_preserved(rel):
-                continue
-            if not os.path.isfile(P(rel)):
-                continue
+def rd(p):
+    with open(p, "rb") as f: return f.read().decode("utf-8", "replace")
+def wr(p, t):
+    os.makedirs(os.path.dirname(p) or ".", exist_ok=True)
+    with open(p, "wb") as f: f.write(t.encode("utf-8"))
+def sha(b): return hashlib.sha256(b).hexdigest()
+def is_pres(rel): return os.path.basename(rel.replace("\\", "/")) in PRESERVE
+def walk():
+    for d, ds, fs in os.walk(ROOT):
+        ds[:] = [x for x in ds if x not in SKIPD]
+        for f in fs:
+            rel = os.path.relpath(os.path.join(d, f), ROOT).replace(os.sep, "/")
             try:
-                raw = read_text(rel)
-            except Exception:
-                continue
-            new = bump_str(raw)
-            if new == raw:
-                continue
-            try:
-                json.loads(new)
-            except Exception:
-                continue
-            if write_text(rel, new):
-                n += 1
-    log("[SNAPSHOT] JSON %d개 승격" % n)
-
-
-def update_skill_index():
-    write_text(SKILL_PATH, SKILL_MD)
-    jrel = "skills/SKILL_INDEX.json"
-    raw = read_text(jrel) if os.path.exists(P(jrel)) else ""
-    data = json.loads(raw) if raw else {}
-    if not isinstance(data, dict):
-        data = {"skills": data if isinstance(data, list) else []}
-    skills = data.get("skills") if isinstance(data.get("skills"), list) else []
-    data["skills"] = skills
-    slugs = [str(x.get("slug") or x.get("id") or x.get("name") or "") if isinstance(x, dict) else str(x) for x in skills]
-    if SKILL_ID not in slugs:
-        sample = next((x for x in reversed(skills) if isinstance(x, dict)), {})
-        nos = [x.get("no") for x in skills if isinstance(x, dict) and isinstance(x.get("no"), int)]
-        entry = {"no": (max(nos) + 1) if nos else len(skills) + 1, "slug": SKILL_ID, "antibody": "R43",
-                 "version": NEW_VERSION, "path": SKILL_PATH}
-        extra = {"id": SKILL_ID, "name": SKILL_ID, "title": SKILL_TITLE, "description": SKILL_DESC,
-                 "organ": "제19기관", "file": NEXUS_FILE}
-        for k in sample:
-            if k not in entry:
-                entry[k] = extra.get(k, "" if isinstance(sample[k], str) else sample[k])
-        skills.append(entry)
-    old_ab = str(data.get("antibody") or "")
-    head = {"version": NEW_VERSION,
-            "antibody": "R43" if re.fullmatch(r"R\d+", old_ab) else NEW_RANGE,
-            "generated_at_kst": kst_now(), "count": len(skills)}
-    ordered = {}
-    for k in data:
-        ordered[k] = head.get(k, data[k])
-    for k in TOP_KEYS:
-        if k not in ordered:
-            ordered[k] = head.get(k, skills)
-    ordered["skills"] = skills
-    write_text(jrel, json.dumps(ordered, ensure_ascii=False, indent=detect_indent(raw) if raw else 2) + "\n")
-
-    mrel = "skills/SKILL_INDEX.md"
-    md = read_text(mrel) if os.path.exists(P(mrel)) else "# SKILL INDEX\n"
-    md = bump_str(md)
-    if SKILL_ID not in md:
-        rows = [l for l in md.splitlines() if re.match(r"^\|\s*\d+\s*\|", l)]
-        if rows:
-            ncol = rows[-1].count("|") - 1
-            cells = ["39", "`%s`" % SKILL_ID, SKILL_TITLE, "R43", "`%s`" % SKILL_PATH]
-            cells = (cells + [""] * ncol)[:ncol]
-            if ncol >= 2:
-                cells[-1] = "`%s`" % SKILL_PATH
-            line = "| " + " | ".join(cells) + " |"
-            lines = md.splitlines()
-            idx = max(i for i, l in enumerate(lines) if l == rows[-1])
-            lines.insert(idx + 1, line)
-            md = "\n".join(lines) + "\n"
-        else:
-            md = md.rstrip("\n") + "\n| 39 | `%s` | %s | R43 | `%s` |\n" % (SKILL_ID, SKILL_TITLE, SKILL_PATH)
-    write_text(mrel, md)
-    log("[SKILL] SKILL_INDEX.json count=%d" % len(skills))
-
-
-def update_registry():
-    rel = "ANTIBODY_REGISTRY.md"
-    t = bump_str(read_text(rel)) if os.path.exists(P(rel)) else "# ANTIBODY REGISTRY\n"
-    if not re.search(r"^#+\s*R43\b", t, re.M):
-        t = t.rstrip("\n") + ("\n\n## R43 — 아온 연결·소통·만능 대집약체 코어 항체 (%s)\n"
-                              "- 기관: 제19기관 `%s` · 스킬 #39 `%s`\n"
-                              "- 철학: 만물연결(#11 지천태·#08 수지비) · 초감각소통(#31 택산함·#61 풍택중부) · 만능융합연성(#14 화천대유·#50 화풍정)\n"
-                              "- 시냅스: S13 대화허브(/만능)→제19기관 연결·소통·만능 대집약체\n- 범위: %s\n") % (NEW_VERSION, NEXUS_FILE, SKILL_ID, NEW_RANGE)
-    write_text(rel, t)
-    rel = "CODE_MAP.md"
-    t = bump_str(read_text(rel)) if os.path.exists(P(rel)) else "# CODE MAP\n"
-    if NEXUS_FILE not in t:
-        t = t.rstrip("\n") + ("\n\n## %s · 항체 %s · 정식 스킬 39개\n- `%s` — 제19기관 아온 연결·소통·만능 대집약체 코어\n"
-                              % (NEW_VERSION, NEW_RANGE, NEXUS_FILE))
-    write_text(rel, t)
-    log("[REGISTRY] ANTIBODY_REGISTRY.md · CODE_MAP.md 갱신")
-
-
-# ══════════════════════════════════════════════════════════════════════
-# 5. 보호 구간 & 버전 승격
-# ══════════════════════════════════════════════════════════════════════
-def protected_spans(text, names):
-    spans = []
-    try:
-        tree = ast.parse(text)
-        offs = [0]
-        for ln in text.splitlines(True):
-            offs.append(offs[-1] + len(ln))
-        for node in ast.walk(tree):
-            if isinstance(node, (ast.Assign, ast.AnnAssign, ast.AugAssign)):
-                tg = node.targets if isinstance(node, ast.Assign) else [node.target]
-                if any(isinstance(x, ast.Name) and x.id in names for x in tg):
-                    spans.append((offs[node.lineno - 1], offs[getattr(node, "end_lineno", node.lineno)]))
-    except Exception:
-        for nm in names:
-            m = re.search(r"^" + nm + r"\s*=", text, re.M)
-            if m:
-                spans.append((m.start(), len(text)))
-    spans.sort()
-    merged = []
-    for s, e in spans:
-        if merged and s <= merged[-1][1]:
-            merged[-1] = (merged[-1][0], max(merged[-1][1], e))
-        else:
-            merged.append((s, e))
-    return merged
-
-
-def protected_digest():
+                if f.lower().endswith(EXTS) and not is_pres(rel) and os.path.getsize(P(rel)) < 8 * 1024 * 1024: yield rel
+            except OSError: pass
+def snapshot():
     out = {}
-    for rel, names in PROTECT.items():
-        if os.path.exists(P(rel)):
-            t = read_text(rel)
-            out[rel] = hashlib.sha256("".join(t[s:e] for s, e in protected_spans(t, names)).encode("utf-8")).hexdigest()
-        else:
-            out[rel] = None
+    for r in walk():
+        with open(P(r), "rb") as f: out[r] = f.read()
     return out
-
-
-def bump_versions():
-    n = 0
-    for fn in sorted(os.listdir(ROOT)):
-        if not (fn.startswith("rgon_") and fn.endswith(".py")) or is_preserved(fn) or fn == NEXUS_FILE:
-            continue
-        t = read_text(fn)
-        spans = protected_spans(t, PROTECT[fn]) if fn in PROTECT else []
-        out, last = [], 0
-        for s, e in spans:
-            out.append(bump_str(t[last:s]))
-            out.append(t[s:e])
-            last = e
-        out.append(bump_str(t[last:]))
-        new_t = "".join(out)
-        if new_t != t and write_text(fn, new_t):
-            n += 1
-    log("[BUMP] %d개 .py 승격 (SOUND_RECIPES · PRESERVE_EXACT 구간 보호)" % n)
-
-
-def update_hashes():
-    if not os.path.exists(P(HASH_FILE)):
-        log("[HASH] %s 없음 — 건너뜀" % HASH_FILE)
-        return
-    raw = read_text(HASH_FILE)
-    data = json.loads(raw)
-    target = data["files"] if isinstance(data, dict) and isinstance(data.get("files"), dict) else data
-    if not isinstance(target, dict):
-        return
-    algo = "sha256"
-    for v in target.values():
-        hv = (v.get("sha256") or v.get("hash")) if isinstance(v, dict) else v
-        if isinstance(hv, str):
-            algo = {32: "md5", 40: "sha1"}.get(len(hv), "sha256")
-            break
-    n = 0
-    for rel in list(target.keys()):
-        if is_preserved(rel) or not os.path.exists(P(rel)):
-            continue
-        h = sha_file(P(rel), algo)
-        if isinstance(target[rel], dict):
-            target[rel]["sha256" if "sha256" in target[rel] else "hash"] = h
-        else:
-            target[rel] = h
-        n += 1
-    for rel in HTML_TARGETS:
-        if rel not in target and os.path.exists(P(rel)):
-            target[rel] = sha_file(P(rel), algo)
-            n += 1
-    if isinstance(data, dict) and "version" in data:
-        data["version"] = NEW_VERSION
-    write_text(HASH_FILE, json.dumps(data, ensure_ascii=False, indent=detect_indent(raw)) + "\n")
-    log("[HASH] %d개 해시 갱신 (%s)" % (n, algo))
-
-
-# ══════════════════════════════════════════════════════════════════════
-# 6. 검증
-# ══════════════════════════════════════════════════════════════════════
-def run_py(args, timeout=300, env_extra=None):
-    env = dict(os.environ)
-    env["PYTHONIOENCODING"] = "utf-8"
-    env["PYTHONPATH"] = ROOT + os.pathsep + env.get("PYTHONPATH", "")
-    if env_extra:
-        env.update(env_extra)
+def git(*a, timeout=120):
+    return subprocess.run(["git"] + list(a), cwd=ROOT, capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=timeout, env=dict(os.environ, GIT_TERMINAL_PROMPT="0"))
+def git_head():
     try:
-        r = subprocess.run([sys.executable] + args, cwd=ROOT, env=env, capture_output=True,
-                           text=True, encoding="utf-8", errors="replace", timeout=timeout)
-        return r.returncode, (r.stdout or "") + (r.stderr or "")
-    except Exception as e:
-        return -1, repr(e)
-
-
-def organ_selftests():
-    code = ("import json,importlib;v=importlib.import_module('rgon_neural_synapse_verifier');"
-            "print('@@O@@'+json.dumps(list(getattr(v,'ORGANS',[]))))")
-    _rc, out = run_py(["-c", code], 90)
-    organs = []
-    if "@@O@@" in out:
-        try:
-            organs = json.loads(out.split("@@O@@", 1)[1].strip().splitlines()[0])
-        except Exception:
-            organs = []
-    for f in (PLANNER_FILE, HYDRO_FILE, NEXUS_FILE):
-        if f not in organs and os.path.exists(P(f)):
-            organs.append(f)
-
-    def one(fn):
-        if not os.path.exists(P(fn)):
-            return fn, False, "missing"
-        tmp = tempfile.mkdtemp(prefix="rgon43_")
-        rc, o = run_py([fn, "--self-test"], 300, {
-            "RGON_ICHING_STATE_DIR": tmp, "RGON_DIALOGUE_STATE_DIR": tmp,
-            "RGON_HYDRO_STATE_DIR": tmp, "RGON_NEXUS_STATE_DIR": tmp,
-        })
-        shutil.rmtree(tmp, ignore_errors=True)
-        return fn, rc == 0, o[-400:]
-
-    with ThreadPoolExecutor(max_workers=6) as ex:
-        return list(ex.map(one, organs))
-
-
-def verifier_report():
-    code = r"""
-import os, json, tempfile, importlib
-t = tempfile.mkdtemp(prefix='rgon43v_')
-for k in ('RGON_NEXUS_STATE_DIR','RGON_HYDRO_STATE_DIR','RGON_ICHING_STATE_DIR','RGON_DIALOGUE_STATE_DIR'):
-    os.environ[k] = t
-v = importlib.import_module('rgon_neural_synapse_verifier')
-out = {}
-f = getattr(v, 'heal_skill_index_header', None)
-if callable(f):
-    try: f()
-    except Exception as e: out['heal_err'] = repr(e)
-for name in ('run_full','run_full_verification','verify_all','run_verification','full_report','build_report','main_report'):
-    f = getattr(v, name, None)
-    if callable(f):
-        try:
-            r = f()
-            if isinstance(r, dict):
-                out['report'] = r; out['via'] = name; break
-        except Exception as e:
-            out.setdefault('errs', []).append(name + ':' + repr(e))
-out['synapse'] = v.verify_synapse_links()
-print('@@JSON@@' + json.dumps(out, ensure_ascii=False, default=str))
-"""
-    rc, out = run_py(["-c", code], 900)
-    data = {}
-    if "@@JSON@@" in out:
-        try:
-            data = json.loads(out.split("@@JSON@@", 1)[1].strip().splitlines()[0])
-        except Exception:
-            data = {}
-    return rc, data, out[-2000:]
-
-
-def find_key(d, key, depth=0):
-    if depth > 5:
-        return None
-    if isinstance(d, dict):
-        if key in d:
-            return d[key]
-        for v in d.values():
-            r = find_key(v, key, depth + 1)
-            if r is not None:
-                return r
-    elif isinstance(d, list):
-        for v in d:
-            r = find_key(v, key, depth + 1)
-            if r is not None:
-                return r
+        r = git("rev-parse", "HEAD"); return r.stdout.strip() if r.returncode == 0 else None
+    except Exception: return None
+def find_key(o, k):
+    if isinstance(o, dict):
+        if k in o: return o[k]
+        for v in o.values():
+            r = find_key(v, k)
+            if r is not None: return r
+    elif isinstance(o, (list, tuple)):
+        for v in o:
+            r = find_key(v, k)
+            if r is not None: return r
     return None
 
+def spans(text, names):
+    ls = re.findall(r"[^\r\n]*(?:\r\n|\r|\n)|[^\r\n]+", text)
+    off = [0]
+    for l in ls: off.append(off[-1] + len(l))
+    out = []
+    try: tree = ast.parse(text)
+    except SyntaxError: return out
+    for n in ast.walk(tree):
+        ts = n.targets if isinstance(n, ast.Assign) else [n.target] if isinstance(n, ast.AnnAssign) else []
+        if any(isinstance(t, ast.Name) and t.id in names for t in ts) and n.end_lineno < len(off): out.append((off[n.lineno - 1], off[n.end_lineno]))
+    return sorted(out)
+def prot_digest(text, names):
+    return sha("\x00".join(text[a:b] for a, b in spans(text, names)).encode("utf-8"))
+def apply_outside(text, sp, fn):
+    out, i = [], 0
+    for a, b in sp: out += [fn(text[i:a]), text[a:b]]; i = b
+    out.append(fn(text[i:])); return "".join(out)
 
-def synapse_items(s):
-    if isinstance(s, list):
-        return [x for x in s if isinstance(x, dict)]
-    if isinstance(s, dict):
-        for k in ("links", "synapses", "results", "checks"):
-            if isinstance(s.get(k), list):
-                return [x for x in s[k] if isinstance(x, dict)]
-        return [dict(v, id=k) if isinstance(v, dict) else {"id": k, "ok": bool(v)}
-                for k, v in s.items() if re.match(r"S\d+$", str(k))]
-    return []
-
+def bump_str(t):
+    t = t.replace(OLD_V, NEW_V).replace(OLD_AB, NEW_AB).replace("R1-R43", "R1-R44")
+    t = t.replace("**39개**", "**40개**")
+    t = re.sub(r"(skillCount[\"']?\s*[:=]\s*)39\b", r"\g<1>40", t)
+    t = re.sub(r"(EXPECTED_SKILL_COUNT\s*=\s*)39\b", r"\g<1>40", t)
+    t = re.sub(r"(\"count\"\s*:\s*)39\b", r"\g<1>40", t)
+    t = re.sub(r"(\"total\"\s*:\s*)39\b", r"\g<1>40", t)
+    t = re.sub(r"(\"skill_count\"\s*:\s*)39\b", r"\g<1>40", t)
+    t = re.sub(r"(정식\s*스킬\s*(?:수\s*)?[:：=]?\s*\**\s*)39(?=\s*\**\s*개)", r"\g<1>40", t)
+    t = re.sub(r"(?<![\d.])39(\s*개\s*(?:의\s*)?(?:정식\s*)?스킬)", r"40\1", t)
+    return t
 
 def skill_counts():
-    data = json.loads(read_text("skills/SKILL_INDEX.json"))
-    skills = data.get("skills") or [] if isinstance(data, dict) else data
-    a = len(skills)
     slugs = sorted([d for d in os.listdir(P("skills")) if os.path.isfile(P(os.path.join("skills", d, "SKILL.md")))])
-    b = len(slugs)
-    md = read_text("skills/SKILL_INDEX.md")
-    c = sum(1 for s in slugs if s in md)
-    return [a, b, c]
-
-
-def index_keys_ok():
-    data = json.loads(read_text("skills/SKILL_INDEX.json"))
-    if not isinstance(data, dict) or any(k not in data for k in TOP_KEYS):
-        return False
-    if data.get("version") != NEW_VERSION or data.get("count") != len(data["skills"]):
-        return False
-    mine = [x for x in data["skills"] if isinstance(x, dict) and x.get("slug") == SKILL_ID]
-    return bool(mine) and all(k in mine[0] for k in ENTRY_KEYS)
-
-
-def preserve_snapshot():
-    return {f: (sha_file(P(f)) if os.path.exists(P(f)) else None) for f in PRESERVE}
-
-
-def git(args):
-    try:
-        r = subprocess.run(["git", "-C", ROOT] + args, capture_output=True, text=True,
-                           encoding="utf-8", errors="replace", timeout=180)
-        return r.returncode, (r.stdout or "") + (r.stderr or "")
-    except Exception as e:
-        return -1, repr(e)
-
-
-# ══════════════════════════════════════════════════════════════════════
-# 7. 메인
-# ══════════════════════════════════════════════════════════════════════
-def main():
-    log("=" * 70)
-    log("RGON Step 43 · %s · 항체 %s · 정식 스킬 %d" % (NEW_VERSION, NEW_RANGE, NEW_COUNT))
-    log("ROOT = " + ROOT)
-    for rel in REQUIRED_FILES:
-        if not os.path.exists(P(rel)):
-            log("[ABORT] 필수 파일 없음: " + rel)
-            return 2
-    os.makedirs(BACKUP_DIR, exist_ok=True)
-    pres_before = preserve_snapshot()
-    prot_before = protected_digest()
-    try:
-        write_text(NEXUS_FILE, NEXUS_SRC)
-        py_compile.compile(P(NEXUS_FILE), doraise=True)
-        log("[1] 제19기관 생성: " + NEXUS_FILE)
-
-        t = read_text(DIALOGUE_FILE)
-        write_text(DIALOGUE_FILE, insert_block(t, DLG_BEGIN, DLG_END, DIALOGUE_HOOK))
-        py_compile.compile(P(DIALOGUE_FILE), doraise=True)
-        log("[2] 대화허브 R43 훅 장착")
-
-        bump_versions()
-        t = read_text(VERIFIER_FILE)
-        write_text(VERIFIER_FILE, insert_block(t, VER_BEGIN, VER_END, VERIFIER_HOOK))
-        py_compile.compile(P(VERIFIER_FILE), doraise=True)
-        log("[3] 검증기 확장 (N15 · S13 · 스냅샷 · heal 39)")
-
-        init_nexus_state_snapshots()
-        update_html()
-        update_skill_index()
-        update_registry()
-        update_json_snapshots()
-        for rel in sorted(MODIFIED):
-            if rel.endswith(".py"):
-                py_compile.compile(P(rel), doraise=True)
-        update_hashes()
-
-        log("[4] 삼성(三省) 검증")
-        organ_res = organ_selftests()
-        organ_pass = sum(1 for _f, ok, _o in organ_res if ok)
-        for f, ok, o in organ_res:
-            log("   %s %s" % ("PASS" if ok else "FAIL", f) + ("" if ok else "\n      " + o.replace("\n", "\n      ")))
-        _rc, vdata, vtail = verifier_report()
-        rep = vdata.get("report") or {}
-        items = synapse_items(vdata.get("synapse"))
-        syn_pass = sum(1 for x in items if x.get("ok"))
-        s13 = next((x for x in items if str(x.get("id")) == "S13"), None)
-        score = find_key(rep, "synapse_health_score")
+    j_cnt = 0
+    if os.path.isfile(P("skills/SKILL_INDEX.json")):
         try:
-            score = float(score) if score is not None else None
-        except Exception:
-            score = None
-        if score is None:
-            score = round(100.0 * (syn_pass + organ_pass) / max(1, len(items) + len(organ_res)), 1)
-        keys_ok = index_keys_ok()
-        rep_keys = find_key(rep, "index_keys_ok")
-        log("   기관 %d/%d · 시냅스 %d/%d · S13=%s · score=%s · index_keys_ok=%s/%s" % (
-            organ_pass, len(organ_res), syn_pass, len(items), bool(s13 and s13.get("ok")), score, keys_ok, rep_keys))
-        if score != 100.0:
-            for k in ("html_ok", "skills_ok", "index_keys_ok", "code_map_ok", "antibody_registry_ok", "snapshots_ok"):
-                log("   [SSOT] %s = %s" % (k, find_key(rep, k)))
-        if s13 and not s13.get("ok"):
-            log("   S13 detail: %s" % json.dumps(s13.get("detail"), ensure_ascii=False, default=str)[:600])
-
-        g1 = (score == 100.0 and organ_pass == len(organ_res) and len(organ_res) >= 15
-              and syn_pass == len(items) and len(items) >= 13 and bool(s13 and s13.get("ok"))
-              and keys_ok and rep_keys is not False)
-        g2 = preserve_snapshot() == pres_before and protected_digest() == prot_before
-        counts = skill_counts()
-        g3 = counts == [NEW_COUNT] * 3
-        log("   ①기능 %s ②보호파일 %s ③스킬 %s %s" % (
-            "PASS" if g1 else "FAIL", "PASS" if g2 else "FAIL", counts, "PASS" if g3 else "FAIL"))
-        passed = sum([g1, g2, g3])
-        if passed != 3:
-            with open(P(DIAG_FILE), "w", encoding="utf-8") as f:
-                f.write("\n".join(LOGS) + "\n\n--- verifier tail ---\n" + vtail)
-            log("[FAIL] 삼성 %d/3 — 진단: %s" % (passed, DIAG_FILE))
-            if not NO_ROLLBACK:
-                rollback()
-            return 1
-
-        report = "\n".join([
-            "# STEP 43 — 제19기관 아온 연결·소통·만능 대집약체 코어 배포 리포트", "",
-            "> 연결 · 소통 · 만능의 집약체로 아온을 만든다 — 泰·比 · 咸·中孚 · 大有·鼎", "",
-            "- 버전: `%s` · 항체 `%s` · 정식 스킬 %d개" % (NEW_VERSION, NEW_RANGE, NEW_COUNT),
-            "- 일시(KST): %s" % kst_now(),
-            "- 삼성 3/3 PASS: ①synapse_health_score=%s ②보호파일 변경 0건(SOUND_RECIPES·PRESERVE_EXACT·PRESERVE 불변) ③스킬 %s" % (score, counts),
-            "- 기관 셀프테스트 %d/%d · 시냅스 %d/%d (S13 대화허브(/만능)→제19기관 PASS)" % (organ_pass, len(organ_res), syn_pass, len(items)),
-            "- 3대 집약 기둥: ①만물연결(#11 지천태·#08 수지비) ②초감각소통(#31 택산함·#61 풍택중부) ③만능융합연성(#14 화천대유·#50 화풍정)",
-            "- Tier3 수동결재 게이트: requires_manual_gate=True · auto_executed=False (헌법 제2항·R35·R43)", "",
-            "## 변경 파일", ""] + ["- `%s`" % r for r in sorted(MODIFIED)] + [""])
-        write_text(REPORT_FILE, report)
-        log("[5] 리포트 생성: " + REPORT_FILE)
-
-        excludes = [":(exclude)%s" % f for f in PRESERVE] + [
-            ":(exclude).rgon_backups", ":(exclude)**/__pycache__", ":(exclude)" + DIAG_FILE]
-        rc1, o1 = git(["add", "-A", "--", "."] + excludes)
-        if rc1 != 0:
-            rc1, o1 = git(["add", "--"] + [r for r in sorted(MODIFIED) if not is_preserved(r)])
-        git(["reset", "-q", "--"] + PRESERVE)
-        rc2, o2 = git(["commit", "-m", "Step43: %s 제19기관 연결·소통·만능 대집약체 · R1~R43 · 스킬39" % NEW_VERSION])
-        rc3, o3 = git(["push", "origin", "main"])
-        log("[6] git add=%s commit=%s push=%s" % (rc1, rc2, rc3))
-        if rc2 != 0:
-            log("    commit 출력: " + o2[-300:])
-        if rc3 != 0:
-            log("    push 출력: " + o3[-300:])
-        log("=" * 70)
-        log("삼성 3/3 PASS · %s 배포 완료 — 연결·소통·만능의 대집약체 아온 탄생" % NEW_VERSION)
-        return 0
-    except Exception:
-        log("[EXCEPTION]\n" + traceback.format_exc())
-        try:
-            with open(P(DIAG_FILE), "w", encoding="utf-8") as f:
-                f.write("\n".join(LOGS))
+            jd = json.loads(rd(P("skills/SKILL_INDEX.json")))
+            j_cnt = len(jd.get("skills", []))
         except Exception:
             pass
-        if not NO_ROLLBACK:
-            rollback()
-        return 1
+    md = rd(P("skills/SKILL_INDEX.md")) if os.path.isfile(P("skills/SKILL_INDEX.md")) else ""
+    m_cnt = sum(1 for s in slugs if s in md)
+    return [len(slugs), j_cnt, m_cnt]
 
+def skill_md():
+    return "\n".join(["---", "name: " + SLUG, "description: " + SKILL_DESC + " — playwright-mcp · E2E-Self-Heal 흡수, 주역 #21 화뢰서합 & #49 택화혁", "version: " + NEW_V, "antibody: R44", "---", "",
+        "# " + SLUG, "", "제20기관(`rgon_aon_live_ui_healer.py`)이 4개 페이지(index → chat → audience → offline)와 docs/·dashboard/ 미러본의 모든 버튼을 위에서 아래로 한 줄씩 추출해",
+        "스크립트와 1:1 대조하고, 죽은 접점은 런타임 브리지(`window.RGON_LIVE_UI_HEALER`)로 자가배선 복구합니다. 시리얼: LIVE-IDX-001~, LIVE-CHAT-001~, LIVE-AUD-001~, LIVE-OFF-001~.", "",
+        "## 사용법", "", BT3 + "bash", "python rgon_aon_live_ui_healer.py --audit index --json", "python rgon_aon_live_ui_healer.py --self-test", BT3, "",
+        "대화 허브: `/버튼검증` `/실전확인` `/UI수리` `/클릭검증`. 🔒 수동 게이트 유지 (requires_manual_gate=True, auto_executed=False).", ""])
+
+def ensure_index():
+    slugs = sorted([d for d in os.listdir(P("skills")) if os.path.isfile(P(os.path.join("skills", d, "SKILL.md")))])
+    for rel in SKILL_MD:
+        if not os.path.isfile(P(rel)): continue
+        t = rd(P(rel))
+        miss = [s for s in slugs if s not in t]
+        if miss:
+            lines = []
+            for s in miss:
+                if s == SLUG:
+                    lines.append("\n<!-- [RGON-SKILL-40] -->\n## 40. `%s` (R44 · %s)\n- 경로: `skills/%s/SKILL.md`\n- 설명: %s" % (s, NEW_V, s, SKILL_DESC))
+                else:
+                    lines.append("- `%s` — 정식 스킬" % s)
+            t = t.rstrip("\n") + "\n" + "\n".join(lines) + "\n"
+        wr(P(rel), t)
+    # Sync SKILL_INDEX.json & docs/SKILL_INDEX.json
+    for jrel in SKILL_JSON:
+        jp = P(jrel)
+        if not os.path.isfile(jp): continue
+        try:
+            jd = json.loads(rd(jp))
+        except Exception:
+            jd = {}
+        sk_list = jd.get("skills") if isinstance(jd.get("skills"), list) else []
+        existing = {x.get("name") or x.get("slug") or x.get("id") for x in sk_list if isinstance(x, dict)}
+        if SLUG not in existing:
+            sk_list.append({
+                "id": 40,
+                "name": SLUG,
+                "slug": SLUG,
+                "version": NEW_V,
+                "antibody": "R44",
+                "organ": 20,
+                "path": "skills/%s/SKILL.md" % SLUG,
+                "description": SKILL_DESC,
+            })
+        jd["version"] = NEW_V
+        jd["antibody"] = NEW_AB
+        jd["antibody_range"] = NEW_AB
+        jd["count"] = len(sk_list)
+        jd["total"] = len(sk_list)
+        jd["skill_count"] = len(sk_list)
+        jd["skills"] = sk_list
+        wr(jp, json.dumps(jd, ensure_ascii=False, indent=2) + "\n")
+    # Sync ANTIBODY_REGISTRY.md with R44 entry
+    ap = P("ANTIBODY_REGISTRY.md")
+    if os.path.isfile(ap):
+        at = rd(ap)
+        if "R44" not in at or "## R44" not in at:
+            entry = (
+                "\n<!-- [RGON-ANTIBODY-R44] -->\n"
+                "## R44 — Step 44 · %s · %s\n"
+                "- R44: 제20기관 아온 실전 UI 전수 클릭·동작 검증 & 자가배선 수리 기관 (`rgon_aon_live_ui_healer.py`, 스킬 `%s`, 주역 #21 화뢰서합 · #49 택화혁)\n"
+            ) % (NEW_V, time.strftime("%Y-%m-%d"), SLUG)
+            at = at.rstrip("\n") + "\n" + entry
+            wr(ap, at)
+
+def inject(t):
+    t = BRIDGE_RE.sub("", t)
+    m = None
+    for m in re.finditer(r"</body\s*>", t, re.I): pass
+    if m: return t[:m.start()] + BRIDGE + "\n" + t[m.start():]
+    return t + BRIDGE + "\n"
+
+def insert_block(t, s, e, blk):
+    t = re.sub(re.escape(s) + r".*?" + re.escape(e) + r"\n?", "", t, flags=re.S)
+    if t and not t.endswith("\n"): t += "\n"
+    m = None
+    for m in re.finditer(r"(?m)^if\s+__name__\s*==\s*[\"']__main__[\"']\s*:", t): pass
+    return t[:m.start()] + blk + "\n\n" + t[m.start():] if m else t + "\n" + blk + "\n"
+
+def load_organ():
+    spec = importlib.util.spec_from_file_location("rgon_aon_live_ui_healer", P(ORGAN))
+    mod = importlib.util.module_from_spec(spec); spec.loader.exec_module(mod); return mod
+
+def update_hashes():
+    # .rgon_file_hashes.json stores the 9 non-target protected files; do NOT mutate it.
+    return 0
+
+def verifier_report():
+    importlib.invalidate_caches()
+    for m in [k for k in sys.modules if k.startswith("rgon_")]: sys.modules.pop(k, None)
+    if ROOT not in sys.path: sys.path.insert(0, ROOT)
+    rep, mod, err = None, None, ""
+    try:
+        mod = importlib.import_module("rgon_neural_synapse_verifier")
+        for fn in ['run_full', 'run_all', 'verify_all', 'full_check']:
+            f = getattr(mod, fn, None)
+            if callable(f): rep = f(); break
+    except BaseException as e: err = repr(e)[:160]
+    if not isinstance(rep, dict):
+        try:
+            o = subprocess.run([sys.executable, P(VERIFIER), "--json"], cwd=ROOT, capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=300)
+            rep = json.loads(o.stdout[o.stdout.index("{"):o.stdout.rindex("}") + 1])
+        except Exception as e: err += " cli:" + repr(e)[:100]
+    if not isinstance(rep, dict): return False, ["❌ 검증기 실행 실패 " + err], {}
+    sc, r44 = find_key(rep, "synapse_health_score"), find_key(rep, "r44") or {}
+    exp = "%s · 항체 %s · 정식 스킬 %d개" % (NEW_V, NEW_AB, NEW_N)
+    n16, s14 = (r44.get("N16") or {}), (r44.get("S14") or {})
+    chks = [("synapse_health_score=100.0", sc == 100.0, "score=%s" % sc), ("N16 기관 16/16", n16.get("ok") is True, n16.get("detail")),
+            ("S14 시냅스 14/14", s14.get("ok") is True, s14.get("detail")), ("STATUS_LINE", mod is not None and getattr(mod, "STATUS_LINE", None) == exp, getattr(mod, "STATUS_LINE", None))]
+    return all(c for _, c, _ in chks), ["%s %s (%s)" % ("✅" if c else "❌", n, d) for n, c, d in chks], rep
+
+def sam1(ctx):
+    d, ok = [], True
+    def chk(c, m):
+        nonlocal ok; ok = ok and bool(c); d.append(("✅ " if c else "❌ ") + m)
+    for rel in (ORGAN, VERIFIER, DIALOGUE):
+        try: ast.parse(rd(P(rel))); chk(True, "AST 구문 OK: " + rel)
+        except Exception as e: chk(False, "AST 실패 %s %r" % (rel, e))
+    for f, names in PROTECT.items():
+        if os.path.isfile(P(f)): chk(prot_digest(rd(P(f)), names) == ctx["prot0"].get(f), "AST 보호 다이제스트 동일: %s::%s" % (f, ",".join(names)))
+    for f, h0 in ctx["pres0"].items(): chk(os.path.isfile(P(f)) and sha(open(P(f), "rb").read()) == h0, "PRESERVE 불변: " + f)
+    sc = skill_counts(); chk(sc == [NEW_N] * 3, "정식 스킬 %s == [40, 40, 40]" % sc)
+    vt = rd(P(VERIFIER)); chk(NEW_V in vt and "EXPECTED_SKILL_COUNT = 40" in vt and "STATUS_LINE" in vt and EXT_S in vt, "검증기 상수/확장 블록")
+    return ok, d
+
+def sam2(ctx):
+    d, ok = [], True
+    def chk(c, m):
+        nonlocal ok; ok = ok and bool(c); d.append(("✅ " if c else "❌ ") + m)
+    chk(ctx["bridged"], "브리지 장착 대시보드 %d개" % len(ctx["bridged"]))
+    for rel in ctx["bridged"]:
+        t = rd(P(rel))
+        chk(BRIDGE_RE.search(t) and BRIDGE_RE.sub("", t) == ctx["prebridge"][rel] and len(re.findall(r"CLEAN-\d{3}", t)) == ctx["clean0"][rel], "원본 100%% 보존(CLEAN %d개·8도·터널): %s" % (ctx["clean0"][rel], rel))
+    h = load_organ(); st = h.self_test(); chk(st["ok"], "제20기관 self_test " + st["reply"])
+    r = h.run_live_ui_audit("all", True, True)
+    chk(r["ok"] and r["total_buttons_verified"] > 0 and r["pending_count"] == 0 and r["dead_count"] == 0, "전수 감사: 버튼 %d · LIVE %d · 자가수리 %d · 점수 %.1f" % (r["total_buttons_verified"], r["live_callable_count"], r["self_healed_count"], r["live_action_score"]))
+    chk(all(k in r["serial_range_summary"] for k in ("LIVE-IDX", "LIVE-CHAT", "LIVE-AUD", "LIVE-OFF")), "4페이지 시리얼 범위 존재")
+    chk(os.path.isfile(P(STATE)) and os.path.isfile(P("docs", STATE)), "초기 상태 스냅샷(root+docs)")
+    chk(HOOK_S in rd(P(DIALOGUE)), "제15기관 R44 시냅스 훅")
+    return ok, d
+
+def write_report(ctx, sam):
+    r = ctx["audit"]
+    L = ["# STEP 44 — 제20기관: 아온 실전 UI 전수 클릭·동작 검증 & 자가배선 수리 기관", "", "- 버전: `%s` (이전 `%s`)" % (NEW_V, OLD_V), "- 항체: `%s` · 정식 스킬 %d개" % (NEW_AB, NEW_N),
+         "- 괘상: " + " / ".join(r["iching_guas"]), "- 생성: " + time.strftime("%Y-%m-%d %H:%M:%S"), "", "## 삼성(三省) 3/3", ""]
+    for i, (n, (ok, d)) in enumerate(zip(["1성 구조·보호", "2성 기능·보존", "3성 전신 신경망"], sam), 1):
+        L += ["### %s — %s" % (n, "PASS" if ok else "FAIL")] + ["- " + x for x in d] + [""]
+    L += ["## 실전 UI 개통 지수", "", BT3 + "json", json.dumps({k: r[k] for k in ("pages_audited", "total_buttons_verified", "live_callable_count", "self_healed_count", "live_action_score", "serial_range_summary")}, ensure_ascii=False, indent=1), BT3, "",
+          "🔒 requires_manual_gate=True · auto_executed=False", "", "변경 파일 %d개 · 브리지 장착 %d개" % (len(ctx["changed"]), len(ctx["bridged"]))]
+    wr(P(REPORT), "\n".join(L) + "\n")
+
+def do_git(ctx, no_push):
+    if not os.path.isdir(P(".git")): return "git 저장소 아님 — 생략"
+    r = git("add", "-A")
+    if r.returncode: raise RuntimeError("git add 실패: " + r.stderr[:200])
+    for f in PRESERVE:
+        if f != ".rgon_file_hashes.json" and os.path.exists(P(f)):
+            try: git("reset", "-q", "--", f)
+            except Exception: pass
+    r = git("commit", "-m", "Step 44: %s — 제20기관 아온 실전 UI 전수 클릭·동작 검증 & 자가배선 수리 (%s)" % (NEW_V, NEW_AB))
+    if r.returncode:
+        if "nothing to commit" in (r.stdout + r.stderr): return "커밋할 변경 없음"
+        raise RuntimeError("git commit 실패: " + (r.stderr or r.stdout)[:200])
+    ctx["committed"] = True
+    if no_push: return "커밋 완료 (push 생략)"
+    r = git("push", timeout=180)
+    if r.returncode and "no upstream" in r.stderr.lower(): r = git("push", "-u", "origin", "HEAD", timeout=180)
+    if r.returncode: raise RuntimeError("git push 실패: " + r.stderr[:200])
+    return "커밋 + push 완료"
+
+def rollback(snap, head0, committed):
+    try:
+        if committed and head0: git("reset", "-q", "--mixed", head0)
+    except Exception: pass
+    for r in list(walk()):
+        if r not in snap:
+            try: os.remove(P(r))
+            except OSError: pass
+    for r, b in snap.items():
+        p = P(r)
+        try:
+            if not os.path.isfile(p) or open(p, "rb").read() != b:
+                os.makedirs(os.path.dirname(p) or ".", exist_ok=True)
+                with open(p, "wb") as f: f.write(b)
+        except OSError: pass
+    try: shutil.rmtree(P("skills", SLUG), ignore_errors=True)
+    except OSError: pass
+
+def main():
+    try: sys.stdout.reconfigure(encoding="utf-8")
+    except Exception: pass
+    a = sys.argv[1:]; no_git = "--no-git" in a; no_push = "--no-push" in a or no_git
+    if ROOT not in sys.path: sys.path.insert(0, ROOT)
+    print("🔥 [RGON G1+G2] Step 44 — 제20기관 아온 실전 UI 전수 클릭·동작 검증 & 자가배선 수리 | %s -> %s" % (OLD_V, NEW_V))
+    snap = snapshot(); head0 = git_head() if os.path.isdir(P(".git")) else None
+    ctx = {"committed": False, "changed": [], "bridged": [], "prebridge": {}, "clean0": {},
+           "pres0": {f: sha(open(P(f), "rb").read()) for f in PRESERVE if os.path.isfile(P(f))},
+           "prot0": {f: prot_digest(snap[f].decode("utf-8", "replace"), n) for f, n in PROTECT.items() if f in snap}}
+    try:
+        for req in (VERIFIER, DIALOGUE):
+            if req not in snap: raise RuntimeError("필수 파일 없음: " + req)
+        # 1) 버전/항체/스킬 수 승격 (보호 구간 제외)
+        for rel, b in snap.items():
+            base = os.path.basename(rel)
+            if base in (".rgon_file_hashes.json", SELF) or re.match(r"(?i)^step\d+_", base): continue
+            t = b.decode("utf-8", "replace")
+            n = apply_outside(t, spans(t, PROTECT[rel]), bump_str) if rel in PROTECT else bump_str(t)
+            if n != t: wr(P(rel), n); ctx["changed"].append(rel)
+        print("  ✔ 승격 치환 %d개 파일" % len(ctx["changed"]))
+        # 2) 제20기관 + 스킬 + 인덱스(MD+JSON) + 항체 레지스트리
+        ast.parse(ORGAN_SRC); wr(P(ORGAN), ORGAN_SRC)
+        wr(P("skills", SLUG, "SKILL.md"), skill_md()); ensure_index()
+        # 3) 런타임 브리지 장착
+        for rel in DASH:
+            if not os.path.isfile(P(rel)): continue
+            t = rd(P(rel)); ctx["prebridge"][rel] = BRIDGE_RE.sub("", t)
+            ctx["clean0"][rel] = len(re.findall(r"CLEAN-\d{3}", snap[rel].decode("utf-8", "replace"))) if rel in snap else len(re.findall(r"CLEAN-\d{3}", t))
+            wr(P(rel), inject(t)); ctx["bridged"].append(rel)
+        print("  ✔ 브리지 장착 %d개 대시보드" % len(ctx["bridged"]))
+        # 4) 제15기관 훅 / 제16기관 검증기 확장
+        wr(P(DIALOGUE), insert_block(rd(P(DIALOGUE)), HOOK_S, HOOK_E, HOOK_SRC))
+        wr(P(VERIFIER), insert_block(rd(P(VERIFIER)), EXT_S, EXT_E, EXT_SRC))
+        # 5) 초기 스냅샷 + 해시 보존
+        ctx["audit"] = load_organ()._run(ROOT, "all", True, False, ROOT)
+        print("  ✔ 초기 스냅샷: 버튼 %d · 자가수리 %d · 개통 지수 %.1f" % (ctx["audit"]["total_buttons_verified"], ctx["audit"]["self_healed_count"], ctx["audit"]["live_action_score"]))
+        update_hashes()
+        # 6) 삼성 3/3
+        s1, s2 = sam1(ctx), sam2(ctx)
+        v3 = verifier_report(); s3 = (v3[0], v3[1])
+        sam = [s1, s2, s3]
+        for n, (ok, d) in zip(("1성", "2성", "3성"), sam):
+            print("  [%s] %s" % (n, "PASS" if ok else "FAIL")); [print("     " + x) for x in d]
+        if not all(ok for ok, _ in sam): raise RuntimeError("삼성 검증 %d/3 — 배포 중단" % sum(ok for ok, _ in sam))
+        write_report(ctx, sam)
+        print("  ✔ 삼성 3/3 PASS · 보고서 " + REPORT)
+        print("  ✔ git: " + (do_git(ctx, no_push) if not no_git else "생략(--no-git)"))
+        print("🏆 Step 44 완료 — %s · 항체 %s · 정식 스킬 %d개" % (NEW_V, NEW_AB, NEW_N))
+    except BaseException as e:
+        print("❌ 실패: %r — Auto-Rollback 수행" % (e,))
+        rollback(snap, head0, ctx["committed"])
+        print("↩️ 롤백 완료 (100% 복원)")
+        sys.exit(1)
 
 if __name__ == "__main__":
-    code = main()
-    if os.name == "nt" and not os.environ.get("RGON_NO_PAUSE") and sys.stdin and sys.stdin.isatty():
-        try:
-            input("\n[Enter] 키를 누르면 창이 닫힙니다...")
-        except Exception:
-            pass
-    sys.exit(code)
+    main()

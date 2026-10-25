@@ -1,6 +1,6 @@
 {
   "at_kst": "2026-10-26 00:23:47 KST",
-  "version": "v11.42-AON-OMNI-NEXUS",
+  "version": "v11.43-AON-LIVE-UI-HEALER",
   "organs": {
     "1_radar": {
       "ok": true,
@@ -11,7 +11,7 @@
     "2_nutrient": {
       "ok": true,
       "rc": 0,
-      "skill_count": 39,
+      "skill_count": 40,
       "report": true
     },
     "3_ticket_shield": {
