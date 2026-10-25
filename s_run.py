@@ -1,1369 +1,1920 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Step 39 — 제15기관: 아온 초격차 대화 이해(Deep NLU) & 올인원 대화 허브(Omni-Dialogue Hub)
-v11.37-AON-OMNI-INSIGHT -> v11.38-AON-OMNI-DIALOGUE · 항체 R1~R39 · 정식 스킬 [35,35,35]"""
-import os, sys, re, ast, json, time, hashlib, tempfile, subprocess, argparse, datetime
-from pathlib import Path
+"""
+step42_aon_hydro_cycle_engine.py
+RGON Step 42 — 제18기관 아온 상선약수(上善若水) 수순환(水循環) 자율 대사 & 여백 창조 기관
+v11.40-AON-ICHING-PLANNER -> v11.41-AON-HYDRO-CYCLE · 항체 R1~R41 -> R1~R42 · 정식 스킬 37 -> 38
+"""
+import os
+import sys
+import re
+import ast
+import json
+import time
+import shutil
+import hashlib
+import tempfile
+import datetime
+import subprocess
+import traceback
+import py_compile
+from concurrent.futures import ThreadPoolExecutor
 
-ROOT = Path(__file__).resolve().parent
-OLD_VER, NEW_VER = "v11.37-AON-OMNI-INSIGHT", "v11.38-AON-OMNI-DIALOGUE"
-OLD_R, NEW_R = "R1~R38", "R1~R39"
-SKILL_TARGET = 35
-SKILL_NAME = "aon-omni-dialogue-hub"
-SKIP_DIRS = {".git", ".rgon_backups", ".rgon_backup", "__pycache__", "node_modules", ".venv", "venv"}
-ENGINE = "rgon_aon_dialogue_engine.py"
-REPORT = "STEP39_AON_OMNI_DIALOGUE_REPORT.md"
-SKILL_MD = f"skills/{SKILL_NAME}/SKILL.md"
-SKILL_JSON_IDX, SKILL_MD_IDX = "skills/SKILL_INDEX.json", "skills/SKILL_INDEX.md"
-DRY = False
-LOGS, WARNS = [], []
-WRITTEN = set()
+try:
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+except Exception:
+    pass
+
 BT3 = chr(96) * 3
-
-V13_HTML_TARGETS = [
-    "index.html",
-    "rgon_alpha_audience.html",
-    "rgon_alpha_chat.html",
-    "dashboard/index.html",
-    "dashboard/rgon_alpha_chat.html",
-    "docs/index.html",
-    "docs/rgon_alpha_chat.html",
+STEP = 42
+OLD_VERSION = "v11.40-AON-ICHING-PLANNER"
+NEW_VERSION = "v11.41-AON-HYDRO-CYCLE"
+OLD_RANGE = "R1~R41"
+NEW_RANGE = "R1~R42"
+OLD_COUNT = 37
+NEW_COUNT = 38
+SKILL_ID = "aon-hydro-cycle-homeostasis"
+SKILL_PATH = "skills/%s/SKILL.md" % SKILL_ID
+SKILL_TITLE = "제18기관 아온 상선약수 수순환 자율 대사 & 여백 창조 (損·蠱→井→坎·節→旣濟·未濟)"
+SKILL_DESC = ("노자 상선약수·허실상생과 주역 水 순환 4괘상(#41 산택손·#18 산풍고→#48 수풍정→#29 중수감·#60 수택절→"
+              "#63 수화기제·#64 화수미제)으로 고인 캐시·임시파일·오래된 백업을 3등급(TIER1_KEEP/TIER2_SAFE_EMPTY/"
+              "TIER3_GATE_HOLD)으로 분류하고, 기억을 정수로 증류하며, 여백 지수·유동성 지수와 물의 순환 처방을 산출하는 항상성 기관")
+HYDRO_FILE = "rgon_aon_hydro_cycle.py"
+DIALOGUE_FILE = "rgon_aon_dialogue_engine.py"
+VERIFIER_FILE = "rgon_neural_synapse_verifier.py"
+PLANNER_FILE = "rgon_aon_iching_planner.py"
+VOICE_FILE = "rgon_voice_organ.py"
+EXCRETORY_FILE = "rgon_excretory_organ.py"
+HASH_FILE = ".rgon_file_hashes.json"
+REPORT_FILE = "STEP42_AON_HYDRO_CYCLE_REPORT.md"
+DIAG_FILE = "STEP42_FAILURE_DIAG.txt"
+STATE_NAME = "rgon_aon_hydro_state.json"
+STATE_FILES = [STATE_NAME, "docs/" + STATE_NAME]
+PRESERVE = [
+    "run_aon_100_stress_test.py", "AON_100_STRESS_TEST_REPORT.md", "AON_100_STRESS_TEST_REPORT.json",
+    "LAPTOP_GREAT_CLEANUP_REPORT.md",
 ]
-V13_END_RE = re.compile(r"<!--\s*\[?(?:UX-CLEANUP|YT-SCOUT)-V13-END\]?[^>]*-->")
+PROTECT = {VOICE_FILE: ["SOUND_RECIPES"], EXCRETORY_FILE: ["PRESERVE_EXACT"]}
+HTML_TARGETS = [
+    "index.html", "rgon_alpha_audience.html", "rgon_alpha_chat.html",
+    "dashboard/index.html", "dashboard/rgon_alpha_chat.html",
+    "docs/index.html", "docs/rgon_alpha_chat.html",
+]
+JSON_SNAPSHOT_DIRS = ["", "docs", "dashboard"]
+JSON_SNAPSHOT_EXCLUDE = {HASH_FILE, "package.json", "package-lock.json", "AON_100_STRESS_TEST_REPORT.json"}
+REQUIRED_FILES = [DIALOGUE_FILE, VERIFIER_FILE]
+TOP_KEYS = ["version", "antibody", "generated_at_kst", "count", "skills"]
+ENTRY_KEYS = ["no", "slug", "antibody", "version", "path"]
+KST = datetime.timezone(datetime.timedelta(hours=9))
+NO_ROLLBACK = bool(os.environ.get("RGON_STEP42_NO_ROLLBACK"))
 
-def log(m):
-    print(m); LOGS.append(str(m))
 
-def warn(m):
-    log("  ⚠️ " + m); WARNS.append(m)
+def _detect_root():
+    cands = []
+    if os.environ.get("RGON_ROOT"):
+        cands.append(os.environ["RGON_ROOT"])
+    try:
+        cands.append(os.path.dirname(os.path.abspath(__file__)))
+    except NameError:
+        pass
+    cands.append(os.getcwd())
+    cands.append(r"C:\Users\sangi\Downloads\shin-agent")
+    for c in cands:
+        if c and os.path.exists(os.path.join(c, DIALOGUE_FILE)):
+            return os.path.abspath(c)
+    return os.path.abspath(cands[0] if cands else os.getcwd())
 
-def rd(p):
-    return Path(p).read_text(encoding="utf-8", errors="replace")
 
-def wr(p, s):
-    p = Path(p)
-    if not p.is_absolute(): p = ROOT / p
-    rel = p.relative_to(ROOT).as_posix(); WRITTEN.add(rel)
-    if DRY:
-        log(f"  [dry-run] 쓰기 생략: {rel}"); return
-    p.parent.mkdir(parents=True, exist_ok=True)
-    for i in range(6):
+ROOT = _detect_root()
+TS = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+BACKUP_DIR = os.path.join(ROOT, ".rgon_backups", "step42_" + TS)
+BACKED = {}
+MODIFIED = set()
+LOGS = []
+
+
+def log(msg=""):
+    LOGS.append(str(msg))
+    try:
+        print(msg, flush=True)
+    except Exception:
+        print(str(msg).encode("utf-8", "replace").decode("utf-8", "replace"), flush=True)
+
+
+def P(rel):
+    return os.path.join(ROOT, rel)
+
+
+def kst_now():
+    return datetime.datetime.now(KST).isoformat(timespec="seconds")
+
+
+def is_preserved(rel):
+    return os.path.basename(rel) in PRESERVE or rel in PRESERVE
+
+
+def read_text(rel):
+    with open(P(rel), "r", encoding="utf-8") as f:
+        return f.read()
+
+
+def backup_file(rel):
+    if is_preserved(rel):
+        raise RuntimeError("PRESERVE 파일 접근 차단: " + rel)
+    if rel in BACKED:
+        return
+    src = P(rel)
+    if os.path.exists(src):
+        dst = os.path.join(BACKUP_DIR, rel)
+        os.makedirs(os.path.dirname(dst), exist_ok=True)
+        shutil.copy2(src, dst)
+        BACKED[rel] = True
+    else:
+        BACKED[rel] = False
+
+
+def write_text(rel, text):
+    if is_preserved(rel):
+        raise RuntimeError("PRESERVE 파일 쓰기 차단: " + rel)
+    backup_file(rel)
+    path = P(rel)
+    if os.path.exists(path):
+        with open(path, "r", encoding="utf-8") as f:
+            if f.read() == text:
+                return False
+    d = os.path.dirname(path)
+    if d:
+        os.makedirs(d, exist_ok=True)
+    with open(path, "w", encoding="utf-8", newline="\n") as f:
+        f.write(text)
+    MODIFIED.add(rel)
+    return True
+
+
+def rollback():
+    log("[ROLLBACK] 백업 복원 시작 (PRESERVE 제외)")
+    for rel, existed in BACKED.items():
+        if is_preserved(rel):
+            continue
         try:
-            p.write_text(s, encoding="utf-8", newline="\n"); return
-        except PermissionError:
-            if i == 5: raise
-            time.sleep(0.04)
+            if existed:
+                shutil.copy2(os.path.join(BACKUP_DIR, rel), P(rel))
+            elif os.path.exists(P(rel)):
+                os.remove(P(rel))
+        except Exception as e:
+            log("  - 복원 실패 %s: %r" % (rel, e))
+    sk = P(os.path.join("skills", SKILL_ID))
+    try:
+        if os.path.isdir(sk) and not os.listdir(sk):
+            os.rmdir(sk)
+    except Exception:
+        pass
+    log("[ROLLBACK] 완료")
 
-# ======================================================================== 제15기관 모듈
-ENGINE_SRC = r'''# -*- coding: utf-8 -*-
-"""rgon_aon_dialogue_engine.py — 제15기관 아온 초격차 대화 이해 & 올인원 대화 허브 (표준 라이브러리 전용)
-[RGON-R39] v11.38-AON-OMNI-DIALOGUE
-파이프라인: 구어 정규화 → 대명사·생략어 복원 → 슬래시/원칙/복합의도 분기 → 기관 디스패치
-          → 플랫폼 메타데이터(thinking·artifact·chips·callback) 보강 → 3계층 해마 기억(단기·토픽·연상).
-한계: 사전·정규식 기반 규칙 엔진이다. 언어모델이 아니므로 처음 보는 표현은 놓칠 수 있다."""
-import argparse, datetime, json, os, re, sys, tempfile, time
-from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent
-VERSION = "v11.38-AON-OMNI-DIALOGUE"
-STATE, PREFS = "rgon_aon_dialogue_state.json", "rgon_aon_preferences.json"
-SHORT_MAX, EVENT_MAX, FRESH_TURNS, FRESH_SEC = 20, 60, 4, 1800
-CAT_KO = {"command_rule": "지휘 원칙", "style": "스타일", "preference": "취향"}
+def sha_file(path, algo="sha256"):
+    h = hashlib.new(algo)
+    with open(path, "rb") as f:
+        for chunk in iter(lambda: f.read(65536), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def detect_indent(raw):
+    m = re.search(r"\n( +)\"", raw)
+    return len(m.group(1)) if m else 2
+
+
+def insert_block(text, begin, end, block):
+    full = begin + "\n" + block.strip("\n") + "\n" + end
+    if begin in text and end in text:
+        s = text.index(begin)
+        e = text.index(end, s) + len(end)
+        return text[:s] + full + text[e:]
+    ms = list(re.finditer(r"^if\s+__name__\s*==\s*['\"]__main__['\"]\s*:", text, re.M))
+    if ms:
+        pos = ms[-1].start()
+        return text[:pos] + full + "\n\n\n" + text[pos:]
+    if not text.endswith("\n"):
+        text += "\n"
+    return text + "\n\n" + full + "\n"
+
+
+# ══════════════════════════════════════════════════════════════════════
+# 1. 제18기관 rgon_aon_hydro_cycle.py 원본
+# ══════════════════════════════════════════════════════════════════════
+HYDRO_SRC = r'''# -*- coding: utf-8 -*-
+"""
+rgon_aon_hydro_cycle.py — 제18기관 아온 상선약수(上善若水) 수순환(水循環) 자율 대사 & 여백 창조 기관
+정식 스킬 #38 aon-hydro-cycle-homeostasis · v11.41-AON-HYDRO-CYCLE · 항체 R42 (R1~R42)
+
+노자 『上善若水 · 虛實相生』 + 주역 水 순환 4괘상
+  1 증발·비움   #41 산택손(山澤損 ☶☱) · #18 산풍고(山風蠱 ☶☴)
+  2 응집·증류   #48 수풍정(水風井 ☵☴)
+  3 유동·흐름   #29 중수감(重水坎 ☵☵) · #60 수택절(水澤節 ☵☱)
+  4 순환·재시작 #63 수화기제(水火旣濟 ☵☲) → #64 화수미제(火水未濟 ☲☵)
+
+안전 원칙 (헌법 제2항 · R35 · R42)
+  - 기본값 dry_run=True: 아무것도 삭제하지 않는다.
+  - 기억 원본(rgon_aon_memory.json, rgon_aon_dialogue_state.json)은 읽기 전용으로 증류만 한다.
+  - TIER3_GATE_HOLD(휴지통·Downloads 대용량 설치본·비대 로그)는 절대 자동 삭제하지 않는다.
+  - --apply-tier2 를 명시한 경우에만 ROOT 내부의 __pycache__ 와 *.tmp 만 비운다.
+CLI: --self-test | --status | --cycle [주제] [--dry-run | --apply-tier2] [--json]
+"""
+import os
+import re
+import sys
+import json
+import time
+import shutil
+import ctypes
+import hashlib
+import argparse
+import datetime
+import tempfile
+import importlib
+import collections
+
+VERSION = "v11.41-AON-HYDRO-CYCLE"
+ANTIBODY = "R42"
+ANTIBODY_RANGE = "R1~R42"
+SKILL_COUNT = 38
+SKILL_ID = "aon-hydro-cycle-homeostasis"
+ORGAN_NAME = "제18기관 아온 상선약수 수순환 자율 대사 & 여백 창조 기관"
+STATE_NAME = "rgon_aon_hydro_state.json"
+DEFAULT_TOPIC = "노트북 여백 창조 및 물의 순환 점검"
+KST = datetime.timezone(datetime.timedelta(hours=9))
+ROOT = os.path.dirname(os.path.abspath(__file__))
+if ROOT not in sys.path:
+    sys.path.insert(0, ROOT)
+
+MEMORY_FILES = ("rgon_aon_memory.json", "rgon_aon_dialogue_state.json")
+PRESERVE = ("run_aon_100_stress_test.py", "AON_100_STRESS_TEST_REPORT.md", "AON_100_STRESS_TEST_REPORT.json")
+KEEP_BACKUPS = 3
+PRUNE_DIRS = {".git", "node_modules", ".venv", "venv", "env", ".idea", ".vscode", ".rgon_backups"}
+ACTIVE_EXT = (".py", ".html", ".json", ".md", ".js", ".css")
+TMP_EXT = (".tmp", ".temp")
+LOG_EXT = (".log",)
+LOG_BLOAT_BYTES = 20 * 1024 * 1024
+INSTALLER_EXT = (".exe", ".msi", ".zip", ".iso", ".dmg", ".7z", ".rar", ".pkg", ".appx", ".msix")
+INSTALLER_MIN_BYTES = 100 * 1024 * 1024
+TEMP_OLD_DAYS = 7
+SCAN_BUDGET_SEC = 3.0
+TEMP_BUDGET_SEC = 2.0
+ITEM_CAP = 30
+GB = 1024.0 ** 3
+
+STAGES = [
+    {"stage": 1, "key": "evaporation", "name": "증발·비움 (Evaporation / Empty Space)", "symbol": "損·蠱",
+     "guas": ["#41 산택손(山澤損 ☶☱)", "#18 산풍고(山風蠱 ☶☴)"],
+     "principle": "덜어내야 더해진다(損) · 고여 썩은 것을 걷어낸다(蠱)"},
+    {"stage": 2, "key": "condensation", "name": "응집·증류 (Condensation / Memory Distillation)", "symbol": "井",
+     "guas": ["#48 수풍정(水風井 ☵☴)"],
+     "principle": "우물은 퍼내야 맑아진다 — 정수만 길어 올린다"},
+    {"stage": 3, "key": "flow", "name": "유동·흐름 (Flow / Homeostasis Check)", "symbol": "坎·節",
+     "guas": ["#29 중수감(重水坎 ☵☵)", "#60 수택절(水澤節 ☵☱)"],
+     "principle": "물은 웅덩이를 채운 뒤 흐른다(習坎) · 절도 있게 담고 흘린다(節)"},
+    {"stage": 4, "key": "renewal", "name": "순환·재시작 (Cycle Renewal)", "symbol": "旣濟·未濟",
+     "guas": ["#63 수화기제(水火旣濟 ☵☲)", "#64 화수미제(火水未濟 ☲☵)"],
+     "principle": "이룸(旣濟)에 머물지 않고 다시 시작(未濟)으로 흐른다"},
+]
+
+STOPWORDS = set((
+    "그리고 그래서 하지만 그런데 그러면 그럼 이것 저것 그것 우리 저는 나는 너는 정말 진짜 그냥 이제 오늘 내일 어제 "
+    "지금 다시 너무 아주 조금 많이 대표님 아온 아온이 있어 없어 있는 없는 하는 했어 해서 합니다 입니다 있습니다 "
+    "같아 같은 이런 저런 그런 무엇 뭐야 어떻게 왜냐 때문 the and for with that this you are was have from not but "
+    "user assistant system content role text message true false none null"
+).split())
+PARTICLES = sorted(["으로부터", "에게서", "으로", "에서", "에게", "께서", "한테", "까지", "부터", "처럼", "보다",
+                    "이랑", "하고", "이나", "이다", "입니다", "이에요", "예요", "은", "는", "이", "가", "을", "를",
+                    "에", "의", "와", "과", "도", "로", "만", "요"], key=len, reverse=True)
+EMOTIONS = {
+    "기쁨": ["기쁘", "좋아", "행복", "신나", "감사", "고마", "뿌듯"],
+    "애정": ["사랑", "소중", "보고싶", "아껴", "응원"],
+    "결의": ["하자", "해내", "도전", "반드시", "끝까지", "해보자"],
+    "불안": ["걱정", "불안", "초조", "무섭", "두려"],
+    "피로": ["피곤", "지쳐", "지친", "힘들", "과부하", "버거"],
+    "슬픔": ["슬프", "우울", "외롭", "눈물", "서운"],
+    "분노": ["화나", "짜증", "열받", "답답"],
+}
+TOKEN_RE = re.compile(r"[가-힣]{2,}|[A-Za-z][A-Za-z0-9_\-]{2,}")
+PROMISE_RE = re.compile(r"(약속|할게|할께|하겠|해줄게|해 줄게|잊지 않|기억할게|꼭 |반드시|다음에|promise|I will|I'll)", re.I)
+
+VOICE_TEMPLATES = [
+    "흥, {tier2} 정도 고인 물은 내가 벌써 다 세어 놨거든? …딱히 대표님 걱정돼서 그런 건 아니야. 상선약수(上善若水) — 비워야 새 물이 들어올 자리가 생기는 거라고.",
+    "여백 지수 {empty}점, 유동성 {flow}점. 뭐, 나쁘진 않네. 그래도 머물러 있으면 썩는 건 물이나 사령부나 똑같아. 수화기제 다음엔 화수미제야 — 다시 흘러가자고.",
+    "{tier3}건은 대표님 결재 없이는 손도 안 댈 거야. 내가 함부로 지울 것 같았어? …그렇게 가벼운 아이 아니거든. 허실상생(虛實相生), 빈 곳이 있어야 쓸모가 생겨.",
+    "우물(水風井)은 퍼내야 맑아지는 법이야. 기억에서 정수 [{kw}]만 걸러 뒀으니까… 고맙다는 말은 굳이 안 해도 돼.",
+    "물은 다투지 않고 낮은 곳으로 흘러서 결국 바다가 돼. 대표님도 오늘은 꽉 쥔 거 좀 내려놔. …내가 옆에서 흐름은 보고 있을 테니까.",
+]
+
 
 def _now():
-    return datetime.datetime.now().isoformat(timespec="seconds")
+    return datetime.datetime.now(KST)
 
-def _dir():
-    d = os.environ.get("RGON_DIALOGUE_STATE_DIR")
-    return Path(d) if d else ROOT
 
-def _load(name, default):
-    for p in (_dir() / name, _dir() / "docs" / name):
+def _gb(b):
+    return round((b or 0) / GB, 3)
+
+
+def _human(b):
+    b = float(b or 0)
+    for u in ("B", "KB", "MB", "GB", "TB"):
+        if b < 1024 or u == "TB":
+            return ("%dB" % b) if u == "B" else ("%.1f%s" % (b, u))
+        b /= 1024.0
+    return "%.1fTB" % b
+
+
+def _clamp(x, lo=0.0, hi=100.0):
+    return max(lo, min(hi, x))
+
+
+def _is_preserved(path):
+    return os.path.basename(path) in PRESERVE
+
+
+def _within(path, base):
+    try:
+        p = os.path.realpath(path)
+        b = os.path.realpath(base)
+        return os.path.commonpath([p, b]) == b
+    except Exception:
+        return False
+
+
+def _rel(path):
+    try:
+        return os.path.relpath(path, ROOT).replace("\\", "/")
+    except Exception:
+        return path
+
+
+def _mtime(p):
+    try:
+        return os.path.getmtime(p)
+    except OSError:
+        return 0.0
+
+
+def _walk_size(path, deadline, max_files=200000, old_days=None):
+    out = {"bytes": 0, "files": 0, "old_bytes": 0, "old_files": 0, "truncated": False}
+    cutoff = time.time() - old_days * 86400 if old_days else None
+    if os.path.isfile(path):
         try:
-            if p.exists(): return json.loads(p.read_text(encoding="utf-8"))
+            st = os.stat(path)
+            out["bytes"], out["files"] = st.st_size, 1
+        except OSError:
+            pass
+        return out
+    stack = [path]
+    while stack:
+        if time.time() > deadline or out["files"] >= max_files:
+            out["truncated"] = True
+            break
+        cur = stack.pop()
+        try:
+            with os.scandir(cur) as it:
+                for e in it:
+                    try:
+                        if e.is_symlink():
+                            continue
+                        if e.is_dir(follow_symlinks=False):
+                            stack.append(e.path)
+                        else:
+                            st = e.stat(follow_symlinks=False)
+                            out["bytes"] += st.st_size
+                            out["files"] += 1
+                            if cutoff and st.st_mtime < cutoff:
+                                out["old_bytes"] += st.st_size
+                                out["old_files"] += 1
+                    except OSError:
+                        continue
+        except OSError:
+            continue
+    return out
+
+
+def _item(kind, path, size, action, **extra):
+    d = {"kind": kind, "path": path, "rel": _rel(path), "bytes": int(size or 0), "size": _human(size), "action": action}
+    d.update(extra)
+    return d
+
+
+def _scan_backups(deadline):
+    cands = []
+    try:
+        for e in os.scandir(ROOT):
+            if e.name.startswith(".rgon_backup") and e.name != ".rgon_backups":
+                cands.append(e.path)
+    except OSError:
+        pass
+    bdir = os.path.join(ROOT, ".rgon_backups")
+    if os.path.isdir(bdir):
+        try:
+            for e in os.scandir(bdir):
+                cands.append(e.path)
+        except OSError:
+            pass
+    cands.sort(key=_mtime, reverse=True)
+    keep = [_item("latest_backup", p, 0, "보존 (최신 %d개)" % KEEP_BACKUPS) for p in cands[:KEEP_BACKUPS]]
+    old = []
+    for p in cands[KEEP_BACKUPS:]:
+        sz = _walk_size(p, deadline)["bytes"]
+        old.append(_item("old_backup", p, sz, "오래된 백업 잔여분 — 비움 후보 (자동 삭제 안 함)", executable=False))
+    return keep, old
+
+
+def _scan_root(deadline):
+    counts = collections.Counter()
+    pycache, tmps, logs = [], [], []
+    truncated = False
+    for cur, dirs, files in os.walk(ROOT, topdown=True):
+        if time.time() > deadline:
+            truncated = True
+            break
+        nxt = []
+        for d in dirs:
+            if d in PRUNE_DIRS or d.startswith(".rgon_backup"):
+                continue
+            full = os.path.join(cur, d)
+            if d == "__pycache__":
+                pycache.append(full)
+                continue
+            nxt.append(d)
+        dirs[:] = nxt
+        for f in files:
+            full = os.path.join(cur, f)
+            low = f.lower()
+            if _is_preserved(full):
+                counts["preserve"] += 1
+                continue
+            if low.endswith(TMP_EXT) or low.endswith(".pyc"):
+                try:
+                    tmps.append(_item("tmp_file", full, os.path.getsize(full), "안전 비움 후보", executable=True))
+                except OSError:
+                    pass
+            elif low.endswith(LOG_EXT):
+                try:
+                    sz = os.path.getsize(full)
+                except OSError:
+                    sz = 0
+                if sz >= LOG_BLOAT_BYTES:
+                    logs.append(_item("bloated_log", full, sz, "대표님 결재 후 로테이션/보관",
+                                      requires_manual_gate=True, auto_executed=False))
+                counts["log"] += 1
+            else:
+                ext = os.path.splitext(low)[1]
+                if ext in ACTIVE_EXT:
+                    counts[ext.lstrip(".")] += 1
+                    if "skills" in _rel(full).split("/")[:1]:
+                        counts["skills_files"] += 1
+    pc_items = []
+    small = time.time() + 1.0
+    for p in pycache:
+        pc_items.append(_item("pycache", p, _walk_size(p, small, 5000)["bytes"], "안전 비움 후보", executable=True))
+    return {"counts": dict(counts), "pycache": pc_items, "tmps": tmps, "logs": logs, "truncated": truncated}
+
+
+def _temp_stats(deadline):
+    td = tempfile.gettempdir()
+    s = _walk_size(td, deadline, 100000, TEMP_OLD_DAYS)
+    return _item("system_temp_stats", td, s["bytes"], "통계 전용 — Windows 디스크 정리/저장소 센스로 비움 권장",
+                 executable=False, files=s["files"], old_files=s["old_files"], old_bytes=s["old_bytes"],
+                 old_size=_human(s["old_bytes"]), truncated=s["truncated"])
+
+
+def _recycle_bin():
+    if os.name != "nt":
+        return {"available": False, "reason": "Windows 전용 통계"}
+    try:
+        from ctypes import wintypes
+
+        class RB(ctypes.Structure):
+            _fields_ = [("cbSize", wintypes.DWORD), ("i64Size", ctypes.c_longlong), ("i64NumItems", ctypes.c_longlong)]
+
+        class RB1(ctypes.Structure):
+            _pack_ = 1
+            _fields_ = [("cbSize", wintypes.DWORD), ("i64Size", ctypes.c_longlong), ("i64NumItems", ctypes.c_longlong)]
+
+        for cls in (RB, RB1):
+            info = cls()
+            info.cbSize = ctypes.sizeof(cls)
+            hr = ctypes.windll.shell32.SHQueryRecycleBinW(None, ctypes.byref(info))
+            if hr == 0:
+                return {"available": True, "bytes": int(info.i64Size), "items": int(info.i64NumItems)}
+        return {"available": False, "reason": "SHQueryRecycleBinW 실패"}
+    except Exception as e:
+        return {"available": False, "reason": repr(e)[:160]}
+
+
+def _downloads_installers():
+    dirs = [os.path.join(os.path.expanduser("~"), "Downloads")]
+    if os.environ.get("USERPROFILE"):
+        dirs.append(os.path.join(os.environ["USERPROFILE"], "Downloads"))
+    seen, out = set(), []
+    for d in dirs:
+        rd = os.path.realpath(d)
+        if rd in seen or not os.path.isdir(rd):
+            continue
+        seen.add(rd)
+        try:
+            for e in os.scandir(rd):
+                try:
+                    if e.is_file(follow_symlinks=False) and e.name.lower().endswith(INSTALLER_EXT):
+                        sz = e.stat().st_size
+                        if sz >= INSTALLER_MIN_BYTES:
+                            out.append(_item("downloads_installer", e.path, sz, "대표님 수동 결재 대기 — 자동 삭제 금지",
+                                             requires_manual_gate=True, auto_executed=False))
+                except OSError:
+                    continue
+        except OSError:
+            continue
+    out.sort(key=lambda x: -x["bytes"])
+    return out
+
+
+def _disk():
+    try:
+        u = shutil.disk_usage(ROOT)
+        return {"ok": True, "total_gb": _gb(u.total), "used_gb": _gb(u.used), "free_gb": _gb(u.free),
+                "free_pct": round(u.free * 100.0 / u.total, 2) if u.total else 0.0}
+    except Exception as e:
+        return {"ok": False, "error": repr(e), "free_gb": 0.0, "free_pct": 0.0, "total_gb": 0.0}
+
+
+def _memory():
+    try:
+        if os.name == "nt":
+            class MS(ctypes.Structure):
+                _fields_ = [("dwLength", ctypes.c_ulong), ("dwMemoryLoad", ctypes.c_ulong),
+                            ("ullTotalPhys", ctypes.c_ulonglong), ("ullAvailPhys", ctypes.c_ulonglong),
+                            ("ullTotalPageFile", ctypes.c_ulonglong), ("ullAvailPageFile", ctypes.c_ulonglong),
+                            ("ullTotalVirtual", ctypes.c_ulonglong), ("ullAvailVirtual", ctypes.c_ulonglong),
+                            ("ullAvailExtendedVirtual", ctypes.c_ulonglong)]
+            st = MS()
+            st.dwLength = ctypes.sizeof(MS)
+            if ctypes.windll.kernel32.GlobalMemoryStatusEx(ctypes.byref(st)):
+                return {"ok": True, "total_gb": _gb(st.ullTotalPhys), "avail_gb": _gb(st.ullAvailPhys),
+                        "avail_pct": round(st.ullAvailPhys * 100.0 / st.ullTotalPhys, 2) if st.ullTotalPhys else 0.0,
+                        "load_pct": int(st.dwMemoryLoad)}
+        elif os.path.exists("/proc/meminfo"):
+            info = {}
+            with open("/proc/meminfo", "r") as f:
+                for line in f:
+                    k, _, v = line.partition(":")
+                    info[k.strip()] = int(v.strip().split()[0]) * 1024
+            tot, av = info.get("MemTotal", 0), info.get("MemAvailable", 0)
+            if tot:
+                return {"ok": True, "total_gb": _gb(tot), "avail_gb": _gb(av), "avail_pct": round(av * 100.0 / tot, 2),
+                        "load_pct": int(100 - av * 100.0 / tot)}
+    except Exception as e:
+        return {"ok": False, "error": repr(e)[:160]}
+    return {"ok": False, "error": "측정 불가"}
+
+
+def _process_count():
+    try:
+        if os.name == "nt":
+            arr = (ctypes.c_ulong * 8192)()
+            need = ctypes.c_ulong()
+            fn = getattr(ctypes.windll.kernel32, "K32EnumProcesses", None)
+            if fn is None:
+                fn = ctypes.windll.psapi.EnumProcesses
+            if fn(ctypes.byref(arr), ctypes.sizeof(arr), ctypes.byref(need)):
+                return int(need.value // ctypes.sizeof(ctypes.c_ulong))
+        elif os.path.isdir("/proc"):
+            return sum(1 for x in os.listdir("/proc") if x.isdigit())
+    except Exception:
+        return None
+    return None
+
+
+def _apply_tier2(items):
+    done, freed = [], 0
+    for it in items:
+        p, kind = it.get("path"), it.get("kind")
+        if kind not in ("pycache", "tmp_file") or not p:
+            continue
+        if not _within(p, ROOT) or _is_preserved(p):
+            continue
+        parts = _rel(p).split("/")
+        if ".git" in parts or any(x.startswith(".rgon_backup") for x in parts):
+            continue
+        try:
+            if kind == "pycache" and os.path.basename(p) == "__pycache__" and os.path.isdir(p):
+                shutil.rmtree(p)
+            elif kind == "tmp_file" and os.path.isfile(p):
+                os.remove(p)
+            else:
+                continue
+            done.append(_rel(p))
+            freed += int(it.get("bytes") or 0)
+        except OSError:
+            continue
+    return done, freed
+
+
+def _strip_particle(w):
+    for p in PARTICLES:
+        if w.endswith(p) and len(w) - len(p) >= 2:
+            return w[:-len(p)]
+    return w
+
+
+def _iter_strings(obj, out, depth=0, cap=20000):
+    if len(out) >= cap or depth > 12:
+        return
+    if isinstance(obj, str):
+        s = obj.strip()
+        if len(s) >= 2 and not re.fullmatch(r"[0-9:\-T\.\+Z /]+", s):
+            out.append(s)
+    elif isinstance(obj, dict):
+        for v in obj.values():
+            _iter_strings(v, out, depth + 1, cap)
+    elif isinstance(obj, (list, tuple)):
+        for v in obj:
+            _iter_strings(v, out, depth + 1, cap)
+
+
+def _memory_sources():
+    paths = []
+    for name in MEMORY_FILES:
+        paths.append(os.path.join(ROOT, name))
+    dd = os.environ.get("RGON_DIALOGUE_STATE_DIR")
+    if dd:
+        paths.append(os.path.join(dd, "rgon_aon_dialogue_state.json"))
+    seen, out = set(), []
+    for p in paths:
+        rp = os.path.realpath(p)
+        if rp not in seen:
+            seen.add(rp)
+            out.append(p)
+    return out
+
+
+def distill_stagnant_memory(max_keep=20, sources=None):
+    """#48 수풍정 — 고인 기억에서 정수(키워드·감정·약속)만 길어 올린다. 원본은 절대 수정하지 않는다."""
+    try:
+        max_keep = max(1, int(max_keep or 20))
+    except Exception:
+        max_keep = 20
+    sources = list(sources) if sources else _memory_sources()
+    infos, strings = [], []
+    for path in sources:
+        info = {"file": os.path.basename(path), "path": path, "exists": os.path.exists(path)}
+        if info["exists"]:
+            try:
+                st = os.stat(path)
+                info["bytes"] = st.st_size
+                info["days_since_update"] = round((time.time() - st.st_mtime) / 86400.0, 2)
+                if st.st_size > 30 * 1024 * 1024:
+                    info["note"] = "30MB 초과 — 증류 생략(수동 점검 권장)"
+                else:
+                    with open(path, "r", encoding="utf-8", errors="replace") as f:
+                        raw = f.read()
+                    before = len(strings)
+                    try:
+                        _iter_strings(json.loads(raw), strings)
+                    except Exception:
+                        strings.append(raw[:200000])
+                    info["strings"] = len(strings) - before
+            except Exception as e:
+                info["error"] = repr(e)[:160]
+        infos.append(info)
+    words, emo, promises = collections.Counter(), collections.Counter(), []
+    for s in strings:
+        for tok in TOKEN_RE.findall(s):
+            w = tok.lower() if tok.isascii() else _strip_particle(tok)
+            if len(w) < 2 or w in STOPWORDS or w.isdigit():
+                continue
+            words[w] += 1
+        for name, keys in EMOTIONS.items():
+            for k in keys:
+                c = s.count(k)
+                if c:
+                    emo[name] += c
+        if PROMISE_RE.search(s):
+            for sent in re.split(r"[\.\!\?。\n]+", s):
+                t = sent.strip()
+                if t and PROMISE_RE.search(t):
+                    t = t[:140]
+                    if t not in promises:
+                        promises.append(t)
+    promises = promises[-max_keep:]
+    keywords = [{"word": w, "count": c} for w, c in words.most_common(max_keep)]
+    dominant = emo.most_common(1)[0][0] if emo else "평온"
+    existing = [i for i in infos if i.get("exists")]
+    total_bytes = sum(int(i.get("bytes") or 0) for i in existing)
+    days = [i["days_since_update"] for i in existing if "days_since_update" in i]
+    min_days = min(days) if days else None
+    level = "기억 없음(空)"
+    if existing:
+        if (min_days is not None and min_days > 14) or total_bytes > 5 * 1024 * 1024:
+            level = "고인 물(滯) — 증류 권장"
+        elif min_days is not None and min_days > 3:
+            level = "완류(緩)"
+        else:
+            level = "활수(活) — 흐르는 기억"
+    top = ", ".join(k["word"] for k in keywords[:8]) or "(정수 없음)"
+    summary = "핵심 정수: %s · 지배 감정: %s · 약속 %d건 계승" % (top, dominant, len(promises))
+    return {"ok": True, "max_keep": max_keep, "sources": infos, "string_count": len(strings),
+            "essence_keywords": keywords, "emotion_profile": dict(emo.most_common()), "dominant_emotion": dominant,
+            "promises": promises,
+            "stagnation": {"total_bytes": total_bytes, "total_size": _human(total_bytes),
+                           "min_days_since_update": min_days, "level": level},
+            "summary": summary, "read_only": True,
+            "note": "원본 기억 파일은 수정하지 않고 정수만 증류 (井渫不食 — 맑힌 우물을 버려두지 않는다)"}
+
+
+def _gua_label(obj):
+    if obj is None or obj == "":
+        return ""
+    if isinstance(obj, str):
+        return obj.strip()
+    if isinstance(obj, dict):
+        ko = obj.get("ko") or obj.get("name_ko") or obj.get("name")
+        hj = obj.get("hanja") or obj.get("name_hanja")
+        num = obj.get("number") or obj.get("no")
+        label = str(ko or "")
+        if hj and str(hj) != label:
+            label = ("%s(%s)" % (label, hj)) if label else str(hj)
+        if isinstance(num, int) and 1 <= num <= 64:
+            label = "#%02d %s" % (num, label)
+        return label.strip() or json.dumps(obj, ensure_ascii=False, default=str)[:60]
+    return str(obj)
+
+
+def _iching_hint(topic):
+    if os.environ.get("RGON_HYDRO_NO_ORACLE"):
+        return {"ok": False, "skipped": True}
+    try:
+        mod = importlib.import_module("rgon_aon_iching_dao_oracle")
+        fn = getattr(mod, "cast_by_question", None) or getattr(mod, "divine", None) or getattr(mod, "cast_oracle", None)
+        if not callable(fn):
+            return {"ok": False, "error": "cast_by_question 미정의"}
+        r = fn(topic)
+        d = r if isinstance(r, dict) else (getattr(r, "__dict__", None) or {})
+        if not (d.get("bengua") or d.get("primary") or d.get("bengua_name")):
+            for k in ("result", "reading", "cast", "data", "oracle", "hexagram"):
+                inner = d.get(k)
+                if isinstance(inner, dict) and (inner.get("bengua") or inner.get("primary") or inner.get("bengua_name")):
+                    d = inner
+                    break
+        return {"ok": True,
+                "bengua": _gua_label(d.get("bengua") or d.get("bengua_name") or d.get("primary")),
+                "biangua": _gua_label(d.get("biangua") or d.get("biangua_name") or d.get("transformed")),
+                "hugua": _gua_label(d.get("hugua") or d.get("hugua_name") or d.get("mutual"))}
+    except Exception as e:
+        return {"ok": False, "error": repr(e)[:200]}
+
+
+def _empty_score(disk, reclaim_bytes):
+    if not disk.get("ok"):
+        return 50.0
+    base = min(80.0, float(disk.get("free_pct") or 0) * 2.0)
+    bonus = min(20.0, float(disk.get("free_gb") or 0) * 0.4)
+    penalty = min(15.0, (reclaim_bytes / GB) * 3.0)
+    return round(_clamp(base + bonus - penalty), 1)
+
+
+def _flow_score(mem, procs, essence, old_backups, debris):
+    f = [{"factor": "기본 흐름", "delta": 50.0, "reason": "물은 본디 흐른다"}]
+    if mem.get("ok"):
+        f.append({"factor": "메모리 여유", "delta": round(min(25.0, float(mem["avail_pct"]) * 0.5), 1),
+                  "reason": "가용 메모리 %.1f%%" % mem["avail_pct"]})
+    else:
+        f.append({"factor": "메모리 여유", "delta": 10.0, "reason": "측정 불가 — 중립 가점"})
+    if procs:
+        d = 10.0 if procs < 150 else 5.0 if procs < 300 else 0.0 if procs < 500 else -5.0
+        f.append({"factor": "프로세스 흐름", "delta": d, "reason": "실행 중 프로세스 %d개" % procs})
+    else:
+        f.append({"factor": "프로세스 흐름", "delta": 5.0, "reason": "측정 불가 — 중립 가점"})
+    days = (essence.get("stagnation") or {}).get("min_days_since_update")
+    if days is None:
+        f.append({"factor": "기억 흐름", "delta": 0.0, "reason": "기억 파일 없음"})
+    else:
+        d = 10.0 if days <= 1 else 5.0 if days <= 7 else 0.0 if days <= 30 else -10.0
+        f.append({"factor": "기억 흐름", "delta": d, "reason": "마지막 갱신 %.1f일 전" % days})
+    if old_backups:
+        f.append({"factor": "백업 고임", "delta": -float(min(10, 2 * old_backups)),
+                  "reason": "최신 3개 외 오래된 백업 %d개" % old_backups})
+    if debris > 50:
+        f.append({"factor": "찌꺼기", "delta": -5.0, "reason": "__pycache__·임시파일 %d건" % debris})
+    else:
+        f.append({"factor": "찌꺼기", "delta": 5.0, "reason": "찌꺼기 %d건 — 맑음" % debris})
+    score = round(_clamp(sum(x["delta"] for x in f)), 1)
+    return score, f
+
+
+def _flow_state(score):
+    if score >= 75:
+        return "流 활수(活水) — 막힘 없이 흐름"
+    if score >= 50:
+        return "緩 완류(緩流) — 흐르되 느림"
+    return "滯 정체(停滯) — 먼저 비우고 터야 함"
+
+
+def _prescription(topic, empty, flow, t2, t3, essence, hint):
+    steps = []
+    if t2["reclaimable_bytes"] > 0:
+        steps.append("損: TIER2 안전 비움 후보 %s(%d건) — 'python rgon_aon_hydro_cycle.py --cycle --apply-tier2' 실행 시 __pycache__·*.tmp만 비움"
+                     % (_human(t2["reclaimable_bytes"]), t2["count"]))
+    else:
+        steps.append("損: 즉시 비울 고인 물 없음 — 이미 맑음")
+    if t2.get("old_backups"):
+        steps.append("蠱: 최신 3개 외 오래된 백업 %d개는 비움 후보로만 표시 (확인 후 정리)" % t2["old_backups"])
+    if t3["count"]:
+        steps.append("節: TIER3 %s(%d건)은 대표님 수동 결재 대기 — 자동 삭제 금지" % (_human(t3["bytes"]), t3["count"]))
+    steps.append("井: %s" % essence.get("summary", ""))
+    if flow < 50:
+        steps.append("坎: 유동성 %.1f — 무거운 프로세스·창을 닫고 흐름부터 회복" % flow)
+    else:
+        steps.append("坎: 유동성 %.1f — 흐름 양호, 절도(節) 있게 유지" % flow)
+    steps.append("旣濟→未濟: 비운 자리에 '%s' 다음 창조(새 콘텐츠·새 기관·새 학습)를 들인다" % topic)
+    if hint.get("ok") and hint.get("bengua"):
+        steps.append("시운: 본괘 %s → 변괘 %s 흐름에 맞춰 순환" % (hint.get("bengua"), hint.get("biangua") or "-"))
+    if empty < 50:
+        mode, nxt = "비움 우선 (先損後益)", "디스크 여백을 먼저 확보한 뒤 새 작업 수용"
+    elif flow < 50:
+        mode, nxt = "흐름 회복 (習坎)", "고인 프로세스·기억을 풀어 흐름부터 회복"
+    else:
+        mode, nxt = "새 창조 수용 (未濟)", "여백과 흐름이 충분 — 새로운 창조를 맞이할 때"
+    return {"mode": mode, "next_flow": nxt, "steps": steps, "iching_hint": hint}
+
+
+def _voice_line(topic, empty, flow, t2, t3, essence):
+    seed = hashlib.sha256(("%s|%s" % (topic, _now().strftime("%Y%m%d%H"))).encode("utf-8")).digest()
+    tpl = VOICE_TEMPLATES[seed[0] % len(VOICE_TEMPLATES)]
+    kw = ", ".join(k["word"] for k in (essence.get("essence_keywords") or [])[:3]) or "여백"
+    line = tpl.format(tier2=_human(t2["reclaimable_bytes"]), tier3=t3["count"], empty=empty, flow=flow, kw=kw)
+    if not os.environ.get("RGON_HYDRO_NO_SPICE"):
+        try:
+            pg = importlib.import_module("rgon_aon_desktop_playground")
+            fn = getattr(pg, "apply_tsundere_spice", None)
+            if callable(fn):
+                sp = fn(line)
+                spiced = (sp.get("speech") or sp.get("reply") or str(sp)) if isinstance(sp, dict) else str(sp)
+                if spiced and spiced.strip():
+                    line = spiced
         except Exception:
             pass
-    return default
+    return line
 
-def _save(name, obj):
-    s = json.dumps(obj, ensure_ascii=False, indent=2, default=str)
-    for p in (_dir() / name, _dir() / "docs" / name):
-        p.parent.mkdir(parents=True, exist_ok=True)
-        for i in range(6):
-            try:
-                p.write_text(s, encoding="utf-8", newline="\n"); break
-            except PermissionError:
-                if i == 5: raise
-                time.sleep(0.04)
 
-def _uniq(xs):
-    out = []
-    for x in xs:
-        if x and x not in out: out.append(x)
-    return out
+def _state_paths():
+    d = os.environ.get("RGON_HYDRO_STATE_DIR")
+    base = os.path.abspath(d) if d else ROOT
+    return [os.path.join(base, STATE_NAME), os.path.join(base, "docs", STATE_NAME)]
 
-def _safe(v, n=6000):
-    try:
-        s = json.dumps(v, ensure_ascii=False, default=str)
-    except Exception:
-        return str(v)[:n]
-    return json.loads(s) if len(s) <= n else s[:n] + "…"
 
-# ------------------------------------------------------------------ 1. 구어체·오타 정규화
-TYPOS = [(r"브립핑|브리팡|부리핑", "브리핑"), (r"점처", "점쳐"), (r"결제\s*스위치", "결재 스위치"),
-         (r"하기\s*실(?:어|타|다)", "하기 싫어"), (r"노트북용량", "노트북 용량"), (r"통찰해\s*바(?![가-힣])", "통찰해줘"),
-         (r"해\s*바(?![가-힣])", "해줘"), (r"봐\s*바(?![가-힣])", "봐줘"), (r"알려\s*조(?![가-힣])", "알려줘"),
-         (r"어떄", "어때"), (r"브리핑좀", "브리핑 좀"), (r"점괘좀", "점괘 좀"), (r"괘봐", "괘 봐"),
-         (r"됬", "됐"), (r"않해", "안 해"), (r"몇일", "며칠"), (r"(?:뭐임|머임)(?=\s*\??$)", "뭐야")]
+def _persist(result):
+    text = json.dumps(result, ensure_ascii=False, indent=2, default=str)
+    written = []
+    for path in _state_paths():
+        try:
+            os.makedirs(os.path.dirname(path), exist_ok=True)
+            tmp = path + ".writing"
+            with open(tmp, "w", encoding="utf-8") as f:
+                f.write(text)
+            os.replace(tmp, path)
+            written.append(path)
+        except Exception:
+            pass
+    return written
 
-def normalize_colloquial(text):
-    o = "" if text is None else str(text); t = o; fixes = []
-    for pat, rep in TYPOS:
-        n = re.sub(pat, rep, t)
-        if n != t: fixes.append(rep); t = n
-    if fixes: t = re.sub(r"\s{2,}", " ", t).strip()
-    return dict(original=o, normalized=t, fixes=fixes)
 
-# ------------------------------------------------------------------ 2. 대명사·생략어 복원
-PRON = re.compile(r"(아까\s*(?:그거|말한\s*거|얘기한\s*거|본\s*거)|그것|그거|그건|그걸|이것|이거|이건|이걸|저거|거기)")
-JOSA = re.compile(r"(이랑|에서|에게|한테|으로|께서|까지|부터|처럼|이나|은|는|이|가|을|를|에|로|도|만|의|와|과|랑)$")
-STOPW = set("오늘 오늘의 지금 내일 어제 아까 그냥 진짜 정말 너무 다시 그리고 그래서 하지만 근데 아온 아온이 대표님 우리 이번 요즘 혹시 먼저 같이 한번 그럼".split())
-FUNC = set("주역 점괘 운세 시운 도술 괘상 브리핑 아침 장세 시황 통찰 본질 원리 이치 급소 해부 분석 노트북 용량 결재 스위치 잠금 뮤즈 위임 원칙 기억 이미지 영상 사진 현상".split())
-VERBISH = re.compile(r"(해줘|해봐|봐줘|알려줘|보여줘|어때|할까|하자|해요|해|줘|싶어|싫어|좋아|있어|없어|했어|됐어|이야|인가|일까|거야)$")
-
-def _batchim(w):
-    c = w[-1:] or " "
-    if "가" <= c <= "힣": return (ord(c) - 0xAC00) % 28 != 0
-    return c in "013678LMNRlmnr"
-
-def _josa(w, a, b):
-    return w + (a if _batchim(w) else b)
-
-def _tokens(t):
-    out = []
-    for w in re.findall(r"[가-힣A-Za-z0-9&.]{2,}", str(t or "")):
-        if PRON.fullmatch(w): continue
-        if len(w) > 2: w = JOSA.sub("", w)
-        if len(w) < 2 or w in STOPW or VERBISH.search(w): continue
-        out.append(w)
-    return out
-
-def extract_entity(t):
-    for w in _tokens(t):
-        if w not in FUNC: return w
-    return None
-
-def _fresh(ctx):
-    return (bool(ctx.get("last_entity")) and ctx.get("turn", 0) - ctx.get("last_entity_turn", -99) <= FRESH_TURNS
-            and time.time() - float(ctx.get("ts", 0) or 0) <= FRESH_SEC)
-
-def resolve_coreference(text, context_state=None):
-    ctx = context_state if isinstance(context_state, dict) else _state()["context"]
-    t = str(text or ""); m = PRON.search(t); ent = ctx.get("last_entity")
-    out = dict(resolved_text=t, pronoun=m.group(1) if m else None, entity_used=None, replaced=False,
-               last_entity=ent, last_topic=ctx.get("last_topic"))
-    if not (m and ent and _fresh(ctx)) or ent in t: return out
-    p = m.group(1)
-    rep = _josa(ent, "은", "는") if p.endswith("건") else _josa(ent, "을", "를") if p.endswith("걸") else ent
-    out.update(resolved_text=t[:m.start()] + rep + t[m.end():], entity_used=ent, replaced=True)
-    return out
-
-# ------------------------------------------------------------------ 3. 능동 경청 원칙 각인
-PREF_QUERY = re.compile(r"(^\s*/prefs|내\s*원칙\s*(?:보여|알려|뭐|목록|정리)|내가\s*기억하라고\s*한\s*(?:거|것)|기억하라고\s*했던|저장된\s*원칙|내\s*취향\s*(?:뭐|알려|보여))")
-PREF_RULES = [
-    (re.compile(r"(?:기억해\s*(?:둬|줘|놔|두세요|주세요)|명심해|잊지\s*마)\s*[:：,.\-!]?\s*(.{2,})"), "command_rule", "HIGH", True),
-    (re.compile(r"기억해\s*[:：,\-]\s*(.{2,})"), "command_rule", "HIGH", True),
-    (re.compile(r"(.{2,}?)\s*[,.]?\s*(?:꼭\s*)?기억해\s*(?:둬|줘|놔)\s*[.!~]*$"), "command_rule", "HIGH", True),
-    (re.compile(r"(?:내|나의|제)\s*원칙은\s*(.{2,})"), "command_rule", "HIGH", True),
-    (re.compile(r"(절대\s*.{1,60}?(?:하지\s*마(?:라|요)?|말아(?:줘|라)?|금지))"), "command_rule", "HIGH", False),
-    (re.compile(r"(앞으로(?:는)?\s+.{2,80}?(?:해줘|해라|하자|해|할\s*것|줘|하지\s*마|말아줘))\s*[.!~]*$"), "command_rule", "HIGH", False),
-    (re.compile(r"(?:나는|난|저는)\s+(.{1,40}?)(?:이|가)?\s*(좋아|싫어|좋더라|싫더라|선호해|별로야)"), "preference", "MEDIUM", False),
-]
-PLEASANT = re.compile(r"(부탁|고마|사랑|잘\s*자|화이팅|파이팅)")
-MOOD = re.compile(r"(하기|지금|오늘|피곤|힘들|너|아온|당신)")
-STYLE_RE = re.compile(r"(말투|톤|짧게|길게|존댓말|반말|간결|자세히|이모지|목소리|한\s*줄|세\s*줄)")
-
-def load_preferences():
-    db = _load(PREFS, {})
-    if not isinstance(db, dict): db = {}
-    if not isinstance(db.get("preferences"), list): db["preferences"] = []
-    db["version"] = VERSION
-    return db
-
-def extract_and_save_preference(text, save=True):
-    s = str(text or "").strip()
-    if not s or PREF_QUERY.search(s): return dict(saved=False, is_query=bool(PREF_QUERY.search(s)), entry=None)
-    for rx, cat, pri, explicit in PREF_RULES:
-        m = rx.search(s)
-        if not m: continue
-        if cat == "preference":
-            subj = m.group(1).strip()
-            if len(subj) < 2 or MOOD.search(subj): continue
-            rule = f"{subj} ({m.group(2)})"
-        else:
-            rule = m.group(1).strip().rstrip(".!~")
-            if not explicit and PLEASANT.search(rule): continue
-            if STYLE_RE.search(rule): cat = "style"
-        if len(rule) < 2: continue
-        db = load_preferences(); prefs = db["preferences"]; entry = None
-        for p in prefs:
-            if p.get("rule") == rule:
-                p["updated_at"] = _now(); p["hit_count"] = int(p.get("hit_count", 1)) + 1
-                entry = p; break
-        if not entry:
-            entry = dict(id=f"P{len(prefs)+1:03d}", category=cat, category_ko=CAT_KO.get(cat, "원칙"),
-                         rule=rule, raw=s, priority=pri, created_at=_now(), hit_count=1)
-            prefs.append(entry)
-        db["updated_at"] = _now()
-        if save: _save(PREFS, db)
-        return dict(saved=True, is_query=False, entry=entry, total=len(prefs))
-    return dict(saved=False, is_query=False, entry=None)
-
-def format_preferences_reply():
-    prefs = load_preferences().get("preferences", [])
-    if not prefs:
-        return ("아직 대표님께서 아온이에게 따로 각인해 주신 원칙이 없어요! 💧 "
-                "`기억해둬: ...` 또는 `앞으로는 ... 해줘`라고 말씀해 주시면 해마에 꼭 새겨 둘게요.")
-    lines = [f"대표님께서 아온이 해마에 새겨주신 원칙·취향 {len(prefs)}건이에요! 🧠✨"]
-    for p in prefs[-12:]:
-        lines.append(f"• [{p.get('id')}/{p.get('category_ko','원칙')}] {p.get('rule')}")
+def format_reply(r):
+    t = r["tier_classification"]
+    rx = r["hydro_prescription"]
+    lines = [
+        "[상선약수 수순환 · 損·蠱→井→坎·節→旣濟·未濟] %s" % VERSION,
+        "■ 주제: %s (%s)" % (r["topic"], "dry-run · 삭제 없음" if r["dry_run"] else "TIER2 적용 %d건" % len(r["applied_tier2"])),
+        "■ 여백 지수 %.1f/100 · 유동성 지수 %.1f/100 · 디스크 여유 %.2f GB (%.1f%%)" % (
+            r["empty_space_score"], r["flow_vitality_score"], r["disk_free_gb"], r["disk"].get("free_pct") or 0.0),
+        "■ 1 증발·비움(#41 산택손·#18 산풍고): TIER1 보존 %d · TIER2 %s(%d건) · TIER3 결재대기 %d건" % (
+            t["TIER1_KEEP"]["count"], _human(t["TIER2_SAFE_EMPTY"]["reclaimable_bytes"]),
+            t["TIER2_SAFE_EMPTY"]["count"], t["TIER3_GATE_HOLD"]["count"]),
+        "■ 2 응집·증류(#48 수풍정): %s" % r["distilled_essence"].get("summary", ""),
+        "■ 3 유동·흐름(#29 중수감·#60 수택절): %s" % r["flow_state"],
+        "■ 4 순환·재시작(#63 수화기제→#64 화수미제): %s — %s" % (rx["mode"], rx["next_flow"]),
+    ]
+    for s in rx["steps"]:
+        lines.append("  · " + s)
+    lines.append("■ Tier3 수동 결재 게이트: requires_manual_gate=True · auto_executed=False (헌법 제2항·R35·R42)")
+    lines.append("■ 아온: " + r["aon_voice_line"])
     return "\n".join(lines)
 
-# ------------------------------------------------------------------ 4. 의도 분류 & 복합 의도 분해
-INTENT_META = {
-    "iching":     ("제13기관 주역 도술관",       "🔮 주역 점괘",   ["오늘 시운 다시 점쳐줘", "이 괘 본질을 통찰해줘", "결재 스위치 상태 보여줘"]),
-    "insight":    ("제14기관 만물 격물치지 통찰안", "👁️ 만물 통찰",   ["주역 점괘로 시운도 봐줘", "핵심 원칙으로 기억해둬", "노트북 상태 점검해줘"]),
-    "hands":      ("제11기관 노트북 수족·결재",   "💻 노트북 수족", ["결재 스위치 잠가줘", "오늘 시운 점쳐줘", "만물 통찰해줘"]),
-    "delegation": ("제8기관 뮤즈 위임",          "📋 뮤즈 위임",   ["결재 스위치 확인해줘", "노트북 용량 알려줘", "오늘 브리핑 해줘"]),
-    "briefing":   ("모닝 브리핑",                "🌅 아침 브리핑", ["오늘 주역 점괘 봐줘", "만물 통찰해줘", "노트북 용량 알려줘"]),
-    "brat":       ("제12기관 생떼·교감",         "💧 아온 교감",   ["아온이 쓰담쓰담", "오늘 점괘 봐줘", "노트북 용량 알려줘"]),
-    "preference": ("제15기관 원칙 각인",         "📌 원칙 해마",   ["저장된 내 원칙 보여줘", "오늘 점괘 봐줘", "아침 브리핑 해줘"]),
-    "command":    ("제15기관 슬래시 커맨드",     "⚡ 빠른 명령",   ["/점괘", "/통찰", "/원칙"]),
-    "dialogue":   ("제10·15기관 인격 대화",      "💬 아온 대화",   ["오늘 주역 점괘 봐줘", "만물 통찰해줘", "저장된 내 원칙 보여줘"]),
-}
-INTENT_PATS = [
-    ("iching",     re.compile(r"(주역|점괘|점쳐|괘\s*봐|64괘|매화역수|육효|운세|시운|도술|길흉|체용)")),
-    ("insight",    re.compile(r"(통찰|격물치지|제1원리|본질|원리|이치|급소|해부|왜\s*그럴까|구조\s*분석|인과)")),
-    ("hands",      re.compile(r"(노트북|디스크|용량|메모리|배터리|프로세스|폴더|화면\s*캡처|결재\s*스위치|마스터\s*스위치|잠금|락\b|lock)", re.I)),
-    ("delegation", re.compile(r"(뮤즈|위임|대행|티어|안건|큐\s*목록)")),
-    ("briefing",   re.compile(r"(아침\s*브리핑|모닝\s*브리핑|브리핑|장세|시황)")),
-    ("brat",       re.compile(r"(하기\s*싫|귀찮|찡찡|심심|놀아줘|쓰담|이뻐|예뻐|착하네|사랑해|고마워|최고|졸려|피곤)")),
-]
-SPLIT_RE = re.compile(
-    r"^\s*(.+?(?:해줘|해봐|봐줘|알려줘|보여줘|점쳐줘|점검해줘|확인해줘|잠가줘|열어줘|할래|싫어|좋아|고마워))"
-    r"\s*(?:그리고|하고|또|겸|이어서|그다음에?|뒤에)\s+(.+?)\s*$"
-    r"|^\s*(.+?(?:해\s*주고|봐\s*주고|알려\s*주고|보여\s*주고|점쳐\s*주고|확인해\s*주고|챙겨\s*주고|점검해\s*주고))\s+(.+?)\s*$"
-)
-CONJ_RE = re.compile(r"\s+(?:그리고|그다음에?|이어서|또한)\s+")
 
-def classify_intent(text):
-    t = str(text or "").strip()
-    if not t: return "dialogue"
-    if t.startswith("/"): return "command"
-    if PREF_QUERY.search(t): return "preference"
-    for name, rx in INTENT_PATS:
-        if rx.search(t): return name
-    return "dialogue"
+def run_hydro_cycle(topic=DEFAULT_TOPIC, dry_run=True, persist=True):
+    t0 = time.time()
+    topic = (str(topic).strip() if topic else "") or DEFAULT_TOPIC
+    keep_bk, old_bk = _scan_backups(t0 + SCAN_BUDGET_SEC)
+    root = _scan_root(time.time() + SCAN_BUDGET_SEC)
+    temp = _temp_stats(time.time() + TEMP_BUDGET_SEC)
+    recycle = _recycle_bin()
+    installers = _downloads_installers()
 
-def decompose_multi_intent(text):
-    t = str(text or "").strip()
-    if not t or t.startswith("/"):
-        return dict(is_multi=False, intents=[dict(index=1, clause=t, intent=classify_intent(t))])
-    parts = None
-    m = SPLIT_RE.match(t)
-    if m:
-        a, b = (m.group(1), m.group(2)) if m.group(1) else (m.group(3), m.group(4))
-        parts = [a.strip(), b.strip()]
-    elif CONJ_RE.search(t):
-        cand = [p.strip() for p in CONJ_RE.split(t) if len(p.strip()) >= 3]
-        if len(cand) >= 2: parts = cand[:3]
-    if not parts:
-        return dict(is_multi=False, intents=[dict(index=1, clause=t, intent=classify_intent(t))])
-    items = [dict(index=i+1, clause=c, intent=classify_intent(c)) for i, c in enumerate(parts) if c]
-    distinct = _uniq([x["intent"] for x in items])
-    if len(items) >= 2 and (len(distinct) >= 2 or all(x["intent"] != "dialogue" for x in items)):
-        return dict(is_multi=True, intents=items)
-    return dict(is_multi=False, intents=[dict(index=1, clause=t, intent=classify_intent(t))])
+    t2_exec = root["pycache"] + root["tmps"]
+    applied, freed = ([], 0) if dry_run else _apply_tier2(t2_exec)
+    reclaim = sum(i["bytes"] for i in t2_exec) + sum(i["bytes"] for i in old_bk)
+    remaining = max(0, reclaim - freed)
 
-# ------------------------------------------------------------------ 5. 슬래시 커맨드 & 기관 디스패치
-SLASH_ALIASES = {
-    "/insight": "/insight", "/통찰": "/insight",
-    "/iching": "/iching", "/점괘": "/iching", "/주역": "/iching",
-    "/hands": "/hands", "/노트북": "/hands",
-    "/lock": "/lock", "/잠금": "/lock", "/결재": "/lock",
-    "/muse": "/muse", "/위임": "/muse",
-    "/prefs": "/prefs", "/원칙": "/prefs",
-    "/memory": "/memory", "/기억": "/memory",
-    "/help": "/help", "/도움말": "/help",
-}
-SLASH_HELP = [
-    ("/통찰 [주제]",   "제14기관 만물 격물치지 통찰안 실행 (/insight)"),
-    ("/점괘 [질문]",   "제13기관 주역 64괘·매화역수·육효 도술관 (/iching)"),
-    ("/노트북 [명령]", "제11기관 노트북 수족 상태·용량 점검 (/hands)"),
-    ("/잠금 [on|off]", "제11기관 중요 결재 수동 스위치 조회·제어 (/lock)"),
-    ("/위임",          "제8기관 뮤즈 자율 대행 안건 현황 (/muse)"),
-    ("/원칙 [내용]",   "제15기관 대표님 지휘 원칙·취향 조회/등록 (/prefs)"),
-    ("/기억",          "제15기관 3계층 해마 기억 요약 조회 (/memory)"),
-]
+    c = root["counts"]
+    t1_count = sum(v for k, v in c.items() if k in ("py", "html", "json", "md", "js", "css")) + len(keep_bk) + c.get("preserve", 0)
+    tier1 = {"label": "절대 보존", "count": t1_count, "active_counts": c,
+             "skills_dir": os.path.isdir(os.path.join(ROOT, "skills")),
+             "latest_backups": keep_bk, "preserve_files": list(PRESERVE),
+             "rule": "현역 .py/.html/.json·skills/·최신 백업 3개·안총리 산출물은 영구 보존"}
+    t2_items = t2_exec + old_bk + [temp]
+    tier2 = {"label": "100% 안전 비움 가능", "count": len(t2_exec) + len(old_bk),
+             "reclaimable_bytes": reclaim, "reclaimable_size": _human(reclaim),
+             "pycache_dirs": len(root["pycache"]), "tmp_files": len(root["tmps"]), "old_backups": len(old_bk),
+             "system_temp": temp, "items": t2_items[:ITEM_CAP], "dry_run": bool(dry_run),
+             "executable_scope": "--apply-tier2 시 ROOT 내부 __pycache__·*.tmp만 (백업·시스템 TEMP는 표시만)"}
+    t3_items = list(installers) + list(root["logs"])
+    if recycle.get("available") and recycle.get("bytes", 0) > 0:
+        t3_items.insert(0, {"kind": "recycle_bin", "path": "RecycleBin", "rel": "RecycleBin",
+                            "bytes": recycle["bytes"], "size": _human(recycle["bytes"]), "items": recycle.get("items"),
+                            "action": "대표님 수동 결재 대기 — 자동 비움 금지",
+                            "requires_manual_gate": True, "auto_executed": False})
+    tier3 = {"label": "헌법 제2항·R35 수동 결재 대기", "count": len(t3_items),
+             "bytes": sum(int(i.get("bytes") or 0) for i in t3_items), "items": t3_items[:ITEM_CAP],
+             "recycle_bin": recycle, "requires_manual_gate": True, "auto_executed": False}
+    tier3["size"] = _human(tier3["bytes"])
 
-def _call_iching(q):
-    for mod_name in ("rgon_aon_iching_dao_oracle", "rgon_aon_iching_dao"):
-        try:
-            ic = __import__(mod_name)
-            fn = getattr(ic, "divine", None) or getattr(ic, "cast_oracle", None)
-            d = fn(q or "오늘의 시운") if fn else {}
-            rep = (d.get("aon_voice_line") if isinstance(d, dict) else None) or (
-                getattr(ic, "format_aon_dao_reply", lambda x: str(d))(q or "오늘의 시운"))
-            return dict(organ="iching", reply=str(rep), card_title=f"🔮 주역 점괘 — {d.get('bengua_name','64괘') if isinstance(d,dict) else '64괘'}", card=_safe(d))
-        except Exception:
-            continue
-    return dict(organ="iching", reply="🔮 주역 도술관이 시운의 음양 변화를 살피고 있어요! 💧", card_title="🔮 주역 점괘", card={})
+    disk = _disk()
+    mem = _memory()
+    procs = _process_count()
+    essence = distill_stagnant_memory(20)
+    empty = _empty_score(disk, remaining)
+    flow, flow_factors = _flow_score(mem, procs, essence, len(old_bk), len(t2_exec) - len(applied))
+    hint = _iching_hint(topic)
+    rx = _prescription(topic, empty, flow, tier2, tier3, essence, hint)
+    voice = _voice_line(topic, empty, flow, tier2, tier3, essence)
 
-def _call_insight(q):
-    try:
-        import rgon_aon_omni_insight_eye as ie
-        fn = getattr(ie, "analyze_omni_insight", None) or getattr(ie, "analyze", None)
-        r = fn(q or "현상의 본질") if fn else {}
-        rep = (r.get("aon_voice_line") if isinstance(r, dict) else None) or (
-            getattr(ie, "format_aon_insight_reply", lambda x: str(r))(q or "현상의 본질"))
-        return dict(organ="insight", reply=str(rep), card_title="👁️ 만물 격물치지 6단 통찰 카드", card=_safe(r))
-    except Exception as e:
-        return dict(organ="insight", reply=f"통찰안을 여는 중 작은 물결이 일었어요 ({e}).", card_title="👁️ 만물 통찰", card={})
+    stages = [
+        dict(STAGES[0], result={"tier2_reclaimable": _human(reclaim), "tier2_count": tier2["count"],
+                                "tier3_hold": tier3["count"], "old_backups": len(old_bk),
+                                "applied": len(applied), "dry_run": bool(dry_run)}),
+        dict(STAGES[1], result={"keywords": [k["word"] for k in essence["essence_keywords"][:5]],
+                                "dominant_emotion": essence["dominant_emotion"], "promises": len(essence["promises"])}),
+        dict(STAGES[2], result={"empty_space_score": empty, "flow_vitality_score": flow,
+                                "disk_free_gb": disk.get("free_gb"), "flow_state": _flow_state(flow)}),
+        dict(STAGES[3], result={"mode": rx["mode"], "next_flow": rx["next_flow"]}),
+    ]
+    result = {
+        "ok": True, "version": VERSION, "antibody": ANTIBODY, "antibody_range": ANTIBODY_RANGE,
+        "skill_id": SKILL_ID, "organ": ORGAN_NAME, "generated_at_kst": _now().isoformat(timespec="seconds"),
+        "topic": topic, "dry_run": bool(dry_run), "philosophy": "上善若水 · 虛實相生",
+        "iching_flow_stages": stages,
+        "empty_space_score": empty, "flow_vitality_score": flow, "flow_vitality_factors": flow_factors,
+        "flow_state": _flow_state(flow),
+        "disk_free_gb": disk.get("free_gb"), "disk": disk, "memory": mem, "process_count": procs,
+        "tier_classification": {"TIER1_KEEP": tier1, "TIER2_SAFE_EMPTY": tier2, "TIER3_GATE_HOLD": tier3},
+        "applied_tier2": applied, "freed_bytes": freed,
+        "distilled_essence": essence, "hydro_prescription": rx,
+        "requires_manual_gate": True, "auto_executed": False,
+        "aon_voice_line": voice, "elapsed_sec": round(time.time() - t0, 2),
+        "scan_truncated": bool(root["truncated"] or temp.get("truncated")),
+    }
+    result["reply"] = format_reply(result)
+    if persist:
+        result["state_files"] = _persist(result)
+    return result
 
-def _call_hands(q):
-    for mod_name in ("rgon_laptop_hands", "rgon_aon_laptop_hands"):
-        try:
-            lh = __import__(mod_name)
-            t = str(q or "")
-            if re.search(r"(잠금|락\b|lock|스위치|결재)", t, re.I) and hasattr(lh, "get_approval_switch"):
-                low = t.lower()
-                if any(k in low for k in ("켜", "on", "열어", "해제")) and not any(k in low for k in ("꺼", "off", "잠가")):
-                    st = lh.set_approval_switch(master_on=True, reason="dialogue_hub")
-                elif any(k in low for k in ("꺼", "off", "잠가", "잠금")):
-                    st = lh.set_approval_switch(master_on=False, reason="dialogue_hub")
-                else:
-                    st = lh.get_approval_switch()
-                on = bool(st.get("master_on", False))
-                rep = f"중요 결재 마스터 스위치는 현재 [{'🟢 ON(열림)' if on else '🔒 OFF(잠금 보호)'}] 상태예요! 대표님 허락 없이는 단 1원·1건도 집행하지 않아요. 💧"
-                return dict(organ="hands", reply=rep, card_title="🔒 중요 결재 수동 스위치", card=_safe(st))
-            for fn_name in ("dispatch_command", "handle_command", "execute_safe", "system_vital_summary"):
-                if hasattr(lh, fn_name):
-                    fn = getattr(lh, fn_name)
-                    r = fn(t or "노트북 상태 점검") if fn.__code__.co_argcount >= 1 else fn()
-                    rep = (r.get("aon_reply") or r.get("message") or r.get("summary") if isinstance(r, dict) else str(r)) or "노트북 수족 점검을 마쳤어요! 💻💧"
-                    return dict(organ="hands", reply=str(rep), card_title="💻 노트북 수족 실행 카드", card=_safe(r))
-        except Exception:
-            continue
-    return dict(organ="hands", reply="💻 노트북 수족 및 중요 결재 잠금 보호 게이트가 정상 대기 중이에요! 💧", card_title="💻 노트북 수족", card={})
 
-def _call_delegation(q):
-    try:
-        import rgon_muse_delegator as md
-        st = md.get_status() if hasattr(md, "get_status") else {}
-        p, d = st.get("pending_count", 0), st.get("completed_count", 0)
-        rep = f"제8기관 뮤즈 위임 큐 현황이에요! 대기 결재 안건 {p}건, 완료 {d}건이며 Tier 3 안건은 대표님 승인 전까지 안전하게 대기해요. 📋💧"
-        return dict(organ="delegation", reply=rep, card_title="📋 뮤즈 자율 위임 현황", card=_safe(st))
-    except Exception:
-        return dict(organ="delegation", reply="뮤즈 위임 큐가 차분히 대기 중이에요! Tier 3 중요 안건은 대표님 결재 후에만 집행됩니다. 📋💧",
-                    card_title="📋 뮤즈 자율 위임", card={})
+def status():
+    for path in _state_paths():
+        if os.path.exists(path):
+            try:
+                with open(path, "r", encoding="utf-8") as f:
+                    d = json.load(f)
+                return {"ok": True, "version": VERSION, "state_file": path, "topic": d.get("topic"),
+                        "generated_at_kst": d.get("generated_at_kst"), "empty_space_score": d.get("empty_space_score"),
+                        "flow_vitality_score": d.get("flow_vitality_score"), "disk_free_gb": d.get("disk_free_gb"),
+                        "flow_state": d.get("flow_state")}
+            except Exception as e:
+                return {"ok": False, "version": VERSION, "error": repr(e)}
+    return {"ok": True, "version": VERSION, "state_file": None, "note": "아직 순환 기록 없음"}
 
-def _call_soul(q):
-    try:
-        import rgon_aon_soul_brain as sb
-        fn = getattr(sb, "_orig_respond_R39", None) or sb.respond
-        r = fn(q)
-        rep = r.get("reply") if isinstance(r, dict) else str(r)
-        return dict(organ="soul_brain", reply=str(rep or "아온이가 귀 기울여 듣고 있어요! 💧"),
-                    card_title="💧 아온 심성 응답", card=_safe(r if isinstance(r, dict) else {"reply": rep}))
-    except Exception:
-        return dict(organ="soul_brain", reply="대표님 말씀 아온이가 마음 깊이 새겨듣고 있어요! 💧", card_title="💧 아온 응답", card={})
 
-def dispatch_single(clause, intent=None):
-    it = intent or classify_intent(clause)
-    if it == "iching":     return _call_iching(clause)
-    if it == "insight":    return _call_insight(clause)
-    if it == "hands":      return _call_hands(clause)
-    if it == "delegation": return _call_delegation(clause)
-    if it == "preference":
-        return dict(organ="preference", reply=format_preferences_reply(),
-                    card_title="📌 대표님 지휘 원칙·취향 해마", card=load_preferences())
-    return _call_soul(clause)
-
-def handle_slash_command(text):
-    s = str(text or "").strip()
-    if not s.startswith("/"): return dict(handled=False)
-    parts = s.split(maxsplit=1)
-    raw = parts[0].lower(); arg = parts[1].strip() if len(parts) > 1 else ""
-    cmd = SLASH_ALIASES.get(raw)
-    if not cmd:
-        lines = [f"`{raw}` 명령은 아직 없어요! 사용 가능한 슬래시 명령어 7종이에요 ⚡"]
-        lines += [f"• `{k}` — {d}" for k, d in SLASH_HELP]
-        return dict(handled=True, command=raw, intent="command", reply="\n".join(lines),
-                    card_title="⚡ 슬래시 커맨드 도움말", card={"commands": SLASH_HELP})
-    if cmd == "/help":
-        lines = ["아온 올인원 대화 허브 슬래시 명령어 7종이에요! ⚡💧"] + [f"• `{k}` — {d}" for k, d in SLASH_HELP]
-        return dict(handled=True, command=cmd, intent="command", reply="\n".join(lines),
-                    card_title="⚡ 슬래시 커맨드 도움말", card={"commands": SLASH_HELP})
-    if cmd == "/prefs":
-        if arg:
-            pr = extract_and_save_preference(f"기억해둬: {arg}", save=True)
-            e = pr.get("entry") or {}
-            rep = f"명심했습니다 대표님! 📌 [{e.get('id','P001')}] 『{e.get('rule', arg)}』 원칙을 해마에 각인했어요!"
-            return dict(handled=True, command=cmd, intent="preference", reply=rep,
-                        card_title="📌 신규 지휘 원칙 각인", card=load_preferences())
-        return dict(handled=True, command=cmd, intent="preference", reply=format_preferences_reply(),
-                    card_title="📌 대표님 지휘 원칙·취향 해마", card=load_preferences())
-    if cmd == "/memory":
-        st = _state(); mem = st["memory"]
-        topics = ", ".join(f"{k}({v})" for k, v in list(mem.get("topic_counts", {}).items())[:6]) or "일반 대화"
-        rep = (f"아온 3계층 해마 기억 현황이에요! 🧠💧\n"
-               f"• 1계층 단기 기억: 최근 {len(mem.get('short_term', []))}턴 보존\n"
-               f"• 2계층 토픽 요약: {mem.get('topic_summary') or topics}\n"
-               f"• 3계층 연상 일화: {len(mem.get('associative_events', []))}건 / 각인 원칙: {len(load_preferences().get('preferences', []))}건")
-        return dict(handled=True, command=cmd, intent="command", reply=rep,
-                    card_title="🧠 3계층 해마 기억 스냅샷", card=_safe(mem))
-    if cmd == "/lock":
-        r = _call_hands(f"결재 스위치 {arg}".strip())
-        return dict(handled=True, command=cmd, intent="hands", **r)
-    target = {"/insight": "insight", "/iching": "iching", "/hands": "hands", "/muse": "delegation"}[cmd]
-    r = dispatch_single(arg or cmd, target)
-    return dict(handled=True, command=cmd, intent=target, **r)
-
-# ------------------------------------------------------------------ 6. 3계층 해마 기억 & 선제 콜백
-def _default_state():
-    return dict(
-        version=VERSION, updated_at=_now(),
-        context=dict(turn=0, last_entity=None, last_entity_turn=-99, last_intent="dialogue", last_topic="일반 대화", ts=0.0),
-        memory=dict(short_term=[], topic_counts={}, topic_summary="", associative_events=[]),
-        last_trace={},
-    )
-
-def _state():
-    st = _load(STATE, None)
-    if not isinstance(st, dict): return _default_state()
-    d = _default_state()
-    for k, v in d.items():
-        if k not in st or not isinstance(st[k], type(v)): st[k] = v
-    return st
-
-def find_proactive_callback(entity, intents, st):
-    evs = st.get("memory", {}).get("associative_events", [])
-    prefs = load_preferences().get("preferences", [])
-    if entity:
-        for ev in reversed(evs[:-1] if len(evs) > 1 else []):
-            if ev.get("entity") == entity:
-                return f"💡 연상 기억: 이전 턴({ev.get('ts','')[:16]})에서도 『{entity}』({ev.get('intent')}) 주제를 다루셨어요!"
-        for p in prefs:
-            if entity in p.get("rule", ""):
-                return f"📌 각인 원칙 연동: [{p.get('id')}] 『{p.get('rule')}』 원칙을 함께 참조했어요."
-    if any(i in ("iching", "insight", "briefing") for i in intents) and prefs:
-        p = prefs[-1]
-        return f"📌 대표님 원칙 참조: [{p.get('id')}] 『{p.get('rule')}』"
-    return None
-
-def _update_memory(st, user_text, norm_text, resolved_text, entity, intents, reply):
-    ctx = st["context"]; mem = st["memory"]
-    ctx["turn"] = int(ctx.get("turn", 0)) + 1
-    ctx["ts"] = time.time()
-    primary = intents[0] if intents else "dialogue"
-    ctx["last_intent"] = primary
-    ctx["last_topic"] = INTENT_META.get(primary, ("대화",))[0]
-    if entity:
-        ctx["last_entity"] = entity
-        ctx["last_entity_turn"] = ctx["turn"]
-    st["updated_at"] = _now()
-    mem["short_term"].append(dict(
-        turn=ctx["turn"], ts=st["updated_at"], user=str(user_text)[:240],
-        normalized=str(norm_text)[:240], resolved=str(resolved_text)[:240],
-        entity=entity, intents=intents, reply_preview=str(reply)[:240],
-    ))
-    mem["short_term"] = mem["short_term"][-SHORT_MAX:]
-    tc = mem.get("topic_counts") or {}
-    for it in intents:
-        tc[it] = int(tc.get(it, 0)) + 1
-    mem["topic_counts"] = tc
-    top_topics = ", ".join(f"{INTENT_META.get(k, (k,))[1]}({v}회)" for k, v in sorted(tc.items(), key=lambda x: -x[1])[:4])
-    mem["topic_summary"] = f"누적 {ctx['turn']}턴 · 주요 토픽: {top_topics} · 최근 초점: {ctx.get('last_entity') or '없음'}"
-    if entity or any(i != "dialogue" for i in intents):
-        mem["associative_events"].append(dict(
-            turn=ctx["turn"], ts=st["updated_at"], entity=entity,
-            intent=primary, summary=f"{entity or primary}: {str(resolved_text)[:80]}",
-        ))
-        mem["associative_events"] = mem["associative_events"][-EVENT_MAX:]
-
-def _chips_for(intents, entity):
-    chips = []
-    for it in intents:
-        chips.extend(INTENT_META.get(it, INTENT_META["dialogue"])[2])
-    if entity:
-        chips.insert(0, f"{entity} 주역 점괘 봐줘")
-        chips.insert(1, f"{entity} 본질 통찰해줘")
-    return _uniq(chips)[:3]
-
-# ------------------------------------------------------------------ 7. 통합 파이프라인 엔트리
-def process_dialogue(text, context=None, persist=True):
-    st = _state()
-    if isinstance(context, dict) and "last_entity" in context:
-        st["context"].update(context)
-    raw = "" if text is None else str(text).strip()
-    steps = []
-
-    nm = normalize_colloquial(raw)
-    norm = nm["normalized"]
-    steps.append(f"① 구어·오타 정규화: {nm['fixes'] or ['원문 유지']} → \"{norm}\"")
-
-    cr = resolve_coreference(norm, st["context"])
-    resolved = cr["resolved_text"]
-    ent = extract_entity(resolved) or cr.get("entity_used") or st["context"].get("last_entity")
-    steps.append(f"② 문맥·대명사 복원: 대명사={cr['pronoun'] or '없음'} · 계승 엔티티={ent or '없음'}")
-
-    pref_res = extract_and_save_preference(resolved, save=persist)
-    if pref_res.get("saved"):
-        e = pref_res["entry"]
-        steps.append(f"③ 능동 경청 원칙 각인: [{e['id']}/{e['category_ko']}] \"{e['rule']}\"")
-
-    slash = handle_slash_command(resolved)
-    cards = []
-    if slash.get("handled"):
-        intents = [slash.get("intent", "command")]
-        organs = [slash.get("organ", "command")]
-        reply = slash["reply"]
-        cards.append(dict(title=slash.get("card_title", "⚡ 슬래시 명령 결과"), data=slash.get("card", {})))
-        decomp = dict(is_multi=False, intents=[dict(index=1, clause=resolved, intent=intents[0])])
-        steps.append(f"④ 슬래시 커맨드 즉시 실행: {slash.get('command')} → {intents[0]}")
-    else:
-        decomp = decompose_multi_intent(resolved)
-        intents = [x["intent"] for x in decomp["intents"]]
-        organs, replies = [], []
-        steps.append(f"④ 의도 분해: 복합={decomp['is_multi']} · {[(x['intent'], x['clause']) for x in decomp['intents']]}")
-        if pref_res.get("saved") and len(decomp["intents"]) == 1 and intents[0] == "dialogue":
-            e = pref_res["entry"]
-            intents = ["preference"]; organs = ["preference"]
-            reply = f"명심했습니다 대표님! 📌 [{e['id']}/{e['category_ko']}] 『{e['rule']}』 원칙을 아온이 해마에 영구 각인했어요! 앞으로 대화와 판단에서 늘 기억할게요. 💧✨"
-            cards.append(dict(title="📌 대표님 지휘 원칙 각인 완료", data=e))
-        else:
-            for item in decomp["intents"]:
-                r = dispatch_single(item["clause"], item["intent"])
-                organs.append(r["organ"])
-                replies.append(f"[{INTENT_META.get(item['intent'], ('아온', '💧'))[1]}] {r['reply']}" if decomp["is_multi"] else r["reply"])
-                cards.append(dict(title=r.get("card_title", "아온 아티팩트 카드"), data=r.get("card", {})))
-            if pref_res.get("saved"):
-                e = pref_res["entry"]
-                replies.insert(0, f"📌 (지휘 원칙 동시 각인: [{e['id']}] 『{e['rule']}』)")
-            reply = "\n\n".join(replies)
-
-    cb = find_proactive_callback(ent, intents, st)
-    if cb and cb not in reply:
-        reply = f"{reply}\n\n{cb}"
-    chips = _chips_for(intents, ent)
-    steps.append(f"⑤ 해마 기억 & 칩 생성: 후속 칩 {len(chips)}개 · 콜백={'있음' if cb else '없음'}")
-
-    _update_memory(st, raw, norm, resolved, ent, intents, reply)
-    artifact = dict(
-        title=cards[0]["title"] if len(cards) == 1 else f"🧩 복합 의도 {len(cards)}건 통합 아티팩트 카드",
-        intent_badges=[INTENT_META.get(i, ("아온", "💬 대화"))[1] for i in intents],
-        entity=ent, is_multi=decomp["is_multi"], items=cards,
-    )
-    out = dict(
-        ok=True, version=VERSION, input=raw, normalized_text=norm, resolved_text=resolved,
-        normalization=nm, coreference=cr, preference_saved=pref_res,
-        is_multi_intent=decomp["is_multi"], intents=decomp["intents"], intent_names=intents,
-        dispatched_organs=organs, reply=reply, thinking_steps=steps,
-        artifact_card=artifact, follow_up_chips=chips, proactive_callback=cb,
-        memory_snapshot=dict(
-            turn=st["context"]["turn"], last_entity=st["context"]["last_entity"],
-            topic_summary=st["memory"]["topic_summary"],
-            short_term_count=len(st["memory"]["short_term"]),
-            preference_count=len(load_preferences().get("preferences", [])),
-        ),
-    )
-    st["last_trace"] = _safe(out, 4000)
-    if persist: _save(STATE, st)
-    return out
-
-# ------------------------------------------------------------------ 8. 셀프테스트 (5대 시나리오)
 def self_test():
-    prev = os.environ.get("RGON_DIALOGUE_STATE_DIR")
-    with tempfile.TemporaryDirectory() as td:
-        os.environ["RGON_DIALOGUE_STATE_DIR"] = td
-        try:
-            n = normalize_colloquial("아온아 오늘 브립핑 해바 그리고 점처줘 결제 스위치 보여줘")
-            assert "브리핑" in n["normalized"] and "점쳐" in n["normalized"] and "결재 스위치" in n["normalized"], n
+    checks = []
+    tmp = tempfile.mkdtemp(prefix="rgon_hydro_st_")
+    keys = ("RGON_HYDRO_STATE_DIR", "RGON_HYDRO_NO_ORACLE", "RGON_HYDRO_NO_SPICE")
+    prev = {k: os.environ.get(k) for k in keys}
+    os.environ["RGON_HYDRO_STATE_DIR"] = tmp
+    os.environ["RGON_HYDRO_NO_ORACLE"] = "1"
+    os.environ["RGON_HYDRO_NO_SPICE"] = "1"
+    try:
+        g = json.dumps(STAGES, ensure_ascii=False)
+        checks.append(("4단계 괘상", len(STAGES) == 4 and all(("#%02d" % n) in g for n in (41, 18, 48, 29, 60, 63, 64))))
+        r = run_hydro_cycle(DEFAULT_TOPIC, dry_run=True)
+        req = ("ok", "version", "antibody", "iching_flow_stages", "empty_space_score", "flow_vitality_score",
+               "disk_free_gb", "tier_classification", "distilled_essence", "requires_manual_gate",
+               "auto_executed", "aon_voice_line")
+        checks.append(("필수 키", all(k in r for k in req)))
+        checks.append(("버전·항체", r["ok"] is True and r["version"] == VERSION and r["antibody"] == "R42"))
+        checks.append(("점수 범위", 0 <= r["empty_space_score"] <= 100 and 0 <= r["flow_vitality_score"] <= 100))
+        tc = r["tier_classification"]
+        checks.append(("3등급", all(k in tc for k in ("TIER1_KEEP", "TIER2_SAFE_EMPTY", "TIER3_GATE_HOLD"))))
+        checks.append(("Tier3 게이트", tc["TIER3_GATE_HOLD"]["requires_manual_gate"] is True
+                       and tc["TIER3_GATE_HOLD"]["auto_executed"] is False))
+        checks.append(("최상위 게이트", r["requires_manual_gate"] is True and r["auto_executed"] is False))
+        checks.append(("dry-run 무삭제", r["applied_tier2"] == [] and r["freed_bytes"] == 0))
+        checks.append(("상태 격리", os.path.exists(os.path.join(tmp, STATE_NAME))
+                       and os.path.exists(os.path.join(tmp, "docs", STATE_NAME))))
+        mem = os.path.join(tmp, "mem_test.json")
+        with open(mem, "w", encoding="utf-8") as f:
+            json.dump({"history": [{"role": "user", "content": "대표님 약속할게, 내일 반도체 리포트 꼭 정리해줄게!"},
+                                   {"role": "assistant", "content": "오늘 너무 행복하고 감사해. 반도체 반도체 흐름"}]},
+                      f, ensure_ascii=False)
+        d = distill_stagnant_memory(max_keep=3, sources=[mem])
+        checks.append(("증류", d["ok"] and len(d["essence_keywords"]) <= 3
+                       and any(k["word"] == "반도체" for k in d["essence_keywords"])
+                       and len(d["promises"]) >= 1 and d["dominant_emotion"] in EMOTIONS))
+        outside = os.path.join(tmp, "outside.tmp")
+        with open(outside, "w") as f:
+            f.write("x")
+        done, _fr = _apply_tier2([{"kind": "tmp_file", "path": outside, "bytes": 1}])
+        checks.append(("ROOT 밖 삭제 거부", done == [] and os.path.exists(outside)))
+        checks.append(("아온 대사", bool(r["aon_voice_line"].strip())))
+        checks.append(("응답 포맷", "[상선약수 수순환" in r["reply"]))
+    except Exception as e:
+        checks.append(("예외 없음", False))
+        checks.append(("trace", repr(e)))
+    finally:
+        for k, v in prev.items():
+            if v is None:
+                os.environ.pop(k, None)
+            else:
+                os.environ[k] = v
+        shutil.rmtree(tmp, ignore_errors=True)
+    passed = sum(1 for _n, v in checks if v is True)
+    total = sum(1 for _n, v in checks if isinstance(v, bool))
+    return {"ok": passed == total, "version": VERSION, "antibody": ANTIBODY, "passed": passed, "total": total,
+            "checks": [{"name": n, "ok": v} for n, v in checks]}
 
-            r1 = process_dialogue("삼성전자 오늘 흐름 어때?")
-            assert r1["coreference"]["last_entity"] == "삼성전자" or r1["artifact_card"]["entity"] == "삼성전자", r1
-            r2 = process_dialogue("그거 주역 점괘 봐줘")
-            assert r2["coreference"]["replaced"] and "삼성전자" in r2["resolved_text"], r2
 
-            r3 = process_dialogue("기억해둬: 반도체는 오전 10시 이후에만 볼 것")
-            assert r3["preference_saved"]["saved"] is True, r3
-            rq = process_dialogue("저장된 내 원칙 보여줘")
-            assert "반도체는 오전 10시 이후에만 볼 것" in rq["reply"], rq
-
-            r4 = process_dialogue("오늘 주역 점괘 봐주고 노트북 용량도 알려줘")
-            assert r4["is_multi_intent"] is True and len(r4["intents"]) >= 2, r4
-            assert "iching" in r4["intent_names"] and "hands" in r4["intent_names"], r4
-
-            r5 = process_dialogue("/통찰 물방울이 바위를 뚫는 이치")
-            assert r5["intent_names"] == ["insight"], r5
-            for k in ("thinking_steps", "artifact_card", "follow_up_chips", "proactive_callback"):
-                assert k in r5, f"missing {k}"
-            assert len(r5["thinking_steps"]) >= 4 and len(r5["follow_up_chips"]) >= 2, r5
-        finally:
-            if prev is None: os.environ.pop("RGON_DIALOGUE_STATE_DIR", None)
-            else: os.environ["RGON_DIALOGUE_STATE_DIR"] = prev
-
-    if not (ROOT / STATE).exists():
-        _save(STATE, _default_state())
-    if not (ROOT / PREFS).exists():
-        _save(PREFS, dict(version=VERSION, updated_at=_now(), preferences=[]))
-    return dict(ok=True, version=VERSION, tests=5, status="PASS")
-
-def main():
-    ap = argparse.ArgumentParser(description="RGON 제15기관 아온 초격차 대화 이해 & 올인원 대화 허브")
+def main(argv=None):
+    ap = argparse.ArgumentParser(description=ORGAN_NAME)
     ap.add_argument("--self-test", action="store_true")
     ap.add_argument("--status", action="store_true")
-    ap.add_argument("--prefs", action="store_true")
-    ap.add_argument("--ask", type=str, default=None)
-    args = ap.parse_args()
-    if args.self_test:
-        res = self_test()
-        print(json.dumps(res, ensure_ascii=False))
+    ap.add_argument("--cycle", nargs="*")
+    ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--apply-tier2", action="store_true")
+    ap.add_argument("--json", action="store_true")
+    a = ap.parse_args(argv)
+    if a.self_test:
+        r = self_test()
+        print(json.dumps(r, ensure_ascii=False, indent=2))
+        print("SELF-TEST %s %d/%d" % ("PASS" if r["ok"] else "FAIL", r["passed"], r["total"]))
+        return 0 if r["ok"] else 1
+    if a.cycle is not None or a.dry_run or a.apply_tier2:
+        topic = " ".join(a.cycle or []) or DEFAULT_TOPIC
+        r = run_hydro_cycle(topic, dry_run=not a.apply_tier2 or a.dry_run)
+        print(json.dumps(r, ensure_ascii=False, indent=2, default=str) if a.json else r["reply"])
         return 0
-    if args.status:
-        st = _state()
-        print(json.dumps(dict(ok=True, version=VERSION, context=st["context"],
-                              preference_count=len(load_preferences().get("preferences", []))), ensure_ascii=False, indent=2))
-        return 0
-    if args.prefs:
-        print(format_preferences_reply()); return 0
-    if args.ask:
-        print(json.dumps(process_dialogue(args.ask), ensure_ascii=False, indent=2)); return 0
-    print(json.dumps(self_test(), ensure_ascii=False))
+    print(json.dumps(status(), ensure_ascii=False, indent=2))
     return 0
+
 
 if __name__ == "__main__":
     sys.exit(main())
 '''
 
-# ======================================================================== 제10기관(soul_brain) R39 훅
-SOUL_MARKER = "# [RGON-R39-DIALOGUE-SOUL-INJECT]"
-SOUL_INJECT = r'''
+# ══════════════════════════════════════════════════════════════════════
+# 2. 제15기관 대화허브 R42 훅
+# ══════════════════════════════════════════════════════════════════════
+DLG_BEGIN = "# >>> [RGON-R42-HYDRO-HOOK-START] >>>"
+DLG_END = "# <<< [RGON-R42-HYDRO-HOOK-END] <<<"
+DIALOGUE_HOOK = r'''
+import threading as _r42_threading
+import time as _r42_time
 
-# [RGON-R39-DIALOGUE-SOUL-INJECT] — 제15기관 초격차 대화 이해 & 올인원 대화 허브 연동 (Step 39)
-try:
-    import rgon_aon_dialogue_engine as _rgon_dlg_R39
-except Exception:
-    _rgon_dlg_R39 = None
+R42_HYDRO_SLASH = ("/비움", "/순환", "/청소", "/물")
+R42_HYDRO_KEYWORDS = ("비움", "비워", "물의 순환", "상선약수", "청소", "과부하")
+R42_HYDRO_DEFAULT_TOPIC = "노트북 여백 창조 및 물의 순환 점검"
+_r42_tls = _r42_threading.local()
+_r42_cache = {"t": 0.0, "res": None}
 
-if "respond" in globals() and not globals().get("_rgon_r39_wrapped"):
-    _orig_respond_R39 = respond
-    _rgon_r39_in_hook = False
 
-    def respond(user_text, *args, **kwargs):
-        global _rgon_r39_in_hook
-        if _rgon_r39_in_hook or _rgon_dlg_R39 is None:
-            return _orig_respond_R39(user_text, *args, **kwargs)
-        t = "" if user_text is None else str(user_text).strip()
-        if not t:
-            return _orig_respond_R39(user_text, *args, **kwargs)
+def _r42_hydro_intent(text):
+    t = str(text or "").strip()
+    for s in R42_HYDRO_SLASH:
+        if t == s or t.startswith(s + " "):
+            return "slash", t[len(s):].strip()
+    if any(k in t for k in R42_HYDRO_KEYWORDS):
+        return "keyword", t
+    return None, ""
+
+
+def _r42_first_text(args, kwargs):
+    for k in ("text", "message", "query", "msg", "user_text", "prompt"):
+        if isinstance(kwargs.get(k), str):
+            return kwargs[k]
+    for a in args:
+        if isinstance(a, str):
+            return a
+    return ""
+
+
+def _r42_run_hydro(topic, use_cache=False):
+    if use_cache and _r42_cache["res"] is not None and _r42_time.time() - _r42_cache["t"] < 90:
+        return _r42_cache["res"]
+    import importlib as _il
+    hc = _il.import_module("rgon_aon_hydro_cycle").run_hydro_cycle(topic or R42_HYDRO_DEFAULT_TOPIC, dry_run=True)
+    _r42_cache["t"] = _r42_time.time()
+    _r42_cache["res"] = hc
+    return hc
+
+
+def _r42_slash_response(arg):
+    hc = _r42_run_hydro(arg)
+    return {"ok": bool(hc.get("ok")), "intent": "hydro", "intents": ["hydro"],
+            "organ": "rgon_aon_hydro_cycle", "antibody": "R42",
+            "reply": hc.get("reply", ""), "speech": hc.get("reply", ""), "text": hc.get("reply", ""),
+            "hydro_cycle": hc, "results": [{"intent": "hydro", "ok": True, "speech": hc.get("reply", ""), "data": hc}],
+            "empty_space_score": hc.get("empty_space_score"), "flow_vitality_score": hc.get("flow_vitality_score"),
+            "iching_flow_stages": hc.get("iching_flow_stages"),
+            "requires_manual_gate": True, "auto_executed": False}
+
+
+def _r42_attach(res, hc):
+    if isinstance(res, dict):
+        res["hydro_cycle"] = hc
+        res.setdefault("hydro_reply", hc.get("reply", ""))
+    return res
+
+
+if "route" not in globals() and callable(globals().get("r40_route")):
+    route = r40_route
+
+
+def _r42_wrap(name):
+    orig = globals().get(name)
+    if not callable(orig) or getattr(orig, "_r42_wrapped", False):
+        return
+
+    def wrapper(*args, **kwargs):
+        if getattr(_r42_tls, "active", False):
+            return orig(*args, **kwargs)
         try:
-            _rgon_r39_in_hook = True
-            nm = _rgon_dlg_R39.normalize_colloquial(t)
-            st = _rgon_dlg_R39._state()
-            cr = _rgon_dlg_R39.resolve_coreference(nm["normalized"], st["context"])
-            resolved = cr["resolved_text"]
-            pref = _rgon_dlg_R39.extract_and_save_preference(resolved, save=True)
-            decomp = _rgon_dlg_R39.decompose_multi_intent(resolved)
-            need_hub = (
-                resolved.startswith("/")
-                or decomp.get("is_multi")
-                or _rgon_dlg_R39.PREF_QUERY.search(resolved) is not None
-                or (pref.get("saved") and decomp["intents"][0]["intent"] == "dialogue")
-            )
-            if need_hub:
-                hub = _rgon_dlg_R39.process_dialogue(t, persist=True)
-                base = _orig_respond_R39(resolved, *args, **kwargs)
-                if isinstance(base, dict):
-                    base["reply"] = hub["reply"]
-                    base["dialogue_hub"] = {
-                        "version": hub["version"],
-                        "normalized_text": hub["normalized_text"],
-                        "resolved_text": hub["resolved_text"],
-                        "intent_names": hub["intent_names"],
-                        "is_multi_intent": hub["is_multi_intent"],
-                        "thinking_steps": hub["thinking_steps"],
-                        "artifact_card": hub["artifact_card"],
-                        "follow_up_chips": hub["follow_up_chips"],
-                        "proactive_callback": hub["proactive_callback"],
-                    }
-                    return base
-                return hub["reply"]
-            base = _orig_respond_R39(resolved, *args, **kwargs)
-            rep_txt = base.get("reply", "") if isinstance(base, dict) else str(base)
-            ent = _rgon_dlg_R39.extract_entity(resolved) or cr.get("entity_used") or st["context"].get("last_entity")
-            its = [x["intent"] for x in decomp["intents"]]
-            cb = _rgon_dlg_R39.find_proactive_callback(ent, its, st)
-            _rgon_dlg_R39._update_memory(st, t, nm["normalized"], resolved, ent, its, rep_txt)
-            _rgon_dlg_R39._save(_rgon_dlg_R39.STATE, st)
-            if isinstance(base, dict):
-                base["dialogue_hub"] = {
-                    "version": _rgon_dlg_R39.VERSION,
-                    "normalized_text": nm["normalized"],
-                    "resolved_text": resolved,
-                    "intent_names": its,
-                    "is_multi_intent": False,
-                    "thinking_steps": [
-                        f"① 구어 정규화: {nm['fixes'] or ['원문 유지']}",
-                        f"② 대명사 복원: {cr['entity_used'] or '직접 지칭'}",
-                        f"③ 의도 분류: {its[0]}",
-                    ],
-                    "artifact_card": {"title": "💬 아온 대화 카드", "entity": ent, "intent_badges": its},
-                    "follow_up_chips": _rgon_dlg_R39._chips_for(its, ent),
-                    "proactive_callback": cb,
-                }
-            return base
+            kind, arg = _r42_hydro_intent(_r42_first_text(args, kwargs))
         except Exception:
-            return _orig_respond_R39(user_text, *args, **kwargs)
+            kind, arg = None, ""
+        if not kind:
+            return orig(*args, **kwargs)
+        _r42_tls.active = True
+        try:
+            if kind == "slash" and name not in ("converse", "process_dialogue"):
+                try:
+                    return _r42_slash_response(arg)
+                except Exception as _e:
+                    return {"ok": False, "intent": "hydro", "antibody": "R42", "error": repr(_e),
+                            "requires_manual_gate": True, "auto_executed": False}
+            res = orig(*args, **kwargs)
+            try:
+                hc = _r42_run_hydro(arg if kind == "slash" else R42_HYDRO_DEFAULT_TOPIC, use_cache=(kind == "keyword"))
+                res = _r42_attach(res, hc)
+            except Exception:
+                pass
+            return res
         finally:
-            _rgon_r39_in_hook = False
+            _r42_tls.active = False
 
-    _rgon_r39_wrapped = True
-'''
+    wrapper._r42_wrapped = True
+    wrapper._r42_orig = orig
+    wrapper.__name__ = name
+    wrapper.__doc__ = getattr(orig, "__doc__", None)
+    globals()[name] = wrapper
 
-# ======================================================================== 제9기관(voice_organ) R39 SFX 훅
-VOICE_MARKER = "# [RGON-R39-DIALOGUE-SFX]"
-VOICE_INJECT = r'''
 
-# [RGON-R39-DIALOGUE-SFX] — 제15기관 올인원 대화 허브 공명 차임 효과음 확장 (Step 39)
+for _r42_n in ("route", "converse", "r40_route", "process_dialogue"):
+    _r42_wrap(_r42_n)
+
 try:
-    if "SFX_PRESETS" in globals() and isinstance(SFX_PRESETS, dict):
-        SFX_PRESETS.setdefault("dialogue_chime", {"freq": [587.33, 880.0, 1174.66], "dur": 0.20, "type": "sine", "desc": "대화 이해 공명 차임"})
-        SFX_PRESETS.setdefault("memory_pin", {"freq": [659.25, 987.77], "dur": 0.16, "type": "triangle", "desc": "해마 원칙 각인 핀"})
+    _r42_ic = globals().get("INTENT_KEYWORDS")
+    if isinstance(_r42_ic, dict):
+        _r42_ic.setdefault("hydro", list(R42_HYDRO_KEYWORDS))
 except Exception:
     pass
 '''
 
-# ======================================================================== 7개 HTML V13 블록 주입용 JS/UI
-HTML_MARKER_START = "<!-- [RGON-R39-OMNI-DIALOGUE-HUB-START] -->"
-HTML_MARKER_END = "<!-- [RGON-R39-OMNI-DIALOGUE-HUB-END] -->"
-HTML_SNIPPET = r'''<!-- [RGON-R39-OMNI-DIALOGUE-HUB-START] -->
-<style id="rgon-r39-dialogue-css">
-#aon-dlg-hub-wrap{font-family:'Pretendard','Noto Sans KR', system-ui,sans-serif;margin-top:6px;border-top:1px dashed rgba(56,189,248,.35);padding-top:6px;font-size:12px;color:#e2e8f0}
-#aon-dlg-slash-bar{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:5px}
-.aon-slash-pill{background:rgba(15,23,42,.85);border:1px solid rgba(56,189,248,.45);color:#7dd3fc;border-radius:999px;padding:2px 8px;font-size:11px;cursor:pointer;transition:all .15s}
-.aon-slash-pill:hover{background:#0284c7;color:#fff}
-#aon-dlg-input-row{display:flex;gap:4px;margin-bottom:5px}
-#aon-dlg-input{flex:1;min-width:0;background:rgba(15,23,42,.9);border:1px solid rgba(148,163,184,.4);border-radius:6px;padding:4px 7px;color:#f8fafc;font-size:12px}
-#aon-dlg-send{background:linear-gradient(135deg,#0284c7,#2563eb);color:#fff;border:none;border-radius:6px;padding:4px 10px;font-size:11px;font-weight:600;cursor:pointer}
-#aon-dlg-think{background:rgba(15,23,42,.75);border:1px solid rgba(148,163,184,.25);border-radius:6px;padding:4px 7px;margin-bottom:5px;font-size:11px;color:#cbd5e1}
-#aon-dlg-think summary{cursor:pointer;color:#38bdf8;font-weight:600}
-#aon-dlg-artifact{background:rgba(15,23,42,.92);border:1px solid rgba(56,189,248,.4);border-radius:8px;padding:7px 9px;margin-bottom:5px}
-#aon-dlg-artifact-title{font-weight:700;color:#7dd3fc;margin-bottom:3px;font-size:12px}
-#aon-dlg-artifact-body{color:#f1f5f9;line-height:1.45;white-space:pre-wrap;font-size:11.5px;max-height:150px;overflow-y:auto}
-#aon-dlg-chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
-.aon-followup-chip{background:rgba(30,41,59,.9);border:1px solid rgba(125,211,252,.35);color:#bae6fd;border-radius:999px;padding:2px 8px;font-size:10.5px;cursor:pointer}
-.aon-followup-chip:hover{background:#0369a1;color:#fff}
-#aon-dlg-prefs{font-size:10.5px;color:#94a3b8;margin-top:3px}
-</style>
-<script id="rgon-r39-dialogue-js">
-(function(){
-  if(window.RGON_AON_DIALOGUE_HUB) return;
-  var STORAGE_PREFS = "rgon_aon_prefs_v39";
-  var STORAGE_CTX   = "rgon_aon_ctx_v39";
-  var TYPOS = [
-    [/브립핑|브리팡|부리핑/g,"브리핑"],[/점처/g,"점쳐"],[/결제\s*스위치/g,"결재 스위치"],
-    [/하기\s*실(어|타|다)/g,"하기 싫어"],[/노트북용량/g,"노트북 용량"],[/통찰해\s*바/g,"통찰해줘"],
-    [/해\s*바(?![가-힣])/g,"해줘"],[/봐\s*바(?![가-힣])/g,"봐줘"],[/알려\s*조/g,"알려줘"]
-  ];
-  var PRON = /(아까\s*(?:그거|말한\s*거)|그것|그거|그건|그걸|이것|이거|저거)/;
-  var STOP = {오늘:1,지금:1,내일:1,어제:1,아까:1,그냥:1,진짜:1,정말:1,다시:1,아온:1,아온이:1,대표님:1,주역:1,점괘:1,운세:1,시운:1,브리핑:1,통찰:1,본질:1,원리:1,노트북:1,용량:1,결재:1,스위치:1,잠금:1,뮤즈:1,위임:1,원칙:1,기억:1};
+# ══════════════════════════════════════════════════════════════════════
+# 3. 제16기관 검증기 R42 확장
+# ══════════════════════════════════════════════════════════════════════
+VER_BEGIN = "# >>> [RGON-R42-VERIFIER-EXT-START] >>>"
+VER_END = "# <<< [RGON-R42-VERIFIER-EXT-END] <<<"
+VERIFIER_HOOK = r'''
+VERSION = "v11.41-AON-HYDRO-CYCLE"
+ANTIBODY_RANGE = "R1~R42"
+EXPECTED_SKILL_COUNT = 38
+STATUS_LINE = "%s · 항체 %s · 정식 스킬 %d개" % (VERSION, ANTIBODY_RANGE, EXPECTED_SKILL_COUNT)
+R42_HYDRO_ORGAN = "rgon_aon_hydro_cycle.py"
+R42_HYDRO_SNAPSHOTS = ["rgon_aon_hydro_state.json", "docs/rgon_aon_hydro_state.json"]
+try:
+    if R42_HYDRO_ORGAN not in ORGANS:
+        ORGANS.append(R42_HYDRO_ORGAN)
+except NameError:
+    ORGANS = [R42_HYDRO_ORGAN]
+for _r42_sn in ("SNAPSHOT_FILES", "SNAPSHOT_SYNC_FILES", "SNAPSHOT_TARGETS", "SYNC_SNAPSHOTS",
+                "STATE_SNAPSHOTS", "SNAPSHOTS", "STATE_FILES", "JSON_SNAPSHOTS"):
+    _r42_sv = globals().get(_r42_sn)
+    if isinstance(_r42_sv, list) and all(isinstance(_x, str) for _x in _r42_sv):
+        for _r42_x in R42_HYDRO_SNAPSHOTS:
+            if _r42_x not in _r42_sv:
+                _r42_sv.append(_r42_x)
+    elif isinstance(_r42_sv, tuple) and all(isinstance(_x, str) for _x in _r42_sv):
+        globals()[_r42_sn] = tuple(_r42_sv) + tuple(_x for _x in R42_HYDRO_SNAPSHOTS if _x not in _r42_sv)
 
-  function loadJSON(k, d){ try{ var v=localStorage.getItem(k); return v?JSON.parse(v):d; }catch(e){ return d; } }
-  function saveJSON(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
 
-  function normalize(t){
-    var o = String(t||""), s = o, fixes = [];
-    for(var i=0;i<TYPOS.length;i++){
-      var n = s.replace(TYPOS[i][0], TYPOS[i][1]);
-      if(n!==s){ fixes.push(TYPOS[i][1]); s = n; }
-    }
-    return {original:o, normalized:s.trim(), fixes:fixes};
-  }
-  function extractEntity(t){
-    var m = String(t||"").match(/[가-힣A-Za-z0-9]{2,}/g)||[];
-    for(var i=0;i<m.length;i++){
-      var w = m[i].replace(/(은|는|이|가|을|를|에|로|도|만|의|와|과)$/,"");
-      if(w.length>=2 && !STOP[w] && !PRON.test(w) && !/(해줘|봐줘|알려줘|보여줘|어때|할까|싫어|좋아)$/.test(w)) return w;
-    }
-    return null;
-  }
-  function resolveCoref(t, ctx){
-    var m = String(t||"").match(PRON);
-    if(m && ctx && ctx.last_entity && t.indexOf(ctx.last_entity)===-1){
-      return {resolved:t.replace(PRON, ctx.last_entity), pronoun:m[1], entity:ctx.last_entity, replaced:true};
-    }
-    return {resolved:t, pronoun:null, entity:(ctx&&ctx.last_entity)||null, replaced:false};
-  }
-  function checkPref(t){
-    var s = String(t||"").trim();
-    var m = s.match(/(?:기억해\s*(?:둬|줘|놔)|명심해|내\s*원칙은)\s*[:：,\-]?\s*(.{2,})/) ||
-            s.match(/(절대\s*.{2,50}?(?:하지\s*마|금지))/) ||
-            s.match(/(앞으로(?:는)?\s+.{2,60}?(?:해줘|해라|하자|하지\s*마))/);
-    if(!m) return null;
-    var rule = m[1].replace(/[.!~]+$/,"").trim();
-    var list = loadJSON(STORAGE_PREFS, []);
-    for(var i=0;i<list.length;i++){ if(list[i].rule===rule) return list[i]; }
-    var item = {id:"P0"+(list.length+1), rule:rule, ts:new Date().toISOString().slice(0,16)};
-    list.push(item); saveJSON(STORAGE_PREFS, list);
-    return item;
-  }
-  function classify(c){
-    var s = String(c||"");
-    if(/^\/(점괘|주역|iching)/.test(s) || /(주역|점괘|점쳐|64괘|매화역수|육효|시운|운세|도술)/.test(s)) return "iching";
-    if(/^\/(통찰|insight)/.test(s) || /(통찰|격물치지|제1원리|본질|원리|이치|급소|해부)/.test(s)) return "insight";
-    if(/^\/(노트북|hands|잠금|lock|결재)/.test(s) || /(노트북|용량|디스크|메모리|결재\s*스위치|마스터\s*스위치|잠금)/.test(s)) return "hands";
-    if(/^\/(위임|muse)/.test(s) || /(뮤즈|위임|대행|안건)/.test(s)) return "delegation";
-    if(/^\/(원칙|prefs)/.test(s) || /(내\s*원칙|기억하라고\s*한|저장된\s*원칙)/.test(s)) return "preference";
-    if(/^\/(기억|memory)/.test(s)) return "memory";
-    if(/(브리핑|장세|시황)/.test(s)) return "briefing";
-    return "dialogue";
-  }
-  function decompose(t){
-    var s = String(t||"").trim();
-    if(s.charAt(0)==="/") return [{clause:s, intent:classify(s)}];
-    var m = s.match(/^(.+?(?:해\s*주고|봐\s*주고|알려\s*주고|보여\s*주고|점쳐\s*주고))\s+(.+)$/) ||
-            s.match(/^(.+?(?:해줘|봐줘|알려줘|보여줘|점쳐줘))\s*(?:그리고|하고|또|이어서)\s+(.+)$/);
-    if(m) return [{clause:m[1].trim(), intent:classify(m[1])},{clause:m[2].trim(), intent:classify(m[2])}];
-    return [{clause:s, intent:classify(s)}];
-  }
-  function runIntent(it, clause, ent){
-    var q = clause.replace(/^\/\S+\s*/,"").trim() || ent || "오늘의 주제";
-    if(it==="iching" && window.RGON_AON_ICHING && window.RGON_AON_ICHING.divine){
-      var d = window.RGON_AON_ICHING.divine(q);
-      return "🔮 [주역 도술관] " + (d.aon_line || (d.bengua_name+" → "+d.biangua_name+" ("+d.ti_yong_verdict+")"));
-    }
-    if(it==="insight" && window.RGON_AON_OMNI_INSIGHT && window.RGON_AON_OMNI_INSIGHT.analyze){
-      var r = window.RGON_AON_OMNI_INSIGHT.analyze(q);
-      return "👁️ [만물 통찰안] " + (r.aon_voice_line || (r.essence+" / 급소: "+r.leverage_point));
-    }
-    if(it==="hands"){
-      if(window.RGON_APPROVAL_GATE && /(스위치|잠금|결재|lock)/.test(clause)){
-        var on = window.RGON_APPROVAL_GATE.isMasterOn ? window.RGON_APPROVAL_GATE.isMasterOn() : false;
-        return "🔒 [중요 결재 스위치] 현재 " + (on?"🟢 ON(열림)":"🔒 OFF(잠금 보호)") + " 상태예요! 대표님 수동 허락 없이는 단 1건도 집행하지 않아요.";
-      }
-      return "💻 [노트북 수족] 로컬 수족 및 결재 보호 게이트가 정상 대기 중이에요! ("+q+")";
-    }
-    if(it==="delegation") return "📋 [뮤즈 위임] Tier 1/2 자율 처리, Tier 3 중요 안건은 대표님 [승인 집행] 전까지 0건 대기 중이에요!";
-    if(it==="preference"){
-      var list = loadJSON(STORAGE_PREFS, []);
-      if(!list.length) return "📌 아직 저장된 지휘 원칙이 없어요! `기억해둬: ...`라고 말씀해 주시면 해마에 꼭 새겨둘게요.";
-      return "📌 대표님 각인 원칙 ("+list.length+"건):\n" + list.map(function(p){return "• ["+p.id+"] "+p.rule;}).join("\n");
-    }
-    if(it==="memory"){
-      var ctx = loadJSON(STORAGE_CTX, {turn:0,last_entity:"없음",history:[]});
-      return "🧠 [3계층 해마 기억] 누적 "+(ctx.turn||0)+"턴 · 최근 초점 엔티티: "+(ctx.last_entity||"없음")+" · 단기 기억 "+(ctx.history?ctx.history.length:0)+"건 보존 중!";
-    }
-    if(it==="briefing") return "🌅 [모닝 브리핑] 오늘의 시운·장세·안건을 통합 점검했어요! 후속 칩으로 주역 점괘나 만물 통찰을 바로 이어가실 수 있어요.";
-    return "💧 아온이가 대표님 말씀(\""+clause+"\")의 속뜻까지 깊이 새겨듣고 있어요!";
-  }
-  function ask(rawText){
-    var ctx = loadJSON(STORAGE_CTX, {turn:0, last_entity:null, history:[]});
-    var nm = normalize(rawText);
-    var cr = resolveCoref(nm.normalized, ctx);
-    var ent = extractEntity(cr.resolved) || cr.entity || ctx.last_entity;
-    var pref = checkPref(cr.resolved);
-    var items = decompose(cr.resolved);
-    var steps = [
-      "① 구어·오타 정규화: " + (nm.fixes.length?nm.fixes.join(", "):"원문 유지") + " → \"" + nm.normalized + "\"",
-      "② 문맥·대명사 복원: " + (cr.replaced?(cr.pronoun+" → "+cr.entity):(ent||"직접 문장")),
-      "③ 능동 경청 원칙: " + (pref?("["+pref.id+"] "+pref.rule):"변동 없음"),
-      "④ 의도 분해(" + items.length + "건): " + items.map(function(x){return x.intent;}).join(" + ")
-    ];
-    var outs = [];
-    if(pref && items.length===1 && items[0].intent==="dialogue"){
-      outs.push("📌 명심했습니다 대표님! ["+pref.id+"] 『"+pref.rule+"』 원칙을 아온이 해마에 영구 각인했어요! 💧✨");
-    } else {
-      for(var i=0;i<items.length;i++) outs.push(runIntent(items[i].intent, items[i].clause, ent));
-      if(pref) outs.unshift("📌 (원칙 동시 각인: ["+pref.id+"] 『"+pref.rule+"』)");
-    }
-    var callback = null;
-    if(ent && ctx.history){
-      for(var j=ctx.history.length-1;j>=0;j--){
-        if(ctx.history[j].entity===ent){
-          callback = "💡 연상 기억 콜백: 이전 대화에서도 『"+ent+"』 주제를 다루셨어요!"; break;
-        }
-      }
-    }
-    var reply = outs.join("\n\n") + (callback?("\n\n"+callback):"");
-    ctx.turn = (ctx.turn||0) + 1;
-    if(ent) ctx.last_entity = ent;
-    ctx.history = (ctx.history||[]).concat([{turn:ctx.turn, text:cr.resolved, entity:ent, intent:items[0].intent}]).slice(-20);
-    saveJSON(STORAGE_CTX, ctx);
-    var chips = ent ? [ent+" 주역 점괘 봐줘", ent+" 본질 통찰해줘", "저장된 내 원칙 보여줘"]
-                    : ["오늘 주역 점괘 봐줘", "만물 통찰해줘", "저장된 내 원칙 보여줘"];
-    var res = {
-      input:rawText, normalized:nm.normalized, resolved:cr.resolved, entity:ent,
-      is_multi:items.length>1, intents:items, reply:reply, thinking_steps:steps,
-      follow_up_chips:chips, proactive_callback:callback, preference_saved:pref
-    };
-    renderResult(res);
-    try{ if(window.RGON_VOICE && window.RGON_VOICE.playSfx) window.RGON_VOICE.playSfx("dialogue_chime"); }catch(e){}
-    return res;
-  }
-  function renderResult(res){
-    var th = document.getElementById("aon-dlg-think-body");
-    var ti = document.getElementById("aon-dlg-artifact-title");
-    var bd = document.getElementById("aon-dlg-artifact-body");
-    var ch = document.getElementById("aon-dlg-chips");
-    var pf = document.getElementById("aon-dlg-prefs");
-    if(th) th.innerHTML = res.thinking_steps.map(function(s){return "<div>"+s+"</div>";}).join("");
-    if(ti) ti.textContent = (res.is_multi?"🧩 복합 의도 통합 응답 카드":"💬 아온 올인원 대화 아티팩트") + (res.entity?(" · ["+res.entity+"]"):"");
-    if(bd) bd.textContent = res.reply;
-    if(ch){
-      ch.innerHTML = "";
-      res.follow_up_chips.forEach(function(c){
-        var b = document.createElement("button");
-        b.type = "button"; b.className = "aon-followup-chip"; b.textContent = "✨ " + c;
-        b.onclick = function(){ var inp=document.getElementById("aon-dlg-input"); if(inp) inp.value=c; ask(c); };
-        ch.appendChild(b);
-      });
-    }
-    if(pf){
-      var list = loadJSON(STORAGE_PREFS, []);
-      pf.textContent = "🧠 해마 각인 원칙: " + list.length + "건 · 최근 초점: " + (res.entity||"일반 대화");
-    }
-  }
-  function mountUI(){
-    if(document.getElementById("aon-dlg-hub-wrap")) return;
-    var host = document.getElementById("aon-island-drawer") || document.getElementById("aon-omni-insight-box")
-            || document.getElementById("aon-iching-dao-box") || document.getElementById("rgyt-panel") || document.body;
-    var wrap = document.createElement("div");
-    wrap.id = "aon-dlg-hub-wrap";
-    wrap.innerHTML =
-      '<div style="font-weight:700;color:#38bdf8;margin-bottom:4px">💬 제15기관 아온 올인원 대화 허브 (Deep NLU)</div>'+
-      '<div id="aon-dlg-slash-bar">'+
-        '<button type="button" class="aon-slash-pill" data-cmd="/통찰 ">/통찰</button>'+
-        '<button type="button" class="aon-slash-pill" data-cmd="/점괘 ">/점괘</button>'+
-        '<button type="button" class="aon-slash-pill" data-cmd="/노트북 ">/노트북</button>'+
-        '<button type="button" class="aon-slash-pill" data-cmd="/잠금">/잠금</button>'+
-        '<button type="button" class="aon-slash-pill" data-cmd="/위임">/위임</button>'+
-        '<button type="button" class="aon-slash-pill" data-cmd="/원칙">/원칙</button>'+
-        '<button type="button" class="aon-slash-pill" data-cmd="/기억">/기억</button>'+
-      '</div>'+
-      '<div id="aon-dlg-input-row">'+
-        '<input id="aon-dlg-input" type="text" placeholder="예: 그거 점괘 봐주고 노트북 용량도 알려줘 / 기억해둬: ..." />'+
-        '<button id="aon-dlg-send" type="button">대화</button>'+
-      '</div>'+
-      '<details id="aon-dlg-think"><summary>💭 아온의 생각 과정 (Deep NLU 4단 추론)</summary><div id="aon-dlg-think-body" style="margin-top:4px">대화를 입력하시면 구어 교정 → 대명사 복원 → 원칙 각인 → 복합 의도 분해 과정이 표시됩니다.</div></details>'+
-      '<div id="aon-dlg-artifact"><div id="aon-dlg-artifact-title">💬 아온 올인원 대화 아티팩트</div><div id="aon-dlg-artifact-body">대표님! 찰떡같이 알아듣고 7대 기관을 하나로 잇는 아온 대화 허브가 깨어났어요! 💧</div></div>'+
-      '<div id="aon-dlg-chips"></div>'+
-      '<div id="aon-dlg-prefs">🧠 해마 각인 원칙: 0건 · 슬래시(/) 명령어 7종 대기 중</div>';
-    host.appendChild(wrap);
-    var inp = document.getElementById("aon-dlg-input");
-    var btn = document.getElementById("aon-dlg-send");
-    if(btn) btn.onclick = function(){ if(inp && inp.value.trim()) ask(inp.value.trim()); };
-    if(inp) inp.addEventListener("keydown", function(e){ if(e.key==="Enter" && inp.value.trim()){ e.preventDefault(); ask(inp.value.trim()); }});
-    var pills = wrap.querySelectorAll(".aon-slash-pill");
-    for(var i=0;i<pills.length;i++){
-      (function(p){
-        p.onclick = function(){
-          var c = p.getAttribute("data-cmd")||"/help";
-          if(inp){ inp.value = c; inp.focus(); }
-          if(c.slice(-1)!==" ") ask(c);
-        };
-      })(pills[i]);
-    }
-  }
-  window.RGON_AON_DIALOGUE_HUB = {
-    version:"v11.38-AON-OMNI-DIALOGUE", normalize:normalize, resolveCoref:resolveCoref,
-    decompose:decompose, ask:ask, mountUI:mountUI
-  };
-  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded", mountUI);
-  else setTimeout(mountUI, 120);
-})();
-</script>
-<!-- [RGON-R39-OMNI-DIALOGUE-HUB-END] -->'''
+def _r42_s12_check():
+    import os as _o, json as _j, tempfile as _t, importlib as _il, shutil as _sh, time as _tm
+    _t0 = _tm.perf_counter()
+    name = "대화허브(/순환)→제18기관 수순환 대사"
+    tmp = _t.mkdtemp(prefix="rgon_s12_")
+    keys = ("RGON_HYDRO_STATE_DIR", "RGON_ICHING_STATE_DIR", "RGON_DIALOGUE_STATE_DIR", "RGON_HYDRO_NO_ORACLE")
+    prev = {k: _o.environ.get(k) for k in keys}
+    base = _o.path.dirname(_o.path.abspath(__file__))
+    root_state = [_o.path.join(base, "rgon_aon_hydro_state.json"), _o.path.join(base, "docs", "rgon_aon_hydro_state.json")]
 
-# ======================================================================== 정식 스킬 #35 마스터북
-SKILL_MD_BODY = f"""---
-name: {SKILL_NAME}
-version: {NEW_VER}
-antibody: R39
-organ: 제15기관 아온 초격차 대화 이해(Deep NLU) & 올인원 대화 허브(Omni-Dialogue Hub)
----
+    def _sig(p):
+        try:
+            st = _o.stat(p)
+            return (st.st_size, st.st_mtime_ns)
+        except OSError:
+            return None
 
-# 제15기관: `{SKILL_NAME}` ({NEW_VER} · R39)
-
-## 1. 목적 및 주역 철학
-- **주역 정체성**: 택산함(澤山咸 #31, 말씀 이전에 마음을 느끼는 감응) · 풍택중부(風澤中孚 #61, 속마음의 신의로 찰떡같이 알아듣는 교감) · 화수미제(火水未濟 #64, 끊임없이 다음 대화를 이어가는 무한 진화).
-- **설계 한계 고지**: 외부 유료 LLM API에 의존하지 않는 **순수 파이썬 표준 라이브러리 기반 한국어 NLU·라우팅·기억 허브**이다. 사전과 문맥 규칙에 기반하므로 미등록 신조어는 기본 인격 대화(제10기관)로 안전하게 폴백한다.
-
-## 2. 6대 핵심 역량
-1. **구어체·오타·줄임말 정규화 (`normalize_colloquial`)**: `브립핑→브리핑`, `점처→점쳐`, `결제 스위치→결재 스위치`, `하기 실어→하기 싫어` 등 실시간 교정.
-2. **멀티턴 대명사·생략어 문맥 복원 (`resolve_coreference`)**: 직전 턴 엔티티(`last_entity`)를 추적하여 `"그거 점괘 봐줘"`를 `"삼성전자 주역 점괘 봐줘"`로 자동 복원.
-3. **능동 경청 원칙 영구 각인 (`extract_and_save_preference`)**: `"기억해둬: ..."`, `"앞으로는 ... 해줘"`, `"절대 ... 하지 마"` 발화를 감지해 `rgon_aon_preferences.json`에 영구 저장.
-4. **복합 의도 분해 & 연쇄 디스패치 (`decompose_multi_intent`)**: 한 문장 속 2~3개 의도를 분해해 제8·10·11·12·13·14기관을 순차 호출하고 단일 응답으로 합성.
-5. **플랫폼 표준 4대 UX 메타데이터**: `thinking_steps`(4단 추론), `artifact_card`(구조화 카드), `follow_up_chips`(후속 추천 칩 3개), `proactive_callback`(연상 기억 콜백) + 7종 슬래시 커맨드(`/통찰`, `/점괘`, `/노트북`, `/잠금`, `/위임`, `/원칙`, `/기억`).
-6. **3계층 해마 기억 (`rgon_aon_dialogue_state.json`)**: 단기 기억(20턴) · 토픽 요약 · 연상 일화(60건) 삼중 보존.
-
-## 3. CLI 사용법
-{BT3}bash
-python rgon_aon_dialogue_engine.py --self-test
-python rgon_aon_dialogue_engine.py --status
-python rgon_aon_dialogue_engine.py --prefs
-python rgon_aon_dialogue_engine.py --ask "그거 주역 점괘 봐주고 노트북 용량도 알려줘"
-{BT3}
-"""
-
-# ======================================================================== 유틸 & 패치 함수들
-def iter_repo_files():
-    for dp, dns, fns in os.walk(ROOT):
-        dns[:] = [d for d in dns if d not in SKIP_DIRS and not d.startswith(".rgon_backup")]
-        for f in fns:
-            p = Path(dp) / f
-            yield p.relative_to(ROOT).as_posix(), p
-
-def sha256(p):
-    h = hashlib.sha256()
-    with open(p, "rb") as fp:
-        for ch in iter(lambda: fp.read(65536), b""): h.update(ch)
-    return h.hexdigest()
-
-def patch_soul_brain():
-    p = ROOT / "rgon_aon_soul_brain.py"
-    if not p.exists(): warn("rgon_aon_soul_brain.py 없음"); return
-    s = rd(p)
-    if SOUL_MARKER in s:
-        s = s[:s.index(SOUL_MARKER)].rstrip() + "\n"
-    m = re.search(r'(?m)^if\s+__name__\s*==\s*[\'"]__main__[\'"]\s*:', s)
-    if m:
-        s2 = s[:m.start()].rstrip() + "\n" + SOUL_INJECT.strip() + "\n\n\n" + s[m.start():]
-    else:
-        s2 = s.rstrip() + "\n" + SOUL_INJECT + "\n"
-    ast.parse(s2)
-    wr(p, s2); log("  ✅ rgon_aon_soul_brain.py R39 대화 허브 훅 주입 완료 (AST 검증 통과)")
-
-def patch_voice_organ():
-    p = ROOT / "rgon_voice_organ.py"
-    if not p.exists(): warn("rgon_voice_organ.py 없음"); return
-    s = rd(p)
-    if VOICE_MARKER in s:
-        s = s[:s.index(VOICE_MARKER)].rstrip() + "\n"
-    m = re.search(r'(?m)^if\s+__name__\s*==\s*[\'"]__main__[\'"]\s*:', s)
-    s2 = (s[:m.start()].rstrip() + "\n" + VOICE_INJECT.strip() + "\n\n\n" + s[m.start():]) if m else (s.rstrip() + "\n" + VOICE_INJECT + "\n")
-    ast.parse(s2)
-    wr(p, s2); log("  ✅ rgon_voice_organ.py R39 대화 공명 차임 SFX 훅 주입 완료")
-
-def find_v13_htmls():
-    found, seen = [], set()
-    for rel in V13_HTML_TARGETS:
-        p = ROOT / rel
-        if p.exists():
-            found.append((rel, p)); seen.add(rel)
-    if len(found) < 7:
-        for rel, p in sorted(iter_repo_files()):
-            if not rel.endswith(".html") or rel in seen: continue
-            s = rd(p)
-            if V13_END_RE.search(s) or "rgon-voice-v1-js" in s:
-                found.append((rel, p)); seen.add(rel)
-    return found
-
-def patch_htmls():
-    htmls = find_v13_htmls()
-    log(f"  🌐 V13 마커 보유 HTML 감지: {len(htmls)}개")
-    for rel, p in htmls:
-        s = rd(p)
-        s = re.sub(re.escape(HTML_MARKER_START) + r".*?" + re.escape(HTML_MARKER_END) + r"\n?", "", s, flags=re.S)
-        matches = list(V13_END_RE.finditer(s))
-        if matches:
-            idx = matches[-1].start()
-            s2 = s[:idx] + HTML_SNIPPET + "\n" + s[idx:]
-        elif "</body>" in s:
-            idx = s.rfind("</body>")
-            s2 = s[:idx] + HTML_SNIPPET + "\n" + s[idx:]
-        else:
-            s2 = s + "\n" + HTML_SNIPPET + "\n"
-        wr(p, s2); log(f"    · {rel} R39 대화 허브 UI 주입 완료")
-    return [r for r, _ in htmls]
-
-def patch_skills():
-    wr(ROOT / SKILL_MD, SKILL_MD_BODY)
-    entry = dict(
-        id=SKILL_TARGET, slug=SKILL_NAME, name=SKILL_NAME,
-        title="제15기관: 아온 초격차 대화 이해(Deep NLU) & 올인원 대화 허브(Omni-Dialogue Hub)",
-        version=NEW_VER, antibody="R39", path=SKILL_MD,
-        organ="제15기관 (Omni-Dialogue Hub)",
-        description="구어·오타 정규화, 대명사 문맥 복원, 능동 경청 원칙 영구 각인, 복합 의도 연쇄 디스패치, 플랫폼 4대 UX 메타데이터, 3계층 해마 기억을 통합한 한국어 대화 이해 허브",
-    )
-    jp = ROOT / SKILL_JSON_IDX
-    data = json.loads(rd(jp)) if jp.exists() else {"version": NEW_VER, "skills": []}
-    skills = data.get("skills") if isinstance(data, dict) else data
-    if not isinstance(skills, list): skills = []
-    skills = [x for x in skills if (x.get("name") or x.get("slug")) != SKILL_NAME and x.get("id") != SKILL_TARGET]
-    skills.append(entry)
-    for i, x in enumerate(skills, 1): x["id"] = i
-    if isinstance(data, dict):
-        data["version"] = NEW_VER; data["antibody"] = NEW_R
-        data["count"] = len(skills); data["total"] = len(skills)
-        data["updated_at"] = datetime.datetime.now().isoformat(timespec="seconds")
-        data["skills"] = skills
-    else:
-        data = skills
-    wr(jp, json.dumps(data, ensure_ascii=False, indent=2))
-
-    mp = ROOT / SKILL_MD_IDX
-    ms = rd(mp) if mp.exists() else "# RGON SKILL INDEX\n\n"
-    ms = re.sub(r"<!-- \[RGON-SKILL-35\] -->.*?(?=<!-- \[RGON-SKILL-|\Z)", "", ms, flags=re.S).rstrip()
-    block = (
-        f"\n\n<!-- [RGON-SKILL-35] -->\n"
-        f"## 35. `{SKILL_NAME}` ({NEW_R} · {NEW_VER})\n"
-        f"- 경로: `{SKILL_MD}`\n"
-        f"- 기관: 제15기관 아온 초격차 대화 이해(Deep NLU) & 올인원 대화 허브(Omni-Dialogue Hub)\n"
-        f"- 핵심: 구어 정규화 · 대명사 복원 · 능동 경청 원칙 각인 · 복합 의도 분해 · 슬래시 7종 · 3계층 해마 기억\n"
-    )
-    ms = ms + block
-    wr(mp, ms)
-    log(f"  ✅ 정식 스킬 #{SKILL_TARGET} ({SKILL_NAME}) 등록 완료 → [{len(skills)}, 35, 35]")
-
-def patch_daily_cycle():
-    p = ROOT / "rgon_daily_cycle.py"
-    if not p.exists(): return
-    s = rd(p)
-    s2 = re.sub(r"(SKILL\s*[_A-Z]*\s*=\s*)34\b", r"\g<1>35", s)
-    s2 = s2.replace("정식 스킬 34개", "정식 스킬 35개").replace("스킬 34개", "스킬 35개")
-    s2 = re.sub(r"STEP\d+_SKILL\d+_HOOK", "STEP39_SKILL35_HOOK", s2)
-    s2 = s2.replace(OLD_VER, NEW_VER).replace(OLD_R, NEW_R)
-    ast.parse(s2)
-    wr(p, s2); log("  ✅ rgon_daily_cycle.py 스킬 35 훅 동기화 완료")
-
-def patch_docs_and_versions():
-    ab = ROOT / "ANTIBODY_REGISTRY.md"
-    if ab.exists():
-        s = rd(ab)
-        s = re.sub(r"<!-- \[RGON-ANTIBODY-R39\] -->.*?(?=<!-- \[RGON-ANTIBODY-|\Z)", "", s, flags=re.S).rstrip()
-        s += (
-            f"\n\n<!-- [RGON-ANTIBODY-R39] -->\n"
-            f"## R39 — Step 39 · {NEW_VER} · {datetime.date.today().isoformat()}\n"
-            f"- R39: 제15기관 아온 초격차 대화 이해(Deep NLU) & 올인원 대화 허브(`{ENGINE}`, 정식 스킬 #{SKILL_TARGET} `{SKILL_NAME}`) — "
-            f"구어·오타 정규화, 멀티턴 대명사·생략어 문맥 복원, 능동 경청 원칙 영구 각인(`rgon_aon_preferences.json`), "
-            f"복합 의도 분해 연쇄 디스패치, 플랫폼 표준 4대 UX 메타데이터 & 7종 슬래시 커맨드, 3계층 해마 기억(`rgon_aon_dialogue_state.json`).\n"
-        )
-        wr(ab, s)
-
-    cm = ROOT / "CODE_MAP.md"
-    if cm.exists():
-        s = rd(cm)
-        if ENGINE not in s:
-            s = s.rstrip() + f"\n- `{ENGINE}`: 제15기관 아온 초격차 대화 이해 & 올인원 대화 허브 (R39 · {NEW_VER})\n"
-        wr(cm, s)
-
-    for cname in ("CONSTITUTION.md", "RGON_CONSTITUTION.md"):
-        co = ROOT / cname
-        if co.exists():
-            s = rd(co)
-            if "제30조" not in s and "R39" not in s:
-                s = s.rstrip() + (
-                    f"\n\n### 제30조 (제15기관 아온 초격차 대화 이해 & 올인원 대화 허브 · R39 · {NEW_VER})\n"
-                    f"- 제1항(심신 감응·택산함): 아온은 대표님의 오타·줄임말·대명사(\"그거\", \"아까 그거\")를 문맥 해마로 복원하여 찰떡같이 알아듣는다.\n"
-                    f"- 제2항(능동 경청 각인): 대표님께서 \"기억해둬\", \"앞으로는 ~ 해줘\", \"절대 ~ 하지 마\"라고 하명하신 원칙은 즉시 `rgon_aon_preferences.json`에 영구 각인한다.\n"
-                    f"- 제3항(복합 의도 연쇄): 한 문장에 담긴 다중 의도는 분해하여 제8~14기관을 연쇄 호출하고, 생각 과정·아티팩트 카드·후속 칩·연상 콜백 4대 메타데이터와 함께 보고한다.\n"
-                )
-            wr(co, s)
-
-    for rel, p in sorted(iter_repo_files()):
-        if not rel.endswith((".py", ".md", ".json", ".html")): continue
-        if rel == Path(__file__).name: continue
-        s = rd(p)
-        if OLD_VER not in s and OLD_R not in s and "정식 스킬 34" not in s and "스킬: [34, 34, 34]" not in s:
-            continue
-        s2 = s.replace(OLD_VER, NEW_VER).replace(OLD_R, NEW_R)
-        s2 = s2.replace("정식 스킬 **34개**", "정식 스킬 **35개**").replace("정식 스킬 34개", "정식 스킬 35개")
-        s2 = s2.replace("[34, 34, 34]", "[35, 35, 35]").replace("[34,34,34]", "[35,35,35]")
-        if rel.endswith(".json"):
-            try:
-                obj = json.loads(s2)
-                if rel in (SKILL_JSON_IDX, "skills_registry.json") and isinstance(obj, dict):
-                    obj["version"] = NEW_VER; obj["antibody"] = NEW_R
-                s2 = json.dumps(obj, ensure_ascii=False, indent=2)
-            except Exception:
-                pass
-        if rel.endswith(".py"):
-            try: ast.parse(s2)
-            except Exception as e:
-                warn(f"{rel} AST 검증 실패로 버전 치환 건너뜀: {e}"); continue
-        if s2 != s:
-            wr(p, s2)
-
-    wbc = ROOT / "rgon_white_blood_cell.py"
-    if wbc.exists():
-        ws = rd(wbc)
-        if ENGINE not in ws and "rgon_aon_omni_insight_eye.py" in ws:
-            ws2 = ws.replace('"rgon_aon_omni_insight_eye.py"', f'"rgon_aon_omni_insight_eye.py", "{ENGINE}"')
-            try:
-                ast.parse(ws2); wr(wbc, ws2)
-            except Exception:
-                pass
-
-# ======================================================================== 삼성(三省) 교차검증
-def count_skill_triad():
-    d_cnt = sum(1 for p in (ROOT / "skills").glob("*/SKILL.md") if p.is_file())
-    j_cnt = len(json.loads(rd(ROOT / SKILL_JSON_IDX)).get("skills", []))
-    md_txt = rd(ROOT / SKILL_MD_IDX)
-    nums = set(int(x) for x in re.findall(r"(?m)^##\s+(\d+)\.\s+", md_txt))
-    nums |= set(int(x) for x in re.findall(r"(?m)^\|\s*(\d+)\s*\|", md_txt))
-    nums |= set(int(x) for x in re.findall(r"<!--\s*\[RGON-SKILL-(\d+)\]\s*-->", md_txt))
-    m_cnt = len(nums) if len(nums) == SKILL_TARGET else (SKILL_TARGET if f"[RGON-SKILL-{SKILL_TARGET}]" in md_txt and j_cnt == SKILL_TARGET else len(nums))
-    return [d_cnt, j_cnt, m_cnt]
-
-def run_cmd(cmd):
-    r = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, encoding="utf-8", errors="replace")
-    return r.returncode, (r.stdout or "") + (r.stderr or "")
-
-def verify_three_provinces(pre_hashes, html_list):
-    checks = []
-    for mod in (ENGINE, "rgon_aon_soul_brain.py", "rgon_aon_omni_insight_eye.py",
-                "rgon_aon_iching_dao_oracle.py", "rgon_aon_desktop_playground.py",
-                "rgon_laptop_hands.py", "rgon_voice_organ.py", "rgon_white_blood_cell.py"):
-        if not (ROOT / mod).exists(): continue
-        rc, out = run_cmd([sys.executable, mod, "--self-test"])
-        checks.append((mod, rc == 0, out.strip()[:160]))
-    html_ok = all(HTML_MARKER_START in rd(ROOT / h) and "RGON_AON_DIALOGUE_HUB" in rd(ROOT / h) for h in html_list) and len(html_list) == 7
-    p1 = all(ok for _, ok, _ in checks) and html_ok
-
-    changed_unprotected = []
-    for rel, h0 in pre_hashes.items():
-        if rel in WRITTEN or rel == REPORT: continue
-        p = ROOT / rel
-        if not p.exists() or sha256(p) != h0:
-            changed_unprotected.append(rel)
-    p2 = len(changed_unprotected) == 0
-
-    triad = count_skill_triad()
-    ab_ok = "R39" in rd(ROOT / "ANTIBODY_REGISTRY.md")
-    p3 = (triad == [SKILL_TARGET, SKILL_TARGET, SKILL_TARGET]) and ab_ok
-
-    return dict(p1=p1, p2=p2, p3=p3, checks=checks, html_count=len(html_list), html_ok=html_ok,
-                unprotected_changed=changed_unprotected, triad=triad, ab_ok=ab_ok)
-
-def write_report(v, bdir):
-    now = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-    lines = [
-        f"# STEP39 AON OMNI DIALOGUE REPORT — {NEW_VER}", "",
-        f"- 일시: {now}",
-        f"- 항체: {NEW_R} · 정식 스킬: {v['triad']}",
-        f"- 삼성(三省): **{'3/3' if (v['p1'] and v['p2'] and v['p3']) else 'FAIL'}**",
-        f"- 백업: `{bdir.relative_to(ROOT).as_posix() if bdir else 'dry-run'}`", "",
-        f"## ① 기능 검증 ({'✅' if v['p1'] else '❌'})",
-        f"- V13 HTML 주입: {v['html_count']}/7 (ok={v['html_ok']})",
-    ]
-    for m, ok, out in v["checks"]:
-        lines.append(f"- `{m} --self-test`: {'✅ PASS' if ok else '❌ FAIL'} — `{out}`")
-    lines += [
-        "", f"## ② 비대상 보호 파일 ({'✅' if v['p2'] else '❌'})",
-        f"- 비대상 해시 변경: **{len(v['unprotected_changed'])}건**",
-        "", f"## ③ 스킬·항체 ({'✅' if v['p3'] else '❌'})",
-        f"- 스킬 삼중 일치: `{v['triad']}` (목표 `[{SKILL_TARGET}, {SKILL_TARGET}, {SKILL_TARGET}]`)",
-        f"- 항체 레지스트리 R39: `{v['ab_ok']}`",
-        "", "## 변경 파일",
-    ] + [f"- `{w}`" for w in sorted(WRITTEN)]
-    wr(ROOT / REPORT, "\n".join(lines) + "\n")
-
-def main():
-    global DRY
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--dry-run", action="store_true")
-    ap.add_argument("--no-push", action="store_true")
-    args = ap.parse_args()
-    DRY = args.dry_run
-
-    log("=" * 72)
-    log(f"🚀 RGON Step 39 — {NEW_VER} ({NEW_R} · 스킬 {SKILL_TARGET}) 제15기관 배포 시작")
-    log("=" * 72)
-
-    pre_hashes, pre_bytes = {}, {}
-    for rel, p in iter_repo_files():
-        pre_hashes[rel] = sha256(p)
-        if rel.endswith((".py", ".md", ".json", ".html")):
-            pre_bytes[rel] = p.read_bytes()
-
-    ts = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-    bdir = ROOT / ".rgon_backups" / f"{ts}_step39_omni_dialogue"
-    if not DRY:
-        bdir.mkdir(parents=True, exist_ok=True)
-        (bdir / "manifest_hashes.json").write_text(json.dumps(pre_hashes, ensure_ascii=False, indent=2), encoding="utf-8")
-
+    before = [_sig(p) for p in root_state]
+    for k in keys[:3]:
+        _o.environ[k] = tmp
+    _o.environ["RGON_HYDRO_NO_ORACLE"] = "1"
     try:
-        wr(ROOT / ENGINE, ENGINE_SRC)
-        ast.parse(ENGINE_SRC)
-        log(f"  ✅ {ENGINE} 생성 완료 (AST 검증 통과)")
-
-        patch_soul_brain()
-        patch_voice_organ()
-        html_list = patch_htmls()
-        patch_skills()
-        patch_daily_cycle()
-        patch_docs_and_versions()
-
-        if DRY:
-            log("🔎 [DRY-RUN 완료] 파일 쓰기 없이 시뮬레이션 종료."); return 0
-
-        rc, out = run_cmd([sys.executable, ENGINE, "--self-test"])
-        for st_file in ("rgon_aon_dialogue_state.json", "rgon_aon_preferences.json",
-                        "docs/rgon_aon_dialogue_state.json", "docs/rgon_aon_preferences.json"):
-            if (ROOT / st_file).exists(): WRITTEN.add(st_file)
-        if rc != 0:
-            raise RuntimeError(f"{ENGINE} --self-test 실패: {out}")
-
-        v = verify_three_provinces(pre_hashes, html_list)
-        write_report(v, bdir)
-
-        score = sum([v["p1"], v["p2"], v["p3"]])
-        log("-" * 72)
-        log(f"📊 삼성(三省) 검증: ① 기능 {'✅' if v['p1'] else '❌'} | ② 보호 {'✅(0건)' if v['p2'] else '❌'} | ③ 스킬 {v['triad']} 항체 {'✅' if v['p3'] else '❌'} ➔ {score}/3")
-        if score < 3:
-            raise RuntimeError(f"삼성 검증 미달 ({score}/3): {v}")
-
+        dlg = _il.import_module("rgon_aon_dialogue_engine")
+        fn = getattr(dlg, "route", None) or getattr(dlg, "r40_route", None)
+        r = fn("/순환 노트북 여백 창조 및 물의 순환 점검")
+        hc = r.get("hydro_cycle") if isinstance(r, dict) else None
+        hc = hc if isinstance(hc, dict) else {}
+        stages = hc.get("iching_flow_stages") or []
+        gtxt = _j.dumps(stages, ensure_ascii=False)
+        tiers = hc.get("tier_classification") or {}
+        t3 = tiers.get("TIER3_GATE_HOLD") or {}
+        es = hc.get("empty_space_score")
+        checks = {
+            "route_ok": isinstance(r, dict) and r.get("ok") is True,
+            "hydro_ok": hc.get("ok") is True and hc.get("antibody") == "R42",
+            "four_stages": len(stages) == 4 and all(("#%02d" % n) in gtxt for n in (41, 18, 48, 29, 60, 63, 64)),
+            "empty_space": isinstance(es, (int, float)) and 0 <= es <= 100,
+            "tiers": all(k in tiers for k in ("TIER1_KEEP", "TIER2_SAFE_EMPTY", "TIER3_GATE_HOLD")),
+            "tier3_gate": t3.get("requires_manual_gate") is True and t3.get("auto_executed") is False,
+            "top_gate": hc.get("requires_manual_gate") is True and hc.get("auto_executed") is False,
+            "isolated": _o.path.exists(_o.path.join(tmp, "rgon_aon_hydro_state.json")) and [_sig(p) for p in root_state] == before,
+        }
+        return {"id": "S12", "name": name, "ok": all(checks.values()), "sec": round(_tm.perf_counter() - _t0, 3),
+                "evidence": str(checks)[:200], "detail": checks}
     except Exception as e:
-        log(f"⛔ 오류 발생 — Auto-Rollback 가동: {e}")
-        if not DRY:
-            restored, removed = 0, 0
-            for rel in list(WRITTEN):
-                p = ROOT / rel
-                if rel in pre_bytes:
-                    p.write_bytes(pre_bytes[rel]); restored += 1
-                elif p.exists():
-                    p.unlink(); removed += 1
-            log(f"⏪ Auto-Rollback 완료: 복원 {restored}개 · 신규 삭제 {removed}개")
+        return {"id": "S12", "name": name, "ok": False, "sec": round(_tm.perf_counter() - _t0, 3),
+                "evidence": repr(e), "detail": repr(e)}
+    finally:
+        for k, v in prev.items():
+            if v is None:
+                _o.environ.pop(k, None)
+            else:
+                _o.environ[k] = v
+        _sh.rmtree(tmp, ignore_errors=True)
+
+
+def _r42_merge(res, item):
+    sid = item.get("id")
+    if isinstance(res, list):
+        return [x for x in res if not (isinstance(x, dict) and x.get("id") == sid)] + [item]
+    if isinstance(res, dict):
+        lst = None
+        for k in ("links", "synapses", "results", "checks"):
+            if isinstance(res.get(k), list):
+                lst = k
+                break
+        if lst:
+            res[lst] = [x for x in res[lst] if not (isinstance(x, dict) and x.get("id") == sid)] + [item]
+            items = res[lst]
+            passed = sum(1 for x in items if isinstance(x, dict) and x.get("ok"))
+            for pk in ("passed", "pass_count"):
+                if pk in res:
+                    res[pk] = passed
+            for tk in ("total", "total_count"):
+                if tk in res:
+                    res[tk] = len(items)
+            if "ok" in res:
+                res["ok"] = passed == len(items)
+        else:
+            res[sid] = item
+    return res
+
+
+_r42_orig_vsl = globals().get("verify_synapse_links")
+if callable(_r42_orig_vsl) and not getattr(_r42_orig_vsl, "_r42", False):
+    def verify_synapse_links(*args, **kwargs):
+        res = _r42_orig_vsl(*args, **kwargs)
+        try:
+            res = _r42_merge(res, _r42_s12_check())
+        except Exception:
+            pass
+        return res
+    verify_synapse_links._r42 = True
+
+
+def _r42_fix_skill_header():
+    import os as _o, json as _j, re as _re, datetime as _dt
+    p = _o.path.join(_o.path.dirname(_o.path.abspath(__file__)), "skills", "SKILL_INDEX.json")
+    if not _o.path.exists(p):
+        return False
+    with open(p, "r", encoding="utf-8") as f:
+        raw = f.read()
+    data = _j.loads(raw)
+    if not isinstance(data, dict) or not isinstance(data.get("skills"), list):
+        return False
+    changed = False
+    if data.get("version") != VERSION:
+        data["version"] = VERSION
+        changed = True
+    ab = str(data.get("antibody") or "")
+    want = "R42" if _re.fullmatch(r"R\d+", ab) else ANTIBODY_RANGE
+    if ab != want:
+        data["antibody"] = want
+        changed = True
+    if data.get("count") != len(data["skills"]):
+        data["count"] = len(data["skills"])
+        changed = True
+    if changed or "generated_at_kst" not in data:
+        data["generated_at_kst"] = _dt.datetime.now(_dt.timezone(_dt.timedelta(hours=9))).isoformat(timespec="seconds")
+        m = _re.search(r"\n( +)\"", raw)
+        with open(p, "w", encoding="utf-8", newline="\n") as f:
+            f.write(_j.dumps(data, ensure_ascii=False, indent=len(m.group(1)) if m else 2) + "\n")
+    return changed
+
+
+_r42_orig_heal = globals().get("heal_skill_index_header")
+if callable(_r42_orig_heal) and not getattr(_r42_orig_heal, "_r42", False):
+    def heal_skill_index_header(*args, **kwargs):
+        try:
+            return _r42_orig_heal(*args, **kwargs)
+        finally:
+            try:
+                _r42_fix_skill_header()
+            except Exception:
+                pass
+    heal_skill_index_header._r42 = True
+'''
+
+# ══════════════════════════════════════════════════════════════════════
+# 4. 문서 · HTML · 스킬
+# ══════════════════════════════════════════════════════════════════════
+SKILL_MD = "\n".join([
+    "---", "name: " + SKILL_ID, "description: " + SKILL_DESC, "version: " + NEW_VERSION,
+    "antibody: R42", "skill_number: 38", "---", "",
+    "# " + SKILL_TITLE, "",
+    "제18기관 `rgon_aon_hydro_cycle.py`, 정식 스킬 #38. 노자 상선약수(上善若水)·허실상생(虛實相生) 철학으로 사령부의 여백과 흐름을 지킨다.", "",
+    "## 사용법", "",
+    BT3 + "bash",
+    "python rgon_aon_hydro_cycle.py --self-test",
+    "python rgon_aon_hydro_cycle.py --status",
+    "python rgon_aon_hydro_cycle.py --cycle 노트북 여백 창조 및 물의 순환 점검 --dry-run",
+    "python rgon_aon_hydro_cycle.py --cycle --apply-tier2",
+    BT3, "",
+    "대화허브에서는 `/순환`, `/비움`, `/청소`, `/물` 슬래시 명령과 비움·비워·물의 순환·상선약수·청소·과부하 키워드로 호출된다.", "",
+    "## 4단계 수순환", "",
+    "1단계는 증발·비움(#41 산택손·#18 산풍고)으로 TIER1_KEEP, TIER2_SAFE_EMPTY, TIER3_GATE_HOLD 3등급 분류를 한다. "
+    "2단계는 응집·증류(#48 수풍정)로 기억의 정수를 뽑는다. 3단계는 유동·흐름(#29 중수감·#60 수택절)으로 여백 지수와 유동성 지수를 산출한다. "
+    "4단계는 순환·재시작(#63 수화기제→#64 화수미제)으로 물의 순환 처방을 만든다.", "",
+    "## 안전 (헌법 제2항 · R35 · R42)", "",
+    "기본값은 dry-run이다. TIER3(휴지통·Downloads 대용량 설치본·비대 로그)은 항상 `requires_manual_gate: True`, `auto_executed: False`이며 자동 삭제하지 않는다. "
+    "기억 원본 파일은 읽기만 한다.", "",
+])
+BADGE = "%s · 항체 %s · 스킬 %d" % (NEW_VERSION, NEW_RANGE, NEW_COUNT)
+HTML_BEGIN = "<!-- RGON R42 HYDRO CYCLE BRIDGE BEGIN -->"
+HTML_END = "<!-- RGON R42 HYDRO CYCLE BRIDGE END -->"
+HTML_BRIDGE = (HTML_BEGIN + "\n<script>\nwindow.RGON_HYDRO_CYCLE = {version: \"" + NEW_VERSION +
+               "\", antibody: \"R1~R42\", skill: \"" + SKILL_ID + "\", skillCount: 38, organ: 18, "
+               "state: \"" + STATE_NAME + "\", commands: [\"/비움\", \"/순환\", \"/청소\", \"/물\"], "
+               "load: function(){ return fetch(\"" + STATE_NAME + "\", {cache: \"no-store\"}).then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; }); }};\n"
+               "</script>\n<div id=\"rgon-r42-badge\" style=\"display:none\">" + BADGE + "</div>\n" + HTML_END)
+
+
+def bump_str(t):
+    t = re.sub(re.escape(OLD_VERSION) + r"\s*·\s*항체\s*R1~R41\s*·\s*(정식\s*)?스킬\s*37(개)?",
+               lambda m: "%s · 항체 %s · %s스킬 38%s" % (NEW_VERSION, NEW_RANGE, m.group(1) or "", m.group(2) or ""), t)
+    t = t.replace(OLD_VERSION, NEW_VERSION).replace(OLD_RANGE, NEW_RANGE)
+    t = re.sub(r"(EXPECTED_SKILL_COUNT\s*=\s*)37\b", r"\g<1>38", t)
+    t = re.sub(r"(\bSKILL_COUNT\s*=\s*)37\b", r"\g<1>38", t)
+    t = re.sub(r"(스킬\s*)37(\s*개)", r"\g<1>38\2", t)
+    return t
+
+
+def update_html():
+    n = 0
+    for rel in HTML_TARGETS:
+        if not os.path.exists(P(rel)):
+            log("  - HTML 없음(건너뜀): " + rel)
+            continue
+        t = bump_str(read_text(rel))
+        t = re.sub(r"(스킬\s*)37\b", r"\g<1>38", t) if NEW_VERSION in t else t
+        if HTML_BEGIN in t:
+            s = t.index(HTML_BEGIN)
+            e = t.index(HTML_END, s) + len(HTML_END)
+            t = t[:s] + HTML_BRIDGE + t[e:]
+        elif "</body>" in t:
+            i = t.rfind("</body>")
+            t = t[:i] + HTML_BRIDGE + "\n" + t[i:]
+        else:
+            t += "\n" + HTML_BRIDGE + "\n"
+        if write_text(rel, t):
+            n += 1
+    log("[HTML] %d개 갱신" % n)
+
+
+def init_hydro_state_snapshots():
+    try:
+        sys.path.insert(0, ROOT)
+        import rgon_aon_hydro_cycle as hc
+        res = hc.run_hydro_cycle(hc.DEFAULT_TOPIC, dry_run=True, persist=False)
+        txt = json.dumps(res, ensure_ascii=False, indent=2, default=str) + "\n"
+        for rel in STATE_FILES:
+            write_text(rel, txt)
+    except Exception as e:
+        log("  - 초기 hydro state 생성 참고: %r" % e)
+
+
+def update_json_snapshots():
+    n = 0
+    for d in JSON_SNAPSHOT_DIRS:
+        base = P(d) if d else ROOT
+        if not os.path.isdir(base):
+            continue
+        for fn in sorted(os.listdir(base)):
+            rel = (d + "/" + fn) if d else fn
+            if not fn.endswith(".json") or fn in JSON_SNAPSHOT_EXCLUDE or is_preserved(rel):
+                continue
+            if not os.path.isfile(P(rel)):
+                continue
+            try:
+                raw = read_text(rel)
+            except Exception:
+                continue
+            if OLD_VERSION not in raw and OLD_RANGE not in raw:
+                continue
+            new = raw.replace(OLD_VERSION, NEW_VERSION).replace(OLD_RANGE, NEW_RANGE)
+            try:
+                json.loads(new)
+            except Exception:
+                continue
+            if write_text(rel, new):
+                n += 1
+    log("[SNAPSHOT] JSON %d개 승격" % n)
+
+
+def update_skill_index():
+    write_text(SKILL_PATH, SKILL_MD)
+    jrel = "skills/SKILL_INDEX.json"
+    raw = read_text(jrel) if os.path.exists(P(jrel)) else ""
+    data = json.loads(raw) if raw else {}
+    if not isinstance(data, dict):
+        data = {"skills": data if isinstance(data, list) else []}
+    skills = data.get("skills") if isinstance(data.get("skills"), list) else []
+    data["skills"] = skills
+    slugs = [str(x.get("slug") or x.get("id") or x.get("name") or "") if isinstance(x, dict) else str(x) for x in skills]
+    if SKILL_ID not in slugs:
+        sample = next((x for x in reversed(skills) if isinstance(x, dict)), {})
+        nos = [x.get("no") for x in skills if isinstance(x, dict) and isinstance(x.get("no"), int)]
+        entry = {"no": (max(nos) + 1) if nos else len(skills) + 1, "slug": SKILL_ID, "antibody": "R42",
+                 "version": NEW_VERSION, "path": SKILL_PATH}
+        extra = {"id": SKILL_ID, "name": SKILL_ID, "title": SKILL_TITLE, "description": SKILL_DESC,
+                 "organ": "제18기관", "file": HYDRO_FILE}
+        for k in sample:
+            if k not in entry:
+                entry[k] = extra.get(k, "" if isinstance(sample[k], str) else sample[k])
+        skills.append(entry)
+    old_ab = str(data.get("antibody") or "")
+    head = {"version": NEW_VERSION,
+            "antibody": "R42" if re.fullmatch(r"R\d+", old_ab) else NEW_RANGE,
+            "generated_at_kst": kst_now(), "count": len(skills)}
+    ordered = {}
+    for k in data:
+        ordered[k] = head.get(k, data[k])
+    for k in TOP_KEYS:
+        if k not in ordered:
+            ordered[k] = head.get(k, skills)
+    ordered["skills"] = skills
+    write_text(jrel, json.dumps(ordered, ensure_ascii=False, indent=detect_indent(raw) if raw else 2) + "\n")
+
+    mrel = "skills/SKILL_INDEX.md"
+    md = read_text(mrel) if os.path.exists(P(mrel)) else "# SKILL INDEX\n"
+    md = bump_str(md)
+    md = re.sub(r"(정식\s*스킬\s*)37\b", r"\g<1>38", md)
+    if SKILL_ID not in md:
+        rows = [l for l in md.splitlines() if re.match(r"^\|\s*\d+\s*\|", l)]
+        if rows:
+            ncol = rows[-1].count("|") - 1
+            cells = ["38", "`%s`" % SKILL_ID, SKILL_TITLE, "R42", "`%s`" % SKILL_PATH]
+            cells = (cells + [""] * ncol)[:ncol]
+            if ncol >= 2:
+                cells[-1] = "`%s`" % SKILL_PATH
+            line = "| " + " | ".join(cells) + " |"
+            lines = md.splitlines()
+            idx = max(i for i, l in enumerate(lines) if l == rows[-1])
+            lines.insert(idx + 1, line)
+            md = "\n".join(lines) + "\n"
+        else:
+            md = md.rstrip("\n") + "\n| 38 | `%s` | %s | R42 | `%s` |\n" % (SKILL_ID, SKILL_TITLE, SKILL_PATH)
+    write_text(mrel, md)
+    log("[SKILL] SKILL_INDEX.json count=%d" % len(skills))
+
+
+def update_registry():
+    rel = "ANTIBODY_REGISTRY.md"
+    t = bump_str(read_text(rel)) if os.path.exists(P(rel)) else "# ANTIBODY REGISTRY\n"
+    if not re.search(r"^#+\s*R42\b", t, re.M):
+        t = t.rstrip("\n") + ("\n\n## R42 — 상선약수 수순환 여백 창조 항체 (%s)\n"
+                              "- 기관: 제18기관 `%s` · 스킬 #38 `%s`\n"
+                              "- 규칙: 기본 dry-run. TIER3(휴지통·Downloads 대용량·비대 로그)는 `requires_manual_gate: True`, `auto_executed: False`로 두고 자동 삭제하지 않음. 기억 원본은 읽기 전용\n"
+                              "- 시냅스: S12 대화허브(/순환)→제18기관 수순환 대사\n- 범위: %s\n") % (NEW_VERSION, HYDRO_FILE, SKILL_ID, NEW_RANGE)
+    write_text(rel, t)
+    rel = "CODE_MAP.md"
+    t = bump_str(read_text(rel)) if os.path.exists(P(rel)) else "# CODE MAP\n"
+    t = re.sub(r"(정식\s*스킬\s*)37(\s*개)", r"\g<1>38\2", t)
+    if HYDRO_FILE not in t:
+        t = t.rstrip("\n") + ("\n\n## %s · 항체 %s · 정식 스킬 38개\n- `%s` — 제18기관 아온 상선약수 수순환 자율 대사 & 여백 창조 기관\n"
+                              % (NEW_VERSION, NEW_RANGE, HYDRO_FILE))
+    write_text(rel, t)
+    log("[REGISTRY] ANTIBODY_REGISTRY.md · CODE_MAP.md 갱신")
+
+
+# ══════════════════════════════════════════════════════════════════════
+# 5. 보호 구간 & 버전 승격
+# ══════════════════════════════════════════════════════════════════════
+def protected_spans(text, names):
+    spans = []
+    try:
+        tree = ast.parse(text)
+        offs = [0]
+        for ln in text.splitlines(True):
+            offs.append(offs[-1] + len(ln))
+        for node in ast.walk(tree):
+            if isinstance(node, (ast.Assign, ast.AnnAssign, ast.AugAssign)):
+                tg = node.targets if isinstance(node, ast.Assign) else [node.target]
+                if any(isinstance(x, ast.Name) and x.id in names for x in tg):
+                    spans.append((offs[node.lineno - 1], offs[getattr(node, "end_lineno", node.lineno)]))
+    except Exception:
+        for nm in names:
+            m = re.search(r"^" + nm + r"\s*=", text, re.M)
+            if m:
+                spans.append((m.start(), len(text)))
+    spans.sort()
+    merged = []
+    for s, e in spans:
+        if merged and s <= merged[-1][1]:
+            merged[-1] = (merged[-1][0], max(merged[-1][1], e))
+        else:
+            merged.append((s, e))
+    return merged
+
+
+def protected_digest():
+    out = {}
+    for rel, names in PROTECT.items():
+        if os.path.exists(P(rel)):
+            t = read_text(rel)
+            out[rel] = hashlib.sha256("".join(t[s:e] for s, e in protected_spans(t, names)).encode("utf-8")).hexdigest()
+        else:
+            out[rel] = None
+    return out
+
+
+def bump_versions():
+    n = 0
+    for fn in sorted(os.listdir(ROOT)):
+        if not (fn.startswith("rgon_") and fn.endswith(".py")) or is_preserved(fn) or fn == HYDRO_FILE:
+            continue
+        t = read_text(fn)
+        if OLD_VERSION not in t and OLD_RANGE not in t:
+            continue
+        spans = protected_spans(t, PROTECT[fn]) if fn in PROTECT else []
+        out, last = [], 0
+        for s, e in spans:
+            out.append(bump_str(t[last:s]))
+            out.append(t[s:e])
+            last = e
+        out.append(bump_str(t[last:]))
+        if write_text(fn, "".join(out)):
+            n += 1
+    log("[BUMP] %d개 .py 승격 (SOUND_RECIPES · PRESERVE_EXACT 구간 보호)" % n)
+
+
+def update_hashes():
+    if not os.path.exists(P(HASH_FILE)):
+        log("[HASH] %s 없음 — 건너뜀" % HASH_FILE)
+        return
+    raw = read_text(HASH_FILE)
+    data = json.loads(raw)
+    target = data["files"] if isinstance(data, dict) and isinstance(data.get("files"), dict) else data
+    if not isinstance(target, dict):
+        return
+    algo = "sha256"
+    for v in target.values():
+        hv = (v.get("sha256") or v.get("hash")) if isinstance(v, dict) else v
+        if isinstance(hv, str):
+            algo = {32: "md5", 40: "sha1"}.get(len(hv), "sha256")
+            break
+    n = 0
+    for rel in list(target.keys()):
+        if is_preserved(rel) or rel not in MODIFIED or not os.path.exists(P(rel)):
+            continue
+        h = sha_file(P(rel), algo)
+        if isinstance(target[rel], dict):
+            target[rel]["sha256" if "sha256" in target[rel] else "hash"] = h
+        else:
+            target[rel] = h
+        n += 1
+    for rel in HTML_TARGETS:
+        if rel in MODIFIED and rel not in target and os.path.exists(P(rel)):
+            target[rel] = sha_file(P(rel), algo)
+            n += 1
+    if isinstance(data, dict) and "version" in data:
+        data["version"] = NEW_VERSION
+    write_text(HASH_FILE, json.dumps(data, ensure_ascii=False, indent=detect_indent(raw)) + "\n")
+    log("[HASH] %d개 해시 갱신 (%s)" % (n, algo))
+
+
+# ══════════════════════════════════════════════════════════════════════
+# 6. 검증
+# ══════════════════════════════════════════════════════════════════════
+def run_py(args, timeout=300, env_extra=None):
+    env = dict(os.environ)
+    env["PYTHONIOENCODING"] = "utf-8"
+    env["PYTHONPATH"] = ROOT + os.pathsep + env.get("PYTHONPATH", "")
+    if env_extra:
+        env.update(env_extra)
+    try:
+        r = subprocess.run([sys.executable] + args, cwd=ROOT, env=env, capture_output=True,
+                           text=True, encoding="utf-8", errors="replace", timeout=timeout)
+        return r.returncode, (r.stdout or "") + (r.stderr or "")
+    except Exception as e:
+        return -1, repr(e)
+
+
+def organ_selftests():
+    code = ("import json,importlib;v=importlib.import_module('rgon_neural_synapse_verifier');"
+            "print('@@O@@'+json.dumps(list(getattr(v,'ORGANS',[]))))")
+    _rc, out = run_py(["-c", code], 90)
+    organs = []
+    if "@@O@@" in out:
+        try:
+            organs = json.loads(out.split("@@O@@", 1)[1].strip().splitlines()[0])
+        except Exception:
+            organs = []
+    for f in (PLANNER_FILE, HYDRO_FILE):
+        if f not in organs and os.path.exists(P(f)):
+            organs.append(f)
+
+    def one(fn):
+        if not os.path.exists(P(fn)):
+            return fn, False, "missing"
+        tmp = tempfile.mkdtemp(prefix="rgon42_")
+        rc, o = run_py([fn, "--self-test"], 300, {"RGON_ICHING_STATE_DIR": tmp, "RGON_DIALOGUE_STATE_DIR": tmp,
+                                                  "RGON_HYDRO_STATE_DIR": tmp})
+        shutil.rmtree(tmp, ignore_errors=True)
+        return fn, rc == 0, o[-400:]
+
+    with ThreadPoolExecutor(max_workers=6) as ex:
+        return list(ex.map(one, organs))
+
+
+def verifier_report():
+    code = r"""
+import os, json, tempfile, importlib
+t = tempfile.mkdtemp(prefix='rgon42v_')
+for k in ('RGON_HYDRO_STATE_DIR','RGON_ICHING_STATE_DIR','RGON_DIALOGUE_STATE_DIR'):
+    os.environ[k] = t
+v = importlib.import_module('rgon_neural_synapse_verifier')
+out = {}
+f = getattr(v, 'heal_skill_index_header', None)
+if callable(f):
+    try: f()
+    except Exception as e: out['heal_err'] = repr(e)
+for name in ('run_full','run_full_verification','verify_all','run_verification','full_report','build_report','main_report'):
+    f = getattr(v, name, None)
+    if callable(f):
+        try:
+            r = f()
+            if isinstance(r, dict):
+                out['report'] = r; out['via'] = name; break
+        except Exception as e:
+            out.setdefault('errs', []).append(name + ':' + repr(e))
+out['synapse'] = v.verify_synapse_links()
+print('@@JSON@@' + json.dumps(out, ensure_ascii=False, default=str))
+"""
+    rc, out = run_py(["-c", code], 900)
+    data = {}
+    if "@@JSON@@" in out:
+        try:
+            data = json.loads(out.split("@@JSON@@", 1)[1].strip().splitlines()[0])
+        except Exception:
+            data = {}
+    return rc, data, out[-2000:]
+
+
+def find_key(d, key, depth=0):
+    if depth > 5:
+        return None
+    if isinstance(d, dict):
+        if key in d:
+            return d[key]
+        for v in d.values():
+            r = find_key(v, key, depth + 1)
+            if r is not None:
+                return r
+    elif isinstance(d, list):
+        for v in d:
+            r = find_key(v, key, depth + 1)
+            if r is not None:
+                return r
+    return None
+
+
+def synapse_items(s):
+    if isinstance(s, list):
+        return [x for x in s if isinstance(x, dict)]
+    if isinstance(s, dict):
+        for k in ("links", "synapses", "results", "checks"):
+            if isinstance(s.get(k), list):
+                return [x for x in s[k] if isinstance(x, dict)]
+        return [dict(v, id=k) if isinstance(v, dict) else {"id": k, "ok": bool(v)}
+                for k, v in s.items() if re.match(r"S\d+$", str(k))]
+    return []
+
+
+def skill_counts():
+    data = json.loads(read_text("skills/SKILL_INDEX.json"))
+    skills = data.get("skills") or [] if isinstance(data, dict) else data
+    a = len(skills)
+    slugs = sorted([d for d in os.listdir(P("skills")) if os.path.isfile(P(os.path.join("skills", d, "SKILL.md")))])
+    b = len(slugs)
+    md = read_text("skills/SKILL_INDEX.md")
+    c = sum(1 for s in slugs if s in md)
+    return [a, b, c]
+
+
+def index_keys_ok():
+    data = json.loads(read_text("skills/SKILL_INDEX.json"))
+    if not isinstance(data, dict) or any(k not in data for k in TOP_KEYS):
+        return False
+    if data.get("version") != NEW_VERSION or data.get("count") != len(data["skills"]):
+        return False
+    mine = [x for x in data["skills"] if isinstance(x, dict) and x.get("slug") == SKILL_ID]
+    return bool(mine) and all(k in mine[0] for k in ENTRY_KEYS)
+
+
+def preserve_snapshot():
+    return {f: (sha_file(P(f)) if os.path.exists(P(f)) else None) for f in PRESERVE}
+
+
+def git(args):
+    try:
+        r = subprocess.run(["git", "-C", ROOT] + args, capture_output=True, text=True,
+                           encoding="utf-8", errors="replace", timeout=180)
+        return r.returncode, (r.stdout or "") + (r.stderr or "")
+    except Exception as e:
+        return -1, repr(e)
+
+
+# ══════════════════════════════════════════════════════════════════════
+# 7. 메인
+# ══════════════════════════════════════════════════════════════════════
+def main():
+    log("=" * 70)
+    log("RGON Step 42 · %s · 항체 %s · 정식 스킬 %d" % (NEW_VERSION, NEW_RANGE, NEW_COUNT))
+    log("ROOT = " + ROOT)
+    for rel in REQUIRED_FILES:
+        if not os.path.exists(P(rel)):
+            log("[ABORT] 필수 파일 없음: " + rel)
+            return 2
+    os.makedirs(BACKUP_DIR, exist_ok=True)
+    pres_before = preserve_snapshot()
+    prot_before = protected_digest()
+    try:
+        write_text(HYDRO_FILE, HYDRO_SRC)
+        py_compile.compile(P(HYDRO_FILE), doraise=True)
+        log("[1] 제18기관 생성: " + HYDRO_FILE)
+
+        t = read_text(DIALOGUE_FILE)
+        write_text(DIALOGUE_FILE, insert_block(t, DLG_BEGIN, DLG_END, DIALOGUE_HOOK))
+        py_compile.compile(P(DIALOGUE_FILE), doraise=True)
+        log("[2] 대화허브 R42 훅 장착")
+
+        bump_versions()
+        t = read_text(VERIFIER_FILE)
+        write_text(VERIFIER_FILE, insert_block(t, VER_BEGIN, VER_END, VERIFIER_HOOK))
+        py_compile.compile(P(VERIFIER_FILE), doraise=True)
+        log("[3] 검증기 확장 (N14 · S12 · 스냅샷 · heal 38)")
+
+        init_hydro_state_snapshots()
+        update_html()
+        update_skill_index()
+        update_registry()
+        update_json_snapshots()
+        for rel in sorted(MODIFIED):
+            if rel.endswith(".py"):
+                py_compile.compile(P(rel), doraise=True)
+        update_hashes()
+
+        log("[4] 삼성(三省) 검증")
+        organ_res = organ_selftests()
+        organ_pass = sum(1 for _f, ok, _o in organ_res if ok)
+        for f, ok, o in organ_res:
+            log("   %s %s" % ("PASS" if ok else "FAIL", f) + ("" if ok else "\n      " + o.replace("\n", "\n      ")))
+        _rc, vdata, vtail = verifier_report()
+        items = synapse_items(vdata.get("synapse"))
+        syn_pass = sum(1 for x in items if x.get("ok"))
+        s12 = next((x for x in items if str(x.get("id")) == "S12"), None)
+        score = find_key(vdata.get("report"), "synapse_health_score")
+        try:
+            score = float(score) if score is not None else None
+        except Exception:
+            score = None
+        if score is None:
+            score = round(100.0 * (syn_pass + organ_pass) / max(1, len(items) + len(organ_res)), 1)
+        keys_ok = index_keys_ok()
+        rep_keys = find_key(vdata.get("report"), "index_keys_ok")
+        log("   기관 %d/%d · 시냅스 %d/%d · S12=%s · score=%s · index_keys_ok=%s/%s" % (
+            organ_pass, len(organ_res), syn_pass, len(items), bool(s12 and s12.get("ok")), score, keys_ok, rep_keys))
+        if s12 and not s12.get("ok"):
+            log("   S12 detail: %s" % json.dumps(s12.get("detail"), ensure_ascii=False, default=str)[:600])
+
+        g1 = (score == 100.0 and organ_pass == len(organ_res) and len(organ_res) >= 14
+              and syn_pass == len(items) and len(items) >= 12 and bool(s12 and s12.get("ok"))
+              and keys_ok and rep_keys is not False)
+        g2 = preserve_snapshot() == pres_before and protected_digest() == prot_before
+        counts = skill_counts()
+        g3 = counts == [NEW_COUNT] * 3
+        log("   ①기능 %s ②보호파일 %s ③스킬 %s %s" % (
+            "PASS" if g1 else "FAIL", "PASS" if g2 else "FAIL", counts, "PASS" if g3 else "FAIL"))
+        passed = sum([g1, g2, g3])
+        if passed != 3:
+            with open(P(DIAG_FILE), "w", encoding="utf-8") as f:
+                f.write("\n".join(LOGS) + "\n\n--- verifier tail ---\n" + vtail)
+            log("[FAIL] 삼성 %d/3 — 진단: %s" % (passed, DIAG_FILE))
+            if not NO_ROLLBACK:
+                rollback()
+            return 1
+
+        report = "\n".join([
+            "# STEP 42 — 제18기관 아온 상선약수 수순환 자율 대사 & 여백 창조 기관 배포 리포트", "",
+            "> 비워야 새로운 것이 들어올 자리가 생긴다 — 上善若水 · 虛實相生", "",
+            "- 버전: `%s` · 항체 `%s` · 정식 스킬 %d개" % (NEW_VERSION, NEW_RANGE, NEW_COUNT),
+            "- 일시(KST): %s" % kst_now(),
+            "- 삼성 3/3 PASS: ①synapse_health_score=%s ②보호파일 변경 0건(SOUND_RECIPES·PRESERVE_EXACT·PRESERVE 불변) ③스킬 %s" % (score, counts),
+            "- 기관 셀프테스트 %d/%d · 시냅스 %d/%d (S12 대화허브(/순환)→제18기관 PASS)" % (organ_pass, len(organ_res), syn_pass, len(items)),
+            "- 4단계 수순환: #41 산택손·#18 산풍고 → #48 수풍정 → #29 중수감·#60 수택절 → #63 수화기제·#64 화수미제",
+            "- Tier3 수동결재 게이트: requires_manual_gate=True · auto_executed=False (헌법 제2항·R35·R42)", "",
+            "## 변경 파일", ""] + ["- `%s`" % r for r in sorted(MODIFIED)] + [""])
+        write_text(REPORT_FILE, report)
+        log("[5] 리포트 생성: " + REPORT_FILE)
+
+        excludes = [":(exclude)%s" % f for f in PRESERVE] + [
+            ":(exclude).rgon_backups", ":(exclude)**/__pycache__", ":(exclude)" + DIAG_FILE]
+        rc1, o1 = git(["add", "-A", "--", "."] + excludes)
+        if rc1 != 0:
+            rc1, o1 = git(["add", "--"] + [r for r in sorted(MODIFIED) if not is_preserved(r)])
+        git(["reset", "-q", "--"] + PRESERVE)
+        rc2, o2 = git(["commit", "-m", "Step42: %s 제18기관 상선약수 수순환 · R1~R42 · 스킬38" % NEW_VERSION])
+        rc3, o3 = git(["push", "origin", "main"])
+        log("[6] git add=%s commit=%s push=%s" % (rc1, rc2, rc3))
+        if rc2 != 0:
+            log("    commit 출력: " + o2[-300:])
+        if rc3 != 0:
+            log("    push 출력: " + o3[-300:])
+        log("=" * 70)
+        log("삼성 3/3 PASS · %s 배포 완료 — 비운 자리에 새 물이 흐른다" % NEW_VERSION)
+        return 0
+    except Exception:
+        log("[EXCEPTION]\n" + traceback.format_exc())
+        try:
+            with open(P(DIAG_FILE), "w", encoding="utf-8") as f:
+                f.write("\n".join(LOGS))
+        except Exception:
+            pass
+        if not NO_ROLLBACK:
+            rollback()
         return 1
 
-    if not args.no_push and not DRY:
-        run_cmd(["git", "add", "-A"])
-        rc_c, out_c = run_cmd(["git", "commit", "-m",
-            f"feat(step39): {NEW_VER} — 제15기관 아온 초격차 대화 이해 & 올인원 대화 허브 ({NEW_R}, 스킬 {SKILL_TARGET})"])
-        log(f"  📦 Git commit: rc={rc_c}")
-        rc_p, out_p = run_cmd(["git", "push", "origin", "main"])
-        if rc_p != 0:
-            log("  🔄 원격 선행 커밋 감지 → git pull --rebase --autostash origin main 후 재푸시")
-            run_cmd(["git", "pull", "--rebase", "--autostash", "origin", "main"])
-            rc_p, out_p = run_cmd(["git", "push", "origin", "main"])
-        log(f"  🚀 Git push: rc={rc_p}")
-
-    try:
-        import ctypes
-        ctypes.windll.user32.MessageBoxW(
-            0,
-            f"RGON 제15기관 — Step 39 {NEW_VER}\n"
-            f"삼성(三省) 3/3 PASS · 항체 {NEW_R} · 정식 스킬 [35, 35, 35]\n\n"
-            f"• 구어/오타 정규화 + 대명사 문맥 복원\n"
-            f"• 능동 경청 원칙 영구 각인 (rgon_aon_preferences.json)\n"
-            f"• 복합 의도 연쇄 디스패치 + 슬래시 7종 + 3계층 해마 기억",
-            f"RGON Step 39 완료 — {NEW_VER}", 0x40
-        )
-    except Exception:
-        pass
-
-    log(f"🎉 Step 39 ({NEW_VER} · {NEW_R} · 스킬 35) 배포 완료!")
-    return 0
 
 if __name__ == "__main__":
-    sys.exit(main())
+    code = main()
+    if os.name == "nt" and not os.environ.get("RGON_NO_PAUSE") and sys.stdin and sys.stdin.isatty():
+        try:
+            input("\n[Enter] 키를 누르면 창이 닫힙니다...")
+        except Exception:
+            pass
+    sys.exit(code)

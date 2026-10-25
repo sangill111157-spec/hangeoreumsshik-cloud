@@ -1,8 +1,8 @@
 {
-  "version": "v11.25-SELF-EVOLVE",
+  "version": "v11.26-CREATOR-FORGE",
   "goal": "Step 21 @Mindung-EasyAI 양분 흡수",
   "goal_glossary": [],
-  "generated_at": "2026-10-24 12:31:39",
+  "generated_at": "2026-10-25 16:01:27",
   "frontier": [],
   "tickets": [
     {
@@ -82,18 +82,18 @@
         "S21-06"
       ],
       "demo_path": "6대 기관 순환 완주 + Self-Test 4/4 PASS",
-      "status": "done",
+      "status": "open",
       "checks": {
         "S21-01": true,
         "S21-02": true,
         "S21-03": true,
         "S21-04": true,
-        "S21-05": true,
+        "S21-05": false,
         "S21-06": true
       },
-      "verified_at_kst": "2026-10-24 12:31:44 KST"
+      "verified_at_kst": "2026-10-25 16:01:40 KST"
     }
   ],
-  "antibody_range": "R1~R26",
-  "auto_verified_at_kst": "2026-10-24 12:31:44 KST"
+  "antibody_range": "R1~R27",
+  "auto_verified_at_kst": "2026-10-25 16:01:40 KST"
 }

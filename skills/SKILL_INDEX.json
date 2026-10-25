@@ -1,8 +1,8 @@
 {
-  "version": "v11.40-AON-ICHING-PLANNER",
-  "antibody": "R1~R41",
-  "generated_at_kst": "2026-10-25 16:01:26 KST",
-  "count": 37,
+  "version": "v11.41-AON-HYDRO-CYCLE",
+  "antibody": "R1~R42",
+  "generated_at_kst": "2026-10-25T23:34:44+09:00",
+  "count": 38,
   "skills": [
     {
       "slug": "1-36-45",
@@ -377,13 +377,27 @@
       "organ": "제17기관",
       "antibody": "R41",
       "version": "v11.40-AON-ICHING-PLANNER"
+    },
+    {
+      "no": 38,
+      "slug": "aon-hydro-cycle-homeostasis",
+      "antibody": "R42",
+      "version": "v11.41-AON-HYDRO-CYCLE",
+      "path": "skills/aon-hydro-cycle-homeostasis/SKILL.md",
+      "id": "aon-hydro-cycle-homeostasis",
+      "name": "aon-hydro-cycle-homeostasis",
+      "skill": "",
+      "number": 37,
+      "title": "제18기관 아온 상선약수 수순환 자율 대사 & 여백 창조 (損·蠱→井→坎·節→旣濟·未濟)",
+      "description": "노자 상선약수·허실상생과 주역 水 순환 4괘상(#41 산택손·#18 산풍고→#48 수풍정→#29 중수감·#60 수택절→#63 수화기제·#64 화수미제)으로 고인 캐시·임시파일·오래된 백업을 3등급(TIER1_KEEP/TIER2_SAFE_EMPTY/TIER3_GATE_HOLD)으로 분류하고, 기억을 정수로 증류하며, 여백 지수·유동성 지수와 물의 순환 처방을 산출하는 항상성 기관",
+      "organ": "제18기관"
     }
   ],
-  "antibodies": "R1~R41",
-  "antibody_range": "R1~R41",
-  "immune": "R1~R41",
-  "total": 37,
-  "skill_count": 37,
-  "total_skills": 37,
-  "updated": "2026-10-25T20:02:23"
+  "antibodies": "R1~R42",
+  "antibody_range": "R1~R42",
+  "immune": "R1~R42",
+  "total": 38,
+  "skill_count": 38,
+  "total_skills": 38,
+  "updated": "2026-10-25T23:35:04"
 }

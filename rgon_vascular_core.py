@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-"""RGON v11.40-AON-ICHING-PLANNER 전신 혈관 공용 코어 (Step 22 / R22). 표준 라이브러리 전용."""
+"""RGON v11.41-AON-HYDRO-CYCLE 전신 혈관 공용 코어 (Step 22 / R22). 표준 라이브러리 전용."""
 import os, sys, re, json, subprocess, datetime
 ROOT = os.path.dirname(os.path.abspath(__file__))
-VERSION = "v11.40-AON-ICHING-PLANNER"
-ANTIBODY_RANGE = "R1~R41"
+VERSION = "v11.41-AON-HYDRO-CYCLE"
+ANTIBODY_RANGE = "R1~R42"
 R22_TEXT = "자아성찰 전신 혈관 개통 — 레이더·영양분(SKILL.md)·티켓/AgentShield·백혈구(WBC)·주역64괘·스냅샷/클라우드 JSON 6대 기관 무결점 단일 순환"
 ENGINES = ["rgon_white_blood_cell.py", "rgon_nutrient_engine.py", "rgon_spec_ticket_Shield.py", "rgon_daily_cycle.py"]
 SNAPSHOTS = ["rgon_brain_snapshot.json", "dashboard/rgon_brain_snapshot.json", "docs/rgon_brain_snapshot.json"]
@@ -222,7 +222,7 @@ def run_heart():
     for k, v in org.items(): print("  [%s] %s" % ("OK  " if v["ok"] else "WARN", k))
     return 0 if rep["all_ok"] else 1
 def self_test():
-    ok = len(GUA) == 64 and VERSION == "v11.40-AON-ICHING-PLANNER" and ANTIBODY_RANGE == "R1~R41"
+    ok = len(GUA) == 64 and VERSION == "v11.41-AON-HYDRO-CYCLE" and ANTIBODY_RANGE == "R1~R42"
     t = replace_block("x", "T", "a"); ok = ok and replace_block(t, "T", "a") == t
     ok = ok and find_num({"a": [{"health_score": 1}, {"health_score": 100}]}, ("health_score",)) == 100
     print("[rgon_vascular_core] self-test", "PASS" if ok else "FAIL"); return 0 if ok else 1

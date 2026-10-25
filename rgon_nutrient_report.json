@@ -1,8 +1,8 @@
 {
-  "version": "v11.25-SELF-EVOLVE",
+  "version": "v11.26-CREATOR-FORGE",
   "antibody": "R19",
-  "antibody_range": "R1~R26",
-  "generated_at_kst": "2026-10-24 12:31:47 KST",
+  "antibody_range": "R1~R27",
+  "generated_at_kst": "2026-10-25 16:01:27 KST",
   "wbc_linked": true,
   "purifier": {
     "ok": true,
@@ -10,14 +10,14 @@
   },
   "forge": {
     "created": 0,
-    "updated": 0,
-    "unchanged": 18,
+    "updated": 18,
+    "unchanged": 0,
     "errors": 0,
     "core": 5,
     "radar": 13,
-    "count": 21
+    "count": 35
   },
-  "skills_count": 21,
+  "skills_count": 35,
   "decisions": [
     {
       "topic": "Markdown 정제기로 외부 웹·문서 지식을 AI 친화 Markdown으로 흡수",
@@ -25,16 +25,16 @@
       "composite": 85.5,
       "bull": 80.8,
       "bear": 22.2,
-      "hexagram": "#08-比",
+      "hexagram": "#30-離",
       "wbc_health": 100.0
     },
     {
-      "topic": "표준 SKILL.md 자동 주조로 스킬 지식 자가 증식 (현재 21개)",
+      "topic": "표준 SKILL.md 자동 주조로 스킬 지식 자가 증식 (현재 35개)",
       "grade": "APPROVED_STEP_BY_STEP",
-      "composite": 85.0,
+      "composite": 90.0,
       "bull": 85.5,
       "bear": 14.2,
-      "hexagram": "#33-遯",
+      "hexagram": "#34-大壯",
       "wbc_health": 100.0
     },
     {
@@ -43,7 +43,7 @@
       "composite": 81.7,
       "bull": 69.8,
       "bear": 22.2,
-      "hexagram": "#21-噬嗑",
+      "hexagram": "#52-艮",
       "wbc_health": 100.0
     }
   ]

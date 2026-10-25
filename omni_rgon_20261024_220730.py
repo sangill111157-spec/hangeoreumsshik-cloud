@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+# [RGON-R40-FROZEN-GUARD-START]
+import os as _r40_os, sys as _r40_sys
+if __name__ == '__main__' and _r40_os.environ.get('RGON_ALLOW_FROZEN_OMNI') != '1':
+    print('[RGON-R40] 동결된 구버전 omni 스크립트 실행 차단 (v11.39-AON-NEURAL-SYNAPSE 보호)')
+    _r40_sys.exit(0)
+# [RGON-R40-FROZEN-GUARD-END]
 """Step 33: v11.32-AON-VOICE-SYNTH — 제9기관 성대·청각 음성 교감 기관 (G2 교차검증 완결판 · 표준 라이브러리 전용)"""
 import os, sys, json, re, time, shutil, hashlib, datetime, subprocess
 from pathlib import Path

@@ -1,6 +1,6 @@
 {
   "schema": "rgon_brain_snapshot/1",
-  "version": "v11.40-AON-ICHING-PLANNER",
+  "version": "v11.41-AON-HYDRO-CYCLE",
   "generated_at_kst": "2026-10-24 12:31:38 KST",
   "synced_at_kst": "2026-10-24 12:31:38 KST",
   "sync_rate": "100.0%",
@@ -11,7 +11,7 @@
     "max": 100,
     "label": "100/100"
   },
-  "antibody_range": "R1~R41",
+  "antibody_range": "R1~R42",
   "antibodies": 31,
   "top_priority_id": "GEN-1",
   "top_priority": "GEN-1 완전 무인 자가 진화 폐쇄 루프",
@@ -819,7 +819,7 @@
     "top1_self_evolving_brain": "ACTIVE",
     "gen1_autonomous_evolution_closed_loop": "ACTIVE",
     "date": "2026-10-22",
-    "antibodies": "R1~R41",
+    "antibodies": "R1~R42",
     "r14": "R14: 코드 끝 찌꺼기 자동 정화",
     "updated_at": "2026-10-22T14:39:52",
     "pulse_beat": 6,
@@ -827,7 +827,7 @@
   },
   "step11_d1": {
     "d3_tts_briefing": "ACTIVE",
-    "antibodies": "R1~R41",
+    "antibodies": "R1~R42",
     "r14": "R14: 코드 끝 찌꺼기 자동 정화",
     "html_sha256_12": "728cb2fbc907",
     "pulse_beat": 7,
@@ -837,7 +837,7 @@
   "step11_e1": {
     "all_in_one_hub": "ACTIVE",
     "mobile_badge": "v6.1.0-step11 · 항체 R1~R27 (14종)",
-    "antibodies": "R1~R41",
+    "antibodies": "R1~R42",
     "viral_keywords": [
       "AI 에이전트 군단 자동화",
       "4대 AI 교차검증 레버리지",
@@ -1002,12 +1002,12 @@
         "wbc_health": 100.0
       }
     ],
-    "antibody": "R1~R41",
+    "antibody": "R1~R42",
     "rule": "Top 100 영양분 3스푼(Markdown 정제기 · 표준 SKILL.md 자동 주조기 · 3자 찬반 심판기) 통합 및 지식 자가 증식"
   },
   "step20": {
     "name": "일일 자율 순환 루프",
-    "antibody": "R1~R41",
+    "antibody": "R1~R42",
     "heart": "rgon_daily_cycle.py",
     "workflow": ".github/workflows/rgon_daily_autonomous_cycle.yml",
     "schedule_kst": "07:00",
@@ -1026,8 +1026,8 @@
   "skill_count": 37,
   "health_score": 100,
   "vascular_circulation": {
-    "version": "v11.40-AON-ICHING-PLANNER",
-    "antibody_range": "R1~R41",
+    "version": "v11.41-AON-HYDRO-CYCLE",
+    "antibody_range": "R1~R42",
     "antibody_R22": "자아성찰 전신 혈관 개통 — 레이더·영양분(SKILL.md)·티켓/AgentShield·백혈구(WBC)·주역64괘·스냅샷/클라우드 JSON 6대 기관 무결점 단일 순환",
     "cycle_at_kst": "2026-10-24 12:31:38 KST",
     "organs": {
@@ -1057,20 +1057,20 @@
     ],
     "engine_versions": {
       "rgon_white_blood_cell.py": {
-        "version": "v11.40-AON-ICHING-PLANNER",
-        "antibody_range": "R1~R41"
+        "version": "v11.41-AON-HYDRO-CYCLE",
+        "antibody_range": "R1~R42"
       },
       "rgon_nutrient_engine.py": {
-        "version": "v11.40-AON-ICHING-PLANNER",
-        "antibody_range": "R1~R41"
+        "version": "v11.41-AON-HYDRO-CYCLE",
+        "antibody_range": "R1~R42"
       },
       "rgon_spec_ticket_Shield.py": {
-        "version": "v11.40-AON-ICHING-PLANNER",
-        "antibody_range": "R1~R41"
+        "version": "v11.41-AON-HYDRO-CYCLE",
+        "antibody_range": "R1~R42"
       },
       "rgon_daily_cycle.py": {
-        "version": "v11.40-AON-ICHING-PLANNER",
-        "antibody_range": "R1~R41"
+        "version": "v11.41-AON-HYDRO-CYCLE",
+        "antibody_range": "R1~R42"
       }
     }
   },
@@ -1081,7 +1081,7 @@
     "treasury_guard": "GO"
   },
   "last_sync": "Step25 2026-10-24 09:19:38",
-  "immune": "R1~R41",
+  "immune": "R1~R42",
   "latest_step": 31,
   "avatar": {
     "name_ko": "아온",

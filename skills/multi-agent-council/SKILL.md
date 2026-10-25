@@ -7,7 +7,7 @@ created_at_kst: "2026-10-24 06:39:24 KST"
 hexagram_tag: "#13-同人"
 slug: "multi-agent-council"
 origin: "core"
-version: "v11.25-SELF-EVOLVE"
+version: "v11.26-CREATOR-FORGE"
 antibody: "R19"
 ---
 
@@ -25,7 +25,7 @@ antibody: "R19"
 - deliberate('안건', {'growth': 80, 'complexity': 30})
 - 결과 등급: APPROVED_STEP_BY_STEP / CONDITIONAL_PROCEED / HOLD_AND_REFLECT
 
-## 안전 수칙 (백혈구 항체 R1~R26)
+## 안전 수칙 (백혈구 항체 R1~R27)
 
 - touches_protected_ui=True 안건은 무조건 HOLD_AND_REFLECT.
 - 심판 결과는 참고용이며 최종 결정은 대표님이 내린다.
@@ -37,4 +37,4 @@ antibody: "R19"
 
 ---
 
-_RGON SkillAutoForge v11.25-SELF-EVOLVE 자동 주조 · 출처: https://github.com/HKUDS/AI-Trader_
+_RGON SkillAutoForge v11.26-CREATOR-FORGE 자동 주조 · 출처: https://github.com/HKUDS/AI-Trader_

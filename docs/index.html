@@ -3277,7 +3277,7 @@ setInterval(mount,3000);if(document.readyState==="loading")document.addEventList
 <!-- [RGON-R39-OMNI-DIALOGUE-HUB-END] -->
 <!-- [RGON-R40-NEURAL-SYNAPSE-START] -->
 <script>
-window.RGON_NEURAL_SYNAPSE = {version:"v11.40-AON-ICHING-PLANNER", antibody:"R1~R41", skills:37, organ:16,
+window.RGON_NEURAL_SYNAPSE = {version:"v11.41-AON-HYDRO-CYCLE", antibody:"R1~R42", skills:37, organ:16,
   skill:"aon-neural-synapse-verifier", map:"rgon_neural_synapse_map.json"};
 (function(){try{var b=document.createElement('div');b.id='rgon-r40-synapse-badge';
 b.textContent='🧠 R40 신경망 시냅스 · '+window.RGON_NEURAL_SYNAPSE.version+' · 스킬 '+window.RGON_NEURAL_SYNAPSE.skills;
@@ -3288,9 +3288,15 @@ b.style.cssText='position:fixed;left:8px;bottom:8px;z-index:9999;font:11px sans-
 <!-- [RGON-R40-NEURAL-SYNAPSE-END] -->
 <!-- RGON R41 ICHING PLANNER BRIDGE BEGIN -->
 <script>
-window.RGON_ICHING_PLANNER = {version: "v11.40-AON-ICHING-PLANNER", antibody: "R1~R41", skill: "aon-iching-strategic-planner", skillCount: 37, organ: 17, state: "rgon_aon_iching_plan.json", commands: ["/계획", "/plan", "/전략"], load: function(){ return fetch("rgon_aon_iching_plan.json", {cache: "no-store"}).then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; }); }};
+window.RGON_ICHING_PLANNER = {version: "v11.41-AON-HYDRO-CYCLE", antibody: "R1~R42", skill: "aon-iching-strategic-planner", skillCount: 37, organ: 17, state: "rgon_aon_iching_plan.json", commands: ["/계획", "/plan", "/전략"], load: function(){ return fetch("rgon_aon_iching_plan.json", {cache: "no-store"}).then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; }); }};
 </script>
-<div id="rgon-r41-badge" style="display:none">v11.40-AON-ICHING-PLANNER · 항체 R1~R41 · 스킬 37</div>
+<div id="rgon-r41-badge" style="display:none">v11.41-AON-HYDRO-CYCLE · 항체 R1~R42 · 스킬 38</div>
 <!-- RGON R41 ICHING PLANNER BRIDGE END -->
+<!-- RGON R42 HYDRO CYCLE BRIDGE BEGIN -->
+<script>
+window.RGON_HYDRO_CYCLE = {version: "v11.41-AON-HYDRO-CYCLE", antibody: "R1~R42", skill: "aon-hydro-cycle-homeostasis", skillCount: 38, organ: 18, state: "rgon_aon_hydro_state.json", commands: ["/비움", "/순환", "/청소", "/물"], load: function(){ return fetch("rgon_aon_hydro_state.json", {cache: "no-store"}).then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; }); }};
+</script>
+<div id="rgon-r42-badge" style="display:none">v11.41-AON-HYDRO-CYCLE · 항체 R1~R42 · 스킬 38</div>
+<!-- RGON R42 HYDRO CYCLE BRIDGE END -->
 </body>
 </html>

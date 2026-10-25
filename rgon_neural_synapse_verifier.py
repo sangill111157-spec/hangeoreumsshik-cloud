@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """rgon_neural_synapse_verifier.py — 제16기관 아온 전신 신경망 시냅스 병렬 정밀 검증기
-v11.40-AON-ICHING-PLANNER · 항체 R1~R41 · 정식 스킬 #36 aon-neural-synapse-verifier
+v11.41-AON-HYDRO-CYCLE · 항체 R1~R42 · 정식 스킬 #36 aon-neural-synapse-verifier
 순수 표준 라이브러리 전용. CLI: --self-test | --audit | --status
 """
 import os, sys, re, json, time, ast, tempfile, subprocess, importlib, argparse, datetime, warnings
@@ -19,9 +19,9 @@ for _s in ("stdout", "stderr"):
 os.environ["PYTHONWARNINGS"] = "ignore::SyntaxWarning"
 warnings.filterwarnings("ignore", category=SyntaxWarning)
 
-VERSION = "v11.40-AON-ICHING-PLANNER"
-ANTIBODY_RANGE = "R1~R41"
-EXPECTED_SKILL_COUNT = 37
+VERSION = "v11.41-AON-HYDRO-CYCLE"
+ANTIBODY_RANGE = "R1~R42"
+EXPECTED_SKILL_COUNT = 38
 SKILL_ID = "aon-neural-synapse-verifier"
 ROOT = Path(__file__).resolve().parent
 TIME_BUDGET_SEC = 2.0
@@ -351,9 +351,9 @@ def status():
 
 
 # >>> RGON R41 VERIFIER EXT BEGIN >>>
-VERSION = "v11.40-AON-ICHING-PLANNER"
-ANTIBODY_RANGE = "R1~R41"
-EXPECTED_SKILL_COUNT = 37
+VERSION = "v11.41-AON-HYDRO-CYCLE"
+ANTIBODY_RANGE = "R1~R42"
+EXPECTED_SKILL_COUNT = 38
 STATUS_LINE = "%s · 항체 %s · 정식 스킬 %d개" % (VERSION, ANTIBODY_RANGE, EXPECTED_SKILL_COUNT)
 try:
     if "rgon_aon_iching_planner.py" not in ORGANS:
@@ -420,6 +420,168 @@ if callable(_r41_orig_vsl) and not getattr(_r41_orig_vsl, "_r41", False):
         return res
     verify_synapse_links._r41 = True
 # <<< RGON R41 VERIFIER EXT END <<<
+
+
+# >>> [RGON-R42-VERIFIER-EXT-START] >>>
+VERSION = "v11.41-AON-HYDRO-CYCLE"
+ANTIBODY_RANGE = "R1~R42"
+EXPECTED_SKILL_COUNT = 38
+STATUS_LINE = "%s · 항체 %s · 정식 스킬 %d개" % (VERSION, ANTIBODY_RANGE, EXPECTED_SKILL_COUNT)
+R42_HYDRO_ORGAN = "rgon_aon_hydro_cycle.py"
+R42_HYDRO_SNAPSHOTS = ["rgon_aon_hydro_state.json", "docs/rgon_aon_hydro_state.json"]
+try:
+    if R42_HYDRO_ORGAN not in ORGANS:
+        ORGANS.append(R42_HYDRO_ORGAN)
+except NameError:
+    ORGANS = [R42_HYDRO_ORGAN]
+for _r42_sn in ("SNAPSHOT_FILES", "SNAPSHOT_SYNC_FILES", "SNAPSHOT_TARGETS", "SYNC_SNAPSHOTS",
+                "STATE_SNAPSHOTS", "SNAPSHOTS", "STATE_FILES", "JSON_SNAPSHOTS"):
+    _r42_sv = globals().get(_r42_sn)
+    if isinstance(_r42_sv, list) and all(isinstance(_x, str) for _x in _r42_sv):
+        for _r42_x in R42_HYDRO_SNAPSHOTS:
+            if _r42_x not in _r42_sv:
+                _r42_sv.append(_r42_x)
+    elif isinstance(_r42_sv, tuple) and all(isinstance(_x, str) for _x in _r42_sv):
+        globals()[_r42_sn] = tuple(_r42_sv) + tuple(_x for _x in R42_HYDRO_SNAPSHOTS if _x not in _r42_sv)
+
+
+def _r42_s12_check():
+    import os as _o, json as _j, tempfile as _t, importlib as _il, shutil as _sh, time as _tm
+    _t0 = _tm.perf_counter()
+    name = "대화허브(/순환)→제18기관 수순환 대사"
+    tmp = _t.mkdtemp(prefix="rgon_s12_")
+    keys = ("RGON_HYDRO_STATE_DIR", "RGON_ICHING_STATE_DIR", "RGON_DIALOGUE_STATE_DIR", "RGON_HYDRO_NO_ORACLE")
+    prev = {k: _o.environ.get(k) for k in keys}
+    base = _o.path.dirname(_o.path.abspath(__file__))
+    root_state = [_o.path.join(base, "rgon_aon_hydro_state.json"), _o.path.join(base, "docs", "rgon_aon_hydro_state.json")]
+
+    def _sig(p):
+        try:
+            st = _o.stat(p)
+            return (st.st_size, st.st_mtime_ns)
+        except OSError:
+            return None
+
+    before = [_sig(p) for p in root_state]
+    for k in keys[:3]:
+        _o.environ[k] = tmp
+    _o.environ["RGON_HYDRO_NO_ORACLE"] = "1"
+    try:
+        dlg = _il.import_module("rgon_aon_dialogue_engine")
+        fn = getattr(dlg, "route", None) or getattr(dlg, "r40_route", None)
+        r = fn("/순환 노트북 여백 창조 및 물의 순환 점검")
+        hc = r.get("hydro_cycle") if isinstance(r, dict) else None
+        hc = hc if isinstance(hc, dict) else {}
+        stages = hc.get("iching_flow_stages") or []
+        gtxt = _j.dumps(stages, ensure_ascii=False)
+        tiers = hc.get("tier_classification") or {}
+        t3 = tiers.get("TIER3_GATE_HOLD") or {}
+        es = hc.get("empty_space_score")
+        checks = {
+            "route_ok": isinstance(r, dict) and r.get("ok") is True,
+            "hydro_ok": hc.get("ok") is True and hc.get("antibody") == "R42",
+            "four_stages": len(stages) == 4 and all(("#%02d" % n) in gtxt for n in (41, 18, 48, 29, 60, 63, 64)),
+            "empty_space": isinstance(es, (int, float)) and 0 <= es <= 100,
+            "tiers": all(k in tiers for k in ("TIER1_KEEP", "TIER2_SAFE_EMPTY", "TIER3_GATE_HOLD")),
+            "tier3_gate": t3.get("requires_manual_gate") is True and t3.get("auto_executed") is False,
+            "top_gate": hc.get("requires_manual_gate") is True and hc.get("auto_executed") is False,
+            "isolated": _o.path.exists(_o.path.join(tmp, "rgon_aon_hydro_state.json")) and [_sig(p) for p in root_state] == before,
+        }
+        return {"id": "S12", "name": name, "ok": all(checks.values()), "sec": round(_tm.perf_counter() - _t0, 3),
+                "evidence": str(checks)[:200], "detail": checks}
+    except Exception as e:
+        return {"id": "S12", "name": name, "ok": False, "sec": round(_tm.perf_counter() - _t0, 3),
+                "evidence": repr(e), "detail": repr(e)}
+    finally:
+        for k, v in prev.items():
+            if v is None:
+                _o.environ.pop(k, None)
+            else:
+                _o.environ[k] = v
+        _sh.rmtree(tmp, ignore_errors=True)
+
+
+def _r42_merge(res, item):
+    sid = item.get("id")
+    if isinstance(res, list):
+        return [x for x in res if not (isinstance(x, dict) and x.get("id") == sid)] + [item]
+    if isinstance(res, dict):
+        lst = None
+        for k in ("links", "synapses", "results", "checks"):
+            if isinstance(res.get(k), list):
+                lst = k
+                break
+        if lst:
+            res[lst] = [x for x in res[lst] if not (isinstance(x, dict) and x.get("id") == sid)] + [item]
+            items = res[lst]
+            passed = sum(1 for x in items if isinstance(x, dict) and x.get("ok"))
+            for pk in ("passed", "pass_count"):
+                if pk in res:
+                    res[pk] = passed
+            for tk in ("total", "total_count"):
+                if tk in res:
+                    res[tk] = len(items)
+            if "ok" in res:
+                res["ok"] = passed == len(items)
+        else:
+            res[sid] = item
+    return res
+
+
+_r42_orig_vsl = globals().get("verify_synapse_links")
+if callable(_r42_orig_vsl) and not getattr(_r42_orig_vsl, "_r42", False):
+    def verify_synapse_links(*args, **kwargs):
+        res = _r42_orig_vsl(*args, **kwargs)
+        try:
+            res = _r42_merge(res, _r42_s12_check())
+        except Exception:
+            pass
+        return res
+    verify_synapse_links._r42 = True
+
+
+def _r42_fix_skill_header():
+    import os as _o, json as _j, re as _re, datetime as _dt
+    p = _o.path.join(_o.path.dirname(_o.path.abspath(__file__)), "skills", "SKILL_INDEX.json")
+    if not _o.path.exists(p):
+        return False
+    with open(p, "r", encoding="utf-8") as f:
+        raw = f.read()
+    data = _j.loads(raw)
+    if not isinstance(data, dict) or not isinstance(data.get("skills"), list):
+        return False
+    changed = False
+    if data.get("version") != VERSION:
+        data["version"] = VERSION
+        changed = True
+    ab = str(data.get("antibody") or "")
+    want = "R42" if _re.fullmatch(r"R\d+", ab) else ANTIBODY_RANGE
+    if ab != want:
+        data["antibody"] = want
+        changed = True
+    if data.get("count") != len(data["skills"]):
+        data["count"] = len(data["skills"])
+        changed = True
+    if changed or "generated_at_kst" not in data:
+        data["generated_at_kst"] = _dt.datetime.now(_dt.timezone(_dt.timedelta(hours=9))).isoformat(timespec="seconds")
+        m = _re.search(r"\n( +)\"", raw)
+        with open(p, "w", encoding="utf-8", newline="\n") as f:
+            f.write(_j.dumps(data, ensure_ascii=False, indent=len(m.group(1)) if m else 2) + "\n")
+    return changed
+
+
+_r42_orig_heal = globals().get("heal_skill_index_header")
+if callable(_r42_orig_heal) and not getattr(_r42_orig_heal, "_r42", False):
+    def heal_skill_index_header(*args, **kwargs):
+        try:
+            return _r42_orig_heal(*args, **kwargs)
+        finally:
+            try:
+                _r42_fix_skill_header()
+            except Exception:
+                pass
+    heal_skill_index_header._r42 = True
+# <<< [RGON-R42-VERIFIER-EXT-END] <<<
 
 
 if __name__ == "__main__":

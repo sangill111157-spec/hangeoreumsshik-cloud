@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+# [RGON-R40-FROZEN-GUARD-START]
+import os as _r40_os, sys as _r40_sys
+if __name__ == '__main__' and _r40_os.environ.get('RGON_ALLOW_FROZEN_OMNI') != '1':
+    print('[RGON-R40] 동결된 구버전 omni 스크립트 실행 차단 (v11.39-AON-NEURAL-SYNAPSE 보호)')
+    _r40_sys.exit(0)
+# [RGON-R40-FROZEN-GUARD-END]
 """Step 38 최종 수술 완성본: v11.38-AON-OMNI-DIALOGUE — 제14기관 아온 만물 격물치지(格物致知) 전방위 통찰안 (R1~R39 · 정식 스킬 34)
 클로드 실측 엔진 + 안티그레비티 SOUL_INJECT 우선순위 수술 + 삼성(三省) 3/3 자동백업·원복 프레임워크 완벽 통합"""
 import ast, datetime, hashlib, json, os, re, shutil, subprocess, sys, time
