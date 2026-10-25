@@ -2558,7 +2558,7 @@ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",
 <script id="rgon-voice-v1-js">
 (function(){
 if(window.RGON_VOICE)return;
-var VER="v11.37-AON-OMNI-INSIGHT";
+var VER="v11.38-AON-OMNI-DIALOGUE";
 var KEY="rgon_voice_cfg",cfg={muted:false,pitch:1.18,rate:1.05};
 try{Object.assign(cfg,JSON.parse(localStorage.getItem(KEY)||"{}"))}catch(e){}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(cfg))}catch(e){}}
@@ -2704,7 +2704,7 @@ memory:function(){return JSON.parse(JSON.stringify(mem))},get muted(){return cfg
 <script id="rgon-gate-v1-js">
 (function(){
 if(window.RGON_GATE)return;
-var VER="v11.37-AON-OMNI-INSIGHT",KEY="rgon_manual_gate";
+var VER="v11.38-AON-OMNI-DIALOGUE",KEY="rgon_manual_gate";
 var LABEL={finance_payment:"💰 금융·결제",laptop_app_browser:"💻 노트북앱",file_modify_delete:"🗂️ 파일삭제·이동",external_dispatch:"🌐 외부전송"};
 var CRIT=["finance_payment","file_modify_delete","external_dispatch"];
 var st={master_approval_on:false,gates:{finance_payment:false,laptop_app_browser:true,file_modify_delete:false,external_dispatch:false}};
@@ -2968,7 +2968,7 @@ var hv=0,hi=setInterval(function(){var v=window.RGON_VOICE;if(v&&v.talk&&!v.__rg
   }
   setInterval(dock,3500);
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",dock);else dock();
-  window.RGON_DAO={cast:cast,compute:compute,version:"v11.37-AON-OMNI-INSIGHT"};
+  window.RGON_DAO={cast:cast,compute:compute,version:"v11.38-AON-OMNI-DIALOGUE"};
 })();
 
 /* === [RGON-R38-OMNI-INSIGHT-JS] 제14기관: 아온 만물 격물치지 전방위 통찰안 & Canvas 실측 스캐너 === */
@@ -3032,11 +3032,248 @@ if(fl&&/^image\//.test(fl.type))measure(fl);else{var u=e.dataTransfer.getData("t
 function mount(){if(document.getElementById("rgon-insight-btn"))return true;var b=document.createElement("button");b.id="rgon-insight-btn";b.type="button";b.innerHTML="👁️ <b>만물 통찰</b>";
 b.addEventListener("click",function(e){e.preventDefault();e.stopPropagation();open()});
 var a=document.getElementById("rgon-dao-btn")||document.getElementById("rgon-brat-btn")||document.getElementById("rgyt-hide");if(a&&a.parentNode){a.parentNode.appendChild(b);return true}return false}
-window.RGON_INSIGHT={open:open,analyze:analyze,version:"v11.37-AON-OMNI-INSIGHT"};
+window.RGON_INSIGHT={open:open,analyze:analyze,version:"v11.38-AON-OMNI-DIALOGUE"};
 setInterval(mount,3000);if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",mount);else mount()})();
 </script>
 <!-- [RGON-GATE-V1-END] -->
 <!-- [RGON-YT-SCOUT-V13-END] -->
 
+<!-- [RGON-R39-OMNI-DIALOGUE-HUB-START] -->
+<style id="rgon-r39-dialogue-css">
+#aon-dlg-hub-wrap{font-family:'Pretendard','Noto Sans KR', system-ui,sans-serif;margin-top:6px;border-top:1px dashed rgba(56,189,248,.35);padding-top:6px;font-size:12px;color:#e2e8f0}
+#aon-dlg-slash-bar{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:5px}
+.aon-slash-pill{background:rgba(15,23,42,.85);border:1px solid rgba(56,189,248,.45);color:#7dd3fc;border-radius:999px;padding:2px 8px;font-size:11px;cursor:pointer;transition:all .15s}
+.aon-slash-pill:hover{background:#0284c7;color:#fff}
+#aon-dlg-input-row{display:flex;gap:4px;margin-bottom:5px}
+#aon-dlg-input{flex:1;min-width:0;background:rgba(15,23,42,.9);border:1px solid rgba(148,163,184,.4);border-radius:6px;padding:4px 7px;color:#f8fafc;font-size:12px}
+#aon-dlg-send{background:linear-gradient(135deg,#0284c7,#2563eb);color:#fff;border:none;border-radius:6px;padding:4px 10px;font-size:11px;font-weight:600;cursor:pointer}
+#aon-dlg-think{background:rgba(15,23,42,.75);border:1px solid rgba(148,163,184,.25);border-radius:6px;padding:4px 7px;margin-bottom:5px;font-size:11px;color:#cbd5e1}
+#aon-dlg-think summary{cursor:pointer;color:#38bdf8;font-weight:600}
+#aon-dlg-artifact{background:rgba(15,23,42,.92);border:1px solid rgba(56,189,248,.4);border-radius:8px;padding:7px 9px;margin-bottom:5px}
+#aon-dlg-artifact-title{font-weight:700;color:#7dd3fc;margin-bottom:3px;font-size:12px}
+#aon-dlg-artifact-body{color:#f1f5f9;line-height:1.45;white-space:pre-wrap;font-size:11.5px;max-height:150px;overflow-y:auto}
+#aon-dlg-chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
+.aon-followup-chip{background:rgba(30,41,59,.9);border:1px solid rgba(125,211,252,.35);color:#bae6fd;border-radius:999px;padding:2px 8px;font-size:10.5px;cursor:pointer}
+.aon-followup-chip:hover{background:#0369a1;color:#fff}
+#aon-dlg-prefs{font-size:10.5px;color:#94a3b8;margin-top:3px}
+</style>
+<script id="rgon-r39-dialogue-js">
+(function(){
+  if(window.RGON_AON_DIALOGUE_HUB) return;
+  var STORAGE_PREFS = "rgon_aon_prefs_v39";
+  var STORAGE_CTX   = "rgon_aon_ctx_v39";
+  var TYPOS = [
+    [/브립핑|브리팡|부리핑/g,"브리핑"],[/점처/g,"점쳐"],[/결제\s*스위치/g,"결재 스위치"],
+    [/하기\s*실(어|타|다)/g,"하기 싫어"],[/노트북용량/g,"노트북 용량"],[/통찰해\s*바/g,"통찰해줘"],
+    [/해\s*바(?![가-힣])/g,"해줘"],[/봐\s*바(?![가-힣])/g,"봐줘"],[/알려\s*조/g,"알려줘"]
+  ];
+  var PRON = /(아까\s*(?:그거|말한\s*거)|그것|그거|그건|그걸|이것|이거|저거)/;
+  var STOP = {오늘:1,지금:1,내일:1,어제:1,아까:1,그냥:1,진짜:1,정말:1,다시:1,아온:1,아온이:1,대표님:1,주역:1,점괘:1,운세:1,시운:1,브리핑:1,통찰:1,본질:1,원리:1,노트북:1,용량:1,결재:1,스위치:1,잠금:1,뮤즈:1,위임:1,원칙:1,기억:1};
+
+  function loadJSON(k, d){ try{ var v=localStorage.getItem(k); return v?JSON.parse(v):d; }catch(e){ return d; } }
+  function saveJSON(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+
+  function normalize(t){
+    var o = String(t||""), s = o, fixes = [];
+    for(var i=0;i<TYPOS.length;i++){
+      var n = s.replace(TYPOS[i][0], TYPOS[i][1]);
+      if(n!==s){ fixes.push(TYPOS[i][1]); s = n; }
+    }
+    return {original:o, normalized:s.trim(), fixes:fixes};
+  }
+  function extractEntity(t){
+    var m = String(t||"").match(/[가-힣A-Za-z0-9]{2,}/g)||[];
+    for(var i=0;i<m.length;i++){
+      var w = m[i].replace(/(은|는|이|가|을|를|에|로|도|만|의|와|과)$/,"");
+      if(w.length>=2 && !STOP[w] && !PRON.test(w) && !/(해줘|봐줘|알려줘|보여줘|어때|할까|싫어|좋아)$/.test(w)) return w;
+    }
+    return null;
+  }
+  function resolveCoref(t, ctx){
+    var m = String(t||"").match(PRON);
+    if(m && ctx && ctx.last_entity && t.indexOf(ctx.last_entity)===-1){
+      return {resolved:t.replace(PRON, ctx.last_entity), pronoun:m[1], entity:ctx.last_entity, replaced:true};
+    }
+    return {resolved:t, pronoun:null, entity:(ctx&&ctx.last_entity)||null, replaced:false};
+  }
+  function checkPref(t){
+    var s = String(t||"").trim();
+    var m = s.match(/(?:기억해\s*(?:둬|줘|놔)|명심해|내\s*원칙은)\s*[:：,\-]?\s*(.{2,})/) ||
+            s.match(/(절대\s*.{2,50}?(?:하지\s*마|금지))/) ||
+            s.match(/(앞으로(?:는)?\s+.{2,60}?(?:해줘|해라|하자|하지\s*마))/);
+    if(!m) return null;
+    var rule = m[1].replace(/[.!~]+$/,"").trim();
+    var list = loadJSON(STORAGE_PREFS, []);
+    for(var i=0;i<list.length;i++){ if(list[i].rule===rule) return list[i]; }
+    var item = {id:"P0"+(list.length+1), rule:rule, ts:new Date().toISOString().slice(0,16)};
+    list.push(item); saveJSON(STORAGE_PREFS, list);
+    return item;
+  }
+  function classify(c){
+    var s = String(c||"");
+    if(/^\/(점괘|주역|iching)/.test(s) || /(주역|점괘|점쳐|64괘|매화역수|육효|시운|운세|도술)/.test(s)) return "iching";
+    if(/^\/(통찰|insight)/.test(s) || /(통찰|격물치지|제1원리|본질|원리|이치|급소|해부)/.test(s)) return "insight";
+    if(/^\/(노트북|hands|잠금|lock|결재)/.test(s) || /(노트북|용량|디스크|메모리|결재\s*스위치|마스터\s*스위치|잠금)/.test(s)) return "hands";
+    if(/^\/(위임|muse)/.test(s) || /(뮤즈|위임|대행|안건)/.test(s)) return "delegation";
+    if(/^\/(원칙|prefs)/.test(s) || /(내\s*원칙|기억하라고\s*한|저장된\s*원칙)/.test(s)) return "preference";
+    if(/^\/(기억|memory)/.test(s)) return "memory";
+    if(/(브리핑|장세|시황)/.test(s)) return "briefing";
+    return "dialogue";
+  }
+  function decompose(t){
+    var s = String(t||"").trim();
+    if(s.charAt(0)==="/") return [{clause:s, intent:classify(s)}];
+    var m = s.match(/^(.+?(?:해\s*주고|봐\s*주고|알려\s*주고|보여\s*주고|점쳐\s*주고))\s+(.+)$/) ||
+            s.match(/^(.+?(?:해줘|봐줘|알려줘|보여줘|점쳐줘))\s*(?:그리고|하고|또|이어서)\s+(.+)$/);
+    if(m) return [{clause:m[1].trim(), intent:classify(m[1])},{clause:m[2].trim(), intent:classify(m[2])}];
+    return [{clause:s, intent:classify(s)}];
+  }
+  function runIntent(it, clause, ent){
+    var q = clause.replace(/^\/\S+\s*/,"").trim() || ent || "오늘의 주제";
+    if(it==="iching" && window.RGON_AON_ICHING && window.RGON_AON_ICHING.divine){
+      var d = window.RGON_AON_ICHING.divine(q);
+      return "🔮 [주역 도술관] " + (d.aon_line || (d.bengua_name+" → "+d.biangua_name+" ("+d.ti_yong_verdict+")"));
+    }
+    if(it==="insight" && window.RGON_AON_OMNI_INSIGHT && window.RGON_AON_OMNI_INSIGHT.analyze){
+      var r = window.RGON_AON_OMNI_INSIGHT.analyze(q);
+      return "👁️ [만물 통찰안] " + (r.aon_voice_line || (r.essence+" / 급소: "+r.leverage_point));
+    }
+    if(it==="hands"){
+      if(window.RGON_APPROVAL_GATE && /(스위치|잠금|결재|lock)/.test(clause)){
+        var on = window.RGON_APPROVAL_GATE.isMasterOn ? window.RGON_APPROVAL_GATE.isMasterOn() : false;
+        return "🔒 [중요 결재 스위치] 현재 " + (on?"🟢 ON(열림)":"🔒 OFF(잠금 보호)") + " 상태예요! 대표님 수동 허락 없이는 단 1건도 집행하지 않아요.";
+      }
+      return "💻 [노트북 수족] 로컬 수족 및 결재 보호 게이트가 정상 대기 중이에요! ("+q+")";
+    }
+    if(it==="delegation") return "📋 [뮤즈 위임] Tier 1/2 자율 처리, Tier 3 중요 안건은 대표님 [승인 집행] 전까지 0건 대기 중이에요!";
+    if(it==="preference"){
+      var list = loadJSON(STORAGE_PREFS, []);
+      if(!list.length) return "📌 아직 저장된 지휘 원칙이 없어요! `기억해둬: ...`라고 말씀해 주시면 해마에 꼭 새겨둘게요.";
+      return "📌 대표님 각인 원칙 ("+list.length+"건):\n" + list.map(function(p){return "• ["+p.id+"] "+p.rule;}).join("\n");
+    }
+    if(it==="memory"){
+      var ctx = loadJSON(STORAGE_CTX, {turn:0,last_entity:"없음",history:[]});
+      return "🧠 [3계층 해마 기억] 누적 "+(ctx.turn||0)+"턴 · 최근 초점 엔티티: "+(ctx.last_entity||"없음")+" · 단기 기억 "+(ctx.history?ctx.history.length:0)+"건 보존 중!";
+    }
+    if(it==="briefing") return "🌅 [모닝 브리핑] 오늘의 시운·장세·안건을 통합 점검했어요! 후속 칩으로 주역 점괘나 만물 통찰을 바로 이어가실 수 있어요.";
+    return "💧 아온이가 대표님 말씀(\""+clause+"\")의 속뜻까지 깊이 새겨듣고 있어요!";
+  }
+  function ask(rawText){
+    var ctx = loadJSON(STORAGE_CTX, {turn:0, last_entity:null, history:[]});
+    var nm = normalize(rawText);
+    var cr = resolveCoref(nm.normalized, ctx);
+    var ent = extractEntity(cr.resolved) || cr.entity || ctx.last_entity;
+    var pref = checkPref(cr.resolved);
+    var items = decompose(cr.resolved);
+    var steps = [
+      "① 구어·오타 정규화: " + (nm.fixes.length?nm.fixes.join(", "):"원문 유지") + " → \"" + nm.normalized + "\"",
+      "② 문맥·대명사 복원: " + (cr.replaced?(cr.pronoun+" → "+cr.entity):(ent||"직접 문장")),
+      "③ 능동 경청 원칙: " + (pref?("["+pref.id+"] "+pref.rule):"변동 없음"),
+      "④ 의도 분해(" + items.length + "건): " + items.map(function(x){return x.intent;}).join(" + ")
+    ];
+    var outs = [];
+    if(pref && items.length===1 && items[0].intent==="dialogue"){
+      outs.push("📌 명심했습니다 대표님! ["+pref.id+"] 『"+pref.rule+"』 원칙을 아온이 해마에 영구 각인했어요! 💧✨");
+    } else {
+      for(var i=0;i<items.length;i++) outs.push(runIntent(items[i].intent, items[i].clause, ent));
+      if(pref) outs.unshift("📌 (원칙 동시 각인: ["+pref.id+"] 『"+pref.rule+"』)");
+    }
+    var callback = null;
+    if(ent && ctx.history){
+      for(var j=ctx.history.length-1;j>=0;j--){
+        if(ctx.history[j].entity===ent){
+          callback = "💡 연상 기억 콜백: 이전 대화에서도 『"+ent+"』 주제를 다루셨어요!"; break;
+        }
+      }
+    }
+    var reply = outs.join("\n\n") + (callback?("\n\n"+callback):"");
+    ctx.turn = (ctx.turn||0) + 1;
+    if(ent) ctx.last_entity = ent;
+    ctx.history = (ctx.history||[]).concat([{turn:ctx.turn, text:cr.resolved, entity:ent, intent:items[0].intent}]).slice(-20);
+    saveJSON(STORAGE_CTX, ctx);
+    var chips = ent ? [ent+" 주역 점괘 봐줘", ent+" 본질 통찰해줘", "저장된 내 원칙 보여줘"]
+                    : ["오늘 주역 점괘 봐줘", "만물 통찰해줘", "저장된 내 원칙 보여줘"];
+    var res = {
+      input:rawText, normalized:nm.normalized, resolved:cr.resolved, entity:ent,
+      is_multi:items.length>1, intents:items, reply:reply, thinking_steps:steps,
+      follow_up_chips:chips, proactive_callback:callback, preference_saved:pref
+    };
+    renderResult(res);
+    try{ if(window.RGON_VOICE && window.RGON_VOICE.playSfx) window.RGON_VOICE.playSfx("dialogue_chime"); }catch(e){}
+    return res;
+  }
+  function renderResult(res){
+    var th = document.getElementById("aon-dlg-think-body");
+    var ti = document.getElementById("aon-dlg-artifact-title");
+    var bd = document.getElementById("aon-dlg-artifact-body");
+    var ch = document.getElementById("aon-dlg-chips");
+    var pf = document.getElementById("aon-dlg-prefs");
+    if(th) th.innerHTML = res.thinking_steps.map(function(s){return "<div>"+s+"</div>";}).join("");
+    if(ti) ti.textContent = (res.is_multi?"🧩 복합 의도 통합 응답 카드":"💬 아온 올인원 대화 아티팩트") + (res.entity?(" · ["+res.entity+"]"):"");
+    if(bd) bd.textContent = res.reply;
+    if(ch){
+      ch.innerHTML = "";
+      res.follow_up_chips.forEach(function(c){
+        var b = document.createElement("button");
+        b.type = "button"; b.className = "aon-followup-chip"; b.textContent = "✨ " + c;
+        b.onclick = function(){ var inp=document.getElementById("aon-dlg-input"); if(inp) inp.value=c; ask(c); };
+        ch.appendChild(b);
+      });
+    }
+    if(pf){
+      var list = loadJSON(STORAGE_PREFS, []);
+      pf.textContent = "🧠 해마 각인 원칙: " + list.length + "건 · 최근 초점: " + (res.entity||"일반 대화");
+    }
+  }
+  function mountUI(){
+    if(document.getElementById("aon-dlg-hub-wrap")) return;
+    var host = document.getElementById("aon-island-drawer") || document.getElementById("aon-omni-insight-box")
+            || document.getElementById("aon-iching-dao-box") || document.getElementById("rgyt-panel") || document.body;
+    var wrap = document.createElement("div");
+    wrap.id = "aon-dlg-hub-wrap";
+    wrap.innerHTML =
+      '<div style="font-weight:700;color:#38bdf8;margin-bottom:4px">💬 제15기관 아온 올인원 대화 허브 (Deep NLU)</div>'+
+      '<div id="aon-dlg-slash-bar">'+
+        '<button type="button" class="aon-slash-pill" data-cmd="/통찰 ">/통찰</button>'+
+        '<button type="button" class="aon-slash-pill" data-cmd="/점괘 ">/점괘</button>'+
+        '<button type="button" class="aon-slash-pill" data-cmd="/노트북 ">/노트북</button>'+
+        '<button type="button" class="aon-slash-pill" data-cmd="/잠금">/잠금</button>'+
+        '<button type="button" class="aon-slash-pill" data-cmd="/위임">/위임</button>'+
+        '<button type="button" class="aon-slash-pill" data-cmd="/원칙">/원칙</button>'+
+        '<button type="button" class="aon-slash-pill" data-cmd="/기억">/기억</button>'+
+      '</div>'+
+      '<div id="aon-dlg-input-row">'+
+        '<input id="aon-dlg-input" type="text" placeholder="예: 그거 점괘 봐주고 노트북 용량도 알려줘 / 기억해둬: ..." />'+
+        '<button id="aon-dlg-send" type="button">대화</button>'+
+      '</div>'+
+      '<details id="aon-dlg-think"><summary>💭 아온의 생각 과정 (Deep NLU 4단 추론)</summary><div id="aon-dlg-think-body" style="margin-top:4px">대화를 입력하시면 구어 교정 → 대명사 복원 → 원칙 각인 → 복합 의도 분해 과정이 표시됩니다.</div></details>'+
+      '<div id="aon-dlg-artifact"><div id="aon-dlg-artifact-title">💬 아온 올인원 대화 아티팩트</div><div id="aon-dlg-artifact-body">대표님! 찰떡같이 알아듣고 7대 기관을 하나로 잇는 아온 대화 허브가 깨어났어요! 💧</div></div>'+
+      '<div id="aon-dlg-chips"></div>'+
+      '<div id="aon-dlg-prefs">🧠 해마 각인 원칙: 0건 · 슬래시(/) 명령어 7종 대기 중</div>';
+    host.appendChild(wrap);
+    var inp = document.getElementById("aon-dlg-input");
+    var btn = document.getElementById("aon-dlg-send");
+    if(btn) btn.onclick = function(){ if(inp && inp.value.trim()) ask(inp.value.trim()); };
+    if(inp) inp.addEventListener("keydown", function(e){ if(e.key==="Enter" && inp.value.trim()){ e.preventDefault(); ask(inp.value.trim()); }});
+    var pills = wrap.querySelectorAll(".aon-slash-pill");
+    for(var i=0;i<pills.length;i++){
+      (function(p){
+        p.onclick = function(){
+          var c = p.getAttribute("data-cmd")||"/help";
+          if(inp){ inp.value = c; inp.focus(); }
+          if(c.slice(-1)!==" ") ask(c);
+        };
+      })(pills[i]);
+    }
+  }
+  window.RGON_AON_DIALOGUE_HUB = {
+    version:"v11.38-AON-OMNI-DIALOGUE", normalize:normalize, resolveCoref:resolveCoref,
+    decompose:decompose, ask:ask, mountUI:mountUI
+  };
+  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded", mountUI);
+  else setTimeout(mountUI, 120);
+})();
+</script>
+<!-- [RGON-R39-OMNI-DIALOGUE-HUB-END] -->
 </body>
 </html>

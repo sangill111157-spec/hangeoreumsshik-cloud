@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""rgon_voice_organ.py — 제9기관: 성대·청각 음성 교감 기관 (v11.37-AON-OMNI-INSIGHT, R1~R38)
+"""rgon_voice_organ.py — 제9기관: 성대·청각 음성 교감 기관 (v11.38-AON-OMNI-DIALOGUE, R1~R39)
 주역 #51 진위뢰(震爲雷 ☳☳) · #61 풍택중부(風澤中孚 ☴☱).
 의도 분별은 제10기관 rgon_aon_soul_brain.converse()에 위임한다 (감정·일상 대화는 대행 큐에 넣지 않음)."""
 import os, sys, json
@@ -12,8 +12,8 @@ try:
 except Exception:
     pass
 
-VERSION = "v11.37-AON-OMNI-INSIGHT"
-ANTIBODY = "R1~R38"
+VERSION = "v11.38-AON-OMNI-DIALOGUE"
+ANTIBODY = "R1~R39"
 ROOT = Path(__file__).resolve().parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
@@ -98,6 +98,14 @@ def self_test():
             chk(False, f"JSON 무결성 {r}: {ex!r}")
     print("PASS" if ok else "FAIL")
     return 0 if ok else 1
+# [RGON-R39-DIALOGUE-SFX] — 제15기관 올인원 대화 허브 공명 차임 효과음 확장 (Step 39)
+try:
+    if "SFX_PRESETS" in globals() and isinstance(SFX_PRESETS, dict):
+        SFX_PRESETS.setdefault("dialogue_chime", {"freq": [587.33, 880.0, 1174.66], "dur": 0.20, "type": "sine", "desc": "대화 이해 공명 차임"})
+        SFX_PRESETS.setdefault("memory_pin", {"freq": [659.25, 987.77], "dur": 0.16, "type": "triangle", "desc": "해마 원칙 각인 핀"})
+except Exception:
+    pass
+
 
 if __name__ == "__main__":
     if "--self-test" in sys.argv: sys.exit(self_test())

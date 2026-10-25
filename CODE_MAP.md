@@ -1362,7 +1362,8 @@ shin-agent/
 - 7개 HTML V13 블록(YT-SCOUT-V13 / UX-CLEANUP-V13) 내부 `[RGON-MUSE-V1]`: 아온 다이내믹 아일랜드 + 📋대행 독 + 결재 보드
 - `rgon_voice_organ.py` — 제9기관 성대·청각 음성 교감 기관 (R1~R33)
 - `rgon_aon_soul_brain.py` — 제10기관 감성·인격 대화 두뇌 & 해마 기억 기관 (R1~R34)
-- `rgon_laptop_hands.py` — 제11기관 노트북 만능 제어 수족 & 중요 결재 수동 스위치 (R1~R38)
-- `rgon_aon_desktop_playground.py`: 제12기관 아온 창틀 탈출 노트북 놀이터 & 8대 장난꾸러기 생명체 FSM (v11.37-AON-OMNI-INSIGHT)
-- `rgon_aon_iching_dao_oracle.py`: 제13기관 아온 주역 64괘·정통 음력 매화역수·육효 시운 도술관 (v11.37-AON-OMNI-INSIGHT)
-- `rgon_aon_omni_insight_eye.py`: 제14기관 아온 만물 격물치지 전방위 통찰안 (v11.37-AON-OMNI-INSIGHT)
+- `rgon_laptop_hands.py` — 제11기관 노트북 만능 제어 수족 & 중요 결재 수동 스위치 (R1~R39)
+- `rgon_aon_desktop_playground.py`: 제12기관 아온 창틀 탈출 노트북 놀이터 & 8대 장난꾸러기 생명체 FSM (v11.38-AON-OMNI-DIALOGUE)
+- `rgon_aon_iching_dao_oracle.py`: 제13기관 아온 주역 64괘·정통 음력 매화역수·육효 시운 도술관 (v11.38-AON-OMNI-DIALOGUE)
+- `rgon_aon_omni_insight_eye.py`: 제14기관 아온 만물 격물치지 전방위 통찰안 (v11.38-AON-OMNI-DIALOGUE)
+- `rgon_aon_dialogue_engine.py`: 제15기관 아온 초격차 대화 이해 & 올인원 대화 허브 (R39 · v11.38-AON-OMNI-DIALOGUE)

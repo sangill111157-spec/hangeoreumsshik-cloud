@@ -1,6 +1,6 @@
 {
-  "version": "v11.37-AON-OMNI-INSIGHT",
-  "antibody_range": "R1~R38",
+  "version": "v11.38-AON-OMNI-DIALOGUE",
+  "antibody_range": "R1~R39",
   "r20": "일일 자율 순환 루프(백혈구 순찰 → 영양분 소화·스킬 주조 → 3자 심판 → 주역 64괘 아침 브리핑) 무인 자동화",
   "generated_at": "2026-10-25T09:01:45+09:00",
   "date": "2026-10-25",
@@ -163,10 +163,10 @@
     }
   },
   "skills_count": 34,
-  "antibodies": "R1~R38",
+  "antibodies": "R1~R39",
   "muse_delegation": {
-    "version": "v11.37-AON-OMNI-INSIGHT",
-    "antibody": "R1~R38",
+    "version": "v11.38-AON-OMNI-DIALOGUE",
+    "antibody": "R1~R39",
     "summary": {
       "total": 5,
       "tier1": 2,

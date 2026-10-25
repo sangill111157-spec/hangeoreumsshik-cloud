@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """rgon_aon_soul_brain.py — 제10기관: 아온(A-ON) 감성·인격 대화 두뇌 & 해마 기억 기관
-버전 v11.37-AON-OMNI-INSIGHT · 항체 R1~R38
+버전 v11.38-AON-OMNI-DIALOGUE · 항체 R1~R39
 주역 #31 택산함(澤山咸 ☱☶): 聖人感人心而天下和平 — 무심의 감응으로 마음이 깊이 통함.
 주역 #61 풍택중부(風澤中孚 ☴☱): 鶴鳴在陰 其子和之 — 지극한 정성과 믿음으로 교감함.
 2-Track 원칙: 감정·일상 교감(chat_*)은 절대 대행 큐에 넣지 않고, 명시적 업무 지시만 3-Tier 대행(delegate)으로 보낸다."""
@@ -14,8 +14,8 @@ try:
 except Exception:
     pass
 
-VERSION = "v11.37-AON-OMNI-INSIGHT"
-ANTIBODY = "R1~R38"
+VERSION = "v11.38-AON-OMNI-DIALOGUE"
+ANTIBODY = "R1~R39"
 ROOT = Path(__file__).resolve().parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
@@ -602,6 +602,85 @@ def self_test():
             if b is not None: (ROOT / r).write_bytes(b)
     print("PASS" if ok else "FAIL")
     return 0 if ok else 1
+# [RGON-R39-DIALOGUE-SOUL-INJECT] — 제15기관 초격차 대화 이해 & 올인원 대화 허브 연동 (Step 39)
+try:
+    import rgon_aon_dialogue_engine as _rgon_dlg_R39
+except Exception:
+    _rgon_dlg_R39 = None
+
+if "respond" in globals() and not globals().get("_rgon_r39_wrapped"):
+    _orig_respond_R39 = respond
+    _rgon_r39_in_hook = False
+
+    def respond(user_text, *args, **kwargs):
+        global _rgon_r39_in_hook
+        if _rgon_r39_in_hook or _rgon_dlg_R39 is None:
+            return _orig_respond_R39(user_text, *args, **kwargs)
+        t = "" if user_text is None else str(user_text).strip()
+        if not t:
+            return _orig_respond_R39(user_text, *args, **kwargs)
+        try:
+            _rgon_r39_in_hook = True
+            nm = _rgon_dlg_R39.normalize_colloquial(t)
+            st = _rgon_dlg_R39._state()
+            cr = _rgon_dlg_R39.resolve_coreference(nm["normalized"], st["context"])
+            resolved = cr["resolved_text"]
+            pref = _rgon_dlg_R39.extract_and_save_preference(resolved, save=True)
+            decomp = _rgon_dlg_R39.decompose_multi_intent(resolved)
+            need_hub = (
+                resolved.startswith("/")
+                or decomp.get("is_multi")
+                or _rgon_dlg_R39.PREF_QUERY.search(resolved) is not None
+                or (pref.get("saved") and decomp["intents"][0]["intent"] == "dialogue")
+            )
+            if need_hub:
+                hub = _rgon_dlg_R39.process_dialogue(t, persist=True)
+                base = _orig_respond_R39(resolved, *args, **kwargs)
+                if isinstance(base, dict):
+                    base["reply"] = hub["reply"]
+                    base["dialogue_hub"] = {
+                        "version": hub["version"],
+                        "normalized_text": hub["normalized_text"],
+                        "resolved_text": hub["resolved_text"],
+                        "intent_names": hub["intent_names"],
+                        "is_multi_intent": hub["is_multi_intent"],
+                        "thinking_steps": hub["thinking_steps"],
+                        "artifact_card": hub["artifact_card"],
+                        "follow_up_chips": hub["follow_up_chips"],
+                        "proactive_callback": hub["proactive_callback"],
+                    }
+                    return base
+                return hub["reply"]
+            base = _orig_respond_R39(resolved, *args, **kwargs)
+            rep_txt = base.get("reply", "") if isinstance(base, dict) else str(base)
+            ent = _rgon_dlg_R39.extract_entity(resolved) or cr.get("entity_used") or st["context"].get("last_entity")
+            its = [x["intent"] for x in decomp["intents"]]
+            cb = _rgon_dlg_R39.find_proactive_callback(ent, its, st)
+            _rgon_dlg_R39._update_memory(st, t, nm["normalized"], resolved, ent, its, rep_txt)
+            _rgon_dlg_R39._save(_rgon_dlg_R39.STATE, st)
+            if isinstance(base, dict):
+                base["dialogue_hub"] = {
+                    "version": _rgon_dlg_R39.VERSION,
+                    "normalized_text": nm["normalized"],
+                    "resolved_text": resolved,
+                    "intent_names": its,
+                    "is_multi_intent": False,
+                    "thinking_steps": [
+                        f"① 구어 정규화: {nm['fixes'] or ['원문 유지']}",
+                        f"② 대명사 복원: {cr['entity_used'] or '직접 지칭'}",
+                        f"③ 의도 분류: {its[0]}",
+                    ],
+                    "artifact_card": {"title": "💬 아온 대화 카드", "entity": ent, "intent_badges": its},
+                    "follow_up_chips": _rgon_dlg_R39._chips_for(its, ent),
+                    "proactive_callback": cb,
+                }
+            return base
+        except Exception:
+            return _orig_respond_R39(user_text, *args, **kwargs)
+        finally:
+            _rgon_r39_in_hook = False
+
+    _rgon_r39_wrapped = True
 
 
 if __name__ == "__main__":

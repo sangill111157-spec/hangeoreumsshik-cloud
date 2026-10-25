@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Step 38 최종 수술 완성본: v11.37-AON-OMNI-INSIGHT — 제14기관 아온 만물 격물치지(格物致知) 전방위 통찰안 (R1~R38 · 정식 스킬 34)
+"""Step 38 최종 수술 완성본: v11.38-AON-OMNI-DIALOGUE — 제14기관 아온 만물 격물치지(格物致知) 전방위 통찰안 (R1~R39 · 정식 스킬 34)
 클로드 실측 엔진 + 안티그레비티 SOUL_INJECT 우선순위 수술 + 삼성(三省) 3/3 자동백업·원복 프레임워크 완벽 통합"""
 import ast, datetime, hashlib, json, os, re, shutil, subprocess, sys, time
 from pathlib import Path
@@ -12,8 +12,8 @@ except Exception:
     pass
 
 ROOT = Path(__file__).resolve().parent
-OLD_VER, NEW_VER = "v11.36-AON-ICHING-DAO", "v11.37-AON-OMNI-INSIGHT"
-OLD_AB, NEW_AB = "R1~R37", "R1~R38"
+OLD_VER, NEW_VER = "v11.36-AON-ICHING-DAO", "v11.38-AON-OMNI-DIALOGUE"
+OLD_AB, NEW_AB = "R1~R37", "R1~R39"
 OLD_SK, NEW_SK = 33, 34
 SKILL_NAME = "aon-omni-insight-eye"
 INSIGHT_FILE = "rgon_aon_omni_insight_eye.py"
@@ -131,7 +131,7 @@ def restore_backup(bdir, snap0):
 INSIGHT_SRC = r'''#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """rgon_aon_omni_insight_eye.py — 제14기관 아온 만물 격물치지 통찰안 (표준 라이브러리 전용)
-[RGON-R38] v11.37-AON-OMNI-INSIGHT · 항체 R1~R38 · 정식 스킬 34개
+[RGON-R38] v11.38-AON-OMNI-DIALOGUE · 항체 R1~R39 · 정식 스킬 35개
 OTA 능동 지각(Observation→Thought→Action) → FPCOS L0~L5 해부 → 아온 혜안 브리핑.
 한계: 규칙 기반 휴리스틱. 이미지·영상 속 '무엇이 있는가'(객체·장면 인식)는 판정하지 않으며
 헤더·픽셀 통계·URL 구조·텍스트 신호만 실측한다. 신뢰도는 85%를 넘기지 않는다."""
@@ -146,8 +146,8 @@ except Exception:
     pass
 
 ROOT = Path(__file__).resolve().parent
-VERSION = "v11.37-AON-OMNI-INSIGHT"
-ANTIBODY = "R1~R38"
+VERSION = "v11.38-AON-OMNI-DIALOGUE"
+ANTIBODY = "R1~R39"
 SKILL_COUNT = 34
 STATE_PATHS = ("rgon_aon_insight_state.json", "docs/rgon_aon_insight_state.json")
 CONF_CAP = 85
@@ -907,7 +907,7 @@ if(fl&&/^image\//.test(fl.type))measure(fl);else{var u=e.dataTransfer.getData("t
 function mount(){if(document.getElementById("rgon-insight-btn"))return true;var b=document.createElement("button");b.id="rgon-insight-btn";b.type="button";b.innerHTML="👁️ <b>만물 통찰</b>";
 b.addEventListener("click",function(e){e.preventDefault();e.stopPropagation();open()});
 var a=document.getElementById("rgon-dao-btn")||document.getElementById("rgon-brat-btn")||document.getElementById("rgyt-hide");if(a&&a.parentNode){a.parentNode.appendChild(b);return true}return false}
-window.RGON_INSIGHT={open:open,analyze:analyze,version:"v11.37-AON-OMNI-INSIGHT"};
+window.RGON_INSIGHT={open:open,analyze:analyze,version:"v11.38-AON-OMNI-DIALOGUE"};
 setInterval(mount,3000);if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",mount);else mount()})();
 '''
 

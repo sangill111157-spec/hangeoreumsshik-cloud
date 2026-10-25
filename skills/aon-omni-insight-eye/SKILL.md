@@ -1,13 +1,13 @@
 ---
 name: aon-omni-insight-eye
 description: 아온(A-ON) 만물 격물치지 통찰안 — 이미지·영상·말/현상 OTA 능동 지각 + FPCOS L0~L5 해부 + 섀도 게이트 반전 검증 (Step 38 · R38)
-version: v11.37-AON-OMNI-INSIGHT
-antibody: R1~R38
+version: v11.38-AON-OMNI-DIALOGUE
+antibody: R1~R39
 ---
 
 # 👁️🧠 제14기관: 아온(A-ON) 만물 격물치지(格物致知) 전방위 통찰안 (`aon-omni-insight-eye`)
 
-- **버전**: `v11.37-AON-OMNI-INSIGHT` · **항체**: `R1~R38` · **정식 스킬**: **34개**
+- **버전**: `v11.38-AON-OMNI-DIALOGUE` · **항체**: `R1~R39` · **정식 스킬**: **34개**
 - **모듈**: `rgon_aon_omni_insight_eye.py` (표준 라이브러리 전용)
 - **3대 능동 지각 (OTA Active Perception)**:
   - `perceive_image()`: PNG 픽셀 실측(밝기·대비·RGB·초점 무게중심·좌우 대칭), JPEG/GIF/SVG/BMP 헤더, Data URL, 브라우저 Canvas 실측 연동
