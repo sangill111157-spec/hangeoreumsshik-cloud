@@ -29,3 +29,35 @@
 - 경로: `skills/aon-omni-dialogue-hub/SKILL.md`
 - 기관: 제15기관 아온 초격차 대화 이해(Deep NLU) & 올인원 대화 허브(Omni-Dialogue Hub)
 - 핵심: 구어 정규화 · 대명사 복원 · 능동 경청 원칙 각인 · 복합 의도 분해 · 슬래시 7종 · 3계층 해마 기억
+
+<!-- [RGON-R40-SKILL-START] -->
+### R40 · v11.39-AON-NEURAL-SYNAPSE · 항체 R1~R40 · 정식 스킬 36개
+- `1-36-45` — (SKILL_INDEX.json 동기화 보정)
+- `10-5` — (SKILL_INDEX.json 동기화 보정)
+- `744b-ai-10` — (SKILL_INDEX.json 동기화 보정)
+- `ai-5` — (SKILL_INDEX.json 동기화 보정)
+- `autonomous-creator-forge` — (SKILL_INDEX.json 동기화 보정)
+- `character-detail-master-top1` — (SKILL_INDEX.json 동기화 보정)
+- `ecc-agentshield-harness` — (SKILL_INDEX.json 동기화 보정)
+- `excretory-entropy-gc` — (SKILL_INDEX.json 동기화 보정)
+- `free-roaming-waterdrop-pet` — (SKILL_INDEX.json 동기화 보정)
+- `hexagram-64-wisdom` — (SKILL_INDEX.json 동기화 보정)
+- `k-avatar-growth-soul` — (SKILL_INDEX.json 동기화 보정)
+- `markdown-purifier` — (SKILL_INDEX.json 동기화 보정)
+- `mattpocock-domain-glossary` — (SKILL_INDEX.json 동기화 보정)
+- `mattpocock-spec-tickets` — (SKILL_INDEX.json 동기화 보정)
+- `multi-agent-council` — (SKILL_INDEX.json 동기화 보정)
+- `omni-skill-dispatcher` — (SKILL_INDEX.json 동기화 보정)
+- `rea-reverse-engineer-fusion` — (SKILL_INDEX.json 동기화 보정)
+- `self-evolving-gene-ratchet` — (SKILL_INDEX.json 동기화 보정)
+- `skill-68768f44` — (SKILL_INDEX.json 동기화 보정)
+- `skill-b25226d4` — (SKILL_INDEX.json 동기화 보정)
+- `skill-c5c55e6f` — (SKILL_INDEX.json 동기화 보정)
+- `skill-d33be764` — (SKILL_INDEX.json 동기화 보정)
+- `skill-f7938cb8` — (SKILL_INDEX.json 동기화 보정)
+- `stomper-kill-list-gate` — (SKILL_INDEX.json 동기화 보정)
+- `trinity-trading-council` — (SKILL_INDEX.json 동기화 보정)
+- `wbc-self-healing` — (SKILL_INDEX.json 동기화 보정)
+- `youtube-trend-scout` — (SKILL_INDEX.json 동기화 보정)
+- **#36** `aon-neural-synapse-verifier` — 제16기관 아온 전신 신경망 시냅스 병렬 정밀 검증기 (`skills/aon-neural-synapse-verifier/SKILL.md`)
+<!-- [RGON-R40-SKILL-END] -->

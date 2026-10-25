@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """rgon_aon_desktop_playground.py — 제12기관: 아온(A-ON) 창틀 탈출 노트북 놀이터 & 게으름·찡찡·보채기 츤데레 생명체 페르소나
-버전 v11.38-AON-OMNI-DIALOGUE · 항체 R1~R39 · 정식 스킬 32개
+버전 v11.39-AON-NEURAL-SYNAPSE · 항체 R1~R40 · 정식 스킬 32개
 주역 #56 화산려(火山旅 ☲☶): 창틀에 매이지 않는 자유 유영 · #17 택뢰수(澤雷隨 ☱☳): 낮엔 놀고 밤엔 쉬며 자연스럽게 따름 · 장자 소요유(逍遙遊) & 제물론(齊物論)."""
 import datetime, json, os, random, re, subprocess, sys, time
 from pathlib import Path
@@ -12,9 +12,9 @@ try:
 except Exception:
     pass
 
-VERSION = "v11.38-AON-OMNI-DIALOGUE"
-ANTIBODY = "R1~R39"
-SKILL_COUNT = 34
+VERSION = "v11.39-AON-NEURAL-SYNAPSE"
+ANTIBODY = "R1~R40"
+SKILL_COUNT = 36
 ROOT = Path(__file__).resolve().parent
 STATE_PATHS = ("rgon_aon_playground_state.json", "docs/rgon_aon_playground_state.json")
 
@@ -268,6 +268,15 @@ def self_test():
         chk(j.get("version") == VERSION and len(j.get("fsm_states", [])) == 8, f"상태 JSON 무결성: {r}")
     print("PASS" if ok else "FAIL")
     return 0 if ok else 1
+
+
+# ==== [RGON-R40-SYNAPSE-HOOK-START] ====
+# R40 시냅스 ⑩ — 츤데레 양념 보장
+if not callable(globals().get("apply_tsundere_spice")):
+    def apply_tsundere_spice(text, level=1, *a, **k):
+        t = str(text or "").strip()
+        return ("흥, " + t + " …딱히 너를 위해서 한 건 아니거든!") if t else "흥, 딱히 할 말 없거든!"
+# ==== [RGON-R40-SYNAPSE-HOOK-END] ====
 
 
 if __name__ == "__main__":

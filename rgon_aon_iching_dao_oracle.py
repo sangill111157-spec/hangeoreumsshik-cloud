@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """rgon_aon_iching_dao_oracle.py — 제13기관: 아온(A-ON) 주역(周易) 64괘·정통 음력 매화역수·육효(六爻) 시운 도술관
-버전 v11.38-AON-OMNI-DIALOGUE · 항체 R1~R39 · 정식 스킬 33개
+버전 v11.39-AON-NEURAL-SYNAPSE · 항체 R1~R40 · 정식 스킬 33개
 muyen/meihua-yishu + YiSphere + ichingpy + ProactiveAgent 4대 정점 아키텍처 융합 (1900~2099 진짜 음력 내장)"""
 import datetime, hashlib, json, os, sys, time
 from pathlib import Path
@@ -13,9 +13,9 @@ except Exception:
     pass
 
 ROOT = Path(__file__).resolve().parent
-VERSION = "v11.38-AON-OMNI-DIALOGUE"
-ANTIBODY = "R1~R39"
-SKILL_COUNT = 34
+VERSION = "v11.39-AON-NEURAL-SYNAPSE"
+ANTIBODY = "R1~R40"
+SKILL_COUNT = 36
 STATE_PATHS = ("rgon_aon_iching_state.json", "docs/rgon_aon_iching_state.json")
 
 # 1900~2099 정통 음력 비트 테이블 (muyen/meihua-yishu 중국천문대 표준)
@@ -287,6 +287,41 @@ def self_test():
         chk(j.get("version") == VERSION and "primary" in j, f"상태 JSON 무결성: {rel}")
     print("PASS" if ok else "FAIL")
     return 0 if ok else 1
+
+# ==== [RGON-R40-SYNAPSE-HOOK-START] ====
+# R40 시냅스 ① — divine(q) 호환 별칭 + 병렬 검증 시 상태파일 격리
+import os as _o40i, json as _j40i
+from pathlib import Path as _P40i
+
+if callable(globals().get("cast_by_question")) and not callable(globals().get("divine")):
+    def divine(q, *a, **k):
+        return cast_by_question(q, *a, **k)
+
+
+def _r40_ich_dir():
+    d = _o40i.environ.get("RGON_ICHING_STATE_DIR", "").strip()
+    if not d:
+        return None
+    p = _P40i(d)
+    p.mkdir(parents=True, exist_ok=True)
+    return p
+
+
+_r40_ich_orig_save = globals().get("save_state")
+if callable(_r40_ich_orig_save) and not getattr(_r40_ich_orig_save, "_r40", False):
+    def save_state(r, *a, **k):
+        d = _r40_ich_dir()
+        if d is None:
+            return _r40_ich_orig_save(r, *a, **k)
+        s = _j40i.dumps(r, ensure_ascii=False, indent=2)
+        for rel in ("rgon_aon_iching_state.json", "docs/rgon_aon_iching_state.json"):
+            p = d / rel
+            p.parent.mkdir(parents=True, exist_ok=True)
+            p.write_text(s, encoding="utf-8")
+        return r
+    save_state._r40 = True
+# ==== [RGON-R40-SYNAPSE-HOOK-END] ====
+
 
 if __name__ == "__main__":
     a = sys.argv[1:]

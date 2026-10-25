@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """rgon_aon_soul_brain.py — 제10기관: 아온(A-ON) 감성·인격 대화 두뇌 & 해마 기억 기관
-버전 v11.38-AON-OMNI-DIALOGUE · 항체 R1~R39
+버전 v11.39-AON-NEURAL-SYNAPSE · 항체 R1~R40
 주역 #31 택산함(澤山咸 ☱☶): 聖人感人心而天下和平 — 무심의 감응으로 마음이 깊이 통함.
 주역 #61 풍택중부(風澤中孚 ☴☱): 鶴鳴在陰 其子和之 — 지극한 정성과 믿음으로 교감함.
 2-Track 원칙: 감정·일상 교감(chat_*)은 절대 대행 큐에 넣지 않고, 명시적 업무 지시만 3-Tier 대행(delegate)으로 보낸다."""
@@ -14,8 +14,8 @@ try:
 except Exception:
     pass
 
-VERSION = "v11.38-AON-OMNI-DIALOGUE"
-ANTIBODY = "R1~R39"
+VERSION = "v11.39-AON-NEURAL-SYNAPSE"
+ANTIBODY = "R1~R40"
 ROOT = Path(__file__).resolve().parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
@@ -681,6 +681,65 @@ if "respond" in globals() and not globals().get("_rgon_r39_wrapped"):
             _rgon_r39_in_hook = False
 
     _rgon_r39_wrapped = True
+
+
+# ==== [RGON-R40-SYNAPSE-HOOK-START] ====
+# R40 시냅스 ③ — converse ↔ 대화 허브 양방향 직결 (재귀 방지 · 시그니처 완전 호환)
+import threading as _th40
+_R40_SB_GUARD = _th40.local()
+_R40_SB_VER = "v11.39-AON-NEURAL-SYNAPSE"
+_r40_cur = globals().get("converse")
+
+if callable(_r40_cur):
+    _R40_SAVED_SOUL_ORIG = getattr(_r40_cur, "_r40_wrapped_of", None) or _r40_cur
+    _r40_prev_respond = globals().get("respond")
+
+    def _r40_hub():
+        try:
+            import importlib as _il, sys as _sy, os as _os
+            _d = _os.path.dirname(_os.path.abspath(__file__))
+            if _d not in _sy.path:
+                _sy.path.insert(0, _d)
+            return _il.import_module("rgon_aon_dialogue_engine")
+        except Exception:
+            return None
+
+    def converse_soul_r40(user_text: str = "", *args, **kwargs):
+        raw = kwargs.pop("_r40_raw", False)
+        if raw or getattr(_R40_SB_GUARD, "active", False) or not isinstance(user_text, str) \
+                or not user_text.strip():
+            return _R40_SAVED_SOUL_ORIG(user_text, *args, **kwargs)
+        _R40_SB_GUARD.active = True
+        try:
+            hub = _r40_hub()
+            meta = None
+            if hub is not None and hasattr(hub, "r40_preprocess"):
+                try:
+                    meta = hub.r40_preprocess(user_text, apply=True)
+                except Exception as e:
+                    meta = {"version": _R40_SB_VER, "error": repr(e)}
+            if meta and meta.get("slash") and hasattr(hub, "r40_route"):
+                hr = hub.r40_route(user_text, _pre=meta)
+                sp = hr.get("speech", "")
+                return {"reply": sp, "speech": sp, "text": sp, "response": sp, "intent": "slash_command",
+                        "ok": hr.get("ok", True), "dialogue_hub": meta, "hub_result": hr}
+            eff = user_text
+            if meta and isinstance(meta.get("resolved"), str) and meta["resolved"].strip():
+                eff = meta["resolved"]
+            res = _R40_SAVED_SOUL_ORIG(eff, *args, **kwargs)
+            if isinstance(res, dict):
+                res.setdefault("dialogue_hub", meta or {"version": _R40_SB_VER, "status": "hub_unavailable"})
+            return res
+        finally:
+            _R40_SB_GUARD.active = False
+
+    converse_soul_r40._r40_wrapped_of = _R40_SAVED_SOUL_ORIG
+    converse_soul_r40._r40 = True
+    converse = converse_soul_r40
+    if (not callable(_r40_prev_respond)) or _r40_prev_respond is _R40_SAVED_SOUL_ORIG \
+            or getattr(_r40_prev_respond, "_r40", False):
+        respond = converse_soul_r40
+# ==== [RGON-R40-SYNAPSE-HOOK-END] ====
 
 
 if __name__ == "__main__":

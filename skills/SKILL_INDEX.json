@@ -1,8 +1,8 @@
 {
-  "version": "v11.38-AON-OMNI-DIALOGUE",
-  "antibody": "R1~R39",
-  "generated_at_kst": "2026-10-24 12:31:39 KST",
-  "count": 35,
+  "version": "v11.39-AON-NEURAL-SYNAPSE",
+  "antibody": "R1~R40",
+  "generated_at_kst": "2026-10-25 16:01:26 KST",
+  "count": 36,
   "skills": [
     {
       "slug": "1-36-45",
@@ -11,8 +11,7 @@
       "hexagram_tag": "#18-蠱",
       "source_url": "https://www.youtube.com/watch?v=KZhv8U90Nek",
       "origin": "radar",
-      "path": "skills/1-36-45/SKILL.md",
-      "id": 1
+      "path": "skills/1-36-45/SKILL.md"
     },
     {
       "slug": "10-5",
@@ -21,8 +20,7 @@
       "hexagram_tag": "#53-漸",
       "source_url": "https://www.youtube.com/shorts/sBawrl18I9g",
       "origin": "radar",
-      "path": "skills/10-5/SKILL.md",
-      "id": 2
+      "path": "skills/10-5/SKILL.md"
     },
     {
       "slug": "744b-ai-10",
@@ -31,8 +29,7 @@
       "hexagram_tag": "#09-小畜",
       "source_url": "https://www.youtube.com/shorts/XMBAMBzqt44",
       "origin": "radar",
-      "path": "skills/744b-ai-10/SKILL.md",
-      "id": 3
+      "path": "skills/744b-ai-10/SKILL.md"
     },
     {
       "slug": "ai-5",
@@ -41,58 +38,88 @@
       "hexagram_tag": "#11-泰",
       "source_url": "https://www.youtube.com/shorts/vN8DSorrz3A",
       "origin": "radar",
-      "path": "skills/ai-5/SKILL.md",
-      "id": 4
+      "path": "skills/ai-5/SKILL.md"
     },
     {
-      "id": 5,
+      "slug": "aon-desktop-playground-brat",
+      "name": "aon-desktop-playground-brat",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/aon-desktop-playground-brat/SKILL.md"
+    },
+    {
+      "slug": "aon-iching-dao-oracle",
+      "name": "aon-iching-dao-oracle",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/aon-iching-dao-oracle/SKILL.md"
+    },
+    {
       "slug": "aon-laptop-hands-manual-gate",
       "name": "aon-laptop-hands-manual-gate",
-      "path": "skills/aon-laptop-hands-manual-gate/SKILL.md",
-      "version": "v11.34-AON-LAPTOP-HANDS"
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/aon-laptop-hands-manual-gate/SKILL.md"
     },
     {
-      "no": 29,
-      "id": 6,
-      "name": "aon-procedural-voice-synth",
+      "slug": "aon-omni-dialogue-hub",
+      "name": "aon-omni-dialogue-hub",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/aon-omni-dialogue-hub/SKILL.md"
+    },
+    {
+      "slug": "aon-omni-insight-eye",
+      "name": "aon-omni-insight-eye",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/aon-omni-insight-eye/SKILL.md"
+    },
+    {
       "slug": "aon-procedural-voice-synth",
-      "title": "아온 무파일 물방울 신디사이저 & K-아이 음성 교감 (A-ON Voice Organ)",
-      "path": "skills/aon-procedural-voice-synth/SKILL.md",
-      "category": "제9기관 · 음성 교감",
-      "antibody": "R33",
-      "version": "v11.34-AON-LAPTOP-HANDS"
+      "name": "aon-procedural-voice-synth",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/aon-procedural-voice-synth/SKILL.md"
     },
     {
-      "id": 7,
-      "path": "skills/aon-soul-empathy-brain/SKILL.md",
-      "version": "v11.34-AON-LAPTOP-HANDS"
+      "slug": "aon-soul-empathy-brain",
+      "name": "aon-soul-empathy-brain",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/aon-soul-empathy-brain/SKILL.md"
     },
     {
       "slug": "autonomous-creator-forge",
-      "id": 8,
-      "name": "Autonomous Creator Forge (화풍정 자율 도구 창조 공방)",
-      "order": 23,
-      "hexagram_tag": "#50-鼎",
-      "hexagram": "#50-鼎",
+      "name": "autonomous-creator-forge",
       "category": "creator-forge",
-      "origin": "core",
-      "description": "SkillForge·Voyager·724-office 자율 도구 창조 + Surrogate Verifier 격리 검증",
-      "path": "skills/autonomous-creator-forge/SKILL.md",
-      "source_url": "local://rgon_omni_creator_forge.py",
-      "version": "v11.26-CREATOR-FORGE",
-      "antibody": "R27"
+      "hexagram_tag": "'#50-鼎'",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/autonomous-creator-forge/SKILL.md"
     },
     {
       "slug": "character-detail-master-top1",
-      "name": "전 세계 TOP 1 캐릭터 디테일 & 3D 물방울 졸라맨 마스터",
+      "name": "character-detail-master-top1",
       "category": "character-3d-master",
       "hexagram_tag": "#04-蒙",
-      "step": 29,
-      "version": "v11.29-ROAMING-AON",
-      "path": "skills/character-detail-master-top1/SKILL.md",
-      "status": "official",
-      "description": "svg-animation-studio(디즈니 7대 모션 법칙) + ui-ux-pro-max(8-Stop 3D Liquid-Glass/Claymorphism) + 아온(A-ON) 3D 물방울 졸라맨 팔다리 마스터 스킬 (R29)",
-      "id": 9
+      "source_url": "",
+      "origin": "",
+      "path": "skills/character-detail-master-top1/SKILL.md"
     },
     {
       "slug": "ecc-agentshield-harness",
@@ -101,32 +128,25 @@
       "hexagram_tag": "#36-明夷",
       "source_url": "https://github.com/affaan-m/everything-claude-code",
       "origin": "radar",
-      "path": "skills/ecc-agentshield-harness/SKILL.md",
-      "id": 10
+      "path": "skills/ecc-agentshield-harness/SKILL.md"
     },
     {
       "slug": "excretory-entropy-gc",
-      "name": "배설기관(신장·대장) 노폐물 배출 & 엔트로피 정화 마스터",
+      "name": "excretory-entropy-gc",
       "category": "excretory-gc",
       "hexagram_tag": "#40-解",
-      "step": 31,
-      "version": "v11.34-AON-LAPTOP-HANDS",
-      "path": "skills/excretory-entropy-gc/SKILL.md",
-      "status": "official",
-      "description": "ECC config-gc + reclaim-code-entropy + autoDream 기반 신장 여과·대장 압축·문서 중복 마커 정화·고아 코드 감사 스킬 (R31)",
-      "id": 11
+      "source_url": "",
+      "origin": "",
+      "path": "skills/excretory-entropy-gc/SKILL.md"
     },
     {
       "slug": "free-roaming-waterdrop-pet",
       "name": "free-roaming-waterdrop-pet",
-      "category": "character-3d-master",
-      "hexagram_tag": "#04-蒙",
-      "step": 29,
-      "version": "v11.29-ROAMING-AON",
-      "path": "skills/free-roaming-waterdrop-pet/SKILL.md",
-      "status": "official",
-      "description": "뷰포트 무제한 자율 유영 & 소환/은신 스크린 펫 마스터 스킬(아온 A-ON)",
-      "id": 12
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/free-roaming-waterdrop-pet/SKILL.md"
     },
     {
       "slug": "hexagram-64-wisdom",
@@ -135,20 +155,16 @@
       "hexagram_tag": "#01-乾",
       "source_url": "local://rgon_hexagram_engine.py",
       "origin": "core",
-      "path": "skills/hexagram-64-wisdom/SKILL.md",
-      "id": 13
+      "path": "skills/hexagram-64-wisdom/SKILL.md"
     },
     {
       "slug": "k-avatar-growth-soul",
-      "name": "아온(A-ON) K-아이 성장형 디지털 육신",
+      "name": "k-avatar-growth-soul",
       "category": "digital-body",
       "hexagram_tag": "#04-蒙",
-      "step": 28,
-      "version": "v11.27-K-AVATAR",
-      "path": "skills/k-avatar-growth-soul/SKILL.md",
-      "status": "official",
-      "description": "미래형 K-스타일 아이 『아온(A-ON·芽溫)』 SVG 육신 — 순수 CSS 애니메이션·4단계 성장·쓰다듬기/음성 교감·질문창 장전 (R28)",
-      "id": 14
+      "source_url": "",
+      "origin": "",
+      "path": "skills/k-avatar-growth-soul/SKILL.md"
     },
     {
       "slug": "markdown-purifier",
@@ -157,8 +173,7 @@
       "hexagram_tag": "#48-井",
       "source_url": "https://github.com/apify/crawlee",
       "origin": "core",
-      "path": "skills/markdown-purifier/SKILL.md",
-      "id": 15
+      "path": "skills/markdown-purifier/SKILL.md"
     },
     {
       "slug": "mattpocock-domain-glossary",
@@ -167,8 +182,7 @@
       "hexagram_tag": "#60-節",
       "source_url": "https://github.com/mattpocock/skills",
       "origin": "radar",
-      "path": "skills/mattpocock-domain-glossary/SKILL.md",
-      "id": 16
+      "path": "skills/mattpocock-domain-glossary/SKILL.md"
     },
     {
       "slug": "mattpocock-spec-tickets",
@@ -177,8 +191,7 @@
       "hexagram_tag": "#50-鼎",
       "source_url": "https://github.com/mattpocock/skills",
       "origin": "radar",
-      "path": "skills/mattpocock-spec-tickets/SKILL.md",
-      "id": 17
+      "path": "skills/mattpocock-spec-tickets/SKILL.md"
     },
     {
       "slug": "multi-agent-council",
@@ -187,21 +200,16 @@
       "hexagram_tag": "#13-同人",
       "source_url": "https://github.com/HKUDS/AI-Trader",
       "origin": "core",
-      "path": "skills/multi-agent-council/SKILL.md",
-      "id": 18
+      "path": "skills/multi-agent-council/SKILL.md"
     },
     {
-      "no": 28,
-      "id": 19,
-      "name": "muse-autonomous-delegator",
       "slug": "muse-autonomous-delegator",
-      "title": "뮤즈 자율 대행·위임 집행 (Muse Delegation Engine)",
-      "path": "skills/muse-autonomous-delegator/SKILL.md",
-      "category": "제8기관 · 자율 대행",
-      "antibody": "R32",
-      "version": "v11.34-AON-LAPTOP-HANDS",
-      "added": "2026-10-24",
-      "description": "메타 뮤즈(Muse Wonder & Muse Charm) + 3-Tier HITL 안전 승인 게이트 + 아온 다이내믹 아일랜드 통합 프로토콜"
+      "name": "muse-autonomous-delegator",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/muse-autonomous-delegator/SKILL.md"
     },
     {
       "slug": "omni-skill-dispatcher",
@@ -210,8 +218,7 @@
       "hexagram_tag": "",
       "source_url": "",
       "origin": "",
-      "path": "skills/omni-skill-dispatcher/SKILL.md",
-      "id": 20
+      "path": "skills/omni-skill-dispatcher/SKILL.md"
     },
     {
       "slug": "rea-reverse-engineer-fusion",
@@ -220,8 +227,7 @@
       "hexagram_tag": "#64-未濟",
       "source_url": "https://github.com/morluto/rea",
       "origin": "radar",
-      "path": "skills/rea-reverse-engineer-fusion/SKILL.md",
-      "id": 21
+      "path": "skills/rea-reverse-engineer-fusion/SKILL.md"
     },
     {
       "slug": "self-evolving-gene-ratchet",
@@ -230,8 +236,7 @@
       "hexagram_tag": "#49-革",
       "source_url": "",
       "origin": "",
-      "path": "skills/self-evolving-gene-ratchet/SKILL.md",
-      "id": 22
+      "path": "skills/self-evolving-gene-ratchet/SKILL.md"
     },
     {
       "slug": "skill-68768f44",
@@ -240,8 +245,7 @@
       "hexagram_tag": "#63-既濟",
       "source_url": "https://www.youtube.com/shorts/aVKugNP2wDU",
       "origin": "radar",
-      "path": "skills/skill-68768f44/SKILL.md",
-      "id": 23
+      "path": "skills/skill-68768f44/SKILL.md"
     },
     {
       "slug": "skill-b25226d4",
@@ -250,8 +254,7 @@
       "hexagram_tag": "#26-大畜",
       "source_url": "https://www.youtube.com/shorts/3aJmzVIxkqk",
       "origin": "radar",
-      "path": "skills/skill-b25226d4/SKILL.md",
-      "id": 24
+      "path": "skills/skill-b25226d4/SKILL.md"
     },
     {
       "slug": "skill-c5c55e6f",
@@ -260,8 +263,7 @@
       "hexagram_tag": "#59-渙",
       "source_url": "https://www.youtube.com/shorts/StXGGNlNLOk",
       "origin": "radar",
-      "path": "skills/skill-c5c55e6f/SKILL.md",
-      "id": 25
+      "path": "skills/skill-c5c55e6f/SKILL.md"
     },
     {
       "slug": "skill-d33be764",
@@ -270,8 +272,7 @@
       "hexagram_tag": "#49-革",
       "source_url": "https://www.youtube.com/shorts/LjYOeBIwUsU",
       "origin": "radar",
-      "path": "skills/skill-d33be764/SKILL.md",
-      "id": 26
+      "path": "skills/skill-d33be764/SKILL.md"
     },
     {
       "slug": "skill-f7938cb8",
@@ -280,23 +281,16 @@
       "hexagram_tag": "#57-巽",
       "source_url": "https://www.youtube.com/shorts/UtVFSMGKh28",
       "origin": "radar",
-      "path": "skills/skill-f7938cb8/SKILL.md",
-      "id": 27
+      "path": "skills/skill-f7938cb8/SKILL.md"
     },
     {
       "slug": "stomper-kill-list-gate",
-      "id": 28,
-      "name": "Stomper Kill-List & Live Omni-Sense (오감 센서 & 불량 시그널 분쇄기)",
-      "order": 22,
-      "hexagram_tag": "#21-噬嗑",
-      "hexagram": "#21-噬嗑",
+      "name": "stomper-kill-list-gate",
       "category": "omni-sense",
-      "origin": "core",
-      "description": "오감 후각: 사기·원금보장·러그풀·프롬프트 인젝션 사전 킬리스트 분쇄",
-      "path": "skills/stomper-kill-list-gate/SKILL.md",
-      "source_url": "local://rgon_omni_creator_forge.py",
-      "version": "v11.26-CREATOR-FORGE",
-      "antibody": "R27"
+      "hexagram_tag": "'#21-噬嗑'",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/stomper-kill-list-gate/SKILL.md"
     },
     {
       "slug": "trinity-trading-council",
@@ -305,8 +299,7 @@
       "hexagram_tag": "",
       "source_url": "",
       "origin": "",
-      "path": "skills/trinity-trading-council/SKILL.md",
-      "id": 29
+      "path": "skills/trinity-trading-council/SKILL.md"
     },
     {
       "slug": "wbc-self-healing",
@@ -315,8 +308,7 @@
       "hexagram_tag": "#24-復",
       "source_url": "local://rgon_white_blood_cell.py",
       "origin": "core",
-      "path": "skills/wbc-self-healing/SKILL.md",
-      "id": 30
+      "path": "skills/wbc-self-healing/SKILL.md"
     },
     {
       "slug": "youtube-trend-scout",
@@ -325,52 +317,23 @@
       "hexagram_tag": "#20-觀",
       "source_url": "local://rgon_youtube_skill_scout.py",
       "origin": "core",
-      "path": "skills/youtube-trend-scout/SKILL.md",
-      "id": 31
+      "path": "skills/youtube-trend-scout/SKILL.md"
     },
     {
-      "id": 32,
-      "name": "aon-desktop-playground-brat",
-      "path": "skills/aon-desktop-playground-brat/SKILL.md",
-      "antibody": "R36",
-      "version": "v11.35-AON-PLAYGROUND-BRAT",
-      "description": "아온(A-ON) 창틀 탈출 노트북 전체 놀이터 오버레이 & 게으름·찡찡·보채기·쓰담쓰담 8대 FSM 생명체 페르소나 스킬"
-    },
-    {
-      "id": 33,
-      "name": "aon-iching-dao-oracle",
-      "path": "skills/aon-iching-dao-oracle/SKILL.md",
-      "antibody": "R37",
-      "version": "v11.36-AON-ICHING-DAO",
-      "description": "아온(A-ON) 주역 64괘·정통 음력 매화역수·육효 시운 도술관 & 음양 미니 물방울 분신술 스킬"
-    },
-    {
-      "id": 34,
-      "name": "aon-omni-insight-eye",
-      "path": "skills/aon-omni-insight-eye/SKILL.md",
-      "antibody": "R38",
-      "version": "v11.38-AON-OMNI-DIALOGUE",
-      "description": "아온(A-ON) 만물 격물치지 통찰안 — 이미지·영상·말/현상 OTA 능동 지각 + FPCOS L0~L5 해부 스킬"
-    },
-    {
-      "id": 35,
-      "slug": "aon-omni-dialogue-hub",
-      "name": "aon-omni-dialogue-hub",
-      "title": "제15기관: 아온 초격차 대화 이해(Deep NLU) & 올인원 대화 허브(Omni-Dialogue Hub)",
-      "version": "v11.38-AON-OMNI-DIALOGUE",
-      "antibody": "R39",
-      "path": "skills/aon-omni-dialogue-hub/SKILL.md",
-      "organ": "제15기관 (Omni-Dialogue Hub)",
-      "description": "구어·오타 정규화, 대명사 문맥 복원, 능동 경청 원칙 영구 각인, 복합 의도 연쇄 디스패치, 플랫폼 4대 UX 메타데이터, 3계층 해마 기억을 통합한 한국어 대화 이해 허브"
+      "slug": "aon-neural-synapse-verifier",
+      "name": "aon-neural-synapse-verifier",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/aon-neural-synapse-verifier/SKILL.md"
     }
   ],
-  "antibody_range": "R1~R35",
-  "skill_count": 31,
-  "synced_at_kst": "2026-10-24 12:31:48 KST",
-  "total": 35,
-  "antibodies": "R1~R35",
-  "updated": "2026-10-24T13:17:46",
-  "immune": "R1~R35",
-  "total_skills": 31,
-  "updated_at": "2026-10-25T13:11:51"
+  "antibodies": "R1~R40",
+  "antibody_range": "R1~R40",
+  "immune": "R1~R40",
+  "total": 36,
+  "skill_count": 36,
+  "total_skills": 36,
+  "updated": "2026-10-25T17:51:49"
 }

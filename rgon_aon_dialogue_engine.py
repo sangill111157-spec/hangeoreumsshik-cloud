@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """rgon_aon_dialogue_engine.py — 제15기관 아온 초격차 대화 이해 & 올인원 대화 허브 (표준 라이브러리 전용)
-[RGON-R39] v11.38-AON-OMNI-DIALOGUE
+[RGON-R39] v11.39-AON-NEURAL-SYNAPSE
 파이프라인: 구어 정규화 → 대명사·생략어 복원 → 슬래시/원칙/복합의도 분기 → 기관 디스패치
           → 플랫폼 메타데이터(thinking·artifact·chips·callback) 보강 → 3계층 해마 기억(단기·토픽·연상).
 한계: 사전·정규식 기반 규칙 엔진이다. 언어모델이 아니므로 처음 보는 표현은 놓칠 수 있다."""
@@ -8,7 +8,7 @@ import argparse, datetime, json, os, re, sys, tempfile, time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-VERSION = "v11.38-AON-OMNI-DIALOGUE"
+VERSION = "v11.39-AON-NEURAL-SYNAPSE"
 STATE, PREFS = "rgon_aon_dialogue_state.json", "rgon_aon_preferences.json"
 SHORT_MAX, EVENT_MAX, FRESH_TURNS, FRESH_SEC = 20, 60, 4, 1800
 CAT_KO = {"command_rule": "지휘 원칙", "style": "스타일", "preference": "취향"}
@@ -584,6 +584,637 @@ def main():
         print(json.dumps(process_dialogue(args.ask), ensure_ascii=False, indent=2)); return 0
     print(json.dumps(self_test(), ensure_ascii=False))
     return 0
+
+# ==== [RGON-R40-SYNAPSE-HOOK-START] ====
+# R40 시냅스 ①②③④ — 대화 허브 ↔ 주역도술관·노트북수족·영혼두뇌·만물통찰안·놀이터 직결
+import os as _o40, re as _re40, json as _j40, time as _t40, sys as _s40
+import shutil as _sh40, inspect as _in40, importlib as _il40
+from pathlib import Path as _P40
+
+R40_VERSION = "v11.39-AON-NEURAL-SYNAPSE"
+R40_ANTIBODY = "R1~R40"
+_R40_HERE = _P40(__file__).resolve().parent
+_R40_NAMES = ("_call_iching", "_call_hands", "_call_soul", "_call_insight",
+              "_call_playground", "_call_brat", "normalize_colloquial")
+_R40_ORIG = {}
+for _n40 in _R40_NAMES:
+    _f40 = globals().get(_n40)
+    if callable(_f40) and not getattr(_f40, "_r40", False):
+        _R40_ORIG[_n40] = _f40
+
+
+def _r40_mod(name):
+    if str(_R40_HERE) not in _s40.path:
+        _s40.path.insert(0, str(_R40_HERE))
+    return _il40.import_module(name)
+
+
+def _r40_state_dir():
+    d = _o40.environ.get("RGON_DIALOGUE_STATE_DIR", "")
+    if not d:
+        for k in ("DIALOGUE_STATE_DIR", "STATE_DIR"):
+            v = globals().get(k)
+            if isinstance(v, (str, _P40)) and str(v):
+                d = str(v)
+                break
+    p = _P40(d) if d else (_R40_HERE / ".rgon_dialogue_state")
+    if p.suffix:
+        p = p.parent
+    p.mkdir(parents=True, exist_ok=True)
+    return p
+
+
+def _r40_jload(name, default):
+    try:
+        return _j40.loads((_r40_state_dir() / name).read_text(encoding="utf-8"))
+    except Exception:
+        return default
+
+
+def _r40_jsave(name, obj):
+    try:
+        p = _r40_state_dir() / name
+        tmp = p.with_name(p.name + ".tmp")
+        tmp.write_text(_j40.dumps(obj, ensure_ascii=False, indent=2), encoding="utf-8")
+        _o40.replace(str(tmp), str(p))
+    except Exception:
+        pass
+
+
+class _R40Reply(dict):
+    """dict이면서 문자열처럼도 쓰이는 응답 (구버전 허브 디스패처 호환)."""
+    def __str__(self):
+        return str(self.get("speech", ""))
+    def __add__(self, other):
+        return str(self) + str(other)
+    def __radd__(self, other):
+        return str(other) + str(self)
+    def __contains__(self, key):
+        return dict.__contains__(self, key) or (isinstance(key, str) and key in str(self))
+    def strip(self, *a):
+        return str(self).strip(*a)
+    def splitlines(self, *a):
+        return str(self).splitlines(*a)
+
+
+def _r40_shape(name):
+    f = _R40_ORIG.get(name)
+    if f is None:
+        return "dict"
+    try:
+        src = _in40.getsource(f)
+    except Exception:
+        return "dict"
+    rets = [r.strip() for r in _re40.findall(r"^\s*return\s+(.+)$", src, _re40.M)]
+    if any(r.startswith(("{", "dict(")) for r in rets):
+        return "dict"
+    if rets and all(_re40.match(r"^(?:[rbuf]{0,2}[\"']|str\()", r) for r in rets):
+        return "str"
+    return "dict"
+
+
+def _r40_res(organ, ok, speech, data=None):
+    speech = str(speech or "")
+    return {"ok": bool(ok), "organ": organ, "speech": speech, "text": speech, "reply": speech,
+            "aon_speech": speech, "data": data or {}, "synapse": "R40", "version": R40_VERSION}
+
+
+def _r40_out(name, res):
+    if _r40_shape(name) == "str":
+        return str(res.get("speech", ""))
+    return _R40Reply(res)
+
+
+# ---------- 시냅스 ① 주역도술관 (primary/transformed/mutual 및 bengua/biangua/hugua 모두 호환) ----------
+def _r40_hexname(g):
+    if isinstance(g, dict):
+        if g.get("hanja") and g.get("ko"):
+            return f"{g['hanja']}({g['ko']})"
+        for k in ("name_ko", "name", "name_kr", "ko", "title", "name_hanja", "hanja"):
+            if g.get(k):
+                return str(g[k])
+        return ""
+    return str(g) if g else ""
+
+
+def _r40_iching_impl(q, *a, **k):
+    try:
+        m = _r40_mod("rgon_aon_iching_dao_oracle")
+        fn = getattr(m, "cast_by_question", None) or getattr(m, "divine", None)
+        if not callable(fn):
+            raise AttributeError("cast_by_question 미발견")
+        d = fn(q)
+        if not isinstance(d, dict):
+            d = {"aon_speech": str(d)}
+        ben = _r40_hexname(d.get("bengua") or d.get("primary"))
+        bian = _r40_hexname(d.get("biangua") or d.get("transformed"))
+        hu = _r40_hexname(d.get("hugua") or d.get("mutual"))
+        body = str(d.get("aon_speech") or d.get("aon_voice_line") or "").strip()
+        head = "[본괘: %s%s]" % (ben or "?", (" → 변괘: %s" % bian) if bian else "")
+        data = {"bengua_name": ben, "biangua_name": bian, "hugua_name": hu,
+                "ti_yong": d.get("ti_yong"), "raw_keys": sorted(map(str, d.keys()))}
+        return _r40_res("iching", bool(ben or body), (head + " " + body).strip(), data)
+    except Exception as e:
+        return _r40_res("iching", False, "주역도술관 시냅스 오류: %s: %s" % (type(e).__name__, e))
+
+
+# ---------- 시냅스 ② 노트북수족 / 수동결재스위치 ----------
+_R40_GATE = r"결재\s*스위치|결재|게이트|gate|잠금|마스터\s*스위치"
+_R40_LOCK = r"꺼|끄|잠가|잠궈|잠그|닫|봉인|차단|\boff\b|\block\b|잠금\s*(?:on|켜|걸)"
+_R40_UNLOCK_EXPL = r"잠금\s*(?:해제|풀)|unlock"
+_R40_UNLOCK = r"켜|승인|열어|\bon\b"
+_R40_APP = r"(.+?)\s*(?:좀\s*)?(?:열어|실행해|띄워)"
+
+
+def _r40_gate_state(h):
+    st = h.load_state() if hasattr(h, "load_state") else {}
+    st = st if isinstance(st, dict) else {}
+    gates = st.get("gates", {})
+    if isinstance(gates, dict):
+        opened = sum(1 for v in gates.values() if v is True or (isinstance(v, dict) and
+                     (v.get("open") or v.get("enabled") or v.get("on"))))
+        total = len(gates)
+    else:
+        opened, total = None, (len(gates) if isinstance(gates, list) else 0)
+    return {"master_approval_on": st.get("master_approval_on"), "gates": gates,
+            "gates_open": opened, "gates_total": total}
+
+
+def _r40_hands_impl(q, *a, **k):
+    try:
+        h = _r40_mod("rgon_laptop_hands")
+    except Exception as e:
+        return _r40_res("hands", False, "노트북수족 시냅스 연결 실패: %s" % e)
+    s = str(q or "")
+    try:
+        if _re40.search(_R40_GATE, s, _re40.I):
+            if _re40.search(_R40_UNLOCK_EXPL, s, _re40.I):
+                act = "unlock"
+            elif _re40.search(_R40_LOCK, s, _re40.I):
+                act = "lock"
+            elif _re40.search(_R40_UNLOCK, s, _re40.I):
+                act = "unlock"
+            else:
+                act = "status"
+            if act == "lock":
+                h.lock_all_gates()
+            elif act == "unlock":
+                h.set_master_gate(True)
+            st = _r40_gate_state(h)
+            st["action"] = act
+            label = {"lock": "🔒 모든 결재 게이트 잠금 완료(잠금 보호 ON)",
+                     "unlock": "🔓 마스터 결재 스위치 ON",
+                     "status": "🧾 결재 스위치 현재 상태"}[act]
+            speech = "%s — master_approval_on=%s, 게이트 %s/%s 열림" % (
+                label, st["master_approval_on"],
+                "?" if st["gates_open"] is None else st["gates_open"], st["gates_total"])
+            return _r40_res("hands", True, speech, st)
+        m = _re40.search(_R40_APP, s)
+        if m and not _re40.search(r"용량|디스크|점검", s):
+            target = _re40.sub(r"^(?:아온아?\s*[,!]?\s*)?(?:노트북에서\s*)?", "", m.group(1)).strip()
+            r = h.execute_laptop_action("open_app_or_url", target, dry_run=True)
+            r = r if isinstance(r, dict) else {"speech": str(r)}
+            return _r40_res("hands", bool(r.get("ok", True)),
+                            r.get("speech") or r.get("message") or "열기 계획(dry-run): %s" % target,
+                            {"action": "open_app_or_url", "target": target, "dry_run": True})
+        r = h.execute_laptop_action("system_check", "")
+        r = r if isinstance(r, dict) else {"speech": str(r)}
+        speech = str(r.get("speech") or r.get("message") or "")
+        report = r.get("report")
+        if "GB" not in speech:
+            rep_s = report if isinstance(report, str) else _j40.dumps(report, ensure_ascii=False, default=str)
+            gb = _re40.findall(r"[\d.,]+\s*GB", rep_s or "")
+            if gb:
+                speech = (speech + " · 디스크: " + " / ".join(gb[:3])).strip(" ·")
+            else:
+                du = _sh40.disk_usage(str(_R40_HERE))
+                speech = (speech + " · 디스크 여유 %.1f GB / 전체 %.1f GB" % (
+                    du.free / 1024 ** 3, du.total / 1024 ** 3)).strip(" ·")
+        return _r40_res("hands", bool(r.get("ok", True)), speech,
+                        {"action": "system_check", "report": report})
+    except Exception as e:
+        return _r40_res("hands", False, "노트북수족 시냅스 오류: %s: %s" % (type(e).__name__, e))
+
+
+# ---------- 시냅스 ③ 영혼두뇌 converse ----------
+def _r40_soul_impl(q, *a, **k):
+    try:
+        sb = _r40_mod("rgon_aon_soul_brain")
+        try:
+            r = sb.converse(q, persist=False, use_llm=False, _r40_raw=True)
+        except TypeError:
+            r = sb.converse(q, persist=False, use_llm=False)
+        if isinstance(r, dict):
+            sp = (r.get("reply") or r.get("speech") or r.get("text") or r.get("response")
+                  or r.get("aon_speech") or "")
+            return _r40_res("soul", True, sp, {"intent": r.get("intent")})
+        return _r40_res("soul", True, str(r), {})
+    except Exception as e:
+        return _r40_res("soul", False, "영혼두뇌 시냅스 오류: %s: %s" % (type(e).__name__, e))
+
+
+# ---------- 시냅스 ④ 만물통찰안 ----------
+_R40_INSIGHT_FNS = ("analyze_omni_insight", "analyze", "inspect_omni", "omni_insight", "insight")
+
+
+def _r40_insight_impl(q, *a, **k):
+    try:
+        m = _r40_mod("rgon_aon_omni_insight_eye")
+        fn = next((getattr(m, n) for n in _R40_INSIGHT_FNS if callable(getattr(m, n, None))), None)
+        if fn is None:
+            raise AttributeError("통찰 함수 미발견: %s" % (_R40_INSIGHT_FNS,))
+        try:
+            d = fn(q)
+        except TypeError:
+            d = fn(text=q)
+        if not isinstance(d, dict):
+            d = {"aon_speech": str(d)}
+        lay = d.get("layers") or (d.get("fpcos") if isinstance(d.get("fpcos"), dict) else None)
+        if not lay:
+            lay = {str(kk): d[kk] for kk in d if _re40.match(r"^L[0-5]", str(kk))}
+        n = len(lay) if isinstance(lay, (dict, list)) else 6
+        body = str(d.get("aon_speech") or d.get("aon_voice_line") or d.get("speech")
+                   or d.get("summary") or d.get("insight") or "만물 격물치지 L0~L5 통찰 완료").strip()
+        return _r40_res("insight", True, ("[만물통찰안 L0~L5 · %d계층] %s" % (n, body)).strip(),
+                        {"layers": lay, "layer_count": n, "fn": fn.__name__})
+    except Exception as e:
+        return _r40_res("insight", False, "만물통찰안 시냅스 오류: %s: %s" % (type(e).__name__, e))
+
+
+# ---------- 시냅스 ④ 놀이터 FSM (brat) ----------
+_R40_BRAT = [
+    (r"귀찮|게을|늘어|뒹굴|졸려|녹아|lazy", "MELT_LAZY", ("lazy", "melt_lazy", "MELT_LAZY", "melt", "귀찮")),
+    (r"찡찡|삐져|삐짐|투정|칭얼|뾰로통|whine", "WHINE_POUT", ("whine", "whine_pout", "WHINE_POUT", "pout", "찡찡")),
+    (r"보채|떼\s*써|매달|안아줘|놀아줘|clingy", "CLINGY_TANTRUM", ("clingy", "tantrum", "clingy_tantrum", "CLINGY_TANTRUM", "보채")),
+    (r"쓰담|쓰다듬|칭찬|착하|귀여|예뻐|이뻐|headpat|\bpet\b", "SPOILED_HAPPY", ("pet", "headpat", "praise", "spoiled_happy", "SPOILED_HAPPY", "쓰담")),
+]
+
+
+def _r40_pg_state(r):
+    if isinstance(r, dict):
+        for kk in ("fsm_state", "state", "new_state", "to", "to_state", "current"):
+            v = r.get(kk)
+            if isinstance(v, str) and v:
+                return v
+            if isinstance(v, dict) and v.get("name"):
+                return str(v["name"])
+    if isinstance(r, tuple) and r and isinstance(r[0], str):
+        return r[0]
+    if isinstance(r, str) and _re40.fullmatch(r"[A-Z_]{3,}", r):
+        return r
+    return None
+
+
+def _r40_brat_impl(q, *a, **k):
+    try:
+        pg = _r40_mod("rgon_aon_desktop_playground")
+        fn = getattr(pg, "transition", None)
+        if not callable(fn):
+            raise AttributeError("transition 미발견")
+    except Exception as e:
+        return _r40_res("brat", False, "놀이터 시냅스 연결 실패: %s" % e)
+    target, evs = "SPOILED_HAPPY", ("SPOILED_HAPPY", "pet")
+    for pat, st, ev in _R40_BRAT:
+        if _re40.search(pat, str(q), _re40.I):
+            target, evs = st, ev
+            break
+    tries = ([((target,), {"persist": False}), ((target,), {})] + [((e,), {}) for e in evs])
+    best = None
+    for args, kw in tries:
+        try:
+            r = fn(*args, **kw)
+        except Exception:
+            continue
+        st = _r40_pg_state(r)
+        if st == target:
+            best = (r, st)
+            break
+        if st and best is None:
+            best = (r, st)
+    if best is None:
+        return _r40_res("brat", False, "놀이터 transition 호출 실패")
+    r, st = best
+    if isinstance(r, dict):
+        sp = r.get("speech") or r.get("line") or r.get("aon_speech") or r.get("text") or ""
+    elif isinstance(r, tuple) and len(r) > 1:
+        sp = str(r[1])
+    else:
+        sp = ""
+    return _r40_res("brat", True, ("[놀이터 %s] %s" % (st, sp)).strip(), {"state": st, "target": target})
+
+
+# ---------- 구 이름 재결선 ----------
+def _call_iching(q, *a, **k):
+    return _r40_out("_call_iching", _r40_iching_impl(q))
+
+
+def _call_hands(q, *a, **k):
+    return _r40_out("_call_hands", _r40_hands_impl(q))
+
+
+def _call_soul(q, *a, **k):
+    return _r40_out("_call_soul", _r40_soul_impl(q))
+
+
+def _call_insight(q, *a, **k):
+    return _r40_out("_call_insight", _r40_insight_impl(q))
+
+
+def _call_playground(q, *a, **k):
+    return _r40_out("_call_playground", _r40_brat_impl(q))
+
+
+def _call_brat(q, *a, **k):
+    return _r40_out("_call_brat", _r40_brat_impl(q))
+
+
+for _f40 in (_call_iching, _call_hands, _call_soul, _call_insight, _call_playground, _call_brat):
+    _f40._r40 = True
+
+# ---------- 구어·오타 정규화 ----------
+_R40_TYPO = [(r"브립핑|브리핑구|브맆핑", "브리핑"), (r"해바(?!라기)", "해봐"), (r"점처", "점쳐"),
+             (r"결제\s*스위치", "결재 스위치"), (r"결제\s*게이트", "결재 게이트"),
+             (r"알려죠", "알려줘"), (r"봐죠", "봐줘"), (r"해죠", "해줘"), (r"용랑", "용량"), (r"노트븍", "노트북")]
+
+
+def _r40_typo(s):
+    for pat, rep in _R40_TYPO:
+        s = _re40.sub(pat, rep, s)
+    return s
+
+
+def r40_normalize(text):
+    s = str(text or "")
+    f = _R40_ORIG.get("normalize_colloquial")
+    if f:
+        try:
+            r = f(s)
+            if isinstance(r, str):
+                s = r
+            elif isinstance(r, dict):
+                s = str(r.get("normalized") or r.get("text") or s)
+        except Exception:
+            pass
+    return _r40_typo(s)
+
+
+if "normalize_colloquial" in _R40_ORIG:
+    try:
+        _p40 = _R40_ORIG["normalize_colloquial"]("아온아 테스트")
+    except Exception:
+        _p40 = None
+    if isinstance(_p40, str):
+        def normalize_colloquial(t, *a, **k):
+            r = _R40_ORIG["normalize_colloquial"](t, *a, **k)
+            return _r40_typo(r) if isinstance(r, str) else r
+        normalize_colloquial._r40 = True
+
+# ---------- 대명사 문맥 복원 ----------
+_R40_PRON = r"그거|그것|그건|그걸|저거|저것|이거|이것|걔|그\s*종목|그\s*회사"
+_R40_STOP = {"아온아", "아온", "오늘", "내일", "지금", "혹시", "좀", "그럼", "근데", "그리고",
+             "나", "너", "우리", "제발", "이번", "요즘", "기억해둬", "기억해줘"}
+_R40_TTL = 1800
+
+
+def _r40_topic(t):
+    s = _re40.sub(r"^\s*(?:아온아|아온|야)\s*[,!]?\s*", "", t)
+    for tok in _re40.findall(r"[A-Za-z0-9가-힣&.\-]+", s):
+        tok2 = _re40.sub(r"(?:에서|은|는|이|가|을|를|의|도|랑|과|와|에|만)$", "", tok)
+        if (len(tok2) >= 2 and tok2 not in _R40_STOP and not _re40.fullmatch(_R40_PRON, tok2)
+                and not _re40.match(r"^(?:주역|점괘|노트북|통찰|결재|용량|브리핑|원칙)", tok2)
+                and not _re40.search(r"(?:줘|고|요|해|어|야|다|까|니|지|봐|라)$", tok2)):
+            return tok2
+    return None
+
+
+def r40_resolve(text, apply=True):
+    out = text
+    f = globals().get("resolve_coreference")
+    if callable(f):
+        try:
+            r = f(text)
+            if isinstance(r, dict):
+                r = r.get("resolved") or r.get("text")
+            if isinstance(r, str) and r.strip() and r != text:
+                out = r
+        except Exception:
+            pass
+    ctx = _r40_jload("r40_context.json", {})
+    has_pron = bool(_re40.search(_R40_PRON, text))
+    if out == text and has_pron and ctx.get("topic") and _t40.time() - float(ctx.get("ts", 0)) < _R40_TTL:
+        out = _re40.sub(_R40_PRON, str(ctx["topic"]), text, count=1)
+    if apply and not has_pron:
+        tp = _r40_topic(text)
+        if tp:
+            _r40_jsave("r40_context.json", {"topic": tp, "ts": _t40.time()})
+    return out
+
+
+# ---------- 원칙 각인 ----------
+_R40_PREF = _re40.compile(r"^\s*(?:아온아?\s*[,!]?\s*)?(?:기억해\s*둬|기억해\s*줘|기억해|명심해|잊지\s*마|각인해)"
+                          r"\s*[:：,]?\s*(.+?)\s*$", _re40.S)
+
+
+def r40_save_pref(text, apply=True):
+    m = _R40_PREF.match(text or "")
+    if not m or not m.group(1).strip():
+        return None
+    rule = m.group(1).strip()
+    if apply:
+        db = _r40_jload("r40_principles.json", {"principles": []})
+        lst = db.get("principles", [])
+        if rule not in [p.get("rule") if isinstance(p, dict) else p for p in lst]:
+            lst.append({"rule": rule, "ts": int(_t40.time()), "src": "R40"})
+        _r40_jsave("r40_principles.json", {"principles": lst})
+        f = globals().get("extract_and_save_preference")
+        if callable(f):
+            try:
+                f(text)
+            except Exception:
+                pass
+    return rule
+
+
+def r40_list_prefs():
+    own = _r40_jload("r40_principles.json", {"principles": []}).get("principles", [])
+    items = [p.get("rule") if isinstance(p, dict) else str(p) for p in own]
+    for nm in ("list_preferences", "load_preferences", "get_preferences"):
+        f = globals().get(nm)
+        if callable(f):
+            try:
+                r = f()
+                if isinstance(r, dict):
+                    r = r.get("principles") or r.get("items") or list(r.values())
+                for x in (r or []):
+                    s = (x.get("rule") or x.get("text")) if isinstance(x, dict) else str(x)
+                    if s and s not in items:
+                        items.append(str(s))
+            except Exception:
+                pass
+            break
+    return [i for i in items if i]
+
+
+# ---------- 의도 분류 · 복합 의도 ----------
+def r40_classify(seg):
+    s = str(seg)
+    if _re40.search(_R40_GATE, s, _re40.I):
+        return "hands"
+    if _re40.search(r"주역|점괘|점쳐|점\s*봐|괘|운세|도술|육효", s):
+        return "iching"
+    if _re40.search(r"용량|디스크|저장\s*공간|disk|노트북|시스템\s*체크|열어줘|실행해", s, _re40.I):
+        return "hands"
+    if _re40.search(r"통찰|이치|꿰뚫|본질", s):
+        return "insight"
+    if any(_re40.search(p, s, _re40.I) for p, _, _ in _R40_BRAT):
+        return "brat"
+    return "soul"
+
+
+def r40_segments(text):
+    cands = []
+    f = globals().get("decompose_multi_intent")
+    if callable(f):
+        try:
+            r = f(text)
+            if isinstance(r, dict):
+                r = r.get("segments") or r.get("intents") or []
+            segs = []
+            for x in (r or []):
+                if isinstance(x, dict):
+                    x = x.get("text") or x.get("segment") or x.get("q") or ""
+                if str(x).strip():
+                    segs.append(str(x).strip())
+            if segs:
+                cands.append(segs)
+        except Exception:
+            pass
+    mine = [x.strip() for x in _re40.split(r"\s*(?:그리고|그다음에?|다음엔|,|;)\s*|(?<=[가-힣])(?:고|며|면서|구)\s+", text)
+            if x and x.strip()]
+    cands.append(mine)
+    best, score = [text], 1
+    for c in cands:
+        n = len({r40_classify(s) for s in c} - {"soul"})
+        if len(c) > 1 and n >= 2 and n > score - 1:
+            best, score = c, n + 1
+    return best
+
+
+# ---------- 전처리 · 라우터 ----------
+def r40_preprocess(text, apply=True):
+    meta = {"version": R40_VERSION, "antibody": R40_ANTIBODY, "original": text}
+    n = r40_normalize(text)
+    meta["normalized"] = n
+    meta["slash"] = n.strip().startswith("/")
+    if meta["slash"]:
+        meta.update(resolved=n, preference=None, segments=[n], intents=["slash"], multi_intent=False)
+        return meta
+    rule = r40_save_pref(n, apply=apply)
+    meta["preference"] = rule
+    if rule:
+        meta.update(resolved=n, segments=[n], intents=["preference"], multi_intent=False)
+        return meta
+    r = r40_resolve(n, apply=apply)
+    segs = r40_segments(r)
+    meta.update(resolved=r, segments=segs, intents=[r40_classify(s) for s in segs], multi_intent=len(segs) > 1)
+    return meta
+
+
+_R40_DISPATCH = {"iching": _r40_iching_impl, "hands": _r40_hands_impl, "insight": _r40_insight_impl,
+                 "brat": _r40_brat_impl, "soul": _r40_soul_impl}
+
+
+def _r40_slash(t):
+    cmd, _, arg = t.strip().partition(" ")
+    c, arg = cmd.lower(), arg.strip()
+    if c in ("/통찰", "/insight"):
+        return [("insight", _r40_insight_impl(arg or "만물의 이치"))]
+    if c in ("/잠금", "/lock"):
+        return [("hands", _r40_hands_impl("잠금 " + (arg or "lock")))]
+    if c in ("/결재", "/gate"):
+        return [("hands", _r40_hands_impl("결재 스위치 " + (arg or "상태")))]
+    if c in ("/원칙", "/principles"):
+        items = r40_list_prefs()
+        sp = ("📜 각인된 원칙 %d개: " % len(items) + " / ".join("%d) %s" % (i + 1, x) for i, x in enumerate(items))) \
+            if items else "📜 아직 각인된 원칙이 없어요."
+        return [("principles", _r40_res("hippocampus", True, sp, {"principles": items}))]
+    if c in ("/주역", "/점", "/점괘", "/괘"):
+        return [("iching", _r40_iching_impl(arg or "오늘의 흐름"))]
+    if c in ("/노트북", "/용량", "/점검", "/손"):
+        return [("hands", _r40_hands_impl(("노트북 용량 점검 " + arg).strip()))]
+    if c in ("/놀자", "/쓰담", "/찡찡"):
+        return [("brat", _r40_brat_impl(arg or c.lstrip("/")))]
+    f = globals().get("handle_slash_command")
+    if callable(f):
+        try:
+            r = f(t)
+            sp = (r.get("speech") or r.get("reply") or r.get("text") or "") if isinstance(r, dict) else str(r)
+            return [("slash", _r40_res("slash", True, sp, {"raw": r if isinstance(r, dict) else None}))]
+        except Exception as e:
+            return [("slash", _r40_res("slash", False, "슬래시 오류: %s" % e))]
+    return [("slash", _r40_res("slash", False, "알 수 없는 명령: %s" % cmd))]
+
+
+def r40_route(text, _pre=None):
+    meta = _pre or r40_preprocess(text, apply=True)
+    if meta.get("slash"):
+        pairs = _r40_slash(meta["normalized"])
+    elif meta.get("preference"):
+        pairs = [("preference", _r40_res("hippocampus", True, "📌 원칙 각인 완료: %s" % meta["preference"],
+                                         {"rule": meta["preference"]}))]
+    else:
+        pairs = [(it, _R40_DISPATCH.get(it, _r40_soul_impl)(seg)) for seg, it in zip(meta["segments"], meta["intents"])]
+    results = [{"intent": it, "ok": bool(r.get("ok")), "speech": str(r.get("speech", "")),
+                "organ": r.get("organ"), "data": r.get("data", {})} for it, r in pairs]
+    return {"ok": all(x["ok"] for x in results), "speech": "\n".join(x["speech"] for x in results if x["speech"]),
+            "intents": [x["intent"] for x in results], "results": results, "dialogue_hub": meta,
+            "version": R40_VERSION}
+
+
+aon_dialogue_r40 = r40_route
+
+
+def _r40_rebind():
+    mapping = {id(_R40_ORIG[n]): globals()[n] for n in _R40_ORIG if callable(globals().get(n))}
+    def fix(obj, depth=0):
+        if depth > 3:
+            return
+        items = list(obj.items()) if isinstance(obj, dict) else list(enumerate(obj))
+        for k, v in items:
+            if callable(v) and id(v) in mapping:
+                obj[k] = mapping[id(v)]
+            elif isinstance(v, tuple) and any(callable(x) and id(x) in mapping for x in v):
+                obj[k] = tuple(mapping.get(id(x), x) if callable(x) else x for x in v)
+            elif isinstance(v, (dict, list)):
+                fix(v, depth + 1)
+    for k, v in list(globals().items()):
+        if k.startswith("__") or k in ("_R40_ORIG", "_R40_DISPATCH") or k in _R40_NAMES:
+            continue
+        if isinstance(v, (dict, list)):
+            try:
+                fix(v)
+            except Exception:
+                pass
+
+
+_r40_rebind()
+
+# ---------- 허브 converse 시그니처 호환 래퍼 (*args, **kwargs 그대로 전달) ----------
+_r40_hc = globals().get("converse")
+if callable(_r40_hc) and not getattr(_r40_hc, "_r40", False):
+    _R40_SAVED_HUB_ORIG = _r40_hc
+
+    def converse_r40(raw_text: str = "", *args, **kwargs):
+        r = _R40_SAVED_HUB_ORIG(raw_text, *args, **kwargs)
+        if isinstance(r, dict):
+            r.setdefault("r40_synapse", R40_VERSION)
+        return r
+
+    converse_r40._r40 = True
+    converse_r40._r40_wrapped_of = _R40_SAVED_HUB_ORIG
+    converse = converse_r40
+# ==== [RGON-R40-SYNAPSE-HOOK-END] ====
+
 
 if __name__ == "__main__":
     sys.exit(main())

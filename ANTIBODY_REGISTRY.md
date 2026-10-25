@@ -28,3 +28,10 @@
 <!-- [RGON-ANTIBODY-R39] -->
 ## R39 — Step 39 · v11.38-AON-OMNI-DIALOGUE · 2026-10-25
 - R39: 제15기관 아온 초격차 대화 이해(Deep NLU) & 올인원 대화 허브(`rgon_aon_dialogue_engine.py`, 정식 스킬 #35 `aon-omni-dialogue-hub`) — 구어·오타 정규화, 멀티턴 대명사·생략어 문맥 복원, 능동 경청 원칙 영구 각인(`rgon_aon_preferences.json`), 복합 의도 분해 연쇄 디스패치, 플랫폼 표준 4대 UX 메타데이터 & 7종 슬래시 커맨드, 3계층 해마 기억(`rgon_aon_dialogue_state.json`).
+
+<!-- [RGON-R40-ANTIBODY-START] -->
+## R40 — Step 40 · v11.39-AON-NEURAL-SYNAPSE (항체 R1~R40 · 정식 스킬 36개) · 2026-10-25
+- 제16기관 `rgon_neural_synapse_verifier.py` (스킬 #36 `aon-neural-synapse-verifier`) 개통
+- 6대 시냅스 혈전 수술: 주역도술관·노트북수족·영혼두뇌 converse·만물통찰안/놀이터·구버전 동결 3종·SSOT 정렬
+- 10대 시냅스 E2E + 12기관 병렬 셀프테스트 + V13 HTML 브리지 검증
+<!-- [RGON-R40-ANTIBODY-END] -->

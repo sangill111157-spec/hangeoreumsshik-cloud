@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""rgon_voice_organ.py — 제9기관: 성대·청각 음성 교감 기관 (v11.38-AON-OMNI-DIALOGUE, R1~R39)
+"""rgon_voice_organ.py — 제9기관: 성대·청각 음성 교감 기관 (v11.39-AON-NEURAL-SYNAPSE, R1~R40)
 주역 #51 진위뢰(震爲雷 ☳☳) · #61 풍택중부(風澤中孚 ☴☱).
 의도 분별은 제10기관 rgon_aon_soul_brain.converse()에 위임한다 (감정·일상 대화는 대행 큐에 넣지 않음)."""
 import os, sys, json
@@ -12,8 +12,8 @@ try:
 except Exception:
     pass
 
-VERSION = "v11.38-AON-OMNI-DIALOGUE"
-ANTIBODY = "R1~R39"
+VERSION = "v11.39-AON-NEURAL-SYNAPSE"
+ANTIBODY = "R1~R40"
 ROOT = Path(__file__).resolve().parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
@@ -48,6 +48,8 @@ SOUND_RECIPES = {
 }
 VOICE_PROFILE = {"lang": "ko-KR", "pitch": 1.18, "rate": 1.05, "volume": 1.0, "muted": False,
                  "preferred_voices": ["Microsoft SunHi Online (Natural)", "Google 한국의", "Yuna", "ko-KR"]}
+
+SFX_PRESETS = dict(SOUND_RECIPES)
 
 def parse_voice_command(text, persist=True, use_llm=True):
     r = soul.converse(text, persist=persist, use_llm=use_llm)
@@ -105,6 +107,34 @@ try:
         SFX_PRESETS.setdefault("memory_pin", {"freq": [659.25, 987.77], "dur": 0.16, "type": "triangle", "desc": "해마 원칙 각인 핀"})
 except Exception:
     pass
+
+
+# ==== [RGON-R40-SYNAPSE-VOICE-START] ====
+# R40 시냅스 ⑩ — 통합 SFX 레지스트리 (SOUND_RECIPES는 절대 건드리지 않음)
+try:
+    SFX_PRESETS
+except NameError:
+    SFX_PRESETS = {}
+
+_R40_SFX_DEFAULTS = {
+    "dialogue_chime": {"notes": [784, 1046, 1318], "env": "chime", "dur": 0.45,
+                       "desc": "대화 허브 차임", "r40": True},
+    "insight_ping": {"notes": [1568, 2093], "env": "ping", "dur": 0.25,
+                     "desc": "만물통찰안 핑", "r40": True},
+    "dao_bell": {"notes": [392, 587, 784], "env": "bell", "dur": 1.2,
+                 "desc": "주역도술관 종", "r40": True},
+}
+R40_UNIFIED_SFX_MAP = {k: SFX_PRESETS.get(k, v) for k, v in _R40_SFX_DEFAULTS.items()}
+SFX_PRESETS.update(R40_UNIFIED_SFX_MAP)
+
+
+def get_unified_sfx_registry():
+    rec = globals().get("SOUND_RECIPES")
+    return {"version": "v11.39-AON-NEURAL-SYNAPSE", "antibody": "R1~R40",
+            "sfx_presets": sorted(SFX_PRESETS.keys()),
+            "sound_recipes": sorted(rec.keys()) if isinstance(rec, dict) else [],
+            "r40_unified": sorted(R40_UNIFIED_SFX_MAP.keys())}
+# ==== [RGON-R40-SYNAPSE-VOICE-END] ====
 
 
 if __name__ == "__main__":
