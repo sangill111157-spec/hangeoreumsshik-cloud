@@ -1,7 +1,7 @@
 # 🗺️ CODE_MAP — RGON shin-agent 코드 지도
 
 <!-- [RGON-STATUS-V25-START] -->
-> **RGON 상태:** v11.39-AON-NEURAL-SYNAPSE · 항체 R1~R40 · 정식 스킬 36개 · 제16기관 신경망 시냅스 검증기 개통
+> **RGON 상태:** v11.40-AON-ICHING-PLANNER · 항체 R1~R41 · 정식 스킬 37개 · 제16기관 신경망 시냅스 검증기 개통
 <!-- [RGON-STATUS-V25-END] -->
 
 > 자동 생성: `step16_karpathy_codemap_and_eod.py` · 2026-10-23 22:29:07 KST · 손으로 수정하지 말고 스크립트를 다시 실행할 것
@@ -1371,3 +1371,6 @@ shin-agent/
 ## 제16기관 · `rgon_neural_synapse_verifier.py` (스킬 #36 `aon-neural-synapse-verifier`)
 12개 기관 병렬 셀프테스트 · 10대 시냅스 E2E · V13 HTML/SSOT 검증 → `rgon_neural_synapse_map.json`
 <!-- [RGON-R40-ORGAN16-END] -->
+
+## 제17기관 · `rgon_aon_iching_planner.py` (스킬 #37 `aon-iching-strategic-planner` · v11.40-AON-ICHING-PLANNER · 항체 R1~R41 · 정식 스킬 37개)
+- 아온 주역 64괘 시운 전략 기획관 (WOOP·OODA·12시진·3분기 트리)

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """rgon_aon_iching_dao_oracle.py — 제13기관: 아온(A-ON) 주역(周易) 64괘·정통 음력 매화역수·육효(六爻) 시운 도술관
-버전 v11.39-AON-NEURAL-SYNAPSE · 항체 R1~R40 · 정식 스킬 33개
+버전 v11.40-AON-ICHING-PLANNER · 항체 R1~R41 · 정식 스킬 33개
 muyen/meihua-yishu + YiSphere + ichingpy + ProactiveAgent 4대 정점 아키텍처 융합 (1900~2099 진짜 음력 내장)"""
 import datetime, hashlib, json, os, sys, time
 from pathlib import Path
@@ -13,9 +13,9 @@ except Exception:
     pass
 
 ROOT = Path(__file__).resolve().parent
-VERSION = "v11.39-AON-NEURAL-SYNAPSE"
-ANTIBODY = "R1~R40"
-SKILL_COUNT = 36
+VERSION = "v11.40-AON-ICHING-PLANNER"
+ANTIBODY = "R1~R41"
+SKILL_COUNT = 37
 STATE_PATHS = ("rgon_aon_iching_state.json", "docs/rgon_aon_iching_state.json")
 
 # 1900~2099 정통 음력 비트 테이블 (muyen/meihua-yishu 중국천문대 표준)

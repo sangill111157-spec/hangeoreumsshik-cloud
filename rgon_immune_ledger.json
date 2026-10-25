@@ -1,10 +1,10 @@
 {
   "schema": "rgon.immune.ledger.v1",
-  "version": "v11.39-AON-NEURAL-SYNAPSE",
+  "version": "v11.40-AON-ICHING-PLANNER",
   "current_step": 27,
-  "antibody_range": "R1~R40",
+  "antibody_range": "R1~R41",
   "principle": "만물은 하나로 이어져 있으며, 한 걸음씩 나아가면 반드시 이루어진다.",
-  "updated_at_kst": "2026-10-25T17:51:38",
+  "updated_at_kst": "2026-10-25T20:02:19",
   "health_score": 30,
   "inspection_mode": "standard",
   "today_hexagram": {
@@ -14,7 +14,7 @@
     "summary": "자강불식(自強不息) — 스스로 강건히 쉬지 않고 정진한다",
     "inspection_mode": "standard"
   },
-  "suppressed_count": 14,
+  "suppressed_count": 15,
   "antibodies": [
     {
       "id": "R1",
@@ -181,7 +181,7 @@
       "name": "일일 자율 순환 루프(백혈구 순찰 → 영양분 소화·스킬 주조 → 3자 심판 → 주역 64괘 아침 브리핑) 무인 자동화",
       "desc": "일일 자율 순환 루프(백혈구 순찰 → 영양분 소화·스킬 주조 → 3자 심판 → 주역 64괘 아침 브리핑) 무인 자동화",
       "step": 20,
-      "version": "v11.39-AON-NEURAL-SYNAPSE",
+      "version": "v11.40-AON-ICHING-PLANNER",
       "rule": "일일 자율 순환 루프(백혈구 순찰 → 영양분 소화·스킬 주조 → 3자 심판 → 주역 64괘 아침 브리핑) 무인 자동화",
       "status": "active"
     },
@@ -223,7 +223,7 @@
       "id": "R25",
       "name": "원터치 만능 스킬 디스패처",
       "rule": "R25: 연결·소통·만능 원터치 스킬 디스패처 — 보유 스킬·트렌드·3자 심판 결과를 독대실 질문창에 무간섭 단발 장전",
-      "version": "v11.39-AON-NEURAL-SYNAPSE",
+      "version": "v11.40-AON-ICHING-PLANNER",
       "status": "활성",
       "added": "2026-10-24 09:19:38",
       "title": "원터치 만능 스킬 디스패처",
@@ -313,8 +313,8 @@
       "context": "self_test_bypass",
       "sample_message": "'simulated_missing_key'",
       "first_seen_kst": "2026-10-24T08:11:50",
-      "last_seen_kst": "2026-10-25T17:51:37",
-      "count": 16,
+      "last_seen_kst": "2026-10-25T20:02:19",
+      "count": 17,
       "suppressed": true,
       "known_remedy": "R18 상선약수: adapt_dict 안전 키 매핑 및 기본값 반환"
     }
@@ -479,6 +479,14 @@
       "restored": true,
       "source_backup": ".rgon_backup/wbc_snapshots/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.clean",
       "quarantined_to": ".rgon_backup/wbc_quarantine/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.20261025_175137.corrupt"
+    },
+    {
+      "timestamp_kst": "2026-10-25T20:02:19",
+      "file": ".rgon_backup/wbc_selftest/_wbc_dummy_sample.py",
+      "reason": "self_test_syntax_error",
+      "restored": true,
+      "source_backup": ".rgon_backup/wbc_snapshots/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.clean",
+      "quarantined_to": ".rgon_backup/wbc_quarantine/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.20261025_200219.corrupt"
     }
   ],
   "bypass_log": [
@@ -634,6 +642,15 @@
       "fingerprint": "3cf3c4ec29753bf7",
       "suppressed": true,
       "action": "default_value"
+    },
+    {
+      "timestamp_kst": "2026-10-25T20:02:19",
+      "context": "self_test_bypass",
+      "exc_type": "KeyError",
+      "message": "'simulated_missing_key'",
+      "fingerprint": "3cf3c4ec29753bf7",
+      "suppressed": true,
+      "action": "default_value"
     }
   ],
   "patrol_history": [
@@ -749,7 +766,7 @@
   "antibody_count": 27,
   "step20": {
     "name": "일일 자율 순환 루프",
-    "antibody": "R1~R40",
+    "antibody": "R1~R41",
     "heart": "rgon_daily_cycle.py",
     "workflow": ".github/workflows/rgon_daily_autonomous_cycle.yml",
     "schedule_kst": "07:00",
@@ -770,14 +787,14 @@
   "events": [
     {
       "step": 21,
-      "version": "v11.39-AON-NEURAL-SYNAPSE",
-      "antibody": "R1~R40",
+      "version": "v11.40-AON-ICHING-PLANNER",
+      "antibody": "R1~R41",
       "text": "@Mindung-EasyAI 양분 흡수 — Matt Pocock(GLOSSARY.md · Spec/Tracer-Bullet Tickets 분업) + ECC(AgentShield 비밀키/설정 보안 스캔)",
       "at": "2026-10-24 07:34:37"
     }
   ],
-  "skill_count": 36,
-  "skills_count": 36,
+  "skill_count": 37,
+  "skills_count": 37,
   "last_sync": "Step25 2026-10-24 09:19:38",
   "range": "R1~R35",
   "count": 31

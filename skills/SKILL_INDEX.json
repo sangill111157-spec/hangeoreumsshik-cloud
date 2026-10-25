@@ -1,8 +1,8 @@
 {
-  "version": "v11.39-AON-NEURAL-SYNAPSE",
-  "antibody": "R1~R40",
+  "version": "v11.40-AON-ICHING-PLANNER",
+  "antibody": "R1~R41",
   "generated_at_kst": "2026-10-25 16:01:26 KST",
-  "count": 36,
+  "count": 37,
   "skills": [
     {
       "slug": "1-36-45",
@@ -11,7 +11,8 @@
       "hexagram_tag": "#18-蠱",
       "source_url": "https://www.youtube.com/watch?v=KZhv8U90Nek",
       "origin": "radar",
-      "path": "skills/1-36-45/SKILL.md"
+      "path": "skills/1-36-45/SKILL.md",
+      "version": "v11.40-AON-ICHING-PLANNER"
     },
     {
       "slug": "10-5",
@@ -20,7 +21,8 @@
       "hexagram_tag": "#53-漸",
       "source_url": "https://www.youtube.com/shorts/sBawrl18I9g",
       "origin": "radar",
-      "path": "skills/10-5/SKILL.md"
+      "path": "skills/10-5/SKILL.md",
+      "version": "v11.40-AON-ICHING-PLANNER"
     },
     {
       "slug": "744b-ai-10",
@@ -29,7 +31,8 @@
       "hexagram_tag": "#09-小畜",
       "source_url": "https://www.youtube.com/shorts/XMBAMBzqt44",
       "origin": "radar",
-      "path": "skills/744b-ai-10/SKILL.md"
+      "path": "skills/744b-ai-10/SKILL.md",
+      "version": "v11.40-AON-ICHING-PLANNER"
     },
     {
       "slug": "ai-5",
@@ -38,7 +41,8 @@
       "hexagram_tag": "#11-泰",
       "source_url": "https://www.youtube.com/shorts/vN8DSorrz3A",
       "origin": "radar",
-      "path": "skills/ai-5/SKILL.md"
+      "path": "skills/ai-5/SKILL.md",
+      "version": "v11.40-AON-ICHING-PLANNER"
     },
     {
       "slug": "aon-desktop-playground-brat",
@@ -47,7 +51,8 @@
       "hexagram_tag": "",
       "source_url": "",
       "origin": "",
-      "path": "skills/aon-desktop-playground-brat/SKILL.md"
+      "path": "skills/aon-desktop-playground-brat/SKILL.md",
+      "version": "v11.40-AON-ICHING-PLANNER"
     },
     {
       "slug": "aon-iching-dao-oracle",
@@ -56,7 +61,8 @@
       "hexagram_tag": "",
       "source_url": "",
       "origin": "",
-      "path": "skills/aon-iching-dao-oracle/SKILL.md"
+      "path": "skills/aon-iching-dao-oracle/SKILL.md",
+      "version": "v11.40-AON-ICHING-PLANNER"
     },
     {
       "slug": "aon-laptop-hands-manual-gate",
@@ -65,7 +71,8 @@
       "hexagram_tag": "",
       "source_url": "",
       "origin": "",
-      "path": "skills/aon-laptop-hands-manual-gate/SKILL.md"
+      "path": "skills/aon-laptop-hands-manual-gate/SKILL.md",
+      "version": "v11.40-AON-ICHING-PLANNER"
     },
     {
       "slug": "aon-omni-dialogue-hub",
@@ -74,7 +81,8 @@
       "hexagram_tag": "",
       "source_url": "",
       "origin": "",
-      "path": "skills/aon-omni-dialogue-hub/SKILL.md"
+      "path": "skills/aon-omni-dialogue-hub/SKILL.md",
+      "version": "v11.40-AON-ICHING-PLANNER"
     },
     {
       "slug": "aon-omni-insight-eye",
@@ -83,7 +91,8 @@
       "hexagram_tag": "",
       "source_url": "",
       "origin": "",
-      "path": "skills/aon-omni-insight-eye/SKILL.md"
+      "path": "skills/aon-omni-insight-eye/SKILL.md",
+      "version": "v11.40-AON-ICHING-PLANNER"
     },
     {
       "slug": "aon-procedural-voice-synth",
@@ -92,7 +101,8 @@
       "hexagram_tag": "",
       "source_url": "",
       "origin": "",
-      "path": "skills/aon-procedural-voice-synth/SKILL.md"
+      "path": "skills/aon-procedural-voice-synth/SKILL.md",
+      "version": "v11.40-AON-ICHING-PLANNER"
     },
     {
       "slug": "aon-soul-empathy-brain",
@@ -101,7 +111,8 @@
       "hexagram_tag": "",
       "source_url": "",
       "origin": "",
-      "path": "skills/aon-soul-empathy-brain/SKILL.md"
+      "path": "skills/aon-soul-empathy-brain/SKILL.md",
+      "version": "v11.40-AON-ICHING-PLANNER"
     },
     {
       "slug": "autonomous-creator-forge",
@@ -110,7 +121,8 @@
       "hexagram_tag": "'#50-鼎'",
       "source_url": "",
       "origin": "",
-      "path": "skills/autonomous-creator-forge/SKILL.md"
+      "path": "skills/autonomous-creator-forge/SKILL.md",
+      "version": "v11.40-AON-ICHING-PLANNER"
     },
     {
       "slug": "character-detail-master-top1",
@@ -119,7 +131,8 @@
       "hexagram_tag": "#04-蒙",
       "source_url": "",
       "origin": "",
-      "path": "skills/character-detail-master-top1/SKILL.md"
+      "path": "skills/character-detail-master-top1/SKILL.md",
+      "version": "v11.40-AON-ICHING-PLANNER"
     },
     {
       "slug": "ecc-agentshield-harness",
@@ -128,7 +141,8 @@
       "hexagram_tag": "#36-明夷",
       "source_url": "https://github.com/affaan-m/everything-claude-code",
       "origin": "radar",
-      "path": "skills/ecc-agentshield-harness/SKILL.md"
+      "path": "skills/ecc-agentshield-harness/SKILL.md",
+      "version": "v11.40-AON-ICHING-PLANNER"
     },
     {
       "slug": "excretory-entropy-gc",
@@ -137,7 +151,8 @@
       "hexagram_tag": "#40-解",
       "source_url": "",
       "origin": "",
-      "path": "skills/excretory-entropy-gc/SKILL.md"
+      "path": "skills/excretory-entropy-gc/SKILL.md",
+      "version": "v11.40-AON-ICHING-PLANNER"
     },
     {
       "slug": "free-roaming-waterdrop-pet",
@@ -146,7 +161,8 @@
       "hexagram_tag": "",
       "source_url": "",
       "origin": "",
-      "path": "skills/free-roaming-waterdrop-pet/SKILL.md"
+      "path": "skills/free-roaming-waterdrop-pet/SKILL.md",
+      "version": "v11.40-AON-ICHING-PLANNER"
     },
     {
       "slug": "hexagram-64-wisdom",
@@ -155,7 +171,8 @@
       "hexagram_tag": "#01-乾",
       "source_url": "local://rgon_hexagram_engine.py",
       "origin": "core",
-      "path": "skills/hexagram-64-wisdom/SKILL.md"
+      "path": "skills/hexagram-64-wisdom/SKILL.md",
+      "version": "v11.40-AON-ICHING-PLANNER"
     },
     {
       "slug": "k-avatar-growth-soul",
@@ -164,7 +181,8 @@
       "hexagram_tag": "#04-蒙",
       "source_url": "",
       "origin": "",
-      "path": "skills/k-avatar-growth-soul/SKILL.md"
+      "path": "skills/k-avatar-growth-soul/SKILL.md",
+      "version": "v11.40-AON-ICHING-PLANNER"
     },
     {
       "slug": "markdown-purifier",
@@ -173,7 +191,8 @@
       "hexagram_tag": "#48-井",
       "source_url": "https://github.com/apify/crawlee",
       "origin": "core",
-      "path": "skills/markdown-purifier/SKILL.md"
+      "path": "skills/markdown-purifier/SKILL.md",
+      "version": "v11.40-AON-ICHING-PLANNER"
     },
     {
       "slug": "mattpocock-domain-glossary",
@@ -182,7 +201,8 @@
       "hexagram_tag": "#60-節",
       "source_url": "https://github.com/mattpocock/skills",
       "origin": "radar",
-      "path": "skills/mattpocock-domain-glossary/SKILL.md"
+      "path": "skills/mattpocock-domain-glossary/SKILL.md",
+      "version": "v11.40-AON-ICHING-PLANNER"
     },
     {
       "slug": "mattpocock-spec-tickets",
@@ -191,7 +211,8 @@
       "hexagram_tag": "#50-鼎",
       "source_url": "https://github.com/mattpocock/skills",
       "origin": "radar",
-      "path": "skills/mattpocock-spec-tickets/SKILL.md"
+      "path": "skills/mattpocock-spec-tickets/SKILL.md",
+      "version": "v11.40-AON-ICHING-PLANNER"
     },
     {
       "slug": "multi-agent-council",
@@ -200,7 +221,8 @@
       "hexagram_tag": "#13-同人",
       "source_url": "https://github.com/HKUDS/AI-Trader",
       "origin": "core",
-      "path": "skills/multi-agent-council/SKILL.md"
+      "path": "skills/multi-agent-council/SKILL.md",
+      "version": "v11.40-AON-ICHING-PLANNER"
     },
     {
       "slug": "muse-autonomous-delegator",
@@ -209,7 +231,8 @@
       "hexagram_tag": "",
       "source_url": "",
       "origin": "",
-      "path": "skills/muse-autonomous-delegator/SKILL.md"
+      "path": "skills/muse-autonomous-delegator/SKILL.md",
+      "version": "v11.40-AON-ICHING-PLANNER"
     },
     {
       "slug": "omni-skill-dispatcher",
@@ -218,7 +241,8 @@
       "hexagram_tag": "",
       "source_url": "",
       "origin": "",
-      "path": "skills/omni-skill-dispatcher/SKILL.md"
+      "path": "skills/omni-skill-dispatcher/SKILL.md",
+      "version": "v11.40-AON-ICHING-PLANNER"
     },
     {
       "slug": "rea-reverse-engineer-fusion",
@@ -227,7 +251,8 @@
       "hexagram_tag": "#64-未濟",
       "source_url": "https://github.com/morluto/rea",
       "origin": "radar",
-      "path": "skills/rea-reverse-engineer-fusion/SKILL.md"
+      "path": "skills/rea-reverse-engineer-fusion/SKILL.md",
+      "version": "v11.40-AON-ICHING-PLANNER"
     },
     {
       "slug": "self-evolving-gene-ratchet",
@@ -236,7 +261,8 @@
       "hexagram_tag": "#49-革",
       "source_url": "",
       "origin": "",
-      "path": "skills/self-evolving-gene-ratchet/SKILL.md"
+      "path": "skills/self-evolving-gene-ratchet/SKILL.md",
+      "version": "v11.40-AON-ICHING-PLANNER"
     },
     {
       "slug": "skill-68768f44",
@@ -245,7 +271,8 @@
       "hexagram_tag": "#63-既濟",
       "source_url": "https://www.youtube.com/shorts/aVKugNP2wDU",
       "origin": "radar",
-      "path": "skills/skill-68768f44/SKILL.md"
+      "path": "skills/skill-68768f44/SKILL.md",
+      "version": "v11.40-AON-ICHING-PLANNER"
     },
     {
       "slug": "skill-b25226d4",
@@ -254,7 +281,8 @@
       "hexagram_tag": "#26-大畜",
       "source_url": "https://www.youtube.com/shorts/3aJmzVIxkqk",
       "origin": "radar",
-      "path": "skills/skill-b25226d4/SKILL.md"
+      "path": "skills/skill-b25226d4/SKILL.md",
+      "version": "v11.40-AON-ICHING-PLANNER"
     },
     {
       "slug": "skill-c5c55e6f",
@@ -263,7 +291,8 @@
       "hexagram_tag": "#59-渙",
       "source_url": "https://www.youtube.com/shorts/StXGGNlNLOk",
       "origin": "radar",
-      "path": "skills/skill-c5c55e6f/SKILL.md"
+      "path": "skills/skill-c5c55e6f/SKILL.md",
+      "version": "v11.40-AON-ICHING-PLANNER"
     },
     {
       "slug": "skill-d33be764",
@@ -272,7 +301,8 @@
       "hexagram_tag": "#49-革",
       "source_url": "https://www.youtube.com/shorts/LjYOeBIwUsU",
       "origin": "radar",
-      "path": "skills/skill-d33be764/SKILL.md"
+      "path": "skills/skill-d33be764/SKILL.md",
+      "version": "v11.40-AON-ICHING-PLANNER"
     },
     {
       "slug": "skill-f7938cb8",
@@ -281,7 +311,8 @@
       "hexagram_tag": "#57-巽",
       "source_url": "https://www.youtube.com/shorts/UtVFSMGKh28",
       "origin": "radar",
-      "path": "skills/skill-f7938cb8/SKILL.md"
+      "path": "skills/skill-f7938cb8/SKILL.md",
+      "version": "v11.40-AON-ICHING-PLANNER"
     },
     {
       "slug": "stomper-kill-list-gate",
@@ -290,7 +321,8 @@
       "hexagram_tag": "'#21-噬嗑'",
       "source_url": "",
       "origin": "",
-      "path": "skills/stomper-kill-list-gate/SKILL.md"
+      "path": "skills/stomper-kill-list-gate/SKILL.md",
+      "version": "v11.40-AON-ICHING-PLANNER"
     },
     {
       "slug": "trinity-trading-council",
@@ -299,7 +331,8 @@
       "hexagram_tag": "",
       "source_url": "",
       "origin": "",
-      "path": "skills/trinity-trading-council/SKILL.md"
+      "path": "skills/trinity-trading-council/SKILL.md",
+      "version": "v11.40-AON-ICHING-PLANNER"
     },
     {
       "slug": "wbc-self-healing",
@@ -308,7 +341,8 @@
       "hexagram_tag": "#24-復",
       "source_url": "local://rgon_white_blood_cell.py",
       "origin": "core",
-      "path": "skills/wbc-self-healing/SKILL.md"
+      "path": "skills/wbc-self-healing/SKILL.md",
+      "version": "v11.40-AON-ICHING-PLANNER"
     },
     {
       "slug": "youtube-trend-scout",
@@ -317,7 +351,8 @@
       "hexagram_tag": "#20-觀",
       "source_url": "local://rgon_youtube_skill_scout.py",
       "origin": "core",
-      "path": "skills/youtube-trend-scout/SKILL.md"
+      "path": "skills/youtube-trend-scout/SKILL.md",
+      "version": "v11.40-AON-ICHING-PLANNER"
     },
     {
       "slug": "aon-neural-synapse-verifier",
@@ -326,14 +361,29 @@
       "hexagram_tag": "",
       "source_url": "",
       "origin": "",
-      "path": "skills/aon-neural-synapse-verifier/SKILL.md"
+      "path": "skills/aon-neural-synapse-verifier/SKILL.md",
+      "version": "v11.40-AON-ICHING-PLANNER"
+    },
+    {
+      "id": "aon-iching-strategic-planner",
+      "slug": "aon-iching-strategic-planner",
+      "name": "aon-iching-strategic-planner",
+      "skill": "aon-iching-strategic-planner",
+      "no": 37,
+      "number": 37,
+      "title": "제17기관 아온 주역 64괘 시운 전략 기획관 (WOOP·OODA·12시진·3분기 트리)",
+      "description": "주역 64괘(본괘·호괘·변괘·착괘·종괘)와 체용 생극·왕상휴수사를 WOOP·OODA·Stop Rule로 매핑하여 감사 가능한 reasoning_chain, 전략 추진 지수(0~100, 신뢰도 상한 85%), 3분기 MCTS 시나리오 트리, 3-Tier 실행 과제(Tier3 수동결재 게이트), 12시진 타임슬롯 스케줄을 생성하는 사령부 전략 기획관",
+      "path": "skills/aon-iching-strategic-planner/SKILL.md",
+      "organ": "제17기관",
+      "antibody": "R41",
+      "version": "v11.40-AON-ICHING-PLANNER"
     }
   ],
-  "antibodies": "R1~R40",
-  "antibody_range": "R1~R40",
-  "immune": "R1~R40",
-  "total": 36,
-  "skill_count": 36,
-  "total_skills": 36,
-  "updated": "2026-10-25T17:51:49"
+  "antibodies": "R1~R41",
+  "antibody_range": "R1~R41",
+  "immune": "R1~R41",
+  "total": 37,
+  "skill_count": 37,
+  "total_skills": 37,
+  "updated": "2026-10-25T20:02:23"
 }

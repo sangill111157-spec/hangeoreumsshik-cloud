@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """rgon_neural_synapse_verifier.py — 제16기관 아온 전신 신경망 시냅스 병렬 정밀 검증기
-v11.39-AON-NEURAL-SYNAPSE · 항체 R1~R40 · 정식 스킬 #36 aon-neural-synapse-verifier
+v11.40-AON-ICHING-PLANNER · 항체 R1~R41 · 정식 스킬 #36 aon-neural-synapse-verifier
 순수 표준 라이브러리 전용. CLI: --self-test | --audit | --status
 """
 import os, sys, re, json, time, ast, tempfile, subprocess, importlib, argparse, datetime, warnings
@@ -19,9 +19,9 @@ for _s in ("stdout", "stderr"):
 os.environ["PYTHONWARNINGS"] = "ignore::SyntaxWarning"
 warnings.filterwarnings("ignore", category=SyntaxWarning)
 
-VERSION = "v11.39-AON-NEURAL-SYNAPSE"
-ANTIBODY_RANGE = "R1~R40"
-EXPECTED_SKILL_COUNT = 36
+VERSION = "v11.40-AON-ICHING-PLANNER"
+ANTIBODY_RANGE = "R1~R41"
+EXPECTED_SKILL_COUNT = 37
 SKILL_ID = "aon-neural-synapse-verifier"
 ROOT = Path(__file__).resolve().parent
 TIME_BUDGET_SEC = 2.0
@@ -348,6 +348,78 @@ def status():
             return 0
     print(json.dumps({"version": VERSION, "status": "no_map"}, ensure_ascii=False))
     return 0
+
+
+# >>> RGON R41 VERIFIER EXT BEGIN >>>
+VERSION = "v11.40-AON-ICHING-PLANNER"
+ANTIBODY_RANGE = "R1~R41"
+EXPECTED_SKILL_COUNT = 37
+STATUS_LINE = "%s · 항체 %s · 정식 스킬 %d개" % (VERSION, ANTIBODY_RANGE, EXPECTED_SKILL_COUNT)
+try:
+    if "rgon_aon_iching_planner.py" not in ORGANS:
+        ORGANS.append("rgon_aon_iching_planner.py")
+except NameError:
+    ORGANS = ["rgon_aon_iching_planner.py"]
+
+
+def _r41_s11_check():
+    import os as _o, tempfile as _t, importlib as _il, time as _tm
+    _t0 = _tm.perf_counter()
+    _tmp = _t.mkdtemp(prefix="rgon_s11_")
+    _prev = _o.environ.get("RGON_ICHING_STATE_DIR")
+    _o.environ["RGON_ICHING_STATE_DIR"] = _tmp
+    try:
+        dlg = _il.import_module("rgon_aon_dialogue_engine")
+        fn = getattr(dlg, "route", None) or getattr(dlg, "r40_route", None)
+        r = fn("/계획 반도체 투자와 유튜브 성장 전략")
+        ok = (isinstance(r, dict) and r.get("ok") is True and bool(r.get("bengua_name"))
+              and bool(r.get("three_branch_tree")) and bool(r.get("action_items")))
+        ev = "%s -> %s (score=%s)" % (r.get("bengua_name"), r.get("biangua_name"), r.get("strategy_score")) if isinstance(r, dict) else str(r)[:80]
+        return {"id": "S11", "name": "대화허브(/계획)→주역전략기획관", "ok": bool(ok),
+                "sec": round(_tm.perf_counter() - _t0, 3), "evidence": ev, "detail": ev}
+    except Exception as e:
+        return {"id": "S11", "name": "대화허브(/계획)→주역전략기획관", "ok": False,
+                "sec": round(_tm.perf_counter() - _t0, 3), "evidence": repr(e), "detail": repr(e)}
+    finally:
+        if _prev is None:
+            _o.environ.pop("RGON_ICHING_STATE_DIR", None)
+        else:
+            _o.environ["RGON_ICHING_STATE_DIR"] = _prev
+
+
+_r41_orig_vsl = globals().get("verify_synapse_links")
+if callable(_r41_orig_vsl) and not getattr(_r41_orig_vsl, "_r41", False):
+    def verify_synapse_links(*args, **kwargs):
+        res = _r41_orig_vsl(*args, **kwargs)
+        s11 = _r41_s11_check()
+        try:
+            if isinstance(res, list):
+                res = [x for x in res if not (isinstance(x, dict) and x.get("id") == "S11")] + [s11]
+            elif isinstance(res, dict):
+                lst = None
+                for k in ("links", "synapses", "results", "checks"):
+                    if isinstance(res.get(k), list):
+                        lst = k
+                        break
+                if lst:
+                    res[lst] = [x for x in res[lst] if not (isinstance(x, dict) and x.get("id") == "S11")] + [s11]
+                    items = res[lst]
+                    passed = sum(1 for x in items if isinstance(x, dict) and x.get("ok"))
+                    for pk in ("passed", "pass_count"):
+                        if pk in res:
+                            res[pk] = passed
+                    for tk in ("total", "total_count"):
+                        if tk in res:
+                            res[tk] = len(items)
+                    if "ok" in res:
+                        res["ok"] = passed == len(items)
+                else:
+                    res["S11"] = s11
+        except Exception:
+            pass
+        return res
+    verify_synapse_links._r41 = True
+# <<< RGON R41 VERIFIER EXT END <<<
 
 
 if __name__ == "__main__":
