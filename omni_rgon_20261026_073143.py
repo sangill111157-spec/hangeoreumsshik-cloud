@@ -11,8 +11,8 @@ sys.dont_write_bytecode = True
 ROOT = os.path.dirname(os.path.abspath(__file__))
 def P(*a): return os.path.join(ROOT, *a)
 BT3 = chr(96) * 3
-OLD_V, NEW_V = "v11.43-AON-LIVE-UI-HEALER", "v11.43-AON-LIVE-UI-HEALER"
-OLD_AB, NEW_AB = "R1~R44", "R1~R44"
+OLD_V, NEW_V = "v11.42-AON-OMNI-NEXUS", "v11.43-AON-LIVE-UI-HEALER"
+OLD_AB, NEW_AB = "R1~R43", "R1~R44"
 OLD_N, NEW_N = 39, 40
 SLUG = "aon-live-ui-self-healer"
 ORGAN, VERIFIER, DIALOGUE = "rgon_aon_live_ui_healer.py", "rgon_neural_synapse_verifier.py", "rgon_aon_dialogue_engine.py"
@@ -590,8 +590,8 @@ def apply_outside(text, sp, fn):
     out.append(fn(text[i:])); return "".join(out)
 
 def bump_str(t):
-    t = t.replace(OLD_V, NEW_V).replace(OLD_AB, NEW_AB).replace("R1-R44", "R1-R44")
-    t = t.replace("**40개**", "**40개**")
+    t = t.replace(OLD_V, NEW_V).replace(OLD_AB, NEW_AB).replace("R1-R43", "R1-R44")
+    t = t.replace("**39개**", "**40개**")
     t = re.sub(r"(skillCount[\"']?\s*[:=]\s*)39\b", r"\g<1>40", t)
     t = re.sub(r"(EXPECTED_SKILL_COUNT\s*=\s*)39\b", r"\g<1>40", t)
     t = re.sub(r"(\"count\"\s*:\s*)39\b", r"\g<1>40", t)
@@ -778,6 +778,13 @@ def do_git(ctx, no_push):
         raise RuntimeError("git commit 실패: " + (r.stderr or r.stdout)[:200])
     ctx["committed"] = True
     if no_push: return "커밋 완료 (push 생략)"
+    # [RGON-R44-GUARD] push 직전 origin/main 최신 커밋 선제 병합으로 fetch first 거절 방지
+    try:
+        r_rebase = git("pull", "--rebase", "origin", "main", timeout=120)
+        if r_rebase.returncode:
+            git("pull", "--no-rebase", "origin", "main", timeout=120)
+    except Exception:
+        pass
     r = git("push", timeout=180)
     if r.returncode and "no upstream" in r.stderr.lower(): r = git("push", "-u", "origin", "HEAD", timeout=180)
     if r.returncode: raise RuntimeError("git push 실패: " + r.stderr[:200])

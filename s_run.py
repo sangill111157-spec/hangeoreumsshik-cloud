@@ -778,6 +778,13 @@ def do_git(ctx, no_push):
         raise RuntimeError("git commit 실패: " + (r.stderr or r.stdout)[:200])
     ctx["committed"] = True
     if no_push: return "커밋 완료 (push 생략)"
+    # [RGON-R44-GUARD] push 직전 origin/main 최신 커밋 선제 병합으로 fetch first 거절 방지
+    try:
+        r_rebase = git("pull", "--rebase", "origin", "main", timeout=120)
+        if r_rebase.returncode:
+            git("pull", "--no-rebase", "origin", "main", timeout=120)
+    except Exception:
+        pass
     r = git("push", timeout=180)
     if r.returncode and "no upstream" in r.stderr.lower(): r = git("push", "-u", "origin", "HEAD", timeout=180)
     if r.returncode: raise RuntimeError("git push 실패: " + r.stderr[:200])
