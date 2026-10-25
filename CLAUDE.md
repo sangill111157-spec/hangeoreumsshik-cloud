@@ -1,13 +1,13 @@
 <!-- [RGON-CLAUDE-MD-V17-START] -->
 
 <!-- [RGON-STATUS-V25-START] -->
-> **현재 버전**: `v11.26-CREATOR-FORGE` · 항체 `R1~R27` · 정식 스킬 **20개** (20번째: `omni-skill-dispatcher` · #14-大有 · omni-dispatch)
+> **현재 버전**: `v11.42-AON-OMNI-NEXUS` · 항체 `R1~R43` · 정식 스킬 **20개** (20번째: `omni-skill-dispatcher` · #14-大有 · omni-dispatch)
 > **R25: 연결·소통·만능 원터치 스킬 디스패처 — 보유 스킬·트렌드·3자 심판 결과를 독대실 질문창에 무간섭 단발 장전**
 - R26: 자가진화 유전자(Gene·Capsule) & 라쳇(Ratchet) 기여도 거버넌스 상시 가동 — 경험은 전략 유전자로 압축하고 검증 없는 진화(Library Drift)는 원천 차단
 <!-- [RGON-STATUS-V25-END] -->
 # 🜂 RGON AI 코딩 헌법 V17 (v6.3.0-step17)
 
-> V16 이하 기존 조항(R1~R27 등)은 모두 계승되어 유효하다. 충돌 시 본 V17 조항이 우선한다.
+> V16 이하 기존 조항(R1~R43 등)은 모두 계승되어 유효하다. 충돌 시 본 V17 조항이 우선한다.
 > 영혼의 원문: RGON_PHILOSOPHY.md · 오늘의 괘: rgon_today_hexagram.json
 
 ## [제0조: 창립자 이상일 대표의 만물일체·한걸음씩 선언]
@@ -54,7 +54,7 @@
 
 > 적용 대상: Claude · Gemini 4 Argon · GPT · Grok 등 **이 프로젝트에서 코드를 쓰는 모든 AI**
 > 코드를 쓰기 전에 반드시 이 문서를 먼저 읽는다. (Claude Code는 프로젝트 루트의 CLAUDE.md를 자동으로 읽는다)
-> 갱신: 2026-10-23 22:29:07 KST · 버전 v6.2.0-step16 · 항체 R1~R27 (15종)
+> 갱신: 2026-10-23 22:29:07 KST · 버전 v6.2.0-step16 · 항체 R1~R43 (15종)
 
 ## 0. 세션 시작 3단계
 1. **`CODE_MAP.md`** 로 전체 구조와 패치 마커 위치를 파악한다. (전체 파일을 다 읽지 말 것)
@@ -141,7 +141,7 @@ setTimeout(placeOnce,300); setTimeout(placeOnce,900);   // 총 3회 단발, Obse
 <!-- [RGON-CLAUDE-MD-V16-END] -->
 
 <!-- [RGON-STEP18-WBC-START] -->
-## R18. 백혈구(WBC) 자가치유 면역 엔진 (v11.26-CREATOR-FORGE · 항체 R1~R27)
+## R18. 백혈구(WBC) 자가치유 면역 엔진 (v11.42-AON-OMNI-NEXUS · 항체 R1~R43)
 
 - **엔진 본체**: `rgon_white_blood_cell.py` / **면역 원장**: `rgon_immune_ledger.json`
 - **핵심 역할**: 오류 지문 채취(Fingerprint) · AST/JSON 무결성 순찰 · 자동 백업 복원(Rollback) · 상선약수(上善若水) 우회 실행(Bypass) · 주역 64괘 연동 · 동일 오류 3회 반복 시 중복 경보 차단(Anti-Repeat Suppression)
@@ -152,10 +152,10 @@ setTimeout(placeOnce,300); setTimeout(placeOnce,900);   // 총 3회 단발, Obse
 <!-- [RGON-STEP18-WBC-END] -->
 
 <!-- RGON:STEP19-CLAUDE:BEGIN -->
-## 🧬 Step 19 — v11.25-SELF-EVOLVE (항체 R1~R26)
+## 🧬 Step 19 — v11.42-AON-OMNI-NEXUS (항체 R1~R43)
 
-- 현재 버전: v11.26-CREATOR-FORGE (직전 단계: v11.26-CREATOR-FORGE)
-- 항체 범위: R1~R27
+- 현재 버전: v11.42-AON-OMNI-NEXUS (직전 단계: v11.42-AON-OMNI-NEXUS)
+- 항체 범위: R1~R43
 - R19: Top 100 영양분 3스푼(Markdown 정제기 · 표준 SKILL.md 자동 주조기 · 3자 찬반 심판기) 통합 및 지식 자가 증식
 - 신규 모듈: rgon_nutrient_engine.py (MarkdownPurifier · SkillAutoForge · TrinityCouncil)
 - 명령: python rgon_nutrient_engine.py --digest / --status / --self-test
@@ -165,8 +165,8 @@ setTimeout(placeOnce,300); setTimeout(placeOnce,900);   // 총 3회 단발, Obse
 <!-- RGON:STEP19-CLAUDE:END -->
 
 <!-- RGON-STEP20-START -->
-## [Step 20] v11.25-SELF-EVOLVE — 일일 자율 순환 루프 (R20)
-- 버전: v11.26-CREATOR-FORGE / 항체 범위: R1~R27
+## [Step 20] v11.42-AON-OMNI-NEXUS — 일일 자율 순환 루프 (R20)
+- 버전: v11.42-AON-OMNI-NEXUS / 항체 범위: R1~R43
 - R20: 일일 자율 순환 루프(백혈구 순찰 → 영양분 소화·스킬 주조 → 3자 심판 → 주역 64괘 아침 브리핑) 무인 자동화
 - 심장: rgon_daily_cycle.py (--run / --status / --self-test)
 - 4단계: 백혈구 순찰 → 영양분 3스푼 소화·SKILL.md 주조·TrinityCouncil 심의 → 주역 64괘 → MORNING_BRIEF.md / rgon_morning_brief.json
@@ -175,21 +175,21 @@ setTimeout(placeOnce,300); setTimeout(placeOnce,900);   // 총 3회 단발, Obse
 <!-- RGON-STEP20-END -->
 
 <!-- RGON:STEP21:START -->
-## Step 21 · v11.25-SELF-EVOLVE
-- 항체 범위: **R1~R27**
+## Step 21 · v11.42-AON-OMNI-NEXUS
+- 항체 범위: **R1~R43**
 - R21: @Mindung-EasyAI 양분 흡수 — Matt Pocock(GLOSSARY.md · Spec/Tracer-Bullet Tickets 분업) + ECC(AgentShield 비밀키/설정 보안 스캔)
 - 커밋 전 `python rgon_spec_ticket_Shield.py --run` (AgentShield) 필수
 - 작업 분해는 GLOSSARY.md 용어 + TICKETS_BOARD.md Frontier 우선
 <!-- RGON:STEP21:END -->
 
 <!-- STEP24 -->
-## 🐉 현재 버전: v11.26-CREATOR-FORGE · 항체 R1~R27
+## 🐉 현재 버전: v11.42-AON-OMNI-NEXUS · 항체 R1~R43
 - R24: 실전 트레이딩 3자 찬반 심판기(Bull/Bear/Judge) & 주역 64괘 리스크 필터 상시 가동 — 금고 보존(지족불욕·사환예방) 최우선 검증
 - 실전 트레이딩 판단 전 반드시 `rgon_trading_council.py --run` 결과를 확인한다(금고 DEFEND면 신규 진입 금지).
 <!-- /STEP24 -->
 
 <!-- STEP27:BEGIN -->
-## Step 27 · v11.26-CREATOR-FORGE · 항체 R1~R27 · 정식 스킬 23개 (사람의 4대 생명 단계: 오감 100% + 창조 100%)
+## Step 27 · v11.42-AON-OMNI-NEXUS · 항체 R1~R43 · 정식 스킬 23개 (사람의 4대 생명 단계: 오감 100% + 창조 100%)
 - R27: 오감(Live Omni-Sense & Stomper 킬리스트) + 창조 공방(SkillForge·Voyager 도구 자율 합성 & 격리 검증) 상시 가동 — 검증 통과(exit_code=0)한 도구만 정식 승격(혁고정신 革故鼎新)
 - 엔진: rgon_omni_creator_forge.py (LiveOmniSense·StomperKillGate #21-噬嗑 / TieredMemoryPromoter / AutonomousCreatorForge #50-鼎)
 - 창조 도구: custom_tools/stomper_signal_filter.py · kelly_hexagram_sizer.py · skill_synergy_composer.py (Surrogate Verifier 3단계 통과분만 승격)
@@ -198,20 +198,20 @@ setTimeout(placeOnce,300); setTimeout(placeOnce,900);   // 총 3회 단발, Obse
 
 <!-- [RGON-STEP28-K-AVATAR-START] -->
 ## 🧬 현재 상태 (Step 28 — 아온 A-ON·芽溫)
-- 버전 **v11.27-K-AVATAR** · 항체 **R1~R28** · 정식 스킬 **24개**
+- 버전 **v11.42-AON-OMNI-NEXUS** · 항체 **R1~R43** · 정식 스킬 **24개**
 - R28: 미래형 K-스타일 성장형 디지털 육신 아온(A-ON·芽溫, 산수몽 #04·풍산점 #53·지천태 #11) — 순수 CSS 애니메이션으로 루프 없이 생동감을 구현하고 시스템 진화에 맞춰 4단계로 점진 성장
 - 엔진: rgon_k_avatar_engine.py (--run/--merge/--self-test/--ensure-index/--json)
 <!-- [RGON-STEP28-K-AVATAR-END] -->
 
 <!-- [RGON-STEP29-AON-3DDROP-START] -->
 ## 💧 현재 상태 (Step 29 — 3D 물방울 졸라맨 아온 A-ON)
-- 버전 **v11.29-ROAMING-AON** · 항체 **R1~R30** · 정식 스킬 **25개**
+- 버전 **v11.42-AON-OMNI-NEXUS** · 항체 **R1~R43** · 정식 스킬 **25개**
 - R29: 캐릭터 디테일 TOP 1 스킬 마스터 & 아온(A-ON·芽溫) 3D 물방울 졸라맨 육신 — 디즈니 7대 모션 법칙(스쿼시&스트레치·시차·팔로스루) + 8-Stop 3D Liquid-Glass/Claymorphism 입체 필터 + 관절형 졸라맨 팔다리 통합
 - 엔진: rgon_k_avatar_engine.py (--run/--merge/--self-test/--ensure-index/--json)
 <!-- [RGON-STEP29-AON-3DDROP-END] -->
 
 <!-- [RGON-STEP31-EXCRETORY-START] -->
 ## 🧹 현재 상태 (Step 31 — 배설기관 정화 완료)
-- 버전 **v11.30-EXCRETORY-CLEAN** · 항체 **R1~R31** · 정식 스킬 **27개**
+- 버전 **v11.42-AON-OMNI-NEXUS** · 항체 **R1~R43** · 정식 스킬 **27개**
 - R31: 배설기관(신장·대장·뇌척수액 정화, 주역 #18 산풍고·#40 뇌수해) — ECC config-gc + reclaim-code-entropy + autoDream 기반으로 캐시·구백업·중복 마커·컨텍스트 찌꺼기를 안전 배출하여 엔트로피 0% 유지
 <!-- [RGON-STEP31-EXCRETORY-END] -->

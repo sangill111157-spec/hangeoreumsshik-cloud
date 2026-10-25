@@ -1,8 +1,8 @@
 {
   "schema": "rgon_brain_snapshot/1",
   "version": "v11.42-AON-OMNI-NEXUS",
-  "generated_at_kst": "2026-10-24 12:31:38 KST",
-  "synced_at_kst": "2026-10-24 12:31:38 KST",
+  "generated_at_kst": "2026-10-26 00:23:47 KST",
+  "synced_at_kst": "2026-10-26 00:23:47 KST",
   "sync_rate": "100.0%",
   "score": 100,
   "max_score": 100,
@@ -1023,25 +1023,25 @@
     },
     "channel": "@Mindung-EasyAI"
   },
-  "skill_count": 37,
+  "skill_count": 39,
   "health_score": 100,
   "vascular_circulation": {
     "version": "v11.42-AON-OMNI-NEXUS",
     "antibody_range": "R1~R43",
     "antibody_R22": "자아성찰 전신 혈관 개통 — 레이더·영양분(SKILL.md)·티켓/AgentShield·백혈구(WBC)·주역64괘·스냅샷/클라우드 JSON 6대 기관 무결점 단일 순환",
-    "cycle_at_kst": "2026-10-24 12:31:38 KST",
+    "cycle_at_kst": "2026-10-26 00:23:47 KST",
     "organs": {
       "1_radar": true,
       "2_nutrient": true,
       "3_ticket_shield": true,
-      "4_wbc": false,
+      "4_wbc": true,
       "5_iching": true,
       "6_pulse_snapshot": true
     },
-    "skill_count": 37,
+    "skill_count": 39,
     "health_score": 100,
     "radar_items": 13,
-    "tickets_S22_01": "done",
+    "tickets_S22_01": "open",
     "iching": {
       "name": "중천건(重天乾)",
       "meaning": "자강불식(自強不息) — 스스로 강건히 쉬지 않고 정진한다",
@@ -1049,8 +1049,11 @@
       "source": "rgon_daily_cycle"
     },
     "docs_synced": [
+      "skills/README.md",
       "GLOSSARY.md",
+      "CLAUDE.md",
       "RGON_PHILOSOPHY.md",
+      "CODE_MAP.md",
       "RGON_EVOLUTION_LOG.md",
       "skills/SKILL_INDEX.json",
       "rgon_immune_ledger.json"
@@ -1061,12 +1064,12 @@
         "antibody_range": "R1~R43"
       },
       "rgon_nutrient_engine.py": {
-        "version": "v11.42-AON-OMNI-NEXUS",
-        "antibody_range": "R1~R43"
+        "version": "v11.26-CREATOR-FORGE",
+        "antibody_range": "R1~R27"
       },
       "rgon_spec_ticket_Shield.py": {
-        "version": "v11.42-AON-OMNI-NEXUS",
-        "antibody_range": "R1~R43"
+        "version": "v11.26-CREATOR-FORGE",
+        "antibody_range": "R1~R27"
       },
       "rgon_daily_cycle.py": {
         "version": "v11.42-AON-OMNI-NEXUS",

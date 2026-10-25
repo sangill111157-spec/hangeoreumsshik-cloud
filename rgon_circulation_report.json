@@ -1,6 +1,6 @@
 {
-  "at_kst": "2026-10-24 12:31:38 KST",
-  "version": "v11.25-SELF-EVOLVE",
+  "at_kst": "2026-10-26 00:23:47 KST",
+  "version": "v11.42-AON-OMNI-NEXUS",
   "organs": {
     "1_radar": {
       "ok": true,
@@ -11,7 +11,7 @@
     "2_nutrient": {
       "ok": true,
       "rc": 0,
-      "skill_count": 21,
+      "skill_count": 39,
       "report": true
     },
     "3_ticket_shield": {
@@ -19,7 +19,7 @@
       "ok": true,
       "auto_verify": {
         "promoted": [],
-        "S22-01": "done",
+        "S22-01": "open",
         "checks": {
           "S21-01": true,
           "S21-02": true,
@@ -31,8 +31,8 @@
       }
     },
     "4_wbc": {
-      "ok": false,
-      "rc": 1,
+      "ok": true,
+      "rc": 0,
       "health_score": 100
     },
     "5_iching": {
@@ -47,5 +47,5 @@
       "ok": true
     }
   },
-  "all_ok": false
+  "all_ok": true
 }
