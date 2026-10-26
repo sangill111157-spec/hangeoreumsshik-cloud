@@ -1,7 +1,7 @@
 ---
 name: aon-cinematic-dispatch-council
 description: 아온 0.7ms 초광속 결정론적 쇼트컷 & 9인 원탁 국무회의 시네마틱 디스패치 (제21기관, R45) — aurelio-labs/semantic-router · connect-ai · AutoGen 흡수, 주역 #55 뇌화풍 & #45 택지취
-version: v11.45-AON-AUTO-EVOLVER
+version: v11.46-AON-ZEROCLICK-STUDIO
 antibody: R45
 ---
 

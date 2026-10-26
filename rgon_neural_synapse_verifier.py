@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """rgon_neural_synapse_verifier.py — 제16기관 아온 전신 신경망 시냅스 병렬 정밀 검증기
-v11.45-AON-AUTO-EVOLVER · 항체 R1~R46 · 정식 스킬 #36 aon-neural-synapse-verifier
+v11.46-AON-ZEROCLICK-STUDIO · 항체 R1~R47 · 정식 스킬 #36 aon-neural-synapse-verifier
 순수 표준 라이브러리 전용. CLI: --self-test | --audit | --status
 """
 import os, sys, re, json, time, ast, tempfile, subprocess, importlib, argparse, datetime, warnings
@@ -19,9 +19,9 @@ for _s in ("stdout", "stderr"):
 os.environ["PYTHONWARNINGS"] = "ignore::SyntaxWarning"
 warnings.filterwarnings("ignore", category=SyntaxWarning)
 
-VERSION = "v11.45-AON-AUTO-EVOLVER"
-ANTIBODY_RANGE = "R1~R46"
-EXPECTED_SKILL_COUNT = 42
+VERSION = "v11.46-AON-ZEROCLICK-STUDIO"
+ANTIBODY_RANGE = "R1~R47"
+EXPECTED_SKILL_COUNT = 43
 SKILL_ID = "aon-neural-synapse-verifier"
 ROOT = Path(__file__).resolve().parent
 TIME_BUDGET_SEC = 2.0
@@ -351,9 +351,9 @@ def status():
 
 
 # >>> RGON R41 VERIFIER EXT BEGIN >>>
-VERSION = "v11.45-AON-AUTO-EVOLVER"
-ANTIBODY_RANGE = "R1~R46"
-EXPECTED_SKILL_COUNT = 42
+VERSION = "v11.46-AON-ZEROCLICK-STUDIO"
+ANTIBODY_RANGE = "R1~R47"
+EXPECTED_SKILL_COUNT = 43
 STATUS_LINE = "%s · 항체 %s · 정식 스킬 %d개" % (VERSION, ANTIBODY_RANGE, EXPECTED_SKILL_COUNT)
 try:
     if "rgon_aon_iching_planner.py" not in ORGANS:
@@ -423,9 +423,9 @@ if callable(_r41_orig_vsl) and not getattr(_r41_orig_vsl, "_r41", False):
 
 
 # >>> [RGON-R42-VERIFIER-EXT-START] >>>
-VERSION = "v11.45-AON-AUTO-EVOLVER"
-ANTIBODY_RANGE = "R1~R46"
-EXPECTED_SKILL_COUNT = 42
+VERSION = "v11.46-AON-ZEROCLICK-STUDIO"
+ANTIBODY_RANGE = "R1~R47"
+EXPECTED_SKILL_COUNT = 43
 STATUS_LINE = "%s · 항체 %s · 정식 스킬 %d개" % (VERSION, ANTIBODY_RANGE, EXPECTED_SKILL_COUNT)
 R42_HYDRO_ORGAN = "rgon_aon_hydro_cycle.py"
 R42_HYDRO_SNAPSHOTS = ["rgon_aon_hydro_state.json", "docs/rgon_aon_hydro_state.json"]
@@ -585,9 +585,9 @@ if callable(_r42_orig_heal) and not getattr(_r42_orig_heal, "_r42", False):
 
 
 # >>> [RGON-R43-VERIFIER-EXT-START] >>>
-VERSION = "v11.45-AON-AUTO-EVOLVER"
-ANTIBODY_RANGE = "R1~R46"
-EXPECTED_SKILL_COUNT = 42
+VERSION = "v11.46-AON-ZEROCLICK-STUDIO"
+ANTIBODY_RANGE = "R1~R47"
+EXPECTED_SKILL_COUNT = 43
 STATUS_LINE = "%s · 항체 %s · 정식 스킬 %d개" % (VERSION, ANTIBODY_RANGE, EXPECTED_SKILL_COUNT)
 R43_NEXUS_ORGAN = "rgon_aon_omni_nexus.py"
 R43_NEXUS_SNAPSHOTS = ["rgon_aon_nexus_state.json", "docs/rgon_aon_nexus_state.json"]
@@ -746,9 +746,9 @@ if callable(_r43_orig_heal) and not getattr(_r43_orig_heal, "_r43", False):
 
 # >>> RGON R44 LIVE UI HEALER VERIFIER EXT START
 import os as _r44os, sys as _r44sys, json as _r44json, subprocess as _r44sp, tempfile as _r44tmp, importlib as _r44il, threading as _r44th, shutil as _r44sh
-VERSION = "v11.45-AON-AUTO-EVOLVER"
-ANTIBODY_RANGE = "R1~R46"
-EXPECTED_SKILL_COUNT = 42
+VERSION = "v11.46-AON-ZEROCLICK-STUDIO"
+ANTIBODY_RANGE = "R1~R47"
+EXPECTED_SKILL_COUNT = 43
 STATUS_LINE = "%s · 항체 %s · 정식 스킬 %d개" % (VERSION, ANTIBODY_RANGE, EXPECTED_SKILL_COUNT)
 R44_ORGAN_NODE = {"id": "N16", "file": "rgon_aon_live_ui_healer.py", "organ_no": 20}
 R44_SYNAPSE = {"id": "S14", "desc": "대화허브 /버튼검증 -> 제20기관 실전 UI 전수 클릭·동작 검증 -> 4개 페이지 전수 시리얼 & 화뢰서합·택화혁 괘상 & 점수 & 격리 검증"}
@@ -834,9 +834,9 @@ for _n in ("run_full", "run_all", "verify_all", "full_check"):
 
 # >>> RGON R45 CINEMATIC DISPATCH VERIFIER EXT START
 import os as _r45os, sys as _r45sys, json as _r45json, subprocess as _r45sp, tempfile as _r45tmp, importlib as _r45il, threading as _r45th, shutil as _r45sh
-VERSION = "v11.45-AON-AUTO-EVOLVER"
-ANTIBODY_RANGE = "R1~R46"
-EXPECTED_SKILL_COUNT = 42
+VERSION = "v11.46-AON-ZEROCLICK-STUDIO"
+ANTIBODY_RANGE = "R1~R47"
+EXPECTED_SKILL_COUNT = 43
 STATUS_LINE = "%s · 항체 %s · 정식 스킬 %d개" % (VERSION, ANTIBODY_RANGE, EXPECTED_SKILL_COUNT)
 R45_ORGAN_NODE = {"id": "N17", "file": "rgon_aon_cinematic_dispatch.py", "organ_no": 21}
 R45_SYNAPSE = {"id": "S15", "desc": "대화허브 /국무회의 -> 제21기관 0.7ms 쇼트컷 & 9인 원탁 국무회의 & 브레인팩 금고 & 뇌화풍·택지취 괘상 & 격리 검증"}
@@ -948,9 +948,9 @@ for _n in ("run_full", "run_all", "verify_all", "full_check"):
 
 # >>> RGON R46 AUTO EVOLVER VERIFIER EXT START
 import os as _r46os, sys as _r46sys, json as _r46json, subprocess as _r46sp, tempfile as _r46tmp, importlib as _r46il, threading as _r46th, shutil as _r46sh
-VERSION = "v11.45-AON-AUTO-EVOLVER"
-ANTIBODY_RANGE = "R1~R46"
-EXPECTED_SKILL_COUNT = 42
+VERSION = "v11.46-AON-ZEROCLICK-STUDIO"
+ANTIBODY_RANGE = "R1~R47"
+EXPECTED_SKILL_COUNT = 43
 STATUS_LINE = "%s · 항체 %s · 정식 스킬 %d개" % (VERSION, ANTIBODY_RANGE, EXPECTED_SKILL_COUNT)
 R46_ORGAN_NODE = {"id": "N18", "file": "rgon_aon_auto_skill_evolver.py", "organ_no": 22}
 R46_SYNAPSE = {"id": "S16", "desc": "대화허브 /흡수 -> 제22기관 10대 플랫폼 채집 & 과식방지 영양분 체 & 그릇 크기 확장 & 5대 자아성찰 5/5 & 수동 게이트 & 격리 검증"}
@@ -1060,6 +1060,64 @@ for _n in ("run_full", "run_all", "verify_all", "full_check"):
     if callable(globals().get(_n)):
         globals()[_n] = _r46_wrap_full(globals()[_n])
 # <<< RGON R46 AUTO EVOLVER VERIFIER EXT END
+
+# [RGON-R47-VERIFIER-EXT-START]
+VERSION = "v11.46-AON-ZEROCLICK-STUDIO"
+ANTIBODY_RANGE = "R1~R47"
+EXPECTED_SKILL_COUNT = 43
+STATUS_LINE = "%s · 항체 %s · 정식 스킬 %d개" % (VERSION, ANTIBODY_RANGE, EXPECTED_SKILL_COUNT)
+R47_STUDIO_ORGAN = "rgon_aon_zeroclick_studio.py"
+try:
+    if R47_STUDIO_ORGAN not in ORGANS:
+        ORGANS.append(R47_STUDIO_ORGAN)
+except NameError:
+    ORGANS = [R47_STUDIO_ORGAN]
+
+def _r47_s17_check():
+    import os as _o, tempfile as _t, importlib as _il, shutil as _sh, time as _tm
+    _t0 = _tm.perf_counter()
+    name = "대화허브(/썸네일·/엑셀)→제23기관 클릭0번 스튜디오"
+    tmp = _t.mkdtemp(prefix="rgon_s17_")
+    prev = _o.environ.get("RGON_ZEROCLICK_STATE_DIR")
+    _o.environ["RGON_ZEROCLICK_STATE_DIR"] = tmp
+    try:
+        dlg = _il.import_module("rgon_aon_dialogue_engine")
+        fn = getattr(dlg, "r40_route", None) or getattr(dlg, "route", None)
+        r1 = fn("/썸네일 아온 제로클릭 테스트")
+        r2 = fn("/엑셀 아온 시트 테스트")
+        z1 = (r1.get("zeroclick_studio") or r1) if isinstance(r1, dict) else {}
+        z2 = (r2.get("zeroclick_studio") or r2) if isinstance(r2, dict) else {}
+        ok = (isinstance(r1, dict) and r1.get("ok") is True and z1.get("kind") == "photo"
+              and z1.get("png_valid") is True and z1.get("click_count") == 0
+              and isinstance(r2, dict) and r2.get("ok") is True and z2.get("kind") == "sheet"
+              and z2.get("xlsx_valid") is True and z2.get("click_count") == 0
+              and z1.get("requires_manual_gate") is True and z1.get("auto_executed") is False)
+        return {"id": "S17", "name": name, "ok": bool(ok), "sec": round(_tm.perf_counter() - _t0, 3),
+                "evidence": f"photo={z1.get('png_valid')}, xlsx={z2.get('xlsx_valid')}", "detail": {"photo": z1.get("ok"), "sheet": z2.get("ok")}}
+    except Exception as e:
+        return {"id": "S17", "name": name, "ok": False, "sec": round(_tm.perf_counter() - _t0, 3),
+                "evidence": repr(e), "detail": repr(e)}
+    finally:
+        if prev is None:
+            _o.environ.pop("RGON_ZEROCLICK_STATE_DIR", None)
+        else:
+            _o.environ["RGON_ZEROCLICK_STATE_DIR"] = prev
+        _sh.rmtree(tmp, ignore_errors=True)
+
+_r47_orig_vsl = globals().get("verify_synapse_links")
+if callable(_r47_orig_vsl) and not getattr(_r47_orig_vsl, "_r47", False):
+    def verify_synapse_links(*args, **kwargs):
+        res = _r47_orig_vsl(*args, **kwargs)
+        s17 = _r47_s17_check()
+        if isinstance(res, dict) and isinstance(res.get("synapses"), list):
+            items = [x for x in res["synapses"] if not (isinstance(x, dict) and x.get("id") == "S17")] + [s17]
+            res["synapses"] = items
+            res["passed"] = sum(1 for x in items if isinstance(x, dict) and x.get("ok"))
+            res["total"] = len(items)
+            res["ok"] = res["passed"] == res["total"]
+        return res
+    verify_synapse_links._r47 = True
+# [RGON-R47-VERIFIER-EXT-END]
 
 if __name__ == "__main__":
     if os.environ.get("RGON_R40_VERIFY") == "1" and "--self-test" in sys.argv:

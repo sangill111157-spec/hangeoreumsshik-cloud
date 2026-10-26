@@ -1,8 +1,8 @@
 {
-  "version": "v11.45-AON-AUTO-EVOLVER",
-  "antibody": "R1~R46",
+  "version": "v11.46-AON-ZEROCLICK-STUDIO",
+  "antibody": "R1~R47",
   "generated_at_kst": "2026-10-26 00:23:49 KST",
-  "count": 42,
+  "count": 43,
   "skills": [
     {
       "slug": "1-36-45",
@@ -359,7 +359,7 @@
       "id": 40,
       "name": "aon-live-ui-self-healer",
       "slug": "aon-live-ui-self-healer",
-      "version": "v11.45-AON-AUTO-EVOLVER",
+      "version": "v11.46-AON-ZEROCLICK-STUDIO",
       "antibody": "R44",
       "organ": 20,
       "path": "skills/aon-live-ui-self-healer/SKILL.md",
@@ -369,7 +369,7 @@
       "id": 41,
       "name": "aon-cinematic-dispatch-council",
       "slug": "aon-cinematic-dispatch-council",
-      "version": "v11.45-AON-AUTO-EVOLVER",
+      "version": "v11.46-AON-ZEROCLICK-STUDIO",
       "antibody": "R45",
       "organ": 21,
       "path": "skills/aon-cinematic-dispatch-council/SKILL.md",
@@ -379,19 +379,30 @@
       "id": 42,
       "name": "aon-autonomous-tech-evolver",
       "slug": "aon-autonomous-tech-evolver",
-      "version": "v11.45-AON-AUTO-EVOLVER",
+      "version": "v11.46-AON-ZEROCLICK-STUDIO",
       "antibody": "R46",
       "organ": 22,
       "path": "skills/aon-autonomous-tech-evolver/SKILL.md",
       "description": "아온 10대 전 플랫폼 영양분 선별 채집 & 한걸음씩 자아성찰 그릇 확장 진화기 (제22기관, R46)"
+    },
+    {
+      "no": 43,
+      "id": "aon-zeroclick-creative-studio",
+      "slug": "aon-zeroclick-creative-studio",
+      "name": "aon-zeroclick-creative-studio",
+      "title": "아온 클릭 0번 헤드리스 포토·카드뉴스 & 엑셀·시트 창작 스튜디오",
+      "path": "skills/aon-zeroclick-creative-studio/SKILL.md",
+      "organ": "rgon_aon_zeroclick_studio.py",
+      "antibody": "R47",
+      "version": "v11.46-AON-ZEROCLICK-STUDIO"
     }
   ],
-  "total": 42,
-  "skill_count": 42,
-  "antibody_range": "R1~R46",
-  "antibodies": "R1~R46",
-  "updated": "2026-10-26T15:12:12",
+  "total": 43,
+  "skill_count": 43,
+  "antibody_range": "R1~R47",
+  "antibodies": "R1~R47",
+  "updated": "2026-10-26T18:25:51",
   "synced_at_kst": "2026-10-26 00:24:55 KST",
-  "immune": "R1~R46",
-  "total_skills": 42
+  "immune": "R1~R47",
+  "total_skills": 43
 }

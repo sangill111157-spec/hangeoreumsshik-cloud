@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""step44_aon_live_ui_healer.py — Step 44 / 제20기관 / v11.45-AON-AUTO-EVOLVER / 항체 R1~R46
+"""step44_aon_live_ui_healer.py — Step 44 / 제20기관 / v11.46-AON-ZEROCLICK-STUDIO / 항체 R1~R47
 A-ON Live UI Action Verifier & Self-Healer 배포 스크립트 (단일 완결형, 표준 라이브러리 전용).
 옵션: --no-push (git push 생략) / --no-git (git 전체 생략, 로컬 점검용)
 """
@@ -11,8 +11,8 @@ sys.dont_write_bytecode = True
 ROOT = os.path.dirname(os.path.abspath(__file__))
 def P(*a): return os.path.join(ROOT, *a)
 BT3 = chr(96) * 3
-OLD_V, NEW_V = "v11.45-AON-AUTO-EVOLVER", "v11.45-AON-AUTO-EVOLVER"
-OLD_AB, NEW_AB = "R1~R46", "R1~R46"
+OLD_V, NEW_V = "v11.46-AON-ZEROCLICK-STUDIO", "v11.46-AON-ZEROCLICK-STUDIO"
+OLD_AB, NEW_AB = "R1~R47", "R1~R47"
 OLD_N, NEW_N = 39, 40
 SLUG = "aon-live-ui-self-healer"
 ORGAN, VERIFIER, DIALOGUE = "rgon_aon_live_ui_healer.py", "rgon_neural_synapse_verifier.py", "rgon_aon_dialogue_engine.py"
@@ -43,7 +43,7 @@ ORGAN_SRC = r'''# -*- coding: utf-8 -*-
 import os, re, sys, json, hashlib, tempfile, shutil, time
 from html.parser import HTMLParser
 
-VERSION = "v11.45-AON-AUTO-EVOLVER"
+VERSION = "v11.46-AON-ZEROCLICK-STUDIO"
 ANTIBODY = "R44"
 ORGAN_NO = 20
 MARK = "RGON R44 LIVE UI HEALER BRIDGE"
@@ -340,7 +340,7 @@ if __name__ == "__main__":
 BRIDGE_JS = r"""
 (function(){
 if(window.RGON_LIVE_UI_HEALER)return;
-var H=window.RGON_LIVE_UI_HEALER={version:"v11.45-AON-AUTO-EVOLVER",antibody:"R44",guas:["#21 화뢰서합","#49 택화혁"],clicks:0,healed:0,log:[]};
+var H=window.RGON_LIVE_UI_HEALER={version:"v11.46-AON-ZEROCLICK-STUDIO",antibody:"R44",guas:["#21 화뢰서합","#49 택화혁"],clicks:0,healed:0,log:[]};
 var Q='button,a,[role="button"],[onclick],[data-tab],[data-aon]';
 var SKIP=/^(if|for|while|switch|catch|return|function|alert|confirm|prompt|open|close|setTimeout|setInterval|fetch|parseInt|String|Number|Boolean|void|typeof|new)$/;
 function speaking(){try{return !!(window.speechSynthesis&&(speechSynthesis.speaking||speechSynthesis.pending))}catch(e){return false}}
@@ -442,8 +442,8 @@ except Exception:
 # ───────────────────────── 제16기관 검증기 확장 블록 (N16 / S14) ─────────────────────────
 EXT_S, EXT_E = "# >>> RGON R44 LIVE UI HEALER VERIFIER EXT START", "# <<< RGON R44 LIVE UI HEALER VERIFIER EXT END"
 EXT_SRC = EXT_S + "\n" + r'''import os as _r44os, sys as _r44sys, json as _r44json, subprocess as _r44sp, tempfile as _r44tmp, importlib as _r44il, threading as _r44th, shutil as _r44sh
-VERSION = "v11.45-AON-AUTO-EVOLVER"
-ANTIBODY_RANGE = "R1~R46"
+VERSION = "v11.46-AON-ZEROCLICK-STUDIO"
+ANTIBODY_RANGE = "R1~R47"
 EXPECTED_SKILL_COUNT = 42
 STATUS_LINE = "%s · 항체 %s · 정식 스킬 %d개" % (VERSION, ANTIBODY_RANGE, EXPECTED_SKILL_COUNT)
 R44_ORGAN_NODE = {"id": "N16", "file": "rgon_aon_live_ui_healer.py", "organ_no": 20}

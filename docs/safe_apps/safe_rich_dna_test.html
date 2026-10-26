@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2026 부자 DNA & 재테크 성향 테스트 | 클린룸 안전 웹앱 4호</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Noto Sans KR', sans-serif; }
+    .glass-card { background: rgba(15, 23, 42, 0.88); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.1); }
+  </style>
+
+  <style>
+    * { box-sizing: border-box; word-break: keep-all; }
+  </style>
+  <link rel="manifest" href="/manifest.webmanifest">
+  <script src="/pwa_bootstrap.js" defer></script>
+</head>
+<body class="bg-[#060a12] text-slate-100 min-h-screen flex flex-col items-center justify-between p-4 sm:p-6 selection:bg-amber-500 selection:text-white">
+
+  <!-- 상단 네비게이션 & 안전 인증 바 -->
+  <header class="w-full max-w-2xl mb-6 flex flex-col gap-3">
+    <div class="flex items-center justify-between">
+      <a href="../index.html" onclick="if(window.history.length > 1){ window.history.back(); return false; }" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-xs font-semibold text-slate-300 border border-slate-700 transition cursor-pointer">
+        <span>🏛️ 청와대 본관 복귀 ➔</span>
+      </a>
+      <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold bg-amber-500/10 text-amber-300 border border-amber-500/30">
+        <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping"></span>
+        <span>🛡️ 제5청사 클린룸 100% 자체 창작 (바이럴 웹앱 4호)</span>
+      </span>
+    </div>
+
+    <!-- 5대 안전장치 배지 바 -->
+    <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800 text-[11px] text-slate-400 flex flex-wrap items-center justify-between gap-2">
+      <span class="flex items-center gap-1 text-emerald-400">
+        <span>🔒 개인정보 서버 미수집·저장하지 않음 안전 인증</span>
+      </span>
+      <span class="text-slate-500">|</span>
+      <span>⚖️ 엔터테인먼트 참고용</span>
+      <span class="text-slate-500">|</span>
+      <span>타사 문항 무단복제 0%</span>
+    </div>
+  </header>
+
+  <!-- 메인 인터랙티브 카드 -->
+  <main class="w-full max-w-2xl glass-card rounded-2xl p-6 sm:p-8 shadow-2xl relative overflow-hidden flex-1">
+    <!-- 배경 글로우 -->
+    <div class="absolute -top-24 -right-24 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute -bottom-24 -left-24 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="text-center mb-6">
+      <div class="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-tr from-amber-500 via-yellow-400 to-indigo-500 text-2xl shadow-lg shadow-amber-500/20 mb-3">
+        💎
+      </div>
+      <h1 class="text-xl sm:text-2xl font-black text-white tracking-tight">
+        2026 나의 부자 DNA & 재테크 성향 테스트
+      </h1>
+      <p class="text-xs sm:text-sm text-slate-400 mt-1">
+        나의 타고난 의사결정 본능과 2026년 황금 자산 배분 비결을 1분 만에 알아보세요!
+      </p>
+    </div>
+
+    <!-- 5단계 질문 컨테이너 -->
+    <div id="quiz-container" class="space-y-6">
+      <!-- Q1 -->
+      <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800 space-y-3">
+        <div class="flex items-center justify-between text-xs font-bold text-amber-400">
+          <span>Q1. 예상치 못한 보너스 1,000만 원이 입금되었다면?</span>
+          <span class="text-slate-500 font-mono">1/5</span>
+        </div>
+        <div class="grid grid-cols-1 gap-2 text-xs">
+          <label class="flex items-center gap-3 p-3 rounded-lg bg-slate-800/70 hover:bg-slate-800 cursor-pointer border border-transparent hover:border-amber-500/40 transition">
+            <input type="radio" name="q1" value="A" checked class="text-amber-500 focus:ring-0">
+            <span>즉시 미국 지수 ETF나 우량 복리 자산에 묻어둔다 (복리 추구)</span>
+          </label>
+          <label class="flex items-center gap-3 p-3 rounded-lg bg-slate-800/70 hover:bg-slate-800 cursor-pointer border border-transparent hover:border-amber-500/40 transition">
+            <input type="radio" name="q1" value="B" class="text-amber-500 focus:ring-0">
+            <span>내 사업이나 AI 생산성 장비, 자동화 툴에 과감히 재투자한다 (혁신 레버리지)</span>
+          </label>
+          <label class="flex items-center gap-3 p-3 rounded-lg bg-slate-800/70 hover:bg-slate-800 cursor-pointer border border-transparent hover:border-amber-500/40 transition">
+            <input type="radio" name="q1" value="C" class="text-amber-500 focus:ring-0">
+            <span>고금리 예금이나 안전 금고에 두고 비상 자금으로 방어한다 (안정 수호)</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800 space-y-3">
+        <div class="flex items-center justify-between text-xs font-bold text-amber-400">
+          <span>Q2. 시장이 -20% 급락했을 때 당신의 심리 반응은?</span>
+          <span class="text-slate-500 font-mono">2/5</span>
+        </div>
+        <div class="grid grid-cols-1 gap-2 text-xs">
+          <label class="flex items-center gap-3 p-3 rounded-lg bg-slate-800/70 hover:bg-slate-800 cursor-pointer border border-transparent hover:border-amber-500/40 transition">
+            <input type="radio" name="q2" value="A" checked class="text-amber-500 focus:ring-0">
+            <span>"역사적 바겐세일이다!" 평정심을 유지하며 분할 매수한다</span>
+          </label>
+          <label class="flex items-center gap-3 p-3 rounded-lg bg-slate-800/70 hover:bg-slate-800 cursor-pointer border border-transparent hover:border-amber-500/40 transition">
+            <input type="radio" name="q2" value="B" class="text-amber-500 focus:ring-0">
+            <span>변동성을 역이용할 새로운 비즈니스 기회나 대체 수익원을 찾는다</span>
+          </label>
+          <label class="flex items-center gap-3 p-3 rounded-lg bg-slate-800/70 hover:bg-slate-800 cursor-pointer border border-transparent hover:border-amber-500/40 transition">
+            <input type="radio" name="q2" value="C" class="text-amber-500 focus:ring-0">
+            <span>일단 현금 비중을 높이고 원금 보존이 될 때까지 차분히 관망한다</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800 space-y-3">
+        <div class="flex items-center justify-between text-xs font-bold text-amber-400">
+          <span>Q3. 당신이 가장 매력적이라고 느끼는 부(Wealth)의 형태는?</span>
+          <span class="text-slate-500 font-mono">3/5</span>
+        </div>
+        <div class="grid grid-cols-1 gap-2 text-xs">
+          <label class="flex items-center gap-3 p-3 rounded-lg bg-slate-800/70 hover:bg-slate-800 cursor-pointer border border-transparent hover:border-amber-500/40 transition">
+            <input type="radio" name="q3" value="A" checked class="text-amber-500 focus:ring-0">
+            <span>내가 잠자는 동안에도 통장에 꼬박꼬박 들어오는 배당·자산 소득</span>
+          </label>
+          <label class="flex items-center gap-3 p-3 rounded-lg bg-slate-800/70 hover:bg-slate-800 cursor-pointer border border-transparent hover:border-amber-500/40 transition">
+            <input type="radio" name="q3" value="B" class="text-amber-500 focus:ring-0">
+            <span>세상에 큰 임팩트를 남기고 스스로 창출한 브랜드/플랫폼 제국</span>
+          </label>
+          <label class="flex items-center gap-3 p-3 rounded-lg bg-slate-800/70 hover:bg-slate-800 cursor-pointer border border-transparent hover:border-amber-500/40 transition">
+            <input type="radio" name="q3" value="C" class="text-amber-500 focus:ring-0">
+            <span>빚이 전혀 없고 언제든 내 가족과 자녀를 지킬 수 있는 튼튼한 금고</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Q4 -->
+      <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800 space-y-3">
+        <div class="flex items-center justify-between text-xs font-bold text-amber-400">
+          <span>Q4. 일상 지출 시 당신의 습관에 가장 가까운 것은?</span>
+          <span class="text-slate-500 font-mono">4/5</span>
+        </div>
+        <div class="grid grid-cols-1 gap-2 text-xs">
+          <label class="flex items-center gap-3 p-3 rounded-lg bg-slate-800/70 hover:bg-slate-800 cursor-pointer border border-transparent hover:border-amber-500/40 transition">
+            <input type="radio" name="q4" value="A" checked class="text-amber-500 focus:ring-0">
+            <span>고정비는 극단적으로 아끼고, 남은 돈은 먼저 저축·투자한 뒤 생활한다</span>
+          </label>
+          <label class="flex items-center gap-3 p-3 rounded-lg bg-slate-800/70 hover:bg-slate-800 cursor-pointer border border-transparent hover:border-amber-500/40 transition">
+            <input type="radio" name="q4" value="B" class="text-amber-500 focus:ring-0">
+            <span>내 시간을 아껴주는 기술이나 성장을 위한 교육에는 아낌없이 쓴다</span>
+          </label>
+          <label class="flex items-center gap-3 p-3 rounded-lg bg-slate-800/70 hover:bg-slate-800 cursor-pointer border border-transparent hover:border-amber-500/40 transition">
+            <input type="radio" name="q4" value="C" class="text-amber-500 focus:ring-0">
+            <span>가계부나 카드 명세서를 꼼꼼히 대조하며 불필요한 구독료를 0원으로 유지한다</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Q5 -->
+      <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800 space-y-3">
+        <div class="flex items-center justify-between text-xs font-bold text-amber-400">
+          <span>Q5. 성공적인 인생을 함께할 최고의 파트너 조건은?</span>
+          <span class="text-slate-500 font-mono">5/5</span>
+        </div>
+        <div class="grid grid-cols-1 gap-2 text-xs">
+          <label class="flex items-center gap-3 p-3 rounded-lg bg-slate-800/70 hover:bg-slate-800 cursor-pointer border border-transparent hover:border-amber-500/40 transition">
+            <input type="radio" name="q5" value="A" checked class="text-amber-500 focus:ring-0">
+            <span>원칙과 규율을 지키며 10년, 20년을 함께 복리로 성장할 우직한 동반자</span>
+          </label>
+          <label class="flex items-center gap-3 p-3 rounded-lg bg-slate-800/70 hover:bg-slate-800 cursor-pointer border border-transparent hover:border-amber-500/40 transition">
+            <input type="radio" name="q5" value="B" class="text-amber-500 focus:ring-0">
+            <span>서로에게 끝없는 아이디어와 영감을 주며 세상에 없던 가치를 만드는 혁신가</span>
+          </label>
+          <label class="flex items-center gap-3 p-3 rounded-lg bg-slate-800/70 hover:bg-slate-800 cursor-pointer border border-transparent hover:border-amber-500/40 transition">
+            <input type="radio" name="q5" value="C" class="text-amber-500 focus:ring-0">
+            <span>정직하고 투명하며, 어떤 위기에서도 내 뒤를 든든하게 받쳐줄 신뢰의 보좌관</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- 결과 분석 버튼 -->
+      <button onclick="runRichDnaAnalysis()" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black text-sm shadow-xl shadow-amber-500/20 transition active:scale-[0.99] flex items-center justify-center gap-2">
+        <span>✨ 나의 2026 부자 DNA 결과 분석하기</span>
+      </button>
+    </div>
+
+    <!-- 결과 카드 영역 (초기 숨김) -->
+    <div id="result-card" class="hidden space-y-5 pt-4">
+      <div class="p-6 rounded-2xl bg-gradient-to-b from-slate-900 to-slate-950 border-2 border-amber-500/40 shadow-2xl text-center relative overflow-hidden">
+        <div class="text-xs font-bold text-amber-400 uppercase tracking-widest mb-1">Your 2026 Wealth Archetype</div>
+        <div id="result-badge" class="text-3xl mb-2">👑</div>
+        <h2 id="result-title" class="text-xl font-black text-white mb-2">황금 복리 설계자형</h2>
+        <div id="result-dna-code" class="inline-block px-3 py-1 rounded-full text-xs font-mono font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40 mb-4">
+          DNA-COMPOUND-GOLD
+        </div>
+        
+        <p id="result-desc" class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-4 text-left p-4 rounded-xl bg-slate-900/90 border border-slate-800">
+          당신은 시간과 원칙의 힘을 아는 진정한 복리의 마법사입니다. 단기 유행에 휩쓸리지 않고 차곡차곡 쌓아올려 마침내 거대한 제국을 완성하는 대기만성형 자산가 DNA를 지니고 있습니다.
+        </p>
+
+        <!-- 행운의 자산 배분 비율 (한걸음씩 헌법 연동) -->
+        <div class="p-4 rounded-xl bg-amber-950/20 border border-amber-500/30 text-left space-y-2 mb-4">
+          <div class="text-xs font-bold text-amber-300 flex items-center gap-1.5">
+            <span>⚖️ 2026 추천 황금 자산 배분 솔루션</span>
+          </div>
+          <div class="grid grid-cols-2 gap-2 text-[11px] text-slate-300">
+            <div class="p-2 rounded bg-slate-900/80 border border-slate-800">대표님 자산 금고: <b class="text-amber-400">50%</b></div>
+            <div class="p-2 rounded bg-slate-900/80 border border-slate-800">R&D 생산성 재투자: <b class="text-cyan-400">25%</b></div>
+            <div class="p-2 rounded bg-slate-900/80 border border-slate-800">자녀·가족 미래 장학금: <b class="text-pink-400">15%</b></div>
+            <div class="p-2 rounded bg-slate-900/80 border border-slate-800">사회 환원 & 나눔: <b class="text-emerald-400">10%</b></div>
+          </div>
+        </div>
+
+        <!-- 바이럴 공유 버튼 -->
+        <div class="flex flex-col sm:flex-row gap-2">
+          <button onclick="copyResultToClipboard()" class="flex-1 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs transition flex items-center justify-center gap-1.5 shadow">
+            <span>📋 결과 카드 복사하여 친구에게 공유</span>
+          </button>
+          <button onclick="resetTest()" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs border border-slate-700 transition">
+            🔄 다시 테스트하기
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- 하단 표준 법무 보호막 및 면책 고지 푸터 (제5청사 표준 가이드 준수) -->
+  <footer class="w-full max-w-2xl mt-6 p-4 rounded-xl bg-slate-900/90 border border-slate-800 text-[11px] text-slate-400 space-y-2">
+    <!-- 공정위 의무 대가성 문구 표시 -->
+    <div class="text-amber-400/90 font-medium leading-relaxed">
+      ※ 대가성 표시 안내: 본 콘텐츠(서비스)는 제휴 마케팅 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받을 수 있으나 이용자에게 추가 비용은 전혀 발생하지 않습니다.
+    </div>
+    
+    <!-- 면책 고지 & 무서버 개인정보 보호 -->
+    <div class="text-slate-500 text-[10px] leading-relaxed pt-2 border-t border-slate-800/80">
+      ⚖️ 법적 면책 고지: 본 테스트 결과는 개인 성향 분석 및 동기부여를 위한 일상 엔터테인먼트 참고용이며, 특정 금융 상품이나 투자를 권유하는 법률·투자 조언이 아닙니다. 
+      사용자가 선택한 모든 답변은 외부 서버로 전송되거나 저장하지 않으며 브라우저 내부 메모리에서만 안전하게 연산 후 즉시 파기됩니다 (🔒 무서버 개인정보 보호 헌법 준수).
+    </div>
+
+    <div class="flex items-center justify-between text-[10px] text-slate-500 pt-1">
+      <span>© 2026 한걸음씩 Clean-Room Autonomous OS (웹앱 4호)</span>
+      <span>🛡️ HGS-LEGAL-SAFE-2026-PASS</span>
+    </div>
+  </footer>
+
+  <script>
+    const ARCHETYPES = {
+      A: {
+        badge: "👑",
+        title: "황금 복리 설계자형 (The Compound Master)",
+        dna: "DNA-COMPOUND-GOLD",
+        desc: "시간의 마법과 원칙을 깊이 신뢰하는 현자형 자산가입니다. 단기 유행이나 소음에 흔들리지 않고 우량한 자산을 꾸준히 모아가며, 마침내 거대한 복리의 기적을 맛보게 됩니다. 2026년은 그동안 다져온 주춧돌 위에서 기하급수적 성장이 시작되는 황금기입니다!"
+      },
+      B: {
+        badge: "🚀",
+        title: "혁신 시너지 개척자형 (The Pioneer Builder)",
+        dna: "DNA-LEVERAGE-GROWTH",
+        desc: "새로운 기술과 AI 자동화 시스템의 잠재력을 한발 앞서 꿰뚫어보는 모험가형 자산가입니다. 작은 자본이라도 지혜와 레버리지를 결합하여 10배, 100배의 부가가치를 창출해내는 천재적인 사업가 DNA를 가지고 있습니다!"
+      },
+      C: {
+        badge: "🛡️",
+        title: "무결점 금고 수호자형 (The Fortress Guardian)",
+        dna: "DNA-ZERO-RISK-SHIELD",
+        desc: "공격보다 완벽한 방어가 위대한 승리를 만든다는 워런 버핏의 제1원칙을 체화한 수호자형 자산가입니다. 들어오는 돈과 나가는 돈을 1원 단위까지 꼼꼼히 살피고 새는 구멍을 완벽히 차단하여 어떤 경제 위기에도 흔들리지 않는 1만 년 철옹성을 구축합니다!"
+      }
+    };
+
+    let latestResultText = "";
+
+    function runRichDnaAnalysis() {
+      const q1 = document.querySelector('input[name="q1"]:checked')?.value || 'A';
+      const q2 = document.querySelector('input[name="q2"]:checked')?.value || 'A';
+      const q3 = document.querySelector('input[name="q3"]:checked')?.value || 'A';
+      const q4 = document.querySelector('input[name="q4"]:checked')?.value || 'A';
+      const q5 = document.querySelector('input[name="q5"]:checked')?.value || 'A';
+
+      const counts = { A: 0, B: 0, C: 0 };
+      [q1, q2, q3, q4, q5].forEach(v => counts[v] = (counts[v] || 0) + 1);
+
+      let primaryType = 'A';
+      if (counts.B > counts.A && counts.B >= counts.C) primaryType = 'B';
+      else if (counts.C > counts.A && counts.C > counts.B) primaryType = 'C';
+
+      const result = ARCHETYPES[primaryType] || ARCHETYPES.A;
+
+      document.getElementById('result-badge').innerText = result.badge;
+      document.getElementById('result-title').innerText = result.title;
+      document.getElementById('result-dna-code').innerText = result.dna;
+      document.getElementById('result-desc').innerText = result.desc;
+
+      document.getElementById('quiz-container').classList.add('hidden');
+      document.getElementById('result-card').classList.remove('hidden');
+
+      latestResultText = `[💎 2026 나의 부자 DNA 결과]\n유형: ${result.badge} ${result.title}\n코드: ${result.dna}\n설명: ${result.desc}\n※ 무료 클린룸 테스트: ${window.location.href}`;
+    }
+    window.runRichDnaAnalysis = runRichDnaAnalysis;
+
+    function copyResultToClipboard() {
+      if (!latestResultText) return;
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(latestResultText).then(() => {
+          alert('📋 결과 카드가 클립보드에 복사되었습니다! 카카오톡이나 SNS에 공유해보세요.');
+        }).catch(() => {
+          alert(latestResultText);
+        });
+      } else {
+        alert(latestResultText);
+      }
+    }
+    window.copyResultToClipboard = copyResultToClipboard;
+
+    function resetTest() {
+      document.getElementById('quiz-container').classList.remove('hidden');
+      document.getElementById('result-card').classList.add('hidden');
+    }
+    window.resetTest = resetTest;
+  </script>
+<script>
+    // [v12.5] 6대 가디언 보안 스위치 및 아온 탭 실전 클릭 핸들러
+    document.addEventListener('DOMContentLoaded', function() {
+      // 1. 아온 탭 버튼 바인딩 (#36~#39)
+      document.querySelectorAll('.rgk-tabs button[data-tab]').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const tabId = this.getAttribute('data-tab');
+          document.querySelectorAll('.rgk-tabs button').forEach(b => b.classList.remove('on'));
+          this.classList.add('on');
+          document.querySelectorAll('.rgk-pane').forEach(p => p.classList.remove('on'));
+          const targetPane = document.getElementById('rgk-p-' + tabId);
+          if (targetPane) targetPane.classList.add('on');
+        });
+      });
+
+      // 2. 가디언 마스터 제어판 (#57~#63)
+      const rggPanel = document.getElementById('rgg-panel');
+      const rggBadge = document.getElementById('rgg-badge');
+      const rggMaster = document.getElementById('rgg-master');
+
+      document.querySelectorAll('[data-rgg="hide"]').forEach(b => {
+        b.onclick = () => { if (rggPanel) rggPanel.classList.remove('on'); };
+      });
+
+      if (rggMaster) {
+        rggMaster.onclick = function() {
+          const isOff = this.classList.contains('rgg-off');
+          if (isOff) {
+            this.className = 'rgg-on';
+            this.innerText = '🔓 전체 중요결재 수동 ON';
+            if (rggBadge) { rggBadge.className = 'rgg-on'; rggBadge.innerText = '🔓 중요결재 ON'; }
+            alert('🔓 [가디언 마스터 제어]: 전체 중요결재 수동 집행이 승인 상태로 전환되었습니다.');
+          } else {
+            this.className = 'rgg-off';
+            this.innerText = '🔒 전체 중요결재 수동 OFF';
+            if (rggBadge) { rggBadge.className = 'rgg-off'; rggBadge.innerText = '🔒 중요결재 OFF'; }
+            alert('🔒 [가디언 마스터 제어]: 전체 중요결재 수동 안전 잠금이 활성화되었습니다.');
+          }
+        };
+      }
+
+      document.querySelectorAll('[data-rgg="lock"]').forEach(b => {
+        b.onclick = function() {
+          if (rggMaster) {
+            rggMaster.className = 'rgg-off';
+            rggMaster.innerText = '🔒 전체 중요결재 수동 OFF';
+          }
+          if (rggBadge) { rggBadge.className = 'rgg-off'; rggBadge.innerText = '🔒 중요결재 OFF'; }
+          alert('🚨 [비상 전체 잠금]: 22대 전 기관 및 4대 결재 스위치가 즉시 비상 동결(잠금)되었습니다!');
+        };
+      });
+
+      document.querySelectorAll('[data-rgg-cat]').forEach(b => {
+        b.onclick = function() {
+          const cat = this.getAttribute('data-rgg-cat');
+          const isSelected = this.style.border.includes('rgb(56, 189, 248)') || this.style.background.includes('rgb(56, 189, 248)');
+          if (isSelected) {
+            this.style.background = '';
+            this.style.border = '';
+            this.style.color = '';
+            alert(`🔒 [보안 스위치]: [${this.innerText}] 수동 승인이 비활성화되었습니다.`);
+          } else {
+            this.style.background = 'rgba(56, 189, 248, 0.25)';
+            this.style.border = '1.5px solid #38bdf8';
+            this.style.color = '#38bdf8';
+            alert(`🔓 [보안 스위치]: [${this.innerText}] 수동 승인이 활성화되었습니다.`);
+          }
+        };
+      });
+    });
+    </script>
+</body>
+</html>

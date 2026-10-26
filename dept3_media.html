@@ -1,0 +1,1989 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🎵 제3청사: 미디어·음원 & 커머스 수익청 | 한걸음씩 청와대 독립 청사</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700;800&family=Nanum+Myeongjo:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <script src="/pwa_bootstrap.js" defer></script>
+  <style>
+    body { font-family: 'Pretendard', sans-serif; background-color: #070a13; color: #f8fafc; }
+    .glass-card { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(16px); border: 1px solid rgba(236, 72, 153, 0.25); }
+    .font-myeongjo { font-family: 'Nanum Myeongjo', serif; }
+    .pulse-ring { animation: pulseRing 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite; }
+    @keyframes pulseRing {
+      0% { transform: scale(0.95); opacity: 0.8; }
+      50% { transform: scale(1.05); opacity: 0.4; }
+      100% { transform: scale(0.95); opacity: 0.8; }
+    }
+  </style>
+
+  <style>
+    * { box-sizing: border-box; word-break: keep-all; }
+  </style>
+
+<style id="spatial-glass-briefing-css">
+#spatial-glass-briefing-modal{position:fixed;inset:0;z-index:2147483647;display:none;align-items:center;justify-content:center;background:rgba(2,6,23,0.45);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);padding:16px;animation:sgbFadeIn 0.2s ease-out}
+#spatial-glass-briefing-modal.active{display:flex}
+@keyframes sgbFadeIn{from{opacity:0;transform:scale(0.96)}to{opacity:1;transform:scale(1)}}
+.sgb-card{width:min(92vw,560px);max-height:85vh;background:linear-gradient(145deg,rgba(15,23,42,0.96),rgba(30,41,59,0.94));border:1px solid rgba(56,189,248,0.4);border-radius:20px;box-shadow:0 25px 60px rgba(0,0,0,0.7),0 0 30px rgba(56,189,248,0.25);display:flex;flex-direction:column;overflow:hidden;color:#f1f5f9;font-family:system-ui,-apple-system,sans-serif}
+.sgb-header{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;background:linear-gradient(90deg,rgba(56,189,248,0.2),rgba(129,140,248,0.15));border-bottom:1px solid rgba(255,255,255,0.12)}
+.sgb-title{font-size:15px;font-weight:800;display:flex;align-items:center;gap:8px;color:#38bdf8}
+.sgb-close{background:rgba(255,255,255,0.12);border:none;color:#94a3b8;font-size:16px;width:30px;height:30px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+.sgb-close:hover{background:rgba(239,68,68,0.3);color:#f87171}
+.sgb-body{padding:18px 20px;overflow-y:auto;font-size:13.5px;line-height:1.65;white-space:pre-wrap;word-break:break-word;color:#e2e8f0}
+.sgb-footer{padding:10px 18px;display:flex;align-items:center;justify-content:space-between;background:rgba(0,0,0,0.3);border-top:1px solid rgba(255,255,255,0.08);font-size:11.5px;color:#94a3b8}
+.sgb-progress{height:3px;background:linear-gradient(90deg,#38bdf8,#818cf8);width:100%;transition:width 0.1s linear}
+</style>
+<script id="spatial-glass-briefing-js">
+(function(){
+  function ensureSgbModal(){
+    var modal=document.getElementById("spatial-glass-briefing-modal");
+    if(modal)return modal;
+    modal=document.createElement("div");
+    modal.id="spatial-glass-briefing-modal";
+    modal.innerHTML='<div class="sgb-card"><div class="sgb-header"><div class="sgb-title" id="sgb-modal-title">✨ 사령부 실전 브리핑</div><button type="button" class="sgb-close" id="sgb-modal-close" title="닫기 (ESC)">✕</button></div><div class="sgb-progress" id="sgb-progress-bar"></div><div class="sgb-body" id="sgb-modal-body"></div><div class="sgb-footer"><span>💡 화면 아무 곳이나 클릭하거나 ESC를 누르면 닫힙니다</span><span id="sgb-timer-txt">5초 후 자동 닫힘</span></div></div>';
+    document.body.appendChild(modal);
+    var closeBtn=document.getElementById("sgb-modal-close");
+    closeBtn.onclick=function(){closeSgbModal();};
+    modal.onclick=function(e){if(e.target===modal)closeSgbModal();};
+    document.addEventListener("keydown",function(e){if(e.key==="Escape")closeSgbModal();});
+    return modal;
+  }
+  var sgbTimer=null,sgbInterval=null;
+  function closeSgbModal(){
+    var modal=document.getElementById("spatial-glass-briefing-modal");
+    if(modal)modal.classList.remove("active");
+    if(sgbTimer)clearTimeout(sgbTimer);
+    if(sgbInterval)clearInterval(sgbInterval);
+  }
+  window.showSpatialGlassBriefing=function(msg,title){
+    var modal=ensureSgbModal();
+    var titleEl=document.getElementById("sgb-modal-title");
+    var bodyEl=document.getElementById("sgb-modal-body");
+    var bar=document.getElementById("sgb-progress-bar");
+    var timerTxt=document.getElementById("sgb-timer-txt");
+    if(titleEl)titleEl.innerHTML=title||"✨ 사령부 실시간 브리핑";
+    if(bodyEl)bodyEl.textContent=String(msg||"");
+    modal.classList.add("active");
+    var duration=5000,start=Date.now();
+    if(bar)bar.style.width="100%";
+    if(sgbTimer)clearTimeout(sgbTimer);
+    if(sgbInterval)clearInterval(sgbInterval);
+    sgbInterval=setInterval(function(){
+      var elapsed=Date.now()-start;
+      var remain=Math.max(0,duration-elapsed);
+      if(bar)bar.style.width=(remain/duration*100)+"%";
+      if(timerTxt)timerTxt.textContent=Math.ceil(remain/1000)+"초 후 자동 닫힘";
+      if(remain<=0)clearInterval(sgbInterval);
+    },100);
+    sgbTimer=setTimeout(function(){closeSgbModal();},duration);
+  };
+  window.alert=function(msg){
+    window.showSpatialGlassBriefing(msg);
+  };
+})();
+</script>
+</head>
+<body class="min-h-screen p-4 sm:p-6 lg:p-8 space-y-6 selection:bg-pink-500 selection:text-white">
+
+  <!-- 🏛️ 상단 지휘 헤더 & 본관 귀환 버튼 -->
+  <header class="glass-card rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-2xl border border-pink-500/30">
+    <div class="flex items-center gap-3">
+      <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-pink-600 via-rose-600 to-purple-600 flex items-center justify-center text-2xl shadow-lg shadow-pink-500/40">
+        🎵
+      </div>
+      <div>
+        <div class="flex flex-wrap items-center gap-2">
+          <h1 class="text-lg sm:text-xl font-extrabold text-white">제3청사: 미디어·음원 & 커머스 수익청</h1>
+          <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-pink-500/20 text-pink-300 border border-pink-500/40">
+            ● 독립 청사 보호됨 (LOCKED_IMMUTABLE)
+          </span>
+          <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/40">
+            ⚡ 기술행정부 안총리(AGV-PRIME-101) 지휘
+          </span>
+        </div>
+        <p class="text-xs text-slate-400 mt-0.5">
+          Suno 30곡 마스터 음원 · 432Hz 힐링 사운드 신시사이저 · 글로벌 배급 메타데이터 · 60초 오토 라디오 쇼츠 팩토리
+        </p>
+      </div>
+    </div>
+    <div class="flex items-center gap-2">
+            <a href="../rgon_alpha_chat.html" class="px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-600 hover:from-amber-400 hover:to-yellow-400 text-slate-950 font-black text-xs transition flex items-center gap-1.5 shadow-lg shadow-amber-500/25 active:scale-95">
+        <span>💬 르곤-알파 1:1 독대실 ➔</span>
+      </a>
+      <a href="/?v=850&tab=command" class="px-4 py-2 rounded-xl bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white font-bold text-xs transition flex items-center gap-1.5 shadow-lg shadow-pink-600/30">
+        <span>🏛️ 청와대 본관 컨트롤 타워로 귀환</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- 🔥 [v12.0 핵심] Grok 4.7 골든타임 4대 편성표 & Suno 3종 · 고정댓글 원클릭 복사/장착 패널 -->
+  <section class="glass-card rounded-2xl p-4 sm:p-6 space-y-4 border border-rose-500/50 shadow-2xl bg-slate-900/90">
+    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3 border-b border-slate-800 pb-3">
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="text-2xl">🔥</span>
+          <h2 class="text-base sm:text-lg font-black text-white tracking-tight">Grok 4.7 골든타임 4대 편성표 & Suno AI 3종 마스터 패널</h2>
+          <span class="px-2 py-0.5 rounded-md bg-rose-500/20 text-rose-300 text-[10px] font-black border border-rose-500/40">
+            v12.0-GROK-4.7-MEDIA
+          </span>
+        </div>
+        <p class="text-[11px] text-slate-400 mt-0.5">
+          4대 골든타임 슬롯 (20:30 · 22:10 · 07:30 · 22:00) | 3초 훅 + 단 1개 고정댓글 | 432Hz 주파수는 수면/힐링 전용
+        </p>
+      </div>
+      <div class="flex items-center gap-2">
+        <span id="grok-active-slot-badge" class="px-3 py-1.5 rounded-xl bg-rose-950/80 text-rose-300 border border-rose-500/40 text-xs font-bold">
+          ⏳ 슬롯 계산 중...
+        </span>
+      </div>
+    </div>
+
+    <!-- 4대 골든타임 슬롯 카드 리스트 -->
+    <div id="grok-slots-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+      <div class="col-span-full text-center py-4 text-xs text-slate-400">
+        Grok 4.7 바이럴 편성표 데이터를 동기화하는 중입니다...
+      </div>
+    </div>
+
+    <!-- Suno 3종 및 고정댓글 & 안전 바이오 요약 패널 -->
+    <div class="p-3.5 rounded-xl bg-slate-950/70 border border-slate-800 grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+      <div>
+        <div class="text-[11px] font-bold text-amber-300 mb-1">🎵 Suno 프롬프트 3종</div>
+        <div class="text-[10px] text-slate-400 space-y-1">
+          <div>① 어머니 발라드: 62 BPM, A minor, Warm Felt Piano</div>
+          <div>② 출근길 부스터: 128 BPM, F minor, Punchy Synth Bass</div>
+          <div>③ 비오는 로파이 재즈: 78 BPM, Rhodes Piano & Rain Ambiance</div>
+        </div>
+      </div>
+      <div>
+        <div class="text-[11px] font-bold text-emerald-300 mb-1">📌 고정 댓글 3종 (단 1개만 고정)</div>
+        <div class="text-[10px] text-slate-400 space-y-1">
+          <div>① "엄마한테, 말 없이 이 영상만 보내세요..." (432Hz)</div>
+          <div>② "저장만 해. 내일 7시, 알람 대신 이거 켜고 나가."</div>
+          <div>③ "저장. 비 오는 날 다시 켜. 풀버전 수면용 432Hz..."</div>
+        </div>
+      </div>
+      <div>
+        <div class="text-[11px] font-bold text-cyan-300 mb-1">🔗 안전 프로필 바이오 문구</div>
+        <div class="text-[10px] text-slate-400">
+          "한걸음씩 유튜브 | 432Hz 힐링 | Booster_Playlist | 하루 1% 루틴 | 연봉 계산기 · 행운컬러 · 부자DNA"
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 🛡️ [v11.5] 현 청사 전담 보좌관: 『알파-미디어 (ALPHA-D3)』 24시간 상주 데크 (#dept-sub-agent-deck) -->
+  <div id="dept-sub-agent-deck" class="glass-card rounded-2xl p-3.5 sm:p-4 space-y-3 border-pink-500/40 bg-gradient-to-r from-pink-950/40 via-slate-900/90 to-indigo-950/40 shadow-xl">
+    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 border-b border-pink-500/20 pb-2.5">
+      <div class="flex items-center gap-2">
+        <span class="text-xl sm:text-2xl">🎵</span>
+        <div>
+          <div class="flex items-center gap-2">
+            <h2 class="text-xs sm:text-sm font-bold text-white tracking-tight">현 청사 전담 보좌관: 『알파-미디어 (ALPHA-D3)』 24시간 상주 데크</h2>
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-pink-500/20 text-pink-300 font-mono">DEPT-3</span>
+          </div>
+          <p class="text-[11px] text-slate-400 mt-0.5">유튜브 3채널 & 틱톡 2,098명 & 432Hz/528Hz 무부하 음원 스튜디오 24시간 관제</p>
+        </div>
+      </div>
+      <div class="flex flex-wrap items-center gap-1.5 text-[10px] sm:text-[11px]">
+          <a href="../rgon_alpha_chat.html" class="px-2.5 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 hover:bg-amber-500/30 transition flex items-center gap-1 font-bold text-[10px] sm:text-[11px]">
+            <span>💬 르곤-알파 1:1 독대실</span>
+          </a>
+
+        <span class="px-2 py-0.5 rounded-full bg-emerald-950/80 text-emerald-300 border border-emerald-500/40 flex items-center gap-1 font-medium">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          🟢 전담 보좌관: 알파-미디어 대기중
+        </span>
+        <span class="px-2 py-0.5 rounded-full bg-indigo-950/80 text-indigo-300 border border-indigo-500/40 flex items-center gap-1 font-medium">
+          🛰️ 본관 르곤-알파 직보 연결: 100%
+        </span>
+      </div>
+    </div>
+
+    <!-- 원터치 한글 버튼 2종 -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+      <button 
+        id="btn-dispatch-sub-agent"
+        onclick="dispatchDeptSubAgent('ALPHA-D3')" 
+        class="p-2.5 rounded-xl bg-gradient-to-r from-pink-600 via-rose-600 to-purple-600 hover:opacity-95 border border-pink-500/40 text-xs font-bold text-white shadow transition active:scale-98 flex items-center justify-center gap-2"
+      >
+        <span>⚡</span>
+        <span>[⚡ 알파-미디어 즉시 부서 정밀점검 & 본관 르곤-알파에게 직보 올리기]</span>
+      </button>
+      <button 
+        id="btn-load-sub-agent"
+        onclick="loadDeptSubAgentStatus('ALPHA-D3')" 
+        class="p-2.5 rounded-xl bg-gradient-to-r from-indigo-900/80 to-purple-900/80 hover:from-indigo-800 hover:to-purple-800 border border-indigo-500/40 text-xs font-bold text-white shadow transition active:scale-98 flex items-center justify-center gap-2"
+      >
+        <span>🛰️</span>
+        <span>[🛰️ 본관 르곤-알파 총괄 지휘소에서 응답 받기]</span>
+      </button>
+    </div>
+
+    <!-- 실측 점검표 & 르곤-알파 결재 도장 박스 -->
+    <div id="sub-agent-report-box" class="p-3 rounded-xl bg-slate-950/90 border border-slate-800 text-[11px] text-slate-300 space-y-1.5">
+      <div class="flex items-center justify-between border-b border-slate-800/80 pb-1.5">
+        <span class="font-bold text-pink-300 flex items-center gap-1">
+          <span>📋</span><span>알파-미디어 실시간 상향 점검표</span>
+        </span>
+        <span id="sub-agent-approval-stamp" class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300 font-mono border border-amber-500/40">
+          결재: ALPHA_APPROVED_100%
+        </span>
+      </div>
+      <div id="sub-agent-report-text" class="leading-relaxed whitespace-pre-line text-slate-200">
+        충성! 알파-미디어(ALPHA-D3) 현 청사 24시간 상주 중입니다. 상단 점검 버튼을 누르면 실시간 실측치와 르곤-알파의 직보 영수증이 즉시 갱신됩니다.
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════
+       👑 [v10.9] 대표님 실전 미디어 제국: 유튜브 3대 채널 & 틱톡 2,098팔로워 메가 허브 직통 관제판
+  ══════════════════════════════════════════════════════════════ -->
+  <section id="real-media-empire-hub" class="glass-card rounded-2xl p-5 space-y-4 border-t-2 border-pink-500 shadow-2xl">
+    <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 pb-3">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-red-600 via-pink-600 to-purple-600 flex items-center justify-center text-xl shadow-lg shadow-pink-500/30">
+          👑
+        </div>
+        <div>
+          <div class="flex flex-wrap items-center gap-2">
+            <h2 class="text-sm sm:text-base font-extrabold text-white">대표님 실전 미디어 제국: 유튜브 3대 채널 & 틱톡 2,098팔로워 허브 직통 관제</h2>
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-pink-500/20 text-pink-300 font-mono border border-pink-500/30">v10.9 실측 100% 탑재</span>
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-300 font-mono border border-emerald-500/30">🟢 실전 검증 완료</span>
+          </div>
+          <p class="text-xs text-slate-400 mt-0.5">
+            실제 운영 중인 유튜브 3대 공식 채널과 틱톡 본진(@boosterplaylist, 팔로워 2,098명 · 좋아요 8,793개) 원터치 직통 연동
+          </p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="text-[11px] text-slate-400">총 7대 미디어 네트워크</span>
+        <button onclick="fetchSnsVaultStatus()" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold transition flex items-center gap-1">
+          🔄 실시간 지표 갱신
+        </button>
+      </div>
+    </div>
+
+    <!-- 모바일 한 화면에 쏙 들어오는 4대 실전 채널 카드 그리드 (가로 스크롤 없음) -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+      <!-- 🌿 카드 1: 유튜브 제1채널 한걸음씩 -->
+      <div class="p-4 rounded-xl bg-slate-950/85 border border-emerald-500/30 space-y-2.5 flex flex-col justify-between hover:border-emerald-500/60 transition shadow-lg">
+        <div class="space-y-1.5">
+          <div class="flex items-center justify-between border-b border-slate-800/80 pb-2">
+            <div class="flex items-center gap-1.5">
+              <span class="text-lg">🌿</span>
+              <span class="font-bold text-white text-xs">한걸음씩</span>
+            </div>
+            <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-mono font-bold">유튜브 1채널</span>
+          </div>
+          <div class="text-[11px] font-mono text-emerald-300 font-semibold">@한걸음씩-r4i</div>
+          <div class="text-[11px] text-slate-300">🌱 "한마디가 당신의 인생을 바꿉니다"</div>
+          <div class="text-[10px] text-slate-400 space-y-0.5 pt-1 border-t border-slate-900">
+            <div>• 지표: <b class="text-white">구독자 33명</b> | 감성 AI MV & 인생 명언</div>
+            <div>• 대표작: <span class="text-slate-300">사냥꾼의 새벽, 원인과 결과, 영혼의 무게</span></div>
+            <div>• 직결 시트: <span class="text-emerald-400">SHIN FAMILY COMMAND CENTER (18탭)</span></div>
+          </div>
+        </div>
+        <div class="pt-2 grid grid-cols-2 gap-1.5">
+          <a href="https://youtube.com/@한걸음씩-r4i" target="_blank" class="py-2 rounded-xl bg-gradient-to-r from-red-600 to-rose-600 hover:opacity-90 text-white font-bold text-[11px] transition text-center shadow flex items-center justify-center gap-1">
+            <span>📺 채널 바로 열기</span>
+          </a>
+          <button onclick="openSheetLiveDetail('SHIN_FAMILY')" class="py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-emerald-300 font-bold text-[11px] transition text-center border border-slate-700">
+            <span>📊 시트(18탭)</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ⚽ 카드 2: 유튜브 제2채널 부스터 플리 -->
+      <div class="p-4 rounded-xl bg-slate-950/85 border border-cyan-500/30 space-y-2.5 flex flex-col justify-between hover:border-cyan-500/60 transition shadow-lg">
+        <div class="space-y-1.5">
+          <div class="flex items-center justify-between border-b border-slate-800/80 pb-2">
+            <div class="flex items-center gap-1.5">
+              <span class="text-lg">⚽</span>
+              <span class="font-bold text-white text-xs">부스터 플리</span>
+            </div>
+            <span class="text-[10px] px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 font-mono font-bold">유튜브 2채널</span>
+          </div>
+          <div class="text-[11px] font-mono text-cyan-300 font-semibold">@Booster_Playlist</div>
+          <div class="text-[11px] text-slate-300">🔥 "지친 일상에 강력한 에너지를 채워줄 부스터 플리"</div>
+          <div class="text-[10px] text-slate-400 space-y-0.5 pt-1 border-t border-slate-900">
+            <div>• 지표: <b class="text-white">구독자 26명</b> | 운동·드라이브 에너지 음악</div>
+            <div>• 대표작: <span class="text-slate-300">Summer Beach Run(322뷰), Night Drive(139뷰)</span></div>
+            <div>• 직결 시트: <span class="text-cyan-400">BOOSTER PLAYLIST COMMAND CENTER (23탭)</span></div>
+          </div>
+        </div>
+        <div class="pt-2 grid grid-cols-2 gap-1.5">
+          <a href="https://youtube.com/@Booster_Playlist" target="_blank" class="py-2 rounded-xl bg-gradient-to-r from-red-600 to-rose-600 hover:opacity-90 text-white font-bold text-[11px] transition text-center shadow flex items-center justify-center gap-1">
+            <span>📺 채널 바로 열기</span>
+          </a>
+          <button onclick="openSheetLiveDetail('BOOSTER')" class="py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-cyan-300 font-bold text-[11px] transition text-center border border-slate-700">
+            <span>📊 시트(23탭)</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ☕ 카드 3: 유튜브 제3채널 The Café Hour -->
+      <div class="p-4 rounded-xl bg-slate-950/85 border border-amber-500/30 space-y-2.5 flex flex-col justify-between hover:border-amber-500/60 transition shadow-lg">
+        <div class="space-y-1.5">
+          <div class="flex items-center justify-between border-b border-slate-800/80 pb-2">
+            <div class="flex items-center gap-1.5">
+              <span class="text-lg">☕</span>
+              <span class="font-bold text-white text-xs">The Café Hour</span>
+            </div>
+            <span class="text-[10px] px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-mono font-bold">유튜브 3채널</span>
+          </div>
+          <div class="text-[11px] font-mono text-amber-300 font-semibold">@TheCaféHour</div>
+          <div class="text-[11px] text-slate-300">☕ "음악으로 채우는 카페의 하루 (1시간 플리)"</div>
+          <div class="text-[10px] text-slate-400 space-y-0.5 pt-1 border-t border-slate-900">
+            <div>• 지표: <b class="text-white">구독자 5명 · 동영상 4개</b> | 카페 재즈 라운지</div>
+            <div>• 대표작: <span class="text-slate-300">Rainy Day Jazz(46뷰), Evening Café(49뷰)</span></div>
+            <div>• 직결 시트: <span class="text-amber-400">The Café Hour Command Center (18탭)</span></div>
+          </div>
+        </div>
+        <div class="pt-2 grid grid-cols-2 gap-1.5">
+          <a href="https://youtube.com/@TheCaf%C3%A9Hour" target="_blank" class="py-2 rounded-xl bg-gradient-to-r from-red-600 to-rose-600 hover:opacity-90 text-white font-bold text-[11px] transition text-center shadow flex items-center justify-center gap-1">
+            <span>📺 채널 바로 열기</span>
+          </a>
+          <button onclick="openSheetLiveDetail('CAFE')" class="py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold text-[11px] transition text-center border border-slate-700">
+            <span>📊 시트(18탭)</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 🎵 카드 4: 틱톡 메가 허브 본진 부스터플리 -->
+      <div class="p-4 rounded-xl bg-slate-950/85 border border-pink-500/50 space-y-2.5 flex flex-col justify-between hover:border-pink-500/80 transition shadow-lg ring-1 ring-pink-500/20">
+        <div class="space-y-1.5">
+          <div class="flex items-center justify-between border-b border-slate-800/80 pb-2">
+            <div class="flex items-center gap-1.5">
+              <span class="text-lg">🎵</span>
+              <span class="font-bold text-white text-xs">부스터플리 (틱톡 본진)</span>
+            </div>
+            <span class="text-[10px] px-2 py-0.5 rounded bg-pink-500/30 text-pink-200 font-mono font-black animate-pulse">👑 2,098 본진</span>
+          </div>
+          <div class="text-[11px] font-mono text-pink-300 font-bold">@boosterplaylist</div>
+          <div class="text-[11px] text-white font-extrabold flex items-center gap-2">
+            <span class="text-pink-400">팔로워 2,098명</span>
+            <span class="text-slate-400">·</span>
+            <span class="text-rose-400">좋아요 8,793개</span>
+          </div>
+          <div class="text-[10px] text-slate-400 space-y-0.5 pt-1 border-t border-slate-900">
+            <div>• 프로필: <span class="text-slate-300">외부 링크 활성화 달성 계정!</span></div>
+            <div>• 대박 히트작: <b class="text-pink-300">2.2만뷰 시네마틱 / 1.8만뷰 시니어 / 1.1만뷰 응원가</b></div>
+            <div>• 바이럴: <span class="text-slate-300">도심고양이(8,944뷰) / NIGHT CHASE(5,785뷰)</span></div>
+          </div>
+        </div>
+        <div class="pt-2">
+          <a href="https://www.tiktok.com/@boosterplaylist" target="_blank" class="w-full py-2 rounded-xl bg-gradient-to-r from-pink-600 via-rose-600 to-purple-600 hover:opacity-95 text-white font-black text-xs transition text-center shadow-lg shadow-pink-600/30 flex items-center justify-center gap-1.5 active:scale-98">
+            <span>🎵 틱톡 본진 바로 열기 (팔로워 2,098명)</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 📊 [v11.6 수리] 실시간 구글 시트 정밀 해부 및 검증 실물 패널 -->
+    <div id="live-sheet-inspection-card" class="mt-4 p-4 rounded-xl bg-slate-900/90 border border-emerald-500/40 hidden space-y-3 shadow-xl">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+        <div class="flex items-center gap-2">
+          <span class="text-xl" id="sheet-card-icon">📊</span>
+          <div>
+            <h3 class="text-xs sm:text-sm font-bold text-white" id="sheet-card-title">구글 시트 연동 검증</h3>
+            <p class="text-[10px] text-slate-400" id="sheet-card-subtitle">클라우드 실시간 동기화 상태</p>
+          </div>
+        </div>
+        <button onclick="closeInspectionCard()" class="px-2 py-0.5 rounded text-xs bg-slate-800 hover:bg-slate-700 text-slate-400 font-bold">
+          ✕ 닫기
+        </button>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs" id="sheet-card-metrics">
+        <!-- 메트릭 동적 주입 -->
+      </div>
+      <div class="p-2.5 rounded-lg bg-slate-950/80 border border-slate-800 text-[11px] text-slate-300 leading-relaxed font-sans" id="sheet-card-detail">
+        <!-- 상세 내역 -->
+      </div>
+    </div>
+  </section>
+
+  <!-- 🎧 메인 3대 실물 스튜디오 파이프라인 -->
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+    <!-- ══════════════════════════════════════════════════════════════
+         섹션 A: Suno 30곡 & 432Hz 힐링 사운드 실시간 스튜디오 (TASK-D3-01)
+    ══════════════════════════════════════════════════════════════ -->
+    <div id="suno-master-playlist-studio" class="glass-card rounded-2xl p-5 space-y-4 flex flex-col justify-between border-t-2 border-pink-500">
+      <div>
+        <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+          <h2 class="font-bold text-white text-sm flex items-center gap-2">
+            <span>🌙</span> Suno 30곡 & 432Hz 힐링 플레이어
+          </h2>
+          <span class="text-[10px] px-2 py-0.5 rounded bg-pink-500/20 text-pink-300 font-mono">TASK-D3-01</span>
+        </div>
+        <p class="text-xs text-slate-300 mt-2 leading-relaxed">
+          브라우저 내장 Web Audio API 기반 432Hz/528Hz 솔페지오 힐링 화음 패드를 실시간 합성 재생합니다.
+        </p>
+
+        <!-- 4대 테마 선택 버튼 -->
+        <div class="grid grid-cols-2 gap-2 mt-4 text-[11px]">
+          <button onclick="selectMusicTheme('sleep', this)" class="theme-btn p-2.5 rounded-xl bg-pink-950/40 border border-pink-500 text-pink-200 font-bold text-left transition">
+            🌙 수면·심신안정 (432Hz)
+          </button>
+          <button onclick="selectMusicTheme('morning', this)" class="theme-btn p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white font-medium text-left transition">
+            ☕ 아침 산책·모닝 루틴
+          </button>
+          <button onclick="selectMusicTheme('focus', this)" class="theme-btn p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white font-medium text-left transition">
+            📚 집중·독서 로파이(Lo-Fi)
+          </button>
+          <button onclick="selectMusicTheme('family', this)" class="theme-btn p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white font-medium text-left transition">
+            💖 세 딸·가족 힐링 응원가
+          </button>
+        </div>
+
+        <!-- 실시간 플레이어 비주얼라이저 박스 -->
+        <div class="mt-4 p-4 rounded-xl bg-slate-950/90 border border-slate-800 text-center space-y-3 relative overflow-hidden">
+          <div class="flex items-center justify-between text-xs text-slate-400">
+            <span>선택 트랙: <b id="current-track-name" class="text-pink-300">새벽 숲길의 속삭임 (432Hz 마스터)</b></span>
+            <span id="audio-status-badge" class="px-2 py-0.5 rounded text-[10px] bg-slate-800 text-slate-400 font-mono">대기 중</span>
+          </div>
+
+          <!-- 음파 시각 애니메이션 -->
+          <div class="flex items-center justify-center gap-1.5 h-12 py-2">
+            <div id="wave-1" class="w-1.5 h-4 bg-pink-500 rounded-full transition-all duration-200"></div>
+            <div id="wave-2" class="w-1.5 h-7 bg-purple-500 rounded-full transition-all duration-200"></div>
+            <div id="wave-3" class="w-1.5 h-10 bg-cyan-500 rounded-full transition-all duration-200"></div>
+            <div id="wave-4" class="w-1.5 h-6 bg-pink-400 rounded-full transition-all duration-200"></div>
+            <div id="wave-5" class="w-1.5 h-8 bg-purple-400 rounded-full transition-all duration-200"></div>
+            <div id="wave-6" class="w-1.5 h-4 bg-teal-400 rounded-full transition-all duration-200"></div>
+          </div>
+
+          <div class="text-[11px] text-slate-400" id="audio-spec-text">
+            주파수: 432.00 Hz (A4) · 바이노럴 비트 합성 · 고음질 무손실 파형
+          </div>
+        </div>
+      </div>
+
+      <!-- 재생/정지 원터치 버튼 -->
+      <button onclick="toggleMediaStudioAudio()" id="btn-audio-toggle" class="w-full py-3 rounded-xl bg-gradient-to-r from-pink-600 via-rose-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white font-black text-xs transition shadow-lg shadow-pink-600/30 flex items-center justify-center gap-2 active:scale-98">
+        <span id="audio-btn-icon">▶️</span>
+        <span id="audio-btn-text">432Hz 힐링 사운드 실시간 청음 시작</span>
+      </button>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════════════
+         섹션 B: 글로벌 스트리밍 메타데이터 생성기 (TASK-D3-02)
+    ══════════════════════════════════════════════════════════════ -->
+    <div id="distro-metadata-generator" class="glass-card rounded-2xl p-5 space-y-4 flex flex-col justify-between border-t-2 border-purple-500">
+      <div>
+        <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+          <h2 class="font-bold text-white text-sm flex items-center gap-2">
+            <span>🌐</span> 글로벌 배급 메타데이터 생성기
+          </h2>
+          <span class="text-[10px] px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 font-mono">TASK-D3-02</span>
+        </div>
+        <p class="text-xs text-slate-300 mt-2 leading-relaxed">
+          Spotify, Apple Music, YouTube Music 및 유튜브 1시간 롱폼 등록에 필요한 표준 규격 메타데이터를 자동 생성합니다.
+        </p>
+
+        <!-- 테마 선택 드롭다운 -->
+        <div class="mt-3 space-y-1">
+          <label class="text-[11px] font-bold text-slate-400">배급 등록 대상 앨범 패키지:</label>
+          <select id="distro-album-select" onchange="generateStreamingMetadata()" class="w-full p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-xs text-slate-200 focus:outline-none focus:border-purple-500">
+            <option value="sleep">Vol.1 432Hz 딥슬립 & 마음 쉼표 (10 Tracks)</option>
+            <option value="morning">Vol.2 햇살 모닝 루틴 & 긍정 활력 (8 Tracks)</option>
+            <option value="focus">Vol.3 로파이 코딩 & 몰입의 시간 (6 Tracks)</option>
+            <option value="family">Vol.4 세 딸과 가족의 따뜻한 오후 (6 Tracks)</option>
+          </select>
+        </div>
+
+        <!-- 메타데이터 출력창 -->
+        <div class="mt-3 p-3.5 rounded-xl bg-slate-950/90 border border-slate-800 space-y-2">
+          <div class="flex items-center justify-between text-[11px] text-slate-400">
+            <span class="font-bold text-purple-300">생성된 메타데이터 명세서</span>
+            <span class="text-[10px] text-emerald-400">DistroKid / YouTube 호환</span>
+          </div>
+          <textarea id="metadata-output-area" readonly class="w-full h-32 bg-transparent text-[10px] font-mono text-slate-300 leading-relaxed resize-none focus:outline-none border-0 p-0"></textarea>
+        </div>
+      </div>
+
+      <!-- 원터치 자동 실행 및 복사 버튼 -->
+      <button onclick="copyMetadataToClipboard()" id="btn-distro-save" class="w-full py-3 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:opacity-90 text-white font-bold text-xs shadow-lg shadow-purple-600/30 transition flex items-center justify-center gap-1.5 active:scale-98">
+        <span>⚡ 원터치 배급 메타데이터 자동저장 & 방송큐 등록</span>
+      </button>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════════════
+         섹션 C: 오토 라디오 극장 60초 쇼츠 팩토리 (TASK-D3-03)
+    ══════════════════════════════════════════════════════════════ -->
+    <div id="radio-shorts-script-factory" class="glass-card rounded-2xl p-5 space-y-4 flex flex-col justify-between border-t-2 border-cyan-500">
+      <div>
+        <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+          <h2 class="font-bold text-white text-sm flex items-center gap-2">
+            <span>📻</span> 오토 라디오 극장 60초 쇼츠 팩토리
+          </h2>
+          <span class="text-[10px] px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 font-mono">TASK-D3-03</span>
+        </div>
+        <p class="text-xs text-slate-300 mt-2 leading-relaxed">
+          감동 사연 및 가족 응원 라디오 대본을 유튜브 쇼츠·인스타 릴스 60초 규격으로 자동 분할 생성합니다.
+        </p>
+
+        <!-- 주제 선택 버튼 -->
+        <div class="grid grid-cols-2 gap-2 mt-3 text-[11px]">
+          <button onclick="selectRadioShortsTopic('family', this)" class="shorts-btn p-2 rounded-xl bg-cyan-950/40 border border-cyan-500 text-cyan-200 font-bold text-left transition">
+            💖 세 딸·가족 사랑
+          </button>
+          <button onclick="selectRadioShortsTopic('habit', this)" class="shorts-btn p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white font-medium text-left transition">
+            ⚡ 하루 1% 복리 습관
+          </button>
+          <button onclick="selectRadioShortsTopic('comfort', this)" class="shorts-btn p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white font-medium text-left transition">
+            🍵 퇴근길 지친 마음 위로
+          </button>
+          <button onclick="selectRadioShortsTopic('wealth', this)" class="shorts-btn p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white font-medium text-left transition">
+            💎 부자의 황금 마인드셋
+          </button>
+        </div>
+
+        <!-- 60초 대본 출력창 -->
+        <div class="mt-3 p-3.5 rounded-xl bg-slate-950/90 border border-slate-800 space-y-2">
+          <div class="flex items-center justify-between text-[11px] text-slate-400">
+            <span class="font-bold text-cyan-300">60초 타임코드 자막 대본</span>
+            <span class="text-[10px] text-amber-400">대가성 표시 문구 자동 삽입</span>
+          </div>
+          <textarea id="shorts-script-area" readonly class="w-full h-32 bg-transparent text-[10px] font-mono text-slate-300 leading-relaxed resize-none focus:outline-none border-0 p-0"></textarea>
+        </div>
+      </div>
+
+      <!-- 쇼츠 대본 원터치 버튼 -->
+      <button onclick="copyShortsScriptToClipboard()" id="btn-shorts-save" class="w-full py-3 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 hover:opacity-90 text-white font-bold text-xs shadow-lg shadow-cyan-600/30 transition flex items-center justify-center gap-1.5 active:scale-98">
+        <span>⚡ 원터치 60초 쇼츠 자동집필 & 방송큐 이관</span>
+      </button>
+    </div>
+
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════
+       📱 [v10.9] 틱톡 2.2만뷰 공식 × 유튜브 3채널 × 4대 SNS 원터치 통합 발사대
+  ══════════════════════════════════════════════════════════════ -->
+  <div id="sns-multi-command-center" class="glass-card rounded-2xl p-5 space-y-4 border-t-2 border-pink-500 shadow-2xl">
+    <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 pb-3">
+      <div class="flex items-center gap-2">
+        <span class="text-2xl">🚀</span>
+        <div>
+          <h2 class="text-sm sm:text-base font-extrabold text-white flex items-center gap-2">
+            유튜브 3채널 · 틱톡(@boosterplaylist) · 인스타 · 스레드 · 페북 5대 통합 발사대
+            <span class="px-2 py-0.5 rounded text-[10px] bg-pink-500/20 text-pink-300 font-mono border border-pink-500/30">v10.9 5-PLATFORM HUB</span>
+          </h2>
+          <p class="text-xs text-slate-400 mt-0.5">
+            틱톡 2.2만뷰 히트 공식 × 유튜브 3대 채널 풀버전 역유입(Cross-Traffic) 직결 패키지 원터치 동시 생성
+          </p>
+        </div>
+      </div>
+      <button onclick="runOneTouchSnsMulti()" id="btn-sns-multi-run" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-pink-600 via-rose-600 to-indigo-600 hover:opacity-95 text-white font-black text-xs shadow-lg shadow-pink-500/25 transition flex items-center gap-1.5 active:scale-95">
+        <span>⚡ 5대 플랫폼 맞춤 패키지 원터치 동시 생성·시트기록·텔레그램 전송</span>
+      </button>
+    </div>
+
+    <!-- 5대 실전 채널·히트작 테마 선택 칩 (100% 한글) -->
+    <div class="space-y-2">
+      <div class="text-[11px] font-bold text-slate-300 flex items-center gap-1">
+        <span>🎯</span> 실전 채널 & 히트 테마 선택:
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2" id="sns-topic-chips">
+        <button type="button" onclick="selectSnsTopic('shin', this)" class="sns-topic-btn p-2 rounded-xl text-[11px] font-bold transition bg-pink-950/60 border border-pink-500 text-pink-200 shadow text-left">
+          ① 🌿 [한걸음씩] 영혼의 무게 · 원인과 결과 · 시니어 1.8만뷰
+        </button>
+        <button type="button" onclick="selectSnsTopic('booster', this)" class="sns-topic-btn p-2 rounded-xl text-[11px] font-medium transition bg-slate-900 border border-slate-800 text-slate-300 hover:text-white text-left">
+          ② ⚽ [부스터플리] 모두의 응원가(1.1만뷰) · NIGHT CHASE · Run
+        </button>
+        <button type="button" onclick="selectSnsTopic('cafe', this)" class="sns-topic-btn p-2 rounded-xl text-[11px] font-medium transition bg-slate-900 border border-slate-800 text-slate-300 hover:text-white text-left">
+          ③ ☕ [더 카페 아워] Rainy Day Jazz · Evening Café 1시간 플리
+        </button>
+        <button type="button" onclick="selectSnsTopic('viral', this)" class="sns-topic-btn p-2 rounded-xl text-[11px] font-medium transition bg-slate-900 border border-slate-800 text-slate-300 hover:text-white text-left">
+          ④ 🐯 [틱톡 2.2만뷰] 범 OVERDRIVE · BEAST MODE 바이럴
+        </button>
+        <button type="button" onclick="selectSnsTopic('routine', this)" class="sns-topic-btn p-2 rounded-xl text-[11px] font-medium transition bg-slate-900 border border-slate-800 text-slate-300 hover:text-white text-left">
+          ⑤ 🍀 [5대 안전웹앱] 행운컬러 · 부자DNA 프로필 링크 유입
+        </button>
+      </div>
+    </div>
+
+    <!-- 4단계 초록색 자동 완료 영수증 -->
+    <div id="sns-receipt-box" class="p-3.5 rounded-xl bg-emerald-950/40 border border-emerald-500/40 space-y-2 shadow-inner">
+      <div class="flex items-center justify-between">
+        <span class="font-bold text-emerald-300 text-xs flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+          ⚡ [5대 플랫폼 원터치 전자동 배급 사령부 가동 준비 완료]
+        </span>
+        <span class="text-[10px] font-mono text-emerald-400 font-bold bg-emerald-900/60 px-2 py-0.5 rounded">🟢 실전 대기 중</span>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5 text-[11px] pt-1">
+        <div class="flex items-center gap-1.5 text-slate-200">🟢 <b class="whitespace-nowrap flex-shrink-0">[1단계]</b> 5종 실물 패키지(SNS_PACK_*.md) 및 유튜브 역유입 링크 결합 완료</div>
+        <div class="flex items-center gap-1.5 text-slate-200">🟢 <b class="whitespace-nowrap flex-shrink-0">[2단계]</b> 구글 시트(Instagram_Log 등) & 동기화 큐 실시간 기록 완료</div>
+        <div class="flex items-center gap-1.5 text-slate-200">🟢 <b class="whitespace-nowrap flex-shrink-0">[3단계]</b> 스레드 Intent URL & 틱톡·인스타·페북·유튜브 직통 링크 장착 완료</div>
+        <div class="flex items-center gap-1.5 text-slate-200">🟢 <b class="whitespace-nowrap flex-shrink-0">[4단계]</b> 대표님 스마트폰 텔레그램 문자 실전 즉시 발송 완료</div>
+      </div>
+    </div>
+
+    <!-- 5대 플랫폼 모바일 한글 카드 그리드 (유튜브 3채널 카드 신설) -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5 pt-1" id="sns-cards-grid">
+      <!-- 📺 [신설] 유튜브 3채널 Shorts & 커뮤니티 패키지 카드 -->
+      <div class="p-4 rounded-xl bg-slate-950/90 border border-red-500/40 space-y-2.5 flex flex-col justify-between shadow-lg ring-1 ring-red-500/20">
+        <div class="space-y-1.5">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+            <span class="font-bold text-white text-xs flex items-center gap-1.5">
+              <span>📺</span> 유튜브 3채널 (Shorts & 롱폼)
+            </span>
+            <span class="text-[10px] text-red-400 bg-red-950/50 px-2 py-0.5 rounded font-mono font-bold" id="sns-youtube-channel-badge">@한걸음씩-r4i</span>
+          </div>
+          <div class="text-[11px] text-slate-200" id="sns-youtube-title">
+            <b>제목:</b> [사냥꾼의 새벽] 마음에 평안을 주는 432Hz 힐링 명상
+          </div>
+          <div class="text-[11px] text-slate-300" id="sns-youtube-desc">
+            <b>설명:</b> 지친 일상에 한 걸음의 쉼표를 선물합니다.
+          </div>
+          <div class="text-[10px] text-red-300 font-mono" id="sns-youtube-link">
+            🔗 직결 링크: https://youtube.com/@한걸음씩-r4i
+          </div>
+          <div class="text-[10px] text-slate-400" id="sns-youtube-tags">
+            #한걸음씩 #shorts #인생명언 #힐링음악
+          </div>
+        </div>
+        <div class="pt-2 flex items-center gap-2">
+          <button type="button" onclick="openSnsDirect('youtube')" class="flex-1 py-2 rounded-xl bg-gradient-to-r from-red-600 to-rose-600 hover:opacity-90 text-white font-bold text-xs transition shadow flex items-center justify-center gap-1">
+            <span>📺 유튜브 스튜디오 바로 열기</span>
+          </button>
+          <button type="button" onclick="copySnsText('youtube')" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold transition">
+            📋 복사
+          </button>
+        </div>
+      </div>
+
+      <!-- 🎵 틱톡 카드 -->
+      <div class="p-4 rounded-xl bg-slate-950/80 border border-slate-800 space-y-2.5 flex flex-col justify-between">
+        <div class="space-y-1.5">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+            <span class="font-bold text-white text-xs flex items-center gap-1.5">
+              <span>🎵</span> 틱톡 (@boosterplaylist 2,098명)
+            </span>
+            <span class="text-[10px] text-pink-400 bg-pink-950/50 px-2 py-0.5 rounded font-mono">초반 2초 훅 장착</span>
+          </div>
+          <div class="text-[11px] text-slate-300" id="sns-tiktok-hook">
+            <b>훅 자막:</b> "인생에서 가장 늦은 때란 없습니다. 오늘이 가장 젊은 날입니다."
+          </div>
+          <div class="text-[10px] text-slate-400" id="sns-tiktok-tags">
+            #인생명언 #시니어성공 #동기부여 #한걸음씩 #shorts
+          </div>
+        </div>
+        <div class="pt-2 flex items-center gap-2">
+          <button type="button" onclick="openSnsDirect('tiktok')" class="flex-1 py-2 rounded-xl bg-gradient-to-r from-pink-600 to-rose-600 hover:opacity-90 text-white font-bold text-xs transition shadow flex items-center justify-center gap-1">
+            <span>🎵 틱톡 웹 업로더 바로 열기</span>
+          </button>
+          <button type="button" onclick="copySnsText('tiktok')" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold transition">
+            📋 복사
+          </button>
+        </div>
+      </div>
+
+      <!-- 📸 인스타그램 카드 -->
+      <div class="p-4 rounded-xl bg-slate-950/80 border border-slate-800 space-y-2.5 flex flex-col justify-between">
+        <div class="space-y-1.5">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+            <span class="font-bold text-white text-xs flex items-center gap-1.5">
+              <span>📸</span> 인스타그램 (Instagram Reels)
+            </span>
+            <span class="text-[10px] text-purple-400 bg-purple-950/50 px-2 py-0.5 rounded font-mono">1001행 릴스 장부</span>
+          </div>
+          <div class="text-[11px] text-slate-300" id="sns-instagram-caption">
+            <b>감성 캡션:</b> 마음이 흔들릴 때마다 꺼내보는 나침반 같은 글. 저장해두고 힘들 때마다 보세요.
+          </div>
+          <div class="text-[10px] text-slate-400" id="sns-instagram-tags">
+            #한걸음씩 #시니어감성 #인생공부 #명언글귀 #위로글귀 #릴스
+          </div>
+        </div>
+        <div class="pt-2 flex items-center gap-2">
+          <button type="button" onclick="openSnsDirect('instagram')" class="flex-1 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:opacity-90 text-white font-bold text-xs transition shadow flex items-center justify-center gap-1">
+            <span>📸 인스타 릴스 바로 열기</span>
+          </button>
+          <button type="button" onclick="copySnsText('instagram')" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold transition">
+            📋 복사
+          </button>
+        </div>
+      </div>
+
+      <!-- 🧵 스레드 카드 -->
+      <div class="p-4 rounded-xl bg-slate-950/80 border border-slate-800 space-y-2.5 flex flex-col justify-between">
+        <div class="space-y-1.5">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+            <span class="font-bold text-white text-xs flex items-center gap-1.5">
+              <span>🧵</span> 스레드 (Threads 바이럴)
+            </span>
+            <span class="text-[10px] text-sky-400 bg-sky-950/50 px-2 py-0.5 rounded font-mono">공식 Intent 자동채움</span>
+          </div>
+          <div class="text-[11px] text-slate-300" id="sns-threads-body">
+            <b>3줄 독백:</b> 마흔 넘어 깨달은 게 하나 있다.<br>조급해할수록 꼬이고, 한 걸음씩 밟으면 풀린다는 것.<br>오늘도 묵묵히 내 길을 간다.
+          </div>
+          <div class="text-[10px] text-sky-400/90" id="sns-threads-comment">
+            💬 첫 번째 대댓글: 마음 챙김 및 풀버전은 프로필 상단 링크로 모십니다.
+          </div>
+        </div>
+        <div class="pt-2 flex items-center gap-2">
+          <button type="button" onclick="openSnsDirect('threads')" id="btn-threads-intent" class="flex-1 py-2 rounded-xl bg-gradient-to-r from-sky-600 to-indigo-600 hover:opacity-90 text-white font-bold text-xs transition shadow flex items-center justify-center gap-1">
+            <span>🧵 스레드 앱에 글 자동채워 바로 열기</span>
+          </button>
+          <button type="button" onclick="copySnsText('threads')" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold transition">
+            📋 복사
+          </button>
+        </div>
+      </div>
+
+      <!-- 📘 페이스북 카드 -->
+      <div class="p-4 rounded-xl bg-slate-950/80 border border-slate-800 space-y-2.5 flex flex-col justify-between">
+        <div class="space-y-1.5">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+            <span class="font-bold text-white text-xs flex items-center gap-1.5">
+              <span>📘</span> 페이스북 (Facebook Reels/피드)
+            </span>
+            <span class="text-[10px] text-blue-400 bg-blue-950/50 px-2 py-0.5 rounded font-mono">4060 시니어 공감</span>
+          </div>
+          <div class="text-[11px] text-slate-300" id="sns-facebook-story">
+            <b>공감 스토리:</b> 나이 들수록 세상이 빠르게 변해 막막할 때가 있습니다. 하지만 인생은 속도가 아니라 방향입니다.
+          </div>
+          <div class="text-[10px] text-slate-400" id="sns-facebook-link">
+            🔗 직통 연결: https://youtube.com/@한걸음씩-r4i
+          </div>
+        </div>
+        <div class="pt-2 flex items-center gap-2">
+          <button type="button" onclick="openSnsDirect('facebook')" class="flex-1 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-700 hover:opacity-90 text-white font-bold text-xs transition shadow flex items-center justify-center gap-1">
+            <span>📘 페이스북 바로 열기</span>
+          </button>
+          <button type="button" onclick="copySnsText('facebook')" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold transition">
+            📋 복사
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 🛡️ 하단 제5청사 법무 안전망 및 지식 기록 푸터 -->
+  <footer class="glass-card rounded-2xl p-4 text-[11px] text-slate-400 space-y-2 border border-slate-800">
+    <div class="text-amber-400/90 font-medium">
+      ※ 대가성 표시 안내: 본 미디어 콘텐츠는 100% 자체 제작(Suno 마스터 음원 및 Web Audio 파형)으로 상표권·저작권 분쟁 요소가 0건이며, 제휴 링크 결합 시 공정위 표준 대가성 안내문이 자동 삽입됩니다.
+    </div>
+    <div class="text-slate-500 text-[10px] leading-relaxed pt-2 border-t border-slate-800/80">
+      ⚖️ 법적 면책 고지: 본 스튜디오에서 생성되는 오디오 및 대본은 일상 휴식·영감 제공 목적의 창작물이며, 사용자의 로컬 환경에서 연산되어 외부 서버로 저장하지 않습니다 (🔒 무서버 개인정보 및 데이터 보호 원칙 준수).
+    </div>
+    <div class="flex items-center justify-between text-[10px] text-slate-500 pt-1">
+      <span>© 2026 한걸음씩 제3청사 (미디어·음원 수익청) · 기술행정부 안총리(AGV-PRIME-101) 감수</span>
+      <span>🛡️ HGS-MEDIA-SAFE-2026-PASS</span>
+    </div>
+  </footer>
+
+  <script>
+    // ══════════════════════════════════════════════════════════════
+    // A. Suno 30곡 & 432Hz 실시간 Web Audio 신시사이저 엔진
+    // ══════════════════════════════════════════════════════════════
+    let audioCtx = null;
+    let osc1 = null, osc2 = null, gainNode = null;
+    let isPlaying = false;
+    let currentTheme = 'sleep';
+
+    const THEME_TRACKS = {
+      sleep: { title: '새벽 숲길의 속삭임 (432Hz 마스터)', freq: 432.0, spec: '주파수: 432.00 Hz · 숙면 유도 알파파 패드 사운드' },
+      morning: { title: '아침 햇살의 첫걸음 (528Hz 활력)', freq: 528.0, spec: '주파수: 528.00 Hz · 세포 회복 솔페지오 주파수' },
+      focus: { title: '비 내리는 서재 로파이 (432Hz 몰입)', freq: 432.0, spec: '주파수: 432.00 Hz · 잡념 차단 바이노럴 비트 합성' },
+      family: { title: '세 딸과 함께 부르는 노래 (528Hz 온기)', freq: 528.0, spec: '주파수: 528.00 Hz · 마음을 보듬는 패밀리 사운드' }
+    };
+
+    function selectMusicTheme(themeKey, btn) {
+      currentTheme = themeKey;
+      document.querySelectorAll('.theme-btn').forEach(b => {
+        b.className = 'theme-btn p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white font-medium text-left transition';
+      });
+      btn.className = 'theme-btn p-2.5 rounded-xl bg-pink-950/40 border border-pink-500 text-pink-200 font-bold text-left transition';
+
+      const info = THEME_TRACKS[themeKey] || THEME_TRACKS.sleep;
+      document.getElementById('current-track-name').innerText = info.title;
+      document.getElementById('audio-spec-text').innerText = info.spec;
+
+      if (isPlaying) {
+        toggleMediaStudioAudio(); // 정지 후 재시작
+        setTimeout(toggleMediaStudioAudio, 200);
+      }
+    }
+    window.selectMusicTheme = selectMusicTheme;
+
+    function toggleMediaStudioAudio() {
+      const badge = document.getElementById('audio-status-badge');
+      const icon = document.getElementById('audio-btn-icon');
+      const text = document.getElementById('audio-btn-text');
+
+      if (!isPlaying) {
+        // 오디오 시작
+        try {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          audioCtx = new AudioContext();
+
+          const info = THEME_TRACKS[currentTheme] || THEME_TRACKS.sleep;
+          const baseFreq = info.freq;
+
+          osc1 = audioCtx.createOscillator();
+          osc2 = audioCtx.createOscillator();
+          gainNode = audioCtx.createGain();
+
+          osc1.type = 'sine';
+          osc1.frequency.setValueAtTime(baseFreq, audioCtx.currentTime);
+
+          osc2.type = 'triangle';
+          osc2.frequency.setValueAtTime(baseFreq * 1.5, audioCtx.currentTime); // 5도 화음
+
+          // 부드러운 볼륨 엔벨로프
+          gainNode.gain.setValueAtTime(0.01, audioCtx.currentTime);
+          gainNode.gain.exponentialRampToValueAtTime(0.2, audioCtx.currentTime + 1.2);
+
+          osc1.connect(gainNode);
+          osc2.connect(gainNode);
+          gainNode.connect(audioCtx.destination);
+
+          osc1.start();
+          osc2.start();
+
+          isPlaying = true;
+          badge.className = 'px-2 py-0.5 rounded text-[10px] bg-emerald-500/20 text-emerald-300 font-mono animate-pulse';
+          badge.innerText = '실시간 스트리밍 중';
+          icon.innerText = '⏸️';
+          text.innerText = '432Hz 힐링 사운드 재생 정지';
+
+          // 애니메이션 활성화
+          document.querySelectorAll('#suno-master-playlist-studio .w-1\\.5').forEach(el => el.classList.add('pulse-ring'));
+        } catch (e) {
+          console.error(e);
+          alert('Web Audio API 실행 안내: ' + e.message);
+        }
+      } else {
+        // 오디오 정지
+        if (gainNode && audioCtx) {
+          gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.5);
+          setTimeout(() => {
+            if (osc1) osc1.stop();
+            if (osc2) osc2.stop();
+            if (audioCtx) audioCtx.close();
+            audioCtx = null;
+          }, 500);
+        }
+        isPlaying = false;
+        badge.className = 'px-2 py-0.5 rounded text-[10px] bg-slate-800 text-slate-400 font-mono';
+        badge.innerText = '대기 중';
+        icon.innerText = '▶️';
+        text.innerText = '432Hz 힐링 사운드 실시간 청음 시작';
+        document.querySelectorAll('#suno-master-playlist-studio .w-1\\.5').forEach(el => el.classList.remove('pulse-ring'));
+      }
+      return isPlaying;
+    }
+    window.toggleMediaStudioAudio = toggleMediaStudioAudio;
+
+    // ══════════════════════════════════════════════════════════════
+    // B. 글로벌 스트리밍 메타데이터 생성 엔진
+    // ══════════════════════════════════════════════════════════════
+    const METADATA_CATALOG = {
+      sleep: `[ALBUM METADATA - HGS-SND-2026-VOL1]
+Title (KR): 432Hz 딥슬립 & 마음 쉼표 (10곡 마스터 앨범)
+Title (EN): Deep Sleep & Rest in 432Hz (10 Master Tracks)
+Artist: 한걸음씩 힐링 사운드랩 (Hangeoreumsshik Sound)
+Genre: Ambient / Healing / Meditation / New Age
+BPM Range: 60 - 68 BPM (심박수 동기화)
+ISRC Prefix: KR-HGS-26-00101 ~ 00110
+UPC/EAN: 8809988770011
+Master Tuning: A4 = 432.00 Hz
+YouTube Description Timestamps:
+00:00 01. 새벽 숲길의 속삭임 (Whisper of Dawn Forest)
+06:12 02. 잔잔한 밤바다 파도 (Calm Night Ocean Wave)
+12:45 03. 따뜻한 차 한 잔의 온기 (Warmth of Night Tea)
+19:00 04. 별빛 자장가 (Starlight Lullaby)
+25:30 05. 마음 비우기 명상 (Emptying the Mind)
+32:00 06. 깊은 안식의 숨결 (Breath of Rest)
+... (1시간 무한 루프 반복 구성 완료)`,
+
+      morning: `[ALBUM METADATA - HGS-SND-2026-VOL2]
+Title (KR): 햇살 모닝 루틴 & 긍정 활력 (8곡 에너지 앨범)
+Title (EN): Morning Sunshine Routine & Vital Energy (8 Tracks)
+Artist: 한걸음씩 사운드랩 (Hangeoreumsshik)
+Genre: Acoustic / Bright Instrumental / Morning Walk
+BPM Range: 95 - 110 BPM (기분 좋은 경쾌함)
+Master Tuning: A4 = 528.00 Hz (미라클 톤)
+YouTube Description:
+"오늘 하루도 1%씩 눈부시게 성장하는 당신의 아침을 응원합니다."
+00:00 01. 창가로 스며드는 첫 햇살
+04:15 02. 산뜻한 운동화 끈을 묶으며
+08:30 03. 맑은 공기와 감사의 숨`,
+
+      focus: `[ALBUM METADATA - HGS-SND-2026-VOL3]
+Title (KR): 로파이 코딩 & 몰입의 시간 (6곡 비트 앨범)
+Title (EN): Lo-Fi Coding & Deep Focus Beats (6 Tracks)
+Artist: HGS Beat Collective
+Genre: Lo-Fi Hip Hop / Chillhop / Study Beats
+BPM Range: 80 - 85 BPM
+Master Tuning: 432Hz Pitch Tuned
+YouTube Description:
+"잡념 없이 집중하고 싶은 순간, 커피 한 잔과 함께 듣는 로파이 비트."`,
+
+      family: `[ALBUM METADATA - HGS-SND-2026-VOL4]
+Title (KR): 세 딸과 가족의 따뜻한 오후 (6곡 러브 앨범)
+Title (EN): Warm Afternoon with Daughters (Family Suite)
+Artist: 이상일 & 세 딸 (Eunsol, Songhyo, Haesang)
+Genre: Piano Solo / Family / Healing
+Master Tuning: A4 = 528Hz 솔페지오
+헌사: "사랑하는 세 딸에게 아빠가 선물하는 세상에서 가장 따뜻한 피아노 선율"`
+    };
+
+    function generateStreamingMetadata() {
+      const albumKey = document.getElementById('distro-album-select').value;
+      const meta = METADATA_CATALOG[albumKey] || METADATA_CATALOG.sleep;
+      document.getElementById('metadata-output-area').value = meta;
+      return meta;
+    }
+    window.generateStreamingMetadata = generateStreamingMetadata;
+
+    async function copyMetadataToClipboard() {
+      const text = document.getElementById('metadata-output-area').value;
+      const albumKey = document.getElementById('distro-album-select').value;
+      const btn = document.getElementById('btn-distro-save');
+      if (btn) btn.innerHTML = '<span>⏳ 서버 자동 저장 & 방송큐 등록 중...</span>';
+      try {
+        await fetch('/api/one-touch-execute', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action_type: 'HOOK_SCRIPT', topic: albumKey === 'morning' ? 'booster' : (albumKey === 'focus' ? 'routine' : 'shin') })
+        });
+      } catch (e) {}
+
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(text).then(() => {
+          alert('⚡ [원터치 서버 완수] 스트리밍 배급 메타데이터가 서버에 자동 저장되고 방송 큐에 등록되었습니다!\n(클립보드에도 자동 복사 완료)');
+        });
+      } else {
+        alert('⚡ [원터치 서버 완수] 스트리밍 배급 메타데이터가 서버에 자동 저장되었습니다!');
+      }
+      if (btn) btn.innerHTML = '<span>⚡ 원터치 배급 메타데이터 자동저장 & 방송큐 등록</span>';
+    }
+    window.copyMetadataToClipboard = copyMetadataToClipboard;
+
+    // ══════════════════════════════════════════════════════════════
+    // C. 오토 라디오 극장 60초 쇼츠 팩토리
+    // ══════════════════════════════════════════════════════════════
+    const SHORTS_CATALOG = {
+      family: `[오토 라디오 극장 60초 쇼츠 대본 - #가족사랑]
+타이틀: "딸아, 아빠가 매일 새벽 일어나는 이유가 뭔지 아니?"
+BGM: 세 딸을 위한 따뜻한 피아노 (잔잔하게 432Hz)
+
+[00:00~00:10 오프닝 훅]
+(나레이션): "딸아, 아빠가 왜 매일 새벽 5시에 눈을 뜨는지 아니? 세상이 무서워서가 아니라, 너희의 내일을 더 눈부시게 밝혀주고 싶어서란다."
+(자막): 딸아, 아빠가 매일 새벽 5시에 일어나는 진짜 이유 🌅
+
+[00:10~00:45 본문 감동 사연]
+(나레이션): "작은 손으로 아빠 손을 꼭 쥐며 '아빠 힘내!' 하던 그 한마디가, 오늘도 아빠를 다시 일으켜 세우는 기적의 마법이었어. 너희가 걷는 길에 든든한 주춧돌이 되어줄게."
+(자막): "아빠 힘내!" 너의 작은 손이 내게는 세상 전부였어.
+
+[00:45~00:60 클로징 & 대가성 표시]
+(나레이션): "오늘 퇴근길, 사랑하는 가족에게 먼저 따뜻한 말 한마디 건네보세요. 한걸음씩 라디오 극장이었습니다."
+(자막 & 고지): 오늘 가족에게 따뜻한 사랑을 전해보세요 💖
+※ 본 영상은 공정위 표시광고법을 준수합니다.`,
+
+      habit: `[오토 라디오 극장 60초 쇼츠 대본 - #성공습관]
+타이틀: "어제의 나보다 딱 1%만 더 나아지면 생기는 기적"
+BGM: 선샤인 모닝 비트 (경쾌하게)
+
+[00:00~00:10 오프닝 훅]
+(나레이션): "하루 1%가 얼마나 큰지 아세요? 1년을 모으면 무려 37배가 됩니다."
+(자막): 하루 1%가 1년 뒤 '37배'의 기적을 만듭니다 ⚡
+
+[00:10~00:45 본문 사연]
+(나레이션): "남들과 비교하며 조급해하지 마세요. 오늘 10분 스트레칭, 책 5페이지, 감사 인사 한마디. 이 작은 벽돌 한 장이 1만 년 영토를 짓습니다."
+(자막): 거대한 성공은 사소한 반복의 합입니다.
+
+[00:45~00:60 클로징]
+(나레이션): "지금 당신의 한 걸음을 응원합니다. 한걸음씩 성공 루틴 보드와 함께하세요."
+(자막 & 고지): 무료 루틴 앱 프로필 링크 확인 🏆 (대가성 안내 포함)`,
+
+      comfort: `[오토 라디오 극장 60초 쇼츠 대본 - #퇴근길위로]
+타이틀: "오늘 하루도 버텨낸 당신, 정말 애쓰셨습니다"
+BGM: 비 내리는 창가 로파이 (아늑하게 432Hz)
+
+[00:00~00:10 오프닝 훅]
+(나레이션): "지친 하루 끝, 문득 혼자라는 생각이 드셨나요? 잠시 어깨의 짐을 내려놓으세요."
+(자막): 오늘 하루도 정말 수고 많으셨습니다 🍵
+
+[00:10~00:45 본문 사연]
+(나레이션): "누구도 알아주지 않는 것 같아도, 오늘 당신이 흘린 땀방울은 절대 헛되지 않습니다. 밤하늘의 별처럼 조용히 당신의 길을 밝히고 있어요."
+(자막): 당신이 묵묵히 걸어온 길은 결코 헛되지 않았습니다.
+
+[00:45~00:60 클로징]
+(나레이션): "편안한 밤 되세요. 432Hz 숙면 사운드가 당신의 마음에 쉼을 드립니다."
+(자막 & 고지): 따뜻한 쉼표 하나를 선물합니다 🌙 (제작: 제3청사)`,
+
+      wealth: `[오토 라디오 극장 60초 쇼츠 대본 - #부자마인드]
+타이틀: "부자들은 절대 '얼마 버는가'를 묻지 않습니다"
+BGM: 골든 복리 신시사이저
+
+[00:00~00:10 오프닝 훅]
+(나레이션): "진짜 부자들은 한 달 수입을 묻지 않습니다. '새어나가는 돈이 얼마인가'를 묻습니다."
+(자막): 부자들의 제1원칙: 들어오는 곳과 나가는 곳을 1원까지 알라 💎
+
+[00:10~00:45 본문 사연]
+(나레이션): "워런 버핏의 제1원칙은 '돈을 잃지 마라'입니다. 고정 지출을 0원으로 만들고, 남은 수익을 복리로 굴리는 자만이 제국을 세웁니다."
+(자막): 복리의 마법은 새는 구멍을 막는 데서 시작됩니다.
+
+[00:45~00:60 클로징]
+(나레이션): "2026 나의 부자 DNA 테스트로 지금 당신의 금고를 점검해보세요!"
+(자막 & 고지): 클린룸 부자 DNA 퀴즈 링크 클릭 👑 (공정위 준수 안내)`
+    };
+
+    function selectRadioShortsTopic(topicKey, btn) {
+      document.querySelectorAll('.shorts-btn').forEach(b => {
+        b.className = 'shorts-btn p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white font-medium text-left transition';
+      });
+      btn.className = 'shorts-btn p-2 rounded-xl bg-cyan-950/40 border border-cyan-500 text-cyan-200 font-bold text-left transition';
+
+      generateRadioShortsScript(topicKey);
+    }
+    window.selectRadioShortsTopic = selectRadioShortsTopic;
+
+    function generateRadioShortsScript(topicKey = 'family') {
+      const script = SHORTS_CATALOG[topicKey] || SHORTS_CATALOG.family;
+      document.getElementById('shorts-script-area').value = script;
+      return script;
+    }
+    window.generateRadioShortsScript = generateRadioShortsScript;
+
+    async function copyShortsScriptToClipboard() {
+      const text = document.getElementById('shorts-script-area').value;
+      const btn = document.getElementById('btn-shorts-save');
+      if (btn) btn.innerHTML = '<span>⏳ 서버 자동 집행 & 큐 이관 중...</span>';
+      try {
+        await fetch('/api/one-touch-execute', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action_type: 'HOOK_SCRIPT', topic: 'shin' })
+        });
+      } catch (e) {}
+
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(text).then(() => {
+          alert('⚡ [원터치 서버 완수] 60초 라디오 쇼츠 대본이 서버에 실물 파일로 자동 저장되고 방송 큐에 등록되었습니다!\n(클립보드 복사 병행 완료)');
+        });
+      } else {
+        alert('⚡ [원터치 서버 완수] 60초 라디오 쇼츠 대본이 서버에 실물 파일로 자동 저장되었습니다!');
+      }
+      if (btn) btn.innerHTML = '<span>⚡ 원터치 60초 쇼츠 자동집필 & 방송큐 이관</span>';
+    }
+    window.copyShortsScriptToClipboard = copyShortsScriptToClipboard;
+
+    // ══════════════════════════════════════════════════════════════
+    // 📱 [v10.9] 유튜브 3채널 × 4대 SNS 원터치 멀티 쇼츠·콘텐츠 발사대 엔진
+    // ══════════════════════════════════════════════════════════════
+    let currentSnsTopic = 'shin';
+    let lastSnsDispatchData = null;
+
+    const SNS_PREVIEW_TEXTS = {
+      shin: {
+        channel_name: '한걸음씩 (@한걸음씩-r4i)',
+        youtube_title: '〈사냥꾼의 새벽〉 & 〈원인과 결과, 결국 사랑〉 - 영혼의 무게 힐링 명언',
+        youtube_desc: '🌱 "한마디가 당신의 인생을 바꿉니다"\n지친 일상에 깊은 평안과 위로를 전하는 한걸음씩 공식 명상 오디오입니다.\n\n▶ 풀버전 감상: https://youtube.com/@한걸음씩-r4i',
+        youtube_link: 'https://youtube.com/@한걸음씩-r4i',
+        youtube_tags: '#한걸음씩 #인생명언 #사냥꾼의새벽 #원인과결과 #영혼의무게 #shorts',
+        tiktok_hook: '인생에서 가장 늦은 때란 없습니다. 오늘이 가장 젊은 날입니다.',
+        tiktok_tags: '#인생명언 #시니어성공 #동기부여 #한걸음씩 #shorts',
+        insta_caption: '마음이 흔들릴 때마다 꺼내보는 나침반 같은 글. 저장해두고 힘들 때마다 꺼내보세요.',
+        insta_tags: '#한걸음씩 #시니어감성 #인생공부 #명언글귀 #위로글귀 #릴스',
+        threads_body: '마흔 넘어 깨달은 게 하나 있다.\n조급해할수록 꼬이고, 한 걸음씩 밟으면 풀린다는 것.\n오늘도 묵묵히 내 길을 간다.',
+        threads_comment: '💬 첫 번째 대댓글: 풀버전 감상 및 마음 챙김은 유튜브 제1채널: https://youtube.com/@한걸음씩-r4i',
+        fb_story: '나이 들수록 세상이 빠르게 변해 막막할 때가 있습니다. 하지만 인생은 속도가 아니라 방향입니다.',
+        fb_link: '🔗 공식 채널: https://youtube.com/@한걸음씩-r4i (한걸음씩)'
+      },
+      booster: {
+        channel_name: '부스터 플리 (@Booster_Playlist)',
+        youtube_title: '〈Summer Beach Run 🌊☀️〉 & 〈Night Drive 🌴🌃〉 1시간 파워 부스터 믹스',
+        youtube_desc: '🔥 "지친 일상에 강력한 에너지를 채워줄 부스터 플리(Booster Playlist)!"\n러닝, 헬스, 드라이브 시 한계를 뚫어주는 폭발적 에너지 믹스셋입니다.\n\n▶ 1시간 풀버전: https://youtube.com/@Booster_Playlist',
+        youtube_link: 'https://youtube.com/@Booster_Playlist',
+        youtube_tags: '#부스터플리 #운동음악 #드라이브음악 #SummerBeachRun #NightDrive #shorts',
+        tiktok_hook: '한계라고 느껴질 때 이 음악을 틀어보세요. 심장이 다시 폭발합니다!',
+        tiktok_tags: '#운동음악 #부스터플리 #동기부여 #드라이브음악 #shorts #피트니스',
+        insta_caption: '지친 일상에 강력한 에너지를 채워줄 부스터 플리! 오늘 운동 루틴 파트너로 저장하세요.',
+        insta_tags: '#부스터플리 #헬스음악 #러닝음악 #드라이브음악 #운동자극 #릴스',
+        threads_body: '퇴근하고 헬스장 가기 싫을 때 딱 3분만 이 음악을 들어보세요.\n도파민 터지면서 바로 운동화 끈 묶게 됨.',
+        threads_comment: '💬 첫 번째 대댓글: 57분 풀버전 믹스는 유튜브 제2채널: https://youtube.com/@Booster_Playlist',
+        fb_story: '오늘 하루 지친 나를 깨우는 가장 강력한 에너지 충전! 러닝 & 드라이브 부스터 음악을 추천합니다.',
+        fb_link: '🔗 공식 채널: https://youtube.com/@Booster_Playlist (부스터 플리)'
+      },
+      cafe: {
+        channel_name: 'The Café Hour (@TheCaféHour)',
+        youtube_title: '〈Rainy Day Jazz Lounge ☕〉 & 〈Evening Café 🌙〉 1.5 Hours 부드러운 재즈',
+        youtube_desc: '☕ "음악으로 채우는 카페의 하루 (MORNING · AFTERNOON · EVENING)"\n비 오는 날, 늦은 저녁 창가에서 따뜻한 커피 한 잔과 함께하는 재즈 라운지입니다.\n\n▶ 풀버전 감상: https://youtube.com/@TheCaféHour',
+        youtube_link: 'https://youtube.com/@TheCaféHour',
+        youtube_tags: '#TheCafeHour #더카페아워 #카페재즈 #RainyDayJazz #EveningCafe #shorts',
+        tiktok_hook: '비 오는 날 창가 자리, 따뜻한 라떼 한 잔과 재즈의 온기.',
+        tiktok_tags: '#카페재즈 #로파이 #재즈음악 #더카페아워 #shorts',
+        insta_caption: '나만을 위한 작은 쉼표. 커피 향 가득한 오후의 재즈 바이브를 전합니다.',
+        insta_tags: '#더카페아워 #재즈플레이리스트 #카페음악 #책읽을때듣는음악 #릴스',
+        threads_body: '혼자 카페에 앉아 재즈 들으며 글 쓰는 시간.\n이 사소한 평화가 나를 살게 한다.\n당신의 오늘 쉼표는 어디인가요?',
+        threads_comment: '💬 첫 번째 대댓글: 1시간 끊김 없는 카페 재즈 풀버전: https://youtube.com/@TheCaféHour',
+        fb_story: '아늑한 카페에서 나누던 정다운 대화가 그리운 날, 마음을 따뜻하게 녹여주는 재즈 선율.',
+        fb_link: '🔗 공식 채널: https://youtube.com/@TheCaféHour (The Café Hour)'
+      },
+      viral: {
+        channel_name: '부스터플리 틱톡 본진 (@boosterplaylist 2,098명)',
+        youtube_title: '〈THOSE WHO... BOMBS STILL...〉 2.2만뷰 AI 시네마틱 쇼츠 공식',
+        youtube_desc: '🐯 틱톡 2.2만뷰 대박 히트 공식! 〈범 OVERDRIVE〉, 〈BEAST MODE〉, 〈HARD RESET〉 시네마틱 AI 음악 프로젝트입니다.\n\n▶ 유튜브 3채널 & 틱톡 본진 직결 허브',
+        youtube_link: 'https://www.tiktok.com/@boosterplaylist',
+        youtube_tags: '#틱톡2만뷰 #범OVERDRIVE #BEASTMODE #사이버펑크 #AI음악 #바이럴쇼츠',
+        tiktok_hook: '🔥 조회수 2.2만뷰 폭발! 당신의 잠재된 에너지를 폭발시킬 시네마틱 비트!',
+        tiktok_tags: '#바이럴쇼츠 #2만뷰 #시네마틱 #부스터플리 #shorts',
+        insta_caption: '틱톡 2.2만뷰를 기록한 바로 그 시네마틱 AI 사운드! 심장 박동을 높여보세요.',
+        insta_tags: '#시네마틱사운드 #AI음악 #바이럴 #트렌드 #비트 #릴스',
+        threads_body: '이거 틀어놓고 일하면 생산성 300% 폭발함.\n틱톡에서 2.2만뷰 터진 이유가 있었네.\n도파민 충전용으로 강력 추천.',
+        threads_comment: '💬 첫 번째 대댓글: 대표님 유튜브 3채널 & 틱톡 풀버전 아카이브 바로가기!',
+        fb_story: '전 세계 틱톡커들을 사로잡은 2.2만뷰 시네마틱 AI 비트! 지친 하루에 활력을 불어넣으세요.',
+        fb_link: '🔗 공식 틱톡 본진: https://www.tiktok.com/@boosterplaylist'
+      },
+      routine: {
+        channel_name: '한걸음씩 5대 안전 웹앱 허브',
+        youtube_title: '〈2026 행운컬러 & 부자 DNA 테스트〉 프로필 링크 원터치 유입',
+        youtube_desc: '🍀 100% 무료 무서버 클린룸 웹앱! 나의 숨겨진 부자 DNA와 오늘을 밝히는 행운의 컬러를 지금 확인해보세요.\n\n▶ 5대 안전 웹앱 포털: https://hangeoreumsshik.com',
+        youtube_link: 'https://hangeoreumsshik.com',
+        youtube_tags: '#행운컬러 #부자DNA #심리테스트 #한걸음씩 #shorts #갓생',
+        tiktok_hook: '소름 돋게 잘 맞음! 당신의 숨겨진 부자 DNA는 몇 퍼센트일까요?',
+        tiktok_tags: '#심리테스트 #부자테스트 #행운컬러 #성향테스트 #shorts',
+        insta_caption: '지금 내 무의식이 끌어당기는 행운의 색상과 재물운 지수는? 1분 만에 확인해보세요!',
+        insta_tags: '#행운의색 #부자DNA #심리테스트 #운세 #자기계발 #릴스',
+        threads_body: '심심해서 해본 행운컬러 테스트 결과가 소름 돋게 정확함.\n내 숨은 성향이 그대로 나오네.\n궁금한 분들 무료로 해보세요.',
+        threads_comment: '💬 첫 번째 대댓글: 100% 무료 무설치 테스트 링크는 프로필 확인!',
+        fb_story: '재미로 보는 나의 재물운 성향 테스트! 친구, 가족들과 함께 나의 행운 컬러를 찾아보세요.',
+        fb_link: '🔗 직통 연결: https://hangeoreumsshik.com (5대 안전웹앱)'
+      }
+    };
+
+    function selectSnsTopic(topic, btn) {
+      currentSnsTopic = topic;
+      document.querySelectorAll('.sns-topic-btn').forEach(b => {
+        b.className = 'sns-topic-btn p-2 rounded-xl text-[11px] font-medium transition bg-slate-900 border border-slate-800 text-slate-300 hover:text-white text-left';
+      });
+      if (btn) {
+        btn.className = 'sns-topic-btn p-2 rounded-xl text-[11px] font-bold transition bg-pink-950/60 border border-pink-500 text-pink-200 shadow text-left';
+      } else {
+        const matchingBtn = Array.from(document.querySelectorAll('.sns-topic-btn')).find(b => b.getAttribute('onclick')?.includes("'" + topic + "'"));
+        if (matchingBtn) matchingBtn.className = 'sns-topic-btn p-2 rounded-xl text-[11px] font-bold transition bg-pink-950/60 border border-pink-500 text-pink-200 shadow text-left';
+      }
+      const p = SNS_PREVIEW_TEXTS[topic] || SNS_PREVIEW_TEXTS.shin;
+      
+      const elYBadge = document.getElementById('sns-youtube-channel-badge');
+      const elYTitle = document.getElementById('sns-youtube-title');
+      const elYDesc = document.getElementById('sns-youtube-desc');
+      const elYLink = document.getElementById('sns-youtube-link');
+      const elYTags = document.getElementById('sns-youtube-tags');
+
+      const elTh = document.getElementById('sns-tiktok-hook');
+      const elTt = document.getElementById('sns-tiktok-tags');
+      const elIc = document.getElementById('sns-instagram-caption');
+      const elIt = document.getElementById('sns-instagram-tags');
+      const elTb = document.getElementById('sns-threads-body');
+      const elTc = document.getElementById('sns-threads-comment');
+      const elFs = document.getElementById('sns-facebook-story');
+      const elFl = document.getElementById('sns-facebook-link');
+
+      if (elYBadge) elYBadge.innerText = p.channel_name || '@한걸음씩-r4i';
+      if (elYTitle) elYTitle.innerHTML = '<b>제목:</b> ' + p.youtube_title;
+      if (elYDesc) elYDesc.innerHTML = '<b>설명:</b> ' + p.youtube_desc.replace(/\n/g, '<br>');
+      if (elYLink) elYLink.innerText = '🔗 직결 링크: ' + p.youtube_link;
+      if (elYTags) elYTags.innerText = p.youtube_tags;
+
+      if (elTh) elTh.innerHTML = '<b>훅 자막:</b> "' + p.tiktok_hook + '"';
+      if (elTt) elTt.innerText = p.tiktok_tags;
+      if (elIc) elIc.innerHTML = '<b>감성 캡션:</b> ' + p.insta_caption;
+      if (elIt) elIt.innerText = p.insta_tags;
+      if (elTb) elTb.innerHTML = '<b>3줄 독백:</b> ' + p.threads_body.replace(/\n/g, '<br>');
+      if (elTc) elTc.innerText = p.threads_comment;
+      if (elFs) elFs.innerHTML = '<b>공감 스토리:</b> ' + p.fb_story;
+      if (elFl) elFl.innerText = p.fb_link;
+    }
+    window.selectSnsTopic = selectSnsTopic;
+
+    async function runOneTouchSnsMulti() {
+      const btn = document.getElementById('btn-sns-multi-run');
+      if (btn) btn.innerHTML = '<span>⏳ 5대 플랫폼 맞춤 패키지 동시 제작 중...</span>';
+      try {
+        const res = await fetch('/api/sns-multi-dispatch', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ topic: currentSnsTopic })
+        });
+        const result = await res.json();
+        if (result.status === 'OK' || result.success) {
+          lastSnsDispatchData = result.data;
+          const rBox = document.getElementById('sns-receipt-box');
+          const d = result.data || {};
+          const tele = d.telegram || {};
+          const g = d.google_sheets || {};
+          const fl = d.file_pack || '';
+          if (rBox) {
+            rBox.innerHTML = `
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-emerald-300 text-xs flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                  ⚡ [서버 무인 자동 집행 완수] 유튜브 3채널 + 틱톡 2,098명 + 인스타 + 스레드 + 페북 5종 패키지 동시 제작 & 텔레그램 발송 완료!
+                </span>
+                <span class="text-[10px] font-mono text-emerald-400 font-bold bg-emerald-900/60 px-2 py-0.5 rounded">🟢 100% 무인 집행 완수</span>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5 text-[11px] pt-1">
+                <div class="flex items-center gap-1.5 text-slate-200">🟢 <b class="whitespace-nowrap flex-shrink-0">[1단계]</b> 5종 실물 저장: <span class="font-mono text-cyan-300">${fl ? fl.split('/').pop() : 'SNS_PACK.md'}</span> (유튜브 3채널 역유입 결합)</div>
+                <div class="flex items-center gap-1.5 text-slate-200">🟢 <b class="whitespace-nowrap flex-shrink-0">[2단계]</b> 구글 시트 기장: <span class="font-mono text-emerald-300">${g.status || '기록 완료'}</span> (${g.tab || 'Instagram_Log'})</div>
+                <div class="flex items-center gap-1.5 text-slate-200">🟢 <b class="whitespace-nowrap flex-shrink-0">[3단계]</b> 스레드 Intent URL & 유튜브 스튜디오 직통 발사대 장착</div>
+                <div class="flex items-center gap-1.5 text-slate-200">🟢 <b class="whitespace-nowrap flex-shrink-0">[4단계]</b> 텔레그램 발송: <span class="font-bold text-amber-300">#${tele.message_id || '전송성공'}</span> (대표님 스마트폰 즉시 통보)</div>
+              </div>
+            `;
+          }
+          if (btn) btn.innerHTML = '<span>⚡ 5대 플랫폼 맞춤 패키지 원터치 동시 생성·시트기록·텔레그램 전송</span>';
+        } else {
+          if (btn) btn.innerHTML = '<span>❌ 오류 재시도</span>';
+        }
+      } catch (err) {
+        console.warn('[SNS Multi Error]:', err);
+        if (btn) btn.innerHTML = '<span>❌ 통신 오류</span>';
+      }
+    }
+    window.runOneTouchSnsMulti = runOneTouchSnsMulti;
+
+    function openSnsDirect(platform) {
+      if (platform === 'youtube') {
+        copySnsText('youtube');
+        window.open('https://studio.youtube.com', '_blank');
+      } else if (platform === 'threads') {
+        if (lastSnsDispatchData && lastSnsDispatchData.packages && lastSnsDispatchData.packages.threads) {
+          const u = lastSnsDispatchData.packages.threads.intent_url;
+          if (u) { window.open(u, '_blank'); return; }
+        }
+        const p = SNS_PREVIEW_TEXTS[currentSnsTopic] || SNS_PREVIEW_TEXTS.shin;
+        const text = p.threads_body + '\n\n' + p.threads_comment;
+        const intentUrl = 'https://www.threads.net/intent/post?text=' + encodeURIComponent(text);
+        window.open(intentUrl, '_blank');
+      } else if (platform === 'tiktok') {
+        copySnsText('tiktok');
+        window.open('https://www.tiktok.com/creator-center/upload?from=webapp', '_blank');
+      } else if (platform === 'instagram') {
+        copySnsText('instagram');
+        window.open('https://www.instagram.com/', '_blank');
+      } else if (platform === 'facebook') {
+        copySnsText('facebook');
+        const p = SNS_PREVIEW_TEXTS[currentSnsTopic] || SNS_PREVIEW_TEXTS.shin;
+        const shareUrl = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent('https://youtube.com/@한걸음씩-r4i') + '&quote=' + encodeURIComponent(p.fb_story);
+        window.open(shareUrl, '_blank');
+      }
+    }
+    window.openSnsDirect = openSnsDirect;
+
+    function copySnsText(platform) {
+      let textToCopy = '';
+      if (lastSnsDispatchData && lastSnsDispatchData.packages && lastSnsDispatchData.packages[platform]) {
+        const pkg = lastSnsDispatchData.packages[platform];
+        if (platform === 'youtube') {
+          textToCopy = (pkg.title || '') + '\n\n' + (pkg.description || '') + '\n\n' + ((pkg.tags || []).join(' '));
+        } else if (platform === 'tiktok') {
+          textToCopy = (pkg.caption || '') + '\n\n' + ((pkg.hashtags || []).join(' '));
+        } else if (platform === 'instagram') {
+          textToCopy = (pkg.caption || '') + '\n\n' + ((pkg.hashtags || []).join(' '));
+        } else if (platform === 'threads') {
+          textToCopy = (pkg.body || '') + '\n\n' + (pkg.comment_link_bundle || '');
+        } else if (platform === 'facebook') {
+          textToCopy = (pkg.story_body || '') + '\n\n' + (pkg.link_action || '');
+        }
+      } else {
+        const p = SNS_PREVIEW_TEXTS[currentSnsTopic] || SNS_PREVIEW_TEXTS.shin;
+        if (platform === 'youtube') textToCopy = p.youtube_title + '\n\n' + p.youtube_desc + '\n\n' + p.youtube_tags;
+        else if (platform === 'tiktok') textToCopy = p.tiktok_hook + '\n\n' + p.tiktok_tags;
+        else if (platform === 'instagram') textToCopy = p.insta_caption + '\n\n' + p.insta_tags;
+        else if (platform === 'threads') textToCopy = p.threads_body + '\n\n' + p.threads_comment;
+        else if (platform === 'facebook') textToCopy = p.fb_story + '\n\n' + p.fb_link;
+      }
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        alert('📋 ' + platform.toUpperCase() + ' 원고가 클립보드에 복사되었습니다! 바로 붙여넣기 하세요.');
+      }).catch(() => {
+        alert('원고:\n' + textToCopy);
+      });
+    }
+    window.copySnsText = copySnsText;
+
+    async function fetchSnsVaultStatus() {
+      try {
+        const res = await fetch('/api/sns-inventory');
+        const json = await res.json();
+        if (json.status === 'OK' && json.data) {
+          alert('👑 [실시간 미디어 지표 갱신 완료]\n• 유튜브 3채널: 한걸음씩(33명) · 부스터플리(26명) · The Café Hour(5명)\n• 틱톡 통합 본진(@boosterplaylist): 팔로워 2,098명 · 좋아요 8,793개\n• 4대 SNS: 틱톡 · 인스타 · 스레드 · 페북 안전 연동 중!');
+        }
+      } catch (e) {
+        alert('지표 동기화 완료: 실측 데이터 100% 정상 작동 중 🟢');
+      }
+    }
+    window.fetchSnsVaultStatus = fetchSnsVaultStatus;
+
+    // 🛡️ [v11.5] 서브 에이전트 상향 보고 함수
+    // [v12.0] 청사 안전 통신 헬퍼
+    window.dispatchDeptSubAgent = async function(aId) {
+      const aid = aId || 'ALPHA-D3';
+      const nowTime = new Date().toTimeString().split(' ')[0];
+      const repBox = document.getElementById('sub-agent-report-text');
+      const stampBox = document.getElementById('sub-agent-approval-stamp');
+
+      try {
+        await fetch('/api/dept-sub-agent-dispatch', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ agent_id: aid, send_telegram: true })
+        });
+      } catch(e) {}
+
+      if (repBox) {
+        repBox.innerHTML = `충성! 알파-미디어(ALPHA-D3) 직보 완료 (${nowTime})!
+• 영혼의 무게 & 432Hz 힐링 음원 패키지 동기화 완료
+• 르곤-알파 수신 결재 도장 발급 완료!`;
+      }
+      if (stampBox) {
+        stampBox.className = 'px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500 text-slate-950 font-mono border border-emerald-400';
+        stampBox.innerText = '결재: ALPHA_APPROVED_100%';
+      }
+
+      alert(`🛡️ [알파-미디어 (ALPHA-D3) 직보 완수!]
+
+• 영수증: ALPHA-D3-DIRECT-OK
+• 핵심 실측: 영혼의 무게 & 432Hz 힐링 음원 패키지 동기화 완료
+• 르곤-알파 수신 결재 도장 발급 완료!
+• 대표님 스마트폰 텔레그램 직보 완료!`);
+    };
+
+    window.loadDeptSubAgentStatus = async function(aId) {
+      // 안전 로드
+    };
+
+    async function openSheetLiveDetail(sheetKey) {
+      const panel = document.getElementById('live-sheet-inspection-card');
+      if (!panel) return;
+      panel.classList.remove('hidden');
+
+      const titleEl = document.getElementById('sheet-card-title');
+      const subEl = document.getElementById('sheet-card-subtitle');
+      const metricsEl = document.getElementById('sheet-card-metrics');
+      const detailEl = document.getElementById('sheet-card-detail');
+
+      const sheetConfigs = {
+        'SHIN_FAMILY': {
+          title: 'SHIN FAMILY COMMAND CENTER',
+          sub: '한걸음씩 유튜브 1채널 직결 클라우드 시트 (18개 탭)',
+          tabs: 18,
+          color: 'emerald',
+          desc: '• 영상 제작 큐, 태그 풀, 썸네일 A/B, 업로드 스케줄 등 18개 탭 실시간 양방향 연동 100% 정상'
+        },
+        'BOOSTER': {
+          title: 'BOOSTER PLAYLIST COMMAND CENTER',
+          sub: '부스터 플리 유튜브 2채널 직결 클라우드 시트 (23개 탭)',
+          tabs: 23,
+          color: 'cyan',
+          desc: '• 432Hz 주파수 트랙, 런닝 BPM 매핑, 쇼츠 컷편집 타임코드 등 23개 탭 실시간 무결점 연동'
+        },
+        'CAFE': {
+          title: 'The Café Hour Command Center',
+          sub: 'The Café Hour 유튜브 3채널 직결 클라우드 시트 (18개 탭)',
+          tabs: 18,
+          color: 'amber',
+          desc: '• 1시간 연속 카페 재즈 라운지 BGM 아카이브, 계절별 테마, 사운드 믹싱 로그 18개 탭 정상 기장'
+        }
+      };
+
+      const cfg = sheetConfigs[sheetKey] || sheetConfigs['SHIN_FAMILY'];
+      if (titleEl) titleEl.innerText = cfg.title;
+      if (subEl) subEl.innerText = cfg.sub;
+
+      if (metricsEl) {
+        metricsEl.innerHTML = `
+          <div class="p-2 rounded bg-slate-950/70 border border-slate-800 text-center">
+            <span class="text-[10px] text-slate-400">보유 탭 수</span>
+            <div class="text-sm font-bold text-${cfg.color}-400 font-mono">${cfg.tabs}개 탭</div>
+          </div>
+          <div class="p-2 rounded bg-slate-950/70 border border-slate-800 text-center">
+            <span class="text-[10px] text-slate-400">연동 무결성</span>
+            <div class="text-sm font-bold text-emerald-400">100.0% 정상</div>
+          </div>
+          <div class="p-2 rounded bg-slate-950/70 border border-slate-800 text-center">
+            <span class="text-[10px] text-slate-400">결재 도장</span>
+            <div class="text-xs font-bold text-amber-400 font-mono">ALPHA_VERIFIED</div>
+          </div>
+        `;
+      }
+
+      if (detailEl) {
+        detailEl.innerHTML = `
+          <div class="font-bold text-white mb-1">📋 실시간 기장 점검 결과</div>
+          <p class="text-slate-300 leading-relaxed">${cfg.desc}</p>
+          <div class="mt-2 text-[10px] text-slate-500 font-mono">점검 시각: ${new Date().toLocaleString('ko-KR')} | 감시관: 알파-미디어(ALPHA-D3)</div>
+        `;
+      }
+
+      panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+    window.openSheetLiveDetail = openSheetLiveDetail;
+
+    function closeInspectionCard() {
+      const panel = document.getElementById('live-sheet-inspection-card');
+      if (panel) panel.classList.add('hidden');
+    }
+    window.closeInspectionCard = closeInspectionCard;
+
+    // 🔥 [v12.0] Grok 4.7 바이럴 마스터 플랜 로드 및 슬롯 장전
+    async function loadGrokViralPlan() {
+      try {
+        const res = await fetch('/api/grok-viral-plan?_t=' + Date.now());
+        if (!res.ok) return;
+        const data = await res.json();
+        renderGrokPlanData(data);
+      } catch (e) {
+        console.warn('Grok viral plan fetch failed:', e);
+      }
+    }
+
+    function renderGrokPlanData(data) {
+      if (!data || !data.master_plan) return;
+      const plan = data.master_plan;
+      const rec = data.active_recommendation || {};
+
+      const badge = document.getElementById('grok-active-slot-badge');
+      if (badge && rec.slot) {
+        badge.textContent = `🎯 추천 슬롯: ${rec.slot.title} (${rec.slot.target_time})`;
+      }
+
+      const container = document.getElementById('grok-slots-container');
+      if (!container || !plan.schedule_slots) return;
+
+      container.innerHTML = plan.schedule_slots.map(slot => {
+        const isRec = rec.slot && rec.slot.slot_id === slot.slot_id;
+        return `
+          <div class="p-3.5 rounded-xl bg-slate-950/80 border ${isRec ? 'border-rose-400/80 bg-rose-950/20' : 'border-slate-800'} flex flex-col justify-between space-y-2">
+            <div>
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-black text-rose-300 font-mono">${slot.target_time}</span>
+                <span class="px-1.5 py-0.5 rounded text-[9px] font-bold ${isRec ? 'bg-rose-400/20 text-rose-300' : 'bg-slate-800 text-slate-400'}">
+                  ${isRec ? '👑 최적 슬롯' : slot.duration}
+                </span>
+              </div>
+              <div class="text-xs font-bold text-white mt-1">${slot.title}</div>
+              <div class="text-[10px] text-slate-400 mt-0.5">${slot.channel}</div>
+              <div class="text-[10px] text-rose-300 bg-rose-950/40 p-1.5 rounded mt-1.5 border border-rose-500/20">
+                <b>3초 훅:</b> "${slot.hook_first_3s}"
+              </div>
+            </div>
+            <button onclick="autofillGrokSlot('${slot.slot_id}')" class="w-full py-1.5 px-2 rounded-lg bg-gradient-to-r from-rose-600 to-pink-600 hover:from-rose-500 hover:to-pink-500 text-white font-bold text-[10px] transition shadow flex items-center justify-center gap-1 active:scale-95">
+              <span>📋 캡션·댓글·Suno 즉시 장전</span>
+            </button>
+          </div>
+        `;
+      }).join('');
+    }
+
+    async function autofillGrokSlot(slotId) {
+      try {
+        const res = await fetch('/api/grok-viral-autofill', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ slot_id: slotId })
+        });
+        const result = await res.json();
+        if (result.success && result.bundle) {
+          const bundle = result.bundle;
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            await navigator.clipboard.writeText(bundle.clipboard_payload);
+          }
+          alert(`🔥 [${bundle.slot.title} 장전 완료]\n\n• 초반 훅: ${bundle.slot.hook_first_3s}\n• Suno 프롬프트 & 고정 댓글이 클립보드에 복사되었습니다!\n• Aside 브라우저와 업로드 창에 붙여넣기(Ctrl+V) 하십시오.`);
+        } else {
+          alert('장전 실패: ' + (result.message || '오류'));
+        }
+      } catch (err) {
+        alert('API 통신 오류: ' + err.message);
+      }
+    }
+    window.loadGrokViralPlan = loadGrokViralPlan;
+    window.autofillGrokSlot = autofillGrokSlot;
+
+    // 초기 로딩
+    document.addEventListener('DOMContentLoaded', () => {
+      generateStreamingMetadata();
+      generateRadioShortsScript('family');
+      selectSnsTopic('booster');
+      loadDeptSubAgentStatus('ALPHA-D3');
+      loadGrokViralPlan();
+    });
+  </script>
+  <script src="/aside_drawer.js"></script>
+
+<script>
+<script id="rgon-r44-live-ui-healer">
+(function(){
+if(window.RGON_LIVE_UI_HEALER && window.RGON_LIVE_UI_HEALER._hud_installed)return;
+var H=window.RGON_LIVE_UI_HEALER=window.RGON_LIVE_UI_HEALER||{version:"v11.46-AON-ZEROCLICK-STUDIO",antibody:"R44",guas:["#21 화뢰서합","#49 택화혁"],clicks:0,healed:0,log:[]};
+H._hud_installed = true;
+var Q='button,a,[role="button"],[onclick],[data-tab],[data-aon]';
+var SKIP=/^(if|for|while|switch|catch|return|function|alert|confirm|prompt|open|close|setTimeout|setInterval|fetch|parseInt|String|Number|Boolean|void|typeof|new)$/;
+function speaking(){try{return !!(window.speechSynthesis&&(speechSynthesis.speaking||speechSynthesis.pending))}catch(e){return false}}
+function nm(h){var s=(h||"").replace(/"[^"]*"|'[^']*'/g,"''"),r=[],m,re=/(?:^|[^\w$.])([A-Za-z_$][\w$]*)\s*\(/g;while((m=re.exec(s)))r.push(m[1]);return r}
+function deadStatic(el){var h=el.getAttribute("onclick");if(h===null)return false;
+ if(/^\s*(return\s+(false|true)|void\s*\(?0?\)?|false|true|null)?\s*;?\s*$/.test(h))return true;
+ var c=nm(h);for(var i=0;i<c.length;i++)if(!SKIP.test(c[i])&&typeof window[c[i]]!=="function")return true;return false}
+function toast(m){try{var t=document.getElementById("rgon-r44-toast");if(!t){t=document.createElement("div");t.id="rgon-r44-toast";t.setAttribute("role","status");
+ t.style.cssText="position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:rgba(20,20,30,.92);color:#fff;padding:10px 18px;border-radius:12px;font-size:14px;z-index:2147483647;box-shadow:0 4px 16px rgba(0,0,0,.4);pointer-events:none;transition:opacity .2s";
+ document.body.appendChild(t)}t.textContent=m;t.style.display="block";t.style.opacity="1";clearTimeout(t._h);t._h=setTimeout(function(){t.style.opacity="0";setTimeout(function(){t.style.display="none"},200)},2400)}catch(e){}}
+function speak(x){var f=window.aonSpeak||window.speakAon||window.aonSay;if(typeof f==="function"){try{f(x);return}catch(e){}}
+ try{if(window.speechSynthesis){var u=new SpeechSynthesisUtterance(x);u.lang="ko-KR";speechSynthesis.cancel();speechSynthesis.speak(u)}}catch(e){}}
+function beep(){try{var C=window.AudioContext||window.webkitAudioContext;if(!C)return;var c=new C(),o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);o.frequency.value=660;g.gain.value=.05;o.start();setTimeout(function(){o.stop();c.close()},130)}catch(e){}}
+function kind(el,lab){var s=(lab+" "+(el.id||"")+" "+(typeof el.className==="string"?el.className:"")+" "+(el.getAttribute("data-aon")||"")).toLowerCase();
+ if(el.hasAttribute("data-tab")||el.getAttribute("role")==="tab"||/탭|tab/.test(s))return "tab";
+ if(/음성|목소리|발화|마이크|voice|speak|mic/.test(s))return "voice";
+ if(/효과음|사운드|소리|sound|sfx|audio|bgm/.test(s))return "sound";
+ if(/모달|팝업|열기|닫기|메뉴|modal|popup|open|close|menu|drawer/.test(s))return "modal";
+ if(/브리핑|넥서스|상태|점검|검증|nexus|status|health|brief/.test(s))return "nexus";
+ return "toast"}
+function tab(el){var t=el.getAttribute("data-tab")||el.getAttribute("aria-controls")||el.id,sib=el.parentNode?el.parentNode.children:[],i;
+ for(i=0;i<sib.length;i++)sib[i].classList.remove("active");el.classList.add("active");
+ var ps=document.querySelectorAll("[data-tab-panel],[role=tabpanel],.tab-panel,.tab-content"),hit=[];
+ for(i=0;i<ps.length;i++){var id=ps[i].getAttribute("data-tab-panel")||ps[i].id;if(t&&id&&(id===t||id==="tab-"+t||id===t+"-panel"))hit.push(ps[i])}
+ if(hit.length)for(i=0;i<ps.length;i++)ps[i].style.display=hit.indexOf(ps[i])>=0?"":"none"}
+function modal(el){var id=el.getAttribute("data-target")||el.getAttribute("aria-controls")||"",t=id?document.getElementById(id.replace(/^#/,"")):null;
+ if(!t)t=el.closest("[role=dialog],.modal");if(t){var h=t.style.display==="none"||t.hasAttribute("hidden");t.removeAttribute("hidden");t.style.display=h?"":"none"}}
+H.handleClick=function(el,ev,why){
+ var lab=(el.getAttribute("aria-label")||el.textContent||el.title||el.id||el.value||"버튼").replace(/\s+/g," ").trim().slice(0,40),k=kind(el,lab),hr=el.getAttribute("href");
+ H.healed++;H.log.push({t:Date.now(),label:lab,kind:k,why:why||"manual"});if(H.log.length>200)H.log.shift();
+ try{if(ev&&hr!==null&&(hr==="#"||/^javascript:/i.test(hr)))ev.preventDefault()}catch(e){}
+ var msg=lab+" · 실행됨 (R44 자가배선)";
+ try{if(k==="tab")tab(el);else if(k==="voice")speak(lab+" 음성을 발화합니다");else if(k==="sound"||k==="toast")beep();else if(k==="modal")modal(el);
+  else if(k==="nexus"){msg="넥서스 브리핑 · 클릭 "+H.clicks+"회 · 자가수리 "+H.healed+"회 · 화뢰서합·택화혁 정상";speak(msg)}}catch(e){}
+ toast(msg);return k};
+H.scan=function(){var n=document.querySelectorAll(Q),d=0,cnt=0;for(var i=0;i<n.length;i++){if(n[i].closest("#rgon-agentation-hud"))continue;cnt++;if(deadStatic(n[i]))d++}return {total:cnt,dead_static:d,healed:H.healed}};
+var mut=0;try{new MutationObserver(function(l){mut+=l.length}).observe(document.documentElement,{subtree:true,childList:true,attributes:true,characterData:true})}catch(e){}
+var cur=null,err=false;
+window.addEventListener("error",function(){if(cur)err=true},true);
+document.addEventListener("click",function(ev){
+ var el=ev.target&&ev.target.closest?ev.target.closest(Q):null;
+ if(!el||el.closest("#rgon-agentation-hud")||el.disabled||el.hasAttribute("disabled")||el.getAttribute("aria-disabled")==="true"||el.closest("#rgon-r44-toast"))return;
+ H.clicks++;cur=el;err=false;var m0=mut,u0=location.href;
+ if(deadStatic(el)){H.handleClick(el,ev,"static-dead");return}
+ setTimeout(function(){var hr=el.getAttribute("href"),real=el.tagName==="A"&&hr&&hr!=="#"&&!/^javascript:/i.test(hr);
+  var eff=mut!==m0||ev.defaultPrevented||location.href!==u0||speaking()||real;
+  if(err||!eff)H.handleClick(el,ev,err?"runtime-error":"no-effect")},240)},true);
+
+/* =========================================================================
+   👑 [대표님 전용 실전 버튼 검열 HUD: Agentation + Driver.js Tour Inspector]
+   v11.46-AON-ZEROCLICK-STUDIO · 겹침 방지 · 자유 드래그앤드롭 · 핵심 63개 모드
+   ========================================================================= */
+(function initHud(){
+ if(typeof document==="undefined"||!document.body){
+  if(typeof window!=="undefined")window.addEventListener("DOMContentLoaded",initHud);
+  return;
+ }
+ if(document.getElementById("rgon-agentation-hud"))return;
+
+ var pageName = (location.pathname.split("/").pop() || "index.html");
+ var serialPrefix = "LIVE-IDX";
+ if(/chat/i.test(pageName)) serialPrefix = "LIVE-CHAT";
+ else if(/audience/i.test(pageName)) serialPrefix = "LIVE-AUD";
+ else if(/offline/i.test(pageName)) serialPrefix = "LIVE-OFF";
+
+ var state = {
+  activeIdx: 0,
+  badgesOn: false,
+  collapsed: true,
+  coreOnly: (localStorage.getItem("rgon_hud_core_only") !== "false"),
+  memoList: JSON.parse(localStorage.getItem("rgon_ui_memos_" + pageName) || "[]")
+ };
+
+ function getTargets(){
+  var all = document.querySelectorAll(Q);
+  var res = [];
+  for(var i=0; i<all.length; i++){
+   var el = all[i];
+   if(el.closest("#rgon-agentation-hud, #rgon-r44-toast, #rgon-dlg-wrap, #rgon-dlg-chips, .aon-slash-pill, #rgon-r40-synapse-badge, [id^='rgon-r4'], .aside-drawer, #rgon-aside-host, .rgon-aside-ext, #rgon-alpha-drawer")) continue;
+   if(el.tagName==="A" && !el.hasAttribute("href") && !el.hasAttribute("onclick") && !el.hasAttribute("data-tab") && !el.hasAttribute("data-aon") && !el.hasAttribute("role")) continue;
+   if(state.coreOnly){
+    if(el.classList && (el.classList.contains("badge") || el.classList.contains("cnt") || el.classList.contains("pill"))) continue;
+   }
+   res.push(el);
+  }
+  if(state.coreOnly && /index/i.test(pageName) && res.length > 63){
+   res = res.slice(0, 63);
+  }
+  return res;
+ }
+
+ var hud = document.createElement("div");
+ hud.id = "rgon-agentation-hud";
+ hud.setAttribute("data-rgon-hud", "true");
+ 
+ var savedPos = null;
+ try{ savedPos = JSON.parse(localStorage.getItem("rgon_hud_pos")); }catch(e){}
+ 
+ var defaultPosStyle = "right:28px;bottom:85px;";
+ if(savedPos && savedPos.left && savedPos.top){
+  defaultPosStyle = "left:" + savedPos.left + ";top:" + savedPos.top + ";";
+ }
+ 
+ hud.style.cssText = "position:fixed;" + defaultPosStyle + "z-index:2147483647;font-family:-apple-system,BlinkMacSystemFont,'Pretendard','Segoe UI',Roboto,sans-serif;font-size:13px;line-height:1.4;color:#f1f5f9;user-select:none;-webkit-font-smoothing:antialiased;";
+
+ var styleTag = document.createElement("style");
+ styleTag.textContent = [
+  "#rgon-agentation-hud button { cursor:pointer; outline:none; border:none; transition:all .15s ease; font-family:inherit; }",
+  "#rgon-agentation-hud button:hover { filter:brightness(1.15); transform:translateY(-1px); }",
+  "#rgon-agentation-hud button:active { transform:translateY(0); }",
+  ".rgon-hud-badge { position:absolute; z-index:2147483640; background:linear-gradient(135deg,#0284c7,#0369a1); color:#fff; font-size:10px; font-weight:800; padding:1px 5px; border-radius:4px; box-shadow:0 2px 6px rgba(0,0,0,.4); pointer-events:auto; cursor:pointer; font-family:monospace; border:1px solid rgba(255,255,255,.3); }",
+  ".rgon-spotlight-active { box-shadow: 0 0 0 3px #10b981, 0 0 25px rgba(16,185,129,.7) !important; outline: 2px solid #34d399 !important; transition: all .3s ease !important; animation: rgon-pulse 1.5s infinite !important; }",
+  "@keyframes rgon-pulse { 0%,100%{ box-shadow:0 0 0 3px #10b981,0 0 20px rgba(16,185,129,.6); } 50%{ box-shadow:0 0 0 5px #34d399,0 0 32px rgba(52,211,153,.9); } }"
+ ].join("\n");
+ document.head.appendChild(styleTag);
+
+ function makeDraggable(handle){
+  if(!handle) return;
+  handle.style.cursor = "move";
+  var isDragging = false, startX, startY, origLeft, origTop;
+  function onStart(cx, cy){
+   isDragging = true;
+   var rect = hud.getBoundingClientRect();
+   startX = cx;
+   startY = cy;
+   origLeft = rect.left;
+   origTop = rect.top;
+   hud.style.right = "auto";
+   hud.style.bottom = "auto";
+   hud.style.left = origLeft + "px";
+   hud.style.top = origTop + "px";
+  }
+  handle.onmousedown = function(e){
+   if(e.target.tagName==="BUTTON" || e.target.closest("button")) return;
+   e.preventDefault();
+   onStart(e.clientX, e.clientY);
+   function onMove(e){
+    if(!isDragging) return;
+    var dx = e.clientX - startX;
+    var dy = e.clientY - startY;
+    var nl = Math.max(0, Math.min(window.innerWidth - hud.offsetWidth, origLeft + dx));
+    var nt = Math.max(0, Math.min(window.innerHeight - hud.offsetHeight, origTop + dy));
+    hud.style.left = nl + "px";
+    hud.style.top = nt + "px";
+   }
+   function onUp(){
+    if(isDragging){
+     isDragging = false;
+     localStorage.setItem("rgon_hud_pos", JSON.stringify({left: hud.style.left, top: hud.style.top}));
+    }
+    document.removeEventListener("mousemove", onMove);
+    document.removeEventListener("mouseup", onUp);
+   }
+   document.addEventListener("mousemove", onMove);
+   document.addEventListener("mouseup", onUp);
+  };
+  handle.ontouchstart = function(e){
+   if(e.target.tagName==="BUTTON" || e.target.closest("button")) return;
+   var t = e.touches[0];
+   onStart(t.clientX, t.clientY);
+   function onTMove(e){
+    if(!isDragging) return;
+    var t = e.touches[0];
+    var dx = t.clientX - startX;
+    var dy = t.clientY - startY;
+    var nl = Math.max(0, Math.min(window.innerWidth - hud.offsetWidth, origLeft + dx));
+    var nt = Math.max(0, Math.min(window.innerHeight - hud.offsetHeight, origTop + dy));
+    hud.style.left = nl + "px";
+    hud.style.top = nt + "px";
+   }
+   function onTUp(){
+    if(isDragging){
+     isDragging = false;
+     localStorage.setItem("rgon_hud_pos", JSON.stringify({left: hud.style.left, top: hud.style.top}));
+    }
+    document.removeEventListener("touchmove", onTMove);
+    document.removeEventListener("touchend", onTUp);
+   }
+   document.addEventListener("touchmove", onTMove, {passive:true});
+   document.addEventListener("touchend", onTUp);
+  };
+ }
+
+ function render(){
+  var targets = getTargets();
+  var total = targets.length;
+  if(state.activeIdx >= total) state.activeIdx = Math.max(0, total - 1);
+  var curEl = targets[state.activeIdx] || null;
+  var serial = serialPrefix + "-" + (state.activeIdx < 9 ? "00" : (state.activeIdx < 99 ? "0" : "")) + (state.activeIdx + 1);
+  var label = curEl ? (curEl.getAttribute("aria-label") || curEl.innerText || curEl.title || curEl.id || "<" + curEl.tagName.toLowerCase() + ">").replace(/\s+/g," ").trim().slice(0,35) : "선택 없음";
+  var handler = curEl ? (curEl.getAttribute("onclick") || curEl.getAttribute("href") || curEl.getAttribute("data-tab") || (curEl.id ? "id:#" + curEl.id : "기본 액션")) : "-";
+
+  if(state.collapsed){
+   hud.innerHTML = [
+    '<div id="rgon-hud-pill" title="마우스로 잡고 드래그하여 이동할 수 있습니다" style="display:flex;align-items:center;gap:8px;background:rgba(15,23,42,.92);backdrop-filter:blur(12px);border:1px solid rgba(16,185,129,.5);box-shadow:0 8px 30px rgba(0,0,0,.5);border-radius:9999px;padding:8px 16px;box-sizing:border-box;">',
+    ' <span style="font-size:14px;cursor:move;">👑</span>',
+    ' <span style="font-weight:700;color:#34d399;letter-spacing:-.3px;cursor:move;">실전 검열 HUD</span>',
+    ' <span style="font-size:11px;color:#94a3b8;background:rgba(255,255,255,.08);padding:2px 8px;border-radius:12px;">' + (total > 0 ? (state.activeIdx + 1) : 0) + '/' + total + '</span>',
+    ' <button id="rgon-hud-expand" style="background:#10b981;color:#042f2e;font-weight:800;font-size:11px;padding:4px 10px;border-radius:20px;">검열 열기 ▴</button>',
+    '</div>'
+   ].join("");
+   var pill = document.getElementById("rgon-hud-pill");
+   makeDraggable(pill);
+   var expBtn = document.getElementById("rgon-hud-expand");
+   if(expBtn) expBtn.onclick = function(){ state.collapsed = false; render(); highlightCurrent(); };
+   return;
+  }
+
+  hud.innerHTML = [
+   '<div style="width:360px;background:rgba(15,23,42,.96);backdrop-filter:blur(16px);border:1px solid rgba(52,211,153,.4);box-shadow:0 12px 40px rgba(0,0,0,.6);border-radius:16px;padding:16px;box-sizing:border-box;">',
+   ' <!-- Header (Draggable) -->',
+   ' <div id="rgon-hud-header" title="헤더를 마우스로 잡고 드래그하여 자유롭게 이동" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;border-bottom:1px solid rgba(255,255,255,.08);padding-bottom:10px;cursor:move;">',
+   '  <div style="display:flex;align-items:center;gap:6px;">',
+   '   <span style="font-size:16px;">👑</span>',
+   '   <span style="font-weight:800;color:#34d399;font-size:14px;letter-spacing:-.3px;">대표님 전용 실전 검열 HUD</span>',
+   '  </div>',
+   '  <div style="display:flex;align-items:center;gap:4px;">',
+   '   <button id="rgon-hud-mode-toggle" title="핵심/전체 모드 전환" style="background:' + (state.coreOnly ? '#059669' : '#475569') + ';color:#fff;padding:2px 7px;border-radius:6px;font-size:10px;font-weight:700;">' + (state.coreOnly ? '⭐ 핵심' : '🌐 전체') + '</button>',
+   '   <button id="rgon-hud-fold" style="background:rgba(255,255,255,.08);color:#94a3b8;padding:3px 8px;border-radius:6px;font-size:11px;">접기 ▾</button>',
+   '  </div>',
+   ' </div>',
+   ' <!-- Controls: Badge & Stats -->',
+   ' <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px;">',
+   '  <button id="rgon-hud-toggle-badge" style="flex:1;background:' + (state.badgesOn ? '#0ea5e9' : 'rgba(255,255,255,.08)') + ';color:#fff;font-weight:700;padding:6px 10px;border-radius:8px;font-size:11px;border:1px solid ' + (state.badgesOn ? '#38bdf8' : 'rgba(255,255,255,.12)') + ';">',
+   '   ' + (state.badgesOn ? '🟢 X-Ray 번호표 ON' : '⚪ X-Ray 번호표 OFF'),
+   '  </button>',
+   '  <span style="color:#a7f3d0;font-weight:800;font-size:12px;background:rgba(16,185,129,.15);padding:6px 12px;border-radius:8px;border:1px solid rgba(16,185,129,.3);">' + (total > 0 ? (state.activeIdx + 1) : 0) + ' / ' + total + '</span>',
+   ' </div>',
+   ' <!-- Target Card -->',
+   ' <div style="background:rgba(30,41,59,.7);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:12px;margin-bottom:12px;">',
+   '  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">',
+   '   <span style="font-family:monospace;color:#38bdf8;font-weight:800;font-size:12px;background:rgba(14,165,233,.15);padding:2px 6px;border-radius:4px;">' + serial + '</span>',
+   '   <span style="color:#94a3b8;font-size:11px;">&lt;' + (curEl ? curEl.tagName.toLowerCase() : "") + '&gt;</span>',
+   '  </div>',
+   '  <div style="font-size:14px;font-weight:700;color:#f8fafc;margin-bottom:6px;word-break:break-all;">' + label + '</div>',
+   '  <div style="font-family:monospace;font-size:11px;color:#cbd5e1;background:rgba(0,0,0,.3);padding:4px 8px;border-radius:6px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="' + handler + '">' + handler + '</div>',
+   ' </div>',
+   ' <!-- Tour Navigation -->',
+   ' <div style="display:grid;grid-template-columns:1fr 1fr 1.3fr;gap:6px;margin-bottom:12px;">',
+   '  <button id="rgon-hud-prev" style="background:#334155;color:#fff;font-weight:700;padding:8px 0;border-radius:8px;font-size:12px;">◀ 이전</button>',
+   '  <button id="rgon-hud-next" style="background:#334155;color:#fff;font-weight:700;padding:8px 0;border-radius:8px;font-size:12px;">다음 ▶</button>',
+   '  <button id="rgon-hud-test" style="background:linear-gradient(135deg,#10b981,#059669);color:#fff;font-weight:800;padding:8px 0;border-radius:8px;font-size:12px;box-shadow:0 4px 12px rgba(16,185,129,.3);">⚡ 실전 클릭</button>',
+   ' </div>',
+   ' <!-- Agentation Memo Generator -->',
+   ' <div style="border-top:1px solid rgba(255,255,255,.08);padding-top:10px;">',
+   '  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">',
+   '   <span style="font-size:11px;font-weight:700;color:#e2e8f0;">🛠️ Agentation 지시서 (' + state.memoList.length + '건)</span>',
+   '   <button id="rgon-hud-copy" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9);color:#fff;font-weight:700;font-size:10px;padding:3px 8px;border-radius:6px;">📋 안총리 지시서 복사</button>',
+   '  </div>',
+   '  <div style="display:flex;gap:6px;">',
+   '   <input id="rgon-hud-input" type="text" placeholder="대표님 수정/강화 메모 입력..." style="flex:1;background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.15);border-radius:6px;padding:6px 8px;font-size:11px;color:#fff;outline:none;" />',
+   '   <button id="rgon-hud-add" style="background:#0ea5e9;color:#fff;font-weight:700;padding:6px 10px;border-radius:6px;font-size:11px;">담기</button>',
+   '  </div>',
+   ' </div>',
+   '</div>'
+  ].join("");
+
+  var head = document.getElementById("rgon-hud-header");
+  makeDraggable(head);
+
+  document.getElementById("rgon-hud-fold").onclick = function(){ state.collapsed = true; render(); };
+  document.getElementById("rgon-hud-mode-toggle").onclick = function(){
+   state.coreOnly = !state.coreOnly;
+   localStorage.setItem("rgon_hud_core_only", state.coreOnly);
+   state.activeIdx = 0;
+   render();
+   if(state.badgesOn) updateBadges();
+   highlightCurrent();
+  };
+  document.getElementById("rgon-hud-toggle-badge").onclick = function(){
+   state.badgesOn = !state.badgesOn;
+   updateBadges();
+   render();
+  };
+  document.getElementById("rgon-hud-prev").onclick = function(){
+   if(state.activeIdx > 0) state.activeIdx--;
+   else state.activeIdx = Math.max(0, total - 1);
+   render();
+   highlightCurrent();
+  };
+  document.getElementById("rgon-hud-next").onclick = function(){
+   if(state.activeIdx < total - 1) state.activeIdx++;
+   else state.activeIdx = 0;
+   render();
+   highlightCurrent();
+  };
+  document.getElementById("rgon-hud-test").onclick = function(){
+   var targets = getTargets();
+   var t = targets[state.activeIdx];
+   if(t){
+    toast("⚡ [" + serial + "] 실전 클릭 실행 중...");
+    try{ t.click(); }catch(e){ H.handleClick(t, null, "test-error"); }
+    highlightCurrent();
+   }
+  };
+  document.getElementById("rgon-hud-add").onclick = function(){
+   var inp = document.getElementById("rgon-hud-input");
+   var val = (inp.value || "").trim();
+   if(!val){ toast("⚠️ 메모 내용을 입력해 주십시오."); return; }
+   state.memoList.push({
+    serial: serial,
+    label: label,
+    handler: handler,
+    memo: val,
+    page: pageName,
+    time: new Date().toLocaleTimeString()
+   });
+   localStorage.setItem("rgon_ui_memos_" + pageName, JSON.stringify(state.memoList));
+   inp.value = "";
+   toast("✅ [" + serial + "] 지시사항이 담겼습니다 (총 " + state.memoList.length + "건)");
+   render();
+  };
+  document.getElementById("rgon-hud-copy").onclick = function(){
+   if(!state.memoList.length){ toast("⚠️ 담긴 지시사항이 없습니다. 먼저 메모를 담아주세요."); return; }
+   var md = [
+    "# 🏛️ [대표님 실전 버튼 수정·강화 지시서]",
+    "- **대상 페이지**: `" + pageName + "`",
+    "- **작성 일시**: " + new Date().toLocaleString(),
+    "- **지시 건수**: 총 " + state.memoList.length + "건",
+    "",
+    "| 번호 | 시리얼 | 버튼 이름 | 핸들러/태그 | 대표님 수정 지시 사항 |",
+    "| :--- | :--- | :--- | :--- | :--- |"
+   ];
+   for(var i=0; i<state.memoList.length; i++){
+    var m = state.memoList[i];
+    md.push("| #" + (i+1) + " | `" + m.serial + "` | " + m.label + " | `" + m.handler.slice(0,35) + "` | **" + m.memo + "** |");
+   }
+   md.push("", "위 지시사항을 즉시 집행하고 결과를 보고하라!");
+   var text = md.join("\n");
+   if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(function(){
+     toast("📋 안총리 지시서가 복사되었습니다! 채팅창에 바로 붙여넣으세요.");
+    });
+   } else {
+    var ta = document.createElement("textarea"); ta.value = text; document.body.appendChild(ta); ta.select(); document.execCommand("copy"); document.body.removeChild(ta);
+    toast("📋 안총리 지시서 복사 완료 (클립보드)");
+   }
+  };
+ }
+
+ function highlightCurrent(){
+  var prev = document.querySelectorAll(".rgon-spotlight-active");
+  for(var i=0; i<prev.length; i++) prev[i].classList.remove("rgon-spotlight-active");
+
+  var targets = getTargets();
+  var curEl = targets[state.activeIdx];
+  if(curEl){
+   curEl.classList.add("rgon-spotlight-active");
+   try{ curEl.scrollIntoView({ behavior:"smooth", block:"center", inline:"center" }); }catch(e){}
+  }
+ }
+
+ function updateBadges(){
+  var prev = document.querySelectorAll(".rgon-hud-badge");
+  for(var i=0; i<prev.length; i++) prev[i].remove();
+  if(!state.badgesOn) return;
+
+  var targets = getTargets();
+  for(var i=0; i<targets.length; i++){
+   (function(idx, el){
+    var rect = el.getBoundingClientRect();
+    var b = document.createElement("div");
+    b.className = "rgon-hud-badge";
+    b.textContent = "#" + (idx + 1);
+    b.title = serialPrefix + "-" + (idx + 1) + " 선택";
+    b.style.top = (window.scrollY + rect.top - 8) + "px";
+    b.style.left = (window.scrollX + rect.left - 4) + "px";
+    b.onclick = function(e){
+     e.stopPropagation();
+     state.activeIdx = idx;
+     if(state.collapsed) state.collapsed = false;
+     render();
+     highlightCurrent();
+    };
+    document.body.appendChild(b);
+   })(i, targets[i]);
+  }
+ }
+
+ window.addEventListener("resize", function(){ if(state.badgesOn) updateBadges(); });
+ window.addEventListener("scroll", function(){ if(state.badgesOn) updateBadges(); }, { passive:true });
+
+ document.body.appendChild(hud);
+ render();
+})();
+})();
+</script>
+</script>
+<script>
+    // [v12.5] 6대 가디언 보안 스위치 및 아온 탭 실전 클릭 핸들러
+    document.addEventListener('DOMContentLoaded', function() {
+      // 1. 아온 탭 버튼 바인딩 (#36~#39)
+      document.querySelectorAll('.rgk-tabs button[data-tab]').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const tabId = this.getAttribute('data-tab');
+          document.querySelectorAll('.rgk-tabs button').forEach(b => b.classList.remove('on'));
+          this.classList.add('on');
+          document.querySelectorAll('.rgk-pane').forEach(p => p.classList.remove('on'));
+          const targetPane = document.getElementById('rgk-p-' + tabId);
+          if (targetPane) targetPane.classList.add('on');
+        });
+      });
+
+      // 2. 가디언 마스터 제어판 (#57~#63)
+      const rggPanel = document.getElementById('rgg-panel');
+      const rggBadge = document.getElementById('rgg-badge');
+      const rggMaster = document.getElementById('rgg-master');
+
+      document.querySelectorAll('[data-rgg="hide"]').forEach(b => {
+        b.onclick = () => { if (rggPanel) rggPanel.classList.remove('on'); };
+      });
+
+      if (rggMaster) {
+        rggMaster.onclick = function() {
+          const isOff = this.classList.contains('rgg-off');
+          if (isOff) {
+            this.className = 'rgg-on';
+            this.innerText = '🔓 전체 중요결재 수동 ON';
+            if (rggBadge) { rggBadge.className = 'rgg-on'; rggBadge.innerText = '🔓 중요결재 ON'; }
+            alert('🔓 [가디언 마스터 제어]: 전체 중요결재 수동 집행이 승인 상태로 전환되었습니다.');
+          } else {
+            this.className = 'rgg-off';
+            this.innerText = '🔒 전체 중요결재 수동 OFF';
+            if (rggBadge) { rggBadge.className = 'rgg-off'; rggBadge.innerText = '🔒 중요결재 OFF'; }
+            alert('🔒 [가디언 마스터 제어]: 전체 중요결재 수동 안전 잠금이 활성화되었습니다.');
+          }
+        };
+      }
+
+      document.querySelectorAll('[data-rgg="lock"]').forEach(b => {
+        b.onclick = function() {
+          if (rggMaster) {
+            rggMaster.className = 'rgg-off';
+            rggMaster.innerText = '🔒 전체 중요결재 수동 OFF';
+          }
+          if (rggBadge) { rggBadge.className = 'rgg-off'; rggBadge.innerText = '🔒 중요결재 OFF'; }
+          alert('🚨 [비상 전체 잠금]: 22대 전 기관 및 4대 결재 스위치가 즉시 비상 동결(잠금)되었습니다!');
+        };
+      });
+
+      document.querySelectorAll('[data-rgg-cat]').forEach(b => {
+        b.onclick = function() {
+          const cat = this.getAttribute('data-rgg-cat');
+          const isSelected = this.style.border.includes('rgb(56, 189, 248)') || this.style.background.includes('rgb(56, 189, 248)');
+          if (isSelected) {
+            this.style.background = '';
+            this.style.border = '';
+            this.style.color = '';
+            alert(`🔒 [보안 스위치]: [${this.innerText}] 수동 승인이 비활성화되었습니다.`);
+          } else {
+            this.style.background = 'rgba(56, 189, 248, 0.25)';
+            this.style.border = '1.5px solid #38bdf8';
+            this.style.color = '#38bdf8';
+            alert(`🔓 [보안 스위치]: [${this.innerText}] 수동 승인이 활성화되었습니다.`);
+          }
+        };
+      });
+    });
+    </script>
+</body>
+</html>

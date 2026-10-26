@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """rgon_aon_soul_brain.py — 제10기관: 아온(A-ON) 감성·인격 대화 두뇌 & 해마 기억 기관
-버전 v11.45-AON-AUTO-EVOLVER · 항체 R1~R46
+버전 v11.46-AON-ZEROCLICK-STUDIO · 항체 R1~R47
 주역 #31 택산함(澤山咸 ☱☶): 聖人感人心而天下和平 — 무심의 감응으로 마음이 깊이 통함.
 주역 #61 풍택중부(風澤中孚 ☴☱): 鶴鳴在陰 其子和之 — 지극한 정성과 믿음으로 교감함.
 2-Track 원칙: 감정·일상 교감(chat_*)은 절대 대행 큐에 넣지 않고, 명시적 업무 지시만 3-Tier 대행(delegate)으로 보낸다."""
@@ -14,8 +14,8 @@ try:
 except Exception:
     pass
 
-VERSION = "v11.45-AON-AUTO-EVOLVER"
-ANTIBODY = "R1~R46"
+VERSION = "v11.46-AON-ZEROCLICK-STUDIO"
+ANTIBODY = "R1~R47"
 ROOT = Path(__file__).resolve().parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
@@ -687,7 +687,7 @@ if "respond" in globals() and not globals().get("_rgon_r39_wrapped"):
 # R40 시냅스 ③ — converse ↔ 대화 허브 양방향 직결 (재귀 방지 · 시그니처 완전 호환)
 import threading as _th40
 _R40_SB_GUARD = _th40.local()
-_R40_SB_VER = "v11.45-AON-AUTO-EVOLVER"
+_R40_SB_VER = "v11.46-AON-ZEROCLICK-STUDIO"
 _r40_cur = globals().get("converse")
 
 if callable(_r40_cur):
