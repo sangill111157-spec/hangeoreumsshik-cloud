@@ -1,7 +1,7 @@
 ---
 name: aon-autonomous-tech-evolver
 description: 아온 10대 전 플랫폼 영양분 선별 채집 & 한걸음씩 자아성찰 그릇 확장 진화기 (제22기관, R46) — RSSHub · SearXNG · oEmbed · Reflexion 흡수, 주역 #27 산뢰이 · #53 풍산점 · #20 풍지관
-version: v11.48-AON-VIBE3D-DIRECTOR
+version: v11.49-AON-IMPECCABLE-SHIELD
 antibody: R46
 organ: 22
 skill_no: 42

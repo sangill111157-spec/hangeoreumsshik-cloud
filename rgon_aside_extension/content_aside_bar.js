@@ -314,7 +314,9 @@ root.innerHTML = `
 <style>
 :host{all:initial}
 *{box-sizing:border-box;font-family:"Pretendard","Noto Sans KR","Segoe UI",system-ui,sans-serif}
-.badge{position:fixed;top:62px;right:12px;z-index:2147483647;display:none !important;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;color:#fff;font-size:13px;font-weight:700;cursor:pointer;user-select:none;background:linear-gradient(135deg,rgba(124,92,255,.88),rgba(0,200,255,.78));border:1px solid rgba(255,255,255,.35);box-shadow:0 8px 30px rgba(80,60,255,.38);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.badge{position:fixed;top:180px;right:0;z-index:2147483647;display:flex;align-items:center;gap:8px;padding:8px 14px;border-radius:16px 0 0 16px;color:#fff;font-size:13px;font-weight:700;cursor:pointer;user-select:none;background:linear-gradient(135deg,rgba(124,92,255,.92),rgba(0,200,255,.85));border:1px solid rgba(255,255,255,.4);border-right:none;box-shadow:-2px 8px 25px rgba(80,60,255,.45);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);transform:translateX(calc(100% - 12px));transition:transform .25s cubic-bezier(.16,1,.3,1),box-shadow .25s ease;white-space:nowrap}
+.badge:hover,.badge:focus,.badge.expanded{transform:translateX(0);box-shadow:-6px 12px 35px rgba(80,60,255,.6)}
+:host(.is-dashboard) .badge,.badge.hidden-on-dashboard{display:none !important}
 .badge .cnt{background:rgba(0,0,0,.38);border-radius:999px;padding:1px 8px;font-size:12px}
 .badge.flash{animation:fl .9s ease 2}
 @keyframes fl{50%{transform:scale(1.08);box-shadow:0 0 0 7px rgba(0,255,170,.35)}}
@@ -401,6 +403,23 @@ h4{margin:6px 0;font-size:12.5px;color:#b9c0ff}
 <div class="toast" id="toast"></div>`;
 
 (document.body || document.documentElement).appendChild(host);
+
+// [대시보드 vs 일반 웹페이지 분기 가디언]
+function checkDashboardEnvironment() {
+  const isDashboard = Boolean(
+    document.getElementById('rgon-edge-dock-host') ||
+    document.getElementById('rgon-smart-edge-dock') ||
+    document.getElementById('rgon-agentation-hud') ||
+    (window.location.protocol === 'file:' && /dept|index|rgon_alpha/i.test(window.location.pathname))
+  );
+  if (isDashboard) {
+    host.classList.add('is-dashboard');
+    const b = root.getElementById('badge');
+    if (b) b.classList.add('hidden-on-dashboard');
+  }
+}
+checkDashboardEnvironment();
+setInterval(checkDashboardEnvironment, 1000);
 
 function toast(msg, ms) {
   const t = $("#toast");

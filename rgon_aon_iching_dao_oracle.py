@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """rgon_aon_iching_dao_oracle.py — 제13기관: 아온(A-ON) 주역(周易) 64괘·정통 음력 매화역수·육효(六爻) 시운 도술관
-버전 v11.48-AON-VIBE3D-DIRECTOR · 항체 R1~R49 · 정식 스킬 33개
+버전 v11.49-AON-IMPECCABLE-SHIELD · 항체 R1~R50 · 정식 스킬 33개
 muyen/meihua-yishu + YiSphere + ichingpy + ProactiveAgent 4대 정점 아키텍처 융합 (1900~2099 진짜 음력 내장)"""
 import datetime, hashlib, json, os, sys, time
 from pathlib import Path
@@ -13,8 +13,8 @@ except Exception:
     pass
 
 ROOT = Path(__file__).resolve().parent
-VERSION = "v11.48-AON-VIBE3D-DIRECTOR"
-ANTIBODY = "R1~R49"
+VERSION = "v11.49-AON-IMPECCABLE-SHIELD"
+ANTIBODY = "R1~R50"
 SKILL_COUNT = 39
 STATE_PATHS = ("rgon_aon_iching_state.json", "docs/rgon_aon_iching_state.json")
 

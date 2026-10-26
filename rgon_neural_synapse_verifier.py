@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """rgon_neural_synapse_verifier.py — 제16기관 아온 전신 신경망 시냅스 병렬 정밀 검증기
-v11.48-AON-VIBE3D-DIRECTOR · 항체 R1~R49 · 정식 스킬 #36 aon-neural-synapse-verifier
+v11.49-AON-IMPECCABLE-SHIELD · 항체 R1~R50 · 정식 스킬 #36 aon-neural-synapse-verifier
 순수 표준 라이브러리 전용. CLI: --self-test | --audit | --status
 """
 import os, sys, re, json, time, ast, tempfile, subprocess, importlib, argparse, datetime, warnings
@@ -19,8 +19,8 @@ for _s in ("stdout", "stderr"):
 os.environ["PYTHONWARNINGS"] = "ignore::SyntaxWarning"
 warnings.filterwarnings("ignore", category=SyntaxWarning)
 
-VERSION = "v11.48-AON-VIBE3D-DIRECTOR"
-ANTIBODY_RANGE = "R1~R49"
+VERSION = "v11.49-AON-IMPECCABLE-SHIELD"
+ANTIBODY_RANGE = "R1~R50"
 EXPECTED_SKILL_COUNT = 45
 SKILL_ID = "aon-neural-synapse-verifier"
 ROOT = Path(__file__).resolve().parent
@@ -351,8 +351,8 @@ def status():
 
 
 # >>> RGON R41 VERIFIER EXT BEGIN >>>
-VERSION = "v11.48-AON-VIBE3D-DIRECTOR"
-ANTIBODY_RANGE = "R1~R49"
+VERSION = "v11.49-AON-IMPECCABLE-SHIELD"
+ANTIBODY_RANGE = "R1~R50"
 EXPECTED_SKILL_COUNT = 44
 STATUS_LINE = "%s · 항체 %s · 정식 스킬 %d개" % (VERSION, ANTIBODY_RANGE, EXPECTED_SKILL_COUNT)
 try:
@@ -423,8 +423,8 @@ if callable(_r41_orig_vsl) and not getattr(_r41_orig_vsl, "_r41", False):
 
 
 # >>> [RGON-R42-VERIFIER-EXT-START] >>>
-VERSION = "v11.48-AON-VIBE3D-DIRECTOR"
-ANTIBODY_RANGE = "R1~R49"
+VERSION = "v11.49-AON-IMPECCABLE-SHIELD"
+ANTIBODY_RANGE = "R1~R50"
 EXPECTED_SKILL_COUNT = 44
 STATUS_LINE = "%s · 항체 %s · 정식 스킬 %d개" % (VERSION, ANTIBODY_RANGE, EXPECTED_SKILL_COUNT)
 R42_HYDRO_ORGAN = "rgon_aon_hydro_cycle.py"
@@ -585,8 +585,8 @@ if callable(_r42_orig_heal) and not getattr(_r42_orig_heal, "_r42", False):
 
 
 # >>> [RGON-R43-VERIFIER-EXT-START] >>>
-VERSION = "v11.48-AON-VIBE3D-DIRECTOR"
-ANTIBODY_RANGE = "R1~R49"
+VERSION = "v11.49-AON-IMPECCABLE-SHIELD"
+ANTIBODY_RANGE = "R1~R50"
 EXPECTED_SKILL_COUNT = 44
 STATUS_LINE = "%s · 항체 %s · 정식 스킬 %d개" % (VERSION, ANTIBODY_RANGE, EXPECTED_SKILL_COUNT)
 R43_NEXUS_ORGAN = "rgon_aon_omni_nexus.py"
@@ -746,8 +746,8 @@ if callable(_r43_orig_heal) and not getattr(_r43_orig_heal, "_r43", False):
 
 # >>> RGON R44 LIVE UI HEALER VERIFIER EXT START
 import os as _r44os, sys as _r44sys, json as _r44json, subprocess as _r44sp, tempfile as _r44tmp, importlib as _r44il, threading as _r44th, shutil as _r44sh
-VERSION = "v11.48-AON-VIBE3D-DIRECTOR"
-ANTIBODY_RANGE = "R1~R49"
+VERSION = "v11.49-AON-IMPECCABLE-SHIELD"
+ANTIBODY_RANGE = "R1~R50"
 EXPECTED_SKILL_COUNT = 44
 STATUS_LINE = "%s · 항체 %s · 정식 스킬 %d개" % (VERSION, ANTIBODY_RANGE, EXPECTED_SKILL_COUNT)
 R44_ORGAN_NODE = {"id": "N16", "file": "rgon_aon_live_ui_healer.py", "organ_no": 20}
@@ -834,8 +834,8 @@ for _n in ("run_full", "run_all", "verify_all", "full_check"):
 
 # >>> RGON R45 CINEMATIC DISPATCH VERIFIER EXT START
 import os as _r45os, sys as _r45sys, json as _r45json, subprocess as _r45sp, tempfile as _r45tmp, importlib as _r45il, threading as _r45th, shutil as _r45sh
-VERSION = "v11.48-AON-VIBE3D-DIRECTOR"
-ANTIBODY_RANGE = "R1~R49"
+VERSION = "v11.49-AON-IMPECCABLE-SHIELD"
+ANTIBODY_RANGE = "R1~R50"
 EXPECTED_SKILL_COUNT = 44
 STATUS_LINE = "%s · 항체 %s · 정식 스킬 %d개" % (VERSION, ANTIBODY_RANGE, EXPECTED_SKILL_COUNT)
 R45_ORGAN_NODE = {"id": "N17", "file": "rgon_aon_cinematic_dispatch.py", "organ_no": 21}
@@ -948,8 +948,8 @@ for _n in ("run_full", "run_all", "verify_all", "full_check"):
 
 # >>> RGON R46 AUTO EVOLVER VERIFIER EXT START
 import os as _r46os, sys as _r46sys, json as _r46json, subprocess as _r46sp, tempfile as _r46tmp, importlib as _r46il, threading as _r46th, shutil as _r46sh
-VERSION = "v11.48-AON-VIBE3D-DIRECTOR"
-ANTIBODY_RANGE = "R1~R49"
+VERSION = "v11.49-AON-IMPECCABLE-SHIELD"
+ANTIBODY_RANGE = "R1~R50"
 EXPECTED_SKILL_COUNT = 44
 STATUS_LINE = "%s · 항체 %s · 정식 스킬 %d개" % (VERSION, ANTIBODY_RANGE, EXPECTED_SKILL_COUNT)
 R46_ORGAN_NODE = {"id": "N18", "file": "rgon_aon_auto_skill_evolver.py", "organ_no": 22}
@@ -1062,8 +1062,8 @@ for _n in ("run_full", "run_all", "verify_all", "full_check"):
 # <<< RGON R46 AUTO EVOLVER VERIFIER EXT END
 
 # [RGON-R47-VERIFIER-EXT-START]
-VERSION = "v11.48-AON-VIBE3D-DIRECTOR"
-ANTIBODY_RANGE = "R1~R49"
+VERSION = "v11.49-AON-IMPECCABLE-SHIELD"
+ANTIBODY_RANGE = "R1~R50"
 EXPECTED_SKILL_COUNT = 44
 STATUS_LINE = "%s · 항체 %s · 정식 스킬 %d개" % (VERSION, ANTIBODY_RANGE, EXPECTED_SKILL_COUNT)
 R47_STUDIO_ORGAN = "rgon_aon_zeroclick_studio.py"
@@ -1159,8 +1159,8 @@ if callable(_r48_orig_vsl) and not getattr(_r48_orig_vsl, "_r48", False):
 # [RGON-R48-VERIFIER-EXT-END]
 
 # [RGON-R49-VERIFIER-EXT-START]
-VERSION = "v11.48-AON-VIBE3D-DIRECTOR"
-ANTIBODY_RANGE = "R1~R49"
+VERSION = "v11.49-AON-IMPECCABLE-SHIELD"
+ANTIBODY_RANGE = "R1~R50"
 EXPECTED_SKILL_COUNT = 45
 STATUS_LINE = "%s · 항체 %s · 정식 스킬 %d개" % (VERSION, ANTIBODY_RANGE, EXPECTED_SKILL_COUNT)
 R49_VIBE3D_ORGAN = "rgon_aon_vibe3d_director.py"
@@ -1202,6 +1202,51 @@ if callable(_r49_orig_vsl) and not getattr(_r49_orig_vsl, "_r49", False):
         return res
     verify_synapse_links._r49 = True
 # [RGON-R49-VERIFIER-EXT-END]
+
+# [RGON-R50-VERIFIER-EXT-START]
+VERSION = "v11.49-AON-IMPECCABLE-SHIELD"
+ANTIBODY_RANGE = "R1~R50"
+EXPECTED_SKILL_COUNT = 46
+STATUS_LINE = "%s · 항체 %s · 정식 스킬 %d개" % (VERSION, ANTIBODY_RANGE, EXPECTED_SKILL_COUNT)
+R50_IMPECCABLE_ORGAN = "rgon_aon_impeccable_audit_shield.py"
+try:
+    if R50_IMPECCABLE_ORGAN not in ORGANS:
+        ORGANS.append(R50_IMPECCABLE_ORGAN)
+except NameError:
+    ORGANS = [R50_IMPECCABLE_ORGAN]
+
+def _r50_s20_check():
+    import time as _tm, importlib as _il
+    _t0 = _tm.perf_counter()
+    name = "대화허브(/impeccable·/보안감사)→제26기관 아온 임페커블 UI & 감사 방패"
+    try:
+        dlg = _il.import_module("rgon_aon_dialogue_engine")
+        fn = getattr(dlg, "_r50_impeccable_route", None)
+        if not fn:
+            fn = getattr(dlg, "r40_route", None)
+        r = fn("/impeccable 대시보드 UI 무결점 교차감사") if fn else None
+        ok = isinstance(r, dict) and r.get("ok") is True and (r.get("intent") == "impeccable_shield" or "impeccable_shield" in r)
+        ev = f"intent={r.get('intent')}, ok={r.get('ok')}"
+        return {"id": "S20", "name": name, "ok": bool(ok), "sec": round(_tm.perf_counter() - _t0, 3),
+                "evidence": ev, "detail": r}
+    except Exception as e:
+        return {"id": "S20", "name": name, "ok": False, "sec": round(_tm.perf_counter() - _t0, 3),
+                "evidence": repr(e), "detail": repr(e)}
+
+_r50_orig_vsl = globals().get("verify_synapse_links")
+if callable(_r50_orig_vsl) and not getattr(_r50_orig_vsl, "_r50", False):
+    def verify_synapse_links(*args, **kwargs):
+        res = _r50_orig_vsl(*args, **kwargs)
+        s20 = _r50_s20_check()
+        if isinstance(res, dict) and isinstance(res.get("synapses"), list):
+            items = [x for x in res["synapses"] if not (isinstance(x, dict) and x.get("id") == "S20")] + [s20]
+            res["synapses"] = items
+            res["passed"] = sum(1 for x in items if isinstance(x, dict) and x.get("ok"))
+            res["total"] = len(items)
+            res["ok"] = res["passed"] == res["total"]
+        return res
+    verify_synapse_links._r50 = True
+# [RGON-R50-VERIFIER-EXT-END]
 
 
 if __name__ == "__main__":

@@ -130,7 +130,7 @@ SFX_PRESETS.update(R40_UNIFIED_SFX_MAP)
 
 def get_unified_sfx_registry():
     rec = globals().get("SOUND_RECIPES")
-    return {"version": "v11.45-AON-AUTO-EVOLVER", "antibody": "R1~R46",
+    return {"version": "v11.49-AON-IMPECCABLE-SHIELD", "antibody": "R1~R50",
             "sfx_presets": sorted(SFX_PRESETS.keys()),
             "sound_recipes": sorted(rec.keys()) if isinstance(rec, dict) else [],
             "r40_unified": sorted(R40_UNIFIED_SFX_MAP.keys())}
@@ -172,4 +172,13 @@ SFX_PRESETS.update({
     "pbr_shimmer": {"desc": "PBR ORM 표면 물리 광택 챠르르 반짝임", "freq_hz": [1046, 1318, 1568, 2093], "dur_ms": 220, "wave": "sine", "gain": 0.16},
     "rig_dance_beat": {"desc": "AI 자동 리깅 짱구 부리부리 댄스 쿵짝 비트", "freq_hz": [130, 260, 520], "dur_ms": 180, "wave": "triangle", "gain": 0.20},
 })
+
+# [RGON-R50-IMPECCABLE-SFX] — 제26기관 임페커블 UI & 오픈셸·클라우드플레어 감사 방패 4종 효과음 확장 (Step 50)
+SFX_PRESETS.update({
+    "impeccable_polish_chime": {"desc": "임페커블 62규칙 UI 무결점 폴리시 챠임", "freq_hz": [1046, 1318, 1568, 2093], "dur_ms": 240, "wave": "sine", "gain": 0.17},
+    "openshell_policy_lock": {"desc": "NVIDIA OpenShell 정책 동결 가드 락 사운드", "freq_hz": [260, 390, 780], "dur_ms": 140, "wave": "square", "gain": 0.18},
+    "cloudflare_audit_pass": {"desc": "Cloudflare 2단계 적대적 감사 무결점 통과 청아한 벨", "freq_hz": [880, 1175, 1760], "dur_ms": 200, "wave": "sine", "gain": 0.16},
+    "hallmark_theme_snap": {"desc": "Hallmark 48 도메인 테마 찰칵 스냅", "freq_hz": [988, 1480], "dur_ms": 90, "wave": "triangle", "gain": 0.19},
+})
+
 

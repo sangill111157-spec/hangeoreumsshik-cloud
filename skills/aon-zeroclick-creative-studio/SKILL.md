@@ -1,6 +1,6 @@
 ---
 name: aon-zeroclick-creative-studio
-version: v11.48-AON-VIBE3D-DIRECTOR
+version: v11.49-AON-IMPECCABLE-SHIELD
 antibody: R47
 organ: 제23기관 · N19_zeroclick_studio
 ---

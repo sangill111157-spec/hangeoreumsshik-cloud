@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """rgon_aon_vibe3d_director.py — 제25기관 아온 바이브 3D 시네마틱 디렉터 & VARCO 플로우 스튜디오
-Step 49 · v11.48-AON-VIBE3D-DIRECTOR · 항체 R1~R49 · 정식 스킬 #45 aon-vibe3d-movie-director
+Step 49 · v11.49-AON-IMPECCABLE-SHIELD · 항체 R1~R50 · 정식 스킬 #45 aon-vibe3d-movie-director
 주역 괘: #22 산화비 ☶☲ (문채와 장식, 예술적 완성) · #14 화천대유 ☲☰ (대풍요, 풍성한 3D 시네마틱 세계)
 
 핵심 기능:
@@ -31,8 +31,8 @@ import argparse
 import datetime
 from pathlib import Path
 
-VERSION = "v11.48-AON-VIBE3D-DIRECTOR"
-ANTIBODIES = "R1~R49"
+VERSION = "v11.49-AON-IMPECCABLE-SHIELD"
+ANTIBODIES = "R1~R50"
 SKILL_ID = "aon-vibe3d-movie-director"
 ORGAN_NAME = "제25기관 아온 바이브 3D 시네마틱 디렉터 & VARCO 플로우 스튜디오"
 ICHING_HEXAGRAMS = ["#22 산화비 ☶☲", "#14 화천대유 ☲☰"]

@@ -1405,6 +1405,23 @@ class DashboardHandler(SimpleHTTPRequestHandler):
                 self.send_header("Access-Control-Allow-Origin", "*")
                 self.send_header("Content-Length", str(len(err_body)))
                 self.end_headers()
+        # 🛡️ [Step 50 · R50] 제26기관 아온 임페커블 UI 폴리시 & 감사 방패 상태 (GET /api/aon_impeccable_shield)
+        if path == '/api/aon_impeccable_shield':
+            try:
+                import rgon_aon_impeccable_audit_shield as _r50_shield
+                res_data = _r50_shield.route_impeccable_intent("임페커블 감사 상태 조회")
+            except Exception as e:
+                res_data = {"ok": False, "error": str(e), "status": "ERROR"}
+            body = json.dumps(res_data, ensure_ascii=False).encode('utf-8')
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Cache-Control", "no-store")
+            self.end_headers()
+            self.wfile.write(body)
+            return
+
         # 🏛️ [v8.5] 제6청사 총무·재무회계 1원 복식부기 실시간 상태 (GET /api/treasury-status)
         if path == '/api/treasury-status':
             try:
@@ -2356,6 +2373,27 @@ class DashboardHandler(SimpleHTTPRequestHandler):
                 }
             except Exception as e:
                 resp = {"status": "error", "success": False, "message": str(e)}
+
+            body = json.dumps(resp, ensure_ascii=False).encode("utf-8")
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(body)
+            return
+
+        # 🛡️ [Step 50 · R50] 제26기관 아온 임페커블 UI & 적대적 교차감사 집행 (POST /api/aon_impeccable_shield)
+        if self.path == '/api/aon_impeccable_shield':
+            length = int(self.headers.get('Content-Length', 0))
+            raw_body = self.rfile.read(length) if length > 0 else b'{}'
+            try:
+                post_data = json.loads(raw_body.decode('utf-8')) if raw_body else {}
+                prompt = post_data.get("prompt") or post_data.get("order") or "임페커블 연쇄 교차감사 집행"
+                import rgon_aon_impeccable_audit_shield as _r50_shield
+                resp = _r50_shield.route_impeccable_intent(prompt)
+            except Exception as e:
+                resp = {"status": "error", "ok": False, "message": str(e)}
 
             body = json.dumps(resp, ensure_ascii=False).encode("utf-8")
             self.send_response(200)

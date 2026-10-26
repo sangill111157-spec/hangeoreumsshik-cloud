@@ -21,7 +21,7 @@ FILES = [
 
 NEW_SYNAPSE_SNIPPET = """<!-- [RGON-R40-NEURAL-SYNAPSE-START] -->
 <script>
-window.RGON_NEURAL_SYNAPSE = {version:"v11.48-AON-VIBE3D-DIRECTOR", antibody:"R1~R49", skills:40, organ:16,
+window.RGON_NEURAL_SYNAPSE = {version:"v11.49-AON-IMPECCABLE-SHIELD", antibody:"R1~R50", skills:40, organ:16,
   skill:"aon-neural-synapse-verifier", map:"rgon_neural_synapse_map.json"};
 (function(){try{var b=document.createElement('div');b.id='rgon-r40-synapse-badge';
 b.textContent='🧠 R44 신경망 시냅스 · '+window.RGON_NEURAL_SYNAPSE.version+' · 스킬 40';
@@ -35,7 +35,7 @@ NEW_HUD_BRIDGE = """<!-- RGON R44 LIVE UI HEALER BRIDGE START -->
 <script id="rgon-r44-live-ui-healer">
 (function(){
 if(window.RGON_LIVE_UI_HEALER && window.RGON_LIVE_UI_HEALER._hud_installed)return;
-var H=window.RGON_LIVE_UI_HEALER=window.RGON_LIVE_UI_HEALER||{version:"v11.48-AON-VIBE3D-DIRECTOR",antibody:"R44",guas:["#21 화뢰서합","#49 택화혁"],clicks:0,healed:0,log:[]};
+var H=window.RGON_LIVE_UI_HEALER=window.RGON_LIVE_UI_HEALER||{version:"v11.49-AON-IMPECCABLE-SHIELD",antibody:"R44",guas:["#21 화뢰서합","#49 택화혁"],clicks:0,healed:0,log:[]};
 H._hud_installed = true;
 var Q='button,a,[role="button"],[onclick],[data-tab],[data-aon]';
 var SKIP=/^(if|for|while|switch|catch|return|function|alert|confirm|prompt|open|close|setTimeout|setInterval|fetch|parseInt|String|Number|Boolean|void|typeof|new)$/;
@@ -87,7 +87,7 @@ document.addEventListener("click",function(ev){
 
 /* =========================================================================
    👑 [대표님 전용 실전 버튼 검열 HUD: Agentation + Driver.js Tour Inspector]
-   v11.48-AON-VIBE3D-DIRECTOR · 겹침 방지 · 자유 드래그앤드롭 · 핵심 63개 모드
+   v11.49-AON-IMPECCABLE-SHIELD · 겹침 방지 · 자유 드래그앤드롭 · 핵심 63개 모드
    ========================================================================= */
 (function initHud(){
  if(typeof document==="undefined"||!document.body){
