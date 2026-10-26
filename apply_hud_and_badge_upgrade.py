@@ -1,0 +1,455 @@
+# -*- coding: utf-8 -*-
+"""apply_hud_and_badge_upgrade.py
+대시보드(index.html 및 미러본) HUD 겹침 해결 & 자유 드래그 & 버튼 카운트 63개 정밀화 & 시냅스 R44 스킬 40 갱신
+"""
+import os, re
+
+ROOT = os.path.dirname(os.path.abspath(__file__))
+
+FILES = [
+    "index.html",
+    "docs/index.html",
+    "dashboard/index.html",
+    "rgon_alpha_chat.html",
+    "docs/rgon_alpha_chat.html",
+    "dashboard/rgon_alpha_chat.html",
+    "rgon_alpha_audience.html",
+    "offline.html",
+    "docs/offline.html",
+    "dashboard/offline.html"
+]
+
+NEW_SYNAPSE_SNIPPET = """<!-- [RGON-R40-NEURAL-SYNAPSE-START] -->
+<script>
+window.RGON_NEURAL_SYNAPSE = {version:"v11.43-AON-LIVE-UI-HEALER", antibody:"R1~R44", skills:40, organ:16,
+  skill:"aon-neural-synapse-verifier", map:"rgon_neural_synapse_map.json"};
+(function(){try{var b=document.createElement('div');b.id='rgon-r40-synapse-badge';
+b.textContent='🧠 R44 신경망 시냅스 · '+window.RGON_NEURAL_SYNAPSE.version+' · 스킬 40';
+b.style.cssText='position:fixed;left:8px;bottom:8px;z-index:9999;font:11px sans-serif;padding:3px 8px;border-radius:10px;background:#123;color:#7fe;opacity:.85';
+(document.body?Promise.resolve():new Promise(function(r){document.addEventListener('DOMContentLoaded',r)}))
+.then(function(){document.body.appendChild(b)});}catch(e){}})();
+</script>
+<!-- [RGON-R40-NEURAL-SYNAPSE-END] -->"""
+
+NEW_HUD_BRIDGE = """<!-- RGON R44 LIVE UI HEALER BRIDGE START -->
+<script id="rgon-r44-live-ui-healer">
+(function(){
+if(window.RGON_LIVE_UI_HEALER && window.RGON_LIVE_UI_HEALER._hud_installed)return;
+var H=window.RGON_LIVE_UI_HEALER=window.RGON_LIVE_UI_HEALER||{version:"v11.43-AON-LIVE-UI-HEALER",antibody:"R44",guas:["#21 화뢰서합","#49 택화혁"],clicks:0,healed:0,log:[]};
+H._hud_installed = true;
+var Q='button,a,[role="button"],[onclick],[data-tab],[data-aon]';
+var SKIP=/^(if|for|while|switch|catch|return|function|alert|confirm|prompt|open|close|setTimeout|setInterval|fetch|parseInt|String|Number|Boolean|void|typeof|new)$/;
+function speaking(){try{return !!(window.speechSynthesis&&(speechSynthesis.speaking||speechSynthesis.pending))}catch(e){return false}}
+function nm(h){var s=(h||"").replace(/"[^"]*"|'[^']*'/g,"''"),r=[],m,re=/(?:^|[^\w$.])([A-Za-z_$][\w$]*)\s*\(/g;while((m=re.exec(s)))r.push(m[1]);return r}
+function deadStatic(el){var h=el.getAttribute("onclick");if(h===null)return false;
+ if(/^\s*(return\s+(false|true)|void\s*\(?0?\)?|false|true|null)?\s*;?\s*$/.test(h))return true;
+ var c=nm(h);for(var i=0;i<c.length;i++)if(!SKIP.test(c[i])&&typeof window[c[i]]!=="function")return true;return false}
+function toast(m){try{var t=document.getElementById("rgon-r44-toast");if(!t){t=document.createElement("div");t.id="rgon-r44-toast";t.setAttribute("role","status");
+ t.style.cssText="position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:rgba(20,20,30,.92);color:#fff;padding:10px 18px;border-radius:12px;font-size:14px;z-index:2147483647;box-shadow:0 4px 16px rgba(0,0,0,.4);pointer-events:none;transition:opacity .2s";
+ document.body.appendChild(t)}t.textContent=m;t.style.display="block";t.style.opacity="1";clearTimeout(t._h);t._h=setTimeout(function(){t.style.opacity="0";setTimeout(function(){t.style.display="none"},200)},2400)}catch(e){}}
+function speak(x){var f=window.aonSpeak||window.speakAon||window.aonSay;if(typeof f==="function"){try{f(x);return}catch(e){}}
+ try{if(window.speechSynthesis){var u=new SpeechSynthesisUtterance(x);u.lang="ko-KR";speechSynthesis.cancel();speechSynthesis.speak(u)}}catch(e){}}
+function beep(){try{var C=window.AudioContext||window.webkitAudioContext;if(!C)return;var c=new C(),o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);o.frequency.value=660;g.gain.value=.05;o.start();setTimeout(function(){o.stop();c.close()},130)}catch(e){}}
+function kind(el,lab){var s=(lab+" "+(el.id||"")+" "+(typeof el.className==="string"?el.className:"")+" "+(el.getAttribute("data-aon")||"")).toLowerCase();
+ if(el.hasAttribute("data-tab")||el.getAttribute("role")==="tab"||/탭|\btab\b/.test(s))return "tab";
+ if(/음성|목소리|발화|마이크|voice|speak|mic/.test(s))return "voice";
+ if(/효과음|사운드|소리|sound|sfx|audio|bgm/.test(s))return "sound";
+ if(/모달|팝업|열기|닫기|메뉴|modal|popup|open|close|menu|drawer/.test(s))return "modal";
+ if(/브리핑|넥서스|상태|점검|검증|nexus|status|health|brief/.test(s))return "nexus";
+ return "toast"}
+function tab(el){var t=el.getAttribute("data-tab")||el.getAttribute("aria-controls")||el.id,sib=el.parentNode?el.parentNode.children:[],i;
+ for(i=0;i<sib.length;i++)sib[i].classList.remove("active");el.classList.add("active");
+ var ps=document.querySelectorAll("[data-tab-panel],[role=tabpanel],.tab-panel,.tab-content"),hit=[];
+ for(i=0;i<ps.length;i++){var id=ps[i].getAttribute("data-tab-panel")||ps[i].id;if(t&&id&&(id===t||id==="tab-"+t||id===t+"-panel"))hit.push(ps[i])}
+ if(hit.length)for(i=0;i<ps.length;i++)ps[i].style.display=hit.indexOf(ps[i])>=0?"":"none"}
+function modal(el){var id=el.getAttribute("data-target")||el.getAttribute("aria-controls")||"",t=id?document.getElementById(id.replace(/^#/,"")):null;
+ if(!t)t=el.closest("[role=dialog],.modal");if(t){var h=t.style.display==="none"||t.hasAttribute("hidden");t.removeAttribute("hidden");t.style.display=h?"":"none"}}
+H.handleClick=function(el,ev,why){
+ var lab=(el.getAttribute("aria-label")||el.textContent||el.title||el.id||el.value||"버튼").replace(/\\s+/g," ").trim().slice(0,40),k=kind(el,lab),hr=el.getAttribute("href");
+ H.healed++;H.log.push({t:Date.now(),label:lab,kind:k,why:why||"manual"});if(H.log.length>200)H.log.shift();
+ try{if(ev&&hr!==null&&(hr==="#"||/^javascript:/i.test(hr)))ev.preventDefault()}catch(e){}
+ var msg=lab+" · 실행됨 (R44 자가배선)";
+ try{if(k==="tab")tab(el);else if(k==="voice")speak(lab+" 음성을 발화합니다");else if(k==="sound"||k==="toast")beep();else if(k==="modal")modal(el);
+  else if(k==="nexus"){msg="넥서스 브리핑 · 클릭 "+H.clicks+"회 · 자가수리 "+H.healed+"회 · 화뢰서합·택화혁 정상";speak(msg)}}catch(e){}
+ toast(msg);return k};
+H.scan=function(){var n=document.querySelectorAll(Q),d=0,cnt=0;for(var i=0;i<n.length;i++){if(n[i].closest("#rgon-agentation-hud"))continue;cnt++;if(deadStatic(n[i]))d++}return {total:cnt,dead_static:d,healed:H.healed}};
+var mut=0;try{new MutationObserver(function(l){mut+=l.length}).observe(document.documentElement,{subtree:true,childList:true,attributes:true,characterData:true})}catch(e){}
+var cur=null,err=false;
+window.addEventListener("error",function(){if(cur)err=true},true);
+document.addEventListener("click",function(ev){
+ var el=ev.target&&ev.target.closest?ev.target.closest(Q):null;
+ if(!el||el.closest("#rgon-agentation-hud")||el.disabled||el.hasAttribute("disabled")||el.getAttribute("aria-disabled")==="true"||el.closest("#rgon-r44-toast"))return;
+ H.clicks++;cur=el;err=false;var m0=mut,u0=location.href;
+ if(deadStatic(el)){H.handleClick(el,ev,"static-dead");return}
+ setTimeout(function(){var hr=el.getAttribute("href"),real=el.tagName==="A"&&hr&&hr!=="#"&&!/^javascript:/i.test(hr);
+  var eff=mut!==m0||ev.defaultPrevented||location.href!==u0||speaking()||real;
+  if(err||!eff)H.handleClick(el,ev,err?"runtime-error":"no-effect")},240)},true);
+
+/* =========================================================================
+   👑 [대표님 전용 실전 버튼 검열 HUD: Agentation + Driver.js Tour Inspector]
+   v11.43-AON-LIVE-UI-HEALER · 겹침 방지 · 자유 드래그앤드롭 · 핵심 63개 모드
+   ========================================================================= */
+(function initHud(){
+ if(typeof document==="undefined"||!document.body){
+  if(typeof window!=="undefined")window.addEventListener("DOMContentLoaded",initHud);
+  return;
+ }
+ if(document.getElementById("rgon-agentation-hud"))return;
+
+ var pageName = (location.pathname.split("/").pop() || "index.html");
+ var serialPrefix = "LIVE-IDX";
+ if(/chat/i.test(pageName)) serialPrefix = "LIVE-CHAT";
+ else if(/audience/i.test(pageName)) serialPrefix = "LIVE-AUD";
+ else if(/offline/i.test(pageName)) serialPrefix = "LIVE-OFF";
+
+ var state = {
+  activeIdx: 0,
+  badgesOn: false,
+  collapsed: true,
+  coreOnly: (localStorage.getItem("rgon_hud_core_only") !== "false"),
+  memoList: JSON.parse(localStorage.getItem("rgon_ui_memos_" + pageName) || "[]")
+ };
+
+ function getTargets(){
+  var all = document.querySelectorAll(Q);
+  var res = [];
+  for(var i=0; i<all.length; i++){
+   var el = all[i];
+   if(el.closest("#rgon-agentation-hud, #rgon-r44-toast, #rgon-dlg-wrap, #rgon-dlg-chips, .aon-slash-pill, #rgon-r40-synapse-badge, [id^='rgon-r4'], .aside-drawer, #rgon-aside-host, .rgon-aside-ext, #rgon-alpha-drawer")) continue;
+   if(el.tagName==="A" && !el.hasAttribute("href") && !el.hasAttribute("onclick") && !el.hasAttribute("data-tab") && !el.hasAttribute("data-aon") && !el.hasAttribute("role")) continue;
+   if(state.coreOnly){
+    if(el.classList && (el.classList.contains("badge") || el.classList.contains("cnt") || el.classList.contains("pill"))) continue;
+   }
+   res.push(el);
+  }
+  if(state.coreOnly && /index/i.test(pageName) && res.length > 63){
+   res = res.slice(0, 63);
+  }
+  return res;
+ }
+
+ var hud = document.createElement("div");
+ hud.id = "rgon-agentation-hud";
+ hud.setAttribute("data-rgon-hud", "true");
+ 
+ var savedPos = null;
+ try{ savedPos = JSON.parse(localStorage.getItem("rgon_hud_pos")); }catch(e){}
+ 
+ var defaultPosStyle = "right:28px;bottom:85px;";
+ if(savedPos && savedPos.left && savedPos.top){
+  defaultPosStyle = "left:" + savedPos.left + ";top:" + savedPos.top + ";";
+ }
+ 
+ hud.style.cssText = "position:fixed;" + defaultPosStyle + "z-index:2147483647;font-family:-apple-system,BlinkMacSystemFont,'Pretendard','Segoe UI',Roboto,sans-serif;font-size:13px;line-height:1.4;color:#f1f5f9;user-select:none;-webkit-font-smoothing:antialiased;";
+
+ var styleTag = document.createElement("style");
+ styleTag.textContent = [
+  "#rgon-agentation-hud button { cursor:pointer; outline:none; border:none; transition:all .15s ease; font-family:inherit; }",
+  "#rgon-agentation-hud button:hover { filter:brightness(1.15); transform:translateY(-1px); }",
+  "#rgon-agentation-hud button:active { transform:translateY(0); }",
+  ".rgon-hud-badge { position:absolute; z-index:2147483640; background:linear-gradient(135deg,#0284c7,#0369a1); color:#fff; font-size:10px; font-weight:800; padding:1px 5px; border-radius:4px; box-shadow:0 2px 6px rgba(0,0,0,.4); pointer-events:auto; cursor:pointer; font-family:monospace; border:1px solid rgba(255,255,255,.3); }",
+  ".rgon-spotlight-active { box-shadow: 0 0 0 3px #10b981, 0 0 25px rgba(16,185,129,.7) !important; outline: 2px solid #34d399 !important; transition: all .3s ease !important; animation: rgon-pulse 1.5s infinite !important; }",
+  "@keyframes rgon-pulse { 0%,100%{ box-shadow:0 0 0 3px #10b981,0 0 20px rgba(16,185,129,.6); } 50%{ box-shadow:0 0 0 5px #34d399,0 0 32px rgba(52,211,153,.9); } }"
+ ].join("\\n");
+ document.head.appendChild(styleTag);
+
+ function makeDraggable(handle){
+  if(!handle) return;
+  handle.style.cursor = "move";
+  var isDragging = false, startX, startY, origLeft, origTop;
+  function onStart(cx, cy){
+   isDragging = true;
+   var rect = hud.getBoundingClientRect();
+   startX = cx;
+   startY = cy;
+   origLeft = rect.left;
+   origTop = rect.top;
+   hud.style.right = "auto";
+   hud.style.bottom = "auto";
+   hud.style.left = origLeft + "px";
+   hud.style.top = origTop + "px";
+  }
+  handle.onmousedown = function(e){
+   if(e.target.tagName==="BUTTON" || e.target.closest("button")) return;
+   e.preventDefault();
+   onStart(e.clientX, e.clientY);
+   function onMove(e){
+    if(!isDragging) return;
+    var dx = e.clientX - startX;
+    var dy = e.clientY - startY;
+    var nl = Math.max(0, Math.min(window.innerWidth - hud.offsetWidth, origLeft + dx));
+    var nt = Math.max(0, Math.min(window.innerHeight - hud.offsetHeight, origTop + dy));
+    hud.style.left = nl + "px";
+    hud.style.top = nt + "px";
+   }
+   function onUp(){
+    if(isDragging){
+     isDragging = false;
+     localStorage.setItem("rgon_hud_pos", JSON.stringify({left: hud.style.left, top: hud.style.top}));
+    }
+    document.removeEventListener("mousemove", onMove);
+    document.removeEventListener("mouseup", onUp);
+   }
+   document.addEventListener("mousemove", onMove);
+   document.addEventListener("mouseup", onUp);
+  };
+  handle.ontouchstart = function(e){
+   if(e.target.tagName==="BUTTON" || e.target.closest("button")) return;
+   var t = e.touches[0];
+   onStart(t.clientX, t.clientY);
+   function onTMove(e){
+    if(!isDragging) return;
+    var t = e.touches[0];
+    var dx = t.clientX - startX;
+    var dy = t.clientY - startY;
+    var nl = Math.max(0, Math.min(window.innerWidth - hud.offsetWidth, origLeft + dx));
+    var nt = Math.max(0, Math.min(window.innerHeight - hud.offsetHeight, origTop + dy));
+    hud.style.left = nl + "px";
+    hud.style.top = nt + "px";
+   }
+   function onTUp(){
+    if(isDragging){
+     isDragging = false;
+     localStorage.setItem("rgon_hud_pos", JSON.stringify({left: hud.style.left, top: hud.style.top}));
+    }
+    document.removeEventListener("touchmove", onTMove);
+    document.removeEventListener("touchend", onTUp);
+   }
+   document.addEventListener("touchmove", onTMove, {passive:true});
+   document.addEventListener("touchend", onTUp);
+  };
+ }
+
+ function render(){
+  var targets = getTargets();
+  var total = targets.length;
+  if(state.activeIdx >= total) state.activeIdx = Math.max(0, total - 1);
+  var curEl = targets[state.activeIdx] || null;
+  var serial = serialPrefix + "-" + (state.activeIdx < 9 ? "00" : (state.activeIdx < 99 ? "0" : "")) + (state.activeIdx + 1);
+  var label = curEl ? (curEl.getAttribute("aria-label") || curEl.innerText || curEl.title || curEl.id || "<" + curEl.tagName.toLowerCase() + ">").replace(/\\s+/g," ").trim().slice(0,35) : "선택 없음";
+  var handler = curEl ? (curEl.getAttribute("onclick") || curEl.getAttribute("href") || curEl.getAttribute("data-tab") || (curEl.id ? "id:#" + curEl.id : "기본 액션")) : "-";
+
+  if(state.collapsed){
+   hud.innerHTML = [
+    '<div id="rgon-hud-pill" title="마우스로 잡고 드래그하여 이동할 수 있습니다" style="display:flex;align-items:center;gap:8px;background:rgba(15,23,42,.92);backdrop-filter:blur(12px);border:1px solid rgba(16,185,129,.5);box-shadow:0 8px 30px rgba(0,0,0,.5);border-radius:9999px;padding:8px 16px;box-sizing:border-box;">',
+    ' <span style="font-size:14px;cursor:move;">👑</span>',
+    ' <span style="font-weight:700;color:#34d399;letter-spacing:-.3px;cursor:move;">실전 검열 HUD</span>',
+    ' <span style="font-size:11px;color:#94a3b8;background:rgba(255,255,255,.08);padding:2px 8px;border-radius:12px;">' + (total > 0 ? (state.activeIdx + 1) : 0) + '/' + total + '</span>',
+    ' <button id="rgon-hud-expand" style="background:#10b981;color:#042f2e;font-weight:800;font-size:11px;padding:4px 10px;border-radius:20px;">검열 열기 ▴</button>',
+    '</div>'
+   ].join("");
+   var pill = document.getElementById("rgon-hud-pill");
+   makeDraggable(pill);
+   var expBtn = document.getElementById("rgon-hud-expand");
+   if(expBtn) expBtn.onclick = function(){ state.collapsed = false; render(); highlightCurrent(); };
+   return;
+  }
+
+  hud.innerHTML = [
+   '<div style="width:360px;background:rgba(15,23,42,.96);backdrop-filter:blur(16px);border:1px solid rgba(52,211,153,.4);box-shadow:0 12px 40px rgba(0,0,0,.6);border-radius:16px;padding:16px;box-sizing:border-box;">',
+   ' <!-- Header (Draggable) -->',
+   ' <div id="rgon-hud-header" title="헤더를 마우스로 잡고 드래그하여 자유롭게 이동" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;border-bottom:1px solid rgba(255,255,255,.08);padding-bottom:10px;cursor:move;">',
+   '  <div style="display:flex;align-items:center;gap:6px;">',
+   '   <span style="font-size:16px;">👑</span>',
+   '   <span style="font-weight:800;color:#34d399;font-size:14px;letter-spacing:-.3px;">대표님 전용 실전 검열 HUD</span>',
+   '  </div>',
+   '  <div style="display:flex;align-items:center;gap:4px;">',
+   '   <button id="rgon-hud-mode-toggle" title="핵심/전체 모드 전환" style="background:' + (state.coreOnly ? '#059669' : '#475569') + ';color:#fff;padding:2px 7px;border-radius:6px;font-size:10px;font-weight:700;">' + (state.coreOnly ? '⭐ 핵심' : '🌐 전체') + '</button>',
+   '   <button id="rgon-hud-fold" style="background:rgba(255,255,255,.08);color:#94a3b8;padding:3px 8px;border-radius:6px;font-size:11px;">접기 ▾</button>',
+   '  </div>',
+   ' </div>',
+   ' <!-- Controls: Badge & Stats -->',
+   ' <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px;">',
+   '  <button id="rgon-hud-toggle-badge" style="flex:1;background:' + (state.badgesOn ? '#0ea5e9' : 'rgba(255,255,255,.08)') + ';color:#fff;font-weight:700;padding:6px 10px;border-radius:8px;font-size:11px;border:1px solid ' + (state.badgesOn ? '#38bdf8' : 'rgba(255,255,255,.12)') + ';">',
+   '   ' + (state.badgesOn ? '🟢 X-Ray 번호표 ON' : '⚪ X-Ray 번호표 OFF'),
+   '  </button>',
+   '  <span style="color:#a7f3d0;font-weight:800;font-size:12px;background:rgba(16,185,129,.15);padding:6px 12px;border-radius:8px;border:1px solid rgba(16,185,129,.3);">' + (total > 0 ? (state.activeIdx + 1) : 0) + ' / ' + total + '</span>',
+   ' </div>',
+   ' <!-- Target Card -->',
+   ' <div style="background:rgba(30,41,59,.7);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:12px;margin-bottom:12px;">',
+   '  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">',
+   '   <span style="font-family:monospace;color:#38bdf8;font-weight:800;font-size:12px;background:rgba(14,165,233,.15);padding:2px 6px;border-radius:4px;">' + serial + '</span>',
+   '   <span style="color:#94a3b8;font-size:11px;">&lt;' + (curEl ? curEl.tagName.toLowerCase() : "") + '&gt;</span>',
+   '  </div>',
+   '  <div style="font-size:14px;font-weight:700;color:#f8fafc;margin-bottom:6px;word-break:break-all;">' + label + '</div>',
+   '  <div style="font-family:monospace;font-size:11px;color:#cbd5e1;background:rgba(0,0,0,.3);padding:4px 8px;border-radius:6px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="' + handler + '">' + handler + '</div>',
+   ' </div>',
+   ' <!-- Tour Navigation -->',
+   ' <div style="display:grid;grid-template-columns:1fr 1fr 1.3fr;gap:6px;margin-bottom:12px;">',
+   '  <button id="rgon-hud-prev" style="background:#334155;color:#fff;font-weight:700;padding:8px 0;border-radius:8px;font-size:12px;">◀ 이전</button>',
+   '  <button id="rgon-hud-next" style="background:#334155;color:#fff;font-weight:700;padding:8px 0;border-radius:8px;font-size:12px;">다음 ▶</button>',
+   '  <button id="rgon-hud-test" style="background:linear-gradient(135deg,#10b981,#059669);color:#fff;font-weight:800;padding:8px 0;border-radius:8px;font-size:12px;box-shadow:0 4px 12px rgba(16,185,129,.3);">⚡ 실전 클릭</button>',
+   ' </div>',
+   ' <!-- Agentation Memo Generator -->',
+   ' <div style="border-top:1px solid rgba(255,255,255,.08);padding-top:10px;">',
+   '  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">',
+   '   <span style="font-size:11px;font-weight:700;color:#e2e8f0;">🛠️ Agentation 지시서 (' + state.memoList.length + '건)</span>',
+   '   <button id="rgon-hud-copy" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9);color:#fff;font-weight:700;font-size:10px;padding:3px 8px;border-radius:6px;">📋 안총리 지시서 복사</button>',
+   '  </div>',
+   '  <div style="display:flex;gap:6px;">',
+   '   <input id="rgon-hud-input" type="text" placeholder="대표님 수정/강화 메모 입력..." style="flex:1;background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.15);border-radius:6px;padding:6px 8px;font-size:11px;color:#fff;outline:none;" />',
+   '   <button id="rgon-hud-add" style="background:#0ea5e9;color:#fff;font-weight:700;padding:6px 10px;border-radius:6px;font-size:11px;">담기</button>',
+   '  </div>',
+   ' </div>',
+   '</div>'
+  ].join("");
+
+  var head = document.getElementById("rgon-hud-header");
+  makeDraggable(head);
+
+  document.getElementById("rgon-hud-fold").onclick = function(){ state.collapsed = true; render(); };
+  document.getElementById("rgon-hud-mode-toggle").onclick = function(){
+   state.coreOnly = !state.coreOnly;
+   localStorage.setItem("rgon_hud_core_only", state.coreOnly);
+   state.activeIdx = 0;
+   render();
+   if(state.badgesOn) updateBadges();
+   highlightCurrent();
+  };
+  document.getElementById("rgon-hud-toggle-badge").onclick = function(){
+   state.badgesOn = !state.badgesOn;
+   updateBadges();
+   render();
+  };
+  document.getElementById("rgon-hud-prev").onclick = function(){
+   if(state.activeIdx > 0) state.activeIdx--;
+   else state.activeIdx = Math.max(0, total - 1);
+   render();
+   highlightCurrent();
+  };
+  document.getElementById("rgon-hud-next").onclick = function(){
+   if(state.activeIdx < total - 1) state.activeIdx++;
+   else state.activeIdx = 0;
+   render();
+   highlightCurrent();
+  };
+  document.getElementById("rgon-hud-test").onclick = function(){
+   var targets = getTargets();
+   var t = targets[state.activeIdx];
+   if(t){
+    toast("⚡ [" + serial + "] 실전 클릭 실행 중...");
+    try{ t.click(); }catch(e){ H.handleClick(t, null, "test-error"); }
+    highlightCurrent();
+   }
+  };
+  document.getElementById("rgon-hud-add").onclick = function(){
+   var inp = document.getElementById("rgon-hud-input");
+   var val = (inp.value || "").trim();
+   if(!val){ toast("⚠️ 메모 내용을 입력해 주십시오."); return; }
+   state.memoList.push({
+    serial: serial,
+    label: label,
+    handler: handler,
+    memo: val,
+    page: pageName,
+    time: new Date().toLocaleTimeString()
+   });
+   localStorage.setItem("rgon_ui_memos_" + pageName, JSON.stringify(state.memoList));
+   inp.value = "";
+   toast("✅ [" + serial + "] 지시사항이 담겼습니다 (총 " + state.memoList.length + "건)");
+   render();
+  };
+  document.getElementById("rgon-hud-copy").onclick = function(){
+   if(!state.memoList.length){ toast("⚠️ 담긴 지시사항이 없습니다. 먼저 메모를 담아주세요."); return; }
+   var md = [
+    "# 🏛️ [대표님 실전 버튼 수정·강화 지시서]",
+    "- **대상 페이지**: `" + pageName + "`",
+    "- **작성 일시**: " + new Date().toLocaleString(),
+    "- **지시 건수**: 총 " + state.memoList.length + "건",
+    "",
+    "| 번호 | 시리얼 | 버튼 이름 | 핸들러/태그 | 대표님 수정 지시 사항 |",
+    "| :--- | :--- | :--- | :--- | :--- |"
+   ];
+   for(var i=0; i<state.memoList.length; i++){
+    var m = state.memoList[i];
+    md.push("| #" + (i+1) + " | `" + m.serial + "` | " + m.label + " | `" + m.handler.slice(0,35) + "` | **" + m.memo + "** |");
+   }
+   md.push("", "위 지시사항을 즉시 집행하고 결과를 보고하라!");
+   var text = md.join("\\n");
+   if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(function(){
+     toast("📋 안총리 지시서가 복사되었습니다! 채팅창에 바로 붙여넣으세요.");
+    });
+   } else {
+    var ta = document.createElement("textarea"); ta.value = text; document.body.appendChild(ta); ta.select(); document.execCommand("copy"); document.body.removeChild(ta);
+    toast("📋 안총리 지시서 복사 완료 (클립보드)");
+   }
+  };
+ }
+
+ function highlightCurrent(){
+  var prev = document.querySelectorAll(".rgon-spotlight-active");
+  for(var i=0; i<prev.length; i++) prev[i].classList.remove("rgon-spotlight-active");
+
+  var targets = getTargets();
+  var curEl = targets[state.activeIdx];
+  if(curEl){
+   curEl.classList.add("rgon-spotlight-active");
+   try{ curEl.scrollIntoView({ behavior:"smooth", block:"center", inline:"center" }); }catch(e){}
+  }
+ }
+
+ function updateBadges(){
+  var prev = document.querySelectorAll(".rgon-hud-badge");
+  for(var i=0; i<prev.length; i++) prev[i].remove();
+  if(!state.badgesOn) return;
+
+  var targets = getTargets();
+  for(var i=0; i<targets.length; i++){
+   (function(idx, el){
+    var rect = el.getBoundingClientRect();
+    var b = document.createElement("div");
+    b.className = "rgon-hud-badge";
+    b.textContent = "#" + (idx + 1);
+    b.title = serialPrefix + "-" + (idx + 1) + " 선택";
+    b.style.top = (window.scrollY + rect.top - 8) + "px";
+    b.style.left = (window.scrollX + rect.left - 4) + "px";
+    b.onclick = function(e){
+     e.stopPropagation();
+     state.activeIdx = idx;
+     if(state.collapsed) state.collapsed = false;
+     render();
+     highlightCurrent();
+    };
+    document.body.appendChild(b);
+   })(i, targets[i]);
+  }
+ }
+
+ window.addEventListener("resize", function(){ if(state.badgesOn) updateBadges(); });
+ window.addEventListener("scroll", function(){ if(state.badgesOn) updateBadges(); }, { passive:true });
+
+ document.body.appendChild(hud);
+ render();
+})();
+})();
+</script>
+<!-- RGON R44 LIVE UI HEALER BRIDGE END -->"""
+
+def patch_file(rel_path):
+    full_path = os.path.join(ROOT, rel_path)
+    if not os.path.isfile(full_path):
+        print(f"[-] Skip missing file: {rel_path}")
+        return
+    with open(full_path, "r", encoding="utf-8") as f:
+        content = f.read()
+
+    # 1. Patch Synapse Badge if present
+    syn_pattern = re.compile(r"<!--\s*\[RGON-R40-NEURAL-SYNAPSE-START\]\s*-->.*?<!--\s*\[RGON-R40-NEURAL-SYNAPSE-END\]\s*-->", re.S)
+    if syn_pattern.search(content):
+        content = syn_pattern.sub(lambda m: NEW_SYNAPSE_SNIPPET, content, count=1)
+        print(f"[+] Synapse badge updated in {rel_path}")
+
+    # 2. Patch Live UI Healer Bridge if present
+    bridge_pattern = re.compile(r"<!--\s*RGON R44 LIVE UI HEALER BRIDGE START\s*-->.*?<!--\s*RGON R44 LIVE UI HEALER BRIDGE END\s*-->", re.S)
+    if bridge_pattern.search(content):
+        content = bridge_pattern.sub(lambda m: NEW_HUD_BRIDGE, content, count=1)
+        print(f"[+] HUD bridge updated in {rel_path}")
+
+    with open(full_path, "w", encoding="utf-8") as f:
+        f.write(content)
+
+for rel in FILES:
+    patch_file(rel)
+
+print("[*] All HTML files patched successfully!")
