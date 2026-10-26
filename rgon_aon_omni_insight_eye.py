@@ -16,7 +16,7 @@ except Exception:
     pass
 
 ROOT = Path(__file__).resolve().parent
-VERSION = "v11.51-AON-COMMANDER-TWIN"
+VERSION = "v11.52-AON-PAGE-BUTTON-BOT"
 ANTIBODY = "R1~R52"
 SKILL_COUNT = 39
 STATE_PATHS = ("rgon_aon_insight_state.json", "docs/rgon_aon_insight_state.json")

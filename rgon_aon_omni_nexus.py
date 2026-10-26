@@ -24,9 +24,9 @@ import datetime
 import tempfile
 import importlib
 
-VERSION = "v11.51-AON-COMMANDER-TWIN"
+VERSION = "v11.52-AON-PAGE-BUTTON-BOT"
 ANTIBODY = "R43"
-ANTIBODY_RANGE = "R1~R52"
+ANTIBODY_RANGE = "R1~R53"
 ORGAN_NO = 19
 SKILL_COUNT = 39
 SKILL_ID = "aon-omni-nexus-synthesizer"

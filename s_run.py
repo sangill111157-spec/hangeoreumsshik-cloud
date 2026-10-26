@@ -776,6 +776,40 @@ def handle_api_aon_token_egolite_master(method="GET", params=None):
     return _tm.route_token_egolite_intent(prompt)
 
 # [RGON-R52-API-COMMANDER-TWIN]
+
+def handle_api_aon_page_button_bot(handler, req_data=None):
+    """/api/aon_page_button_bot (GET/POST) 엔드포인트 핸들러"""
+    try:
+        import rgon_aon_page_button_bot_engine as pbe
+        if req_data:
+            action = req_data.get("action", "run_chain")
+            target = req_data.get("target", "CHAIN-1")
+            if action == "run_chain":
+                orch = pbe.N8nLiteChainOrchestrator()
+                res = orch.run_chain(target)
+            elif action == "run_bot":
+                ex = pbe.DeterministicBotExecutor()
+                res = ex.execute_button_bot(target)
+            elif action == "patrol_all":
+                res = pbe.DeterministicBotExecutor.patrol_all_pages()
+            else:
+                res = {"ok": False, "error": f"Unknown action: {action}"}
+            return res
+        cat = pbe.WebMcpStagehandBotCompiler.load_or_compile()
+        rcp = pbe.DeterministicBotExecutor.load_receipts()
+        return {
+            "ok": True,
+            "version": "v11.52-AON-PAGE-BUTTON-BOT",
+            "antibody": "R53",
+            "endpoint": "/api/aon_page_button_bot",
+            "total_page_bots": len(cat.get("page_bots", {})),
+            "total_button_bots": len(cat.get("button_bots", {})),
+            "chains_count": 5,
+            "receipts_count": len(rcp.get("receipts", []))
+        }
+    except Exception as e:
+        return {"ok": False, "error": str(e)}
+
 def handle_api_aon_commander_twin(method="GET", params=None):
     """/api/aon_commander_twin (GET/POST) 엔드포인트 핸들러"""
     import rgon_aon_commander_twin as _twin

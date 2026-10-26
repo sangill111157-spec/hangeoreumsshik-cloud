@@ -8,7 +8,7 @@ import argparse, datetime, json, os, re, sys, tempfile, time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-VERSION = "v11.51-AON-COMMANDER-TWIN"
+VERSION = "v11.52-AON-PAGE-BUTTON-BOT"
 STATE, PREFS = "rgon_aon_dialogue_state.json", "rgon_aon_preferences.json"
 SHORT_MAX, EVENT_MAX, FRESH_TURNS, FRESH_SEC = 20, 60, 4, 1800
 CAT_KO = {"command_rule": "지휘 원칙", "style": "스타일", "preference": "취향"}
@@ -591,8 +591,8 @@ import os as _o40, re as _re40, json as _j40, time as _t40, sys as _s40
 import shutil as _sh40, inspect as _in40, importlib as _il40
 from pathlib import Path as _P40
 
-R40_VERSION = "v11.51-AON-COMMANDER-TWIN"
-R40_ANTIBODY = "R1~R52"
+R40_VERSION = "v11.52-AON-PAGE-BUTTON-BOT"
+R40_ANTIBODY = "R1~R53"
 _R40_HERE = _P40(__file__).resolve().parent
 _R40_NAMES = ("_call_iching", "_call_hands", "_call_soul", "_call_insight",
               "_call_playground", "_call_brat", "normalize_colloquial")
@@ -1971,6 +1971,63 @@ for _n in ("r40_route", "route", "process_dialogue", "route_command", "handle_me
     if callable(_f) and not getattr(_f, "__r52__", False):
         globals()[_n] = _r52_wrap(_f)
 # [RGON-R52-COMMANDER-TWIN-ROUTE-END]
+
+
+# [RGON-R53-PAGE-BUTTON-BOT-ROUTE-START]
+R53_BOT_TRIGGERS = [
+    "/bot", "/봇", "/버튼봇", "/체인봇", "버튼봇", "페이지봇", "체인봇", "web mcp", "stagehand"
+]
+
+def _r53_page_button_bot_route(msg):
+    m = str(msg or "").strip()
+    low = m.lower()
+    if not any(k in m or k in low for k in R53_BOT_TRIGGERS):
+        return None
+    try:
+        import rgon_aon_page_button_bot_engine as _pbe
+        if "체인" in m or "chain" in low:
+            chain_id = "CHAIN-1"
+            if "2" in m: chain_id = "CHAIN-2"
+            elif "3" in m: chain_id = "CHAIN-3"
+            elif "4" in m: chain_id = "CHAIN-4"
+            elif "5" in m: chain_id = "CHAIN-5"
+            orch = _pbe.N8nLiteChainOrchestrator()
+            res = orch.run_chain(chain_id)
+            speech = f"🤖 [제29기관 n8n-Lite 체인 릴레이] {res.get('chain_name', chain_id)} 성공 완결! (SHA-256 감사 영수증 발급)"
+        else:
+            cat = _pbe.WebMcpStagehandBotCompiler.load_or_compile()
+            res = {"total_page_bots": len(cat.get("page_bots", {})), "total_button_bots": len(cat.get("button_bots", {}))}
+            speech = f"🤖 [제29기관 WebMCP 전 페이지·전 버튼 봇] {res['total_page_bots']}개 부대 · {res['total_button_bots']}개 버튼 봇 출격 대기 완료!"
+        return {
+            "ok": True,
+            "version": "v11.52-AON-PAGE-BUTTON-BOT",
+            "antibody": "R53",
+            "intent": "page_button_bot",
+            "intents": ["page_button_bot"],
+            "speech": speech,
+            "page_button_bot": res,
+            "data": res,
+            "results": [{"intent": "page_button_bot", "ok": True, "speech": speech, "data": res}],
+        }
+    except Exception as _ex:
+        return {"ok": False, "error": str(_ex)}
+
+def _r53_wrap(_fn):
+    def _w(*a, **k):
+        _txt = a[0] if a and isinstance(a[0], str) else (a[1] if len(a) > 1 and isinstance(a[1], str) else k.get("text") or k.get("message") or k.get("utterance"))
+        if _txt:
+            _r53 = _r53_page_button_bot_route(_txt)
+            if _r53 is not None:
+                return _r53
+        return _fn(*a, **k)
+    _w.__r53__ = True
+    return _w
+
+for _n in ("r40_route", "route", "process_dialogue", "route_command", "handle_message", "respond", "reply", "dialogue"):
+    _f = globals().get(_n)
+    if callable(_f) and not getattr(_f, "__r53__", False):
+        globals()[_n] = _r53_wrap(_f)
+# [RGON-R53-PAGE-BUTTON-BOT-ROUTE-END]
 
 if __name__ == "__main__":
     sys.exit(main())

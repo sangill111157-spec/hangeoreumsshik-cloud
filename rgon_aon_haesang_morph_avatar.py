@@ -13,7 +13,7 @@ Step 48 — v11.51-AON-COMMANDER-TWIN · 항체 R1~R52 · 정식 스킬 47개 (a
 import os, sys, json, re, time
 
 CHIEF_ART_DIRECTOR = "이해상 (초4 수석 캐릭터 디자이너)"
-VERSION = "v11.51-AON-COMMANDER-TWIN"
+VERSION = "v11.52-AON-PAGE-BUTTON-BOT"
 ANTIBODY = "R48"
 SKILL_SLUG = "aon-haesang-6form-morph"
 HEXAGRAMS = ["#49 택화혁(澤火革)", "#58 태위택(兌爲澤)", "#37 풍화가인(風火家人)"]

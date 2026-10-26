@@ -14,7 +14,7 @@ try:
 except Exception:
     pass
 
-VERSION = "v11.51-AON-COMMANDER-TWIN"
+VERSION = "v11.52-AON-PAGE-BUTTON-BOT"
 ANTIBODY = "R1~R52"
 ROOT = Path(__file__).resolve().parent
 if str(ROOT) not in sys.path:
@@ -687,7 +687,7 @@ if "respond" in globals() and not globals().get("_rgon_r39_wrapped"):
 # R40 시냅스 ③ — converse ↔ 대화 허브 양방향 직결 (재귀 방지 · 시그니처 완전 호환)
 import threading as _th40
 _R40_SB_GUARD = _th40.local()
-_R40_SB_VER = "v11.51-AON-COMMANDER-TWIN"
+_R40_SB_VER = "v11.52-AON-PAGE-BUTTON-BOT"
 _r40_cur = globals().get("converse")
 
 if callable(_r40_cur):

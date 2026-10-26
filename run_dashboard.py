@@ -1440,7 +1440,30 @@ class DashboardHandler(SimpleHTTPRequestHandler):
             return
 
         # 👑 [Step 52 · R52] 제28기관 아온 대표님 인지 디지털 트윈 상태 (GET /api/aon_commander_twin)
-        if path == '/api/aon_commander_twin':
+                # 🤖 [Step 53 · R53] 제29기관 아온 전 페이지·전 버튼 자동화 봇 상태 (GET /api/aon_page_button_bot)
+        if path == '/api/aon_page_button_bot':
+            try:
+                import rgon_aon_page_button_bot_engine as pbe
+                cat = pbe.WebMcpStagehandBotCompiler.load_or_compile()
+                rcp = pbe.DeterministicBotExecutor.load_receipts()
+                data = {
+                    "ok": True,
+                    "version": "v11.52-AON-PAGE-BUTTON-BOT",
+                    "antibody": "R53",
+                    "organ": "제29기관 아온 WebMCP 전 페이지·전 버튼 자동화 봇 엔진",
+                    "total_page_bots": len(cat.get("page_bots", {})),
+                    "total_button_bots": len(cat.get("button_bots", {})),
+                    "chains_count": 5,
+                    "receipts_count": len(rcp.get("receipts", [])),
+                    "chains": list(pbe.GOLDEN_CHAINS.keys()),
+                    "latest_receipt": rcp.get("receipts", [])[-1] if rcp.get("receipts") else None
+                }
+                self._send_json(data)
+                return
+            except Exception as e:
+                self._send_json({"ok": False, "error": str(e)}, status=500)
+                return
+if path == '/api/aon_commander_twin':
             try:
                 import rgon_aon_commander_twin as _r52_twin
                 eng = _r52_twin.get_commander_twin()
@@ -2462,7 +2485,29 @@ class DashboardHandler(SimpleHTTPRequestHandler):
             return
 
         # 👑 [Step 52 · R52] 제28기관 아온 대표님 인지 디지털 트윈 실행 (POST /api/aon_commander_twin)
-        if self.path == '/api/aon_commander_twin':
+                # 🤖 [Step 53 · R53] 제29기관 아온 전 페이지·전 버튼 자동화 봇 실행 (POST /api/aon_page_button_bot)
+        if self.path == '/api/aon_page_button_bot':
+            try:
+                import rgon_aon_page_button_bot_engine as pbe
+                req = self._read_json_body() or {}
+                action = req.get("action", "run_chain")
+                target = req.get("target", "CHAIN-1")
+                if action == "run_chain":
+                    orch = pbe.N8nLiteChainOrchestrator()
+                    res = orch.run_chain(target)
+                elif action == "run_bot":
+                    ex = pbe.DeterministicBotExecutor()
+                    res = ex.execute_button_bot(target)
+                elif action == "patrol_all":
+                    res = pbe.DeterministicBotExecutor.patrol_all_pages()
+                else:
+                    res = {"ok": False, "error": f"Unknown action: {action}"}
+                self._send_json(res)
+                return
+            except Exception as e:
+                self._send_json({"ok": False, "error": str(e)}, status=500)
+                return
+if self.path == '/api/aon_commander_twin':
             length = int(self.headers.get('Content-Length', 0))
             raw_body = self.rfile.read(length) if length > 0 else b'{}'
             try:

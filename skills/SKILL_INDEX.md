@@ -116,3 +116,9 @@
 - 경로: `skills/aon_commander_digital_twin/SKILL.md`
 - 기관: 제28기관 아온 대표님 인지 디지털 트윈 & 노트북·스마트폰 무인 대행 사령관 (`rgon_aon_commander_twin.py`)
 - 핵심: 이상일 대표님의 7단계 일처리 DNA(The Sang-Il Command Loop) 파이프라인 + 노트북 단독 무인 대행 & 스마트폰 1-Tap 1초 지휘 직결
+
+<!-- [RGON-SKILL-49] -->
+## 49. `aon-page-button-bot-engine` (R53 · v11.52-AON-PAGE-BUTTON-BOT)
+- 경로: `skills/aon-page-button-bot-engine/SKILL.md`
+- 기관: 제29기관 아온 WebMCP & Stagehand/n8n-Lite 전 페이지·전 버튼 자율 자동화 봇 전환 엔진 (`rgon_aon_page_button_bot_engine.py`)
+- 핵심: WebMCP/Stagehand 전 페이지·전 버튼 결정론적 자동화 봇 전환 + n8n-Lite 5대 표준 체인 오케스트레이터 및 SHA-256 감사 영수증

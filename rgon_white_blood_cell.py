@@ -27,8 +27,8 @@ import shutil
 import sys
 import traceback
 
-WBC_VERSION = "v11.51-AON-COMMANDER-TWIN"
-ANTIBODY_RANGE = "R1~R52"
+WBC_VERSION = "v11.52-AON-PAGE-BUTTON-BOT"
+ANTIBODY_RANGE = "R1~R53"
 LEDGER_FILENAME = "rgon_immune_ledger.json"
 HEXAGRAM_FILENAME = "rgon_hexagram_engine.py"
 PRINCIPLE = "만물은 하나로 이어져 있으며, 한 걸음씩 나아가면 반드시 이루어진다."
@@ -800,7 +800,7 @@ def main(argv=None):
 
 
 # ===== RGON-STEP20-START (R20 antibody, v11.51-AON-COMMANDER-TWIN) =====
-ANTIBODY_RANGE = "R1~R52"
+ANTIBODY_RANGE = "R1~R53"
 _RGON_R20_TEXT = "일일 자율 순환 루프(백혈구 순찰 → 영양분 소화·스킬 주조 → 3자 심판 → 주역 64괘 아침 브리핑) 무인 자동화"
 try:
     for _nm in ("DEFAULT_ANTIBODIES", "ANTIBODIES", "ANTIBODY_LIST", "ANTIBODY_RULES"):
@@ -823,7 +823,7 @@ except Exception:
 
 
 # >>> RGON-STEP21-R21 >>>
-ANTIBODY_RANGE = "R1~R52"
+ANTIBODY_RANGE = "R1~R53"
 _R21 = "@Mindung-EasyAI 양분 흡수 — Matt Pocock(GLOSSARY.md · Spec/Tracer-Bullet Tickets 분업) + ECC(AgentShield 비밀키/설정 보안 스캔)"
 for _n in ("DEFAULT_ANTIBODIES", "ANTIBODIES", "ANTIBODY_RULES", "ANTIBODY", "RULES"):
     _d = globals().get(_n)

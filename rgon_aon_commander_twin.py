@@ -21,8 +21,8 @@ import datetime
 from pathlib import Path
 from typing import Dict, Any, List, Optional, Tuple
 
-VERSION = "v11.51-AON-COMMANDER-TWIN"
-ANTIBODY_RANGE = "R1~R52"
+VERSION = "v11.52-AON-PAGE-BUTTON-BOT"
+ANTIBODY_RANGE = "R1~R53"
 SKILL_COUNT = 48
 SKILL_SLUG = "aon-commander-digital-twin"
 ORGAN_ID = 28

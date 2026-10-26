@@ -12,8 +12,8 @@ try:
 except Exception:
     pass
 
-VERSION = "v11.45-AON-AUTO-EVOLVER"
-ANTIBODY = "R1~R46"
+VERSION = "v11.52-AON-PAGE-BUTTON-BOT"
+ANTIBODY = "R1~R53"
 ROOT = Path(__file__).resolve().parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))

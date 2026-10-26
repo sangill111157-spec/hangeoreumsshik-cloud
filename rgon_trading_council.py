@@ -172,7 +172,8 @@ except NameError:
 
 # [STEP26-HOOK] v11.26-CREATOR-FORGE · R26: 실행 종료 시 21번째 스킬(self-evolving-gene-ratchet) 인덱스 보존
 import atexit as _s26_ax, subprocess as _s26_sp, sys as _s26_sys, os as _s26_os
-_s26_ax.register(lambda: _s26_sp.run([_s26_sys.executable, _s26_os.path.join(_s26_os.path.dirname(_s26_os.path.abspath(__file__)), "rgon_self_evolution_engine.py"), "--ensure-index"], capture_output=True))
+_s26_target = _s26_os.path.join(_s26_os.path.dirname(_s26_os.path.abspath(__file__)), "rgon_self_evolution_engine.py") if "__file__" in globals() else "rgon_self_evolution_engine.py"
+_s26_ax.register(lambda p=_s26_target: _s26_sp.run([_s26_sys.executable, p, "--ensure-index"], capture_output=True))
 
 if __name__ == "__main__":
     a = sys.argv[1:]
