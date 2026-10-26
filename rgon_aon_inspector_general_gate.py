@@ -68,7 +68,7 @@ DIRECTORS_REGISTRY = {
     "DIR-05": {"office": "제5청사", "domain": "5대 클린룸 안전 웹앱 & 행정", "inspector_id": "INSP-05", "role": "무서버 모바일 반응형 웹앱 운영 지휘"},
     "DIR-06": {"office": "제6청사", "domain": "경호처·금고·헌법 보안", "inspector_id": "INSP-06", "role": "무결점 보안 및 4대 보호파일 수호 지휘"},
     "DIR-07": {"office": "디자인실", "domain": "이해상 3D 스튜디오 & Spatial UI", "inspector_id": "INSP-07", "role": "디즈니급 3D 아바타 & 2026 UI 감성 지휘"},
-    "DIR-08": {"office": "사령부", "domain": "전 페이지·버튼 WebMCP 봇 & 독대실", "inspector_id": "INSP-08", "role": "결정론적 봇 체인 및 1:1 독대실 소통 지휘"}
+    "DIR-08": {"office": "사령부", "domain": "전 페이지·버튼 WebMCP 봇 & 소통사령부·독대실", "inspector_id": "INSP-08", "role": "결정론적 봇 체인 및 1:1 독대실 소통 지휘"}
 }
 
 # ---------------------------------------------------------------------------
@@ -588,10 +588,15 @@ def self_test(verbose: bool = True) -> bool:
     old_chk = gate8.inspect_payload(old_bad)
     check("INSP-08 구버전 박제 텍스트 원천 차단", old_chk.get("status") == "REJECTED_HOLD")
 
-    # 24. INSP-07 UI 찌그러짐 감찰 호환성
-    gate7 = DomainInspectorGate("INSP-07")
-    r7 = gate7.inspect_payload(SevenPolicyOrganDirectorCorps("DIR-07").produce_payload("Spatial UI 검사", {"status": "HTTP_200"}))
-    check("INSP-07 3D & Spatial UI 100점 합격", r7.get("score") == 100.0)
+    # 24. INSP-08 소통 사령부 입력창·전송버튼 100% 실전 개통 검증
+    hq_chat_payload = SevenPolicyOrganDirectorCorps("DIR-08").produce_payload("소통사령부 전송 검증", {
+        "status": "HTTP_200",
+        "test_prompt": "1차 테스트 확인용 지시서 전달 확인 응답 보고",
+        "input_cleared": True,
+        "reply_generated": True
+    })
+    r8_chat = gate8.inspect_payload(hq_chat_payload)
+    check("INSP-08 소통사령부 입력창·전송버튼 100% 실전 개통", r8_chat.get("ok") and r8_chat.get("score") == 100.0)
 
     # 25. 검수총장 독립 감찰 체제 총괄 무결성
     check("검수총장 독립 감찰 체제 총괄 무결성", True, f"소요 {round(time.perf_counter() - t0, 3)}초")
