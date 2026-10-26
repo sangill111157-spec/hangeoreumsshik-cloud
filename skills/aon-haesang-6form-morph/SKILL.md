@@ -1,7 +1,7 @@
 ---
 name: aon-haesang-6form-morph
-version: v11.49-AON-IMPECCABLE-SHIELD
-antibody: R1~R50
+version: v11.50-AON-TOKEN-EGOLITE-MASTER
+antibody: R1~R51
 organ: 제24기관 · rgon_aon_haesang_morph_avatar
 chief_art_director: 이해상 (초4 수석 캐릭터 디자이너)
 ---

@@ -1,6 +1,6 @@
 # RGON Skills — 표준 SKILL.md 인덱스
 
-버전 v11.49-AON-IMPECCABLE-SHIELD · 항체 R1~R50 · 총 **39**개 스킬 (SkillAutoForge 자동 주조)
+버전 v11.50-AON-TOKEN-EGOLITE-MASTER · 항체 R1~R51 · 총 **39**개 스킬 (SkillAutoForge 자동 주조)
 
 | # | 스킬 | 카테고리 | 괘 | 출처 |
 |---|---|---|---|---|

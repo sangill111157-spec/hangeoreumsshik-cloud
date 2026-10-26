@@ -192,5 +192,7 @@ restore_secrets_legacy.py
 # 화이트리스트 이후 비밀 패턴 재차단(안전벨트)
 skills/**/*secret*
 skills/**/*token*
+!skills/aon_token_egolite_master/
+!skills/aon_token_egolite_master/**
 skills/**/credentials*
 # [RGON-STEP22-VASCULAR-ALLOW-END]

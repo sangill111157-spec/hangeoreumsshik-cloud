@@ -1,6 +1,6 @@
 ---
 name: aon-zeroclick-creative-studio
-version: v11.49-AON-IMPECCABLE-SHIELD
+version: v11.50-AON-TOKEN-EGOLITE-MASTER
 antibody: R47
 organ: 제23기관 · N19_zeroclick_studio
 ---

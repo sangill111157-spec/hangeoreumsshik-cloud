@@ -130,7 +130,7 @@ SFX_PRESETS.update(R40_UNIFIED_SFX_MAP)
 
 def get_unified_sfx_registry():
     rec = globals().get("SOUND_RECIPES")
-    return {"version": "v11.49-AON-IMPECCABLE-SHIELD", "antibody": "R1~R50",
+    return {"version": "v11.50-AON-TOKEN-EGOLITE-MASTER", "antibody": "R1~R51",
             "sfx_presets": sorted(SFX_PRESETS.keys()),
             "sound_recipes": sorted(rec.keys()) if isinstance(rec, dict) else [],
             "r40_unified": sorted(R40_UNIFIED_SFX_MAP.keys())}
@@ -180,5 +180,14 @@ SFX_PRESETS.update({
     "cloudflare_audit_pass": {"desc": "Cloudflare 2단계 적대적 감사 무결점 통과 청아한 벨", "freq_hz": [880, 1175, 1760], "dur_ms": 200, "wave": "sine", "gain": 0.16},
     "hallmark_theme_snap": {"desc": "Hallmark 48 도메인 테마 찰칵 스냅", "freq_hz": [988, 1480], "dur_ms": 90, "wave": "triangle", "gain": 0.19},
 })
+
+# [RGON-R51-TOKEN-EGOLITE-SFX] — 제27기관 토큰 90% 초절약 & 7대 코딩스택·에고라이트 4종 효과음 확장 (Step 51)
+SFX_PRESETS.update({
+    "rtk_token_compress": {"desc": "RTK 터미널 출력 및 토큰 90% 압축 슉 사운드", "freq_hz": [1760, 1320, 880, 440], "dur_ms": 120, "wave": "sine", "gain": 0.18},
+    "serena_ast_jump": {"desc": "Serena AST 심볼 0.01초 직행 점프 뿅 사운드", "freq_hz": [784, 1568, 2093], "dur_ms": 100, "wave": "triangle", "gain": 0.17},
+    "spec_kit_converge": {"desc": "Spec Kit 0건 누락 수렴 완성 청아한 화음", "freq_hz": [528, 660, 792, 1056], "dur_ms": 250, "wave": "sine", "gain": 0.16},
+    "egolite_bundle_snap": {"desc": "Ego-Lite 단일 IIFE 액션 번들링 찰칵 스냅", "freq_hz": [1200, 1800, 2400], "dur_ms": 80, "wave": "square", "gain": 0.19},
+})
+
 
 

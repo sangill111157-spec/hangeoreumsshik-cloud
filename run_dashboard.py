@@ -1422,6 +1422,23 @@ class DashboardHandler(SimpleHTTPRequestHandler):
             self.wfile.write(body)
             return
 
+        # 🚀 [Step 51 · R51] 제27기관 아온 토큰 90% 초절약 & 에고라이트 상태 (GET /api/aon_token_egolite_master)
+        if path == '/api/aon_token_egolite_master':
+            try:
+                import rgon_aon_token_egolite_master as _r51_master
+                res_data = _r51_master.route_token_egolite_intent("토큰 절약 및 에고라이트 상태 조회")
+            except Exception as e:
+                res_data = {"ok": False, "error": str(e), "status": "ERROR"}
+            body = json.dumps(res_data, ensure_ascii=False).encode('utf-8')
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Cache-Control", "no-store")
+            self.end_headers()
+            self.wfile.write(body)
+            return
+
         # 🏛️ [v8.5] 제6청사 총무·재무회계 1원 복식부기 실시간 상태 (GET /api/treasury-status)
         if path == '/api/treasury-status':
             try:
@@ -2392,6 +2409,27 @@ class DashboardHandler(SimpleHTTPRequestHandler):
                 prompt = post_data.get("prompt") or post_data.get("order") or "임페커블 연쇄 교차감사 집행"
                 import rgon_aon_impeccable_audit_shield as _r50_shield
                 resp = _r50_shield.route_impeccable_intent(prompt)
+            except Exception as e:
+                resp = {"status": "error", "ok": False, "message": str(e)}
+
+            body = json.dumps(resp, ensure_ascii=False).encode("utf-8")
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(body)
+            return
+
+        # 🚀 [Step 51 · R51] 제27기관 아온 토큰 초절약 & 에고라이트 실행 (POST /api/aon_token_egolite_master)
+        if self.path == '/api/aon_token_egolite_master':
+            length = int(self.headers.get('Content-Length', 0))
+            raw_body = self.rfile.read(length) if length > 0 else b'{}'
+            try:
+                post_data = json.loads(raw_body.decode('utf-8')) if raw_body else {}
+                prompt = post_data.get("prompt") or post_data.get("order") or "토큰 초절약 및 에고라이트 번들링 실행"
+                import rgon_aon_token_egolite_master as _r51_master
+                resp = _r51_master.route_token_egolite_intent(prompt)
             except Exception as e:
                 resp = {"status": "error", "ok": False, "message": str(e)}
 

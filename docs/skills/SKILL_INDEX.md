@@ -31,7 +31,7 @@
 - 핵심: 구어 정규화 · 대명사 복원 · 능동 경청 원칙 각인 · 복합 의도 분해 · 슬래시 7종 · 3계층 해마 기억
 
 <!-- [RGON-R40-SKILL-START] -->
-### R40 · v11.49-AON-IMPECCABLE-SHIELD · 항체 R1~R50 · 정식 스킬 46개
+### R40 · v11.50-AON-TOKEN-EGOLITE-MASTER · 항체 R1~R51 · 정식 스킬 47개
 - `1-36-45` — (SKILL_INDEX.json 동기화 보정)
 - `10-5` — (SKILL_INDEX.json 동기화 보정)
 - `744b-ai-10` — (SKILL_INDEX.json 동기화 보정)
@@ -68,41 +68,48 @@
 | 39 | `aon-omni-nexus-synthesizer` | 제19기관 아온 연결·소통·만능 대집약체 코어 (泰·比→咸·中孚→大有·鼎) | R43 | `skills/aon-omni-nexus-synthesizer/SKILL.md` |
 
 <!-- [RGON-SKILL-40] -->
-## 40. `aon-live-ui-self-healer` (R44 · v11.49-AON-IMPECCABLE-SHIELD)
+## 40. `aon-live-ui-self-healer` (R44 · v11.50-AON-TOKEN-EGOLITE-MASTER)
 - 경로: `skills/aon-live-ui-self-healer/SKILL.md`
 - 설명: 아온 실전 UI 전수 클릭·동작 검증 & 자가배선 수리 (제20기관, R44)
 
 <!-- [RGON-SKILL-41] -->
-## 41. `aon-cinematic-dispatch-council` (R45 · v11.49-AON-IMPECCABLE-SHIELD)
+## 41. `aon-cinematic-dispatch-council` (R45 · v11.50-AON-TOKEN-EGOLITE-MASTER)
 - 경로: `skills/aon-cinematic-dispatch-council/SKILL.md`
 - 설명: 아온 0.7ms 초광속 결정론적 쇼트컷 & 9인 원탁 국무회의 시네마틱 디스패치 (제21기관, R45)
 
 <!-- [RGON-SKILL-42] -->
-## 42. `aon-autonomous-tech-evolver` (R46 · v11.49-AON-IMPECCABLE-SHIELD)
+## 42. `aon-autonomous-tech-evolver` (R46 · v11.50-AON-TOKEN-EGOLITE-MASTER)
 - 경로: `skills/aon-autonomous-tech-evolver/SKILL.md`
 - 설명: 아온 10대 전 플랫폼 영양분 선별 채집 & 한걸음씩 자아성찰 그릇 확장 진화기 (제22기관, R46)
 
 <!-- [RGON-SKILL-43] -->
-## 43. `aon-zeroclick-creative-studio` (R47 · v11.49-AON-IMPECCABLE-SHIELD)
+## 43. `aon-zeroclick-creative-studio` (R47 · v11.50-AON-TOKEN-EGOLITE-MASTER)
 - 경로: `skills/aon-zeroclick-creative-studio/SKILL.md`
 - 기관: 제23기관 아온 클릭 0번(Zero-Click) 헤드리스 포토·카드뉴스 & 엑셀·시트 창작 스튜디오 (`rgon_aon_zeroclick_studio.py`)
 
 <!-- [RGON-SKILL-44] -->
-## 44. `aon-haesang-6form-morph` (R48 · v11.49-AON-IMPECCABLE-SHIELD)
+## 44. `aon-haesang-6form-morph` (R48 · v11.50-AON-TOKEN-EGOLITE-MASTER)
 - 경로: `skills/aon-haesang-6form-morph/SKILL.md`
 - 기관: 제24기관 이해상 수석 디자이너 헌정 아온이 6대 변신술 아바타 엔진 (`rgon_aon_haesang_morph_avatar.py`)
 - 수석 디자이너: 이해상 (초4 수석 캐릭터 디자이너)
 
 <!-- [RGON-SKILL-45] -->
-## 45. `aon_vibe3d_movie_director` (R49 · v11.49-AON-IMPECCABLE-SHIELD)
+## 45. `aon_vibe3d_movie_director` (R49 · v11.50-AON-TOKEN-EGOLITE-MASTER)
 - 경로: `skills/aon_vibe3d_movie_director/SKILL.md`
 - 기관: 제25기관 아온 바이브 3D 시네마틱 디렉터 & VARCO 플로우 스튜디오 (`rgon_aon_vibe3d_director.py`)
 - 핵심: Blender MCP 결정론적 Scene-as-Code 세트장 & 국산 VARCO 3D 다중 에셋 분리(Scene-to-Props)·PBR ORM·AI 자동 리깅
 
 <!-- [RGON-SKILL-46] -->
-## 46. `aon_impeccable_audit_shield` (R50 · v11.49-AON-IMPECCABLE-SHIELD)
+## 46. `aon_impeccable_audit_shield` (R50 · v11.50-AON-TOKEN-EGOLITE-MASTER)
 - 경로: `skills/aon_impeccable_audit_shield/SKILL.md`
 - 기관: 제26기관 아온 임페커블 UI 폴리시(62규칙) & 오픈셸·클라우드플레어 적대적 교차감사 방패 (`rgon_aon_impeccable_audit_shield.py`)
 - 핵심: Cloudflare 2단계 적대적 반박 감사 + NVIDIA OpenShell 샌드박스 가드 + Impeccable 62규칙 UI 무결점 탐지 & Hallmark 48 테마
+
+<!-- [RGON-SKILL-47] -->
+## 47. `aon_token_egolite_master` (R51 · v11.50-AON-TOKEN-EGOLITE-MASTER)
+- 경로: `skills/aon_token_egolite_master/SKILL.md`
+- 기관: 제27기관 아온 토큰 90% 초절약 & 7대 코딩스택·에고라이트 마스터 엔진 (`rgon_aon_token_egolite_master.py`)
+- 핵심: GitHub 토큰 절약 TOP 7 4대 가드 + 세계 7대 AI 코딩스택 Spec Kit 수렴 + Ego-Lite 에이전트 브라우저 5대 원리
+
 
 

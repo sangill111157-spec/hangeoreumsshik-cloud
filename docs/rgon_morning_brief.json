@@ -4,7 +4,7 @@
   "r20": "일일 자율 순환 루프(백혈구 순찰 → 영양분 소화·스킬 주조 → 3자 심판 → 주역 64괘 아침 브리핑) 무인 자동화",
   "generated_at": "2026-10-26T00:24:52+09:00",
   "date": "2026-10-26",
-  "immune": "R1~R50",
+  "immune": "R1~R51",
   "nutrient": {
     "ran": true,
     "ok": true,
@@ -94,7 +94,7 @@
       "line": "⚖️ [GO] 84.5점 (Bull 91.0 / Bear 22.0 / #64-화수미제) 🔄 멀티에이전트 시그널 교차검증 — 조건 충족, 한도 내 집행 허용 · 신변물거방(慎辨物居方) · 君子以慎辨物居方"
     }
   ],
-  "trading_council_at": "2026-10-26T21:19:44",
+  "trading_council_at": "2026-10-26T21:40:06",
   "generated_at_kst": "2026-10-26 00:23:47 KST",
   "synced_at_kst": "2026-10-26 00:23:47 KST",
   "current_step": 22,
@@ -136,8 +136,8 @@
     ],
     "engine_versions": {
       "rgon_white_blood_cell.py": {
-        "version": "v11.49-AON-IMPECCABLE-SHIELD",
-        "antibody_range": "R1~R50"
+        "version": "v11.50-AON-TOKEN-EGOLITE-MASTER",
+        "antibody_range": "R1~R51"
       },
       "rgon_nutrient_engine.py": {
         "version": "v11.26-CREATOR-FORGE",
@@ -148,8 +148,8 @@
         "antibody_range": "R1~R27"
       },
       "rgon_daily_cycle.py": {
-        "version": "v11.49-AON-IMPECCABLE-SHIELD",
-        "antibody_range": "R1~R50"
+        "version": "v11.50-AON-TOKEN-EGOLITE-MASTER",
+        "antibody_range": "R1~R51"
       }
     }
   }

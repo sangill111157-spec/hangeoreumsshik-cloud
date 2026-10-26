@@ -1,6 +1,6 @@
 ---
 name: aon-vibe3d-movie-director
-version: v11.49-AON-IMPECCABLE-SHIELD
+version: v11.50-AON-TOKEN-EGOLITE-MASTER
 antibody: R49
 organ: 제25기관 · rgon_aon_vibe3d_director
 description: "유튜브 2대 3D AI(Blender MCP 결정론적 Scene-as-Code 영화 세트장 + 국산 VARCO 3D 다중 에셋 분리·PBR ORM·AI 자동 리깅) 통합 흡수 제25기관 스킬"
