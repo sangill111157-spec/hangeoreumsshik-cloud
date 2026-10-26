@@ -3,7 +3,7 @@
 > Matt Pocock domain-glossary 방식 · 20단어 대신 1단어로 정확히 통한다.
 
 <!-- RGON:GLOSSARY:START -->
-버전: v11.50-AON-TOKEN-EGOLITE-MASTER · 항체 R1~R51 · 갱신 2026-10-24 07:34:37
+버전: v11.51-AON-COMMANDER-TWIN · 항체 R1~R52 · 갱신 2026-10-24 07:34:37
 
 | 용어 | 정의 |
 |---|---|
@@ -21,7 +21,7 @@
 | **일일 자율 순환** | 레이더 → 소화(--digest) → 백혈구 순찰 → 스냅샷 → 원장 기록의 매일 자동 루프. |
 | **Spec & Tracer-Bullet Tickets** | Matt Pocock 방식. 목표→스펙→얇은 수직 관통 티켓(blocked_by·demo_path)으로 분업. |
 | **AgentShield** | ECC 방식 보안 백혈구. 비밀키 평문·보호 설정 무단 변경을 스캔(rgon_agentshield_report.json). |
-| **항체 R1~R51** | RGON 헌법 규칙 집합. R21 = @Mindung-EasyAI 양분 흡수 — Matt Pocock(GLOSSARY.md · Spec/Tracer-Bullet Tickets 분업) + ECC(AgentShield 비밀키/설정 보안 스캔) |
+| **항체 R1~R52** | RGON 헌법 규칙 집합. R21 = @Mindung-EasyAI 양분 흡수 — Matt Pocock(GLOSSARY.md · Spec/Tracer-Bullet Tickets 분업) + ECC(AgentShield 비밀키/설정 보안 스캔) |
 <!-- RGON:GLOSSARY:END -->
 | **항체 R22 (전신 혈관 개통)** | 자아성찰 전신 혈관 개통 — 레이더·영양분(SKILL.md)·티켓/AgentShield·백혈구(WBC)·주역64괘·스냅샷/클라우드 JSON 6대 기관 무결점 단일 순환 |
 
@@ -31,7 +31,7 @@
 <!-- [RGON-STEP28-K-AVATAR-END] -->
 
 <!-- [RGON-GLOSSARY-STEP32] -->
-## Step 32 용어 (v11.50-AON-TOKEN-EGOLITE-MASTER)
+## Step 32 용어 (v11.51-AON-COMMANDER-TWIN)
 - **Muse Wonder**: 대표님 지시를 끝까지 자율 수행하는 비동기 대행 작업 큐
 - **Muse Charm**: 아온 다이내믹 아일랜드. 결재 대기 건수를 알려 주는 캡슐 배지(`📋 결재 N건`)
 - **3-Tier HITL Gate**: 🟢 AUTO(자동 집행) · 🔵 NOTIFY(선집행 후보고) · 🟡 HITL_GATE(대표님 결재 후 집행)
@@ -41,6 +41,6 @@
 - **해마 기억장**: `rgon_aon_memory.json` — 친밀도·누적 대화·최근 20건·선호 키워드
 - **2-Track 분별**: 감정·일상(chat)은 대화로, 명시적 업무(delegate)만 3-Tier 대행 큐로
 - **수동 마스터 스위치**: `master_approval_on` + 4대 `gates`. 모두 ON이어야 중요 결재가 집행된다 (R35)
-- **아온 놀이터 & 츤데레 생명체 (R36 · v11.50-AON-TOKEN-EGOLITE-MASTER)**: 8대 감정 FSM과 말로는 투정해도 업무는 100% 완수하는 생명체 교감 엔진.
-- **아온 주역 도술관 (R37 · v11.50-AON-TOKEN-EGOLITE-MASTER)**: 5대 입체 괘상(본·호·변·착·종)과 체용·통관·효위반으로 시중(時中) 처세를 짚어주는 제13기관.
-- **격물치지(格物致知) 만물 통찰안 (R38 · v11.50-AON-TOKEN-EGOLITE-MASTER)**: OTA 능동 지각(견미지저)과 FPCOS 6계층(L0~L5)으로 이미지·영상·언어의 급소(Leverage Point)와 군더더기(Dead Weight)를 가려내는 제14기관.
+- **아온 놀이터 & 츤데레 생명체 (R36 · v11.51-AON-COMMANDER-TWIN)**: 8대 감정 FSM과 말로는 투정해도 업무는 100% 완수하는 생명체 교감 엔진.
+- **아온 주역 도술관 (R37 · v11.51-AON-COMMANDER-TWIN)**: 5대 입체 괘상(본·호·변·착·종)과 체용·통관·효위반으로 시중(時中) 처세를 짚어주는 제13기관.
+- **격물치지(格物致知) 만물 통찰안 (R38 · v11.51-AON-COMMANDER-TWIN)**: OTA 능동 지각(견미지저)과 FPCOS 6계층(L0~L5)으로 이미지·영상·언어의 급소(Leverage Point)와 군더더기(Dead Weight)를 가려내는 제14기관.

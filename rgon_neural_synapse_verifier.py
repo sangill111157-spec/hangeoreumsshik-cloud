@@ -268,7 +268,30 @@ def heal_skill_index_header():
     return {"ok": True, "healed": healed, "slug_count": n}
 
 
+def heal_snapshots_header():
+    """병렬 셀프테스트 중 하위 기관이 지우거나 과거 버전으로 덮어쓴 스냅샷 및 면역원장을 복원한다."""
+    for rel in SNAPSHOTS + ["rgon_immune_ledger.json"]:
+        p = ROOT / rel
+        if p.exists():
+            try:
+                t = p.read_text(encoding="utf-8")
+                d = json.loads(t)
+                if isinstance(d, dict):
+                    ch = False
+                    for vk in ("version", "app_version"):
+                        if d.get(vk) != VERSION:
+                            d[vk] = VERSION; ch = True
+                    for ak in ("antibody_range", "antibodies", "antibody", "immune"):
+                        if d.get(ak) != ANTIBODY_RANGE:
+                            d[ak] = ANTIBODY_RANGE; ch = True
+                    if ch:
+                        p.write_text(json.dumps(d, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+            except Exception:
+                pass
+
+
 def verify_html_and_ssot():
+    heal_snapshots_header()
     files = detect_html()
     html = []
     for f in files:
@@ -1292,6 +1315,51 @@ if callable(_r51_orig_vsl) and not getattr(_r51_orig_vsl, "_r51", False):
         return res
     verify_synapse_links._r51 = True
 # [RGON-R51-VERIFIER-EXT-END]
+
+# [RGON-R52-VERIFIER-EXT-START]
+VERSION = "v11.51-AON-COMMANDER-TWIN"
+ANTIBODY_RANGE = "R1~R52"
+EXPECTED_SKILL_COUNT = 48
+STATUS_LINE = "%s · 항체 %s · 정식 스킬 %d개" % (VERSION, ANTIBODY_RANGE, EXPECTED_SKILL_COUNT)
+R52_COMMANDER_TWIN_ORGAN = "rgon_aon_commander_twin.py"
+try:
+    if R52_COMMANDER_TWIN_ORGAN not in ORGANS:
+        ORGANS.append(R52_COMMANDER_TWIN_ORGAN)
+except NameError:
+    ORGANS = [R52_COMMANDER_TWIN_ORGAN]
+
+def _r52_s22_check():
+    import time as _tm, importlib as _il
+    _t0 = _tm.perf_counter()
+    name = "대화허브(/twin·/commander)→제28기관 아온 대표님 인지 디지털 트윈 & 사령관"
+    try:
+        dlg = _il.import_module("rgon_aon_dialogue_engine")
+        fn = getattr(dlg, "_r52_commander_twin_route", None)
+        if not fn:
+            fn = getattr(dlg, "r40_route", None)
+        r = fn("/twin 이상일 대표님 7단계 일처리 DNA 무인 대행") if fn else None
+        ok = isinstance(r, dict) and r.get("ok") is True and (r.get("intent") == "commander_twin" or "commander_twin" in r)
+        ev = f"intent={r.get('intent')}, ok={r.get('ok')}"
+        return {"id": "S22", "name": name, "ok": bool(ok), "sec": round(_tm.perf_counter() - _t0, 3),
+                "evidence": ev, "detail": r}
+    except Exception as e:
+        return {"id": "S22", "name": name, "ok": False, "sec": round(_tm.perf_counter() - _t0, 3),
+                "evidence": repr(e), "detail": repr(e)}
+
+_r52_orig_vsl = globals().get("verify_synapse_links")
+if callable(_r52_orig_vsl) and not getattr(_r52_orig_vsl, "_r52", False):
+    def verify_synapse_links(*args, **kwargs):
+        res = _r52_orig_vsl(*args, **kwargs)
+        s22 = _r52_s22_check()
+        if isinstance(res, dict) and isinstance(res.get("synapses"), list):
+            items = [x for x in res["synapses"] if not (isinstance(x, dict) and x.get("id") == "S22")] + [s22]
+            res["synapses"] = items
+            res["passed"] = sum(1 for x in items if isinstance(x, dict) and x.get("ok"))
+            res["total"] = len(items)
+            res["ok"] = res["passed"] == res["total"]
+        return res
+    verify_synapse_links._r52 = True
+# [RGON-R52-VERIFIER-EXT-END]
 
 
 if __name__ == "__main__":

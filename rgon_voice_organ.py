@@ -130,7 +130,7 @@ SFX_PRESETS.update(R40_UNIFIED_SFX_MAP)
 
 def get_unified_sfx_registry():
     rec = globals().get("SOUND_RECIPES")
-    return {"version": "v11.50-AON-TOKEN-EGOLITE-MASTER", "antibody": "R1~R51",
+    return {"version": "v11.51-AON-COMMANDER-TWIN", "antibody": "R1~R52",
             "sfx_presets": sorted(SFX_PRESETS.keys()),
             "sound_recipes": sorted(rec.keys()) if isinstance(rec, dict) else [],
             "r40_unified": sorted(R40_UNIFIED_SFX_MAP.keys())}
@@ -188,6 +188,15 @@ SFX_PRESETS.update({
     "spec_kit_converge": {"desc": "Spec Kit 0건 누락 수렴 완성 청아한 화음", "freq_hz": [528, 660, 792, 1056], "dur_ms": 250, "wave": "sine", "gain": 0.16},
     "egolite_bundle_snap": {"desc": "Ego-Lite 단일 IIFE 액션 번들링 찰칵 스냅", "freq_hz": [1200, 1800, 2400], "dur_ms": 80, "wave": "square", "gain": 0.19},
 })
+
+# [RGON-R52-COMMANDER-TWIN-SFX] — 제28기관 아온 대표님 인지 디지털 트윈 & 무인 대행 사령관 4종 효과음 확장 (Step 52)
+SFX_PRESETS.update({
+    "commander_twin_awaken": {"desc": "대표님 디지털 트윈 사령관 각성 장엄한 징 화음", "freq_hz": [392, 587, 784, 1175], "dur_ms": 320, "wave": "sine", "gain": 0.20},
+    "dna_7stage_flow": {"desc": "이상일 대표님 7단계 일처리 DNA 광속 관통 아르페지오", "freq_hz": [523, 659, 784, 1046, 1318, 1568, 2093], "dur_ms": 280, "wave": "sine", "gain": 0.18},
+    "pocket_one_tap_dispatch": {"desc": "스마트폰 엄지 1-Tap 원터치 즉각 지휘 찰칵 스냅", "freq_hz": [880, 1760], "dur_ms": 70, "wave": "triangle", "gain": 0.19},
+    "sovereign_seal_approve": {"desc": "대표님 원터치 주권 옥새 날인 쿵 사운드", "freq_hz": [196, 392], "dur_ms": 220, "wave": "square", "gain": 0.22},
+})
+
 
 
 

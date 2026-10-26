@@ -1,8 +1,8 @@
 {
-  "version": "v11.50-AON-TOKEN-EGOLITE-MASTER",
-  "antibody": "R1~R51",
+  "version": "v11.51-AON-COMMANDER-TWIN",
+  "antibody": "R1~R52",
   "generated_at_kst": "2026-10-26 00:23:49 KST",
-  "count": 47,
+  "count": 48,
   "skills": [
     {
       "slug": "1-36-45",
@@ -455,14 +455,29 @@
       ],
       "path": "skills/aon_token_egolite_master/SKILL.md",
       "description": "GitHub 토큰 절약 TOP 7 4대 가드 + 세계 7대 AI 코딩스택 Spec Kit 수렴 + Ego-Lite 에이전트 브라우저 5대 원리"
+    },
+    {
+      "index": 48,
+      "slug": "aon_commander_digital_twin",
+      "name": "aon_commander_digital_twin",
+      "version": "v11.51-AON-COMMANDER-TWIN",
+      "antibody": "R52",
+      "organ": "rgon_aon_commander_twin.py",
+      "title": "아온 대표님 인지 디지털 트윈 & 노트북·스마트폰 무인 대행 사령관",
+      "hexagrams": [
+        "#01",
+        "#30"
+      ],
+      "path": "skills/aon_commander_digital_twin/SKILL.md",
+      "description": "이상일 대표님의 7단계 일처리 DNA(The Sang-Il Command Loop) 파이프라인 + 노트북 단독 무인 대행 & 스마트폰 1-Tap 1초 지휘 직결"
     }
   ],
-  "total": 47,
-  "skill_count": 47,
-  "antibody_range": "R1~R51",
-  "antibodies": "R1~R51",
-  "updated": "2026-10-26T22:15:11",
+  "total": 48,
+  "skill_count": 48,
+  "antibody_range": "R1~R52",
+  "antibodies": "R1~R52",
+  "updated": "2026-10-26T22:54:59",
   "synced_at_kst": "2026-10-26 21:30:00 KST",
-  "immune": "R1~R51",
-  "total_skills": 47
+  "immune": "R1~R52",
+  "total_skills": 48
 }

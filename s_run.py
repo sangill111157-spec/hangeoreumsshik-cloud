@@ -775,6 +775,16 @@ def handle_api_aon_token_egolite_master(method="GET", params=None):
     prompt = p.get("prompt") or p.get("order") or "토큰 초절약 및 에고라이트 실행"
     return _tm.route_token_egolite_intent(prompt)
 
+# [RGON-R52-API-COMMANDER-TWIN]
+def handle_api_aon_commander_twin(method="GET", params=None):
+    """/api/aon_commander_twin (GET/POST) 엔드포인트 핸들러"""
+    import rgon_aon_commander_twin as _twin
+    p = params or {}
+    prompt = p.get("prompt") or p.get("order") or p.get("goal") or "7단계 무인 대행 실행"
+    mode = p.get("mode", "laptop_auto")
+    eng = _twin.get_commander_twin()
+    return eng.commander_dna_pipeline(prompt, mode=mode)
+
 if __name__ == "__main__":
     sys.exit(main())
 

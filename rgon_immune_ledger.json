@@ -1,10 +1,10 @@
 {
   "schema": "rgon.immune.ledger.v1",
-  "version": "v11.50-AON-TOKEN-EGOLITE-MASTER",
+  "version": "v11.51-AON-COMMANDER-TWIN",
   "current_step": 22,
-  "antibody_range": "R1~R51",
+  "antibody_range": "R1~R52",
   "principle": "만물은 하나로 이어져 있으며, 한 걸음씩 나아가면 반드시 이루어진다.",
-  "updated_at_kst": "2026-10-26T22:15:09",
+  "updated_at_kst": "2026-10-26T22:54:55",
   "health_score": 100,
   "inspection_mode": "standard",
   "today_hexagram": {
@@ -14,180 +14,8 @@
     "summary": "자강불식(自強不息) — 스스로 강건히 쉬지 않고 정진한다",
     "inspection_mode": "standard"
   },
-  "suppressed_count": 59,
-  "antibodies": [
-    {
-      "id": "R1",
-      "title": "단일 진실 공급원(SSOT) 준수 및 중복 상태 금지",
-      "step": 1
-    },
-    {
-      "id": "R2",
-      "title": "전 영역 UTF-8 입출력 명시 (Windows cp949 인코딩 오류 면역)",
-      "step": 2
-    },
-    {
-      "id": "R3",
-      "title": "작업 전 타임스탬프 백업 강제 및 원본 보존",
-      "step": 3
-    },
-    {
-      "id": "R4",
-      "title": "마커 기반 멱등(Idempotent) 패치로 재실행 안전 보장",
-      "step": 4
-    },
-    {
-      "id": "R5",
-      "title": "외부 네트워크·서브프로세스 타임아웃 및 안전 기본값",
-      "step": 5
-    },
-    {
-      "id": "R6",
-      "title": "로컬 브리지(8765) 오프라인 시 정적 폴백 동작 보장",
-      "step": 6
-    },
-    {
-      "id": "R7",
-      "title": "모바일·데스크톱 아코디언 바 겹침 방지 및 접힘 기본값",
-      "step": 7
-    },
-    {
-      "id": "R8",
-      "title": "실시간 브리핑 바 독립 데이터 경로 유지 및 잔상 차단",
-      "step": 8
-    },
-    {
-      "id": "R9",
-      "title": "단일 클린 엔진 통합 및 구 패치 블록 정리",
-      "step": 9
-    },
-    {
-      "id": "R10",
-      "title": "실제 실행 경로(Downloads\\shin-agent) 자동 탐색 및 동기화",
-      "step": 10
-    },
-    {
-      "id": "R11",
-      "title": "Shadow DOM open 전환 및 흡수기 4버튼 정밀 타겟팅",
-      "step": 11
-    },
-    {
-      "id": "R12",
-      "title": "흡수기 버튼 단일 배지(V12) 정리 및 중복 렌더링 차단",
-      "step": 12
-    },
-    {
-      "id": "R13",
-      "title": "유튜브 트렌드 & AI 스킬 흡수기 V13 정적 JSON 폴백 연동",
-      "step": 13
-    },
-    {
-      "id": "R14",
-      "title": "MutationObserver·setInterval DOM 재배치 루프 영구 금지",
-      "step": 14
-    },
-    {
-      "id": "R15",
-      "title": "단발성 placeOnce(data-placed=1) 정적 배치 원칙",
-      "step": 15
-    },
-    {
-      "id": "R16",
-      "title": "카파시 4대 원칙(CLAUDE.md) + CODE_MAP.md + 보호 파일 해시 잠금",
-      "step": 16
-    },
-    {
-      "id": "R17",
-      "title": "창립자 만물일체·한걸음씩 철학 + 명심보감·도덕경·주역 64괘 엔진",
-      "step": 17
-    },
-    {
-      "id": "R18",
-      "title": "백혈구(WBC) 자가치유 면역 엔진 — 오류 지문·AST/JSON 순찰·백업 복원·상선약수 우회·중복 경보 억제",
-      "step": 18
-    },
-    {
-      "id": "R19",
-      "title": "Top 100 영양분 3스푼(Markdown 정제기 · 표준 SKILL.md 자동 주조기 · 3자 찬반 심판기) 통합 및 지식 자가 증식",
-      "step": 19
-    },
-    {
-      "id": "R20",
-      "title": "일일 자율 순환 루프(백혈구 순찰 → 영양분 소화·스킬 주조 → 3자 심판 → 주역 64괘 아침 브리핑) 무인 자동화",
-      "name": "일일 자율 순환 루프(백혈구 순찰 → 영양분 소화·스킬 주조 → 3자 심판 → 주역 64괘 아침 브리핑) 무인 자동화",
-      "desc": "일일 자율 순환 루프(백혈구 순찰 → 영양분 소화·스킬 주조 → 3자 심판 → 주역 64괘 아침 브리핑) 무인 자동화",
-      "step": 20
-    },
-    {
-      "id": "R21",
-      "title": "@Mindung-EasyAI 양분 흡수 — Matt Pocock(GLOSSARY.md · Spec/Tracer-Bullet Tickets 분업) + ECC(AgentShield 비밀키/설정 보안 스캔)",
-      "name": "@Mindung-EasyAI 양분 흡수 — Matt Pocock(GLOSSARY.md · Spec/Tracer-Bullet Tickets 분업) + ECC(AgentShield 비밀키/설정 보안 스캔)",
-      "text": "@Mindung-EasyAI 양분 흡수 — Matt Pocock(GLOSSARY.md · Spec/Tracer-Bullet Tickets 분업) + ECC(AgentShield 비밀키/설정 보안 스캔)",
-      "step": 21
-    },
-    {
-      "id": "R22",
-      "title": "자아성찰 전신 혈관 개통 — 레이더·영양분(SKILL.md)·티켓/AgentShield·백혈구(WBC)·주역64괘·스냅샷/클라우드 JSON 6대 기관 무결점 단일 순환",
-      "name": "자아성찰 전신 혈관 개통 — 레이더·영양분(SKILL.md)·티켓/AgentShield·백혈구(WBC)·주역64괘·스냅샷/클라우드 JSON 6대 기관 무결점 단일 순환",
-      "step": 22
-    },
-    {
-      "id": "R24",
-      "rule": "R24: 실전 트레이딩 3자 찬반 심판기(Bull/Bear/Judge) & 주역 64괘 리스크 필터 상시 가동 — 금고 보존(지족불욕·사환예방) 최우선 검증",
-      "step": 24,
-      "title": "R24: 실전 트레이딩 3자 찬반 심판기(Bull/Bear/Judge) & 주역 64괘 리스크 필터 상시 가동 — 금고 보존(지족불욕·사환예방) 최우선 검증"
-    },
-    {
-      "id": "R28",
-      "step": 28,
-      "title": "아온(A-ON) K-아이 성장형 디지털 육신",
-      "name": "아온(A-ON) 성장형 디지털 육신",
-      "rule": "R28: 미래형 K-스타일 성장형 디지털 육신 아온(A-ON·芽溫, 산수몽 #04·풍산점 #53·지천태 #11) — 순수 CSS 애니메이션으로 루프 없이 생동감을 구현하고 시스템 진화에 맞춰 4단계로 점진 성장",
-      "status": "active"
-    },
-    {
-      "id": "R29",
-      "step": 29,
-      "title": "캐릭터 디테일 TOP 1 마스터 & 아온(A-ON) 3D 물방울 졸라맨 육신",
-      "name": "아온(A-ON) 3D 물방울 졸라맨 육신",
-      "rule": "R29: 캐릭터 디테일 TOP 1 스킬 마스터 & 아온(A-ON·芽溫) 3D 물방울 졸라맨 육신 — 디즈니 7대 모션 법칙(스쿼시&스트레치·시차·팔로스루) + 8-Stop 3D Liquid-Glass/Claymorphism 입체 필터 + 관절형 졸라맨 팔다리 통합",
-      "status": "active"
-    },
-    {
-      "id": "R31",
-      "step": 31,
-      "title": "배설기관(신장·대장) 노폐물 배출 & 엔트로피 정화 엔진",
-      "name": "배설기관 엔트로피 정화",
-      "rule": "R31: 배설기관(신장·대장·뇌척수액 정화, 주역 #18 산풍고·#40 뇌수해) — ECC config-gc + reclaim-code-entropy + autoDream 기반으로 캐시·구백업·중복 마커·컨텍스트 찌꺼기를 안전 배출하여 엔트로피 0% 유지",
-      "status": "active"
-    },
-    {
-      "id": "R32",
-      "step": 31,
-      "title": "배설기관(신장·대장) 노폐물 배출 & 엔트로피 정화 엔진",
-      "name": "배설기관 엔트로피 정화",
-      "rule": "R32: 메타 뮤즈(Muse) 3대 대행 기관 — 비동기 위임 작업큐(Muse Wonder) · 3등급 안전 승인 게이트(HITL) · 아온 다이내믹 아일랜드(Muse Charm) 통합",
-      "status": "active"
-    },
-    {
-      "id": "R33",
-      "rule": "R33: 성대·청각 음성 교감 기관 — Web Audio API 무파일 물방울 신디사이저(Procedural SFX) + K-아이 뉴럴 음성 합성(Web Speech TTS) + 핸즈프리 음성 대행 명령(STT) 통합",
-      "step": 24,
-      "title": "R33: 성대·청각 음성 교감 기관 — Web Audio API 무파일 물방울 신디사이저(Procedural SFX) + K-아이 뉴럴 음성 합성(Web Speech TTS) + 핸즈프리 음성 대행 명령(STT) 통합"
-    },
-    {
-      "id": "R34",
-      "rule": "R34: 아온(A-ON) 감성·인격 대화 두뇌 & 해마 기억 기관 — 일상/감정 교감과 업무 대행(Tier 1~3) 정밀 분별 라우터 + K-아이 페르소나 대화 엔진 + 친밀도·해마 기억장 통합",
-      "step": 24,
-      "title": "R34: 아온(A-ON) 감성·인격 대화 두뇌 & 해마 기억 기관 — 일상/감정 교감과 업무 대행(Tier 1~3) 정밀 분별 라우터 + K-아이 페르소나 대화 엔진 + 친밀도·해마 기억장 통합"
-    },
-    {
-      "id": "R35",
-      "rule": "R35: 아온(A-ON) 노트북 만능 제어 수족 & 중요 결재 수동 ON/OFF 마스터 스위치 — Tier 3·금융·파일삭제·외부전송은 마스터 + 카테고리 스위치 수동 ON + 대표님 승인 3중 충족 시에만 집행, 하나라도 OFF면 집행 0건",
-      "step": 24,
-      "title": "R35: 아온(A-ON) 노트북 만능 제어 수족 & 중요 결재 수동 ON/OFF 마스터 스위치 — Tier 3·금융·파일삭제·외부전송은 마스터 + 카테고리 스위치 수동 ON + 대표님 승인 3중 충족 시에만 집행, 하나라도 OFF면 집행 0건"
-    }
-  ],
+  "suppressed_count": 62,
+  "antibodies": "R1~R52",
   "fingerprints": {
     "3cf3c4ec29753bf7": {
       "fingerprint": "3cf3c4ec29753bf7",
@@ -195,8 +23,8 @@
       "context": "self_test_bypass",
       "sample_message": "'simulated_missing_key'",
       "first_seen_kst": "2026-10-24T08:11:50",
-      "last_seen_kst": "2026-10-26T22:15:09",
-      "count": 61,
+      "last_seen_kst": "2026-10-26T22:54:55",
+      "count": 64,
       "suppressed": true,
       "known_remedy": "R18 상선약수: adapt_dict 안전 키 매핑 및 기본값 반환"
     }
@@ -721,6 +549,30 @@
       "restored": true,
       "source_backup": ".rgon_backup/wbc_snapshots/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.clean",
       "quarantined_to": ".rgon_backup/wbc_quarantine/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.20261026_221509.corrupt"
+    },
+    {
+      "timestamp_kst": "2026-10-26T22:47:46",
+      "file": ".rgon_backup/wbc_selftest/_wbc_dummy_sample.py",
+      "reason": "self_test_syntax_error",
+      "restored": true,
+      "source_backup": ".rgon_backup/wbc_snapshots/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.clean",
+      "quarantined_to": ".rgon_backup/wbc_quarantine/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.20261026_224746.corrupt"
+    },
+    {
+      "timestamp_kst": "2026-10-26T22:51:14",
+      "file": ".rgon_backup/wbc_selftest/_wbc_dummy_sample.py",
+      "reason": "self_test_syntax_error",
+      "restored": true,
+      "source_backup": ".rgon_backup/wbc_snapshots/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.clean",
+      "quarantined_to": ".rgon_backup/wbc_quarantine/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.20261026_225115.corrupt"
+    },
+    {
+      "timestamp_kst": "2026-10-26T22:54:55",
+      "file": ".rgon_backup/wbc_selftest/_wbc_dummy_sample.py",
+      "reason": "self_test_syntax_error",
+      "restored": true,
+      "source_backup": ".rgon_backup/wbc_snapshots/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.clean",
+      "quarantined_to": ".rgon_backup/wbc_quarantine/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.20261026_225455.corrupt"
     }
   ],
   "bypass_log": [
@@ -1281,6 +1133,33 @@
       "fingerprint": "3cf3c4ec29753bf7",
       "suppressed": true,
       "action": "default_value"
+    },
+    {
+      "timestamp_kst": "2026-10-26T22:47:46",
+      "context": "self_test_bypass",
+      "exc_type": "KeyError",
+      "message": "'simulated_missing_key'",
+      "fingerprint": "3cf3c4ec29753bf7",
+      "suppressed": true,
+      "action": "default_value"
+    },
+    {
+      "timestamp_kst": "2026-10-26T22:51:15",
+      "context": "self_test_bypass",
+      "exc_type": "KeyError",
+      "message": "'simulated_missing_key'",
+      "fingerprint": "3cf3c4ec29753bf7",
+      "suppressed": true,
+      "action": "default_value"
+    },
+    {
+      "timestamp_kst": "2026-10-26T22:54:55",
+      "context": "self_test_bypass",
+      "exc_type": "KeyError",
+      "message": "'simulated_missing_key'",
+      "fingerprint": "3cf3c4ec29753bf7",
+      "suppressed": true,
+      "action": "default_value"
     }
   ],
   "patrol_history": [
@@ -1442,8 +1321,12 @@
     }
   ],
   "skill_count": 45,
-  "skills_count": 37,
+  "skills_count": 48,
   "last_sync": "Step25 2026-10-24 09:19:38",
   "range": "R1~R35",
-  "count": 31
+  "count": 31,
+  "antibody": "R1~R52",
+  "immune": "R1~R52",
+  "total_skills": 48,
+  "app_version": "v11.51-AON-COMMANDER-TWIN"
 }

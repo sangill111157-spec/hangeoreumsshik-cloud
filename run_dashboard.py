@@ -1439,6 +1439,25 @@ class DashboardHandler(SimpleHTTPRequestHandler):
             self.wfile.write(body)
             return
 
+        # 👑 [Step 52 · R52] 제28기관 아온 대표님 인지 디지털 트윈 상태 (GET /api/aon_commander_twin)
+        if path == '/api/aon_commander_twin':
+            try:
+                import rgon_aon_commander_twin as _r52_twin
+                eng = _r52_twin.get_commander_twin()
+                res_data = eng.laptop_only_autopilot("대시보드 실시간 상태 조회")
+            except Exception as e:
+                res_data = {"ok": False, "error": str(e), "status": "ERROR"}
+            body = json.dumps(res_data, ensure_ascii=False).encode('utf-8')
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Cache-Control", "no-store")
+            self.end_headers()
+            self.wfile.write(body)
+            return
+
+
         # 🏛️ [v8.5] 제6청사 총무·재무회계 1원 복식부기 실시간 상태 (GET /api/treasury-status)
         if path == '/api/treasury-status':
             try:
@@ -2430,6 +2449,29 @@ class DashboardHandler(SimpleHTTPRequestHandler):
                 prompt = post_data.get("prompt") or post_data.get("order") or "토큰 초절약 및 에고라이트 번들링 실행"
                 import rgon_aon_token_egolite_master as _r51_master
                 resp = _r51_master.route_token_egolite_intent(prompt)
+            except Exception as e:
+                resp = {"status": "error", "ok": False, "message": str(e)}
+
+            body = json.dumps(resp, ensure_ascii=False).encode("utf-8")
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(body)
+            return
+
+        # 👑 [Step 52 · R52] 제28기관 아온 대표님 인지 디지털 트윈 실행 (POST /api/aon_commander_twin)
+        if self.path == '/api/aon_commander_twin':
+            length = int(self.headers.get('Content-Length', 0))
+            raw_body = self.rfile.read(length) if length > 0 else b'{}'
+            try:
+                post_data = json.loads(raw_body.decode('utf-8')) if raw_body else {}
+                prompt = post_data.get("prompt") or post_data.get("order") or post_data.get("goal") or "7단계 무인 대행 실행"
+                mode = post_data.get("mode", "laptop_auto")
+                import rgon_aon_commander_twin as _r52_twin
+                eng = _r52_twin.get_commander_twin()
+                resp = eng.commander_dna_pipeline(prompt, mode=mode)
             except Exception as e:
                 resp = {"status": "error", "ok": False, "message": str(e)}
 

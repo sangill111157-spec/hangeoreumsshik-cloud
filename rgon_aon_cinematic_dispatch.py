@@ -5,7 +5,7 @@
 주역 괘상: #55 뇌화풍(雷火豐 ☳☲) · #45 택지취(澤地萃 ☱☷). 표준 라이브러리 전용. 백그라운드 데몬 생성 0건."""
 import json, os, re, sys, time, tempfile, shutil
 
-VERSION = "v11.50-AON-TOKEN-EGOLITE-MASTER"
+VERSION = "v11.51-AON-COMMANDER-TWIN"
 ANTIBODY = "R45"
 ORGAN_NO = 21
 STATE_NAME = "rgon_aon_dispatch_state.json"

@@ -111,5 +111,8 @@
 - 기관: 제27기관 아온 토큰 90% 초절약 & 7대 코딩스택·에고라이트 마스터 엔진 (`rgon_aon_token_egolite_master.py`)
 - 핵심: GitHub 토큰 절약 TOP 7 4대 가드 + 세계 7대 AI 코딩스택 Spec Kit 수렴 + Ego-Lite 에이전트 브라우저 5대 원리
 
-
-
+<!-- [RGON-SKILL-48] -->
+## 48. `aon_commander_digital_twin` (R52 · v11.51-AON-COMMANDER-TWIN)
+- 경로: `skills/aon_commander_digital_twin/SKILL.md`
+- 기관: 제28기관 아온 대표님 인지 디지털 트윈 & 노트북·스마트폰 무인 대행 사령관 (`rgon_aon_commander_twin.py`)
+- 핵심: 이상일 대표님의 7단계 일처리 DNA(The Sang-Il Command Loop) 파이프라인 + 노트북 단독 무인 대행 & 스마트폰 1-Tap 1초 지휘 직결

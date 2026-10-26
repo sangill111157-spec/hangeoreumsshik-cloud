@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """rgon_aon_dialogue_engine.py — 제15기관 아온 초격차 대화 이해 & 올인원 대화 허브 (표준 라이브러리 전용)
-[RGON-R39] v11.50-AON-TOKEN-EGOLITE-MASTER
+[RGON-R39] v11.51-AON-COMMANDER-TWIN
 파이프라인: 구어 정규화 → 대명사·생략어 복원 → 슬래시/원칙/복합의도 분기 → 기관 디스패치
           → 플랫폼 메타데이터(thinking·artifact·chips·callback) 보강 → 3계층 해마 기억(단기·토픽·연상).
 한계: 사전·정규식 기반 규칙 엔진이다. 언어모델이 아니므로 처음 보는 표현은 놓칠 수 있다."""
@@ -8,7 +8,7 @@ import argparse, datetime, json, os, re, sys, tempfile, time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-VERSION = "v11.50-AON-TOKEN-EGOLITE-MASTER"
+VERSION = "v11.51-AON-COMMANDER-TWIN"
 STATE, PREFS = "rgon_aon_dialogue_state.json", "rgon_aon_preferences.json"
 SHORT_MAX, EVENT_MAX, FRESH_TURNS, FRESH_SEC = 20, 60, 4, 1800
 CAT_KO = {"command_rule": "지휘 원칙", "style": "스타일", "preference": "취향"}
@@ -591,8 +591,8 @@ import os as _o40, re as _re40, json as _j40, time as _t40, sys as _s40
 import shutil as _sh40, inspect as _in40, importlib as _il40
 from pathlib import Path as _P40
 
-R40_VERSION = "v11.50-AON-TOKEN-EGOLITE-MASTER"
-R40_ANTIBODY = "R1~R51"
+R40_VERSION = "v11.51-AON-COMMANDER-TWIN"
+R40_ANTIBODY = "R1~R52"
 _R40_HERE = _P40(__file__).resolve().parent
 _R40_NAMES = ("_call_iching", "_call_hands", "_call_soul", "_call_insight",
               "_call_playground", "_call_brat", "normalize_colloquial")
@@ -1257,7 +1257,7 @@ def _r41_plan_response(arg):
         "recommended_branch": p.get("recommended_branch"),
         "three_branch_tree": p.get("three_branch_tree"), "action_items": p.get("action_items"),
         "shichen_schedule": p.get("shichen_schedule"), "plan": p,
-        "version": "v11.50-AON-TOKEN-EGOLITE-MASTER",
+        "version": "v11.51-AON-COMMANDER-TWIN",
     }
 
 
@@ -1736,7 +1736,7 @@ def r47_zeroclick_route(text, out_dir=None):
         res = _zc.route_command(t, out_dir=out_dir)
         return {
             "ok": bool(res.get("ok")),
-            "version": "v11.50-AON-TOKEN-EGOLITE-MASTER",
+            "version": "v11.51-AON-COMMANDER-TWIN",
             "antibody": "R47",
             "intent": "zeroclick_studio",
             "intents": ["zeroclick_studio"],
@@ -1818,7 +1818,7 @@ def _r49_vibe3d_route(msg):
         res = _vd.route_vibe3d_intent(m)
         return {
             "ok": bool(res.get("ok")),
-            "version": "v11.50-AON-TOKEN-EGOLITE-MASTER",
+            "version": "v11.51-AON-COMMANDER-TWIN",
             "antibody": "R49",
             "intent": "vibe3d_director",
             "intents": ["vibe3d_director"],
@@ -1846,7 +1846,7 @@ def _r50_impeccable_route(msg):
         res = _shield.route_impeccable_intent(m)
         return {
             "ok": bool(res.get("ok")),
-            "version": "v11.50-AON-TOKEN-EGOLITE-MASTER",
+            "version": "v11.51-AON-COMMANDER-TWIN",
             "antibody": "R50",
             "intent": "impeccable_shield",
             "intents": ["impeccable_shield"],
@@ -1874,7 +1874,7 @@ def _r51_token_egolite_route(msg):
         res = _token_master.route_token_egolite_intent(m)
         return {
             "ok": bool(res.get("ok")),
-            "version": "v11.50-AON-TOKEN-EGOLITE-MASTER",
+            "version": "v11.51-AON-COMMANDER-TWIN",
             "antibody": "R51",
             "intent": "token_egolite_master",
             "intents": ["token_egolite_master"],
@@ -1911,6 +1911,66 @@ for _n in ("r40_route", "route", "process_dialogue", "route_command", "handle_me
     if callable(_f) and not getattr(_f, "__r51__", False):
         globals()[_n] = _r51_wrap(_f)
 # [RGON-R51-TOKEN-EGOLITE-ROUTE-END]
+
+# [RGON-R52-COMMANDER-TWIN-ROUTE-START]
+R52_COMMANDER_TWIN_TRIGGERS = [
+    "/r52", "/twin", "/commander", "/대표님", "/트윈", "나를 대신해", "대표님 방식",
+    "디지털 트윈", "디지털트윈", "무인 대행", "무인대행", "스마트폰 지휘", "노트북 단독",
+    "상선약수 비움", "7단계 dna", "실전 눈 검열"
+]
+
+def _r52_commander_twin_route(msg):
+    m = str(msg or "").strip()
+    low = m.lower()
+    if not any(k in m or k in low for k in R52_COMMANDER_TWIN_TRIGGERS):
+        return None
+    try:
+        import rgon_aon_commander_twin as _twin
+        eng = _twin.get_commander_twin()
+        res = eng.commander_dna_pipeline(m, mode="dialogue_auto")
+        speech = "👑 [제28기관 아온 대표님 인지 디지털 트윈] 이상일 대표님의 7단계 DNA 무인 대행 완결! (신경망 100.0 수렴)"
+        return {
+            "ok": bool(res.get("all_passed")),
+            "version": "v11.51-AON-COMMANDER-TWIN",
+            "antibody": "R52",
+            "intent": "commander_twin",
+            "intents": ["commander_twin"],
+            "speech": speech,
+            "commander_twin": res,
+            "data": res,
+            "results": [{"intent": "commander_twin", "ok": bool(res.get("all_passed")), "speech": speech, "data": res}],
+        }
+    except Exception as _ex:
+        return {"ok": False, "error": str(_ex)}
+
+def _r52_wrap(_fn):
+    def _w(*a, **k):
+        _txt = a[0] if a and isinstance(a[0], str) else (a[1] if len(a) > 1 and isinstance(a[1], str) else k.get("text") or k.get("message") or k.get("utterance"))
+        if _txt:
+            _r52 = _r52_commander_twin_route(_txt)
+            if _r52 is not None:
+                return _r52
+            _r51 = _r51_token_egolite_route(_txt)
+            if _r51 is not None:
+                return _r51
+            _r50 = _r50_impeccable_route(_txt)
+            if _r50 is not None:
+                return _r50
+            _r49 = _r49_vibe3d_route(_txt)
+            if _r49 is not None:
+                return _r49
+            _r48 = _r48_haesang_route(_txt)
+            if _r48 is not None:
+                return _r48
+        return _fn(*a, **k)
+    _w.__r52__ = True
+    return _w
+
+for _n in ("r40_route", "route", "process_dialogue", "route_command", "handle_message", "respond", "reply", "dialogue"):
+    _f = globals().get(_n)
+    if callable(_f) and not getattr(_f, "__r52__", False):
+        globals()[_n] = _r52_wrap(_f)
+# [RGON-R52-COMMANDER-TWIN-ROUTE-END]
 
 if __name__ == "__main__":
     sys.exit(main())
