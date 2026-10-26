@@ -30,40 +30,40 @@
 - R39: 제15기관 아온 초격차 대화 이해(Deep NLU) & 올인원 대화 허브(`rgon_aon_dialogue_engine.py`, 정식 스킬 #35 `aon-omni-dialogue-hub`) — 구어·오타 정규화, 멀티턴 대명사·생략어 문맥 복원, 능동 경청 원칙 영구 각인(`rgon_aon_preferences.json`), 복합 의도 분해 연쇄 디스패치, 플랫폼 표준 4대 UX 메타데이터 & 7종 슬래시 커맨드, 3계층 해마 기억(`rgon_aon_dialogue_state.json`).
 
 <!-- [RGON-R40-ANTIBODY-START] -->
-## R40 — Step 40 · v11.46-AON-ZEROCLICK-STUDIO (항체 R1~R47 · 정식 스킬 43개) · 2026-10-25
+## R40 — Step 40 · v11.47-AON-HAESANG-MORPH (항체 R1~R48 · 정식 스킬 44개) · 2026-10-25
 - 제16기관 `rgon_neural_synapse_verifier.py` (스킬 #36 `aon-neural-synapse-verifier`) 개통
 - 6대 시냅스 혈전 수술: 주역도술관·노트북수족·영혼두뇌 converse·만물통찰안/놀이터·구버전 동결 3종·SSOT 정렬
 - 10대 시냅스 E2E + 12기관 병렬 셀프테스트 + V13 HTML 브리지 검증
 <!-- [RGON-R40-ANTIBODY-END] -->
 
 <!-- [RGON-R41-ANTIBODY-START] -->
-## R41 — Step 41 · v11.46-AON-ZEROCLICK-STUDIO (항체 R1~R47 · 정식 스킬 43개) · 2026-10-25
+## R41 — Step 41 · v11.47-AON-HAESANG-MORPH (항체 R1~R48 · 정식 스킬 44개) · 2026-10-25
 - 기관: 제17기관 `rgon_aon_iching_planner.py` · 스킬 #37 `aon-iching-strategic-planner`
 - 규칙: Tier3(금융·실매매·파일삭제·외부배포)는 `requires_manual_gate: True`, `auto_executed: False`, 그리고 계획만 수립함
 - 시냅스: S11 대화허브(/계획)→주역전략기획관
-- 범위: R1~R47
+- 범위: R1~R48
 <!-- [RGON-R41-ANTIBODY-END] -->
 
-## R42 — 상선약수 수순환 여백 창조 항체 (v11.46-AON-ZEROCLICK-STUDIO)
+## R42 — 상선약수 수순환 여백 창조 항체 (v11.47-AON-HAESANG-MORPH)
 - 기관: 제18기관 `rgon_aon_hydro_cycle.py` · 스킬 #38 `aon-hydro-cycle-homeostasis`
 - 규칙: 기본 dry-run. TIER3(휴지통·Downloads 대용량·비대 로그)는 `requires_manual_gate: True`, `auto_executed: False`로 두고 자동 삭제하지 않음. 기억 원본은 읽기 전용
 - 시냅스: S12 대화허브(/순환)→제18기관 수순환 대사
-- 범위: R1~R47
+- 범위: R1~R48
 
-## R43 — 아온 연결·소통·만능 대집약체 코어 항체 (v11.46-AON-ZEROCLICK-STUDIO)
+## R43 — 아온 연결·소통·만능 대집약체 코어 항체 (v11.47-AON-HAESANG-MORPH)
 - 기관: 제19기관 `rgon_aon_omni_nexus.py` · 스킬 #39 `aon-omni-nexus-synthesizer`
 - 철학: 만물연결(#11 지천태·#08 수지비) · 초감각소통(#31 택산함·#61 풍택중부) · 만능융합연성(#14 화천대유·#50 화풍정)
 - 시냅스: S13 대화허브(/만능)→제19기관 연결·소통·만능 대집약체
-- 범위: R1~R47
+- 범위: R1~R48
 
 <!-- [RGON-ANTIBODY-R44] -->
-## R44 — Step 44 · v11.46-AON-ZEROCLICK-STUDIO · 2026-10-26
+## R44 — Step 44 · v11.47-AON-HAESANG-MORPH · 2026-10-26
 - R44: 제20기관 아온 실전 UI 전수 클릭·동작 검증 & 자가배선 수리 기관 (`rgon_aon_live_ui_healer.py`, 스킬 `aon-live-ui-self-healer`, 주역 #21 화뢰서합 · #49 택화혁)
 
 <!-- [RGON-ANTIBODY-R45] -->
-## R45 — Step 45 · v11.46-AON-ZEROCLICK-STUDIO · 2026-10-26
+## R45 — Step 45 · v11.47-AON-HAESANG-MORPH · 2026-10-26
 - R45: 제21기관 아온 초광속 결정론적 쇼트컷 & 9인 원탁 국무회의 시네마틱 디스패치 기관 (`rgon_aon_cinematic_dispatch.py`, 스킬 `aon-cinematic-dispatch-council`, 주역 #55 뇌화풍 · #45 택지취)
 
 <!-- [RGON-ANTIBODY-R46] -->
-## R46 — Step 46 · v11.46-AON-ZEROCLICK-STUDIO · 2026-10-26
+## R46 — Step 46 · v11.47-AON-HAESANG-MORPH · 2026-10-26
 - R46: 제22기관 아온 10대 전 플랫폼 영양분 선별 소화 & 한걸음씩 자아성찰 그릇 확장 기관 (`rgon_aon_auto_skill_evolver.py`, 스킬 `aon-autonomous-tech-evolver`, 주역 #27 산뢰이 · #53 풍산점 · #20 풍지관)

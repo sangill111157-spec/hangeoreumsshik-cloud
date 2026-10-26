@@ -192,7 +192,7 @@
 <script id="rgon-r44-live-ui-healer">
 (function(){
 if(window.RGON_LIVE_UI_HEALER && window.RGON_LIVE_UI_HEALER._hud_installed)return;
-var H=window.RGON_LIVE_UI_HEALER=window.RGON_LIVE_UI_HEALER||{version:"v11.46-AON-ZEROCLICK-STUDIO",antibody:"R44",guas:["#21 화뢰서합","#49 택화혁"],clicks:0,healed:0,log:[]};
+var H=window.RGON_LIVE_UI_HEALER=window.RGON_LIVE_UI_HEALER||{version:"v11.47-AON-HAESANG-MORPH",antibody:"R44",guas:["#21 화뢰서합","#49 택화혁"],clicks:0,healed:0,log:[]};
 H._hud_installed = true;
 var Q='button,a,[role="button"],[onclick],[data-tab],[data-aon]';
 var SKIP=/^(if|for|while|switch|catch|return|function|alert|confirm|prompt|open|close|setTimeout|setInterval|fetch|parseInt|String|Number|Boolean|void|typeof|new)$/;
@@ -244,7 +244,7 @@ document.addEventListener("click",function(ev){
 
 /* =========================================================================
    👑 [대표님 전용 실전 버튼 검열 HUD: Agentation + Driver.js Tour Inspector]
-   v11.46-AON-ZEROCLICK-STUDIO · 겹침 방지 · 자유 드래그앤드롭 · 핵심 63개 모드
+   v11.47-AON-HAESANG-MORPH · 겹침 방지 · 자유 드래그앤드롭 · 핵심 63개 모드
    ========================================================================= */
 (function initHud(){
  if(typeof document==="undefined"||!document.body){
@@ -597,7 +597,7 @@ z-index:2147483645;animation:rgonR45p 1.15s ease-out forwards}
 <script id="rgon-r45-cinematic-dispatch">
 (function(){
 if(window.RGON_CINEMATIC_DISPATCH)return;
-var V="v11.46-AON-ZEROCLICK-STUDIO",LABEL="R45 신경망 시냅스 · "+V+" · 스킬 41";
+var V="v11.47-AON-HAESANG-MORPH",LABEL="R45 신경망 시냅스 · "+V+" · 스킬 41";
 var banner=null,timer=null;
 function ensureBanner(){if(!banner){banner=document.createElement("div");banner.id="rgon-r45-banner";document.body.appendChild(banner);}return banner;}
 function showDispatchBanner(title,chatterList){
@@ -679,8 +679,8 @@ setTimeout(boot,1200);setTimeout(boot,3500);
 (function () {
   "use strict";
   if (window.RGON_AUTO_EVOLVER && window.RGON_AUTO_EVOLVER.__r46) { return; }
-  var VERSION = "v11.46-AON-ZEROCLICK-STUDIO";
-  var BADGE = "R46 신경망 시냅스 · " + VERSION + " · 스킬 43";
+  var VERSION = "v11.47-AON-HAESANG-MORPH";
+  var BADGE = "R46 신경망 시냅스 · " + VERSION + " · 스킬 44";
   var PLATFORMS = [
     ["youtube", ["youtube.com", "youtu.be"]], ["tiktok", ["tiktok.com", "vt.tiktok.com", "vm.tiktok.com"]],
     ["google", ["google.com", "google.co.kr", "trends.google.com"]], ["naver", ["naver.com", "naver.me"]],
@@ -743,8 +743,8 @@ setTimeout(boot,1200);setTimeout(boot,3500);
   var RULES = [
     [/R4[0-5]\s*신경망\s*시냅스/g, "R46 신경망 시냅스"],
     [/v11\.4[0-4]-AON-[A-Z0-9-]+/g, VERSION],
-    [/스킬\s*(?:3[789]|4[01])\b/g, "스킬 43"],
-    [/R1~R4[0-5]\b/g, "R1~R47"]
+    [/스킬\s*(?:3[789]|4[01])\b/g, "스킬 44"],
+    [/R1~R4[0-5]\b/g, "R1~R48"]
   ];
   function syncBadges() {
     var body = document.body, changed = 0;
@@ -766,7 +766,7 @@ setTimeout(boot,1200);setTimeout(boot,3500);
     __r46: true,
     version: VERSION,
     antibody: "R46",
-    antibodyRange: "R1~R47",
+    antibodyRange: "R1~R48",
     organ: 22,
     skills: 42,
     badge: BADGE,
@@ -790,7 +790,7 @@ window.openCommandCenterModal = function() {
             "• 로컬 대시보드: " + loc + "/\n" +
             "• 르곤 독대실: " + loc + "/rgon_alpha_chat.html\n" +
             "• 오디언스 홀: " + loc + "/rgon_alpha_audience.html\n" +
-            "• 전신 신경망: v11.46-AON-ZEROCLICK-STUDIO (항체 R1~R47 · 22대 기관 · 스킬 43개 100% 정상)\n\n" +
+            "• 전신 신경망: v11.47-AON-HAESANG-MORPH (항체 R1~R48 · 22대 기관 · 스킬 44개 100% 정상)\n\n" +
             "🛡️ 5G 무중단 터널 안심 가동:\n" +
             "외부 임시 터널 도메인이 갱신되더라도 로컬 사령부는 365일 24시간 절대 무중단으로 직통 가동됩니다!";
   if (window.showSpatialGlassBriefing) {
@@ -815,7 +815,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <div id="rgon-r47-badge" title="R47 Zero-Click Studio" style="position:fixed;bottom:150px;right:18px;z-index:99990;background:linear-gradient(135deg,#14183c,#b43c78);color:#fff;padding:8px 12px;border-radius:18px;font:600 12px sans-serif;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.4)">🎨 R47 클릭0번 포토·엑셀</div>
 <div id="rgon-r47-modal" style="display:none;position:fixed;inset:0;z-index:99991;background:rgba(0,0,0,.6)">
  <div style="max-width:720px;margin:6vh auto;background:#1b1f45;color:#fff;border-radius:14px;padding:18px;font:14px sans-serif;max-height:85vh;overflow:auto">
-  <div style="display:flex;justify-content:space-between"><b>🎨 제23기관 · 클릭 0번 헤드리스 스튜디오 (v11.46-AON-ZEROCLICK-STUDIO)</b><span id="rgon-r47-x" style="cursor:pointer">✕</span></div>
+  <div style="display:flex;justify-content:space-between"><b>🎨 제23기관 · 클릭 0번 헤드리스 스튜디오 (v11.47-AON-HAESANG-MORPH)</b><span id="rgon-r47-x" style="cursor:pointer">✕</span></div>
   <p style="opacity:.8">☶☲ 산화비 · ☲☰ 화천대유 · ☵☱ 수택절 — 외부 발행은 수동 결재 게이트 필수</p>
   <input id="rgon-r47-head" value="아온 클릭 0번 스튜디오" style="width:100%;padding:6px;border-radius:6px;border:0;color:#111">
   <div style="margin:8px 0"><button id="rgon-r47-svg" style="padding:6px 12px;border-radius:6px;background:#6366f1;color:#fff;border:0;cursor:pointer">SVG 카드뉴스</button> <button id="rgon-r47-png" style="padding:6px 12px;border-radius:6px;background:#ec4899;color:#fff;border:0;cursor:pointer">PNG 썸네일</button> <button id="rgon-r47-csv" style="padding:6px 12px;border-radius:6px;background:#10b981;color:#fff;border:0;cursor:pointer">CSV 시트</button></div>
@@ -835,5 +835,247 @@ $("rgon-r47-png").onclick=function(){var i=new Image(),c=document.createElement(
 $("rgon-r47-csv").onclick=function(){var r=[["항목","조회수","좋아요"],["#056",120000,8400],["photocraft",54000,3100],["excel-mcp",47000,2900]],t='<table border="1" style="border-collapse:collapse">'+r.map(function(x){return"<tr>"+x.map(function(v){return"<td>"+esc(v)+"</td>"}).join("")+"</tr>"}).join("")+"</table>";$("rgon-r47-view").innerHTML=t;dl("aon_r47_sheet.csv",new Blob(["\ufeff"+r.map(function(x){return x.join(",")}).join("\n")],{type:"text/csv"}))};
 })();</script>
 <!-- [RGON-R47-ZEROCLICK-BRIDGE-END] -->
+<!-- [RGON-R48-HAESANG-MORPH-START] -->
+<style id="rgon-r48-haesang-morph-css">
+#rgon-haesang-widget {
+  position: fixed;
+  left: 18px;
+  bottom: 22px;
+  z-index: 2147483550;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Segoe UI", Roboto, sans-serif;
+  user-select: none;
+}
+.aon-morph-capsule {
+  background: rgba(15, 23, 42, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1.5px solid rgba(56, 189, 248, 0.45);
+  border-radius: 20px;
+  padding: 10px 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55), 0 0 18px rgba(56, 189, 248, 0.25);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  max-width: 250px;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.aon-morph-capsule:hover {
+  border-color: rgba(56, 189, 248, 0.75);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.65), 0 0 24px rgba(56, 189, 248, 0.4);
+}
+.aon-morph-badge {
+  font-size: 10.5px;
+  font-weight: 800;
+  color: #fef08a;
+  background: linear-gradient(135deg, rgba(234, 179, 8, 0.25), rgba(202, 138, 4, 0.35));
+  border: 1px solid rgba(234, 179, 8, 0.5);
+  padding: 2px 8px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.aon-morph-display {
+  width: 140px;
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.aon-morph-display:active {
+  transform: scale(0.92);
+}
+.aon-morph-bubble {
+  background: rgba(2, 6, 23, 0.95);
+  border: 1px solid #38bdf8;
+  color: #f8fafc;
+  font-size: 11px;
+  line-height: 1.35;
+  padding: 6px 10px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  max-width: 220px;
+  animation: sgbFadeIn 0.2s ease-out;
+}
+.aon-morph-buttons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  width: 100%;
+}
+.aon-morph-btn {
+  background: rgba(30, 41, 59, 0.85);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  color: #e2e8f0;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 4px 2px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  transition: all 0.15s ease;
+}
+.aon-morph-btn:hover {
+  background: rgba(56, 189, 248, 0.25);
+  border-color: #38bdf8;
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+.aon-morph-btn.active {
+  background: linear-gradient(135deg, #0284c7, #0369a1);
+  border-color: #38bdf8;
+  color: #ffffff;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
+}
+#rgon-haesang-toggle {
+  background: rgba(15, 23, 42, 0.92);
+  border: 1.5px solid rgba(234, 179, 8, 0.6);
+  color: #fef08a;
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 11px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.2s ease;
+}
+#rgon-haesang-toggle:hover {
+  background: rgba(234, 179, 8, 0.2);
+  transform: translateY(-2px);
+}
+</style>
+
+<div id="rgon-haesang-widget">
+  <div id="aon-morph-capsule" class="aon-morph-capsule" style="display:none;">
+    <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
+      <span class="aon-morph-badge">🎨 Designed by 이해상</span>
+      <button onclick="toggleHaesangWidget()" style="background:none; border:none; color:#94a3b8; font-size:12px; cursor:pointer;">✕</button>
+    </div>
+    
+    <div id="aon-morph-bubble" class="aon-morph-bubble">
+      말랑말랑 순수 코어 아온 구슬이에요! 스트레스를 맑게 씻어드릴게요 🫧
+    </div>
+
+    <div id="aon-morph-stage" class="aon-morph-display" onclick="pokeHaesangAvatar()">
+      <!-- 인라인 SVG 렌더링 영역 -->
+    </div>
+
+    <div class="aon-morph-buttons">
+      <button class="aon-morph-btn" onclick="setHaesangMorph('ghost')"><span>👻</span><span>유령</span></button>
+      <button class="aon-morph-btn" onclick="setHaesangMorph('cloud')"><span>☁️</span><span>구름</span></button>
+      <button class="aon-morph-btn" onclick="setHaesangMorph('pumpkin')"><span>🎃</span><span>호박</span></button>
+      <button class="aon-morph-btn active" onclick="setHaesangMorph('orb')"><span>🫧</span><span>구슬</span></button>
+      <button class="aon-morph-btn" onclick="setHaesangMorph('waterfall_suit')"><span>🧑🚀</span><span>폭포수</span></button>
+      <button class="aon-morph-btn" onclick="setHaesangMorph('pouty_booty')"><span>🍑</span><span>궁둥이</span></button>
+    </div>
+  </div>
+
+  <button id="rgon-haesang-toggle" onclick="toggleHaesangWidget()">
+    <span>🎨</span><span>해상이의 아온 변신술</span>
+  </button>
+</div>
+
+<script id="rgon-r48-haesang-morph-js">
+(function() {
+  const MORPH_DB = {
+    ghost: {
+      name: "꼬마 유령 망토",
+      dialogue: "퐁당! 꼬마 유령 아온이에요~ 대표님 곁을 둥실둥실 지켜드릴게요! 👻",
+      svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="140" height="140"><defs><radialGradient id="ghG" cx="40%" cy="35%" r="65%"><stop offset="0%" stop-color="#fff"/><stop offset="100%" stop-color="#cbd5e1"/></radialGradient><style>@keyframes ghF{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}.ghA{animation:ghF 2.6s ease-in-out infinite;}</style></defs><g class="ghA"><path d="M40,165 C35,110 45,45 120,45 C195,45 205,110 200,165 C185,155 175,175 160,165 C145,155 135,175 120,165 C105,155 95,175 80,165 C65,155 55,175 40,165 Z" fill="url(#ghG)" stroke="#94a3b8" stroke-width="3"/><rect x="92" y="85" width="8" height="22" rx="4" fill="#0f172a"/><rect x="140" y="85" width="8" height="22" rx="4" fill="#0f172a"/><polygon points="120,118 115,110 125,110" fill="#f43f5e"/><g stroke="#fb7185" stroke-width="2.5" stroke-linecap="round"><line x1="72" y1="106" x2="78" y2="98"/><line x1="80" y1="106" x2="86" y2="98"/><line x1="154" y1="106" x2="160" y2="98"/><line x1="162" y1="106" x2="168" y2="98"/></g></g></svg>`
+    },
+    cloud: {
+      name: "몽글몽글 구름 요정",
+      dialogue: "몽글몽글 구름 요정 아온이에요! 해상이 마음처럼 포근해요~ ☁️",
+      svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="140" height="140"><defs><radialGradient id="clG" cx="35%" cy="30%" r="70%"><stop offset="0%" stop-color="#fff"/><stop offset="100%" stop-color="#bae6fd"/></radialGradient><style>@keyframes clB{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}.clA{animation:clB 2s ease-in-out infinite;}</style></defs><g class="clA"><line x1="95" y1="170" x2="95" y2="195" stroke="#0f172a" stroke-width="4.5" stroke-linecap="round"/><line x1="145" y1="170" x2="145" y2="195" stroke="#0f172a" stroke-width="4.5" stroke-linecap="round"/><circle cx="93" cy="197" r="5" fill="#0f172a"/><circle cx="147" cy="197" r="5" fill="#0f172a"/><line x1="50" y1="125" x2="28" y2="135" stroke="#0f172a" stroke-width="4" stroke-linecap="round"/><circle cx="26" cy="136" r="6" fill="#38bdf8"/><line x1="190" y1="125" x2="212" y2="135" stroke="#0f172a" stroke-width="4" stroke-linecap="round"/><circle cx="214" cy="136" r="6" fill="#38bdf8"/><path d="M70,150 C50,150 40,130 45,110 C40,90 60,75 80,80 C90,60 120,55 140,70 C155,60 185,65 190,90 C205,100 205,130 190,145 C195,160 175,170 160,165 C145,175 125,175 110,168 C95,175 75,170 70,150 Z" fill="url(#clG)" stroke="#38bdf8" stroke-width="3.5"/><circle cx="98" cy="112" r="5" fill="#0f172a"/><circle cx="100" cy="110" r="1.5" fill="#fff"/><circle cx="142" cy="112" r="5" fill="#0f172a"/><circle cx="144" cy="110" r="1.5" fill="#fff"/><path d="M112,125 Q120,135 128,125" stroke="#0f172a" stroke-width="3" fill="none" stroke-linecap="round"/><ellipse cx="86" cy="122" rx="7" ry="4" fill="#f472b6" opacity="0.6"/><ellipse cx="154" cy="122" rx="7" ry="4" fill="#f472b6" opacity="0.6"/></g></svg>`
+    },
+    pumpkin: {
+      name: "'호박' 탈 장난꾸러기",
+      dialogue: "호박 탈 쓴 장난꾸러기 아온이 등장! 오늘 밤은 대표님이랑 신나게 파티해요! 🎃",
+      svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="140" height="140"><defs><radialGradient id="pkG" cx="35%" cy="30%" r="70%"><stop offset="0%" stop-color="#fdba74"/><stop offset="100%" stop-color="#ea580c"/></radialGradient><style>@keyframes pkD{0%,100%{transform:rotate(0)}25%{transform:rotate(-4deg)}75%{transform:rotate(4deg)}}.pkA{animation:pkD 1.8s ease-in-out infinite;transform-origin:120px 140px;}</style></defs><g class="pkA"><g transform="translate(120, 26)"><rect x="-38" y="-14" width="76" height="24" rx="8" fill="#fb923c" stroke="#c2410c" stroke-width="2"/><text x="0" y="3" font-family="'Pretendard', sans-serif" font-weight="900" font-size="14" fill="#ffffff" text-anchor="middle">" 호 박 "</text></g><ellipse cx="120" cy="180" rx="30" ry="25" fill="#38bdf8" stroke="#0284c7" stroke-width="3"/><path d="M115,50 C115,35 125,35 128,30" stroke="#15803d" stroke-width="6" fill="none" stroke-linecap="round"/><ellipse cx="120" cy="105" rx="72" ry="58" fill="url(#pkG)" stroke="#c2410c" stroke-width="3.5"/><polygon points="95,85 85,102 105,102" fill="#0f172a"/><polygon points="145,85 135,102 155,102" fill="#0f172a"/><path d="M68,110 L78,110 L68,122 L78,122" stroke="#ea580c" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M162,110 L172,110 L162,122 L172,122" stroke="#ea580c" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M88,118 Q120,150 152,118 Z" fill="#0f172a"/><rect x="105" y="120" width="10" height="9" fill="#fff" rx="1"/><rect x="125" y="120" width="10" height="9" fill="#fff" rx="1"/></g></svg>`
+    },
+    orb: {
+      name: "동글동글 말랑 구슬",
+      dialogue: "말랑말랑 순수 코어 아온 구슬이에요! 스트레스를 맑게 씻어드릴게요 🫧",
+      svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="140" height="140"><defs><radialGradient id="obG" cx="35%" cy="30%" r="70%"><stop offset="0%" stop-color="#fff"/><stop offset="65%" stop-color="#7dd3fc"/><stop offset="100%" stop-color="#38bdf8"/></radialGradient><style>@keyframes obJ{0%,100%{transform:scale(1)}50%{transform:scale(1.05,0.95)}}.obA{animation:obJ 2.4s ease-in-out infinite;transform-origin:center;}</style></defs><g class="obA"><circle cx="120" cy="125" r="75" fill="url(#obG)" stroke="#0284c7" stroke-width="3.5"/><ellipse cx="95" cy="85" rx="18" ry="9" transform="rotate(-30,95,85)" fill="#fff" opacity="0.6"/><ellipse cx="98" cy="122" rx="5" ry="14" fill="#0f172a"/><ellipse cx="142" cy="122" rx="5" ry="14" fill="#0f172a"/><path d="M114,136 Q120,143 126,136" stroke="#0f172a" stroke-width="2.5" fill="none" stroke-linecap="round"/><circle cx="82" cy="132" r="7" fill="#fb7185" opacity="0.5"/><circle cx="158" cy="132" r="7" fill="#fb7185" opacity="0.5"/></g></svg>`
+    },
+    waterfall_suit: {
+      name: "폭포수 우주복 후드",
+      dialogue: "시원한 폭포수 우주복 장착 완료! 22대 전 기관을 맑은 물방울로 수호합니다! 🧑🚀",
+      svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="140" height="140"><defs><radialGradient id="stG" cx="40%" cy="35%" r="65%"><stop offset="0%" stop-color="#fff"/><stop offset="100%" stop-color="#cbd5e1"/></radialGradient><style>@keyframes stH{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}.stA{animation:stH 3s ease-in-out infinite;}</style></defs><g class="stA"><g stroke="#38bdf8" stroke-width="4.5" stroke-linecap="round" opacity="0.75"><path d="M120,35 C60,40 30,90 25,215" fill="none"/><path d="M120,35 C180,40 210,90 215,215" fill="none"/></g><ellipse cx="120" cy="145" rx="48" ry="42" fill="url(#stG)" stroke="#94a3b8" stroke-width="3"/><circle cx="120" cy="95" r="46" fill="#0f172a" stroke="#38bdf8" stroke-width="3.5"/><circle cx="120" cy="96" r="36" fill="#f0f9ff"/><ellipse cx="106" cy="94" rx="3.5" ry="7" fill="#0f172a"/><ellipse cx="134" cy="94" rx="3.5" ry="7" fill="#0f172a"/><path d="M116,104 Q120,109 124,104" stroke="#0f172a" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M92,98 L96,92 L100,98 L104,92 L108,98" stroke="#f43f5e" stroke-width="2" fill="none"/><path d="M132,98 L136,92 L140,98 L144,92 L148,98" stroke="#f43f5e" stroke-width="2" fill="none"/></g></svg>`
+    },
+    pouty_booty: {
+      name: "삐진 뒷모습 통통 궁둥이",
+      dialogue: "흥! 아온이 삐졌어! 쓰다듬어 주면 앞모습 보여줄 거야~ 퐁당! 🍑",
+      svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="140" height="140"><defs><radialGradient id="btG" cx="35%" cy="30%" r="70%"><stop offset="0%" stop-color="#fff"/><stop offset="65%" stop-color="#7dd3fc"/><stop offset="100%" stop-color="#38bdf8"/></radialGradient><style>@keyframes btW{0%,100%{transform:rotate(0)}25%{transform:rotate(-6deg)}75%{transform:rotate(6deg)}}.btA{animation:btW 1.3s ease-in-out infinite;transform-origin:120px 100px;}</style></defs><g class="btA"><path d="M75,105 C40,100 30,115 35,125 C45,130 65,120 75,120" fill="url(#btG)" stroke="#38bdf8" stroke-width="3"/><path d="M165,105 C200,100 210,115 205,125 C195,130 175,120 165,120" fill="url(#btG)" stroke="#38bdf8" stroke-width="3"/><path d="M68,110 C60,65 180,65 172,110 C182,145 160,185 120,185 C80,185 58,145 68,110 Z" fill="url(#btG)" stroke="#38bdf8" stroke-width="3.5"/><path d="M82,148 C92,176 118,176 120,154" stroke="#0284c7" stroke-width="3.5" fill="none" stroke-linecap="round"/><path d="M120,154 C122,176 148,176 158,148" stroke="#0284c7" stroke-width="3.5" fill="none" stroke-linecap="round"/><line x1="120" y1="145" x2="120" y2="168" stroke="#0284c7" stroke-width="3" stroke-linecap="round"/><circle cx="78" cy="95" r="5" fill="#f43f5e" opacity="0.75"/><circle cx="85" cy="85" r="3" fill="#f43f5e" opacity="0.6"/></g></svg>`
+    }
+  };
+
+  let currentForm = 'orb';
+
+  window.toggleHaesangWidget = function() {
+    const c = document.getElementById('aon-morph-capsule');
+    if (!c) return;
+    const isHidden = c.style.display === 'none';
+    c.style.display = isHidden ? 'flex' : 'none';
+    if (isHidden && !document.getElementById('aon-morph-stage').innerHTML.trim()) {
+      setHaesangMorph('orb');
+    }
+  };
+
+  window.setHaesangMorph = function(formId) {
+    const data = MORPH_DB[formId] || MORPH_DB.orb;
+    currentForm = formId;
+    const stage = document.getElementById('aon-morph-stage');
+    const bubble = document.getElementById('aon-morph-bubble');
+    if (stage) stage.innerHTML = data.svg;
+    if (bubble) bubble.innerText = data.dialogue;
+
+    document.querySelectorAll('.aon-morph-btn').forEach(b => {
+      b.classList.toggle('active', b.getAttribute('onclick').includes(formId));
+    });
+
+    if (window.speechSynthesis && !window.speechSynthesis.speaking) {
+      try {
+        const u = new SpeechSynthesisUtterance(data.dialogue.replace(/[^\w\sㄱ-힣~!?]/g, ''));
+        u.lang = 'ko-KR';
+        u.rate = 1.1;
+        u.pitch = 1.25;
+        window.speechSynthesis.speak(u);
+      } catch(e) {}
+    }
+  };
+
+  window.pokeHaesangAvatar = function() {
+    const bubble = document.getElementById('aon-morph-bubble');
+    if (currentForm === 'pouty_booty') {
+      if (bubble) bubble.innerText = "엉덩이 간지러워요! 에헤헤~ 해상이 디자이너님께 칭찬받고 올게요! 🍑";
+    } else {
+      const data = MORPH_DB[currentForm] || MORPH_DB.orb;
+      if (bubble) bubble.innerText = "퐁당! " + data.dialogue;
+    }
+  };
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const stage = document.getElementById('aon-morph-stage');
+    if (stage) stage.innerHTML = MORPH_DB.orb.svg;
+  });
+})();
+</script>
+<!-- [RGON-R48-HAESANG-MORPH-END] -->
+
 </body>
 </html>

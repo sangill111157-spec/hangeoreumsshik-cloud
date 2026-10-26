@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """rgon_aon_dialogue_engine.py — 제15기관 아온 초격차 대화 이해 & 올인원 대화 허브 (표준 라이브러리 전용)
-[RGON-R39] v11.46-AON-ZEROCLICK-STUDIO
+[RGON-R39] v11.47-AON-HAESANG-MORPH
 파이프라인: 구어 정규화 → 대명사·생략어 복원 → 슬래시/원칙/복합의도 분기 → 기관 디스패치
           → 플랫폼 메타데이터(thinking·artifact·chips·callback) 보강 → 3계층 해마 기억(단기·토픽·연상).
 한계: 사전·정규식 기반 규칙 엔진이다. 언어모델이 아니므로 처음 보는 표현은 놓칠 수 있다."""
@@ -8,7 +8,7 @@ import argparse, datetime, json, os, re, sys, tempfile, time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-VERSION = "v11.46-AON-ZEROCLICK-STUDIO"
+VERSION = "v11.47-AON-HAESANG-MORPH"
 STATE, PREFS = "rgon_aon_dialogue_state.json", "rgon_aon_preferences.json"
 SHORT_MAX, EVENT_MAX, FRESH_TURNS, FRESH_SEC = 20, 60, 4, 1800
 CAT_KO = {"command_rule": "지휘 원칙", "style": "스타일", "preference": "취향"}
@@ -591,8 +591,8 @@ import os as _o40, re as _re40, json as _j40, time as _t40, sys as _s40
 import shutil as _sh40, inspect as _in40, importlib as _il40
 from pathlib import Path as _P40
 
-R40_VERSION = "v11.46-AON-ZEROCLICK-STUDIO"
-R40_ANTIBODY = "R1~R47"
+R40_VERSION = "v11.47-AON-HAESANG-MORPH"
+R40_ANTIBODY = "R1~R48"
 _R40_HERE = _P40(__file__).resolve().parent
 _R40_NAMES = ("_call_iching", "_call_hands", "_call_soul", "_call_insight",
               "_call_playground", "_call_brat", "normalize_colloquial")
@@ -1257,7 +1257,7 @@ def _r41_plan_response(arg):
         "recommended_branch": p.get("recommended_branch"),
         "three_branch_tree": p.get("three_branch_tree"), "action_items": p.get("action_items"),
         "shichen_schedule": p.get("shichen_schedule"), "plan": p,
-        "version": "v11.46-AON-ZEROCLICK-STUDIO",
+        "version": "v11.47-AON-HAESANG-MORPH",
     }
 
 
@@ -1736,7 +1736,7 @@ def r47_zeroclick_route(text, out_dir=None):
         res = _zc.route_command(t, out_dir=out_dir)
         return {
             "ok": bool(res.get("ok")),
-            "version": "v11.46-AON-ZEROCLICK-STUDIO",
+            "version": "v11.47-AON-HAESANG-MORPH",
             "antibody": "R47",
             "intent": "zeroclick_studio",
             "intents": ["zeroclick_studio"],
@@ -1764,6 +1764,46 @@ for _n in ("r40_route", "route", "process_dialogue", "route_command", "handle_me
     if callable(_f) and not getattr(_f, "__r47__", False):
         globals()[_n] = _r47_wrap(_f)
 # [RGON-R47-DIALOGUE-ZEROCLICK-HOOK-END]
+
+# [RGON-R48-HAESANG-MORPH-ROUTE-START]
+try:
+    _haesang_mod = __import__("rgon_aon_haesang_morph_avatar")
+except Exception:
+    _haesang_mod = None
+
+def _r48_haesang_route(msg):
+    m = str(msg or "").strip()
+    if not _haesang_mod:
+        return None
+    patterns = {
+        "ghost": ["/유령", "유령아온", "유령변신"],
+        "cloud": ["/구름", "구름아온", "구름요정"],
+        "pumpkin": ["/호박", "호박아온", "호박탈"],
+        "orb": ["/구슬", "구슬아온", "말랑구슬"],
+        "waterfall_suit": ["/우주복", "/폭포", "우주복아온", "폭포수아온"],
+        "pouty_booty": ["/궁둥이", "/엉덩이", "/삐짐", "삐진아온", "궁둥이아온"]
+    }
+    target_form = None
+    for f, kws in patterns.items():
+        if any(k in m for k in kws):
+            target_form = f
+            break
+    if not target_form and any(k in m for k in ["/변신", "/해상", "해상이", "변신술"]):
+        target_form = _haesang_mod.recommend_morph(m)
+    
+    if target_form:
+        info = _haesang_mod.get_morph_info(target_form)
+        return {
+            "ok": True,
+            "routed_by": "R48_HAESANG_MORPH",
+            "form": target_form,
+            "name": info["name"],
+            "dialogue": info["dialogue"],
+            "chief_art_director": _haesang_mod.CHIEF_ART_DIRECTOR,
+            "svg": _haesang_mod.render_haesang_svg(target_form, 200, 200, True)
+        }
+    return None
+# [RGON-R48-HAESANG-MORPH-ROUTE-END]
 
 if __name__ == "__main__":
     sys.exit(main())

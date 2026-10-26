@@ -1,6 +1,6 @@
 # RGON Skills — 표준 SKILL.md 인덱스
 
-버전 v11.46-AON-ZEROCLICK-STUDIO · 항체 R1~R47 · 총 **39**개 스킬 (SkillAutoForge 자동 주조)
+버전 v11.47-AON-HAESANG-MORPH · 항체 R1~R48 · 총 **39**개 스킬 (SkillAutoForge 자동 주조)
 
 | # | 스킬 | 카테고리 | 괘 | 출처 |
 |---|---|---|---|---|

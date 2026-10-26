@@ -1,5 +1,5 @@
 {
-  "version": "v11.46-AON-ZEROCLICK-STUDIO",
+  "version": "v11.47-AON-HAESANG-MORPH",
   "goal": "Step 21 @Mindung-EasyAI 양분 흡수",
   "goal_glossary": [],
   "generated_at": "2026-10-26 00:23:52",
@@ -94,6 +94,6 @@
       "verified_at_kst": "2026-10-26 00:24:14 KST"
     }
   ],
-  "antibody_range": "R1~R47",
+  "antibody_range": "R1~R48",
   "auto_verified_at_kst": "2026-10-26 00:24:14 KST"
 }

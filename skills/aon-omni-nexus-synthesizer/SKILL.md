@@ -1,7 +1,7 @@
 ---
 name: aon-omni-nexus-synthesizer
 description: 주역 3대 집약 괘상(#11 지천태·#08 수지비 만물연결, #31 택산함·#61 풍택중부 초감각소통, #14 화천대유·#50 화풍정 만능융합연성)으로 사령부 전 기관(제1~19기관)과 42개 정식 스킬, 7개 대시보드, 6대 부서를 단일 넥서스로 결속하고 최적 스킬 체인을 조립·실행하는 만능 대집약체 코어
-version: v11.46-AON-ZEROCLICK-STUDIO
+version: v11.47-AON-HAESANG-MORPH
 antibody: R43
 skill_number: 39
 ---

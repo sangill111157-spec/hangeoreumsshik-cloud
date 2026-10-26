@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # rgon_aon_zeroclick_studio.py — 제23기관 · 아온 클릭 0번 헤드리스 포토·카드뉴스 & 엑셀·시트 창작 스튜디오
-# v11.46-AON-ZEROCLICK-STUDIO · 항체 R1~R47 · 정식 스킬 43개 · 100% Python 표준 라이브러리
+# v11.47-AON-HAESANG-MORPH · 항체 R1~R48 · 정식 스킬 44개 · 100% Python 표준 라이브러리
 import os, sys, json, zlib, struct, zipfile, csv, html, re, time, hashlib, tempfile, shutil
 import xml.etree.ElementTree as ET
 from pathlib import Path
@@ -14,9 +14,9 @@ for _s in ("stdout", "stderr"):
         except Exception:
             pass
 
-VERSION = "v11.46-AON-ZEROCLICK-STUDIO"
+VERSION = "v11.47-AON-HAESANG-MORPH"
 ANTIBODY = "R47"
-ANTIBODY_RANGE = "R1~R47"
+ANTIBODY_RANGE = "R1~R48"
 ORGAN_ID = "N19_zeroclick_studio"
 ORGAN_NO = 23
 HEXAGRAMS = [
