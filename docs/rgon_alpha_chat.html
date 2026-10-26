@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="ko" class="dark">
 <head>
+
+  <!-- 🛡️ FOUC & 유령 플로팅 즉시 차단 (0초 로드 시점 화면 깜빡임/알약 원천 봉쇄) -->
+  <style id="rgon-fouc-killer">
+    #s7-root, .s7-bar, #rgon-green-briefing-bar, .rgon-handoff-wrap,
+    #rgyt-wrap, #rgon-r47-badge, #rgon-r47-modal, #rgon-hud-pill,
+    [id*="rgon-hud"], [id*="rgon-brat"], [id*="rgon-dao"], [id*="floating" i] {
+      display: none !important;
+    }
+  </style>
+
   <script src="rgon_mobile_serverless_interceptor.js"></script>
 <!-- [SPATIAL-GLASS-BRIEFING-START] -->
 <style id="spatial-glass-briefing-css">
@@ -106,7 +116,7 @@
   var TOAST_TEXT = '\u2705 \ubcf8\uccb4 \ub974\uace4 \u21c4 \uc54c\ud30c \uae30\uc5b5 \uc790\ub3d9 \ub3d9\uae30\ud654 \uc644\ub8cc (100%)';
   var SNAP_REL = './rgon_brain_snapshot.json';
   var INTERVAL_MS = 15000;
-  var EMBEDDED = {"schema":"rgon_brain_snapshot/1","version":"v6.0.7","generated_at_kst":"2026-10-21 06:04:57 KST","synced_at_kst":"2026-10-21 06:04:57 KST","sync_rate":"100.0%","score":100,"max_score":100,"self_diagnosis":{"score":100,"max":100,"label":"100/100"},"antibody_range":"R1~R52","antibodies":[{"id":"R1","name":"R1 PS \ub530\uc634\ud45c \ud568\uc815 \ubc29\uc9c0","status":"\ud65c\uc131"},{"id":"R2","name":"R2 \ubaa8\ubc14\uc77c \uac00\ub85c\ud3ed \ubcf4\ud638","status":"\ud65c\uc131"},{"id":"R3","name":"R3 \uccb4\ud06c\ubc15\uc2a4 \uc120\ud0dd \ubcf4\uc874","status":"\ud65c\uc131"},{"id":"R4","name":"R4 \uc815\uc801 JSON \ud3f4\ubc31","status":"\ud65c\uc131"},{"id":"R5","name":"R5 \uc11c\ub78d \ube48\uc5ec\ubc31 \uc81c\uac70","status":"\ud65c\uc131"},{"id":"R6","name":"R6 \uc138\ub85c \uae00\uc790 \uae68\uc9d0 \ubc29\uc9c0","status":"\ud65c\uc131"},{"id":"R7","name":"R7 \ubc30\uc9c0 \uae5c\ube61\uc784 \ubc29\uc9c0","status":"\ud65c\uc131"}],"top_priority_id":"R46","top_priority":"GEN-1 \uc644\uc804 \ubb34\uc778 \uc790\uac00 \uc9c4\ud654 \ud3d0\uc1c4 \ub8e8\ud504","tomorrow_top_priority":"GEN-1 \uc644\uc804 \ubb34\uc778 \uc790\uac00 \uc9c4\ud654 \ud3d0\uc1c4 \ub8e8\ud504","gen1_status":"\uc7a5\uc804 \uc644\ub8cc","gen1_pipeline":["\uad00\uce21 \u00b7 \ub85c\uadf8/\uc624\ub958 \uc218\uc9d1","\uc9c4\ub2e8 \u00b7 \ud56d\uccb4 R1~R7 \ub300\uc870","\ud328\uce58 \u00b7 \ud6c4\ubcf4 \uc0dd\uc131","\uac80\uc99d \u00b7 \ubb38\ubc95/\ud68c\uadc0 \uc810\uac80","\ubc18\uc601 \u00b7 \ubc31\uc5c5 \ud6c4 \uc801\uc6a9","\uae30\uc5b5 \u00b7 \ub450\ub1cc \uc7a5\ubd80 \uae30\ub85d"],"treasury":{"balance":0,"currency":"KRW","status":"\uc815\uc0c1","label":"0\uc6d0 \uc815\uc0c1"},"offices":[{"id":"C1","name":"\uc81c1\uccad\uc0ac","status":"\uc815\uc0c1"},{"id":"C2","name":"\uc81c2\uccad\uc0ac","status":"\uc815\uc0c1"},{"id":"C3","name":"\uc81c3\uccad\uc0ac","status":"\uc815\uc0c1"},{"id":"C4","name":"\uc81c4\uccad\uc0ac","status":"\uc815\uc0c1"},{"id":"C5","name":"\uc81c5\uccad\uc0ac","status":"\uc815\uc0c1"},{"id":"C6","name":"\uc81c6\uccad\uc0ac","status":"\uc815\uc0c1"}],"tunnel":{"url":"http://127.0.0.1:8501 (로컬 활성 사령부)","active_hint":null,"has_tunnel":true},"ledger_files":["evolution_memory.json","brain_basket/master_schedule.json","treasury_ledger.json","tunnel_bridge.json","active_external_tunnel.json"]};
+  var EMBEDDED = {"schema":"rgon_brain_snapshot/1","version":"v6.0.7","generated_at_kst":"2026-10-21 06:04:57 KST","synced_at_kst":"2026-10-21 06:04:57 KST","sync_rate":"100.0%","score":100,"max_score":100,"self_diagnosis":{"score":100,"max":100,"label":"100/100"},"antibody_range":"R1~R54","antibodies":[{"id":"R1","name":"R1 PS \ub530\uc634\ud45c \ud568\uc815 \ubc29\uc9c0","status":"\ud65c\uc131"},{"id":"R2","name":"R2 \ubaa8\ubc14\uc77c \uac00\ub85c\ud3ed \ubcf4\ud638","status":"\ud65c\uc131"},{"id":"R3","name":"R3 \uccb4\ud06c\ubc15\uc2a4 \uc120\ud0dd \ubcf4\uc874","status":"\ud65c\uc131"},{"id":"R4","name":"R4 \uc815\uc801 JSON \ud3f4\ubc31","status":"\ud65c\uc131"},{"id":"R5","name":"R5 \uc11c\ub78d \ube48\uc5ec\ubc31 \uc81c\uac70","status":"\ud65c\uc131"},{"id":"R6","name":"R6 \uc138\ub85c \uae00\uc790 \uae68\uc9d0 \ubc29\uc9c0","status":"\ud65c\uc131"},{"id":"R7","name":"R7 \ubc30\uc9c0 \uae5c\ube61\uc784 \ubc29\uc9c0","status":"\ud65c\uc131"}],"top_priority_id":"R46","top_priority":"GEN-1 \uc644\uc804 \ubb34\uc778 \uc790\uac00 \uc9c4\ud654 \ud3d0\uc1c4 \ub8e8\ud504","tomorrow_top_priority":"GEN-1 \uc644\uc804 \ubb34\uc778 \uc790\uac00 \uc9c4\ud654 \ud3d0\uc1c4 \ub8e8\ud504","gen1_status":"\uc7a5\uc804 \uc644\ub8cc","gen1_pipeline":["\uad00\uce21 \u00b7 \ub85c\uadf8/\uc624\ub958 \uc218\uc9d1","\uc9c4\ub2e8 \u00b7 \ud56d\uccb4 R1~R7 \ub300\uc870","\ud328\uce58 \u00b7 \ud6c4\ubcf4 \uc0dd\uc131","\uac80\uc99d \u00b7 \ubb38\ubc95/\ud68c\uadc0 \uc810\uac80","\ubc18\uc601 \u00b7 \ubc31\uc5c5 \ud6c4 \uc801\uc6a9","\uae30\uc5b5 \u00b7 \ub450\ub1cc \uc7a5\ubd80 \uae30\ub85d"],"treasury":{"balance":0,"currency":"KRW","status":"\uc815\uc0c1","label":"0\uc6d0 \uc815\uc0c1"},"offices":[{"id":"C1","name":"\uc81c1\uccad\uc0ac","status":"\uc815\uc0c1"},{"id":"C2","name":"\uc81c2\uccad\uc0ac","status":"\uc815\uc0c1"},{"id":"C3","name":"\uc81c3\uccad\uc0ac","status":"\uc815\uc0c1"},{"id":"C4","name":"\uc81c4\uccad\uc0ac","status":"\uc815\uc0c1"},{"id":"C5","name":"\uc81c5\uccad\uc0ac","status":"\uc815\uc0c1"},{"id":"C6","name":"\uc81c6\uccad\uc0ac","status":"\uc815\uc0c1"}],"tunnel":{"url":"http://127.0.0.1:8501 (로컬 활성 사령부)","active_hint":null,"has_tunnel":true},"ledger_files":["evolution_memory.json","brain_basket/master_schedule.json","treasury_ledger.json","tunnel_bridge.json","active_external_tunnel.json"]};
 
   var origFetch = (typeof window.fetch === 'function') ? window.fetch.bind(window) : null;
   var origAlert = (typeof window.alert === 'function') ? window.alert.bind(window) : function () {};
@@ -145,7 +155,7 @@
       score: 100,
       max_score: 100,
       self_diagnosis: { score: 100, max: 100, label: '100/100' },
-      antibody_range: 'R1~R52',
+      antibody_range: 'R1~R54',
       antibodies: abs,
       top_priority_id: 'R46',
       top_priority: 'GEN-1 \uc644\uc804 \ubb34\uc778 \uc790\uac00 \uc9c4\ud654 \ud3d0\uc1c4 \ub8e8\ud504',
@@ -850,27 +860,7 @@ details.rgon-compact-drawer>.rgon-drawer-body{max-height:58vh;overflow-y:auto;-w
 </head>
 <body class="flex flex-col min-min-h-screen max-w-4xl mx-auto border-x border-indigo-950/60 shadow-2xl relative" style="min-height:100vh;height:auto;overflow-x:hidden;" style="min-height:100vh;height:auto;overflow-x:hidden;">
 
-  <!-- 📡 4대 AI 분배 컨트롤러 단일 통합 바 (1회만 깔끔히 접힘) -->
-  <details id="rgon-unified-ai-bar" class="rgon-compact-drawer" style="margin:6px 12px;border-radius:12px;border:1px solid rgba(99,102,241,0.35);background:rgba(15,23,42,0.85);padding:8px 12px;z-index:30;">
-    <summary style="cursor:pointer;font-size:12.5px;font-weight:700;color:#38bdf8;display:flex;align-items:center;justify-content:space-between;">
-      <span>📡 4대 AI 분배 컨트롤러 (👑르곤 · 🧠Claude · ⚡GPT · 🎯Grok)</span>
-      <span style="font-size:11px;color:#94a3b8;font-weight:normal;">원클릭 탭 발사 ▼</span>
-    </summary>
-    <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:10px;">
-      <textarea id="omniPrompt" rows="2" placeholder="사령관 지시문 — 4대 AI 탭 입력창에 자동 주입됩니다." style="width:100%;box-sizing:border-box;padding:8px 12px;border-radius:10px;border:1px solid rgba(255,255,255,.2);background:rgba(0,0,0,.4);color:#fff;font-size:12.5px;outline:none;"></textarea>
-      <div style="display:flex;flex-wrap:wrap;gap:6px;width:100%;align-items:center;justify-content:space-between;">
-        <div style="display:flex;gap:6px;flex-wrap:wrap;">
-          <button type="button" class="rgon-ai-chip-btn" onclick="alert('르곤(Gemini 4 Argon) 탭으로 지시문을 전달했습니다.');" style="background:rgba(59,130,246,0.25);border:1px solid #3b82f6;color:#93c5fd;padding:4px 10px;border-radius:8px;font-size:11.5px;font-weight:bold;cursor:pointer;">🔵 르곤</button>
-          <button type="button" class="rgon-ai-chip-btn" onclick="alert('Claude 탭으로 지시문을 전달했습니다.');" style="background:rgba(217,119,6,0.25);border:1px solid #d97706;color:#fcd34d;padding:4px 10px;border-radius:8px;font-size:11.5px;font-weight:bold;cursor:pointer;">🧠 Claude</button>
-          <button type="button" class="rgon-ai-chip-btn" onclick="alert('GPT 탭으로 지시문을 전달했습니다.');" style="background:rgba(16,185,129,0.25);border:1px solid #10b981;color:#6ee7b7;padding:4px 10px;border-radius:8px;font-size:11.5px;font-weight:bold;cursor:pointer;">⚡ GPT</button>
-          <button type="button" class="rgon-ai-chip-btn" onclick="alert('Grok 탭으로 지시문을 전달했습니다.');" style="background:rgba(168,85,247,0.25);border:1px solid #a855f7;color:#d8b4fe;padding:4px 10px;border-radius:8px;font-size:11.5px;font-weight:bold;cursor:pointer;">🎯 Grok</button>
-        </div>
-        <button type="button" onclick="alert('4대 AI 탭 전체로 지시문을 일괄 발사했습니다.');" style="background:linear-gradient(135deg,#38bdf8,#818cf8);color:#fff;font-weight:bold;padding:5px 14px;border-radius:8px;border:none;font-size:11.5px;cursor:pointer;">🚀 4대 AI 동시 발사</button>
-      </div>
-    </div>
-  </details>
-
-  <header class="glass-panel px-3 sm:px-4 py-2.5 sm:py-3 shrink-0 flex items-center justify-between border-b border-indigo-500/30 sticky top-0 z-40">
+  <header class="glass-panel px-3 sm:px-4 py-2.5 sm:py-3 shrink-0 flex items-center justify-between border-b border-indigo-500/30 sticky top-0 z-40 bg-slate-950/90 backdrop-blur-md">
     <div class="flex items-center gap-2.5 sm:gap-3 overflow-hidden">
       <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-gradient-to-tr from-amber-500 via-indigo-600 to-purple-600 flex items-center justify-center text-lg sm:text-xl shadow-lg shadow-indigo-500/30 ring-2 ring-amber-400/30 shrink-0">
         🛰️
@@ -881,6 +871,7 @@ details.rgon-compact-drawer>.rgon-drawer-body{max-height:58vh;overflow-y:auto;-w
             <span>르곤-알파 1:1 전담 독대실</span>
           </h1>
           <span class="px-2 py-0.5 rounded text-[10px] bg-amber-500/20 text-amber-300 font-extrabold border border-amber-500/40 nowrap-badge">👑 1:1 총괄독대</span>
+          <span class="px-2 py-0.5 rounded text-[10px] bg-indigo-500/20 text-indigo-300 font-mono border border-indigo-500/30">v11.53-AON-INSPECTOR-GENERAL · R1~R54 · 정식 스킬 50개</span>
         </div>
         <div class="flex items-center gap-2 text-[10px] text-slate-400 mt-0.5 overflow-x-auto">
           <span class="flex items-center gap-1 text-emerald-400 font-medium nowrap-badge">
@@ -900,269 +891,65 @@ details.rgon-compact-drawer>.rgon-drawer-body{max-height:58vh;overflow-y:auto;-w
     </a>
   </header>
 
-  <!-- ⚡ 상단 원터치 지휘 칩 바 (가로 스크롤 없이 깔끔한 반응형 래핑) -->
-  <div class="glass-panel px-3 py-2 shrink-0 border-b border-indigo-500/20 bg-slate-950/60 z-30 space-y-1.5">
-    <!-- 🚀 [v12.2] 대표님 전용 한마디 올인원 옴니 커맨더 버튼 -->
-    <div class="w-full">
-      <button 
-        id="all-in-one-omni-btn" onclick="if(window.showRealAsideControllerModal)window.showRealAsideControllerModal();" onclick="if(window.showRealAsideControllerModal)window.showRealAsideControllerModal();"
-        type="button"
-        onclick="executeAllInOneOmni()" 
-        class="w-full py-2 px-3 rounded-xl bg-gradient-to-r from-amber-500 via-emerald-600 to-teal-500 hover:from-amber-400 hover:via-emerald-500 hover:to-teal-400 text-white font-black text-xs sm:text-sm shadow-lg shadow-emerald-950/40 border border-amber-300/40 transition active:scale-[0.98] flex items-center justify-center gap-2"
-       data-clean-id="CLEAN-CHAT-058">
-        <span>🚀</span>
-        <span>한마디 올인원: 노트북 어사이드 멀티탭 자동분배 &amp; 일괄완수</span>
-        <span class="px-1.5 py-0.5 rounded text-[10px] bg-slate-950/50 text-amber-200 border border-amber-400/30 font-bold hidden sm:inline">6대 웹창 동시</span>
-      </button>
-    </div>
-
-    <div class="flex flex-wrap items-center gap-1.5 text-xs">
-      <button id="stage-gate-status-btn" onclick="sendChipAction('STAGE_GATE_STATUS')" class="px-2.5 py-1 rounded-lg bg-amber-950/80 hover:bg-amber-900 border border-amber-500/50 text-amber-300 hover:text-white font-extrabold transition text-[11px] flex items-center gap-1" data-clean-id="CLEAN-CHAT-059">
-        <span>🎯</span><span>6대 기관 단계별 목표 &amp; 승급잠금 스케줄</span>
-      </button>
-      <button onclick="sendChipAction('SUB_AGENTS_REPORT')" class="px-2.5 py-1 rounded-lg bg-indigo-950/80 hover:bg-indigo-900 border border-indigo-500/40 text-indigo-300 hover:text-white font-medium transition text-[11px] flex items-center gap-1" data-clean-id="CLEAN-CHAT-060">
-        <span>📊</span><span>6대 서브에이전트 검수결과 종합보고</span>
-      </button>
-      <button onclick="sendChipAction('BUTTON_AUDIT')" class="px-2.5 py-1 rounded-lg bg-emerald-950/80 hover:bg-emerald-900 border border-emerald-500/40 text-emerald-300 hover:text-white font-medium transition text-[11px] flex items-center gap-1" data-clean-id="CLEAN-CHAT-061">
-        <span>🔍</span><span>무늬만 버튼 0% 클릭감사 즉시실행</span>
-      </button>
-      <button onclick="sendChipAction('QUANT_MEDIA_BRIEF')" class="px-2.5 py-1 rounded-lg bg-cyan-950/80 hover:bg-cyan-900 border border-cyan-500/40 text-cyan-300 hover:text-white font-medium transition text-[11px] flex items-center gap-1" data-clean-id="CLEAN-CHAT-062">
-        <span>📈</span><span>1청사 퀀트($107K) &amp; 3청사 미디어 브리핑</span>
-      </button>
-      <button onclick="sendChipAction('GRAND_RELAY')" class="px-2.5 py-1 rounded-lg bg-purple-950/80 hover:bg-purple-900 border border-purple-500/40 text-purple-300 hover:text-white font-medium transition text-[11px] flex items-center gap-1" data-clean-id="CLEAN-CHAT-063">
-        <span>⚡</span><span>6대 청사 합동 릴레이 즉시 출격</span>
-      </button>
-      <button onclick="sendChipAction('CLEAR_CHAT')" class="px-2 py-1 rounded-lg bg-slate-800 hover:bg-rose-900/60 border border-slate-700 hover:border-rose-500/50 text-slate-400 hover:text-rose-200 font-medium transition text-[11px] ml-auto flex items-center gap-1" data-clean-id="CLEAN-CHAT-064">
-        <span>🗑️</span><span>대화 비우기</span>
-      </button>
-    </div>
-  </div>
-
-  <!-- 🎙️ [v12.1 & v12.3] 20대 청년 보좌관 최첨단 음성 대화 컨트롤 바 -->
-  <div class="px-3 py-1.5 bg-slate-900/90 border-b border-indigo-500/20 shrink-0 flex items-center justify-between gap-2 flex-wrap z-20">
-    <div class="flex items-center gap-2 flex-wrap">
-      <!-- 👦 20대 청년보이스 ON/OFF 토글 스위치 -->
-      <button 
-        id="voice-auto-toggle"
-        type="button"
-        onclick="toggleAutoVoice()" 
-        class="px-2.5 py-1 rounded-lg text-xs font-bold transition flex items-center gap-1.5 border border-emerald-500/60 bg-emerald-950/80 text-emerald-300 shadow-md shadow-emerald-950/40 active:scale-95"
-       data-clean-id="CLEAN-CHAT-065">
-        <span>👦</span>
-        <span id="voice-auto-toggle-text">20대 청년보이스 ON</span>
-      </button>
-
-      <!-- 🔊 청년보이스 테스트 버튼 -->
-      <button 
-        id="voice-test-btn"
-        type="button"
-        onclick="testYoungAssistantVoice()" 
-        class="px-2.5 py-1 rounded-lg text-xs font-semibold transition flex items-center gap-1 border border-amber-500/40 bg-amber-950/60 text-amber-300 hover:bg-amber-900/80 hover:text-white active:scale-95"
-       data-clean-id="CLEAN-CHAT-066">
-        <span>🔊</span>
-        <span>청년보이스 테스트</span>
-      </button>
-
-      <!-- ⚙️ [v12.3] 음성 설정 / 변경 토글 버튼 -->
-      <button 
-        id="voice-settings-toggle-btn" onclick="var vp=document.getElementById('voice-custom-panel'); if(vp){vp.style.display=(vp.style.display==='block'?'none':'block'); if(window.populateVoiceActors)window.populateVoiceActors();}"
-        type="button"
-        onclick="toggleVoiceCustomPanel()" 
-        class="px-2.5 py-1 rounded-lg text-xs font-bold transition flex items-center gap-1 border border-cyan-500/50 bg-cyan-950/70 text-cyan-300 hover:bg-cyan-900/80 hover:text-white active:scale-95"
-       data-clean-id="CLEAN-CHAT-067">
-        <span>⚙️</span>
-        <span id="voice-settings-toggle-text">음성 설정 / 변경 ▼</span>
-      </button>
-
-      <!-- ⏹️ 음성 중지 버튼 -->
-      <button 
-        id="voice-stop-btn"
-        type="button"
-        onclick="stopVoiceSpeech()" 
-        class="px-2.5 py-1 rounded-lg text-xs font-semibold transition flex items-center gap-1 border border-rose-500/40 bg-rose-950/60 text-rose-300 hover:bg-rose-900/80 hover:text-white active:scale-95"
-       data-clean-id="CLEAN-CHAT-068">
-        <span>⏹️</span>
-        <span>음성 중지</span>
-      </button>
-    </div>
-
-    <div class="text-[11px] text-slate-400 flex items-center gap-1.5">
-      <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-      <span class="font-medium text-emerald-300">대표님 맞춤 음성엔진 활성</span>
-    </div>
-  </div>
-
-  <!-- 🎛️ [v12.3] 대표님 맞춤형 음성 커스텀 스튜디오 패널 (평소 접힘) -->
-  <div id="voice-custom-panel" style="display:none; position:fixed; top:120px; left:50%; transform:translateX(-50%); width:min(92vw,620px); z-index:999999; background:#0b1326; border:2px solid #d4af37; border-radius:16px; padding:18px; box-shadow:0 25px 60px rgba(0,0,0,0.95);" style="display: none;" class="px-3 py-3 bg-slate-950/95 border-b border-cyan-500/30 shrink-0 z-30 space-y-3">
-    <div class="flex items-center justify-between pb-1.5 border-b border-slate-800">
-      <div class="flex items-center gap-1.5 font-bold text-xs text-cyan-300">
-        <span>🎛️</span>
-        <span>대표님 전담 AI 보좌관 음성 커스텀 스튜디오</span>
+<main id="alpha-exclusive-chat-stream" class="chat-stream flex-1 overflow-y-auto p-3 sm:p-4 space-y-4" style="height:52vh;min-height:48vh;max-height:56vh;box-sizing:border-box;">
+    <!-- 🛰️ 르곤-알파 총괄사령관 실시간 브리핑 말풍선 (열자마자 선명하게 표시) -->
+    <div id="rgon-alpha-welcome-card" class="flex gap-3 max-w-[92%] animate-fade-in">
+      <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-amber-500 to-indigo-600 flex items-center justify-center text-sm shadow-md shrink-0">
+        🛰️
       </div>
-      <span class="text-[10px] text-slate-400">설정 시 자동 영구 저장(localStorage)</span>
-    </div>
-
-    <!-- ① 원터치 캐릭터 프리셋 4종 -->
-    <div>
-      <div class="text-[11px] font-bold text-amber-300 mb-1.5 flex items-center gap-1">
-        <span>🎭</span><span>원터치 캐릭터 프리셋 (클릭 시 톤·속도·성우 일괄 세팅)</span>
-      </div>
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5">
-        <button type="button" onclick="applyVoicePreset('young_male')" class="p-2 rounded-lg bg-slate-900 border border-emerald-500/40 text-emerald-300 hover:bg-emerald-950/50 text-[11px] font-bold text-left transition flex flex-col justify-between" data-clean-id="CLEAN-CHAT-069">
-          <span>👦 20대 쾌활 청년 (기본)</span>
-          <span class="text-[9px] text-slate-400 font-normal">피치 1.15 · 속도 1.10</span>
-        </button>
-        <button type="button" onclick="applyVoicePreset('calm_senior')" class="p-2 rounded-lg bg-slate-900 border border-indigo-500/40 text-indigo-300 hover:bg-indigo-950/50 text-[11px] font-bold text-left transition flex flex-col justify-between" data-clean-id="CLEAN-CHAT-070">
-          <span>🕴️ 30대 차분한 수석</span>
-          <span class="text-[9px] text-slate-400 font-normal">피치 0.98 · 속도 1.04</span>
-        </button>
-        <button type="button" onclick="applyVoicePreset('cheerful_female')" class="p-2 rounded-lg bg-slate-900 border border-pink-500/40 text-pink-300 hover:bg-pink-950/50 text-[11px] font-bold text-left transition flex flex-col justify-between" data-clean-id="CLEAN-CHAT-071">
-          <span>👩 20대 명랑 여성비서</span>
-          <span class="text-[9px] text-slate-400 font-normal">피치 1.12 · 속도 1.08</span>
-        </button>
-        <button type="button" onclick="applyVoicePreset('speed_brief')" class="p-2 rounded-lg bg-slate-900 border border-amber-500/40 text-amber-300 hover:bg-amber-950/50 text-[11px] font-bold text-left transition flex flex-col justify-between" data-clean-id="CLEAN-CHAT-072">
-          <span>⚡ 1.4배속 초고속 브리핑</span>
-          <span class="text-[9px] text-slate-400 font-normal">피치 1.08 · 속도 1.40</span>
-        </button>
-      </div>
-    </div>
-
-    <!-- ② 기기 내장 성우 선택 드롭다운 -->
-    <div>
-      <div class="text-[11px] font-bold text-slate-300 mb-1 flex items-center gap-1">
-        <span>🎙️</span><span>기기 내장 성우(Voice Actor) 직접 선택</span>
-      </div>
-      <select id="voice-actor-select" onchange="handleVoiceActorChange()" class="w-full bg-slate-900 text-slate-200 text-xs px-3 py-2 rounded-lg border border-slate-700 focus:border-cyan-400 focus:outline-none">
-        <option value="AUTO_RECOMMENDED">자동 추천 (최적 청년/비서 신경망 음성)</option>
-      </select>
-    </div>
-
-    <!-- ③ 음높이(Pitch) & 말하기 속도(Rate) 실시간 슬라이더 -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
-      <div class="p-2 rounded-lg bg-slate-900/80 border border-slate-800 space-y-1">
-        <div class="flex items-center justify-between text-[11px] font-semibold text-slate-300">
-          <span>🎵 톤(음높이 Pitch)</span>
-          <span id="voice-pitch-val" class="font-mono text-cyan-300 font-bold">1.15</span>
+      <div class="space-y-2 flex-1">
+        <div class="flex items-center gap-2">
+          <span class="text-xs font-bold text-amber-300">르곤-알파 총괄사령관</span>
+          <span class="text-[10px] text-slate-400 font-mono">실시간 연결됨</span>
+          <span class="px-1.5 py-0.5 rounded text-[9px] bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">두뇌 정상 가동</span>
         </div>
-        <input 
-          id="voice-pitch-slider"
-          type="range" 
-          min="0.70" 
-          max="1.40" 
-          step="0.05" 
-          value="1.15" 
-          oninput="handlePitchChange(this.value)"
-          class="w-full accent-cyan-400 cursor-pointer"
-        />
-        <div class="flex justify-between text-[9px] text-slate-500">
-          <span>차분한 저음 (0.70)</span>
-          <span>기본 (1.00)</span>
-          <span>밝은 고음 (1.40)</span>
-        </div>
-      </div>
-
-      <div class="p-2 rounded-lg bg-slate-900/80 border border-slate-800 space-y-1">
-        <div class="flex items-center justify-between text-[11px] font-semibold text-slate-300">
-          <span>⚡ 빠르기(말하기 속도 Rate)</span>
-          <span id="voice-rate-val" class="font-mono text-emerald-300 font-bold">1.10x</span>
-        </div>
-        <input 
-          id="voice-rate-slider"
-          type="range" 
-          min="0.80" 
-          max="1.60" 
-          step="0.05" 
-          value="1.10" 
-          oninput="handleRateChange(this.value)"
-          class="w-full accent-emerald-400 cursor-pointer"
-        />
-        <div class="flex justify-between text-[9px] text-slate-500">
-          <span>천천히 (0.80x)</span>
-          <span>기본 (1.00x)</span>
-          <span>초고속 (1.60x)</span>
+        <div class="p-3.5 rounded-2xl rounded-tl-none bg-slate-900/90 border border-indigo-500/30 text-xs text-slate-200 leading-relaxed shadow-lg">
+          <p class="font-bold text-white mb-1.5">충성! 이상일 대표님, 르곤-알파 1:1 전담 독대실입니다.</p>
+          <p class="text-slate-300 mb-2">사령부의 6대 청사 및 30개 자율 기관이 모두 정상 배치되어 있습니다. 아래 빠른 실행 칩이나 10대 슬래시 명령어(/)로 즉각 지휘하실 수 있습니다.</p>
+          <div class="flex flex-wrap gap-1.5 mt-2 pt-2 border-t border-slate-800">
+            <button type="button" onclick="sendChipAction('SUB_AGENTS_REPORT')" class="px-2.5 py-1 rounded bg-indigo-900/60 hover:bg-indigo-800 text-indigo-200 text-[11px] font-bold border border-indigo-700/50 transition">📡 6대 청사 현황</button>
+            <button type="button" onclick="sendChipAction('QUANT_MEDIA_BRIEF')" class="px-2.5 py-1 rounded bg-cyan-900/60 hover:bg-cyan-800 text-cyan-200 text-[11px] font-bold border border-cyan-700/50 transition">📈 퀀트·미디어 브리핑</button>
+            <button type="button" onclick="sendChipAction('BUTTON_AUDIT')" class="px-2.5 py-1 rounded bg-emerald-900/60 hover:bg-emerald-800 text-emerald-200 text-[11px] font-bold border border-emerald-700/50 transition">🛡️ 전 버튼 검수</button>
+            <button type="button" onclick="window.location.href='rgon_inspector_general_court.html'" class="px-2.5 py-1 rounded bg-purple-900/60 hover:bg-purple-800 text-purple-200 text-[11px] font-bold border border-purple-700/50 transition">⚖️ 감찰원 관제실</button>
+          </div>
         </div>
       </div>
     </div>
-
-    <!-- ④ 변경된 목소리 즉시 들어보기 & 저장 상태 -->
-    <div class="flex items-center justify-between pt-1">
-      <button 
-        id="voice-preview-btn"
-        type="button" 
-        onclick="previewCustomVoice()" 
-        class="px-3 py-1.5 rounded-lg bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-bold text-xs shadow-md transition active:scale-95 flex items-center gap-1.5"
-       data-clean-id="CLEAN-CHAT-073">
-        <span>🔊</span><span>변경된 목소리로 즉시 들어보기</span>
-      </button>
-      <span id="voice-save-status-badge" class="text-[10px] text-emerald-400">✓ 실시간 자동 저장 완료</span>
-    </div>
-  </div>
-
-  <!-- 📡 [v12.0.1] 6대 청사 서브에이전트 실시간 보좌 지표 토글 버튼 및 접이식 서랍 (평소 100% 숨김) -->
-  <div class="px-3 py-1.5 bg-slate-950/40 border-b border-indigo-500/10 shrink-0">
-    <div class="flex items-center justify-between">
-      <button 
-        id="toggle-sub-metrics-btn"
-        type="button"
-        onclick="toggleSubMetricsDrawer()" 
-        class="text-[11px] text-slate-400 hover:text-amber-300 transition flex items-center gap-1 font-bold bg-slate-900/80 px-2.5 py-1 rounded-md border border-slate-800 active:scale-95"
-       data-clean-id="CLEAN-CHAT-074">
-        <span>📡</span>
-        <span id="toggle-sub-metrics-text">6대 청사 실시간 보좌 지표 보기 ▼</span>
-      </button>
-      <span class="text-[10px] text-slate-500">원할 때만 열어보는 접이식 서랍</span>
-    </div>
-
-    <!-- 기본적으로 완전 숨김(display: none) 처리되는 서랍 패널 -->
-    <div id="sub-metrics-drawer-panel" style="display: none;" class="mt-2 p-2.5 rounded-xl bg-slate-900/95 border border-indigo-500/30">
-      <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 text-[10px]">
-        <div class="p-2 rounded-lg bg-slate-950/80 border border-slate-800 flex flex-col justify-between">
-          <div class="font-extrabold text-amber-300 pb-1 border-b border-slate-800">📈 1청사 알파-퀀트</div>
-          <div class="text-emerald-400 pt-1" style="white-space: normal; word-break: keep-all; overflow: visible; text-overflow: clip; line-height: 1.35;">알파-D1 퀀트 · 실시간 가동중 · 헌법 v1.0 / 항체 R1~R14 수호 · 4대혈관 100% 정상</div>
-        </div>
-        <div class="p-2 rounded-lg bg-slate-950/80 border border-slate-800 flex flex-col justify-between">
-          <div class="font-extrabold text-amber-300 pb-1 border-b border-slate-800">🚀 2청사 알파-바이럴</div>
-          <div class="text-emerald-400 pt-1" style="white-space: normal; word-break: keep-all; overflow: visible; text-overflow: clip; line-height: 1.35;">4대 SNS 발사대 · BM 시뮬레이터 0원</div>
-        </div>
-        <div class="p-2 rounded-lg bg-slate-950/80 border border-slate-800 flex flex-col justify-between">
-          <div class="font-extrabold text-amber-300 pb-1 border-b border-slate-800">🎵 3청사 알파-미디어</div>
-          <div class="text-emerald-400 pt-1" style="white-space: normal; word-break: keep-all; overflow: visible; text-overflow: clip; line-height: 1.35;">유튜브 3채널 · 틱톡 2,098명 · 432Hz</div>
-        </div>
-        <div class="p-2 rounded-lg bg-slate-950/80 border border-slate-800 flex flex-col justify-between">
-          <div class="font-extrabold text-amber-300 pb-1 border-b border-slate-800">🌱 4청사 알파-홍익</div>
-          <div class="text-emerald-400 pt-1" style="white-space: normal; word-break: keep-all; overflow: visible; text-overflow: clip; line-height: 1.35;">인성헌법 100점 · 거짓보고 0% 감찰</div>
-        </div>
-        <div class="p-2 rounded-lg bg-slate-950/80 border border-slate-800 flex flex-col justify-between">
-          <div class="font-extrabold text-amber-300 pb-1 border-b border-slate-800">🛡️ 5청사 알파-가디언</div>
-          <div class="text-emerald-400 pt-1" style="white-space: normal; word-break: keep-all; overflow: visible; text-overflow: clip; line-height: 1.35;">보안키 0.00% 마스킹 · 5대시트 85탭</div>
-        </div>
-        <div class="p-2 rounded-lg bg-slate-950/80 border border-slate-800 flex flex-col justify-between">
-          <div class="font-extrabold text-amber-300 pb-1 border-b border-slate-800">💰 6청사 알파-트레저리</div>
-          <div class="text-emerald-400 pt-1" style="white-space: normal; word-break: keep-all; overflow: visible; text-overflow: clip; line-height: 1.35;">실전금고 0원 불변 · 50:25:15:10 수호</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 💬 중앙 1:1 대화 스트림 -->
-  <main id="alpha-exclusive-chat-stream" class="chat-stream flex-1 overflow-y-auto p-3 sm:p-4 space-y-4">
-    <!-- 자바스크립트로 메시지 실시간 렌더링 -->
   </main>
 
   <!-- 🧰 6대 기관 지휘 · Adobe STUDIO v5 · 음성 도구함 (기본 닫힘 Collapsed) -->
-  <details id="rgon-tools-drawer" class="rgon-compact-drawer" style="margin:4px 12px;border-radius:14px;border:1px solid rgba(168,85,247,0.3);background:rgba(15,23,42,0.9);padding:8px 14px;z-index:25;">
+  <!-- 🧰 6대 기관 지휘 · 음성 도구함 (기본 닫힘, 딱 1세트만 단정히 배치) -->
+  <details id="rgon-tools-drawer" class="rgon-compact-drawer" style="margin:4px 12px 10px 12px;border-radius:14px;border:1px solid rgba(168,85,247,0.3);background:rgba(15,23,42,0.9);padding:8px 14px;z-index:25;">
     <summary style="cursor:pointer;font-size:12px;font-weight:700;color:#c084fc;display:flex;align-items:center;justify-content:space-between;">
-      <span>🧰 6대 기관 지휘 · Adobe STUDIO v5 · 음성 도구함 펼치기 ▼</span>
-      <span style="font-size:10.5px;color:#94a3b8;font-weight:normal;">기본 닫힘</span>
+      <span>🧰 6대 기관 지휘 · 음성 도구함 펼치기 ▼</span>
+      <span style="font-size:10.5px;color:#94a3b8;font-weight:normal;">원클릭 열기/닫기</span>
     </summary>
     <div class="rgon-drawer-body" style="margin-top:10px;display:flex;flex-direction:column;gap:10px;">
-      <!-- 6대 청사 원터치 지휘 버튼 그리드 -->
+      <!-- 6대 청사 원터치 지휘 버튼 그리드 (딱 1세트) -->
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:6px;">
-        <button type="button" onclick="sendChipAction('STAGE_GATE_STATUS')" style="background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.4);color:#fcd34d;padding:6px;border-radius:8px;font-size:11px;font-weight:bold;cursor:pointer;">🎯 6대 기관 단계별 목표</button>
+        <button id="stage-gate-status-btn" type="button" onclick="sendChipAction('STAGE_GATE_STATUS')" style="background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.4);color:#fcd34d;padding:6px;border-radius:8px;font-size:11px;font-weight:bold;cursor:pointer;">🎯 6대 기관 단계별 목표</button>
         <button type="button" onclick="sendChipAction('SUB_AGENTS_REPORT')" style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.4);color:#a5b4fc;padding:6px;border-radius:8px;font-size:11px;font-weight:bold;cursor:pointer;">📊 서브에이전트 종합보고</button>
         <button type="button" onclick="sendChipAction('BUTTON_AUDIT')" style="background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.4);color:#6ee7b7;padding:6px;border-radius:8px;font-size:11px;font-weight:bold;cursor:pointer;">🔍 전 버튼 실전 클릭감사</button>
         <button type="button" onclick="sendChipAction('QUANT_MEDIA_BRIEF')" style="background:rgba(56,189,248,0.15);border:1px solid rgba(56,189,248,0.4);color:#7dd3fc;padding:6px;border-radius:8px;font-size:11px;font-weight:bold;cursor:pointer;">📈 1청사 퀀트·3청사 미디어</button>
         <button type="button" onclick="sendChipAction('GRAND_RELAY')" style="background:rgba(168,85,247,0.15);border:1px solid rgba(168,85,247,0.4);color:#d8b4fe;padding:6px;border-radius:8px;font-size:11px;font-weight:bold;cursor:pointer;">⚡ 6대 청사 합동 릴레이</button>
+      </div>
+
+      <!-- 음성 제어 및 대화 관리 바 -->
+      <div style="background:rgba(0,0,0,0.3);border-radius:10px;padding:8px;border:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;">
+        <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;">
+          <button id="voice-auto-toggle" type="button" onclick="toggleVoiceAutoResponse()" style="background:rgba(16,185,129,0.2);border:1px solid #10b981;color:#6ee7b7;padding:4px 10px;border-radius:8px;font-size:11px;font-weight:bold;cursor:pointer;">
+            <span id="voice-auto-toggle-text">20대 청년보이스 ON</span>
+          </button>
+          <button id="voice-test-btn" type="button" onclick="testVoiceSpeech()" style="background:rgba(59,130,246,0.2);border:1px solid #3b82f6;color:#93c5fd;padding:4px 10px;border-radius:8px;font-size:11px;font-weight:bold;cursor:pointer;">
+            🔊 음성 테스트
+          </button>
+          <button id="voice-stop-btn" type="button" onclick="stopVoiceSpeech()" style="background:rgba(239,68,68,0.2);border:1px solid #ef4444;color:#fca5a5;padding:4px 10px;border-radius:8px;font-size:11px;font-weight:bold;cursor:pointer;">
+            🛑 음성 정지
+          </button>
+        </div>
+        <button type="button" onclick="sendChipAction('CLEAR_CHAT')" style="background:rgba(71,85,105,0.4);border:1px solid #64748b;color:#cbd5e1;padding:4px 10px;border-radius:8px;font-size:11px;font-weight:bold;cursor:pointer;">
+          🧹 대화창 비우기
+        </button>
       </div>
 
       <!-- Adobe 도구 및 광고 스튜디오 (단 1회만 단정하게 배치) -->
@@ -1750,8 +1537,8 @@ details.rgon-compact-drawer>.rgon-drawer-body{max-height:58vh;overflow-y:auto;-w
             text: '충성! 이상일 대표님! 대시보드 총괄사령관 르곤-알파, 24시간 1:1 전담 독대실에 상시 대기 중입니다!
 
 👑 [현재 사령부 핵심 상태]
-• 시스템 버전: v11.51-AON-COMMANDER-TWIN
-• 항체 방어망: R1~R52 (52개 전 항체 100% 활성)
+• 시스템 버전: v11.53-AON-INSPECTOR-GENERAL
+• 항체 방어망: R1~R54 (52개 전 항체 100% 활성)
 • 정식 스킬: 48개 등록 완료
 • 전수 실전 검열: 전 52개 화면 · 1,879개 버튼 100.0% PASS
 • 제1~6청사 및 28대 기관: 이상 0건 무인 순항 중
@@ -2019,7 +1806,7 @@ details.rgon-compact-drawer>.rgon-drawer-body{max-height:58vh;overflow-y:auto;-w
 
 • 총 점검 버튼/컨트롤: 1,879개 전수 통과 (통과율 100.0%)
 • 무늬만 버튼(Dummy/Dead Button): 0개 (0.00% 완전 박멸)
-• 28대 기관 및 R1~R52 항체 체제 철통 수호
+• 28대 기관 및 R1~R54 항체 체제 철통 수호
 • 최종 결재: 🎖️ 르곤-알파 100% 검증완료 결재 도장 발행 완료!`;
       } else if (isTreasury) {
         replyText = `충성! 대표님, 제5청사 보안·시트와 제6청사 실전 금고 현황을 투명하게 직보합니다!
@@ -5993,319 +5780,8 @@ details:not([open]) {
 /* RGON_STEP6_END */
 </script>
 <!-- RGON-STEP7-UNTRAP START -->
-<style id="rgon-step7-style">
-#rgon-step7-chat-zone{display:block!important;position:relative!important;width:100%!important;max-width:100%!important;flex:1 1 100%!important;min-width:0!important;box-sizing:border-box!important;clear:both!important;margin:8px 0!important;writing-mode:horizontal-tb!important}
-#rgon-step7-chat-zone > [data-rgon-untrapped="1"]{width:100%!important;max-width:100%!important;flex:1 1 100%!important;min-width:0!important;box-sizing:border-box!important}
-#rgon-step7-chat-zone #dokdae-feed{width:100%!important;max-width:100%!important;min-width:0!important;box-sizing:border-box!important}
-#rgon-step7-chat-zone .rgon-s7-row{display:flex!important;flex-direction:row!important;flex-wrap:wrap!important;align-items:center!important;gap:6px!important;white-space:nowrap!important;word-break:keep-all!important;width:auto!important;max-width:100%!important;writing-mode:horizontal-tb!important}
-#rgon-step7-chat-zone .rgon-s7-nw{display:flex!important;flex-direction:row!important;flex-wrap:wrap!important;align-items:center!important;white-space:nowrap!important;word-break:keep-all!important;overflow-wrap:normal!important;width:auto!important;max-width:none!important;flex:0 0 auto!important;writing-mode:horizontal-tb!important}
-</style>
-<script id="rgon-step7-script">
-(function () {
-  "use strict";
-  if (window.__RGON_STEP7_UNTRAP__) return;
-  window.__RGON_STEP7_UNTRAP__ = true;
 
-  var ZONE_ID = "rgon-step7-chat-zone";
-  var STEP5_ID = "rgon-step5-solo-panel";
-  var TOOL_RE = /음성 중지|청년보이스 테스트|음성 설정|Adobe 무료|한마디 올인원/;
-  var PHRASES = ["충성! 이상일 대표님", "6대 청사 실시간 보좌 지표"];
-  var FEED_SEL = "#dokdae-feed,#dokdae-messages,#dokdae-chat,#chat-feed,#chatFeed,#chat-log,#chatLog,#messages,[data-rgon-untrapped='1']";
-  var N = {
-    appendChild: Node.prototype.appendChild,
-    insertBefore: Node.prototype.insertBefore,
-    append: Element.prototype.append,
-    prepend: Element.prototype.prepend,
-    before: Element.prototype.before,
-    after: Element.prototype.after,
-    iae: Element.prototype.insertAdjacentElement
-  };
-  var busy = false;
 
-  function txt(el) { return (el && el.textContent) || ""; }
-
-  function directSummary(d) {
-    for (var c = d.firstElementChild; c; c = c.nextElementSibling) {
-      if (c.tagName === "SUMMARY") return c;
-    }
-    return null;
-  }
-
-  function findDrawer() {
-    var ds = document.getElementsByTagName("details"), fb = null;
-    for (var i = 0; i < ds.length; i++) {
-      var s = directSummary(ds[i]);
-      if (!s) continue;
-      var t = txt(s);
-      if (t.indexOf("음성 도구함") >= 0) return ds[i];
-      if (!fb && t.indexOf("6대 기관 지휘") >= 0) fb = ds[i];
-    }
-    return fb;
-  }
-
-  function hasStep5(el) {
-    return el.id === STEP5_ID || !!(el.querySelector && el.querySelector("#" + STEP5_ID));
-  }
-
-  function isIndicator(el) {
-    if (el.tagName === "DETAILS") {
-      var s = directSummary(el);
-      if (s && txt(s).indexOf("보좌 지표") >= 0) return true;
-    }
-    var t = txt(el);
-    return t.indexOf("보좌 지표") >= 0 && t.indexOf("충성!") < 0 && t.length < 600;
-  }
-
-  function climb(el, drawer) {
-    if (!el || el === drawer || !drawer.contains(el)) return null;
-    if (el.id === ZONE_ID) return null;
-    var sum = directSummary(drawer);
-    if (sum && sum.contains(el)) return null;
-    if (el.closest && el.closest("#" + STEP5_ID)) return null;
-    while (el.parentElement && el.parentElement !== drawer) {
-      var p = el.parentElement;
-      if (TOOL_RE.test(txt(p)) || hasStep5(p)) break;
-      el = p;
-    }
-    if (el.tagName === "SUMMARY" || hasStep5(el)) return null;
-    return el;
-  }
-
-  function collect(drawer) {
-    var hits = [], i, n;
-    var f = drawer.querySelectorAll(FEED_SEL);
-    for (i = 0; i < f.length; i++) hits.push(f[i]);
-    var ds = drawer.getElementsByTagName("details");
-    for (i = 0; i < ds.length; i++) {
-      var s = directSummary(ds[i]);
-      if (s && txt(s).indexOf("보좌 지표") >= 0) hits.push(ds[i]);
-    }
-    var w = document.createTreeWalker(drawer, NodeFilter.SHOW_TEXT, null);
-    while ((n = w.nextNode())) {
-      var v = n.nodeValue || "", pe = n.parentElement;
-      if (!pe || /^(SCRIPT|STYLE|TEMPLATE)$/.test(pe.tagName)) continue;
-      for (i = 0; i < PHRASES.length; i++) {
-        if (v.indexOf(PHRASES[i]) >= 0) { hits.push(pe); break; }
-      }
-    }
-    var out = [];
-    hits.forEach(function (h) {
-      var c = climb(h, drawer);
-      if (c && out.indexOf(c) < 0) out.push(c);
-    });
-    out = out.filter(function (a) {
-      return !out.some(function (b) { return b !== a && b.contains(a); });
-    });
-    out.sort(function (a, b) {
-      return (a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING) ? -1 : 1;
-    });
-    return out;
-  }
-
-  function hasSend(el) {
-    if (txt(el).indexOf("알파에게 전송") >= 0) return true;
-    return !!(el.querySelector && el.querySelector("input[value*='전송'],button[aria-label*='전송']"));
-  }
-
-  function composerRoot(drawer) {
-    var els = document.querySelectorAll("textarea,input");
-    for (var i = 0; i < els.length; i++) {
-      var ph = els[i].getAttribute("placeholder") || "";
-      if (ph.indexOf("알파에게") < 0) continue;
-      if (drawer && drawer.contains(els[i])) continue;
-      var c = els[i];
-      while (c.parentElement && c.parentElement !== document.body &&
-             !(drawer && c.parentElement.contains(drawer)) && !hasSend(c)) {
-        c = c.parentElement;
-      }
-      return c;
-    }
-    return null;
-  }
-
-  function flexRow(drawer) {
-    var p = drawer.parentElement;
-    if (!p || p === document.body) return null;
-    var cs = getComputedStyle(p);
-    if (cs.display.indexOf("flex") >= 0 && cs.flexDirection.indexOf("row") === 0) return p;
-    return null;
-  }
-
-  function ensureZone(drawer) {
-    var zone = document.getElementById(ZONE_ID);
-    if (!zone) {
-      zone = document.createElement("div");
-      zone.id = ZONE_ID;
-      zone.setAttribute("data-rgon-untrapped", "1");
-    }
-    var anchor = composerRoot(drawer);
-    if (anchor && anchor.parentNode && anchor !== zone && !zone.contains(anchor)) {
-      if (zone.parentNode !== anchor.parentNode || zone.nextElementSibling !== anchor) {
-        N.insertBefore.call(anchor.parentNode, zone, anchor);
-      }
-    } else if (drawer) {
-      var ref = flexRow(drawer) || drawer;
-      if (ref.parentNode && (zone.parentNode !== ref.parentNode || zone.previousElementSibling !== ref)) {
-        N.insertBefore.call(ref.parentNode, zone, ref.nextSibling);
-      }
-    }
-    var p = zone.parentElement;
-    if (p) {
-      var cs = getComputedStyle(p);
-      if (cs.display.indexOf("flex") >= 0 && cs.flexDirection.indexOf("row") === 0) {
-        p.style.setProperty("flex-wrap", "wrap", "important");
-      }
-    }
-    return zone;
-  }
-
-  function orderZone(zone) {
-    var kids = Array.prototype.slice.call(zone.children), firstNon = -1, needs = false;
-    kids.forEach(function (k, i) {
-      if (isIndicator(k)) { if (firstNon >= 0) needs = true; }
-      else if (firstNon < 0) firstNon = i;
-    });
-    if (!needs) return;
-    kids.filter(isIndicator).reverse().forEach(function (k) {
-      N.insertBefore.call(zone, k, zone.firstChild);
-    });
-  }
-
-  function fixBadges(zone) {
-    if (!zone) return;
-    var els = zone.querySelectorAll("span,b,strong,small,em,i,div,button,time,label,a,p");
-    for (var i = 0; i < els.length; i++) {
-      var el = els[i];
-      if (el.classList.contains("rgon-s7-nw") || el.children.length > 3) continue;
-      var t = (el.textContent || "").replace(/\s+/g, " ").trim();
-      if (!t || t.length > 24) continue;
-      if (t.indexOf("르곤-알파") >= 0 || t.indexOf("총괄사령관") >= 0 ||
-          /^(?:\S{0,3}\s*)?듣기$/.test(t) || /(오전|오후)\s*\d{1,2}:\d{2}/.test(t)) {
-        el.classList.add("rgon-s7-nw");
-        var p = el.parentElement;
-        if (p && p !== zone && !p.hasAttribute("data-rgon-untrapped") &&
-            (p.textContent || "").trim().length <= 90) {
-          p.classList.add("rgon-s7-row");
-        }
-      }
-    }
-  }
-
-  function rescue() {
-    if (busy) return;
-    busy = true;
-    try {
-      var drawer = findDrawer();
-      var zone = document.getElementById(ZONE_ID);
-      if (drawer) {
-        zone = ensureZone(drawer);
-        collect(drawer).forEach(function (el) {
-          if (el === zone || el.contains(zone)) return;
-          el.setAttribute("data-rgon-untrapped", "1");
-          N.appendChild.call(zone, el);
-        });
-        orderZone(zone);
-      }
-      fixBadges(zone);
-    } catch (e) {
-      try { console.warn("[RGON step7] rescue error", e); } catch (x) {}
-    } finally {
-      busy = false;
-    }
-  }
-
-  function guarded(n) {
-    if (!n || n.nodeType !== 1) return false;
-    if (n.id === ZONE_ID || n.getAttribute("data-rgon-untrapped") === "1") return true;
-    return !!n.querySelector("#" + ZONE_ID + ",[data-rgon-untrapped='1']");
-  }
-  function blocked(parent, n) {
-    if (busy || !parent || !guarded(n)) return false;
-    var d = findDrawer();
-    return !!(d && (parent === d || d.contains(parent)));
-  }
-  Node.prototype.appendChild = function (n) {
-    if (blocked(this, n)) return n;
-    return N.appendChild.call(this, n);
-  };
-  Node.prototype.insertBefore = function (n, r) {
-    if (blocked(this, n)) return n;
-    return N.insertBefore.call(this, n, r);
-  };
-  Element.prototype.append = function () {
-    var self = this;
-    var a = Array.prototype.filter.call(arguments, function (x) { return !blocked(self, x); });
-    return N.append.apply(this, a);
-  };
-  Element.prototype.prepend = function () {
-    var self = this;
-    var a = Array.prototype.filter.call(arguments, function (x) { return !blocked(self, x); });
-    return N.prepend.apply(this, a);
-  };
-  if (N.before) {
-    Element.prototype.before = function () {
-      var p = this.parentNode;
-      var a = Array.prototype.filter.call(arguments, function (x) { return !blocked(p, x); });
-      return N.before.apply(this, a);
-    };
-  }
-  if (N.after) {
-    Element.prototype.after = function () {
-      var p = this.parentNode;
-      var a = Array.prototype.filter.call(arguments, function (x) { return !blocked(p, x); });
-      return N.after.apply(this, a);
-    };
-  }
-  Element.prototype.insertAdjacentElement = function (pos, el) {
-    var pp = String(pos || "").toLowerCase();
-    var parent = (pp === "beforebegin" || pp === "afterend") ? this.parentNode : this;
-    if (blocked(parent, el)) return el;
-    return N.iae.call(this, pos, el);
-  };
-
-  var KNOWN = ["rgonStep2Wrap", "rgonStep2Apply", "rgonStep2Layout", "rgonMobileCleanLayout",
-               "rgonWrapToolDrawer", "rgonWrapTools", "wrapToolsDrawer", "applyMobileCleanLayout",
-               "step2MobileClean"];
-  function wrapKnown() {
-    KNOWN.forEach(function (k) {
-      var f = window[k];
-      if (typeof f === "function" && !f.__rgonS7) {
-        var g = function () {
-          try { return f.apply(this, arguments); }
-          finally { setTimeout(rescue, 0); }
-        };
-        g.__rgonS7 = true;
-        try { window[k] = g; } catch (e) {}
-      }
-    });
-  }
-
-  var scheduled = false, runs = 0, winStart = Date.now();
-  var raf = window.requestAnimationFrame || function (cb) { return setTimeout(cb, 16); };
-  var mo = new MutationObserver(function () {
-    if (busy || scheduled) return;
-    scheduled = true;
-    raf(function () {
-      scheduled = false;
-      var now = Date.now();
-      if (now - winStart > 5000) { winStart = now; runs = 0; }
-      if (++runs > 40) return;
-      rescue();
-    });
-  });
-
-  function boot() { wrapKnown(); rescue(); }
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
-  else boot();
-  window.addEventListener("load", boot);
-  [300, 1000, 2500, 5000].forEach(function (t) { setTimeout(boot, t); });
-  document.addEventListener("toggle", function (e) {
-    if (e.target && e.target.tagName === "DETAILS") rescue();
-  }, true);
-  try { mo.observe(document.documentElement, { childList: true, subtree: true }); } catch (e) {}
-  window.rgonStep7Rescue = rescue;
-})();
-</script>
 <!-- RGON-STEP7-UNTRAP END -->
 <!-- RGON-STEP10-AWAKEN:BEGIN -->
 <script id="rgon-step10-agency-awaken">
@@ -6670,7 +6146,7 @@ if (document.readyState === "loading") { document.addEventListener("DOMContentLo
 })();
 </script>
 <!-- RGON-STEP10-AWAKEN:END -->
-<div id="rgon-step7-chat-zone" style="display:contents;" data-rgon-anchor="step11-b2"></div><div id="dokdae-feed" style="display:contents;" data-rgon-anchor="step11-b2"></div>
+<div id="dokdae-feed" style="display:contents;" data-rgon-anchor="step11-b2"></div>
 <script id="rgon-step11-ab-realname">
 (function(){
   "use strict";
@@ -7945,776 +7421,11 @@ if (document.readyState === "loading") { document.addEventListener("DOMContentLo
 /* RGON-E1-HUB-END */
 </script>
 
-<!-- STEP7_BEGIN -->
-<style id="s7-style">
-#s7-root{display:flex;flex-direction:column;gap:6px;margin:6px 0;width:100%;box-sizing:border-box}
-#s7-root>details.s7-bar{border:1.5px solid var(--c,#2ecc71);border-radius:10px;background:#0d1117;overflow:hidden;margin:0;box-sizing:border-box}
-details.s7-bar[data-s7="3"]{--c:#2ecc71}
-details.s7-bar[data-s7="2"]{--c:#3b82f6}
-details.s7-bar[data-s7="1"]{--c:#f59e0b}
-details.s7-bar[data-s7="0"]{--c:#a855f7}
-details.s7-bar>summary{list-style:none;cursor:pointer;padding:10px 12px;font-weight:700;font-size:14px;line-height:1.35;color:#e6edf3;min-height:44px;box-sizing:border-box;display:flex;align-items:center;-webkit-tap-highlight-color:transparent;user-select:none}
-details.s7-bar>summary::-webkit-details-marker{display:none}
-details.s7-bar[open]>summary{background:rgba(255,255,255,.06);border-bottom:1px solid var(--c)}
-details.s7-bar>.s7-body{padding:8px;box-sizing:border-box;max-height:max(320px,var(--s7-h,70dvh));overflow-y:auto;-webkit-overflow-scrolling:touch;position:relative}
-details.s7-bar0[open]>.s7-body{display:flex;flex-direction:column;height:max(320px,var(--s7-h,70dvh));padding:0;overflow-y:auto}
-details.s7-bar0>.s7-body>*{max-height:none}
-.s7-row2{display:grid!important;gap:3px;width:100%;box-sizing:border-box}
-.s7-row2>*{min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:12px;padding-left:2px!important;padding-right:2px!important}
-#s7-apply{background:linear-gradient(135deg,#ef4444,#f97316)!important;color:#fff!important;font-weight:800;border:0;border-radius:8px;cursor:pointer}
-#s7-toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#111c;color:#fff;padding:10px 16px;border-radius:10px;font-size:13px;z-index:2147483000;max-width:90vw;text-align:center;backdrop-filter:blur(6px);border:1px solid #444}
-#s7-modal{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:2147483001;display:flex;align-items:center;justify-content:center;padding:12px;box-sizing:border-box}
-#s7-modal .s7-card{background:#0d1117;border:1.5px solid #f97316;border-radius:12px;padding:12px;width:min(640px,100%);max-height:92dvh;display:flex;flex-direction:column;gap:8px;color:#e6edf3}
-#s7-modal textarea{width:100%;height:36dvh;background:#010409;color:#e6edf3;border:1px solid #30363d;border-radius:8px;padding:8px;font-family:monospace;font-size:12px;box-sizing:border-box}
-#s7-modal .s7-btns{display:flex;flex-wrap:wrap;gap:6px}
-#s7-modal button{flex:1 1 120px;padding:10px;border-radius:8px;border:1px solid #444;background:#161b22;color:#fff;font-weight:700;cursor:pointer}
-</style>
-<script id="s7-script">
-(function(){
-'use strict';
-if(window.__STEP7__) return; window.__STEP7__=true;
-var REPO='sangill111157-spec/hangeoreumsshik-cloud', BRIDGE='/api/queue', OLD_REPO='owner/shin-agent';
-var LABELS={
- 3:'▶ 🛰️ 르곤-알파 실시간 브리핑 전문 (자동)',
- 2:'▶ 🛰️ 4대 AI 분배 컨트롤러 & 만능 소통창',
- 1:'▶ ⚡ 독대실에서 바로 분배하기 (👑르곤 / 🧠Claude / ⚡GPT / 🎯Grok)',
- 0:'▶ 💬 르곤-알파 1:1 대화창 & 6대 청사 보좌 지표'
-};
-var KEYS={3:['실시간 브리핑 전문'],2:['분배 컨트롤러'],1:['독대실에서 바로 분배']};
-var root=null, bars={}, built=false, row2=null, busy=false;
+<!-- STEP7 REMOVED: GHOST JS ELIMINATED -->
 
-function norm(s){return (s||'').replace(/\s+/g,' ').trim();}
-function inRoot(el){return !!el.closest('#s7-root,#s7-modal,#s7-toast,script,style');}
-function matches(t,key){return key.every(function(k){return t.indexOf(k)>-1;});}
-function findHeaders(key){
-  var out=[], all=document.querySelectorAll('summary,button,div,span,a,h1,h2,h3,h4,h5,p,label,li');
-  for(var i=0;i<all.length;i++){
-    var el=all[i]; if(inRoot(el)) continue;
-    var t=norm(el.textContent); if(t.length<4||t.length>140||!matches(t,key)) continue;
-    var childHit=Array.prototype.some.call(el.children,function(c){return matches(norm(c.textContent),key);});
-    if(!childHit) out.push(el);
-  }
-  return out;
-}
-function toast(msg){
-  var t=document.getElementById('s7-toast');
-  if(!t){t=document.createElement('div');t.id='s7-toast';document.body.appendChild(t);}
-  t.textContent=msg;t.style.display='block';clearTimeout(t.__t);
-  t.__t=setTimeout(function(){t.style.display='none';},3200);
-}
-function looksLikeHeader(p){
-  var t=norm(p.textContent); if(t.length>140) return false;
-  return [3,2,1].some(function(n){return matches(t,KEYS[n]);});
-}
-function byId(id){return id?document.getElementById(String(id).replace(/^#/,'')):null;}
-function resolvePanel(c){
-  var id=c.getAttribute('aria-controls')||c.getAttribute('data-target')||c.getAttribute('data-bs-target');
-  var p=byId(id);
-  if(!p){
-    var oc=c.getAttribute('onclick')||'';
-    var m=oc.match(/getElementById\(\s*['"]([^'"]+)['"]/)||oc.match(/\w+\(\s*['"]([^'"]+)['"]/);
-    if(m) p=byId(m[1]);
-  }
-  if(!p||p.contains(c)) p=c.nextElementSibling;
-  if(!p&&c.parentElement) p=c.parentElement.nextElementSibling;
-  if(p&&looksLikeHeader(p)) p=null;
-  return p;
-}
-function describe(h){
-  var sm=h.closest('summary');
-  if(sm&&sm.parentElement&&sm.parentElement.tagName==='DETAILS') return {kind:'details',el:sm.parentElement,header:sm};
-  var c=h.closest('button,[onclick],[role=button],a')||h;
-  return {kind:'plain',header:c,panel:resolvePanel(c)};
-}
-function refOf(d){return d.kind==='details'?d.el:d.header;}
-function unhide(el){
-  el.hidden=false; el.removeAttribute('hidden');
-  var cs=getComputedStyle(el);
-  if(cs.display==='none') el.style.setProperty('display','block','important');
-  if(cs.visibility==='hidden') el.style.setProperty('visibility','visible','important');
-  if(cs.maxHeight==='0px') el.style.setProperty('max-height','none','important');
-  if(cs.height==='0px'&&el.children.length) el.style.setProperty('height','auto','important');
-  if(parseFloat(cs.opacity)===0) el.style.setProperty('opacity','1','important');
-}
-function defix(el,inbar){
-  var all=[el].concat([].slice.call(el.querySelectorAll('*')));
-  all.forEach(function(x){
-    var cs=getComputedStyle(x);
-    if(cs.position!=='fixed'&&!(cs.position==='sticky'&&x!==inbar)) return;
-    var isBar=(x===inbar);
-    x.style.setProperty('position',isBar?'sticky':'static','important');
-    x.style.setProperty('top','auto','important');
-    x.style.setProperty('left','auto','important');
-    x.style.setProperty('right','auto','important');
-    x.style.setProperty('bottom',isBar?'0':'auto','important');
-    x.style.setProperty('transform','none','important');
-    x.style.setProperty('width','auto','important');
-    if(isBar){x.style.setProperty('z-index','5','important');x.style.setProperty('background','#0d1117');}
-  });
-}
-
-/* ---------- 상단 탭줄 제거(숨김) ---------- */
-function hideTabs(){
-  var a=findHeaders(['1번','알파 대화창'])[0], b=findHeaders(['2번','AI 지시'])[0];
-  if(!a||!b) return;
-  var sel='button,[role=tab],[onclick],a';
-  var ba=a.closest(sel)||a, bb=b.closest(sel)||b, p=ba.parentElement;
-  while(p&&!p.contains(bb)) p=p.parentElement;
-  if(!p||p===document.body||norm(p.textContent).length>120) return;
-  p.style.setProperty('display','none','important'); p.setAttribute('data-s7-removed','tabs');
-}
-
-/* ---------- 바 생성 ---------- */
-function setArrow(d){
-  var sm=d.querySelector(':scope>summary'); if(!sm) return;
-  var t=sm.textContent.replace(/^\s*[▶▼]\s*/,'');
-  var nt=(d.open?'▼ ':'▶ ')+t;
-  if(sm.textContent!==nt) sm.textContent=nt;
-}
-function mk(n,d){
-  var det,sm,body=document.createElement('div');
-  body.className='s7-body';
-  if(d.kind==='details'){
-    det=d.el; sm=d.header; det.open=false; det.removeAttribute('open');
-    [].slice.call(det.childNodes).forEach(function(k){if(k!==sm) body.appendChild(k);});
-    sm.textContent=LABELS[n]; det.appendChild(body);
-  }else{
-    det=document.createElement('details'); sm=document.createElement('summary');
-    sm.textContent=LABELS[n]; det.appendChild(sm);
-    if(d.panel){
-      if(root&&d.panel.contains(root)) document.body.insertBefore(root,document.body.firstChild);
-      body.appendChild(d.panel); unhide(d.panel);
-    }
-    det.appendChild(body);
-    d.header.style.setProperty('display','none','important'); d.header.setAttribute('data-s7-hidden','1');
-  }
-  det.classList.add('s7-bar'); det.setAttribute('data-s7',n);
-  root.appendChild(det); bars[n]=det; return det;
-}
-
-/* ---------- 0번 바 재료 찾기 ---------- */
-function findFeed(){
-  var ids=['chatFeed','chat-feed','chatLog','chat-log','chatMessages','messages','feed','chatBox','alphaChat','alpha-chat','chat','log'];
-  for(var i=0;i<ids.length;i++){var e=document.getElementById(ids[i]); if(e&&!inRoot(e)) return e;}
-  var q=document.querySelectorAll('[class*="chat-feed"],[class*="chatFeed"],[class*="chat-log"],[class*="messages"]');
-  for(var j=0;j<q.length;j++) if(!inRoot(q[j])) return q[j];
-  return null;
-}
-function findInput(){
-  var list=[].slice.call(document.querySelectorAll('textarea,input[type=text],input:not([type])')).filter(function(e){
-    return !e.closest('#s7-root,#s7-modal,[id*=drawer i],[id*=modal i],[class*=drawer i],[class*=modal i]');
-  });
-  if(!list.length) return null;
-  var pref=list.filter(function(e){return /chat|msg|message|입력|질문|알파|르곤/i.test((e.id||'')+(e.placeholder||'')+(e.name||''));});
-  return (pref[0]||list[list.length-1]);
-}
-function inputBarOf(inp){
-  var e=inp,best=null;
-  for(var i=0;i<7&&e&&e!==document.body;i++,e=e.parentElement){
-    var cs=getComputedStyle(e);
-    if(cs.position==='fixed'||cs.position==='sticky'){best=e;break;}
-  }
-  if(!best) best=inp.closest('form')||inp.parentElement;
-  if(best&&(best.contains(root)||best.querySelector('.s7-bar'))) best=inp.parentElement;
-  return best;
-}
-function lca(list){
-  var a=list[0];
-  while(a){ if(list.every(function(x){return a.contains(x);})) return a; a=a.parentElement; }
-  return null;
-}
-function lcaValid(L){
-  if(!L||L===document.body||L===document.documentElement) return false;
-  if(L.contains(root)||L.querySelector('.s7-bar')) return false;
-  if(L.textContent.indexOf('로건봇')>-1) return false;
-  if(L.querySelector('[id*=drawer i],[id*=modal i],[class*=drawer i]')) return false;
-  return true;
-}
-function buildBar0(){
-  var det=document.createElement('details'), sm=document.createElement('summary'), body=document.createElement('div');
-  det.className='s7-bar s7-bar0'; det.setAttribute('data-s7','0');
-  sm.textContent=LABELS[0]; body.className='s7-body'; det.appendChild(sm); det.appendChild(body);
-  root.appendChild(det); bars[0]=det;
-
-  var anchors=[];
-  var indH=findHeaders(['6대 청사','지표'])[0];
-  if(indH){
-    var id=describe(indH);
-    if(id.kind==='details') anchors.push(id.el); else {anchors.push(id.header); if(id.panel) anchors.push(id.panel);}
-  }
-  var feed=findFeed(), inp=findInput(), inbar=inp?inputBarOf(inp):null;
-  if(feed) anchors.push(feed);
-  if(inbar) anchors.push(inbar);
-  anchors=anchors.filter(function(a,i){return a&&anchors.indexOf(a)===i&&!a.contains(root)&&!inRoot(a);});
-  if(!anchors.length){body.textContent='대화창 요소를 찾지 못했습니다.';return;}
-
-  var L=anchors.length?lca(anchors):null, moved=[];
-  if(lcaValid(L)) moved=[L];
-  else moved=anchors.filter(function(a){return !anchors.some(function(o){return o!==a&&o.contains(a);});})
-        .sort(function(a,b){return (a.compareDocumentPosition(b)&4)?-1:1;});
-  moved.forEach(function(el){
-    body.appendChild(el); unhide(el);
-    defix(el,inbar);
-    el.style.setProperty('margin','0','important');
-    el.style.setProperty('max-height','none','important');
-    el.style.setProperty('flex','1 1 auto','important');
-    el.style.setProperty('min-height','0','important');
-    if(el===inbar){el.style.setProperty('flex','0 0 auto','important');}
-  });
-  if(feed){
-    unhide(feed);
-    feed.style.setProperty('overflow-y','auto','important');
-    feed.style.setProperty('max-height','none','important');
-    feed.style.setProperty('min-height','160px','important');
-    feed.style.setProperty('flex','1 1 auto','important');
-    if(!moved.some(function(m){return m===feed;})) feed.style.setProperty('height','auto','important');
-  }
-  if(inbar){ inbar.style.setProperty('position','sticky','important'); inbar.style.setProperty('bottom','0','important'); }
-}
-
-/* ---------- 아코디언 ---------- */
-function barList(){return [3,2,1,0].map(function(n){return bars[n];}).filter(Boolean);}
-function layout(){
-  if(!root) return;
-  var list=barList(); if(!list.length) return;
-  var sm=list[0].querySelector(':scope>summary'), sh=sm?sm.offsetHeight||44:44;
-  var top=root.getBoundingClientRect().top+window.scrollY;
-  var used=top+(sh+8)*list.length+6;
-  root.style.setProperty('--s7-h','calc(100dvh - '+Math.round(used)+'px)');
-}
-function closeOthers(d){barList().forEach(function(o){if(o!==d&&o.open){o.open=false;o.removeAttribute('open');setArrow(o);}});}
-function openBar(n){
-  var d=bars[n]; if(!d) return;
-  closeOthers(d); d.open=true; setArrow(d); layout();
-  try{window.scrollTo({top:0,behavior:'smooth'});}catch(e){window.scrollTo(0,0);}
-}
-window.s7Open=openBar;
-function wireAccordion(){
-  root.addEventListener('click',function(ev){
-    var sm=ev.target.closest&&ev.target.closest('summary'); if(!sm) return;
-    var d=sm.parentElement; if(!d||!d.classList.contains('s7-bar')) return;
-    if(!d.open) closeOthers(d);
-  },true);
-  root.addEventListener('toggle',function(ev){
-    var d=ev.target; if(!d.classList||!d.classList.contains('s7-bar')) return;
-    setArrow(d);
-    if(d.open){closeOthers(d);layout();try{window.scrollTo({top:0,behavior:'smooth'});}catch(e){}}
-  },true);
-  window.addEventListener('resize',layout);
-  window.addEventListener('orientationchange',function(){setTimeout(layout,300);});
-  barList().forEach(setArrow);
-}
-
-/* ---------- 🚀 코드반영 ---------- */
-function stamp(){var d=new Date(),p=function(x){return String(x).padStart(2,'0');};
-  return d.getFullYear()+p(d.getMonth()+1)+p(d.getDate())+'_'+p(d.getHours())+p(d.getMinutes())+p(d.getSeconds());}
-function copyText(t){
-  try{ if(navigator.clipboard&&navigator.clipboard.writeText) return navigator.clipboard.writeText(t); }catch(e){}
-  var ta=document.createElement('textarea'); ta.value=t; document.body.appendChild(ta); ta.select();
-  try{document.execCommand('copy');}catch(e){} ta.remove(); return Promise.resolve();
-}
-function postBridge(code){
-  var ctl=window.AbortController?new AbortController():null;
-  var to=setTimeout(function(){if(ctl) ctl.abort();},2500);
-  var payload=JSON.stringify({type:'code',source:'rgon_alpha_chat',repo:REPO,ts:Date.now(),code:code});
-  return fetch(BRIDGE,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:payload,signal:ctl?ctl.signal:undefined})
-    .then(function(){clearTimeout(to);return true;})
-    .catch(function(){clearTimeout(to);return false;});
-}
-function showApplyModal(code){
-  var old=document.getElementById('s7-modal'); if(old) old.remove();
-  var m=document.createElement('div'); m.id='s7-modal';
-  var card=document.createElement('div'); card.className='s7-card';
-  var h=document.createElement('div'); h.style.fontWeight='800'; h.textContent='🚀 코드 즉시반영 (PC 브리지 미연결 → 모바일 경로)';
-  var ta=document.createElement('textarea'); ta.value=code;
-  var bt=document.createElement('div'); bt.className='s7-btns';
-  function btn(label,fn){var b=document.createElement('button');b.type='button';b.textContent=label;b.addEventListener('click',fn);bt.appendChild(b);}
-  btn('📋 복사',function(){copyText(ta.value).then(function(){toast('복사 완료');});});
-  btn('🐙 GitHub에 올리기',function(){
-    var fn='inbox/code_'+stamp()+'.txt';
-    var base='https://github.com/'+REPO+'/new/main?filename='+encodeURIComponent(fn);
-    var url=base+'&value='+encodeURIComponent(ta.value);
-    if(url.length>7000){copyText(ta.value);url=base;toast('코드가 길어 클립보드에 복사됨 — 붙여넣고 Commit 하세요');}
-    window.open(url,'_blank');
-  });
-  btn('✈️ 텔레그램 전송',function(){
-    window.open('https://t.me/share/url?url=%20&text='+encodeURIComponent(ta.value.slice(0,3500)),'_blank');
-  });
-  btn('🔁 브리지 재시도',function(){postBridge(ta.value).then(function(ok){toast(ok?'🚀 PC 브리지 전달 완료':'브리지 연결 실패');if(ok) m.remove();});});
-  btn('닫기',function(){m.remove();});
-  card.appendChild(h);card.appendChild(ta);card.appendChild(bt);m.appendChild(card);
-  m.addEventListener('click',function(e){if(e.target===m) m.remove();});
-  document.body.appendChild(m);
-}
-function applyCode(){
-  var getText=(navigator.clipboard&&navigator.clipboard.readText)?navigator.clipboard.readText():Promise.reject();
-  getText.catch(function(){return window.prompt('클립보드 읽기 권한이 없습니다. 클로드 코드를 붙여넣어 주세요:')||'';})
-  .then(function(txt){
-    var code=(txt||'').trim();
-    if(!code){toast('클립보드가 비어 있습니다');return;}
-    toast('🚀 전달 중...');
-    postBridge(code).then(function(ok){
-      if(ok){toast('🚀 PC 브리지 큐 전달 완료 ('+code.length+'자)');return;}
-      var hooks=['openInstantApply','openApplyModal','showApplyModal','instantApply','openMobileApply','openCodeApply'];
-      for(var i=0;i<hooks.length;i++){
-        if(typeof window[hooks[i]]==='function'){ try{window[hooks[i]](code);return;}catch(e){} }
-      }
-      showApplyModal(code);
-    });
-  });
-}
-
-/* ---------- 상단 2층 바 ---------- */
-function setupRow2(){
-  var h=findHeaders(['로건봇'])[0], btn=h&&(h.closest('button,a,[onclick],[role=button]')||h);
-  row2=btn?btn.parentElement:null;
-  var nb=document.getElementById('s7-apply');
-  if(!nb){
-    nb=document.createElement('button'); nb.type='button'; nb.id='s7-apply'; nb.textContent='🚀 코드반영';
-    if(btn){nb.className=btn.className; var st=btn.getAttribute('style'); if(st) nb.setAttribute('style',st);}
-    nb.addEventListener('click',applyCode);
-  }
-  if(row2){
-    row2.appendChild(nb); row2.classList.add('s7-row2');
-    row2.style.gridTemplateColumns='repeat('+row2.children.length+',minmax(0,1fr))';
-    [].slice.call(row2.children).forEach(function(c){
-      if(c.__s7) return; c.__s7=1; var t=norm(c.textContent);
-      if(t.indexOf('브리핑')>-1) c.addEventListener('click',function(){setTimeout(function(){openBar(3);},30);});
-      else if(t.indexOf('Top1')>-1) c.addEventListener('click',function(){setTimeout(function(){openBar(1);},80);});
-    });
-  }else{
-    var wrap=document.createElement('div'); wrap.className='s7-row2'; wrap.style.gridTemplateColumns='1fr';
-    wrap.appendChild(nb); root.parentNode.insertBefore(wrap,root); row2=wrap;
-  }
-}
-
-/* ---------- 보정(저장소 기본값·카드·중복 상태줄) ---------- */
-function fixRepo(){
-  document.querySelectorAll('input,textarea').forEach(function(i){
-    var v=i.value||'', hint=((i.id||'')+(i.name||'')+(i.placeholder||'')).toLowerCase();
-    if(v.indexOf(OLD_REPO)>-1||(!v&&/repo|github|저장소/.test(hint)&&i.tagName==='INPUT')){
-      i.value=v?v.split(OLD_REPO).join(REPO):REPO;
-      ['input','change'].forEach(function(ev){i.dispatchEvent(new Event(ev,{bubbles:true}));});
-    }
-    if(i.placeholder&&i.placeholder.indexOf(OLD_REPO)>-1) i.placeholder=i.placeholder.split(OLD_REPO).join(REPO);
-  });
-  try{
-    var n=localStorage.length, keys=[];
-    for(var k=0;k<n;k++) keys.push(localStorage.key(k));
-    keys.forEach(function(key){var val=localStorage.getItem(key); if(val&&val.indexOf(OLD_REPO)>-1) localStorage.setItem(key,val.split(OLD_REPO).join(REPO));});
-    localStorage.setItem('s7_repo',REPO);
-  }catch(e){}
-}
-function fixCards(){
-  var re=/^[🔵🟢🟡🔴🟠🟣⚪⚫]\s*(👑|🧠|⚡|🎯|🔥)/u;
-  document.querySelectorAll('div,span,p,b,strong').forEach(function(e){
-    if(e.children.length>0||inRoot(e)) return;
-    if(!re.test(norm(e.textContent))) return;
-    e.style.setProperty('line-height','1.4','important');
-    e.style.setProperty('overflow','visible','important');
-    e.style.setProperty('height','auto','important');
-    e.style.setProperty('white-space','nowrap','important');
-    var p=e.parentElement;
-    for(var i=0;i<2&&p&&p!==document.body;i++,p=p.parentElement){
-      p.style.setProperty('overflow','visible','important');
-      p.style.setProperty('min-height','0','important');
-      if(i===0) p.style.setProperty('padding-top','4px','important');
-    }
-  });
-}
-function dedupeStatus(){
-  var re=/^수거\s*\d+\s*\/\s*\d+/, seen=[];
-  document.querySelectorAll('div,span,p,small').forEach(function(e){
-    if(e.children.length>0||inRoot(e)||e.getAttribute('data-s7-dup')) return;
-    if(!re.test(norm(e.textContent))) return;
-    var p=e.parentElement;
-    if(seen.indexOf(p)>-1){e.style.setProperty('display','none','important');e.setAttribute('data-s7-dup','1');}
-    else seen.push(p);
-  });
-}
-function purgeDupes(){
-  [3,2,1].forEach(function(n){
-    findHeaders(KEYS[n]).forEach(function(h){
-      var d=describe(h);
-      if(d.kind==='details'){ if(!d.el.classList.contains('s7-bar')&&!inRoot(d.el)) d.el.remove(); }
-      else if(d.header.getAttribute('data-s7-hidden')!=='1'){
-        if(d.panel&&!inRoot(d.panel)) d.panel.remove(); d.header.remove();
-      }
-    });
-  });
-}
-
-/* ---------- 초기화 ---------- */
-function build(){
-  if(built) return; built=true;
-  hideTabs();
-  var found={};
-  [3,1,2].forEach(function(n){
-    var hs=findHeaders(KEYS[n]); if(!hs.length) return;
-    var ds=hs.map(describe), keep=ds[0];
-    ds.slice(1).forEach(function(d){
-      if(d.kind==='details'){ if(d.el!==keep.el&&!d.el.contains(refOf(keep))) d.el.remove(); }
-      else if(d.header!==keep.header){ if(d.panel&&d.panel!==keep.panel&&!d.panel.contains(refOf(keep))) d.panel.remove(); d.header.remove(); }
-    });
-    found[n]=keep;
-  });
-  root=document.createElement('div'); root.id='s7-root';
-  var refs=Object.keys(found).map(function(k){return refOf(found[k]);});
-  refs=refs.filter(function(r){return !refs.some(function(o){return o!==r&&o.contains(r);});});
-  refs.sort(function(a,b){return (a.compareDocumentPosition(b)&4)?-1:1;});
-  if(refs[0]&&refs[0].parentNode) refs[0].parentNode.insertBefore(root,refs[0]);
-  else document.body.appendChild(root);
-  [3,1,2].forEach(function(n){ if(found[n]) mk(n,found[n]); });
-  [3,2,1].forEach(function(n){ if(bars[n]) root.appendChild(bars[n]); });
-  buildBar0(); root.appendChild(bars[0]);
-  wireAccordion(); setupRow2(); layout();
-}
-function finish(){
-  fixRepo(); fixCards(); dedupeStatus();
-  var tmr=null;
-  new MutationObserver(function(){
-    if(busy) return; clearTimeout(tmr);
-    tmr=setTimeout(function(){busy=true;try{purgeDupes();dedupeStatus();fixCards();}catch(e){} busy=false;},700);
-  }).observe(document.body,{childList:true,subtree:true});
-  document.addEventListener('click',function(e){
-    var b=e.target.closest&&e.target.closest('button,a,[onclick]');
-    if(b&&/☰|더보기/.test(b.textContent||'')) setTimeout(fixRepo,150);
-  },true);
-}
-function attempt(i){
-  var c=[3,1,2].filter(function(n){return findHeaders(KEYS[n]).length;}).length;
-  if(c===3||i>=6){build();finish();} else setTimeout(function(){attempt(i+1);},500);
-}
-if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',function(){attempt(0);});
-else attempt(0);
-})();
-</script>
-<!-- STEP7_END -->
-
-<!-- [RGON-STEP11-START] -->
-<style id="rgon-step11-style">
-#rgon-green-briefing-bar{display:block !important;visibility:visible !important;opacity:1 !important;height:auto !important;max-height:none !important;overflow:visible !important;margin:8px 0 !important;border-radius:12px;background:#0b2e1b;border:1px solid #1f8f4e;box-shadow:0 2px 8px rgba(0,0,0,.25);position:relative;z-index:1;box-sizing:border-box;width:100%;}
-#rgon-green-briefing-bar .rgon-gb-head{display:flex;align-items:center;gap:8px;width:100%;padding:12px 14px;margin:0;background:linear-gradient(90deg,#14532d,#16a34a);color:#ecfdf5;font-weight:700;font-size:15px;border:0;border-radius:12px;cursor:pointer;text-align:left;-webkit-tap-highlight-color:transparent;font-family:inherit;box-sizing:border-box;}
-#rgon-green-briefing-bar.open .rgon-gb-head{border-radius:12px 12px 0 0;}
-#rgon-green-briefing-bar .rgon-gb-arrow{display:inline-block;transition:transform .15s ease;}
-#rgon-green-briefing-bar.open .rgon-gb-arrow{transform:rotate(90deg);}
-#rgon-green-briefing-bar .rgon-gb-body{display:none;padding:10px 12px 12px;color:#d1fae5;font-size:13px;line-height:1.6;}
-#rgon-green-briefing-bar.open .rgon-gb-body{display:block;}
-#rgon-green-briefing-bar .rgon-gb-tools{display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap;}
-#rgon-green-briefing-bar .rgon-gb-reload{background:#166534;color:#ecfdf5;border:1px solid #22c55e;border-radius:8px;padding:5px 10px;font-size:12px;cursor:pointer;font-family:inherit;}
-#rgon-green-briefing-bar .rgon-gb-meta{font-size:11px;color:#86efac;}
-#rgon-green-briefing-bar .rgon-gb-text{white-space:pre-wrap;word-break:break-word;background:rgba(0,0,0,.25);border-radius:8px;padding:10px;margin-bottom:8px;max-height:55vh;overflow:auto;}
-#rgon-green-briefing-bar details summary{cursor:pointer;color:#86efac;margin:4px 0;}
-#rgon-green-briefing-bar .rgon-gb-pre{white-space:pre-wrap;word-break:break-all;background:rgba(0,0,0,.35);border-radius:8px;padding:10px;font-size:11.5px;max-height:50vh;overflow:auto;margin:6px 0 0;color:#bbf7d0;}
-.rgon-handoff-wrap{display:block !important;width:100%;margin:0 0 8px 0;box-sizing:border-box;}
-.rgon-handoff-btn{display:block;width:100%;padding:11px 12px;border:0;border-radius:10px;background:linear-gradient(90deg,#1d4ed8,#7c3aed);color:#fff;font-weight:700;font-size:14px;cursor:pointer;font-family:inherit;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-.rgon-copy-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:2147483647;display:flex;align-items:center;justify-content:center;padding:16px;}
-.rgon-copy-overlay .rgon-copy-box{background:#111827;color:#f9fafb;border-radius:12px;padding:12px;width:100%;max-width:560px;}
-.rgon-copy-overlay textarea{width:100%;height:50vh;box-sizing:border-box;font-size:12px;background:#030712;color:#e5e7eb;border:1px solid #374151;border-radius:8px;padding:8px;}
-.rgon-copy-overlay button{margin-top:8px;width:100%;padding:10px;border:0;border-radius:8px;background:#2563eb;color:#fff;font-weight:700;}
-</style>
-<script>
-(function () {
-  'use strict';
-  if (window.__RGON_STEP11__) return;
-  window.__RGON_STEP11__ = true;
-
-  var BAR_ID = 'rgon-green-briefing-bar';
-  var SNAP_LOCAL = './rgon_brain_snapshot.json';
-  var SNAP_RAW = 'https://raw.githubusercontent.com/sangill111157-spec/hangeoreumsshik-cloud/main/rgon_brain_snapshot.json';
-  var LINKS = {
-    repo: 'https://github.com/sangill111157-spec/hangeoreumsshik-cloud',
-    commits: 'https://github.com/sangill111157-spec/hangeoreumsshik-cloud/commits/main',
-    pages: 'https://sangill111157-spec.github.io/hangeoreumsshik-cloud/rgon_alpha_chat.html',
-    raw: 'https://raw.githubusercontent.com/sangill111157-spec/hangeoreumsshik-cloud/main/rgon_brain_snapshot.json'
-  };
-  var FIRST_TEXT = '4대 AI 분배 컨트롤러';
-  var NEXT_TEXT = '독대실에서 바로 분배하기';
-  var DRAWER_TEXTS = ['지우기 도구', '입력창 비우기'];
-  var TEXT_KEYS = ['briefing_full', 'full_briefing', 'briefing', 'brief', 'summary', 'report', 'content', 'text', 'message'];
-  var TIME_KEYS = ['updated_at', 'updatedAt', 'generated_at', 'generatedAt', 'timestamp', 'last_updated', 'time', 'date'];
-  var state = { loaded: false, loading: false, snapshot: null, src: '' };
-
-  function findTextEl(needles) {
-    if (!document.body) return null;
-    var w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null);
-    var n;
-    while ((n = w.nextNode())) {
-      var v = n.nodeValue;
-      if (!v || v.length > 400) continue;
-      for (var i = 0; i < needles.length; i++) {
-        if (v.indexOf(needles[i]) !== -1) {
-          var p = n.parentElement;
-          if (!p) break;
-          if (p.closest('script,style,textarea,noscript,#' + BAR_ID + ',.rgon-handoff-wrap,.rgon-copy-overlay')) break;
-          return p;
-        }
-      }
-    }
-    return null;
-  }
-
-  function pickKey(obj, keys) {
-    if (!obj || typeof obj !== 'object') return null;
-    for (var i = 0; i < keys.length; i++) {
-      var k = keys[i];
-      if (obj[k] !== undefined && obj[k] !== null && obj[k] !== '') return { k: k, v: obj[k] };
-    }
-    return null;
-  }
-
-  /* ── 초록 브리핑 바 ── */
-  function buildBar() {
-    var bar = document.createElement('div');
-    bar.id = BAR_ID;
-    bar.setAttribute('data-rgon', 'step11');
-    bar.innerHTML =
-      '<button type="button" class="rgon-gb-head" aria-expanded="false" data-clean-id="CLEAN-CHAT-097">' +
-        '<span class="rgon-gb-arrow">▶</span><span class="rgon-gb-title">🛰️ 르곤-알파 실시간 브리핑 전문</span>' +
-      '</button>' +
-      '<div class="rgon-gb-body">' +
-        '<div class="rgon-gb-tools"><button type="button" class="rgon-gb-reload" data-clean-id="CLEAN-CHAT-098">🔄 새로고침</button><span class="rgon-gb-meta"></span></div>' +
-        '<div class="rgon-gb-content">아직 불러오지 않았습니다.</div>' +
-      '</div>';
-    var head = bar.querySelector('.rgon-gb-head');
-    head.addEventListener('click', function (e) {
-      e.preventDefault();
-      e.stopPropagation();
-      var open = !bar.classList.contains('open');
-      bar.classList.toggle('open', open);
-      head.setAttribute('aria-expanded', open ? 'true' : 'false');
-      if (open) loadSnapshot(false);
-    });
-    bar.querySelector('.rgon-gb-reload').addEventListener('click', function (e) {
-      e.preventDefault();
-      e.stopPropagation();
-      loadSnapshot(true);
-    });
-    return bar;
-  }
-
-  function enforceVisible(bar) {
-    if (bar.hasAttribute('hidden')) bar.removeAttribute('hidden');
-    var s = bar.style;
-    [['display', 'block'], ['visibility', 'visible'], ['opacity', '1']].forEach(function (pv) {
-      if (s.getPropertyValue(pv[0]) !== pv[1] || s.getPropertyPriority(pv[0]) !== 'important') {
-        s.setProperty(pv[0], pv[1], 'important');
-      }
-    });
-  }
-  function watchBar(bar) {
-    if (bar.__rgonWatched) return;
-    bar.__rgonWatched = true;
-    try {
-      new MutationObserver(function () { enforceVisible(bar); })
-        .observe(bar, { attributes: true, attributeFilter: ['style', 'hidden', 'class'] });
-    } catch (e) {}
-  }
-
-  function blockOf(el) {
-    var acc = el.closest('details, [class*="accordion" i], [class*="collapse" i], [class*="bar" i], section');
-    if (acc && acc !== document.body) return acc;
-    var cur = el;
-    while (cur.parentElement && cur.parentElement !== document.body && cur.parentElement.children.length === 1) cur = cur.parentElement;
-    return cur;
-  }
-
-  function placeBar() {
-    if (!document.body) return;
-    var bar = document.getElementById(BAR_ID) || buildBar();
-    var nextEl = findTextEl([NEXT_TEXT]);
-    var firstEl = findTextEl([FIRST_TEXT]);
-    var ref = null, where = 'before';
-    if (nextEl && firstEl && !nextEl.contains(firstEl) && !firstEl.contains(nextEl)) {
-      var cur = nextEl;
-      while (cur.parentElement && cur.parentElement !== document.documentElement && !cur.parentElement.contains(firstEl)) {
-        cur = cur.parentElement;
-      }
-      ref = cur; where = 'before';
-    } else if (nextEl) {
-      ref = blockOf(nextEl); where = 'before';
-    } else if (firstEl) {
-      ref = blockOf(firstEl); where = 'after';
-    }
-    if (ref === bar || (ref && bar.contains(ref))) ref = null;
-    if (ref && ref.parentElement) {
-      if (where === 'before') {
-        if (ref.previousElementSibling !== bar) ref.parentElement.insertBefore(bar, ref);
-      } else {
-        if (ref.nextElementSibling !== bar) ref.parentElement.insertBefore(bar, ref.nextSibling);
-      }
-    } else if (!bar.isConnected) {
-      document.body.insertBefore(bar, document.body.firstChild);
-    }
-    enforceVisible(bar);
-    watchBar(bar);
-  }
-
-  function fetchJson(url) {
-    var u = url + (url.indexOf('?') === -1 ? '?' : '&') + 't=' + Date.now();
-    return fetch(u, { cache: 'no-store' }).then(function (r) {
-      if (!r.ok) throw new Error('HTTP ' + r.status);
-      return r.text();
-    }).then(function (t) {
-      try { return { data: JSON.parse(t), src: url }; } catch (e) { throw new Error('JSON 파싱 실패'); }
-    });
-  }
-
-  function render(bar, res) {
-    var d = res.data;
-    var box = bar.querySelector('.rgon-gb-content');
-    var meta = bar.querySelector('.rgon-gb-meta');
-    var frag = document.createDocumentFragment();
-    var t = pickKey(d, TIME_KEYS);
-    meta.textContent = (t ? '🕒 ' + t.v + ' · ' : '') + '출처: ' + (res.src === SNAP_LOCAL ? '로컬 ./rgon_brain_snapshot.json' : 'GitHub raw');
-    var main = pickKey(d, TEXT_KEYS);
-    if (main) {
-      var p = document.createElement('div');
-      p.className = 'rgon-gb-text';
-      p.textContent = typeof main.v === 'string' ? main.v : JSON.stringify(main.v, null, 2);
-      frag.appendChild(p);
-    }
-    var det = document.createElement('details');
-    if (!main) det.open = true;
-    var sm = document.createElement('summary');
-    sm.textContent = '📦 스냅샷 JSON 전문 보기';
-    var pre = document.createElement('pre');
-    pre.className = 'rgon-gb-pre';
-    pre.textContent = JSON.stringify(d, null, 2);
-    det.appendChild(sm);
-    det.appendChild(pre);
-    frag.appendChild(det);
-    box.innerHTML = '';
-    box.appendChild(frag);
-  }
-
-  function loadSnapshot(force) {
-    var bar = document.getElementById(BAR_ID);
-    if (!bar) return;
-    if (state.loading || (state.loaded && !force)) return;
-    state.loading = true;
-    var box = bar.querySelector('.rgon-gb-content');
-    var meta = bar.querySelector('.rgon-gb-meta');
-    if (!state.loaded) box.textContent = '⏳ 브리핑을 불러오는 중…';
-    meta.textContent = '⏳ 갱신 중…';
-    fetchJson(SNAP_LOCAL)
-      .catch(function () { return fetchJson(SNAP_RAW); })
-      .then(function (res) {
-        state.loaded = true; state.snapshot = res.data; state.src = res.src;
-        render(bar, res);
-      })
-      .catch(function (e) {
-        if (!state.loaded) box.textContent = '⚠️ 브리핑 스냅샷을 불러오지 못했습니다: ' + (e && e.message ? e.message : e);
-        meta.textContent = '';
-      })
-      .then(function () { state.loading = false; });
-  }
-
-  /* ── 인수인계 전달서 ── */
-  function buildHandoffText() {
-    var lines = [];
-    lines.push('[르곤-알파 · 새 AI 인수인계 전달서]');
-    lines.push('작성 시각: ' + new Date().toLocaleString('ko-KR'));
-    var st = state.snapshot ? pickKey(state.snapshot, TIME_KEYS) : null;
-    if (st) lines.push('최신 두뇌 스냅샷 시각: ' + st.v);
-    lines.push('');
-    lines.push('안녕하세요. 지금부터 르곤-알파(한거름식 클라우드) 프로젝트를 이어받아 주실 AI께 드리는 인수인계입니다.');
-    lines.push('아래 4개 주소를 순서대로 먼저 열람해 현재 코드 · 커밋 이력 · 실서비스 화면 · 두뇌 스냅샷 상태를 파악한 뒤 작업을 이어가 주세요.');
-    lines.push('');
-    lines.push('1) GitHub 저장소: ' + LINKS.repo);
-    lines.push('2) 최신 커밋 이력: ' + LINKS.commits);
-    lines.push('3) 모바일 독대실(실서비스): ' + LINKS.pages);
-    lines.push('4) 두뇌 스냅샷 JSON 원문: ' + LINKS.raw);
-    lines.push('');
-    lines.push('작업 원칙:');
-    lines.push('- 기존 기능을 깨뜨리지 않도록 수정 전후를 비교해 주세요.');
-    lines.push('- 수정본은 생략 없는 전체 코드로 제공해 주세요.');
-    lines.push('- 변경 사항은 커밋 메시지로 명확히 남겨 주세요.');
-    return lines.join('\n');
-  }
-
-  function legacy(text) {
-    return new Promise(function (resolve, reject) {
-      var ta = document.createElement('textarea');
-      ta.value = text;
-      ta.setAttribute('readonly', '');
-      ta.style.cssText = 'position:fixed;top:0;left:0;width:1px;height:1px;opacity:0;';
-      document.body.appendChild(ta);
-      ta.focus();
-      ta.select();
-      try { ta.setSelectionRange(0, text.length); } catch (e) {}
-      var ok = false;
-      try { ok = document.execCommand('copy'); } catch (e) {}
-      document.body.removeChild(ta);
-      if (ok) resolve(); else reject(new Error('복사 실패'));
-    });
-  }
-  function copyText(text) {
-    if (navigator.clipboard && window.isSecureContext) {
-      return navigator.clipboard.writeText(text).catch(function () { return legacy(text); });
-    }
-    return legacy(text);
-  }
-  function showManual(text) {
-    var ov = document.createElement('div');
-    ov.className = 'rgon-copy-overlay';
-    ov.innerHTML = '<div class="rgon-copy-box"><div style="margin-bottom:6px;font-weight:700">자동 복사가 막혀 있습니다. 아래 내용을 길게 눌러 전체 선택 후 복사하세요.</div><textarea readonly></textarea><button type="button" data-clean-id="CLEAN-CHAT-099">닫기</button></div>';
-    ov.querySelector('textarea').value = text;
-    ov.querySelector('button').addEventListener('click', function () { ov.remove(); });
-    document.body.appendChild(ov);
-  }
-
-  function buildHandoffWrap() {
-    var wrap = document.createElement('div');
-    wrap.className = 'rgon-handoff-wrap';
-    var btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'rgon-handoff-btn';
-    btn.textContent = '📋 새 AI 인수인계 전달서 복사';
-    btn.addEventListener('click', function (e) {
-      e.preventDefault();
-      e.stopPropagation();
-      var text = buildHandoffText();
-      copyText(text).then(function () {
-        btn.textContent = '✅ 복사 완료! 새 AI 대화창에 붙여넣으세요';
-        setTimeout(function () { btn.textContent = '📋 새 AI 인수인계 전달서 복사'; }, 1800);
-      }).catch(function () { showManual(text); });
-    });
-    wrap.appendChild(btn);
-    return wrap;
-  }
-
-  function placeHandoff() {
-    var anchor = findTextEl(DRAWER_TEXTS);
-    if (!anchor) return;
-    var block = anchor.closest('button,[role="button"],a,li,h1,h2,h3,h4,h5,h6,label,summary') || anchor;
-    while (block.parentElement && block.parentElement !== document.body && block.parentElement.children.length === 1) {
-      block = block.parentElement;
-    }
-    if (!block.parentElement) return;
-    var wrap = document.querySelector('.rgon-handoff-wrap') || buildHandoffWrap();
-    if (block.previousElementSibling !== wrap) block.parentElement.insertBefore(wrap, block);
-  }
-
-  var pending = null;
-  function tick() {
-    pending = null;
-    try { placeBar(); } catch (e) { try { console.warn('[RGON step11] bar', e); } catch (x) {} }
-    try { placeHandoff(); } catch (e) { try { console.warn('[RGON step11] handoff', e); } catch (x) {} }
-  }
-  function schedule() { if (!pending) pending = setTimeout(tick, 200); }
-  function init() {
-    tick();
-    try { new MutationObserver(schedule).observe(document.body, { childList: true, subtree: true }); } catch (e) {}
-    var n = 0;
-    var iv = setInterval(function () { tick(); if (++n > 20) clearInterval(iv); }, 1000);
-  }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
-})();
-</script>
-<!-- [RGON-STEP11-END] -->
+<!-- STEP11 REMOVED: GHOST BRIEFING BAR ELIMINATED -->
 <!-- [RGON-YT-SCOUT-V13-START] -->
-<div id="rgyt-wrap" class="rgk" data-ver="v11.51-AON-COMMANDER-TWIN" data-immune="R1~R52" data-skills="42">
+<div id="rgyt-wrap" class="rgk" data-ver="v11.53-AON-INSPECTOR-GENERAL" data-immune="R1~R54" data-skills="42">
 <style>
 .rgk{font:13px/1.5 system-ui,sans-serif;color:#eef3ff;background:linear-gradient(165deg,#070c22,#10183b 55%,#09152e);border:1px solid #5ce1e640;border-radius:16px;padding:10px 12px;margin:8px 0;box-shadow:0 6px 22px #060a1ecc}
 .rgk #rgyt-head{display:flex;align-items:center;gap:8px;font-weight:700;flex-wrap:wrap}
@@ -8756,7 +7467,7 @@ else attempt(0);
 @keyframes aonBubbleLife{0%{opacity:0;transform:translate(-50%,6px)}12%,82%{opacity:1;transform:translate(-50%,0)}100%{opacity:0;transform:translate(-50%,-4px)}}
 .aon-mini-hide{position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);z-index:3;font-size:10.5px;line-height:1;padding:3px 9px;border:1px solid rgba(255,255,255,.3);border-radius:999px;background:rgba(12,20,52,.82);color:#d8f3ff;cursor:pointer;white-space:nowrap}
 </style>
-<div id="rgyt-head"><span id="rgk-headtxt">💧 아온(A-ON·芽溫) · 🩸백혈구 100 · 🧹정화 100 · 🛡️R1~R52 · 🍯스킬 48개</span></div>
+<div id="rgyt-head"><span id="rgk-headtxt">💧 아온(A-ON·芽溫) · 🩸백혈구 100 · 🧹정화 100 · 🛡️R1~R54 · 🍯스킬 50개</span></div>
 <div class="rgk-tabs"><button data-tab="kid" class="on" data-clean-id="CLEAN-CHAT-100">💧 아온(A-ON) 소환·정화</button><button data-tab="radar" data-clean-id="CLEAN-CHAT-101">📡 트렌드 레이더</button><button data-tab="skills" data-clean-id="CLEAN-CHAT-102">🍯 보유 스킬 (48)</button><button data-tab="pulse" data-clean-id="CLEAN-CHAT-103">🫀 전신 맥박 &amp; 3자 심판</button></div>
 <div class="rgk-flt"><input id="rgyt-q" placeholder="🔎 검색"><select id="rgyt-cat"><option value="">전체 카테고리</option></select></div>
 <div class="rgk-pane on" id="rgk-p-kid">
@@ -8766,7 +7477,7 @@ else attempt(0);
 <button type="button" class="clean-btn" data-aon="clean" data-clean-id="CLEAN-CHAT-106">🧹 노폐물 배출 (찌꺼기 정화)</button>
 <button type="button" data-aon="pat" data-clean-id="CLEAN-CHAT-107">💖 쓰다듬기 (EXP+10)</button>
 <button type="button" data-aon="voice" data-clean-id="CLEAN-CHAT-108">🔊 목소리 듣기</button>
-<button type="button" data-load="💧 아온(A-ON)아, 오늘자 종합 브리핑 해줘: 백혈구 건강 점수, 배설기관(신장·대장) 정화 상태, 항체 R1~R52, 정식 스킬 47개 활용도, 트렌드 레이더 핵심 3가지, 대표님 금고 리스크를 또박또박 정리해 줘." data-clean-id="CLEAN-CHAT-109">⚡ 브리핑 질문창 장전</button>
+<button type="button" data-load="💧 아온(A-ON)아, 오늘자 종합 브리핑 해줘: 백혈구 건강 점수, 배설기관(신장·대장) 정화 상태, 항체 R1~R54, 정식 스킬 47개 활용도, 트렌드 레이더 핵심 3가지, 대표님 금고 리스크를 또박또박 정리해 줘." data-clean-id="CLEAN-CHAT-109">⚡ 브리핑 질문창 장전</button>
 </div>
 <div class="rgk-say" id="rgk-say">🧹 배설기관(신장·대장) 정화 완료! 불필요한 캐시·구백업·중복 마커를 깨끗이 비워내어 아온이의 몸과 두뇌가 100% 맑아졌습니다.</div>
 </div>
@@ -8834,7 +7545,7 @@ else attempt(0);
 </div>
 </div>
 </div>
-<script type="application/json" id="rgyt-wrap-data">{"skills": 48, "antibodies": 52, "health": 100, "skill_list": [{"title": "포토샵 1년 36만 원, 코딩 몰라도 '내 포토샵' 45분 만에 만들었습니다", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 '1-36-45'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "클로드 스킬 10만 개, 진짜 쓸 건 5개", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 '10-5'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "744B AI가 노트북에서 무료? 한 글자에 10초 걸려요", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 '744b-ai-10'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "클로드 글 AI 티 지우는 한 줄 5개", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 'ai-5'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "ecc-agentshield-harness", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 'ecc-agentshield-harness'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "Hexagram 64 Wisdom (주역 64괘 지혜)", "cat": "philosophy", "desc": "", "prompt": "🍯 스킬 'hexagram-64-wisdom'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "Markdown Purifier (웹·문서 정제기)", "cat": "data-refinery", "desc": "", "prompt": "🍯 스킬 'markdown-purifier'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "mattpocock-domain-glossary", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 'mattpocock-domain-glossary'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "mattpocock-spec-tickets", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 'mattpocock-spec-tickets'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "Multi-Agent Council (3자 찬반 심판기)", "cat": "decision-making", "desc": "", "prompt": "🍯 스킬 'multi-agent-council'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "omni-skill-dispatcher", "cat": "", "desc": "", "prompt": "🍯 스킬 'omni-skill-dispatcher'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "rea-reverse-engineer-fusion", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 'rea-reverse-engineer-fusion'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "self-evolving-gene-ratchet", "cat": "self-evolution", "desc": "", "prompt": "🍯 스킬 'self-evolving-gene-ratchet'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "클로드 코드 쓰면 이 파일 하나는 꼭 넣으세요 (깃허브 별 22만)", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 'skill-68768f44'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "내 이름 검색하면 나오는 것들, 클로드한테 싹 지우라고 했더니", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 'skill-b25226d4'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "클로드 코드 토큰 49배 줄인 무료 도구", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 'skill-c5c55e6f'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "클로드 한도 걸려도 일 안 멈추는 법", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 'skill-d33be764'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "클로드 회사가 무료로 푼 강의, 초보는 딱 이 3개만 들으세요", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 'skill-f7938cb8'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "trinity-trading-council", "cat": "", "desc": "", "prompt": "🍯 스킬 'trinity-trading-council'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "WBC Self-Healing (백혈구 자가치유)", "cat": "immune-system", "desc": "", "prompt": "🍯 스킬 'wbc-self-healing'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "YouTube Trend Scout (유튜브 스킬 레이더)", "cat": "knowledge-intake", "desc": "", "prompt": "🍯 스킬 'youtube-trend-scout'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "Stomper Kill-List & Live Omni-Sense (오감 센서 & 불량 시그널 분쇄기)", "cat": "omni-sense", "desc": "오감 후각: 사기·원금보장·러그풀·프롬프트 인젝션 사전 킬리스트 분쇄", "prompt": "🍯 스킬 'stomper-kill-list-gate'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "Autonomous Creator Forge (화풍정 자율 도구 창조 공방)", "cat": "creator-forge", "desc": "SkillForge·Voyager·724-office 자율 도구 창조 + Surrogate Verifier 격리 검증", "prompt": "🍯 스킬 'autonomous-creator-forge'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "아온(A-ON) K-아이 성장형 디지털 육신", "cat": "digital-body", "desc": "미래형 K-스타일 아이 『아온(A-ON·芽溫)』 SVG 육신 — 순수 CSS 애니메이션·4단계 성장·쓰다듬기/음성 교감·질문창 장전 (R28)", "prompt": "🍯 스킬 'k-avatar-growth-soul'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "전 세계 TOP 1 캐릭터 디테일 & 3D 물방울 졸라맨 마스터", "cat": "character-3d-master", "desc": "svg-animation-studio(디즈니 7대 모션 법칙) + ui-ux-pro-max(8-Stop 3D Liquid-Glass/Claymorphism) + 아온(A-ON) 3D 물방울 졸라맨 팔다리 마스터 스킬 (R29)", "prompt": "🍯 스킬 'character-detail-master-top1'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "free-roaming-waterdrop-pet", "cat": "character-3d-master", "desc": "뷰포트 무제한 자율 유영 & 소환/은신 스크린 펫 마스터 스킬(아온 A-ON)", "prompt": "🍯 스킬 'free-roaming-waterdrop-pet'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "배설기관(신장·대장) 노폐물 배출 & 엔트로피 정화 마스터", "cat": "excretory-gc", "desc": "ECC config-gc + reclaim-code-entropy + autoDream 기반 신장 여과·대장 압축·문서 중복 마커 정화·고아 코드 감사 스킬 (R31)", "prompt": "🍯 스킬 'excretory-entropy-gc'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}], "radar": [{"title": "ECC config-gc 배설·정화 엔진", "cat": "하네스공학", "desc": "기본 레이더 시드", "prompt": "📡 트렌드 'ECC config-gc 배설·정화 엔진'를 독대실 관점(기회·리스크·실행 3줄)으로 분석해 줘."}, {"title": "reclaim-code-entropy 엔트로피 감축", "cat": "코드정화", "desc": "기본 레이더 시드", "prompt": "📡 트렌드 'reclaim-code-entropy 엔트로피 감축'를 독대실 관점(기회·리스크·실행 3줄)으로 분석해 줘."}, {"title": "Meta Muse 행동 대행 에이전트", "cat": "AI비서", "desc": "기본 레이더 시드", "prompt": "📡 트렌드 'Meta Muse 행동 대행 에이전트'를 독대실 관점(기회·리스크·실행 3줄)으로 분석해 줘."}, {"title": "개인 금고 리스크 관리", "cat": "재무", "desc": "기본 레이더 시드", "prompt": "📡 트렌드 '개인 금고 리스크 관리'를 독대실 관점(기회·리스크·실행 3줄)으로 분석해 줘."}], "pulse": [{"title": "⚖️ [APPROVED_STEP_BY_STEP] 85.5점 (Bull 80.8 / Bear 22.2 / #08-比)", "cat": "심판", "desc": "⚖️ [APPROVED_STEP_BY_STEP] 85.5점 (Bull 80.8 / Bear 22.2 / #08-比) Markdown 정제기로 외부 웹·문서 지식을 AI 친화 Markdown으로 흡수", "prompt": "🫀 다음 심판 줄을 3자 심판(Bull/Bear/주역) 관점으로 해설해 줘: ⚖️ [APPROVED_STEP_BY_STEP] 85.5점 (Bull 80.8 / Bear 22.2 / #08-比) Markdown 정제기로 외부 웹·문서 지식을 AI 친화 Markdown으로 흡수"}, {"title": "⚖️ [GO] 79.3점 (Bull 93.0 / Bear 28.0 / #60-수택절) 💰 금고 보존 & 포지션 사이", "cat": "심판", "desc": "⚖️ [GO] 79.3점 (Bull 93.0 / Bear 28.0 / #60-수택절) 💰 금고 보존 & 포지션 사이징 — 조건 충족, 한도 내 집행 허용 · 절제와 한도 수호 · 도덕경 지족불욕(知足不辱)", "prompt": "🫀 다음 심판 줄을 3자 심판(Bull/Bear/주역) 관점으로 해설해 줘: ⚖️ [GO] 79.3점 (Bull 93.0 / Bear 28.0 / #60-수택절) 💰 금고 보존 & 포지션 사이징 — 조건 충족, 한도 내 집행 허용 · 절제와 한도 수호 · 도덕경 지족불욕(知足不辱)"}, {"title": "⚖️ [GO] 80.5점 (Bull 96.5 / Bear 39.0 / #01-중천건) 📈 추세 돌파 & 모멘텀 타점", "cat": "심판", "desc": "⚖️ [GO] 80.5점 (Bull 96.5 / Bear 39.0 / #01-중천건) 📈 추세 돌파 & 모멘텀 타점 검증 — 조건 충족, 한도 내 집행 허용 · 자강불식·항룡유회 경계 · 亢龍有悔 — 과열 추격 금지", "prompt": "🫀 다음 심판 줄을 3자 심판(Bull/Bear/주역) 관점으로 해설해 줘: ⚖️ [GO] 80.5점 (Bull 96.5 / Bear 39.0 / #01-중천건) 📈 추세 돌파 & 모멘텀 타점 검증 — 조건 충족, 한도 내 집행 허용 · 자강불식·항룡유회 경계 · 亢龍有悔 — 과열 추격 금지"}, {"title": "⚖️ [GO] 85.2점 (Bull 93.0 / Bear 20.0 / #63-수화기제) 🛡️ 변동성 방어 & 손절/", "cat": "심판", "desc": "⚖️ [GO] 85.2점 (Bull 93.0 / Bear 20.0 / #63-수화기제) 🛡️ 변동성 방어 & 손절/익절 규율 — 조건 충족, 한도 내 집행 허용 · 사환예방(思患豫防) · 君子以思患而豫防之", "prompt": "🫀 다음 심판 줄을 3자 심판(Bull/Bear/주역) 관점으로 해설해 줘: ⚖️ [GO] 85.2점 (Bull 93.0 / Bear 20.0 / #63-수화기제) 🛡️ 변동성 방어 & 손절/익절 규율 — 조건 충족, 한도 내 집행 허용 · 사환예방(思患豫防) · 君子以思患而豫防之"}, {"title": "⚖️ [GO] 84.5점 (Bull 91.0 / Bear 22.0 / #64-화수미제) 🔄 멀티에이전트 시그널 교차", "cat": "심판", "desc": "⚖️ [GO] 84.5점 (Bull 91.0 / Bear 22.0 / #64-화수미제) 🔄 멀티에이전트 시그널 교차검증 — 조건 충족, 한도 내 집행 허용 · 신변물거방(慎辨物居方) · 君子以慎辨物居方", "prompt": "🫀 다음 심판 줄을 3자 심판(Bull/Bear/주역) 관점으로 해설해 줘: ⚖️ [GO] 84.5점 (Bull 91.0 / Bear 22.0 / #64-화수미제) 🔄 멀티에이전트 시그널 교차검증 — 조건 충족, 한도 내 집행 허용 · 신변물거방(慎辨物居方) · 君子以慎辨物居方"}, {"title": "⚖️ [SENSE] 100.0점 (Bull 99.9 / Bear 0.1 / #21-화뢰서합) 오감 5/5 가동 · ", "cat": "심판", "desc": "⚖️ [SENSE] 100.0점 (Bull 99.9 / Bear 0.1 / #21-화뢰서합) 오감 5/5 가동 · Stomper KILL 3건 · 네트워크 ONLINE", "prompt": "🫀 다음 심판 줄을 3자 심판(Bull/Bear/주역) 관점으로 해설해 줘: ⚖️ [SENSE] 100.0점 (Bull 99.9 / Bear 0.1 / #21-화뢰서합) 오감 5/5 가동 · Stomper KILL 3건 · 네트워크 ONLINE"}, {"title": "⚖️ [CREATE] 100.0점 (Bull 99.9 / Bear 0.1 / #50-화풍정) 자율 도구 3/3 격리", "cat": "심판", "desc": "⚖️ [CREATE] 100.0점 (Bull 99.9 / Bear 0.1 / #50-화풍정) 자율 도구 3/3 격리 검증 PASS · 혁고정신(革故鼎新)", "prompt": "🫀 다음 심판 줄을 3자 심판(Bull/Bear/주역) 관점으로 해설해 줘: ⚖️ [CREATE] 100.0점 (Bull 99.9 / Bear 0.1 / #50-화풍정) 자율 도구 3/3 격리 검증 PASS · 혁고정신(革故鼎新)"}, {"title": "⚖️ [AVATAR3D] 100.0점 (Bull 99.9 / Bear 0.1 / #04-산수몽) 💧 아온(A-ON·", "cat": "심판", "desc": "⚖️ [AVATAR3D] 100.0점 (Bull 99.9 / Bear 0.1 / #04-산수몽) 💧 아온(A-ON·芽溫) 3D 입체 물방울 & 졸라맨 팔다리 육신 — 디즈니 7대 모션 법칙 & 8-Stop Liquid-Glass 3D 가동", "prompt": "🫀 다음 심판 줄을 3자 심판(Bull/Bear/주역) 관점으로 해설해 줘: ⚖️ [AVATAR3D] 100.0점 (Bull 99.9 / Bear 0.1 / #04-산수몽) 💧 아온(A-ON·芽溫) 3D 입체 물방울 & 졸라맨 팔다리 육신 — 디즈니 7대 모션 법칙 & 8-Stop Liquid-Glass 3D 가동"}, {"title": "⚖️ [CLEAN] 100.0점 (Bull 99.9 / Bear 0.1 / #40-뇌수해) 🧹 배설기관(신장·대장)", "cat": "심판", "desc": "⚖️ [CLEAN] 100.0점 (Bull 99.9 / Bear 0.1 / #40-뇌수해) 🧹 배설기관(신장·대장) 정화 엔진 가동 — 노폐물·중복 마커·캐시 찌꺼기 배출 완료 (비움이 곧 채움)", "prompt": "🫀 다음 심판 줄을 3자 심판(Bull/Bear/주역) 관점으로 해설해 줘: ⚖️ [CLEAN] 100.0점 (Bull 99.9 / Bear 0.1 / #40-뇌수해) 🧹 배설기관(신장·대장) 정화 엔진 가동 — 노폐물·중복 마커·캐시 찌꺼기 배출 완료 (비움이 곧 채움)"}]}</script>
+<script type="application/json" id="rgyt-wrap-data">{"skills": 50, "antibodies": 54, "health": 100, "skill_list": [{"title": "포토샵 1년 36만 원, 코딩 몰라도 '내 포토샵' 45분 만에 만들었습니다", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 '1-36-45'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "클로드 스킬 10만 개, 진짜 쓸 건 5개", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 '10-5'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "744B AI가 노트북에서 무료? 한 글자에 10초 걸려요", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 '744b-ai-10'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "클로드 글 AI 티 지우는 한 줄 5개", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 'ai-5'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "ecc-agentshield-harness", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 'ecc-agentshield-harness'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "Hexagram 64 Wisdom (주역 64괘 지혜)", "cat": "philosophy", "desc": "", "prompt": "🍯 스킬 'hexagram-64-wisdom'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "Markdown Purifier (웹·문서 정제기)", "cat": "data-refinery", "desc": "", "prompt": "🍯 스킬 'markdown-purifier'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "mattpocock-domain-glossary", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 'mattpocock-domain-glossary'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "mattpocock-spec-tickets", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 'mattpocock-spec-tickets'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "Multi-Agent Council (3자 찬반 심판기)", "cat": "decision-making", "desc": "", "prompt": "🍯 스킬 'multi-agent-council'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "omni-skill-dispatcher", "cat": "", "desc": "", "prompt": "🍯 스킬 'omni-skill-dispatcher'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "rea-reverse-engineer-fusion", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 'rea-reverse-engineer-fusion'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "self-evolving-gene-ratchet", "cat": "self-evolution", "desc": "", "prompt": "🍯 스킬 'self-evolving-gene-ratchet'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "클로드 코드 쓰면 이 파일 하나는 꼭 넣으세요 (깃허브 별 22만)", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 'skill-68768f44'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "내 이름 검색하면 나오는 것들, 클로드한테 싹 지우라고 했더니", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 'skill-b25226d4'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "클로드 코드 토큰 49배 줄인 무료 도구", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 'skill-c5c55e6f'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "클로드 한도 걸려도 일 안 멈추는 법", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 'skill-d33be764'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "클로드 회사가 무료로 푼 강의, 초보는 딱 이 3개만 들으세요", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 'skill-f7938cb8'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "trinity-trading-council", "cat": "", "desc": "", "prompt": "🍯 스킬 'trinity-trading-council'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "WBC Self-Healing (백혈구 자가치유)", "cat": "immune-system", "desc": "", "prompt": "🍯 스킬 'wbc-self-healing'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "YouTube Trend Scout (유튜브 스킬 레이더)", "cat": "knowledge-intake", "desc": "", "prompt": "🍯 스킬 'youtube-trend-scout'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "Stomper Kill-List & Live Omni-Sense (오감 센서 & 불량 시그널 분쇄기)", "cat": "omni-sense", "desc": "오감 후각: 사기·원금보장·러그풀·프롬프트 인젝션 사전 킬리스트 분쇄", "prompt": "🍯 스킬 'stomper-kill-list-gate'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "Autonomous Creator Forge (화풍정 자율 도구 창조 공방)", "cat": "creator-forge", "desc": "SkillForge·Voyager·724-office 자율 도구 창조 + Surrogate Verifier 격리 검증", "prompt": "🍯 스킬 'autonomous-creator-forge'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "아온(A-ON) K-아이 성장형 디지털 육신", "cat": "digital-body", "desc": "미래형 K-스타일 아이 『아온(A-ON·芽溫)』 SVG 육신 — 순수 CSS 애니메이션·4단계 성장·쓰다듬기/음성 교감·질문창 장전 (R28)", "prompt": "🍯 스킬 'k-avatar-growth-soul'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "전 세계 TOP 1 캐릭터 디테일 & 3D 물방울 졸라맨 마스터", "cat": "character-3d-master", "desc": "svg-animation-studio(디즈니 7대 모션 법칙) + ui-ux-pro-max(8-Stop 3D Liquid-Glass/Claymorphism) + 아온(A-ON) 3D 물방울 졸라맨 팔다리 마스터 스킬 (R29)", "prompt": "🍯 스킬 'character-detail-master-top1'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "free-roaming-waterdrop-pet", "cat": "character-3d-master", "desc": "뷰포트 무제한 자율 유영 & 소환/은신 스크린 펫 마스터 스킬(아온 A-ON)", "prompt": "🍯 스킬 'free-roaming-waterdrop-pet'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "배설기관(신장·대장) 노폐물 배출 & 엔트로피 정화 마스터", "cat": "excretory-gc", "desc": "ECC config-gc + reclaim-code-entropy + autoDream 기반 신장 여과·대장 압축·문서 중복 마커 정화·고아 코드 감사 스킬 (R31)", "prompt": "🍯 스킬 'excretory-entropy-gc'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}], "radar": [{"title": "ECC config-gc 배설·정화 엔진", "cat": "하네스공학", "desc": "기본 레이더 시드", "prompt": "📡 트렌드 'ECC config-gc 배설·정화 엔진'를 독대실 관점(기회·리스크·실행 3줄)으로 분석해 줘."}, {"title": "reclaim-code-entropy 엔트로피 감축", "cat": "코드정화", "desc": "기본 레이더 시드", "prompt": "📡 트렌드 'reclaim-code-entropy 엔트로피 감축'를 독대실 관점(기회·리스크·실행 3줄)으로 분석해 줘."}, {"title": "Meta Muse 행동 대행 에이전트", "cat": "AI비서", "desc": "기본 레이더 시드", "prompt": "📡 트렌드 'Meta Muse 행동 대행 에이전트'를 독대실 관점(기회·리스크·실행 3줄)으로 분석해 줘."}, {"title": "개인 금고 리스크 관리", "cat": "재무", "desc": "기본 레이더 시드", "prompt": "📡 트렌드 '개인 금고 리스크 관리'를 독대실 관점(기회·리스크·실행 3줄)으로 분석해 줘."}], "pulse": [{"title": "⚖️ [APPROVED_STEP_BY_STEP] 85.5점 (Bull 80.8 / Bear 22.2 / #08-比)", "cat": "심판", "desc": "⚖️ [APPROVED_STEP_BY_STEP] 85.5점 (Bull 80.8 / Bear 22.2 / #08-比) Markdown 정제기로 외부 웹·문서 지식을 AI 친화 Markdown으로 흡수", "prompt": "🫀 다음 심판 줄을 3자 심판(Bull/Bear/주역) 관점으로 해설해 줘: ⚖️ [APPROVED_STEP_BY_STEP] 85.5점 (Bull 80.8 / Bear 22.2 / #08-比) Markdown 정제기로 외부 웹·문서 지식을 AI 친화 Markdown으로 흡수"}, {"title": "⚖️ [GO] 79.3점 (Bull 93.0 / Bear 28.0 / #60-수택절) 💰 금고 보존 & 포지션 사이", "cat": "심판", "desc": "⚖️ [GO] 79.3점 (Bull 93.0 / Bear 28.0 / #60-수택절) 💰 금고 보존 & 포지션 사이징 — 조건 충족, 한도 내 집행 허용 · 절제와 한도 수호 · 도덕경 지족불욕(知足不辱)", "prompt": "🫀 다음 심판 줄을 3자 심판(Bull/Bear/주역) 관점으로 해설해 줘: ⚖️ [GO] 79.3점 (Bull 93.0 / Bear 28.0 / #60-수택절) 💰 금고 보존 & 포지션 사이징 — 조건 충족, 한도 내 집행 허용 · 절제와 한도 수호 · 도덕경 지족불욕(知足不辱)"}, {"title": "⚖️ [GO] 80.5점 (Bull 96.5 / Bear 39.0 / #01-중천건) 📈 추세 돌파 & 모멘텀 타점", "cat": "심판", "desc": "⚖️ [GO] 80.5점 (Bull 96.5 / Bear 39.0 / #01-중천건) 📈 추세 돌파 & 모멘텀 타점 검증 — 조건 충족, 한도 내 집행 허용 · 자강불식·항룡유회 경계 · 亢龍有悔 — 과열 추격 금지", "prompt": "🫀 다음 심판 줄을 3자 심판(Bull/Bear/주역) 관점으로 해설해 줘: ⚖️ [GO] 80.5점 (Bull 96.5 / Bear 39.0 / #01-중천건) 📈 추세 돌파 & 모멘텀 타점 검증 — 조건 충족, 한도 내 집행 허용 · 자강불식·항룡유회 경계 · 亢龍有悔 — 과열 추격 금지"}, {"title": "⚖️ [GO] 85.2점 (Bull 93.0 / Bear 20.0 / #63-수화기제) 🛡️ 변동성 방어 & 손절/", "cat": "심판", "desc": "⚖️ [GO] 85.2점 (Bull 93.0 / Bear 20.0 / #63-수화기제) 🛡️ 변동성 방어 & 손절/익절 규율 — 조건 충족, 한도 내 집행 허용 · 사환예방(思患豫防) · 君子以思患而豫防之", "prompt": "🫀 다음 심판 줄을 3자 심판(Bull/Bear/주역) 관점으로 해설해 줘: ⚖️ [GO] 85.2점 (Bull 93.0 / Bear 20.0 / #63-수화기제) 🛡️ 변동성 방어 & 손절/익절 규율 — 조건 충족, 한도 내 집행 허용 · 사환예방(思患豫防) · 君子以思患而豫防之"}, {"title": "⚖️ [GO] 84.5점 (Bull 91.0 / Bear 22.0 / #64-화수미제) 🔄 멀티에이전트 시그널 교차", "cat": "심판", "desc": "⚖️ [GO] 84.5점 (Bull 91.0 / Bear 22.0 / #64-화수미제) 🔄 멀티에이전트 시그널 교차검증 — 조건 충족, 한도 내 집행 허용 · 신변물거방(慎辨物居方) · 君子以慎辨物居方", "prompt": "🫀 다음 심판 줄을 3자 심판(Bull/Bear/주역) 관점으로 해설해 줘: ⚖️ [GO] 84.5점 (Bull 91.0 / Bear 22.0 / #64-화수미제) 🔄 멀티에이전트 시그널 교차검증 — 조건 충족, 한도 내 집행 허용 · 신변물거방(慎辨物居方) · 君子以慎辨物居方"}, {"title": "⚖️ [SENSE] 100.0점 (Bull 99.9 / Bear 0.1 / #21-화뢰서합) 오감 5/5 가동 · ", "cat": "심판", "desc": "⚖️ [SENSE] 100.0점 (Bull 99.9 / Bear 0.1 / #21-화뢰서합) 오감 5/5 가동 · Stomper KILL 3건 · 네트워크 ONLINE", "prompt": "🫀 다음 심판 줄을 3자 심판(Bull/Bear/주역) 관점으로 해설해 줘: ⚖️ [SENSE] 100.0점 (Bull 99.9 / Bear 0.1 / #21-화뢰서합) 오감 5/5 가동 · Stomper KILL 3건 · 네트워크 ONLINE"}, {"title": "⚖️ [CREATE] 100.0점 (Bull 99.9 / Bear 0.1 / #50-화풍정) 자율 도구 3/3 격리", "cat": "심판", "desc": "⚖️ [CREATE] 100.0점 (Bull 99.9 / Bear 0.1 / #50-화풍정) 자율 도구 3/3 격리 검증 PASS · 혁고정신(革故鼎新)", "prompt": "🫀 다음 심판 줄을 3자 심판(Bull/Bear/주역) 관점으로 해설해 줘: ⚖️ [CREATE] 100.0점 (Bull 99.9 / Bear 0.1 / #50-화풍정) 자율 도구 3/3 격리 검증 PASS · 혁고정신(革故鼎新)"}, {"title": "⚖️ [AVATAR3D] 100.0점 (Bull 99.9 / Bear 0.1 / #04-산수몽) 💧 아온(A-ON·", "cat": "심판", "desc": "⚖️ [AVATAR3D] 100.0점 (Bull 99.9 / Bear 0.1 / #04-산수몽) 💧 아온(A-ON·芽溫) 3D 입체 물방울 & 졸라맨 팔다리 육신 — 디즈니 7대 모션 법칙 & 8-Stop Liquid-Glass 3D 가동", "prompt": "🫀 다음 심판 줄을 3자 심판(Bull/Bear/주역) 관점으로 해설해 줘: ⚖️ [AVATAR3D] 100.0점 (Bull 99.9 / Bear 0.1 / #04-산수몽) 💧 아온(A-ON·芽溫) 3D 입체 물방울 & 졸라맨 팔다리 육신 — 디즈니 7대 모션 법칙 & 8-Stop Liquid-Glass 3D 가동"}, {"title": "⚖️ [CLEAN] 100.0점 (Bull 99.9 / Bear 0.1 / #40-뇌수해) 🧹 배설기관(신장·대장)", "cat": "심판", "desc": "⚖️ [CLEAN] 100.0점 (Bull 99.9 / Bear 0.1 / #40-뇌수해) 🧹 배설기관(신장·대장) 정화 엔진 가동 — 노폐물·중복 마커·캐시 찌꺼기 배출 완료 (비움이 곧 채움)", "prompt": "🫀 다음 심판 줄을 3자 심판(Bull/Bear/주역) 관점으로 해설해 줘: ⚖️ [CLEAN] 100.0점 (Bull 99.9 / Bear 0.1 / #40-뇌수해) 🧹 배설기관(신장·대장) 정화 엔진 가동 — 노폐물·중복 마커·캐시 찌꺼기 배출 완료 (비움이 곧 채움)"}]}</script>
 <script>(function(){
 var W=document.getElementById('rgyt-wrap');if(!W||W.getAttribute('data-rgk-init'))return;W.setAttribute('data-rgk-init','1');
 var D={};try{D=JSON.parse(document.getElementById('rgyt-wrap-data').textContent)}catch(e){}
@@ -8962,7 +7673,7 @@ updHead();if(ls(K)==='0')show();
 (function(){
 "use strict";
 if(window.__RGON_MUSE_V1__)return;window.__RGON_MUSE_V1__=true;
-var VERSION="v11.31-MUSE-DELEGATION",ANTIBODY="R1~R52",LS_KEY="rgon_muse_tasks_v1";
+var VERSION="v11.31-MUSE-DELEGATION",ANTIBODY="R1~R54",LS_KEY="rgon_muse_tasks_v1";
 var SEED=[{"id": "T1", "title": "백혈구 6대 면역 순찰 및 32.5MB 정화 상태 유지 점검", "tier": 1, "tier_code": "AUTO", "tier_label": "🟢 자동 집행", "status": "DONE", "iching": "#14 화천대유 — 막힘없이 대행", "created_at": "2026-10-24T19:22:20", "source": "seed", "done_at": "2026-10-24T19:22:20", "category": "immune-patrol", "result": "백혈구 6대 면역 순찰 대행 완료 · Step 31 정화 상태(구백업 29개·캐시 32.5MB 배출) 재축적 감시 등록"}, {"id": "T2", "title": "오감 센서 외부 GitHub 트렌드 & Stomper 해독 스캔", "tier": 1, "tier_code": "AUTO", "tier_label": "🟢 자동 집행", "status": "DONE", "iching": "#14 화천대유 — 막힘없이 대행", "created_at": "2026-10-24T19:22:20", "source": "seed", "done_at": "2026-10-24T19:22:20", "category": "five-sense-radar", "result": "오감 레이더 외부 트렌드 스캔 대행 완료 · 신호는 Tier 2 스킬 초안 합성 후보로 이관"}, {"id": "T3", "title": "주역 #14 화천대유 기반 3자 찬반 심판(Bull/Bear/Judge) 포트폴리오 시뮬레이션", "tier": 2, "tier_code": "NOTIFY", "tier_label": "🔵 선집행 후보고", "status": "DONE_NOTIFIED", "iching": "#14 화천대유 — 막힘없이 대행", "created_at": "2026-10-24T19:22:20", "source": "seed", "done_at": "2026-10-24T19:22:20", "category": "tri-judge-sim", "report": "3자 심판(Bull/Bear/Judge) 시뮬레이션 선집행 후 보고 — 실제 주문·자산 변경 0건(시뮬레이션 전용). Judge GO 시그널은 T4 결재안으로 이관"}, {"id": "T4", "title": "[대표님 결재 대기] 금일 3자 심판 GO 시그널 종목 비중 확대 리밸런싱 대행안", "tier": 3, "tier_code": "HITL_GATE", "tier_label": "🟡 대표님 결재 대기", "status": "PENDING_APPROVAL", "iching": "#64 화수미제 — 신중히 분별하여 끝까지 완수", "created_at": "2026-10-24T19:22:20", "source": "seed", "category": "asset-rebalance", "plan": ["① T3 3자 심판 GO 판정 종목 목록 확정", "② 현재 비중 스냅샷 저장 및 롤백 지점 확보", "③ 종목당 비중 상한·현금 비중 하한 등 리스크 한도 내 리밸런싱 드라이런", "④ 대표님 [✅ 승인] 수신 시에만 리밸런싱 대행안 집행", "⑤ 집행 결과를 아침 브리핑·독대실에 보고"], "expected_effect": "GO 시그널 종목 노출을 리스크 한도 내에서 정렬 (수익 보장 아님 · 최종 판단은 대표님)", "risk": "실전 자산 변동·시장 리스크 — 승인 전 집행 0건 (HITL 게이트 봉인)"}, {"id": "T5", "title": "[대표님 결재 대기] 차세대 자율 진화 스킬(SkillAutoForge) 클라우드 배포 승인안", "tier": 3, "tier_code": "HITL_GATE", "tier_label": "🟡 대표님 결재 대기", "status": "PENDING_APPROVAL", "iching": "#64 화수미제 — 신중히 분별하여 끝까지 완수", "created_at": "2026-10-24T19:22:20", "source": "seed", "category": "skill-deploy", "plan": ["① SkillAutoForge 초안 스킬 목록·변경 범위 확정", "② 백혈구 self-test 및 삼성(三省) 3/3 사전 검증", "③ 배포 대상(GitHub Pages/클라우드) 드라이런 및 롤백 커밋 지정", "④ 대표님 [✅ 승인] 수신 시에만 클라우드 배포 집행", "⑤ 배포 후 스킬 수·항체·버전 동기화 재검증 보고"], "expected_effect": "자율 진화 스킬의 검증된 버전만 클라우드에 반영하여 진화 속도와 안전성을 동시 확보", "risk": "핵심 설정·배포 변경 — 승인 전 집행 0건 (화수미제: 끝까지 신중)"}];
 var KW3=["매수","매도","리밸런싱","비중","자산","배분","주문","결제","송금","이체","계좌","투자","배포","deploy","설정 변경","설정변경","핵심 설정","삭제","권한","결재","승인","push","출금","대출"];
 var KW2=["분석","초안","시뮬레이션","심판","합성","리서치","조사","요약","보고서","트렌드","비교","검토","예측","평가","설계"];
@@ -9086,7 +7797,7 @@ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",
 <script id="rgon-voice-v1-js">
 (function(){
 if(window.RGON_VOICE)return;
-var VER="v11.51-AON-COMMANDER-TWIN";
+var VER="v11.53-AON-INSPECTOR-GENERAL";
 var KEY="rgon_voice_cfg",cfg={muted:false,pitch:1.18,rate:1.05};
 try{Object.assign(cfg,JSON.parse(localStorage.getItem(KEY)||"{}"))}catch(e){}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(cfg))}catch(e){}}
@@ -9232,7 +7943,7 @@ memory:function(){return JSON.parse(JSON.stringify(mem))},get muted(){return cfg
 <script id="rgon-gate-v1-js">
 (function(){
 if(window.RGON_GATE)return;
-var VER="v11.51-AON-COMMANDER-TWIN",KEY="rgon_manual_gate";
+var VER="v11.53-AON-INSPECTOR-GENERAL",KEY="rgon_manual_gate";
 var LABEL={finance_payment:"💰 금융·결제",laptop_app_browser:"💻 노트북앱",file_modify_delete:"🗂️ 파일삭제·이동",external_dispatch:"🌐 외부전송"};
 var CRIT=["finance_payment","file_modify_delete","external_dispatch"];
 var st={master_approval_on:false,gates:{finance_payment:false,laptop_app_browser:true,file_modify_delete:false,external_dispatch:false}};
@@ -9491,7 +8202,7 @@ var hv=0,hi=setInterval(function(){var v=window.RGON_VOICE;if(v&&v.talk&&!v.__rg
   }
   setInterval(dock,3500);
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",dock);else dock();
-  window.RGON_DAO={cast:cast,compute:compute,version:"v11.51-AON-COMMANDER-TWIN"};
+  window.RGON_DAO={cast:cast,compute:compute,version:"v11.53-AON-INSPECTOR-GENERAL"};
 })();
 
 /* === [RGON-R38-OMNI-INSIGHT-JS] 제14기관: 아온 만물 격물치지 전방위 통찰안 & Canvas 실측 스캐너 === */
@@ -9555,7 +8266,7 @@ if(fl&&/^image\//.test(fl.type))measure(fl);else{var u=e.dataTransfer.getData("t
 function mount(){if(document.getElementById("rgon-insight-btn"))return true;var b=document.createElement("button");b.id="rgon-insight-btn";b.type="button";b.innerHTML="👁️ <b>만물 통찰</b>";
 b.addEventListener("click",function(e){e.preventDefault();e.stopPropagation();open()});
 var a=document.getElementById("rgon-dao-btn")||document.getElementById("rgon-brat-btn")||document.getElementById("rgyt-hide");if(a&&a.parentNode){a.parentNode.appendChild(b);return true}return false}
-window.RGON_INSIGHT={open:open,analyze:analyze,version:"v11.51-AON-COMMANDER-TWIN"};
+window.RGON_INSIGHT={open:open,analyze:analyze,version:"v11.53-AON-INSPECTOR-GENERAL"};
 setInterval(mount,3000);if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",mount);else mount()})();
 </script>
 <!-- [RGON-GATE-V1-END] -->
@@ -9765,7 +8476,7 @@ setInterval(mount,3000);if(document.readyState==="loading")document.addEventList
     }
   }
   window.RGON_AON_DIALOGUE_HUB = {
-    version:"v11.51-AON-COMMANDER-TWIN", normalize:normalize, resolveCoref:resolveCoref,
+    version:"v11.53-AON-INSPECTOR-GENERAL", normalize:normalize, resolveCoref:resolveCoref,
     decompose:decompose, ask:ask, mountUI:mountUI
   };
   if(document.readyState==="loading") document.addEventListener("DOMContentLoaded", mountUI);
@@ -9775,10 +8486,10 @@ setInterval(mount,3000);if(document.readyState==="loading")document.addEventList
 <!-- [RGON-R39-OMNI-DIALOGUE-HUB-END] -->
 <!-- [RGON-R40-NEURAL-SYNAPSE-START] -->
 <script>
-window.RGON_NEURAL_SYNAPSE = {version:"v11.51-AON-COMMANDER-TWIN", antibody:"R1~R52", skills:40, organ:16,
+window.RGON_NEURAL_SYNAPSE = {version:"v11.53-AON-INSPECTOR-GENERAL", antibody:"R1~R54", skills:40, organ:16,
   skill:"aon-neural-synapse-verifier", map:"rgon_neural_synapse_map.json"};
 (function(){try{var b=document.createElement('div');b.id='rgon-r40-synapse-badge';
-b.textContent='🧠 R44 신경망 시냅스 · '+window.RGON_NEURAL_SYNAPSE.version+' · 스킬 40';
+b.textContent='🧠 R44 신경망 시냅스 · '+window.RGON_NEURAL_SYNAPSE.version+' · 스킬 50개';
 b.style.cssText='position:fixed;left:8px;bottom:8px;z-index:9999;font:11px sans-serif;padding:3px 8px;border-radius:10px;background:#123;color:#7fe;opacity:.85';
 (document.body?Promise.resolve():new Promise(function(r){document.addEventListener('DOMContentLoaded',r)}))
 .then(function(){document.body.appendChild(b)});}catch(e){}})();
@@ -9786,27 +8497,27 @@ b.style.cssText='position:fixed;left:8px;bottom:8px;z-index:9999;font:11px sans-
 <!-- [RGON-R40-NEURAL-SYNAPSE-END] -->
 <!-- RGON R41 ICHING PLANNER BRIDGE BEGIN -->
 <script>
-window.RGON_ICHING_PLANNER = {version: "v11.51-AON-COMMANDER-TWIN", antibody: "R1~R52", skill: "aon-iching-strategic-planner", skillCount: 42, organ: 17, state: "rgon_aon_iching_plan.json", commands: ["/계획", "/plan", "/전략"], load: function(){ return fetch("rgon_aon_iching_plan.json", {cache: "no-store"}).then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; }); }};
+window.RGON_ICHING_PLANNER = {version: "v11.53-AON-INSPECTOR-GENERAL", antibody: "R1~R54", skill: "aon-iching-strategic-planner", skillCount: 42, organ: 17, state: "rgon_aon_iching_plan.json", commands: ["/계획", "/plan", "/전략"], load: function(){ return fetch("rgon_aon_iching_plan.json", {cache: "no-store"}).then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; }); }};
 </script>
-<div id="rgon-r41-badge" style="display:none">v11.51-AON-COMMANDER-TWIN · 항체 R1~R52 · 스킬 39</div>
+<div id="rgon-r41-badge" style="display:none">v11.53-AON-INSPECTOR-GENERAL · 항체 R1~R54 · 스킬 39</div>
 <!-- RGON R41 ICHING PLANNER BRIDGE END -->
 <!-- RGON R42 HYDRO CYCLE BRIDGE BEGIN -->
 <script>
-window.RGON_HYDRO_CYCLE = {version: "v11.51-AON-COMMANDER-TWIN", antibody: "R1~R52", skill: "aon-hydro-cycle-homeostasis", skillCount: 42, organ: 18, state: "rgon_aon_hydro_state.json", commands: ["/비움", "/순환", "/청소", "/물"], load: function(){ return fetch("rgon_aon_hydro_state.json", {cache: "no-store"}).then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; }); }};
+window.RGON_HYDRO_CYCLE = {version: "v11.53-AON-INSPECTOR-GENERAL", antibody: "R1~R54", skill: "aon-hydro-cycle-homeostasis", skillCount: 42, organ: 18, state: "rgon_aon_hydro_state.json", commands: ["/비움", "/순환", "/청소", "/물"], load: function(){ return fetch("rgon_aon_hydro_state.json", {cache: "no-store"}).then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; }); }};
 </script>
-<div id="rgon-r42-badge" style="display:none">v11.51-AON-COMMANDER-TWIN · 항체 R1~R52 · 스킬 39</div>
+<div id="rgon-r42-badge" style="display:none">v11.53-AON-INSPECTOR-GENERAL · 항체 R1~R54 · 스킬 39</div>
 <!-- RGON R42 HYDRO CYCLE BRIDGE END -->
 <!-- RGON R43 OMNI NEXUS BRIDGE BEGIN -->
 <script>
-window.RGON_OMNI_NEXUS = {version: "v11.51-AON-COMMANDER-TWIN", antibody: "R1~R52", skill: "aon-omni-nexus-synthesizer", skillCount: 42, organ: 19, state: "rgon_aon_nexus_state.json", commands: ["/만능", "/집약", "/연결", "/소통", "/넥서스"], load: function(){ return fetch("rgon_aon_nexus_state.json", {cache: "no-store"}).then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; }); }};
+window.RGON_OMNI_NEXUS = {version: "v11.53-AON-INSPECTOR-GENERAL", antibody: "R1~R54", skill: "aon-omni-nexus-synthesizer", skillCount: 42, organ: 19, state: "rgon_aon_nexus_state.json", commands: ["/만능", "/집약", "/연결", "/소통", "/넥서스"], load: function(){ return fetch("rgon_aon_nexus_state.json", {cache: "no-store"}).then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; }); }};
 </script>
-<div id="rgon-r43-badge" style="display:none">v11.51-AON-COMMANDER-TWIN · 항체 R1~R52 · 스킬 39</div>
+<div id="rgon-r43-badge" style="display:none">v11.53-AON-INSPECTOR-GENERAL · 항체 R1~R54 · 스킬 39</div>
 <!-- RGON R43 OMNI NEXUS BRIDGE END -->
 <!-- RGON R44 LIVE UI HEALER BRIDGE START -->
 <script id="rgon-r44-live-ui-healer">
 (function(){
 if(window.RGON_LIVE_UI_HEALER && window.RGON_LIVE_UI_HEALER._hud_installed)return;
-var H=window.RGON_LIVE_UI_HEALER=window.RGON_LIVE_UI_HEALER||{version:"v11.51-AON-COMMANDER-TWIN",antibody:"R44",guas:["#21 화뢰서합","#49 택화혁"],clicks:0,healed:0,log:[]};
+var H=window.RGON_LIVE_UI_HEALER=window.RGON_LIVE_UI_HEALER||{version:"v11.53-AON-INSPECTOR-GENERAL",antibody:"R44",guas:["#21 화뢰서합","#49 택화혁"],clicks:0,healed:0,log:[]};
 H._hud_installed = true;
 var Q='button,a,[role="button"],[onclick],[data-tab],[data-aon]';
 var SKIP=/^(if|for|while|switch|catch|return|function|alert|confirm|prompt|open|close|setTimeout|setInterval|fetch|parseInt|String|Number|Boolean|void|typeof|new)$/;
@@ -9858,7 +8569,7 @@ document.addEventListener("click",function(ev){
 
 /* =========================================================================
    👑 [대표님 전용 실전 버튼 검열 HUD: Agentation + Driver.js Tour Inspector]
-   v11.51-AON-COMMANDER-TWIN · 겹침 방지 · 자유 드래그앤드롭 · 핵심 63개 모드
+   v11.53-AON-INSPECTOR-GENERAL · 겹침 방지 · 자유 드래그앤드롭 · 핵심 63개 모드
    ========================================================================= */
 (function initHud(){
  if(typeof document==="undefined"||!document.body){
@@ -10211,7 +8922,7 @@ z-index:2147483645;animation:rgonR45p 1.15s ease-out forwards}
 <script id="rgon-r45-cinematic-dispatch">
 (function(){
 if(window.RGON_CINEMATIC_DISPATCH)return;
-var V="v11.51-AON-COMMANDER-TWIN",LABEL="R45 신경망 시냅스 · "+V+" · 스킬 41";
+var V="v11.53-AON-INSPECTOR-GENERAL",LABEL="R45 신경망 시냅스 · "+V+" · 스킬 41";
 var banner=null,timer=null;
 function ensureBanner(){if(!banner){banner=document.createElement("div");banner.id="rgon-r45-banner";document.body.appendChild(banner);}return banner;}
 function showDispatchBanner(title,chatterList){
@@ -10293,7 +9004,7 @@ setTimeout(boot,1200);setTimeout(boot,3500);
 (function () {
   "use strict";
   if (window.RGON_AUTO_EVOLVER && window.RGON_AUTO_EVOLVER.__r46) { return; }
-  var VERSION = "v11.51-AON-COMMANDER-TWIN";
+  var VERSION = "v11.53-AON-INSPECTOR-GENERAL";
   var BADGE = "R46 신경망 시냅스 · " + VERSION + " · 스킬 45";
   var PLATFORMS = [
     ["youtube", ["youtube.com", "youtu.be"]], ["tiktok", ["tiktok.com", "vt.tiktok.com", "vm.tiktok.com"]],
@@ -10358,7 +9069,7 @@ setTimeout(boot,1200);setTimeout(boot,3500);
     [/R4[0-5]\s*신경망\s*시냅스/g, "R46 신경망 시냅스"],
     [/v11\.4[0-4]-AON-[A-Z0-9-]+/g, VERSION],
     [/스킬\s*(?:3[789]|4[01])\b/g, "스킬 45"],
-    [/R1~R4[0-5]\b/g, "R1~R52"]
+    [/R1~R4[0-5]\b/g, "R1~R54"]
   ];
   function syncBadges() {
     var body = document.body, changed = 0;
@@ -10380,7 +9091,7 @@ setTimeout(boot,1200);setTimeout(boot,3500);
     __r46: true,
     version: VERSION,
     antibody: "R46",
-    antibodyRange: "R1~R52",
+    antibodyRange: "R1~R54",
     organ: 22,
     skills: 42,
     badge: BADGE,
@@ -10404,7 +9115,7 @@ window.openCommandCenterModal = function() {
             "• 로컬 대시보드: " + loc + "/\n" +
             "• 르곤 독대실: " + loc + "/rgon_alpha_chat.html\n" +
             "• 오디언스 홀: " + loc + "/rgon_alpha_audience.html\n" +
-            "• 전신 신경망: v11.51-AON-COMMANDER-TWIN (항체 R1~R52 · 22대 기관 · 스킬 47개 100% 정상)\n\n" +
+            "• 전신 신경망: v11.53-AON-INSPECTOR-GENERAL (항체 R1~R54 · 22대 기관 · 스킬 47개 100% 정상)\n\n" +
             "🛡️ 5G 무중단 터널 안심 가동:\n" +
             "외부 임시 터널 도메인이 갱신되더라도 로컬 사령부는 365일 24시간 절대 무중단으로 직통 가동됩니다!";
   if (window.showSpatialGlassBriefing) {
@@ -10500,7 +9211,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <div id="rgon-r47-badge" title="R47 Zero-Click Studio" style="position:fixed;bottom:150px;right:18px;z-index:99990;background:linear-gradient(135deg,#14183c,#b43c78);color:#fff;padding:8px 12px;border-radius:18px;font:600 12px sans-serif;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.4)">🎨 R47 클릭0번 포토·엑셀</div>
 <div id="rgon-r47-modal" style="display:none;position:fixed;inset:0;z-index:99991;background:rgba(0,0,0,.6)">
  <div style="max-width:720px;margin:6vh auto;background:#1b1f45;color:#fff;border-radius:14px;padding:18px;font:14px sans-serif;max-height:85vh;overflow:auto">
-  <div style="display:flex;justify-content:space-between"><b>🎨 제23기관 · 클릭 0번 헤드리스 스튜디오 (v11.51-AON-COMMANDER-TWIN)</b><span id="rgon-r47-x" style="cursor:pointer">✕</span></div>
+  <div style="display:flex;justify-content:space-between"><b>🎨 제23기관 · 클릭 0번 헤드리스 스튜디오 (v11.53-AON-INSPECTOR-GENERAL)</b><span id="rgon-r47-x" style="cursor:pointer">✕</span></div>
   <p style="opacity:.8">☶☲ 산화비 · ☲☰ 화천대유 · ☵☱ 수택절 — 외부 발행은 수동 결재 게이트 필수</p>
   <input id="rgon-r47-head" value="아온 클릭 0번 스튜디오" style="width:100%;padding:6px;border-radius:6px;border:0;color:#111">
   <div style="margin:8px 0"><button id="rgon-r47-svg" style="padding:6px 12px;border-radius:6px;background:#6366f1;color:#fff;border:0;cursor:pointer">SVG 카드뉴스</button> <button id="rgon-r47-png" style="padding:6px 12px;border-radius:6px;background:#ec4899;color:#fff;border:0;cursor:pointer">PNG 썸네일</button> <button id="rgon-r47-csv" style="padding:6px 12px;border-radius:6px;background:#10b981;color:#fff;border:0;cursor:pointer">CSV 시트</button></div>
@@ -10769,18 +9480,18 @@ $("rgon-r47-csv").onclick=function(){var r=[["항목","조회수","좋아요"],[
 
   <script src="rgon_smart_edge_dock.js"></script>
 <!-- [RGON-R49-VIBE3D-DIRECTOR-START] -->
-<div id="rgon-r49-vibe3d-bridge" style="display:none !important;" data-version="v11.51-AON-COMMANDER-TWIN" data-antibody="R49">
+<div id="rgon-r49-vibe3d-bridge" style="display:none !important;" data-version="v11.53-AON-INSPECTOR-GENERAL" data-antibody="R49">
   <!-- 오픈소스 Blender MCP & 국산 VARCO 3D 시네마틱 디렉터 (화면 은신 가디언 준수) -->
 </div>
 <!-- [RGON-R49-VIBE3D-DIRECTOR-END] -->
 <!-- [RGON-R50-IMPECCABLE-SHIELD-V1-START] -->
-<div id="rgon-r50-impeccable-shield" style="display: none !important;" data-version="v11.51-AON-COMMANDER-TWIN" data-antibody="R50" data-organ="rgon_aon_impeccable_audit_shield.py" aria-hidden="true"></div>
+<div id="rgon-r50-impeccable-shield" style="display: none !important;" data-version="v11.53-AON-INSPECTOR-GENERAL" data-antibody="R50" data-organ="rgon_aon_impeccable_audit_shield.py" aria-hidden="true"></div>
 <!-- [RGON-R50-IMPECCABLE-SHIELD-V1-END] -->
 <!-- [RGON-R52-TOKEN-EGOLITE-MASTER-V1-START] -->
-<div id="rgon-r51-token-egolite-master" style="display: none !important;" data-version="v11.51-AON-COMMANDER-TWIN" data-antibody="R52" data-organ="rgon_aon_token_egolite_master.py" aria-hidden="true"></div>
+<div id="rgon-r51-token-egolite-master" style="display: none !important;" data-version="v11.53-AON-INSPECTOR-GENERAL" data-antibody="R52" data-organ="rgon_aon_token_egolite_master.py" aria-hidden="true"></div>
 <!-- [RGON-R52-TOKEN-EGOLITE-MASTER-V1-END] -->
 <!-- [RGON-R52-COMMANDER-TWIN-V1-START] -->
-<div id="rgon-r52-commander-twin" style="display: none !important;" data-version="v11.51-AON-COMMANDER-TWIN" data-antibody="R52" data-organ="rgon_aon_commander_twin.py" aria-hidden="true"></div>
+<div id="rgon-r52-commander-twin" style="display: none !important;" data-version="v11.53-AON-INSPECTOR-GENERAL" data-antibody="R52" data-organ="rgon_aon_commander_twin.py" aria-hidden="true"></div>
 <!-- [RGON-R52-COMMANDER-TWIN-V1-END] -->
 </body>
 </html>

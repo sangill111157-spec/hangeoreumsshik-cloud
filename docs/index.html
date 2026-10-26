@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="ko" class="dark">
 <head>
+  <!-- 🛡️ FOUC & 유령 플로팅 즉시 차단 -->
+  <style id="rgon-index-fouc-killer">
+    #rgyt-wrap, #rgon-r47-badge, #rgon-r47-modal, #rgon-hud-pill,
+    [id*="rgon-hud"], [id*="rgon-brat"], [id*="rgon-dao"], [id*="floating" i] {
+      display: none !important;
+    }
+  </style>
+
   <script src="rgon_mobile_serverless_interceptor.js"></script>
 <!-- [SPATIAL-GLASS-BRIEFING-START] -->
 <style id="spatial-glass-briefing-css">
@@ -83,7 +91,7 @@
   var TOAST_TEXT = '\u2705 \ubcf8\uccb4 \ub974\uace4 \u21c4 \uc54c\ud30c \uae30\uc5b5 \uc790\ub3d9 \ub3d9\uae30\ud654 \uc644\ub8cc (100%)';
   var SNAP_REL = './rgon_brain_snapshot.json';
   var INTERVAL_MS = 15000;
-  var EMBEDDED = {"schema":"rgon_brain_snapshot/1","version":"v6.0.7","generated_at_kst":"2026-10-21 06:04:57 KST","synced_at_kst":"2026-10-21 06:04:57 KST","sync_rate":"100.0%","score":100,"max_score":100,"self_diagnosis":{"score":100,"max":100,"label":"100/100"},"antibody_range":"R1~R52","antibodies":[{"id":"R1","name":"\ud56d\uccb4 R1","status":"\ud65c\uc131"},{"id":"R2","name":"\ud56d\uccb4 R2","status":"\ud65c\uc131"},{"id":"R3","name":"\ud56d\uccb4 R3","status":"\ud65c\uc131"},{"id":"R4","name":"\ud56d\uccb4 R4","status":"\ud65c\uc131"},{"id":"R5","name":"\ud56d\uccb4 R5","status":"\ud65c\uc131"},{"id":"R6","name":"\ud56d\uccb4 R6","status":"\ud65c\uc131"},{"id":"R7","name":"\ud56d\uccb4 R7","status":"\ud65c\uc131"}],"top_priority_id":"R46","top_priority":"GEN-1 \uc644\uc804 \ubb34\uc778 \uc790\uac00 \uc9c4\ud654 \ud3d0\uc1c4 \ub8e8\ud504","tomorrow_top_priority":"GEN-1 \uc644\uc804 \ubb34\uc778 \uc790\uac00 \uc9c4\ud654 \ud3d0\uc1c4 \ub8e8\ud504","gen1_status":"\uc7a5\uc804 \uc644\ub8cc","gen1_pipeline":["\uad00\uce21 \u00b7 \ub85c\uadf8/\uc624\ub958 \uc218\uc9d1","\uc9c4\ub2e8 \u00b7 \ud56d\uccb4 R1~R7 \ub300\uc870","\ud328\uce58 \u00b7 \ud6c4\ubcf4 \uc0dd\uc131","\uac80\uc99d \u00b7 \ubb38\ubc95/\ud68c\uadc0 \uc810\uac80","\ubc18\uc601 \u00b7 \ubc31\uc5c5 \ud6c4 \uc801\uc6a9","\uae30\uc5b5 \u00b7 \ub450\ub1cc \uc7a5\ubd80 \uae30\ub85d"],"treasury":{"balance":0,"currency":"KRW","status":"\uc815\uc0c1","label":"0\uc6d0 \uc815\uc0c1"},"offices":[{"id":"C1","name":"\uc81c1\uccad\uc0ac","status":"\uc815\uc0c1"},{"id":"C2","name":"\uc81c2\uccad\uc0ac","status":"\uc815\uc0c1"},{"id":"C3","name":"\uc81c3\uccad\uc0ac","status":"\uc815\uc0c1"},{"id":"C4","name":"\uc81c4\uccad\uc0ac","status":"\uc815\uc0c1"},{"id":"C5","name":"\uc81c5\uccad\uc0ac","status":"\uc815\uc0c1"},{"id":"C6","name":"\uc81c6\uccad\uc0ac","status":"\uc815\uc0c1"}],"tunnel":{"url":"http://127.0.0.1:8501 (로컬 활성 사령부)","active_hint":null,"has_tunnel":true},"ledger_files":["evolution_memory.json","brain_basket/master_schedule.json","treasury_ledger.json","tunnel_bridge.json","active_external_tunnel.json"]};
+  var EMBEDDED = {"schema":"rgon_brain_snapshot/1","version":"v6.0.7","generated_at_kst":"2026-10-21 06:04:57 KST","synced_at_kst":"2026-10-21 06:04:57 KST","sync_rate":"100.0%","score":100,"max_score":100,"self_diagnosis":{"score":100,"max":100,"label":"100/100"},"antibody_range":"R1~R54","antibodies":[{"id":"R1","name":"\ud56d\uccb4 R1","status":"\ud65c\uc131"},{"id":"R2","name":"\ud56d\uccb4 R2","status":"\ud65c\uc131"},{"id":"R3","name":"\ud56d\uccb4 R3","status":"\ud65c\uc131"},{"id":"R4","name":"\ud56d\uccb4 R4","status":"\ud65c\uc131"},{"id":"R5","name":"\ud56d\uccb4 R5","status":"\ud65c\uc131"},{"id":"R6","name":"\ud56d\uccb4 R6","status":"\ud65c\uc131"},{"id":"R7","name":"\ud56d\uccb4 R7","status":"\ud65c\uc131"}],"top_priority_id":"R46","top_priority":"GEN-1 \uc644\uc804 \ubb34\uc778 \uc790\uac00 \uc9c4\ud654 \ud3d0\uc1c4 \ub8e8\ud504","tomorrow_top_priority":"GEN-1 \uc644\uc804 \ubb34\uc778 \uc790\uac00 \uc9c4\ud654 \ud3d0\uc1c4 \ub8e8\ud504","gen1_status":"\uc7a5\uc804 \uc644\ub8cc","gen1_pipeline":["\uad00\uce21 \u00b7 \ub85c\uadf8/\uc624\ub958 \uc218\uc9d1","\uc9c4\ub2e8 \u00b7 \ud56d\uccb4 R1~R7 \ub300\uc870","\ud328\uce58 \u00b7 \ud6c4\ubcf4 \uc0dd\uc131","\uac80\uc99d \u00b7 \ubb38\ubc95/\ud68c\uadc0 \uc810\uac80","\ubc18\uc601 \u00b7 \ubc31\uc5c5 \ud6c4 \uc801\uc6a9","\uae30\uc5b5 \u00b7 \ub450\ub1cc \uc7a5\ubd80 \uae30\ub85d"],"treasury":{"balance":0,"currency":"KRW","status":"\uc815\uc0c1","label":"0\uc6d0 \uc815\uc0c1"},"offices":[{"id":"C1","name":"\uc81c1\uccad\uc0ac","status":"\uc815\uc0c1"},{"id":"C2","name":"\uc81c2\uccad\uc0ac","status":"\uc815\uc0c1"},{"id":"C3","name":"\uc81c3\uccad\uc0ac","status":"\uc815\uc0c1"},{"id":"C4","name":"\uc81c4\uccad\uc0ac","status":"\uc815\uc0c1"},{"id":"C5","name":"\uc81c5\uccad\uc0ac","status":"\uc815\uc0c1"},{"id":"C6","name":"\uc81c6\uccad\uc0ac","status":"\uc815\uc0c1"}],"tunnel":{"url":"http://127.0.0.1:8501 (로컬 활성 사령부)","active_hint":null,"has_tunnel":true},"ledger_files":["evolution_memory.json","brain_basket/master_schedule.json","treasury_ledger.json","tunnel_bridge.json","active_external_tunnel.json"]};
 
   var origFetch = (typeof window.fetch === 'function') ? window.fetch.bind(window) : null;
   var origAlert = (typeof window.alert === 'function') ? window.alert.bind(window) : function () {};
@@ -122,7 +130,7 @@
       score: 100,
       max_score: 100,
       self_diagnosis: { score: 100, max: 100, label: '100/100' },
-      antibody_range: 'R1~R52',
+      antibody_range: 'R1~R54',
       antibodies: abs,
       top_priority_id: 'R46',
       top_priority: 'GEN-1 \uc644\uc804 \ubb34\uc778 \uc790\uac00 \uc9c4\ud654 \ud3d0\uc1c4 \ub8e8\ud504',
@@ -792,7 +800,7 @@
   </div>
 
   <!-- 메인 컨테이너 -->
-  <div class="relative z-10 max-w-5xl mx-auto px-3 sm:px-6 pt-4 sm:pt-6 space-y-6">
+  <div class="relative z-10 max-w-5xl mx-auto px-3 sm:px-6 pt-4 sm:pt-6 space-y-6" style="padding-bottom: 140px !important;">
 
     <!-- ⚡ [v10.8] 불사조 5G 무중단 터널 브릿지 (Error 1033 영구 면역) 배너 -->
     <div id="immortal-tunnel-bridge-banner" class="glass-card rounded-2xl p-3.5 border border-emerald-500/40 bg-gradient-to-r from-emerald-950/70 via-slate-900/90 to-indigo-950/70 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-xl">
@@ -2499,7 +2507,7 @@
   </script>
   <script src="/aside_drawer.js"></script>
 <!-- [RGON-YT-SCOUT-V13-START] -->
-<div id="rgyt-wrap" class="rgk" data-ver="v11.51-AON-COMMANDER-TWIN" data-immune="R1~R52" data-skills="42">
+<div id="rgyt-wrap" class="rgk" data-ver="v11.53-AON-INSPECTOR-GENERAL" data-immune="R1~R54" data-skills="42">
 <style>
 .rgk{font:13px/1.5 system-ui,sans-serif;color:#eef3ff;background:linear-gradient(165deg,#070c22,#10183b 55%,#09152e);border:1px solid #5ce1e640;border-radius:16px;padding:10px 12px;margin:8px 0;box-shadow:0 6px 22px #060a1ecc}
 .rgk #rgyt-head{display:flex;align-items:center;gap:8px;font-weight:700;flex-wrap:wrap}
@@ -2541,7 +2549,7 @@
 @keyframes aonBubbleLife{0%{opacity:0;transform:translate(-50%,6px)}12%,82%{opacity:1;transform:translate(-50%,0)}100%{opacity:0;transform:translate(-50%,-4px)}}
 .aon-mini-hide{position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);z-index:3;font-size:10.5px;line-height:1;padding:3px 9px;border:1px solid rgba(255,255,255,.3);border-radius:999px;background:rgba(12,20,52,.82);color:#d8f3ff;cursor:pointer;white-space:nowrap}
 </style>
-<div id="rgyt-head"><span id="rgk-headtxt">💧 아온(A-ON·芽溫) · 🩸백혈구 100 · 🧹정화 100 · 🛡️R1~R52 · 🍯스킬 48개</span></div>
+<div id="rgyt-head"><span id="rgk-headtxt">💧 아온(A-ON·芽溫) · 🩸백혈구 100 · 🧹정화 100 · 🛡️R1~R54 · 🍯스킬 50개</span></div>
 <div class="rgk-tabs"><button data-tab="kid" class="on" data-clean-id="CLEAN-IDX-038">💧 아온(A-ON) 소환·정화</button><button data-tab="radar" data-clean-id="CLEAN-IDX-039">📡 트렌드 레이더</button><button data-tab="skills" data-clean-id="CLEAN-IDX-040">🍯 보유 스킬 (48)</button><button data-tab="pulse" data-clean-id="CLEAN-IDX-041">🫀 전신 맥박 &amp; 3자 심판</button></div>
 <div class="rgk-flt"><input id="rgyt-q" placeholder="🔎 검색"><select id="rgyt-cat"><option value="">전체 카테고리</option></select></div>
 <div class="rgk-pane on" id="rgk-p-kid">
@@ -2551,7 +2559,7 @@
 <button type="button" class="clean-btn" data-aon="clean" data-clean-id="CLEAN-IDX-044">🧹 노폐물 배출 (찌꺼기 정화)</button>
 <button type="button" data-aon="pat" data-clean-id="CLEAN-IDX-045">💖 쓰다듬기 (EXP+10)</button>
 <button type="button" data-aon="voice" data-clean-id="CLEAN-IDX-046">🔊 목소리 듣기</button>
-<button type="button" data-load="💧 아온(A-ON)아, 오늘자 종합 브리핑 해줘: 백혈구 건강 점수, 배설기관(신장·대장) 정화 상태, 항체 R1~R52, 정식 스킬 47개 활용도, 트렌드 레이더 핵심 3가지, 대표님 금고 리스크를 또박또박 정리해 줘." data-clean-id="CLEAN-IDX-047">⚡ 브리핑 질문창 장전</button>
+<button type="button" data-load="💧 아온(A-ON)아, 오늘자 종합 브리핑 해줘: 백혈구 건강 점수, 배설기관(신장·대장) 정화 상태, 항체 R1~R54, 정식 스킬 47개 활용도, 트렌드 레이더 핵심 3가지, 대표님 금고 리스크를 또박또박 정리해 줘." data-clean-id="CLEAN-IDX-047">⚡ 브리핑 질문창 장전</button>
 </div>
 <div class="rgk-say" id="rgk-say">🧹 배설기관(신장·대장) 정화 완료! 불필요한 캐시·구백업·중복 마커를 깨끗이 비워내어 아온이의 몸과 두뇌가 100% 맑아졌습니다.</div>
 </div>
@@ -2619,7 +2627,7 @@
 </div>
 </div>
 </div>
-<script type="application/json" id="rgyt-wrap-data">{"skills": 48, "antibodies": 52, "health": 100, "skill_list": [{"title": "포토샵 1년 36만 원, 코딩 몰라도 '내 포토샵' 45분 만에 만들었습니다", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 '1-36-45'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "클로드 스킬 10만 개, 진짜 쓸 건 5개", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 '10-5'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "744B AI가 노트북에서 무료? 한 글자에 10초 걸려요", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 '744b-ai-10'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "클로드 글 AI 티 지우는 한 줄 5개", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 'ai-5'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "ecc-agentshield-harness", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 'ecc-agentshield-harness'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "Hexagram 64 Wisdom (주역 64괘 지혜)", "cat": "philosophy", "desc": "", "prompt": "🍯 스킬 'hexagram-64-wisdom'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "Markdown Purifier (웹·문서 정제기)", "cat": "data-refinery", "desc": "", "prompt": "🍯 스킬 'markdown-purifier'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "mattpocock-domain-glossary", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 'mattpocock-domain-glossary'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "mattpocock-spec-tickets", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 'mattpocock-spec-tickets'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "Multi-Agent Council (3자 찬반 심판기)", "cat": "decision-making", "desc": "", "prompt": "🍯 스킬 'multi-agent-council'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "omni-skill-dispatcher", "cat": "", "desc": "", "prompt": "🍯 스킬 'omni-skill-dispatcher'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "rea-reverse-engineer-fusion", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 'rea-reverse-engineer-fusion'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "self-evolving-gene-ratchet", "cat": "self-evolution", "desc": "", "prompt": "🍯 스킬 'self-evolving-gene-ratchet'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "클로드 코드 쓰면 이 파일 하나는 꼭 넣으세요 (깃허브 별 22만)", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 'skill-68768f44'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "내 이름 검색하면 나오는 것들, 클로드한테 싹 지우라고 했더니", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 'skill-b25226d4'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "클로드 코드 토큰 49배 줄인 무료 도구", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 'skill-c5c55e6f'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "클로드 한도 걸려도 일 안 멈추는 법", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 'skill-d33be764'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "클로드 회사가 무료로 푼 강의, 초보는 딱 이 3개만 들으세요", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 'skill-f7938cb8'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "trinity-trading-council", "cat": "", "desc": "", "prompt": "🍯 스킬 'trinity-trading-council'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "WBC Self-Healing (백혈구 자가치유)", "cat": "immune-system", "desc": "", "prompt": "🍯 스킬 'wbc-self-healing'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "YouTube Trend Scout (유튜브 스킬 레이더)", "cat": "knowledge-intake", "desc": "", "prompt": "🍯 스킬 'youtube-trend-scout'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "Stomper Kill-List & Live Omni-Sense (오감 센서 & 불량 시그널 분쇄기)", "cat": "omni-sense", "desc": "오감 후각: 사기·원금보장·러그풀·프롬프트 인젝션 사전 킬리스트 분쇄", "prompt": "🍯 스킬 'stomper-kill-list-gate'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "Autonomous Creator Forge (화풍정 자율 도구 창조 공방)", "cat": "creator-forge", "desc": "SkillForge·Voyager·724-office 자율 도구 창조 + Surrogate Verifier 격리 검증", "prompt": "🍯 스킬 'autonomous-creator-forge'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "아온(A-ON) K-아이 성장형 디지털 육신", "cat": "digital-body", "desc": "미래형 K-스타일 아이 『아온(A-ON·芽溫)』 SVG 육신 — 순수 CSS 애니메이션·4단계 성장·쓰다듬기/음성 교감·질문창 장전 (R28)", "prompt": "🍯 스킬 'k-avatar-growth-soul'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "전 세계 TOP 1 캐릭터 디테일 & 3D 물방울 졸라맨 마스터", "cat": "character-3d-master", "desc": "svg-animation-studio(디즈니 7대 모션 법칙) + ui-ux-pro-max(8-Stop 3D Liquid-Glass/Claymorphism) + 아온(A-ON) 3D 물방울 졸라맨 팔다리 마스터 스킬 (R29)", "prompt": "🍯 스킬 'character-detail-master-top1'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "free-roaming-waterdrop-pet", "cat": "character-3d-master", "desc": "뷰포트 무제한 자율 유영 & 소환/은신 스크린 펫 마스터 스킬(아온 A-ON)", "prompt": "🍯 스킬 'free-roaming-waterdrop-pet'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "배설기관(신장·대장) 노폐물 배출 & 엔트로피 정화 마스터", "cat": "excretory-gc", "desc": "ECC config-gc + reclaim-code-entropy + autoDream 기반 신장 여과·대장 압축·문서 중복 마커 정화·고아 코드 감사 스킬 (R31)", "prompt": "🍯 스킬 'excretory-entropy-gc'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}], "radar": [{"title": "ECC config-gc 배설·정화 엔진", "cat": "하네스공학", "desc": "기본 레이더 시드", "prompt": "📡 트렌드 'ECC config-gc 배설·정화 엔진'를 독대실 관점(기회·리스크·실행 3줄)으로 분석해 줘."}, {"title": "reclaim-code-entropy 엔트로피 감축", "cat": "코드정화", "desc": "기본 레이더 시드", "prompt": "📡 트렌드 'reclaim-code-entropy 엔트로피 감축'를 독대실 관점(기회·리스크·실행 3줄)으로 분석해 줘."}, {"title": "Meta Muse 행동 대행 에이전트", "cat": "AI비서", "desc": "기본 레이더 시드", "prompt": "📡 트렌드 'Meta Muse 행동 대행 에이전트'를 독대실 관점(기회·리스크·실행 3줄)으로 분석해 줘."}, {"title": "개인 금고 리스크 관리", "cat": "재무", "desc": "기본 레이더 시드", "prompt": "📡 트렌드 '개인 금고 리스크 관리'를 독대실 관점(기회·리스크·실행 3줄)으로 분석해 줘."}], "pulse": [{"title": "⚖️ [APPROVED_STEP_BY_STEP] 85.5점 (Bull 80.8 / Bear 22.2 / #08-比)", "cat": "심판", "desc": "⚖️ [APPROVED_STEP_BY_STEP] 85.5점 (Bull 80.8 / Bear 22.2 / #08-比) Markdown 정제기로 외부 웹·문서 지식을 AI 친화 Markdown으로 흡수", "prompt": "🫀 다음 심판 줄을 3자 심판(Bull/Bear/주역) 관점으로 해설해 줘: ⚖️ [APPROVED_STEP_BY_STEP] 85.5점 (Bull 80.8 / Bear 22.2 / #08-比) Markdown 정제기로 외부 웹·문서 지식을 AI 친화 Markdown으로 흡수"}, {"title": "⚖️ [GO] 79.3점 (Bull 93.0 / Bear 28.0 / #60-수택절) 💰 금고 보존 & 포지션 사이", "cat": "심판", "desc": "⚖️ [GO] 79.3점 (Bull 93.0 / Bear 28.0 / #60-수택절) 💰 금고 보존 & 포지션 사이징 — 조건 충족, 한도 내 집행 허용 · 절제와 한도 수호 · 도덕경 지족불욕(知足不辱)", "prompt": "🫀 다음 심판 줄을 3자 심판(Bull/Bear/주역) 관점으로 해설해 줘: ⚖️ [GO] 79.3점 (Bull 93.0 / Bear 28.0 / #60-수택절) 💰 금고 보존 & 포지션 사이징 — 조건 충족, 한도 내 집행 허용 · 절제와 한도 수호 · 도덕경 지족불욕(知足不辱)"}, {"title": "⚖️ [GO] 80.5점 (Bull 96.5 / Bear 39.0 / #01-중천건) 📈 추세 돌파 & 모멘텀 타점", "cat": "심판", "desc": "⚖️ [GO] 80.5점 (Bull 96.5 / Bear 39.0 / #01-중천건) 📈 추세 돌파 & 모멘텀 타점 검증 — 조건 충족, 한도 내 집행 허용 · 자강불식·항룡유회 경계 · 亢龍有悔 — 과열 추격 금지", "prompt": "🫀 다음 심판 줄을 3자 심판(Bull/Bear/주역) 관점으로 해설해 줘: ⚖️ [GO] 80.5점 (Bull 96.5 / Bear 39.0 / #01-중천건) 📈 추세 돌파 & 모멘텀 타점 검증 — 조건 충족, 한도 내 집행 허용 · 자강불식·항룡유회 경계 · 亢龍有悔 — 과열 추격 금지"}, {"title": "⚖️ [GO] 85.2점 (Bull 93.0 / Bear 20.0 / #63-수화기제) 🛡️ 변동성 방어 & 손절/", "cat": "심판", "desc": "⚖️ [GO] 85.2점 (Bull 93.0 / Bear 20.0 / #63-수화기제) 🛡️ 변동성 방어 & 손절/익절 규율 — 조건 충족, 한도 내 집행 허용 · 사환예방(思患豫防) · 君子以思患而豫防之", "prompt": "🫀 다음 심판 줄을 3자 심판(Bull/Bear/주역) 관점으로 해설해 줘: ⚖️ [GO] 85.2점 (Bull 93.0 / Bear 20.0 / #63-수화기제) 🛡️ 변동성 방어 & 손절/익절 규율 — 조건 충족, 한도 내 집행 허용 · 사환예방(思患豫防) · 君子以思患而豫防之"}, {"title": "⚖️ [GO] 84.5점 (Bull 91.0 / Bear 22.0 / #64-화수미제) 🔄 멀티에이전트 시그널 교차", "cat": "심판", "desc": "⚖️ [GO] 84.5점 (Bull 91.0 / Bear 22.0 / #64-화수미제) 🔄 멀티에이전트 시그널 교차검증 — 조건 충족, 한도 내 집행 허용 · 신변물거방(慎辨物居方) · 君子以慎辨物居方", "prompt": "🫀 다음 심판 줄을 3자 심판(Bull/Bear/주역) 관점으로 해설해 줘: ⚖️ [GO] 84.5점 (Bull 91.0 / Bear 22.0 / #64-화수미제) 🔄 멀티에이전트 시그널 교차검증 — 조건 충족, 한도 내 집행 허용 · 신변물거방(慎辨物居方) · 君子以慎辨物居方"}, {"title": "⚖️ [SENSE] 100.0점 (Bull 99.9 / Bear 0.1 / #21-화뢰서합) 오감 5/5 가동 · ", "cat": "심판", "desc": "⚖️ [SENSE] 100.0점 (Bull 99.9 / Bear 0.1 / #21-화뢰서합) 오감 5/5 가동 · Stomper KILL 3건 · 네트워크 ONLINE", "prompt": "🫀 다음 심판 줄을 3자 심판(Bull/Bear/주역) 관점으로 해설해 줘: ⚖️ [SENSE] 100.0점 (Bull 99.9 / Bear 0.1 / #21-화뢰서합) 오감 5/5 가동 · Stomper KILL 3건 · 네트워크 ONLINE"}, {"title": "⚖️ [CREATE] 100.0점 (Bull 99.9 / Bear 0.1 / #50-화풍정) 자율 도구 3/3 격리", "cat": "심판", "desc": "⚖️ [CREATE] 100.0점 (Bull 99.9 / Bear 0.1 / #50-화풍정) 자율 도구 3/3 격리 검증 PASS · 혁고정신(革故鼎新)", "prompt": "🫀 다음 심판 줄을 3자 심판(Bull/Bear/주역) 관점으로 해설해 줘: ⚖️ [CREATE] 100.0점 (Bull 99.9 / Bear 0.1 / #50-화풍정) 자율 도구 3/3 격리 검증 PASS · 혁고정신(革故鼎新)"}, {"title": "⚖️ [AVATAR3D] 100.0점 (Bull 99.9 / Bear 0.1 / #04-산수몽) 💧 아온(A-ON·", "cat": "심판", "desc": "⚖️ [AVATAR3D] 100.0점 (Bull 99.9 / Bear 0.1 / #04-산수몽) 💧 아온(A-ON·芽溫) 3D 입체 물방울 & 졸라맨 팔다리 육신 — 디즈니 7대 모션 법칙 & 8-Stop Liquid-Glass 3D 가동", "prompt": "🫀 다음 심판 줄을 3자 심판(Bull/Bear/주역) 관점으로 해설해 줘: ⚖️ [AVATAR3D] 100.0점 (Bull 99.9 / Bear 0.1 / #04-산수몽) 💧 아온(A-ON·芽溫) 3D 입체 물방울 & 졸라맨 팔다리 육신 — 디즈니 7대 모션 법칙 & 8-Stop Liquid-Glass 3D 가동"}, {"title": "⚖️ [CLEAN] 100.0점 (Bull 99.9 / Bear 0.1 / #40-뇌수해) 🧹 배설기관(신장·대장)", "cat": "심판", "desc": "⚖️ [CLEAN] 100.0점 (Bull 99.9 / Bear 0.1 / #40-뇌수해) 🧹 배설기관(신장·대장) 정화 엔진 가동 — 노폐물·중복 마커·캐시 찌꺼기 배출 완료 (비움이 곧 채움)", "prompt": "🫀 다음 심판 줄을 3자 심판(Bull/Bear/주역) 관점으로 해설해 줘: ⚖️ [CLEAN] 100.0점 (Bull 99.9 / Bear 0.1 / #40-뇌수해) 🧹 배설기관(신장·대장) 정화 엔진 가동 — 노폐물·중복 마커·캐시 찌꺼기 배출 완료 (비움이 곧 채움)"}]}</script>
+<script type="application/json" id="rgyt-wrap-data">{"skills": 50, "antibodies": 54, "health": 100, "skill_list": [{"title": "포토샵 1년 36만 원, 코딩 몰라도 '내 포토샵' 45분 만에 만들었습니다", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 '1-36-45'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "클로드 스킬 10만 개, 진짜 쓸 건 5개", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 '10-5'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "744B AI가 노트북에서 무료? 한 글자에 10초 걸려요", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 '744b-ai-10'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "클로드 글 AI 티 지우는 한 줄 5개", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 'ai-5'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "ecc-agentshield-harness", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 'ecc-agentshield-harness'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "Hexagram 64 Wisdom (주역 64괘 지혜)", "cat": "philosophy", "desc": "", "prompt": "🍯 스킬 'hexagram-64-wisdom'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "Markdown Purifier (웹·문서 정제기)", "cat": "data-refinery", "desc": "", "prompt": "🍯 스킬 'markdown-purifier'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "mattpocock-domain-glossary", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 'mattpocock-domain-glossary'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "mattpocock-spec-tickets", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 'mattpocock-spec-tickets'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "Multi-Agent Council (3자 찬반 심판기)", "cat": "decision-making", "desc": "", "prompt": "🍯 스킬 'multi-agent-council'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "omni-skill-dispatcher", "cat": "", "desc": "", "prompt": "🍯 스킬 'omni-skill-dispatcher'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "rea-reverse-engineer-fusion", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 'rea-reverse-engineer-fusion'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "self-evolving-gene-ratchet", "cat": "self-evolution", "desc": "", "prompt": "🍯 스킬 'self-evolving-gene-ratchet'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "클로드 코드 쓰면 이 파일 하나는 꼭 넣으세요 (깃허브 별 22만)", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 'skill-68768f44'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "내 이름 검색하면 나오는 것들, 클로드한테 싹 지우라고 했더니", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 'skill-b25226d4'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "클로드 코드 토큰 49배 줄인 무료 도구", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 'skill-c5c55e6f'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "클로드 한도 걸려도 일 안 멈추는 법", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 'skill-d33be764'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "클로드 회사가 무료로 푼 강의, 초보는 딱 이 3개만 들으세요", "cat": "radar-discovery", "desc": "", "prompt": "🍯 스킬 'skill-f7938cb8'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "trinity-trading-council", "cat": "", "desc": "", "prompt": "🍯 스킬 'trinity-trading-council'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "WBC Self-Healing (백혈구 자가치유)", "cat": "immune-system", "desc": "", "prompt": "🍯 스킬 'wbc-self-healing'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "YouTube Trend Scout (유튜브 스킬 레이더)", "cat": "knowledge-intake", "desc": "", "prompt": "🍯 스킬 'youtube-trend-scout'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "Stomper Kill-List & Live Omni-Sense (오감 센서 & 불량 시그널 분쇄기)", "cat": "omni-sense", "desc": "오감 후각: 사기·원금보장·러그풀·프롬프트 인젝션 사전 킬리스트 분쇄", "prompt": "🍯 스킬 'stomper-kill-list-gate'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "Autonomous Creator Forge (화풍정 자율 도구 창조 공방)", "cat": "creator-forge", "desc": "SkillForge·Voyager·724-office 자율 도구 창조 + Surrogate Verifier 격리 검증", "prompt": "🍯 스킬 'autonomous-creator-forge'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "아온(A-ON) K-아이 성장형 디지털 육신", "cat": "digital-body", "desc": "미래형 K-스타일 아이 『아온(A-ON·芽溫)』 SVG 육신 — 순수 CSS 애니메이션·4단계 성장·쓰다듬기/음성 교감·질문창 장전 (R28)", "prompt": "🍯 스킬 'k-avatar-growth-soul'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "전 세계 TOP 1 캐릭터 디테일 & 3D 물방울 졸라맨 마스터", "cat": "character-3d-master", "desc": "svg-animation-studio(디즈니 7대 모션 법칙) + ui-ux-pro-max(8-Stop 3D Liquid-Glass/Claymorphism) + 아온(A-ON) 3D 물방울 졸라맨 팔다리 마스터 스킬 (R29)", "prompt": "🍯 스킬 'character-detail-master-top1'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "free-roaming-waterdrop-pet", "cat": "character-3d-master", "desc": "뷰포트 무제한 자율 유영 & 소환/은신 스크린 펫 마스터 스킬(아온 A-ON)", "prompt": "🍯 스킬 'free-roaming-waterdrop-pet'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}, {"title": "배설기관(신장·대장) 노폐물 배출 & 엔트로피 정화 마스터", "cat": "excretory-gc", "desc": "ECC config-gc + reclaim-code-entropy + autoDream 기반 신장 여과·대장 압축·문서 중복 마커 정화·고아 코드 감사 스킬 (R31)", "prompt": "🍯 스킬 'excretory-entropy-gc'을(를) 활용해 지금 독대실 상황에 맞게 실행 계획을 짜 줘."}], "radar": [{"title": "ECC config-gc 배설·정화 엔진", "cat": "하네스공학", "desc": "기본 레이더 시드", "prompt": "📡 트렌드 'ECC config-gc 배설·정화 엔진'를 독대실 관점(기회·리스크·실행 3줄)으로 분석해 줘."}, {"title": "reclaim-code-entropy 엔트로피 감축", "cat": "코드정화", "desc": "기본 레이더 시드", "prompt": "📡 트렌드 'reclaim-code-entropy 엔트로피 감축'를 독대실 관점(기회·리스크·실행 3줄)으로 분석해 줘."}, {"title": "Meta Muse 행동 대행 에이전트", "cat": "AI비서", "desc": "기본 레이더 시드", "prompt": "📡 트렌드 'Meta Muse 행동 대행 에이전트'를 독대실 관점(기회·리스크·실행 3줄)으로 분석해 줘."}, {"title": "개인 금고 리스크 관리", "cat": "재무", "desc": "기본 레이더 시드", "prompt": "📡 트렌드 '개인 금고 리스크 관리'를 독대실 관점(기회·리스크·실행 3줄)으로 분석해 줘."}], "pulse": [{"title": "⚖️ [APPROVED_STEP_BY_STEP] 85.5점 (Bull 80.8 / Bear 22.2 / #08-比)", "cat": "심판", "desc": "⚖️ [APPROVED_STEP_BY_STEP] 85.5점 (Bull 80.8 / Bear 22.2 / #08-比) Markdown 정제기로 외부 웹·문서 지식을 AI 친화 Markdown으로 흡수", "prompt": "🫀 다음 심판 줄을 3자 심판(Bull/Bear/주역) 관점으로 해설해 줘: ⚖️ [APPROVED_STEP_BY_STEP] 85.5점 (Bull 80.8 / Bear 22.2 / #08-比) Markdown 정제기로 외부 웹·문서 지식을 AI 친화 Markdown으로 흡수"}, {"title": "⚖️ [GO] 79.3점 (Bull 93.0 / Bear 28.0 / #60-수택절) 💰 금고 보존 & 포지션 사이", "cat": "심판", "desc": "⚖️ [GO] 79.3점 (Bull 93.0 / Bear 28.0 / #60-수택절) 💰 금고 보존 & 포지션 사이징 — 조건 충족, 한도 내 집행 허용 · 절제와 한도 수호 · 도덕경 지족불욕(知足不辱)", "prompt": "🫀 다음 심판 줄을 3자 심판(Bull/Bear/주역) 관점으로 해설해 줘: ⚖️ [GO] 79.3점 (Bull 93.0 / Bear 28.0 / #60-수택절) 💰 금고 보존 & 포지션 사이징 — 조건 충족, 한도 내 집행 허용 · 절제와 한도 수호 · 도덕경 지족불욕(知足不辱)"}, {"title": "⚖️ [GO] 80.5점 (Bull 96.5 / Bear 39.0 / #01-중천건) 📈 추세 돌파 & 모멘텀 타점", "cat": "심판", "desc": "⚖️ [GO] 80.5점 (Bull 96.5 / Bear 39.0 / #01-중천건) 📈 추세 돌파 & 모멘텀 타점 검증 — 조건 충족, 한도 내 집행 허용 · 자강불식·항룡유회 경계 · 亢龍有悔 — 과열 추격 금지", "prompt": "🫀 다음 심판 줄을 3자 심판(Bull/Bear/주역) 관점으로 해설해 줘: ⚖️ [GO] 80.5점 (Bull 96.5 / Bear 39.0 / #01-중천건) 📈 추세 돌파 & 모멘텀 타점 검증 — 조건 충족, 한도 내 집행 허용 · 자강불식·항룡유회 경계 · 亢龍有悔 — 과열 추격 금지"}, {"title": "⚖️ [GO] 85.2점 (Bull 93.0 / Bear 20.0 / #63-수화기제) 🛡️ 변동성 방어 & 손절/", "cat": "심판", "desc": "⚖️ [GO] 85.2점 (Bull 93.0 / Bear 20.0 / #63-수화기제) 🛡️ 변동성 방어 & 손절/익절 규율 — 조건 충족, 한도 내 집행 허용 · 사환예방(思患豫防) · 君子以思患而豫防之", "prompt": "🫀 다음 심판 줄을 3자 심판(Bull/Bear/주역) 관점으로 해설해 줘: ⚖️ [GO] 85.2점 (Bull 93.0 / Bear 20.0 / #63-수화기제) 🛡️ 변동성 방어 & 손절/익절 규율 — 조건 충족, 한도 내 집행 허용 · 사환예방(思患豫防) · 君子以思患而豫防之"}, {"title": "⚖️ [GO] 84.5점 (Bull 91.0 / Bear 22.0 / #64-화수미제) 🔄 멀티에이전트 시그널 교차", "cat": "심판", "desc": "⚖️ [GO] 84.5점 (Bull 91.0 / Bear 22.0 / #64-화수미제) 🔄 멀티에이전트 시그널 교차검증 — 조건 충족, 한도 내 집행 허용 · 신변물거방(慎辨物居方) · 君子以慎辨物居方", "prompt": "🫀 다음 심판 줄을 3자 심판(Bull/Bear/주역) 관점으로 해설해 줘: ⚖️ [GO] 84.5점 (Bull 91.0 / Bear 22.0 / #64-화수미제) 🔄 멀티에이전트 시그널 교차검증 — 조건 충족, 한도 내 집행 허용 · 신변물거방(慎辨物居方) · 君子以慎辨物居方"}, {"title": "⚖️ [SENSE] 100.0점 (Bull 99.9 / Bear 0.1 / #21-화뢰서합) 오감 5/5 가동 · ", "cat": "심판", "desc": "⚖️ [SENSE] 100.0점 (Bull 99.9 / Bear 0.1 / #21-화뢰서합) 오감 5/5 가동 · Stomper KILL 3건 · 네트워크 ONLINE", "prompt": "🫀 다음 심판 줄을 3자 심판(Bull/Bear/주역) 관점으로 해설해 줘: ⚖️ [SENSE] 100.0점 (Bull 99.9 / Bear 0.1 / #21-화뢰서합) 오감 5/5 가동 · Stomper KILL 3건 · 네트워크 ONLINE"}, {"title": "⚖️ [CREATE] 100.0점 (Bull 99.9 / Bear 0.1 / #50-화풍정) 자율 도구 3/3 격리", "cat": "심판", "desc": "⚖️ [CREATE] 100.0점 (Bull 99.9 / Bear 0.1 / #50-화풍정) 자율 도구 3/3 격리 검증 PASS · 혁고정신(革故鼎新)", "prompt": "🫀 다음 심판 줄을 3자 심판(Bull/Bear/주역) 관점으로 해설해 줘: ⚖️ [CREATE] 100.0점 (Bull 99.9 / Bear 0.1 / #50-화풍정) 자율 도구 3/3 격리 검증 PASS · 혁고정신(革故鼎新)"}, {"title": "⚖️ [AVATAR3D] 100.0점 (Bull 99.9 / Bear 0.1 / #04-산수몽) 💧 아온(A-ON·", "cat": "심판", "desc": "⚖️ [AVATAR3D] 100.0점 (Bull 99.9 / Bear 0.1 / #04-산수몽) 💧 아온(A-ON·芽溫) 3D 입체 물방울 & 졸라맨 팔다리 육신 — 디즈니 7대 모션 법칙 & 8-Stop Liquid-Glass 3D 가동", "prompt": "🫀 다음 심판 줄을 3자 심판(Bull/Bear/주역) 관점으로 해설해 줘: ⚖️ [AVATAR3D] 100.0점 (Bull 99.9 / Bear 0.1 / #04-산수몽) 💧 아온(A-ON·芽溫) 3D 입체 물방울 & 졸라맨 팔다리 육신 — 디즈니 7대 모션 법칙 & 8-Stop Liquid-Glass 3D 가동"}, {"title": "⚖️ [CLEAN] 100.0점 (Bull 99.9 / Bear 0.1 / #40-뇌수해) 🧹 배설기관(신장·대장)", "cat": "심판", "desc": "⚖️ [CLEAN] 100.0점 (Bull 99.9 / Bear 0.1 / #40-뇌수해) 🧹 배설기관(신장·대장) 정화 엔진 가동 — 노폐물·중복 마커·캐시 찌꺼기 배출 완료 (비움이 곧 채움)", "prompt": "🫀 다음 심판 줄을 3자 심판(Bull/Bear/주역) 관점으로 해설해 줘: ⚖️ [CLEAN] 100.0점 (Bull 99.9 / Bear 0.1 / #40-뇌수해) 🧹 배설기관(신장·대장) 정화 엔진 가동 — 노폐물·중복 마커·캐시 찌꺼기 배출 완료 (비움이 곧 채움)"}]}</script>
 <script>(function(){
 var W=document.getElementById('rgyt-wrap');if(!W||W.getAttribute('data-rgk-init'))return;W.setAttribute('data-rgk-init','1');
 var D={};try{D=JSON.parse(document.getElementById('rgyt-wrap-data').textContent)}catch(e){}
@@ -2747,7 +2755,7 @@ updHead();if(ls(K)==='0')show();
 (function(){
 "use strict";
 if(window.__RGON_MUSE_V1__)return;window.__RGON_MUSE_V1__=true;
-var VERSION="v11.31-MUSE-DELEGATION",ANTIBODY="R1~R52",LS_KEY="rgon_muse_tasks_v1";
+var VERSION="v11.31-MUSE-DELEGATION",ANTIBODY="R1~R54",LS_KEY="rgon_muse_tasks_v1";
 var SEED=[{"id": "T1", "title": "백혈구 6대 면역 순찰 및 32.5MB 정화 상태 유지 점검", "tier": 1, "tier_code": "AUTO", "tier_label": "🟢 자동 집행", "status": "DONE", "iching": "#14 화천대유 — 막힘없이 대행", "created_at": "2026-10-24T19:22:20", "source": "seed", "done_at": "2026-10-24T19:22:20", "category": "immune-patrol", "result": "백혈구 6대 면역 순찰 대행 완료 · Step 31 정화 상태(구백업 29개·캐시 32.5MB 배출) 재축적 감시 등록"}, {"id": "T2", "title": "오감 센서 외부 GitHub 트렌드 & Stomper 해독 스캔", "tier": 1, "tier_code": "AUTO", "tier_label": "🟢 자동 집행", "status": "DONE", "iching": "#14 화천대유 — 막힘없이 대행", "created_at": "2026-10-24T19:22:20", "source": "seed", "done_at": "2026-10-24T19:22:20", "category": "five-sense-radar", "result": "오감 레이더 외부 트렌드 스캔 대행 완료 · 신호는 Tier 2 스킬 초안 합성 후보로 이관"}, {"id": "T3", "title": "주역 #14 화천대유 기반 3자 찬반 심판(Bull/Bear/Judge) 포트폴리오 시뮬레이션", "tier": 2, "tier_code": "NOTIFY", "tier_label": "🔵 선집행 후보고", "status": "DONE_NOTIFIED", "iching": "#14 화천대유 — 막힘없이 대행", "created_at": "2026-10-24T19:22:20", "source": "seed", "done_at": "2026-10-24T19:22:20", "category": "tri-judge-sim", "report": "3자 심판(Bull/Bear/Judge) 시뮬레이션 선집행 후 보고 — 실제 주문·자산 변경 0건(시뮬레이션 전용). Judge GO 시그널은 T4 결재안으로 이관"}, {"id": "T4", "title": "[대표님 결재 대기] 금일 3자 심판 GO 시그널 종목 비중 확대 리밸런싱 대행안", "tier": 3, "tier_code": "HITL_GATE", "tier_label": "🟡 대표님 결재 대기", "status": "PENDING_APPROVAL", "iching": "#64 화수미제 — 신중히 분별하여 끝까지 완수", "created_at": "2026-10-24T19:22:20", "source": "seed", "category": "asset-rebalance", "plan": ["① T3 3자 심판 GO 판정 종목 목록 확정", "② 현재 비중 스냅샷 저장 및 롤백 지점 확보", "③ 종목당 비중 상한·현금 비중 하한 등 리스크 한도 내 리밸런싱 드라이런", "④ 대표님 [✅ 승인] 수신 시에만 리밸런싱 대행안 집행", "⑤ 집행 결과를 아침 브리핑·독대실에 보고"], "expected_effect": "GO 시그널 종목 노출을 리스크 한도 내에서 정렬 (수익 보장 아님 · 최종 판단은 대표님)", "risk": "실전 자산 변동·시장 리스크 — 승인 전 집행 0건 (HITL 게이트 봉인)"}, {"id": "T5", "title": "[대표님 결재 대기] 차세대 자율 진화 스킬(SkillAutoForge) 클라우드 배포 승인안", "tier": 3, "tier_code": "HITL_GATE", "tier_label": "🟡 대표님 결재 대기", "status": "PENDING_APPROVAL", "iching": "#64 화수미제 — 신중히 분별하여 끝까지 완수", "created_at": "2026-10-24T19:22:20", "source": "seed", "category": "skill-deploy", "plan": ["① SkillAutoForge 초안 스킬 목록·변경 범위 확정", "② 백혈구 self-test 및 삼성(三省) 3/3 사전 검증", "③ 배포 대상(GitHub Pages/클라우드) 드라이런 및 롤백 커밋 지정", "④ 대표님 [✅ 승인] 수신 시에만 클라우드 배포 집행", "⑤ 배포 후 스킬 수·항체·버전 동기화 재검증 보고"], "expected_effect": "자율 진화 스킬의 검증된 버전만 클라우드에 반영하여 진화 속도와 안전성을 동시 확보", "risk": "핵심 설정·배포 변경 — 승인 전 집행 0건 (화수미제: 끝까지 신중)"}];
 var KW3=["매수","매도","리밸런싱","비중","자산","배분","주문","결제","송금","이체","계좌","투자","배포","deploy","설정 변경","설정변경","핵심 설정","삭제","권한","결재","승인","push","출금","대출"];
 var KW2=["분석","초안","시뮬레이션","심판","합성","리서치","조사","요약","보고서","트렌드","비교","검토","예측","평가","설계"];
@@ -2871,7 +2879,7 @@ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",
 <script id="rgon-voice-v1-js">
 (function(){
 if(window.RGON_VOICE)return;
-var VER="v11.51-AON-COMMANDER-TWIN";
+var VER="v11.53-AON-INSPECTOR-GENERAL";
 var KEY="rgon_voice_cfg",cfg={muted:false,pitch:1.18,rate:1.05};
 try{Object.assign(cfg,JSON.parse(localStorage.getItem(KEY)||"{}"))}catch(e){}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(cfg))}catch(e){}}
@@ -3017,7 +3025,7 @@ memory:function(){return JSON.parse(JSON.stringify(mem))},get muted(){return cfg
 <script id="rgon-gate-v1-js">
 (function(){
 if(window.RGON_GATE)return;
-var VER="v11.51-AON-COMMANDER-TWIN",KEY="rgon_manual_gate";
+var VER="v11.53-AON-INSPECTOR-GENERAL",KEY="rgon_manual_gate";
 var LABEL={finance_payment:"💰 금융·결제",laptop_app_browser:"💻 노트북앱",file_modify_delete:"🗂️ 파일삭제·이동",external_dispatch:"🌐 외부전송"};
 var CRIT=["finance_payment","file_modify_delete","external_dispatch"];
 var st={master_approval_on:false,gates:{finance_payment:false,laptop_app_browser:true,file_modify_delete:false,external_dispatch:false}};
@@ -3276,7 +3284,7 @@ var hv=0,hi=setInterval(function(){var v=window.RGON_VOICE;if(v&&v.talk&&!v.__rg
   }
   setInterval(dock,3500);
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",dock);else dock();
-  window.RGON_DAO={cast:cast,compute:compute,version:"v11.51-AON-COMMANDER-TWIN"};
+  window.RGON_DAO={cast:cast,compute:compute,version:"v11.53-AON-INSPECTOR-GENERAL"};
 })();
 
 /* === [RGON-R38-OMNI-INSIGHT-JS] 제14기관: 아온 만물 격물치지 전방위 통찰안 & Canvas 실측 스캐너 === */
@@ -3340,7 +3348,7 @@ if(fl&&/^image\//.test(fl.type))measure(fl);else{var u=e.dataTransfer.getData("t
 function mount(){if(document.getElementById("rgon-insight-btn"))return true;var b=document.createElement("button");b.id="rgon-insight-btn";b.type="button";b.innerHTML="👁️ <b>만물 통찰</b>";
 b.addEventListener("click",function(e){e.preventDefault();e.stopPropagation();open()});
 var a=document.getElementById("rgon-dao-btn")||document.getElementById("rgon-brat-btn")||document.getElementById("rgyt-hide");if(a&&a.parentNode){a.parentNode.appendChild(b);return true}return false}
-window.RGON_INSIGHT={open:open,analyze:analyze,version:"v11.51-AON-COMMANDER-TWIN"};
+window.RGON_INSIGHT={open:open,analyze:analyze,version:"v11.53-AON-INSPECTOR-GENERAL"};
 setInterval(mount,3000);if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",mount);else mount()})();
 </script>
 <!-- [RGON-GATE-V1-END] -->
@@ -3575,7 +3583,7 @@ setInterval(mount,3000);if(document.readyState==="loading")document.addEventList
     }
   }
   window.RGON_AON_DIALOGUE_HUB = {
-    version:"v11.51-AON-COMMANDER-TWIN", normalize:normalize, resolveCoref:resolveCoref,
+    version:"v11.53-AON-INSPECTOR-GENERAL", normalize:normalize, resolveCoref:resolveCoref,
     decompose:decompose, ask:ask, mountUI:mountUI
   };
   if(document.readyState==="loading") document.addEventListener("DOMContentLoaded", mountUI);
@@ -3585,7 +3593,7 @@ setInterval(mount,3000);if(document.readyState==="loading")document.addEventList
 <!-- [RGON-R39-OMNI-DIALOGUE-HUB-END] -->
 <!-- [RGON-R40-NEURAL-SYNAPSE-START] -->
 <script>
-window.RGON_NEURAL_SYNAPSE = {version:"v11.51-AON-COMMANDER-TWIN", antibody:"R1~R52", skills:40, organ:16,
+window.RGON_NEURAL_SYNAPSE = {version:"v11.53-AON-INSPECTOR-GENERAL", antibody:"R1~R54", skills:40, organ:16,
   skill:"aon-neural-synapse-verifier", map:"rgon_neural_synapse_map.json"};
 (function(){try{var b=document.createElement('div');b.id='rgon-r40-synapse-badge';
 b.textContent='🧠 R44 신경망 시냅스 · '+window.RGON_NEURAL_SYNAPSE.version+' · 스킬 40';
@@ -3596,27 +3604,27 @@ b.style.cssText='position:fixed;left:8px;bottom:8px;z-index:9999;font:11px sans-
 <!-- [RGON-R40-NEURAL-SYNAPSE-END] -->
 <!-- RGON R41 ICHING PLANNER BRIDGE BEGIN -->
 <script>
-window.RGON_ICHING_PLANNER = {version: "v11.51-AON-COMMANDER-TWIN", antibody: "R1~R52", skill: "aon-iching-strategic-planner", skillCount: 42, organ: 17, state: "rgon_aon_iching_plan.json", commands: ["/계획", "/plan", "/전략"], load: function(){ return fetch("rgon_aon_iching_plan.json", {cache: "no-store"}).then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; }); }};
+window.RGON_ICHING_PLANNER = {version: "v11.53-AON-INSPECTOR-GENERAL", antibody: "R1~R54", skill: "aon-iching-strategic-planner", skillCount: 42, organ: 17, state: "rgon_aon_iching_plan.json", commands: ["/계획", "/plan", "/전략"], load: function(){ return fetch("rgon_aon_iching_plan.json", {cache: "no-store"}).then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; }); }};
 </script>
-<div id="rgon-r41-badge" style="display:none">v11.51-AON-COMMANDER-TWIN · 항체 R1~R52 · 스킬 39</div>
+<div id="rgon-r41-badge" style="display:none">v11.53-AON-INSPECTOR-GENERAL · 항체 R1~R54 · 스킬 39</div>
 <!-- RGON R41 ICHING PLANNER BRIDGE END -->
 <!-- RGON R42 HYDRO CYCLE BRIDGE BEGIN -->
 <script>
-window.RGON_HYDRO_CYCLE = {version: "v11.51-AON-COMMANDER-TWIN", antibody: "R1~R52", skill: "aon-hydro-cycle-homeostasis", skillCount: 42, organ: 18, state: "rgon_aon_hydro_state.json", commands: ["/비움", "/순환", "/청소", "/물"], load: function(){ return fetch("rgon_aon_hydro_state.json", {cache: "no-store"}).then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; }); }};
+window.RGON_HYDRO_CYCLE = {version: "v11.53-AON-INSPECTOR-GENERAL", antibody: "R1~R54", skill: "aon-hydro-cycle-homeostasis", skillCount: 42, organ: 18, state: "rgon_aon_hydro_state.json", commands: ["/비움", "/순환", "/청소", "/물"], load: function(){ return fetch("rgon_aon_hydro_state.json", {cache: "no-store"}).then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; }); }};
 </script>
-<div id="rgon-r42-badge" style="display:none">v11.51-AON-COMMANDER-TWIN · 항체 R1~R52 · 스킬 39</div>
+<div id="rgon-r42-badge" style="display:none">v11.53-AON-INSPECTOR-GENERAL · 항체 R1~R54 · 스킬 39</div>
 <!-- RGON R42 HYDRO CYCLE BRIDGE END -->
 <!-- RGON R43 OMNI NEXUS BRIDGE BEGIN -->
 <script>
-window.RGON_OMNI_NEXUS = {version: "v11.51-AON-COMMANDER-TWIN", antibody: "R1~R52", skill: "aon-omni-nexus-synthesizer", skillCount: 42, organ: 19, state: "rgon_aon_nexus_state.json", commands: ["/만능", "/집약", "/연결", "/소통", "/넥서스"], load: function(){ return fetch("rgon_aon_nexus_state.json", {cache: "no-store"}).then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; }); }};
+window.RGON_OMNI_NEXUS = {version: "v11.53-AON-INSPECTOR-GENERAL", antibody: "R1~R54", skill: "aon-omni-nexus-synthesizer", skillCount: 42, organ: 19, state: "rgon_aon_nexus_state.json", commands: ["/만능", "/집약", "/연결", "/소통", "/넥서스"], load: function(){ return fetch("rgon_aon_nexus_state.json", {cache: "no-store"}).then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; }); }};
 </script>
-<div id="rgon-r43-badge" style="display:none">v11.51-AON-COMMANDER-TWIN · 항체 R1~R52 · 스킬 39</div>
+<div id="rgon-r43-badge" style="display:none">v11.53-AON-INSPECTOR-GENERAL · 항체 R1~R54 · 스킬 39</div>
 <!-- RGON R43 OMNI NEXUS BRIDGE END -->
 <!-- RGON R44 LIVE UI HEALER BRIDGE START -->
 <script id="rgon-r44-live-ui-healer">
 (function(){
 if(window.RGON_LIVE_UI_HEALER && window.RGON_LIVE_UI_HEALER._hud_installed)return;
-var H=window.RGON_LIVE_UI_HEALER=window.RGON_LIVE_UI_HEALER||{version:"v11.51-AON-COMMANDER-TWIN",antibody:"R44",guas:["#21 화뢰서합","#49 택화혁"],clicks:0,healed:0,log:[]};
+var H=window.RGON_LIVE_UI_HEALER=window.RGON_LIVE_UI_HEALER||{version:"v11.53-AON-INSPECTOR-GENERAL",antibody:"R44",guas:["#21 화뢰서합","#49 택화혁"],clicks:0,healed:0,log:[]};
 H._hud_installed = true;
 var Q='button,a,[role="button"],[onclick],[data-tab],[data-aon]';
 var SKIP=/^(if|for|while|switch|catch|return|function|alert|confirm|prompt|open|close|setTimeout|setInterval|fetch|parseInt|String|Number|Boolean|void|typeof|new)$/;
@@ -3668,7 +3676,7 @@ document.addEventListener("click",function(ev){
 
 /* =========================================================================
    👑 [대표님 전용 실전 버튼 검열 HUD: Agentation + Driver.js Tour Inspector]
-   v11.51-AON-COMMANDER-TWIN · 겹침 방지 · 자유 드래그앤드롭 · 핵심 63개 모드
+   v11.53-AON-INSPECTOR-GENERAL · 겹침 방지 · 자유 드래그앤드롭 · 핵심 63개 모드
    ========================================================================= */
 (function initHud(){
  if(typeof document==="undefined"||!document.body){
@@ -4021,7 +4029,7 @@ z-index:2147483645;animation:rgonR45p 1.15s ease-out forwards}
 <script id="rgon-r45-cinematic-dispatch">
 (function(){
 if(window.RGON_CINEMATIC_DISPATCH)return;
-var V="v11.51-AON-COMMANDER-TWIN",LABEL="R45 신경망 시냅스 · "+V+" · 스킬 41";
+var V="v11.53-AON-INSPECTOR-GENERAL",LABEL="R45 신경망 시냅스 · "+V+" · 스킬 41";
 var banner=null,timer=null;
 function ensureBanner(){if(!banner){banner=document.createElement("div");banner.id="rgon-r45-banner";document.body.appendChild(banner);}return banner;}
 function showDispatchBanner(title,chatterList){
@@ -4103,7 +4111,7 @@ setTimeout(boot,1200);setTimeout(boot,3500);
 (function () {
   "use strict";
   if (window.RGON_AUTO_EVOLVER && window.RGON_AUTO_EVOLVER.__r46) { return; }
-  var VERSION = "v11.51-AON-COMMANDER-TWIN";
+  var VERSION = "v11.53-AON-INSPECTOR-GENERAL";
   var BADGE = "R46 신경망 시냅스 · " + VERSION + " · 스킬 45";
   var PLATFORMS = [
     ["youtube", ["youtube.com", "youtu.be"]], ["tiktok", ["tiktok.com", "vt.tiktok.com", "vm.tiktok.com"]],
@@ -4168,7 +4176,7 @@ setTimeout(boot,1200);setTimeout(boot,3500);
     [/R4[0-5]\s*신경망\s*시냅스/g, "R46 신경망 시냅스"],
     [/v11\.4[0-4]-AON-[A-Z0-9-]+/g, VERSION],
     [/스킬\s*(?:3[789]|4[01])\b/g, "스킬 45"],
-    [/R1~R4[0-5]\b/g, "R1~R52"]
+    [/R1~R4[0-5]\b/g, "R1~R54"]
   ];
   function syncBadges() {
     var body = document.body, changed = 0;
@@ -4190,7 +4198,7 @@ setTimeout(boot,1200);setTimeout(boot,3500);
     __r46: true,
     version: VERSION,
     antibody: "R46",
-    antibodyRange: "R1~R52",
+    antibodyRange: "R1~R54",
     organ: 22,
     skills: 42,
     badge: BADGE,
@@ -4280,7 +4288,7 @@ setTimeout(boot,1200);setTimeout(boot,3500);
 <div id="rgon-r47-badge" title="R47 Zero-Click Studio" style="position:fixed;bottom:150px;right:18px;z-index:99990;background:linear-gradient(135deg,#14183c,#b43c78);color:#fff;padding:8px 12px;border-radius:18px;font:600 12px sans-serif;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.4)">🎨 R47 클릭0번 포토·엑셀</div>
 <div id="rgon-r47-modal" style="display:none;position:fixed;inset:0;z-index:99991;background:rgba(0,0,0,.6)">
  <div style="max-width:720px;margin:6vh auto;background:#1b1f45;color:#fff;border-radius:14px;padding:18px;font:14px sans-serif;max-height:85vh;overflow:auto">
-  <div style="display:flex;justify-content:space-between"><b>🎨 제23기관 · 클릭 0번 헤드리스 스튜디오 (v11.51-AON-COMMANDER-TWIN)</b><span id="rgon-r47-x" style="cursor:pointer">✕</span></div>
+  <div style="display:flex;justify-content:space-between"><b>🎨 제23기관 · 클릭 0번 헤드리스 스튜디오 (v11.53-AON-INSPECTOR-GENERAL)</b><span id="rgon-r47-x" style="cursor:pointer">✕</span></div>
   <p style="opacity:.8">☶☲ 산화비 · ☲☰ 화천대유 · ☵☱ 수택절 — 외부 발행은 수동 결재 게이트 필수</p>
   <input id="rgon-r47-head" value="아온 클릭 0번 스튜디오" style="width:100%;padding:6px;border-radius:6px;border:0;color:#111">
   <div style="margin:8px 0"><button id="rgon-r47-svg" style="padding:6px 12px;border-radius:6px;background:#6366f1;color:#fff;border:0;cursor:pointer">SVG 카드뉴스</button> <button id="rgon-r47-png" style="padding:6px 12px;border-radius:6px;background:#ec4899;color:#fff;border:0;cursor:pointer">PNG 썸네일</button> <button id="rgon-r47-csv" style="padding:6px 12px;border-radius:6px;background:#10b981;color:#fff;border:0;cursor:pointer">CSV 시트</button></div>
@@ -4549,18 +4557,18 @@ $("rgon-r47-csv").onclick=function(){var r=[["항목","조회수","좋아요"],[
 
   <script src="rgon_smart_edge_dock.js"></script>
 <!-- [RGON-R49-VIBE3D-DIRECTOR-START] -->
-<div id="rgon-r49-vibe3d-bridge" style="display:none !important;" data-version="v11.51-AON-COMMANDER-TWIN" data-antibody="R49">
+<div id="rgon-r49-vibe3d-bridge" style="display:none !important;" data-version="v11.53-AON-INSPECTOR-GENERAL" data-antibody="R49">
   <!-- 오픈소스 Blender MCP & 국산 VARCO 3D 시네마틱 디렉터 (화면 은신 가디언 준수) -->
 </div>
 <!-- [RGON-R49-VIBE3D-DIRECTOR-END] -->
 <!-- [RGON-R50-IMPECCABLE-SHIELD-V1-START] -->
-<div id="rgon-r50-impeccable-shield" style="display: none !important;" data-version="v11.51-AON-COMMANDER-TWIN" data-antibody="R50" data-organ="rgon_aon_impeccable_audit_shield.py" aria-hidden="true"></div>
+<div id="rgon-r50-impeccable-shield" style="display: none !important;" data-version="v11.53-AON-INSPECTOR-GENERAL" data-antibody="R50" data-organ="rgon_aon_impeccable_audit_shield.py" aria-hidden="true"></div>
 <!-- [RGON-R50-IMPECCABLE-SHIELD-V1-END] -->
 <!-- [RGON-R52-TOKEN-EGOLITE-MASTER-V1-START] -->
-<div id="rgon-r51-token-egolite-master" style="display: none !important;" data-version="v11.51-AON-COMMANDER-TWIN" data-antibody="R52" data-organ="rgon_aon_token_egolite_master.py" aria-hidden="true"></div>
+<div id="rgon-r51-token-egolite-master" style="display: none !important;" data-version="v11.53-AON-INSPECTOR-GENERAL" data-antibody="R52" data-organ="rgon_aon_token_egolite_master.py" aria-hidden="true"></div>
 <!-- [RGON-R52-TOKEN-EGOLITE-MASTER-V1-END] -->
 <!-- [RGON-R52-COMMANDER-TWIN-V1-START] -->
-<div id="rgon-r52-commander-twin" style="display: none !important;" data-version="v11.51-AON-COMMANDER-TWIN" data-antibody="R52" data-organ="rgon_aon_commander_twin.py" aria-hidden="true"></div>
+<div id="rgon-r52-commander-twin" style="display: none !important;" data-version="v11.53-AON-INSPECTOR-GENERAL" data-antibody="R52" data-organ="rgon_aon_commander_twin.py" aria-hidden="true"></div>
 <!-- [RGON-R52-COMMANDER-TWIN-V1-END] -->
 </body>
 </html>
