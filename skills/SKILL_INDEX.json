@@ -1,8 +1,8 @@
 {
-  "version": "v11.43-AON-LIVE-UI-HEALER",
-  "antibody": "R1~R44",
+  "version": "v11.44-AON-CINEMATIC-DISPATCH",
+  "antibody": "R1~R45",
   "generated_at_kst": "2026-10-26 00:23:49 KST",
-  "count": 40,
+  "count": 41,
   "skills": [
     {
       "slug": "1-36-45",
@@ -359,19 +359,29 @@
       "id": 40,
       "name": "aon-live-ui-self-healer",
       "slug": "aon-live-ui-self-healer",
-      "version": "v11.43-AON-LIVE-UI-HEALER",
+      "version": "v11.44-AON-CINEMATIC-DISPATCH",
       "antibody": "R44",
       "organ": 20,
       "path": "skills/aon-live-ui-self-healer/SKILL.md",
       "description": "아온 실전 UI 전수 클릭·동작 검증 & 자가배선 수리 (제20기관, R44)"
+    },
+    {
+      "id": 41,
+      "name": "aon-cinematic-dispatch-council",
+      "slug": "aon-cinematic-dispatch-council",
+      "version": "v11.44-AON-CINEMATIC-DISPATCH",
+      "antibody": "R45",
+      "organ": 21,
+      "path": "skills/aon-cinematic-dispatch-council/SKILL.md",
+      "description": "아온 0.7ms 초광속 결정론적 쇼트컷 & 9인 원탁 국무회의 시네마틱 디스패치 (제21기관, R45)"
     }
   ],
-  "total": 40,
-  "skill_count": 40,
-  "antibody_range": "R1~R44",
-  "antibodies": "R1~R44",
-  "updated": "2026-10-26T09:00:05",
+  "total": 41,
+  "skill_count": 41,
+  "antibody_range": "R1~R45",
+  "antibodies": "R1~R45",
+  "updated": "2026-10-26T11:50:33",
   "synced_at_kst": "2026-10-26 00:24:55 KST",
-  "immune": "R1~R44",
-  "total_skills": 40
+  "immune": "R1~R45",
+  "total_skills": 41
 }

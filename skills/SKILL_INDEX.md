@@ -31,7 +31,7 @@
 - 핵심: 구어 정규화 · 대명사 복원 · 능동 경청 원칙 각인 · 복합 의도 분해 · 슬래시 7종 · 3계층 해마 기억
 
 <!-- [RGON-R40-SKILL-START] -->
-### R40 · v11.43-AON-LIVE-UI-HEALER · 항체 R1~R44 · 정식 스킬 40개
+### R40 · v11.44-AON-CINEMATIC-DISPATCH · 항체 R1~R45 · 정식 스킬 41개
 - `1-36-45` — (SKILL_INDEX.json 동기화 보정)
 - `10-5` — (SKILL_INDEX.json 동기화 보정)
 - `744b-ai-10` — (SKILL_INDEX.json 동기화 보정)
@@ -68,6 +68,11 @@
 | 39 | `aon-omni-nexus-synthesizer` | 제19기관 아온 연결·소통·만능 대집약체 코어 (泰·比→咸·中孚→大有·鼎) | R43 | `skills/aon-omni-nexus-synthesizer/SKILL.md` |
 
 <!-- [RGON-SKILL-40] -->
-## 40. `aon-live-ui-self-healer` (R44 · v11.43-AON-LIVE-UI-HEALER)
+## 40. `aon-live-ui-self-healer` (R44 · v11.44-AON-CINEMATIC-DISPATCH)
 - 경로: `skills/aon-live-ui-self-healer/SKILL.md`
 - 설명: 아온 실전 UI 전수 클릭·동작 검증 & 자가배선 수리 (제20기관, R44)
+
+<!-- [RGON-SKILL-41] -->
+## 41. `aon-cinematic-dispatch-council` (R45 · v11.44-AON-CINEMATIC-DISPATCH)
+- 경로: `skills/aon-cinematic-dispatch-council/SKILL.md`
+- 설명: 아온 0.7ms 초광속 결정론적 쇼트컷 & 9인 원탁 국무회의 시네마틱 디스패치 (제21기관, R45)

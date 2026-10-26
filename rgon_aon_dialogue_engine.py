@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """rgon_aon_dialogue_engine.py — 제15기관 아온 초격차 대화 이해 & 올인원 대화 허브 (표준 라이브러리 전용)
-[RGON-R39] v11.43-AON-LIVE-UI-HEALER
+[RGON-R39] v11.44-AON-CINEMATIC-DISPATCH
 파이프라인: 구어 정규화 → 대명사·생략어 복원 → 슬래시/원칙/복합의도 분기 → 기관 디스패치
           → 플랫폼 메타데이터(thinking·artifact·chips·callback) 보강 → 3계층 해마 기억(단기·토픽·연상).
 한계: 사전·정규식 기반 규칙 엔진이다. 언어모델이 아니므로 처음 보는 표현은 놓칠 수 있다."""
@@ -8,7 +8,7 @@ import argparse, datetime, json, os, re, sys, tempfile, time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-VERSION = "v11.43-AON-LIVE-UI-HEALER"
+VERSION = "v11.44-AON-CINEMATIC-DISPATCH"
 STATE, PREFS = "rgon_aon_dialogue_state.json", "rgon_aon_preferences.json"
 SHORT_MAX, EVENT_MAX, FRESH_TURNS, FRESH_SEC = 20, 60, 4, 1800
 CAT_KO = {"command_rule": "지휘 원칙", "style": "스타일", "preference": "취향"}
@@ -591,8 +591,8 @@ import os as _o40, re as _re40, json as _j40, time as _t40, sys as _s40
 import shutil as _sh40, inspect as _in40, importlib as _il40
 from pathlib import Path as _P40
 
-R40_VERSION = "v11.43-AON-LIVE-UI-HEALER"
-R40_ANTIBODY = "R1~R44"
+R40_VERSION = "v11.44-AON-CINEMATIC-DISPATCH"
+R40_ANTIBODY = "R1~R45"
 _R40_HERE = _P40(__file__).resolve().parent
 _R40_NAMES = ("_call_iching", "_call_hands", "_call_soul", "_call_insight",
               "_call_playground", "_call_brat", "normalize_colloquial")
@@ -1257,7 +1257,7 @@ def _r41_plan_response(arg):
         "recommended_branch": p.get("recommended_branch"),
         "three_branch_tree": p.get("three_branch_tree"), "action_items": p.get("action_items"),
         "shichen_schedule": p.get("shichen_schedule"), "plan": p,
-        "version": "v11.43-AON-LIVE-UI-HEALER",
+        "version": "v11.44-AON-CINEMATIC-DISPATCH",
     }
 
 
@@ -1586,6 +1586,73 @@ try:
 except Exception:
     pass
 # <<< RGON R44 LIVE UI HEALER HOOK END
+
+# >>> RGON R45 CINEMATIC DISPATCH HOOK START
+import re as _r45re, os as _r45os, sys as _r45sys, inspect as _r45insp, functools as _r45ft, importlib as _r45il
+_R45_RX = _r45re.compile(r"/(?:국무회의|시네마틱|쇼트컷|브레인팩)|국무회의|시네마틱|6대청사소집|원탁회의|브레인팩", _r45re.I)
+_R45_NAMES = ("route", "r40_route", "converse", "process_dialogue", "route_message", "handle_message")
+def _r45_text(a, k):
+    for v in list(a) + list(k.values()):
+        if isinstance(v, str) and _R45_RX.search(v):
+            return v
+    return None
+def r45_route(text):
+    t = str(text or "").strip()
+    if not _R45_RX.search(t):
+        return None
+    d = _r45os.path.dirname(_r45os.path.abspath(__file__))
+    if d not in _r45sys.path:
+        _r45sys.path.insert(0, d)
+    mod = _r45il.import_module("rgon_aon_cinematic_dispatch")
+    return mod.run_cinematic_dispatch(t.lstrip("/") or "국무회의", dry_run=True)
+def _r45_wrap(fn):
+    if getattr(fn, "_r45", False):
+        return fn
+    @_r45ft.wraps(fn)
+    def w(*a, **k):
+        t = _r45_text(a, k)
+        if t is None:
+            return fn(*a, **k)
+        r = r45_route(t)
+        try:
+            o = fn(*a, **k)
+        except Exception:
+            o = None
+        if isinstance(o, str):
+            return r["reply"] + "\n🎙️ " + r["aon_voice_line"]
+        d = dict(o) if isinstance(o, dict) else {}
+        d.update({
+            "ok": True,
+            "route": "r45_cinematic_dispatch",
+            "organ": 21,
+            "antibody": "R45",
+            "reply": r["reply"],
+            "aon_voice_line": r["aon_voice_line"],
+            "cinematic_dispatch": r,
+            "shortcut": r["shortcut"],
+            "council": r["council"],
+            "vault": r["vault"],
+            "guas": r["guas"],
+            "requires_manual_gate": True,
+            "auto_executed": False,
+        })
+        return d
+    w._r45 = True
+    return w
+try:
+    for _n in _R45_NAMES:
+        _f = globals().get(_n)
+        if _r45insp.isfunction(_f):
+            globals()[_n] = _r45_wrap(_f)
+    for _c in list(globals().values()):
+        if isinstance(_c, type) and getattr(_c, "__module__", None) == __name__:
+            for _n in _R45_NAMES:
+                _f = _c.__dict__.get(_n)
+                if _r45insp.isfunction(_f):
+                    setattr(_c, _n, _r45_wrap(_f))
+except Exception:
+    pass
+# <<< RGON R45 CINEMATIC DISPATCH HOOK END
 
 if __name__ == "__main__":
     sys.exit(main())

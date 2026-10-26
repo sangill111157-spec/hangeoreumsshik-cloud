@@ -171,7 +171,7 @@ if scratch_dir.exists():
         except:
             pass
 
-# git checkout / git clean 으로 워킹트리 완전 정돈 (성역 20대 기관 및 40개 스킬 보존)
+# git checkout / git clean 으로 워킹트리 완전 정돈 (성역 20대 기관 및 41개 스킬 보존)
 # untracked 파일 중 임시 생성된 python 스크립트들 정리
 for sf in Path(shin_dir).glob("*.tmp"):
     try: sf.unlink()

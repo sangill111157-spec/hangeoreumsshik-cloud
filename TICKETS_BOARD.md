@@ -1,6 +1,6 @@
 # TICKETS_BOARD — RGON 전신 혈관 개통 & 분업 보드
 
-> v11.43-AON-LIVE-UI-HEALER · 항체 R1~R44 · R22 Auto-Verify 완료
+> v11.44-AON-CINEMATIC-DISPATCH · 항체 R1~R45 · R22 Auto-Verify 완료
 
 | ID | 제목 | 담당 | 상태 | 검증 시각 |
 |---|---|---|---|---|

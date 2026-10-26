@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """arrange_ceo_windows.py — 대표님 듀얼 모니터(상단·하단) 4대 지휘 창 황금 분할 자동 배치 시스템
-v11.43-AON-LIVE-UI-HEALER · 기술총리 안총리 & 만능 수족 아온이 공동 집행
+v11.44-AON-CINEMATIC-DISPATCH · 기술총리 안총리 & 만능 수족 아온이 공동 집행
 
 [황금 4분할 배치 명세]
 - 하단(메인) 모니터 좌측 50%: 수석보좌관 르곤 ('아온이 데스크톱 자동화 기능 문의' 브라우저 창)

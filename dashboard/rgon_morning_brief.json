@@ -9,7 +9,7 @@
     "ok": true,
     "health_score": 100,
     "heals": 0,
-    "antibody_range": "R1~R44",
+    "antibody_range": "R1~R45",
     "antibody_count": 43,
     "tail": "s'\n  print(f\"Regex match count (^\\s*def test_): {len(def_matches)}\")\nrun_p44_batch.py:32: SyntaxWarning: invalid escape sequence '\\.'\n  f.write('Command: git grep -nE \"requests\\.(post|put|get)|\\.post\\(|\\.put\\(|\\.patch\\(|aiohttp|httpx|urlopen\" -- app/\\n\\n')\nrun_priority_audit.py:117: SyntaxWarning: invalid escape sequence '\\.'\n  out_cons, _ = run_cmd('git grep -rn -E \"\\.get\\([\\\"\\\\\\']success[\\\"\\\\\\']\\)|\\[[\\\"\\\\\\']success[\\\"\\\\\\']\\]\" app/')\nrun_raw_investigation.py:16: SyntaxWarning: invalid escape sequence '\\.'\n  out, _ = run_cmd('git grep -n -E \"yfinance|yf\\.|fallback\" app/services/kis_broker.py')"
   },
@@ -24,7 +24,7 @@
       "⚖️ [CLEAN] 100.0점 (Bull 99.9 / Bear 0.1 / #40-뇌수해) 🧹 배설기관(신장·대장) 정화 엔진 가동 — 노폐물·중복 마커·캐시 찌꺼기 배출 완료 (비움이 곧 채움)",
       "⚖️ [GO] 79.3점 (Bull 93.0 / Bear 28.0 / #60-수택절) 💰 금고 보존 & 포지션 사이징 — 조건 충족, 한도 내 집행 허용 · 절제와 한도 수호 · 도덕경 지족불욕(知足不辱)",
       "⚖️ [GO] 80.5점 (Bull 96.5 / Bear 39.0 / #01-중천건) 📈 추세 돌파 & 모멘텀 타점 검증 — 조건 충족, 한도 내 집행 허용 · 자강불식·항룡유회 경계 · 亢龍有悔 — 과열 추격 금지",
-      "⚖️ [GO] 85.2점 (Bull 93.0 / Bear 20.0 / #63-수화기제) 🛡️ 변동성 방어 & 손절/익절 규율 — 조건 충족, 한도 내 집행 허용 · 사환예방(思患豫防) · 君子以思患而豫防之",
+      "⚖️ [GO] 82.8점 (Bull 87.0 / Bear 20.0 / #63-수화기제) 🛡️ 변동성 방어 & 손절/익절 규율 — 조건 충족, 한도 내 집행 허용 · 사환예방(思患豫防) · 君子以思患而豫防之",
       "⚖️ [GO] 84.5점 (Bull 91.0 / Bear 22.0 / #64-화수미제) 🔄 멀티에이전트 시그널 교차검증 — 조건 충족, 한도 내 집행 허용 · 신변물거방(慎辨物居方) · 君子以慎辨物居方"
     ]
   },
@@ -73,8 +73,8 @@
       "id": "STOPLOSS",
       "title": "🛡️ 변동성 방어 & 손절/익절 규율",
       "verdict": "GO",
-      "judge": 85.2,
-      "bull": 93.0,
+      "judge": 82.8,
+      "bull": 87.0,
       "bear": 20.0,
       "hexagram": {
         "no": 63,
@@ -83,7 +83,7 @@
       },
       "motto": "君子以思患而豫防之",
       "action": "조건 충족, 한도 내 집행 허용",
-      "line": "⚖️ [GO] 85.2점 (Bull 93.0 / Bear 20.0 / #63-수화기제) 🛡️ 변동성 방어 & 손절/익절 규율 — 조건 충족, 한도 내 집행 허용 · 사환예방(思患豫防) · 君子以思患而豫防之"
+      "line": "⚖️ [GO] 82.8점 (Bull 87.0 / Bear 20.0 / #63-수화기제) 🛡️ 변동성 방어 & 손절/익절 규율 — 조건 충족, 한도 내 집행 허용 · 사환예방(思患豫防) · 君子以思患而豫防之"
     },
     {
       "id": "XVERIFY",
@@ -102,7 +102,7 @@
       "line": "⚖️ [GO] 84.5점 (Bull 91.0 / Bear 22.0 / #64-화수미제) 🔄 멀티에이전트 시그널 교차검증 — 조건 충족, 한도 내 집행 허용 · 신변물거방(慎辨物居方) · 君子以慎辨物居方"
     }
   ],
-  "trading_council_at": "2026-10-26T09:00:08",
+  "trading_council_at": "2026-10-26T11:50:34",
   "generated_at_kst": "2026-10-26 00:23:47 KST",
   "synced_at_kst": "2026-10-26 00:23:47 KST",
   "current_step": 22,
@@ -144,8 +144,8 @@
     ],
     "engine_versions": {
       "rgon_white_blood_cell.py": {
-        "version": "v11.43-AON-LIVE-UI-HEALER",
-        "antibody_range": "R1~R44"
+        "version": "v11.44-AON-CINEMATIC-DISPATCH",
+        "antibody_range": "R1~R45"
       },
       "rgon_nutrient_engine.py": {
         "version": "v11.26-CREATOR-FORGE",
@@ -156,8 +156,8 @@
         "antibody_range": "R1~R27"
       },
       "rgon_daily_cycle.py": {
-        "version": "v11.43-AON-LIVE-UI-HEALER",
-        "antibody_range": "R1~R44"
+        "version": "v11.44-AON-CINEMATIC-DISPATCH",
+        "antibody_range": "R1~R45"
       }
     }
   }
