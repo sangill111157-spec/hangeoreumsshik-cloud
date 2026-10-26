@@ -60,7 +60,26 @@ def save_state(s):
     txt = json.dumps(s, ensure_ascii=False, indent=2)
     for r in STATE_PATHS:
         p = ROOT / r; p.parent.mkdir(parents=True, exist_ok=True)
-        tmp = p.with_name(p.name + ".tmp"); tmp.write_text(txt, encoding="utf-8"); os.replace(tmp, p)
+        tmp = p.with_name(p.name + ".tmp")
+        try:
+            tmp.write_text(txt, encoding="utf-8")
+            written = False
+            for _ in range(5):
+                try:
+                    os.replace(tmp, p)
+                    written = True
+                    break
+                except PermissionError:
+                    time.sleep(0.05)
+            if not written:
+                p.write_text(txt, encoding="utf-8")
+                if tmp.exists():
+                    tmp.unlink(missing_ok=True)
+        except Exception:
+            try:
+                p.write_text(txt, encoding="utf-8")
+            except Exception:
+                pass
     return s
 
 def _change(event, fn):

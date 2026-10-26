@@ -163,8 +163,25 @@ def save_tasks(tasks):
     for p in (TASK_FILE, DOCS_TASK_FILE):
         p.parent.mkdir(parents=True, exist_ok=True)
         tmp = p.with_name(p.name + ".tmp")
-        tmp.write_text(txt, encoding="utf-8")
-        os.replace(str(tmp), str(p))
+        try:
+            tmp.write_text(txt, encoding="utf-8")
+            written = False
+            for _ in range(5):
+                try:
+                    os.replace(str(tmp), str(p))
+                    written = True
+                    break
+                except PermissionError:
+                    time.sleep(0.05)
+            if not written:
+                p.write_text(txt, encoding="utf-8")
+                if tmp.exists():
+                    tmp.unlink(missing_ok=True)
+        except Exception:
+            try:
+                p.write_text(txt, encoding="utf-8")
+            except Exception:
+                pass
     return doc
 
 
