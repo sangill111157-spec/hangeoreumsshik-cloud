@@ -1,6 +1,6 @@
 {
   "at_kst": "2026-10-26 00:23:47 KST",
-  "version": "v11.44-AON-CINEMATIC-DISPATCH",
+  "version": "v11.45-AON-AUTO-EVOLVER",
   "organs": {
     "1_radar": {
       "ok": true,
@@ -11,7 +11,7 @@
     "2_nutrient": {
       "ok": true,
       "rc": 0,
-      "skill_count": 41,
+      "skill_count": 42,
       "report": true
     },
     "3_ticket_shield": {

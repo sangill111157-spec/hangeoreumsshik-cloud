@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """rgon_neural_synapse_verifier.py — 제16기관 아온 전신 신경망 시냅스 병렬 정밀 검증기
-v11.44-AON-CINEMATIC-DISPATCH · 항체 R1~R45 · 정식 스킬 #36 aon-neural-synapse-verifier
+v11.45-AON-AUTO-EVOLVER · 항체 R1~R46 · 정식 스킬 #36 aon-neural-synapse-verifier
 순수 표준 라이브러리 전용. CLI: --self-test | --audit | --status
 """
 import os, sys, re, json, time, ast, tempfile, subprocess, importlib, argparse, datetime, warnings
@@ -19,9 +19,9 @@ for _s in ("stdout", "stderr"):
 os.environ["PYTHONWARNINGS"] = "ignore::SyntaxWarning"
 warnings.filterwarnings("ignore", category=SyntaxWarning)
 
-VERSION = "v11.44-AON-CINEMATIC-DISPATCH"
-ANTIBODY_RANGE = "R1~R45"
-EXPECTED_SKILL_COUNT = 41
+VERSION = "v11.45-AON-AUTO-EVOLVER"
+ANTIBODY_RANGE = "R1~R46"
+EXPECTED_SKILL_COUNT = 42
 SKILL_ID = "aon-neural-synapse-verifier"
 ROOT = Path(__file__).resolve().parent
 TIME_BUDGET_SEC = 2.0
@@ -351,9 +351,9 @@ def status():
 
 
 # >>> RGON R41 VERIFIER EXT BEGIN >>>
-VERSION = "v11.44-AON-CINEMATIC-DISPATCH"
-ANTIBODY_RANGE = "R1~R45"
-EXPECTED_SKILL_COUNT = 41
+VERSION = "v11.45-AON-AUTO-EVOLVER"
+ANTIBODY_RANGE = "R1~R46"
+EXPECTED_SKILL_COUNT = 42
 STATUS_LINE = "%s · 항체 %s · 정식 스킬 %d개" % (VERSION, ANTIBODY_RANGE, EXPECTED_SKILL_COUNT)
 try:
     if "rgon_aon_iching_planner.py" not in ORGANS:
@@ -423,9 +423,9 @@ if callable(_r41_orig_vsl) and not getattr(_r41_orig_vsl, "_r41", False):
 
 
 # >>> [RGON-R42-VERIFIER-EXT-START] >>>
-VERSION = "v11.44-AON-CINEMATIC-DISPATCH"
-ANTIBODY_RANGE = "R1~R45"
-EXPECTED_SKILL_COUNT = 41
+VERSION = "v11.45-AON-AUTO-EVOLVER"
+ANTIBODY_RANGE = "R1~R46"
+EXPECTED_SKILL_COUNT = 42
 STATUS_LINE = "%s · 항체 %s · 정식 스킬 %d개" % (VERSION, ANTIBODY_RANGE, EXPECTED_SKILL_COUNT)
 R42_HYDRO_ORGAN = "rgon_aon_hydro_cycle.py"
 R42_HYDRO_SNAPSHOTS = ["rgon_aon_hydro_state.json", "docs/rgon_aon_hydro_state.json"]
@@ -585,9 +585,9 @@ if callable(_r42_orig_heal) and not getattr(_r42_orig_heal, "_r42", False):
 
 
 # >>> [RGON-R43-VERIFIER-EXT-START] >>>
-VERSION = "v11.44-AON-CINEMATIC-DISPATCH"
-ANTIBODY_RANGE = "R1~R45"
-EXPECTED_SKILL_COUNT = 41
+VERSION = "v11.45-AON-AUTO-EVOLVER"
+ANTIBODY_RANGE = "R1~R46"
+EXPECTED_SKILL_COUNT = 42
 STATUS_LINE = "%s · 항체 %s · 정식 스킬 %d개" % (VERSION, ANTIBODY_RANGE, EXPECTED_SKILL_COUNT)
 R43_NEXUS_ORGAN = "rgon_aon_omni_nexus.py"
 R43_NEXUS_SNAPSHOTS = ["rgon_aon_nexus_state.json", "docs/rgon_aon_nexus_state.json"]
@@ -746,9 +746,9 @@ if callable(_r43_orig_heal) and not getattr(_r43_orig_heal, "_r43", False):
 
 # >>> RGON R44 LIVE UI HEALER VERIFIER EXT START
 import os as _r44os, sys as _r44sys, json as _r44json, subprocess as _r44sp, tempfile as _r44tmp, importlib as _r44il, threading as _r44th, shutil as _r44sh
-VERSION = "v11.44-AON-CINEMATIC-DISPATCH"
-ANTIBODY_RANGE = "R1~R45"
-EXPECTED_SKILL_COUNT = 41
+VERSION = "v11.45-AON-AUTO-EVOLVER"
+ANTIBODY_RANGE = "R1~R46"
+EXPECTED_SKILL_COUNT = 42
 STATUS_LINE = "%s · 항체 %s · 정식 스킬 %d개" % (VERSION, ANTIBODY_RANGE, EXPECTED_SKILL_COUNT)
 R44_ORGAN_NODE = {"id": "N16", "file": "rgon_aon_live_ui_healer.py", "organ_no": 20}
 R44_SYNAPSE = {"id": "S14", "desc": "대화허브 /버튼검증 -> 제20기관 실전 UI 전수 클릭·동작 검증 -> 4개 페이지 전수 시리얼 & 화뢰서합·택화혁 괘상 & 점수 & 격리 검증"}
@@ -834,9 +834,9 @@ for _n in ("run_full", "run_all", "verify_all", "full_check"):
 
 # >>> RGON R45 CINEMATIC DISPATCH VERIFIER EXT START
 import os as _r45os, sys as _r45sys, json as _r45json, subprocess as _r45sp, tempfile as _r45tmp, importlib as _r45il, threading as _r45th, shutil as _r45sh
-VERSION = "v11.44-AON-CINEMATIC-DISPATCH"
-ANTIBODY_RANGE = "R1~R45"
-EXPECTED_SKILL_COUNT = 41
+VERSION = "v11.45-AON-AUTO-EVOLVER"
+ANTIBODY_RANGE = "R1~R46"
+EXPECTED_SKILL_COUNT = 42
 STATUS_LINE = "%s · 항체 %s · 정식 스킬 %d개" % (VERSION, ANTIBODY_RANGE, EXPECTED_SKILL_COUNT)
 R45_ORGAN_NODE = {"id": "N17", "file": "rgon_aon_cinematic_dispatch.py", "organ_no": 21}
 R45_SYNAPSE = {"id": "S15", "desc": "대화허브 /국무회의 -> 제21기관 0.7ms 쇼트컷 & 9인 원탁 국무회의 & 브레인팩 금고 & 뇌화풍·택지취 괘상 & 격리 검증"}
@@ -945,6 +945,121 @@ for _n in ("run_full", "run_all", "verify_all", "full_check"):
     if callable(globals().get(_n)):
         globals()[_n] = _r45_wrap_full(globals()[_n])
 # <<< RGON R45 CINEMATIC DISPATCH VERIFIER EXT END
+
+# >>> RGON R46 AUTO EVOLVER VERIFIER EXT START
+import os as _r46os, sys as _r46sys, json as _r46json, subprocess as _r46sp, tempfile as _r46tmp, importlib as _r46il, threading as _r46th, shutil as _r46sh
+VERSION = "v11.45-AON-AUTO-EVOLVER"
+ANTIBODY_RANGE = "R1~R46"
+EXPECTED_SKILL_COUNT = 42
+STATUS_LINE = "%s · 항체 %s · 정식 스킬 %d개" % (VERSION, ANTIBODY_RANGE, EXPECTED_SKILL_COUNT)
+R46_ORGAN_NODE = {"id": "N18", "file": "rgon_aon_auto_skill_evolver.py", "organ_no": 22}
+R46_SYNAPSE = {"id": "S16", "desc": "대화허브 /흡수 -> 제22기관 10대 플랫폼 채집 & 과식방지 영양분 체 & 그릇 크기 확장 & 5대 자아성찰 5/5 & 수동 게이트 & 격리 검증"}
+def _r46_root(): return _r46os.path.dirname(_r46os.path.abspath(__file__))
+def r46_check_n18():
+    p = _r46os.path.join(_r46_root(), R46_ORGAN_NODE["file"])
+    if not _r46os.path.isfile(p):
+        return {"id": "N18", "ok": False, "detail": "missing"}
+    td = _r46tmp.mkdtemp(prefix="r46_n18_")
+    env = dict(_r46os.environ); env["RGON_EVOLVER_STATE_DIR"] = td
+    try:
+        o = _r46sp.run([_r46sys.executable, p, "--self-test", "--json"], capture_output=True, text=True, encoding="utf-8", timeout=90, env=env)
+        d = _r46json.loads(o.stdout)
+        ok = o.returncode == 0 and d.get("ok") is True
+        return {"id": "N18", "ok": ok, "detail": "self_test " + ("PASS" if ok else "FAIL")}
+    except Exception as e:
+        return {"id": "N18", "ok": False, "detail": repr(e)[:120]}
+    finally:
+        _r46sh.rmtree(td, ignore_errors=True)
+def r46_check_s16():
+    root = _r46_root()
+    sp = _r46os.path.join(root, "rgon_aon_evolver_state.json")
+    def rd_bytes(p):
+        if not _r46os.path.isfile(p): return None
+        with open(p, "rb") as f: return f.read()
+    before = rd_bytes(sp)
+    td = _r46tmp.mkdtemp(prefix="r46_s16_")
+    old = _r46os.environ.get("RGON_EVOLVER_STATE_DIR")
+    _r46os.environ["RGON_EVOLVER_STATE_DIR"] = td
+    try:
+        if root not in _r46sys.path:
+            _r46sys.path.insert(0, root)
+        eng = _r46il.import_module("rgon_aon_dialogue_engine")
+        ev = _r46il.import_module("rgon_aon_auto_skill_evolver")
+        out = None
+        for n in ("r46_route", "process_dialogue", "converse", "route", "r40_route"):
+            f = getattr(eng, n, None)
+            if callable(f):
+                try:
+                    out = f("/흡수 한걸음씩 만물 영양분 점진 흡수")
+                    if out is not None:
+                        break
+                except Exception:
+                    pass
+        txt = out if isinstance(out, str) else _r46json.dumps(out, ensure_ascii=False, default=str)
+        r = ev.run_auto_evolution("한걸음씩 만물 영양분 점진 흡수", live_net=False, dry_run=False)
+        gs = "".join(r.get("guas", []))
+        fg, sv, vs, rf = r.get("forage", {}), r.get("sieve", {}), r.get("vessel", {}), r.get("reflection", {})
+        cks = [
+            ("dialogue", "산뢰이" in txt and "풍산점" in txt and "풍지관" in txt),
+            ("evolver", r.get("ok") is True and r.get("version") == VERSION and r.get("antibody") == "R46" and r.get("organ") == 22),
+            ("forage10", fg.get("platform_count") == 10),
+            ("sieve", sv.get("overfeed_prevented") is True and sv.get("portion_ratio", 1.0) <= 0.25 and sv.get("toxins_rejected_count", 0) > 0),
+            ("vessel", vs.get("digestible_step_size") == 1 and vs.get("vessel_capacity_score") == 100.0),
+            ("reflection5", rf.get("passed_count") == 5 and rf.get("reflection_passed") is True),
+            ("guas", "산뢰이" in gs and "풍산점" in gs and "풍지관" in gs),
+            ("gate", r.get("requires_manual_gate") is True and r.get("auto_executed") is False),
+            ("state-tmp", _r46os.path.isfile(_r46os.path.join(td, "rgon_aon_evolver_state.json")) and _r46os.path.isfile(_r46os.path.join(td, "rgon_aon_skill_blueprints.json"))),
+        ]
+    except Exception as e:
+        cks = [("exception:" + repr(e)[:100], False)]
+    finally:
+        if old is None:
+            _r46os.environ.pop("RGON_EVOLVER_STATE_DIR", None)
+        else:
+            _r46os.environ["RGON_EVOLVER_STATE_DIR"] = old
+        _r46sh.rmtree(td, ignore_errors=True)
+    cks.append(("isolation", rd_bytes(sp) == before))
+    bad = [n for n, okv in cks if not okv]
+    return {"id": "S16", "ok": not bad, "detail": "PASS" if not bad else "FAIL:" + ",".join(bad)}
+_R46_DEPTH = [0]
+def _r46_extend(rep):
+    box = {}
+    th = _r46th.Thread(target=lambda: box.__setitem__("n", r46_check_n18())); th.start()
+    s = r46_check_s16(); th.join(120)
+    n = box.get("n") or {"id": "N18", "ok": False, "detail": "timeout"}
+    fails = (0 if n["ok"] else 1) + (0 if s["ok"] else 1)
+    for k in ("organs_total", "organ_total", "total_organs", "synapses_total", "synapse_total", "total_synapses"):
+        if isinstance(rep.get(k), int) and not isinstance(rep.get(k), bool):
+            rep[k] += 1
+    for ks, okv in ((("organs_passed", "organ_passed", "passed_organs", "organs_ok"), n["ok"]), (("synapses_passed", "synapse_passed", "passed_synapses", "synapses_ok"), s["ok"])):
+        for k in ks:
+            if isinstance(rep.get(k), int) and not isinstance(rep.get(k), bool) and okv:
+                rep[k] += 1
+    rep["r46"] = {"N18": n, "S16": s, "organ_total": 18, "synapse_total": 16, "ok": fails == 0}
+    sc = rep.get("synapse_health_score")
+    cap = round(100.0 * (34 - fails) / 34.0, 1)
+    rep["synapse_health_score"] = round(min(float(sc), cap), 1) if isinstance(sc, (int, float)) else cap
+    if fails:
+        rep["ok"] = False
+    return rep
+def _r46_wrap_full(fn):
+    if getattr(fn, "_r46", False):
+        return fn
+    def w(*a, **k):
+        _R46_DEPTH[0] += 1
+        try:
+            rep = fn(*a, **k)
+        finally:
+            _R46_DEPTH[0] -= 1
+        return _r46_extend(rep) if _R46_DEPTH[0] == 0 and isinstance(rep, dict) else rep
+    w._r46 = True
+    w.__name__ = getattr(fn, "__name__", "run_full")
+    w.__doc__ = getattr(fn, "__doc__", None)
+    return w
+for _n in ("run_full", "run_all", "verify_all", "full_check"):
+    if callable(globals().get(_n)):
+        globals()[_n] = _r46_wrap_full(globals()[_n])
+# <<< RGON R46 AUTO EVOLVER VERIFIER EXT END
 
 if __name__ == "__main__":
     if os.environ.get("RGON_R40_VERIFY") == "1" and "--self-test" in sys.argv:

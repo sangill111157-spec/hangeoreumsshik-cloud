@@ -5,7 +5,7 @@
 import os, re, sys, json, hashlib, tempfile, shutil, time
 from html.parser import HTMLParser
 
-VERSION = "v11.44-AON-CINEMATIC-DISPATCH"
+VERSION = "v11.45-AON-AUTO-EVOLVER"
 ANTIBODY = "R44"
 ORGAN_NO = 20
 MARK = "RGON R44 LIVE UI HEALER BRIDGE"

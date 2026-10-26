@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""step44_aon_live_ui_healer.py — Step 44 / 제20기관 / v11.44-AON-CINEMATIC-DISPATCH / 항체 R1~R45
+"""step44_aon_live_ui_healer.py — Step 44 / 제20기관 / v11.45-AON-AUTO-EVOLVER / 항체 R1~R46
 A-ON Live UI Action Verifier & Self-Healer 배포 스크립트 (단일 완결형, 표준 라이브러리 전용).
 옵션: --no-push (git push 생략) / --no-git (git 전체 생략, 로컬 점검용)
 """
@@ -11,8 +11,8 @@ sys.dont_write_bytecode = True
 ROOT = os.path.dirname(os.path.abspath(__file__))
 def P(*a): return os.path.join(ROOT, *a)
 BT3 = chr(96) * 3
-OLD_V, NEW_V = "v11.44-AON-CINEMATIC-DISPATCH", "v11.44-AON-CINEMATIC-DISPATCH"
-OLD_AB, NEW_AB = "R1~R45", "R1~R45"
+OLD_V, NEW_V = "v11.45-AON-AUTO-EVOLVER", "v11.45-AON-AUTO-EVOLVER"
+OLD_AB, NEW_AB = "R1~R46", "R1~R46"
 OLD_N, NEW_N = 39, 40
 SLUG = "aon-live-ui-self-healer"
 ORGAN, VERIFIER, DIALOGUE = "rgon_aon_live_ui_healer.py", "rgon_neural_synapse_verifier.py", "rgon_aon_dialogue_engine.py"
@@ -43,7 +43,7 @@ ORGAN_SRC = r'''# -*- coding: utf-8 -*-
 import os, re, sys, json, hashlib, tempfile, shutil, time
 from html.parser import HTMLParser
 
-VERSION = "v11.44-AON-CINEMATIC-DISPATCH"
+VERSION = "v11.45-AON-AUTO-EVOLVER"
 ANTIBODY = "R44"
 ORGAN_NO = 20
 MARK = "RGON R44 LIVE UI HEALER BRIDGE"
@@ -340,7 +340,7 @@ if __name__ == "__main__":
 BRIDGE_JS = r"""
 (function(){
 if(window.RGON_LIVE_UI_HEALER)return;
-var H=window.RGON_LIVE_UI_HEALER={version:"v11.44-AON-CINEMATIC-DISPATCH",antibody:"R44",guas:["#21 화뢰서합","#49 택화혁"],clicks:0,healed:0,log:[]};
+var H=window.RGON_LIVE_UI_HEALER={version:"v11.45-AON-AUTO-EVOLVER",antibody:"R44",guas:["#21 화뢰서합","#49 택화혁"],clicks:0,healed:0,log:[]};
 var Q='button,a,[role="button"],[onclick],[data-tab],[data-aon]';
 var SKIP=/^(if|for|while|switch|catch|return|function|alert|confirm|prompt|open|close|setTimeout|setInterval|fetch|parseInt|String|Number|Boolean|void|typeof|new)$/;
 function speaking(){try{return !!(window.speechSynthesis&&(speechSynthesis.speaking||speechSynthesis.pending))}catch(e){return false}}
@@ -442,9 +442,9 @@ except Exception:
 # ───────────────────────── 제16기관 검증기 확장 블록 (N16 / S14) ─────────────────────────
 EXT_S, EXT_E = "# >>> RGON R44 LIVE UI HEALER VERIFIER EXT START", "# <<< RGON R44 LIVE UI HEALER VERIFIER EXT END"
 EXT_SRC = EXT_S + "\n" + r'''import os as _r44os, sys as _r44sys, json as _r44json, subprocess as _r44sp, tempfile as _r44tmp, importlib as _r44il, threading as _r44th, shutil as _r44sh
-VERSION = "v11.44-AON-CINEMATIC-DISPATCH"
-ANTIBODY_RANGE = "R1~R45"
-EXPECTED_SKILL_COUNT = 41
+VERSION = "v11.45-AON-AUTO-EVOLVER"
+ANTIBODY_RANGE = "R1~R46"
+EXPECTED_SKILL_COUNT = 42
 STATUS_LINE = "%s · 항체 %s · 정식 스킬 %d개" % (VERSION, ANTIBODY_RANGE, EXPECTED_SKILL_COUNT)
 R44_ORGAN_NODE = {"id": "N16", "file": "rgon_aon_live_ui_healer.py", "organ_no": 20}
 R44_SYNAPSE = {"id": "S14", "desc": "대화허브 /버튼검증 -> 제20기관 실전 UI 전수 클릭·동작 검증 -> 4개 페이지 전수 시리얼 & 화뢰서합·택화혁 괘상 & 점수 & 격리 검증"}
@@ -590,8 +590,8 @@ def apply_outside(text, sp, fn):
     out.append(fn(text[i:])); return "".join(out)
 
 def bump_str(t):
-    t = t.replace(OLD_V, NEW_V).replace(OLD_AB, NEW_AB).replace("R1-R45", "R1-R45")
-    t = t.replace("**41개**", "**41개**")
+    t = t.replace(OLD_V, NEW_V).replace(OLD_AB, NEW_AB).replace("R1-R46", "R1-R46")
+    t = t.replace("**42개**", "**42개**")
     t = re.sub(r"(skillCount[\"']?\s*[:=]\s*)39\b", r"\g<1>40", t)
     t = re.sub(r"(EXPECTED_SKILL_COUNT\s*=\s*)39\b", r"\g<1>40", t)
     t = re.sub(r"(\"count\"\s*:\s*)39\b", r"\g<1>40", t)
@@ -735,7 +735,7 @@ def sam1(ctx):
         if os.path.isfile(P(f)): chk(prot_digest(rd(P(f)), names) == ctx["prot0"].get(f), "AST 보호 다이제스트 동일: %s::%s" % (f, ",".join(names)))
     for f, h0 in ctx["pres0"].items(): chk(os.path.isfile(P(f)) and sha(open(P(f), "rb").read()) == h0, "PRESERVE 불변: " + f)
     sc = skill_counts(); chk(sc == [NEW_N] * 3, "정식 스킬 %s == [40, 40, 40]" % sc)
-    vt = rd(P(VERIFIER)); chk(NEW_V in vt and "EXPECTED_SKILL_COUNT = 41" in vt and "STATUS_LINE" in vt and EXT_S in vt, "검증기 상수/확장 블록")
+    vt = rd(P(VERIFIER)); chk(NEW_V in vt and "EXPECTED_SKILL_COUNT = 42" in vt and "STATUS_LINE" in vt and EXT_S in vt, "검증기 상수/확장 블록")
     return ok, d
 
 def sam2(ctx):

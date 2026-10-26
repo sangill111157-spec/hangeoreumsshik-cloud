@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""rgon_voice_organ.py — 제9기관: 성대·청각 음성 교감 기관 (v11.44-AON-CINEMATIC-DISPATCH, R1~R45)
+"""rgon_voice_organ.py — 제9기관: 성대·청각 음성 교감 기관 (v11.45-AON-AUTO-EVOLVER, R1~R46)
 주역 #51 진위뢰(震爲雷 ☳☳) · #61 풍택중부(風澤中孚 ☴☱).
 의도 분별은 제10기관 rgon_aon_soul_brain.converse()에 위임한다 (감정·일상 대화는 대행 큐에 넣지 않음)."""
 import os, sys, json
@@ -12,8 +12,8 @@ try:
 except Exception:
     pass
 
-VERSION = "v11.44-AON-CINEMATIC-DISPATCH"
-ANTIBODY = "R1~R45"
+VERSION = "v11.45-AON-AUTO-EVOLVER"
+ANTIBODY = "R1~R46"
 ROOT = Path(__file__).resolve().parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
@@ -130,7 +130,7 @@ SFX_PRESETS.update(R40_UNIFIED_SFX_MAP)
 
 def get_unified_sfx_registry():
     rec = globals().get("SOUND_RECIPES")
-    return {"version": "v11.44-AON-CINEMATIC-DISPATCH", "antibody": "R1~R45",
+    return {"version": "v11.45-AON-AUTO-EVOLVER", "antibody": "R1~R46",
             "sfx_presets": sorted(SFX_PRESETS.keys()),
             "sound_recipes": sorted(rec.keys()) if isinstance(rec, dict) else [],
             "r40_unified": sorted(R40_UNIFIED_SFX_MAP.keys())}

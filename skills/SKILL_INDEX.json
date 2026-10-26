@@ -1,8 +1,8 @@
 {
-  "version": "v11.44-AON-CINEMATIC-DISPATCH",
-  "antibody": "R1~R45",
+  "version": "v11.45-AON-AUTO-EVOLVER",
+  "antibody": "R1~R46",
   "generated_at_kst": "2026-10-26 00:23:49 KST",
-  "count": 41,
+  "count": 42,
   "skills": [
     {
       "slug": "1-36-45",
@@ -359,7 +359,7 @@
       "id": 40,
       "name": "aon-live-ui-self-healer",
       "slug": "aon-live-ui-self-healer",
-      "version": "v11.44-AON-CINEMATIC-DISPATCH",
+      "version": "v11.45-AON-AUTO-EVOLVER",
       "antibody": "R44",
       "organ": 20,
       "path": "skills/aon-live-ui-self-healer/SKILL.md",
@@ -369,19 +369,29 @@
       "id": 41,
       "name": "aon-cinematic-dispatch-council",
       "slug": "aon-cinematic-dispatch-council",
-      "version": "v11.44-AON-CINEMATIC-DISPATCH",
+      "version": "v11.45-AON-AUTO-EVOLVER",
       "antibody": "R45",
       "organ": 21,
       "path": "skills/aon-cinematic-dispatch-council/SKILL.md",
       "description": "아온 0.7ms 초광속 결정론적 쇼트컷 & 9인 원탁 국무회의 시네마틱 디스패치 (제21기관, R45)"
+    },
+    {
+      "id": 42,
+      "name": "aon-autonomous-tech-evolver",
+      "slug": "aon-autonomous-tech-evolver",
+      "version": "v11.45-AON-AUTO-EVOLVER",
+      "antibody": "R46",
+      "organ": 22,
+      "path": "skills/aon-autonomous-tech-evolver/SKILL.md",
+      "description": "아온 10대 전 플랫폼 영양분 선별 채집 & 한걸음씩 자아성찰 그릇 확장 진화기 (제22기관, R46)"
     }
   ],
-  "total": 41,
-  "skill_count": 41,
-  "antibody_range": "R1~R45",
-  "antibodies": "R1~R45",
-  "updated": "2026-10-26T11:50:33",
+  "total": 42,
+  "skill_count": 42,
+  "antibody_range": "R1~R46",
+  "antibodies": "R1~R46",
+  "updated": "2026-10-26T15:12:12",
   "synced_at_kst": "2026-10-26 00:24:55 KST",
-  "immune": "R1~R45",
-  "total_skills": 41
+  "immune": "R1~R46",
+  "total_skills": 42
 }

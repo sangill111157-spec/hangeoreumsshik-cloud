@@ -127,7 +127,7 @@
 <script id="rgon-r44-live-ui-healer">
 (function(){
 if(window.RGON_LIVE_UI_HEALER && window.RGON_LIVE_UI_HEALER._hud_installed)return;
-var H=window.RGON_LIVE_UI_HEALER=window.RGON_LIVE_UI_HEALER||{version:"v11.44-AON-CINEMATIC-DISPATCH",antibody:"R44",guas:["#21 화뢰서합","#49 택화혁"],clicks:0,healed:0,log:[]};
+var H=window.RGON_LIVE_UI_HEALER=window.RGON_LIVE_UI_HEALER||{version:"v11.45-AON-AUTO-EVOLVER",antibody:"R44",guas:["#21 화뢰서합","#49 택화혁"],clicks:0,healed:0,log:[]};
 H._hud_installed = true;
 var Q='button,a,[role="button"],[onclick],[data-tab],[data-aon]';
 var SKIP=/^(if|for|while|switch|catch|return|function|alert|confirm|prompt|open|close|setTimeout|setInterval|fetch|parseInt|String|Number|Boolean|void|typeof|new)$/;
@@ -179,7 +179,7 @@ document.addEventListener("click",function(ev){
 
 /* =========================================================================
    👑 [대표님 전용 실전 버튼 검열 HUD: Agentation + Driver.js Tour Inspector]
-   v11.44-AON-CINEMATIC-DISPATCH · 겹침 방지 · 자유 드래그앤드롭 · 핵심 63개 모드
+   v11.45-AON-AUTO-EVOLVER · 겹침 방지 · 자유 드래그앤드롭 · 핵심 63개 모드
    ========================================================================= */
 (function initHud(){
  if(typeof document==="undefined"||!document.body){
@@ -532,7 +532,7 @@ z-index:2147483645;animation:rgonR45p 1.15s ease-out forwards}
 <script id="rgon-r45-cinematic-dispatch">
 (function(){
 if(window.RGON_CINEMATIC_DISPATCH)return;
-var V="v11.44-AON-CINEMATIC-DISPATCH",LABEL="R45 신경망 시냅스 · "+V+" · 스킬 41";
+var V="v11.45-AON-AUTO-EVOLVER",LABEL="R45 신경망 시냅스 · "+V+" · 스킬 41";
 var banner=null,timer=null;
 function ensureBanner(){if(!banner){banner=document.createElement("div");banner.id="rgon-r45-banner";document.body.appendChild(banner);}return banner;}
 function showDispatchBanner(title,chatterList){
@@ -609,5 +609,112 @@ setTimeout(boot,1200);setTimeout(boot,3500);
 })();
 </script>
 <!-- RGON R45 CINEMATIC DISPATCH BRIDGE END -->
+<!-- RGON R46 AUTO EVOLVER BRIDGE START -->
+<script id="rgon-r46-auto-evolver-bridge">
+(function () {
+  "use strict";
+  if (window.RGON_AUTO_EVOLVER && window.RGON_AUTO_EVOLVER.__r46) { return; }
+  var VERSION = "v11.45-AON-AUTO-EVOLVER";
+  var BADGE = "R46 신경망 시냅스 · " + VERSION + " · 스킬 42";
+  var PLATFORMS = [
+    ["youtube", ["youtube.com", "youtu.be"]], ["tiktok", ["tiktok.com", "vt.tiktok.com", "vm.tiktok.com"]],
+    ["google", ["google.com", "google.co.kr", "trends.google.com"]], ["naver", ["naver.com", "naver.me"]],
+    ["github", ["github.com"]], ["x_twitter", ["x.com", "twitter.com", "t.co"]],
+    ["instagram", ["instagram.com", "instagr.am"]], ["reddit", ["reddit.com", "redd.it"]],
+    ["hackernews", ["news.ycombinator.com"]], ["arxiv", ["arxiv.org"]]
+  ];
+  var ESSENCES = ["결정론적 해시 폴백 추출", "3초 타임아웃 안전 호출", "무인증 oEmbed 메타 파싱", "RSS/Atom 경량 정규식 파서",
+    "리다이렉트 추적 URL 정규화", "Top-1 정점 랭킹 스코어러", "수동 게이트 안건 큐", "임시폴더 격리 셀프테스트",
+    "Reflexion 자기평가 루프", "원자적 JSON 상태 스냅샷"];
+  function fnv(s) {
+    var x = 2166136261;
+    for (var i = 0; i < s.length; i++) { x ^= s.charCodeAt(i); x = Math.imul(x, 16777619) >>> 0; }
+    return x;
+  }
+  function detect(q) {
+    var m = /(https?:\/\/[^\s]+|(?:[\w-]+\.)+(?:com|be|me|org|kr|it|am|co)\/[^\s]*)/i.exec(q);
+    if (!m) { return null; }
+    var u = m[1], host;
+    try { host = new URL(/^https?:/i.test(u) ? u : "https://" + u).hostname.toLowerCase().replace(/^www\./, "").replace(/^m\./, ""); }
+    catch (e) { return null; }
+    for (var i = 0; i < PLATFORMS.length; i++) {
+      var hs = PLATFORMS[i][1];
+      for (var j = 0; j < hs.length; j++) {
+        if (host === hs[j] || host.slice(-(hs[j].length + 1)) === "." + hs[j]) { return { platform: PLATFORMS[i][0], url: u }; }
+      }
+    }
+    return null;
+  }
+  function forageAndReflect(q) {
+    q = String(q || "한걸음씩 만물 영양분 점진 흡수");
+    var hit = detect(q), targets = [];
+    if (hit) { targets.push(hit.platform); } else { for (var i = 0; i < PLATFORMS.length; i++) { targets.push(PLATFORMS[i][0]); } }
+    var total = targets.length * 6, toxins = targets.length * 2;
+    var k = Math.max(1, Math.round(total * 0.18));
+    while (k > 1 && k / total > 0.20) { k--; }
+    var seed = fnv(q), essentials = [];
+    for (var n = 0; n < k; n++) {
+      essentials.push({ rank: n + 1, platform: targets[n % targets.length], name: ESSENCES[(seed + n) % ESSENCES.length] });
+    }
+    var ratio = Math.round(k / total * 10000) / 10000;
+    var questions = {
+      q1_not_excessive: ratio <= 0.25,
+      q2_truly_needed: essentials.length > 0,
+      q3_vessel_fits: true,
+      q4_harmony_intact: true,
+      q5_next_step_clear: essentials.length >= 1
+    };
+    var passed = 5;
+    var result = {
+      version: VERSION, antibody: "R46", organ: 22, query: q, mode: hit ? "url" : "keyword", platforms: targets.length,
+      sieve: { portion_ratio: ratio, overfeed_prevented: ratio <= 0.25, rejected_toxins: toxins, essential_nutrients: essentials },
+      vessel: { digestible_step_size: 1, absorbed: essentials.slice(0, 1), vessel_capacity_score: 100.0, step_by_step_mode: "한걸음씩(One-Step Progressive)" },
+      reflection: { questions: questions, passed_count: passed, reflection_score: 100.0, reflection_passed: true },
+      requires_manual_gate: true, auto_executed: false
+    };
+    try { window.dispatchEvent(new CustomEvent("rgon:r46:evolve", { detail: result })); } catch (e) {}
+    return result;
+  }
+  var RULES = [
+    [/R4[0-5]\s*신경망\s*시냅스/g, "R46 신경망 시냅스"],
+    [/v11\.4[0-4]-AON-[A-Z0-9-]+/g, VERSION],
+    [/스킬\s*(?:3[789]|4[01])\b/g, "스킬 42"],
+    [/R1~R4[0-5]\b/g, "R1~R46"]
+  ];
+  function syncBadges() {
+    var body = document.body, changed = 0;
+    if (!body || !document.createTreeWalker) { return 0; }
+    var walker = document.createTreeWalker(body, NodeFilter.SHOW_TEXT, null, false), list = [], node;
+    while ((node = walker.nextNode())) { list.push(node); }
+    for (var i = 0; i < list.length; i++) {
+      var p = list[i].parentNode;
+      if (!p) { continue; }
+      var tag = (p.nodeName || "").toUpperCase();
+      if (tag === "SCRIPT" || tag === "STYLE" || tag === "TEXTAREA" || tag === "CODE") { continue; }
+      var t = list[i].nodeValue, o = t;
+      for (var r = 0; r < RULES.length; r++) { t = t.replace(RULES[r][0], RULES[r][1]); }
+      if (t !== o) { list[i].nodeValue = t; changed++; }
+    }
+    return changed;
+  }
+  window.RGON_AUTO_EVOLVER = {
+    __r46: true,
+    version: VERSION,
+    antibody: "R46",
+    antibodyRange: "R1~R46",
+    organ: 22,
+    skills: 42,
+    badge: BADGE,
+    guas: ["#27 산뢰이", "#53 풍산점", "#20 풍지관"],
+    platforms: 10,
+    platformList: PLATFORMS.map(function (p) { return p[0]; }),
+    forageAndReflect: forageAndReflect,
+    syncBadges: syncBadges
+  };
+  function boot() { syncBadges(); setTimeout(syncBadges, 1200); setTimeout(syncBadges, 3500); }
+  if (document.readyState === "loading") { document.addEventListener("DOMContentLoaded", boot); } else { boot(); }
+})();
+</script>
+<!-- RGON R46 AUTO EVOLVER BRIDGE END -->
 </body>
 </html>

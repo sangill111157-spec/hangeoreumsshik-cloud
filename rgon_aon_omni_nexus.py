@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 rgon_aon_omni_nexus.py — 제19기관: 아온 연결·소통·만능 대집약체 코어 (A-ON Omni-Nexus Core)
-정식 스킬 #39 aon-omni-nexus-synthesizer · v11.44-AON-CINEMATIC-DISPATCH · 항체 R43 (R1~R45)
+정식 스킬 #39 aon-omni-nexus-synthesizer · v11.45-AON-AUTO-EVOLVER · 항체 R43 (R1~R46)
 
 철학: 연결(連結) · 소통(疏通) · 만능(萬能)의 대집약체
   ① 만물 연결 (Universal Connection Hub)          #11 지천태(地天泰 ☷☰) & #08 수지비(水地比 ☵☷)
@@ -24,9 +24,9 @@ import datetime
 import tempfile
 import importlib
 
-VERSION = "v11.44-AON-CINEMATIC-DISPATCH"
+VERSION = "v11.45-AON-AUTO-EVOLVER"
 ANTIBODY = "R43"
-ANTIBODY_RANGE = "R1~R45"
+ANTIBODY_RANGE = "R1~R46"
 ORGAN_NO = 19
 SKILL_COUNT = 39
 SKILL_ID = "aon-omni-nexus-synthesizer"

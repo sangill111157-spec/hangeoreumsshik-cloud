@@ -1,5 +1,5 @@
 {
-  "version": "v11.44-AON-CINEMATIC-DISPATCH",
+  "version": "v11.45-AON-AUTO-EVOLVER",
   "goal": "Step 21 @Mindung-EasyAI 양분 흡수",
   "goal_glossary": [],
   "generated_at": "2026-10-26 00:23:52",
@@ -94,6 +94,6 @@
       "verified_at_kst": "2026-10-26 00:24:14 KST"
     }
   ],
-  "antibody_range": "R1~R45",
+  "antibody_range": "R1~R46",
   "auto_verified_at_kst": "2026-10-26 00:24:14 KST"
 }
