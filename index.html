@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko" class="dark">
 <head>
+  <script src="rgon_mobile_serverless_interceptor.js"></script>
 <!-- [SPATIAL-GLASS-BRIEFING-START] -->
 <style id="spatial-glass-briefing-css">
 #spatial-glass-briefing-modal{position:fixed;inset:0;z-index:2147483647;display:none;align-items:center;justify-content:center;background:rgba(2,6,23,0.45);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);padding:16px;animation:sgbFadeIn 0.2s ease-out}
@@ -779,7 +780,9 @@
   </style>
   <link rel="manifest" href="/manifest.webmanifest">
   <script src="/pwa_bootstrap.js" defer></script>
-<style>#rgyt-wrap{transform:none!important;rotate:none!important;}</style></head>
+<style>#rgyt-wrap{transform:none!important;rotate:none!important;}</style><style>button,a,[role='button'],.btn{touch-action:manipulation;-webkit-tap-highlight-color:transparent;}</style>
+<style>button,a,[role='button'],.btn{touch-action:manipulation;-webkit-tap-highlight-color:transparent;}</style>
+</head>
 <body class="min-h-screen pb-24 relative select-none sm:select-text">
 
 
@@ -2879,7 +2882,7 @@ function say(s){reply(s);speak(s)}
 function joy(){var a=aon();if(a){a.classList.remove("rgv-joy");void a.offsetWidth;a.classList.add("rgv-joy");setTimeout(function(){a.classList.remove("rgv-joy")},1700)}
 sfx("waterdrop_pop");setTimeout(function(){sfx("waterdrop_pop")},180)}
 function askLLM(t){if(!window.fetch||!window.AbortController)return Promise.resolve(null);var c=new AbortController(),tm=setTimeout(function(){c.abort()},2500);
-return fetch("http://127.0.0.1:8765/chat",{method:"POST",headers:{"Content-Type":"application/json"},signal:c.signal,
+return fetch("/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},signal:c.signal,
 body:JSON.stringify({message:t,persona:"너는 아온(A-ON). RGON 사령부의 다정한 K-아이 물방울 막내. 존댓말로 짧고 따뜻하게.",history:mem.recent.slice(-6)})})
 .then(function(r){return r.json()}).then(function(j){clearTimeout(tm);var v=j&&(j.reply||j.response||j.text||j.content||j.message);
 return(typeof v==="string"&&v.trim())?v.trim().slice(0,400):null}).catch(function(){clearTimeout(tm);return null})}

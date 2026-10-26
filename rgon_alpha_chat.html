@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko" class="dark">
 <head>
+  <script src="rgon_mobile_serverless_interceptor.js"></script>
 <!-- [SPATIAL-GLASS-BRIEFING-START] -->
 <style id="spatial-glass-briefing-css">
 #spatial-glass-briefing-modal{position:fixed;inset:0;z-index:2147483647;display:none;align-items:center;justify-content:center;background:rgba(2,6,23,0.45);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);padding:16px;animation:sgbFadeIn 0.2s ease-out}
@@ -809,7 +810,9 @@ details.rgon-compact-drawer>.rgon-drawer-body{max-height:58vh;overflow-y:auto;-w
 /* RGON_STEP5_STYLE_END */
 </style>
 <meta name="rgon-version" content="v6.1.0-step11">
-<style>#rgyt-wrap{transform:none!important;rotate:none!important;}</style></head>
+<style>#rgyt-wrap{transform:none!important;rotate:none!important;}</style><style>button,a,[role='button'],.btn{touch-action:manipulation;-webkit-tap-highlight-color:transparent;}</style>
+<style>button,a,[role='button'],.btn{touch-action:manipulation;-webkit-tap-highlight-color:transparent;}</style>
+</head>
 <body class="flex flex-col h-screen max-w-4xl mx-auto border-x border-indigo-950/60 shadow-2xl relative">
 
 <!-- === [RGON-STEP1-MOBILE-UI-START] === -->
@@ -1769,7 +1772,7 @@ else setTimeout(init,150);
   <div id="omniLog" style="font-size:12px;color:#8b949e;min-height:16px"></div>
   <script>
   (function(){
-    var BR = "http://127.0.0.1:8765";
+    var BR = "";
     var $ = function(id){ return document.getElementById(id); };
     var root = $("omniCtrl");
     function esc(s){ return String(s==null?"":s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];}); }
@@ -1864,7 +1867,7 @@ else setTimeout(init,150);
 'use strict';
 var BOARD_ID = "rgon-step9-aggregator-" + "board";
 var KEY = "rgon_step9_candidates", SEL_KEY = "rgon_step9_selected", REQ_LS = "rgon_step9_collect_req";
-var BRIDGE = "http://127.0.0.1:8765/api/candidates";
+var BRIDGE = "/api/candidates";
 var ROLES = [["rgon", "🔵👑 르곤 (Gemini 4 Argon)"], ["claude", "🧠 Claude"], ["gpt", "⚡ GPT"], ["grok", "🎯 Grok"]];
 var ROLE_IDS = ["rgon", "claude", "gpt", "grok"];
 var FENCE = String.fromCharCode(96, 96, 96);
@@ -7112,7 +7115,7 @@ window.shinAdV5={open:openModal,close:closeModal,manifest:function(){return MANI
   var PANEL_ID = 'rgon-step5-solo-panel';
   var TOAST_ID = 'rgon-step5-toast';
   var STORE_KEY = 'rgon_omni_checked_step5';
-  var BRIDGE_URL = 'http://127.0.0.1:8765/api/dispatch';
+  var BRIDGE_URL = '/api/dispatch';
   var PANEL_HTML = "<div class=\"r5-title\">\ud83c\udfaf 4\ub300 AI \ubc1c\uc0ac \ub300\uc0c1 (\uc0c1\ub2e8 \ucee8\ud2b8\ub864\ub7ec v6.0.8 \ub3d9\uc77c \uad6c\uc870)<\/div>\n<div class=\"r5-checks\">\n<label class=\"r5-chk\"><input type=\"checkbox\" class=\"r5-chk-input\" value=\"rgon\"> <span>\ud83d\udd35\ud83d\udc51 \ub974\uace4 (Gemini 4 Argon)<\/span><\/label>\n<label class=\"r5-chk\"><input type=\"checkbox\" class=\"r5-chk-input\" value=\"claude\" checked> <span>\ud83e\udde0 Claude<\/span><\/label>\n<label class=\"r5-chk\"><input type=\"checkbox\" class=\"r5-chk-input\" value=\"gpt\" checked> <span>\u26a1 GPT<\/span><\/label>\n<label class=\"r5-chk\"><input type=\"checkbox\" class=\"r5-chk-input\" value=\"grok\"> <span>\ud83c\udfaf Grok<\/span><\/label>\n<\/div>\n<div class=\"r5-mini\">\n<button type=\"button\" class=\"r5-btn r5-mini-btn\" data-r5-act=\"all\" data-clean-id="CLEAN-CHAT-089">\u2611 \uc804\uccb4 \uc120\ud0dd<\/button>\n<button type=\"button\" class=\"r5-btn r5-mini-btn\" data-r5-act=\"none\" data-clean-id="CLEAN-CHAT-090">\u2610 \uc804\uccb4 \ud574\uc81c<\/button>\n<\/div>\n<div class=\"r5-grid\">\n<button type=\"button\" class=\"r5-btn r5-solo\" data-role=\"rgon\" data-clean-id="CLEAN-CHAT-091">\ud83d\udd35\ud83d\udc51 \ub974\uace4 (Gemini 4 Argon) \ub2e8\ub3c5<\/button>\n<button type=\"button\" class=\"r5-btn r5-solo\" data-role=\"claude\" data-clean-id="CLEAN-CHAT-092">\ud83e\udde0 Claude \ub2e8\ub3c5<\/button>\n<button type=\"button\" class=\"r5-btn r5-solo\" data-role=\"gpt\" data-clean-id="CLEAN-CHAT-093">\u26a1 GPT \ub2e8\ub3c5<\/button>\n<button type=\"button\" class=\"r5-btn r5-solo\" data-role=\"grok\" data-clean-id="CLEAN-CHAT-094">\ud83c\udfaf Grok \ub2e8\ub3c5<\/button>\n<\/div>\n<div class=\"r5-run\">\n<button type=\"button\" class=\"r5-btn r5-green\" data-r5-act=\"selected\" data-clean-id="CLEAN-CHAT-095">\ud83d\ude80 \uccb4\ud06c \uc120\ud0dd \ubc1c\uc0ac<\/button>\n<button type=\"button\" class=\"r5-btn r5-teal\" data-r5-act=\"fire-all\" data-clean-id="CLEAN-CHAT-096">\ud83c\udf10 \uc804\uccb4 \ubc1c\uc0ac<\/button>\n<\/div>";
   var LEGACY_RE = /(GPT\s*\ub3d9\uc2dc\s*\ubc1c\uc0ac|Grok\s*\uce74\ud53c\s*\ubc1c\uc0ac)/i;
   var TITLE_RE = /1:1\s*(\uc804\ub2f4|\ucd1d\uad04)|\uc804\ub2f4\s*\ub3c5\ub300\uc2e4|\ucd1d\uad04\s*\ub3c5\ub300/;
@@ -9794,7 +9797,7 @@ details.s7-bar0>.s7-body>*{max-height:none}
 (function(){
 'use strict';
 if(window.__STEP7__) return; window.__STEP7__=true;
-var REPO='sangill111157-spec/hangeoreumsshik-cloud', BRIDGE='http://127.0.0.1:8765/queue', OLD_REPO='owner/shin-agent';
+var REPO='sangill111157-spec/hangeoreumsshik-cloud', BRIDGE='/api/queue', OLD_REPO='owner/shin-agent';
 var LABELS={
  3:'▶ 🛰️ 르곤-알파 실시간 브리핑 전문 (자동)',
  2:'▶ 🛰️ 4대 AI 분배 컨트롤러 & 만능 소통창',
@@ -10976,7 +10979,7 @@ function say(s){reply(s);speak(s)}
 function joy(){var a=aon();if(a){a.classList.remove("rgv-joy");void a.offsetWidth;a.classList.add("rgv-joy");setTimeout(function(){a.classList.remove("rgv-joy")},1700)}
 sfx("waterdrop_pop");setTimeout(function(){sfx("waterdrop_pop")},180)}
 function askLLM(t){if(!window.fetch||!window.AbortController)return Promise.resolve(null);var c=new AbortController(),tm=setTimeout(function(){c.abort()},2500);
-return fetch("http://127.0.0.1:8765/chat",{method:"POST",headers:{"Content-Type":"application/json"},signal:c.signal,
+return fetch("/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},signal:c.signal,
 body:JSON.stringify({message:t,persona:"너는 아온(A-ON). RGON 사령부의 다정한 K-아이 물방울 막내. 존댓말로 짧고 따뜻하게.",history:mem.recent.slice(-6)})})
 .then(function(r){return r.json()}).then(function(j){clearTimeout(tm);var v=j&&(j.reply||j.response||j.text||j.content||j.message);
 return(typeof v==="string"&&v.trim())?v.trim().slice(0,400):null}).catch(function(){clearTimeout(tm);return null})}

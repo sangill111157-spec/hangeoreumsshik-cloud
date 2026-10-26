@@ -62,6 +62,23 @@
         box-shadow: -4px 6px 20px rgba(0, 0, 0, 0.6);
         transform: translateX(-2px);
       }
+      /* 스마트폰 모바일 터치 히트박스 (투명 엄지 터치 영역 24px) */
+      .rgon-edge-handle::before {
+        content: "";
+        position: absolute;
+        top: -6px;
+        bottom: -6px;
+        left: -18px;
+        right: 0;
+        min-width: 28px;
+        pointer-events: auto;
+      }
+      @media (max-width: 768px) {
+        #rgon-aside-drawer, #rgon-agentation-hud, #rgon-hud-pill, .rgon-popup-panel {
+          max-width: 92vw !important;
+          width: min(92vw, 380px) !important;
+        }
+      }
       .rgon-edge-handle .edge-icon {
         font-size: 16px;
         opacity: 0.35;

@@ -4,7 +4,7 @@
   "current_step": 22,
   "antibody_range": "R1~R52",
   "principle": "만물은 하나로 이어져 있으며, 한 걸음씩 나아가면 반드시 이루어진다.",
-  "updated_at_kst": "2026-10-26T22:54:55",
+  "updated_at_kst": "2026-10-26T23:18:57",
   "health_score": 100,
   "inspection_mode": "standard",
   "today_hexagram": {
@@ -14,7 +14,7 @@
     "summary": "자강불식(自強不息) — 스스로 강건히 쉬지 않고 정진한다",
     "inspection_mode": "standard"
   },
-  "suppressed_count": 62,
+  "suppressed_count": 63,
   "antibodies": "R1~R52",
   "fingerprints": {
     "3cf3c4ec29753bf7": {
@@ -23,8 +23,8 @@
       "context": "self_test_bypass",
       "sample_message": "'simulated_missing_key'",
       "first_seen_kst": "2026-10-24T08:11:50",
-      "last_seen_kst": "2026-10-26T22:54:55",
-      "count": 64,
+      "last_seen_kst": "2026-10-26T23:18:57",
+      "count": 65,
       "suppressed": true,
       "known_remedy": "R18 상선약수: adapt_dict 안전 키 매핑 및 기본값 반환"
     }
@@ -573,6 +573,14 @@
       "restored": true,
       "source_backup": ".rgon_backup/wbc_snapshots/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.clean",
       "quarantined_to": ".rgon_backup/wbc_quarantine/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.20261026_225455.corrupt"
+    },
+    {
+      "timestamp_kst": "2026-10-26T23:18:56",
+      "file": ".rgon_backup/wbc_selftest/_wbc_dummy_sample.py",
+      "reason": "self_test_syntax_error",
+      "restored": true,
+      "source_backup": ".rgon_backup/wbc_snapshots/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.clean",
+      "quarantined_to": ".rgon_backup/wbc_quarantine/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.20261026_231857.corrupt"
     }
   ],
   "bypass_log": [
@@ -1154,6 +1162,15 @@
     },
     {
       "timestamp_kst": "2026-10-26T22:54:55",
+      "context": "self_test_bypass",
+      "exc_type": "KeyError",
+      "message": "'simulated_missing_key'",
+      "fingerprint": "3cf3c4ec29753bf7",
+      "suppressed": true,
+      "action": "default_value"
+    },
+    {
+      "timestamp_kst": "2026-10-26T23:18:57",
       "context": "self_test_bypass",
       "exc_type": "KeyError",
       "message": "'simulated_missing_key'",
