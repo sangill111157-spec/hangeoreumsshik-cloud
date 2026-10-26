@@ -52,7 +52,7 @@
       right: 145px;
       bottom: auto;
       z-index: 99999;
-      display: flex;
+      display: none !important;
       align-items: center;
       gap: 6px;
       background: rgba(7, 11, 20, 0.92);
@@ -69,7 +69,7 @@
       bottom: 12px;
       right: 145px;
       z-index: 99999;
-      display: flex;
+      display: none !important;
       align-items: center;
       gap: 8px;
       background: rgba(7, 11, 20, 0.92);
