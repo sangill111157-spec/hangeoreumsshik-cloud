@@ -4,24 +4,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <title>🏰 아온이 3D 360도 시네마틱 스튜디오 — Designed by 이해상 (초4 수석 디자이너)</title>
-  <!-- Google Fonts & Pretendard -->
-  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
-  <!-- Three.js & OrbitControls -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
   <style>
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      -webkit-font-smoothing: antialiased;
       user-select: none;
+      -webkit-font-smoothing: antialiased;
     }
     body, html {
       width: 100%;
       height: 100%;
       overflow: hidden;
-      background: radial-gradient(circle at 50% 35%, #1e1b4b 0%, #0f172a 55%, #020617 100%);
+      background: radial-gradient(circle at 50% 40%, #1e1b4b 0%, #0f172a 60%, #020617 100%);
       font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       color: #f8fafc;
     }
@@ -38,7 +34,7 @@
       cursor: grabbing;
     }
 
-    /* UI Overlay */
+    /* UI Layer */
     .ui-layer {
       position: absolute;
       top: 0;
@@ -50,10 +46,7 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      padding: 24px;
-    }
-    .interactive {
-      pointer-events: auto;
+      padding: 20px 24px;
     }
 
     /* Header */
@@ -61,21 +54,22 @@
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
+      z-index: 100;
     }
     .title-box {
-      background: rgba(15, 23, 42, 0.75);
+      background: rgba(15, 23, 42, 0.85);
       backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(56, 189, 248, 0.35);
+      border: 1px solid rgba(56, 189, 248, 0.4);
       border-radius: 20px;
-      padding: 14px 22px;
+      padding: 12px 20px;
       box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4), 0 0 20px rgba(56, 189, 248, 0.2);
+      pointer-events: auto;
     }
     .badge-row {
       display: flex;
       align-items: center;
-      gap: 10px;
-      margin-bottom: 6px;
+      gap: 8px;
+      margin-bottom: 5px;
     }
     .golden-badge {
       background: linear-gradient(135deg, #f59e0b, #d97706);
@@ -85,7 +79,6 @@
       padding: 3px 10px;
       border-radius: 999px;
       box-shadow: 0 0 12px rgba(245, 158, 11, 0.5);
-      letter-spacing: 0.5px;
     }
     .tech-badge {
       background: rgba(56, 189, 248, 0.15);
@@ -97,12 +90,11 @@
       border-radius: 999px;
     }
     .main-title {
-      font-size: 22px;
+      font-size: 21px;
       font-weight: 900;
       background: linear-gradient(135deg, #ffffff 40%, #bae6fd 80%, #f472b6 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      letter-spacing: -0.5px;
     }
     .subtitle {
       font-size: 12px;
@@ -110,16 +102,17 @@
       margin-top: 3px;
     }
 
-    /* Top Right Controls */
+    /* Top Controls */
     .top-controls {
       display: flex;
       gap: 10px;
+      pointer-events: auto;
+      z-index: 100;
     }
     .glass-btn {
-      background: rgba(15, 23, 42, 0.75);
+      background: rgba(15, 23, 42, 0.85);
       backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(148, 163, 184, 0.3);
+      border: 1px solid rgba(148, 163, 184, 0.35);
       color: #f1f5f9;
       font-size: 12px;
       font-weight: 700;
@@ -131,9 +124,12 @@
       gap: 6px;
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
       transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: auto;
+      position: relative;
+      z-index: 9999;
     }
     .glass-btn:hover {
-      background: rgba(56, 189, 248, 0.2);
+      background: rgba(56, 189, 248, 0.25);
       border-color: #38bdf8;
       transform: translateY(-2px);
       box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4), 0 0 15px rgba(56, 189, 248, 0.3);
@@ -144,27 +140,29 @@
       box-shadow: 0 0 16px rgba(56, 189, 248, 0.5);
     }
 
-    /* Dialogue Speech Bubble */
+    /* 말풍선: 캐릭터를 가리지 않도록 상단 헤더 바로 아래(top: 105px)에 배치 */
     .speech-bubble-container {
-      align-self: center;
-      margin-bottom: 12px;
-      max-width: 460px;
-      width: 100%;
+      position: absolute;
+      top: 105px;
+      left: 50%;
+      transform: translateX(-50%);
+      max-width: 520px;
+      width: 90%;
+      pointer-events: none;
+      z-index: 50;
     }
     .speech-bubble {
-      background: rgba(15, 23, 42, 0.85);
+      background: rgba(15, 23, 42, 0.88);
       backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1.5px solid rgba(56, 189, 248, 0.5);
+      border: 1.5px solid rgba(56, 189, 248, 0.6);
       border-radius: 20px;
-      padding: 12px 20px;
+      padding: 10px 20px;
       text-align: center;
-      font-size: 14px;
-      font-weight: 600;
-      line-height: 1.5;
+      font-size: 13.5px;
+      font-weight: 700;
+      line-height: 1.45;
       color: #ffffff;
-      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5), 0 0 20px rgba(56, 189, 248, 0.25);
-      position: relative;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(56, 189, 248, 0.3);
       animation: floatBubble 3s ease-in-out infinite;
     }
     @keyframes floatBubble {
@@ -172,31 +170,35 @@
       50% { transform: translateY(-4px); }
     }
 
-    /* Bottom Control Bar */
+    /* Bottom Controls */
     .bottom-bar {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
+      pointer-events: auto;
+      z-index: 100;
     }
 
     /* 6대 변신 카드 바 */
     .morph-cards-bar {
       display: flex;
       gap: 10px;
-      background: rgba(15, 23, 42, 0.82);
+      background: rgba(15, 23, 42, 0.9);
       backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(56, 189, 248, 0.35);
+      border: 1px solid rgba(56, 189, 248, 0.45);
       border-radius: 22px;
       padding: 8px 12px;
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), 0 0 25px rgba(56, 189, 248, 0.2);
-      max-width: 820px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(56, 189, 248, 0.25);
+      max-width: 860px;
       overflow-x: auto;
+      pointer-events: auto;
+      position: relative;
+      z-index: 9999;
     }
     .morph-card {
-      background: rgba(30, 41, 59, 0.7);
-      border: 1px solid rgba(148, 163, 184, 0.25);
+      background: rgba(30, 41, 59, 0.85);
+      border: 1px solid rgba(148, 163, 184, 0.3);
       border-radius: 16px;
       padding: 8px 14px;
       display: flex;
@@ -205,22 +207,24 @@
       gap: 3px;
       cursor: pointer;
       min-width: 105px;
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: auto;
+      position: relative;
+      z-index: 9999;
     }
     .morph-card:hover {
-      background: rgba(56, 189, 248, 0.2);
+      background: rgba(56, 189, 248, 0.25);
       border-color: #38bdf8;
-      transform: translateY(-4px) scale(1.03);
+      transform: translateY(-4px) scale(1.04);
     }
     .morph-card.active {
-      background: linear-gradient(135deg, rgba(2, 132, 199, 0.9), rgba(3, 105, 161, 0.9));
+      background: linear-gradient(135deg, #0284c7, #0369a1);
       border-color: #7dd3fc;
-      box-shadow: 0 0 18px rgba(56, 189, 248, 0.5), 0 8px 20px rgba(0, 0, 0, 0.35);
+      box-shadow: 0 0 18px rgba(56, 189, 248, 0.6), 0 8px 20px rgba(0, 0, 0, 0.4);
       transform: translateY(-3px);
     }
     .morph-card .icon {
       font-size: 22px;
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
     }
     .morph-card .name {
       font-size: 11.5px;
@@ -236,16 +240,18 @@
       color: #e0f2fe;
     }
 
-    /* 카메라 앵글 프리셋 바 */
+    /* 카메라 앵글 퀵 버튼 */
     .camera-presets-bar {
       display: flex;
       gap: 8px;
+      pointer-events: auto;
+      position: relative;
+      z-index: 9999;
     }
     .cam-btn {
-      background: rgba(15, 23, 42, 0.75);
+      background: rgba(15, 23, 42, 0.85);
       backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border: 1px solid rgba(148, 163, 184, 0.25);
+      border: 1px solid rgba(148, 163, 184, 0.3);
       color: #cbd5e1;
       font-size: 11px;
       font-weight: 700;
@@ -256,6 +262,9 @@
       align-items: center;
       gap: 4px;
       transition: all 0.2s ease;
+      pointer-events: auto;
+      position: relative;
+      z-index: 9999;
     }
     .cam-btn:hover {
       background: rgba(56, 189, 248, 0.25);
@@ -264,70 +273,46 @@
       transform: translateY(-1px);
     }
     .cam-btn.special-booty {
-      background: linear-gradient(135deg, rgba(244, 63, 94, 0.3), rgba(225, 29, 72, 0.4));
-      border-color: rgba(244, 63, 94, 0.6);
+      background: linear-gradient(135deg, rgba(244, 63, 94, 0.35), rgba(225, 29, 72, 0.45));
+      border-color: rgba(244, 63, 94, 0.7);
       color: #ffe4e6;
     }
     .cam-btn.special-booty:hover {
-      background: linear-gradient(135deg, rgba(244, 63, 94, 0.5), rgba(225, 29, 72, 0.6));
+      background: linear-gradient(135deg, rgba(244, 63, 94, 0.6), rgba(225, 29, 72, 0.7));
       border-color: #f43f5e;
-      box-shadow: 0 0 15px rgba(244, 63, 94, 0.4);
-    }
-
-    /* 360 가이드 툴팁 */
-    .hint-toast {
-      position: absolute;
-      top: 100px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(15, 23, 42, 0.75);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(56, 189, 248, 0.3);
-      padding: 6px 14px;
-      border-radius: 999px;
-      font-size: 11px;
-      color: #bae6fd;
-      pointer-events: none;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      animation: fadeInOut 5s ease forwards;
-    }
-    @keyframes fadeInOut {
-      0% { opacity: 0; transform: translate(-50%, -10px); }
-      15% { opacity: 1; transform: translate(-50%, 0); }
-      85% { opacity: 1; transform: translate(-50%, 0); }
-      100% { opacity: 0; transform: translate(-50%, -10px); }
+      box-shadow: 0 0 16px rgba(244, 63, 94, 0.5);
     }
   </style>
 </head>
 <body>
 
-  <!-- WebGL 3D Canvas Container -->
-  <div id="canvas-container"></div>
+  <!-- WebGL / Canvas Container -->
+  <div id="canvas-container">
+    <canvas id="studio-canvas"></canvas>
+  </div>
 
   <!-- UI Overlay Layer -->
   <div class="ui-layer">
     
     <!-- Header -->
     <div class="header">
-      <div class="title-box interactive">
+      <div class="title-box">
         <div class="badge-row">
           <span class="golden-badge">🎨 Designed by 이해상 (초4 수석 디자이너)</span>
-          <span class="tech-badge">WebGL 3D · PBR Disney Shader</span>
+          <span class="tech-badge">3D Spherical Volume PBR 셰이더</span>
         </div>
         <h1 class="main-title">🏰 아온이 3D 360도 시네마틱 스튜디오</h1>
-        <p class="subtitle">마우스 좌클릭 드래그로 360도 회전 · 휠로 줌인/줌아웃하여 통통한 3D 입체 궁둥이를 확인하세요!</p>
+        <p class="subtitle">마우스 좌클릭 드래그로 360도 회전 · 휠로 줌인하여 짱구 복숭아 궁둥이를 확인하세요!</p>
       </div>
 
-      <div class="top-controls interactive">
-        <button id="btn-turntable" class="glass-btn active" onclick="toggleTurntable()">
+      <div class="top-controls">
+        <button id="btn-turntable" class="glass-btn active" onclick="window.toggleTurntable()">
           <span id="icon-turntable">🔄</span>
-          <span>360° 턴테이블 자동회전: ON</span>
+          <span>360° 턴테이블: ON</span>
         </button>
-        <button class="glass-btn" onclick="toggleLighting()">
+        <button class="glass-btn" onclick="window.toggleLighting()">
           <span>💡</span>
-          <span>조명 모드: <span id="lighting-mode-text">디즈니 시네마틱</span></span>
+          <span>조명: <span id="lighting-mode-text">디즈니 시네마틱</span></span>
         </button>
         <button class="glass-btn" onclick="location.href='index.html'">
           <span>🏛️</span>
@@ -336,14 +321,8 @@
       </div>
     </div>
 
-    <!-- 360도 가이드 힌트 -->
-    <div class="hint-toast">
-      <span>🖱️</span>
-      <span>마우스를 드래그하여 아온이의 앞모습, 옆모습, 통통한 뒷모습 궁둥이를 360도 자유롭게 돌려보세요!</span>
-    </div>
-
-    <!-- Speech Bubble -->
-    <div class="speech-bubble-container interactive">
+    <!-- Speech Bubble (캐릭터 위쪽 안전 구역 배치) -->
+    <div class="speech-bubble-container">
       <div id="aon-speech" class="speech-bubble">
         "해상이 언니/친구가 그려준 스케치가 진짜 3D 디즈니 영화처럼 입체로 살아났어요! 마우스로 나를 돌려봐~ 퐁당! 🫧"
       </div>
@@ -353,54 +332,54 @@
     <div class="bottom-bar">
       
       <!-- 6대 변신 카드 선택 바 -->
-      <div class="morph-cards-bar interactive">
-        <div class="morph-card" onclick="selectMorph('ghost')">
+      <div class="morph-cards-bar">
+        <div id="card-ghost" class="morph-card" onclick="window.selectForm('ghost')">
           <span class="icon">👻</span>
           <span class="name">꼬마 유령</span>
           <span class="desc">진주빛 3D 망토</span>
         </div>
-        <div class="morph-card" onclick="selectMorph('cloud')">
+        <div id="card-cloud" class="morph-card" onclick="window.selectForm('cloud')">
           <span class="icon">☁️</span>
           <span class="name">구름 요정</span>
-          <span class="desc">솜사탕 퍼프 바디</span>
+          <span class="desc">솜사탕 볼륨 바디</span>
         </div>
-        <div class="morph-card" onclick="selectMorph('pumpkin')">
+        <div id="card-pumpkin" class="morph-card" onclick="window.selectForm('pumpkin')">
           <span class="icon">🎃</span>
-          <span class="name">'호박' 탈</span>
+          <span class="name">호박 탈</span>
           <span class="desc">발광 잭오랜턴</span>
         </div>
-        <div class="morph-card active" onclick="selectMorph('orb')">
+        <div id="card-orb" class="morph-card active" onclick="window.selectForm('orb')">
           <span class="icon">🫧</span>
           <span class="name">말랑 구슬</span>
           <span class="desc">엘리멘탈 물방울</span>
         </div>
-        <div class="morph-card" onclick="selectMorph('waterfall_suit')">
+        <div id="card-waterfall_suit" class="morph-card" onclick="window.selectForm('waterfall_suit')">
           <span class="icon">🧑🚀</span>
-          <span class="name">폭포수 우주복</span>
-          <span class="desc">3D 폭포 파티클</span>
+          <span class="name">우주복 아온이</span>
+          <span class="desc">베이맥스 이중후드</span>
         </div>
-        <div class="morph-card" onclick="selectMorph('pouty_booty')">
+        <div id="card-pouty_booty" class="morph-card" onclick="window.selectForm('pouty_booty')">
           <span class="icon">🍑</span>
-          <span class="name">삐진 궁둥이</span>
-          <span class="desc">3D 실룩 궁둥이 춤!</span>
+          <span class="name">짱구 궁둥이</span>
+          <span class="desc">3D 실룩 부리부리춤!</span>
         </div>
       </div>
 
       <!-- 카메라 앵글 퀵 버튼 -->
-      <div class="camera-presets-bar interactive">
-        <button class="cam-btn" onclick="setCameraAngle('front')">
+      <div class="camera-presets-bar">
+        <button class="cam-btn" onclick="window.setCameraView('front')">
           <span>🎬</span><span>정면 뷰</span>
         </button>
-        <button class="cam-btn" onclick="setCameraAngle('side')">
+        <button class="cam-btn" onclick="window.setCameraView('side')">
           <span>📐</span><span>측면 45°</span>
         </button>
-        <button class="cam-btn" onclick="setCameraAngle('top')">
+        <button class="cam-btn" onclick="window.setCameraView('top')">
           <span>🚁</span><span>탑뷰(항공)</span>
         </button>
-        <button class="cam-btn special-booty" onclick="setCameraAngle('booty')">
-          <span>🍑</span><span>치명적 뒷태(궁둥이 클로즈업!)</span>
+        <button class="cam-btn special-booty" onclick="window.setCameraView('booty')">
+          <span>🍑</span><span>치명적 뒷태(짱구 궁둥이 클로즈업!)</span>
         </button>
-        <button class="cam-btn" onclick="triggerPokeAction()">
+        <button class="cam-btn" onclick="window.pokeCharacter()">
           <span>✨</span><span>아온이 콕 찌르기(점프 반응!)</span>
         </button>
       </div>
@@ -409,941 +388,612 @@
 
   </div>
 
-  <!-- Three.js 3D Disney Cinematic Studio Script -->
+  <!-- 순수 HTML5 3D 입체 셰이딩 & 물리 렌더링 스크립트 (외부 의존성 ZERO!) -->
   <script>
     // =========================================================================
-    // 1. Scene, Camera, Renderer, OrbitControls 설정
+    // 전역 상태 및 window 바인딩 (즉각 반응 보장)
     // =========================================================================
-    const container = document.getElementById('canvas-container');
-    const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x0f172a, 0.08);
+    var currentForm = 'orb';
+    var autoRotate = true;
+    var rotY = 0;
+    var rotX = 0;
+    var zoom = 1.0;
+    var isDragging = false;
+    var lastMouseX = 0;
+    var lastMouseY = 0;
+    var pokeAnim = 0;
+    var lightingMode = 0; // 0: 디즈니, 1: 보라밤, 2: 골든아침
 
-    const camera = new THREE.PerspectiveCamera(42, window.innerWidth / window.innerHeight, 0.1, 100);
-    camera.position.set(0, 1.1, 3.8);
-
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.shadowMap.enabled = true;
-    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-    renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.15;
-    container.appendChild(renderer.domElement);
-
-    const controls = new THREE.OrbitControls(camera, renderer.domElement);
-    controls.enableDamping = true;
-    controls.dampingFactor = 0.06;
-    controls.minDistance = 1.6;
-    controls.maxDistance = 6.5;
-    controls.maxPolarAngle = Math.PI / 2 + 0.05; // 바닥 아래로 안 내려감
-    controls.target.set(0, 0.6, 0);
-
-    let autoRotate = true;
-    controls.autoRotate = true;
-    controls.autoRotateSpeed = 1.8;
-
-    // =========================================================================
-    // 2. 디즈니 3점 스튜디오 조명 & 원형 쇼케이스 무대
-    // =========================================================================
-    const ambientLight = new THREE.AmbientLight(0x38bdf8, 0.85);
-    scene.add(ambientLight);
-
-    const keyLight = new THREE.DirectionalLight(0xfffbeb, 2.2);
-    keyLight.position.set(3, 5, 4);
-    keyLight.castShadow = true;
-    keyLight.shadow.mapSize.width = 2048;
-    keyLight.shadow.mapSize.height = 2048;
-    keyLight.shadow.bias = -0.0005;
-    scene.add(keyLight);
-
-    const rimLight1 = new THREE.PointLight(0x38bdf8, 2.8, 12);
-    rimLight1.position.set(-3.5, 3, -3);
-    scene.add(rimLight1);
-
-    const rimLight2 = new THREE.PointLight(0xf43f5e, 2.2, 12);
-    rimLight2.position.set(3.5, 2.2, -3);
-    scene.add(rimLight2);
-
-    const underGlow = new THREE.PointLight(0x60a5fa, 1.8, 6);
-    underGlow.position.set(0, 0.1, 0);
-    scene.add(underGlow);
-
-    // 원형 유리 단상 (Showcase Pedestal)
-    const pedestalGroup = new THREE.Group();
-    const pedestalGeo = new THREE.CylinderGeometry(1.3, 1.45, 0.22, 64);
-    const pedestalMat = new THREE.MeshPhysicalMaterial({
-      color: 0x0f172a,
-      metalness: 0.2,
-      roughness: 0.15,
-      transmission: 0.7,
-      thickness: 0.6,
-      clearcoat: 1.0,
-      clearcoatRoughness: 0.1
-    });
-    const pedestal = new THREE.Mesh(pedestalGeo, pedestalMat);
-    pedestal.position.y = 0.11;
-    pedestal.receiveShadow = true;
-    pedestalGroup.add(pedestal);
-
-    // 골드 & 시안 네온 링
-    const ringGeo1 = new THREE.TorusGeometry(1.32, 0.02, 16, 100);
-    const ringMat1 = new THREE.MeshBasicMaterial({ color: 0xf59e0b });
-    const ring1 = new THREE.Mesh(ringGeo1, ringMat1);
-    ring1.rotation.x = Math.PI / 2;
-    ring1.position.y = 0.22;
-    pedestalGroup.add(ring1);
-
-    const ringGeo2 = new THREE.TorusGeometry(1.46, 0.015, 16, 100);
-    const ringMat2 = new THREE.MeshBasicMaterial({ color: 0x38bdf8 });
-    const ring2 = new THREE.Mesh(ringGeo2, ringMat2);
-    ring2.rotation.x = Math.PI / 2;
-    ring2.position.y = 0.02;
-    pedestalGroup.add(ring2);
-
-    // 그림자 수신용 바닥
-    const floorGeo = new THREE.PlaneGeometry(16, 16);
-    const floorMat = new THREE.ShadowMaterial({ opacity: 0.45 });
-    const floor = new THREE.Mesh(floorGeo, floorMat);
-    floor.rotation.x = -Math.PI / 2;
-    floor.position.y = 0;
-    floor.receiveShadow = true;
-    pedestalGroup.add(floor);
-
-    scene.add(pedestalGroup);
-
-    // 배경 반짝이는 별빛 파티클
-    const starCount = 200;
-    const starGeo = new THREE.BufferGeometry();
-    const starPos = new Float32Array(starCount * 3);
-    for (let i = 0; i < starCount * 3; i += 3) {
-      starPos[i] = (Math.random() - 0.5) * 14;
-      starPos[i + 1] = Math.random() * 8;
-      starPos[i + 2] = (Math.random() - 0.5) * 14;
-    }
-    starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
-    const starMat = new THREE.PointsMaterial({
-      color: 0x7dd3fc,
-      size: 0.06,
-      transparent: true,
-      opacity: 0.75,
-      blending: THREE.AdditiveBlending
-    });
-    const starField = new THREE.Points(starGeo, starMat);
-    scene.add(starField);
-
-    // =========================================================================
-    // 3. 해상이의 6대 변신 폼 디즈니·픽사 3D 하이폴리곤 모델 빌더
-    // =========================================================================
-    const characterRoot = new THREE.Group();
-    characterRoot.position.y = 0.35;
-    scene.add(characterRoot);
-
-    let activeMeshGroup = null;
-    let currentMorphId = 'orb';
-
-    // PBR 디즈니 재질 팔레트
-    const materials = {
-      skinPearl: new THREE.MeshPhysicalMaterial({
-        color: 0xffffff,
-        roughness: 0.25,
-        metalness: 0.05,
-        clearcoat: 0.8,
-        clearcoatRoughness: 0.15,
-        sheen: 0.6,
-        sheenColor: 0xe0f2fe
-      }),
-      waterElemental: new THREE.MeshPhysicalMaterial({
-        color: 0x38bdf8,
-        roughness: 0.08,
-        metalness: 0.02,
-        transmission: 0.65,
-        ior: 1.33,
-        thickness: 0.9,
-        clearcoat: 1.0,
-        clearcoatRoughness: 0.05,
-        attenuationColor: 0x0284c7,
-        attenuationDistance: 0.8
-      }),
-      cloudPuff: new THREE.MeshStandardMaterial({
-        color: 0xffffff,
-        roughness: 0.7,
-        metalness: 0.0
-      }),
-      pumpkinOrange: new THREE.MeshStandardMaterial({
-        color: 0xf97316,
-        roughness: 0.35,
-        metalness: 0.05
-      }),
-      pumpkinStem: new THREE.MeshStandardMaterial({
-        color: 0x15803d,
-        roughness: 0.5
-      }),
-      eyeGloss: new THREE.MeshStandardMaterial({
-        color: 0x0f172a,
-        roughness: 0.1,
-        metalness: 0.2
-      }),
-      blushPink: new THREE.MeshBasicMaterial({
-        color: 0xf43f5e
-      }),
-      glassHelmet: new THREE.MeshPhysicalMaterial({
-        color: 0xffffff,
-        roughness: 0.05,
-        transmission: 0.92,
-        ior: 1.5,
-        thickness: 0.5,
-        clearcoat: 1.0
-      }),
-      suitWhite: new THREE.MeshStandardMaterial({
-        color: 0xf8fafc,
-        roughness: 0.3,
-        metalness: 0.1
-      })
+    var MORPH_TEXTS = {
+      ghost: "퐁당! 꼬마 유령 아온이에요~ 진주빛 3D 망토를 펄럭이며 대표님을 지켜드릴게요! 👻✨",
+      cloud: "몽글몽글 구름 요정 아온이에요! 솜사탕처럼 폭신하고 말랑한 구름 몸통이에요~ ☁️💕",
+      pumpkin: "호박 탈 쓴 장난꾸러기 아온이 등장! 노란 불빛 세모 눈과 네모 치아가 활짝 웃어요! 🎃🌟",
+      orb: "말랑말랑 순수 코어 3D 물방울 구슬이에요! 영롱한 아쿠아 크리스탈로 맑게 정화해드릴게요 🫧💎",
+      waterfall_suit: "폭신한 이중 후드 헬멧의 우주복 아온이 장착 완료! 베이맥스처럼 든든하게 수호합니다! 🧑🚀🤍",
+      pouty_booty: "흥! 아온이 삐졌어! 짱구 복숭아 궁둥이 실룩실룩 부리부리 춤~ 쓰다듬어 주면 돌아볼 거지롱! 🍑💃"
     };
 
-    // [공통 3D 디테일] 해상이 실사 스케치 100% 매칭: 볼록하고 통통한 입체 엉덩이(🍑 3D Booty)
-    function attach3DBooty(parentGroup, material = materials.skinPearl, scale = 1.0) {
-      const bootyGroup = new THREE.Group();
-      bootyGroup.name = "aon-3d-booty";
-
-      // 왼쪽 볼록 궁둥이 볼륨 구체
-      const leftCheek = new THREE.Mesh(new THREE.SphereGeometry(0.24 * scale, 32, 32), material);
-      leftCheek.position.set(-0.13 * scale, 0.12 * scale, -0.25 * scale);
-      leftCheek.scale.set(1.0, 1.1, 1.05);
-      leftCheek.castShadow = true;
-      bootyGroup.add(leftCheek);
-
-      // 오른쪽 볼록 궁둥이 볼륨 구체
-      const rightCheek = new THREE.Mesh(new THREE.SphereGeometry(0.24 * scale, 32, 32), material);
-      rightCheek.position.set(0.13 * scale, 0.12 * scale, -0.25 * scale);
-      rightCheek.scale.set(1.0, 1.1, 1.05);
-      rightCheek.castShadow = true;
-      bootyGroup.add(rightCheek);
-
-      // 엉덩이 사이 중심 골 곡선 (Torus)
-      const creaseGeo = new THREE.TorusGeometry(0.14 * scale, 0.018 * scale, 16, 32, Math.PI);
-      const creaseMat = new THREE.MeshBasicMaterial({ color: 0x0f172a });
-      const crease = new THREE.Mesh(creaseGeo, creaseMat);
-      crease.rotation.x = Math.PI / 2;
-      crease.position.set(0, 0.13 * scale, -0.32 * scale);
-      bootyGroup.add(crease);
-
-      parentGroup.add(bootyGroup);
-      return bootyGroup;
-    }
-
-    // 눈 만들기 헬퍼 (반짝이는 안광 하이라이트 구슬 포함)
-    function create3DEyes(width = 0.07, height = 0.18, separation = 0.28, zPos = 0.42, yPos = 0.55) {
-      const eyesGroup = new THREE.Group();
-
-      const eyeGeo = new THREE.CapsuleGeometry ? new THREE.CapsuleGeometry(width, height, 16, 16) : new THREE.CylinderGeometry(width, width, height, 16);
-      
-      const leftEye = new THREE.Mesh(eyeGeo, materials.eyeGloss);
-      leftEye.position.set(-separation / 2, yPos, zPos);
-      leftEye.rotation.x = 0.1;
-      eyesGroup.add(leftEye);
-
-      const rightEye = new THREE.Mesh(eyeGeo, materials.eyeGloss);
-      rightEye.position.set(separation / 2, yPos, zPos);
-      rightEye.rotation.x = 0.1;
-      eyesGroup.add(rightEye);
-
-      // 안광 하이라이트 흰색 3D 구슬
-      const hlGeo = new THREE.SphereGeometry(width * 0.45, 12, 12);
-      const hlMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
-      const leftHl = new THREE.Mesh(hlGeo, hlMat);
-      leftHl.position.set(-separation / 2 + 0.02, yPos + 0.04, zPos + width * 0.8);
-      eyesGroup.add(leftHl);
-
-      const rightHl = new THREE.Mesh(hlGeo, hlMat);
-      rightHl.position.set(separation / 2 + 0.02, yPos + 0.04, zPos + width * 0.8);
-      eyesGroup.add(rightHl);
-
-      return eyesGroup;
-    }
-
-    // 볼 홍조 빗금 만들기 (실사 해상이 스케치 빗금 //   //)
-    function create3DBlushLines(count = 2, separation = 0.55, yPos = 0.45, zPos = 0.4) {
-      const blushGroup = new THREE.Group();
-      const lineGeo = new THREE.CylinderGeometry(0.012, 0.012, 0.1, 8);
-
-      for (let side of [-1, 1]) {
-        for (let i = 0; i < count; i++) {
-          const line = new THREE.Mesh(lineGeo, materials.blushPink);
-          line.position.set(side * (separation / 2 + i * 0.045), yPos, zPos);
-          line.rotation.z = side * 0.45;
-          line.rotation.x = 0.2;
-          blushGroup.add(line);
-        }
-      }
-      return blushGroup;
-    }
-
-    // =========================================================================
-    // 3-1. 👻 제1변신: 꼬마 유령 망토 (3D Ghost)
-    // =========================================================================
-    function buildGhost() {
-      const group = new THREE.Group();
-      group.name = "ghost";
-
-      // 돔형 머리와 A라인으로 물결치는 망토 본체
-      const mantleGeo = new THREE.CylinderGeometry(0.42, 0.72, 1.05, 48, 16, true);
-      const mantle = new THREE.Mesh(mantleGeo, materials.skinPearl);
-      mantle.position.y = 0.52;
-      mantle.castShadow = true;
-      group.add(mantle);
-
-      // 머리 돔 구체
-      const headGeo = new THREE.SphereGeometry(0.42, 32, 24, 0, Math.PI * 2, 0, Math.PI / 2);
-      const head = new THREE.Mesh(headGeo, materials.skinPearl);
-      head.position.y = 1.04;
-      head.castShadow = true;
-      group.add(head);
-
-      // 앞면 세로 주름 2줄 (실사 스케치 매칭)
-      for (let side of [-0.16, 0.16]) {
-        const foldCurve = new THREE.QuadraticBezierCurve3(
-          new THREE.Vector3(side, 0.9, 0.4),
-          new THREE.Vector3(side * 1.2, 0.45, 0.52),
-          new THREE.Vector3(side * 1.5, 0.05, 0.68)
-        );
-        const foldGeo = new THREE.TubeGeometry(foldCurve, 20, 0.02, 8, false);
-        const fold = new THREE.Mesh(foldGeo, materials.skinPearl);
-        group.add(fold);
-      }
-
-      // 눈과 볼 홍조
-      group.add(create3DEyes(0.055, 0.16, 0.24, 0.42, 0.78));
-      group.add(create3DBlushLines(2, 0.48, 0.7, 0.4));
-
-      // 세모 입
-      const mouthGeo = new THREE.ConeGeometry(0.035, 0.04, 3);
-      const mouth = new THREE.Mesh(mouthGeo, materials.eyeGloss);
-      mouth.position.set(0, 0.71, 0.43);
-      mouth.rotation.x = Math.PI;
-      group.add(mouth);
-
-      // 뒷태: 볼록한 3D 입체 궁둥이 장착
-      attach3DBooty(group, materials.skinPearl, 0.95);
-
-      return group;
-    }
-
-    // =========================================================================
-    // 3-2. ☁️ 제2변신: 몽글몽글 구름 요정 (3D Cloud)
-    // =========================================================================
-    function buildCloud() {
-      const group = new THREE.Group();
-      group.name = "cloud";
-
-      // 28개의 크고 작은 구름 구체 덩어리 결합 (Puff Spheres)
-      const cloudPuffs = new THREE.Group();
-      const puffConfigs = [
-        { x: 0, y: 0.6, z: 0, r: 0.48 },
-        { x: -0.32, y: 0.65, z: 0.1, r: 0.35 },
-        { x: 0.32, y: 0.65, z: 0.1, r: 0.35 },
-        { x: 0, y: 0.88, z: 0, r: 0.36 },
-        { x: -0.22, y: 0.85, z: -0.1, r: 0.3 },
-        { x: 0.22, y: 0.85, z: -0.1, r: 0.3 },
-        { x: -0.4, y: 0.48, z: 0, r: 0.32 },
-        { x: 0.4, y: 0.48, z: 0, r: 0.32 },
-        { x: -0.2, y: 0.35, z: 0.15, r: 0.3 },
-        { x: 0.2, y: 0.35, z: 0.15, r: 0.3 },
-        { x: 0, y: 0.35, z: -0.2, r: 0.34 },
-        { x: -0.25, y: 0.6, z: -0.25, r: 0.32 },
-        { x: 0.25, y: 0.6, z: -0.25, r: 0.32 },
-        { x: 0, y: 0.6, z: 0.32, r: 0.33 }
-      ];
-
-      puffConfigs.forEach(cfg => {
-        const pGeo = new THREE.SphereGeometry(cfg.r, 24, 24);
-        const pMesh = new THREE.Mesh(pGeo, materials.cloudPuff);
-        pMesh.position.set(cfg.x, cfg.y, cfg.z);
-        pMesh.castShadow = true;
-        cloudPuffs.add(pMesh);
+    window.selectForm = function(formId) {
+      currentForm = formId;
+      document.querySelectorAll('.morph-card').forEach(function(card) {
+        card.classList.toggle('active', card.id === 'card-' + formId);
       });
-      group.add(cloudPuffs);
+      var sp = document.getElementById('aon-speech');
+      if (sp) sp.innerText = '"' + (MORPH_TEXTS[formId] || MORPH_TEXTS.orb) + '"';
 
-      // 눈과 미소 입
-      group.add(create3DEyes(0.045, 0.12, 0.25, 0.48, 0.62));
-      const smileGeo = new THREE.TorusGeometry(0.06, 0.015, 12, 24, Math.PI);
-      const smile = new THREE.Mesh(smileGeo, materials.eyeGloss);
-      smile.rotation.x = Math.PI;
-      smile.position.set(0, 0.52, 0.49);
-      group.add(smile);
-
-      // 실사 스케치 매칭: 양옆 점선 막대 팔
-      for (let side of [-1, 1]) {
-        for (let i = 0; i < 2; i++) {
-          const armSegment = new THREE.Mesh(new THREE.CylinderGeometry(0.022, 0.022, 0.09, 8), materials.eyeGloss);
-          armSegment.position.set(side * (0.55 + i * 0.13), 0.58 - i * 0.03, 0);
-          armSegment.rotation.z = side * 1.3;
-          group.add(armSegment);
-        }
-      }
-
-      // 실사 스케치 매칭: 아래 L자형 꺾인 막대 다리
-      for (let side of [-0.18, 0.18]) {
-        const legGroup = new THREE.Group();
-        const legBar = new THREE.Mesh(new THREE.CylinderGeometry(0.022, 0.022, 0.18, 8), materials.eyeGloss);
-        legBar.position.y = 0.09;
-        legGroup.add(legBar);
-
-        const footBar = new THREE.Mesh(new THREE.CylinderGeometry(0.022, 0.022, 0.12, 8), materials.eyeGloss);
-        footBar.rotation.z = Math.PI / 2;
-        footBar.position.set(side > 0 ? 0.05 : -0.05, 0.01, 0);
-        legGroup.add(footBar);
-
-        legGroup.position.set(side, 0.1, 0);
-        group.add(legGroup);
-      }
-
-      // 뒷태: 볼록한 3D 입체 궁둥이 장착
-      attach3DBooty(group, materials.cloudPuff, 0.9);
-
-      return group;
-    }
-
-    // =========================================================================
-    // 3-3. 🎃 제3변신: '호박' 탈 장난꾸러기 (3D Pumpkin)
-    // =========================================================================
-    function buildPumpkin() {
-      const group = new THREE.Group();
-      group.name = "pumpkin";
-
-      // 12개 골(Ribs)로 둘러싸인 주황색 호박 헤드
-      const pumpkinHead = new THREE.Group();
-      const ribCount = 12;
-      for (let i = 0; i < ribCount; i++) {
-        const angle = (i / ribCount) * Math.PI * 2;
-        const ribGeo = new THREE.SphereGeometry(0.24, 24, 24);
-        const rib = new THREE.Mesh(ribGeo, materials.pumpkinOrange);
-        rib.scale.set(0.7, 1.25, 1.4);
-        rib.position.set(Math.cos(angle) * 0.32, 0.75, Math.sin(angle) * 0.32);
-        rib.rotation.y = -angle;
-        rib.castShadow = true;
-        pumpkinHead.add(rib);
-      }
-      group.add(pumpkinHead);
-
-      // 호박 꼭지 줄기
-      const stemCurve = new THREE.QuadraticBezierCurve3(
-        new THREE.Vector3(0, 1.05, 0),
-        new THREE.Vector3(0.06, 1.25, 0.03),
-        new THREE.Vector3(0.14, 1.32, 0.08)
-      );
-      const stemGeo = new THREE.TubeGeometry(stemCurve, 16, 0.045, 10, false);
-      const stem = new THREE.Mesh(stemGeo, materials.pumpkinStem);
-      stem.castShadow = true;
-      group.add(stem);
-
-      // 머리 위 3D 홀로그램 "호박" 간판
-      const titleBoardGeo = new THREE.BoxGeometry(0.55, 0.16, 0.03);
-      const titleBoardMat = new THREE.MeshStandardMaterial({ color: 0xf59e0b, roughness: 0.3 });
-      const titleBoard = new THREE.Mesh(titleBoardGeo, titleBoardMat);
-      titleBoard.position.set(0, 1.45, 0);
-      group.add(titleBoard);
-
-      // 호박 내부 발광 램프 (Jack-O-Lantern Light)
-      const pumpkinLight = new THREE.PointLight(0xfeb272, 3.5, 4);
-      pumpkinLight.position.set(0, 0.75, 0.2);
-      group.add(pumpkinLight);
-
-      // 반원 눈 2개
-      for (let side of [-0.17, 0.17]) {
-        const pEyeGeo = new THREE.CylinderGeometry(0.08, 0.08, 0.05, 16, 1, false, 0, Math.PI);
-        const pEye = new THREE.Mesh(pEyeGeo, materials.eyeGloss);
-        pEye.rotation.x = Math.PI / 2;
-        pEye.position.set(side, 0.82, 0.48);
-        group.add(pEye);
-      }
-
-      // 양 볼의 지그재그 Z 무늬 (실사 스케치 매칭)
-      for (let side of [-0.38, 0.38]) {
-        const zGroup = new THREE.Group();
-        const segGeo = new THREE.BoxGeometry(0.08, 0.018, 0.02);
-        const seg1 = new THREE.Mesh(segGeo, materials.eyeGloss);
-        const seg2 = new THREE.Mesh(segGeo, materials.eyeGloss);
-        seg2.rotation.z = -0.7;
-        seg2.position.set(0, -0.04, 0);
-        const seg3 = new THREE.Mesh(segGeo, materials.eyeGloss);
-        seg3.position.set(0, -0.08, 0);
-        zGroup.add(seg1, seg2, seg3);
-        zGroup.position.set(side, 0.7, 0.44);
-        group.add(zGroup);
-      }
-
-      // 잭오랜턴 큰 입 + 치아들
-      const mouthGeo = new THREE.BoxGeometry(0.38, 0.14, 0.06);
-      const mouth = new THREE.Mesh(mouthGeo, materials.eyeGloss);
-      mouth.position.set(0, 0.62, 0.46);
-      group.add(mouth);
-
-      // 치아 블록 4개
-      const toothGeo = new THREE.BoxGeometry(0.05, 0.04, 0.07);
-      const toothMat = new THREE.MeshStandardMaterial({ color: 0xffffff });
-      const t1 = new THREE.Mesh(toothGeo, toothMat); t1.position.set(-0.1, 0.66, 0.47); group.add(t1);
-      const t2 = new THREE.Mesh(toothGeo, toothMat); t2.position.set(0.1, 0.66, 0.47); group.add(t2);
-      const t3 = new THREE.Mesh(toothGeo, toothMat); t3.position.set(-0.04, 0.58, 0.47); group.add(t3);
-      const t4 = new THREE.Mesh(toothGeo, toothMat); t4.position.set(0.06, 0.58, 0.47); group.add(t4);
-
-      // 아래 2단 몸통 + 단추 2개 + 팔다리
-      const body1 = new THREE.Mesh(new THREE.BoxGeometry(0.38, 0.16, 0.28), materials.suitWhite);
-      body1.position.set(0, 0.36, 0);
-      group.add(body1);
-
-      const body2 = new THREE.Mesh(new THREE.BoxGeometry(0.34, 0.16, 0.26), materials.suitWhite);
-      body2.position.set(0, 0.2, 0);
-      group.add(body2);
-
-      const btnGeo = new THREE.SphereGeometry(0.025, 12, 12);
-      const b1 = new THREE.Mesh(btnGeo, materials.eyeGloss); b1.position.set(0, 0.36, 0.15); group.add(b1);
-      const b2 = new THREE.Mesh(btnGeo, materials.eyeGloss); b2.position.set(0, 0.2, 0.14); group.add(b2);
-
-      // 벌린 팔과 다리
-      for (let side of [-1, 1]) {
-        const arm = new THREE.Mesh(new THREE.CylinderGeometry(0.028, 0.028, 0.22, 12), materials.eyeGloss);
-        arm.position.set(side * 0.28, 0.35, 0.05);
-        arm.rotation.z = side * 1.1;
-        group.add(arm);
-
-        const leg = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.03, 0.18, 12), materials.eyeGloss);
-        leg.position.set(side * 0.11, 0.08, 0);
-        group.add(leg);
-      }
-
-      // 뒷태: 볼록한 3D 입체 궁둥이 장착
-      attach3DBooty(group, materials.suitWhite, 0.9);
-
-      return group;
-    }
-
-    // =========================================================================
-    // 3-4. 🫧 제4변신: 말랑 물방울 구슬 (3D Elemental Orb)
-    // =========================================================================
-    function buildOrb() {
-      const group = new THREE.Group();
-      group.name = "orb";
-
-      // 픽사 <엘리멘탈> 웨이드 스타일: 영롱한 투과·굴절 물방울 바디
-      const bodyGeo = new THREE.SphereGeometry(0.55, 48, 48);
-      const orbBody = new THREE.Mesh(bodyGeo, materials.waterElemental);
-      orbBody.position.y = 0.58;
-      orbBody.castShadow = true;
-      group.add(orbBody);
-
-      // 내부에서 신비롭게 빛나는 코어 구체
-      const coreGeo = new THREE.SphereGeometry(0.24, 24, 24);
-      const coreMat = new THREE.MeshBasicMaterial({ color: 0xbae6fd });
-      const core = new THREE.Mesh(coreGeo, coreMat);
-      core.position.y = 0.58;
-      group.add(core);
-
-      // 큼직하고 촉촉한 3D 캡슐 눈 2개
-      group.add(create3DEyes(0.075, 0.25, 0.32, 0.52, 0.62));
-      group.add(create3DBlushLines(2, 0.65, 0.48, 0.48));
-
-      // 앙증맞은 입선
-      const mouthGeo = new THREE.TorusGeometry(0.05, 0.015, 12, 24, Math.PI);
-      const mouth = new THREE.Mesh(mouthGeo, materials.eyeGloss);
-      mouth.rotation.x = Math.PI;
-      mouth.position.set(0, 0.48, 0.54);
-      group.add(mouth);
-
-      // 뒷태: 볼록하고 말랑한 3D 입체 궁둥이 장착
-      attach3DBooty(group, materials.waterElemental, 1.05);
-
-      return group;
-    }
-
-    // =========================================================================
-    // 3-5. 🧑🚀 제5변신: 우주복 후드 & 3D 폭포수 파티클 (3D Waterfall Suit)
-    // =========================================================================
-    let waterfallParticles = null;
-
-    function buildWaterfallSuit() {
-      const group = new THREE.Group();
-      group.name = "waterfall_suit";
-
-      // 통통한 화이트 우주복 몸체 (진저쿠키형)
-      const bodyGeo = new THREE.SphereGeometry(0.52, 32, 32);
-      bodyGeo.scale(1.0, 1.15, 0.9);
-      const body = new THREE.Mesh(bodyGeo, materials.suitWhite);
-      body.position.y = 0.55;
-      body.castShadow = true;
-      group.add(body);
-
-      // 통통한 양팔과 양다리
-      for (let side of [-1, 1]) {
-        const arm = new THREE.Mesh(new THREE.CapsuleGeometry ? new THREE.CapsuleGeometry(0.12, 0.26, 16, 16) : new THREE.CylinderGeometry(0.12, 0.12, 0.26, 16), materials.suitWhite);
-        arm.position.set(side * 0.52, 0.56, 0);
-        arm.rotation.z = side * 1.1;
-        arm.castShadow = true;
-        group.add(arm);
-
-        const leg = new THREE.Mesh(new THREE.CapsuleGeometry ? new THREE.CapsuleGeometry(0.13, 0.28, 16, 16) : new THREE.CylinderGeometry(0.13, 0.13, 0.28, 16), materials.suitWhite);
-        leg.position.set(side * 0.24, 0.15, 0);
-        leg.castShadow = true;
-        group.add(leg);
-      }
-
-      // 우주복 후드 헬멧 (투명 유리 돔)
-      const helmetGeo = new THREE.SphereGeometry(0.48, 36, 36);
-      const helmet = new THREE.Mesh(helmetGeo, materials.glassHelmet);
-      helmet.position.set(0, 0.95, 0.08);
-      group.add(helmet);
-
-      // 헬멧 안쪽 아온이 얼굴
-      const innerFaceGeo = new THREE.SphereGeometry(0.38, 32, 32);
-      const innerFace = new THREE.Mesh(innerFaceGeo, materials.skinPearl);
-      innerFace.position.set(0, 0.95, 0.06);
-      group.add(innerFace);
-
-      // 헬멧 안 눈, 미소, 세로 빗금 3개씩 홍조 (실사 스케치 매칭)
-      group.add(create3DEyes(0.045, 0.12, 0.22, 0.42, 0.98));
-      group.add(create3DBlushLines(3, 0.44, 0.92, 0.4));
-
-      const smileGeo = new THREE.TorusGeometry(0.05, 0.012, 12, 24, Math.PI);
-      const smile = new THREE.Mesh(smileGeo, materials.eyeGloss);
-      smile.rotation.x = Math.PI;
-      smile.position.set(0, 0.88, 0.43);
-      group.add(smile);
-
-      // 실시간 3D 폭포수 쏟아지는 파티클 시스템 (수백 개)
-      const pCount = 350;
-      const pGeo = new THREE.BufferGeometry();
-      const pPos = new Float32Array(pCount * 3);
-      const pVel = new Float32Array(pCount);
-
-      for (let i = 0; i < pCount; i++) {
-        const side = (i % 2 === 0) ? -1 : 1;
-        pPos[i * 3] = side * (0.35 + Math.random() * 0.35); // 양옆으로 쏟아짐
-        pPos[i * 3 + 1] = 0.1 + Math.random() * 1.5;         // 높이
-        pPos[i * 3 + 2] = (Math.random() - 0.5) * 0.4;
-        pVel[i] = 0.03 + Math.random() * 0.04;
-      }
-      pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
-      pGeo.userData.velocities = pVel;
-
-      const pMat = new THREE.PointsMaterial({
-        color: 0x38bdf8,
-        size: 0.045,
-        transparent: true,
-        opacity: 0.85,
-        blending: THREE.AdditiveBlending
-      });
-      waterfallParticles = new THREE.Points(pGeo, pMat);
-      group.add(waterfallParticles);
-
-      // 반투명 폭포수 물줄기 리본 곡면 메쉬
-      for (let side of [-1, 1]) {
-        const ribbonCurve = new THREE.QuadraticBezierCurve3(
-          new THREE.Vector3(side * 0.25, 1.35, 0),
-          new THREE.Vector3(side * 0.65, 0.7, 0.1),
-          new THREE.Vector3(side * 0.75, 0.0, 0)
-        );
-        const ribbonGeo = new THREE.TubeGeometry(ribbonCurve, 32, 0.05, 8, false);
-        const ribbon = new THREE.Mesh(ribbonGeo, materials.waterElemental);
-        group.add(ribbon);
-      }
-
-      // 뒷태: 통통한 3D 우주복 궁둥이 장착
-      attach3DBooty(group, materials.suitWhite, 1.0);
-
-      return group;
-    }
-
-    // =========================================================================
-    // 3-6. 🍑 제6변신: 삐진 뒷모습 통통 궁둥이 (3D Pouty Booty — 하이라이트!)
-    // =========================================================================
-    let bootyWiggleGroup = null;
-
-    function buildPoutyBooty() {
-      const group = new THREE.Group();
-      group.name = "pouty_booty";
-
-      // 완벽한 뒷모습 일체형 바디 (머리 + 등 + 쩍 벌린 다리)
-      bootyWiggleGroup = new THREE.Group();
-
-      const backHeadGeo = new THREE.SphereGeometry(0.48, 36, 36);
-      const backHead = new THREE.Mesh(backHeadGeo, materials.skinPearl);
-      backHead.position.set(0, 0.85, 0);
-      backHead.castShadow = true;
-      bootyWiggleGroup.add(backHead);
-
-      const torsoGeo = new THREE.CylinderGeometry(0.42, 0.48, 0.5, 32);
-      const torso = new THREE.Mesh(torsoGeo, materials.skinPearl);
-      torso.position.set(0, 0.48, 0);
-      torso.castShadow = true;
-      bootyWiggleGroup.add(torso);
-
-      // 양옆으로 벌린 삐진 팔
-      for (let side of [-1, 1]) {
-        const arm = new THREE.Mesh(new THREE.CapsuleGeometry ? new THREE.CapsuleGeometry(0.09, 0.28, 16, 16) : new THREE.CylinderGeometry(0.09, 0.09, 0.28, 16), materials.skinPearl);
-        arm.position.set(side * 0.48, 0.6, 0.05);
-        arm.rotation.z = side * 1.35;
-        arm.rotation.x = -0.2;
-        bootyWiggleGroup.add(arm);
-      }
-
-      // 양옆으로 쩍 벌린 삐진 다리 (실사 스케치 매칭)
-      for (let side of [-0.26, 0.26]) {
-        const leg = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.14, 0.4, 20), materials.skinPearl);
-        leg.position.set(side, 0.18, 0);
-        leg.rotation.z = (side > 0 ? -0.25 : 0.25);
-        leg.castShadow = true;
-        bootyWiggleGroup.add(leg);
-      }
-
-      // [★ 하이라이트 3D 실사 궁둥이]: 큼직하고 볼록한 엉덩이 볼륨 구체 2개 + 엉덩이 골
-      const megaBooty = attach3DBooty(bootyWiggleGroup, materials.skinPearl, 1.4);
-      megaBooty.position.set(0, 0.18, 0.02);
-
-      // 머리 위에 삐져서 뿜어 나오는 귀여운 김(Steam) & 하트 파티클
-      for (let i = 0; i < 3; i++) {
-        const steam = new THREE.Mesh(new THREE.SphereGeometry(0.05 + i * 0.025, 12, 12), new THREE.MeshBasicMaterial({ color: 0xf43f5e, transparent: true, opacity: 0.65 }));
-        steam.position.set(0.18 + i * 0.06, 1.35 + i * 0.12, 0);
-        bootyWiggleGroup.add(steam);
-      }
-
-      group.add(bootyWiggleGroup);
-      return group;
-    }
-
-    // =========================================================================
-    // 4. 변신 전환 엔진 & 대사/오디오 피드백
-    // =========================================================================
-    const MORPH_DIALOGUES = {
-      ghost: "퐁당! 꼬마 유령 아온이에요~ 3D 진주빛 망토를 펄럭이며 둥실둥실 지켜드릴게요! 👻✨",
-      cloud: "몽글몽글 구름 요정 아온이에요! 28개의 3D 구름 방울이 폭신폭신해요~ ☁️💕",
-      pumpkin: "호박 탈 쓴 장난꾸러기 아온이 등장! 3D 잭오랜턴 조명이 환하게 빛나요! 🎃🌟",
-      orb: "말랑말랑 순수 코어 3D 물방울 구슬이에요! 스트레스를 맑게 씻어드릴게요 🫧💎",
-      waterfall_suit: "시원한 3D 폭포수 우주복 장착 완료! 350개의 영롱한 물방울 파티클로 사령부를 수호합니다! 🧑🚀🌊",
-      pouty_booty: "흥! 아온이 삐졌어! 통통 궁둥이 실룩실룩~ 쓰다듬어 주면 앞모습 보여줄 거야~ 퐁당! 🍑💃"
-    };
-
-    function selectMorph(formId) {
-      if (activeMeshGroup) {
-        characterRoot.remove(activeMeshGroup);
-        activeMeshGroup = null;
-      }
-      currentMorphId = formId;
-
-      switch(formId) {
-        case 'ghost': activeMeshGroup = buildGhost(); break;
-        case 'cloud': activeMeshGroup = buildCloud(); break;
-        case 'pumpkin': activeMeshGroup = buildPumpkin(); break;
-        case 'orb': activeMeshGroup = buildOrb(); break;
-        case 'waterfall_suit': activeMeshGroup = buildWaterfallSuit(); break;
-        case 'pouty_booty': activeMeshGroup = buildPoutyBooty(); break;
-        default: activeMeshGroup = buildOrb();
-      }
-
-      characterRoot.add(activeMeshGroup);
-
-      // UI 카드 액티브 갱신
-      document.querySelectorAll('.morph-card').forEach(card => {
-        card.classList.toggle('active', card.getAttribute('onclick').includes(formId));
-      });
-
-      // 대사 출력
-      const speech = document.getElementById('aon-speech');
-      const text = MORPH_DIALOGUES[formId] || MORPH_DIALOGUES.orb;
-      if (speech) speech.innerText = `"${text}"`;
-
-      // 삐진 궁둥이 선택 시 카메라를 자동으로 뒷태(180도)로 부드럽게 회전 & 줌인!
       if (formId === 'pouty_booty') {
-        setCameraAngle('booty');
+        window.setCameraView('booty');
       }
 
-      // TTS 음성 재생 (Web Speech API)
       if (window.speechSynthesis && !window.speechSynthesis.speaking) {
         try {
-          const u = new SpeechSynthesisUtterance(text.replace(/[^\w\sㄱ-힣~!?]/g, ''));
+          var u = new SpeechSynthesisUtterance(MORPH_TEXTS[formId].replace(/[^\w\sㄱ-힣~!?]/g, ''));
           u.lang = 'ko-KR';
           u.rate = 1.1;
           u.pitch = 1.25;
           window.speechSynthesis.speak(u);
         } catch(e) {}
       }
-    }
+    };
 
-    // =========================================================================
-    // 5. 카메라 앵글 제어 & 360도 턴테이블
-    // =========================================================================
-    function toggleTurntable() {
+    window.toggleTurntable = function() {
       autoRotate = !autoRotate;
-      controls.autoRotate = autoRotate;
-      const btn = document.getElementById('btn-turntable');
-      const icon = document.getElementById('icon-turntable');
-      if (btn) btn.classList.toggle('active', autoRotate);
-      if (btn) btn.querySelector('span:last-child').innerText = `360° 턴테이블 자동회전: ${autoRotate ? 'ON' : 'OFF'}`;
-    }
+      var btn = document.getElementById('btn-turntable');
+      if (btn) {
+        btn.classList.toggle('active', autoRotate);
+        btn.querySelector('span:last-child').innerText = '360° 턴테이블: ' + (autoRotate ? 'ON' : 'OFF');
+      }
+    };
 
-    function setCameraAngle(type) {
+    window.setCameraView = function(view) {
       autoRotate = false;
-      controls.autoRotate = false;
-      const btn = document.getElementById('btn-turntable');
-      if (btn) btn.classList.remove('active');
-      if (btn) btn.querySelector('span:last-child').innerText = `360° 턴테이블 자동회전: OFF`;
-
-      const targetPos = new THREE.Vector3();
-      const lookTarget = new THREE.Vector3(0, 0.6, 0);
-
-      if (type === 'front') {
-        targetPos.set(0, 0.9, 3.2);
-      } else if (type === 'side') {
-        targetPos.set(2.4, 1.1, 2.4);
-      } else if (type === 'top') {
-        targetPos.set(0, 3.8, 1.2);
-      } else if (type === 'booty') {
-        // [🍑 궁둥이 클로즈업 뒷태 뷰]: 아온이 바로 등 뒤(z = -2.4)에서 살짝 아래를 바라봄!
-        targetPos.set(0, 0.65, -2.4);
-        lookTarget.set(0, 0.45, 0);
+      var btn = document.getElementById('btn-turntable');
+      if (btn) {
+        btn.classList.remove('active');
+        btn.querySelector('span:last-child').innerText = '360° 턴테이블: OFF';
       }
+      if (view === 'front') { rotY = 0; rotX = 0; zoom = 1.0; }
+      else if (view === 'side') { rotY = Math.PI / 4; rotX = 0.1; zoom = 1.05; }
+      else if (view === 'top') { rotY = 0; rotX = 0.55; zoom = 0.9; }
+      else if (view === 'booty') { rotY = Math.PI; rotX = -0.15; zoom = 1.25; }
+    };
 
-      // 스무스 카메라 이동 애니메이션
-      const startPos = camera.position.clone();
-      const startTarget = controls.target.clone();
-      let t = 0;
-      function animCam() {
-        t += 0.05;
-        camera.position.lerpVectors(startPos, targetPos, t);
-        controls.target.lerpVectors(startTarget, lookTarget, t);
-        controls.update();
-        if (t < 1) requestAnimationFrame(animCam);
-      }
-      animCam();
-    }
-
-    // 아온이 콕 찌르기 (점프 반응)
-    let isPoking = false;
-    function triggerPokeAction() {
-      if (isPoking) return;
-      isPoking = true;
-      let pokeT = 0;
-      const initialY = characterRoot.position.y;
-      function jumpAnim() {
-        pokeT += 0.08;
-        characterRoot.position.y = initialY + Math.sin(pokeT * Math.PI) * 0.35;
-        if (pokeT < 1) {
-          requestAnimationFrame(jumpAnim);
-        } else {
-          characterRoot.position.y = initialY;
-          isPoking = false;
-        }
-      }
-      jumpAnim();
-
-      const speech = document.getElementById('aon-speech');
-      if (currentMorphId === 'pouty_booty') {
-        if (speech) speech.innerText = `"꺄악! 엉덩이 간지러워요! 에헤헤~ 해상이 디자이너님께 칭찬받고 올게요! 🍑💕"`;
+    window.pokeCharacter = function() {
+      pokeAnim = 1.0;
+      var sp = document.getElementById('aon-speech');
+      if (currentForm === 'pouty_booty') {
+        if (sp) sp.innerText = '"꺄악! 짱구 엉덩이 간지러워요! 부리부리 댄스 씰룩씰룩~ 🍑💕"';
       } else {
-        if (speech) speech.innerText = `"퐁당! 점프~ 대표님과 해상이 디자이너님 최고! ✨"`;
+        if (sp) sp.innerText = '"퐁당! 점프~ 대표님과 해상이 디자이너님 최고! ✨"';
       }
-    }
+    };
 
-    // 조명 모드 전환
-    let lightingMode = 0; // 0: 디즈니 시네마틱, 1: 신비로운 밤, 2: 골든 아침
-    function toggleLighting() {
+    window.toggleLighting = function() {
       lightingMode = (lightingMode + 1) % 3;
-      const txt = document.getElementById('lighting-mode-text');
-      if (lightingMode === 0) {
-        txt.innerText = '디즈니 시네마틱';
-        keyLight.color.setHex(0xfffbeb);
-        ambientLight.color.setHex(0x38bdf8);
-        rimLight1.color.setHex(0x38bdf8);
-        rimLight2.color.setHex(0xf43f5e);
-      } else if (lightingMode === 1) {
-        txt.innerText = '신비로운 보랏빛 밤';
-        keyLight.color.setHex(0xc084fc);
-        ambientLight.color.setHex(0x4c1d95);
-        rimLight1.color.setHex(0x818cf8);
-        rimLight2.color.setHex(0xe879f9);
-      } else {
-        txt.innerText = '골든 선샤인 아침';
-        keyLight.color.setHex(0xfef08a);
-        ambientLight.color.setHex(0xfbbf24);
-        rimLight1.color.setHex(0x38bdf8);
-        rimLight2.color.setHex(0xf59e0b);
+      var txt = document.getElementById('lighting-mode-text');
+      if (txt) {
+        if (lightingMode === 0) txt.innerText = '디즈니 시네마틱';
+        else if (lightingMode === 1) txt.innerText = '신비로운 밤';
+        else txt.innerText = '골든 아침';
       }
+    };
+
+    // =========================================================================
+    // 3D 캔버스 드로잉 엔진 (360도 투영 & Spherical Phong 볼륨 셰이딩)
+    // =========================================================================
+    var canvas = document.getElementById('studio-canvas');
+    var ctx = canvas.getContext('2d');
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
     }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
 
-    // =========================================================================
-    // 6. 렌더 루프 및 실시간 3D 애니메이션 (60 FPS)
-    // =========================================================================
-    const clock = new THREE.Clock();
-
-    function animate() {
-      requestAnimationFrame(animate);
-      const elapsed = clock.getElapsedTime();
-
-      // 원형 단상 네온 링 회전
-      ring1.rotation.z = elapsed * 0.4;
-      ring2.rotation.z = -elapsed * 0.25;
-
-      // 배경 별빛 미세 회전
-      starField.rotation.y = elapsed * 0.03;
-
-      // 폼별 고유 실시간 3D 모션
-      if (activeMeshGroup) {
-        if (currentMorphId === 'ghost') {
-          // 꼬마 유령 부유 모션
-          activeMeshGroup.position.y = Math.sin(elapsed * 2.2) * 0.08;
-          activeMeshGroup.rotation.z = Math.sin(elapsed * 1.5) * 0.03;
-        } else if (currentMorphId === 'cloud') {
-          // 구름 통통 튀는 모션 & 호흡
-          activeMeshGroup.position.y = Math.abs(Math.sin(elapsed * 3)) * 0.09;
-          const s = 1.0 + Math.sin(elapsed * 4) * 0.03;
-          activeMeshGroup.scale.set(s, 2.0 - s, s);
-        } else if (currentMorphId === 'pumpkin') {
-          // 호박 댄스 록 모션
-          activeMeshGroup.rotation.z = Math.sin(elapsed * 2.8) * 0.08;
-          activeMeshGroup.position.y = Math.abs(Math.sin(elapsed * 3.5)) * 0.04;
-        } else if (currentMorphId === 'orb') {
-          // 물방울 젤리 Squash & Stretch
-          const sY = 1.0 + Math.sin(elapsed * 3) * 0.06;
-          const sXZ = 1.0 - Math.sin(elapsed * 3) * 0.03;
-          activeMeshGroup.scale.set(sXZ, sY, sXZ);
-          activeMeshGroup.position.y = Math.sin(elapsed * 2.5) * 0.05;
-        } else if (currentMorphId === 'waterfall_suit') {
-          // 우주복 유영 & 폭포수 파티클 낙하
-          activeMeshGroup.position.y = Math.sin(elapsed * 1.8) * 0.06;
-          if (waterfallParticles) {
-            const positions = waterfallParticles.geometry.attributes.position.array;
-            const vels = waterfallParticles.geometry.userData.velocities;
-            for (let i = 0; i < vels.length; i++) {
-              positions[i * 3 + 1] -= vels[i];
-              if (positions[i * 3 + 1] < 0.05) {
-                positions[i * 3 + 1] = 1.45;
-              }
-            }
-            waterfallParticles.geometry.attributes.position.needsUpdate = true;
-          }
-        } else if (currentMorphId === 'pouty_booty') {
-          // [🍑 삐진 궁둥이 스페셜 모션]: 볼록한 엉덩이를 좌우로 실룩실룩 춤추는 3D 힙 트월킹!
-          if (bootyWiggleGroup) {
-            bootyWiggleGroup.rotation.y = Math.sin(elapsed * 6.5) * 0.32;
-            bootyWiggleGroup.position.x = Math.sin(elapsed * 6.5) * 0.06;
-            bootyWiggleGroup.position.y = Math.abs(Math.sin(elapsed * 13)) * 0.03;
-          }
+    // 마우스 드래그 360도 인터랙션
+    var container = document.getElementById('canvas-container');
+    container.addEventListener('mousedown', function(e) {
+      isDragging = true;
+      lastMouseX = e.clientX;
+      lastMouseY = e.clientY;
+    });
+    window.addEventListener('mousemove', function(e) {
+      if (!isDragging) return;
+      var dx = e.clientX - lastMouseX;
+      var dy = e.clientY - lastMouseY;
+      rotY += dx * 0.008;
+      rotX += dy * 0.006;
+      rotX = Math.max(-0.6, Math.min(0.6, rotX));
+      lastMouseX = e.clientX;
+      lastMouseY = e.clientY;
+      if (Math.abs(dx) > 1 || Math.abs(dy) > 1) {
+        autoRotate = false;
+        var btn = document.getElementById('btn-turntable');
+        if (btn) {
+          btn.classList.remove('active');
+          btn.querySelector('span:last-child').innerText = '360° 턴테이블: OFF';
         }
       }
+    });
+    window.addEventListener('mouseup', function() { isDragging = false; });
+    container.addEventListener('wheel', function(e) {
+      zoom += e.deltaY * -0.001;
+      zoom = Math.max(0.7, Math.min(1.8, zoom));
+      e.preventDefault();
+    }, { passive: false });
 
-      controls.update();
-      renderer.render(scene, camera);
+    // 터치 모바일 드래그 지원
+    container.addEventListener('touchstart', function(e) {
+      if (e.touches.length === 1) {
+        isDragging = true;
+        lastMouseX = e.touches[0].clientX;
+        lastMouseY = e.touches[0].clientY;
+      }
+    });
+    window.addEventListener('touchmove', function(e) {
+      if (!isDragging || e.touches.length !== 1) return;
+      var dx = e.touches[0].clientX - lastMouseX;
+      var dy = e.touches[0].clientY - lastMouseY;
+      rotY += dx * 0.01;
+      rotX += dy * 0.008;
+      rotX = Math.max(-0.6, Math.min(0.6, rotX));
+      lastMouseX = e.touches[0].clientX;
+      lastMouseY = e.touches[0].clientY;
+      autoRotate = false;
+    });
+    window.addEventListener('touchend', function() { isDragging = false; });
+
+    // 3D 회전 투영 헬퍼
+    function project3D(x, y, z, cx, cy, scale) {
+      // rotY 회전
+      var cosY = Math.cos(rotY);
+      var sinY = Math.sin(rotY);
+      var x1 = x * cosY - z * sinY;
+      var z1 = x * sinY + z * cosY;
+
+      // rotX 회전
+      var cosX = Math.cos(rotX);
+      var sinX = Math.sin(rotX);
+      var y2 = y * cosX - z1 * sinX;
+      var z2 = y * sinX + z1 * cosX;
+
+      var fov = 1000;
+      var depth = fov / (fov + z2 * scale);
+      return {
+        px: cx + x1 * scale * depth,
+        py: cy - y2 * scale * depth,
+        pz: z2,
+        scale: depth
+      };
     }
 
-    // 리사이즈 대응
-    window.addEventListener('resize', () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    });
+    // 3D 입체 구체 셰이딩 렌더러 (디즈니 PBR 광택)
+    function draw3DSphere(cx, cy, r, baseColor, highlightColor, shadowColor, lightAngle) {
+      lightAngle = lightAngle || { lx: -0.35, ly: -0.45 };
+      var grad = ctx.createRadialGradient(
+        cx + r * lightAngle.lx,
+        cy + r * lightAngle.ly,
+        r * 0.1,
+        cx,
+        cy,
+        r
+      );
+      grad.addColorStop(0, highlightColor);
+      grad.addColorStop(0.5, baseColor);
+      grad.addColorStop(1, shadowColor);
 
-    // 초기 시작: orb(말랑 구슬) 활성화
-    selectMorph('orb');
-    animate();
+      ctx.beginPath();
+      ctx.arc(cx, cy, r, 0, Math.PI * 2);
+      ctx.fillStyle = grad;
+      ctx.fill();
+
+      // 입체 림 라이트
+      ctx.beginPath();
+      ctx.arc(cx, cy, r, 0, Math.PI * 2);
+      ctx.strokeStyle = 'rgba(56, 189, 248, 0.35)';
+      ctx.lineWidth = Math.max(1.5, r * 0.04);
+      ctx.stroke();
+    }
+
+    // =========================================================================
+    // 메인 애니메이션 렌더 루프 (60 FPS)
+    // =========================================================================
+    var time = 0;
+
+    function renderStudio() {
+      requestAnimationFrame(renderStudio);
+      time += 0.025;
+
+      if (autoRotate) {
+        rotY += 0.012;
+      }
+      if (pokeAnim > 0) {
+        pokeAnim -= 0.04;
+      }
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      var cx = canvas.width / 2;
+      var cy = canvas.height / 2 + 30; // 화면 중앙
+      var baseScale = Math.min(canvas.width, canvas.height) * 0.42 * zoom;
+
+      // 점프 모션
+      var jumpY = Math.sin(pokeAnim * Math.PI) * 70;
+      var breathY = Math.sin(time * 2.5) * 8;
+      cy -= (jumpY + breathY);
+
+      // 1. 바닥 원형 단상 & 부드러운 타원 그림자
+      var shadowR = baseScale * 0.55 * (1 - jumpY * 0.005);
+      var shadowGrad = ctx.createRadialGradient(cx, cy + baseScale * 0.72 + jumpY, 10, cx, cy + baseScale * 0.72 + jumpY, shadowR);
+      shadowGrad.addColorStop(0, 'rgba(0, 0, 0, 0.65)');
+      shadowGrad.addColorStop(0.6, 'rgba(2, 6, 23, 0.4)');
+      shadowGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+
+      ctx.beginPath();
+      ctx.ellipse(cx, cy + baseScale * 0.72 + jumpY, shadowR, shadowR * 0.35, 0, 0, Math.PI * 2);
+      ctx.fillStyle = shadowGrad;
+      ctx.fill();
+
+      // 회전하는 네온 단상 링
+      ctx.beginPath();
+      ctx.ellipse(cx, cy + baseScale * 0.72 + jumpY, shadowR * 1.1, shadowR * 0.38, 0, 0, Math.PI * 2);
+      ctx.strokeStyle = 'rgba(245, 158, 11, 0.5)';
+      ctx.lineWidth = 3;
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.ellipse(cx, cy + baseScale * 0.72 + jumpY, shadowR * 1.25, shadowR * 0.42, 0, 0, Math.PI * 2);
+      ctx.strokeStyle = 'rgba(56, 189, 248, 0.4)';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      // 2. 캐릭터 폼별 3D 입체 볼륨 렌더링
+      var isBack = Math.cos(rotY) < 0; // 뒤돌아선 상태 판정
+
+      if (currentForm === 'ghost') {
+        // [1. 👻 꼬마 유령] 진주빛 3D 볼륨 돔 + 3겹 물결 프릴 자락
+        var headP = project3D(0, 0.25, 0, cx, cy, baseScale);
+        var bodyR = baseScale * 0.42 * headP.scale;
+
+        // 망토 바디
+        var ghostGrad = ctx.createRadialGradient(headP.px - bodyR * 0.3, headP.py - bodyR * 0.3, bodyR * 0.1, headP.px, headP.py, bodyR * 1.3);
+        ghostGrad.addColorStop(0, '#ffffff');
+        ghostGrad.addColorStop(0.6, '#f1f5f9');
+        ghostGrad.addColorStop(1, '#cbd5e1');
+
+        ctx.beginPath();
+        var waveOff = Math.sin(time * 3) * 10;
+        ctx.moveTo(headP.px - bodyR * 0.95, headP.py + bodyR * 0.8 + waveOff);
+        ctx.quadraticCurveTo(headP.px - bodyR, headP.py - bodyR * 0.9, headP.px, headP.py - bodyR * 0.95);
+        ctx.quadraticCurveTo(headP.px + bodyR, headP.py - bodyR * 0.9, headP.px + bodyR * 0.95, headP.py + bodyR * 0.8 - waveOff);
+        // 물결 밑단
+        ctx.quadraticCurveTo(headP.px + bodyR * 0.5, headP.py + bodyR * 1.05 + waveOff, headP.px, headP.py + bodyR * 0.85);
+        ctx.quadraticCurveTo(headP.px - bodyR * 0.5, headP.py + bodyR * 1.05 - waveOff, headP.px - bodyR * 0.95, headP.py + bodyR * 0.8 + waveOff);
+        ctx.fillStyle = ghostGrad;
+        ctx.fill();
+        ctx.strokeStyle = '#1e293b';
+        ctx.lineWidth = 4;
+        ctx.stroke();
+
+        // 앞모습일 때 얼굴 렌더링
+        if (!isBack) {
+          var eyeOffX = Math.sin(rotY) * bodyR * 0.3;
+          // 세로 긴 직사각형 눈 2개
+          ctx.fillStyle = '#0f172a';
+          ctx.beginPath();
+          ctx.roundRect(headP.px - bodyR * 0.25 + eyeOffX, headP.py - bodyR * 0.15, bodyR * 0.12, bodyR * 0.32, 6);
+          ctx.roundRect(headP.px + bodyR * 0.13 + eyeOffX, headP.py - bodyR * 0.15, bodyR * 0.12, bodyR * 0.32, 6);
+          ctx.fill();
+
+          // 안광 하이라이트
+          ctx.fillStyle = '#ffffff';
+          ctx.beginPath();
+          ctx.arc(headP.px - bodyR * 0.2 + eyeOffX, headP.py - bodyR * 0.08, bodyR * 0.035, 0, Math.PI * 2);
+          ctx.arc(headP.px + bodyR * 0.18 + eyeOffX, headP.py - bodyR * 0.08, bodyR * 0.035, 0, Math.PI * 2);
+          ctx.fill();
+
+          // 세모 입
+          ctx.fillStyle = '#0f172a';
+          ctx.beginPath();
+          ctx.moveTo(headP.px + eyeOffX - bodyR * 0.05, headP.py + bodyR * 0.15);
+          ctx.lineTo(headP.px + eyeOffX + bodyR * 0.05, headP.py + bodyR * 0.15);
+          ctx.lineTo(headP.px + eyeOffX, headP.py + bodyR * 0.22);
+          ctx.closePath();
+          ctx.fill();
+
+          // 분홍 빗금 홍조
+          ctx.strokeStyle = '#f43f5e';
+          ctx.lineWidth = 3;
+          ctx.beginPath();
+          ctx.moveTo(headP.px - bodyR * 0.42 + eyeOffX, headP.py + bodyR * 0.1); ctx.lineTo(headP.px - bodyR * 0.32 + eyeOffX, headP.py);
+          ctx.moveTo(headP.px - bodyR * 0.36 + eyeOffX, headP.py + bodyR * 0.14); ctx.lineTo(headP.px - bodyR * 0.26 + eyeOffX, headP.py + 0.04);
+          ctx.moveTo(headP.px + bodyR * 0.32 + eyeOffX, headP.py); ctx.lineTo(headP.px + bodyR * 0.42 + eyeOffX, headP.py + bodyR * 0.1);
+          ctx.moveTo(headP.px + bodyR * 0.26 + eyeOffX, headP.py + 0.04); ctx.lineTo(headP.px + bodyR * 0.36 + eyeOffX, headP.py + bodyR * 0.14);
+          ctx.stroke();
+        } else {
+          // 뒷태: 통통 궁둥이 볼륨 강조
+          render3DBooty(headP.px, headP.py + bodyR * 0.35, bodyR * 0.48);
+        }
+
+      } else if (currentForm === 'cloud') {
+        // [2. ☁️ 구름 요정] 8개 볼록 구름 구체 결합 솜사탕 바디
+        var cloudP = project3D(0, 0.2, 0, cx, cy, baseScale);
+        var cr = baseScale * 0.38 * cloudP.scale;
+
+        // 8개 구름 덩어리 입체 드로잉
+        var cloudPuffs = [
+          { dx: 0, dy: 0, r: cr * 0.8 },
+          { dx: -cr * 0.5, dy: -cr * 0.2, r: cr * 0.55 },
+          { dx: cr * 0.5, dy: -cr * 0.2, r: cr * 0.55 },
+          { dx: 0, dy: -cr * 0.5, r: cr * 0.58 },
+          { dx: -cr * 0.65, dy: cr * 0.15, r: cr * 0.5 },
+          { dx: cr * 0.65, dy: cr * 0.15, r: cr * 0.5 },
+          { dx: -cr * 0.3, dy: cr * 0.45, r: cr * 0.52 },
+          { dx: cr * 0.3, dy: cr * 0.45, r: cr * 0.52 }
+        ];
+
+        cloudPuffs.forEach(function(p) {
+          draw3DSphere(cloudP.px + p.dx, cloudP.py + p.dy, p.r, '#f8fafc', '#ffffff', '#cbd5e1');
+        });
+
+        if (!isBack) {
+          var cEyeOff = Math.sin(rotY) * cr * 0.3;
+          // 세로 물방울 눈
+          ctx.fillStyle = '#0f172a';
+          ctx.beginPath();
+          ctx.ellipse(cloudP.px - cr * 0.25 + cEyeOff, cloudP.py - cr * 0.05, cr * 0.07, cr * 0.15, -0.1, 0, Math.PI * 2);
+          ctx.ellipse(cloudP.px + cr * 0.25 + cEyeOff, cloudP.py - cr * 0.05, cr * 0.07, cr * 0.15, 0.1, 0, Math.PI * 2);
+          ctx.fill();
+
+          // 벌린 세모 미소 입
+          ctx.beginPath();
+          ctx.arc(cloudP.px + cEyeOff, cloudP.py + cr * 0.12, cr * 0.12, 0, Math.PI);
+          ctx.fill();
+
+          // 핑크 볼터치
+          ctx.fillStyle = 'rgba(251, 113, 133, 0.6)';
+          ctx.beginPath();
+          ctx.arc(cloudP.px - cr * 0.45 + cEyeOff, cloudP.py + cr * 0.1, cr * 0.12, 0, Math.PI * 2);
+          ctx.arc(cloudP.px + cr * 0.45 + cEyeOff, cloudP.py + cr * 0.1, cr * 0.12, 0, Math.PI * 2);
+          ctx.fill();
+        } else {
+          render3DBooty(cloudP.px, cloudP.py + cr * 0.25, cr * 0.5);
+        }
+
+      } else if (currentForm === 'pumpkin') {
+        // [3. 🎃 호박 탈] 머리 위 글씨/화살표 100% 완전 삭제! 오직 초록 꼭지와 주황 잭오랜턴
+        var pkP = project3D(0, 0.22, 0, cx, cy, baseScale);
+        var pr = baseScale * 0.46 * pkP.scale;
+
+        // 꼭대기 초록 줄기 꼭지
+        ctx.fillStyle = '#15803d';
+        ctx.beginPath();
+        ctx.moveTo(pkP.px - pr * 0.08, pkP.py - pr * 0.85);
+        ctx.quadraticCurveTo(pkP.px + pr * 0.15, pkP.py - pr * 1.15, pkP.px + pr * 0.25, pkP.py - pr * 1.25);
+        ctx.lineWidth = pr * 0.14;
+        ctx.strokeStyle = '#15803d';
+        ctx.stroke();
+
+        // 8개 볼록 호박 골 조각 입체 드로잉
+        for (var i = -3; i <= 3; i++) {
+          var ribX = pkP.px + i * (pr * 0.26);
+          var ribW = pr * (0.42 - Math.abs(i) * 0.05);
+          var ribH = pr * 0.88;
+          var ribGrad = ctx.createRadialGradient(ribX - ribW * 0.2, pkP.py - ribH * 0.2, ribW * 0.1, ribX, pkP.py, ribW);
+          ribGrad.addColorStop(0, '#fdba74');
+          ribGrad.addColorStop(0.6, '#f97316');
+          ribGrad.addColorStop(1, '#c2410c');
+
+          ctx.beginPath();
+          ctx.ellipse(ribX, pkP.py, ribW, ribH, 0, 0, Math.PI * 2);
+          ctx.fillStyle = ribGrad;
+          ctx.fill();
+          ctx.strokeStyle = '#9a3412';
+          ctx.lineWidth = 2.5;
+          ctx.stroke();
+        }
+
+        if (!isBack) {
+          var pkEyeOff = Math.sin(rotY) * pr * 0.3;
+          // 노란 불빛 발광 세모 눈 2개
+          ctx.fillStyle = '#fef08a';
+          ctx.shadowColor = '#f59e0b';
+          ctx.shadowBlur = 15;
+          ctx.beginPath();
+          ctx.moveTo(pkP.px - pr * 0.35 + pkEyeOff, pkP.py - pr * 0.1); ctx.lineTo(pkP.px - pr * 0.15 + pkEyeOff, pkP.py - pr * 0.1); ctx.lineTo(pkP.px - pr * 0.25 + pkEyeOff, pkP.py - pr * 0.28); ctx.closePath();
+          ctx.moveTo(pkP.px + pr * 0.15 + pkEyeOff, pkP.py - pr * 0.1); ctx.lineTo(pkP.px + pr * 0.35 + pkEyeOff, pkP.py - pr * 0.1); ctx.lineTo(pkP.px + pr * 0.25 + pkEyeOff, pkP.py - pr * 0.28); ctx.closePath();
+          ctx.fill();
+          ctx.shadowBlur = 0;
+
+          // 볼의 Z 스티치
+          ctx.strokeStyle = '#0f172a';
+          ctx.lineWidth = 3.5;
+          ctx.beginPath();
+          ctx.moveTo(pkP.px - pr * 0.55 + pkEyeOff, pkP.py); ctx.lineTo(pkP.px - pr * 0.42 + pkEyeOff, pkP.py);
+          ctx.lineTo(pkP.px - pr * 0.55 + pkEyeOff, pkP.py + pr * 0.16); ctx.lineTo(pkP.px - pr * 0.42 + pkEyeOff, pkP.py + pr * 0.16);
+          ctx.moveTo(pkP.px + pr * 0.42 + pkEyeOff, pkP.py); ctx.lineTo(pkP.px + pr * 0.55 + pkEyeOff, pkP.py);
+          ctx.lineTo(pkP.px + pr * 0.42 + pkEyeOff, pkP.py + pr * 0.16); ctx.lineTo(pkP.px + pr * 0.55 + pkEyeOff, pkP.py + pr * 0.16);
+          ctx.stroke();
+
+          // 큰 입 + 네모 치아
+          ctx.fillStyle = '#0f172a';
+          ctx.beginPath();
+          ctx.arc(pkP.px + pkEyeOff, pkP.py + pr * 0.18, pr * 0.36, 0, Math.PI);
+          ctx.fill();
+
+          ctx.fillStyle = '#ffffff';
+          ctx.fillRect(pkP.px - pr * 0.16 + pkEyeOff, pkP.py + pr * 0.18, pr * 0.1, pr * 0.1);
+          ctx.fillRect(pkP.px + pr * 0.06 + pkEyeOff, pkP.py + pr * 0.18, pr * 0.1, pr * 0.1);
+          ctx.fillRect(pkP.px - pr * 0.05 + pkEyeOff, pkP.py + pr * 0.38, pr * 0.1, pr * 0.09);
+        } else {
+          render3DBooty(pkP.px, pkP.py + pr * 0.4, pr * 0.46);
+        }
+
+      } else if (currentForm === 'orb') {
+        // [4. 🫧 말랑 구슬] 엘리멘탈 아쿠아 물방울 크리스탈 바디
+        var orbP = project3D(0, 0.22, 0, cx, cy, baseScale);
+        var or = baseScale * 0.48 * orbP.scale;
+
+        // 탄성 스케일
+        var sY = 1.0 + Math.sin(time * 3) * 0.06;
+        var sX = 1.0 - Math.sin(time * 3) * 0.03;
+
+        ctx.save();
+        ctx.translate(orbP.px, orbP.py);
+        ctx.scale(sX, sY);
+        draw3DSphere(0, 0, or, '#38bdf8', '#e0f2fe', '#0284c7');
+
+        // 내부 발광 코어
+        draw3DSphere(0, 0, or * 0.35, '#7dd3fc', '#ffffff', '#0284c7');
+
+        if (!isBack) {
+          var oEyeOff = Math.sin(rotY) * or * 0.3;
+          // 세로 큼직한 캡슐 눈 2개
+          ctx.fillStyle = '#0f172a';
+          ctx.beginPath();
+          ctx.roundRect(-or * 0.32 + oEyeOff, -or * 0.2, or * 0.18, or * 0.42, 12);
+          ctx.roundRect(or * 0.14 + oEyeOff, -or * 0.2, or * 0.18, or * 0.42, 12);
+          ctx.fill();
+
+          // 안광 하이라이트
+          ctx.fillStyle = '#ffffff';
+          ctx.beginPath();
+          ctx.arc(-or * 0.24 + oEyeOff, -or * 0.08, or * 0.05, 0, Math.PI * 2);
+          ctx.arc(or * 0.22 + oEyeOff, -or * 0.08, or * 0.05, 0, Math.PI * 2);
+          ctx.fill();
+
+          // 코랄 핑크 볼터치
+          ctx.fillStyle = 'rgba(251, 113, 133, 0.65)';
+          ctx.beginPath();
+          ctx.ellipse(-or * 0.5 + oEyeOff, or * 0.16, or * 0.15, or * 0.09, 0, 0, Math.PI * 2);
+          ctx.ellipse(or * 0.5 + oEyeOff, or * 0.16, or * 0.15, or * 0.09, 0, 0, Math.PI * 2);
+          ctx.fill();
+        } else {
+          render3DBooty(0, or * 0.28, or * 0.52);
+        }
+        ctx.restore();
+
+      } else if (currentForm === 'waterfall_suit') {
+        // [5. 🧑🚀 우주복 아온이] 해상이 원본 스케치 100% 매칭: 이중 후드 헬멧 + 베이맥스 바디 (폭포수 완전 제거!)
+        var suitP = project3D(0, 0.2, 0, cx, cy, baseScale);
+        var sr = baseScale * 0.42 * suitP.scale;
+
+        // 베이맥스 통통한 우주복 바디 (하체 + 팔다리)
+        draw3DSphere(suitP.px, suitP.py + sr * 0.4, sr * 0.68, '#f8fafc', '#ffffff', '#cbd5e1');
+
+        // 양옆 통통 벌린 팔
+        draw3DSphere(suitP.px - sr * 0.8, suitP.py + sr * 0.35, sr * 0.28, '#f8fafc', '#ffffff', '#cbd5e1');
+        draw3DSphere(suitP.px + sr * 0.8, suitP.py + sr * 0.35, sr * 0.28, '#f8fafc', '#ffffff', '#cbd5e1');
+        // 당당한 두 다리
+        draw3DSphere(suitP.px - sr * 0.35, suitP.py + sr * 0.85, sr * 0.26, '#f8fafc', '#ffffff', '#cbd5e1');
+        draw3DSphere(suitP.px + sr * 0.35, suitP.py + sr * 0.85, sr * 0.26, '#f8fafc', '#ffffff', '#cbd5e1');
+
+        // 이중 후드 헬멧 (바깥 큰 둥근 후드)
+        draw3DSphere(suitP.px, suitP.py - sr * 0.25, sr * 0.72, '#f1f5f9', '#ffffff', '#94a3b8');
+
+        // 안쪽 둥근 얼굴 창
+        var faceP = { x: suitP.px + Math.sin(rotY) * sr * 0.15, y: suitP.py - sr * 0.25 };
+        draw3DSphere(faceP.x, faceP.y, sr * 0.52, '#fef08a', '#ffffff', '#fde047');
+
+        if (!isBack) {
+          // 얼굴 창 안 까만 눈 두 개 (• •)
+          ctx.fillStyle = '#0f172a';
+          ctx.beginPath();
+          ctx.arc(faceP.x - sr * 0.18, faceP.y - sr * 0.05, sr * 0.065, 0, Math.PI * 2);
+          ctx.arc(faceP.x + sr * 0.18, faceP.y - sr * 0.05, sr * 0.065, 0, Math.PI * 2);
+          ctx.fill();
+
+          // 귀여운 브이(v) 미소
+          ctx.strokeStyle = '#0f172a';
+          ctx.lineWidth = 3.5;
+          ctx.beginPath();
+          ctx.moveTo(faceP.x - sr * 0.08, faceP.y + sr * 0.06);
+          ctx.lineTo(faceP.x, faceP.y + sr * 0.14);
+          ctx.lineTo(faceP.x + sr * 0.08, faceP.y + sr * 0.06);
+          ctx.stroke();
+
+          // 양 볼 사선 두 줄 홍조 (//   //)
+          ctx.strokeStyle = '#f43f5e';
+          ctx.lineWidth = 3;
+          ctx.beginPath();
+          ctx.moveTo(faceP.x - sr * 0.38, faceP.y + sr * 0.12); ctx.lineTo(faceP.x - sr * 0.28, faceP.y + sr * 0.02);
+          ctx.moveTo(faceP.x - sr * 0.32, faceP.y + sr * 0.15); ctx.lineTo(faceP.x - sr * 0.22, faceP.y + sr * 0.05);
+          ctx.moveTo(faceP.x + sr * 0.22, faceP.y + sr * 0.05); ctx.lineTo(faceP.x + sr * 0.32, faceP.y + sr * 0.15);
+          ctx.moveTo(faceP.x + sr * 0.28, faceP.y + sr * 0.02); ctx.lineTo(faceP.x + sr * 0.38, faceP.y + sr * 0.12);
+          ctx.stroke();
+        } else {
+          render3DBooty(suitP.px, suitP.py + sr * 0.45, sr * 0.48);
+        }
+
+      } else if (currentForm === 'pouty_booty') {
+        // [6. 🍑 짱구 궁둥이 — 하이라이트!] 짱구 캐릭터의 크고 통통한 복숭아 엉덩이 + 실룩실룩 부리부리 댄스
+        var bootyP = project3D(0, 0.25, 0, cx, cy, baseScale);
+        var br = baseScale * 0.44 * bootyP.scale;
+
+        // 짱구 부리부리 엉덩이 춤 씰룩 모션 (실시간 좌우 진동)
+        var wiggleX = Math.sin(time * 7) * 22;
+        var wiggleRot = Math.sin(time * 7) * 0.15;
+
+        ctx.save();
+        ctx.translate(bootyP.px + wiggleX, bootyP.py);
+        ctx.rotate(wiggleRot);
+
+        // 상체 (뒤돌아선 머리와 등)
+        draw3DSphere(0, -br * 0.45, br * 0.48, '#fed7aa', '#ffedd5', '#fb923c');
+
+        // 양옆으로 벌린 귀여운 두 팔
+        draw3DSphere(-br * 0.65, -br * 0.35, br * 0.2, '#fed7aa', '#ffedd5', '#fb923c');
+        draw3DSphere(br * 0.65, -br * 0.35, br * 0.2, '#fed7aa', '#ffedd5', '#fb923c');
+
+        // 쩍 벌린 두 다리
+        draw3DSphere(-br * 0.38, br * 0.65, br * 0.24, '#fed7aa', '#ffedd5', '#fb923c');
+        draw3DSphere(br * 0.38, br * 0.65, br * 0.24, '#fed7aa', '#ffedd5', '#fb923c');
+
+        // [★ 짱구 복숭아 궁둥이 두 쪽 3D 볼륨]
+        // 왼쪽 복숭아 엉덩이
+        draw3DSphere(-br * 0.32, br * 0.08, br * 0.46, '#fda4af', '#fff1f2', '#f43f5e');
+        // 오른쪽 복숭아 엉덩이
+        draw3DSphere(br * 0.32, br * 0.08, br * 0.46, '#fda4af', '#fff1f2', '#f43f5e');
+
+        // 가운데 쏙 들어간 엉덩이 골 곡선
+        ctx.strokeStyle = '#e11d48';
+        ctx.lineWidth = 4;
+        ctx.beginPath();
+        ctx.moveTo(0, -br * 0.25);
+        ctx.lineTo(0, br * 0.42);
+        ctx.stroke();
+
+        // 엉덩이 하단 볼륨 라인
+        ctx.beginPath();
+        ctx.arc(-br * 0.32, br * 0.1, br * 0.46, 0.4, Math.PI * 0.85);
+        ctx.arc(br * 0.32, br * 0.1, br * 0.46, Math.PI * 0.15, Math.PI * 0.6);
+        ctx.stroke();
+
+        // 엉덩이 위로 퐁퐁 솟아오르는 핑크 하트
+        ctx.fillStyle = '#f43f5e';
+        var heartOff = (time * 40) % 80;
+        ctx.font = '22px sans-serif';
+        ctx.fillText('💖', -15, -br * 0.85 - heartOff);
+
+        ctx.restore();
+      }
+    }
+
+    // 공통 3D 볼록 궁둥이 렌더러 (캐릭터를 뒤로 돌렸을 때 표시)
+    function render3DBooty(bx, by, r) {
+      draw3DSphere(bx - r * 0.55, by, r * 0.55, '#fda4af', '#fff1f2', '#f43f5e');
+      draw3DSphere(bx + r * 0.55, by, r * 0.55, '#fda4af', '#fff1f2', '#f43f5e');
+      ctx.strokeStyle = '#e11d48';
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.moveTo(bx, by - r * 0.4);
+      ctx.lineTo(bx, by + r * 0.4);
+      ctx.stroke();
+    }
+
+    // 0.001초 만에 즉시 렌더 루프 가동!
+    renderStudio();
   </script>
 </body>
 </html>
