@@ -542,9 +542,9 @@
       var out = document.getElementById('consoleOut');
       if (!out) return;
       navigator.clipboard.writeText(out.textContent).then(function() {
-        alert("📋 대표님 디지털 트윈 지시서가 클립보드에 복사되었습니다!");
+        if(window.showRgonToast){showRgonToast("📋 대표님 디지털 트윈 지시서가 클립보드에 복사되었습니다!","success");}else{console.log("복사 완료");}
       }).catch(function() {
-        alert("복사 완료!");
+        if(window.showRgonToast){showRgonToast("📋 클립보드 복사 완료!","success");}else{console.log("복사 완료");}
       });
     }
   </script>

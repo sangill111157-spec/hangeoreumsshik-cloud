@@ -520,18 +520,18 @@
         logCourt("⚖️ [검수총장 지시 하달] 8대 전담 검수장에게 맞춤형 12대 헌장 지시 하달 완료!");
         logCourt("🔍 [전수 검수 진행] 8대 기관 결과물 동시 검수 ➔ 전 기관 12/12 100.0% 만점 합격!");
         logCourt("📜 [3중 직인 발급] [기관장 직인] + [전담 검수장 봉인] + [검수총장 감사 직인] ➔ 8건 전원 출하 허가!");
-        alert("⚖️ 검수총장 전 기관 100% 전수 검수 완료! (8대 기관 12/12 전원 합격)");
+        if(window.showRgonToast){showRgonToast("⚖️ 검수총장 전 기관 100% 전수 검수 완료! (8대 기관 12/12 전원 합격)","court");}else{console.log("검수 완료");}
       } else if (action === "canary_trap") {
         logCourt("🕵️ [암행어사 기습 감찰] 8인의 전담 검수장에게 결함 카나리 함정 투입!");
         logCourt("🚨 [적발 100%] INSP-01(복식부기 오차 적발) · INSP-02(500오류 적발) · INSP-03(화면비 오류 적발) · INSP-04(undefined 누출 적발) · INSP-05(오프라인 실패 적발) · INSP-06(NaN 결함 적발) · INSP-07(UI 렌더링 실패 적발) · INSP-08(독대실 Adobe 도배 적발)!");
         logCourt("🏆 [기강 감사 완료] 8/8 카나리 함정 100.0% 전수 적발 및 즉시 차단 완결!");
-        alert("🕵️ 암행어사 불시 카나리 함정 감찰: 8/8 전원 100.0% 전수 적발 통과!");
+        if(window.showRgonToast){showRgonToast("🕵️ 암행어사 불시 카나리 함정 감찰: 8/8 전원 100.0% 전수 적발 통과!","success");}else{console.log("카나리 감찰 통과");}
       } else if (action === "rework_loop") {
         logCourt("⚠️ [실전 시뮬레이션] 퀀트 기관장 초안 손절선 -5.5% 결함 감지 ➔ INSP-01 즉시 REJECTED_HOLD 차단!");
         logCourt("📝 [반려 명령] '손절선 -3.0% 초과 결함 수리 후 재제출하라' 핀포인트 재작업 명령 발부!");
         logCourt("🔧 [기관장 자동 수리] DIR-01 퀀트 기관장이 손절선 -2.5%로 안전 조정 후 재검수 신청!");
         logCourt("✅ [재검수 통과] 12/12 100.0% 만점 ➔ 3중 직인 출하 허가증(CERT-TRIPLE-SEAL) 정식 발급 완결!");
-        alert("🔄 불량 차단 ➔ 즉시 수리 ➔ 100% 재통과 루프 실전 완결!");
+        if(window.showRgonToast){showRgonToast("🔄 불량 차단 ➔ 즉시 수리 ➔ 100% 재통과 루프 실전 완결!","success");}else{console.log("재통과 루프 완결");}
       }
     }
 

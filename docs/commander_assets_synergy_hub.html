@@ -680,9 +680,9 @@
       var consoleOut = document.getElementById('hubConsoleOut');
       if (!consoleOut) return;
       navigator.clipboard.writeText(consoleOut.textContent).then(function() {
-        alert("📋 통합 관제 콘솔 로그가 클립보드에 복사되었습니다!");
+        if(window.showRgonToast){showRgonToast("📋 통합 관제 콘솔 로그가 클립보드에 복사되었습니다!","success");}else{console.log("복사 완료");}
       }).catch(function() {
-        alert("복사 완료!");
+        if(window.showRgonToast){showRgonToast("📋 클립보드 복사 완료!","success");}else{console.log("복사 완료");}
       });
     }
   </script>

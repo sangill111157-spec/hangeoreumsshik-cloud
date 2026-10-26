@@ -1,3 +1,68 @@
+// 🌌 [RGON-SPATIAL-TOAST] 브라우저 기본 alert 완전 폐지 & 2.5초 자동소멸 Spatial Glass Toast 전역 오버라이드
+(function() {
+  if (window.__RGON_TOAST_OVERRIDE__) return;
+  window.__RGON_TOAST_OVERRIDE__ = true;
+
+  function showRgonSpatialToast(msg, type) {
+    try {
+      if (typeof msg !== 'string') msg = String(msg || '');
+      let dock = document.getElementById('rgon-spatial-toast-dock');
+      if (!dock) {
+        dock = document.createElement('div');
+        dock.id = 'rgon-spatial-toast-dock';
+        dock.style.cssText = 'position:fixed;top:20px;right:20px;z-index:2147483647;display:flex;flex-direction:column;gap:10px;pointer-events:none;max-width:min(90vw,440px);font-family:system-ui,-apple-system,sans-serif;';
+        if (document.body) {
+          document.body.appendChild(dock);
+        } else {
+          document.addEventListener('DOMContentLoaded', () => document.body.appendChild(dock));
+        }
+      }
+      const toast = document.createElement('div');
+      toast.className = 'rgon-spatial-toast-card';
+      toast.style.cssText = 'background:rgba(15,23,42,0.94);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1.5px solid rgba(129,140,248,0.5);box-shadow:0 12px 36px rgba(0,0,0,0.6),0 0 16px rgba(99,102,241,0.35);color:#f8fafc;padding:12px 18px;border-radius:14px;font-size:13px;line-height:1.5;font-weight:600;display:flex;align-items:flex-start;gap:10px;pointer-events:auto;transition:all 0.3s cubic-bezier(0.16,1,0.3,1);opacity:0;transform:translateY(-12px);word-break:break-word;';
+
+      let icon = '🛰️';
+      if (type === 'success' || msg.includes('완료') || msg.includes('통과') || msg.includes('성공') || msg.includes('100%')) {
+        icon = '✅';
+        toast.style.borderColor = 'rgba(52,211,153,0.7)';
+        toast.style.boxShadow = '0 12px 36px rgba(0,0,0,0.6),0 0 16px rgba(16,185,129,0.4)';
+      } else if (type === 'warn' || msg.includes('주의') || msg.includes('차단') || msg.includes('오류')) {
+        icon = '⚠️';
+        toast.style.borderColor = 'rgba(251,191,36,0.7)';
+        toast.style.boxShadow = '0 12px 36px rgba(0,0,0,0.6),0 0 16px rgba(245,158,11,0.4)';
+      } else if (type === 'court' || msg.includes('검수') || msg.includes('총장') || msg.includes('감찰')) {
+        icon = '⚖️';
+        toast.style.borderColor = 'rgba(192,132,252,0.7)';
+        toast.style.boxShadow = '0 12px 36px rgba(0,0,0,0.6),0 0 16px rgba(168,85,247,0.4)';
+      }
+
+      toast.innerHTML = '<span style="font-size:18px;line-height:1;shrink-0;">' + icon + '</span><div style="flex:1;"><div style="font-weight:700;color:#fff;font-size:13px;">' + msg + '</div></div>';
+      if (dock) dock.appendChild(toast);
+
+      requestAnimationFrame(function() {
+        toast.style.opacity = '1';
+        toast.style.transform = 'translateY(0)';
+      });
+
+      setTimeout(function() {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(-12px)';
+        setTimeout(function() {
+          if (toast.parentNode) toast.parentNode.removeChild(toast);
+        }, 300);
+      }, 2500);
+    } catch (e) {
+      console.warn('Toast display failed:', msg);
+    }
+  }
+
+  window.showRgonToast = showRgonSpatialToast;
+  window.alert = function(msg) {
+    showRgonSpatialToast(msg);
+  };
+})();
+
+
 /**
  * rgon_mobile_serverless_interceptor.js — 스마트폰 모바일 & GitHub Pages 무서버 자율 응답 인터셉터
  * Step 52 · v11.51-AON-COMMANDER-TWIN · 항체 R1~R52 · 정식 스킬 48개 · 28대 기관
