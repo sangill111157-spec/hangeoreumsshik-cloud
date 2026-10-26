@@ -1,0 +1,78 @@
+/**
+ * rgon_spatial_glass_2026.css — 2026 미래지향적 울트라-심플 디자인 (Futuristic Ultra-Simple Spatial UI)
+ * Apple VisionOS & Linear 스타일의 깊이감 있는 글래스모피즘 및 미니멀 벤토 그리드
+ * Step 52 · v11.51-AON-COMMANDER-TWIN · 항체 R1~R52
+ */
+
+:root {
+  --rg-bg-deep: #030712;
+  --rg-glass-card: rgba(15, 23, 42, 0.72);
+  --rg-glass-card-hover: rgba(30, 41, 59, 0.85);
+  --rg-border-subtle: rgba(255, 255, 255, 0.08);
+  --rg-border-hover: rgba(56, 189, 248, 0.35);
+  --rg-glow-cyan: rgba(56, 189, 248, 0.15);
+  --rg-glow-gold: rgba(245, 158, 11, 0.18);
+  --rg-text-primary: #f8fafc;
+  --rg-text-secondary: #94a3b8;
+  --rg-radius-card: 20px;
+  --rg-radius-btn: 14px;
+}
+
+/* 1. 배경 다크 오로라 그라데이션 부드러운 호흡 */
+body {
+  background-color: var(--rg-bg-deep) !important;
+  color: var(--rg-text-primary) !important;
+  letter-spacing: -0.015em;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 2. 미래지향적 반투명 글래스 카드 (Bento Grid) */
+.glass-panel, .card, .dashboard-card, .widget-wrap, .stat-card, [data-panel], .viral-card {
+  background: var(--rg-glass-card) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid var(--rg-border-subtle) !important;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45) !important;
+  transition: all 0.24s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.glass-panel:hover, .card:hover, .dashboard-card:hover, .viral-card:hover {
+  border-color: var(--rg-border-hover) !important;
+  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.6), 0 0 16px var(--rg-glow-cyan) !important;
+}
+
+/* 3. 버튼 햅틱 및 부드러운 인터랙션 */
+button, .btn, .master-btn, .rgnlu-tag {
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  outline: none !important;
+}
+
+button:active, .btn:active, .master-btn:active {
+  transform: scale(0.975) !important;
+}
+
+/* 4. 스크롤바 미니멀화 */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.25);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.45);
+}
+
+/* 5. 모바일 뷰포트 (390x844) 가로 넘침 차단 */
+@media (max-width: 768px) {
+  body {
+    padding: 10px !important;
+  }
+  .container {
+    padding: 0 !important;
+  }
+}

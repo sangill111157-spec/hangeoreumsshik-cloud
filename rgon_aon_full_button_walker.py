@@ -14,6 +14,14 @@ import time
 from pathlib import Path
 from typing import Dict, Any, List, Tuple
 
+try:
+    if hasattr(sys.stdout, 'reconfigure'):
+        sys.stdout.reconfigure(encoding='utf-8')
+    if hasattr(sys.stderr, 'reconfigure'):
+        sys.stderr.reconfigure(encoding='utf-8')
+except Exception:
+    pass
+
 ROOT = Path(__file__).resolve().parent
 
 VERSION = "v11.51-AON-COMMANDER-TWIN"

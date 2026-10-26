@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko" class="dark">
 <head>
-  <script src="../rgon_mobile_serverless_interceptor.js"></script>
+  <script src="rgon_mobile_serverless_interceptor.js"></script>
 <!-- [SPATIAL-GLASS-BRIEFING-START] -->
 <style id="spatial-glass-briefing-css">
 #spatial-glass-briefing-modal{position:fixed;inset:0;z-index:2147483647;display:none;align-items:center;justify-content:center;background:rgba(2,6,23,0.45);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);padding:16px;animation:sgbFadeIn 0.2s ease-out}
@@ -678,7 +678,6 @@
 /* RGON_AUTO_SYNC_MASTER_END */
 </script>
 
-
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <title>청와대 중앙 컨트롤 타워 v10.0 | Spatial Glass OS</title>
   <!-- Tailwind CSS CDN -->
@@ -780,11 +779,10 @@
   </style>
   <link rel="manifest" href="/manifest.webmanifest">
   <script src="/pwa_bootstrap.js" defer></script>
-<style>#rgyt-wrap{transform:none!important;rotate:none!important;}</style><style>button,a,[role='button'],.btn{touch-action:manipulation;-webkit-tap-highlight-color:transparent;}</style>
-<style>button,a,[role='button'],.btn{touch-action:manipulation;-webkit-tap-highlight-color:transparent;}</style>
+<style>#rgyt-wrap{transform:none!important;rotate:none!important;}</style><style id="rgon-touch-action-guard">button,a,[role='button'],.btn{touch-action:manipulation;-webkit-tap-highlight-color:transparent;}</style>
+  <link rel="stylesheet" href="rgon_spatial_glass_2026.css">
 </head>
 <body class="min-h-screen pb-24 relative select-none sm:select-text">
-
 
   <!-- 오로라 앰비언트 광원 레이어 -->
   <div class="aurora-bg">
@@ -921,6 +919,36 @@
         </div>
         <span class="text-lg text-amber-200 group-hover:translate-x-1 transition shrink-0">➔</span>
       </a>
+
+      <!-- 👑 [v11.51] 대표님 디지털 트윈 & 전 비즈니스 자산 시너지 허브 2대 직통 데크 -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+        <a 
+          id="btn-goto-commander-twin"
+          href="commander_twin_deck.html"
+          class="p-3 sm:p-3.5 rounded-xl bg-gradient-to-r from-amber-900/80 via-yellow-900/80 to-amber-950/80 hover:opacity-95 text-white font-bold text-xs shadow-lg border border-amber-400/40 transition flex items-center justify-between gap-2.5 active:scale-98">
+          <div class="flex items-center gap-2.5">
+            <span class="text-xl">👑</span>
+            <div class="text-left">
+              <div class="text-amber-200 font-extrabold">대표님 인지 디지털 트윈 사령부 ➔</div>
+              <div class="text-[10.5px] text-slate-300">7단계 일처리 DNA · 노트북·스마트폰 100% 무인 대행</div>
+            </div>
+          </div>
+          <span class="text-amber-300 font-mono text-xs">GO</span>
+        </a>
+        <a 
+          id="btn-goto-synergy-hub"
+          href="commander_assets_synergy_hub.html"
+          class="p-3 sm:p-3.5 rounded-xl bg-gradient-to-r from-cyan-900/80 via-blue-900/80 to-indigo-950/80 hover:opacity-95 text-white font-bold text-xs shadow-lg border border-cyan-400/40 transition flex items-center justify-between gap-2.5 active:scale-98">
+          <div class="flex items-center gap-2.5">
+            <span class="text-xl">💎</span>
+            <div class="text-left">
+              <div class="text-cyan-200 font-extrabold">전 비즈니스 자산 시너지 허브 ➔</div>
+              <div class="text-[10.5px] text-slate-300">유튜브·틱톡·블로그·NVIDIA·Suno·CapCut 무인 관제</div>
+            </div>
+          </div>
+          <span class="text-cyan-300 font-mono text-xs">HUB</span>
+        </a>
+      </div>
 
       <!-- 원터치 한글 버튼 4종 (버튼 실사용 재검수 추가) -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5">
