@@ -1,8 +1,8 @@
 {
-  "version": "v11.47-AON-HAESANG-MORPH",
-  "antibody": "R1~R48",
+  "version": "v11.48-AON-VIBE3D-DIRECTOR",
+  "antibody": "R1~R49",
   "generated_at_kst": "2026-10-26 00:23:49 KST",
-  "count": 44,
+  "count": 45,
   "skills": [
     {
       "slug": "1-36-45",
@@ -359,7 +359,7 @@
       "id": 40,
       "name": "aon-live-ui-self-healer",
       "slug": "aon-live-ui-self-healer",
-      "version": "v11.47-AON-HAESANG-MORPH",
+      "version": "v11.48-AON-VIBE3D-DIRECTOR",
       "antibody": "R44",
       "organ": 20,
       "path": "skills/aon-live-ui-self-healer/SKILL.md",
@@ -369,7 +369,7 @@
       "id": 41,
       "name": "aon-cinematic-dispatch-council",
       "slug": "aon-cinematic-dispatch-council",
-      "version": "v11.47-AON-HAESANG-MORPH",
+      "version": "v11.48-AON-VIBE3D-DIRECTOR",
       "antibody": "R45",
       "organ": 21,
       "path": "skills/aon-cinematic-dispatch-council/SKILL.md",
@@ -379,7 +379,7 @@
       "id": 42,
       "name": "aon-autonomous-tech-evolver",
       "slug": "aon-autonomous-tech-evolver",
-      "version": "v11.47-AON-HAESANG-MORPH",
+      "version": "v11.48-AON-VIBE3D-DIRECTOR",
       "antibody": "R46",
       "organ": 22,
       "path": "skills/aon-autonomous-tech-evolver/SKILL.md",
@@ -394,13 +394,13 @@
       "path": "skills/aon-zeroclick-creative-studio/SKILL.md",
       "organ": "rgon_aon_zeroclick_studio.py",
       "antibody": "R47",
-      "version": "v11.47-AON-HAESANG-MORPH"
+      "version": "v11.48-AON-VIBE3D-DIRECTOR"
     },
     {
       "index": 44,
       "slug": "aon-haesang-6form-morph",
       "name": "aon-haesang-6form-morph",
-      "version": "v11.47-AON-HAESANG-MORPH",
+      "version": "v11.48-AON-VIBE3D-DIRECTOR",
       "antibody": "R48",
       "organ": "rgon_aon_haesang_morph_avatar.py",
       "chief_art_director": "이해상 (초4 수석 캐릭터 디자이너)",
@@ -410,14 +410,29 @@
         "#37"
       ],
       "description": "이해상(초4) 수석 디자이너 헌정 아온이 6대 변신술 아바타 엔진"
+    },
+    {
+      "index": 45,
+      "slug": "aon_vibe3d_movie_director",
+      "name": "aon_vibe3d_movie_director",
+      "version": "v11.48-AON-VIBE3D-DIRECTOR",
+      "antibody": "R49",
+      "organ": "rgon_aon_vibe3d_director.py",
+      "title": "아온 바이브 3D 시네마틱 디렉터 & VARCO 플로우 스튜디오",
+      "hexagrams": [
+        "#22",
+        "#14"
+      ],
+      "path": "skills/aon_vibe3d_movie_director/SKILL.md",
+      "description": "Blender MCP 결정론적 Scene-as-Code 세트장 & 국산 VARCO 3D 다중 에셋 분리·PBR·AI 자동 리깅 스튜디오"
     }
   ],
-  "total": 44,
-  "skill_count": 44,
-  "antibody_range": "R1~R48",
-  "antibodies": "R1~R48",
-  "updated": "2026-10-26T20:22:19",
+  "total": 45,
+  "skill_count": 45,
+  "antibody_range": "R1~R49",
+  "antibodies": "R1~R49",
+  "updated": "2026-10-26T20:49:00",
   "synced_at_kst": "2026-10-26 00:24:55 KST",
-  "immune": "R1~R48",
-  "total_skills": 44
+  "immune": "R1~R49",
+  "total_skills": 45
 }

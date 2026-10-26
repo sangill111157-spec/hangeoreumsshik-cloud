@@ -164,3 +164,12 @@ SFX_PRESETS.update({
 SFX_PRESETS.update({
     "insight_flash": {"desc": "만물 이치를 꿰뚫는 크리스탈 혜안 화음", "freq_hz": [660, 990, 1320, 1760], "dur_ms": 250, "wave": "sine", "gain": 0.15},
 })
+
+# [RGON-R49-VIBE3D-SFX] — 제25기관 바이브 3D 시네마틱 & VARCO Flow 4종 효과음 확장 (Step 49)
+SFX_PRESETS.update({
+    "vibe3d_clapper": {"desc": "시네마틱 3D 세트장 슬레이트 딱 (씬 시작)", "freq_hz": [1200, 2400, 4800], "dur_ms": 80, "wave": "square", "gain": 0.22},
+    "varco_isolate": {"desc": "VARCO Flow 에셋 자동 분리 핑 (Scene-to-Props)", "freq_hz": [880, 1320, 1760], "dur_ms": 150, "wave": "sine", "gain": 0.18},
+    "pbr_shimmer": {"desc": "PBR ORM 표면 물리 광택 챠르르 반짝임", "freq_hz": [1046, 1318, 1568, 2093], "dur_ms": 220, "wave": "sine", "gain": 0.16},
+    "rig_dance_beat": {"desc": "AI 자동 리깅 짱구 부리부리 댄스 쿵짝 비트", "freq_hz": [130, 260, 520], "dur_ms": 180, "wave": "triangle", "gain": 0.20},
+})
+

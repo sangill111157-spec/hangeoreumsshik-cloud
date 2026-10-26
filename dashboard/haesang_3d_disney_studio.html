@@ -384,6 +384,24 @@
         </button>
       </div>
 
+      <!-- [RGON-R49-VARCO-3D-CONTROLS] PBR ORM 재질 & AI 리깅 모션 컨트롤 바 -->
+      <div class="varco-controls-bar" style="display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:8px; background:rgba(15,23,42,0.88); backdrop-filter:blur(16px); border:1.5px solid rgba(56,189,248,0.5); border-radius:18px; padding:7px 16px; margin-top:6px; pointer-events:auto; z-index:9999; box-shadow:0 8px 24px rgba(0,0,0,0.5);">
+        <div style="display:flex; align-items:center; gap:5px; font-size:11px;">
+          <span style="font-weight:800; color:#38bdf8;">✨ PBR 재질:</span>
+          <button class="cam-btn active" id="pbr-btn-porcelain" onclick="window.setVarcoPbr('porcelain')">✨ 도자기 광택</button>
+          <button class="cam-btn" id="pbr-btn-marshmallow" onclick="window.setVarcoPbr('marshmallow')">☁️ 마시멜로 매트</button>
+          <button class="cam-btn" id="pbr-btn-crystal" onclick="window.setVarcoPbr('crystal_jelly')">💎 크리스탈 젤리</button>
+        </div>
+        <div style="width:1px; height:18px; background:rgba(255,255,255,0.25); margin:0 4px;"></div>
+        <div style="display:flex; align-items:center; gap:5px; font-size:11px;">
+          <span style="font-weight:800; color:#f472b6;">🕺 AI 리깅 모션:</span>
+          <button class="cam-btn" id="rig-btn-walk" onclick="window.setVarcoMotion('walk')">🚶 총총 걷기</button>
+          <button class="cam-btn" id="rig-btn-sprint" onclick="window.setVarcoMotion('sprint')">🏃 신나게 달리기</button>
+          <button class="cam-btn active" id="rig-btn-dance" onclick="window.setVarcoMotion('booty_dance')">🍑 짱구 부리부리 댄스</button>
+          <button class="cam-btn" id="rig-btn-space" onclick="window.setVarcoMotion('space_float')">🧑🚀 무중력 우주 유영</button>
+        </div>
+      </div>
+
     </div>
 
   </div>
@@ -403,6 +421,40 @@
     var lastMouseY = 0;
     var pokeAnim = 0;
     var lightingMode = 0; // 0: 디즈니, 1: 보라밤, 2: 골든아침
+    var varcoPbrMode = 'porcelain'; // porcelain, marshmallow, crystal_jelly
+    var varcoMotionMode = 'booty_dance'; // walk, sprint, booty_dance, space_float
+
+    window.setVarcoPbr = function(preset) {
+      varcoPbrMode = preset;
+      ['porcelain', 'marshmallow', 'crystal'].forEach(function(k) {
+        var el = document.getElementById('pbr-btn-' + k);
+        if (el) el.classList.remove('active');
+      });
+      var keyMap = { porcelain: 'porcelain', marshmallow: 'marshmallow', crystal_jelly: 'crystal' };
+      var activeEl = document.getElementById('pbr-btn-' + (keyMap[preset] || 'porcelain'));
+      if (activeEl) activeEl.classList.add('active');
+      var sp = document.getElementById('aon-speech');
+      if (sp) {
+        var desc = preset === 'porcelain' ? '도자기 매끄러운 클리어코트 광택' : (preset === 'marshmallow' ? '보송보송 부드러운 마시멜로 매트' : '투명하고 영롱한 물방울 크리스탈 젤리');
+        sp.innerText = '"VARCO 3D 실시간 PBR 변환: ' + desc + ' 장착 완료! ✨"';
+      }
+    };
+
+    window.setVarcoMotion = function(motion) {
+      varcoMotionMode = motion;
+      ['walk', 'sprint', 'dance', 'space'].forEach(function(k) {
+        var el = document.getElementById('rig-btn-' + k);
+        if (el) el.classList.remove('active');
+      });
+      var keyMap = { walk: 'walk', sprint: 'sprint', booty_dance: 'dance', space_float: 'space' };
+      var activeEl = document.getElementById('rig-btn-' + (keyMap[motion] || 'dance'));
+      if (activeEl) activeEl.classList.add('active');
+      var sp = document.getElementById('aon-speech');
+      if (sp) {
+        var desc = motion === 'walk' ? '총총 발랄하게 걷기 시작해요~ 🚶' : (motion === 'sprint' ? '신나게 전력 질주! 바람을 가르는 아온이! 🏃💨' : (motion === 'booty_dance' ? '실룩실룩 치명적인 짱구 부리부리 댄스 발동! 🍑💃' : '무중력 우주 공간을 둥실둥실 평화롭게 유영해요~ 🧑🚀🌌'));
+        sp.innerText = '"' + desc + '"';
+      }
+    };
 
     var MORPH_TEXTS = {
       ghost: "퐁당! 꼬마 유령 아온이에요~ 진주빛 3D 망토를 펄럭이며 대표님을 지켜드릴게요! 👻✨",

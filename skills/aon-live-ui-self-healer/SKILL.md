@@ -1,7 +1,7 @@
 ---
 name: aon-live-ui-self-healer
 description: 아온 실전 UI 전수 클릭·동작 검증 & 자가배선 수리 (제20기관, R44) — playwright-mcp · E2E-Self-Heal 흡수, 주역 #21 화뢰서합 & #49 택화혁
-version: v11.47-AON-HAESANG-MORPH
+version: v11.48-AON-VIBE3D-DIRECTOR
 antibody: R44
 ---
 

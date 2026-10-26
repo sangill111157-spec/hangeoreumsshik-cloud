@@ -4,15 +4,7 @@
   "r20": "일일 자율 순환 루프(백혈구 순찰 → 영양분 소화·스킬 주조 → 3자 심판 → 주역 64괘 아침 브리핑) 무인 자동화",
   "generated_at": "2026-10-26T00:24:52+09:00",
   "date": "2026-10-26",
-  "immune": {
-    "ran": true,
-    "ok": true,
-    "health_score": 100,
-    "heals": 0,
-    "antibody_range": "R1~R48",
-    "antibody_count": 43,
-    "tail": "s'\n  print(f\"Regex match count (^\\s*def test_): {len(def_matches)}\")\nrun_p44_batch.py:32: SyntaxWarning: invalid escape sequence '\\.'\n  f.write('Command: git grep -nE \"requests\\.(post|put|get)|\\.post\\(|\\.put\\(|\\.patch\\(|aiohttp|httpx|urlopen\" -- app/\\n\\n')\nrun_priority_audit.py:117: SyntaxWarning: invalid escape sequence '\\.'\n  out_cons, _ = run_cmd('git grep -rn -E \"\\.get\\([\\\"\\\\\\']success[\\\"\\\\\\']\\)|\\[[\\\"\\\\\\']success[\\\"\\\\\\']\\]\" app/')\nrun_raw_investigation.py:16: SyntaxWarning: invalid escape sequence '\\.'\n  out, _ = run_cmd('git grep -n -E \"yfinance|yf\\.|fallback\" app/services/kis_broker.py')"
-  },
+  "immune": "R1~R49",
   "nutrient": {
     "ran": true,
     "ok": true,
@@ -102,7 +94,7 @@
       "line": "⚖️ [GO] 84.5점 (Bull 91.0 / Bear 22.0 / #64-화수미제) 🔄 멀티에이전트 시그널 교차검증 — 조건 충족, 한도 내 집행 허용 · 신변물거방(慎辨物居方) · 君子以慎辨物居方"
     }
   ],
-  "trading_council_at": "2026-10-26T20:22:20",
+  "trading_council_at": "2026-10-26T20:49:02",
   "generated_at_kst": "2026-10-26 00:23:47 KST",
   "synced_at_kst": "2026-10-26 00:23:47 KST",
   "current_step": 22,
@@ -144,8 +136,8 @@
     ],
     "engine_versions": {
       "rgon_white_blood_cell.py": {
-        "version": "v11.47-AON-HAESANG-MORPH",
-        "antibody_range": "R1~R48"
+        "version": "v11.48-AON-VIBE3D-DIRECTOR",
+        "antibody_range": "R1~R49"
       },
       "rgon_nutrient_engine.py": {
         "version": "v11.26-CREATOR-FORGE",
@@ -156,8 +148,8 @@
         "antibody_range": "R1~R27"
       },
       "rgon_daily_cycle.py": {
-        "version": "v11.47-AON-HAESANG-MORPH",
-        "antibody_range": "R1~R48"
+        "version": "v11.48-AON-VIBE3D-DIRECTOR",
+        "antibody_range": "R1~R49"
       }
     }
   }

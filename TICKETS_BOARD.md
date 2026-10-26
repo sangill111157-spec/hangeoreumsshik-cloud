@@ -1,6 +1,6 @@
 # TICKETS_BOARD — RGON 전신 혈관 개통 & 분업 보드
 
-> v11.47-AON-HAESANG-MORPH · 항체 R1~R48 · R22 Auto-Verify 완료
+> v11.48-AON-VIBE3D-DIRECTOR · 항체 R1~R49 · R22 Auto-Verify 완료
 
 | ID | 제목 | 담당 | 상태 | 검증 시각 |
 |---|---|---|---|---|

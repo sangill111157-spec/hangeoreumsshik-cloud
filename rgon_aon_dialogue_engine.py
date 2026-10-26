@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """rgon_aon_dialogue_engine.py — 제15기관 아온 초격차 대화 이해 & 올인원 대화 허브 (표준 라이브러리 전용)
-[RGON-R39] v11.47-AON-HAESANG-MORPH
+[RGON-R39] v11.48-AON-VIBE3D-DIRECTOR
 파이프라인: 구어 정규화 → 대명사·생략어 복원 → 슬래시/원칙/복합의도 분기 → 기관 디스패치
           → 플랫폼 메타데이터(thinking·artifact·chips·callback) 보강 → 3계층 해마 기억(단기·토픽·연상).
 한계: 사전·정규식 기반 규칙 엔진이다. 언어모델이 아니므로 처음 보는 표현은 놓칠 수 있다."""
@@ -8,7 +8,7 @@ import argparse, datetime, json, os, re, sys, tempfile, time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-VERSION = "v11.47-AON-HAESANG-MORPH"
+VERSION = "v11.48-AON-VIBE3D-DIRECTOR"
 STATE, PREFS = "rgon_aon_dialogue_state.json", "rgon_aon_preferences.json"
 SHORT_MAX, EVENT_MAX, FRESH_TURNS, FRESH_SEC = 20, 60, 4, 1800
 CAT_KO = {"command_rule": "지휘 원칙", "style": "스타일", "preference": "취향"}
@@ -591,8 +591,8 @@ import os as _o40, re as _re40, json as _j40, time as _t40, sys as _s40
 import shutil as _sh40, inspect as _in40, importlib as _il40
 from pathlib import Path as _P40
 
-R40_VERSION = "v11.47-AON-HAESANG-MORPH"
-R40_ANTIBODY = "R1~R48"
+R40_VERSION = "v11.48-AON-VIBE3D-DIRECTOR"
+R40_ANTIBODY = "R1~R49"
 _R40_HERE = _P40(__file__).resolve().parent
 _R40_NAMES = ("_call_iching", "_call_hands", "_call_soul", "_call_insight",
               "_call_playground", "_call_brat", "normalize_colloquial")
@@ -1257,7 +1257,7 @@ def _r41_plan_response(arg):
         "recommended_branch": p.get("recommended_branch"),
         "three_branch_tree": p.get("three_branch_tree"), "action_items": p.get("action_items"),
         "shichen_schedule": p.get("shichen_schedule"), "plan": p,
-        "version": "v11.47-AON-HAESANG-MORPH",
+        "version": "v11.48-AON-VIBE3D-DIRECTOR",
     }
 
 
@@ -1736,7 +1736,7 @@ def r47_zeroclick_route(text, out_dir=None):
         res = _zc.route_command(t, out_dir=out_dir)
         return {
             "ok": bool(res.get("ok")),
-            "version": "v11.47-AON-HAESANG-MORPH",
+            "version": "v11.48-AON-VIBE3D-DIRECTOR",
             "antibody": "R47",
             "intent": "zeroclick_studio",
             "intents": ["zeroclick_studio"],
@@ -1805,5 +1805,51 @@ def _r48_haesang_route(msg):
     return None
 # [RGON-R48-HAESANG-MORPH-ROUTE-END]
 
+# [RGON-R49-VIBE3D-ROUTE-START]
+R49_VIBE3D_TRIGGERS = ["/3d", "/시네마틱", "/varco", "/바르코", "/세트장", "/블렌더", "/리깅", "/pbr", "3d영화", "3d세트"]
+
+def _r49_vibe3d_route(msg):
+    m = str(msg or "").strip()
+    low = m.lower()
+    if not any(k in m or k in low for k in R49_VIBE3D_TRIGGERS):
+        return None
+    try:
+        import rgon_aon_vibe3d_director as _vd
+        res = _vd.route_vibe3d_intent(m)
+        return {
+            "ok": bool(res.get("ok")),
+            "version": "v11.48-AON-VIBE3D-DIRECTOR",
+            "antibody": "R49",
+            "intent": "vibe3d_director",
+            "intents": ["vibe3d_director"],
+            "speech": res.get("speech", "3D 시네마틱 세트장 구축 완료"),
+            "vibe3d_director": res,
+            "data": res,
+            "results": [{"intent": "vibe3d_director", "ok": bool(res.get("ok")), "speech": res.get("speech", ""), "data": res}],
+        }
+    except Exception as _ex:
+        return {"ok": False, "error": str(_ex)}
+
+def _r49_wrap(_fn):
+    def _w(*a, **k):
+        _txt = a[0] if a and isinstance(a[0], str) else (a[1] if len(a) > 1 and isinstance(a[1], str) else k.get("text") or k.get("message") or k.get("utterance"))
+        if _txt:
+            _r49 = _r49_vibe3d_route(_txt)
+            if _r49 is not None:
+                return _r49
+            _r48 = _r48_haesang_route(_txt)
+            if _r48 is not None:
+                return _r48
+        return _fn(*a, **k)
+    _w.__r49__ = True
+    return _w
+
+for _n in ("r40_route", "route", "process_dialogue", "route_command", "handle_message", "respond", "reply", "dialogue"):
+    _f = globals().get(_n)
+    if callable(_f) and not getattr(_f, "__r49__", False):
+        globals()[_n] = _r49_wrap(_f)
+# [RGON-R49-VIBE3D-ROUTE-END]
+
 if __name__ == "__main__":
     sys.exit(main())
+

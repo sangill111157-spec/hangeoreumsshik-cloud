@@ -1,6 +1,6 @@
 ---
 name: aon-zeroclick-creative-studio
-version: v11.47-AON-HAESANG-MORPH
+version: v11.48-AON-VIBE3D-DIRECTOR
 antibody: R47
 organ: 제23기관 · N19_zeroclick_studio
 ---
