@@ -30,9 +30,9 @@ import tempfile
 import importlib
 import collections
 
-VERSION = "v11.52-AON-PAGE-BUTTON-BOT"
+VERSION = "v11.53-AON-INSPECTOR-GENERAL"
 ANTIBODY = "R42"
-ANTIBODY_RANGE = "R1~R53"
+ANTIBODY_RANGE = "R1~R54"
 SKILL_COUNT = 39
 SKILL_ID = "aon-hydro-cycle-homeostasis"
 ORGAN_NAME = "제18기관 아온 상선약수 수순환 자율 대사 & 여백 창조 기관"

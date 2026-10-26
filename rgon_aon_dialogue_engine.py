@@ -8,7 +8,7 @@ import argparse, datetime, json, os, re, sys, tempfile, time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-VERSION = "v11.52-AON-PAGE-BUTTON-BOT"
+VERSION = "v11.53-AON-INSPECTOR-GENERAL"
 STATE, PREFS = "rgon_aon_dialogue_state.json", "rgon_aon_preferences.json"
 SHORT_MAX, EVENT_MAX, FRESH_TURNS, FRESH_SEC = 20, 60, 4, 1800
 CAT_KO = {"command_rule": "지휘 원칙", "style": "스타일", "preference": "취향"}
@@ -591,8 +591,8 @@ import os as _o40, re as _re40, json as _j40, time as _t40, sys as _s40
 import shutil as _sh40, inspect as _in40, importlib as _il40
 from pathlib import Path as _P40
 
-R40_VERSION = "v11.52-AON-PAGE-BUTTON-BOT"
-R40_ANTIBODY = "R1~R53"
+R40_VERSION = "v11.53-AON-INSPECTOR-GENERAL"
+R40_ANTIBODY = "R1~R54"
 _R40_HERE = _P40(__file__).resolve().parent
 _R40_NAMES = ("_call_iching", "_call_hands", "_call_soul", "_call_insight",
               "_call_playground", "_call_brat", "normalize_colloquial")
@@ -2028,6 +2028,63 @@ for _n in ("r40_route", "route", "process_dialogue", "route_command", "handle_me
     if callable(_f) and not getattr(_f, "__r53__", False):
         globals()[_n] = _r53_wrap(_f)
 # [RGON-R53-PAGE-BUTTON-BOT-ROUTE-END]
+
+
+# [RGON-R54-INSPECTOR-GENERAL-ROUTE-START]
+R54_INSPECTOR_TRIGGERS = [
+    "/검수", "/검수총장", "/감찰", "/inspector", "검수총장", "출하관문", "감찰원", "카나리함정", "3중직인"
+]
+
+def _r54_inspector_general_route(msg):
+    m = str(msg or "").strip()
+    low = m.lower()
+    if not any(k in m or k in low for k in R54_INSPECTOR_TRIGGERS):
+        return None
+    try:
+        import rgon_aon_inspector_general_gate as _igg
+        if "카나리" in m or "canary" in low:
+            res = _igg.BlindCanaryTrapAuditor.run_canary_trap_audit()
+            speech = f"🕵️ [제30기관 검수총장 암행 감찰] 8대 전담 검수장 불시 카나리 함정 {res['traps_caught_count']}/{res['traps_tested']} 100.0% 전수 적발 완료!"
+        elif "시뮬레이션" in m or "루프" in m or "rework" in low:
+            res = _igg.run_rework_loop_simulation()
+            speech = f"🔄 [제30기관 출하 관문 실전] 불량 차단 ➔ 즉시 수리 ➔ 100.0% 재통과 루프 완결! (허가증: {res.get('certificate_id')})"
+        else:
+            dir_res = _igg.SupremeInspectorGeneral.dispatch_all_directives()
+            res = {"issued_directives": dir_res.get("issued_count", 8), "total_inspectors": 8, "status": "ONLINE"}
+            speech = f"⚖️ [제30기관 독립 검수담당 총장] 8대 기관 맞춤형 12대 헌장 지시 하달 & 3중 직인 출하 관문 100% 가동 중!"
+        return {
+            "ok": True,
+            "version": "v11.53-AON-INSPECTOR-GENERAL",
+            "antibody": "R54",
+            "intent": "inspector_general",
+            "intents": ["inspector_general"],
+            "speech": speech,
+            "inspector_general": res,
+            "data": res,
+            "results": [{"intent": "inspector_general", "ok": True, "speech": speech, "data": res}],
+        }
+    except Exception as _ex:
+        return {"ok": False, "error": str(_ex)}
+
+def _r54_wrap(_fn):
+    def _w(*a, **k):
+        _txt = a[0] if a and isinstance(a[0], str) else (a[1] if len(a) > 1 and isinstance(a[1], str) else k.get("text") or k.get("message") or k.get("utterance"))
+        if _txt:
+            _r54 = _r54_inspector_general_route(_txt)
+            if _r54 is not None:
+                return _r54
+            _r53 = _r53_page_button_bot_route(_txt)
+            if _r53 is not None:
+                return _r53
+        return _fn(*a, **k)
+    _w.__r54__ = True
+    return _w
+
+for _n in ("r40_route", "route", "process_dialogue", "route_command", "handle_message", "respond", "reply", "dialogue"):
+    _f = globals().get(_n)
+    if callable(_f) and not getattr(_f, "__r54__", False):
+        globals()[_n] = _r54_wrap(_f)
+# [RGON-R54-INSPECTOR-GENERAL-ROUTE-END]
 
 if __name__ == "__main__":
     sys.exit(main())

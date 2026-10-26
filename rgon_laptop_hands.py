@@ -16,7 +16,7 @@ try:
 except Exception:
     pass
 
-VERSION = "v11.52-AON-PAGE-BUTTON-BOT"
+VERSION = "v11.53-AON-INSPECTOR-GENERAL"
 ANTIBODY = "R1~R52"
 ROOT = Path(__file__).resolve().parent
 STATE_PATHS = ("rgon_manual_gate_state.json", "docs/rgon_manual_gate_state.json")

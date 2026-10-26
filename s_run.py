@@ -777,6 +777,31 @@ def handle_api_aon_token_egolite_master(method="GET", params=None):
 
 # [RGON-R52-API-COMMANDER-TWIN]
 
+
+def handle_api_aon_inspector_general(handler, req_data=None):
+    """/api/aon_inspector_general (GET/POST) 엔드포인트 핸들러"""
+    try:
+        import rgon_aon_inspector_general_gate as igg
+        if req_data:
+            action = req_data.get("action", "dispatch_and_audit")
+            if action == "dispatch_and_audit":
+                return igg.SupremeInspectorGeneral.dispatch_all_directives()
+            elif action == "canary_trap":
+                return igg.BlindCanaryTrapAuditor.run_canary_trap_audit()
+            elif action == "rework_loop":
+                return igg.run_rework_loop_simulation()
+            return {"ok": False, "error": f"Unknown action: {action}"}
+        return {
+            "ok": True,
+            "version": "v11.53-AON-INSPECTOR-GENERAL",
+            "antibody": "R54",
+            "endpoint": "/api/aon_inspector_general",
+            "total_directors": len(igg.DIRECTORS_REGISTRY),
+            "total_inspectors": 8
+        }
+    except Exception as e:
+        return {"ok": False, "error": str(e)}
+
 def handle_api_aon_page_button_bot(handler, req_data=None):
     """/api/aon_page_button_bot (GET/POST) 엔드포인트 핸들러"""
     try:

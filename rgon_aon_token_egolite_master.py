@@ -28,8 +28,8 @@ from pathlib import Path
 # ---------------------------------------------------------------------------
 ORGAN_NAME = "제27기관 아온 토큰 90% 초절약 & 7대 코딩스택·에고라이트 마스터 엔진"
 ORGAN_FILE = "rgon_aon_token_egolite_master.py"
-VERSION = "v11.52-AON-PAGE-BUTTON-BOT"
-ANTIBODIES = "R1~R53"
+VERSION = "v11.53-AON-INSPECTOR-GENERAL"
+ANTIBODIES = "R1~R54"
 SKILL_ID = "aon_token_egolite_master"
 ICHING_HEXAGRAMS = ["#60 수택절 ☵☱", "#62 뇌산소과 ☳☶"]
 ROOT = Path(__file__).resolve().parent
@@ -575,7 +575,7 @@ def self_test(verbose=True):
         check("대화 엔진 라우터 정상 응답", route_res.get("ok") is True and "token_egolite_master" in route_res)
 
         # 24. 버전 및 항체 태그 정합성 (v11.52-AON-PAGE-BUTTON-BOT, R1~R53)
-        check(f"버전 및 항체 태그 정합성 ({VERSION}, {ANTIBODIES})", VERSION == "v11.52-AON-PAGE-BUTTON-BOT" and ANTIBODIES == "R1~R53")
+        check(f"버전 및 항체 태그 정합성 ({VERSION}, {ANTIBODIES})", VERSION == "v11.53-AON-INSPECTOR-GENERAL" and ANTIBODIES == "R1~R54")
 
     finally:
         import shutil

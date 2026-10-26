@@ -31,8 +31,8 @@ import argparse
 import datetime
 from pathlib import Path
 
-VERSION = "v11.52-AON-PAGE-BUTTON-BOT"
-ANTIBODIES = "R1~R53"
+VERSION = "v11.53-AON-INSPECTOR-GENERAL"
+ANTIBODIES = "R1~R54"
 SKILL_ID = "aon-impeccable-audit-shield"
 ORGAN_NAME = "제26기관 아온 임페커블 UI 폴리시 & 오픈셸·클라우드플레어 적대적 교차감사 방패"
 ICHING_HEXAGRAMS = ["#61 풍택중부 ☴☱", "#15 지산겸 ☷☶"]
@@ -519,7 +519,7 @@ def self_test(verbose=True):
         check("대화 엔진 라우터 정상 응답", route_res.get("ok") is True and "impeccable_shield" in route_res)
 
         # 20. 버전 및 항체 태그 정합성 (v11.52-AON-PAGE-BUTTON-BOT, R1~R53)
-        check(f"버전 및 항체 태그 정합성 ({VERSION}, {ANTIBODIES})", VERSION == "v11.52-AON-PAGE-BUTTON-BOT" and ANTIBODIES == "R1~R53")
+        check(f"버전 및 항체 태그 정합성 ({VERSION}, {ANTIBODIES})", VERSION == "v11.53-AON-INSPECTOR-GENERAL" and ANTIBODIES == "R1~R54")
 
     finally:
         import shutil

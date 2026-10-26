@@ -1,8 +1,8 @@
 {
-  "version": "v11.52-AON-PAGE-BUTTON-BOT",
-  "antibody": "R1~R53",
+  "version": "v11.53-AON-INSPECTOR-GENERAL",
+  "antibody": "R1~R54",
   "generated_at_kst": "2026-10-26 00:23:49 KST",
-  "count": 49,
+  "count": 50,
   "skills": [
     {
       "slug": "1-36-45",
@@ -485,14 +485,24 @@
       ],
       "path": "skills/aon-page-button-bot-engine/SKILL.md",
       "description": "WebMCP/Stagehand 전 페이지·전 버튼 결정론적 자동화 봇 전환 + n8n-Lite 5대 표준 체인 오케스트레이터 및 SHA-256 감사 영수증"
+    },
+    {
+      "slug": "aon-inspector-general-gate",
+      "id": "aon-inspector-general-gate",
+      "name": "아온 7대 방침 기관장 분신단 & 독립 검수담당 총장·기관별 특화 검수장 100% 출하 봉인 관문 시스템",
+      "category": "governance-inspection",
+      "hexagram_tag": "#21-噬嗑 · #15-謙",
+      "source_url": "rgon_aon_inspector_general_gate.py",
+      "origin": "organ-30",
+      "path": "skills/aon-inspector-general-gate/SKILL.md"
     }
   ],
-  "total": 49,
-  "skill_count": 49,
-  "antibody_range": "R1~R53",
-  "antibodies": "R1~R53",
-  "updated": "2026-10-27T06:16:24",
+  "total": 50,
+  "skill_count": 50,
+  "antibody_range": "R1~R54",
+  "antibodies": "R1~R54",
+  "updated": "2026-10-27T06:40:00",
   "synced_at_kst": "2026-10-26 21:30:00 KST",
-  "immune": "R1~R53",
-  "total_skills": 49
+  "immune": "R1~R54",
+  "total_skills": 50
 }

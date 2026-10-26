@@ -122,3 +122,5 @@
 - 경로: `skills/aon-page-button-bot-engine/SKILL.md`
 - 기관: 제29기관 아온 WebMCP & Stagehand/n8n-Lite 전 페이지·전 버튼 자율 자동화 봇 전환 엔진 (`rgon_aon_page_button_bot_engine.py`)
 - 핵심: WebMCP/Stagehand 전 페이지·전 버튼 결정론적 자동화 봇 전환 + n8n-Lite 5대 표준 체인 오케스트레이터 및 SHA-256 감사 영수증
+
+- **`aon-inspector-general-gate`** (50번): 아온 7대 방침 기관장 분신단 & 독립 검수담당 총장 100% 출하 봉인 관문 시스템 (`skills/aon-inspector-general-gate/SKILL.md`)

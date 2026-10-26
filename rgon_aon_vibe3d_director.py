@@ -31,8 +31,8 @@ import argparse
 import datetime
 from pathlib import Path
 
-VERSION = "v11.52-AON-PAGE-BUTTON-BOT"
-ANTIBODIES = "R1~R53"
+VERSION = "v11.53-AON-INSPECTOR-GENERAL"
+ANTIBODIES = "R1~R54"
 SKILL_ID = "aon-vibe3d-movie-director"
 ORGAN_NAME = "제25기관 아온 바이브 3D 시네마틱 디렉터 & VARCO 플로우 스튜디오"
 ICHING_HEXAGRAMS = ["#22 산화비 ☶☲", "#14 화천대유 ☲☰"]

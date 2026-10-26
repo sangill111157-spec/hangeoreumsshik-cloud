@@ -10,10 +10,10 @@
   if (window._rgon_mobile_interceptor_loaded) return;
   window._rgon_mobile_interceptor_loaded = true;
 
-  const VER = "v11.52-AON-PAGE-BUTTON-BOT";
-  const AB = "R1~R53";
-  const SKILLS = 49;
-  const ORGANS = 29;
+  const VER = "v11.53-AON-INSPECTOR-GENERAL";
+  const AB = "R1~R54";
+  const SKILLS = 50;
+  const ORGANS = 30;
 
   const origFetch = window.fetch;
 
@@ -33,7 +33,30 @@
   function getMockData(url, method, bodyData) {
     const path = url.split("?")[0].toLowerCase();
 
-        // 0. 전 페이지·전 버튼 자동화 봇 & 5대 체인
+            // 00. 검수담당 총장 & 8대 기관 100% 출하 봉인 관문
+    if (path.includes("inspector_general") || path.includes("court")) {
+      return {
+        ok: true,
+        status: "SUCCESS",
+        version: VER,
+        antibody: AB,
+        organ: "제30기관 아온 7대 방침 기관장 분신단 & 독립 검수담당 총장 100% 출하 봉인 관문 시스템",
+        skills_count: SKILLS,
+        dispatched_at: new Date().toISOString(),
+        elapsed_sec: 0.002,
+        total_directors: 8,
+        total_inspectors: 8,
+        pass_rate: "100.0%",
+        triple_seal: {
+          director_seal: "제N기관장 7대 방침 직인",
+          inspector_seal: "전담 검수장 12/12 100.0% 합격 봉인",
+          supreme_general_seal: "검수담당 총장 최종 승인 감사 직인"
+        },
+        verdict: "모바일 무서버 환경에서도 8대 기관 100% 출하 관문 및 암행 감찰 정상 작동"
+      };
+    }
+
+// 0. 전 페이지·전 버튼 자동화 봇 & 5대 체인
     if (path.includes("page_button_bot") || path.includes("button_bot")) {
       return {
         ok: true,

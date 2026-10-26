@@ -1441,7 +1441,25 @@ class DashboardHandler(SimpleHTTPRequestHandler):
 
         # 👑 [Step 52 · R52] 제28기관 아온 대표님 인지 디지털 트윈 상태 (GET /api/aon_commander_twin)
                 # 🤖 [Step 53 · R53] 제29기관 아온 전 페이지·전 버튼 자동화 봇 상태 (GET /api/aon_page_button_bot)
-        if path == '/api/aon_page_button_bot':
+                # ⚖️ [Step 54 · R54] 제30기관 아온 독립 검수담당 총장 상태 (GET /api/aon_inspector_general)
+        if path == '/api/aon_inspector_general':
+            try:
+                import rgon_aon_inspector_general_gate as igg
+                data = {
+                    "ok": True,
+                    "version": "v11.53-AON-INSPECTOR-GENERAL",
+                    "antibody": "R54",
+                    "organ": "제30기관 아온 7대 방침 기관장 분신단 & 독립 검수담당 총장 100% 출하 관문",
+                    "total_directors": len(igg.DIRECTORS_REGISTRY),
+                    "total_inspectors": 8,
+                    "status": "ONLINE_GATE_LOCKED_100_PERCENT"
+                }
+                self._send_json(data)
+                return
+            except Exception as e:
+                self._send_json({"ok": False, "error": str(e)}, status=500)
+                return
+if path == '/api/aon_page_button_bot':
             try:
                 import rgon_aon_page_button_bot_engine as pbe
                 cat = pbe.WebMcpStagehandBotCompiler.load_or_compile()
@@ -2486,7 +2504,26 @@ if path == '/api/aon_commander_twin':
 
         # 👑 [Step 52 · R52] 제28기관 아온 대표님 인지 디지털 트윈 실행 (POST /api/aon_commander_twin)
                 # 🤖 [Step 53 · R53] 제29기관 아온 전 페이지·전 버튼 자동화 봇 실행 (POST /api/aon_page_button_bot)
-        if self.path == '/api/aon_page_button_bot':
+                # ⚖️ [Step 54 · R54] 제30기관 아온 독립 검수담당 총장 감사 실행 (POST /api/aon_inspector_general)
+        if self.path == '/api/aon_inspector_general':
+            try:
+                import rgon_aon_inspector_general_gate as igg
+                req = self._read_json_body() or {}
+                action = req.get("action", "dispatch_and_audit")
+                if action == "dispatch_and_audit":
+                    res = igg.SupremeInspectorGeneral.dispatch_all_directives()
+                elif action == "canary_trap":
+                    res = igg.BlindCanaryTrapAuditor.run_canary_trap_audit()
+                elif action == "rework_loop":
+                    res = igg.run_rework_loop_simulation()
+                else:
+                    res = {"ok": False, "error": f"Unknown action: {action}"}
+                self._send_json(res)
+                return
+            except Exception as e:
+                self._send_json({"ok": False, "error": str(e)}, status=500)
+                return
+if self.path == '/api/aon_page_button_bot':
             try:
                 import rgon_aon_page_button_bot_engine as pbe
                 req = self._read_json_body() or {}

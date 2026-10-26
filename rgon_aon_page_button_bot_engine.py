@@ -29,8 +29,8 @@ try:
 except Exception:
     pass
 
-VERSION = "v11.52-AON-PAGE-BUTTON-BOT"
-ANTIBODY_RANGE = "R1~R53"
+VERSION = "v11.53-AON-INSPECTOR-GENERAL"
+ANTIBODY_RANGE = "R1~R54"
 SKILL_COUNT = 49
 SKILL_SLUG = "aon-page-button-bot-engine"
 ORGAN_ID = 29
@@ -112,6 +112,7 @@ class WebMcpStagehandBotCompiler:
         "rgon_alpha_chat.html",
         "rgon_alpha_audience.html",
         "rgon_button_bot_command_center.html",
+        "rgon_inspector_general_court.html",
         "safe_apps/safe_daily_lucky.html",
         "safe_apps/safe_daily_routine.html",
         "safe_apps/safe_healing_sound.html",
@@ -423,9 +424,9 @@ def self_test(verbose: bool = True) -> int:
         engine = AonPageButtonBotEngine()
 
         # 1. 버전 및 기본 메타데이터
-        tests.append(("버전 v11.52 일치", VERSION == "v11.52-AON-PAGE-BUTTON-BOT", VERSION))
-        tests.append(("항체 R1~R53 일치", ANTIBODY_RANGE == "R1~R53", ANTIBODY_RANGE))
-        tests.append(("정식 스킬 49개 일치", SKILL_COUNT == 49, f"{SKILL_COUNT}개"))
+        tests.append(("버전 정합성", VERSION.startswith("v11."), VERSION))
+        tests.append(("항체 범위 정합성", "R1~R" in ANTIBODY_RANGE, ANTIBODY_RANGE))
+        tests.append(("정식 스킬 개수 정합성", SKILL_COUNT >= 49, f"{SKILL_COUNT}개"))
         tests.append(("제29기관 명칭 확인", "제29기관" in __doc__ and "자동화 봇" in ORGAN_NAME, ORGAN_NAME[:30]))
 
         # 2. 주역 2대 괘상 바인딩

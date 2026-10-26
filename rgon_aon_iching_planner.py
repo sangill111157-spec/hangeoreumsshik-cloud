@@ -28,8 +28,8 @@ for _s in ("stdout", "stderr"):
         except Exception:
             pass
 
-VERSION = "v11.52-AON-PAGE-BUTTON-BOT"
-ANTIBODY_RANGE = "R1~R53"
+VERSION = "v11.53-AON-INSPECTOR-GENERAL"
+ANTIBODY_RANGE = "R1~R54"
 ANTIBODY = "R41"
 SKILL_COUNT = 39
 SKILL_ID = "aon-iching-strategic-planner"

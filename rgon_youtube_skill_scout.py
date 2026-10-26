@@ -27,7 +27,7 @@ try:
 except Exception:
     pass
 
-VERSION = "v11.52-AON-PAGE-BUTTON-BOT"
+VERSION = "v11.53-AON-INSPECTOR-GENERAL"
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 RADAR_NAME = "rgon_skill_radar.json"
 KST = timezone(timedelta(hours=9))
