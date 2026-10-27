@@ -1,8 +1,8 @@
 {
-  "version": "v11.60-AON-EMPIRE-ASSETS",
-  "antibody": "R1~R60",
+  "version": "v11.61-AON-GDRIVE-5TB-DECIMAL",
+  "antibody": "R1~R61",
   "generated_at_kst": "2026-10-27 20:35:00 KST",
-  "count": 56,
+  "count": 57,
   "skills": [
     {
       "slug": "1-36-45",
@@ -569,15 +569,31 @@
       "path": "skills/aon-empire-asset-hub/SKILL.md",
       "version": "v11.60-AON-EMPIRE-ASSETS",
       "antibody": "R60_EMPIRE_ASSET_HUB_LOCK"
+    },
+    {
+      "id": 57,
+      "skill_id": 57,
+      "slug": "aon-gdrive-5tb-organizer",
+      "name": "aon-gdrive-5tb-organizer",
+      "category": "cloud-storage-automation",
+      "description": "제37기관 아온 Google One 5TB 초심플 클라우드 아카이브 엔진 (Johnny.Decimal 00~06 대분류 + 11~62 중분류, PARA 3초 업로드 무인 분류기, 서브계정 레지스트리)",
+      "tier": "tier-1",
+      "grade": "EX",
+      "hexagram_tag": "#37-家人",
+      "source_url": "https://one.google.com/",
+      "origin": "rgon-core",
+      "path": "skills/aon-gdrive-5tb-organizer/SKILL.md",
+      "version": "v11.61-AON-GDRIVE-5TB-DECIMAL",
+      "antibody": "R61_GDRIVE_5TB_DECIMAL_LOCK"
     }
   ],
-  "total": 56,
-  "skill_count": 56,
-  "antibody_range": "R1~R60",
-  "antibodies": "R1~R60",
-  "updated": "2026-10-27T21:16:23",
+  "total": 57,
+  "skill_count": 57,
+  "antibody_range": "R1~R61",
+  "antibodies": "R1~R61",
+  "updated": "2026-10-27T21:41:15",
   "synced_at_kst": "2026-10-27 20:35:00 KST",
-  "immune": "R1~R60",
-  "total_skills": 56,
-  "total_count": 56
+  "immune": "R1~R61",
+  "total_skills": 57,
+  "total_count": 57
 }

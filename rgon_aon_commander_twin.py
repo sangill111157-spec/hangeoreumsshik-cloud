@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """rgon_aon_commander_twin.py — 제28기관 아온 이상일 대표님 인지 디지털 트윈 & 노트북·스마트폰 무인 대행 사령관
-Step 52 · v11.60-AON-EMPIRE-ASSETS · 항체 R1~R57 · 정식 스킬 #48 aon-commander-digital-twin
+Step 52 · v11.61-AON-GDRIVE-5TB-DECIMAL · 항체 R1~R57 · 정식 스킬 #48 aon-commander-digital-twin
 주역: #01 중천건 ☰☰ (원형이정·원기왕성·불철주야 자강불식) · #30 중화리 ☲☲ (대표님의 혜안·실전 눈 검열)
 
 이상일 대표님 고유의 7단계 일처리 DNA(The Sang-Il Command Loop)를 결정론적 AI 파이프라인으로 구현하여,
@@ -21,7 +21,7 @@ import datetime
 from pathlib import Path
 from typing import Dict, Any, List, Optional, Tuple
 
-VERSION = "v11.60-AON-EMPIRE-ASSETS"
+VERSION = "v11.61-AON-GDRIVE-5TB-DECIMAL"
 ANTIBODY_RANGE = "R1~R57"
 SKILL_COUNT = 48
 SKILL_SLUG = "aon-commander-digital-twin"
@@ -413,7 +413,7 @@ def self_test(verbose: bool = True) -> int:
         engine = CommanderTwinEngine(state_dir=Path(tmp_dir))
 
         # 1. 엔진 버전 및 명세 일치
-        tests.append(("엔진 버전 v11.51 일치", VERSION == "v11.60-AON-EMPIRE-ASSETS", VERSION))
+        tests.append(("엔진 버전 v11.51 일치", VERSION == "v11.61-AON-GDRIVE-5TB-DECIMAL", VERSION))
         tests.append(("항체 범위 R1~R57 일치", ANTIBODY_RANGE == "R1~R57", ANTIBODY_RANGE))
         tests.append(("정식 스킬 48개 명시", SKILL_COUNT == 48, str(SKILL_COUNT)))
         tests.append(("제28기관 고유 식별자 28", ORGAN_ID == 28, str(ORGAN_ID)))

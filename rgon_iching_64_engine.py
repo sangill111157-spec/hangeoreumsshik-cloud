@@ -22,7 +22,7 @@ import argparse
 import datetime
 from pathlib import Path
 
-ENGINE_VERSION = "v11.60-AON-EMPIRE-ASSETS"
+ENGINE_VERSION = "v11.61-AON-GDRIVE-5TB-DECIMAL"
 OUTPUT_NAME = "rgon_today_hexagram.json"
 BASELINE_NAME = "rgon_integrity_baseline.json"
 LOG_FRESH_DAYS = 7

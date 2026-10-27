@@ -3,7 +3,7 @@
 # rgon_spec_ticket_Shield.py — RGON v11.26-CREATOR-FORGE / 항체 R21
 # Matt Pocock to-spec/to-tickets 분업기 + ECC AgentShield 보안 백혈구 (표준 라이브러리 전용)
 import os, re, sys, json, time, shutil, tempfile
-VERSION = "v11.60-AON-EMPIRE-ASSETS"
+VERSION = "v11.61-AON-GDRIVE-5TB-DECIMAL"
 ANTIBODY_RANGE = "R1~R57"
 ROOT = os.path.dirname(os.path.abspath(__file__))
 EXCLUDE = {".git", "__pycache__", "node_modules", ".venv", "venv", ".rgon_backup", ".rgon_backups", ".idea", ".vscode", "backups", "archive", "old_backups"}

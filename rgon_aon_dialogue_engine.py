@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """rgon_aon_dialogue_engine.py — 제15기관 아온 초격차 대화 이해 & 올인원 대화 허브 (표준 라이브러리 전용)
-[RGON-R39] v11.60-AON-EMPIRE-ASSETS
+[RGON-R39] v11.61-AON-GDRIVE-5TB-DECIMAL
 파이프라인: 구어 정규화 → 대명사·생략어 복원 → 슬래시/원칙/복합의도 분기 → 기관 디스패치
           → 플랫폼 메타데이터(thinking·artifact·chips·callback) 보강 → 3계층 해마 기억(단기·토픽·연상).
 한계: 사전·정규식 기반 규칙 엔진이다. 언어모델이 아니므로 처음 보는 표현은 놓칠 수 있다."""
@@ -8,7 +8,7 @@ import argparse, datetime, json, os, re, sys, tempfile, time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-VERSION = "v11.60-AON-EMPIRE-ASSETS"
+VERSION = "v11.61-AON-GDRIVE-5TB-DECIMAL"
 STATE, PREFS = "rgon_aon_dialogue_state.json", "rgon_aon_preferences.json"
 SHORT_MAX, EVENT_MAX, FRESH_TURNS, FRESH_SEC = 20, 60, 4, 1800
 CAT_KO = {"command_rule": "지휘 원칙", "style": "스타일", "preference": "취향"}
@@ -591,8 +591,8 @@ import os as _o40, re as _re40, json as _j40, time as _t40, sys as _s40
 import shutil as _sh40, inspect as _in40, importlib as _il40
 from pathlib import Path as _P40
 
-R40_VERSION = "v11.60-AON-EMPIRE-ASSETS"
-R40_ANTIBODY = "R1~R60"
+R40_VERSION = "v11.61-AON-GDRIVE-5TB-DECIMAL"
+R40_ANTIBODY = "R1~R61"
 _R40_HERE = _P40(__file__).resolve().parent
 _R40_NAMES = ("_call_iching", "_call_hands", "_call_soul", "_call_insight",
               "_call_playground", "_call_brat", "normalize_colloquial")
@@ -1257,7 +1257,7 @@ def _r41_plan_response(arg):
         "recommended_branch": p.get("recommended_branch"),
         "three_branch_tree": p.get("three_branch_tree"), "action_items": p.get("action_items"),
         "shichen_schedule": p.get("shichen_schedule"), "plan": p,
-        "version": "v11.60-AON-EMPIRE-ASSETS",
+        "version": "v11.61-AON-GDRIVE-5TB-DECIMAL",
     }
 
 
@@ -1736,7 +1736,7 @@ def r47_zeroclick_route(text, out_dir=None):
         res = _zc.route_command(t, out_dir=out_dir)
         return {
             "ok": bool(res.get("ok")),
-            "version": "v11.60-AON-EMPIRE-ASSETS",
+            "version": "v11.61-AON-GDRIVE-5TB-DECIMAL",
             "antibody": "R47",
             "intent": "zeroclick_studio",
             "intents": ["zeroclick_studio"],
@@ -1818,7 +1818,7 @@ def _r49_vibe3d_route(msg):
         res = _vd.route_vibe3d_intent(m)
         return {
             "ok": bool(res.get("ok")),
-            "version": "v11.60-AON-EMPIRE-ASSETS",
+            "version": "v11.61-AON-GDRIVE-5TB-DECIMAL",
             "antibody": "R49",
             "intent": "vibe3d_director",
             "intents": ["vibe3d_director"],
@@ -1846,7 +1846,7 @@ def _r50_impeccable_route(msg):
         res = _shield.route_impeccable_intent(m)
         return {
             "ok": bool(res.get("ok")),
-            "version": "v11.60-AON-EMPIRE-ASSETS",
+            "version": "v11.61-AON-GDRIVE-5TB-DECIMAL",
             "antibody": "R50",
             "intent": "impeccable_shield",
             "intents": ["impeccable_shield"],
@@ -1874,7 +1874,7 @@ def _r51_token_egolite_route(msg):
         res = _token_master.route_token_egolite_intent(m)
         return {
             "ok": bool(res.get("ok")),
-            "version": "v11.60-AON-EMPIRE-ASSETS",
+            "version": "v11.61-AON-GDRIVE-5TB-DECIMAL",
             "antibody": "R51",
             "intent": "token_egolite_master",
             "intents": ["token_egolite_master"],
@@ -1931,7 +1931,7 @@ def _r52_commander_twin_route(msg):
         speech = "👑 [제28기관 아온 대표님 인지 디지털 트윈] 이상일 대표님의 7단계 DNA 무인 대행 완결! (신경망 100.0 수렴)"
         return {
             "ok": bool(res.get("all_passed")),
-            "version": "v11.60-AON-EMPIRE-ASSETS",
+            "version": "v11.61-AON-GDRIVE-5TB-DECIMAL",
             "antibody": "R52",
             "intent": "commander_twin",
             "intents": ["commander_twin"],
@@ -2000,7 +2000,7 @@ def _r53_page_button_bot_route(msg):
             speech = f"🤖 [제29기관 WebMCP 전 페이지·전 버튼 봇] {res['total_page_bots']}개 부대 · {res['total_button_bots']}개 버튼 봇 출격 대기 완료!"
         return {
             "ok": True,
-            "version": "v11.60-AON-EMPIRE-ASSETS",
+            "version": "v11.61-AON-GDRIVE-5TB-DECIMAL",
             "antibody": "R53",
             "intent": "page_button_bot",
             "intents": ["page_button_bot"],
@@ -2054,7 +2054,7 @@ def _r54_inspector_general_route(msg):
             speech = f"⚖️ [제30기관 독립 검수담당 총장] 8대 기관 맞춤형 12대 헌장 지시 하달 & 3중 직인 출하 관문 100% 가동 중!"
         return {
             "ok": True,
-            "version": "v11.60-AON-EMPIRE-ASSETS",
+            "version": "v11.61-AON-GDRIVE-5TB-DECIMAL",
             "antibody": "R54",
             "intent": "inspector_general",
             "intents": ["inspector_general"],
@@ -2147,8 +2147,8 @@ def _r56_telegram_messenger_route(msg):
                 "ok": True,
                 "intent": "telegram_messenger",
                 "organ": "제32기관 아온 듀얼 텔레그램·카톡형 실시간 양방향 메신저",
-                "version": "v11.60-AON-EMPIRE-ASSETS",
-                "antibody_range": "R1~R60",
+                "version": "v11.61-AON-GDRIVE-5TB-DECIMAL",
+                "antibody_range": "R1~R61",
                 "bot1": cfg['bot1']['username'],
                 "bot2": cfg['bot2']['username'],
                 "chat_id_active": bool(cfg['chat_id']),
@@ -2187,8 +2187,8 @@ def _r57_invisible_kakao_route(msg):
                 "ok": True,
                 "intent": "invisible_kakao_tg",
                 "organ": "제33기관 아온 인비저블 텔레그램 백본 & 카카오톡형 올인원 만능 대화창",
-                "version": "v11.60-AON-EMPIRE-ASSETS",
-                "antibody_range": "R1~R60",
+                "version": "v11.61-AON-GDRIVE-5TB-DECIMAL",
+                "antibody_range": "R1~R61",
                 "channels": list(inv_mod.CHANNELS.keys()),
                 "bots": [cfg['bot1']['username'], cfg['bot2']['username'], cfg['bot3']['username']],
                 "nvda_dashboard_exists": os.path.exists(cfg['nvda_dashboard_path']),
@@ -2227,8 +2227,8 @@ def _r58_pinnacle_omni_route(msg):
                 "ok": True,
                 "intent": "pinnacle_omni_comm",
                 "organ": "제34기관 아온 피너클 옴니 커뮤니케이터 & 멀티모달 두뇌",
-                "version": "v11.60-AON-EMPIRE-ASSETS",
-                "antibody_range": "R1~R60",
+                "version": "v11.61-AON-GDRIVE-5TB-DECIMAL",
+                "antibody_range": "R1~R61",
                 "briefing": pin_mod.get_live_work_briefing(),
                 "reply": reply_obj.get("text", "제34기관 피너클 옴니 커뮤니케이터 정상 가동 중")
             }
@@ -2265,8 +2265,8 @@ def _r59_motion_studio_route(msg):
                 "ok": True,
                 "intent": "opus_motion_studio",
                 "organ": "제35기관 아온 클로드 오퍼스 5.5 모션 그래픽 스튜디오",
-                "version": "v11.60-AON-EMPIRE-ASSETS",
-                "antibody_range": "R1~R60",
+                "version": "v11.61-AON-GDRIVE-5TB-DECIMAL",
+                "antibody_range": "R1~R61",
                 "media": media,
                 "reply": "제35기관 클로드 오퍼스 5.5 모션 그래픽 스튜디오 정상 가동 중"
             }
@@ -2322,8 +2322,8 @@ def _r60_empire_asset_route(msg):
                 "ok": True,
                 "intent": "empire_distrokid_album",
                 "organ": "제36기관 아온 한걸음씩 6대 자산 제국 마스터 통합 허브",
-                "version": "v11.60-AON-EMPIRE-ASSETS",
-                "antibody_range": "R1~R60",
+                "version": "v11.61-AON-GDRIVE-5TB-DECIMAL",
+                "antibody_range": "R1~R61",
                 "data": dk,
                 "reply": reply
             }
@@ -2355,8 +2355,8 @@ def _r60_empire_asset_route(msg):
                 "ok": True,
                 "intent": "empire_youtube_tiktok",
                 "organ": "제36기관 아온 한걸음씩 6대 자산 제국 마스터 통합 허브",
-                "version": "v11.60-AON-EMPIRE-ASSETS",
-                "antibody_range": "R1~R60",
+                "version": "v11.61-AON-GDRIVE-5TB-DECIMAL",
+                "antibody_range": "R1~R61",
                 "youtube": yt,
                 "sns": sns,
                 "reply": reply
@@ -2387,8 +2387,8 @@ def _r60_empire_asset_route(msg):
                     "ok": True,
                     "intent": "empire_blogger_generate",
                     "organ": "제36기관 아온 한걸음씩 6대 자산 제국 마스터 통합 허브",
-                    "version": "v11.60-AON-EMPIRE-ASSETS",
-                    "antibody_range": "R1~R60",
+                    "version": "v11.61-AON-GDRIVE-5TB-DECIMAL",
+                    "antibody_range": "R1~R61",
                     "post": post,
                     "reply": reply
                 }
@@ -2407,8 +2407,8 @@ def _r60_empire_asset_route(msg):
                     "ok": True,
                     "intent": "empire_blogger",
                     "organ": "제36기관 아온 한걸음씩 6대 자산 제국 마스터 통합 허브",
-                    "version": "v11.60-AON-EMPIRE-ASSETS",
-                    "antibody_range": "R1~R60",
+                    "version": "v11.61-AON-GDRIVE-5TB-DECIMAL",
+                    "antibody_range": "R1~R61",
                     "blogger": b,
                     "reply": reply
                 }
@@ -2434,8 +2434,8 @@ def _r60_empire_asset_route(msg):
                 "ok": True,
                 "intent": "empire_sns_promo",
                 "organ": "제36기관 아온 한걸음씩 6대 자산 제국 마스터 통합 허브",
-                "version": "v11.60-AON-EMPIRE-ASSETS",
-                "antibody_range": "R1~R60",
+                "version": "v11.61-AON-GDRIVE-5TB-DECIMAL",
+                "antibody_range": "R1~R61",
                 "promo": promo,
                 "reply": reply
             }
@@ -2461,8 +2461,8 @@ def _r60_empire_asset_route(msg):
                 "ok": True,
                 "intent": "empire_master_summary",
                 "organ": "제36기관 아온 한걸음씩 6대 자산 제국 마스터 통합 허브",
-                "version": "v11.60-AON-EMPIRE-ASSETS",
-                "antibody_range": "R1~R60",
+                "version": "v11.61-AON-GDRIVE-5TB-DECIMAL",
+                "antibody_range": "R1~R61",
                 "summary": summary,
                 "reply": reply
             }
@@ -2487,5 +2487,54 @@ for _n in ("r40_route", "route", "process_dialogue", "route_command", "handle_me
     if callable(_f) and not getattr(_f, "__r60__", False):
         globals()[_n] = _r60_wrap(_f)
 # [RGON-R60-EMPIRE-ASSET-END]
+
+# [RGON-R61-GDRIVE-5TB-DECIMAL-START]
+def _r61_gdrive_route(text: str):
+    if not isinstance(text, str):
+        return None
+    txt = text.strip()
+    txt_no_space = "".join(txt.split()).lower()
+
+    gdrive_keys = ("구글드라이브", "5tb", "드라이브", "폴더정리", "조니데시멀", "인박스", "inbox", "99roblgye", "대기계정", "클라우드")
+    if any(k in txt_no_space for k in gdrive_keys):
+        try:
+            import rgon_aon_gdrive_5tb_organizer as gdrive_mod
+            briefing = gdrive_mod.generate_gdrive_briefing()
+            st = gdrive_mod.get_storage_status()
+            return {
+                "ok": True,
+                "intent": "gdrive_5tb_decimal",
+                "organ": "제37기관 아온 Google One 5TB 초심플 클라우드 아카이브 엔진",
+                "version": "v11.61-AON-GDRIVE-5TB-DECIMAL",
+                "antibody_range": "R1~R61",
+                "storage": st,
+                "reply": briefing
+            }
+        except Exception as e:
+            return {
+                "ok": True,
+                "intent": "gdrive_5tb_decimal",
+                "error": str(e),
+                "reply": "Google One 5TB 초심플 Johnny.Decimal 아카이브 브리핑 완료"
+            }
+    return None
+
+def _r61_wrap(_fn):
+    def _w(*args, **kwargs):
+        if args and isinstance(args[0], str):
+            _txt = args[0]
+            _r61 = _r61_gdrive_route(_txt)
+            if _r61 is not None:
+                return _r61
+        return _fn(*args, **kwargs)
+    _w.__r61__ = True
+    return _w
+
+for _n in ("r40_route", "route", "process_dialogue", "route_command", "handle_message", "respond", "converse"):
+    _f = globals().get(_n)
+    if callable(_f) and not getattr(_f, "__r61__", False):
+        globals()[_n] = _r61_wrap(_f)
+# [RGON-R61-GDRIVE-5TB-DECIMAL-END]
+
 
 

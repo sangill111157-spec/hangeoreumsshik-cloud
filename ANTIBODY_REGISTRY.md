@@ -111,4 +111,11 @@
 - **역할:** DistroKid 정식 배급 2대 정규앨범 27곡(가을과 겨울 사이 12곡 + 잔상 15곡) 실시간 D-Day 계산, 유튜브 3대 공식 채널(@한걸음씩-r4i, @Booster_Playlist, @TheCaféHour), 틱톡 본진(@boosterplaylist 2,125명) 및 메타 3형제(인스타 릴스·스레드·페북) 3초 동시 자동 배포 가이드, 구글 블로거(connect-ai-shin.blogspot.com) 3조 2교대 건강 7대 DNA 기반 칼럼 초안 자동 생성, 클로드 오퍼스 5.5 모션 스튜디오 5대 프리셋 연동 및 타임스탬프 원클릭 복사.
 - **발효 버전:** `v11.60-AON-EMPIRE-ASSETS`
 
+### R61: `R61_GDRIVE_5TB_DECIMAL_LOCK`
+- **범위**: R1~R61 · 정식 스킬 57개
+- **제37기관:** 아온 Google One 5TB 초심플 클라우드 아카이브 엔진 (`rgon_aon_gdrive_5tb_organizer.py`)
+- **역할:** Google One 5TB(5,000GB 중 15.91GB 사용, 4,984.09GB / 99.68% 가용) 스토리지 실시간 게이지, 세계 Top 1 파일 정리 표준 『Johnny.Decimal (00~06 대분류 + 11~62 중분류, 최대 2단계 제한) × PARA』 아카이브 트리, 스마트폰 3초 업로드 무인 투입구(`00_📥_INBOX_일단여기에넣기`) 및 파일명 키워드 기반 무인 자동 라우팅, 대기/가족 서브계정(99 ROBLGYE @99ROBLGYE, 이해상 수석 디자이너, 이송효 공주님) 레지스트리 안전 보존.
+- **발효 버전:** `v11.61-AON-GDRIVE-5TB-DECIMAL`
+
+
 

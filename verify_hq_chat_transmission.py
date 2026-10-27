@@ -492,9 +492,27 @@ def test_step61_empire_assets():
                 browser.close()
                 return False
         print("  ✅ [PASS] 20. '블로그 현황 알려줘' ➔ 구글 블로그 URL 및 3조 2교대 7대 DNA 100% 정상 출력 확인!")
+        time.sleep(0.5)
+
+        # ======================================================================
+        # [검증 21] "구글 드라이브 5TB 정리법 알려줘" (제37기관 Google One 5TB 조니 데시멀)
+        # ➔ "5,000 GB", "4,984.09 GB", "00_📥_INBOX", "Johnny.Decimal", "99 ROBLGYE", "rgon_gdrive_5tb_hub.html" 검증
+        # ======================================================================
+        print("\n🔹 [실전 질문 21] '구글 드라이브 5TB 정리법 알려줘' (Google One 5TB Johnny.Decimal × PARA)")
+        input_el.fill("구글 드라이브 5TB 정리법 알려줘")
+        send_btn.click()
+        feed_text_21 = wait_for_feed("4,984.09 GB", 6)
+
+        gdrive_keys = ["5,000 GB", "4,984.09 GB", "00_📥_INBOX", "Johnny.Decimal", "99 ROBLGYE", "rgon_gdrive_5tb_hub.html"]
+        for k in gdrive_keys:
+            if k not in feed_text_21:
+                print(f"❌ [FAIL] 5TB 드라이브 질의 답변에서 필수 키워드 '{k}' 가 누락되었습니다!\n{feed_text_21}")
+                browser.close()
+                return False
+        print("  ✅ [PASS] 21. '구글 드라이브 5TB 정리법 알려줘' ➔ 5,000 GB / 4,984.09 GB 잔여 용량, 00~06 구조, 99 ROBLGYE, 허브 링크 100% 정상 출력 확인!")
 
         print("\n=======================================================")
-        print("🎉 [Playwright 제36기관 6대 자산 실측 결과] 3대 관문 100% ALL PASS!")
+        print("🎉 [Playwright 제36·37기관 자산·클라우드 실측 결과] 4대 관문 100% ALL PASS!")
         print("=======================================================\n")
         browser.close()
         return True
@@ -509,5 +527,5 @@ if __name__ == '__main__':
     ok3 = test_step61_empire_assets()
     if not ok3:
         sys.exit(1)
-    print("🏆 [최종 통과] 데스크톱(10대) + 모바일(7대) + 6대 자산 제국(3대) = 총 20대 관문 100.0% 무결점 ALL PASS!")
+    print("🏆 [최종 통과] 데스크톱(10대) + 모바일(7대) + 자산·클라우드(4대) = 총 21대 관문 100.0% 무결점 ALL PASS!")
     sys.exit(0)

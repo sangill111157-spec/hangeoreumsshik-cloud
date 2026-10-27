@@ -1,6 +1,6 @@
 {
   "schema": "rgon_brain_snapshot/1",
-  "version": "v11.60-AON-EMPIRE-ASSETS",
+  "version": "v11.61-AON-GDRIVE-5TB-DECIMAL",
   "generated_at_kst": "2026-10-27 20:35:00 KST",
   "synced_at_kst": "2026-10-27 20:35:00 KST",
   "sync_rate": "100.0%",
@@ -11,8 +11,8 @@
     "max": 100,
     "label": "100/100"
   },
-  "antibody_range": "R1~R60",
-  "antibodies": "R1~R60",
+  "antibody_range": "R1~R61",
+  "antibodies": "R1~R61",
   "top_priority_id": "R46",
   "top_priority": "제22기관 10대 플랫폼 영양분 선별 소화 & 전신 시냅스 100.0점 수호",
   "tomorrow_top_priority": "제22기관 10대 플랫폼 영양분 선별 소화 & 전신 시냅스 100.0점 수호",
@@ -942,7 +942,7 @@
     },
     "generated_at": "2026-10-23T23:36:18"
   },
-  "current_step": 22,
+  "current_step": "Step 62",
   "white_blood_cell": {
     "engine": "rgon_white_blood_cell.py",
     "ledger": "rgon_immune_ledger.json",
@@ -1023,7 +1023,7 @@
     },
     "channel": "@Mindung-EasyAI"
   },
-  "skill_count": 50,
+  "skill_count": 57,
   "health_score": 100,
   "vascular_circulation": {
     "version": "v11.50-AON-TOKEN-EGOLITE-MASTER",
@@ -1084,7 +1084,7 @@
     "treasury_guard": "GO"
   },
   "last_sync": "Step25 2026-10-24 09:19:38",
-  "immune": "R1~R60",
+  "immune": "R1~R61",
   "latest_step": 31,
   "avatar": {
     "name_ko": "아온",
@@ -1100,8 +1100,10 @@
     "freed_kb": 32520.46,
     "backups_purged": 29
   },
-  "antibody": "R1~R60",
+  "antibody": "R1~R61",
   "total_skills": 50,
   "updated_step": "Step 52",
-  "app_version": "v11.60-AON-EMPIRE-ASSETS"
+  "app_version": "v11.61-AON-GDRIVE-5TB-DECIMAL",
+  "skills": 57,
+  "organs_count": 37
 }

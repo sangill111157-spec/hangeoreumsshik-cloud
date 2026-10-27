@@ -2,7 +2,7 @@
 """
 rgon_live_brain_connector.py [Step 59 완결: 안총리·아온이 실제 AI 두뇌(Real LLM) 1순위 최우선 직결]
 ================================================================================
-버전: v11.60-AON-EMPIRE-ASSETS
+버전: v11.61-AON-GDRIVE-5TB-DECIMAL
 항체: R59_REAL_LLM_INBOX_OPUS_MOTION_ZERO_CANNED_LOCK
 소유: 기술총리 안총리 & 35대 기관 만능 참모 아온이 (이상일 대표님 직속)
 
@@ -25,7 +25,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Dict, Any, Optional, Tuple, List
 
-VERSION = "v11.60-AON-EMPIRE-ASSETS"
+VERSION = "v11.61-AON-GDRIVE-5TB-DECIMAL"
 ANTIBODY = "R60_EMPIRE_ASSET_HUB_LOCK"
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -611,6 +611,39 @@ def ask_real_aon_brain(user_text: str) -> Dict[str, Any]:
             }
 
     # --------------------------------------------------------------------------
+    # 5-1-GD. [Step 62 제37기관] Google One 5TB 초심플 Johnny.Decimal × PARA 아카이브 엔진
+    # --------------------------------------------------------------------------
+    if any(k in clean_no_space for k in ["구글드라이브", "5tb", "드라이브", "폴더정리", "조니데시멀", "인박스", "inbox", "99roblgye", "대기계정", "클라우드"]):
+        reply_text = (
+            "대표님! **Google One 5TB 초심플 Johnny.Decimal × PARA 아카이브 엔진** 실시간 현황을 보고드립니다! ☁️📂\n\n"
+            "📊 **1. 5TB 클라우드 스토리지 실시간 게이지:**\n"
+            "• **전체 용량:** 5,000 GB (Google One 5TB)\n"
+            "• **사용량:** **15.91 GB** (0.32% 사용 중)\n"
+            "• **잔여 가용 용량:** **4,984.09 GB** (**99.68%** 무한 여유!)\n"
+            "• **계정:** `sangill111157@gmail.com` (이상일 대표님)\n\n"
+            "🗂️ **2. Johnny.Decimal 00~06 대분류 구조 (최대 2단계 원칙):**\n"
+            "• `00_📥_INBOX_일단여기에넣기`: 스마트폰 3초 업로드 무인 투입구\n"
+            "• `01_💿_한걸음씩_음원마스터_DistroKid`: 2대 정규앨범 27곡 무손실 WAV (11~14)\n"
+            "• `02_📺_유튜브_4대채널_스튜디오`: 한걸음씩·부스터플리·카페아워·99ROBLGYE (21~24)\n"
+            "• `03_📱_SNS바이럴_틱톡_인스타_스레드`: 틱톡 2,125명 원본·메타 3초 공용영상 (31~32)\n"
+            "• `04_📝_건강블로그_connect-ai-shin`: 3조 2교대 건강 7대 DNA 식단·원고 (41~42)\n"
+            "• `05_📈_엔비디아_퀀트_오토트레이딩`: 모의투자 $107,246.38 일일 수익률 (51)\n"
+            "• `06_🏛️_RGON사령부_및_가족보물금고`: 전체코드 백업·이해상·이송효 공주님 사진 (61~62)\n\n"
+            "👥 **3. 대기 및 가족 서브계정 레지스트리:**\n"
+            "• **99 ROBLGYE** (`@99ROBLGYE`): 미래 대기 채널 (게임·엔터테인먼트)\n"
+            "• **이해상** (수석 캐릭터 디자이너): 아온이 창조자 / 작품·사진 보물창고\n"
+            "• **이송효** (사랑스러운 공주님): 가족 사진·영상 안전 백업\n\n"
+            "⚡ **스마트폰 3초 업로드 가이드:** 모바일 구글 드라이브 앱에서 `00_📥_INBOX` 폴더를 [별표 고정 ⭐] 해두시고 파일만 던지시면 사령부 엔진이 01~06 폴더로 자동 분류합니다!\n\n"
+            "🌐 **전용 허브 열기:** [rgon_gdrive_5tb_hub.html](rgon_gdrive_5tb_hub.html) 에서 실시간 자동 분류 시뮬레이터를 가동하실 수 있습니다!"
+        )
+        log_to_commander_inbox(user_text, reply_text, extra_meta={"intent": "gdrive_5tb_decimal"})
+        return {
+            "speaker": "☁️ Google One 5TB 아카이브 총괄 & 💧 만능 참모 아온이",
+            "text": reply_text,
+            "media": None
+        }
+
+    # --------------------------------------------------------------------------
     # 5-2. [Step 61 제36기관] 6대 자산 제국 질의 4대 핵심 분기 (음원 27곡, 유튜브 3채널+틱톡, 블로그 7대 DNA, SNS 홍보)
     # --------------------------------------------------------------------------
     # ① 음원 / 앨범 / 트랙 / 발매될 음원
@@ -781,7 +814,7 @@ def ask_real_aon_brain(user_text: str) -> Dict[str, Any]:
     else:
         reply_text = (
             f"대표님! 『{clean_text}』 하명에 대해 저 안총리가 즉시 전술 검토하여 보고드립니다. "
-            f"35대 기관 모든 신경망(v11.60-AON-EMPIRE-ASSETS · 시냅스 100.0점)이 정상 가동 중이며, 대표님의 다음 목표를 향해 즉시 무인 완주로 착수하겠습니다! ⚡"
+            f"35대 기관 모든 신경망(v11.61-AON-GDRIVE-5TB-DECIMAL · 시냅스 100.0점)이 정상 가동 중이며, 대표님의 다음 목표를 향해 즉시 무인 완주로 착수하겠습니다! ⚡"
         )
 
     log_to_commander_inbox(user_text, reply_text, extra_meta={"intent": "semantic_fallback"})
