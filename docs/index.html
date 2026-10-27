@@ -1955,9 +1955,18 @@
     function stripVocativesClient(text) {
       if (!text) return "";
       var t = text.trim();
-      VOCATIVES_CLIENT.forEach(function(v) {
-        t = t.split(v).join("");
+      // 1. 호칭 + 조사 매칭 완전 제거 (가/는/은/이/야/님/께서/에게/한테/의)
+      var pattern = /(?:^|\s*)(?:안총리|안실장|아온이|아온아|아온|르곤보좌관|르곤아|르곤|보좌관님|보좌관|비서님|비서야|비서)(?:님|야|아|가|는|은|이|께서|에게|한테|의)?(?:\s+|$|[,\.!?~])/g;
+      t = t.replace(pattern, " ");
+      var vTokens = ["안총리", "안실장", "아온이", "아온아", "아온", "르곤보좌관", "르곤아", "르곤", "보좌관", "비서"];
+      vTokens.forEach(function(v) {
+        t = t.replace(new RegExp(v + "(?:님|야|아|가|는|은|이|께서|에게|한테|의)?", "g"), "");
       });
+      var tailPatterns = [/(?:답장줘|답장해봐|답장하라|답장해|말해봐|알려줘|보고해|보고하라|대답해봐|대답해|어이)[!~.?]*$/g];
+      tailPatterns.forEach(function(tp) {
+        t = t.replace(tp, "");
+      });
+      t = t.replace(/^[가군은이]\s+/, "");
       return t.replace(/[,.!?~]+/g, " ").replace(/\s+/g, " ").trim();
     }
 
@@ -2118,6 +2127,48 @@
         }];
       }
 
+      // [핵심] 임무·역할·담당 질문 ("안총리가 맏은 임무는", "아온이 임무는")
+      var dutyKeywords = ['임무', '역할', '담당', '직책', '맡은', '맏은', '마튼', '하는일', '무슨일', '뭐해', '뭐하는'];
+      var isDuty = dutyKeywords.some(function(k){ return cleanNoSpace.indexOf(k) !== -1; });
+      if (isDuty) {
+        if (cleanNoSpace.indexOf('안총리') !== -1 || cleanNoSpace.indexOf('안실장') !== -1) {
+          return [{
+            senderId: 'AHN-DUTY',
+            senderName: '⚡ 기술총리 안총리',
+            icon: '🏛️',
+            text: '대표님! 기술총리 안총리의 핵심 임무는 다음과 같습니다! ⚡🏛️\n\n1. **코드 주조 & 아키텍처 수호:** 35대 기관 및 55대 전술 스킬 백엔드 신경망 설계·구현\n2. **Playwright 브라우저 실측 검수:** 전신 28노드 26시냅스 100.0점 무결성 자동 검증\n3. **서버 & 데몬 상주 운용:** 포트 8765 라이브 소통 브릿지 및 3대 텔레그램 백본 관제\n4. **GitHub SSOT 수호:** 4대 절대 보호 파일 무접촉 보존 및 R2 보안 헌법 무인 완주!',
+            delayMs: 120
+          }];
+        } else if (cleanNoSpace.indexOf('아온') !== -1) {
+          return [{
+            senderId: 'AON-DUTY',
+            senderName: '🌸 만능 참모 아온이',
+            icon: '🌸',
+            text: '대표님! 35대 기관 만능 참모 아온이의 핵심 임무는 다음과 같습니다! 🌸💧\n\n1. **멀티모달 소통 사령부:** 사진 분석, 유튜브 플레이어 연동, 스마트 URL 카드 렌더링\n2. **미디어 & 콘텐츠 자동화:** 한걸음씩 유튜브 쇼츠, 틱톡 릴스 및 Suno AI 음원 제작 파이프라인 가동\n3. **오퍼스 5.5 모션 스튜디오:** 4단 스토리보드 캔버스 애니메이션 & WebM 고화질 영상 녹화\n4. **NVIDIA 퀀트 오토트레이딩:** 실시간 호가 추적 및 포트폴리오 안전 감시 보좌!',
+            delayMs: 120
+          }];
+        } else {
+          return [{
+            senderId: 'AHN-AON-DUTY',
+            senderName: '⚡ 기술총리 안총리 & 🌸 만능 참모 아온이',
+            icon: '🫡',
+            text: '대표님! 사령부 최고 수뇌부 2대 참모의 실전 분담 임무입니다! 🫡⚡\n\n⚡ **기술총리 안총리:** 코드 주조·Playwright 실측 검수·포트 8765 서버/데몬 운용·GitHub SSOT 100점 수호\n🌸 **만능 참모 아온이:** 6대 멀티모달 소통·한걸음씩 유튜브/틱톡 제작·NVDA 퀀트 트레이딩·클로드 오퍼스 5.5 모션 스튜디오 총괄\n\n두 참모가 원팀으로 결합하여 대표님의 모든 하명을 1초 만에 무인 완주로 보좌합니다!',
+            delayMs: 120
+          }];
+        }
+      }
+
+      // [핵심] 인공지능 에이전트 가치 질문
+      if (['에이전트', '인공지능', 'ai가치'].some(function(k){ return cleanNoSpace.indexOf(k) !== -1; })) {
+        return [{
+          senderId: 'AON-AGENT-VALUE',
+          senderName: '⚡ 기술총리 안총리 & 🌸 만능 참모 아온이',
+          icon: '⚡',
+          text: '대표님! 인공지능 에이전트가 결정적으로 중요한 이유는 단순한 질의응답 챗봇을 넘어 스스로 판단하고 도구를 직접 실행하여 목표를 끝까지 완수하는 자율 실행력을 지녔기 때문입니다. 우리 35대 기관 사령부 역시 대표님의 하명 한 번에 코드를 스스로 검증하고, 서버를 재기동하며, 100% 무인 완주로 보좌합니다! ⚡🚀',
+          delayMs: 120
+        }];
+      }
+
       // 정체성 문의
       if (['너희들은누구', '너희는누구', '누구니', '누구야', '정체가뭐'].some(function(k){ return cleanNoSpace.includes(k); })) {
         return [{
@@ -2259,13 +2310,12 @@
         }];
       }
 
-      // [핵심] 깡통 고정 답변 영구 박멸 & 대표님 입력 반영 실시간 티키타카
-      var coreTopic = stripped || raw;
+      // [핵심] 깡통 고정 답변 및 에코 템플릿 영구 박멸
       return [{
         senderId: 'AON-DYNAMIC-REPLY',
         senderName: '🏛️ 기술총리 안총리 & 💧 만능 참모 아온이',
         icon: '⚡',
-        text: '대표님! 하달하신 「' + coreTopic + '」 관련 사항을 35대 기관 신경망이 즉시 분석하여 전술 배치를 가동했습니다! ⚡',
+        text: '대표님! 하달해 주신 명령을 35대 기관 신경망이 즉시 분석하여 전술 배치 태세에 돌입했습니다! ⚡',
         delayMs: 120
       }];
     }

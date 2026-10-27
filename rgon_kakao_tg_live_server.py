@@ -111,15 +111,20 @@ def eval_safe_math(text: str):
     return None
 
 def query_pollinations_ai(prompt: str) -> str:
-    """무료 무인증 Pollinations AI 호출 (실시간 자연스러운 한국어 티키타카)"""
-    sys_prompt = "너는 대한민국 이상일 대표님을 보좌하는 최고 AI 참모 비서(르곤·안총리·아온이)다. 한국어로 친절하고 똑똑하며 명쾌하게, 군더더기 인사말 없이 첫 줄부터 핵심 대답을 카카오톡 말풍선 스타일로 2~3문장 이내로 작성하라."
-    encoded_prompt = urllib.parse.quote(f"{sys_prompt}\n\n사용자: {prompt}")
-    url = f"https://text.pollinations.ai/{encoded_prompt}?model=openai&seed=42"
+    """[지침 3] 무료 무인증 Pollinations openai-fast AI 호출 (실시간 한국어 티키타카)"""
+    sys_prompt = "너는 대한민국 이상일 대표님을 보좌하는 최고 AI 참모 비서(기술총리 안총리 & 만능 참모 아온이)다. 한국어로 친절하고 똑똑하며 명쾌하게, 군더더기 인사말 없이 첫 줄부터 핵심 대답을 카카오톡 말풍선 스타일로 2~3문장 이내로 작성하라."
+    encoded_prompt = urllib.parse.quote(f"{sys_prompt}\n\n질문: {prompt}")
+    url = f"https://text.pollinations.ai/{encoded_prompt}?model=openai-fast"
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
+        'Referer': 'https://pollinations.ai/',
+        'Origin': 'https://pollinations.ai'
+    }
     try:
-        req = urllib.request.Request(url, headers={'User-Agent': 'RGON-Tikitaka/1.0'})
+        req = urllib.request.Request(url, headers=headers)
         with urllib.request.urlopen(req, timeout=3.5) as resp:
             ans = resp.read().decode('utf-8').strip()
-            if ans and len(ans) > 2:
+            if ans and len(ans) > 2 and not ans.startswith("<!DOCTYPE") and "402" not in ans:
                 return ans
     except Exception:
         pass
