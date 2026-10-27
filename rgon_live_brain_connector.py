@@ -2,7 +2,7 @@
 """
 rgon_live_brain_connector.py [Step 59 완결: 안총리·아온이 실제 AI 두뇌(Real LLM) 1순위 최우선 직결]
 ================================================================================
-버전: v11.62-AON-13SHORTS-OMNI-ENGINE
+버전: v11.64-AON-15SHORTS-SUPER-SENIOR
 항체: R59_REAL_LLM_INBOX_OPUS_MOTION_ZERO_CANNED_LOCK
 소유: 기술총리 안총리 & 35대 기관 만능 참모 아온이 (이상일 대표님 직속)
 
@@ -25,8 +25,8 @@ from datetime import datetime
 from pathlib import Path
 from typing import Dict, Any, Optional, Tuple, List
 
-VERSION = "v11.62-AON-13SHORTS-OMNI-ENGINE"
-ANTIBODY = "R62_13SHORTS_OMNI_LOCK"
+VERSION = "v11.64-AON-15SHORTS-SUPER-SENIOR"
+ANTIBODY = "R63_GRAPHIFY_PONYTAIL_KARPATHY_SURGICAL_GUARD"
 
 BASE_DIR = Path(__file__).resolve().parent
 INBOX_FILE = BASE_DIR / "rgon_commander_live_inbox.json"
@@ -113,9 +113,9 @@ def get_live_command_memory() -> Dict[str, Any]:
         "timestamp": now_str,
         "version": VERSION,
         "antibodies": ANTIBODY,
-        "organs_count": 36,
-        "skills_count": 56,
-        "synapse_health": "100.0점 만점 (노드 29/29, 시냅스 27/27, HTML 7/7)",
+        "organs_count": 39,
+        "skills_count": 59,
+        "synapse_health": "100.0점 만점",
         "current_step_61": {
             "title": "제36기관 아온 한걸음씩 6대 자산 제국 마스터 통합 허브 및 모션 스튜디오 5대 프리셋 구축",
             "features": [
@@ -432,7 +432,7 @@ def ask_real_aon_brain(user_text: str) -> Dict[str, Any]:
         "php보안", "php2shell", "개인정보삭제", "토큰방어", "토큰한도", "존코바", "무인영상", "클릭0번"
     ]):
         reply_text = (
-            "대표님! **아온 13대 쇼츠 옴니-인텔리전스 마스터 엔진 (제38기관 · v11.62 · R1~R62)** 4대 권역 실시간 현황을 보고드립니다! 🌟🎬\n\n"
+            "대표님! **아온 13대 쇼츠 옴니-인텔리전스 마스터 엔진 (제38기관 · v11.62 · R1~R63)** 4대 권역 실시간 현황을 보고드립니다! 🌟🎬\n\n"
             "🌸 **권역 1: 초정밀 판정 & 코어·숨은스킬 10선**\n"
             "• **TypeSafe Jev 1.14 (`jev-1.14.0`):** Noul(4방향 가장자리 잘림 edge_clipped 감지), Choice(의도 정밀 라우팅), Score(100점 채점), Box(#ff69b4 분홍 상자 좌표 정규화, 262K 컨텍스트)\n"
             "• **코어 5선:** Find-Skills, Plan-Verify, Session-Memory, Anti-AI-Slop-UI, Anti-AI-Slop-Copy\n"
@@ -871,7 +871,7 @@ def ask_real_aon_brain(user_text: str) -> Dict[str, Any]:
     else:
         reply_text = (
             f"대표님! 『{clean_text}』 하명에 대해 저 안총리가 즉시 전술 검토하여 보고드립니다. "
-            f"35대 기관 모든 신경망(v11.62-AON-13SHORTS-OMNI-ENGINE · 시냅스 100.0점)이 정상 가동 중이며, 대표님의 다음 목표를 향해 즉시 무인 완주로 착수하겠습니다! ⚡"
+            f"35대 기관 모든 신경망(v11.64-AON-15SHORTS-SUPER-SENIOR · 시냅스 100.0점)이 정상 가동 중이며, 대표님의 다음 목표를 향해 즉시 무인 완주로 착수하겠습니다! ⚡"
         )
 
     log_to_commander_inbox(user_text, reply_text, extra_meta={"intent": "semantic_fallback"})

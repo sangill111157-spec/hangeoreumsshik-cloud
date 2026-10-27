@@ -2,9 +2,9 @@
 """
 rgon_aon_gdrive_5tb_organizer.py [제37기관: 아온 Google One 5TB 초심플 클라우드 아카이브 엔진]
 ================================================================================
-버전: v11.62-AON-13SHORTS-OMNI-ENGINE
+버전: v11.64-AON-15SHORTS-SUPER-SENIOR
 소유: 기술총리 안총리 & 37대 기관 만능 참모 아온이 (이상일 대표님 직속)
-항체: R61_GDRIVE_5TB_DECIMAL_LOCK (전신 범위: R1~R62)
+항체: R61_GDRIVE_5TB_DECIMAL_LOCK (전신 범위: R1~R63)
 주역: #37 풍화가인(風火家人) - 바깥의 불과 안의 바람이 어우러져 질서를 바로잡고 평안을 이루는 대길의 괘
 
 [Google One 5TB Johnny.Decimal × PARA 아카이브 체계]
@@ -31,7 +31,7 @@ for _stream in ("stdout", "stderr"):
         except Exception:
             pass
 
-VERSION = "v11.62-AON-13SHORTS-OMNI-ENGINE"
+VERSION = "v11.64-AON-15SHORTS-SUPER-SENIOR"
 ORGAN_ID = 37
 ORGAN_NAME = "아온 Google One 5TB 초심플 클라우드 아카이브 엔진"
 SKILL_NAME = "aon-gdrive-5tb-organizer"

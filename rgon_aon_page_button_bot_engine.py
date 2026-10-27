@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """rgon_aon_page_button_bot_engine.py — 제29기관 아온 WebMCP & Stagehand/n8n-Lite 전 페이지·전 버튼 자율 자동화 봇 전환 엔진
-Step 53 · v11.62-AON-13SHORTS-OMNI-ENGINE · 항체 R1~R57 · 정식 스킬 #49 aon-page-button-bot-engine
+Step 53 · v11.64-AON-15SHORTS-SUPER-SENIOR · 항체 R1~R57 · 정식 스킬 #49 aon-page-button-bot-engine
 주역: #16 뇌지예 ☳☷ (화답순응·예락자강·사령관의 뜻에 호응하는 자율 자동화) · #60 수택절 ☵☱ (절도있는 순차 큐·과부하 차단 무과금 절제)
 
 글로벌 Top 1 롤모델 3대장(Browserbase/Stagehand & Vercel/WebMCP 결정론적 버튼 봇 캐시 + n8n/Sim Studio DAG 노드 체인 & SHA-256 감사 영수증 + Skyvern 실행 직후 7대 자가검증)을 흡수하여
@@ -29,7 +29,7 @@ try:
 except Exception:
     pass
 
-VERSION = "v11.62-AON-13SHORTS-OMNI-ENGINE"
+VERSION = "v11.64-AON-15SHORTS-SUPER-SENIOR"
 ANTIBODY_RANGE = "R1~R57"
 SKILL_COUNT = 49
 SKILL_SLUG = "aon-page-button-bot-engine"

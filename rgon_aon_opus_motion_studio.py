@@ -2,7 +2,7 @@
 """
 rgon_aon_opus_motion_studio.py [제35기관: 클로드 오퍼스 5.5 모션 그래픽 스튜디오]
 ================================================================================
-버전: v11.62-AON-13SHORTS-OMNI-ENGINE
+버전: v11.64-AON-15SHORTS-SUPER-SENIOR
 소유: 기술총리 안총리 & 35대 기관 만능 참모 아온이 (이상일 대표님 직속)
 항체: R59_REAL_LLM_INBOX_OPUS_MOTION_ZERO_CANNED_LOCK
 
@@ -24,7 +24,7 @@ import json
 import math
 from typing import Dict, Any, List
 
-VERSION = "v11.62-AON-13SHORTS-OMNI-ENGINE"
+VERSION = "v11.64-AON-15SHORTS-SUPER-SENIOR"
 ORGAN_ID = 35
 ORGAN_NAME = "아온 클로드 오퍼스 5.5 모션 그래픽 스튜디오"
 SKILL_NAME = "aon-opus-motion-studio"

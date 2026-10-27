@@ -2,7 +2,7 @@
 """
 rgon_aon_empire_asset_hub.py [제36기관: 아온 한걸음씩 6대 자산 제국 마스터 통합 허브]
 ================================================================================
-버전: v11.62-AON-13SHORTS-OMNI-ENGINE
+버전: v11.64-AON-15SHORTS-SUPER-SENIOR
 소유: 기술총리 안총리 & 36대 기관 만능 참모 아온이 (이상일 대표님 직속)
 항체: R60_EMPIRE_ASSET_HUB_LOCK
 주역: #14 화천대유(火天大有) - 만물을 풍요롭게 포용하고 대성하는 군자의 대유
@@ -33,7 +33,7 @@ for _stream in ("stdout", "stderr"):
         except Exception:
             pass
 
-VERSION = "v11.62-AON-13SHORTS-OMNI-ENGINE"
+VERSION = "v11.64-AON-15SHORTS-SUPER-SENIOR"
 ORGAN_ID = 36
 ORGAN_NAME = "아온 한걸음씩 6대 자산 제국 마스터 통합 허브"
 SKILL_NAME = "aon-empire-asset-hub"

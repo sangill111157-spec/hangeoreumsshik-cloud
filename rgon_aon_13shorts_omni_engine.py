@@ -4,7 +4,7 @@
 rgon_aon_13shorts_omni_engine.py
 ================================================================================
 제38기관: 아온 13대 쇼츠 옴니-인텔리전스 마스터 엔진 (Organ 38)
-버전: v11.62-AON-13SHORTS-OMNI-ENGINE | 항체: R62_13SHORTS_OMNI_LOCK
+버전: v11.64-AON-15SHORTS-SUPER-SENIOR | 항체: R62_13SHORTS_OMNI_LOCK
 주역 괘: #14 화천대유(火天大有) — 광명정대하게 만물을 비추고 대업을 완수함
 
 [4대 권역 & 13대 쇼츠 전수 탑재]
@@ -42,9 +42,9 @@ if sys.stdout.encoding != 'utf-8':
 if sys.stderr.encoding != 'utf-8':
     sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8', errors='replace')
 
-VERSION = "v11.62-AON-13SHORTS-OMNI-ENGINE"
+VERSION = "v11.64-AON-15SHORTS-SUPER-SENIOR"
 ANTIBODY = "R62_13SHORTS_OMNI_LOCK"
-ANTIBODY_RANGE = "R1~R62"
+ANTIBODY_RANGE = "R1~R63"
 ORGAN_ID = "ORGAN_38_13SHORTS_OMNI_ENGINE"
 ORGAN_NUMBER = 38
 SKILL_ID = "aon-13shorts-omni"
@@ -535,7 +535,7 @@ def run_self_test() -> bool:
     tests = []
 
     # 1. 기본 버전 및 항체 검증
-    tests.append(("버전 식별자 일치", VERSION == "v11.62-AON-13SHORTS-OMNI-ENGINE"))
+    tests.append(("버전 식별자 일치", VERSION == "v11.64-AON-15SHORTS-SUPER-SENIOR"))
     tests.append(("항체 식별자 일치", ANTIBODY == "R62_13SHORTS_OMNI_LOCK"))
     tests.append(("스킬 번호 58 일치", SKILL_NUMBER == 58))
     tests.append(("기관 번호 38 일치", ORGAN_NUMBER == 38))

@@ -1,6 +1,6 @@
 ---
 name: aon-gdrive-5tb-organizer
-version: v11.62-AON-13SHORTS-OMNI-ENGINE
+version: v11.64-AON-15SHORTS-SUPER-SENIOR
 organ_id: 37
 organ_name: "아온 Google One 5TB 초심플 클라우드 아카이브 엔진"
 antibody: R61_GDRIVE_5TB_DECIMAL_LOCK

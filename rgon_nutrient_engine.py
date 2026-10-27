@@ -30,7 +30,7 @@ import urllib.request
 from datetime import datetime, timedelta, timezone
 from html.parser import HTMLParser
 
-VERSION = "v11.62-AON-13SHORTS-OMNI-ENGINE"
+VERSION = "v11.64-AON-15SHORTS-SUPER-SENIOR"
 ANTIBODY = "R19"
 ANTIBODY_RANGE = "R1~R57"
 KST = timezone(timedelta(hours=9))

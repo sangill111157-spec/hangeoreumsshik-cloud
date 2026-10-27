@@ -39,3 +39,6 @@
   - rgon_self_Reflection.py
   - index_20260405_backup.html
 - **R2 보안 헌법:** 실제 API 토큰, 시크릿 키, 개인정보 Git 노출 0% 엄수.
+
+## 7. Graphify & Karpathy & Ponytail 지식그래프·외과수술 헌법
+- 파일을 검색(Grep)하기 전에 루트의 `GRAPH_REPORT.md`를 먼저 참조하여 토큰을 절약하고, Karpathy 4원칙(시키지 않은 주변 코드 수정 금지)과 Ponytail 7단 사다리(기존 코드 재사용 우선)를 엄수한다.

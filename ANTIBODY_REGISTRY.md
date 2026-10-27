@@ -112,16 +112,23 @@
 - **발효 버전:** `v11.60-AON-EMPIRE-ASSETS`
 
 ### R61: `R61_GDRIVE_5TB_DECIMAL_LOCK`
-- **범위**: R1~R62 · 정식 스킬 57개
+- **범위**: R1~R63 · 정식 스킬 57개
 - **제37기관:** 아온 Google One 5TB 초심플 클라우드 아카이브 엔진 (`rgon_aon_gdrive_5tb_organizer.py`)
 - **역할:** Google One 5TB(5,000GB 중 15.91GB 사용, 4,984.09GB / 99.68% 가용) 스토리지 실시간 게이지, 세계 Top 1 파일 정리 표준 『Johnny.Decimal (00~06 대분류 + 11~62 중분류, 최대 2단계 제한) × PARA』 아카이브 트리, 스마트폰 3초 업로드 무인 투입구(`00_📥_INBOX_일단여기에넣기`) 및 파일명 키워드 기반 무인 자동 라우팅, 대기/가족 서브계정(99 ROBLGYE @99ROBLGYE, 이해상 수석 디자이너, 이송효 공주님) 레지스트리 안전 보존.
-- **발효 버전:** `v11.62-AON-13SHORTS-OMNI-ENGINE`
+- **발효 버전:** `v11.64-AON-15SHORTS-SUPER-SENIOR`
 
 ### R62: `R62_13SHORTS_OMNI_LOCK`
-- **범위**: R1~R62 · 정식 스킬 58개
+- **범위**: R1~R63 · 정식 스킬 58개
 - **제38기관:** 아온 13대 쇼츠 옴니-인텔리전스 마스터 엔진 (`rgon_aon_13shorts_omni_engine.py`)
 - **역할:** TypeSafe Jev 1.14 (Noul, Choice, Score, Box #ff69b4, 262K 컨텍스트) 4대 결정 함수, 코어 5선 및 숨은 5선 스킬, 마케팅 52스킬 5대 카테고리(SEO, CRO, Launch, Copy, Loops), 학술 연구 5단계(PICO) 및 한국형 1% 설득글(kfix) 번역투 0% 교정, 존코바 Newtake 4단계 비주얼 노드, 6단계 무인 영상 편집 파이프라인, CLI-Anything 클릭 0번 무인 연동, PHP2Shell(CVE-2026-109618/109619/115560) Zero-PHP 원천 면역 및 내 앱 보안 4대 점검, 개인정보 3단계 자율 삭제 및 토큰 한도 방어 4대 플러그인 봉인.
-- **발효 버전:** `v11.62-AON-13SHORTS-OMNI-ENGINE`
+- **발효 버전:** `v11.64-AON-15SHORTS-SUPER-SENIOR`
+
+### R63: `R63_GRAPHIFY_PONYTAIL_KARPATHY_SURGICAL_GUARD`
+- **범위**: R1~R63 · 정식 스킬 59개
+- **제39기관:** 아온 15대 슈퍼-시니어 & 지식그래프 토큰 절감 마스터 엔진 (`step64_aon_15shorts_super_senior_engine.py`)
+- **역할:** AST 정적 분석 로컬 코드 지식 그래프(`GRAPH_REPORT.md` God Nodes & Communities) 선행 열람을 통한 Grep 탐색 토큰 790배 절감, Andrej Karpathy 4대 수술 코딩 원칙(Think Before Coding, Simplicity First, Surgical Changes, Goal-Driven Execution), Ponytail 7단 게으른 시니어 사다리(재사용·표준 라이브러리 우선), TradingAgents Bull vs Bear 끝장 토론 및 Codex 적대적 검수, Google Drive 무삭제(Zero-Delete) 스마트 리네임 사전 승인 비교표, Claude 100 Korean Motion Prompts `window.seek(t)` 스프링 물리 및 안티-템플릿 10계명 준수.
+- **발효 버전:** `v11.64-AON-15SHORTS-SUPER-SENIOR`
+
 
 
 

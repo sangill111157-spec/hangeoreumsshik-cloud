@@ -1,9 +1,9 @@
 ---
 name: aon-13shorts-omni
 description: "제38기관 아온 13대 쇼츠 옴니-인텔리전스 마스터 엔진 — TypeSafe Jev 1.14 4대 결정 함수, 마케팅 52스킬, 무인 영상 6단계 및 PHP2Shell 내 앱 4대 보안 점검 통합 스킬"
-version: "v11.62-AON-13SHORTS-OMNI-ENGINE"
+version: "v11.64-AON-15SHORTS-SUPER-SENIOR"
 antibody: "R62_13SHORTS_OMNI_LOCK"
-antibody_range: "R1~R62"
+antibody_range: "R1~R63"
 organ: "ORGAN_38_13SHORTS_OMNI_ENGINE"
 skill_number: 58
 iching: "#14 화천대유(火天大有) — 광명정대하게 만물을 비추고 대업을 완수함"

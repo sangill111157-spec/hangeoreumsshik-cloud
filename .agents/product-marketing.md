@@ -1,6 +1,6 @@
 # 🏛️ [RGON 사령부] 대표님 6대 비즈니스 자산 마케팅 정의서
 **파일명:** `.agents/product-marketing.md`  
-**버전:** `v11.62-AON-13SHORTS-OMNI-ENGINE` | **항체:** `R62_13SHORTS_OMNI_LOCK`  
+**버전:** `v11.64-AON-15SHORTS-SUPER-SENIOR` | **항체:** `R62_13SHORTS_OMNI_LOCK`  
 **마스터 엔진:** 제38기관 아온 13대 쇼츠 옴니-인텔리전스 마스터 엔진  
 
 ---
