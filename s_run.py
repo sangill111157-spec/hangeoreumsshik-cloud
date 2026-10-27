@@ -3,7 +3,7 @@
 """
 step47_aon_zeroclick_studio.py (G1+G2 교차검증 완결판)
 RGON Step 47 — 제23기관: 아온 클릭 0번(Zero-Click) 헤드리스 포토·카드뉴스 & 엑셀·시트 창작 스튜디오
-v11.50-AON-TOKEN-EGOLITE-MASTER · 항체 R1~R51 · 정식 스킬 47개
+v11.55-AON-TELEGRAM-MESSENGER · 항체 R1~R56 · 정식 스킬 47개
 100% Python 표준 라이브러리 / 보호 파일 불변 / 10개 대시보드 마커 블록만 멱등 삽입 / 전신 신경망 19노드·17시냅스 100.0점
 """
 import os, sys, re, ast, json, hashlib, shutil, subprocess, time, datetime
@@ -20,9 +20,9 @@ for _s in ("stdout", "stderr"):
 
 ROOT = Path(__file__).resolve().parent
 OLD_VERSION = "v11.45-AON-AUTO-EVOLVER"
-VERSION = "v11.50-AON-TOKEN-EGOLITE-MASTER"
+VERSION = "v11.55-AON-TELEGRAM-MESSENGER"
 OLD_ANTIBODY = "R1~R46"
-ANTIBODY = "R1~R51"
+ANTIBODY = "R1~R56"
 OLD_SKILL_COUNT = 42
 SKILL_COUNT = 43
 SKILL_SLUG = "aon-zeroclick-creative-studio"
@@ -91,7 +91,7 @@ def write_text(rel, text):
 ORGAN_SOURCE = r'''#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # rgon_aon_zeroclick_studio.py — 제23기관 · 아온 클릭 0번 헤드리스 포토·카드뉴스 & 엑셀·시트 창작 스튜디오
-# v11.50-AON-TOKEN-EGOLITE-MASTER · 항체 R1~R51 · 정식 스킬 47개 · 100% Python 표준 라이브러리
+# v11.55-AON-TELEGRAM-MESSENGER · 항체 R1~R56 · 정식 스킬 47개 · 100% Python 표준 라이브러리
 import os, sys, json, zlib, struct, zipfile, csv, html, re, time, hashlib, tempfile, shutil
 import xml.etree.ElementTree as ET
 from pathlib import Path
@@ -104,9 +104,9 @@ for _s in ("stdout", "stderr"):
         except Exception:
             pass
 
-VERSION = "v11.50-AON-TOKEN-EGOLITE-MASTER"
+VERSION = "v11.55-AON-TELEGRAM-MESSENGER"
 ANTIBODY = "R47"
-ANTIBODY_RANGE = "R1~R51"
+ANTIBODY_RANGE = "R1~R56"
 ORGAN_ID = "N19_zeroclick_studio"
 ORGAN_NO = 23
 HEXAGRAMS = [
@@ -396,7 +396,7 @@ BRIDGE = BR_START + r'''
 <div id="rgon-r47-badge" title="R47 Zero-Click Studio" style="position:fixed;bottom:150px;right:18px;z-index:99990;background:linear-gradient(135deg,#14183c,#b43c78);color:#fff;padding:8px 12px;border-radius:18px;font:600 12px sans-serif;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.4)">🎨 R47 클릭0번 포토·엑셀</div>
 <div id="rgon-r47-modal" style="display:none;position:fixed;inset:0;z-index:99991;background:rgba(0,0,0,.6)">
  <div style="max-width:720px;margin:6vh auto;background:#1b1f45;color:#fff;border-radius:14px;padding:18px;font:14px sans-serif;max-height:85vh;overflow:auto">
-  <div style="display:flex;justify-content:space-between"><b>🎨 제23기관 · 클릭 0번 헤드리스 스튜디오 (v11.50-AON-TOKEN-EGOLITE-MASTER)</b><span id="rgon-r47-x" style="cursor:pointer">✕</span></div>
+  <div style="display:flex;justify-content:space-between"><b>🎨 제23기관 · 클릭 0번 헤드리스 스튜디오 (v11.55-AON-TELEGRAM-MESSENGER)</b><span id="rgon-r47-x" style="cursor:pointer">✕</span></div>
   <p style="opacity:.8">☶☲ 산화비 · ☲☰ 화천대유 · ☵☱ 수택절 — 외부 발행은 수동 결재 게이트 필수</p>
   <input id="rgon-r47-head" value="아온 클릭 0번 스튜디오" style="width:100%;padding:6px;border-radius:6px;border:0;color:#111">
   <div style="margin:8px 0"><button id="rgon-r47-svg" style="padding:6px 12px;border-radius:6px;background:#6366f1;color:#fff;border:0;cursor:pointer">SVG 카드뉴스</button> <button id="rgon-r47-png" style="padding:6px 12px;border-radius:6px;background:#ec4899;color:#fff;border:0;cursor:pointer">PNG 썸네일</button> <button id="rgon-r47-csv" style="padding:6px 12px;border-radius:6px;background:#10b981;color:#fff;border:0;cursor:pointer">CSV 시트</button></div>
@@ -559,7 +559,7 @@ def r47_zeroclick_route(text, out_dir=None):
         res = _zc.route_command(t, out_dir=out_dir)
         return {
             "ok": bool(res.get("ok")),
-            "version": "v11.50-AON-TOKEN-EGOLITE-MASTER",
+            "version": "v11.55-AON-TELEGRAM-MESSENGER",
             "antibody": "R47",
             "intent": "zeroclick_studio",
             "intents": ["zeroclick_studio"],
@@ -591,8 +591,8 @@ for _n in ("r40_route", "route", "process_dialogue", "route_command", "handle_me
 VER_S = "# [RGON-R47-VERIFIER-EXT-START]"
 VER_E = "# [RGON-R47-VERIFIER-EXT-END]"
 VER_EXT = VER_S + r'''
-VERSION = "v11.50-AON-TOKEN-EGOLITE-MASTER"
-ANTIBODY_RANGE = "R1~R51"
+VERSION = "v11.55-AON-TELEGRAM-MESSENGER"
+ANTIBODY_RANGE = "R1~R56"
 EXPECTED_SKILL_COUNT = 43
 STATUS_LINE = "%s · 항체 %s · 정식 스킬 %d개" % (VERSION, ANTIBODY_RANGE, EXPECTED_SKILL_COUNT)
 R47_STUDIO_ORGAN = "rgon_aon_zeroclick_studio.py"
@@ -793,7 +793,7 @@ def handle_api_aon_inspector_general(handler, req_data=None):
             return {"ok": False, "error": f"Unknown action: {action}"}
         return {
             "ok": True,
-            "version": "v11.54-AON-SUPREME-ORG-CHART",
+            "version": "v11.55-AON-TELEGRAM-MESSENGER",
             "antibody": "R54",
             "endpoint": "/api/aon_inspector_general",
             "total_directors": len(igg.DIRECTORS_REGISTRY),
@@ -824,7 +824,7 @@ def handle_api_aon_page_button_bot(handler, req_data=None):
         rcp = pbe.DeterministicBotExecutor.load_receipts()
         return {
             "ok": True,
-            "version": "v11.52-AON-PAGE-BUTTON-BOT",
+            "version": "v11.55-AON-TELEGRAM-MESSENGER",
             "antibody": "R53",
             "endpoint": "/api/aon_page_button_bot",
             "total_page_bots": len(cat.get("page_bots", {})),

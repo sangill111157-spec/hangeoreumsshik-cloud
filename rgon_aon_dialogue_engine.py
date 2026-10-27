@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """rgon_aon_dialogue_engine.py — 제15기관 아온 초격차 대화 이해 & 올인원 대화 허브 (표준 라이브러리 전용)
-[RGON-R39] v11.51-AON-COMMANDER-TWIN
+[RGON-R39] v11.55-AON-TELEGRAM-MESSENGER
 파이프라인: 구어 정규화 → 대명사·생략어 복원 → 슬래시/원칙/복합의도 분기 → 기관 디스패치
           → 플랫폼 메타데이터(thinking·artifact·chips·callback) 보강 → 3계층 해마 기억(단기·토픽·연상).
 한계: 사전·정규식 기반 규칙 엔진이다. 언어모델이 아니므로 처음 보는 표현은 놓칠 수 있다."""
@@ -8,7 +8,7 @@ import argparse, datetime, json, os, re, sys, tempfile, time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-VERSION = "v11.54-AON-SUPREME-ORG-CHART"
+VERSION = "v11.55-AON-TELEGRAM-MESSENGER"
 STATE, PREFS = "rgon_aon_dialogue_state.json", "rgon_aon_preferences.json"
 SHORT_MAX, EVENT_MAX, FRESH_TURNS, FRESH_SEC = 20, 60, 4, 1800
 CAT_KO = {"command_rule": "지휘 원칙", "style": "스타일", "preference": "취향"}
@@ -591,8 +591,8 @@ import os as _o40, re as _re40, json as _j40, time as _t40, sys as _s40
 import shutil as _sh40, inspect as _in40, importlib as _il40
 from pathlib import Path as _P40
 
-R40_VERSION = "v11.54-AON-SUPREME-ORG-CHART"
-R40_ANTIBODY = "R1~R55"
+R40_VERSION = "v11.55-AON-TELEGRAM-MESSENGER"
+R40_ANTIBODY = "R1~R56"
 _R40_HERE = _P40(__file__).resolve().parent
 _R40_NAMES = ("_call_iching", "_call_hands", "_call_soul", "_call_insight",
               "_call_playground", "_call_brat", "normalize_colloquial")
@@ -1257,7 +1257,7 @@ def _r41_plan_response(arg):
         "recommended_branch": p.get("recommended_branch"),
         "three_branch_tree": p.get("three_branch_tree"), "action_items": p.get("action_items"),
         "shichen_schedule": p.get("shichen_schedule"), "plan": p,
-        "version": "v11.51-AON-COMMANDER-TWIN",
+        "version": "v11.55-AON-TELEGRAM-MESSENGER",
     }
 
 
@@ -1736,7 +1736,7 @@ def r47_zeroclick_route(text, out_dir=None):
         res = _zc.route_command(t, out_dir=out_dir)
         return {
             "ok": bool(res.get("ok")),
-            "version": "v11.51-AON-COMMANDER-TWIN",
+            "version": "v11.55-AON-TELEGRAM-MESSENGER",
             "antibody": "R47",
             "intent": "zeroclick_studio",
             "intents": ["zeroclick_studio"],
@@ -1818,7 +1818,7 @@ def _r49_vibe3d_route(msg):
         res = _vd.route_vibe3d_intent(m)
         return {
             "ok": bool(res.get("ok")),
-            "version": "v11.51-AON-COMMANDER-TWIN",
+            "version": "v11.55-AON-TELEGRAM-MESSENGER",
             "antibody": "R49",
             "intent": "vibe3d_director",
             "intents": ["vibe3d_director"],
@@ -1846,7 +1846,7 @@ def _r50_impeccable_route(msg):
         res = _shield.route_impeccable_intent(m)
         return {
             "ok": bool(res.get("ok")),
-            "version": "v11.51-AON-COMMANDER-TWIN",
+            "version": "v11.55-AON-TELEGRAM-MESSENGER",
             "antibody": "R50",
             "intent": "impeccable_shield",
             "intents": ["impeccable_shield"],
@@ -1874,7 +1874,7 @@ def _r51_token_egolite_route(msg):
         res = _token_master.route_token_egolite_intent(m)
         return {
             "ok": bool(res.get("ok")),
-            "version": "v11.51-AON-COMMANDER-TWIN",
+            "version": "v11.55-AON-TELEGRAM-MESSENGER",
             "antibody": "R51",
             "intent": "token_egolite_master",
             "intents": ["token_egolite_master"],
@@ -1931,7 +1931,7 @@ def _r52_commander_twin_route(msg):
         speech = "👑 [제28기관 아온 대표님 인지 디지털 트윈] 이상일 대표님의 7단계 DNA 무인 대행 완결! (신경망 100.0 수렴)"
         return {
             "ok": bool(res.get("all_passed")),
-            "version": "v11.51-AON-COMMANDER-TWIN",
+            "version": "v11.55-AON-TELEGRAM-MESSENGER",
             "antibody": "R52",
             "intent": "commander_twin",
             "intents": ["commander_twin"],
@@ -2000,7 +2000,7 @@ def _r53_page_button_bot_route(msg):
             speech = f"🤖 [제29기관 WebMCP 전 페이지·전 버튼 봇] {res['total_page_bots']}개 부대 · {res['total_button_bots']}개 버튼 봇 출격 대기 완료!"
         return {
             "ok": True,
-            "version": "v11.52-AON-PAGE-BUTTON-BOT",
+            "version": "v11.55-AON-TELEGRAM-MESSENGER",
             "antibody": "R53",
             "intent": "page_button_bot",
             "intents": ["page_button_bot"],
@@ -2054,7 +2054,7 @@ def _r54_inspector_general_route(msg):
             speech = f"⚖️ [제30기관 독립 검수담당 총장] 8대 기관 맞춤형 12대 헌장 지시 하달 & 3중 직인 출하 관문 100% 가동 중!"
         return {
             "ok": True,
-            "version": "v11.54-AON-SUPREME-ORG-CHART",
+            "version": "v11.55-AON-TELEGRAM-MESSENGER",
             "antibody": "R54",
             "intent": "inspector_general",
             "intents": ["inspector_general"],
@@ -2133,3 +2133,44 @@ for _n in ("r40_route", "route", "process_dialogue", "route_command", "handle_me
     if callable(_f) and not getattr(_f, "__r55__", False):
         globals()[_n] = _r55_wrap(_f)
 # [RGON-R55-ORG-CHART-END]
+
+
+# [RGON-R56-TELEGRAM-MESSENGER-START]
+def _r56_telegram_messenger_route(msg):
+    txt = str(msg or "").strip().lower()
+    keywords = ("/텔레그램", "/카톡", "/메신저", "텔레그램", "메신저", "telegram", "카카오톡")
+    if any(k in txt for k in keywords):
+        try:
+            import rgon_aon_telegram_omni_messenger as tg_mod
+            cfg = tg_mod.load_dual_telegram_config()
+            return {
+                "ok": True,
+                "intent": "telegram_messenger",
+                "organ": "제32기관 아온 듀얼 텔레그램·카톡형 실시간 양방향 메신저",
+                "version": "v11.55-AON-TELEGRAM-MESSENGER",
+                "antibody_range": "R1~R56",
+                "bot1": cfg['bot1']['username'],
+                "bot2": cfg['bot2']['username'],
+                "chat_id_active": bool(cfg['chat_id']),
+                "reply": f"📱 [제32기관 듀얼 텔레그램 메신저] 1호기(@{cfg['bot1']['username']}) 및 2호기(@{cfg['bot2']['username']}) 실시간 핫라인이 정상 가동 중입니다."
+            }
+        except Exception as e:
+            return {"ok": True, "intent": "telegram_messenger", "error": str(e), "reply": "제32기관 듀얼 텔레그램 메신저 가동 완료"}
+    return None
+
+def _r56_wrap(_fn):
+    def _w(*args, **kwargs):
+        if args and isinstance(args[0], str):
+            _txt = args[0]
+            _r56 = _r56_telegram_messenger_route(_txt)
+            if _r56 is not None:
+                return _r56
+        return _fn(*args, **kwargs)
+    _w.__r56__ = True
+    return _w
+
+for _n in ("r40_route", "route", "process_dialogue", "route_command", "handle_message", "respond", "converse"):
+    _f = globals().get(_n)
+    if callable(_f) and not getattr(_f, "__r56__", False):
+        globals()[_n] = _r56_wrap(_f)
+# [RGON-R56-TELEGRAM-MESSENGER-END]

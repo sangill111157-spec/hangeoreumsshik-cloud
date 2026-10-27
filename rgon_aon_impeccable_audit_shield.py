@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """rgon_aon_impeccable_audit_shield.py — 제26기관 아온 임페커블 UI 폴리시 & 오픈셸·클라우드플레어 적대적 교차감사 방패
-Step 50 · v11.51-AON-COMMANDER-TWIN · 항체 R1~R52 · 정식 스킬 #46 aon-impeccable-audit-shield
+Step 50 · v11.55-AON-TELEGRAM-MESSENGER · 항체 R1~R56 · 정식 스킬 #46 aon-impeccable-audit-shield
 주역 괘: #61 풍택중부(風澤中孚 ☴☱ · 지극한 정성과 믿음으로 속까지 꿰뚫어 검증함) · #15 지산겸(地山謙 ☷☶ · 낮추고 비워 넘침을 다스림)
 
 깃허브 트렌딩 오픈소스 TOP 8 핵심 기술 4종 완벽 흡수:
@@ -31,8 +31,8 @@ import argparse
 import datetime
 from pathlib import Path
 
-VERSION = "v11.54-AON-SUPREME-ORG-CHART"
-ANTIBODIES = "R1~R55"
+VERSION = "v11.55-AON-TELEGRAM-MESSENGER"
+ANTIBODIES = "R1~R56"
 SKILL_ID = "aon-impeccable-audit-shield"
 ORGAN_NAME = "제26기관 아온 임페커블 UI 폴리시 & 오픈셸·클라우드플레어 적대적 교차감사 방패"
 ICHING_HEXAGRAMS = ["#61 풍택중부 ☴☱", "#15 지산겸 ☷☶"]
@@ -518,8 +518,8 @@ def self_test(verbose=True):
         route_res = route_impeccable_intent("대시보드 UI 무결점 감사해줘")
         check("대화 엔진 라우터 정상 응답", route_res.get("ok") is True and "impeccable_shield" in route_res)
 
-        # 20. 버전 및 항체 태그 정합성 (v11.52-AON-PAGE-BUTTON-BOT, R1~R53)
-        check(f"버전 및 항체 태그 정합성 ({VERSION}, {ANTIBODIES})", VERSION == "v11.54-AON-SUPREME-ORG-CHART" and ANTIBODIES == "R1~R55")
+        # 20. 버전 및 항체 태그 정합성 (v11.55-AON-TELEGRAM-MESSENGER, R1~R56)
+        check(f"버전 및 항체 태그 정합성 ({VERSION}, {ANTIBODIES})", VERSION == "v11.55-AON-TELEGRAM-MESSENGER" and ANTIBODIES == "R1~R56")
 
     finally:
         import shutil

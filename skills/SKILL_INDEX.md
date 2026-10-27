@@ -130,3 +130,5 @@
 - 경로: `skills/aon-supreme-org-chart-architect/SKILL.md`
 - 기관: 제31기관 아온 세계 Top 1 초일류 자율 조직구성도 & 배타적 영토·5대 전술 진형 지휘 본부 (`rgon_aon_supreme_org_chart_engine.py`)
 - 핵심: 4계층 권력분립 조직도(Tier 0~3) + 5대 동적 전술 진형 + 배타적 쓰기 영토 충돌 0건 및 북극성 정렬도 100.0% 만점
+
+| 52 | `aon-telegram-omni-messenger` | 제32기관 아온 듀얼 텔레그램·카톡형 실시간 양방향 메신저 스킬 | `v11.55-AON-TELEGRAM-MESSENGER` | `R56` |

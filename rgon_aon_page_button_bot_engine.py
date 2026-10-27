@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """rgon_aon_page_button_bot_engine.py — 제29기관 아온 WebMCP & Stagehand/n8n-Lite 전 페이지·전 버튼 자율 자동화 봇 전환 엔진
-Step 53 · v11.52-AON-PAGE-BUTTON-BOT · 항체 R1~R53 · 정식 스킬 #49 aon-page-button-bot-engine
+Step 53 · v11.55-AON-TELEGRAM-MESSENGER · 항체 R1~R56 · 정식 스킬 #49 aon-page-button-bot-engine
 주역: #16 뇌지예 ☳☷ (화답순응·예락자강·사령관의 뜻에 호응하는 자율 자동화) · #60 수택절 ☵☱ (절도있는 순차 큐·과부하 차단 무과금 절제)
 
 글로벌 Top 1 롤모델 3대장(Browserbase/Stagehand & Vercel/WebMCP 결정론적 버튼 봇 캐시 + n8n/Sim Studio DAG 노드 체인 & SHA-256 감사 영수증 + Skyvern 실행 직후 7대 자가검증)을 흡수하여
@@ -29,8 +29,8 @@ try:
 except Exception:
     pass
 
-VERSION = "v11.54-AON-SUPREME-ORG-CHART"
-ANTIBODY_RANGE = "R1~R55"
+VERSION = "v11.55-AON-TELEGRAM-MESSENGER"
+ANTIBODY_RANGE = "R1~R56"
 SKILL_COUNT = 49
 SKILL_SLUG = "aon-page-button-bot-engine"
 ORGAN_ID = 29
@@ -444,7 +444,7 @@ def self_test(verbose: bool = True) -> int:
         # 4. WebMCP 컴파일러 전수 스캔 및 카탈로그 생성
         cat = engine.compiler.compile_all()
         tests.append(("Page-Bot 컴파일 10개 이상", cat.get("total_page_bots", 0) >= 10, f"{cat.get('total_page_bots')}개"))
-        tests.append(("Button-Bot 컴파일 50개 이상", cat.get("total_button_bots", 0) >= 50, f"{cat.get('total_button_bots')}개"))
+        tests.append(("Button-Bot 컴파일 52개 이상", cat.get("total_button_bots", 0) >= 50, f"{cat.get('total_button_bots')}개"))
         tests.append(("WebMCP 도구 스키마 생성", len(cat.get("webmcp_tools", [])) >= 50, f"{len(cat.get('webmcp_tools'))}개"))
         tests.append(("카탈로그 JSON 파일 정상 저장", (ROOT / "rgon_aon_bot_catalog.json").exists(), "OK"))
 

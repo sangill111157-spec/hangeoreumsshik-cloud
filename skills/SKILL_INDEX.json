@@ -1,8 +1,8 @@
 {
-  "version": "v11.54-AON-SUPREME-ORG-CHART",
-  "antibody": "R1~R55",
-  "generated_at_kst": "2026-10-26 00:23:49 KST",
-  "count": 51,
+  "version": "v11.55-AON-TELEGRAM-MESSENGER",
+  "antibody": "R1~R56",
+  "generated_at_kst": "2026-10-27 09:39:56 KST",
+  "count": 52,
   "skills": [
     {
       "slug": "1-36-45",
@@ -505,15 +505,26 @@
       "description": "4계층 권력분립 조직도 및 5대 동적 전술 진형, 배타적 쓰기 영토 관리",
       "version": "11.54",
       "status": "ACTIVE"
+    },
+    {
+      "slug": "aon-telegram-omni-messenger",
+      "name": "제32기관 아온 듀얼 텔레그램·카톡형 실시간 양방향 메신저",
+      "category": "messenger-hotline",
+      "hexagram_tag": "#58-兌",
+      "source_url": "https://api.telegram.org",
+      "origin": "rgon-core",
+      "path": "skills/aon-telegram-omni-messenger/SKILL.md",
+      "version": "v11.55-AON-TELEGRAM-MESSENGER",
+      "antibody": "R56_TELEGRAM_KAKAO_BIDIRECTIONAL_LIVE_MESSENGER_LOCK"
     }
   ],
-  "total": 51,
-  "skill_count": 51,
-  "antibody_range": "R1~R55",
-  "antibodies": "R1~R55",
-  "updated": "2026-10-27T09:01:21",
+  "total": 52,
+  "skill_count": 52,
+  "antibody_range": "R1~R56",
+  "antibodies": "R1~R56",
+  "updated": "2026-10-27T09:51:40",
   "synced_at_kst": "2026-10-26 21:30:00 KST",
-  "immune": "R1~R55",
-  "total_skills": 51,
+  "immune": "R1~R56",
+  "total_skills": 52,
   "total_count": 51
 }

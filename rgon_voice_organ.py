@@ -12,8 +12,8 @@ try:
 except Exception:
     pass
 
-VERSION = "v11.54-AON-SUPREME-ORG-CHART"
-ANTIBODY = "R1~R55"
+VERSION = "v11.55-AON-TELEGRAM-MESSENGER"
+ANTIBODY = "R1~R56"
 ROOT = Path(__file__).resolve().parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
@@ -130,7 +130,7 @@ SFX_PRESETS.update(R40_UNIFIED_SFX_MAP)
 
 def get_unified_sfx_registry():
     rec = globals().get("SOUND_RECIPES")
-    return {"version": "v11.51-AON-COMMANDER-TWIN", "antibody": "R1~R52",
+    return {"version": "v11.55-AON-TELEGRAM-MESSENGER", "antibody": "R1~R56",
             "sfx_presets": sorted(SFX_PRESETS.keys()),
             "sound_recipes": sorted(rec.keys()) if isinstance(rec, dict) else [],
             "r40_unified": sorted(R40_UNIFIED_SFX_MAP.keys())}

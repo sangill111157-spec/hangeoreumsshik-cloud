@@ -1447,7 +1447,7 @@ class DashboardHandler(SimpleHTTPRequestHandler):
                 import rgon_aon_inspector_general_gate as igg
                 data = {
                     "ok": True,
-                    "version": "v11.54-AON-SUPREME-ORG-CHART",
+                    "version": "v11.55-AON-TELEGRAM-MESSENGER",
                     "antibody": "R54",
                     "organ": "제30기관 아온 7대 방침 기관장 분신단 & 독립 검수담당 총장 100% 출하 관문",
                     "total_directors": len(igg.DIRECTORS_REGISTRY),
@@ -1466,7 +1466,7 @@ if path == '/api/aon_page_button_bot':
                 rcp = pbe.DeterministicBotExecutor.load_receipts()
                 data = {
                     "ok": True,
-                    "version": "v11.52-AON-PAGE-BUTTON-BOT",
+                    "version": "v11.55-AON-TELEGRAM-MESSENGER",
                     "antibody": "R53",
                     "organ": "제29기관 아온 WebMCP 전 페이지·전 버튼 자동화 봇 엔진",
                     "total_page_bots": len(cat.get("page_bots", {})),
