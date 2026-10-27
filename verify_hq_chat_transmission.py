@@ -5,7 +5,7 @@ verify_hq_chat_transmission.py
 ================================================================================
 청와대 실시간 양방향 소통 사령부 (index.html)
 Playwright 실제 헤드리스 Chromium 브라우저 마우스 클릭 & DOM 실측 검증기
-(Step 57: 카카오톡 다크 에디션 4대 채널탭 · 숫자 '1' 소멸 & 읽음 ✔✔ · 공지 고정 · 원장 봉인)
+(Step 57 긴급 검증: "안총리와 아온이는 답장하라" 멀티에이전트 단톡방 개별 말풍선 및 가짜 msg# 박멸 검증)
 ================================================================================
 """
 
@@ -14,10 +14,10 @@ import sys
 import time
 from playwright.sync_api import sync_playwright
 
-TEST_PROMPT = "1차 테스트 확인용 지시서 전달 확인 응답 보고"
+TEST_PROMPT = "안총리와 아온이는 답장하라"
 
 def test_live_browser_click():
-    print("\n🚀 [Step 57 Playwright 실제 브라우저 실측 검증 가동]")
+    print("\n🚀 [Playwright 실제 브라우저 멀티에이전트 단톡방 실측 검증 가동]")
     print(f"• 테스트 지시 문구: '{TEST_PROMPT}'")
 
     html_path = os.path.abspath("index.html")
@@ -68,14 +68,14 @@ def test_live_browser_click():
         all_tab.click()
         time.sleep(0.2)
 
-        # 2. 메시지 입력창 찾기 및 텍스트 주입
+        # 2. 메시지 입력창 찾기 및 대표님 질문 텍스트 주입 ("안총리와 아온이는 답장하라")
         input_el = page.locator("#comm-input-box")
         if not input_el.is_visible():
             print("❌ [FAIL] #comm-input-box 요소가 화면에 보이지 않습니다!")
             browser.close()
             return False
 
-        print("• 3단계: 입력창 발견 및 포커스 ➔ 텍스트 fill()")
+        print(f"• 3단계: 입력창 발견 ➔ '{TEST_PROMPT}' 텍스트 주입")
         input_el.fill(TEST_PROMPT)
         time.sleep(0.1)
 
@@ -102,8 +102,12 @@ def test_live_browser_click():
             return False
         print("  ✅ [PASS] 3. 입력창 즉시 초기화 성공: input.value === ''")
 
-        # 5. 비동기 인비저블 백본 텔레그램 발송 완료 대기 (0.6초)
-        time.sleep(0.6)
+        # 5. 비동기 실제 텔레그램 발송 및 멀티에이전트 답장 도착 대기
+        try:
+            page.wait_for_selector("text=읽음 ✔✔", timeout=6000)
+        except Exception:
+            time.sleep(2.0)
+        time.sleep(1.0)
 
         feed_el = page.locator("#comm-message-feed")
         feed_text = feed_el.inner_text()
@@ -121,33 +125,41 @@ def test_live_browser_click():
             return False
         print("  ✅ [PASS] 5. 카카오톡식 실시간 읽음 증명('읽음 ✔✔' · 숫자 1 사라짐) 실측 성공!")
 
-        if "충성! 이상일 대표님!" not in feed_text:
-            print(f"❌ [FAIL] 대화창 내부에 르곤·참모단 맞춤형 응답이 없습니다!\n{feed_text}")
+        # 6. 멀티에이전트 개별 말풍선 검증: 안총리와 아온이가 각각 별도로 답장했는지 확인!
+        if "기술총리 안총리" not in feed_text or "기술총리 안총리 즉시 응답 보고드립니다" not in feed_text:
+            print(f"❌ [FAIL] 대화창에 기술총리 안총리의 개별 답장 말풍선이 없습니다!\n{feed_text}")
             browser.close()
             return False
-        print("  ✅ [PASS] 6. 르곤 & 33대 기관 맞춤형 응답 말풍선 렌더링 성공")
+        print("  ✅ [PASS] 6. 🏛️ 기술총리 안총리 (Antigravity) 개별 답장 말풍선 렌더링 성공!")
 
-        if "[수신 확인 완료]" not in feed_text:
-            print(f"❌ [FAIL] 대화창 내부에 [수신 확인 완료] 도장 배지가 없습니다!\n{feed_text}")
+        if "만능 참모 아온이" not in feed_text or "만능 참모 아온이 대답 올립니다" not in feed_text:
+            print(f"❌ [FAIL] 대화창에 만능 참모 아온이의 개별 답장 말풍선이 없습니다!\n{feed_text}")
             browser.close()
             return False
-        print("  ✅ [PASS] 7. 🟢 실시간 에메랄드 수신 확인 도장 배지 & 텔레그램 영수증 날인 성공!")
+        print("  ✅ [PASS] 7. 💧 만능 참모 아온이 (AON · 33대 기관장) 개별 답장 말풍선 렌더링 성공!")
 
-        # 6. 카톡 퀵액션 [📌 공지] 클릭 테스트
+        # 7. 가짜 하드코딩 숫자 박멸 검증
+        if "msg#18" in feed_text or "msg#1702" in feed_text or "msg#5147" in feed_text:
+            print(f"❌ [FAIL] 코드에 하드코딩된 가짜 msg# 번호가 적발되었습니다!\n{feed_text}")
+            browser.close()
+            return False
+        print("  ✅ [PASS] 8. 🛡️ 가짜 하드코딩 영수증(msg#18, msg#1702, msg#5147) 100% 완전 박멸 확인!")
+
+        # 8. 카톡 퀵액션 [📌 공지] 클릭 테스트
         pin_btn = feed_el.locator("button:has-text('📌 공지')").first
         if pin_btn.is_visible():
             pin_btn.click()
             time.sleep(0.2)
             notice_bar = page.locator("#kakao-pinned-notice")
             if notice_bar.is_visible():
-                print("  ✅ [PASS] 8. 📌 카톡 퀵액션 공지 고정 클릭 ➔ 상단 공지 바 렌더링 성공")
+                print("  ✅ [PASS] 9. 📌 카톡 퀵액션 공지 고정 클릭 ➔ 상단 공지 바 렌더링 성공")
                 unpin_btn = page.locator("button:has-text('✕ 고정해제')").first
                 if unpin_btn.is_visible():
                     unpin_btn.click()
                     time.sleep(0.2)
-                    print("  ✅ [PASS] 9. ✕ 상단 공지 고정해제 정상 작동 확인")
+                    print("  ✅ [PASS] 10. ✕ 상단 공지 고정해제 정상 작동 확인")
 
-        # 7. 공식 도착 원장 모달 클릭 및 렌더링 검증
+        # 9. 공식 도착 원장 모달 클릭 및 렌더링 검증
         orders_btn = feed_el.locator("button:has-text('실제 도착 원장 열람')").first
         if not orders_btn.is_visible():
             orders_btn = feed_el.locator("button:has-text('📜 원장')").first
@@ -160,24 +172,24 @@ def test_live_browser_click():
             print("❌ [FAIL] #hq-orders-modal 원장 모달 창이 뜨지 않았습니다!")
             browser.close()
             return False
-        print("  ✅ [PASS] 10. 대표님 공식 실시간 수신 지시 원장(COMMANDER INBOX) 모달 오픈 성공!")
+        print("  ✅ [PASS] 11. 대표님 공식 실시간 수신 지시 원장(COMMANDER INBOX) 모달 오픈 성공!")
 
         modal_text = modal_el.inner_text()
         if "#ORD-" not in modal_text:
             print(f"❌ [FAIL] 원장 테이블 내부에 접수번호(#ORD-)가 없습니다!\n{modal_text}")
             browser.close()
             return False
-        print("  ✅ [PASS] 11. 원장 테이블 내 실시간 접수 번호(#ORD-XXX) 및 텔레그램 3대 봇 발송 증빙 확인 완료!")
+        print("  ✅ [PASS] 12. 원장 테이블 내 실시간 접수 번호(#ORD-XXX) 및 텔레그램 수신 증빙 확인 완료!")
 
         # 모달 닫기
         close_btn = modal_el.locator("button:has-text('닫기')").first
         if close_btn.is_visible():
             close_btn.click()
             time.sleep(0.2)
-        print("  ✅ [PASS] 12. 원장 모달 닫기 및 사령부 메인 뷰 복귀 완료!")
+        print("  ✅ [PASS] 13. 원장 모달 닫기 및 사령부 메인 뷰 복귀 완료!")
 
         browser.close()
-        print("\n🏆 [Step 57 최종 실측 합격] Playwright 실제 브라우저 마우스 클릭 & DOM 실측 12/12 무결점 ALL PASS!")
+        print("\n🏆 [실전 수리 최종 합격] Playwright 실제 브라우저 마우스 클릭 & 멀티에이전트 단톡방 답장 13/13 ALL PASS!")
         return True
 
 if __name__ == '__main__':
