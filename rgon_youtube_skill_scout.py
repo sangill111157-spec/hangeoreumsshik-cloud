@@ -27,7 +27,7 @@ try:
 except Exception:
     pass
 
-VERSION = "v11.58-AON-LIVE-BRAIN-MOTION"
+VERSION = "v11.60-AON-EMPIRE-ASSETS"
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 RADAR_NAME = "rgon_skill_radar.json"
 KST = timezone(timedelta(hours=9))

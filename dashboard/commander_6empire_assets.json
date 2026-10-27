@@ -1,0 +1,129 @@
+{
+  "version": "v11.60-AON-EMPIRE-ASSETS",
+  "updated_at": "2026-10-27 20:30:00",
+  "owner": "이상일 대표님 (사령관)",
+  "title": "한걸음씩 6대 비즈니스 자산 제국 마스터 원장",
+  "distrokid": {
+    "artist_label": "한걸음씩",
+    "delivery_status": "24개 글로벌 스트리밍 플랫폼 전달 완료 (Spotify, Apple Music, YouTube Music, Melon, Genie 등)",
+    "total_albums": 2,
+    "total_tracks": 27,
+    "albums": [
+      {
+        "album_id": "ALBUM-01",
+        "title": "가을과 겨울 사이",
+        "type": "정규 1집 (Regular Album Vol.1)",
+        "upload_date": "2026-10-03",
+        "release_date": "2026-11-06",
+        "upc": "700563848544",
+        "track_count": 12,
+        "tracks": [
+          { "no": 1, "title": "막차" },
+          { "no": 2, "title": "창을 닫지 마" },
+          { "no": 3, "title": "첫 입김" },
+          { "no": 4, "title": "오늘은 여기까지" },
+          { "no": 5, "title": "밥은 먹었니" },
+          { "no": 6, "title": "식어 가는 차" },
+          { "no": 7, "title": "가로등 아래서" },
+          { "no": 8, "title": "남겨 둔 자리" },
+          { "no": 9, "title": "보내지 않은 말" },
+          { "no": 10, "title": "불은 꺼지지 않아" },
+          { "no": 11, "title": "난로 옆에서" },
+          { "no": 12, "title": "내일의 아침" }
+        ],
+        "description": "계절이 바뀌는 길목, 차가운 바람 속 따뜻한 온기와 일상의 위로를 건네는 한걸음씩 감성 정규 1집"
+      },
+      {
+        "album_id": "ALBUM-02",
+        "title": "잔상",
+        "type": "정규 2집 (Regular Album Vol.2)",
+        "upload_date": "2026-10-14",
+        "release_date": "2026-11-27",
+        "upc": "700486463268",
+        "track_count": 15,
+        "tracks": [
+          { "no": 1, "title": "답장은 천천히" },
+          { "no": 2, "title": "한 칸 사이" },
+          { "no": 3, "title": "먼저 끊지 마" },
+          { "no": 4, "title": "읽고도 모른 척" },
+          { "no": 5, "title": "우리 아닌 우리" },
+          { "no": 6, "title": "반 박자 늦게" },
+          { "no": 7, "title": "새벽의 온도" },
+          { "no": 8, "title": "잔상" },
+          { "no": 9, "title": "취소한 문장" },
+          { "no": 10, "title": "괜찮은 척의 속도" },
+          { "no": 11, "title": "우회전" },
+          { "no": 12, "title": "조금 덜 선명해" },
+          { "no": 13, "title": "내 쪽으로" },
+          { "no": 14, "title": "다음 계절의 나" },
+          { "no": 15, "title": "아침의 편" }
+        ],
+        "description": "지나간 시간의 미련과 기억의 온도를 섬세한 멜로디와 시적 가사로 담아낸 감성 정규 2집"
+      }
+    ],
+    "released_singles": [
+      { "title": "영혼의 무게 (The Weight of a Soul)", "status": "기발매 히트작" },
+      { "title": "모두의 응원가 (Everyone's Anthem)", "status": "기발매 히트작" },
+      { "title": "원인과 결과, 결국 사랑", "status": "기발매 히트작" },
+      { "title": "사냥꾼의 새벽 (Hunter's Dawn)", "status": "기발매 히트작" }
+    ]
+  },
+  "youtube_channels": [
+    {
+      "channel_id": "CH-01",
+      "name": "한걸음씩",
+      "handle": "@한걸음씩-r4i",
+      "motto": "🌱 한마디가 당신의 인생을 바꿉니다",
+      "genre": "감성·인생 AI MV 및 정식 발매 음원 본진",
+      "target": "위로와 힐링, 음악과 인생 이야기를 찾는 2050 대중",
+      "url": "https://www.youtube.com/@한걸음씩-r4i"
+    },
+    {
+      "channel_id": "CH-02",
+      "name": "부스터 플리 | 운동·드라이브 음악",
+      "handle": "@Booster_Playlist",
+      "motto": "⚡ 폭발적인 에너지를 채우는 1시간 러닝 & 야간 드라이브 사운드",
+      "genre": "Phonk, Cyberpunk Synthwave, Workout EDM, 1시간 믹스셋",
+      "target": "헬스, 런닝, 야간 드라이브, 집중 코딩 리스너",
+      "url": "https://www.youtube.com/@Booster_Playlist"
+    },
+    {
+      "channel_id": "CH-03",
+      "name": "The Café Hour",
+      "handle": "@TheCaféHour",
+      "motto": "☕ 음악으로 채우는 카페의 하루 (MORNING · AFTERNOON · EVENING)",
+      "genre": "재즈, 보사노바, 로파이 라운지, 빗소리 카페 사운드",
+      "target": "공부, 독서, 카페 매장 음악, 휴식 리스너",
+      "url": "https://www.youtube.com/@TheCaféHour"
+    }
+  ],
+  "sns_viral_hub": {
+    "tiktok": {
+      "channel_name": "부스터플리",
+      "handle": "@boosterplaylist",
+      "followers": 2125,
+      "likes": 8793,
+      "max_views": 22000,
+      "role": "AI 음악 3채널 통합 바이럴 및 쇼츠/릴스 전파 본진"
+    },
+    "meta_3brothers_guide": {
+      "channels": ["Instagram Reels", "Threads", "Facebook"],
+      "one_click_sync_tip": "인스타그램 릴스 업로드 시 [페이스북 공유] 토글을 켜두면 스위치 1번으로 페이스북과 스레드에 3초 만에 동시 자동 배포됩니다."
+    }
+  },
+  "google_blogger": {
+    "blog_url": "https://connect-ai-shin.blogspot.com/",
+    "title": "불규칙한 삶 속 건강 챙기기 — 교대근무를 하며 건강과 식습관을 관리해온 경험을 기록합니다",
+    "theme": "교대근무 실전 건강 관리 & 근로수당 & 인생 습관",
+    "core_topics": [
+      { "id": 1, "title": "3조 2교대(12시간) 야간근무 식사·생활습관 변화" },
+      { "id": 2, "title": "출근 전·근무 중·퇴근 후 3단계 식사 타이밍 루틴" },
+      { "id": 3, "title": "야간작업 특수건강진단(산업안전보건법 제130조) 실전 이용기" },
+      { "id": 4, "title": "근로기준법 제56조 야간·휴일 근로수당 계산 가이드" },
+      { "id": 5, "title": "500ml 눈금 텀블러 3번(1.5L) 물 마시기 루틴" },
+      { "id": 6, "title": "강직성 척추염과 75kg 체중을 이겨낸 '하루 15분 걷기(한 걸음씩)' 습관" },
+      { "id": 7, "title": "주식 초보 급등주 실패에서 배운 원칙 투자 교훈" }
+    ],
+    "tone_of_voice": "과장 없는 진솔한 현장 경험담, 실측 법조항/시간표 기반, 읽기 편한 구어체, 마지막 따뜻한 응원과 면책고지(의료/법률 조언이 아닌 개인 경험 기록) 포함"
+  }
+}

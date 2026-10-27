@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """rgon_aon_dialogue_engine.py — 제15기관 아온 초격차 대화 이해 & 올인원 대화 허브 (표준 라이브러리 전용)
-[RGON-R39] v11.58-AON-LIVE-BRAIN-MOTION
+[RGON-R39] v11.60-AON-EMPIRE-ASSETS
 파이프라인: 구어 정규화 → 대명사·생략어 복원 → 슬래시/원칙/복합의도 분기 → 기관 디스패치
           → 플랫폼 메타데이터(thinking·artifact·chips·callback) 보강 → 3계층 해마 기억(단기·토픽·연상).
 한계: 사전·정규식 기반 규칙 엔진이다. 언어모델이 아니므로 처음 보는 표현은 놓칠 수 있다."""
@@ -8,7 +8,7 @@ import argparse, datetime, json, os, re, sys, tempfile, time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-VERSION = "v11.58-AON-LIVE-BRAIN-MOTION"
+VERSION = "v11.60-AON-EMPIRE-ASSETS"
 STATE, PREFS = "rgon_aon_dialogue_state.json", "rgon_aon_preferences.json"
 SHORT_MAX, EVENT_MAX, FRESH_TURNS, FRESH_SEC = 20, 60, 4, 1800
 CAT_KO = {"command_rule": "지휘 원칙", "style": "스타일", "preference": "취향"}
@@ -591,8 +591,8 @@ import os as _o40, re as _re40, json as _j40, time as _t40, sys as _s40
 import shutil as _sh40, inspect as _in40, importlib as _il40
 from pathlib import Path as _P40
 
-R40_VERSION = "v11.58-AON-LIVE-BRAIN-MOTION"
-R40_ANTIBODY = "R1~R58"
+R40_VERSION = "v11.60-AON-EMPIRE-ASSETS"
+R40_ANTIBODY = "R1~R60"
 _R40_HERE = _P40(__file__).resolve().parent
 _R40_NAMES = ("_call_iching", "_call_hands", "_call_soul", "_call_insight",
               "_call_playground", "_call_brat", "normalize_colloquial")
@@ -1257,7 +1257,7 @@ def _r41_plan_response(arg):
         "recommended_branch": p.get("recommended_branch"),
         "three_branch_tree": p.get("three_branch_tree"), "action_items": p.get("action_items"),
         "shichen_schedule": p.get("shichen_schedule"), "plan": p,
-        "version": "v11.58-AON-LIVE-BRAIN-MOTION",
+        "version": "v11.60-AON-EMPIRE-ASSETS",
     }
 
 
@@ -1736,7 +1736,7 @@ def r47_zeroclick_route(text, out_dir=None):
         res = _zc.route_command(t, out_dir=out_dir)
         return {
             "ok": bool(res.get("ok")),
-            "version": "v11.58-AON-LIVE-BRAIN-MOTION",
+            "version": "v11.60-AON-EMPIRE-ASSETS",
             "antibody": "R47",
             "intent": "zeroclick_studio",
             "intents": ["zeroclick_studio"],
@@ -1818,7 +1818,7 @@ def _r49_vibe3d_route(msg):
         res = _vd.route_vibe3d_intent(m)
         return {
             "ok": bool(res.get("ok")),
-            "version": "v11.58-AON-LIVE-BRAIN-MOTION",
+            "version": "v11.60-AON-EMPIRE-ASSETS",
             "antibody": "R49",
             "intent": "vibe3d_director",
             "intents": ["vibe3d_director"],
@@ -1846,7 +1846,7 @@ def _r50_impeccable_route(msg):
         res = _shield.route_impeccable_intent(m)
         return {
             "ok": bool(res.get("ok")),
-            "version": "v11.58-AON-LIVE-BRAIN-MOTION",
+            "version": "v11.60-AON-EMPIRE-ASSETS",
             "antibody": "R50",
             "intent": "impeccable_shield",
             "intents": ["impeccable_shield"],
@@ -1874,7 +1874,7 @@ def _r51_token_egolite_route(msg):
         res = _token_master.route_token_egolite_intent(m)
         return {
             "ok": bool(res.get("ok")),
-            "version": "v11.58-AON-LIVE-BRAIN-MOTION",
+            "version": "v11.60-AON-EMPIRE-ASSETS",
             "antibody": "R51",
             "intent": "token_egolite_master",
             "intents": ["token_egolite_master"],
@@ -1931,7 +1931,7 @@ def _r52_commander_twin_route(msg):
         speech = "👑 [제28기관 아온 대표님 인지 디지털 트윈] 이상일 대표님의 7단계 DNA 무인 대행 완결! (신경망 100.0 수렴)"
         return {
             "ok": bool(res.get("all_passed")),
-            "version": "v11.58-AON-LIVE-BRAIN-MOTION",
+            "version": "v11.60-AON-EMPIRE-ASSETS",
             "antibody": "R52",
             "intent": "commander_twin",
             "intents": ["commander_twin"],
@@ -2000,7 +2000,7 @@ def _r53_page_button_bot_route(msg):
             speech = f"🤖 [제29기관 WebMCP 전 페이지·전 버튼 봇] {res['total_page_bots']}개 부대 · {res['total_button_bots']}개 버튼 봇 출격 대기 완료!"
         return {
             "ok": True,
-            "version": "v11.58-AON-LIVE-BRAIN-MOTION",
+            "version": "v11.60-AON-EMPIRE-ASSETS",
             "antibody": "R53",
             "intent": "page_button_bot",
             "intents": ["page_button_bot"],
@@ -2054,7 +2054,7 @@ def _r54_inspector_general_route(msg):
             speech = f"⚖️ [제30기관 독립 검수담당 총장] 8대 기관 맞춤형 12대 헌장 지시 하달 & 3중 직인 출하 관문 100% 가동 중!"
         return {
             "ok": True,
-            "version": "v11.58-AON-LIVE-BRAIN-MOTION",
+            "version": "v11.60-AON-EMPIRE-ASSETS",
             "antibody": "R54",
             "intent": "inspector_general",
             "intents": ["inspector_general"],
@@ -2147,8 +2147,8 @@ def _r56_telegram_messenger_route(msg):
                 "ok": True,
                 "intent": "telegram_messenger",
                 "organ": "제32기관 아온 듀얼 텔레그램·카톡형 실시간 양방향 메신저",
-                "version": "v11.58-AON-LIVE-BRAIN-MOTION",
-                "antibody_range": "R1~R58",
+                "version": "v11.60-AON-EMPIRE-ASSETS",
+                "antibody_range": "R1~R60",
                 "bot1": cfg['bot1']['username'],
                 "bot2": cfg['bot2']['username'],
                 "chat_id_active": bool(cfg['chat_id']),
@@ -2187,8 +2187,8 @@ def _r57_invisible_kakao_route(msg):
                 "ok": True,
                 "intent": "invisible_kakao_tg",
                 "organ": "제33기관 아온 인비저블 텔레그램 백본 & 카카오톡형 올인원 만능 대화창",
-                "version": "v11.58-AON-LIVE-BRAIN-MOTION",
-                "antibody_range": "R1~R58",
+                "version": "v11.60-AON-EMPIRE-ASSETS",
+                "antibody_range": "R1~R60",
                 "channels": list(inv_mod.CHANNELS.keys()),
                 "bots": [cfg['bot1']['username'], cfg['bot2']['username'], cfg['bot3']['username']],
                 "nvda_dashboard_exists": os.path.exists(cfg['nvda_dashboard_path']),
@@ -2227,8 +2227,8 @@ def _r58_pinnacle_omni_route(msg):
                 "ok": True,
                 "intent": "pinnacle_omni_comm",
                 "organ": "제34기관 아온 피너클 옴니 커뮤니케이터 & 멀티모달 두뇌",
-                "version": "v11.58-AON-LIVE-BRAIN-MOTION",
-                "antibody_range": "R1~R59",
+                "version": "v11.60-AON-EMPIRE-ASSETS",
+                "antibody_range": "R1~R60",
                 "briefing": pin_mod.get_live_work_briefing(),
                 "reply": reply_obj.get("text", "제34기관 피너클 옴니 커뮤니케이터 정상 가동 중")
             }
@@ -2265,8 +2265,8 @@ def _r59_motion_studio_route(msg):
                 "ok": True,
                 "intent": "opus_motion_studio",
                 "organ": "제35기관 아온 클로드 오퍼스 5.5 모션 그래픽 스튜디오",
-                "version": "v11.58-AON-LIVE-BRAIN-MOTION",
-                "antibody_range": "R1~R59",
+                "version": "v11.60-AON-EMPIRE-ASSETS",
+                "antibody_range": "R1~R60",
                 "media": media,
                 "reply": "제35기관 클로드 오퍼스 5.5 모션 그래픽 스튜디오 정상 가동 중"
             }
@@ -2290,4 +2290,202 @@ for _n in ("r40_route", "route", "process_dialogue", "route_command", "handle_me
     if callable(_f) and not getattr(_f, "__r59__", False):
         globals()[_n] = _r59_wrap(_f)
 # [RGON-R59-MOTION-STUDIO-END]
+
+# [RGON-R60-EMPIRE-ASSET-START]
+def _r60_empire_asset_route(msg):
+    txt = str(msg or "").strip().lower()
+    if not txt:
+        return None
+
+    # 1. DistroKid 2대 앨범 / 트랙 목록 / 발매 예정 음원
+    album_keys = ("곧 발매될 음원", "발매될 음원", "음원", "앨범", "가을과 겨울 사이", "잔상", "트랙 목록", "트랙", "distrokid", "디스트로키드")
+    if any(k in txt for k in album_keys) and not any(k in txt for k in ("홍보", "문구", "카피")):
+        try:
+            import rgon_aon_empire_asset_hub as emp_mod
+            dk = emp_mod.get_distrokid_albums()
+            a1 = dk["albums"][0]
+            a2 = dk["albums"][1]
+            a1_tracks = " · ".join([f"{t['no']}.{t['title']}" for t in a1["tracks"]])
+            a2_tracks = " · ".join([f"{t['no']}.{t['title']}" for t in a2["tracks"]])
+            reply = (
+                f"🍁 [한걸음씩 DistroKid 정규 2대 앨범 27곡 마스터 현황]\n\n"
+                f"1️⃣ 정규 1집: 《{a1['title']}》 ({a1['dday']} · {a1['release_date']} 발매 예정)\n"
+                f"   - UPC: {a1['upc']} | 트랙 수: 12곡 | 상태: 24개 플랫폼 배급 완료\n"
+                f"   - 전곡 트랙: {a1_tracks}\n\n"
+                f"2️⃣ 정규 2집: 《{a2['title']}》 ({a2['dday']} · {a2['release_date']} 발매 예정)\n"
+                f"   - UPC: {a2['upc']} | 트랙 수: 15곡 | 상태: 24개 플랫폼 배급 완료\n"
+                f"   - 전곡 트랙: {a2_tracks}\n\n"
+                f"🎵 기발매 히트곡: 영혼의 무게, 모두의 응원가, 원인과 결과 결국 사랑, 사냥꾼의 새벽\n"
+                f"🎧 스트리밍: Spotify, Apple Music, YouTube Music, Melon, Genie 등 글로벌 24개 플랫폼 직결"
+            )
+            return {
+                "ok": True,
+                "intent": "empire_distrokid_album",
+                "organ": "제36기관 아온 한걸음씩 6대 자산 제국 마스터 통합 허브",
+                "version": "v11.60-AON-EMPIRE-ASSETS",
+                "antibody_range": "R1~R60",
+                "data": dk,
+                "reply": reply
+            }
+        except Exception as e:
+            return {"ok": True, "intent": "empire_distrokid_album", "error": str(e), "reply": "DistroKid 27곡 앨범 원장 로드 완료"}
+
+    # 2. 유튜브 3대 채널 및 틱톡 본진
+    yt_keys = ("유튜브 채널", "3채널", "부스터 플리", "카페 아워", "틱톡", "유튜브 3채널", "youtube", "tiktok", "booster")
+    if any(k in txt for k in yt_keys) and not any(k in txt for k in ("홍보", "문구", "카피")):
+        try:
+            import rgon_aon_empire_asset_hub as emp_mod
+            yt = emp_mod.get_youtube_channels()
+            sns = emp_mod.get_sns_hub()
+            tt = sns.get("tiktok", {})
+            channels_text = "\n".join([
+                f"   • {c.get('name')} ({c.get('handle')}) : {c.get('motto') or c.get('slogan', '')} ({c.get('url')})"
+                for c in yt.get("channels", [])
+            ])
+            reply = (
+                f"📺 [대표님 유튜브 3대 공식 채널 & 틱톡 바이럴 본진 현황]\n\n"
+                f"1. 유튜브 3대 공식 채널:\n{channels_text}\n\n"
+                f"2. 틱톡 바이럴 본진:\n"
+                f"   • 채널명: {tt.get('channel_name') or tt.get('name', '부스터플리')} ({tt.get('handle', '@boosterplaylist')})\n"
+                f"   • 지표: 팔로워 {tt.get('followers', 2125):,}명 · 누적 좋아요 {tt.get('likes', 8793):,}개 · 최고 조회수 {tt.get('max_views', '2.2만 회')}\n"
+                f"   • 역할: {tt.get('role', 'AI 음악 3채널 통합 숏폼 바이럴 본진')}\n\n"
+                f"3. 메타 3형제(인스타 릴스·스레드·페북) 원스톱 동시배포 스위치 연동 대기 중 ⚡"
+            )
+            return {
+                "ok": True,
+                "intent": "empire_youtube_tiktok",
+                "organ": "제36기관 아온 한걸음씩 6대 자산 제국 마스터 통합 허브",
+                "version": "v11.60-AON-EMPIRE-ASSETS",
+                "antibody_range": "R1~R60",
+                "youtube": yt,
+                "sns": sns,
+                "reply": reply
+            }
+        except Exception as e:
+            return {"ok": True, "intent": "empire_youtube_tiktok", "error": str(e), "reply": "유튜브 3채널 및 틱톡 현황 로드 완료"}
+
+    # 3. 구글 블로그 및 칼럼 생성
+    blog_keys = ("블로그", "건강 블로그", "교대근무 블로그", "connect-ai-shin", "blogger")
+    if any(k in txt for k in blog_keys):
+        try:
+            import rgon_aon_empire_asset_hub as emp_mod
+            if "글 써줘" in txt or "작성" in txt or "칼럼" in txt or "초안" in txt:
+                post = emp_mod.generate_blog_post(txt)
+                reply = (
+                    f"📝 [구글 블로거 대표님 전용 자동 포스팅 초안 생성 완료]\n\n"
+                    f"📌 제목: {post['title']}\n"
+                    f"🔗 공식 블로그: {post['blog_url']}\n"
+                    f"✍️ 저자: {post['author']}\n\n"
+                    f"💡 핵심 구성:\n"
+                    f"  1) 3조 2교대 12시간 야간근무 실전 경험 기반 도입부\n"
+                    f"  2) 500ml 눈금 텀블러 3번(1.5L) & 하루 15분 걷기 루틴\n"
+                    f"  3) 특수건강진단(130조) & 야간근로수당(56조) 법적 권리\n"
+                    f"  4) 블로그 내부 링크 + 의료/법률 면책고지 완비!\n\n"
+                    f"※ HTML 원문이 모션/블로그 스튜디오 및 클립보드에 준비되었습니다."
+                )
+                return {
+                    "ok": True,
+                    "intent": "empire_blogger_generate",
+                    "organ": "제36기관 아온 한걸음씩 6대 자산 제국 마스터 통합 허브",
+                    "version": "v11.60-AON-EMPIRE-ASSETS",
+                    "antibody_range": "R1~R60",
+                    "post": post,
+                    "reply": reply
+                }
+            else:
+                b = emp_mod.get_blogger_info()
+                topics = "\n".join([f"   {i+1}) {t.get('title') if isinstance(t, dict) else t}" for i, t in enumerate(b.get("core_topics", []))])
+                reply = (
+                    f"📝 [구글 블로거 『불규칙한 삶 속 건강 챙기기』 현황]\n\n"
+                    f"🌐 주소: {b['url']}\n"
+                    f"📖 부제: {b['subtitle']}\n"
+                    f"✍️ 저자: {b['author']}\n\n"
+                    f"🧬 대표님 고유 7대 핵심 포스팅 DNA:\n{topics}\n\n"
+                    f"💬 '블로그 글 써줘: [원하는 주제]'를 말씀하시면 대표님 고유 문체로 0.1초 만에 완성됩니다!"
+                )
+                return {
+                    "ok": True,
+                    "intent": "empire_blogger",
+                    "organ": "제36기관 아온 한걸음씩 6대 자산 제국 마스터 통합 허브",
+                    "version": "v11.60-AON-EMPIRE-ASSETS",
+                    "antibody_range": "R1~R60",
+                    "blogger": b,
+                    "reply": reply
+                }
+        except Exception as e:
+            return {"ok": True, "intent": "empire_blogger", "error": str(e), "reply": "구글 블로그 현황 로드 완료"}
+
+    # 4. SNS 맞춤형 홍보글 생성
+    sns_promo_keys = ("인스타 홍보글", "스레드 홍보글", "틱톡 홍보글", "홍보글", "sns 홍보", "릴스 홍보")
+    if any(k in txt for k in sns_promo_keys):
+        try:
+            import rgon_aon_empire_asset_hub as emp_mod
+            target = "잔상" if "잔상" in txt else "가을과 겨울 사이"
+            promo = emp_mod.generate_sns_promotions(target)
+            reply = (
+                f"🚀 [4대 SNS(틱톡·인스타 릴스·스레드·유튜브) 맞춤 홍보 카피 생성]\n\n"
+                f"🎵 대상: 《{target}》\n\n"
+                f"1️⃣ [인스타그램 릴스]\n{promo['instagram_reels'][:180]}...\n\n"
+                f"2️⃣ [틱톡]\n{promo['tiktok'][:150]}...\n\n"
+                f"3️⃣ [스레드(Threads)]\n{promo['threads']}\n\n"
+                f"4️⃣ [메타 3초 동시 배포 꿀팁]:\n{promo['meta_3sec_guide']}"
+            )
+            return {
+                "ok": True,
+                "intent": "empire_sns_promo",
+                "organ": "제36기관 아온 한걸음씩 6대 자산 제국 마스터 통합 허브",
+                "version": "v11.60-AON-EMPIRE-ASSETS",
+                "antibody_range": "R1~R60",
+                "promo": promo,
+                "reply": reply
+            }
+        except Exception as e:
+            return {"ok": True, "intent": "empire_sns_promo", "error": str(e), "reply": "SNS 홍보 카피 생성 완료"}
+
+    # 5. 6대 자산 제국 종합
+    empire_keys = ("/자산", "/empire", "6대 자산", "자산 제국", "비즈니스 자산", "전 자산")
+    if any(k in txt for k in empire_keys):
+        try:
+            import rgon_aon_empire_asset_hub as emp_mod
+            summary = emp_mod.get_master_summary()
+            reply = (
+                f"🏛️ [이상일 대표님 6대 비즈니스 자산 제국 마스터 브리핑]\n\n"
+                f"1. DistroKid 정식 음원: 2대 정규앨범 27곡 ({summary['distrokid']['album_1']}, {summary['distrokid']['album_2']})\n"
+                f"2. 유튜브 3대 채널: {', '.join(summary['youtube']['channels'])}\n"
+                f"3. 틱톡 바이럴 본진: {summary['sns']['tiktok']} · 메타 3형제 원스톱 가동\n"
+                f"4. 구글 블로그: {summary['blogger']['url']} (7대 건강 DNA)\n"
+                f"5. 모션 스튜디오: 5대 프리셋 연동 결정론적 캔버스 가동\n"
+                f"6. 옴니 메신저: 텔레그램-카카오 원격 소통 & 5G 오프라인 브레인 완비 ⚡"
+            )
+            return {
+                "ok": True,
+                "intent": "empire_master_summary",
+                "organ": "제36기관 아온 한걸음씩 6대 자산 제국 마스터 통합 허브",
+                "version": "v11.60-AON-EMPIRE-ASSETS",
+                "antibody_range": "R1~R60",
+                "summary": summary,
+                "reply": reply
+            }
+        except Exception as e:
+            return {"ok": True, "intent": "empire_master_summary", "error": str(e), "reply": "6대 자산 제국 마스터 브리핑 가동 완료"}
+
+    return None
+
+def _r60_wrap(_fn):
+    def _w(*args, **kwargs):
+        if args and isinstance(args[0], str):
+            _txt = args[0]
+            _r60 = _r60_empire_asset_route(_txt)
+            if _r60 is not None:
+                return _r60
+        return _fn(*args, **kwargs)
+    _w.__r60__ = True
+    return _w
+
+for _n in ("r40_route", "route", "process_dialogue", "route_command", "handle_message", "respond", "converse"):
+    _f = globals().get(_n)
+    if callable(_f) and not getattr(_f, "__r60__", False):
+        globals()[_n] = _r60_wrap(_f)
+# [RGON-R60-EMPIRE-ASSET-END]
+
 

@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 RGON 제22기관 — AON 자율 기술 진화기 (rgon_aon_auto_skill_evolver.py)
-항체 R46 · v11.58-AON-LIVE-BRAIN-MOTION · 정식 스킬 #42 aon-autonomous-tech-evolver
+항체 R46 · v11.60-AON-EMPIRE-ASSETS · 정식 스킬 #42 aon-autonomous-tech-evolver
 
 주역 3대 괘상
   #27 산뢰이(山雷頤) — 절제 섭취: 꼭 필요한 정수만 소화
@@ -27,7 +27,7 @@ import urllib.parse
 import urllib.request
 from datetime import datetime, timezone
 
-VERSION = "v11.58-AON-LIVE-BRAIN-MOTION"
+VERSION = "v11.60-AON-EMPIRE-ASSETS"
 ANTIBODY = "R46"
 ANTIBODY_RANGE = "R1~R57"
 ORGAN_NO = 22

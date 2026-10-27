@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 rgon_aon_hydro_cycle.py — 제18기관 아온 상선약수(上善若水) 수순환(水循環) 자율 대사 & 여백 창조 기관
-정식 스킬 #38 aon-hydro-cycle-homeostasis · v11.58-AON-LIVE-BRAIN-MOTION · 항체 R42 (R1~R57)
+정식 스킬 #38 aon-hydro-cycle-homeostasis · v11.60-AON-EMPIRE-ASSETS · 항체 R42 (R1~R57)
 
 노자 『上善若水 · 虛實相生』 + 주역 水 순환 4괘상
   1 증발·비움   #41 산택손(山澤損 ☶☱) · #18 산풍고(山風蠱 ☶☴)
@@ -30,7 +30,7 @@ import tempfile
 import importlib
 import collections
 
-VERSION = "v11.58-AON-LIVE-BRAIN-MOTION"
+VERSION = "v11.60-AON-EMPIRE-ASSETS"
 ANTIBODY = "R42"
 ANTIBODY_RANGE = "R1~R57"
 SKILL_COUNT = 39

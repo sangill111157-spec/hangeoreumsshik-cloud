@@ -24,6 +24,9 @@
 !agency_stage_gate_master.json
 !dashboard/agency_stage_gate_master.json
 !docs/agency_stage_gate_master.json
+!commander_6empire_assets.json
+!dashboard/commander_6empire_assets.json
+!docs/commander_6empire_assets.json
 *_secret*.json
 *_token*.json
 client_secret*.json

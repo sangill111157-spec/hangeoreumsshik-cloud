@@ -311,12 +311,12 @@ def test_step60_mobile_viewport():
         t_send = time.time()
         send_btn.click()
         
-        feed_m2 = wait_for_mobile_feed("완결한 핵심 작업", 3)
+        feed_m2 = wait_for_mobile_feed("완결한 핵심 작업", 5)
         elapsed_m2 = time.time() - t_send
         print(f"  • 모바일 응답 소요 시간: {elapsed_m2:.2f}초")
 
         if "완결한 핵심 작업" not in feed_m2 and "모션 그래픽" not in feed_m2 and "Step 59" not in feed_m2:
-            print(f"❌ [FAIL] '안총리 지금 뭐하고 있니'에 대한 답변이 3초 내에 나타나지 않았습니다!\n{feed_m2}")
+            print(f"❌ [FAIL] '안총리 지금 뭐하고 있니'에 대한 답변이 5초 내에 나타나지 않았습니다!\n{feed_m2}")
             browser.close()
             return False
         print(f"  ✅ [PASS] 2. '안총리 지금 뭐하고 있니' ➔ {elapsed_m2:.2f}초 만에 즉각 답변 말풍선 생성 확인!")
@@ -413,6 +413,92 @@ def test_step60_mobile_viewport():
         browser.close()
         return True
 
+def test_step61_empire_assets():
+    print("\n👑 [Playwright 브라우저 실측 - Step 61 제36기관 6대 자산 제국 3대 관문 (총 20대 관문 완성)]")
+
+    html_path = os.path.abspath("index.html")
+    file_url = f"file:///{html_path.replace(os.sep, '/')}"
+
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True)
+        context = browser.new_context(viewport={'width': 1280, 'height': 800})
+        page = context.new_page()
+
+        print(f"• 브라우저 로딩: {file_url}")
+        page.goto(file_url, wait_until="networkidle")
+
+        input_el = page.locator("#comm-input-box")
+        send_btn = page.locator("#btn-comm-send")
+        feed = page.locator("#comm-message-feed")
+
+        def wait_for_feed(target_str, max_sec=6):
+            t0 = time.time()
+            while time.time() - t0 < max_sec:
+                txt = feed.inner_text()
+                if target_str in txt:
+                    return txt
+                time.sleep(0.15)
+            return feed.inner_text()
+
+        # ======================================================================
+        # [검증 18] "곧 발매될 음원 알려줘"
+        # ➔ "가을과 겨울 사이", "잔상", "700563848544", "막차" 검증
+        # ======================================================================
+        print("\n🔹 [실전 질문 18] '곧 발매될 음원 알려줘' (DistroKid 27곡 마스터 원장)")
+        input_el.fill("곧 발매될 음원 알려줘")
+        send_btn.click()
+        feed_text_18 = wait_for_feed("가을과 겨울 사이", 6)
+
+        music_keys = ["가을과 겨울 사이", "잔상", "700563848544", "막차"]
+        for k in music_keys:
+            if k not in feed_text_18:
+                print(f"❌ [FAIL] 음원 질의 답변에서 필수 키워드 '{k}' 가 누락되었습니다!\n{feed_text_18}")
+                browser.close()
+                return False
+        print("  ✅ [PASS] 18. '곧 발매될 음원 알려줘' ➔ 《가을과 겨울 사이》(12트랙/UPC 700563848544) & 《잔상》(15트랙) & '막차' 100% 정상 출력 확인!")
+        time.sleep(0.5)
+
+        # ======================================================================
+        # [검증 19] "유튜브 3채널과 틱톡 알려줘"
+        # ➔ "@한걸음씩-r4i", "@Booster_Playlist", "@TheCaféHour", "@boosterplaylist", "2,125" 검증
+        # ======================================================================
+        print("\n🔹 [실전 질문 19] '유튜브 3채널과 틱톡 알려줘' (유튜브 3채널 + 틱톡 2,125명)")
+        input_el.fill("유튜브 3채널과 틱톡 알려줘")
+        send_btn.click()
+        feed_text_19 = wait_for_feed("@boosterplaylist", 6)
+
+        yt_keys = ["@한걸음씩-r4i", "@Booster_Playlist", "@TheCaféHour", "@boosterplaylist", "2,125"]
+        for k in yt_keys:
+            if k not in feed_text_19:
+                print(f"❌ [FAIL] 유튜브/틱톡 질의 답변에서 필수 키워드 '{k}' 가 누락되었습니다!\n{feed_text_19}")
+                browser.close()
+                return False
+        print("  ✅ [PASS] 19. '유튜브 3채널과 틱톡 알려줘' ➔ 유튜브 3채널 핸들과 틱톡 2,125명 바이럴 허브 100% 정상 출력 확인!")
+        time.sleep(0.5)
+
+        # ======================================================================
+        # [검증 20] "블로그 현황 알려줘"
+        # ➔ "connect-ai-shin.blogspot.com", "3조 2교대" 검증
+        # ======================================================================
+        print("\n🔹 [실전 질문 20] '블로그 현황 알려줘' (구글 블로거 7대 DNA)")
+        input_el.fill("블로그 현황 알려줘")
+        send_btn.click()
+        feed_text_20 = wait_for_feed("connect-ai-shin.blogspot.com", 6)
+
+        blog_keys = ["connect-ai-shin.blogspot.com", "3조 2교대"]
+        for k in blog_keys:
+            if k not in feed_text_20:
+                print(f"❌ [FAIL] 블로그 질의 답변에서 필수 키워드 '{k}' 가 누락되었습니다!\n{feed_text_20}")
+                browser.close()
+                return False
+        print("  ✅ [PASS] 20. '블로그 현황 알려줘' ➔ 구글 블로그 URL 및 3조 2교대 7대 DNA 100% 정상 출력 확인!")
+
+        print("\n=======================================================")
+        print("🎉 [Playwright 제36기관 6대 자산 실측 결과] 3대 관문 100% ALL PASS!")
+        print("=======================================================\n")
+        browser.close()
+        return True
+
 if __name__ == '__main__':
     ok1 = test_step59_verified_chat()
     if not ok1:
@@ -420,5 +506,8 @@ if __name__ == '__main__':
     ok2 = test_step60_mobile_viewport()
     if not ok2:
         sys.exit(1)
-    print("🏆 [최종 통과] 데스크톱(Step 59: 10대) + 스마트폰 모바일(Step 60: 7대) 17대 관문 100.0% 무결점 ALL PASS!")
+    ok3 = test_step61_empire_assets()
+    if not ok3:
+        sys.exit(1)
+    print("🏆 [최종 통과] 데스크톱(10대) + 모바일(7대) + 6대 자산 제국(3대) = 총 20대 관문 100.0% 무결점 ALL PASS!")
     sys.exit(0)

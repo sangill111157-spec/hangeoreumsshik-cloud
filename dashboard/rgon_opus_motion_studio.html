@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>아온 한걸음씩 6대 자산 제국 모션 & SNS·블로그 스튜디오 | 제35·36기관</title>
+  <style>
+    :root {
+      --bg-dark: #0a0f1d;
+      --card-bg: rgba(15, 23, 42, 0.92);
+      --border-color: rgba(99, 102, 241, 0.3);
+      --primary: #6366f1;
+      --accent-cyan: #06b6d4;
+      --accent-green: #10b981;
+      --accent-gold: #f59e0b;
+      --accent-red: #ef4444;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #0a0f1d; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #6366f1; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Pretendard", sans-serif; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 16px;
+      overflow-x: hidden;
+      scrollbar-width: thin;
+      scrollbar-color: #334155 #0a0f1d;
+    }
+    .header-bar {
+      width: 100%;
+      max-width: 960px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 18px;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      backdrop-filter: blur(12px);
+      margin-bottom: 14px;
+    }
+    .title-group { display: flex; align-items: center; gap: 10px; }
+    .badge {
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      letter-spacing: 0.5px;
+    }
+    .header-title { font-size: 15px; font-weight: 700; color: var(--text-main); }
+    .status-pill {
+      font-size: 12px;
+      color: var(--accent-green);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent-green);
+      box-shadow: 0 0 8px var(--accent-green);
+      animation: pulse 1.8s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.9); }
+    }
+    .main-container {
+      width: 100%;
+      max-width: 960px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+    .preset-selector {
+      width: 100%;
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+      scrollbar-width: none;
+    }
+    .preset-selector::-webkit-scrollbar { display: none; }
+    .preset-btn {
+      padding: 8px 14px;
+      border-radius: 8px;
+      background: rgba(30, 41, 59, 0.7);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      color: var(--text-muted);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+    .preset-btn:hover {
+      background: rgba(99, 102, 241, 0.2);
+      color: var(--text-main);
+      border-color: rgba(99, 102, 241, 0.4);
+    }
+    .preset-btn.active {
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.4), rgba(6, 182, 212, 0.4));
+      border-color: var(--accent-cyan);
+      color: #fff;
+      box-shadow: 0 0 12px rgba(6, 182, 212, 0.3);
+    }
+    .canvas-wrapper {
+      position: relative;
+      width: 100%;
+      max-height: 480px;
+      background: #000;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    canvas {
+      display: block;
+      max-height: 480px;
+      max-width: 100%;
+      object-fit: contain;
+    }
+    .storyboard-overlay {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(6px);
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      color: var(--accent-cyan);
+      font-weight: 600;
+      border: 1px solid rgba(6, 182, 212, 0.3);
+      pointer-events: none;
+    }
+    .controls-panel {
+      width: 100%;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 12px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .timeline-row { display: flex; align-items: center; gap: 12px; }
+    .time-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--accent-cyan);
+      min-width: 65px;
+      font-variant-numeric: tabular-nums;
+    }
+    .slider {
+      flex: 1;
+      accent-color: var(--accent-cyan);
+      cursor: pointer;
+    }
+    .action-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .btn-group { display: flex; gap: 8px; flex-wrap: wrap; }
+    .btn {
+      padding: 7px 14px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-primary:hover { background: #4f46e5; }
+    .btn-record {
+      background: rgba(239, 68, 68, 0.2);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      color: #f87171;
+    }
+    .btn-record:hover { background: rgba(239, 68, 68, 0.35); }
+    .btn-record.recording { background: #ef4444; color: #fff; animation: pulse 1s infinite; }
+    .btn-secondary {
+      background: rgba(51, 65, 85, 0.6);
+      color: var(--text-main);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+    }
+    .btn-secondary:hover { background: rgba(71, 85, 105, 0.8); }
+    .btn-copy {
+      background: rgba(16, 185, 129, 0.2);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      color: #34d399;
+    }
+    .btn-copy:hover { background: rgba(16, 185, 129, 0.35); color: #fff; }
+
+    /* SNS 및 블로그 홍보 스튜디오 패널 */
+    .promo-studio {
+      width: 100%;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .promo-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.15);
+      padding-bottom: 10px;
+    }
+    .promo-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--accent-cyan);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .promo-tabs { display: flex; gap: 6px; }
+    .promo-tab {
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      background: rgba(51, 65, 85, 0.5);
+      color: var(--text-muted);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      cursor: pointer;
+    }
+    .promo-tab.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+    .promo-content-box {
+      width: 100%;
+      height: 140px;
+      background: rgba(10, 15, 29, 0.85);
+      border: 1px solid rgba(99, 102, 241, 0.2);
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 12px;
+      line-height: 1.6;
+      color: #e2e8f0;
+      white-space: pre-wrap;
+      overflow-y: auto;
+      font-family: inherit;
+    }
+    .toast-msg {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(16, 185, 129, 0.95);
+      color: #fff;
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+      display: none;
+      z-index: 9999;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header-bar">
+    <div class="title-group">
+      <span class="badge">제35·36기관</span>
+      <span class="header-title">클로드 오퍼스 5.5 모션 & 6대 자산 마스터 스튜디오</span>
+    </div>
+    <div class="status-pill">
+      <span class="status-dot"></span>
+      <span id="canvas-spec">16:9 Landscape (1920×1080)</span>
+    </div>
+  </div>
+
+  <div class="main-container">
+    <!-- 6대 자산 제국 대표 프리셋 선택기 -->
+    <div class="preset-selector">
+      <button class="preset-btn active" id="btn-p1" onclick="setPreset('hangeoreum_album1')">
+        🍁 정규1집 《가을과 겨울 사이》 (12곡)
+      </button>
+      <button class="preset-btn" id="btn-p2" onclick="setPreset('hangeoreum_album2')">
+        🥃 정규2집 《잔상》 (15곡)
+      </button>
+      <button class="preset-btn" id="btn-p3" onclick="setPreset('booster_playlist')">
+        ⚡ 부스터 플리 & 틱톡 @boosterplaylist
+      </button>
+      <button class="preset-btn" id="btn-p4" onclick="setPreset('cafe_hour')">
+        ☕ The Café Hour (카페 재즈)
+      </button>
+      <button class="preset-btn" id="btn-p5" onclick="setPreset('blogger_health')">
+        📝 건강 블로그 (3조2교대 7대 DNA)
+      </button>
+      <button class="preset-btn" id="btn-p6" onclick="setPreset('haesang_aon_mv')">
+        🪐 우주복 아온이 MV
+      </button>
+      <button class="preset-btn" id="btn-p7" onclick="setPreset('nvda_chart_motion')">
+        📈 NVDA 퀀트 매매
+      </button>
+    </div>
+
+    <!-- 캔버스 영역 -->
+    <div class="canvas-wrapper" id="canvas-container">
+      <canvas id="motion-canvas" width="1920" height="1080"></canvas>
+      <div class="storyboard-overlay" id="storyboard-phase">Hook (0~2s): 타이포 임팩트</div>
+    </div>
+
+    <!-- 컨트롤러 패널 -->
+    <div class="controls-panel">
+      <div class="timeline-row">
+        <span class="time-label" id="time-display">0.00s / 10.0s</span>
+        <input type="range" id="time-slider" class="slider" min="0" max="10" step="0.033" value="0" oninput="onSliderChange(this.value)">
+      </div>
+
+      <div class="action-row">
+        <div class="btn-group">
+          <button class="btn btn-primary" id="btn-play" onclick="togglePlay()">
+            ▶ 재생
+          </button>
+          <button class="btn btn-secondary" onclick="resetPlay()">
+            ⏮ 처음으로
+          </button>
+        </div>
+
+        <div class="btn-group">
+          <button class="btn btn-record" id="btn-record" onclick="toggleRecord()">
+            🔴 WebM 영상 녹화
+          </button>
+          <button class="btn btn-secondary" onclick="exportFramePNG()">
+            📸 프레임 캡처
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SNS 및 블로그 원클릭 생성 & 복사 스튜디오 -->
+    <div class="promo-studio">
+      <div class="promo-header">
+        <div class="promo-title">
+          <span>📋</span> <span id="promo-headline">대표님 전용 4대 SNS & 타임스탬프 원클릭 스튜디오</span>
+        </div>
+        <div class="promo-tabs">
+          <button class="promo-tab active" onclick="switchPromoTab('all')">4대 SNS 통합</button>
+          <button class="promo-tab" onclick="switchPromoTab('tiktok')">틱톡</button>
+          <button class="promo-tab" onclick="switchPromoTab('reels')">릴스</button>
+          <button class="promo-tab" onclick="switchPromoTab('threads')">스레드</button>
+          <button class="promo-tab" onclick="switchPromoTab('yt_desc')">유튜브 타임스탬프</button>
+          <button class="promo-tab" onclick="switchPromoTab('blogger')">블로그 HTML</button>
+        </div>
+      </div>
+
+      <div class="promo-content-box" id="promo-box"></div>
+
+      <div class="action-row">
+        <div class="btn-group">
+          <button class="btn btn-copy" onclick="copyCurrentPromo()">
+            📋 현재 탭 내용 원클릭 복사
+          </button>
+          <button class="btn btn-secondary" onclick="copyMetaTip()">
+            🚀 메타 3초 자동배포 가이드 복사
+          </button>
+        </div>
+        <div style="font-size: 11px; color: var(--text-muted);">
+          ※ 인스타 릴스 업로드 시 페이스북·스레드 스위치를 켜면 3초 동시 배포됩니다.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-msg" id="toast">복사 완료! 즉시 SNS 및 블로그에 붙여넣으실 수 있습니다.</div>
+
+  <script>
+    // =========================================================================
+    // 제35·36기관 결정론적 Canvas 모션 그래픽 스튜디오 (window.seek(t) 지원)
+    // =========================================================================
+    const canvas = document.getElementById('motion-canvas');
+    const ctx = canvas.getContext('2d');
+    const timeDisplay = document.getElementById('time-display');
+    const timeSlider = document.getElementById('time-slider');
+    const phaseOverlay = document.getElementById('storyboard-phase');
+    const btnPlay = document.getElementById('btn-play');
+    const btnRecord = document.getElementById('btn-record');
+    const specLabel = document.getElementById('canvas-spec');
+    const promoBox = document.getElementById('promo-box');
+    const promoHeadline = document.getElementById('promo-headline');
+    const toast = document.getElementById('toast');
+
+    let currentPreset = 'hangeoreum_album1';
+    let currentPromoTab = 'all';
+    let currentTime = 0;
+    const TOTAL_DURATION = 10.0;
+    let isPlaying = false;
+    let animFrameId = null;
+    let lastTimestamp = null;
+
+    let mediaRecorder = null;
+    let recordedChunks = [];
+    let isRecording = false;
+
+    function easeOutCubic(x) { return 1 - Math.pow(1 - x, 3); }
+    function clamp(val, min, max) { return Math.max(min, Math.min(max, val)); }
+
+    // =========================================================================
+    // 대표님 6대 자산 마스터 원장 데이터
+    // =========================================================================
+    const PROMO_DATA = {
+      hangeoreum_album1: {
+        title: "한걸음씩 정규 1집 《가을과 겨울 사이》",
+        tiktok: "🎧 바람이 차가워지는 지금, 꼭 들어야 할 플레이리스트\n차가운 공기 속 첫 입김이 번질 때 마음을 따뜻하게 안아주는 노래 🍁\n전 곡 멜론·스포티파이·애플뮤직 발매 완료!\n👉 프로필 링크에서 풀버전 감상하기!\n#부스터플리 #한걸음씩 #가을과겨울사이 #음악추천 #플레이리스트 #퇴근길음악 #감성노래 #노동요",
+        reels: "계절이 바뀌는 길목에서, 당신의 하루 끝에 작은 온기를 건넵니다. 🌱\n\n한걸음씩 정규 1집 《가을과 겨울 사이》\n차가운 바람이 불어올 때, 창을 닫기 전 잠시 귀 기울여보세요.\n\n🎧 Global Streaming on Spotify, Apple Music, Melon\n🔗 프로필 상단 링크에서 전곡 감상\n#한걸음씩 #가을과겨울사이 #감성음악 #인디음악 #플레이리스트추천 #위로글귀 #밤편지 #퇴근길",
+        threads: "일교차가 심해지니까 퇴근길 바람이 꽤 차갑네요. 🍂\n이맘때쯤 혼자 이어폰 꽂고 걷다가 울컥해지는 순간이 있잖아요.\n\n이번에 정성껏 주조한 정규 1집 《가을과 겨울 사이》 수록곡들인데,\n'오늘은 여기까지'랑 '밥은 먹었니' 들으시면서 오늘 하루의 짐을 잠시 내려놓으셨으면 좋겠습니다. ☕",
+        yt_desc: "[Official Audio] 한걸음씩 정규 1집 《가을과 겨울 사이》 Full Album\n\n⏱️ [타임스탬프 Tracklist]\n00:00 01. 막차\n03:15 02. 창을 닫지 마\n06:40 03. 첫 입김\n10:05 04. 오늘은 여기까지\n13:30 05. 밥은 먹었니\n17:02 06. 식어 가는 차\n20:45 07. 가로등 아래서\n24:10 08. 남겨 둔 자리\n27:35 09. 보내지 않은 말\n31:00 10. 불은 꺼지지 않아\n34:25 11. 난로 옆에서\n38:00 12. 내일의 아침\n\nUPC: 700563848544 | 발매: 2026-11-06 (D-10)\n글로벌 24개 플랫폼 스트리밍 전달 완료",
+        blogger: "<h3>[음악 칼럼] 가을과 겨울 사이, 12편의 온기</h3>\n<p>차가운 교대근무 퇴근길, 마음을 녹여준 12트랙 이야기...</p>\n<p>공식 블로그: <a href='https://connect-ai-shin.blogspot.com/'>불규칙한 삶 속 건강 챙기기</a></p>"
+      },
+      hangeoreum_album2: {
+        title: "한걸음씩 정규 2집 《잔상》",
+        tiktok: "지나간 시간의 미련과 기억의 온도를 노래합니다. 🥃\n정규 2집 《잔상》 15트랙 전곡 글로벌 스트리밍 개시!\n#한걸음씩 #잔상 #감성음악 #새벽감성 #플레이리스트 #인디음악",
+        reels: "마음에 남은 잔상이 흐려질 때까지.\n한걸음씩 정규 2집 《잔상》\n\n🎧 Spotify, Apple Music, Melon\n#한걸음씩 #잔상 #위로음악 #새벽노래 #음악추천",
+        threads: "마음속에 오래 머무는 잔상 하나쯤 다들 품고 계시죠.\n정규 2집 《잔상》 15트랙이 여러분의 깊은 밤을 지켜드립니다. 🌙",
+        yt_desc: "[Official Audio] 한걸음씩 정규 2집 《잔상》 Full Album\n\n⏱️ [타임스탬프 Tracklist]\n00:00 01. 답장은 천천히\n03:20 02. 한 칸 사이\n06:50 03. 먼저 끊지 마\n10:15 04. 읽고도 모른 척\n13:40 05. 우리 아닌 우리\n17:05 06. 반 박자 늦게\n20:30 07. 새벽의 온도\n24:00 08. 잔상\n27:25 09. 취소한 문장\n30:50 10. 괜찮은 척의 속도\n34:10 11. 우회전\n37:35 12. 조금 덜 선명해\n41:00 13. 내 쪽으로\n44:25 14. 다음 계절의 나\n47:50 15. 아침의 편\n\nUPC: 700486463268 | 발매: 2026-11-27 (D-31)",
+        blogger: "<h3>[정규 2집 칼럼] 지나간 기억의 온도, 잔상</h3>\n<p>15편의 서정적 멜로디와 함께하는 야간 힐링...</p>"
+      },
+      booster_playlist: {
+        title: "부스터 플리 & 틱톡 @boosterplaylist",
+        tiktok: "🔥 런닝할 때 이 노래 안 들으면 손해! 심장 박동수 180bpm 찍는 1시간 Phonk 믹스!\n팔로워 2,125명 감사 이벤트! 유튜브 풀버전 링크 클릭!\n#부스터플리 #헬스음악 #런닝플레이리스트 #운동자극 #드라이브음악 #Phonk #EDM",
+        reels: "야간 드라이브 & 심야 런닝 부스터 ⚡\n1시간 연속 재생 논스톱 사운드트랙!\n유튜브: @Booster_Playlist\n#부스터플리 #운동플레이리스트 #헬스타그램 #오운완 #야간러닝",
+        threads: "오늘 런닝 뛰실 분? 🏃‍♂️\n부스터 플리 1시간 믹스셋 틀고 달리면 5km 페이스 30초 단축됩니다 진짜로.",
+        yt_desc: "[1 Hour Workout Music] 부스터 플리 논스톱 러닝 & 야간 드라이브 Phonk/Workout\n채널: @Booster_Playlist\n틱톡 본진: @boosterplaylist (팔로워 2,125명 / 누적 8,793 좋아요 / 2.2만 뷰)",
+        blogger: "<h3>[운동 & 건강] 교대근무 피로를 날리는 심야 런닝 음악</h3>\n<p>하루 15분 걷기에서 시작해 러닝까지...</p>"
+      },
+      cafe_hour: {
+        title: "The Café Hour (@TheCaféHour)",
+        tiktok: "☕ 창밖엔 빗소리, 잔 속엔 따뜻한 라떼. 1.5시간 카페 재즈 라운지 힐링 사운드.\n#TheCafeHour #카페음악 #공부할때듣는음악 #빗소리ASMR #재즈플레이리스트",
+        reels: "음악으로 채우는 카페의 하루 ☕\nMORNING · AFTERNOON · EVENING\n유튜브 @TheCaféHour 에서 풀버전 감상하기\n#카페재즈 #보사노바 #로파이 #독서음악 #힐링사운드",
+        threads: "따뜻한 아메리카노 한 잔과 함께 듣기 좋은 잔잔한 재즈 음악 모음입니다. 오늘 하루도 고생 많으셨어요. 🌿",
+        yt_desc: "[1.5 Hours] The Café Hour - 편안한 카페 재즈 & 보사노바 라운지\n'음악으로 채우는 카페의 하루'\n유튜브 공식 채널: @TheCaféHour",
+        blogger: "<h3>[휴식 칼럼] 교대근무 후 커피 한 잔과 재즈의 위로</h3>\n<p>불규칙한 삶 속 건강 챙기기 공식 블로그</p>"
+      },
+      blogger_health: {
+        title: "구글 블로거 『불규칙한 삶 속 건강 챙기기』",
+        tiktok: "3조 2교대 12시간 야간근무하면서 강직성 척추염 이겨낸 3가지 비결!\n500ml 텀블러 3번 물마시기 루틴 💧\n#교대근무 #야간근무 #건강관리 #3조2교대 #불규칙한삶속건강챙기기",
+        reels: "12시간 맞교대 현장에서 75kg 체중과 척추염을 극복한 이야기 🌱\n네이버나 구글에 '불규칙한 삶 속 건강 챙기기'를 검색해보세요.\n블로그: connect-ai-shin.blogspot.com",
+        threads: "야간근무하시는 동료분들, 새벽 3시 야식 대신 미온수 500ml 텀블러 꼭 챙기세요. 퇴근 후 수면 질이 180도 달라집니다. 💪",
+        yt_desc: "[건강 브리핑] 3조 2교대 야간근무 건강 관리법\n- 특수건강진단(산업안전보건법 제130조)\n- 야간근로수당(근로기준법 제56조)\n- 공식 블로그: https://connect-ai-shin.blogspot.com/",
+        blogger: "<div style='line-height:1.8;'><h3>[교대근무 실전기] 3조 2교대 건강 관리 3대 원칙</h3><p>12시간 맞교대와 강직성 척추염을 이겨낸 500ml 텀블러 3회(1.5L) 루틴...</p><p>👉 <a href='https://connect-ai-shin.blogspot.com/'>불규칙한 삶 속 건강 챙기기 블로그 바로가기</a></p><p><small>⚠️ 면책고지: 본 글은 전문 의료 진단이 아니며 개인적 경험 기록입니다.</small></p></div>"
+      }
+    };
+
+    function updatePromoBox() {
+      const p = PROMO_DATA[currentPreset] || PROMO_DATA.hangeoreum_album1;
+      promoHeadline.textContent = `[${p.title}] 4대 SNS & 타임스탬프 원클릭 스튜디오`;
+
+      if (currentPromoTab === 'all') {
+        promoBox.textContent = `[🎵 ${p.title} 4대 SNS 맞춤 홍보 카피]\n\n` +
+          `[1. 틱톡 (숏폼 바이럴)]\n${p.tiktok}\n\n` +
+          `[2. 인스타그램 릴스]\n${p.reels}\n\n` +
+          `[3. 스레드(Threads)]\n${p.threads}\n\n` +
+          `[4. 유튜브 설명란 & 타임스탬프]\n${p.yt_desc}`;
+      } else if (currentPromoTab === 'tiktok') {
+        promoBox.textContent = p.tiktok;
+      } else if (currentPromoTab === 'reels') {
+        promoBox.textContent = p.reels;
+      } else if (currentPromoTab === 'threads') {
+        promoBox.textContent = p.threads;
+      } else if (currentPromoTab === 'yt_desc') {
+        promoBox.textContent = p.yt_desc;
+      } else if (currentPromoTab === 'blogger') {
+        promoBox.textContent = p.blogger;
+      }
+    }
+
+    function switchPromoTab(tab) {
+      currentPromoTab = tab;
+      document.querySelectorAll('.promo-tab').forEach(b => b.classList.remove('active'));
+      const activeBtn = Array.from(document.querySelectorAll('.promo-tab')).find(b => b.textContent.includes(
+        tab === 'all' ? '통합' : tab === 'tiktok' ? '틱톡' : tab === 'reels' ? '릴스' : tab === 'threads' ? '스레드' : tab === 'yt_desc' ? '타임스탬프' : '블로그'
+      ));
+      if (activeBtn) activeBtn.classList.add('active');
+      updatePromoBox();
+    }
+
+    function showToast(msg) {
+      toast.textContent = msg;
+      toast.style.display = 'block';
+      setTimeout(() => { toast.style.display = 'none'; }, 2500);
+    }
+
+    function copyCurrentPromo() {
+      const text = promoBox.textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        showToast("📋 클립보드 복사 완료! 즉시 SNS 및 블로그에 붙여넣으실 수 있습니다.");
+      });
+    }
+
+    function copyMetaTip() {
+      const tip = "🚀 [메타 3초 원스톱 배포 가이드]:\n1. 인스타그램 앱에서 [릴스 만들기] -> 영상 선택 후 캡션 붙여넣기\n2. [페이스북에 추천 공유] 스위치 ON\n3. [스레드(Threads)에 동시 공유] 스위치 ON\n4. [공유하기] 터치 -> 3대 SNS 3초 동시 배포 완료!";
+      navigator.clipboard.writeText(tip).then(() => {
+        showToast("🚀 메타 3초 동시배포 가이드 복사 완료!");
+      });
+    }
+
+    // =========================================================================
+    // 프리셋 설정 및 해상도 전환
+    // =========================================================================
+    function setPreset(name) {
+      currentPreset = name;
+      document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+
+      const isVertical = (name === 'booster_playlist' || name === 'haesang_aon_mv');
+      if (isVertical) {
+        canvas.width = 1080;
+        canvas.height = 1920;
+        specLabel.textContent = '9:16 Shorts (1080×1920)';
+      } else {
+        canvas.width = 1920;
+        canvas.height = 1080;
+        specLabel.textContent = '16:9 Landscape (1920×1080)';
+      }
+
+      const btnMap = {
+        hangeoreum_album1: 'btn-p1',
+        hangeoreum_album2: 'btn-p2',
+        booster_playlist: 'btn-p3',
+        cafe_hour: 'btn-p4',
+        blogger_health: 'btn-p5',
+        haesang_aon_mv: 'btn-p6',
+        nvda_chart_motion: 'btn-p7'
+      };
+      if (btnMap[name]) document.getElementById(btnMap[name]).classList.add('active');
+
+      updatePromoBox();
+      seek(currentTime);
+    }
+
+    // =========================================================================
+    // 4단 스토리보드 결정론적 렌더러 (window.seek(t))
+    // =========================================================================
+    window.seek = function(t) {
+      currentTime = clamp(t, 0, TOTAL_DURATION);
+      timeSlider.value = currentTime;
+      timeDisplay.textContent = `${currentTime.toFixed(2)}s / 10.0s`;
+
+      const W = canvas.width;
+      const H = canvas.height;
+
+      ctx.fillStyle = '#0a0e1a';
+      ctx.fillRect(0, 0, W, H);
+
+      let phaseText = '';
+      if (currentTime < 2.0) phaseText = 'Hook (0~2s): 타이포 임팩트 & 감성 오프닝';
+      else if (currentTime < 5.0) phaseText = 'Story (2~5s): 핵심 트랙/맥락 & 멜로디 파형';
+      else if (currentTime < 8.0) phaseText = 'Data Count-up (5~8s): D-Day / 실시간 지표 카운트업';
+      else phaseText = 'Logo CTA (8~10s): 24개 플랫폼 스트리밍 & 공식 채널 액션';
+      phaseOverlay.textContent = phaseText;
+
+      if (currentPreset === 'hangeoreum_album1') renderAlbum1(currentTime, W, H);
+      else if (currentPreset === 'hangeoreum_album2') renderAlbum2(currentTime, W, H);
+      else if (currentPreset === 'booster_playlist') renderBooster(currentTime, W, H);
+      else if (currentPreset === 'cafe_hour') renderCafe(currentTime, W, H);
+      else if (currentPreset === 'blogger_health') renderBlogger(currentTime, W, H);
+      else if (currentPreset === 'nvda_chart_motion') renderNvda(currentTime, W, H);
+      else renderAonMv(currentTime, W, H);
+    };
+
+    // -------------------------------------------------------------------------
+    // 프리셋 1: 정규 1집 《가을과 겨울 사이》 (16:9)
+    // -------------------------------------------------------------------------
+    function renderAlbum1(t, W, H) {
+      // 가을 새벽 감성 그라데이션 & 낙엽 파티클
+      const grad = ctx.createLinearGradient(0, 0, W, H);
+      grad.addColorStop(0, '#1a102f');
+      grad.addColorStop(1, '#0b1329');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, W, H);
+
+      // 낙엽 파티클
+      ctx.fillStyle = 'rgba(245, 158, 11, 0.4)';
+      for (let i = 0; i < 30; i++) {
+        const x = (i * 187 + t * 45) % W;
+        const y = (i * 93 + t * 25) % H;
+        ctx.beginPath();
+        ctx.ellipse(x, y, 6, 3, (t + i) * 0.5, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      if (t < 2.0) {
+        const p = t / 2.0;
+        ctx.save();
+        ctx.translate(W / 2, H / 2 - 40);
+        ctx.scale(0.8 + easeOutCubic(p) * 0.2, 0.8 + easeOutCubic(p) * 0.2);
+        ctx.fillStyle = '#f8fafc';
+        ctx.font = '900 76px Pretendard, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.shadowColor = 'rgba(245, 158, 11, 0.8)';
+        ctx.shadowBlur = 35;
+        ctx.fillText('가을과 겨울 사이', 0, 0);
+
+        ctx.fillStyle = '#f59e0b';
+        ctx.font = '600 36px Pretendard, sans-serif';
+        ctx.fillText('한걸음씩 정규 1집 (12 Tracks)', 0, 70);
+        ctx.restore();
+      } else if (t < 5.0) {
+        const p = (t - 2.0) / 3.0;
+        ctx.save();
+        ctx.fillStyle = '#f8fafc';
+        ctx.font = '800 48px Pretendard, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('계절의 길목에서 건네는 따뜻한 온기 🌱', W / 2, 160);
+
+        // 12트랙 롤링
+        const tracks = ['1.막차', '2.창을 닫지 마', '3.첫 입김', '4.오늘은 여기까지', '5.밥은 먹었니', '6.식어 가는 차', '7.가로등 아래서', '8.남겨 둔 자리', '9.보내지 않은 말', '10.불은 꺼지지 않아', '11.난로 옆에서', '12.내일의 아침'];
+        const activeIdx = Math.floor(p * 12);
+        ctx.fillStyle = '#94a3b8';
+        ctx.font = '500 28px Pretendard, sans-serif';
+        ctx.fillText(tracks.slice(0, 6).join('   ·   '), W / 2, 380);
+        ctx.fillText(tracks.slice(6, 12).join('   ·   '), W / 2, 440);
+
+        ctx.fillStyle = '#f59e0b';
+        ctx.font = '800 42px Pretendard, sans-serif';
+        ctx.fillText(`NOW: ${tracks[activeIdx] || tracks[0]}`, W / 2, 600);
+        ctx.restore();
+      } else if (t < 8.0) {
+        const p = (t - 5.0) / 3.0;
+        ctx.save();
+        ctx.textAlign = 'center';
+        ctx.fillStyle = '#94a3b8';
+        ctx.font = '600 32px Pretendard, sans-serif';
+        ctx.fillText('DistroKid 글로벌 정식 배급 D-Day', W / 2, 280);
+
+        ctx.fillStyle = '#10b981';
+        ctx.font = '900 96px Pretendard, sans-serif';
+        ctx.shadowColor = 'rgba(16, 185, 129, 0.8)';
+        ctx.shadowBlur = 30;
+        ctx.fillText('D-10 (2026.11.06)', W / 2, 420);
+
+        ctx.fillStyle = '#06b6d4';
+        ctx.font = '700 34px Pretendard, sans-serif';
+        ctx.fillText('UPC: 700563848544 | 24개 플랫폼 배급 완료', W / 2, 540);
+        ctx.restore();
+      } else {
+        ctx.save();
+        ctx.textAlign = 'center';
+        ctx.fillStyle = '#f8fafc';
+        ctx.font = '900 64px Pretendard, sans-serif';
+        ctx.shadowColor = '#f59e0b';
+        ctx.shadowBlur = 40;
+        ctx.fillText('전 세계 24개 스트리밍 플랫폼에서 만나요', W / 2, H / 2 - 40);
+
+        ctx.fillStyle = '#94a3b8';
+        ctx.font = '600 32px Pretendard, sans-serif';
+        ctx.fillText('Spotify · Apple Music · YouTube Music · Melon · Genie', W / 2, H / 2 + 50);
+        ctx.restore();
+      }
+    }
+
+    // -------------------------------------------------------------------------
+    // 프리셋 2: 정규 2집 《잔상》 (16:9)
+    // -------------------------------------------------------------------------
+    function renderAlbum2(t, W, H) {
+      const grad = ctx.createLinearGradient(0, 0, W, H);
+      grad.addColorStop(0, '#0f172a');
+      grad.addColorStop(1, '#1e1b4b');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, W, H);
+
+      // 잔상 비 네온
+      ctx.strokeStyle = 'rgba(99, 102, 241, 0.3)';
+      ctx.lineWidth = 1.5;
+      for (let i = 0; i < 40; i++) {
+        const x = (i * 140 + t * 80) % W;
+        const y = (i * 70 + t * 200) % H;
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        ctx.lineTo(x - 20, y + 60);
+        ctx.stroke();
+      }
+
+      if (t < 2.0) {
+        ctx.save();
+        ctx.textAlign = 'center';
+        ctx.fillStyle = '#c084fc';
+        ctx.font = '900 84px Pretendard, sans-serif';
+        ctx.shadowColor = '#c084fc';
+        ctx.shadowBlur = 40;
+        ctx.fillText('잔상 (Afterimage)', W / 2, H / 2 - 30);
+
+        ctx.fillStyle = '#f8fafc';
+        ctx.font = '600 36px Pretendard, sans-serif';
+        ctx.fillText('한걸음씩 정규 2집 (15 Tracks)', W / 2, H / 2 + 50);
+        ctx.restore();
+      } else if (t < 5.0) {
+        const p = (t - 2.0) / 3.0;
+        ctx.save();
+        ctx.textAlign = 'center';
+        ctx.fillStyle = '#f8fafc';
+        ctx.font = '800 48px Pretendard, sans-serif';
+        ctx.fillText('지나간 시간의 미련과 기억의 온도 🥃', W / 2, 160);
+
+        ctx.fillStyle = '#c084fc';
+        ctx.font = '700 38px Pretendard, sans-serif';
+        ctx.fillText('15 Tracks Full Album Audio', W / 2, 380);
+
+        ctx.fillStyle = '#94a3b8';
+        ctx.font = '500 28px Pretendard, sans-serif';
+        ctx.fillText('답장은 천천히 · 한 칸 사이 · 먼저 끊지 마 · 읽고도 모른 척 · 잔상', W / 2, 460);
+        ctx.fillText('취소한 문장 · 괜찮은 척의 속도 · 조금 덜 선명해 · 다음 계절의 나 · 아침의 편', W / 2, 530);
+        ctx.restore();
+      } else if (t < 8.0) {
+        ctx.save();
+        ctx.textAlign = 'center';
+        ctx.fillStyle = '#94a3b8';
+        ctx.font = '600 32px Pretendard, sans-serif';
+        ctx.fillText('정규 2집 발매 카운트다운', W / 2, 280);
+
+        ctx.fillStyle = '#38bdf8';
+        ctx.font = '900 96px Pretendard, sans-serif';
+        ctx.shadowColor = 'rgba(56, 189, 248, 0.8)';
+        ctx.shadowBlur = 30;
+        ctx.fillText('D-31 (2026.11.27)', W / 2, 420);
+
+        ctx.fillStyle = '#f8fafc';
+        ctx.font = '700 34px Pretendard, sans-serif';
+        ctx.fillText('UPC: 700486463268 | 24개 글로벌 플랫폼 전달 완료', W / 2, 540);
+        ctx.restore();
+      } else {
+        ctx.save();
+        ctx.textAlign = 'center';
+        ctx.fillStyle = '#f8fafc';
+        ctx.font = '900 64px Pretendard, sans-serif';
+        ctx.shadowColor = '#c084fc';
+        ctx.shadowBlur = 35;
+        ctx.fillText('당신의 밤을 따뜻하게 지켜드립니다', W / 2, H / 2 - 30);
+        ctx.fillStyle = '#94a3b8';
+        ctx.font = '600 32px Pretendard, sans-serif';
+        ctx.fillText('한걸음씩 정규 2집 《잔상》', W / 2, H / 2 + 50);
+        ctx.restore();
+      }
+    }
+
+    // -------------------------------------------------------------------------
+    // 프리셋 3: 부스터 플리 & 틱톡 (9:16)
+    // -------------------------------------------------------------------------
+    function renderBooster(t, W, H) {
+      // 사이버펑크 네온 이퀄라이저
+      ctx.fillStyle = '#05050f';
+      ctx.fillRect(0, 0, W, H);
+
+      // 틱톡 지표 카운트업
+      if (t < 2.0) {
+        ctx.save();
+        ctx.textAlign = 'center';
+        ctx.fillStyle = '#ef4444';
+        ctx.font = '900 78px Pretendard, sans-serif';
+        ctx.shadowColor = '#ef4444';
+        ctx.shadowBlur = 40;
+        ctx.fillText('BOOSTER PLAYLIST', W / 2, H / 2 - 60);
+
+        ctx.fillStyle = '#06b6d4';
+        ctx.font = '800 42px Pretendard, sans-serif';
+        ctx.fillText('⚡ 1시간 Phonk & Workout ⚡', W / 2, H / 2 + 30);
+        ctx.restore();
+      } else if (t < 5.0) {
+        // 비트싱크 오디오 바
+        const bands = 14;
+        const bW = 55;
+        const startX = (W - (bands * (bW + 16))) / 2;
+        for (let i = 0; i < bands; i++) {
+          const h = 80 + Math.sin(t * 12 + i * 0.8) * 220;
+          ctx.fillStyle = i % 2 === 0 ? '#ef4444' : '#06b6d4';
+          ctx.shadowColor = ctx.fillStyle;
+          ctx.shadowBlur = 20;
+          ctx.fillRect(startX + i * (bW + 16), H / 2 + 100 - h, bW, h);
+        }
+        ctx.fillStyle = '#f8fafc';
+        ctx.font = '800 52px Pretendard, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('심장 박동수 180BPM 폭발 💥', W / 2, H / 2 - 250);
+      } else if (t < 8.0) {
+        const p = (t - 5.0) / 3.0;
+        const followers = Math.floor(easeOutCubic(p) * 2125);
+        ctx.save();
+        ctx.textAlign = 'center';
+        ctx.fillStyle = '#94a3b8';
+        ctx.font = '600 36px Pretendard, sans-serif';
+        ctx.fillText('틱톡 공식 본진 @boosterplaylist', W / 2, H / 2 - 220);
+
+        ctx.fillStyle = '#10b981';
+        ctx.font = '900 100px Pretendard, sans-serif';
+        ctx.shadowColor = '#10b981';
+        ctx.shadowBlur = 30;
+        ctx.fillText(`${followers.toLocaleString()} 팔로워`, W / 2, H / 2 - 90);
+
+        ctx.fillStyle = '#f8fafc';
+        ctx.font = '700 38px Pretendard, sans-serif';
+        ctx.fillText('누적 좋아요 8,793개 · 최고조회 2.2만회', W / 2, H / 2 + 40);
+        ctx.restore();
+      } else {
+        ctx.save();
+        ctx.textAlign = 'center';
+        ctx.fillStyle = '#ef4444';
+        ctx.font = '900 64px Pretendard, sans-serif';
+        ctx.fillText('틱톡 @boosterplaylist 팔로우', W / 2, H / 2 - 30);
+        ctx.fillStyle = '#94a3b8';
+        ctx.font = '600 36px Pretendard, sans-serif';
+        ctx.fillText('유튜브 @Booster_Playlist 풀버전 ⚡', W / 2, H / 2 + 60);
+        ctx.restore();
+      }
+    }
+
+    // -------------------------------------------------------------------------
+    // 프리셋 4: The Café Hour (16:9)
+    // -------------------------------------------------------------------------
+    function renderCafe(t, W, H) {
+      ctx.fillStyle = '#17120e';
+      ctx.fillRect(0, 0, W, H);
+
+      ctx.save();
+      ctx.textAlign = 'center';
+      if (t < 5.0) {
+        ctx.fillStyle = '#d97706';
+        ctx.font = '900 76px Pretendard, sans-serif';
+        ctx.shadowColor = '#d97706';
+        ctx.shadowBlur = 35;
+        ctx.fillText('The Café Hour', W / 2, H / 2 - 50);
+
+        ctx.fillStyle = '#fef3c7';
+        ctx.font = '600 36px Pretendard, sans-serif';
+        ctx.fillText('☕ 음악으로 채우는 카페의 하루 (재즈 & 보사노바)', W / 2, H / 2 + 40);
+      } else {
+        ctx.fillStyle = '#fef3c7';
+        ctx.font = '800 56px Pretendard, sans-serif';
+        ctx.fillText('MORNING · AFTERNOON · EVENING', W / 2, H / 2 - 40);
+        ctx.fillStyle = '#d97706';
+        ctx.font = '600 34px Pretendard, sans-serif';
+        ctx.fillText('유튜브 공식 채널: @TheCaféHour', W / 2, H / 2 + 40);
+      }
+      ctx.restore();
+    }
+
+    // -------------------------------------------------------------------------
+    // 프리셋 5: 건강 블로그 (16:9)
+    // -------------------------------------------------------------------------
+    function renderBlogger(t, W, H) {
+      ctx.fillStyle = '#0f172a';
+      ctx.fillRect(0, 0, W, H);
+
+      ctx.save();
+      ctx.textAlign = 'center';
+      if (t < 5.0) {
+        ctx.fillStyle = '#38bdf8';
+        ctx.font = '900 68px Pretendard, sans-serif';
+        ctx.fillText('불규칙한 삶 속 건강 챙기기', W / 2, H / 2 - 60);
+
+        ctx.fillStyle = '#f8fafc';
+        ctx.font = '600 36px Pretendard, sans-serif';
+        ctx.fillText('3조 2교대 12시간 야간근무 실전 경험 7대 DNA', W / 2, H / 2 + 20);
+
+        ctx.fillStyle = '#94a3b8';
+        ctx.font = '500 28px Pretendard, sans-serif';
+        ctx.fillText('500ml 텀블러 3번(1.5L) · 퇴근 후 15분 걷기 · 특수건강진단 130조', W / 2, H / 2 + 80);
+      } else {
+        ctx.fillStyle = '#10b981';
+        ctx.font = '900 64px Pretendard, sans-serif';
+        ctx.fillText('connect-ai-shin.blogspot.com', W / 2, H / 2 - 40);
+
+        ctx.fillStyle = '#f8fafc';
+        ctx.font = '600 34px Pretendard, sans-serif';
+        ctx.fillText('이상일 대표님 고유 문체 실전 건강 칼럼 연재 중 🌿', W / 2, H / 2 + 50);
+      }
+      ctx.restore();
+    }
+
+    // -------------------------------------------------------------------------
+    // 프리셋 6: NVDA 퀀트 매매 (16:9)
+    // -------------------------------------------------------------------------
+    function renderNvda(t, W, H) {
+      ctx.fillStyle = '#050b14';
+      ctx.fillRect(0, 0, W, H);
+      ctx.save();
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#76b900';
+      ctx.font = '900 72px Pretendard, sans-serif';
+      ctx.fillText('NVIDIA (NVDA) 실시간 퀀트 시그널', W / 2, H / 2 - 40);
+      ctx.fillStyle = '#f8fafc';
+      ctx.font = '600 36px Pretendard, sans-serif';
+      ctx.fillText('STRONG BUY 알고리즘 신뢰도 99.4% ⚡', W / 2, H / 2 + 40);
+      ctx.restore();
+    }
+
+    // -------------------------------------------------------------------------
+    // 프리셋 7: 아온 우주뮤비 (9:16)
+    // -------------------------------------------------------------------------
+    function renderAonMv(t, W, H) {
+      ctx.fillStyle = '#030712';
+      ctx.fillRect(0, 0, W, H);
+      ctx.fillStyle = '#06b6d4';
+      ctx.font = '800 52px Pretendard, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('우주복 아온이 비트싱크 MV 🪐', W / 2, H / 2);
+    }
+
+    // =========================================================================
+    // 재생 컨트롤 & 녹화
+    // =========================================================================
+    function togglePlay() {
+      if (isPlaying) pausePlay();
+      else startPlay();
+    }
+
+    function startPlay() {
+      isPlaying = true;
+      btnPlay.textContent = '⏸ 일시정지';
+      lastTimestamp = performance.now();
+      animLoop(lastTimestamp);
+    }
+
+    function pausePlay() {
+      isPlaying = false;
+      btnPlay.textContent = '▶ 재생';
+      if (animFrameId) {
+        cancelAnimationFrame(animFrameId);
+        animFrameId = null;
+      }
+    }
+
+    function resetPlay() {
+      pausePlay();
+      seek(0);
+    }
+
+    function animLoop(now) {
+      if (!isPlaying) return;
+      const dt = (now - lastTimestamp) / 1000.0;
+      lastTimestamp = now;
+
+      let nextTime = currentTime + dt;
+      if (nextTime >= TOTAL_DURATION) {
+        nextTime = 0;
+        if (isRecording) stopRecording();
+      }
+      seek(nextTime);
+      animFrameId = requestAnimationFrame(animLoop);
+    }
+
+    function onSliderChange(val) {
+      pausePlay();
+      seek(parseFloat(val));
+    }
+
+    function toggleRecord() {
+      if (isRecording) stopRecording();
+      else startRecording();
+    }
+
+    function startRecording() {
+      recordedChunks = [];
+      const stream = canvas.captureStream(30);
+      try {
+        mediaRecorder = new MediaRecorder(stream, { mimeType: 'video/webm; codecs=vp9' });
+      } catch (e) {
+        mediaRecorder = new MediaRecorder(stream);
+      }
+
+      mediaRecorder.ondataavailable = e => { if (e.data.size > 0) recordedChunks.push(e.data); };
+      mediaRecorder.onstop = () => {
+        const blob = new Blob(recordedChunks, { type: 'video/webm' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = url;
+        a.download = `aon_motion_${currentPreset}_${Date.now()}.webm`;
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(() => { document.body.removeChild(a); window.URL.revokeObjectURL(url); }, 100);
+      };
+
+      mediaRecorder.start();
+      isRecording = true;
+      btnRecord.textContent = '⏹️ 녹화 종료 & 다운로드';
+      btnRecord.classList.add('recording');
+      seek(0);
+      startPlay();
+    }
+
+    function stopRecording() {
+      if (!isRecording) return;
+      isRecording = false;
+      btnRecord.textContent = '🔴 WebM 영상 녹화';
+      btnRecord.classList.remove('recording');
+      if (mediaRecorder && mediaRecorder.state !== 'inactive') mediaRecorder.stop();
+    }
+
+    function exportFramePNG() {
+      const dataUrl = canvas.toDataURL('image/png');
+      const a = document.createElement('a');
+      a.href = dataUrl;
+      a.download = `frame_${currentPreset}_${currentTime.toFixed(2)}s.png`;
+      a.click();
+    }
+
+    // 초기화
+    updatePromoBox();
+    seek(0);
+  </script>
+</body>
+</html>

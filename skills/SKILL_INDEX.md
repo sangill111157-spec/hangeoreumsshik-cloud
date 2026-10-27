@@ -139,3 +139,5 @@
 
 | 55 | `aon-opus-motion-studio` | 제35기관 아온 클로드 오퍼스 5.5 모션 그래픽 스튜디오 스킬 | `v11.58-AON-LIVE-BRAIN-MOTION` | `R59` |
 
+| 56 | `aon-empire-asset-hub` | 제36기관 아온 한걸음씩 6대 자산 제국 마스터 통합 허브 스킬 | `v11.60-AON-EMPIRE-ASSETS` | `R60` |
+

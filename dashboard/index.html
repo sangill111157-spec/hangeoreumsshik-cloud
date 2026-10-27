@@ -1270,16 +1270,22 @@
       </div>
 
       <!-- 대표님 직통 입력창 & 전송 버튼 (onclick & submit 이중 직결) -->
-      <!-- 🔮 [Step 58 제34기관] 텔레파시 원터치 추천 질문 칩 3개 (#pinnacle-smart-chips) -->
+      <!-- 🔮 [Step 58 제34기관 & Step 61 제36기관] 텔레파시 원터치 추천 질문 칩 (#pinnacle-smart-chips) -->
       <div id="pinnacle-smart-chips" class="flex flex-wrap items-center gap-1.5 pt-1">
-        <button type="button" onclick="sendTelepathyChip('안실장 아온아 지금 우리가 뭘 하고 있지 답장줘')" class="px-2.5 py-1 rounded-lg bg-cyan-950/80 hover:bg-cyan-900 border border-cyan-500/40 text-[11px] font-bold text-cyan-300 transition flex items-center gap-1 active:scale-95 cursor-pointer shadow">
-          🔍 지금 작업 현황 브리핑
+        <button type="button" onclick="sendTelepathyChip('곧 발매될 음원 알려줘')" class="px-2.5 py-1 rounded-lg bg-amber-950/80 hover:bg-amber-900 border border-amber-500/40 text-[11px] font-bold text-amber-300 transition flex items-center gap-1 active:scale-95 cursor-pointer shadow">
+          🍁 음원(27곡)
         </button>
-        <button type="button" onclick="sendTelepathyChip('엔비디아 퀀트 모의투자 수익률 및 대시보드 상태 보고하라')" class="px-2.5 py-1 rounded-lg bg-purple-950/80 hover:bg-purple-900 border border-purple-500/40 text-[11px] font-bold text-purple-300 transition flex items-center gap-1 active:scale-95 cursor-pointer shadow">
-          📈 엔비디아 퀀트 수익률
+        <button type="button" onclick="sendTelepathyChip('유튜브 3채널과 틱톡 알려줘')" class="px-2.5 py-1 rounded-lg bg-rose-950/80 hover:bg-rose-900 border border-rose-500/40 text-[11px] font-bold text-rose-300 transition flex items-center gap-1 active:scale-95 cursor-pointer shadow">
+          📺 유튜브 3채널
         </button>
-        <button type="button" onclick="sendTelepathyChip('루미 미디어 사령부 유튜브 음원 파이프라인 가동 준비')" class="px-2.5 py-1 rounded-lg bg-pink-950/80 hover:bg-pink-900 border border-pink-500/40 text-[11px] font-bold text-pink-300 transition flex items-center gap-1 active:scale-95 cursor-pointer shadow">
-          🎵 루미 미디어 파이프라인
+        <button type="button" onclick="sendTelepathyChip('틱톡 @boosterplaylist 현황 알려줘')" class="px-2.5 py-1 rounded-lg bg-fuchsia-950/80 hover:bg-fuchsia-900 border border-fuchsia-500/40 text-[11px] font-bold text-fuchsia-300 transition flex items-center gap-1 active:scale-95 cursor-pointer shadow">
+          🎵 틱톡(2,125명)
+        </button>
+        <button type="button" onclick="sendTelepathyChip('블로그 현황 알려줘')" class="px-2.5 py-1 rounded-lg bg-emerald-950/80 hover:bg-emerald-900 border border-emerald-500/40 text-[11px] font-bold text-emerald-300 transition flex items-center gap-1 active:scale-95 cursor-pointer shadow">
+          📝 건강 블로그
+        </button>
+        <button type="button" onclick="sendTelepathyChip('인스타 홍보글 써줘')" class="px-2.5 py-1 rounded-lg bg-cyan-950/80 hover:bg-cyan-900 border border-cyan-500/40 text-[11px] font-bold text-cyan-300 transition flex items-center gap-1 active:scale-95 cursor-pointer shadow">
+          🚀 SNS 원클릭 홍보
         </button>
         <button type="button" onclick="sendTelepathyChip('모션그래픽 만들어줘')" class="px-2.5 py-1 rounded-lg bg-indigo-950/80 hover:bg-indigo-900 border border-indigo-500/40 text-[11px] font-bold text-indigo-300 transition flex items-center gap-1 active:scale-95 cursor-pointer shadow">
           🎬 오퍼스 모션그래픽
@@ -2458,6 +2464,95 @@
         }];
       }
 
+      // 🔮 [Step 61 제36기관 자산 1] DistroKid 정식 배급 2대 정규앨범 27곡 현황
+      if (['음원', '앨범', '트랙', '가을과겨울사이', '잔상', 'distrokid', '디스트로키드', '발매될음원', '발매음원', '음반', '노래'].some(function(k){ return cleanNoSpace.indexOf(k) !== -1; })) {
+        return [{
+          senderId: 'AON-ASSET-MUSIC',
+          senderName: '🍁 한걸음씩 음원 본진 & 💧 만능 참모 아온이',
+          icon: '🍁',
+          text: '대표님! DistroKid를 통해 정식 배급 중인 **『한걸음씩 2대 정규앨범 27곡 및 기발매 4곡』** 실시간 현황을 보고드립니다! 🍁💿\n\n' +
+                '💿 **1. 정규 1집 《가을과 겨울 사이》 (Regular Album Vol.1)**\n' +
+                '• **발매 예정일:** 2026-11-06 (실시간 D-Day 계산 연동)\n' +
+                '• **UPC 바코드:** `700563848544` (총 12트랙)\n' +
+                '• **트랙 목록:** 1. 막차 / 2. 창을 닫지 마 / 3. 첫 입김 / 4. 오늘은 여기까지 / 5. 밥은 먹었니 / 6. 식어 가는 차 / 7. 가로등 아래서 / 8. 남겨 둔 자리 / 9. 보내지 않은 말 / 10. 불은 꺼지지 않아 / 11. 난로 옆에서 / 12. 내일의 아침\n\n' +
+                '💿 **2. 정규 2집 《잔상》 (Regular Album Vol.2)**\n' +
+                '• **발매 예정일:** 2026-11-27 (실시간 D-Day 계산 연동)\n' +
+                '• **UPC 바코드:** `700486463268` (총 15트랙)\n' +
+                '• **트랙 목록:** 1. 답장은 천천히 / 2. 한 칸 사이 / 3. 먼저 끊지 마 / 4. 읽고도 모른 척 / 5. 우리 아닌 우리 / 6. 반 박자 늦게 / 7. 새벽의 온도 / 8. 잔상 / 9. 취소한 문장 / 10. 괜찮은 척의 속도 / 11. 우회전 / 12. 조금 덜 선명해 / 13. 내 쪽으로 / 14. 다음 계절의 나 / 15. 아침의 편\n\n' +
+                '🎵 **3. 기발매 공식 싱글 4곡:**\n' +
+                '〈영혼의 무게〉 · 〈모두의 응원가〉 · 〈원인과 결과, 결국 사랑〉 · 〈사냥꾼의 새벽〉\n\n' +
+                '🌐 **글로벌 배급망:** Spotify, Apple Music, YouTube Music, Melon, Genie 등 24개 글로벌 스트리밍 플랫폼에 전달 완료되었습니다!',
+          delayMs: 120
+        }];
+      }
+
+      // 🔮 [Step 61 제36기관 자산 2 & 3] 유튜브 3대 공식 채널 및 틱톡 바이럴 본진
+      if (['유튜브3채널', '3채널', '채널현황', '부스터플리', '카페아워', '틱톡', 'boosterplaylist', '바이럴'].some(function(k){ return cleanNoSpace.indexOf(k) !== -1; }) ||
+          (cleanNoSpace.indexOf('유튜브') !== -1 && (cleanNoSpace.indexOf('채널') !== -1 || cleanNoSpace.indexOf('3') !== -1 || cleanNoSpace.indexOf('틱톡') !== -1))) {
+        return [{
+          senderId: 'AON-ASSET-YOUTUBE',
+          senderName: '📺 한걸음씩 미디어 제국 & 💧 만능 참모 아온이',
+          icon: '📺',
+          text: '대표님! 보유하신 **『유튜브 3대 공식 채널 및 틱톡 바이럴 허브』** 실시간 현황을 보고드립니다! 📺🎵\n\n' +
+                '📺 **유튜브 3대 공식 채널:**\n' +
+                '1. **『한걸음씩』** (`@한걸음씩-r4i`)\n' +
+                '   • 슬로건: 🌱 한마디가 당신의 인생을 바꿉니다\n' +
+                '   • 역할: 감성·인생 AI MV 및 정식 발매 음원 본진\n' +
+                '2. **『부스터 플리 | 운동·드라이브 음악』** (`@Booster_Playlist`)\n' +
+                '   • 슬로건: ⚡ 1시간 에너지 러닝·야간 드라이브 Phonk/Workout\n' +
+                '   • 역할: 운동·드라이브 고에너지 플레이리스트\n' +
+                '3. **『The Café Hour』** (`@TheCaféHour`)\n' +
+                '   • 슬로건: ☕ 음악으로 채우는 카페의 하루 (MORNING·AFTERNOON·EVENING)\n' +
+                '   • 역할: 1~1.5시간 편안한 카페 재즈 & 보사노바 라운지\n\n' +
+                '🎵 **틱톡 바이럴 본진 (`@boosterplaylist`):**\n' +
+                '• **팔로워:** 2,125명 | **좋아요:** 8,793개 | **최고 조회수:** 2.2만 회 달성!\n' +
+                '• **역할:** AI 음악 3채널 통합 숏폼 바이럴 본진\n\n' +
+                '🚀 **메타 3형제 원스톱 가이드:**\n' +
+                '인스타그램 릴스 업로드 시 [페이스북에 추천 공유] 및 [스레드 자동 공유] 스위치 1번으로 3초 만에 3대 SNS 동시 자동 배포 가능합니다!',
+          delayMs: 120
+        }];
+      }
+
+      // 🔮 [Step 61 제36기관 자산 4] 구글 블로거 3조 2교대 건강 블로그
+      if (['블로그', '구글블로그', '블로거', '교대근무', '건강블로그', 'connect-ai-shin', 'blogspot', '특수건강진단', '야간수당'].some(function(k){ return cleanNoSpace.indexOf(k) !== -1; })) {
+        return [{
+          senderId: 'AON-ASSET-BLOG',
+          senderName: '📝 건강 블로그 사령부 & 💧 만능 참모 아온이',
+          icon: '📝',
+          text: '대표님! 구글 블로그 **『불규칙한 삶 속 건강 챙기기』** 현황 및 7대 핵심 포스팅 DNA를 보고드립니다! 📝🌿\n\n' +
+                '🌐 **블로그 주소:** https://connect-ai-shin.blogspot.com/\n' +
+                '👤 **필자:** 이상일 대표님 (경험 기반 실전 건강·루틴 기록)\n\n' +
+                '🧬 **대표님 7대 핵심 포스팅 DNA:**\n' +
+                '1. 3조 2교대(12시간) 야간근무 식사·생활습관 변화\n' +
+                '2. 출근 전·근무 중·퇴근 후 3단계 식사 타이밍 루틴\n' +
+                '3. 야간작업 특수건강진단 (산업안전보건법 제130조) 실전 이용기\n' +
+                '4. 근로기준법 제56조 야간·휴일 근로수당 계산 가이드\n' +
+                '5. 500ml 눈금 텀블러 3번(1.5L) 물 마시기 루틴\n' +
+                '6. 강직성 척추염과 75kg 체중을 이겨낸 하루 15분 걷기(한 걸음씩) 습관\n' +
+                '7. 주식 초보 급등주 실패에서 배운 원칙 투자 교훈\n\n' +
+                '💡 대시보드에서 원클릭으로 위 7대 주제 기반 SEO 최적화 블로그 초안을 즉시 자동 생성하실 수 있습니다!',
+          delayMs: 120
+        }];
+      }
+
+      // 🔮 [Step 61 제36기관 자산 5 & 6] SNS 바이럴 원클릭 홍보 카피 생성
+      if (['홍보글', '인스타홍보', '스레드홍보', '틱톡홍보', 'sns홍보', '카피작성', '원클릭홍보'].some(function(k){ return cleanNoSpace.indexOf(k) !== -1; })) {
+        return [{
+          senderId: 'AON-ASSET-SNS',
+          senderName: '🚀 SNS 바이럴 마스터 & 💧 만능 참모 아온이',
+          icon: '🚀',
+          text: '대표님! 4대 SNS 맞춤 홍보 카피를 즉시 생성하여 올립니다! 🚀✨\n\n' +
+                '📸 **1. 인스타그램 릴스 맞춤 카피:**\n' +
+                '"계절의 길목에서 마음을 어루만지는 따뜻한 선율 🍁 한걸음씩 정규 1집 《가을과 겨울 사이》 전 세계 24개 음원 사이트 공개! 프로필 링크에서 전곡 감상하세요. #한걸음씩 #가을과겨울사이 #감성음악 #인디음악"\n\n' +
+                '🧵 **2. 스레드 (Threads) 맞춤 카피:**\n' +
+                '"바쁜 일상에 지친 당신에게 건네는 따뜻한 온기. 정규 앨범 27곡 중 마음에 와닿은 한 곡이 있다면? 지금 들어보세요. ☕ #음악추천"\n\n' +
+                '🎵 **3. 틱톡 맞춤 카피 & 사운드:**\n' +
+                '"이 노래 도입부 듣고 가을 감성 터짐.. 🍂 플레이리스트 저장 각! #부스터플리 #노래추천 #가을노래 #fyp"\n\n' +
+                '⚡ **메타 3초 꿀팁:** 인스타 릴스 업로드 시 페이스북 및 스레드 동시 공유 체크로 3초 만에 3대 SNS 동시 배포를 완료하세요!',
+          delayMs: 120
+        }];
+      }
+
       // 엔비디아 / 퀀트
       if (channel === 'NVDA' || ['엔비디아', 'nvda', '퀀트', '주식', '트레이딩', '수익'].some(function(k){ return stripped.includes(k); })) {
         return [{
@@ -2947,8 +3042,25 @@
         finalizeOrders('[수신완료] 모바일 5G 사령부', { mobile: true });
         var targetReply = buildClientSideReplies(userMsg, channel, curMedia)[0];
 
-        // 수식 계산, 시각, 모션스튜디오, URL 등 즉답 룰이 있는 경우 0.1초 즉시 렌더링
-        var isImmediateRule = (targetReply.senderId === 'AON-MATH' || targetReply.senderId === 'AON-DATETIME' || targetReply.senderId === 'AON-MOTION-STUDIO' || targetReply.senderId === 'LUMI-YOUTUBE');
+        // 수식 계산, 시각, 모션스튜디오, URL, 작업브리핑, 복합질의, 6대 자산 등 즉답 룰이 있는 경우 0.08초 즉시 렌더링
+        var isImmediateRule = (
+          targetReply.senderId === 'AON-MATH' || 
+          targetReply.senderId === 'AON-DATETIME' || 
+          targetReply.senderId === 'AON-MOTION-STUDIO' || 
+          targetReply.senderId === 'LUMI-YOUTUBE' ||
+          targetReply.senderId === 'AHN-AON-STATUS' ||
+          targetReply.senderId === 'AHN-AON-MULTI' ||
+          targetReply.senderId === 'AON-IDENTITY' ||
+          targetReply.senderId === 'AON-ORIGIN' ||
+          targetReply.senderId === 'AHN-DUTY' ||
+          targetReply.senderId === 'AON-DUTY' ||
+          targetReply.senderId === 'AHN-AON-DUTY' ||
+          targetReply.senderId === 'AON-AGENT-VALUE' ||
+          targetReply.senderId === 'AON-ASSET-MUSIC' ||
+          targetReply.senderId === 'AON-ASSET-YOUTUBE' ||
+          targetReply.senderId === 'AON-ASSET-BLOG' ||
+          targetReply.senderId === 'AON-ASSET-SNS'
+        );
         if (isImmediateRule) {
           setTimeout(function() {
             var ind = document.getElementById(typingId);

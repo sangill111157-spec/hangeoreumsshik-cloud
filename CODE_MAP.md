@@ -1,7 +1,7 @@
 # 🗺️ CODE_MAP — RGON shin-agent 코드 지도
 
 <!-- [RGON-STATUS-V25-START] -->
-> **RGON 상태:** v11.58-AON-LIVE-BRAIN-MOTION · 항체 R1~R59 · 정식 스킬 55개 · 제16기관 신경망 시냅스 검증기 개통
+> **RGON 상태:** v11.60-AON-EMPIRE-ASSETS · 항체 R1~R60 · 정식 스킬 56개 · 제16기관 신경망 시냅스 검증기 개통
 <!-- [RGON-STATUS-V25-END] -->
 
 > 자동 생성: `step16_karpathy_codemap_and_eod.py` · 2026-10-23 22:29:07 KST · 손으로 수정하지 말고 스크립트를 다시 실행할 것

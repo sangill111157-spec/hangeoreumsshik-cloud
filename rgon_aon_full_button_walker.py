@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """rgon_aon_full_button_walker.py — 전 페이지·전 서브페이지 모든 버튼 1-by-1 실전 순회·진단·즉시수리·재확인 완주기
 이상일 대표님 × 르곤 보좌관(G2) 방식 전수 실전 검열 & 데스크톱 + 스마트폰 모바일(390x844) 양대 환경 동시 보증
-Step 52 · v11.58-AON-LIVE-BRAIN-MOTION · 항체 R1~R57 · 정식 스킬 48개 · 28대 기관
+Step 52 · v11.60-AON-EMPIRE-ASSETS · 항체 R1~R57 · 정식 스킬 48개 · 28대 기관
 """
 from __future__ import annotations
 
@@ -24,7 +24,7 @@ except Exception:
 
 ROOT = Path(__file__).resolve().parent
 
-VERSION = "v11.58-AON-LIVE-BRAIN-MOTION"
+VERSION = "v11.60-AON-EMPIRE-ASSETS"
 ANTIBODY_RANGE = "R1~R57"
 SKILL_COUNT = 48
 ORGAN_COUNT = 28

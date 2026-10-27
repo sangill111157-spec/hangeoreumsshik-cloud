@@ -2,7 +2,7 @@
 """
 [RGON-AON-INVISIBLE-KAKAO-TG-BACKBONE-V11.56]
 제33기관: 아온 인비저블 텔레그램 백본 & 카카오톡형 올인원 만능 대화창 엔진
-버전: v11.58-AON-LIVE-BRAIN-MOTION
+버전: v11.60-AON-EMPIRE-ASSETS
 항체: R1~R57 (R57_INVISIBLE_TELEGRAM_KAKAO_ALL_IN_ONE_CHAT_LOCK)
 정식 스킬: 53개 (aon_invisible_kakao_tg_backbone)
 주역: #30 중화리(重火離) — 두 개의 불길이 서로를 환히 비추며 만방을 밝히는 상 (겉은 카톡·속은 텔레그램의 완전 조화)
@@ -33,7 +33,7 @@ STREAM_JSON_PATH = BASE_DIR / 'hq_kakao_tg_live_stream.json'
 ORDERS_JSON_PATH = BASE_DIR / 'commander_live_orders.json'
 INBOX_MD_PATH = BASE_DIR / 'COMMANDER_INBOX.md'
 
-VERSION = "v11.58-AON-LIVE-BRAIN-MOTION"
+VERSION = "v11.60-AON-EMPIRE-ASSETS"
 ANTIBODY_RANGE = "R1~R57"
 SKILL_COUNT = 53
 ORGAN_NAME = "제33기관 아온 인비저블 텔레그램 백본 & 카카오톡형 올인원 만능 대화창"
@@ -246,7 +246,7 @@ def run_self_test():
     cfg = load_triple_telegram_config()
     tests = []
 
-    tests.append(("01. 버전 v11.56 일치", VERSION == "v11.58-AON-LIVE-BRAIN-MOTION"))
+    tests.append(("01. 버전 v11.56 일치", VERSION == "v11.60-AON-EMPIRE-ASSETS"))
     tests.append(("02. 항체 R1~R57 일치", ANTIBODY_RANGE == "R1~R57"))
     tests.append(("03. 정식 스킬 53개 일치", SKILL_COUNT == 53))
     tests.append(("04. 제33기관 명칭 확인", "제33기관" in ORGAN_NAME and "인비저블" in ORGAN_NAME))

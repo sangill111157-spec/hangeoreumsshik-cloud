@@ -2,8 +2,8 @@
 """
 [RGON-AON-PINNACLE-OMNI-COMM-V11.57]
 제34기관: 아온 피너클 옴니 커뮤니케이터 (AON Pinnacle Omni Communicator & Multi-Modal Brain)
-버전: v11.58-AON-LIVE-BRAIN-MOTION
-항체: R1~R58 (R58_PINNACLE_VOICE_ARTIFACT_TIKITAKA_ZERO_FLUFF_LOCK)
+버전: v11.60-AON-EMPIRE-ASSETS
+항체: R1~R60 (R58_PINNACLE_VOICE_ARTIFACT_TIKITAKA_ZERO_FLUFF_LOCK)
 정식 스킬: 54개 (aon_pinnacle_omni_communicator)
 주역: #55 뇌화풍(雷火豊) — 천둥과 번개가 천하를 가득 채우는 풍요와 지혜의 상 (사진·영상·음성·URL 모든 매체의 완전 융합)
 보안 헌법 R2: 실제 토큰/개인정보 Git 추적 파일 노출 0% 엄수
@@ -29,8 +29,8 @@ if sys.stderr.encoding != 'utf-8':
 
 BASE_DIR = Path(__file__).resolve().parent
 
-VERSION = "v11.58-AON-LIVE-BRAIN-MOTION"
-ANTIBODY_RANGE = "R1~R59"
+VERSION = "v11.60-AON-EMPIRE-ASSETS"
+ANTIBODY_RANGE = "R1~R60"
 SKILL_COUNT = 55
 ORGAN_NAME = "제34기관 아온 피너클 옴니 커뮤니케이터 & 멀티모달 두뇌"
 HEXAGRAM = "#55 뇌화풍(雷火豊) — 천둥과 번개가 천하를 가득 채우는 풍요와 지혜의 상"

@@ -2,7 +2,7 @@
 """
 [RGON-AON-TELEGRAM-OMNI-MESSENGER-V11.55]
 제32기관: 아온 듀얼 텔레그램·카톡형 실시간 양방향 메신저 엔진
-버전: v11.58-AON-LIVE-BRAIN-MOTION
+버전: v11.60-AON-EMPIRE-ASSETS
 항체: R1~R57 (R56_TELEGRAM_KAKAO_BIDIRECTIONAL_LIVE_MESSENGER_LOCK)
 정식 스킬: 53개 (aon_telegram_omni_messenger)
 주역: #58 태위택(兌爲澤) — 기쁨과 화답, 두 연못이 이어져 끊임없이 생명수를 나누는 양방향 소통의 대길상
@@ -32,7 +32,7 @@ LOCAL_ENV_PATH = BASE_DIR / '.env.telegram_local'
 ORDERS_JSON_PATH = BASE_DIR / 'commander_live_orders.json'
 INBOX_MD_PATH = BASE_DIR / 'COMMANDER_INBOX.md'
 
-VERSION = "v11.58-AON-LIVE-BRAIN-MOTION"
+VERSION = "v11.60-AON-EMPIRE-ASSETS"
 ANTIBODY_RANGE = "R1~R57"
 SKILL_COUNT = 52
 ORGAN_NAME = "제32기관 아온 듀얼 텔레그램·카톡형 실시간 양방향 메신저"
@@ -230,7 +230,7 @@ def run_self_test():
     cfg = load_dual_telegram_config()
     tests = []
 
-    tests.append(("01. 버전 v11.55 일치", VERSION == "v11.58-AON-LIVE-BRAIN-MOTION"))
+    tests.append(("01. 버전 v11.55 일치", VERSION == "v11.60-AON-EMPIRE-ASSETS"))
     tests.append(("02. 항체 R1~R57 일치", ANTIBODY_RANGE == "R1~R57"))
     tests.append(("03. 정식 스킬 53개 일치", SKILL_COUNT == 52))
     tests.append(("04. 제32기관 명칭 확인", "제32기관" in ORGAN_NAME and "메신저" in ORGAN_NAME))

@@ -31,13 +31,13 @@ def main():
     speaker = sys.argv[3] if len(sys.argv) > 3 else "⚡ 기술총리 안총리 (Antigravity 직접 답변)"
 
     if not QUEUE_PATH.exists():
-        data = {"version": "v11.58-AON-LIVE-BRAIN-MOTION", "queue": []}
+        data = {"version": "v11.60-AON-EMPIRE-ASSETS", "queue": []}
     else:
         try:
             with open(QUEUE_PATH, "r", encoding="utf-8") as f:
                 data = json.load(f)
         except Exception:
-            data = {"version": "v11.58-AON-LIVE-BRAIN-MOTION", "queue": []}
+            data = {"version": "v11.60-AON-EMPIRE-ASSETS", "queue": []}
 
     queue = data.setdefault("queue", [])
 
