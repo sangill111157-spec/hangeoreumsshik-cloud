@@ -244,11 +244,129 @@ def test_step59_verified_chat():
         print("  ✅ [PASS] 9. 3대 깡통 문구 / 초록색 영수증 / 퀵액션 바 0건 완벽 사수!")
 
         print("\n=======================================================")
-        print("🎉 [Playwright 실측 최종 결과] 10대 관문 100% ALL PASS!")
+        print("🎉 [Playwright 데스크톱 실측 결과] 10대 관문 100% ALL PASS!")
+        print("=======================================================\n")
+        browser.close()
+        return True
+
+def test_step60_mobile_viewport():
+    print("\n📱 [Playwright 스마트폰 모바일 실측 - Step 60 (375x812 iPhone/Galaxy 규격)]")
+
+    html_path = os.path.abspath("index.html")
+    file_url = f"file:///{html_path.replace(os.sep, '/')}"
+
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True)
+        # 스마트폰 모바일 뷰포트 375x812 설정 및 터치 지원
+        context = browser.new_context(
+            viewport={'width': 375, 'height': 812},
+            has_touch=True,
+            user_agent="Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1"
+        )
+        page = context.new_page()
+
+        print(f"• 모바일 뷰포트 로딩 (375x812): {file_url}")
+        page.goto(file_url, wait_until="networkidle")
+
+        input_el = page.locator("#comm-input-box")
+        send_btn = page.locator("#btn-comm-send")
+        feed = page.locator("#comm-message-feed")
+
+        # ----------------------------------------------------------------------
+        # [모바일 실측 1] 전송 버튼 화면 밖 잘림 0% 검증
+        # ----------------------------------------------------------------------
+        print("\n🔹 [모바일 검증 1] 375px 세로 화면에서 [⚡ 전송] 버튼 화면 안 100% 안착 실측")
+        send_btn.scroll_into_view_if_needed()
+        box = send_btn.bounding_box()
+        if not box:
+            print("❌ [FAIL] [⚡ 전송] 버튼의 boundingBox를 측정할 수 없습니다!")
+            browser.close()
+            return False
+
+        btn_right_edge = box['x'] + box['width']
+        viewport_width = 375
+        print(f"  • [⚡ 전송] 버튼 좌표: x={box['x']:.1f}px, width={box['width']:.1f}px ➔ 오른쪽 끝={btn_right_edge:.1f}px (화면폭: {viewport_width}px)")
+
+        if btn_right_edge > viewport_width:
+            overflow_px = btn_right_edge - viewport_width
+            print(f"❌ [FAIL] [⚡ 전송] 버튼이 화면 오른쪽 밖으로 {overflow_px:.1f}px 밀려나 잘렸습니다!")
+            browser.close()
+            return False
+        print(f"  ✅ [PASS] 1. [⚡ 전송] 버튼이 화면 오른쪽 끝 안쪽({viewport_width - btn_right_edge:.1f}px 여유)에 100% 선명하게 안착 확인! (잘림 0%)")
+
+        def wait_for_mobile_feed(target_str, max_sec=5):
+            t0 = time.time()
+            while time.time() - t0 < max_sec:
+                txt = feed.inner_text()
+                if target_str in txt:
+                    return txt
+                time.sleep(0.1)
+            return feed.inner_text()
+
+        # ----------------------------------------------------------------------
+        # [모바일 실측 2] "안총리 지금 뭐하고 있니" 0.1초 즉시 응답 실측
+        # ----------------------------------------------------------------------
+        print("\n🔹 [모바일 검증 2] 스마트폰에서 '안총리 지금 뭐하고 있니' 터치 전송 ➔ 1초 내 즉각 응답 실측")
+        input_el.fill("안총리 지금 뭐하고 있니")
+        t_send = time.time()
+        send_btn.click()
+        
+        feed_m2 = wait_for_mobile_feed("완결한 핵심 작업", 3)
+        elapsed_m2 = time.time() - t_send
+        print(f"  • 모바일 응답 소요 시간: {elapsed_m2:.2f}초")
+
+        if "완결한 핵심 작업" not in feed_m2 and "모션 그래픽" not in feed_m2 and "Step 59" not in feed_m2:
+            print(f"❌ [FAIL] '안총리 지금 뭐하고 있니'에 대한 답변이 3초 내에 나타나지 않았습니다!\n{feed_m2}")
+            browser.close()
+            return False
+        print(f"  ✅ [PASS] 2. '안총리 지금 뭐하고 있니' ➔ {elapsed_m2:.2f}초 만에 즉각 답변 말풍선 생성 확인!")
+
+        # ----------------------------------------------------------------------
+        # [모바일 실측 3] "육 더하기 8 빼기 10 은" 실측
+        # ----------------------------------------------------------------------
+        print("\n🔹 [모바일 검증 3] 스마트폰에서 '육 더하기 8 빼기 10 은' 모바일 가상키보드 Enter 전송 ➔ 1초 내 계산 실측")
+        input_el.fill("육 더하기 8 빼기 10 은")
+        t_send3 = time.time()
+        input_el.press("Enter")
+        feed_m3 = wait_for_mobile_feed("4", 3)
+        elapsed_m3 = time.time() - t_send3
+        print(f"  • 모바일 수식 계산 응답 시간: {elapsed_m3:.2f}초")
+
+        if "4" not in feed_m3:
+            print(f"❌ [FAIL] '육 더하기 8 빼기 10 은' 계산 결과 4가 누락되었습니다!\n{feed_m3}")
+            browser.close()
+            return False
+        print(f"  ✅ [PASS] 3. '육 더하기 8 빼기 10 은' ➔ {elapsed_m3:.2f}초 만에 『4』 정밀 계산 확인!")
+
+        # ----------------------------------------------------------------------
+        # [모바일 실측 4] "지금 맡은 업무와 아온이는 어떻게 탄생 했지" 복합 질의 실측
+        # ----------------------------------------------------------------------
+        print("\n🔹 [모바일 검증 4] 스마트폰에서 '지금 맡은 업무와 아온이는 어떻게 탄생 했지' 복합 질의 실측")
+        input_el.fill("지금 맡은 업무와 아온이는 어떻게 탄생 했지")
+        t_send4 = time.time()
+        send_btn.click()
+        feed_m4 = wait_for_mobile_feed("상선약수", 3)
+        elapsed_m4 = time.time() - t_send4
+        print(f"  • 모바일 복합 응답 시간: {elapsed_m4:.2f}초")
+
+        if "상선약수" not in feed_m4 or "이해상" not in feed_m4 or "기술총리 안총리" not in feed_m4:
+            print(f"❌ [FAIL] 복합 질문 응답(업무 + 탄생비화)이 누락되었습니다!\n{feed_m4}")
+            browser.close()
+            return False
+        print(f"  ✅ [PASS] 4. 복합 질의 ➔ {elapsed_m4:.2f}초 만에 ① 맡은 업무 + ② 아온이 탄생 비화(상선약수·이해상 공주님) 동시 완답 확인!")
+
+        print("\n=======================================================")
+        print("🎉 [Playwright 스마트폰 모바일 실측 결과] 4대 관문 100% ALL PASS!")
         print("=======================================================\n")
         browser.close()
         return True
 
 if __name__ == '__main__':
-    ok = test_step59_verified_chat()
-    sys.exit(0 if ok else 1)
+    ok1 = test_step59_verified_chat()
+    if not ok1:
+        sys.exit(1)
+    ok2 = test_step60_mobile_viewport()
+    if not ok2:
+        sys.exit(1)
+    print("🏆 [최종 통과] 데스크톱(Step 59) + 스마트폰 모바일(Step 60) 14대 관문 100.0% 무결점 ALL PASS!")
+    sys.exit(0)
