@@ -1,8 +1,8 @@
 {
   "schema": "rgon_brain_snapshot/1",
-  "version": "v11.64-AON-15SHORTS-SUPER-SENIOR",
-  "generated_at_kst": "2026-10-27 22:58:00 KST",
-  "synced_at_kst": "2026-10-27 22:58:00 KST",
+  "version": "v11.66-AON-GENERAL-HOSPITAL",
+  "generated_at_kst": "2026-10-28 03:15:00 KST",
+  "synced_at_kst": "2026-10-28 03:15:00 KST",
   "sync_rate": "100.0%",
   "score": 100,
   "max_score": 100,
@@ -11,8 +11,8 @@
     "max": 100,
     "label": "100/100"
   },
-  "antibody_range": "R1~R63",
-  "antibodies": "R1~R63",
+  "antibody_range": "R1~R64",
+  "antibodies": "R1~R64",
   "top_priority_id": "R46",
   "top_priority": "제22기관 10대 플랫폼 영양분 선별 소화 & 전신 시냅스 100.0점 수호",
   "tomorrow_top_priority": "제22기관 10대 플랫폼 영양분 선별 소화 & 전신 시냅스 100.0점 수호",
@@ -1084,7 +1084,7 @@
     "treasury_guard": "GO"
   },
   "last_sync": "Step25 2026-10-24 09:19:38",
-  "immune": "R1~R63",
+  "immune": "R1~R64",
   "latest_step": 31,
   "avatar": {
     "name_ko": "아온",
@@ -1100,10 +1100,10 @@
     "freed_kb": 32520.46,
     "backups_purged": 29
   },
-  "antibody": "R1~R63",
+  "antibody": "R1~R64",
   "total_skills": 50,
   "updated_step": "Step 52",
-  "app_version": "v11.64-AON-15SHORTS-SUPER-SENIOR",
+  "app_version": "v11.66-AON-GENERAL-HOSPITAL",
   "skills": 57,
   "organs_count": 37
 }

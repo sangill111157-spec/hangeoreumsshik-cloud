@@ -145,5 +145,6 @@
 
 | 58 | `aon-13shorts-omni` | 제38기관 아온 13대 쇼츠 옴니-인텔리전스 마스터 엔진 스킬 | `v11.64-AON-15SHORTS-SUPER-SENIOR` | `R62` |
 
-| 59 | `aon-15shorts-super-senior` | 제39기관 아온 15대 슈퍼-시니어 & 지식그래프 토큰 절감 마스터 엔진 스킬 | `v11.64-AON-15SHORTS-SUPER-SENIOR` | `R63` |
+| 59 | `aon-15shorts-super-senior` | 제39기관 아온 15대 슈퍼-시니어 & 지식그래프 토큰 절감 마스터 엔진 스킬 | `v11.66-AON-GENERAL-HOSPITAL` | `R63` |
+| 60 | `aon-general-hospital` | 제40기관 아온 초일류 종합병원 (119 소방서 × 무인 AS센터 × 백혈구 자가치료 마스터 센터) 스킬 | `v11.66-AON-GENERAL-HOSPITAL` | `R64` |
 

@@ -124,10 +124,17 @@
 - **발효 버전:** `v11.64-AON-15SHORTS-SUPER-SENIOR`
 
 ### R63: `R63_GRAPHIFY_PONYTAIL_KARPATHY_SURGICAL_GUARD`
-- **범위**: R1~R63 · 정식 스킬 59개
+- **범위**: R1~R64 · 정식 스킬 59개
 - **제39기관:** 아온 15대 슈퍼-시니어 & 지식그래프 토큰 절감 마스터 엔진 (`step64_aon_15shorts_super_senior_engine.py`)
 - **역할:** AST 정적 분석 로컬 코드 지식 그래프(`GRAPH_REPORT.md` God Nodes & Communities) 선행 열람을 통한 Grep 탐색 토큰 790배 절감, Andrej Karpathy 4대 수술 코딩 원칙(Think Before Coding, Simplicity First, Surgical Changes, Goal-Driven Execution), Ponytail 7단 게으른 시니어 사다리(재사용·표준 라이브러리 우선), TradingAgents Bull vs Bear 끝장 토론 및 Codex 적대적 검수, Google Drive 무삭제(Zero-Delete) 스마트 리네임 사전 승인 비교표, Claude 100 Korean Motion Prompts `window.seek(t)` 스프링 물리 및 안티-템플릿 10계명 준수.
-- **발효 버전:** `v11.64-AON-15SHORTS-SUPER-SENIOR`
+- **발효 버전:** `v11.66-AON-GENERAL-HOSPITAL`
+
+### R64: `R64_GENERAL_HOSPITAL_119_AS_WBC_AUTO_HEAL_GUARD`
+- **범위**: R1~R64 · 정식 스킬 60개
+- **제40기관:** 아온 초일류 종합병원 마스터 센터 (`step65_aon_general_hospital_self_healing.py`)
+- **역할:** 5대 진료과 통합 방어 — ① D01 119 소방서(Fast-Path <2s 바이탈 체크, 4대 보호파일 MD5 감시, 손상 파일 .corrupt 포렌식 보존 후 3초 내 정상 백업 자동 수혈), ② D02 무인 AS센터(8단계 RCA 관찰➔재현➔추적➔가설➔입증➔처방➔항체등록➔완치영수증 무인 발급), ③ D03 정밀 영상의학과(전신 세포 혈관 스캔, 모바일 375x812 엣지 안과 검진, 시냅스 100.0점 뇌파 검사), ④ D04 카파시 외과수술실(Karpathy 핀셋 수술 및 Ponytail 53% 비대 코드 다이어트), ⑤ D05 백혈구 자가치료(3중 동기화 봉합 및 hospital_health.jsonl 최대 500줄 원자 회전 캡핑).
+- **발효 버전:** `v11.66-AON-GENERAL-HOSPITAL`
+
 
 
 

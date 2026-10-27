@@ -5,7 +5,7 @@
 import argparse, ast, datetime as dt, hashlib, json, os, re, shutil, sys, tempfile
 from pathlib import Path
 
-VERSION, ORGAN, SKILLS, ANTIBODY = "v11.64-AON-15SHORTS-SUPER-SENIOR", 39, 59, "R1~R63"
+VERSION, ORGAN, SKILLS, ANTIBODY = "v11.66-AON-GENERAL-HOSPITAL", 39, 60, "R1~R64"
 R63 = "R63_GRAPHIFY_PONYTAIL_KARPATHY_SURGICAL_GUARD"
 PROTECTED = {"rgon_Numeric_Organ.py", "rgon_work_loop.py", "rgon_self_Reflection.py", "index_20260405_backup.html"}
 MANIFEST, START, END = "aon_15shorts_super_senior_manifest.json", "<!-- AON-STEP64-SUPER-SENIOR-START -->", "<!-- AON-STEP64-SUPER-SENIOR-END -->"
@@ -171,7 +171,7 @@ def self_test():
             "Bull vs Bear + Codex 적대검증 + 리스크": bool(deb["bull"]) and bool(deb["bear"]) and len(deb["analysts"]) == 4 and 2 <= deb["risk"]["max_position_pct"] <= 10 and deb["risk"]["human_approval"],
             "무삭제 리네임 비교표": all(x["delete_allowed"] is False for x in rows) and rows[0]["new"] == "2026-10-27_문서_건강검진_결과지.pdf" and rows[1]["quarantine"] and rows[2]["quarantine"] and not rows[3]["quarantine"] and " -> " in rows[0]["arrow"],
             "window.seek(t) 스프링 + 비트 합성": all(k in seek for k in ("window.seek=function(t)", "Math.exp", "OfflineAudioContext", "<금지>", "BPM=128")) and "<MV>" not in seek,
-            "3중 매니페스트 동기화": all(m["version"] == VERSION and m["organ"] == 39 and m["skills"] == 59 and m["antibodies"] == "R1~R63" and m["new_antibody"] == R63 and len(m["shorts_15_arsenal"]) == 15 for m in mans),
+            "3중 매니페스트 동기화": all(m["version"] == VERSION and m["organ"] == 39 and m["skills"] == SKILLS and m["antibodies"] == ANTIBODY and m["new_antibody"] == R63 and len(m["shorts_15_arsenal"]) == 15 for m in mans),
             "규칙서 생성": "Surgical Changes" in (r / "KARPATHY_PONYTAIL_RULES.md").read_text(encoding="utf-8") and "7단" in (r / "KARPATHY_PONYTAIL_RULES.md").read_text(encoding="utf-8"),
             "3중 index 마커 멱등 + 배지 갱신": all(t.count(START) == 1 and t.count(END) == 1 and VERSION in t for t in idx.values()) and idx[""] == idx1 and "v11.62<" not in idx[""] and set(res2["index"].values()) == {"변경 없음(멱등)"},
             "플로팅 배너 0 · 전송 버튼 보존": all("position:fixed" not in t for t in idx.values()) and 'id="send"' in idx[""],

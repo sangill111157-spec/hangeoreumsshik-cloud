@@ -1,8 +1,8 @@
 {
-  "version": "v11.64-AON-15SHORTS-SUPER-SENIOR",
-  "antibody": "R1~R63",
-  "generated_at_kst": "2026-10-28 00:25:00 KST",
-  "count": 59,
+  "version": "v11.66-AON-GENERAL-HOSPITAL",
+  "antibody": "R1~R64",
+  "generated_at_kst": "2026-10-28 03:15:00 KST",
+  "count": 60,
   "skills": [
     {
       "slug": "1-36-45",
@@ -615,17 +615,33 @@
       "source_url": "https://github.com/sangill111157-spec/hangeoreumsshik-cloud",
       "origin": "rgon-core",
       "path": "skills/aon-15shorts-super-senior/SKILL.md",
-      "version": "v11.64-AON-15SHORTS-SUPER-SENIOR",
+      "version": "v11.66-AON-GENERAL-HOSPITAL",
       "antibody": "R63_GRAPHIFY_PONYTAIL_KARPATHY_SURGICAL_GUARD"
+    },
+    {
+      "id": 60,
+      "skill_id": 60,
+      "slug": "aon-general-hospital",
+      "name": "aon-general-hospital",
+      "category": "general-hospital-self-healing",
+      "description": "제40기관 아온 초일류 종합병원 (119 소방서 Fast-Path <2s 바이탈·포렌식 보존·3초 자동수혈 × 무인 AS센터 8단계 RCA·완치영수증 × 정밀 영상의학과 전신 혈관·모바일 엣지 안과·시냅스 뇌파 × 카파시 외과수술실 핀셋수술 × 백혈구 자가치료 3중 동기화 봉합 마스터 센터)",
+      "tier": "tier-1",
+      "grade": "EX",
+      "hexagram_tag": "#14-大有",
+      "source_url": "https://github.com/sangill111157-spec/hangeoreumsshik-cloud",
+      "origin": "rgon-core",
+      "path": "skills/aon-general-hospital/SKILL.md",
+      "version": "v11.66-AON-GENERAL-HOSPITAL",
+      "antibody": "R64_GENERAL_HOSPITAL_119_AS_WBC_AUTO_HEAL_GUARD"
     }
   ],
-  "total": 59,
-  "skill_count": 59,
-  "antibody_range": "R1~R63",
-  "antibodies": "R1~R63",
-  "updated": "2026-10-28T00:35:44",
-  "synced_at_kst": "2026-10-28 00:25:00 KST",
-  "immune": "R1~R63",
-  "total_skills": 59,
-  "total_count": 59
+  "total": 60,
+  "skill_count": 60,
+  "antibody_range": "R1~R64",
+  "antibodies": "R1~R64",
+  "updated": "2026-10-28T03:32:53",
+  "synced_at_kst": "2026-10-28 03:15:00 KST",
+  "immune": "R1~R64",
+  "total_skills": 60,
+  "total_count": 60
 }

@@ -1,0 +1,99 @@
+{
+  "version": "v11.51-AON-COMMANDER-TWIN",
+  "goal": "Step 21 @Mindung-EasyAI 양분 흡수",
+  "goal_glossary": [],
+  "generated_at": "2026-10-26 00:23:52",
+  "frontier": [],
+  "tickets": [
+    {
+      "id": "S21-01",
+      "title": "GLOSSARY.md 도메인 공유 언어 15선 설계",
+      "owner": "르곤:설계/검증",
+      "blocked_by": [],
+      "glossary": [],
+      "demo_path": "S21-01 증빙: 산출물 존재 + self-test PASS",
+      "status": "done"
+    },
+    {
+      "id": "S21-02",
+      "title": "티켓 스키마·작업 그래프 구조 정의",
+      "owner": "GPT:구조",
+      "blocked_by": [
+        "S21-01"
+      ],
+      "glossary": [],
+      "demo_path": "S21-02 증빙: 산출물 존재 + self-test PASS",
+      "status": "done"
+    },
+    {
+      "id": "S21-03",
+      "title": "SpecTicketDecomposer + AgentShield 구현",
+      "owner": "르곤:설계/검증",
+      "blocked_by": [
+        "S21-02"
+      ],
+      "glossary": [
+        "AgentShield"
+      ],
+      "demo_path": "S21-03 증빙: 산출물 존재 + self-test PASS",
+      "status": "done"
+    },
+    {
+      "id": "S21-04",
+      "title": "@Mindung-EasyAI 트렌드 레이더 채널 등록",
+      "owner": "Grok:트렌드",
+      "blocked_by": [],
+      "glossary": [],
+      "demo_path": "S21-04 증빙: 산출물 존재 + self-test PASS",
+      "status": "done"
+    },
+    {
+      "id": "S21-05",
+      "title": "영양분 소화 → SKILL.md 4종 주조",
+      "owner": "Claude:구현",
+      "blocked_by": [
+        "S21-04"
+      ],
+      "glossary": [],
+      "demo_path": "S21-05 증빙: 산출물 존재 + self-test PASS",
+      "status": "done"
+    },
+    {
+      "id": "S21-06",
+      "title": "백혈구(WBC) R21 순찰 + 보호 파일 304 삼성 해시 검증",
+      "owner": "르곤:설계/검증",
+      "blocked_by": [
+        "S21-03",
+        "S21-05"
+      ],
+      "glossary": [
+        "백혈구(WBC)",
+        "삼성(三省) 해시",
+        "보호 파일 304"
+      ],
+      "demo_path": "S21-06 증빙: 산출물 존재 + self-test PASS",
+      "status": "done"
+    },
+    {
+      "id": "S22-01",
+      "title": "전신 6대 기관 혈관 개통 및 100% 동기화 검증",
+      "owner": "르곤:설계/검증",
+      "blocked_by": [
+        "S21-06"
+      ],
+      "demo_path": "6대 기관 순환 완주 + Self-Test 4/4 PASS",
+      "status": "open",
+      "checks": {
+        "S21-01": true,
+        "S21-02": true,
+        "S21-03": true,
+        "S21-04": true,
+        "S21-05": true,
+        "S21-06": true
+      },
+      "verified_at_kst": "2026-10-26 00:24:14 KST"
+    }
+  ],
+  "antibody_range": "R1~R52",
+  "auto_verified_at_kst": "2026-10-26 00:24:14 KST"
+}

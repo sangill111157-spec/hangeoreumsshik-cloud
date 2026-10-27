@@ -19,9 +19,9 @@ for _s in ("stdout", "stderr"):
 os.environ["PYTHONWARNINGS"] = "ignore::SyntaxWarning"
 warnings.filterwarnings("ignore", category=SyntaxWarning)
 
-VERSION = "v11.64-AON-15SHORTS-SUPER-SENIOR"
-ANTIBODY_RANGE = "R1~R63"
-EXPECTED_SKILL_COUNT = 59
+VERSION = "v11.66-AON-GENERAL-HOSPITAL"
+ANTIBODY_RANGE = "R1~R64"
+EXPECTED_SKILL_COUNT = 60
 SKILL_ID = "aon-neural-synapse-verifier"
 ROOT = Path(__file__).resolve().parent
 TIME_BUDGET_SEC = 2.0
@@ -374,9 +374,9 @@ def status():
 
 
 # >>> RGON R41 VERIFIER EXT BEGIN >>>
-VERSION = "v11.64-AON-15SHORTS-SUPER-SENIOR"
-ANTIBODY_RANGE = "R1~R57"
-EXPECTED_SKILL_COUNT = 44
+VERSION = "v11.66-AON-GENERAL-HOSPITAL"
+ANTIBODY_RANGE = "R1~R64"
+EXPECTED_SKILL_COUNT = 60
 STATUS_LINE = "%s · 항체 %s · 정식 스킬 %d개" % (VERSION, ANTIBODY_RANGE, EXPECTED_SKILL_COUNT)
 try:
     if "rgon_aon_iching_planner.py" not in ORGANS:
@@ -1682,10 +1682,10 @@ if callable(_r59_orig_vsl) and not getattr(_r59_orig_vsl, "_r59", False):
     verify_synapse_links._r59 = True
 # [RGON-R59-VERIFIER-EXT-END]
 
-# [RGON-R63-VERIFIER-EXT-START]
-VERSION = "v11.64-AON-15SHORTS-SUPER-SENIOR"
-ANTIBODY_RANGE = "R1~R63"
-EXPECTED_SKILL_COUNT = 59
+# [RGON-R64-VERIFIER-EXT-START]
+VERSION = "v11.66-AON-GENERAL-HOSPITAL"
+ANTIBODY_RANGE = "R1~R64"
+EXPECTED_SKILL_COUNT = 60
 STATUS_LINE = "%s · 항체 %s · 정식 스킬 %d개" % (VERSION, ANTIBODY_RANGE, EXPECTED_SKILL_COUNT)
 R60_EMPIRE_ORGAN = "rgon_aon_empire_asset_hub.py"
 R61_GDRIVE_ORGAN = "rgon_aon_gdrive_5tb_organizer.py"
@@ -1773,7 +1773,7 @@ def _r63_s33_check():
         ok = (
             mod.VERSION == VERSION and
             mod.ORGAN == 39 and
-            mod.SKILLS == 59 and
+            mod.SKILLS == 60 and
             len(mod.SHORTS_15_ARSENAL) == 15 and
             bool(deb.get("consensus")) and
             len(rows) == 1 and
@@ -1786,23 +1786,51 @@ def _r63_s33_check():
         return {"id": "S33", "name": name, "ok": False, "sec": round(_tm.perf_counter() - _t0, 3),
                 "evidence": repr(e), "detail": repr(e)}
 
-_r63_orig_vsl = globals().get("verify_synapse_links")
-if callable(_r63_orig_vsl) and not getattr(_r63_orig_vsl, "_r63", False):
+# [RGON-R64-HOSPITAL-SYNAPSE-BEGIN]
+try:
+    if "step65_aon_general_hospital_self_healing.py" not in ORGANS:
+        ORGANS.append("step65_aon_general_hospital_self_healing.py")
+except NameError:
+    ORGANS = ["step65_aon_general_hospital_self_healing.py"]
+
+def _r64_s34_check():
+    import time as _tm, importlib as _il
+    _t0 = _tm.perf_counter()
+    name = "대화허브(/병원·/소방서·/AS·/자가치료)→제40기관 아온 초일류 종합병원"
+    try:
+        mod = _il.import_module("step65_aon_general_hospital_self_healing")
+        ok = (
+            mod.VERSION == VERSION and
+            mod.ORGAN == 40 and
+            mod.SKILLS == 60 and
+            len(mod.HOSPITAL_DEPARTMENTS) == 5 and
+            len(mod.RCA8) == 8
+        )
+        ev = f"organ={mod.ORGAN}, skills={mod.SKILLS}, depts={len(mod.HOSPITAL_DEPARTMENTS)}, rca={len(mod.RCA8)}"
+        return {"id": "S34", "name": name, "ok": bool(ok), "sec": round(_tm.perf_counter() - _t0, 3),
+                "evidence": ev, "detail": ev}
+    except Exception as e:
+        return {"id": "S34", "name": name, "ok": False, "sec": round(_tm.perf_counter() - _t0, 3),
+                "evidence": repr(e), "detail": repr(e)}
+
+_r64_orig_vsl = globals().get("verify_synapse_links")
+if callable(_r64_orig_vsl) and not getattr(_r64_orig_vsl, "_r64", False):
     def verify_synapse_links(*args, **kwargs):
-        res = _r63_orig_vsl(*args, **kwargs)
+        res = _r64_orig_vsl(*args, **kwargs)
         s30 = _r60_s30_check()
         s31 = _r61_s31_check()
         s32 = _r62_s32_check()
         s33 = _r63_s33_check()
+        s34 = _r64_s34_check()
         if isinstance(res, dict) and isinstance(res.get("synapses"), list):
-            items = [x for x in res["synapses"] if not (isinstance(x, dict) and x.get("id") in ("S30", "S31", "S32", "S33"))] + [s30, s31, s32, s33]
+            items = [x for x in res["synapses"] if not (isinstance(x, dict) and x.get("id") in ("S30", "S31", "S32", "S33", "S34"))] + [s30, s31, s32, s33, s34]
             res["synapses"] = items
             res["passed"] = sum(1 for x in items if isinstance(x, dict) and x.get("ok"))
             res["total"] = len(items)
             res["ok"] = res["passed"] == res["total"]
         return res
-    verify_synapse_links._r63 = True
-# [RGON-R63-VERIFIER-EXT-END]
+    verify_synapse_links._r64 = True
+# [RGON-R64-HOSPITAL-SYNAPSE-END]
 
 
 if __name__ == "__main__":

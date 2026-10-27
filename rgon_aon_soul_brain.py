@@ -14,8 +14,8 @@ try:
 except Exception:
     pass
 
-VERSION = "v11.64-AON-15SHORTS-SUPER-SENIOR"
-ANTIBODY = "R1~R63"
+VERSION = "v11.66-AON-GENERAL-HOSPITAL"
+ANTIBODY = "R1~R64"
 ROOT = Path(__file__).resolve().parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))

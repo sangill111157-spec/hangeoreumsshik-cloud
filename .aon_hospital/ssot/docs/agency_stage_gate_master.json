@@ -1,0 +1,294 @@
+{
+  "version": "v12.3-STAGE-GATE-MASTER",
+  "updated_at": "2026-10-19 18:46:00",
+  "agencies": {
+    "dept_1": {
+      "agency_id": "DEPT-1",
+      "agency_name": "📈 제1청사: 미국주식 퀀트 & 리스크 본부 (알파-퀀트)",
+      "agent": "알파-퀀트 (ALPHA-D1)",
+      "daily_routine": [
+        { "time": "07:00", "task": "미국 본장 마감 결산 & 4대 혈관 무결점 감사" },
+        { "time": "19:50", "task": "프리마켓 리스크 예산($107,246.38 / 한도 $1,072.46) 점검" },
+        { "time": "22:30", "task": "미국 정규장 GPT-6.1 Sol 100점 채점기 실시간 가동" }
+      ],
+      "current_step": 1,
+      "steps": {
+        "1": {
+          "step_number": 1,
+          "title": "리스크 예산 철통 방어 & 80점+ 타점 검증",
+          "status": "IN_PROGRESS",
+          "progress_pct": 70.0,
+          "kpi_targets": "모의자산 $107,246.38 기준 7일 연속 일일 손실한도($1,072.46) 위반 0건 & 80점+ 타점 기록 10회 누적",
+          "current_val": "손실한도 위반 0건 / 80점+ 타점 7회 달성",
+          "is_locked": false
+        },
+        "2": {
+          "step_number": 2,
+          "title": "30회 모의매매 승률 60% & $109,500 돌파",
+          "status": "LOCKED",
+          "progress_pct": 0.0,
+          "kpi_targets": "누적 30회 모의매매 승률 60% 이상, 손익비 1:1.8 이상, 모의자산 $109,500 돌파",
+          "unlock_condition": "STEP 1 목표 100% 달성 시 자동 해금",
+          "is_locked": true
+        },
+        "3": {
+          "step_number": 3,
+          "title": "1개월 MDD 5% 이내 방어 & 모의자산 $112,500 (+5%) 달성",
+          "status": "LOCKED",
+          "progress_pct": 0.0,
+          "kpi_targets": "1개월 최대낙폭(MDD) 5%($5,362.32) 이내 방어 & 모의자산 $112,500 (+5%) 달성",
+          "unlock_condition": "STEP 2 목표 100% 달성 시 자동 해금",
+          "is_locked": true
+        },
+        "4": {
+          "step_number": 4,
+          "title": "85점+ 초우량 타점 실전 파이프라인 최종 가동",
+          "status": "LOCKED",
+          "progress_pct": 0.0,
+          "kpi_targets": "대표님 승인 하 85점+ 초우량 타점 실전 파이프라인 가동",
+          "unlock_condition": "STEP 3 목표 100% 달성 시 자동 해금",
+          "is_locked": true
+        }
+      }
+    },
+    "dept_2": {
+      "agency_id": "DEPT-2",
+      "agency_name": "🚀 제2청사: 커넥트 AI 바이럴 & 트래픽 본부 (알파-바이럴)",
+      "agent": "알파-바이럴 (ALPHA-D2)",
+      "daily_routine": [
+        { "time": "07:30", "task": "출근길 부스터 숏폼 발사대 대기" },
+        { "time": "20:30", "task": "저녁 골든타임 어머니 서사 쇼츠 업로드" },
+        { "time": "22:00", "task": "심야 4대 SNS 교차 업로드 패킷 기장" }
+      ],
+      "current_step": 1,
+      "steps": {
+        "1": {
+          "step_number": 1,
+          "title": "Grok 4.7 골든타임 7일 연속 무결근 & 고정댓글 장착",
+          "status": "IN_PROGRESS",
+          "progress_pct": 85.0,
+          "kpi_targets": "Grok 4.7 골든타임 7일 연속(21편) 무결근 업로드 100% & 첫 0.5초 자막·고정댓글 장착률 100%",
+          "current_val": "업로드 18편 완수 / 고정댓글 100% 장착",
+          "is_locked": false
+        },
+        "2": {
+          "step_number": 2,
+          "title": "틱톡 팔로워 3,500명 & 좋아요 15,000개 돌파",
+          "status": "LOCKED",
+          "progress_pct": 0.0,
+          "kpi_targets": "틱톡(@boosterplaylist) 팔로워 2,098명 ➔ 3,500명 돌파 & 좋아요 8,793개 ➔ 15,000개 돌파",
+          "unlock_condition": "STEP 1 목표 100% 달성 시 자동 해금",
+          "is_locked": true
+        },
+        "3": {
+          "step_number": 3,
+          "title": "틱톡 팔로워 10,000명(수익화) & 안전앱 일 유입 500명",
+          "status": "LOCKED",
+          "progress_pct": 0.0,
+          "kpi_targets": "틱톡 팔로워 10,000명 달성(수익화 자격) & 프로필 링크 안전웹앱 일 유입 500명",
+          "unlock_condition": "STEP 2 목표 100% 달성 시 자동 해금",
+          "is_locked": true
+        },
+        "4": {
+          "step_number": 4,
+          "title": "틱톡 크리에이터 리워드 & 자동 바이럴 수익화 가동",
+          "status": "LOCKED",
+          "progress_pct": 0.0,
+          "kpi_targets": "틱톡 크리에이터 리워드 및 자동 바이럴 수익화 가동",
+          "unlock_condition": "STEP 3 목표 100% 달성 시 자동 해금",
+          "is_locked": true
+        }
+      }
+    },
+    "dept_3": {
+      "agency_id": "DEPT-3",
+      "agency_name": "🎵 제3청사: 미디어 홀 — 유튜브 3채널 & Suno 432Hz 본부 (알파-미디어)",
+      "agent": "알파-미디어 (ALPHA-D3)",
+      "daily_routine": [
+        { "time": "19:30", "task": "Suno AI 3종(62/128/78 BPM) 힐링 음원 생성" },
+        { "time": "20:30", "task": "@한걸음씩-r4i 어머니 서사 힐링 쇼츠 업로드" },
+        { "time": "22:10", "task": "@TheCaféHour 서울 밤 로파이 432Hz 업로드" }
+      ],
+      "current_step": 1,
+      "steps": {
+        "1": {
+          "step_number": 1,
+          "title": "Suno 무저작권 루프 20곡 & 유튜브 합산 150명 달성",
+          "status": "IN_PROGRESS",
+          "progress_pct": 60.0,
+          "kpi_targets": "Suno 무저작권 루프 음원 20곡 확보 & 유튜브 3채널 합산 구독자 64명 ➔ 150명 달성",
+          "current_val": "음원 14곡 확보 / 합산 구독자 64명",
+          "is_locked": false
+        },
+        "2": {
+          "step_number": 2,
+          "title": "@한걸음씩 500명 돌파 & @TheCaféHour 시청지속률 80%",
+          "status": "LOCKED",
+          "progress_pct": 0.0,
+          "kpi_targets": "@한걸음씩-r4i 구독자 500명 돌파 & @TheCaféHour 432Hz 시청지속률 80% 이상",
+          "unlock_condition": "STEP 1 목표 100% 달성 시 자동 해금",
+          "is_locked": true
+        },
+        "3": {
+          "step_number": 3,
+          "title": "구독자 1,000명 돌파 & 유튜브 YPP 수익창출 승인",
+          "status": "LOCKED",
+          "progress_pct": 0.0,
+          "kpi_targets": "구독자 1,000명 돌파 및 유튜브 YPP 수익창출 자격 획득",
+          "unlock_condition": "STEP 2 목표 100% 달성 시 자동 해금",
+          "is_locked": true
+        },
+        "4": {
+          "step_number": 4,
+          "title": "애드센스 & 글로벌 432Hz 음원 스트리밍 정산 가동",
+          "status": "LOCKED",
+          "progress_pct": 0.0,
+          "kpi_targets": "유튜브 애드센스 및 글로벌 432Hz 음원 스트리밍 정산 가동",
+          "unlock_condition": "STEP 3 목표 100% 달성 시 자동 해금",
+          "is_locked": true
+        }
+      }
+    },
+    "dept_4": {
+      "agency_id": "DEPT-4",
+      "agency_name": "🌱 제4청사: 홍익 교육원 — 5대 클린룸 안전 웹앱 본부 (알파-홍익)",
+      "agent": "알파-홍익 (ALPHA-D4)",
+      "daily_routine": [
+        { "time": "12:30", "task": "5대 안전 웹앱 작동 및 결제유도 0.00% 클린룸 감사" }
+      ],
+      "current_step": 1,
+      "steps": {
+        "1": {
+          "step_number": 1,
+          "title": "7일 연속 오류 0건 & 프로필 링크 직결",
+          "status": "IN_PROGRESS",
+          "progress_pct": 90.0,
+          "kpi_targets": "7일 연속 오류 0건 & 프로필 링크 직결 완료",
+          "current_val": "오류 0건 / 5대 안전앱 100% 클린룸 유지",
+          "is_locked": false
+        },
+        "2": {
+          "step_number": 2,
+          "title": "5대 안전 웹앱 누적 방문자 1,000명 달성",
+          "status": "LOCKED",
+          "progress_pct": 0.0,
+          "kpi_targets": "누적 방문자 1,000명 달성",
+          "unlock_condition": "STEP 1 목표 100% 달성 시 자동 해금",
+          "is_locked": true
+        },
+        "3": {
+          "step_number": 3,
+          "title": "누적 방문자 10,000명 달성",
+          "status": "LOCKED",
+          "progress_pct": 0.0,
+          "kpi_targets": "누적 방문자 10,000명 달성",
+          "unlock_condition": "STEP 2 목표 100% 달성 시 자동 해금",
+          "is_locked": true
+        },
+        "4": {
+          "step_number": 4,
+          "title": "무료 트래픽 자산화 및 홍익 생태계 정착",
+          "status": "LOCKED",
+          "progress_pct": 0.0,
+          "kpi_targets": "무료 트래픽 자산화 및 홍익 생태계 정착",
+          "unlock_condition": "STEP 3 목표 100% 달성 시 자동 해금",
+          "is_locked": true
+        }
+      }
+    },
+    "dept_5": {
+      "agency_id": "DEPT-5",
+      "agency_name": "🛡️ 제5청사: 비밀 금고 — 31개 보안키 & 구글 시트 85탭 본부 (알파-가디언)",
+      "agent": "알파-가디언 (ALPHA-D5)",
+      "daily_routine": [
+        { "time": "00:00", "task": ".env.local_vault 31개 키 마스킹 감사 & 6대 기관 성과 구글시트 85탭 기장" }
+      ],
+      "current_step": 1,
+      "steps": {
+        "1": {
+          "step_number": 1,
+          "title": "보안키 노출 0.00% & 85탭 일일 기장률 100%",
+          "status": "IN_PROGRESS",
+          "progress_pct": 95.0,
+          "kpi_targets": "보안키 노출 0.00% & 85탭 일일 기장률 100%",
+          "current_val": "노출 0건 / 85탭 전수 열람 및 기장 완료",
+          "is_locked": false
+        },
+        "2": {
+          "step_number": 2,
+          "title": "주간 AI 교차분석 리포트 자동 생성",
+          "status": "LOCKED",
+          "progress_pct": 0.0,
+          "kpi_targets": "주간 AI 교차분석 리포트 자동 생성 체계 확립",
+          "unlock_condition": "STEP 1 목표 100% 달성 시 자동 해금",
+          "is_locked": true
+        },
+        "3": {
+          "step_number": 3,
+          "title": "운영 빅데이터 1,000건 축적",
+          "status": "LOCKED",
+          "progress_pct": 0.0,
+          "kpi_targets": "운영 빅데이터 1,000건 축적 및 무결성 검증",
+          "unlock_condition": "STEP 2 목표 100% 달성 시 자동 해금",
+          "is_locked": true
+        },
+        "4": {
+          "step_number": 4,
+          "title": "완전 무인 자율주행 관제 체계 해금",
+          "status": "LOCKED",
+          "progress_pct": 0.0,
+          "kpi_targets": "완전 무인 자율주행 관제 체계 해금",
+          "unlock_condition": "STEP 3 목표 100% 달성 시 자동 해금",
+          "is_locked": true
+        }
+      }
+    },
+    "dept_6": {
+      "agency_id": "DEPT-6",
+      "agency_name": "💰 제6청사: 국고 관리소 — 실전 금고 0원 & 복식부기 본부 (알파-트레저리)",
+      "agent": "알파-트레저리 (ALPHA-D6)",
+      "daily_routine": [
+        { "time": "23:50", "task": "실전 금고 0원 불변 감사 & 외부 유료 구독료 지출 0원 방어선 확인" }
+      ],
+      "current_step": 1,
+      "steps": {
+        "1": {
+          "step_number": 1,
+          "title": "외부 유료 툴 지출 0원 & 허위 기장 0건",
+          "status": "IN_PROGRESS",
+          "progress_pct": 100.0,
+          "kpi_targets": "외부 유료 툴 지출 0원 & 허위 기장 0건",
+          "current_val": "지출 0원 / 잔액 0원 / 오염 0% 완벽 수호",
+          "is_locked": false
+        },
+        "2": {
+          "step_number": 2,
+          "title": "복식부기 오차 0원 검증 및 주간 결산 체계",
+          "status": "LOCKED",
+          "progress_pct": 0.0,
+          "kpi_targets": "복식부기 오차 0원 검증 및 주간 결산 체계 확립",
+          "unlock_condition": "STEP 1 대표님 승인 시 자동 해금",
+          "is_locked": true
+        },
+        "3": {
+          "step_number": 3,
+          "title": "월간 결산 감사 및 무결점 증적 보존",
+          "status": "LOCKED",
+          "progress_pct": 0.0,
+          "kpi_targets": "월간 결산 감사 및 무결점 증적 보존",
+          "unlock_condition": "STEP 2 목표 100% 달성 시 자동 해금",
+          "is_locked": true
+        },
+        "4": {
+          "step_number": 4,
+          "title": "실제 수익 입금 시 50:25:15:10 실전 분배 집행",
+          "status": "LOCKED",
+          "progress_pct": 0.0,
+          "kpi_targets": "실제 수익 입금 시 50:25:15:10 실전 분배 집행",
+          "unlock_condition": "STEP 3 목표 100% 달성 시 자동 해금",
+          "is_locked": true
+        }
+      }
+    }
+  }
+}

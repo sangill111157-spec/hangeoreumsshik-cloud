@@ -1,0 +1,18 @@
+{
+  "version": "v11.26-CREATOR-FORGE",
+  "scanned_at": "2026-10-26 00:23:58",
+  "files_scanned": 1464,
+  "critical": 0,
+  "high": 0,
+  "advisory": 1,
+  "clean": true,
+  "findings": [
+    {
+      "file": "scripts\\rgon_telegram_bridge.py",
+      "line": 379,
+      "rule": "telegram_bot_token",
+      "severity": "advisory",
+      "preview": "123456***(45)"
+    }
+  ]
+}
