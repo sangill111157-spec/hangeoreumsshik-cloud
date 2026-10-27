@@ -93,48 +93,50 @@
         display: none !important;
       }
 
-      /* [2단계: 우측 끝 초슬림 엣지 도킹 바 컨테이너] */
+      /* [2단계: 좌측 끝 초슬림 엣지 도킹 바 컨테이너 (갤럭시 엣지 겹침 원천 방지)] */
       #rgon-edge-dock-host {
-        position: fixed;
-        right: 0;
-        top: 24%;
-        z-index: 2147483640;
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-        pointer-events: auto;
-        user-select: none;
+        position: fixed !important;
+        left: 0 !important;
+        right: auto !important;
+        top: 24% !important;
+        z-index: 2147483640 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 12px !important;
+        pointer-events: auto !important;
+        user-select: none !important;
       }
 
-      /* 평소 10px 슬림 네온 막대 (호버 시 44px 확장되어 아이콘과 툴팁 노출) */
+      /* 평소 10px 슬림 네온 막대 (좌측 벽면 부착형: 0 12px 12px 0 모서리 반전) */
       .rgon-edge-handle {
-        width: 10px;
-        height: 48px;
-        border-radius: 12px 0 0 12px;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        padding-left: 8px;
-        overflow: hidden;
-        transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-        box-shadow: -2px 4px 14px rgba(0, 0, 0, 0.4);
-        position: relative;
-        white-space: nowrap;
+        width: 10px !important;
+        height: 48px !important;
+        border-radius: 0 12px 12px 0 !important;
+        cursor: pointer !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: flex-end !important;
+        padding-right: 8px !important;
+        padding-left: 0 !important;
+        overflow: hidden !important;
+        transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        box-shadow: 2px 4px 14px rgba(0, 0, 0, 0.4) !important;
+        position: relative !important;
+        white-space: nowrap !important;
       }
       .rgon-edge-handle:hover {
-        width: 46px;
-        box-shadow: -4px 6px 20px rgba(0, 0, 0, 0.6);
-        transform: translateX(-2px);
+        width: 46px !important;
+        box-shadow: 4px 6px 20px rgba(0, 0, 0, 0.6) !important;
+        transform: translateX(2px) !important;
       }
-      /* 스마트폰 모바일 터치 히트박스 (투명 엄지 터치 영역 24px) */
+      /* 스마트폰 모바일 터치 히트박스 (오른쪽 엄지 터치 영역 28px 확장) */
       .rgon-edge-handle::before {
         content: "";
         position: absolute;
         top: -6px;
         bottom: -6px;
-        left: -18px;
-        right: 0;
+        left: 0;
+        right: -18px;
         min-width: 28px;
         pointer-events: auto;
       }
@@ -154,26 +156,26 @@
         transform: scale(1.15);
       }
 
-      /* 4대 도구별 고유 네온 테마 */
+      /* 4대 도구별 고유 네온 테마 (좌측 벽면 테두리: border-left 없음, border-right 유지) */
       #edge-tool-omni {
         background: linear-gradient(135deg, rgba(56, 189, 248, 0.85), rgba(14, 165, 233, 0.9));
         border: 1px solid rgba(125, 211, 252, 0.7);
-        border-right: none;
+        border-left: none !important;
       }
       #edge-tool-hud {
         background: linear-gradient(135deg, rgba(245, 158, 11, 0.85), rgba(217, 119, 6, 0.9));
         border: 1px solid rgba(253, 230, 138, 0.7);
-        border-right: none;
+        border-left: none !important;
       }
       #edge-tool-r47 {
         background: linear-gradient(135deg, rgba(168, 85, 247, 0.85), rgba(126, 34, 206, 0.9));
         border: 1px solid rgba(216, 180, 254, 0.7);
-        border-right: none;
+        border-left: none !important;
       }
       #edge-tool-haesang {
         background: linear-gradient(135deg, rgba(244, 63, 94, 0.85), rgba(225, 29, 72, 0.9));
         border: 1px solid rgba(254, 205, 211, 0.7);
-        border-right: none;
+        border-left: none !important;
       }
 
       /* [ ⇥ 숨기기 ] 버튼 공통 고품질 스타일 */
