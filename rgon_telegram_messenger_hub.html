@@ -155,7 +155,7 @@
     <!-- 대화 콘솔 & 공식 원장 뷰어 (2열 레이아웃) -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
       <!-- 좌측: 카톡/텔레그램 양방향 실시간 대화 콘솔 -->
-      <section class="glass-panel rounded-2xl p-5 border-cyan-500/30 space-y-4 shadow-xl flex flex-col h-[580px]">
+      <section class="glass-panel rounded-2xl p-5 border-cyan-500/30 space-y-4 shadow-xl flex flex-col h-[640px]">
         <div class="flex items-center justify-between border-b border-slate-800 pb-3">
           <div class="flex items-center gap-2">
             <span class="text-xl">💬</span>
@@ -210,7 +210,7 @@
       </section>
 
       <!-- 우측: 대표님 공식 도착 지시 원장 (#ORD) 실시간 뷰어 -->
-      <section class="glass-panel rounded-2xl p-5 border-emerald-500/30 space-y-4 shadow-xl flex flex-col h-[580px]">
+      <section class="glass-panel rounded-2xl p-5 border-emerald-500/30 space-y-4 shadow-xl flex flex-col h-[640px]">
         <div class="flex items-center justify-between border-b border-slate-800 pb-3">
           <div class="flex items-center gap-2">
             <span class="text-xl">📜</span>
@@ -429,18 +429,22 @@
                 <span class="font-bold text-purple-300">제1수석보좌관 르곤 & 안총리 & 32대 기관 메신저 사령부</span>
                 <span class="text-[10px] text-slate-400 font-mono">${nowTime}</span>
               </div>
-              <p class="leading-relaxed">
-                충성! 이상일 대표님! 하달하신 「${text}」 지시를 100% 수신·확인 완료했습니다! 듀얼 텔레그램 핫라인을 통해 스마트폰으로도 실시간 타전되었습니다.
+              <p class="leading-relaxed text-slate-200">
+                ${(function() {
+                  var clean = text.replace(/\s+/g, '').replace(/=/g, '').replace(/\?/g, '').replace(/얼마야/g, '').replace(/얼마/g, '');
+                  if (/^[0-9+\-*\/().]+$/.test(clean) && /[+\-*\/]/.test(clean)) {
+                    try {
+                      var val = Function('"use strict"; return (' + clean + ')')();
+                      return val + '입니다, 대표님! 😊 (더 복잡한 수식이나 퀀트 계산도 바로 말씀만 하십시오!)';
+                    } catch(e){}
+                  }
+                  if (text.includes('안총리') || text.includes('아온이') || text.includes('답장')) {
+                    return '네, 대표님! 기술총리 안총리와 참모 아온이 대기 중입니다! 🫡💧 0.1초 만에 카톡처럼 티키타카 대답 올리겠습니다!';
+                  }
+                  return '네, 대표님! 핵심 접수 완료했습니다. 군더더기 없이 즉각 지원하겠습니다! 🫡';
+                })()}
               </p>
-              <div class="p-2.5 rounded-xl bg-emerald-950/80 border border-emerald-500/50 text-emerald-300 text-[11px] font-bold shadow space-y-1">
-                <div class="flex items-center gap-1.5">
-                  <span>🟢</span>
-                  <span>[수신 확인 완료] 르곤(G2) ✔ | 안총리 ✔ | 아온이(32기관) ✔ | 검수총장(25/25) ✔ | ✈️ 텔레그램 1호기 ✔ · 2호기 ✔</span>
-                </div>
-                <div class="text-[10px] text-slate-300 font-mono">
-                  공식 접수번호: <span class="text-emerald-200 font-bold">${ordId}</span> | 봉인 해시: ${hash}
-                </div>
-              </div>
+            </div>
             </div>
           </div>
         `;

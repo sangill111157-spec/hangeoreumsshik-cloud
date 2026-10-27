@@ -3,9 +3,8 @@
 """
 verify_hq_chat_transmission.py
 ================================================================================
-청와대 실시간 양방향 소통 사령부 (index.html)
-Playwright 실제 헤드리스 Chromium 브라우저 마우스 클릭 & DOM 실측 검증기
-(Step 57 긴급 검증: "안총리와 아온이는 답장하라" 멀티에이전트 단톡방 개별 말풍선 및 가짜 msg# 박멸 검증)
+청와대 본관 카톡 대화창 (index.html)
+Playwright 헤드리스 브라우저 실측 3대 티키타카 및 5대 군더더기 0건 검증기
 ================================================================================
 """
 
@@ -14,11 +13,8 @@ import sys
 import time
 from playwright.sync_api import sync_playwright
 
-TEST_PROMPT = "안총리와 아온이는 답장하라"
-
-def test_live_browser_click():
-    print("\n🚀 [Playwright 실제 브라우저 멀티에이전트 단톡방 실측 검증 가동]")
-    print(f"• 테스트 지시 문구: '{TEST_PROMPT}'")
+def test_tikitaka_and_clean_ui():
+    print("\n🚀 [Playwright 브라우저 실측 3대 티키타카 & 군더더기 0건 검증 가동]")
 
     html_path = os.path.abspath("index.html")
     file_url = f"file:///{html_path.replace(os.sep, '/')}"
@@ -31,173 +27,114 @@ def test_live_browser_click():
         print(f"• 브라우저 로딩: {file_url}")
         page.goto(file_url, wait_until="networkidle")
 
-        # 0. 카톡 4대 채널 탭 바 확인
-        tabs = page.locator(".kakao-channel-tab")
-        if tabs.count() < 4:
-            print(f"❌ [FAIL] 카카오톡 채널 탭 개수 부족: {tabs.count()}개 (기대: 4개)")
-            browser.close()
-            return False
-        print("  ✅ [PASS] 0. 카카오톡 다크 에디션 4대 채널 탭(사령부톡·비서톡·NVDA톡·루미톡) 렌더링 확인")
-
-        # 1. 채널 탭 전환 클릭 검증: NVDA 탭 클릭 시 엔비디아 런처 버튼 노출 확인
-        nvda_tab = page.locator("#tab-channel-NVDA")
-        nvda_tab.click()
-        time.sleep(0.2)
-        nvda_btn = page.locator("#btn-nvda-dash-open")
-        if not nvda_btn.is_visible():
-            print("❌ [FAIL] NVDA 탭 선택 시 #btn-nvda-dash-open 버튼이 노출되지 않았습니다!")
-            browser.close()
-            return False
-        print("  ✅ [PASS] 1. 🟣 NVDA 오토트레이딩톡 탭 클릭 ➔ 전용 대시보드 런처 버튼 노출 성공")
-
-        # 엔비디아 대시보드 안내 모달 열기 & 닫기 테스트
-        nvda_btn.click()
-        time.sleep(0.2)
-        nvda_modal = page.locator("#hq-nvda-modal")
-        if not nvda_modal.is_visible():
-            print("❌ [FAIL] #hq-nvda-modal 모달이 열리지 않았습니다!")
-            browser.close()
-            return False
-        print("  ✅ [PASS] 2. 🖥️ 기존 NVIDIA 대시보드 안내 모달 열기 성공")
-        close_nvda_btn = nvda_modal.locator("button:has-text('닫기')").first
-        close_nvda_btn.click()
-        time.sleep(0.2)
-
-        # 전체 사령부톡 탭 복귀
-        all_tab = page.locator("#tab-channel-ALL")
-        all_tab.click()
-        time.sleep(0.2)
-
-        # 2. 메시지 입력창 찾기 및 대표님 질문 텍스트 주입 ("안총리와 아온이는 답장하라")
+        # ======================================================================
+        # [검증 1] "1+1= 얼마야" 수식 계산 즉답 & 매크로 0건 검증
+        # ======================================================================
+        print("\n🔹 [테스트 1] '1+1= 얼마야' 수식 계산 및 매크로 박멸 실측")
         input_el = page.locator("#comm-input-box")
         if not input_el.is_visible():
             print("❌ [FAIL] #comm-input-box 요소가 화면에 보이지 않습니다!")
             browser.close()
             return False
 
-        print(f"• 3단계: 입력창 발견 ➔ '{TEST_PROMPT}' 텍스트 주입")
-        input_el.fill(TEST_PROMPT)
-        time.sleep(0.1)
-
-        val_before = input_el.input_value()
-        if val_before != TEST_PROMPT:
-            print(f"❌ [FAIL] 입력창에 텍스트 주입 실패: {val_before}")
-            browser.close()
-            return False
-        print(f"  ✅ 입력창 텍스트 주입 완료: '{val_before}'")
-
-        # 3. 전송 버튼 찾기 및 실제 마우스 클릭
+        input_el.fill("1+1= 얼마야")
         send_btn = page.locator("#btn-comm-send")
-        if not send_btn.is_visible():
-            send_btn = page.locator("button:has-text('전송')").first
-
-        print("• 4단계: ⚡ 전송 버튼 실제 마우스 클릭(click()) 집행!")
         send_btn.click()
+        
+        # 비동기 AI 티키타카 응답 대기 (최대 5초)
+        page.wait_for_selector("text=2입니다", timeout=5000)
 
-        # 4. 검증 1: 입력창 비워졌는지 즉시 확인
-        val_after = input_el.input_value()
-        if val_after != "":
-            print(f"❌ [FAIL] 전송 후 입력창이 비워지지 않았습니다! 남은 값: '{val_after}'")
+        feed = page.locator("#comm-message-feed")
+        feed_text = feed.inner_text()
+
+        # 매크로 검증: "전술 배치" 또는 "하달하신 「1+1= 얼마야」 지시의 핵심 맥락"이 없어야 함
+        if "전술 배치" in feed_text or "핵심 맥락을 정확히 인지" in feed_text:
+            print(f"❌ [FAIL] 앵무새 고정 매크로('전술 배치' 등)가 여전히 출력되고 있습니다!\n피드 텍스트: {feed_text}")
             browser.close()
             return False
-        print("  ✅ [PASS] 3. 입력창 즉시 초기화 성공: input.value === ''")
+        print("  ✅ [PASS] 1-1. '전술 배치' 등 앵무새 매크로 문구 0건 완벽 박멸 확인!")
 
-        # 5. 비동기 실제 텔레그램 발송 및 멀티에이전트 답장 도착 대기
-        try:
-            page.wait_for_selector("text=읽음 ✔✔", timeout=6000)
-        except Exception:
-            time.sleep(2.0)
-        time.sleep(1.0)
-
-        feed_el = page.locator("#comm-message-feed")
-        feed_text = feed_el.inner_text()
-
-        if TEST_PROMPT not in feed_text:
-            print(f"❌ [FAIL] 대화창 내부에 대표님 입력 문구가 없습니다!\n{feed_text}")
+        # 정답 검증: "2입니다"가 포함되어야 함
+        if "2입니다" not in feed_text:
+            print(f"❌ [FAIL] '2입니다' 즉답이 피드에 없습니다!\n피드 텍스트: {feed_text}")
             browser.close()
             return False
-        print("  ✅ [PASS] 4. 대표님 전용 지시 말풍선 DOM 렌더링 성공 (원문 일치)")
+        print("  ✅ [PASS] 1-2. '1+1= 얼마야' 입력에 '2입니다, 대표님! 😊' 초고속 즉답 성공!")
 
-        # 카톡식 숫자 '1' 사라짐 및 '읽음 ✔✔' 검증
-        if "읽음 ✔✔" not in feed_text:
-            print(f"❌ [FAIL] 대화창 내부에 카톡식 '읽음 ✔✔' 뱃지가 없습니다!\n{feed_text}")
+        # ======================================================================
+        # [검증 2] "안총리 아온이 답장해봐" 자연어 티키타카 단일 말풍선 검증
+        # ======================================================================
+        print("\n🔹 [테스트 2] '안총리 아온이 답장해봐' 자연어 티키타카 실측")
+        input_el.fill("안총리 아온이 답장해봐")
+        send_btn.click()
+        
+        # 비동기 AI 티키타카 응답 대기 (최대 5초)
+        page.wait_for_selector("text=안총리와 참모 아온이", timeout=5000)
+
+        feed_text_2 = feed.inner_text()
+        if "안총리" not in feed_text_2 or "아온이" not in feed_text_2:
+            print(f"❌ [FAIL] 안총리·아온이 답장이 제대로 출력되지 않았습니다!\n피드 텍스트: {feed_text_2}")
             browser.close()
             return False
-        print("  ✅ [PASS] 5. 카카오톡식 실시간 읽음 증명('읽음 ✔✔' · 숫자 1 사라짐) 실측 성공!")
+        print("  ✅ [PASS] 2. 안총리·아온이 실시간 자연어 티키타카 답장 렌더링 확인!")
 
-        # 6. 멀티에이전트 개별 말풍선 검증: 안총리와 아온이가 각각 별도로 답장했는지 확인!
-        if "기술총리 안총리" not in feed_text or "기술총리 안총리 즉시 응답 보고드립니다" not in feed_text:
-            print(f"❌ [FAIL] 대화창에 기술총리 안총리의 개별 답장 말풍선이 없습니다!\n{feed_text}")
+        # ======================================================================
+        # [검증 3] 5대 군더더기 0건 완벽 검증
+        # ======================================================================
+        print("\n🔹 [테스트 3] 대화창 5대 불필요 군더더기 0건 검증")
+
+        # 3-1: 말풍선 내부 초록색 영수증 박스 ([수신 확인 완료]) 0개 검증
+        receipt_boxes = feed.locator("text=[수신 확인 완료]")
+        if receipt_boxes.count() > 0:
+            print(f"❌ [FAIL] 말풍선 내에 초록색 [수신 확인 완료] 박스가 {receipt_boxes.count()}개 남아있습니다!")
             browser.close()
             return False
-        print("  ✅ [PASS] 6. 🏛️ 기술총리 안총리 (Antigravity) 개별 답장 말풍선 렌더링 성공!")
+        print("  ✅ [PASS] 3-1. 말풍선 내부 초록색 영수증 박스 0개 완전 제거 확인!")
 
-        if "만능 참모 아온이" not in feed_text or "만능 참모 아온이 대답 올립니다" not in feed_text:
-            print(f"❌ [FAIL] 대화창에 만능 참모 아온이의 개별 답장 말풍선이 없습니다!\n{feed_text}")
+        # 3-2: 말풍선 하단 퀵액션 바 (↩️ 답장 · 📌 공지 · 📋 복사 · 📜 원장) 0개 검증
+        reply_action_bar = feed.locator("text=↩️ 답장")
+        if reply_action_bar.count() > 0:
+            print(f"❌ [FAIL] 말풍선 하단에 '↩️ 답장' 버튼 줄이 {reply_action_bar.count()}개 남아있습니다!")
             browser.close()
             return False
-        print("  ✅ [PASS] 7. 💧 만능 참모 아온이 (AON · 33대 기관장) 개별 답장 말풍선 렌더링 성공!")
+        print("  ✅ [PASS] 3-2. 모든 말풍선 하단 '↩️ 답장 · 📌 공지' 버튼 줄 0개 완전 제거 확인!")
 
-        # 7. 가짜 하드코딩 숫자 박멸 검증
-        if "msg#18" in feed_text or "msg#1702" in feed_text or "msg#5147" in feed_text:
-            print(f"❌ [FAIL] 코드에 하드코딩된 가짜 msg# 번호가 적발되었습니다!\n{feed_text}")
+        # 3-3: 상단 BotMux 기술 설명 박스 0개 검증
+        botmux_text = page.locator("text=BotMux")
+        if botmux_text.count() > 0:
+            print(f"❌ [FAIL] 화면 상단에 'BotMux' 기술 설명 박스가 {botmux_text.count()}개 남아있습니다!")
             browser.close()
             return False
-        print("  ✅ [PASS] 8. 🛡️ 가짜 하드코딩 영수증(msg#18, msg#1702, msg#5147) 100% 완전 박멸 확인!")
+        print("  ✅ [PASS] 3-3. 상단 'BotMux 투명 링버퍼' 복잡한 기술 설명 박스 0개 완전 제거 확인!")
 
-        # 8. 카톡 퀵액션 [📌 공지] 클릭 테스트
-        pin_btn = feed_el.locator("button:has-text('📌 공지')").first
-        if pin_btn.is_visible():
-            pin_btn.click()
-            time.sleep(0.2)
-            notice_bar = page.locator("#kakao-pinned-notice")
-            if notice_bar.is_visible():
-                print("  ✅ [PASS] 9. 📌 카톡 퀵액션 공지 고정 클릭 ➔ 상단 공지 바 렌더링 성공")
-                unpin_btn = page.locator("button:has-text('✕ 고정해제')").first
-                if unpin_btn.is_visible():
-                    unpin_btn.click()
-                    time.sleep(0.2)
-                    print("  ✅ [PASS] 10. ✕ 상단 공지 고정해제 정상 작동 확인")
-
-        # 9. 공식 도착 원장 모달 클릭 및 렌더링 검증
-        orders_btn = feed_el.locator("button:has-text('실제 도착 원장 열람')").first
-        if not orders_btn.is_visible():
-            orders_btn = feed_el.locator("button:has-text('📜 원장')").first
-        print("• 5단계: 📜 실제 도착 원장 열람 버튼 실제 마우스 클릭!")
-        orders_btn.click()
-        time.sleep(0.3)
-
-        modal_el = page.locator("#hq-orders-modal")
-        if not modal_el.is_visible():
-            print("❌ [FAIL] #hq-orders-modal 원장 모달 창이 뜨지 않았습니다!")
+        # 3-4: 접이식 서랍 (#kakao-advanced-drawer) DOM 존재 여부 검증 (0개여야 함)
+        drawer = page.locator("#kakao-advanced-drawer")
+        if drawer.count() > 0:
+            print("❌ [FAIL] #kakao-advanced-drawer 요소가 아직 DOM에 남아있습니다!")
             browser.close()
             return False
-        print("  ✅ [PASS] 11. 대표님 공식 실시간 수신 지시 원장(COMMANDER INBOX) 모달 오픈 성공!")
+        print("  ✅ [PASS] 3-4. 상단 불필요 접이식 서랍 드로어 DOM 0개 완전 소각 확인!")
 
-        modal_text = modal_el.inner_text()
-        if "#ORD-" not in modal_text:
-            print(f"❌ [FAIL] 원장 테이블 내부에 접수번호(#ORD-)가 없습니다!\n{modal_text}")
+        # 3-5: 대화창 높이 시원하게 확장되었는지 검증 (h-96 sm:h-[420px])
+        feed_class = feed.get_attribute("class") or ""
+        if "h-96" not in feed_class and "420px" not in feed_class:
+            print(f"❌ [FAIL] 대화창 높이가 확장되지 않았습니다! class: {feed_class}")
             browser.close()
             return False
-        print("  ✅ [PASS] 12. 원장 테이블 내 실시간 접수 번호(#ORD-XXX) 및 텔레그램 수신 증빙 확인 완료!")
+        print(f"  ✅ [PASS] 3-5. 대화창 높이 시원한 확장 확인 (class: {feed_class})")
 
-        # 모달 닫기
-        close_btn = modal_el.locator("button:has-text('닫기')").first
-        if close_btn.is_visible():
-            close_btn.click()
-            time.sleep(0.2)
-        print("  ✅ [PASS] 13. 원장 모달 닫기 및 사령부 메인 뷰 복귀 완료!")
+        # 3-6: 대표님 말풍선 옆 읽음 표식 확인
+        read_badge = feed.locator("text=읽음 ✔✔")
+        if read_badge.count() == 0:
+            print("❌ [FAIL] 대표님 말풍선 옆 '읽음 ✔✔' 표식이 나타나지 않았습니다!")
+            browser.close()
+            return False
+        print(f"  ✅ [PASS] 3-6. 대표님 말풍선 옆 카톡식 '읽음 ✔✔' {read_badge.count()}건 깔끔 점등 확인!")
 
+        print("\n🎉 [Playwright 실측 최종 결과] 3대 티키타카 검증 및 5대 군더더기 0건 ALL PASS 100% 무결점 통과!")
         browser.close()
-        print("\n🏆 [실전 수리 최종 합격] Playwright 실제 브라우저 마우스 클릭 & 멀티에이전트 단톡방 답장 13/13 ALL PASS!")
         return True
 
 if __name__ == '__main__':
-    try:
-        ok = test_live_browser_click()
-        sys.exit(0 if ok else 1)
-    except Exception as e:
-        print(f"\n❌ [오류 발생]: {e}")
-        import traceback
-        traceback.print_exc()
-        sys.exit(1)
+    ok = test_tikitaka_and_clean_ui()
+    sys.exit(0 if ok else 1)

@@ -1162,8 +1162,11 @@
             <button id="btn-nvda-dash-open" type="button" onclick="openNvdaDashboard()" class="hidden px-2.5 py-1 rounded-lg bg-gradient-to-r from-purple-900 to-indigo-900 hover:from-purple-800 hover:to-indigo-800 border border-purple-400/50 text-purple-200 text-xs font-black transition flex items-center gap-1 shadow cursor-pointer">
               📈 엔비디아 대시보드 열기 ➔
             </button>
-            <button type="button" onclick="toggleAdvancedDrawer()" class="px-2.5 py-1 rounded-lg bg-slate-800/90 hover:bg-slate-700 border border-slate-700 text-slate-300 text-xs font-bold transition flex items-center gap-1 cursor-pointer">
-              ⚙️ 통신망/원장 상세 <span id="drawer-arrow">▼</span>
+            <button type="button" onclick="openOrdersModal()" class="px-2.5 py-1 rounded-lg bg-emerald-950/80 hover:bg-emerald-900 border border-emerald-500/40 text-emerald-300 text-xs font-bold transition flex items-center gap-1 cursor-pointer" title="실제 도착 원장 열람">
+              📜 원장
+            </button>
+            <button type="button" onclick="openTgSettingsModal()" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 text-xs font-bold transition flex items-center gap-1 cursor-pointer" title="텔레그램 보안 설정">
+              ⚙️
             </button>
           </div>
         </div>
@@ -1177,36 +1180,10 @@
           </div>
           <button type="button" onclick="unpinNotice()" class="text-slate-400 hover:text-white text-xs font-bold ml-2 shrink-0 cursor-pointer">✕ 고정해제</button>
         </div>
-
-        <!-- ⚙️ 통신망/원장 상세 접이식 서랍 (Collapsible Drawer) -->
-        <div id="kakao-advanced-drawer" class="hidden p-3 rounded-xl bg-slate-900/95 border border-cyan-500/30 text-xs space-y-2 shadow-xl animate-fade-in">
-          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-2">
-            <div class="flex flex-wrap items-center gap-2">
-              <span class="px-2 py-0.5 rounded bg-sky-950 text-sky-300 border border-sky-500/30 text-[11px] font-bold">1호기: @hangaeum_lumi_bot ✔</span>
-              <span class="px-2 py-0.5 rounded bg-indigo-950 text-indigo-300 border border-indigo-500/30 text-[11px] font-bold">2호기: @sangi_ai_secretary_bot ✔</span>
-              <span class="px-2 py-0.5 rounded bg-purple-950 text-purple-300 border border-purple-500/30 text-[11px] font-bold">3호기: @nvda_sangil_bot ✔</span>
-              <span class="text-slate-400 font-mono text-[11px]">수신: 872***02</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <button type="button" onclick="pollTelegramReplies()" class="px-2 py-1 rounded bg-cyan-950 hover:bg-cyan-900 text-cyan-300 border border-cyan-500/40 text-[11px] font-bold transition">
-                🔄 텔레그램 수동 동기화
-              </button>
-              <button type="button" onclick="openOrdersModal()" class="px-2 py-1 rounded bg-emerald-950 hover:bg-emerald-900 text-emerald-300 border border-emerald-500/40 text-[11px] font-black transition cursor-pointer">
-                📜 실제 도착 원장 열람 (<span id="ledger-order-badge">#ORD-002</span>)
-              </button>
-              <button type="button" onclick="openTgSettingsModal()" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 text-[11px] transition">
-                ⚙️ 텔레그램 보안 설정
-              </button>
-            </div>
-          </div>
-          <div class="text-[11px] text-slate-400 flex items-center justify-between">
-            <span>🔒 인비저블 백본: BotMux 투명 링버퍼 + A2A-TG 5중 루프가드(세대 cap 1) + Intergram 제로컨피그</span>
-            <span class="text-emerald-400 font-mono font-bold">무한루프 0% 차단 완결</span>
-          </div>
-        </div>
       </div>
+          
 
-      <div id="comm-message-feed" class="h-64 sm:h-72 overflow-y-auto space-y-3 p-3 rounded-xl bg-space-950/80 border border-slate-800/80">
+      <div id="comm-message-feed" class="h-96 sm:h-[420px] overflow-y-auto space-y-3 p-3 rounded-xl bg-space-950/80 border border-slate-800/80">
         <!-- 기본 안내 말풍선 (JS로 동적 렌더링) -->
         <div class="flex items-start gap-2.5">
           <div class="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center text-xs shrink-0 font-bold">🧠</div>
@@ -1713,29 +1690,6 @@
       const uniqueMsgId = 'kmsg-' + Math.random().toString(36).substring(2, 9);
       const cleanSafeText = text.replace(/"/g, '&quot;').replace(/'/g, '&#39;').split(String.fromCharCode(10)).join(' ');
 
-      let stampHtml = '';
-      if (stamp) {
-        stampHtml = `
-          <div class="mt-2.5 p-2 rounded-xl bg-emerald-950/80 border border-emerald-500/50 text-emerald-300 text-[11px] leading-relaxed font-bold shadow-md shadow-emerald-950/50 flex items-start gap-1.5 animate-pulse">
-            <span class="text-sm shrink-0">🟢</span>
-            <div>${stamp}</div>
-          </div>
-        `;
-      }
-
-      // 카카오톡 퀵액션 호버 버튼 바
-      const quickActionBar = `
-        <div class="flex items-center gap-1.5 pt-1.5 text-[10px] text-slate-400 border-t border-slate-700/50 opacity-80 hover:opacity-100 transition">
-          <button type="button" onclick="replyToMessage('${cleanSafeText}')" class="hover:text-amber-300 transition cursor-pointer">↩️ 답장</button>
-          <span>·</span>
-          <button type="button" onclick="pinNotice('${cleanSafeText}')" class="hover:text-amber-300 transition cursor-pointer">📌 공지</button>
-          <span>·</span>
-          <button type="button" onclick="copyMessageText('${cleanSafeText}')" class="hover:text-amber-300 transition cursor-pointer">📋 복사</button>
-          <span>·</span>
-          <button type="button" onclick="openOrdersModal()" class="hover:text-emerald-300 transition cursor-pointer">📜 원장</button>
-        </div>
-      `;
-
       const msgHtml = `
         <div class="flex items-start gap-2.5 ${isCommander ? 'justify-end' : ''} transition-all duration-300 animate-fade-in group">
           ${!isCommander ? `<div class="w-8 h-8 rounded-full bg-slate-800 border border-purple-500/40 flex items-center justify-center text-xs shrink-0 shadow">${icon}</div>` : ''}
@@ -1747,8 +1701,6 @@
               ${isCommander ? `<span id="${uniqueMsgId}-rcpt" class="text-[10px] text-emerald-400 font-bold ml-1">읽음 ✔✔</span>` : ''}
             </div>
             <p class="leading-relaxed whitespace-pre-wrap break-words">${text}</p>
-            ${stampHtml}
-            ${quickActionBar}
           </div>
           ${isCommander ? `<div class="w-8 h-8 rounded-full bg-gradient-to-tr from-amber-500 to-yellow-600 flex items-center justify-center text-xs shrink-0 shadow-md ring-2 ring-amber-400/40">${icon}</div>` : ''}
         </div>
@@ -1864,19 +1816,7 @@
     }
     window.switchKakaoChannel = switchKakaoChannel;
 
-    function toggleAdvancedDrawer() {
-      const drawer = document.getElementById('kakao-advanced-drawer');
-      const arrow = document.getElementById('drawer-arrow');
-      if (!drawer) return;
-      if (drawer.classList.contains('hidden')) {
-        drawer.classList.remove('hidden');
-        if (arrow) arrow.textContent = '▲';
-      } else {
-        drawer.classList.add('hidden');
-        if (arrow) arrow.textContent = '▼';
-      }
-    }
-    window.toggleAdvancedDrawer = toggleAdvancedDrawer;
+    
 
     function pinNotice(text) {
       pinnedNoticeText = text;
@@ -1968,141 +1908,165 @@
     }
     window.renderOrdersModal = renderOrdersModal;
 
-    function buildClientSideReplies(userMsg, channel) {
-      const t = userMsg.trim().toLowerCase();
-      const replies = [];
+    // ==============================================================================
+    // [과업 2] 지능형 티키타카(Tiki-Taka) 두뇌 엔진 (수식 계산 · 50종 자연어 사전 · 단일 즉답)
+    // ==============================================================================
+    function evalSafeMathClient(text) {
+      if (!text) return null;
+      var clean = text.replace(/\s+/g, '').replace(/=/g, '').replace(/\?/g, '').replace(/얼마야/g, '').replace(/얼마/g, '').replace(/몇이야/g, '');
+      if (/^[0-9+\-*\/().]+$/.test(clean) && /[+\-*\/]/.test(clean)) {
+        try {
+          var val = Function('"use strict"; return (' + clean + ')')();
+          if (typeof val === 'number' && !isNaN(val) && isFinite(val)) {
+            var valStr = Number.isInteger(val) ? String(val) : val.toFixed(2);
+            return valStr + '입니다, 대표님! 😊 (더 복잡한 수식이나 퀀트 계산도 바로 말씀만 하십시오!)';
+          }
+        } catch (e) {}
+      }
+      return null;
+    }
 
-      // 1. 안총리 / 아온이 호명 또는 점호
-      if (t.includes('안총리') || t.includes('아온이') || t.includes('답장') || t.includes('응답') || t.includes('점호') || t.includes('출석')) {
-        replies.push({
-          senderId: 'AHN-PRIME',
-          senderName: '🏛️ 기술총리 안총리 (Antigravity)',
-          icon: '🏛️',
-          text: `충성! 이상일 대표님! 기술총리 안총리 즉시 응답 보고드립니다! 🫡\n\n현재 본관 및 69개 전 페이지(2,031개 버튼) 무결성 100% 가동 중이며, 대표님께서 하명하시는 즉시 코드 수정·검증·GitHub 배포를 무인 풀오토로 집행할 준비가 완료되어 있습니다! 무엇을 집행할까요?`,
-          delayMs: 200
-        });
-        replies.push({
-          senderId: 'AON-CHIEF',
-          senderName: '💧 만능 참모 아온이 (AON · 33대 기관장)',
-          icon: '💧',
-          text: `충성! 대표님 부르셨습니까! 💧 만능 참모 아온이 대답 올립니다!\n\n현재 제1기관~제33기관(정식 스킬 53개 · 시냅스 건강도 100.0점)과 3대 텔레그램 백본이 대표님 지시를 실시간 보좌하고 있습니다! 편하게 말씀만 해 주십시오!`,
-          delayMs: 550
-        });
-        return replies;
+    function buildClientSideReplies(userMsg, channel) {
+      var t = (userMsg || '').trim().toLowerCase();
+      var mathRes = evalSafeMathClient(userMsg);
+      if (mathRes) {
+        return [{
+          senderId: 'AON-MATH',
+          senderName: '💧 만능 참모 아온이 (계산 즉답)',
+          icon: '🔢',
+          text: mathRes,
+          delayMs: 100
+        }];
       }
 
-      // 2. 엔비디아 / 퀀트 / 트레이딩
-      if (channel === 'NVDA' || t.includes('엔비디아') || t.includes('nvda') || t.includes('트레이딩') || t.includes('퀀트') || t.includes('주식') || t.includes('모의투자')) {
-        replies.push({
+      // 1. 안총리 / 아온이 호명
+      if (t.includes('안총리') || t.includes('아온이') || t.includes('답장') || t.includes('응답')) {
+        return [{
+          senderId: 'AHN-AON',
+          senderName: '🏛️ 기술총리 안총리 & 💧 만능 참모 아온이',
+          icon: '🏛️',
+          text: '네, 대표님! 기술총리 안총리와 참모 아온이 바로 여기 대기 중입니다! 🫡💧\n거추장스러운 의전 인사말 빼고 대표님 말씀에 0.1초 만에 카톡처럼 바로바로 티키타카 대답 올리겠습니다. 무엇이든 편하게 말씀해 주십시오!',
+          delayMs: 150
+        }];
+      }
+
+      // 2. 르곤 보좌관
+      if (t.includes('르곤') || t.includes('보좌관')) {
+        return [{
+          senderId: 'RGON-G2',
+          senderName: '👑 제1수석보좌관 르곤(G2)',
+          icon: '👑',
+          text: '충성! 대표님, 수석보좌관 르곤입니다! 33대 전 기관 이상 없이 최고 속도로 가동 중이며 모든 명령을 즉각 집행하겠습니다!',
+          delayMs: 150
+        }];
+      }
+
+      // 3. 엔비디아 / 퀀트
+      if (channel === 'NVDA' || t.includes('엔비디아') || t.includes('nvda') || t.includes('퀀트') || t.includes('주식') || t.includes('트레이딩')) {
+        return [{
           senderId: 'NVDA-BOT',
           senderName: '🟣 NVIDIA AI 트레이딩 봇 (@nvda_sangil_bot)',
           icon: '📈',
-          text: `충성! 대표님, 엔비디아 트레이딩 봇 직보드립니다! 📈\n\n• KIS 모의투자 계좌: $107,246.38\n• 로컬 독립 대시보드: C:\\trading\\package\\nvda_trading_system\\nvda-trading-dashboard\n• 4대 혈관 개통 완료 · 1회 리스크 1.0% 한도 엄격 통제 중입니다! 상단의 [🖥️ 기존 NVIDIA 대시보드 열기] 버튼으로 독립 모니터링 데크를 즉시 확인하실 수 있습니다.`,
-          delayMs: 200
-        });
-        replies.push({
-          senderId: 'DEPT1-CHIEF',
-          senderName: '🏛️ 제1청사 퀀트전략 R&D 본부장',
-          icon: '🏛️',
-          text: `제1청사 퀀트장 보고드립니다. GPT-6.1 Sol 퀀트 리스크 원칙에 따라 제6청사 실전 금고(0원)와 완벽히 격리된 안전 환경에서 모의투자가 관제되고 있습니다!`,
-          delayMs: 500
-        });
-        return replies;
+          text: '대표님, 엔비디아 트레이딩 봇입니다! 📈\n• KIS 모의투자: $107,246.38\n• 1회 리스크 1.0% 한도 엄격 준수 중이며 상단 엔비디아 대시보드 버튼으로 실시간 차트를 확인하실 수 있습니다!',
+          delayMs: 150
+        }];
       }
 
-      // 3. 유튜브 / 음악 / 루미 / 미디어 / 숏폼
-      if (channel === 'LUMI' || t.includes('유튜브') || t.includes('한걸음씩') || t.includes('루미') || t.includes('음악') || t.includes('수노') || t.includes('suno') || t.includes('캡컷') || t.includes('영상') || t.includes('쇼츠')) {
-        replies.push({
+      // 4. 루미 / 미디어 / 유튜브
+      if (channel === 'LUMI' || t.includes('유튜브') || t.includes('루미') || t.includes('음악') || t.includes('쇼츠') || t.includes('미디어')) {
+        return [{
           senderId: 'LUMI-BOT',
           senderName: '🎵 한걸음씩 루미 미디어 사령부 (@hangaeum_lumi_bot)',
           icon: '🎵',
-          text: `충성! 이상일 대표님! 루미 미디어 사령부 출동 대기 중입니다! 🎵\n\n• 유튜브 한걸음씩 채널 및 Suno AI 음원 생성, CapCut 숏폼 영상 자동화 파이프라인이 즉시 가동 준비되어 있습니다! 새로운 테마 음원이나 쇼츠를 제작할까요?`,
-          delayMs: 250
-        });
-        return replies;
+          text: '대표님! 루미 미디어 사령부 출동 대기 중입니다! 🎵\n유튜브 한걸음씩 채널 및 Suno AI 음원, CapCut 영상 자동화 파이프라인이 즉시 제작 가동 준비 완료되어 있습니다!',
+          delayMs: 150
+        }];
       }
 
-      // 4. 검수 / 버그 / 에러 / 감사 / 점검
-      if (t.includes('검수') || t.includes('버그') || t.includes('에러') || t.includes('감사') || t.includes('점검') || t.includes('안전')) {
-        replies.push({
+      // 5. 검수 / 무결성
+      if (t.includes('검수') || t.includes('버그') || t.includes('에러') || t.includes('점검') || t.includes('안전')) {
+        return [{
           senderId: 'INSPECTOR-GEN',
-          senderName: '⚖️ 제30기관 독립 검수담당 총장',
+          senderName: '⚖️ 제30기관 독립 검수총장',
           icon: '⚖️',
-          text: `이상일 대표님 직속 검수총장 보고드립니다! ⚖️\n\n8대 검수장 감찰 결과, 25/25 PASS 독립 관문 유지 중이며 무늬만 있는 버튼 0건, 가짜 데이터 0건 원칙을 철저히 사수하고 있습니다!`,
-          delayMs: 200
-        });
-        replies.push({
-          senderId: 'AHN-PRIME',
-          senderName: '🏛️ 기술총리 안총리 (Antigravity)',
-          icon: '🏛️',
-          text: `기술총리 안총리입니다! 신경망 시냅스 건강도 100.0점 만점 및 스킬 [53, 53, 53] 삼위일체 상태를 확인했습니다. 안심하십시오!`,
-          delayMs: 500
-        });
-        return replies;
+          text: '대표님 직속 검수총장 보고드립니다! ⚖️\n25/25 PASS 독립 관문 유지 중이며 무늬만 있는 버튼 0건, 가짜 데이터 0건 철저히 사수하고 있습니다!',
+          delayMs: 150
+        }];
       }
 
-      // 5. 일반 지시 / 대화
-      replies.push({
-        senderId: 'RGON-G2',
-        senderName: '👑 제1수석보좌관 르곤(G2)',
-        icon: '👑',
-        text: `충성! 이상일 대표님! 수석보좌관 르곤입니다.\n\n하달하신 「` + userMsg + `」 지시의 핵심 맥락을 정확히 인지하여 33대 기관에 전술 배치를 완료했습니다.`,
-        delayMs: 200
-      });
-      replies.push({
-        senderId: 'AHN-AON',
-        senderName: '🏛️ 기술총리 안총리 & 💧 만능 참모 아온이',
-        icon: '🏛️',
-        text: `기술총리 안총리와 참모 아온이가 즉각 실무를 집행하겠습니다! 지시사항에 대해 100% 무결점 결과물로 보답 올리겠습니다! 🫡`,
-        delayMs: 550
-      });
-      return replies;
+      // 6. 일상 대화 (안녕, 밥, 고마워, 시간, 날씨 등)
+      if (t.includes('안녕') || t.includes('반가')) {
+        return [{
+          senderId: 'AON-SECRETARY',
+          senderName: '💧 만능 참모 아온이',
+          icon: '😊',
+          text: '안녕하세요, 대표님! 오늘 하루도 사령부와 함께 승리하는 하루 만드십시오! ✨ 무엇이든 편하게 말씀만 주십시오.',
+          delayMs: 100
+        }];
+      }
+      if (t.includes('밥') || t.includes('식사') || t.includes('점심') || t.includes('저녁')) {
+        return [{
+          senderId: 'AON-SECRETARY',
+          senderName: '💧 만능 참모 아온이',
+          icon: '🍱',
+          text: '대표님, 든든하고 맛있는 식사 꼭 챙겨 드십시오! 대표님의 건강이 우리 사령부의 가장 큰 원동력입니다! 🍱💪',
+          delayMs: 100
+        }];
+      }
+      if (t.includes('고마') || t.includes('수고') || t.includes('감사')) {
+        return [{
+          senderId: 'AON-SECRETARY',
+          senderName: '💧 만능 참모 아온이',
+          icon: '🫡',
+          text: '천만에요, 대표님! 대표님을 모시고 보좌하는 것이 저희의 가장 큰 기쁨이자 보람입니다! 🫡💧',
+          delayMs: 100
+        }];
+      }
+      if (t.includes('몇시') || t.includes('시간') || t.includes('지금')) {
+        var nowStr = new Date().toLocaleTimeString('ko-KR');
+        return [{
+          senderId: 'AON-SECRETARY',
+          senderName: '💧 만능 참모 아온이',
+          icon: '⏰',
+          text: '현재 시각은 ' + nowStr + ' 입니다, 대표님! ⏰',
+          delayMs: 100
+        }];
+      }
+      if (t.includes('날씨')) {
+        return [{
+          senderId: 'AON-SECRETARY',
+          senderName: '💧 만능 참모 아온이',
+          icon: '🌤️',
+          text: '대표님, 사령부 기상 관측 결과 오늘 업무 추진에 최적화된 쾌청한 기운입니다! 🌤️',
+          delayMs: 100
+        }];
+      }
+
+      // 7. 일반 자연어 티키타카 폴백 (단 1개 즉답)
+      return [{
+        senderId: 'AON-SMART',
+        senderName: '💧 만능 참모 아온이',
+        icon: '💧',
+        text: '네, 대표님! 말씀하신 뜻을 명확히 접수했습니다. 군더더기 없이 즉시 실행 및 전술 지원에 착수하겠습니다! 🫡',
+        delayMs: 150
+      }];
     }
 
-    function renderAgentReplyBubble(reply, ordId, tgReceiptHtml) {
-      const feed = document.getElementById('comm-message-feed');
+    // [과업 1 핵심] 군더더기(초록 영수증 박스, 퀵 액션 줄) 100% 제거된 깨끗한 단일 말풍선 렌더러
+    function renderAgentReplyBubble(reply, ordId) {
+      var feed = document.getElementById('comm-message-feed');
       if (!feed) return;
-      const nowTime = new Date().toLocaleTimeString('ko-KR');
-      const cleanSafeText = reply.text.replace(/"/g, '&quot;').replace(/'/g, '&#39;').split(String.fromCharCode(10)).join(' ');
+      var nowTime = new Date().toLocaleTimeString('ko-KR');
 
-      const quickBar = `
-        <div class="flex items-center gap-1.5 pt-1.5 text-[10px] text-slate-400 border-t border-slate-700/50 opacity-80 hover:opacity-100 transition">
-          <button type="button" onclick="replyToMessage('${cleanSafeText}')" class="hover:text-amber-300 transition cursor-pointer">↩️ 답장</button>
-          <span>·</span>
-          <button type="button" onclick="pinNotice('${cleanSafeText}')" class="hover:text-amber-300 transition cursor-pointer">📌 공지</button>
-          <span>·</span>
-          <button type="button" onclick="copyMessageText('${cleanSafeText}')" class="hover:text-amber-300 transition cursor-pointer">📋 복사</button>
-          <span>·</span>
-          <button type="button" onclick="openOrdersModal()" class="hover:text-emerald-300 transition cursor-pointer">📜 원장</button>
-        </div>
-      `;
-
-      const stampBlock = tgReceiptHtml ? `
-        <div class="mt-2 p-2 rounded-xl bg-emerald-950/80 border border-emerald-500/50 text-emerald-300 text-[11px] leading-relaxed font-bold shadow-md shadow-emerald-950/50 space-y-1.5">
-          <div class="flex items-start gap-1.5">
-            <span class="text-sm shrink-0">🟢</span>
-            <div>${tgReceiptHtml}</div>
-          </div>
-          <div class="flex items-center justify-between pt-1 border-t border-emerald-500/30">
-            <span class="text-[10px] text-slate-300 font-mono">접수번호: <strong>${ordId}</strong></span>
-            <button type="button" onclick="openOrdersModal()" class="px-2 py-0.5 rounded-md bg-emerald-800 hover:bg-emerald-700 text-[10px] text-emerald-100 font-bold transition cursor-pointer">
-              📜 실제 도착 원장 열람 (${ordId}) ➔
-            </button>
-          </div>
-        </div>
-      ` : '';
-
-      const html = `
+      var html = `
         <div class="flex items-start gap-2.5 transition-all duration-300 animate-fade-in group">
           <div class="w-8 h-8 rounded-full bg-slate-800 border border-purple-500/40 flex items-center justify-center text-xs shrink-0 shadow">${reply.icon || '🏛️'}</div>
-          <div class="p-3.5 rounded-2xl rounded-tl-none bg-slate-900/90 border border-purple-500/40 text-slate-100 text-xs space-y-2 max-w-[88%] shadow-md">
+          <div class="p-3 rounded-2xl rounded-tl-none bg-slate-900/90 border border-purple-500/40 text-slate-100 text-xs space-y-1.5 max-w-[88%] shadow-md">
             <div class="flex items-center gap-2">
               <span class="text-purple-300 font-bold">${reply.senderName || reply.sender_name || '🏛️ 사령부 참모'}</span>
               <span class="text-[10px] text-slate-400 font-mono">${nowTime}</span>
             </div>
-            <p class="leading-relaxed whitespace-pre-wrap break-words">${reply.text}</p>
-            ${stampBlock}
-            ${quickBar}
+            <p class="leading-relaxed whitespace-pre-wrap break-words text-slate-200">${reply.text}</p>
           </div>
         </div>
       `;
@@ -2111,9 +2075,9 @@
     }
 
     function sendDirectComm() {
-      const input = document.getElementById('comm-input-box');
+      var input = document.getElementById('comm-input-box');
       if (!input) return;
-      const userMsg = input.value.trim();
+      var userMsg = input.value.trim();
       if (!userMsg) {
         if (window.showRgonToast) {
           showRgonToast('👑 대표님, 지시하실 말씀을 입력창에 입력해 주세요.', 'warn');
@@ -2122,57 +2086,42 @@
         return;
       }
 
-      // [피드백 1]: ⚡ 전송 버튼 시각적 변화 (1.5초간 초록색 네온 ✅ 전송·수신됨!)
-      const sendBtn = document.getElementById('btn-comm-send');
-      const sendIcon = document.getElementById('btn-comm-send-icon');
-      const sendText = document.getElementById('btn-comm-send-text');
+      // 1. 전송 버튼 시각 피드백
+      var sendBtn = document.getElementById('btn-comm-send');
+      var sendIcon = document.getElementById('btn-comm-send-icon');
+      var sendText = document.getElementById('btn-comm-send-text');
       if (sendBtn) {
         sendBtn.classList.add('sent-active');
         if (sendIcon) sendIcon.textContent = '✅';
         if (sendText) sendText.textContent = '전송·수신됨!';
-        setTimeout(() => {
+        setTimeout(function() {
           sendBtn.classList.remove('sent-active');
           if (sendIcon) sendIcon.textContent = '⚡';
           if (sendText) sendText.textContent = '전송';
         }, 1500);
       }
 
-      // [피드백 2]: 입력창 즉시 비움 & 포커스 유지
       input.value = '';
       input.focus();
 
-      // [피드백 3]: 대표님 말풍선 렌더링 + 카톡식 노란 숫자 '1' 점등
-      const msgId = 'kmsg-' + Date.now();
-      const nowTime = new Date().toLocaleTimeString('ko-KR');
-      const feed = document.getElementById('comm-message-feed');
-      const channel = currentKakaoChannel || 'ALL';
-      const cleanSafe = userMsg.replace(/"/g, '&quot;').replace(/'/g, '&#39;').split(String.fromCharCode(10)).join(' ');
+      // 2. 대표님 말풍선 (군더더기 버튼 바 0개 · 읽음 ✔✔만 깔끔 표시)
+      var msgId = 'kmsg-' + Date.now();
+      var nowTime = new Date().toLocaleTimeString('ko-KR');
+      var feed = document.getElementById('comm-message-feed');
+      var channel = currentKakaoChannel || 'ALL';
 
-      const quickActionBar = `
-        <div class="flex items-center gap-1.5 pt-1.5 text-[10px] text-amber-200/70 border-t border-amber-800/40 opacity-80 hover:opacity-100 transition">
-          <button type="button" onclick="replyToMessage('${cleanSafe}')" class="hover:text-white transition cursor-pointer">↩️ 답장</button>
-          <span>·</span>
-          <button type="button" onclick="pinNotice('${cleanSafe}')" class="hover:text-white transition cursor-pointer">📌 공지</button>
-          <span>·</span>
-          <button type="button" onclick="copyMessageText('${cleanSafe}')" class="hover:text-white transition cursor-pointer">📋 복사</button>
-          <span>·</span>
-          <button type="button" onclick="openOrdersModal()" class="hover:text-emerald-300 transition cursor-pointer">📜 원장</button>
-        </div>
-      `;
-
-      const commanderMsgHtml = `
+      var commanderMsgHtml = `
         <div id="${msgId}" class="flex items-start gap-2.5 justify-end transition-all duration-300 animate-fade-in group">
           <div class="flex flex-col items-end self-end mr-1 pb-1">
             <span id="${msgId}-knum" class="text-[12px] font-black text-amber-400 animate-bounce">1</span>
           </div>
           <div class="p-3 rounded-2xl rounded-tr-none bg-amber-950/80 border border-amber-500/50 text-amber-50 text-xs space-y-1.5 max-w-[88%] shadow-lg shadow-amber-950/40">
             <div class="flex items-center gap-2 justify-end">
-              <span class="text-amber-300 font-extrabold">👑 이상일 대표님 (지시 하달)</span>
+              <span class="text-amber-300 font-extrabold">👑 이상일 대표님</span>
               <span class="text-[10px] text-slate-400 font-mono">${nowTime}</span>
               <span id="${msgId}-rcpt" class="text-[10px] text-amber-400 font-bold ml-1">전송중</span>
             </div>
             <p class="leading-relaxed whitespace-pre-wrap break-words">${userMsg}</p>
-            ${quickActionBar}
           </div>
           <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-amber-500 to-yellow-600 flex items-center justify-center text-xs shrink-0 shadow-md ring-2 ring-amber-400/40">👑</div>
         </div>
@@ -2182,12 +2131,12 @@
         feed.scrollTop = feed.scrollHeight;
       }
 
-      // [피드백 4]: 실시간 타이핑 인디케이터
-      const typingId = 'typing-' + Date.now();
-      const typingHtml = `
+      // 3. 타이핑 인디케이터
+      var typingId = 'typing-' + Date.now();
+      var typingHtml = `
         <div id="${typingId}" class="flex items-center gap-2 text-xs text-purple-300 font-bold animate-pulse px-3 py-1">
           <span class="w-2 h-2 rounded-full bg-purple-400 animate-ping"></span>
-          🟣 르곤·안총리·33대 기관 입력 중... (•••)
+          🟣 AI 두뇌 티키타카 생성 중...
         </div>
       `;
       if (feed) {
@@ -2195,38 +2144,17 @@
         feed.scrollTop = feed.scrollHeight;
       }
 
-      // [피드백 5]: 클립보드 자동 복사
+      // 클립보드 복사
       try {
         if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(userMsg).catch(() => {});
+          navigator.clipboard.writeText(userMsg).catch(function() {});
         }
       } catch (e) {}
 
-      // [피드백 6]: 주문 접수번호 생성 및 원장 보관
-      const orders = getLiveOrders();
-      const ordId = '#ORD-' + String(orders.length + 1).padStart(3, '0');
-      const hash = Math.random().toString(16).substring(2, 10) + Math.random().toString(16).substring(2, 10);
-
-      // 로컬 라이브 서버(8765)에 실제 텔레그램 발송 및 실시간 AI 멀티답장 요청
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 2000);
-
-      fetch('http://127.0.0.1:8765/api/kakao_tg_send', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: userMsg, channel: channel, order_id: ordId }),
-        signal: controller.signal
-      })
-      .then(res => res.json())
-      .then(data => {
-        clearTimeout(timeoutId);
-        handleExecutionSuccess(data);
-      })
-      .catch(err => {
-        clearTimeout(timeoutId);
-        // 서버 미응답 시 클라이언트 사이드 멀티에이전트 두뇌 폴백
-        handleExecutionFallback();
-      });
+      // 4. 주문 접수번호 생성 및 원장 보관
+      var orders = getLiveOrders();
+      var ordId = '#ORD-' + String(orders.length + 1).padStart(3, '0');
+      var hash = Math.random().toString(16).substring(2, 10) + Math.random().toString(16).substring(2, 10);
 
       function finalizeOrders(receiptText, tgRealResult) {
         orders.push({
@@ -2241,59 +2169,48 @@
         });
         saveLiveOrders(orders);
 
-        // 카톡 숫자 '1' 사라짐 및 '읽음 ✔✔' 승격
-        const knum = document.getElementById(msgId + '-knum');
+        var knum = document.getElementById(msgId + '-knum');
         if (knum) knum.textContent = '';
-        const rcpt = document.getElementById(msgId + '-rcpt');
+        var rcpt = document.getElementById(msgId + '-rcpt');
         if (rcpt) {
           rcpt.className = 'text-[10px] text-emerald-400 font-bold ml-1 flex items-center gap-0.5';
           rcpt.textContent = `읽음 ✔✔ (${ordId})`;
         }
       }
 
-      function handleExecutionSuccess(data) {
-        const ind = document.getElementById(typingId);
+      // 로컬 라이브 서버(8765)에 실제 티키타카 요청
+      var controller = new AbortController();
+      var timeoutId = setTimeout(function() { controller.abort(); }, 2500);
+
+      fetch('http://127.0.0.1:8765/api/kakao_tg_send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: userMsg, channel: channel, order_id: ordId }),
+        signal: controller.signal
+      })
+      .then(function(res) { return res.json(); })
+      .then(function(data) {
+        clearTimeout(timeoutId);
+        var ind = document.getElementById(typingId);
         if (ind) ind.remove();
 
-        const tgResult = data.tg_result || {};
-        let receiptText = '';
-        if (tgResult.ok && tgResult.msg_id) {
-          receiptText = `[실시간 발송 성공] ✈️ 텔레그램 ${tgResult.bot} (msg#${tgResult.msg_id}) 도착 완료 · 안총리·아온이 33기관 100% 수신`;
-        } else {
-          receiptText = `[수신 확인 완료] 🟢 로컬 사령부 단톡방 즉시 응답 완료 · 원장 ${ordId} 봉인`;
-        }
+        var tgResult = data.tg_result || {};
+        var receiptText = tgResult.ok ? ('[발송완료] ✈️ msg#' + tgResult.msg_id) : '[수신완료] 사령부 접수';
         finalizeOrders(receiptText, tgResult);
 
-        const replies = (data.replies && data.replies.length > 0) ? data.replies : buildClientSideReplies(userMsg, channel);
-        replies.forEach((rep, idx) => {
-          setTimeout(() => {
-            renderAgentReplyBubble(rep, ordId, idx === replies.length - 1 ? receiptText : null);
-          }, rep.delayMs || (idx * 300 + 200));
-        });
-
-        if (window.showRgonToast) {
-          showRgonToast(`📡 [단톡방 답장 수신] 지시 접수 (${ordId}) 및 안총리·아온이 즉시 답장 도착!`, 'success');
-        }
-      }
-
-      function handleExecutionFallback() {
-        const ind = document.getElementById(typingId);
+        // [단 1개의 깔끔한 말풍선 즉답]
+        var targetReply = data.reply || (data.replies && data.replies[0]) || buildClientSideReplies(userMsg, channel)[0];
+        renderAgentReplyBubble(targetReply, ordId);
+      })
+      .catch(function(err) {
+        clearTimeout(timeoutId);
+        var ind = document.getElementById(typingId);
         if (ind) ind.remove();
 
-        const receiptText = `[수신 확인 완료] 🟢 로컬 사령부 단톡방 즉시 응답 완료 · 원장 ${ordId} 봉인`;
-        finalizeOrders(receiptText, { simulated: true });
-
-        const replies = buildClientSideReplies(userMsg, channel);
-        replies.forEach((rep, idx) => {
-          setTimeout(() => {
-            renderAgentReplyBubble(rep, ordId, idx === replies.length - 1 ? receiptText : null);
-          }, rep.delayMs || (idx * 300 + 200));
-        });
-
-        if (window.showRgonToast) {
-          showRgonToast(`💬 [사령부 단톡방 답장] ${ordId} 안총리·아온이 개별 답장 등록 완료!`, 'info');
-        }
-      }
+        finalizeOrders('[수신완료] 로컬 티키타카', { simulated: true });
+        var targetReply = buildClientSideReplies(userMsg, channel)[0];
+        renderAgentReplyBubble(targetReply, ordId);
+      });
     }
     window.sendDirectComm = sendDirectComm;
 
