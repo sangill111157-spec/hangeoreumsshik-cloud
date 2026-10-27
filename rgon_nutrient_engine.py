@@ -30,9 +30,9 @@ import urllib.request
 from datetime import datetime, timedelta, timezone
 from html.parser import HTMLParser
 
-VERSION = "v11.55-AON-TELEGRAM-MESSENGER"
+VERSION = "v11.56-AON-INVISIBLE-KAKAO-TG"
 ANTIBODY = "R19"
-ANTIBODY_RANGE = "R1~R56"
+ANTIBODY_RANGE = "R1~R57"
 KST = timezone(timedelta(hours=9))
 BT = chr(96)
 FENCE = BT * 3

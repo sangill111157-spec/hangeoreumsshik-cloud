@@ -1,8 +1,8 @@
 {
-  "version": "v11.55-AON-TELEGRAM-MESSENGER",
-  "antibody": "R1~R56",
-  "generated_at_kst": "2026-10-27 09:39:56 KST",
-  "count": 52,
+  "version": "v11.56-AON-INVISIBLE-KAKAO-TG",
+  "antibody": "R1~R57",
+  "generated_at_kst": "2026-10-27 10:10:38 KST",
+  "count": 53,
   "skills": [
     {
       "slug": "1-36-45",
@@ -516,15 +516,26 @@
       "path": "skills/aon-telegram-omni-messenger/SKILL.md",
       "version": "v11.55-AON-TELEGRAM-MESSENGER",
       "antibody": "R56_TELEGRAM_KAKAO_BIDIRECTIONAL_LIVE_MESSENGER_LOCK"
+    },
+    {
+      "slug": "aon-invisible-kakao-tg-backbone",
+      "name": "제33기관 아온 인비저블 텔레그램 백본 & 카카오톡형 올인원 만능 대화창",
+      "category": "invisible-messenger",
+      "hexagram_tag": "#30-離",
+      "source_url": "https://api.telegram.org",
+      "origin": "rgon-core",
+      "path": "skills/aon-invisible-kakao-tg-backbone/SKILL.md",
+      "version": "v11.56-AON-INVISIBLE-KAKAO-TG",
+      "antibody": "R57_INVISIBLE_TELEGRAM_KAKAO_ALL_IN_ONE_CHAT_LOCK"
     }
   ],
-  "total": 52,
-  "skill_count": 52,
-  "antibody_range": "R1~R56",
-  "antibodies": "R1~R56",
-  "updated": "2026-10-27T09:51:40",
+  "total": 53,
+  "skill_count": 53,
+  "antibody_range": "R1~R57",
+  "antibodies": "R1~R57",
+  "updated": "2026-10-27T10:23:04",
   "synced_at_kst": "2026-10-26 21:30:00 KST",
-  "immune": "R1~R56",
-  "total_skills": 52,
+  "immune": "R1~R57",
+  "total_skills": 53,
   "total_count": 51
 }

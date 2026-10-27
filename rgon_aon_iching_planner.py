@@ -3,7 +3,7 @@
 """
 rgon_aon_iching_planner.py — 제17기관 아온(A-ON) 주역 64괘 시운 전략 기획관
 I-Ching Strategic Action Planner (WOOP · OODA · Stop Rule · 12시진 택시 · 3분기 MCTS 트리)
-정식 스킬 #37 aon-iching-strategic-planner · v11.55-AON-TELEGRAM-MESSENGER · 항체 R1~R56
+정식 스킬 #37 aon-iching-strategic-planner · v11.56-AON-INVISIBLE-KAKAO-TG · 항체 R1~R57
 
 헌법 제2항 · R35 · R41: 금융·실매매·파일삭제·외부배포는 '계획'만 수립하며 절대 자동 실행하지 않는다.
 CLI: --self-test | --plan <주제> | --daily | --status [--json]
@@ -28,8 +28,8 @@ for _s in ("stdout", "stderr"):
         except Exception:
             pass
 
-VERSION = "v11.55-AON-TELEGRAM-MESSENGER"
-ANTIBODY_RANGE = "R1~R56"
+VERSION = "v11.56-AON-INVISIBLE-KAKAO-TG"
+ANTIBODY_RANGE = "R1~R57"
 ANTIBODY = "R41"
 SKILL_COUNT = 39
 SKILL_ID = "aon-iching-strategic-planner"

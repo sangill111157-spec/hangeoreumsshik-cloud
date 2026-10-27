@@ -276,7 +276,7 @@ def execute_hook_script_pipeline(topic_key: str = "shin") -> dict:
         except Exception:
             prod_queue = {"version": "v10.6-one-touch", "tasks": []}
     prod_queue.setdefault("tasks", []).append(queue_item)
-    prod_queue["tasks"] = prod_queue["tasks"][-50:]  # 최근 52개 유지
+    prod_queue["tasks"] = prod_queue["tasks"][-50:]  # 최근 53개 유지
     AUTO_PRODUCTION_QUEUE.write_text(json.dumps(prod_queue, ensure_ascii=False, indent=2), encoding="utf-8")
 
     # Step 3: 구글 시트 동기화 큐 및 consensus.md 등록

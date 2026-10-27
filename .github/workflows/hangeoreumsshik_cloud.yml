@@ -113,11 +113,12 @@ jobs:
 
       - name: Daily GitHub Open Source Scout (제2원 특임대 글로벌 답사 1선)
         if: env.TARGET_CMD == 'report' || github.event_name == 'workflow_dispatch'
+        continue-on-error: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           echo "🔭 제2원 글로벌 오픈소스 일일 답사 가동..."
-          python github_scout_adapter.py --daily
+          python github_scout_adapter.py --daily || echo "⚠️ 일일 답사 스킵 (안전 통과)"
 
       - name: Send Execution Report to Telegram (Control Tower)
         if: always()

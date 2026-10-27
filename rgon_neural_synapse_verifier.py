@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """rgon_neural_synapse_verifier.py — 제16기관 아온 전신 신경망 시냅스 병렬 정밀 검증기
-v11.55-AON-TELEGRAM-MESSENGER · 항체 R1~R56 · 정식 스킬 #36 aon-neural-synapse-verifier
+v11.56-AON-INVISIBLE-KAKAO-TG · 항체 R1~R57 · 정식 스킬 #36 aon-neural-synapse-verifier
 순수 표준 라이브러리 전용. CLI: --self-test | --audit | --status
 """
 import os, sys, re, json, time, ast, tempfile, subprocess, importlib, argparse, datetime, warnings
@@ -19,9 +19,9 @@ for _s in ("stdout", "stderr"):
 os.environ["PYTHONWARNINGS"] = "ignore::SyntaxWarning"
 warnings.filterwarnings("ignore", category=SyntaxWarning)
 
-VERSION = "v11.55-AON-TELEGRAM-MESSENGER"
-ANTIBODY_RANGE = "R1~R56"
-EXPECTED_SKILL_COUNT = 52
+VERSION = "v11.56-AON-INVISIBLE-KAKAO-TG"
+ANTIBODY_RANGE = "R1~R57"
+EXPECTED_SKILL_COUNT = 53
 SKILL_ID = "aon-neural-synapse-verifier"
 ROOT = Path(__file__).resolve().parent
 TIME_BUDGET_SEC = 2.0
@@ -374,8 +374,8 @@ def status():
 
 
 # >>> RGON R41 VERIFIER EXT BEGIN >>>
-VERSION = "v11.55-AON-TELEGRAM-MESSENGER"
-ANTIBODY_RANGE = "R1~R56"
+VERSION = "v11.56-AON-INVISIBLE-KAKAO-TG"
+ANTIBODY_RANGE = "R1~R57"
 EXPECTED_SKILL_COUNT = 44
 STATUS_LINE = "%s · 항체 %s · 정식 스킬 %d개" % (VERSION, ANTIBODY_RANGE, EXPECTED_SKILL_COUNT)
 try:
@@ -446,8 +446,8 @@ if callable(_r41_orig_vsl) and not getattr(_r41_orig_vsl, "_r41", False):
 
 
 # >>> [RGON-R42-VERIFIER-EXT-START] >>>
-VERSION = "v11.55-AON-TELEGRAM-MESSENGER"
-ANTIBODY_RANGE = "R1~R56"
+VERSION = "v11.56-AON-INVISIBLE-KAKAO-TG"
+ANTIBODY_RANGE = "R1~R57"
 EXPECTED_SKILL_COUNT = 44
 STATUS_LINE = "%s · 항체 %s · 정식 스킬 %d개" % (VERSION, ANTIBODY_RANGE, EXPECTED_SKILL_COUNT)
 R42_HYDRO_ORGAN = "rgon_aon_hydro_cycle.py"
@@ -608,8 +608,8 @@ if callable(_r42_orig_heal) and not getattr(_r42_orig_heal, "_r42", False):
 
 
 # >>> [RGON-R43-VERIFIER-EXT-START] >>>
-VERSION = "v11.55-AON-TELEGRAM-MESSENGER"
-ANTIBODY_RANGE = "R1~R56"
+VERSION = "v11.56-AON-INVISIBLE-KAKAO-TG"
+ANTIBODY_RANGE = "R1~R57"
 EXPECTED_SKILL_COUNT = 44
 STATUS_LINE = "%s · 항체 %s · 정식 스킬 %d개" % (VERSION, ANTIBODY_RANGE, EXPECTED_SKILL_COUNT)
 R43_NEXUS_ORGAN = "rgon_aon_omni_nexus.py"
@@ -769,8 +769,8 @@ if callable(_r43_orig_heal) and not getattr(_r43_orig_heal, "_r43", False):
 
 # >>> RGON R44 LIVE UI HEALER VERIFIER EXT START
 import os as _r44os, sys as _r44sys, json as _r44json, subprocess as _r44sp, tempfile as _r44tmp, importlib as _r44il, threading as _r44th, shutil as _r44sh
-VERSION = "v11.55-AON-TELEGRAM-MESSENGER"
-ANTIBODY_RANGE = "R1~R56"
+VERSION = "v11.56-AON-INVISIBLE-KAKAO-TG"
+ANTIBODY_RANGE = "R1~R57"
 EXPECTED_SKILL_COUNT = 44
 STATUS_LINE = "%s · 항체 %s · 정식 스킬 %d개" % (VERSION, ANTIBODY_RANGE, EXPECTED_SKILL_COUNT)
 R44_ORGAN_NODE = {"id": "N16", "file": "rgon_aon_live_ui_healer.py", "organ_no": 20}
@@ -857,8 +857,8 @@ for _n in ("run_full", "run_all", "verify_all", "full_check"):
 
 # >>> RGON R45 CINEMATIC DISPATCH VERIFIER EXT START
 import os as _r45os, sys as _r45sys, json as _r45json, subprocess as _r45sp, tempfile as _r45tmp, importlib as _r45il, threading as _r45th, shutil as _r45sh
-VERSION = "v11.55-AON-TELEGRAM-MESSENGER"
-ANTIBODY_RANGE = "R1~R56"
+VERSION = "v11.56-AON-INVISIBLE-KAKAO-TG"
+ANTIBODY_RANGE = "R1~R57"
 EXPECTED_SKILL_COUNT = 44
 STATUS_LINE = "%s · 항체 %s · 정식 스킬 %d개" % (VERSION, ANTIBODY_RANGE, EXPECTED_SKILL_COUNT)
 R45_ORGAN_NODE = {"id": "N17", "file": "rgon_aon_cinematic_dispatch.py", "organ_no": 21}
@@ -971,8 +971,8 @@ for _n in ("run_full", "run_all", "verify_all", "full_check"):
 
 # >>> RGON R46 AUTO EVOLVER VERIFIER EXT START
 import os as _r46os, sys as _r46sys, json as _r46json, subprocess as _r46sp, tempfile as _r46tmp, importlib as _r46il, threading as _r46th, shutil as _r46sh
-VERSION = "v11.55-AON-TELEGRAM-MESSENGER"
-ANTIBODY_RANGE = "R1~R56"
+VERSION = "v11.56-AON-INVISIBLE-KAKAO-TG"
+ANTIBODY_RANGE = "R1~R57"
 EXPECTED_SKILL_COUNT = 44
 STATUS_LINE = "%s · 항체 %s · 정식 스킬 %d개" % (VERSION, ANTIBODY_RANGE, EXPECTED_SKILL_COUNT)
 R46_ORGAN_NODE = {"id": "N18", "file": "rgon_aon_auto_skill_evolver.py", "organ_no": 22}
@@ -1085,8 +1085,8 @@ for _n in ("run_full", "run_all", "verify_all", "full_check"):
 # <<< RGON R46 AUTO EVOLVER VERIFIER EXT END
 
 # [RGON-R47-VERIFIER-EXT-START]
-VERSION = "v11.55-AON-TELEGRAM-MESSENGER"
-ANTIBODY_RANGE = "R1~R56"
+VERSION = "v11.56-AON-INVISIBLE-KAKAO-TG"
+ANTIBODY_RANGE = "R1~R57"
 EXPECTED_SKILL_COUNT = 44
 STATUS_LINE = "%s · 항체 %s · 정식 스킬 %d개" % (VERSION, ANTIBODY_RANGE, EXPECTED_SKILL_COUNT)
 R47_STUDIO_ORGAN = "rgon_aon_zeroclick_studio.py"
@@ -1182,8 +1182,8 @@ if callable(_r48_orig_vsl) and not getattr(_r48_orig_vsl, "_r48", False):
 # [RGON-R48-VERIFIER-EXT-END]
 
 # [RGON-R49-VERIFIER-EXT-START]
-VERSION = "v11.55-AON-TELEGRAM-MESSENGER"
-ANTIBODY_RANGE = "R1~R56"
+VERSION = "v11.56-AON-INVISIBLE-KAKAO-TG"
+ANTIBODY_RANGE = "R1~R57"
 EXPECTED_SKILL_COUNT = 45
 STATUS_LINE = "%s · 항체 %s · 정식 스킬 %d개" % (VERSION, ANTIBODY_RANGE, EXPECTED_SKILL_COUNT)
 R49_VIBE3D_ORGAN = "rgon_aon_vibe3d_director.py"
@@ -1227,8 +1227,8 @@ if callable(_r49_orig_vsl) and not getattr(_r49_orig_vsl, "_r49", False):
 # [RGON-R49-VERIFIER-EXT-END]
 
 # [RGON-R50-VERIFIER-EXT-START]
-VERSION = "v11.55-AON-TELEGRAM-MESSENGER"
-ANTIBODY_RANGE = "R1~R56"
+VERSION = "v11.56-AON-INVISIBLE-KAKAO-TG"
+ANTIBODY_RANGE = "R1~R57"
 EXPECTED_SKILL_COUNT = 46
 STATUS_LINE = "%s · 항체 %s · 정식 스킬 %d개" % (VERSION, ANTIBODY_RANGE, EXPECTED_SKILL_COUNT)
 R50_IMPECCABLE_ORGAN = "rgon_aon_impeccable_audit_shield.py"
@@ -1272,8 +1272,8 @@ if callable(_r50_orig_vsl) and not getattr(_r50_orig_vsl, "_r50", False):
 # [RGON-R50-VERIFIER-EXT-END]
 
 # [RGON-R51-VERIFIER-EXT-START]
-VERSION = "v11.55-AON-TELEGRAM-MESSENGER"
-ANTIBODY_RANGE = "R1~R56"
+VERSION = "v11.56-AON-INVISIBLE-KAKAO-TG"
+ANTIBODY_RANGE = "R1~R57"
 EXPECTED_SKILL_COUNT = 47
 STATUS_LINE = "%s · 항체 %s · 정식 스킬 %d개" % (VERSION, ANTIBODY_RANGE, EXPECTED_SKILL_COUNT)
 R51_TOKEN_MASTER_ORGAN = "rgon_aon_token_egolite_master.py"
@@ -1317,8 +1317,8 @@ if callable(_r51_orig_vsl) and not getattr(_r51_orig_vsl, "_r51", False):
 # [RGON-R51-VERIFIER-EXT-END]
 
 # [RGON-R52-VERIFIER-EXT-START]
-VERSION = "v11.55-AON-TELEGRAM-MESSENGER"
-ANTIBODY_RANGE = "R1~R56"
+VERSION = "v11.56-AON-INVISIBLE-KAKAO-TG"
+ANTIBODY_RANGE = "R1~R57"
 EXPECTED_SKILL_COUNT = 48
 STATUS_LINE = "%s · 항체 %s · 정식 스킬 %d개" % (VERSION, ANTIBODY_RANGE, EXPECTED_SKILL_COUNT)
 R52_COMMANDER_TWIN_ORGAN = "rgon_aon_commander_twin.py"
@@ -1364,8 +1364,8 @@ if callable(_r52_orig_vsl) and not getattr(_r52_orig_vsl, "_r52", False):
 
 
 # [RGON-R53-VERIFIER-EXT-START]
-VERSION = "v11.55-AON-TELEGRAM-MESSENGER"
-ANTIBODY_RANGE = "R1~R56"
+VERSION = "v11.56-AON-INVISIBLE-KAKAO-TG"
+ANTIBODY_RANGE = "R1~R57"
 EXPECTED_SKILL_COUNT = 49
 STATUS_LINE = "%s · 항체 %s · 정식 스킬 %d개" % (VERSION, ANTIBODY_RANGE, EXPECTED_SKILL_COUNT)
 R53_PAGE_BUTTON_BOT_ORGAN = "rgon_aon_page_button_bot_engine.py"
@@ -1410,9 +1410,9 @@ if callable(_r53_orig_vsl) and not getattr(_r53_orig_vsl, "_r53", False):
 
 
 # [RGON-R54-VERIFIER-EXT-START]
-VERSION = "v11.55-AON-TELEGRAM-MESSENGER"
-ANTIBODY_RANGE = "R1~R56"
-EXPECTED_SKILL_COUNT = 52
+VERSION = "v11.56-AON-INVISIBLE-KAKAO-TG"
+ANTIBODY_RANGE = "R1~R57"
+EXPECTED_SKILL_COUNT = 53
 STATUS_LINE = "%s · 항체 %s · 정식 스킬 %d개" % (VERSION, ANTIBODY_RANGE, EXPECTED_SKILL_COUNT)
 R54_INSPECTOR_ORGAN = "rgon_aon_inspector_general_gate.py"
 try:
@@ -1456,9 +1456,9 @@ if callable(_r54_orig_vsl) and not getattr(_r54_orig_vsl, "_r54", False):
 
 
 # [RGON-R55-VERIFIER-EXT-START]
-VERSION = "v11.55-AON-TELEGRAM-MESSENGER"
-ANTIBODY_RANGE = "R1~R56"
-EXPECTED_SKILL_COUNT = 52
+VERSION = "v11.56-AON-INVISIBLE-KAKAO-TG"
+ANTIBODY_RANGE = "R1~R57"
+EXPECTED_SKILL_COUNT = 53
 STATUS_LINE = "%s · 항체 %s · 정식 스킬 %d개" % (VERSION, ANTIBODY_RANGE, EXPECTED_SKILL_COUNT)
 R55_ORG_CHART_ORGAN = "rgon_aon_supreme_org_chart_engine.py"
 try:
@@ -1502,9 +1502,9 @@ if callable(_r55_orig_vsl) and not getattr(_r55_orig_vsl, "_r55", False):
 
 
 # [RGON-R56-VERIFIER-EXT-START]
-VERSION = "v11.55-AON-TELEGRAM-MESSENGER"
-ANTIBODY_RANGE = "R1~R56"
-EXPECTED_SKILL_COUNT = 52
+VERSION = "v11.56-AON-INVISIBLE-KAKAO-TG"
+ANTIBODY_RANGE = "R1~R57"
+EXPECTED_SKILL_COUNT = 53
 STATUS_LINE = "%s · 항체 %s · 정식 스킬 %d개" % (VERSION, ANTIBODY_RANGE, EXPECTED_SKILL_COUNT)
 R56_TELEGRAM_ORGAN = "rgon_aon_telegram_omni_messenger.py"
 try:
@@ -1545,6 +1545,52 @@ if callable(_r56_orig_vsl) and not getattr(_r56_orig_vsl, "_r56", False):
         return res
     verify_synapse_links._r56 = True
 # [RGON-R56-VERIFIER-EXT-END]
+
+
+# [RGON-R57-VERIFIER-EXT-START]
+VERSION = "v11.56-AON-INVISIBLE-KAKAO-TG"
+ANTIBODY_RANGE = "R1~R57"
+EXPECTED_SKILL_COUNT = 53
+STATUS_LINE = "%s · 항체 %s · 정식 스킬 %d개" % (VERSION, ANTIBODY_RANGE, EXPECTED_SKILL_COUNT)
+R57_INVISIBLE_ORGAN = "rgon_aon_invisible_kakao_tg_backbone.py"
+try:
+    if R57_INVISIBLE_ORGAN not in ORGANS:
+        ORGANS.append(R57_INVISIBLE_ORGAN)
+except NameError:
+    ORGANS = [R57_INVISIBLE_ORGAN]
+
+def _r57_s27_check():
+    import time as _tm, importlib as _il
+    _t0 = _tm.perf_counter()
+    name = "대화허브(/인비저블·/카톡·/사령부톡)→제33기관 인비저블 텔레그램 백본 & 카톡형 만능 대화창"
+    try:
+        dlg = _il.import_module("rgon_aon_dialogue_engine")
+        fn = getattr(dlg, "_r57_invisible_kakao_route", None)
+        if not fn:
+            fn = getattr(dlg, "r40_route", None)
+        r = fn("/인비저블 4대 채널톡 및 3대 텔레그램 백본 연결 점검") if fn else None
+        ok = isinstance(r, dict) and r.get("ok") is True and (r.get("intent") == "invisible_kakao_tg" or "invisible_kakao_tg" in str(r))
+        ev = f"intent={r.get('intent') if isinstance(r, dict) else None}, ok={r.get('ok') if isinstance(r, dict) else False}"
+        return {"id": "S27", "name": name, "ok": bool(ok), "sec": round(_tm.perf_counter() - _t0, 3),
+                "evidence": ev, "detail": r}
+    except Exception as e:
+        return {"id": "S27", "name": name, "ok": False, "sec": round(_tm.perf_counter() - _t0, 3),
+                "evidence": repr(e), "detail": repr(e)}
+
+_r57_orig_vsl = globals().get("verify_synapse_links")
+if callable(_r57_orig_vsl) and not getattr(_r57_orig_vsl, "_r57", False):
+    def verify_synapse_links(*args, **kwargs):
+        res = _r57_orig_vsl(*args, **kwargs)
+        s27 = _r57_s27_check()
+        if isinstance(res, dict) and isinstance(res.get("synapses"), list):
+            items = [x for x in res["synapses"] if not (isinstance(x, dict) and x.get("id") == "S27")] + [s27]
+            res["synapses"] = items
+            res["passed"] = sum(1 for x in items if isinstance(x, dict) and x.get("ok"))
+            res["total"] = len(items)
+            res["ok"] = res["passed"] == res["total"]
+        return res
+    verify_synapse_links._r57 = True
+# [RGON-R57-VERIFIER-EXT-END]
 
 if __name__ == "__main__":
     if os.environ.get("RGON_R40_VERIFY") == "1" and "--self-test" in sys.argv:

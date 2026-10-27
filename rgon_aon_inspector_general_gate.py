@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """rgon_aon_inspector_general_gate.py — 제30기관: 아온 7대 방침 기관장 분신단 & 독립 검수담당 총장(Supreme Inspector General)·기관별 특화 검수장 100% 출하 봉인 관문 시스템
-버전: v11.55-AON-TELEGRAM-MESSENGER · 항체: R1~R56 · 정식 스킬 #50 aon-inspector-general-gate
+버전: v11.56-AON-INVISIBLE-KAKAO-TG · 항체: R1~R57 · 정식 스킬 #50 aon-inspector-general-gate
 주역: #21 화뢰서합(噬嗑 ☲☳) — 엄정한 법도와 심판으로 장애물을 깨물어 합치시킴 (100% 출하 관문)
      #15 지산겸(謙 ☷☶) — 권력을 나누고 스스로를 낮추어 완벽한 균형과 무결성을 이룸 (권력 분립)
 글로벌 Top 1 롤모델: Guardrails AI (도메인별 구조화 출력 검증) + Anthropic Constitutional AI (독립 헌법 기반 교차 심판) + 조선 어사대(御史臺) 독립 감찰 제도
@@ -33,8 +33,8 @@ ROOT = Path(__file__).resolve().parent
 # ---------------------------------------------------------------------------
 # SSOT 전역 메타데이터
 # ---------------------------------------------------------------------------
-VERSION = "v11.55-AON-TELEGRAM-MESSENGER"
-ANTIBODY_RANGE = "R1~R56"
+VERSION = "v11.56-AON-INVISIBLE-KAKAO-TG"
+ANTIBODY_RANGE = "R1~R57"
 SKILL_COUNT = 50
 SKILL_ID = "aon-inspector-general-gate"
 ORGAN_NAME = "제30기관 아온 7대 방침 기관장 분신단 & 독립 검수담당 총장 100% 출하 봉인 관문 시스템"
@@ -186,7 +186,7 @@ class SupremeInspectorGeneral:
                     {"id": "RUBRIC-06-1", "name": "4대 보호파일 SHA-256 100% 일치", "desc": "핵심 코어 소스코드 무결성 보존"},
                     {"id": "RUBRIC-06-2", "name": "API 키·비밀번호 노출 0건", "desc": "Git 리포지토리 및 소스 내 시크릿 유출 제로"},
                     {"id": "RUBRIC-06-3", "name": "상주 데몬 0개 · 평시 CPU 0.0%", "desc": "노트북 배터리 및 팬 소음 방지"},
-                    {"id": "RUBRIC-06-4", "name": "항체 R1~R56 전수 가동", "desc": "면역 원장 내 전 항체 정상 활성화"},
+                    {"id": "RUBRIC-06-4", "name": "항체 R1~R57 전수 가동", "desc": "면역 원장 내 전 항체 정상 활성화"},
                     {"id": "RUBRIC-06-5", "name": "신경망 시냅스 100.0 만점", "desc": "synapse_health_score 100.0 수렴 유지"}
                 ]
             },
@@ -503,13 +503,13 @@ def self_test(verbose: bool = True) -> bool:
         tests.append({"name": name, "ok": bool(cond), "note": note})
 
     # 01. 버전 일치
-    check("버전 v11.53 일치", VERSION == "v11.55-AON-TELEGRAM-MESSENGER", VERSION)
+    check("버전 v11.53 일치", VERSION == "v11.56-AON-INVISIBLE-KAKAO-TG", VERSION)
 
-    # 02. 항체 범위 R1~R56 일치
-    check("항체 R1~R56 일치", ANTIBODY_RANGE == "R1~R56", ANTIBODY_RANGE)
+    # 02. 항체 범위 R1~R57 일치
+    check("항체 R1~R57 일치", ANTIBODY_RANGE == "R1~R57", ANTIBODY_RANGE)
 
-    # 03. 정식 스킬 52개 일치
-    check("정식 스킬 52개 일치", SKILL_COUNT == 50, f"{SKILL_COUNT}개")
+    # 03. 정식 스킬 53개 일치
+    check("정식 스킬 53개 일치", SKILL_COUNT == 50, f"{SKILL_COUNT}개")
 
     # 04. 제30기관 명칭 확인
     check("제30기관 명칭 확인", "아온 7대 방침 기관장 분신단 & 독립 검수담당 총장" in ORGAN_NAME)
