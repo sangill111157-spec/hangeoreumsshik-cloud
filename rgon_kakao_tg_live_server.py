@@ -122,7 +122,7 @@ def query_pollinations_ai(prompt: str) -> str:
     }
     try:
         req = urllib.request.Request(url, headers=headers)
-        with urllib.request.urlopen(req, timeout=3.5) as resp:
+        with urllib.request.urlopen(req, timeout=12.0) as resp:
             ans = resp.read().decode('utf-8').strip()
             if ans and len(ans) > 2 and not ans.startswith("<!DOCTYPE") and "402" not in ans:
                 return ans

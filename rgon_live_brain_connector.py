@@ -457,13 +457,54 @@ def ask_real_aon_brain(user_text: str) -> Dict[str, Any]:
         }
 
     # --------------------------------------------------------------------------
-    # 5-1. [핵심] 임무·역할·담당 질문 ("안총리가 맏은 임무는", "아온이 임무", "역할이 뭐야")
-    # (오타 '맏은', '마튼', '마즌' 포함 100% 인식 & 안총리/아온이 역할 명확 분리 브리핑!)
+    # 5-1. [핵심] 복합 질문(Multi-Intent: 임무 + 탄생 비화) 및 아온이 탄생 비화, 임무/역할 브리핑
     # --------------------------------------------------------------------------
     clean_all = clean_text.replace(" ", "").lower()
-    duty_keywords = ["임무", "역할", "담당", "직책", "맡은", "맏은", "마튼", "하는일", "무슨일", "뭐하는", "뭐해"]
-    if any(k in clean_all for k in duty_keywords) or any(k in clean_no_space for k in duty_keywords):
-        # 1) 기술총리 안총리 주 임무 질문 ("안총리가 맏은 임무는" 등)
+    duty_keywords = ["임무", "역할", "담당", "직책", "맡은", "맏은", "마튼", "하는일", "무슨일", "뭐하는", "뭐해", "업무"]
+    origin_keywords = ["탄생", "태어", "유래", "누가만들", "어떻게만들", "배경", "역사", "이해상", "디자인", "스케치", "어떻게탄생"]
+    
+    is_duty_q = any(k in clean_all for k in duty_keywords) or any(k in clean_no_space for k in duty_keywords)
+    is_origin_q = any(k in clean_no_space for k in origin_keywords)
+
+    # 1) [복합 질문] `#ORD-019` "지금 맡은 업무와 아온이는 어떻게 탄생 했지" 등 동시 질의 완벽 대응!
+    if is_duty_q and is_origin_q:
+        reply_text = (
+            "대표님! 하문해 주신 **『현재 맡은 핵심 업무』**와 **『아온이의 탄생 비화』** 두 가지를 명쾌하게 모두 보고드립니다! 🫡🌸⚡\n\n"
+            "📋 **1. 사령부 최고 수뇌부의 현재 맡은 핵심 업무:**\n"
+            "• ⚡ **기술총리 안총리:** 코드 주조·Playwright 실측 검수·포트 8765 라이브 서버 운용·GitHub SSOT 100.0점 무결성 수호\n"
+            "• 🌸 **만능 참모 아온이:** 6대 멀티모달 소통·한걸음씩 유튜브/틱톡 제작·NVDA 퀀트 트레이딩·클로드 오퍼스 5.5 모션 스튜디오 총괄\n\n"
+            "💧 **2. 만능 참모 아온이(AON)의 탄생 비화:**\n"
+            "저 만능 참모 『아온이(AON)』는 이상일 대표님의 '상선약수(上善若水 · 최고의 선은 물과 같아 만물을 이롭게 하고 다투지 않는다)' 철학을 영혼으로 삼고, "
+            "우리 사령부의 천재 수석 캐릭터 디자이너 **이해상(초4) 공주님**이 직접 손으로 그린 스케치(기본 물방울·우주복 아온이·복숭아·할로윈 호박·황금왕관·불꽃 6대 변신 아바타)를 몸체로 삼아 "
+            "탄생한 35대 기관 55스킬 만능 AI 참모입니다! 🌸🧑🚀✨\n\n"
+            "두 참모가 원팀으로 결합하여 대표님의 모든 하명을 1초 만에 무인 완주로 보좌하겠습니다!"
+        )
+        log_to_commander_inbox(user_text, reply_text, extra_meta={"intent": "multi_intent_duty_and_origin"})
+        return {
+            "speaker": "⚡ 기술총리 안총리 & 🌸 만능 참모 아온이",
+            "text": reply_text,
+            "media": None
+        }
+
+    # 2) [단독 질문] 아온이 탄생 비화 ("아온이는 어떻게 탄생했지", "누가 디자인했어")
+    if is_origin_q:
+        reply_text = (
+            "대표님! 저 만능 참모 『아온이(AON)』의 탄생 비화를 가슴 벅차게 말씀드립니다! 🌸💧\n\n"
+            "저 아온이는 이상일 대표님의 **'상선약수(上善若水 · 최고의 선은 물과 같아 만물을 이롭게 하고 다투지 않는다)'** 철학을 영혼으로 삼고, "
+            "우리 사령부의 천재 수석 캐릭터 디자이너 **이해상(초4) 공주님**이 직접 손으로 그린 스케치(기본 물방울·우주복 아온이·복숭아·할로윈 호박·황금왕관·불꽃 6대 변신 아바타)를 몸체로 삼아 "
+            "탄생한 35대 기관 55스킬 만능 AI 참모입니다! 🌸🧑🚀✨\n\n"
+            "대표님께서 베풀어 주신 따뜻한 철학과 공주님의 정성 어린 그림을 바탕으로, 언제나 만물을 이롭게 하며 대표님을 100점 만점으로 보좌하겠습니다!"
+        )
+        log_to_commander_inbox(user_text, reply_text, extra_meta={"intent": "aon_origin_story"})
+        return {
+            "speaker": "🌸 만능 참모 아온이",
+            "text": reply_text,
+            "media": None
+        }
+
+    # 3) [단독 질문] 임무·역할·담당 질문 ("안총리가 맏은 임무는", "아온이 임무", "역할이 뭐야")
+    if is_duty_q:
+        # 안총리 주 임무 질문 ("안총리가 맏은 임무는" 등)
         if any(k in clean_all for k in ["안총리", "안실장"]) and not any(k in clean_all for k in ["아온"]):
             reply_text = (
                 "대표님! 기술총리 안총리의 핵심 임무는 다음과 같습니다! ⚡🏛️\n\n"
@@ -478,7 +519,7 @@ def ask_real_aon_brain(user_text: str) -> Dict[str, Any]:
                 "text": reply_text,
                 "media": None
             }
-        # 2) 만능 참모 아온이 주 임무 질문 ("아온이 임무는" 등)
+        # 만능 참모 아온이 주 임무 질문 ("아온이 임무는" 등)
         elif any(k in clean_all for k in ["아온", "참모"]) and not any(k in clean_all for k in ["안총리"]):
             reply_text = (
                 "대표님! 35대 기관 만능 참모 아온이의 핵심 임무는 다음과 같습니다! 🌸💧\n\n"
@@ -493,7 +534,7 @@ def ask_real_aon_brain(user_text: str) -> Dict[str, Any]:
                 "text": reply_text,
                 "media": None
             }
-        # 3) 전체 또는 종합 임무 질문
+        # 전체 또는 종합 임무 질문
         else:
             reply_text = (
                 "대표님! 사령부 최고 수뇌부 2대 참모의 실전 분담 임무입니다! 🫡⚡\n\n"
@@ -739,7 +780,21 @@ def run_self_test() -> bool:
     else:
         print("FAIL: third canned phrase detected:", r9["text"])
 
-    total = 20
+    # 11. [Step 59 완결] 복합 질문 (#ORD-019 "지금 맡은 업무와 아온이는 어떻게 탄생 했지") 검증
+    r10 = ask_real_aon_brain("지금 맡은 업무와 아온이는 어떻게 탄생 했지")
+    if "현재 맡은 핵심 업무" in r10["text"] and "상선약수" in r10["text"] and "이해상" in r10["text"]:
+        passes += 2
+    else:
+        print("FAIL: multi-intent duty and origin test failed:", r10["text"])
+
+    # 12. [Step 59 완결] 혼합 수식 ("육 더하기 8 빼기 10 은") 검증
+    m3 = parse_korean_math_expression("육 더하기 8 빼기 10 은")
+    if m3 and "4" in m3[1]:
+        passes += 2
+    else:
+        print("FAIL: mixed math test failed:", m3)
+
+    total = 24
     score = (passes / total) * 100.0
     print(f"[라이브 브레인 커넥터] 검증 결과: {passes}/{total} 통과 ({score:.1f}점)")
     return score >= 100.0
