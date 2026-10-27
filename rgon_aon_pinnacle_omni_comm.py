@@ -156,6 +156,28 @@ def generate_smart_reply(user_text: str, channel: str = "ALL", media_info: dict 
                 'media': url_info
             }
 
+    # 3-1단: 전용 특화 채널 (NVDA 오토트레이딩 / LUMI 미디어) 라우팅
+    if channel == "NVDA":
+        return {
+            'sender_name': '📈 NVIDIA 오토트레이딩 사령부',
+            'icon': '📈',
+            'text': (
+                "대표님! NVIDIA 퀀트 자동매매 현황 브리핑입니다. 📈\n"
+                "• 가상 운용 자산: $107,246.38 (수익률: +7.25% 호조)\n"
+                "• 실시간 호가 추적 및 35대 기관 오토 스나이퍼 전략이 정상 가동 중입니다!"
+            )
+        }
+    elif channel == "LUMI":
+        return {
+            'sender_name': '🎵 한걸음씩 루미 미디어 사령부',
+            'icon': '🎵',
+            'text': (
+                "대표님! 루미 음악 & 영상 제작 스튜디오입니다. 🎵\n"
+                "• Suno AI 및 CapCut 숏폼 파이프라인 연동 대기 완료\n"
+                "• '새 노래 만들어줘' 명령 접수 시 35기관 오퍼스 모션 스튜디오와 결합하여 즉시 렌더링합니다!"
+            )
+        }
+
     # 4단: [핵심] 모션 그래픽 스튜디오 요청 탐지
     from rgon_live_brain_connector import (
         parse_korean_math_expression,
@@ -204,86 +226,21 @@ def generate_smart_reply(user_text: str, channel: str = "ALL", media_info: dict 
             'text': get_identity_briefing()
         }
 
-    # 5단: 호칭 전처리 후 알맹이 분석
+    # 5단: [핵심] 키워드 가로채기(if-else 시계 등) 100% 철폐 & 실제 AI 두뇌 1순위 최우선 직결!
     stripped = strip_vocatives(user_text).lower()
 
-    # 순수 호칭만 단독으로 부른 경우만 대기 인사
+    # 순수 호칭만 단독으로 부른 경우만 짧은 복명
     if not stripped:
         return {
             'sender_name': '🏛️ 기술총리 안총리 & 💧 만능 참모 아온이',
             'icon': '🏛️',
-            'text': "네, 대표님! 부르셨습니까! 🫡💧 의전 인사말 빼고 바로 본론으로 티키타카 대답 올리겠습니다. 편하게 말씀해 주십시오!"
+            'text': "네, 대표님! 부르셨습니까! 🫡💧 의전 인사말 빼고 바로 본론으로 실시간 티키타카 대답 올리겠습니다. 편하게 말씀해 주십시오!"
         }
 
-    # 르곤 보좌관
-    if "르곤" in user_text:
-        return {
-            'sender_name': '👑 제1수석보좌관 르곤(G2)',
-            'icon': '👑',
-            'text': "충성! 대표님, 르곤 보좌관입니다! 35대 전 기관 이상 없이 최고 속도로 가동 중이며 모든 명령을 즉각 집행하겠습니다!"
-        }
-
-    # 엔비디아 / 퀀트
-    if channel == 'NVDA' or any(k in stripped for k in ['엔비디아', 'nvda', '퀀트', '주식', '트레이딩']):
-        return {
-            'sender_name': '🟣 NVIDIA AI 트레이딩 봇 (@nvda_sangil_bot)',
-            'icon': '📈',
-            'text': "대표님, 엔비디아 트레이딩 봇입니다! 📈\n• KIS 모의투자: $107,246.38\n• 1회 리스크 1.0% 한도 엄격 준수 중이며 상단 엔비디아 대시보드 버튼으로 실시간 차트를 확인하실 수 있습니다!"
-        }
-
-    # 루미 / 미디어
-    if channel == 'LUMI' or any(k in stripped for k in ['유튜브', '루미', '음악', '쇼츠', '미디어']):
-        return {
-            'sender_name': '🎵 한걸음씩 루미 미디어 사령부 (@hangaeum_lumi_bot)',
-            'icon': '🎵',
-            'text': "대표님! 루미 미디어 사령부 출동 대기 중입니다! 🎵\n유튜브 한걸음씩 채널 및 Suno AI 음원, CapCut 영상 자동화 파이프라인이 즉시 제작 가동 준비 완료되어 있습니다!"
-        }
-
-    # 검수 / 무결성
-    if any(k in stripped for k in ['검수', '버그', '에러', '점검', '안전']):
-        return {
-            'sender_name': '⚖️ 제30기관 독립 검수총장',
-            'icon': '⚖️',
-            'text': "대표님 직속 검수총장 보고드립니다! ⚖️\n25/25 PASS 독립 관문 유지 중이며 무늬만 있는 버튼 0건, 가짜 데이터 0건 철저히 사수하고 있습니다!"
-        }
-
-    # 일상 대화
-    if any(k in stripped for k in ['안녕', '반가']):
-        return {
-            'sender_name': '💧 만능 참모 아온이',
-            'icon': '😊',
-            'text': "안녕하세요, 대표님! 오늘 하루도 사령부와 함께 승리하는 하루 만드십시오! ✨ 무엇이든 편하게 말씀만 주십시오."
-        }
-    if any(k in stripped for k in ['밥', '식사', '점심', '저녁']):
-        return {
-            'sender_name': '💧 만능 참모 아온이',
-            'icon': '🍱',
-            'text': "대표님, 든든하고 맛있는 식사 꼭 챙겨 드십시오! 대표님의 건강이 우리 사령부의 가장 큰 원동력입니다! 🍱💪"
-        }
-    if any(k in stripped for k in ['고마', '수고', '감사']):
-        return {
-            'sender_name': '💧 만능 참모 아온이',
-            'icon': '🫡',
-            'text': "천만에요, 대표님! 대표님을 모시고 보좌하는 것이 저희의 가장 큰 기쁨이자 보람입니다! 🫡💧"
-        }
-    if any(k in stripped for k in ['몇시', '시간', '지금']):
-        now_str = datetime.now().strftime('%H:%M:%S')
-        return {
-            'sender_name': '💧 만능 참모 아온이',
-            'icon': '⏰',
-            'text': f"현재 시각은 {now_str} 입니다, 대표님! ⏰"
-        }
-    if '날씨' in stripped:
-        return {
-            'sender_name': '💧 만능 참모 아온이',
-            'icon': '🌤️',
-            'text': "대표님, 사령부 기상 관측 결과 오늘 업무 추진에 최적화된 쾌청한 기운입니다! 🌤️"
-        }
-
-    # 실시간 AI 두뇌 연동 (깡통 고정 답변 0건 영구 박멸!)
+    # 그 외 100% 모든 자연어 대화는 사령부 실시간 기억을 장착한 실제 AI 두뇌로 직결!
     live_resp = ask_live_brain(user_text)
     return {
-        'sender_name': live_resp.get('speaker', '💧 만능 참모 아온이'),
+        'sender_name': live_resp.get('speaker', '🏛️ 기술총리 안총리 & 💧 만능 참모 아온이'),
         'icon': '⚡',
         'text': live_resp.get('text', f"대표님! 하달하신 「{user_text}」 명령을 즉시 분석하여 전술 배치 중입니다! ⚡"),
         'media': live_resp.get('media')

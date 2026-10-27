@@ -129,7 +129,7 @@ def get_single_smart_tikitaka_reply(user_text: str, channel: str = "ALL", media_
     """[Step 58 제34기관] 호칭 가로채기 0% 면역 & 실시간 작업 기억 & 멀티모달 티키타카 엔진 직결"""
     try:
         import rgon_aon_pinnacle_omni_comm as pin_mod
-        res = pin_mod.generate_smart_reply(user_text, channel, media_info)
+        res = pin_mod.generate_smart_reply(user_text, media_info=media_info, channel=channel)
         return {
             "sender_id": res.get("sender_id", "AON-PINNACLE"),
             "sender_name": res.get("sender_name", "🏛️ 안총리 & 💧 아온이"),

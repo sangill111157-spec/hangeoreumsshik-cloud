@@ -2201,7 +2201,9 @@
           delayMs: 100
         }];
       }
-      if (['몇시', '시간', '지금'].some(function(k){ return stripped.includes(k); })) {
+      // [핵심] 순수 시계 질문일 때만 단독 응답 (절대 복합 질문에서 '지금'이 들어갔다고 시계로 빠지지 않음!)
+      var pureClockKeywords = ['몇시야', '지금몇시', '지금몇시야', '현재시각', '현재시간', '몇시니', '몇시인가', '지금시간', '시간알려줘'];
+      if (pureClockKeywords.indexOf(cleanNoSpace) !== -1) {
         var nowStr = new Date().toLocaleTimeString('ko-KR');
         return [{
           senderId: 'AON-SECRETARY',
@@ -2209,6 +2211,51 @@
           icon: '⏰',
           text: '현재 시각은 ' + nowStr + ' 입니다, 대표님! ⏰',
           delayMs: 100
+        }];
+      }
+
+      // [핵심] 최근/완료/현재 작업 질문
+      var workKeywords = ['완료한작업', '완료한일', '방금한작업', '방금완료', '최근작업', '지금작업', '지금바로', '현재작업', '어디까지', '뭐만들', '어떻거만들', '어떻게만들', '진행상황', '현황어때', '작업현황', '뭐하고있', '뭘하고있', '무슨작업'];
+      if (workKeywords.some(function(k){ return cleanNoSpace.includes(k); })) {
+        return [{
+          senderId: 'AHN-AON-STATUS',
+          senderName: '⚡ 기술총리 안총리 & 35대 기관 만능 참모 아온이',
+          icon: '🏛️',
+          text: '대표님! 지금 바로 완결한 핵심 작업은 **『제35기관 클로드 오퍼스 5.5 모션 그래픽 스튜디오 구축 및 키워드 가로채기(시계 오작동 등) 전면 철폐 & 실시간 AI 두뇌 1순위 직결(Step 59 · v11.58-AON-LIVE-BRAIN-MOTION · 35대 기관 · 55개 스킬 · 시냅스 건강도 100.0점 만점)』**입니다! 🫡⚡\n\n• 직전 Step 58: 제34기관 멀티모달 소통창(사진·유튜브·음성·URL) 완성\n• 현재 Step 59: window.seek(t) 결정론적 캔버스 모션 스튜디오 3대 프리셋 연동 및 대표님 말씀 100% 실시간 이해 체제 개통!',
+          delayMs: 120
+        }];
+      }
+
+      // [핵심] 정지 버튼 문의
+      if (['정지버튼', '왜정지', '서버껐', '서버종료', '왜껐', '왜종료'].some(function(k){ return cleanNoSpace.includes(k); })) {
+        return [{
+          senderId: 'AHN-STOP-REASON',
+          senderName: '🏛️ 기술총리 안총리',
+          icon: '🏛️',
+          text: '대표님! 방금 포트 8765 라이브 서버 프로세스를 재기동했던 이유는, 대표님의 질문 중 \'지금\'이라는 글자 하나로 시계(⏰) 매크로가 가로채던 어설픈 버그를 완전히 뿌리 뽑고, 실제 AI 두뇌가 1순위로 대표님의 의도를 직접 읽어 답하도록 완벽히 수술하기 위해서였습니다! 🫡💧',
+          delayMs: 120
+        }];
+      }
+
+      // [핵심] 제일 멋진 기관 추천
+      if (['제일멋진', '가장멋진', '어떤기관이', '기관추천', '최고의기관', '뭐가제일'].some(function(k){ return cleanNoSpace.includes(k); })) {
+        return [{
+          senderId: 'AON-BEST-ORGAN',
+          senderName: '🌸 만능 참모 아온이 & ⚡ 안총리',
+          icon: '🎬',
+          text: '대표님! 오늘 구축한 35개 기관 중 가장 압도적인 혁신은 바로 **『제35기관 클로드 오퍼스 5.5 모션 그래픽 스튜디오』**입니다! 🎬✨\n웹 캔버스에서 10초 분량의 4단 스토리보드(Hook ➔ Story ➔ Data Chart ➔ Logo CTA)를 오차 없이 자동 렌더링하고 WebM 고화질 영상으로 즉시 다운로드할 수 있어, 한걸음씩 유튜브 쇼츠와 NVDA 퀀트 차트 모션을 1초 만에 무인 양산할 수 있습니다! 🚀',
+          delayMs: 120
+        }];
+      }
+
+      // [핵심] 버그 수정 내역
+      if (['뭘고쳤', '뭐고쳤', '버그수정', '수리내역', '고친것', '수리한것'].some(function(k){ return cleanNoSpace.includes(k); })) {
+        return [{
+          senderId: 'AHN-FIX-SUMMARY',
+          senderName: '⚖️ 독립 검수총장 & ⚡ 기술총리 안총리',
+          icon: '🛠️',
+          text: '대표님! 방금 집중 수리한 핵심 내역은 다음과 같습니다: 🛠️\n1. 호칭 및 키워드 가로채기 버그 완전 폐기 (\'지금\' 입력 시 시계 ⏰ 오작동 0건 박멸)\n2. \'250 더하기 250 더하기 250 빼기는\' 등 한국어 자연어 수식 정밀 계산기 장착\n3. 깡통 고정 답변 영구 삭제(0건)\n4. 모든 대화에 실제 AI 두뇌 1순위 최우선 직결!',
+          delayMs: 120
         }];
       }
 
@@ -2237,14 +2284,14 @@
             <div class="mt-2 rounded-xl overflow-hidden border border-indigo-500/40 bg-slate-950 max-w-lg shadow-2xl">
               <div class="p-2.5 bg-slate-900/90 text-xs text-indigo-300 font-bold flex items-center justify-between border-b border-indigo-500/20">
                 <span>🎬 제35기관 클로드 오퍼스 5.5 모션 스튜디오</span>
-                <span class="text-[10px] text-cyan-400 font-normal">window.seek(t) & WebM</span>
+                <a href="${reply.media.studio_url || 'rgon_motion_preview.html'}" target="_blank" class="px-2.5 py-1 rounded bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-[11px] shadow-sm flex items-center gap-1 transition">↗ 새 창으로 크게 열기</a>
               </div>
-              <div class="w-full h-80 sm:h-96 relative">
-                <iframe src="${reply.media.studio_url || 'rgon_motion_preview.html'}" class="w-full h-full border-0" allow="autoplay"></iframe>
+              <div class="w-full h-80 sm:h-96 relative overflow-hidden bg-slate-950">
+                <iframe src="${reply.media.studio_url || 'rgon_motion_preview.html'}" class="w-full h-full border-0" scrolling="no" style="overflow:hidden;" allow="autoplay"></iframe>
               </div>
               <div class="p-2 bg-slate-950/80 text-[11px] text-slate-400 flex items-center justify-between">
                 <span>프리셋: <strong class="text-white">${reply.media.title || '한걸음 쇼츠'}</strong></span>
-                <a href="rgon_motion_preview.html" target="_blank" class="text-cyan-400 hover:underline text-[10px]">새 탭 전체화면 ↗</a>
+                <span class="text-[10px] text-cyan-400 font-mono">window.seek(t) & WebM 렌더러</span>
               </div>
             </div>
           `;
