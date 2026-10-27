@@ -124,3 +124,9 @@
 - 핵심: WebMCP/Stagehand 전 페이지·전 버튼 결정론적 자동화 봇 전환 + n8n-Lite 5대 표준 체인 오케스트레이터 및 SHA-256 감사 영수증
 
 - **`aon-inspector-general-gate`** (50번): 아온 7대 방침 기관장 분신단 & 독립 검수담당 총장 100% 출하 봉인 관문 시스템 (`skills/aon-inspector-general-gate/SKILL.md`)
+
+<!-- [RGON-SKILL-51] -->
+## 51. `aon-supreme-org-chart-architect` (R55 · v11.54-AON-SUPREME-ORG-CHART)
+- 경로: `skills/aon-supreme-org-chart-architect/SKILL.md`
+- 기관: 제31기관 아온 세계 Top 1 초일류 자율 조직구성도 & 배타적 영토·5대 전술 진형 지휘 본부 (`rgon_aon_supreme_org_chart_engine.py`)
+- 핵심: 4계층 권력분립 조직도(Tier 0~3) + 5대 동적 전술 진형 + 배타적 쓰기 영토 충돌 0건 및 북극성 정렬도 100.0% 만점

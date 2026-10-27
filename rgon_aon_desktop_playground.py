@@ -12,7 +12,7 @@ try:
 except Exception:
     pass
 
-VERSION = "v11.53-AON-INSPECTOR-GENERAL"
+VERSION = "v11.54-AON-SUPREME-ORG-CHART"
 ANTIBODY = "R1~R52"
 SKILL_COUNT = 39
 ROOT = Path(__file__).resolve().parent

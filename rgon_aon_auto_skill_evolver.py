@@ -27,9 +27,9 @@ import urllib.parse
 import urllib.request
 from datetime import datetime, timezone
 
-VERSION = "v11.53-AON-INSPECTOR-GENERAL"
+VERSION = "v11.54-AON-SUPREME-ORG-CHART"
 ANTIBODY = "R46"
-ANTIBODY_RANGE = "R1~R54"
+ANTIBODY_RANGE = "R1~R55"
 ORGAN_NO = 22
 SKILL_COUNT = 42
 SKILL_SLUG = "aon-autonomous-tech-evolver"

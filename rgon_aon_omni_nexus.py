@@ -24,9 +24,9 @@ import datetime
 import tempfile
 import importlib
 
-VERSION = "v11.53-AON-INSPECTOR-GENERAL"
+VERSION = "v11.54-AON-SUPREME-ORG-CHART"
 ANTIBODY = "R43"
-ANTIBODY_RANGE = "R1~R54"
+ANTIBODY_RANGE = "R1~R55"
 ORGAN_NO = 19
 SKILL_COUNT = 39
 SKILL_ID = "aon-omni-nexus-synthesizer"

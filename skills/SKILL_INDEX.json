@@ -1,8 +1,8 @@
 {
-  "version": "v11.53-AON-INSPECTOR-GENERAL",
-  "antibody": "R1~R54",
+  "version": "v11.54-AON-SUPREME-ORG-CHART",
+  "antibody": "R1~R55",
   "generated_at_kst": "2026-10-26 00:23:49 KST",
-  "count": 50,
+  "count": 51,
   "skills": [
     {
       "slug": "1-36-45",
@@ -495,14 +495,25 @@
       "source_url": "rgon_aon_inspector_general_gate.py",
       "origin": "organ-30",
       "path": "skills/aon-inspector-general-gate/SKILL.md"
+    },
+    {
+      "id": 51,
+      "name": "aon-supreme-org-chart-architect",
+      "title": "아온 세계 Top 1 초일류 자율 조직구성도 & 5대 전술 진형 지휘 설계사",
+      "organ": "제31기관",
+      "category": "supreme_org_chart",
+      "description": "4계층 권력분립 조직도 및 5대 동적 전술 진형, 배타적 쓰기 영토 관리",
+      "version": "11.54",
+      "status": "ACTIVE"
     }
   ],
-  "total": 50,
-  "skill_count": 50,
-  "antibody_range": "R1~R54",
-  "antibodies": "R1~R54",
-  "updated": "2026-10-27T08:25:10",
+  "total": 51,
+  "skill_count": 51,
+  "antibody_range": "R1~R55",
+  "antibodies": "R1~R55",
+  "updated": "2026-10-27T09:01:21",
   "synced_at_kst": "2026-10-26 21:30:00 KST",
-  "immune": "R1~R54",
-  "total_skills": 50
+  "immune": "R1~R55",
+  "total_skills": 51,
+  "total_count": 51
 }

@@ -793,7 +793,7 @@ def handle_api_aon_inspector_general(handler, req_data=None):
             return {"ok": False, "error": f"Unknown action: {action}"}
         return {
             "ok": True,
-            "version": "v11.53-AON-INSPECTOR-GENERAL",
+            "version": "v11.54-AON-SUPREME-ORG-CHART",
             "antibody": "R54",
             "endpoint": "/api/aon_inspector_general",
             "total_directors": len(igg.DIRECTORS_REGISTRY),

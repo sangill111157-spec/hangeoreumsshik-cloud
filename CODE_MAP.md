@@ -1,7 +1,7 @@
 # 🗺️ CODE_MAP — RGON shin-agent 코드 지도
 
 <!-- [RGON-STATUS-V25-START] -->
-> **RGON 상태:** v11.53-AON-INSPECTOR-GENERAL · 항체 R1~R54 · 정식 스킬 50개 · 제16기관 신경망 시냅스 검증기 개통
+> **RGON 상태:** v11.54-AON-SUPREME-ORG-CHART · 항체 R1~R55 · 정식 스킬 51개 · 제16기관 신경망 시냅스 검증기 개통
 <!-- [RGON-STATUS-V25-END] -->
 
 > 자동 생성: `step16_karpathy_codemap_and_eod.py` · 2026-10-23 22:29:07 KST · 손으로 수정하지 말고 스크립트를 다시 실행할 것
@@ -1326,7 +1326,7 @@ shin-agent/
 - 산출물: rgon_genes.json · rgon_capsules.json · rgon_ratchet_audit.json · rgon_self_questions.json
 
 <!-- STEP27:BEGIN -->
-## Step 27 · v11.53-AON-INSPECTOR-GENERAL · 항체 R1~R54 · 정식 스킬 50개 (사람의 4대 생명 단계: 오감 100% + 창조 100%)
+## Step 27 · v11.54-AON-SUPREME-ORG-CHART · 항체 R1~R55 · 정식 스킬 51개 (사람의 4대 생명 단계: 오감 100% + 창조 100%)
 - R27: 오감(Live Omni-Sense & Stomper 킬리스트) + 창조 공방(SkillForge·Voyager 도구 자율 합성 & 격리 검증) 상시 가동 — 검증 통과(exit_code=0)한 도구만 정식 승격(혁고정신 革故鼎新)
 - 엔진: rgon_omni_creator_forge.py (LiveOmniSense·StomperKillGate #21-噬嗑 / TieredMemoryPromoter / AutonomousCreatorForge #50-鼎)
 - 창조 도구: custom_tools/stomper_signal_filter.py · kelly_hexagram_sizer.py · skill_synergy_composer.py (Surrogate Verifier 3단계 통과분만 승격)
@@ -1372,13 +1372,13 @@ shin-agent/
 12개 기관 병렬 셀프테스트 · 10대 시냅스 E2E · V13 HTML/SSOT 검증 → `rgon_neural_synapse_map.json`
 <!-- [RGON-R40-ORGAN16-END] -->
 
-## 제17기관 · `rgon_aon_iching_planner.py` (스킬 #37 `aon-iching-strategic-planner` · v11.53-AON-INSPECTOR-GENERAL · 항체 R1~R54 · 정식 스킬 50개)
+## 제17기관 · `rgon_aon_iching_planner.py` (스킬 #37 `aon-iching-strategic-planner` · v11.54-AON-SUPREME-ORG-CHART · 항체 R1~R55 · 정식 스킬 51개)
 - 아온 주역 64괘 시운 전략 기획관 (WOOP·OODA·12시진·3분기 트리)
 
-## v11.53-AON-INSPECTOR-GENERAL · 항체 R1~R54 · 정식 스킬 50개
+## v11.54-AON-SUPREME-ORG-CHART · 항체 R1~R55 · 정식 스킬 51개
 - `rgon_aon_hydro_cycle.py` — 제18기관 아온 상선약수 수순환 자율 대사 & 여백 창조 기관
 
-## v11.53-AON-INSPECTOR-GENERAL · 항체 R1~R54 · 정식 스킬 50개
+## v11.54-AON-SUPREME-ORG-CHART · 항체 R1~R55 · 정식 스킬 51개
 - `rgon_aon_omni_nexus.py` — 제19기관 아온 연결·소통·만능 대집약체 코어
 
 - **`rgon_aon_page_button_bot_engine.py`**: 제29기관 WebMCP & Stagehand 전 페이지·전 버튼 자동화 봇 전환 엔진 (`R53`, 주역 #16 뇌지예·#60 수택절)

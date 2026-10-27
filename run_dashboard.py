@@ -1447,7 +1447,7 @@ class DashboardHandler(SimpleHTTPRequestHandler):
                 import rgon_aon_inspector_general_gate as igg
                 data = {
                     "ok": True,
-                    "version": "v11.53-AON-INSPECTOR-GENERAL",
+                    "version": "v11.54-AON-SUPREME-ORG-CHART",
                     "antibody": "R54",
                     "organ": "제30기관 아온 7대 방침 기관장 분신단 & 독립 검수담당 총장 100% 출하 관문",
                     "total_directors": len(igg.DIRECTORS_REGISTRY),

@@ -13,7 +13,7 @@ except Exception:
     pass
 
 ROOT = Path(__file__).resolve().parent
-VERSION = "v11.53-AON-INSPECTOR-GENERAL"
+VERSION = "v11.54-AON-SUPREME-ORG-CHART"
 ANTIBODY = "R1~R52"
 SKILL_COUNT = 39
 STATE_PATHS = ("rgon_aon_iching_state.json", "docs/rgon_aon_iching_state.json")

@@ -22,7 +22,7 @@ try:
 except Exception:
     pass
 
-VERSION = "v11.53-AON-INSPECTOR-GENERAL"
+VERSION = "v11.54-AON-SUPREME-ORG-CHART"
 ANTIBODY = "R1~R52"
 ORGAN = "제8기관: 자율 대행·위임 집행 기관 (Muse Delegation Engine)"
 ROOT = Path(__file__).resolve().parent

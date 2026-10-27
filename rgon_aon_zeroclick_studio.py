@@ -14,9 +14,9 @@ for _s in ("stdout", "stderr"):
         except Exception:
             pass
 
-VERSION = "v11.53-AON-INSPECTOR-GENERAL"
+VERSION = "v11.54-AON-SUPREME-ORG-CHART"
 ANTIBODY = "R47"
-ANTIBODY_RANGE = "R1~R54"
+ANTIBODY_RANGE = "R1~R55"
 ORGAN_ID = "N19_zeroclick_studio"
 ORGAN_NO = 23
 HEXAGRAMS = [

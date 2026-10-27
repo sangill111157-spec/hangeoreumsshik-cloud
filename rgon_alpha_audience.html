@@ -981,6 +981,7 @@ details.rgon-compact-drawer>.rgon-drawer-body{max-height:58vh;overflow-y:auto;-w
       <button type="button" class="aon-slash-pill" data-cmd="/트윈" onclick="applySlashCmd('/트윈')">/트윈</button>
       <button type="button" class="aon-slash-pill" data-cmd="/봇" onclick="applySlashCmd('/봇')">/봇</button>
       <button type="button" class="aon-slash-pill" data-cmd="/검수총장" onclick="applySlashCmd('/검수총장')">/검수총장</button>
+      <button type="button" class="aon-slash-pill" data-cmd="/조직도" onclick="applySlashCmd('/조직도')">/조직도</button>
     </div>
     <form id="chat-form" onsubmit="handleChatSubmit(event)" class="flex items-center gap-2">
       <div class="relative flex-1">
@@ -1719,6 +1720,17 @@ details.rgon-compact-drawer>.rgon-drawer-body{max-height:58vh;overflow-y:auto;-w
         return { isClear: true };
       }
 
+            if (txt.startsWith('/조직도') || txt.includes('조직도') || txt.includes('진형')) {
+        return {
+          nowStr: nowStr,
+          receiptId: receiptId,
+          snapshot: snapshot,
+          replyText: '🏛️ [제31기관 아온 세계 Top 1 초일류 자율 조직구성도 & 5대 전술 진형 본부 (v11.54)]\n' +
+                     '• 4계층 권력분립 조직도: Tier 0 최고통수권자 ➔ Tier 1 3대 헌법권력원 ➔ Tier 2 6대 청사 ➔ Tier 3 31개 기관\n' +
+                     '• 5대 전술 진형(표준/OSMU/타이거워룸/창방패/국무회의) 실시간 가동 중! (북극성 정렬도 100.0% 만점)\n' +
+                     '👉 관제탑: <a href="rgon_world_top1_org_chart.html" class="text-purple-400 font-bold underline">[🏛️ 세계 Top 1 조직구성도 관제탑 열기]</a>'
+        };
+      }
       if (txt.startsWith('/봇') || txt.includes('자동화 봇') || txt.includes('웹엠씨피') || txt.includes('webmcp')) {
         return {
           nowStr: nowStr,

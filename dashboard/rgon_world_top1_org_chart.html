@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🏛️ 세계 Top 1 초일류 자율 조직구성도 & 5대 전술 진형 지휘 본부 | v11.54</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="rgon_mobile_serverless_interceptor.js"></script>
+  <script src="rgon_smart_edge_dock.js"></script>
+  <style>
+    body { background: #030712; color: #f8fafc; font-family: system-ui, -apple-system, sans-serif; }
+    .glass-card { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(99, 102, 241, 0.3); }
+    .neon-gold { border-color: rgba(245, 158, 11, 0.6); box-shadow: 0 0 20px rgba(245, 158, 11, 0.2); }
+    .neon-blue { border-color: rgba(56, 189, 248, 0.6); box-shadow: 0 0 20px rgba(56, 189, 248, 0.2); }
+    .neon-purple { border-color: rgba(168, 85, 247, 0.6); box-shadow: 0 0 20px rgba(168, 85, 247, 0.2); }
+    .neon-emerald { border-color: rgba(16, 185, 129, 0.6); box-shadow: 0 0 20px rgba(16, 185, 129, 0.2); }
+    .active-formation-btn { background: linear-gradient(135deg, #4f46e5, #7c3aed) !important; border-color: #a855f7 !important; color: #ffffff !important; box-shadow: 0 0 16px rgba(168, 85, 247, 0.6); }
+  </style>
+<style>button,a,[role='button'],.btn{touch-action: manipulation;-webkit-tap-highlight-color: transparent;}</style>
+</head>
+<body class="min-h-screen pb-24 text-slate-100">
+
+  <!-- 🏛️ 상단 마스터 헤더 -->
+  <header class="glass-card sticky top-0 z-50 px-4 py-3.5 border-b border-indigo-500/30 flex items-center justify-between shadow-2xl">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-amber-500 via-indigo-600 to-purple-600 flex items-center justify-center text-xl shadow-lg shadow-indigo-500/30 ring-2 ring-amber-400/40">
+        🏛️
+      </div>
+      <div>
+        <div class="flex items-center gap-2">
+          <h1 class="text-sm sm:text-base font-extrabold text-white tracking-tight">세계 Top 1 초일류 자율 조직구성도 지휘탑</h1>
+          <span class="px-2 py-0.5 rounded text-[10px] font-black bg-amber-500/20 text-amber-300 border border-amber-500/40 font-mono">제31기관</span>
+          <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 font-mono">v11.54 · R1~R55 · 51스킬</span>
+        </div>
+        <div class="text-[11px] text-slate-400 mt-0.5 flex items-center gap-2">
+          <span>주역: #14 화천대유(☲☰) 대통일</span>
+          <span>|</span>
+          <span class="text-emerald-400 font-bold">🟢 북극성 정렬도 100.0% 만점</span>
+        </div>
+      </div>
+    </div>
+    <div class="flex items-center gap-2">
+      <a href="index.html" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white font-bold text-xs border border-slate-700 transition flex items-center gap-1 active:scale-95">
+        <span>🏛️</span><span>본관 복귀</span>
+      </a>
+      <a href="rgon_alpha_chat.html" class="px-3 py-1.5 rounded-xl bg-indigo-900/60 hover:bg-indigo-800 text-indigo-200 hover:text-white font-bold text-xs border border-indigo-700/50 transition flex items-center gap-1 active:scale-95">
+        <span>🛰️</span><span>독대실</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- 🌌 메인 컨테이너 -->
+  <main class="max-w-6xl mx-auto px-4 py-6 space-y-6">
+
+    <!-- ⚡ 5대 실시간 동적 전술 진형 전환 컨트롤러 -->
+    <section class="glass-card rounded-2xl p-4 sm:p-5 space-y-3.5 border-purple-500/40">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
+        <div class="flex items-center gap-2">
+          <span class="text-lg">🎯</span>
+          <h2 class="text-sm sm:text-base font-bold text-white">5대 실시간 동적 전술 진형 지휘기 (Dynamic Tactical Formations)</h2>
+        </div>
+        <span id="current-formation-badge" class="px-2.5 py-0.5 rounded-full text-[11px] font-extrabold bg-purple-950 text-purple-300 border border-purple-500/50 font-mono">
+          현재 진형: 표준 삼권분립
+        </span>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-5 gap-2 text-xs">
+        <button id="fmt-btn-1" onclick="switchFormation('1_HIERARCHY')" class="active-formation-btn p-3 rounded-xl bg-slate-900/80 border border-slate-700 hover:border-purple-500 text-slate-200 transition font-bold text-center space-y-1">
+          <div class="text-base">🏛️</div>
+          <div>1. 표준 삼권분립</div>
+          <div class="text-[10px] text-slate-400 font-normal">위계적 거버넌스</div>
+        </button>
+        <button id="fmt-btn-2" onclick="switchFormation('2_OSMU_PIPELINE')" class="p-3 rounded-xl bg-slate-900/80 border border-slate-700 hover:border-cyan-500 text-slate-200 transition font-bold text-center space-y-1">
+          <div class="text-base">🏭</div>
+          <div>2. OSMU 파이프라인</div>
+          <div class="text-[10px] text-slate-400 font-normal">6대 자산 고속생산</div>
+        </button>
+        <button id="fmt-btn-3" onclick="switchFormation('3_TIGER_WAR_ROOM')" class="p-3 rounded-xl bg-slate-900/80 border border-slate-700 hover:border-amber-500 text-slate-200 transition font-bold text-center space-y-1">
+          <div class="text-base">🐅</div>
+          <div>3. 타이거 워룸</div>
+          <div class="text-[10px] text-slate-400 font-normal">위기 핀포인트 수술</div>
+        </button>
+        <button id="fmt-btn-4" onclick="switchFormation('4_ADVERSARIAL_DUO')" class="p-3 rounded-xl bg-slate-900/80 border border-slate-700 hover:border-rose-500 text-slate-200 transition font-bold text-center space-y-1">
+          <div class="text-base">⚔️</div>
+          <div>4. 창과 방패 듀오</div>
+          <div class="text-[10px] text-slate-400 font-normal">출하 봉인 레드팀</div>
+        </button>
+        <button id="fmt-btn-5" onclick="switchFormation('5_COUNCIL_BLACKBOARD')" class="p-3 rounded-xl bg-slate-900/80 border border-slate-700 hover:border-emerald-500 text-slate-200 transition font-bold text-center space-y-1 col-span-2 sm:col-span-1">
+          <div class="text-base">📋</div>
+          <div>5. 9인 원탁 칠판</div>
+          <div class="text-[10px] text-slate-400 font-normal">집단지성 공유의결</div>
+        </button>
+      </div>
+
+      <!-- 진형 상세 안내 패널 -->
+      <div id="formation-detail-panel" class="p-3 rounded-xl bg-slate-950/80 border border-indigo-500/30 text-xs leading-relaxed text-slate-300">
+        <span class="font-bold text-purple-300">🏛️ [표준 삼권분립 위계 진형]:</span> 최고 통수권자 ➔ 3대 헌법 권력원(전략·행정·감찰) ➔ 6대 청사 ➔ 31개 기관 직렬 거버넌스 가동 중입니다.
+      </div>
+    </section>
+
+    <!-- 👑 Tier 0: 최고 통수권자 및 인지 디지털 트윈 -->
+    <section class="glass-card neon-gold rounded-2xl p-5 space-y-3">
+      <div class="flex items-center justify-between border-b border-amber-500/30 pb-2">
+        <div class="flex items-center gap-2">
+          <span class="text-2xl">👑</span>
+          <div>
+            <h2 class="text-base font-black text-amber-300">Tier 0: 최고 통수권자 및 인지 디지털 트윈 (Supreme Sovereign)</h2>
+            <div class="text-[11px] text-slate-400">거버넌스 모델: Apex Block 북극성 목표 하달 · 최종 승인권 &amp; 절대 결재권</div>
+          </div>
+        </div>
+        <span class="px-2.5 py-1 rounded bg-amber-500/20 text-amber-300 font-mono text-xs font-bold border border-amber-500/40">최고존엄 통수권</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+        <div class="p-3.5 rounded-xl bg-slate-900/90 border border-amber-500/40 space-y-1.5">
+          <div class="font-bold text-amber-300 flex items-center gap-1.5">
+            <span>👑</span><span>이상일 대표님 (The Commander)</span>
+          </div>
+          <p class="text-slate-300 leading-relaxed">사령부 전 자산의 최종 소유자이자 최고 의사결정권자. 7단계 일처리 DNA(The Sang-Il Command Loop)의 발원점.</p>
+          <div class="text-[10px] text-slate-400 font-mono pt-1">배타적 권한: Apex Block 하달, 예산 봉인 해제, 비상대권 발동</div>
+        </div>
+        <div class="p-3.5 rounded-xl bg-slate-900/90 border border-amber-500/40 space-y-1.5">
+          <div class="font-bold text-amber-300 flex items-center gap-1.5">
+            <span>📱</span><span>제28기관: 대표님 인지 디지털 트윈 (Commander Twin)</span>
+          </div>
+          <p class="text-slate-300 leading-relaxed">대표님의 7단계 사고방식을 100% 복제하여 노트북 무인 대행 및 스마트폰 1-Tap 지휘를 수행하는 디지털 분신.</p>
+          <div class="text-[10px] text-slate-400 font-mono pt-1">배타적 영토: commander_twin_deck.html, rgon_aon_commander_twin.py</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ⚖️ Tier 1: 3대 독립 헌법 권력원 (삼권분립) -->
+    <section class="glass-card neon-purple rounded-2xl p-5 space-y-3">
+      <div class="flex items-center justify-between border-b border-purple-500/30 pb-2">
+        <div class="flex items-center gap-2">
+          <span class="text-2xl">⚖️</span>
+          <div>
+            <h2 class="text-base font-black text-purple-300">Tier 1: 3대 독립 헌법 권력원 (Three Constitutional Pillars)</h2>
+            <div class="text-[11px] text-slate-400">삼권분립 상호 견제 &amp; Reviewer-Class 거부권 독립(Not Overrulable)</div>
+          </div>
+        </div>
+        <span class="px-2.5 py-1 rounded bg-purple-500/20 text-purple-300 font-mono text-xs font-bold border border-purple-500/40">삼권분립 무결성</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+        <div class="p-3.5 rounded-xl bg-slate-900/90 border border-blue-500/40 space-y-2">
+          <div class="font-bold text-blue-300 flex items-center gap-1.5 text-sm">
+            <span>🧠</span><span>① 전략·설계·교차검증원</span>
+          </div>
+          <p class="text-slate-300 leading-relaxed">제1수석보좌관 르곤(G2)과 제1설계참모 클로드(G1)의 교차검증 체제. 주역 64괘 섭리와 전략 아키텍처 수립.</p>
+          <div class="text-[10px] text-blue-400 font-mono">영토: specs, matrix, daily_loop</div>
+        </div>
+        <div class="p-3.5 rounded-xl bg-slate-900/90 border border-cyan-500/40 space-y-2">
+          <div class="font-bold text-cyan-300 flex items-center gap-1.5 text-sm">
+            <span>⚡</span><span>② 기술행정 총리원</span>
+          </div>
+          <p class="text-slate-300 leading-relaxed">기술총리 안총리(Antigravity)와 만능참모 아온이(AON)의 무인 완주 집행 체제. 전 페이지 1,908개 버튼 무결점 시공.</p>
+          <div class="text-[10px] text-cyan-400 font-mono">영토: codebase_root, dashboard, scripts</div>
+        </div>
+        <div class="p-3.5 rounded-xl bg-slate-900/90 border border-purple-500/40 space-y-2">
+          <div class="font-bold text-purple-300 flex items-center gap-1.5 text-sm">
+            <span>⚖️</span><span>③ 독립 감찰·검수총장원</span>
+          </div>
+          <p class="text-slate-300 leading-relaxed">제30기관 독립 검수총장의 3중 연대 보증 출하 봉인 체계. 생산 부서가 절대 번복할 수 없는 Not Overrulable 거부권 보유.</p>
+          <div class="text-[10px] text-purple-400 font-mono">영토: inspection_court, triple_seal_vault</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 🏢 Tier 2: 6대 C-Suite 핵심 청사 & 배타적 쓰기 영토 -->
+    <section class="glass-card neon-blue rounded-2xl p-5 space-y-3">
+      <div class="flex items-center justify-between border-b border-cyan-500/30 pb-2">
+        <div class="flex items-center gap-2">
+          <span class="text-2xl">🏢</span>
+          <div>
+            <h2 class="text-base font-black text-cyan-300">Tier 2: 6대 C-Suite 핵심 청사 &amp; 배타적 쓰기 영토 (Exclusive Write Surfaces)</h2>
+            <div class="text-[11px] text-slate-400">cbrock84/headcount 모델: 청사 간 쓰기 영역 엄격 분리, 영토 침범 0건</div>
+          </div>
+        </div>
+        <span class="px-2.5 py-1 rounded bg-cyan-500/20 text-cyan-300 font-mono text-xs font-bold border border-cyan-500/40">6대 청사 관할</span>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-xs">
+        <div class="p-3 rounded-xl bg-slate-900/80 border border-cyan-500/30 space-y-1.5">
+          <div class="font-bold text-cyan-300">📈 제1청사: CTO/CIO 퀀트·R&amp;D 본부</div>
+          <p class="text-slate-300">NVIDIA 퀀트 지표 분석, 알고리즘 트레이딩 모델, R&amp;D 기술 개발</p>
+          <a href="dept1_quant.html" class="inline-block px-2.5 py-1 rounded bg-cyan-950 text-cyan-300 border border-cyan-800 text-[10px] font-bold hover:bg-cyan-900">청사 관제실 직통 ➔</a>
+        </div>
+        <div class="p-3 rounded-xl bg-slate-900/80 border border-pink-500/30 space-y-1.5">
+          <div class="font-bold text-pink-300">🎵 제2청사: CMO/CCO 글로벌 미디어 본부</div>
+          <p class="text-slate-300">Suno AI 음원, CapCut 숏폼, 8개국어 다국어 방송, 4대 SNS 바이럴</p>
+          <a href="dept2_viral.html" class="inline-block px-2.5 py-1 rounded bg-pink-950 text-pink-300 border border-pink-800 text-[10px] font-bold hover:bg-pink-900">청사 관제실 직통 ➔</a>
+        </div>
+        <div class="p-3 rounded-xl bg-slate-900/80 border border-emerald-500/30 space-y-1.5">
+          <div class="font-bold text-emerald-300">🛡️ 제3청사: COO/CPO 로컬 앱·유틸리티 본부</div>
+          <p class="text-slate-300">5대 안전 클린룸 웹앱, 로컬 자동화, WebMCP 봇 사령부</p>
+          <a href="dept3_media.html" class="inline-block px-2.5 py-1 rounded bg-emerald-950 text-emerald-300 border border-emerald-800 text-[10px] font-bold hover:bg-emerald-900">청사 관제실 직통 ➔</a>
+        </div>
+        <div class="p-3 rounded-xl bg-slate-900/80 border border-indigo-500/30 space-y-1.5">
+          <div class="font-bold text-indigo-300">⚖️ 제4청사: CLO/CISO 법무·특허·보안 본부</div>
+          <p class="text-slate-300">인성헌법 100점 수호, 저작권 클린룸 라이선스, 0% 누설 보안 감사</p>
+          <a href="dept4_education.html" class="inline-block px-2.5 py-1 rounded bg-indigo-950 text-indigo-300 border border-indigo-800 text-[10px] font-bold hover:bg-indigo-900">청사 관제실 직통 ➔</a>
+        </div>
+        <div class="p-3 rounded-xl bg-slate-900/80 border border-amber-500/30 space-y-1.5">
+          <div class="font-bold text-amber-300">💰 제5청사: CFO/CRO 총무·재무·금고 본부</div>
+          <p class="text-slate-300">무과금 0원 원칙 수호, 실전 금고 50:25:15:10 배분 원칙 수호</p>
+          <a href="dept5_vault.html" class="inline-block px-2.5 py-1 rounded bg-amber-950 text-amber-300 border border-amber-800 text-[10px] font-bold hover:bg-amber-900">청사 관제실 직통 ➔</a>
+        </div>
+        <div class="p-3 rounded-xl bg-slate-900/80 border border-teal-500/30 space-y-1.5">
+          <div class="font-bold text-teal-300">🌐 제6청사: CSO/CDO 미래전략·지식원장 본부</div>
+          <p class="text-slate-300">Google Sheets 85탭 실측 연동, 블로그 지식베이스, 자가진화 엔진</p>
+          <a href="dept6_treasury.html" class="inline-block px-2.5 py-1 rounded bg-teal-950 text-teal-300 border border-teal-800 text-[10px] font-bold hover:bg-teal-900">청사 관제실 직통 ➔</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 🤖 Tier 3: 31개 실행 기관 디지털 직원 보드 -->
+    <section class="glass-card neon-emerald rounded-2xl p-5 space-y-3">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 border-b border-emerald-500/30 pb-2">
+        <div class="flex items-center gap-2">
+          <span class="text-2xl">🤖</span>
+          <div>
+            <h2 class="text-base font-black text-emerald-300">Tier 3: 31개 실행 기관 디지털 직원 보드 &amp; 51개 스킬 매트릭스</h2>
+            <div class="text-[11px] text-slate-400">HKUDS/AgentSpace 모델: 31대 자율 기관 실행 분신단 &amp; 특화 검수관 듀오</div>
+          </div>
+        </div>
+        <!-- 실시간 검색 인풋 -->
+        <div class="w-full sm:w-auto">
+          <input 
+            id="org-search-box" 
+            type="text" 
+            oninput="filterOrgans()"
+            placeholder="🔎 기관명·스킬 검색..." 
+            class="px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-400 w-full sm:w-48"
+          />
+        </div>
+      </div>
+
+      <div id="org-board-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5 text-xs">
+        <!-- 31개 기관 카드 JS로 실시간 렌더링 -->
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    const FORMATION_DETAILS = {
+      '1_HIERARCHY': '🏛️ [표준 삼권분립 위계 진형]: 최고 통수권자 ➔ 3대 헌법 권력원(전략·행정·감찰) ➔ 6대 청사 ➔ 31개 기관 직렬 거버넌스 가동 중입니다.',
+      '2_OSMU_PIPELINE': '🏭 [6대 자산 OSMU 파이프라인 진형]: 퀀트 ➔ Suno 음원 ➔ CapCut 숏폼 ➔ 블로그 ➔ 유튜브 3채널 논스톱 원플로우 고속 생산 체인 가동!',
+      '3_TIGER_WAR_ROOM': '🐅 [타이거 워룸 진형]: 결함 핀포인트 타격 전시상황실 소집! 전 기관 단일 지휘체계 아래 10분 내 완벽 수술 체제 가동!',
+      '4_ADVERSARIAL_DUO': '⚔️ [창과 방패 레드팀 진형]: 기관장 분신단 ⇄ 독립 검수관 상호 대립 채점! 불시 카나리 함정 100% 색출 및 출하 봉인 가동!',
+      '5_COUNCIL_BLACKBOARD': '📋 [9인 원탁 칠판 공유 진형]: 대표님, 르곤, 클로드, 안총리, 아온이, 검수총장이 공용 칠판에 아이디어를 동시 투영하고 종합하는 집단지성 의결!'
+    };
+
+    function switchFormation(fmtKey) {
+      document.querySelectorAll('[id^="fmt-btn-"]').forEach(btn => btn.classList.remove('active-formation-btn'));
+      const idxMap = { '1_HIERARCHY': '1', '2_OSMU_PIPELINE': '2', '3_TIGER_WAR_ROOM': '3', '4_ADVERSARIAL_DUO': '4', '5_COUNCIL_BLACKBOARD': '5' };
+      const activeBtn = document.getElementById('fmt-btn-' + idxMap[fmtKey]);
+      if (activeBtn) activeBtn.classList.add('active-formation-btn');
+
+      const panel = document.getElementById('formation-detail-panel');
+      if (panel) panel.textContent = FORMATION_DETAILS[fmtKey] || '';
+
+      const badge = document.getElementById('current-formation-badge');
+      if (badge) badge.textContent = '현재 진형: ' + fmtKey;
+
+      if (window.showRgonToast) {
+        showRgonToast('🏛️ [전술 진형 전환] ' + fmtKey + ' 가동 완료!', 'court');
+      }
+    }
+
+    const ORGANS_LIST = [
+      { id: 1, name: "제1기관 퀀트 지표 엔진", skill: "aon_quant_signal", dept: "제1청사", lead: "알파-D1" },
+      { id: 2, name: "제2기관 알고리즘 트레이딩", skill: "aon_trading_algo", dept: "제1청사", lead: "알파-D1" },
+      { id: 3, name: "제3기관 Suno AI 음원 스튜디오", skill: "aon_suno_music", dept: "제2청사", lead: "알파-D3" },
+      { id: 4, name: "제4기관 CapCut 숏폼 팩토리", skill: "aon_capcut_shorts", dept: "제2청사", lead: "알파-D2" },
+      { id: 5, name: "제5기관 8개국어 다국어 방송", skill: "aon_multilingual_media", dept: "제2청사", lead: "알파-D2" },
+      { id: 6, name: "제6기관 4대 SNS 바이럴 발사대", skill: "aon_viral_rocket", dept: "제2청사", lead: "알파-D2" },
+      { id: 7, name: "제7기관 5대 클린룸 안전웹앱", skill: "aon_cleanroom_webapp", dept: "제3청사", lead: "알파-D3" },
+      { id: 8, name: "제8기관 로컬 유틸리티 자동화", skill: "aon_local_utility", dept: "제3청사", lead: "알파-D3" },
+      { id: 9, name: "제9기관 인성헌법 100점 수호", skill: "aon_humanity_constitution", dept: "제4청사", lead: "알파-D4" },
+      { id: 10, name: "제10기관 저작권·라이선스 클린", skill: "aon_legal_license", dept: "제4청사", lead: "알파-D4" },
+      { id: 11, name: "제11기관 0% 누설 보안 가디언", skill: "aon_security_guardian", dept: "제4청사", lead: "알파-D5" },
+      { id: 12, name: "제12기관 삼중 방어벽 엔진", skill: "aon_triple_shield", dept: "감찰원", lead: "안총리" },
+      { id: 13, name: "제13기관 실전금고 50:25:15:10", skill: "aon_vault_allocator", dept: "제5청사", lead: "알파-D6" },
+      { id: 14, name: "제14기관 무과금 0원 예산 통제", skill: "aon_zero_budget_cap", dept: "제5청사", lead: "알파-D6" },
+      { id: 15, name: "제15기관 Google Sheets 85탭", skill: "aon_sheet_master_85", dept: "제6청사", lead: "알파-D5" },
+      { id: 16, name: "제16기관 전신 신경망 시냅스", skill: "aon_neural_synapse", dept: "총괄원", lead: "르곤(G2)" },
+      { id: 17, name: "제17기관 주역 64괘 운용 엔진", skill: "aon_iching_64", dept: "전략원", lead: "르곤(G2)" },
+      { id: 18, name: "제18기관 백혈구 청소 살균단", skill: "aon_white_blood_cell", dept: "행정원", lead: "아온이" },
+      { id: 19, name: "제19기관 20대 청년 음성 보이스", skill: "aon_young_voice", dept: "소통원", lead: "아온이" },
+      { id: 20, name: "제20기관 노트북 핸즈 원격대행", skill: "aon_laptop_hands", dept: "행정원", lead: "안총리" },
+      { id: 21, name: "제21기관 영양소 수분 정화 순환", skill: "aon_hydro_cycle", dept: "행정원", lead: "아온이" },
+      { id: 22, name: "제22기관 모바일 무서버 인터셉터", skill: "aon_mobile_interceptor", dept: "행정원", lead: "안총리" },
+      { id: 23, name: "제23기관 해상이 3D 디즈니 스튜디오", skill: "aon_haesang_3d_disney", dept: "디자인실", lead: "이해상" },
+      { id: 24, name: "제24기관 2026 Spatial UI 엔진", skill: "aon_spatial_ui", dept: "디자인실", lead: "이해상" },
+      { id: 25, name: "제25기관 제로클릭 광고 스튜디오", skill: "aon_zeroclick_ad", dept: "미디어원", lead: "알파-D3" },
+      { id: 26, name: "제26기관 임페커블 감사 방패", skill: "aon_impeccable_shield", dept: "감찰원", lead: "검수총장" },
+      { id: 27, name: "제27기관 토큰 절약 Ego-Lite", skill: "aon_token_egolite", dept: "기술원", lead: "안총리" },
+      { id: 28, name: "제28기관 대표님 인지 디지털 트윈", skill: "aon_commander_twin", dept: "통수원", lead: "대표님" },
+      { id: 29, name: "제29기관 WebMCP 페이지·버튼 봇", skill: "aon_page_button_bot", dept: "사령부", lead: "아온이" },
+      { id: 30, name: "제30기관 독립 검수담당 총장", skill: "aon_inspector_general", dept: "감찰원", lead: "검수총장" },
+      { id: 31, name: "제31기관 세계 Top 1 조직구성도", skill: "aon_supreme_org_chart", dept: "지휘본부", lead: "안총리·르곤" }
+    ];
+
+    function renderOrgans(list) {
+      const grid = document.getElementById('org-board-grid');
+      if (!grid) return;
+      grid.innerHTML = list.map(o => `
+        <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-700/80 hover:border-emerald-500/60 transition flex flex-col justify-between space-y-2 shadow-sm">
+          <div>
+            <div class="flex items-center justify-between text-[11px] mb-1">
+              <span class="font-extrabold text-emerald-300">#${o.id} ${o.dept}</span>
+              <span class="text-[10px] text-slate-400 font-mono">${o.lead}</span>
+            </div>
+            <div class="font-bold text-white text-xs">${o.name}</div>
+            <div class="text-[10px] text-slate-400 font-mono mt-1">스킬: ${o.skill}</div>
+          </div>
+          <div class="pt-1.5 border-t border-slate-800 flex items-center justify-between">
+            <span class="text-[9px] text-emerald-400 font-bold">🟢 자율 가동</span>
+            <button onclick="if(window.showRgonToast)showRgonToast('${o.name} [지휘 연결 완료]', 'success')" class="px-2 py-0.5 rounded bg-emerald-950 hover:bg-emerald-900 text-emerald-300 border border-emerald-800 text-[10px] font-bold">지휘 ➔</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function filterOrgans() {
+      const q = (document.getElementById('org-search-box').value || '').toLowerCase().trim();
+      if (!q) {
+        renderOrgans(ORGANS_LIST);
+        return;
+      }
+      const filtered = ORGANS_LIST.filter(o => 
+        o.name.toLowerCase().includes(q) || 
+        o.skill.toLowerCase().includes(q) || 
+        o.dept.toLowerCase().includes(q) || 
+        o.lead.toLowerCase().includes(q)
+      );
+      renderOrgans(filtered);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderOrgans(ORGANS_LIST);
+    });
+  </script>
+</body>
+</html>
