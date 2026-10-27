@@ -182,12 +182,15 @@ def record_order(order_text: str, source: str = "WEB_DASHBOARD", tg_results: dic
     md_content += "| :--- | :--- | :---: | :--- | :--- | :---: |\n"
     for o in reversed(orders[-50:]):  # 최근 50건
         tg_info = []
-        if o.get('tg_dispatch'):
+        if o.get('tg_dispatch') and isinstance(o['tg_dispatch'], dict):
             for bname, bres in o['tg_dispatch'].items():
-                if bres.get('ok'):
-                    tg_info.append(f"{bname}✔(msg#{bres.get('result', {}).get('message_id')})")
+                if isinstance(bres, dict):
+                    if bres.get('ok'):
+                        tg_info.append(f"{bname}✔(msg#{bres.get('result', {}).get('message_id', bres.get('msg_id', ''))})")
+                    else:
+                        tg_info.append(f"{bname}❌")
                 else:
-                    tg_info.append(f"{bname}❌")
+                    tg_info.append(f"{bname}(#{bres})")
         tg_str = " | ".join(tg_info) if tg_info else "로컬 전용"
         clean_txt = o['text'].replace('\n', ' ')
         md_content += f"| **{o['order_id']}** | `{o['timestamp']}` | `{o['source']}` | {clean_txt} | {tg_str} | `{o['hash']}` |\n"

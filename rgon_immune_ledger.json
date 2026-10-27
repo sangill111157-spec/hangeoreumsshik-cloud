@@ -4,7 +4,7 @@
   "current_step": 22,
   "antibody_range": "R1~R59",
   "principle": "만물은 하나로 이어져 있으며, 한 걸음씩 나아가면 반드시 이루어진다.",
-  "updated_at_kst": "2026-10-27T19:23:31",
+  "updated_at_kst": "2026-10-27T20:15:50",
   "health_score": 100,
   "inspection_mode": "standard",
   "today_hexagram": {
@@ -14,7 +14,7 @@
     "summary": "자강불식(自強不息) — 스스로 강건히 쉬지 않고 정진한다",
     "inspection_mode": "standard"
   },
-  "suppressed_count": 116,
+  "suppressed_count": 119,
   "antibodies": "R1~R59",
   "fingerprints": {
     "3cf3c4ec29753bf7": {
@@ -23,37 +23,13 @@
       "context": "self_test_bypass",
       "sample_message": "'simulated_missing_key'",
       "first_seen_kst": "2026-10-24T08:11:50",
-      "last_seen_kst": "2026-10-27T19:23:31",
-      "count": 118,
+      "last_seen_kst": "2026-10-27T20:15:50",
+      "count": 121,
       "suppressed": true,
       "known_remedy": "R18 상선약수: adapt_dict 안전 키 매핑 및 기본값 반환"
     }
   },
   "healed_events": [
-    {
-      "timestamp_kst": "2026-10-24T06:08:25",
-      "file": "fix_boot_now.py",
-      "reason": "UTF-8 BOM(U+FEFF) 유령 문자 감염 자동 제거 완치",
-      "restored": true,
-      "source_backup": "wbc_bom_sanitizer",
-      "quarantined_to": null
-    },
-    {
-      "timestamp_kst": "2026-10-24T06:08:25",
-      "file": "config/veo_prompt_guide.json",
-      "reason": "UTF-8 BOM(U+FEFF) 유령 문자 감염 자동 제거 완치",
-      "restored": true,
-      "source_backup": "wbc_bom_sanitizer",
-      "quarantined_to": null
-    },
-    {
-      "timestamp_kst": "2026-10-24T08:11:50",
-      "file": ".rgon_backup/wbc_selftest/_wbc_dummy_sample.py",
-      "reason": "self_test_syntax_error",
-      "restored": true,
-      "source_backup": ".rgon_backup/wbc_snapshots/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.clean",
-      "quarantined_to": ".rgon_backup/wbc_quarantine/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.20261024_081150.corrupt"
-    },
     {
       "timestamp_kst": "2026-10-24T13:17:46",
       "file": ".rgon_backup/wbc_selftest/_wbc_dummy_sample.py",
@@ -989,27 +965,33 @@
       "restored": true,
       "source_backup": ".rgon_backup/wbc_snapshots/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.clean",
       "quarantined_to": ".rgon_backup/wbc_quarantine/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.20261027_192331.corrupt"
+    },
+    {
+      "timestamp_kst": "2026-10-27T20:04:06",
+      "file": ".rgon_backup/wbc_selftest/_wbc_dummy_sample.py",
+      "reason": "self_test_syntax_error",
+      "restored": true,
+      "source_backup": ".rgon_backup/wbc_snapshots/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.clean",
+      "quarantined_to": ".rgon_backup/wbc_quarantine/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.20261027_200406.corrupt"
+    },
+    {
+      "timestamp_kst": "2026-10-27T20:14:19",
+      "file": ".rgon_backup/wbc_selftest/_wbc_dummy_sample.py",
+      "reason": "self_test_syntax_error",
+      "restored": true,
+      "source_backup": ".rgon_backup/wbc_snapshots/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.clean",
+      "quarantined_to": ".rgon_backup/wbc_quarantine/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.20261027_201419.corrupt"
+    },
+    {
+      "timestamp_kst": "2026-10-27T20:15:50",
+      "file": ".rgon_backup/wbc_selftest/_wbc_dummy_sample.py",
+      "reason": "self_test_syntax_error",
+      "restored": true,
+      "source_backup": ".rgon_backup/wbc_snapshots/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.clean",
+      "quarantined_to": ".rgon_backup/wbc_quarantine/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.20261027_201550.corrupt"
     }
   ],
   "bypass_log": [
-    {
-      "timestamp_kst": "2026-10-24T06:02:04",
-      "context": "self_test_bypass",
-      "exc_type": "KeyError",
-      "message": "'simulated_missing_key'",
-      "fingerprint": "3cf3c4ec29753bf7",
-      "suppressed": false,
-      "action": "default_value"
-    },
-    {
-      "timestamp_kst": "2026-10-24T08:11:50",
-      "context": "self_test_bypass",
-      "exc_type": "KeyError",
-      "message": "'simulated_missing_key'",
-      "fingerprint": "3cf3c4ec29753bf7",
-      "suppressed": false,
-      "action": "default_value"
-    },
     {
       "timestamp_kst": "2026-10-24T13:17:46",
       "context": "self_test_bypass",
@@ -2056,6 +2038,33 @@
     },
     {
       "timestamp_kst": "2026-10-27T19:23:31",
+      "context": "self_test_bypass",
+      "exc_type": "KeyError",
+      "message": "'simulated_missing_key'",
+      "fingerprint": "3cf3c4ec29753bf7",
+      "suppressed": true,
+      "action": "default_value"
+    },
+    {
+      "timestamp_kst": "2026-10-27T20:04:06",
+      "context": "self_test_bypass",
+      "exc_type": "KeyError",
+      "message": "'simulated_missing_key'",
+      "fingerprint": "3cf3c4ec29753bf7",
+      "suppressed": true,
+      "action": "default_value"
+    },
+    {
+      "timestamp_kst": "2026-10-27T20:14:19",
+      "context": "self_test_bypass",
+      "exc_type": "KeyError",
+      "message": "'simulated_missing_key'",
+      "fingerprint": "3cf3c4ec29753bf7",
+      "suppressed": true,
+      "action": "default_value"
+    },
+    {
+      "timestamp_kst": "2026-10-27T20:15:50",
       "context": "self_test_bypass",
       "exc_type": "KeyError",
       "message": "'simulated_missing_key'",

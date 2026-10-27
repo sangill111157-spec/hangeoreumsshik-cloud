@@ -13,17 +13,31 @@ import sys
 import re
 import json
 import time
+import threading
 import urllib.parse
 import urllib.request
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from datetime import datetime
 from pathlib import Path
 
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+if hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+
 BASE_DIR = Path(__file__).resolve().parent
 LOCAL_ENV_PATH = BASE_DIR / ".env.telegram_local"
 STREAM_JSON_PATH = BASE_DIR / "hq_kakao_tg_live_stream.json"
 QUEUE_JSON_PATH = BASE_DIR / "rgon_antigravity_live_queue.json"
+INBOX_JSON_PATH = BASE_DIR / "antigravity_live_inbox.json"
 PORT = 8765
+
+def sync_inbox_file(data: dict):
+    try:
+        with open(INBOX_JSON_PATH, "w", encoding="utf-8") as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+    except Exception:
+        pass
 
 def enqueue_antigravity_msg(queue_item: dict):
     data = {"version": "v11.58-AON-LIVE-BRAIN-MOTION", "queue": []}
@@ -40,6 +54,7 @@ def enqueue_antigravity_msg(queue_item: dict):
             json.dump(data, f, ensure_ascii=False, indent=2)
     except Exception:
         pass
+    sync_inbox_file(data)
 
 def get_antigravity_queue_item(msg_id: str):
     if not QUEUE_JSON_PATH.exists():
@@ -69,6 +84,7 @@ def update_antigravity_queue_item(msg_id: str, reply_text: str, speaker: str = "
                 break
         with open(QUEUE_JSON_PATH, "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
+        sync_inbox_file(data)
     except Exception:
         pass
 
@@ -139,6 +155,119 @@ def send_real_telegram(bot_key: str, text: str) -> dict:
             return {'ok': False, 'error': data.get('description', 'Unknown TG error')}
     except Exception as e:
         return {'ok': False, 'error': str(e)}
+
+def poll_telegram_updates(token: str, offset: int = None, timeout: int = 5):
+    """텔레그램 getUpdates 폴링"""
+    if not token:
+        return {'ok': False, 'error': 'No token'}
+    url = f"https://api.telegram.org/bot{token}/getUpdates?timeout={timeout}"
+    if offset:
+        url += f"&offset={offset}"
+    req = urllib.request.Request(url, headers={'User-Agent': 'RGON-KakaoBridge/1.0'})
+    try:
+        with urllib.request.urlopen(req, timeout=timeout + 5) as resp:
+            data = json.loads(resp.read().decode('utf-8'))
+            return data
+    except Exception as e:
+        return {'ok': False, 'error': str(e)}
+
+def telegram_remote_listener_worker():
+    """
+    [지침 2 핵심] 스마트폰 ➔ 텔레그램 실시간 알림 & 집 노트북 원격 브릿지 감시 워커
+    대표님께서 스마트폰 텔레그램(Sangi AI 비서 / 루미비서)으로 보내신 말씀을 실시간 감지하여
+    실제 안총리 작업 큐(antigravity_live_inbox.json)에 적재하고, AI 직통 답변을 작성하여 텔레그램으로 즉시 회신합니다!
+    """
+    bot2_token = TG_CONFIG['bot2'].get('token')
+    chat_id = str(TG_CONFIG.get('chat_id', '')).strip()
+    if not bot2_token or not chat_id:
+        print("[TG Remote Listener] ⚠️ Telegram bot2 token or chat_id not found.")
+        return
+
+    print(f"🛰️ [TG Remote Listener] 텔레그램 원격 브릿지 감시 가동 (@{TG_CONFIG['bot2']['username']})")
+
+    offset = None
+    # 최초 확인: 최신 메시지 오프셋 확보
+    try:
+        initial_check = poll_telegram_updates(bot2_token, offset=None, timeout=2)
+        if initial_check.get('ok') and initial_check.get('result'):
+            results = initial_check['result']
+            offset = results[-1]['update_id']
+    except Exception:
+        pass
+
+    while True:
+        try:
+            upd = poll_telegram_updates(bot2_token, offset=offset, timeout=8)
+            if upd.get('ok'):
+                for item in upd.get('result', []):
+                    offset = item['update_id'] + 1
+                    msg = item.get('message', {})
+                    msg_chat_id = str(msg.get('chat', {}).get('id', '')).strip()
+                    user_text = msg.get('text', '').strip()
+
+                    if not user_text or msg_chat_id != chat_id:
+                        continue
+
+                    msg_date = msg.get('date', 0)
+                    now_ts = int(time.time())
+                    # 너무 오래된(24시간 전) 메시지는 무시
+                    if now_ts - msg_date > 86400:
+                        continue
+
+                    order_id = '#ORD-' + str(int(time.time()))[-4:]
+                    msg_id = f"ag-msg-tg-{item['update_id']}"
+
+                    print(f"\n👑 [스마트폰 텔레그램 원격 하명 감지] 대표님: {user_text} ({order_id})")
+
+                    # 1. 안총리 작업 큐(antigravity_live_inbox.json) & rgon_antigravity_live_queue.json 적재
+                    queue_item = {
+                        "id": msg_id,
+                        "order_id": order_id,
+                        "source": "TELEGRAM_REMOTE_MOBILE",
+                        "status": "PENDING",
+                        "user_message": user_text,
+                        "channel": "ALL",
+                        "media_info": None,
+                        "timestamp": datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                    }
+                    enqueue_antigravity_msg(queue_item)
+
+                    # 2. 공식 지시 원장 기록
+                    try:
+                        from rgon_aon_telegram_omni_messenger import record_order
+                        record_order(user_text, source="TELEGRAM_REMOTE_MOBILE", tg_results={"telegram_msg_id": msg.get("message_id")})
+                    except Exception:
+                        pass
+
+                    # 3. 지능형 답변 생성 (사칙연산, Pollinations AI, 피너클 티키타카)
+                    speaker = "⚡ 기술총리 안총리 & 🌸 만능 참모 아온이"
+                    reply_text = None
+                    math_ans = eval_safe_math(user_text)
+                    if math_ans:
+                        reply_text = math_ans
+                    else:
+                        ai_reply = query_pollinations_ai(user_text)
+                        if ai_reply:
+                            reply_text = ai_reply
+                        else:
+                            smart_res = get_single_smart_tikitaka_reply(user_text, channel="ALL")
+                            reply_text = smart_res.get("text", "")
+                            speaker = smart_res.get("sender_name", speaker)
+
+                    if not reply_text:
+                        reply_text = f"대표님! 스마트폰 텔레그램으로 주신 말씀(『{user_text}』)을 안총리와 아온이가 1초 만에 접수했습니다! 35대 전 기관 신경망이 즉각 출동하여 보좌하겠습니다! ⚡🌸"
+
+                    # 4. 텔레그램으로 답장 실시간 회신
+                    send_real_telegram('bot2', f"{speaker}:\n{reply_text}")
+
+                    # 5. 큐 및 인박스 답변 완료 처리
+                    update_antigravity_queue_item(msg_id, reply_text, speaker)
+                    print(f"✅ [텔레그램 회신 완료] {speaker}: {reply_text[:60]}...")
+            time.sleep(1)
+        except Exception:
+            time.sleep(3)
+
+
 
 # ==============================================================================
 # [과업 2 핵심] 수식 계산 & 자연어 사전 & AI LLM 티키타카 두뇌 엔진
@@ -267,6 +396,17 @@ class KakaoLiveBridgeHandler(BaseHTTPRequestHandler):
             self.send_header('Content-Type', 'application/json; charset=utf-8')
             self.end_headers()
             self.wfile.write(json.dumps({'ok': True, 'new_replies': new_replies}, ensure_ascii=False).encode('utf-8'))
+        elif self.path == '/api/telegram_client_sync':
+            self.send_response(200)
+            self._send_cors_headers()
+            self.send_header('Content-Type', 'application/json; charset=utf-8')
+            self.end_headers()
+            self.wfile.write(json.dumps({
+                'ok': True,
+                'token': TG_CONFIG['bot2'].get('token', ''),
+                'chat_id': TG_CONFIG.get('chat_id', ''),
+                'username': TG_CONFIG['bot2'].get('username', '')
+            }, ensure_ascii=False).encode('utf-8'))
         else:
             self.send_response(404)
             self._send_cors_headers()
@@ -338,7 +478,7 @@ class KakaoLiveBridgeHandler(BaseHTTPRequestHandler):
             if reply and tg_res.get('ok'):
                 send_real_telegram(target_bot, f"{reply['sender_name']}:\n{reply['text']}")
 
-            # 4. 스트림 링버퍼 기록
+            # 6. 스트림 링버퍼 기록
             stream_entry = {
                 'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
                 'order_id': order_id,
@@ -372,6 +512,43 @@ class KakaoLiveBridgeHandler(BaseHTTPRequestHandler):
             self.send_header('Content-Type', 'application/json; charset=utf-8')
             self.end_headers()
             self.wfile.write(json.dumps(response_data, ensure_ascii=False).encode('utf-8'))
+        elif self.path == '/api/remote_client_relay':
+            content_length = int(self.headers.get('Content-Length', 0))
+            post_data = self.rfile.read(content_length)
+            try:
+                data = json.loads(post_data.decode('utf-8'))
+            except Exception:
+                data = {}
+            user_text = data.get('message', '').strip()
+            order_id = data.get('order_id') or ('#ORD-' + str(int(time.time()))[-4:])
+            client_reply = data.get('reply', '').strip()
+            channel = data.get('channel', 'ALL')
+
+            # 텔레그램 발송
+            tg_text = f"📱 [스마트폰 모바일 5G 사령부 접수 - {order_id}]\n• 대표님: {user_text}\n• ⚡ 안총리 & 🌸 아온이 답변:\n{client_reply}"
+            tg_res = send_real_telegram('bot2', tg_text)
+
+            # 큐 및 인박스 적재
+            msg_id = f"ag-msg-relay-{int(time.time()*1000)}"
+            queue_item = {
+                "id": msg_id,
+                "order_id": order_id,
+                "source": "MOBILE_5G_RELAY",
+                "status": "ANSWERED",
+                "user_message": user_text,
+                "antigravity_reply": client_reply,
+                "speaker": "⚡ 기술총리 안총리 & 🌸 만능 참모 아온이 (Browser-Direct LLM)",
+                "channel": channel,
+                "timestamp": datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                "answered_at": datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            }
+            enqueue_antigravity_msg(queue_item)
+
+            self.send_response(200)
+            self._send_cors_headers()
+            self.send_header('Content-Type', 'application/json; charset=utf-8')
+            self.end_headers()
+            self.wfile.write(json.dumps({'ok': True, 'order_id': order_id, 'tg_result': tg_res}, ensure_ascii=False).encode('utf-8'))
         else:
             self.send_response(404)
             self._send_cors_headers()
@@ -381,6 +558,11 @@ def run_server():
     server_address = ('127.0.0.1', PORT)
     httpd = HTTPServer(server_address, KakaoLiveBridgeHandler)
     print(f"[RGON Kakao-TG Live Bridge Server] Listening on http://127.0.0.1:{PORT}")
+
+    # [지침 2 핵심] 스마트폰 텔레그램 원격 브릿지 감시 백그라운드 워커 기동
+    t_listener = threading.Thread(target=telegram_remote_listener_worker, daemon=True)
+    t_listener.start()
+
     try:
         httpd.serve_forever()
     except KeyboardInterrupt:

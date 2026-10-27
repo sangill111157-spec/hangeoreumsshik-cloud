@@ -16,6 +16,7 @@ if hasattr(sys.stderr, "reconfigure"):
 
 BASE_DIR = Path(__file__).resolve().parent
 QUEUE_PATH = BASE_DIR / "rgon_antigravity_live_queue.json"
+INBOX_PATH = BASE_DIR / "antigravity_live_inbox.json"
 
 def main():
     timeout = 30
@@ -29,9 +30,10 @@ def main():
 
     t0 = time.time()
     while time.time() - t0 < timeout:
-        if QUEUE_PATH.exists():
+        target_path = QUEUE_PATH if QUEUE_PATH.exists() else INBOX_PATH
+        if target_path.exists():
             try:
-                with open(QUEUE_PATH, "r", encoding="utf-8") as f:
+                with open(target_path, "r", encoding="utf-8") as f:
                     data = json.load(f)
                 queue = data.get("queue", [])
                 for item in queue:

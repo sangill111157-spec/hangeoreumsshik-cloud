@@ -18,6 +18,7 @@ if hasattr(sys.stderr, "reconfigure"):
 
 BASE_DIR = Path(__file__).resolve().parent
 QUEUE_PATH = BASE_DIR / "rgon_antigravity_live_queue.json"
+INBOX_PATH = BASE_DIR / "antigravity_live_inbox.json"
 STREAM_PATH = BASE_DIR / "hq_kakao_tg_live_stream.json"
 
 def main():
@@ -77,6 +78,12 @@ def main():
 
     with open(QUEUE_PATH, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
+
+    try:
+        with open(INBOX_PATH, "w", encoding="utf-8") as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+    except Exception:
+        pass
 
     # hq_kakao_tg_live_stream.json에도 추가
     try:

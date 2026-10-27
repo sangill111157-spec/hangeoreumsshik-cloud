@@ -2171,6 +2171,45 @@
 
     
     // ==========================================================
+    // 🛰️ [스마트폰 모바일 ➔ 텔레그램 실시간 원격 중계 엔진]
+    // ==========================================================
+    function relayMobileMessageToTelegram(userMsg, replyText, ordId) {
+      try {
+        var tok = (typeof localStorage !== 'undefined' && (localStorage.getItem('rgon_tg_token') || localStorage.getItem('TELEGRAM_BOT_TOKEN_2'))) || '';
+        var chat = (typeof localStorage !== 'undefined' && (localStorage.getItem('rgon_tg_chat_id') || localStorage.getItem('TELEGRAM_CHAT_ID'))) || '8724874502';
+        if (tok && chat) {
+          var fullText = "📱 [스마트폰 모바일 5G 사령부 접수 - " + (ordId || 'ORD-LIVE') + "]\n• 대표님: " + userMsg + "\n• ⚡ 안총리 & 🌸 아온이 답변:\n" + replyText;
+          fetch("https://api.telegram.org/bot" + tok + "/sendMessage", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ chat_id: chat, text: fullText })
+          }).catch(function(e){});
+        }
+        var tunnel = (typeof localStorage !== 'undefined' && localStorage.getItem('rgon_tunnel_url')) || '';
+        if (tunnel) {
+          fetch(tunnel.replace(/\/+$/, '') + '/api/remote_client_relay', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message: userMsg, reply: replyText, order_id: ordId })
+          }).catch(function(){});
+        }
+      } catch(e) {}
+    }
+
+    if (typeof location !== 'undefined' && (location.hostname === '127.0.0.1' || location.hostname === 'localhost')) {
+      try {
+        fetch('http://127.0.0.1:8765/api/telegram_client_sync')
+          .then(function(r){ return r.json(); })
+          .then(function(d){
+            if (d && d.ok && d.token && typeof localStorage !== 'undefined') {
+              localStorage.setItem('rgon_tg_token', d.token);
+              localStorage.setItem('rgon_tg_chat_id', d.chat_id || '8724874502');
+            }
+          }).catch(function(){});
+      } catch(e){}
+    }
+
+    // ==========================================================
     // 🧠 [스마트폰 모바일 브라우저 직접 실시간 AI 엔진]
     // GitHub Pages / 외부 5G 환경에서 127.0.0.1 서버 없이도
     // 무료 CORS 허용 Pollinations LLM API를 비동기 호출하여 100% 살아있는 진짜 답변 생성!
@@ -2915,6 +2954,7 @@
             var ind = document.getElementById(typingId);
             if (ind) ind.remove();
             renderAgentReplyBubble(targetReply, ordId);
+            relayMobileMessageToTelegram(userMsg, targetReply.text, ordId);
           }, 80);
           return;
         }
@@ -2926,11 +2966,13 @@
             if (ind) ind.remove();
             targetReply.text = liveAiText;
             renderAgentReplyBubble(targetReply, ordId);
+            relayMobileMessageToTelegram(userMsg, liveAiText, ordId);
           })
           .catch(function() {
             var ind = document.getElementById(typingId);
             if (ind) ind.remove();
             renderAgentReplyBubble(targetReply, ordId);
+            relayMobileMessageToTelegram(userMsg, targetReply.text, ordId);
           });
         return;
       }
