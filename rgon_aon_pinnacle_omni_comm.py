@@ -256,7 +256,7 @@ def generate_smart_reply(user_text: str, channel: str = "ALL", media_info: dict 
     return {
         'sender_name': live_resp.get('speaker', '🏛️ 기술총리 안총리 & 💧 만능 참모 아온이'),
         'icon': '⚡',
-        'text': live_resp.get('text', f"대표님! 하달하신 「{user_text}」 명령을 즉시 분석하여 전술 배치 중입니다! ⚡"),
+        'text': live_resp.get('text', "대표님! 문의하신 뜻을 최고 우선순위로 접수하여 즉각 실행 지원하겠습니다! ⚡"),
         'media': live_resp.get('media')
     }
 

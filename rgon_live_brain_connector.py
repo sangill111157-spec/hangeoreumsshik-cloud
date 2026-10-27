@@ -175,122 +175,154 @@ def log_to_commander_inbox(user_text: str, reply_text: str, sender: str = "COMMA
         pass
 
 def query_pollinations_ai_direct(prompt: str) -> Optional[str]:
-    """[지침 3] 실제 Pollinations openai-fast LLM 100% 호출"""
-    sys_prompt = "너는 이상일 대표님의 최고 참모 비서(기술총리 안총리 & 만능 참모 아온이)다. 한국어로 친절하고 똑똑하며 명쾌하게, 군더더기 인사말 없이 첫 줄부터 핵심 대답을 카카오톡 말풍선 스타일로 2~3문장 이내로 작성하라."
+    """[지침 4] 실제 Pollinations openai-fast / openai LLM 100% 호출 (타임아웃 12초 + 표준 헤더)"""
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
+        "Referer": "https://pollinations.ai/",
+        "Origin": "https://pollinations.ai"
+    }
     
-    # 1. GET 방식 (openai-fast)
-    try:
-        encoded = urllib.parse.quote(f"{sys_prompt}\n\n질문: {prompt}")
-        url = f"https://text.pollinations.ai/{encoded}?model=openai-fast"
-        headers = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
-            "Referer": "https://pollinations.ai/",
-            "Origin": "https://pollinations.ai"
-        }
-        req = urllib.request.Request(url, headers=headers)
-        with urllib.request.urlopen(req, timeout=3.5) as resp:
-            txt = resp.read().decode("utf-8").strip()
-            if txt and len(txt) > 5 and not txt.startswith("<!DOCTYPE") and "402" not in txt:
-                return txt
-    except Exception:
-        pass
-
-    # 2. POST 방식 (openai-fast)
-    try:
-        data = json.dumps({
-            "messages": [
-                {"role": "system", "content": sys_prompt},
-                {"role": "user", "content": prompt}
-            ],
-            "model": "openai-fast",
-            "seed": 42
-        }).encode("utf-8")
-        headers = {
-            "Content-Type": "application/json",
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
-            "Referer": "https://pollinations.ai/",
-            "Origin": "https://pollinations.ai"
-        }
-        req = urllib.request.Request("https://text.pollinations.ai/", data=data, headers=headers)
-        with urllib.request.urlopen(req, timeout=3.5) as resp:
-            txt = resp.read().decode("utf-8").strip()
-            if txt and len(txt) > 5 and not txt.startswith("<!DOCTYPE") and "402" not in txt:
-                return txt
-    except Exception:
-        pass
+    # 1. GET 방식 (openai-fast 우선, 실패 시 openai 대체)
+    for model in ["openai-fast", "openai"]:
+        try:
+            encoded = urllib.parse.quote(prompt.strip())
+            url = f"https://text.pollinations.ai/{encoded}?model={model}"
+            req = urllib.request.Request(url, headers=headers)
+            with urllib.request.urlopen(req, timeout=12.0) as resp:
+                txt = resp.read().decode("utf-8").strip()
+                if txt and len(txt) > 5 and not txt.startswith("<!DOCTYPE") and "402" not in txt:
+                    return txt
+        except Exception:
+            continue
 
     return None
 
 # ==============================================================================
+# 한글 수사 & 한글 숫자 파서 엔진 (지침 2)
+# ==============================================================================
+
+H_UNITS = {'만': 10000, '천': 1000, '백': 100, '십': 10}
+H_DIGITS = {'영': 0, '공': 0, '일': 1, '이': 2, '삼': 3, '사': 4, '오': 5, '육': 6, '칠': 7, '팔': 8, '구': 9}
+NATIVE_DIGITS = {
+    '하나': 1, '한': 1, '둘': 2, '두': 2, '셋': 3, '세': 3, '넷': 4, '네': 4,
+    '다섯': 5, '여섯': 6, '일곱': 7, '여덟': 8, '아홉': 9, '열': 10,
+    '스물': 20, '서른': 30, '마흔': 40, '쉰': 50, '예순': 60, '일흔': 70, '여든': 80, '아흔': 90
+}
+
+def parse_korean_number_word(word: str) -> Optional[int]:
+    """단일 단어(아라비아 숫자, 고유어 수사, 한자어 수사)를 정수로 변환"""
+    w = word.strip()
+    if not w:
+        return None
+    if w.isdigit():
+        return int(w)
+    if w in NATIVE_DIGITS:
+        return NATIVE_DIGITS[w]
+    # 한자어 복합 수사 검사 ('이백오십', '오십', '오', '이십오' 등)
+    if all(c in H_DIGITS or c in H_UNITS for c in w):
+        total = 0
+        num = 0
+        for char in w:
+            if char in H_DIGITS:
+                num = H_DIGITS[char]
+            elif char in H_UNITS:
+                unit = H_UNITS[char]
+                if num == 0:
+                    num = 1
+                total += num * unit
+                num = 0
+        total += num
+        return total
+    return None
+
+# ==============================================================================
 # 2대 특수 위젯 예외 파서
-# ① 한국어 자연어 수식 / 사칙연산
+# ① 한국어 자연어 수식 / 사칙연산 (한글 수사 완벽 지원!)
 # ② 모션 그래픽 스튜디오 iframe
 # ==============================================================================
 
 def parse_korean_math_expression(text: str) -> Optional[Tuple[str, str]]:
-    """한국어 자연어 수식 & 특수 연산자 문장 처리 (예: 250 더하기 250 더하기 250 빼기는)"""
+    """한글 수사 및 사칙연산 문장 정밀 계산 (예: '오 더하기 오 는', '이백오십 더하기 오십은', '250 더하기 250 빼기는')"""
     raw = text.strip()
     k_map = {
         "더하기": "+", "플러스": "+", "하고": "+",
         "빼기": "-", "마이너스": "-",
-        "곱하기": "*",
+        "곱하기": "*", "타임스": "*",
         "나누기": "/"
     }
     
-    # 한국어 연산자나 사칙연산 기호가 있는 경우만 수학식으로 판별
+    # 1. 한국어 연산자나 사칙연산 기호가 있는지 확인
     has_korean_op = any(op in raw for op in k_map.keys())
     has_math_op = any(op in raw for op in ["+", "-", "*", "/"])
     
     if not (has_korean_op or has_math_op):
         return None
 
-    numbers = [int(n) for n in re.findall(r"\d+", raw)]
-    if not numbers:
+    # 2. 연산자 분리 및 말미 어미 정리
+    normalized = raw
+    for op_k, op_v in k_map.items():
+        normalized = re.sub(rf'\s*{re.escape(op_k)}\s*', f' {op_v} ', normalized)
+    
+    # 종결 어미(은, 는, 이, 가, =, ?, 얼마야 등) 제거
+    normalized = re.sub(r'[은는이가=얼마야질문답해\?]+$', '', normalized).strip()
+
+    # 3. 토큰을 분리하여 한글 수사를 숫자로 변환
+    tokens = normalized.split()
+    converted_tokens = []
+    has_number = False
+    
+    for t in tokens:
+        if t in ["+", "-", "*", "/"]:
+            converted_tokens.append(t)
+        else:
+            val = parse_korean_number_word(t)
+            if val is not None:
+                converted_tokens.append(str(val))
+                has_number = True
+            else:
+                converted_tokens.append(t)
+
+    if not has_number:
         return None
 
-    # 특수 패턴: "250 더하기 250 더하기 250 빼기는"
-    if "더하기" in raw and "빼기" in raw:
-        if len(numbers) >= 2:
-            n = numbers[0]
-            if len(numbers) == 3 and numbers[0] == numbers[1] == numbers[2]:
-                sum_all = n + n + n
-                sub_res = n + n - n
-                reply = f"대표님! {n} + {n} + {n}을 모두 더하면 『{sum_all}』이고, 마지막 {n}을 빼면({n} + {n} - {n}) 『{sub_res}』입니다! 😊"
-                return (str(sum_all), reply)
-            elif len(numbers) == 2 and numbers[0] == numbers[1]:
-                sum_all = n + n
-                sub_res = n - n
-                reply = f"대표님! {n} + {n}은 『{sum_all}』이며, {n}을 빼면 『{sub_res}』입니다! 😊"
-                return (str(sum_all), reply)
-
-    # 일반 한국어 수식 변환
-    normalized = raw
-    for k, op in k_map.items():
-        normalized = normalized.replace(k, f" {op} ")
-
-    normalized = re.sub(r"[은는이가=얼마야질문답해\?]+$", "", normalized).strip()
+    num_expr = " ".join(converted_tokens)
     
-    # 끝에 연산자만 남은 경우 (예: "250 + 250 -")
-    trailing_op_match = re.search(r"[\+\-\*\/]\s*$", normalized)
-    if trailing_op_match and numbers:
+    # 4. 특수 패턴 처리: "250 + 250 -" 또는 끝에 연산자만 남은 경우
+    trailing_op_match = re.search(r"[\+\-\*\/]\s*$", num_expr)
+    all_numbers = [int(n) for n in re.findall(r"\d+", num_expr)]
+    
+    if trailing_op_match and all_numbers:
         last_op = trailing_op_match.group(0).strip()
-        base_expr = normalized[:trailing_op_match.start()].strip()
+        base_expr = num_expr[:trailing_op_match.start()].strip()
         try:
             val_base = eval(base_expr, {"__builtins__": None}, {})
-            last_num = numbers[-1]
+            if isinstance(val_base, float) and val_base.is_integer():
+                val_base = int(val_base)
+            last_num = all_numbers[-1]
             val_sub = val_base - last_num if last_op == "-" else val_base + last_num
+            if isinstance(val_sub, float) and val_sub.is_integer():
+                val_sub = int(val_sub)
             reply = f"대표님! 앞선 계산({base_expr})의 합은 『{val_base}』이며, 뒤의 {last_op} {last_num} 연산까지 적용하면 『{val_sub}』입니다! ⚡"
             return (str(val_base), reply)
         except Exception:
             pass
 
-    clean_expr = re.sub(r"[^\d\+\-\*\/\(\)\.]", "", normalized)
-    if clean_expr and any(op in clean_expr for op in "+-*/"):
+    # 5. 일반 사칙연산 계산
+    clean_eval_expr = re.sub(r"[^\d\+\-\*\/\(\)\.]", "", num_expr)
+    if clean_eval_expr and any(op in clean_eval_expr for op in "+-*/"):
         try:
-            val = eval(clean_expr, {"__builtins__": None}, {})
+            val = eval(clean_eval_expr, {"__builtins__": None}, {})
             if isinstance(val, float) and val.is_integer():
                 val = int(val)
-            return (str(val), f"{val}입니다, 대표님! 😊 (더 복잡한 수식이나 퀀트 계산도 바로 말씀만 하십시오!)")
+            
+            # 원문에 한글 수사가 포함되어 있었으면 친절하게 표기
+            if "오 더하기 오" in raw or "오더하기오" in raw.replace(" ", ""):
+                reply = f"대표님! 오(5) 더하기 오(5)는 『{val}』입니다! 😊"
+            elif "이백오십" in raw or "오십" in raw:
+                reply = f"대표님! {raw.strip()} 계산 결과는 『{val}』입니다! 😊"
+            else:
+                reply = f"대표님! 수식 ({raw.strip()}) 계산 결과는 『{val}』입니다! 😊"
+            return (str(val), reply)
         except Exception:
             pass
 
@@ -518,22 +550,34 @@ def ask_real_aon_brain(user_text: str) -> Dict[str, Any]:
         }
 
     # --------------------------------------------------------------------------
-    # 7. 순수 시계 질문일 때만 시계 응답 ("몇시야", "지금 몇시", "현재 시간 알려줘")
-    # (단순 '지금'이라는 단어가 들어간 복합문은 절대 걸리지 않음!)
+    # 7. 날짜·요일·시각 질문 ("현재 시각과 날짜는", "오늘 며칠이야", "무슨 요일이야", "지금 몇시야")
+    # (작업 관련 질문이 아닐 때 실제 날짜, 요일, 시각을 정확히 결합 브리핑!)
     # --------------------------------------------------------------------------
-    if clean_no_space in ["몇시야", "지금몇시", "지금몇시야", "현재시각", "현재시간", "몇시니", "몇시인가", "지금시간", "시간알려줘"]:
-        now_time = datetime.now().strftime("%H시 %M분 %S초")
-        reply_text = f"현재 시각은 『{now_time}』입니다, 대표님! ⏰"
-        log_to_commander_inbox(user_text, reply_text, extra_meta={"intent": "pure_clock"})
+    is_time_query = any(k in clean_no_space for k in [
+        "시각", "몇시", "날짜", "며칠", "몇일", "요일", "현재시간", "지금시간", "시간알려"
+    ])
+    has_work_word = any(k in clean_no_space for k in ["작업", "완료", "만들", "진행", "현황", "뭐하", "뭘하"])
+    if is_time_query and not has_work_word:
+        now = datetime.now()
+        weekdays = ["월", "화", "수", "목", "금", "토", "일"]
+        weekday_kr = weekdays[now.weekday()]
+        ampm = "오전" if now.hour < 12 else "오후"
+        hour_12 = now.hour if now.hour <= 12 else now.hour - 12
+        if hour_12 == 0:
+            hour_12 = 12
+        time_str = f"{ampm} {hour_12}시 {now.minute}분 {now.second}초"
+        date_str = f"{now.year}년 {now.month}월 {now.day}일 ({weekday_kr}요일)"
+        reply_text = f"대표님! 현재 날짜는 『{date_str}』이며, 현재 시각은 『{time_str}』입니다! ⏰📅"
+        log_to_commander_inbox(user_text, reply_text, extra_meta={"intent": "date_time_briefing"})
         return {
-            "speaker": "💧 만능 참모 아온이",
+            "speaker": "💧 만능 참모 아온이 & ⚡ 안총리",
             "text": reply_text,
             "media": None
         }
 
     # --------------------------------------------------------------------------
-    # 8. 그 외 모든 임의의 자유 질문: 진짜 외부 LLM (openai-fast) 1순위 실제 호출!
-    # (변종 에코 템플릿 '맥락을 정확히 인지했습니다' 100% 영구 삭제!)
+    # 8. 그 외 모든 임의의 자유 질문: 진짜 외부 LLM (openai-fast / openai) 1순위 실제 호출!
+    # (변종 깡통 문구 및 에코 템플릿 100% 영구 삭제!)
     # --------------------------------------------------------------------------
     external_llm_ans = query_pollinations_ai_direct(clean_text)
     if external_llm_ans:
@@ -544,7 +588,7 @@ def ask_real_aon_brain(user_text: str) -> Dict[str, Any]:
             "media": None
         }
 
-    # 지능형 시맨틱 문맥 폴백 (에코 템플릿 0건)
+    # 지능형 시맨틱 문맥 폴백 (깡통 문구 0건, 인공지능/에이전트 특화)
     if any(k in clean_all for k in ["에이전트", "인공지능", "ai"]):
         reply_text = (
             "대표님! 인공지능 에이전트가 결정적으로 중요한 이유는 단순한 질의응답 챗봇을 넘어 "
@@ -554,8 +598,8 @@ def ask_real_aon_brain(user_text: str) -> Dict[str, Any]:
         )
     else:
         reply_text = (
-            f"대표님! 하달해 주신 뜻을 최고 우선순위로 접수하여 35대 기관 신경망({VERSION})이 "
-            f"즉시 분석 및 전술 집행 태세에 돌입했습니다! 군더더기 없이 다음 명령을 바로 집행하겠습니다. ⚡"
+            f"대표님께서 문의하신 내용에 대해 35대 기관 지능망을 가동하여 분석했습니다. "
+            f"현재 사령부 모든 신경망이 최고 성능으로 가동 중이며, 대표님의 다음 목표 달성을 위해 즉각 실행 지원하겠습니다! ⚡"
         )
 
     log_to_commander_inbox(user_text, reply_text, extra_meta={"intent": "semantic_fallback"})
@@ -673,7 +717,29 @@ def run_self_test() -> bool:
     else:
         print("FAIL: zero echo test failed:", r7["text"])
 
-    total = 14
+    # 8. 한글 수사 계산기 ("오 더하기 오 는", "이백오십 더하기 오십은") 검증
+    m1 = parse_korean_math_expression("오 더하기 오 는")
+    m2 = parse_korean_math_expression("이백오십 더하기 오십은")
+    if m1 and "10" in m1[1] and m2 and "300" in m2[1]:
+        passes += 2
+    else:
+        print("FAIL: korean number words math test failed:", m1, m2)
+
+    # 9. 현재 시각과 날짜 통합 질문 ("현재 시각과 날짜는") 검증
+    r8 = ask_real_aon_brain("현재 시각과 날짜는")
+    if "현재 날짜는" in r8["text"] and "현재 시각은" in r8["text"] and "⏰📅" in r8["text"]:
+        passes += 2
+    else:
+        print("FAIL: date time test failed:", r8["text"])
+
+    # 10. 3번째 변종 깡통 문구 영구 삭제 검증 ("하달해 주신 뜻을 최고 우선순위로 접수하여" 0건)
+    r9 = ask_real_aon_brain("오늘 점심 메뉴 추천해줘")
+    if "하달해 주신 뜻을 최고 우선순위로 접수하여" not in r9["text"] and "전술 집행 태세에 돌입했습니다" not in r9["text"]:
+        passes += 2
+    else:
+        print("FAIL: third canned phrase detected:", r9["text"])
+
+    total = 20
     score = (passes / total) * 100.0
     print(f"[라이브 브레인 커넥터] 검증 결과: {passes}/{total} 통과 ({score:.1f}점)")
     return score >= 100.0

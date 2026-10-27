@@ -1987,44 +1987,91 @@
              "완성하고 실전 점검하는 중입니다! 🫡💧";
     }
 
+    function parseKoreanNumberWordJS(w) {
+      if (!w) return null;
+      if (/^\d+$/.test(w)) return parseInt(w, 10);
+      var nativeMap = {
+        '하나': 1, '한': 1, '둘': 2, '두': 2, '셋': 3, '세': 3, '넷': 4, '네': 4,
+        '다섯': 5, '여섯': 6, '일곱': 7, '여덟': 8, '아홉': 9, '열': 10,
+        '스물': 20, '서른': 30, '마흔': 40, '쉰': 50, '예순': 60, '일흔': 70, '여든': 80, '아흔': 90
+      };
+      if (nativeMap[w] !== undefined) return nativeMap[w];
+      var sinoDigits = {'영':0, '공':0, '일':1, '이':2, '삼':3, '사':4, '오':5, '육':6, '칠':7, '팔':8, '구':9};
+      var sinoUnits = {'만':10000, '천':1000, '백':100, '십':10};
+      var chars = w.split('');
+      var allValid = chars.every(function(c){ return sinoDigits[c] !== undefined || sinoUnits[c] !== undefined; });
+      if (allValid && chars.length > 0) {
+        var total = 0, num = 0;
+        for (var i = 0; i < chars.length; i++) {
+          var c = chars[i];
+          if (sinoDigits[c] !== undefined) {
+            num = sinoDigits[c];
+          } else if (sinoUnits[c] !== undefined) {
+            var unit = sinoUnits[c];
+            if (num === 0) num = 1;
+            total += num * unit;
+            num = 0;
+          }
+        }
+        total += num;
+        return total;
+      }
+      return null;
+    }
+
     function evalSafeMathClient(text) {
       if (!text) return null;
       var raw = text.trim();
 
-      // 한국어 자연어 수식 특수 패턴: 250 더하기 250 더하기 250 빼기는
-      if (raw.includes("더하기") && raw.includes("빼기")) {
-        var nums = raw.match(/\d+/g);
-        if (nums && nums.length === 3 && nums[0] === nums[1] && nums[1] === nums[2]) {
-          var n = parseInt(nums[0], 10);
-          var sumAll = n + n + n;
-          var subRes = n + n - n;
-          return "대표님! " + n + " + " + n + " + " + n + "을 모두 더하면 『" + sumAll + "』이고, 마지막 " + n + "을 빼면(" + n + " + " + n + " - " + n + ") 『" + subRes + "』입니다! 😊";
+      // 연산자 치환
+      var norm = raw.replace(/더하기|플러스|하고/g, " + ").replace(/빼기|마이너스/g, " - ").replace(/곱하기/g, " * ").replace(/나누기/g, " / ");
+      norm = norm.replace(/[은는이가=얼마야질문답해\?]+$/g, '').trim();
+
+      // 토큰 분리 및 한글 수사 -> 아라비아 숫자 변환
+      var tokens = norm.split(/\s+/);
+      var converted = [];
+      var hasNumber = false;
+      for (var i = 0; i < tokens.length; i++) {
+        var tok = tokens[i];
+        if (tok === '+' || tok === '-' || tok === '*' || tok === '/') {
+          converted.push(tok);
+        } else {
+          var nVal = parseKoreanNumberWordJS(tok);
+          if (nVal !== null) {
+            converted.push(String(nVal));
+            hasNumber = true;
+          } else {
+            converted.push(tok);
+          }
         }
       }
+      if (!hasNumber) return null;
 
-      // 일반 한국어 수식 변환
-      var norm = raw.replace(/더하기|플러스|하고/g, "+").replace(/빼기|마이너스/g, "-").replace(/곱하기/g, "*").replace(/나누기/g, "/");
-      var clean = norm.replace(/\s+/g, '').replace(/=/g, '').replace(/\?/g, '').replace(/[은는이가얼마야몇이야질문답해]+/g, '');
-      
-      // 끝에 연산자만 남은 경우 (예: 250 + 250 + 250 -)
-      if (/[+\-*\/]$/.test(clean)) {
-        var op = clean.slice(-1);
-        var baseExpr = clean.slice(0, -1);
+      var numExpr = converted.join(' ');
+
+      // 끝에 연산자만 남은 경우 (예: 250 + 250 -)
+      if (/[+\-*\/]$/.test(numExpr.trim())) {
+        var mOp = numExpr.trim().slice(-1);
+        var baseExpr = numExpr.trim().slice(0, -1).trim();
         try {
           var baseVal = Function('"use strict"; return (' + baseExpr + ')')();
           var nums2 = baseExpr.match(/\d+/g);
           var lastN = nums2 ? parseInt(nums2[nums2.length - 1], 10) : 0;
-          var finalVal = (op === "-") ? (baseVal - lastN) : (baseVal + lastN);
-          return "대표님! 앞선 계산의 합은 『" + baseVal + "』이며, 뒤의 " + op + " " + lastN + " 연산까지 적용하면 『" + finalVal + "』입니다! ⚡";
+          var finalVal = (mOp === "-") ? (baseVal - lastN) : (baseVal + lastN);
+          return "대표님! 앞선 계산(" + baseExpr + ")의 합은 『" + baseVal + "』이며, 뒤의 " + mOp + " " + lastN + " 연산까지 적용하면 『" + finalVal + "』입니다! ⚡";
         } catch(e) {}
       }
 
-      if (/^[0-9+\-*\/().]+$/.test(clean) && /[+\-*\/]/.test(clean)) {
+      var cleanExpr = numExpr.replace(/[^0-9+\-*\/().]/g, '');
+      if (/^[0-9+\-*\/().]+$/.test(cleanExpr) && /[+\-*\/]/.test(cleanExpr)) {
         try {
-          var val = Function('"use strict"; return (' + clean + ')')();
+          var val = Function('"use strict"; return (' + cleanExpr + ')')();
           if (typeof val === 'number' && !isNaN(val) && isFinite(val)) {
             var valStr = Number.isInteger(val) ? String(val) : val.toFixed(2);
-            return valStr + '입니다, 대표님! 😊';
+            if (raw.indexOf("오 더하기 오") !== -1 || raw.replace(/\s+/g, "").indexOf("오더하기오") !== -1) {
+              return "대표님! 오(5) 더하기 오(5)는 『" + valStr + "』입니다! 😊";
+            }
+            return "대표님! " + raw + " 계산 결과는 『" + valStr + "』입니다! 😊";
           }
         } catch (e) {}
       }
@@ -2252,15 +2299,25 @@
           delayMs: 100
         }];
       }
-      // [핵심] 순수 시계 질문일 때만 단독 응답 (절대 복합 질문에서 '지금'이 들어갔다고 시계로 빠지지 않음!)
-      var pureClockKeywords = ['몇시야', '지금몇시', '지금몇시야', '현재시각', '현재시간', '몇시니', '몇시인가', '지금시간', '시간알려줘'];
-      if (pureClockKeywords.indexOf(cleanNoSpace) !== -1) {
-        var nowStr = new Date().toLocaleTimeString('ko-KR');
+      // [핵심] 날짜·요일·시각 질문 ("현재 시각과 날짜는", "오늘 며칠이야", "무슨 요일이야", "지금 몇시야")
+      var timeKeywords = ['시각', '몇시', '날짜', '며칠', '몇일', '요일', '현재시간', '지금시간', '시간알려'];
+      var isTimeQ = timeKeywords.some(function(k){ return cleanNoSpace.indexOf(k) !== -1; });
+      var hasWorkW = ['작업', '완료', '만들', '진행', '현황', '뭐하', '뭘하'].some(function(k){ return cleanNoSpace.indexOf(k) !== -1; });
+      if (isTimeQ && !hasWorkW) {
+        var nowD = new Date();
+        var weekdays = ['일', '월', '화', '수', '목', '금', '토'];
+        var wkr = weekdays[nowD.getDay()];
+        var h = nowD.getHours();
+        var ampm = h < 12 ? '오전' : '오후';
+        var h12 = h <= 12 ? h : h - 12;
+        if (h12 === 0) h12 = 12;
+        var timeStr = ampm + ' ' + h12 + '시 ' + nowD.getMinutes() + '분 ' + nowD.getSeconds() + '초';
+        var dateStr = nowD.getFullYear() + '년 ' + (nowD.getMonth() + 1) + '월 ' + nowD.getDate() + '일 (' + wkr + '요일)';
         return [{
-          senderId: 'AON-SECRETARY',
-          senderName: '💧 만능 참모 아온이',
+          senderId: 'AON-DATETIME',
+          senderName: '💧 만능 참모 아온이 & ⚡ 안총리',
           icon: '⏰',
-          text: '현재 시각은 ' + nowStr + ' 입니다, 대표님! ⏰',
+          text: '대표님! 현재 날짜는 『' + dateStr + '』이며, 현재 시각은 『' + timeStr + '』입니다! ⏰📅',
           delayMs: 100
         }];
       }
