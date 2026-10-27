@@ -134,3 +134,6 @@
 | 52 | `aon-telegram-omni-messenger` | 제32기관 아온 듀얼 텔레그램·카톡형 실시간 양방향 메신저 스킬 | `v11.55-AON-TELEGRAM-MESSENGER` | `R56` |
 
 | 53 | `aon-invisible-kakao-tg-backbone` | 제33기관 아온 인비저블 텔레그램 백본 & 카톡형 만능 대화창 스킬 | `v11.56-AON-INVISIBLE-KAKAO-TG` | `R57` |
+
+| 54 | `aon-pinnacle-omni-communicator` | 제34기관 아온 피너클 옴니 커뮤니케이터 & 멀티모달 두뇌 스킬 | `v11.57-AON-PINNACLE-OMNI-COMM` | `R58` |
+

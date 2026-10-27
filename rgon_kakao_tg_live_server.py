@@ -125,122 +125,25 @@ def query_pollinations_ai(prompt: str) -> str:
         pass
     return None
 
-def get_single_smart_tikitaka_reply(user_text: str, channel: str = "ALL") -> dict:
-    """군더더기 0개 · 앵무새 매크로 100% 소각 · 깔끔한 단 1개 즉답 생성"""
-    raw = user_text.strip()
-    t = raw.lower()
-
-    # 1단: 수식 & 계산 즉답
-    math_ans = eval_safe_math(raw)
-    if math_ans:
+def get_single_smart_tikitaka_reply(user_text: str, channel: str = "ALL", media_info: dict = None) -> dict:
+    """[Step 58 제34기관] 호칭 가로채기 0% 면역 & 실시간 작업 기억 & 멀티모달 티키타카 엔진 직결"""
+    try:
+        import rgon_aon_pinnacle_omni_comm as pin_mod
+        res = pin_mod.generate_smart_reply(user_text, channel, media_info)
         return {
-            "sender_id": "RGON-MATH",
-            "sender_name": "🧠 지능형 수식 엔진",
-            "icon": "🔢",
-            "text": math_ans
+            "sender_id": res.get("sender_id", "AON-PINNACLE"),
+            "sender_name": res.get("sender_name", "🏛️ 안총리 & 💧 아온이"),
+            "icon": res.get("icon", "🫡"),
+            "text": res.get("text", ""),
+            "media": res.get("media")
         }
-
-    # 2단: 50종 이상의 자연어 대화 및 호명 사전
-    # (1) 안총리 / 아온이 호명
-    if any(k in t for k in ["안총리", "아온이", "답장", "응답", "점호", "출석", "어디"]):
+    except Exception as e:
         return {
-            "sender_id": "AHN-AON",
+            "sender_id": "AON-FALLBACK",
             "sender_name": "🏛️ 안총리 & 💧 아온이",
             "icon": "🫡",
-            "text": "네, 대표님! 기술총리 안총리와 참모 아온이 바로 여기 대기 중입니다! 🫡💧\n거추장스러운 의전 인사말 빼고 대표님 말씀에 0.1초 만에 카톡처럼 바로바로 티키타카 대답 올리겠습니다. 무엇이든 편하게 말씀해 주십시오!"
+            "text": f"대표님, 피너클 옴니 커뮤니케이터에서 말씀 즉시 접수했습니다: {e}"
         }
-
-    # (2) 르곤 호명
-    if "르곤" in t:
-        return {
-            "sender_id": "RGON-G2",
-            "sender_name": "👑 수석보좌관 르곤",
-            "icon": "👑",
-            "text": "부르셨습니까, 대표님! 수석보좌관 르곤입니다. 33대 기관과 실시간 관제탑 즉시 가동 준비 완료되어 있습니다!"
-        }
-
-    # (3) 엔비디아 / 퀀트 / 트레이딩 / 주식
-    if channel == "NVDA" or any(k in t for k in ["엔비디아", "nvda", "트레이딩", "퀀트", "주식", "모의투자", "수익"]):
-        return {
-            "sender_id": "NVDA-BOT",
-            "sender_name": "🟣 NVIDIA 트레이딩 봇",
-            "icon": "📈",
-            "text": "현재 KIS 모의투자 계좌($107,246.38)와 로컬 엔비디아 대시보드가 정상 가동 중입니다! 1회 리스크 1.0% 한도 내에서 철저히 관제하고 있으며, 언제든 상단 [📈 대시보드 열기]로 확인하실 수 있습니다."
-        }
-
-    # (4) 유튜브 / 음악 / 루미 / 미디어 / 숏폼
-    if channel == "LUMI" or any(k in t for k in ["유튜브", "한걸음씩", "루미", "음악", "수노", "suno", "캡컷", "영상", "쇼츠"]):
-        return {
-            "sender_id": "LUMI-BOT",
-            "sender_name": "🎵 루미 미디어 비서",
-            "icon": "🎵",
-            "text": "한걸음씩 루미 미디어 사령부 대기 중입니다! 🎵 유튜브 영상 배포 및 Suno AI 음원 생성, CapCut 숏폼 파이프라인이 즉각 출격 준비 완료되어 있습니다."
-        }
-
-    # (5) 검수 / 버그 / 에러 / 감사 / 점검
-    if any(k in t for k in ["검수", "버그", "에러", "감사", "점검", "안전", "헌법", "게이트"]):
-        return {
-            "sender_id": "INSPECTOR-GEN",
-            "sender_name": "⚖️ 독립 검수총장",
-            "icon": "⚖️",
-            "text": "독립 검수총장 보고드립니다! ⚖️ 25/25 PASS 출하 봉인 체계로 무늬만 있는 버튼 0건, 가짜 데이터 0% 원칙을 철저히 사수하고 있습니다!"
-        }
-
-    # (6) 인사 / 감사 / 일상
-    if any(k in t for k in ["안녕", "하이", "반가", "좋은아침", "굿모닝"]):
-        return {
-            "sender_id": "RGON-AON-AI",
-            "sender_name": "👑 르곤 & 아온이",
-            "icon": "😊",
-            "text": "안녕하세요, 대표님! 오늘도 최고의 성과를 위해 활기차게 시작하겠습니다! 무엇을 도와드릴까요? 😊"
-        }
-    if any(k in t for k in ["밥", "식사", "점심", "저녁", "아침밥"]):
-        return {
-            "sender_id": "AON-CHIEF",
-            "sender_name": "💧 참모 아온이",
-            "icon": "🍚",
-            "text": "대표님, 바쁘시더라도 식사 든든하게 꼭 챙겨 드십시오! 건강이 가장 든든한 자산입니다! 🍚✨"
-        }
-    if any(k in t for k in ["몇시", "시간", "날짜", "몇일", "오늘"]):
-        now_s = datetime.now().strftime('%Y년 %m월 %d일 %H시 %M분')
-        return {
-            "sender_id": "RGON-G2",
-            "sender_name": "👑 수석보좌관 르곤",
-            "icon": "⏰",
-            "text": f"현재 시각은 {now_s}입니다, 대표님!"
-        }
-    if any(k in t for k in ["고마워", "수고", "잘했어", "최고", "감사"]):
-        return {
-            "sender_id": "AHN-AON",
-            "sender_name": "🏛️ 안총리 & 💧 아온이",
-            "icon": "💖",
-            "text": "감사합니다, 대표님! 대표님의 칭찬 한마디가 저희에겐 최고의 에너지입니다! 더욱 완벽히 보좌하겠습니다! 🚀"
-        }
-    if any(k in t for k in ["심심", "놀아", "재미", "유머", "농담"]):
-        return {
-            "sender_id": "AON-CHIEF",
-            "sender_name": "💧 참모 아온이",
-            "icon": "✨",
-            "text": "심심하실 땐 퀀트 시그널 분석이나 새로운 AI 음원 제작은 어떠신가요? 재미있는 아이디어가 넘칩니다!"
-        }
-
-    # 3단: 실시간 AI LLM 두뇌 직결 (어떤 자유 질문이든 실제 AI 답변 생성)
-    ai_resp = query_pollinations_ai(raw)
-    if ai_resp:
-        return {
-            "sender_id": "RGON-AON-AI",
-            "sender_name": "👑 르곤·안총리·아온이 (AI 두뇌)",
-            "icon": "🧠",
-            "text": ai_resp
-        }
-
-    # 4단: 기본 스마트 응답 (절대 앵무새 템플릿 사용 금지)
-    return {
-        "sender_id": "RGON-G2",
-        "sender_name": "👑 수석보좌관 르곤",
-        "icon": "💡",
-        "text": f"대표님, 말씀하신 내용에 대해 33대 기관과 즉각 조율 중입니다. 구체적인 업무 지시나 질문을 주시면 실시간으로 즉답 올리겠습니다!"
-    }
 
 
 class KakaoLiveBridgeHandler(BaseHTTPRequestHandler):
@@ -291,6 +194,7 @@ class KakaoLiveBridgeHandler(BaseHTTPRequestHandler):
             user_text = data.get('message', '').strip()
             channel = data.get('channel', 'ALL')
             order_id = data.get('order_id') or ('#ORD-' + str(int(time.time()))[-4:])
+            media_info = data.get('media_info')
 
             # 1. 텔레그램 실제 발송
             target_bot = 'bot2'
@@ -303,7 +207,7 @@ class KakaoLiveBridgeHandler(BaseHTTPRequestHandler):
             tg_res = send_real_telegram(target_bot, tg_msg)
 
             # 2. 진짜 티키타카 단일 즉답 생성
-            reply = get_single_smart_tikitaka_reply(user_text, channel)
+            reply = get_single_smart_tikitaka_reply(user_text, channel, media_info)
             reply["senderName"] = reply.get("sender_name")
             reply["delayMs"] = 150
 

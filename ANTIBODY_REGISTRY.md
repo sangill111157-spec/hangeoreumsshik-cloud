@@ -92,3 +92,10 @@
 - **제33기관:** 아온 인비저블 텔레그램 백본 & 카카오톡형 올인원 만능 대화창 엔진 (`rgon_aon_invisible_kakao_tg_backbone.py`)
 - **역할:** 겉은 심플한 카톡 대화창(4대 채널톡), 속은 보이지 않는 텔레그램 3대 봇 직결 백본(BotMux+A2A-TG+Intergram), 엔비디아 트레이딩 봇 & 대시보드 직결, 5중 루프가드 무한루프 0% 차단.
 - **발효 버전:** `v11.56-AON-INVISIBLE-KAKAO-TG`
+
+### R58: `R58_PINNACLE_VOICE_ARTIFACT_TIKITAKA_ZERO_FLUFF_LOCK`
+- **범위**: R1~R58 · 정식 스킬 54개
+- **제34기관:** 아온 피너클 옴니 커뮤니케이터 & 멀티모달 두뇌 (`rgon_aon_pinnacle_omni_comm.py`)
+- **역할:** 호칭 가로채기(Short-Circuit) 버그 0% 완전 면역, 실시간 사령부 작업 기억 브리핑, 6대 멀티모달(사진·영상/유튜브·음성 STT/TTS·URL 스마트 프리뷰·텔레파시 칩) 완전 융합, 5대 군더더기 0건 수호.
+- **발효 버전:** `v11.57-AON-PINNACLE-OMNI-COMM`
+

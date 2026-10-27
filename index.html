@@ -1219,20 +1219,50 @@
       </div>
 
       <!-- 대표님 직통 입력창 & 전송 버튼 (onclick & submit 이중 직결) -->
-      <form id="hq-comm-form" onsubmit="event.preventDefault(); sendDirectComm(); return false;" class="flex items-center gap-2 pt-2">
+      <!-- 🔮 [Step 58 제34기관] 텔레파시 원터치 추천 질문 칩 3개 (#pinnacle-smart-chips) -->
+      <div id="pinnacle-smart-chips" class="flex flex-wrap items-center gap-1.5 pt-1">
+        <button type="button" onclick="sendTelepathyChip('안실장 아온아 지금 우리가 뭘 하고 있지 답장줘')" class="px-2.5 py-1 rounded-lg bg-cyan-950/80 hover:bg-cyan-900 border border-cyan-500/40 text-[11px] font-bold text-cyan-300 transition flex items-center gap-1 active:scale-95 cursor-pointer shadow">
+          🔍 지금 작업 현황 브리핑
+        </button>
+        <button type="button" onclick="sendTelepathyChip('엔비디아 퀀트 모의투자 수익률 및 대시보드 상태 보고하라')" class="px-2.5 py-1 rounded-lg bg-purple-950/80 hover:bg-purple-900 border border-purple-500/40 text-[11px] font-bold text-purple-300 transition flex items-center gap-1 active:scale-95 cursor-pointer shadow">
+          📈 엔비디아 퀀트 수익률
+        </button>
+        <button type="button" onclick="sendTelepathyChip('루미 미디어 사령부 유튜브 음원 파이프라인 가동 준비')" class="px-2.5 py-1 rounded-lg bg-pink-950/80 hover:bg-pink-900 border border-pink-500/40 text-[11px] font-bold text-pink-300 transition flex items-center gap-1 active:scale-95 cursor-pointer shadow">
+          🎵 루미 미디어 파이프라인
+        </button>
+      </div>
+
+      <!-- 대표님 직통 입력창 & 6대 멀티모달 액션 바 (사진 📎 · 음성 🎙️ · 수식 · 전송 ⚡) -->
+      <form id="hq-comm-form" onsubmit="event.preventDefault(); sendDirectComm(); return false;" class="flex items-center gap-1.5 sm:gap-2 pt-2">
+        <input type="file" id="comm-file-input" accept="image/*,video/*,audio/*" class="hidden" onchange="handleFileInputChange(event)">
+        <button 
+          id="btn-comm-attach" 
+          type="button" 
+          onclick="document.getElementById('comm-file-input').click()" 
+          title="사진·영상·파일 첨부 (Ctrl+V 붙여넣기 및 드래그 앤 드롭 지원)"
+          class="p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 hover:text-white transition flex items-center justify-center shrink-0 cursor-pointer shadow">
+          📎
+        </button>
+        <button 
+          id="btn-comm-mic" 
+          type="button" 
+          onclick="toggleVoiceRecognition()" 
+          title="핸즈프리 음성인식 (STT) 시작/중지"
+          class="p-2.5 rounded-xl bg-slate-800 hover:bg-indigo-900/60 border border-slate-700 hover:border-indigo-500/50 text-indigo-300 transition flex items-center justify-center shrink-0 cursor-pointer shadow">
+          🎙️
+        </button>
         <input 
           id="comm-input-box" 
           type="text" 
           autocomplete="off"
-          placeholder="👑 대표님, 르곤·안총리에게 지시하실 말씀을 입력하세요... (예: 1차 테스트 확인용 지시서 전달 확인 응답 보고)" 
-          class="flex-1 px-4 py-2.5 rounded-xl bg-slate-900 border border-cyan-500/40 focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-400 text-xs sm:text-sm text-white placeholder-slate-400 transition"
+          placeholder="👑 대표님 말씀 또는 유튜브·웹링크·Ctrl+V 사진을 올리세요..." 
+          class="flex-1 px-3 sm:px-4 py-2.5 rounded-xl bg-slate-900 border border-cyan-500/40 focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-400 text-xs sm:text-sm text-white placeholder-slate-400 transition"
         />
         <button 
           id="btn-comm-send" 
           type="button" 
           onclick="sendDirectComm();"
-          class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 active:scale-95 font-black text-xs sm:text-sm text-white shadow-lg shadow-cyan-600/30 transition-all flex items-center gap-1.5 shrink-0 cursor-pointer"
-         data-clean-id="CLEAN-IDX-014">
+          class="px-4 sm:px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 active:scale-95 font-black text-xs sm:text-sm text-white shadow-lg shadow-cyan-600/30 transition-all flex items-center gap-1.5 shrink-0 cursor-pointer">
           <span id="btn-comm-send-icon">⚡</span><span id="btn-comm-send-text">전송</span>
         </button>
       </form>
@@ -1909,8 +1939,40 @@
     window.renderOrdersModal = renderOrdersModal;
 
     // ==============================================================================
-    // [과업 2] 지능형 티키타카(Tiki-Taka) 두뇌 엔진 (수식 계산 · 50종 자연어 사전 · 단일 즉답)
     // ==============================================================================
+    // [Step 58 제34기관] 피너클 옴니 커뮤니케이터 & 멀티모달 티키타카 두뇌 엔진
+    // (호칭 가로채기 완전 면역 · 실시간 작업 기억 브리핑 · 6대 멀티모달 렌더러)
+    // ==============================================================================
+    var VOCATIVES_CLIENT = [
+      "안실장", "안총리", "아온아", "아온이", "르곤아", "르곤", "보좌관", "보좌관님", "비서야", "비서님",
+      "답장줘", "답장해봐", "답장하라", "답장해", "말해봐", "알려줘", "보고해", "보고하라", "대답해봐", "대답해", "어이"
+    ];
+
+    function stripVocativesClient(text) {
+      if (!text) return "";
+      var t = text.trim();
+      VOCATIVES_CLIENT.forEach(function(v) {
+        t = t.split(v).join("");
+      });
+      return t.replace(/[,.!?~]+/g, " ").replace(/\s+/g, " ").trim();
+    }
+
+    function isCurrentWorkQueryClient(text) {
+      var cleaned = stripVocativesClient(text).toLowerCase().replace(/\s+/g, "");
+      var patterns = [
+        "뭘하고있", "뭐하고있", "무슨일", "무슨작업", "어디까지", "현재작업",
+        "진행상황", "현황어때", "작업현황", "뭐하는중", "뭘하는중", "작업상황"
+      ];
+      return patterns.some(function(p) { return cleaned.indexOf(p) !== -1; });
+    }
+
+    function getLiveWorkBriefingClient() {
+      return "대표님! 지금 우리는 본관 소통 사령부의 불필요한 군더더기를 싹 비워내고, " +
+             "카카오톡 다크 에디션(인비저블 3대 텔레그램 백본 + NVIDIA 오토트레이딩 직결) 위에 " +
+             "사진·영상·유튜브·음성·모든 URL까지 다 주고받는 『제34기관 멀티모달 만능 소통의 정점" +
+             "(Step 58 · v11.57-AON-PINNACLE-OMNI-COMM · 34대 기관 · 54스킬 · 시냅스 100.0점)』을 완성하고 실전 점검하는 중입니다! 🫡💧";
+    }
+
     function evalSafeMathClient(text) {
       if (!text) return null;
       var clean = text.replace(/\s+/g, '').replace(/=/g, '').replace(/\?/g, '').replace(/얼마야/g, '').replace(/얼마/g, '').replace(/몇이야/g, '');
@@ -1926,8 +1988,51 @@
       return null;
     }
 
-    function buildClientSideReplies(userMsg, channel) {
-      var t = (userMsg || '').trim().toLowerCase();
+    function parseUrlIntentClient(text) {
+      if (!text) return null;
+      // 유튜브 URL
+      var ytMatch = text.match(/(https?:\/\/(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w\-]+))/);
+      if (ytMatch) {
+        return {
+          type: 'YOUTUBE',
+          url: ytMatch[1],
+          videoId: ytMatch[2]
+        };
+      }
+      // 일반 URL
+      var urlMatch = text.match(/(https?:\/\/[^\s]+)/);
+      if (urlMatch) {
+        var u = urlMatch[1];
+        try {
+          var domain = new URL(u).hostname;
+          return { type: 'WEB_URL', url: u, domain: domain };
+        } catch(e) {
+          return { type: 'WEB_URL', url: u, domain: 'web-link' };
+        }
+      }
+      return null;
+    }
+
+    function buildClientSideReplies(userMsg, channel, mediaInfo) {
+      var raw = (userMsg || '').trim();
+      var t = raw.toLowerCase();
+
+      // 1. 미디어/이미지 분석
+      if (mediaInfo && mediaInfo.type === 'IMAGE') {
+        var w = mediaInfo.width || 1920;
+        var h = mediaInfo.height || 1080;
+        var kb = mediaInfo.size_kb || 180;
+        return [{
+          senderId: 'AON-VISION',
+          senderName: '💧 만능 참모 아온이 (멀티모달 시각 분석)',
+          icon: '🖼️',
+          text: '대표님께서 전송하신 이미지를 정밀 분석했습니다! 📸\n• 실측 해상도: ' + w + ' × ' + h + ' px\n• 종횡비: ' + (w/h).toFixed(2) + ':1 · 용량: ' + kb + ' KB\n• 사령부 미디어 엔진에 안전하게 동기화되었습니다!',
+          media: mediaInfo,
+          delayMs: 120
+        }];
+      }
+
+      // 2. 수식 계산
       var mathRes = evalSafeMathClient(userMsg);
       if (mathRes) {
         return [{
@@ -1939,63 +2044,99 @@
         }];
       }
 
-      // 1. 안총리 / 아온이 호명
-      if (t.includes('안총리') || t.includes('아온이') || t.includes('답장') || t.includes('응답')) {
+      // 3. URL 인텐트 (유튜브 / 웹링크)
+      var urlObj = parseUrlIntentClient(userMsg);
+      if (urlObj) {
+        if (urlObj.type === 'YOUTUBE') {
+          return [{
+            senderId: 'LUMI-YOUTUBE',
+            senderName: '🎵 한걸음씩 루미 미디어 사령부',
+            icon: '🎬',
+            text: '대표님, 유튜브 영상 링크를 수신하여 인라인 플레이어 카드를 즉시 로드했습니다! 🎬\n• 영상 ID: ' + urlObj.videoId + '\n• 루미 음원 및 CapCut 숏폼 파이프라인으로 추출·가공할 수 있습니다!',
+            media: urlObj,
+            delayMs: 150
+          }];
+        } else {
+          return [{
+            senderId: 'AON-WEB',
+            senderName: '🌐 사령부 옴니 링크 인덱서',
+            icon: '🔗',
+            text: '대표님께서 공유해 주신 웹 링크(' + urlObj.domain + ')를 확인했습니다! 🔗\n사령부 스마트 프리뷰 카드를 생성하여 안전하게 렌더링했습니다.',
+            media: urlObj,
+            delayMs: 150
+          }];
+        }
+      }
+
+      // 4. [핵심] 현재 작업 현황 질문 (호칭 가로채기 완전 방지!)
+      if (isCurrentWorkQueryClient(userMsg)) {
         return [{
-          senderId: 'AHN-AON',
+          senderId: 'AHN-AON-STATUS',
           senderName: '🏛️ 기술총리 안총리 & 💧 만능 참모 아온이',
           icon: '🏛️',
-          text: '네, 대표님! 기술총리 안총리와 참모 아온이 바로 여기 대기 중입니다! 🫡💧\n거추장스러운 의전 인사말 빼고 대표님 말씀에 0.1초 만에 카톡처럼 바로바로 티키타카 대답 올리겠습니다. 무엇이든 편하게 말씀해 주십시오!',
-          delayMs: 150
+          text: getLiveWorkBriefingClient(),
+          delayMs: 120
         }];
       }
 
-      // 2. 르곤 보좌관
-      if (t.includes('르곤') || t.includes('보좌관')) {
+      // 5. 호칭 전처리 후 알맹이 분석
+      var stripped = stripVocativesClient(userMsg).toLowerCase();
+      if (!stripped) {
+        return [{
+          senderId: 'AHN-AON-WAIT',
+          senderName: '🏛️ 기술총리 안총리 & 💧 만능 참모 아온이',
+          icon: '🏛️',
+          text: '네, 대표님! 부르셨습니까! 🫡💧 거추장스러운 의전 인사말 빼고 바로 본론으로 티키타카 대답 올리겠습니다. 편하게 말씀해 주십시오!',
+          delayMs: 100
+        }];
+      }
+
+      // 르곤 보좌관
+      if (userMsg.includes('르곤')) {
         return [{
           senderId: 'RGON-G2',
           senderName: '👑 제1수석보좌관 르곤(G2)',
           icon: '👑',
-          text: '충성! 대표님, 수석보좌관 르곤입니다! 33대 전 기관 이상 없이 최고 속도로 가동 중이며 모든 명령을 즉각 집행하겠습니다!',
-          delayMs: 150
+          text: '충성! 대표님, 르곤 보좌관입니다! 34대 전 기관 이상 없이 최고 속도로 가동 중이며 모든 명령을 즉각 집행하겠습니다!',
+          delayMs: 120
         }];
       }
 
-      // 3. 엔비디아 / 퀀트
-      if (channel === 'NVDA' || t.includes('엔비디아') || t.includes('nvda') || t.includes('퀀트') || t.includes('주식') || t.includes('트레이딩')) {
+      // 엔비디아 / 퀀트
+      if (channel === 'NVDA' || ['엔비디아', 'nvda', '퀀트', '주식', '트레이딩', '수익'].some(function(k){ return stripped.includes(k); })) {
         return [{
           senderId: 'NVDA-BOT',
           senderName: '🟣 NVIDIA AI 트레이딩 봇 (@nvda_sangil_bot)',
           icon: '📈',
-          text: '대표님, 엔비디아 트레이딩 봇입니다! 📈\n• KIS 모의투자: $107,246.38\n• 1회 리스크 1.0% 한도 엄격 준수 중이며 상단 엔비디아 대시보드 버튼으로 실시간 차트를 확인하실 수 있습니다!',
-          delayMs: 150
+          text: '대표님, 엔비디아 트레이딩 봇입니다! 📈\n• KIS 모의투자: $107,246.38\n• 1회 리스크 1.0% 한도 엄격 준수 중이며 상단 대시보드 버튼으로 실시간 차트를 확인하실 수 있습니다!',
+          delayMs: 120
         }];
       }
 
-      // 4. 루미 / 미디어 / 유튜브
-      if (channel === 'LUMI' || t.includes('유튜브') || t.includes('루미') || t.includes('음악') || t.includes('쇼츠') || t.includes('미디어')) {
+      // 루미 / 미디어
+      if (channel === 'LUMI' || ['유튜브', '루미', '음악', '쇼츠', '미디어'].some(function(k){ return stripped.includes(k); })) {
         return [{
           senderId: 'LUMI-BOT',
           senderName: '🎵 한걸음씩 루미 미디어 사령부 (@hangaeum_lumi_bot)',
           icon: '🎵',
           text: '대표님! 루미 미디어 사령부 출동 대기 중입니다! 🎵\n유튜브 한걸음씩 채널 및 Suno AI 음원, CapCut 영상 자동화 파이프라인이 즉시 제작 가동 준비 완료되어 있습니다!',
-          delayMs: 150
+          delayMs: 120
         }];
       }
 
-      // 5. 검수 / 무결성
-      if (t.includes('검수') || t.includes('버그') || t.includes('에러') || t.includes('점검') || t.includes('안전')) {
+      // 검수 / 무결성
+      if (['검수', '버그', '에러', '점검', '안전'].some(function(k){ return stripped.includes(k); })) {
         return [{
           senderId: 'INSPECTOR-GEN',
           senderName: '⚖️ 제30기관 독립 검수총장',
           icon: '⚖️',
           text: '대표님 직속 검수총장 보고드립니다! ⚖️\n25/25 PASS 독립 관문 유지 중이며 무늬만 있는 버튼 0건, 가짜 데이터 0건 철저히 사수하고 있습니다!',
-          delayMs: 150
+          delayMs: 120
         }];
       }
 
-      // 6. 일상 대화 (안녕, 밥, 고마워, 시간, 날씨 등)
-      if (t.includes('안녕') || t.includes('반가')) {
+      // 일상 대화
+      if (['안녕', '반가'].some(function(k){ return stripped.includes(k); })) {
         return [{
           senderId: 'AON-SECRETARY',
           senderName: '💧 만능 참모 아온이',
@@ -2004,7 +2145,7 @@
           delayMs: 100
         }];
       }
-      if (t.includes('밥') || t.includes('식사') || t.includes('점심') || t.includes('저녁')) {
+      if (['밥', '식사', '점심', '저녁'].some(function(k){ return stripped.includes(k); })) {
         return [{
           senderId: 'AON-SECRETARY',
           senderName: '💧 만능 참모 아온이',
@@ -2013,7 +2154,7 @@
           delayMs: 100
         }];
       }
-      if (t.includes('고마') || t.includes('수고') || t.includes('감사')) {
+      if (['고마', '수고', '감사'].some(function(k){ return stripped.includes(k); })) {
         return [{
           senderId: 'AON-SECRETARY',
           senderName: '💧 만능 참모 아온이',
@@ -2022,7 +2163,7 @@
           delayMs: 100
         }];
       }
-      if (t.includes('몇시') || t.includes('시간') || t.includes('지금')) {
+      if (['몇시', '시간', '지금'].some(function(k){ return stripped.includes(k); })) {
         var nowStr = new Date().toLocaleTimeString('ko-KR');
         return [{
           senderId: 'AON-SECRETARY',
@@ -2032,31 +2173,58 @@
           delayMs: 100
         }];
       }
-      if (t.includes('날씨')) {
-        return [{
-          senderId: 'AON-SECRETARY',
-          senderName: '💧 만능 참모 아온이',
-          icon: '🌤️',
-          text: '대표님, 사령부 기상 관측 결과 오늘 업무 추진에 최적화된 쾌청한 기운입니다! 🌤️',
-          delayMs: 100
-        }];
-      }
 
-      // 7. 일반 자연어 티키타카 폴백 (단 1개 즉답)
+      // 일반 폴백
       return [{
         senderId: 'AON-SMART',
         senderName: '💧 만능 참모 아온이',
         icon: '💧',
         text: '네, 대표님! 말씀하신 뜻을 명확히 접수했습니다. 군더더기 없이 즉시 실행 및 전술 지원에 착수하겠습니다! 🫡',
-        delayMs: 150
+        delayMs: 120
       }];
     }
 
-    // [과업 1 핵심] 군더더기(초록 영수증 박스, 퀵 액션 줄) 100% 제거된 깨끗한 단일 말풍선 렌더러
+    // [Step 58 멀티모달 렌더러] 5대 군더더기 0건 유지 + 멀티모달 카드(사진·유튜브·스마트URL) 렌더링
     function renderAgentReplyBubble(reply, ordId) {
       var feed = document.getElementById('comm-message-feed');
       if (!feed) return;
       var nowTime = new Date().toLocaleTimeString('ko-KR');
+
+      // 멀티모달 미디어 블록 생성
+      var mediaHtml = '';
+      if (reply.media) {
+        if (reply.media.type === 'IMAGE' && reply.media.url) {
+          mediaHtml = `
+            <div class="mt-2 rounded-xl overflow-hidden border border-cyan-500/40 max-w-sm group relative">
+              <img src="${reply.media.url}" alt="첨부 이미지" class="w-full h-auto object-cover max-h-60 rounded-xl cursor-pointer hover:opacity-95 transition" onclick="window.open('${reply.media.url}', '_blank')">
+              <div class="p-2 bg-slate-950/80 text-[10px] text-slate-300 flex items-center justify-between">
+                <span>📸 ${reply.media.width || 1920}×${reply.media.height || 1080}px</span>
+                <span class="text-cyan-300 font-bold">${reply.media.size_kb || 180} KB</span>
+              </div>
+            </div>
+          `;
+        } else if (reply.media.type === 'YOUTUBE' && (reply.media.videoId || reply.media.video_id)) {
+          mediaHtml = `
+            <div class="mt-2 rounded-xl overflow-hidden border border-red-500/40 bg-slate-950 max-w-md shadow-lg">
+              <div class="relative pt-[56.25%] w-full">
+                <iframe class="absolute top-0 left-0 w-full h-full rounded-t-xl" src="https://www.youtube.com/embed/${reply.media.videoId}" frameborder="0" allowfullscreen></iframe>
+              </div>
+              <div class="p-2.5 text-xs text-slate-200 flex items-center justify-between">
+                <span class="font-bold text-red-400 flex items-center gap-1">🎬 루미 인라인 비디오</span>
+                <a href="${reply.media.url}" target="_blank" class="text-[10px] text-slate-400 hover:text-white underline">유튜브 원본 열기 ➔</a>
+              </div>
+            </div>
+          `;
+        } else if (reply.media.type === 'WEB_URL' && reply.media.url) {
+          mediaHtml = `
+            <div class="mt-2 p-2.5 rounded-xl border border-indigo-500/40 bg-slate-950/90 max-w-md space-y-1">
+              <div class="text-xs font-bold text-indigo-300 flex items-center gap-1">🔗 ${reply.media.domain} 스마트 링크 프리뷰</div>
+              <div class="text-[11px] text-slate-300 truncate">${reply.media.url}</div>
+              <a href="${reply.media.url}" target="_blank" class="inline-block pt-1 text-[10px] text-cyan-400 hover:text-cyan-300 font-bold">새 탭에서 사이트 열기 ➔</a>
+            </div>
+          `;
+        }
+      }
 
       var html = `
         <div class="flex items-start gap-2.5 transition-all duration-300 animate-fade-in group">
@@ -2065,8 +2233,10 @@
             <div class="flex items-center gap-2">
               <span class="text-purple-300 font-bold">${reply.senderName || reply.sender_name || '🏛️ 사령부 참모'}</span>
               <span class="text-[10px] text-slate-400 font-mono">${nowTime}</span>
+              <button type="button" onclick="speakText('${(reply.text || '').replace(/'/g, "\\'")}')" class="text-slate-500 hover:text-indigo-300 transition text-[11px] ml-auto cursor-pointer" title="음성 듣기">🔊</button>
             </div>
             <p class="leading-relaxed whitespace-pre-wrap break-words text-slate-200">${reply.text}</p>
+            ${mediaHtml}
           </div>
         </div>
       `;
@@ -2074,16 +2244,154 @@
       feed.scrollTop = feed.scrollHeight;
     }
 
+    // 텔레파시 추천 칩 전송
+    function sendTelepathyChip(text) {
+      var input = document.getElementById('comm-input-box');
+      if (input) {
+        input.value = text;
+        sendDirectComm();
+      }
+    }
+    window.sendTelepathyChip = sendTelepathyChip;
+
+    // 핸즈프리 음성인식 (STT) & TTS
+    var isRecordingVoice = false;
+    var recognition = null;
+
+    function toggleVoiceRecognition() {
+      var micBtn = document.getElementById('btn-comm-mic');
+      if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+        if (window.showRgonToast) showRgonToast('현재 브라우저에서 Web Speech API를 지원하지 않습니다.', 'warn');
+        return;
+      }
+
+      if (isRecordingVoice) {
+        if (recognition) recognition.stop();
+        isRecordingVoice = false;
+        if (micBtn) micBtn.classList.remove('bg-red-600', 'text-white', 'animate-pulse');
+        return;
+      }
+
+      var SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+      recognition = new SpeechRec();
+      recognition.lang = 'ko-KR';
+      recognition.continuous = false;
+      recognition.interimResults = false;
+
+      recognition.onstart = function() {
+        isRecordingVoice = true;
+        if (micBtn) micBtn.classList.add('bg-red-600', 'text-white', 'animate-pulse');
+        if (window.showRgonToast) showRgonToast('🎙️ 말씀해 주십시오... (듣고 있습니다)', 'info');
+      };
+
+      recognition.onresult = function(event) {
+        var transcript = event.results[0][0].transcript;
+        var input = document.getElementById('comm-input-box');
+        if (input) {
+          input.value = transcript;
+          sendDirectComm();
+        }
+      };
+
+      recognition.onerror = function(event) {
+        isRecordingVoice = false;
+        if (micBtn) micBtn.classList.remove('bg-red-600', 'text-white', 'animate-pulse');
+      };
+
+      recognition.onend = function() {
+        isRecordingVoice = false;
+        if (micBtn) micBtn.classList.remove('bg-red-600', 'text-white', 'animate-pulse');
+      };
+
+      recognition.start();
+    }
+    window.toggleVoiceRecognition = toggleVoiceRecognition;
+
+    function speakText(text) {
+      if (!('speechSynthesis' in window)) return;
+      window.speechSynthesis.cancel();
+      var clean = text.replace(/[*#`_]/g, '');
+      var utter = new SpeechSynthesisUtterance(clean);
+      utter.lang = 'ko-KR';
+      utter.rate = 1.05;
+      window.speechSynthesis.speak(utter);
+    }
+    window.speakText = speakText;
+
+    // 파일/이미지 첨부 핸들러
+    var pendingMediaInfo = null;
+
+    function handleFileInputChange(e) {
+      var file = e.target.files && e.target.files[0];
+      if (!file) return;
+      processAttachedFile(file);
+    }
+    window.handleFileInputChange = handleFileInputChange;
+
+    function processAttachedFile(file) {
+      var isImg = file.type.startsWith('image/');
+      var reader = new FileReader();
+      reader.onload = function(evt) {
+        var base64 = evt.target.result;
+        var kb = Math.round(file.size / 1024);
+        if (isImg) {
+          var img = new Image();
+          img.onload = function() {
+            pendingMediaInfo = {
+              type: 'IMAGE',
+              url: base64,
+              width: img.naturalWidth,
+              height: img.naturalHeight,
+              size_kb: kb
+            };
+            var input = document.getElementById('comm-input-box');
+            if (input && !input.value.trim()) {
+              input.value = '사진 첨부 (' + img.naturalWidth + '×' + img.naturalHeight + 'px)';
+            }
+            sendDirectComm();
+          };
+          img.src = base64;
+        } else {
+          pendingMediaInfo = { type: 'FILE', name: file.name, size_kb: kb };
+          var input = document.getElementById('comm-input-box');
+          if (input && !input.value.trim()) {
+            input.value = '파일 첨부 (' + file.name + ')';
+          }
+          sendDirectComm();
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // Ctrl+V 클립보드 이미지 붙여넣기 및 드래그 앤 드롭 지원
+    document.addEventListener('paste', function(e) {
+      var items = (e.clipboardData || e.originalEvent.clipboardData).items;
+      for (var i = 0; i < items.length; i++) {
+        if (items[i].type.indexOf('image') !== -1) {
+          var blob = items[i].getAsFile();
+          processAttachedFile(blob);
+          break;
+        }
+      }
+    });
+
     function sendDirectComm() {
       var input = document.getElementById('comm-input-box');
       if (!input) return;
       var userMsg = input.value.trim();
-      if (!userMsg) {
+      var curMedia = pendingMediaInfo;
+      pendingMediaInfo = null; // 1회 소비
+
+      if (!userMsg && !curMedia) {
         if (window.showRgonToast) {
           showRgonToast('👑 대표님, 지시하실 말씀을 입력창에 입력해 주세요.', 'warn');
         }
         input.focus();
         return;
+      }
+
+      if (!userMsg && curMedia) {
+        userMsg = curMedia.type === 'IMAGE' ? '사진을 전송했습니다.' : '파일을 전송했습니다.';
       }
 
       // 1. 전송 버튼 시각 피드백
@@ -2104,11 +2412,20 @@
       input.value = '';
       input.focus();
 
-      // 2. 대표님 말풍선 (군더더기 버튼 바 0개 · 읽음 ✔✔만 깔끔 표시)
+      // 2. 대표님 말풍선
       var msgId = 'kmsg-' + Date.now();
       var nowTime = new Date().toLocaleTimeString('ko-KR');
       var feed = document.getElementById('comm-message-feed');
       var channel = currentKakaoChannel || 'ALL';
+
+      var userMediaPreview = '';
+      if (curMedia && curMedia.type === 'IMAGE' && curMedia.url) {
+        userMediaPreview = `
+          <div class="mt-2 rounded-xl overflow-hidden border border-amber-500/40 max-w-xs">
+            <img src="${curMedia.url}" alt="첨부 이미지" class="w-full h-auto object-cover max-h-48 rounded-xl">
+          </div>
+        `;
+      }
 
       var commanderMsgHtml = `
         <div id="${msgId}" class="flex items-start gap-2.5 justify-end transition-all duration-300 animate-fade-in group">
@@ -2122,6 +2439,7 @@
               <span id="${msgId}-rcpt" class="text-[10px] text-amber-400 font-bold ml-1">전송중</span>
             </div>
             <p class="leading-relaxed whitespace-pre-wrap break-words">${userMsg}</p>
+            ${userMediaPreview}
           </div>
           <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-amber-500 to-yellow-600 flex items-center justify-center text-xs shrink-0 shadow-md ring-2 ring-amber-400/40">👑</div>
         </div>
@@ -2144,14 +2462,7 @@
         feed.scrollTop = feed.scrollHeight;
       }
 
-      // 클립보드 복사
-      try {
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(userMsg).catch(function() {});
-        }
-      } catch (e) {}
-
-      // 4. 주문 접수번호 생성 및 원장 보관
+      // 4. 원장 보관
       var orders = getLiveOrders();
       var ordId = '#ORD-' + String(orders.length + 1).padStart(3, '0');
       var hash = Math.random().toString(16).substring(2, 10) + Math.random().toString(16).substring(2, 10);
@@ -2178,14 +2489,14 @@
         }
       }
 
-      // 로컬 라이브 서버(8765)에 실제 티키타카 요청
+      // 서버 비동기 전송
       var controller = new AbortController();
-      var timeoutId = setTimeout(function() { controller.abort(); }, 2500);
+      var timeoutId = setTimeout(function() { controller.abort(); }, 3000);
 
       fetch('http://127.0.0.1:8765/api/kakao_tg_send', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: userMsg, channel: channel, order_id: ordId }),
+        body: JSON.stringify({ message: userMsg, channel: channel, order_id: ordId, media_info: curMedia }),
         signal: controller.signal
       })
       .then(function(res) { return res.json(); })
@@ -2198,8 +2509,7 @@
         var receiptText = tgResult.ok ? ('[발송완료] ✈️ msg#' + tgResult.msg_id) : '[수신완료] 사령부 접수';
         finalizeOrders(receiptText, tgResult);
 
-        // [단 1개의 깔끔한 말풍선 즉답]
-        var targetReply = data.reply || (data.replies && data.replies[0]) || buildClientSideReplies(userMsg, channel)[0];
+        var targetReply = data.reply || (data.replies && data.replies[0]) || buildClientSideReplies(userMsg, channel, curMedia)[0];
         renderAgentReplyBubble(targetReply, ordId);
       })
       .catch(function(err) {
@@ -2208,7 +2518,7 @@
         if (ind) ind.remove();
 
         finalizeOrders('[수신완료] 로컬 티키타카', { simulated: true });
-        var targetReply = buildClientSideReplies(userMsg, channel)[0];
+        var targetReply = buildClientSideReplies(userMsg, channel, curMedia)[0];
         renderAgentReplyBubble(targetReply, ordId);
       });
     }

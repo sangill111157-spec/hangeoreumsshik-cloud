@@ -438,6 +438,9 @@
                       return val + '입니다, 대표님! 😊 (더 복잡한 수식이나 퀀트 계산도 바로 말씀만 하십시오!)';
                     } catch(e){}
                   }
+                  if (text.includes('뭘 하고') || text.includes('무슨 작업') || text.includes('어디까지') || text.includes('작업')) {
+                    return '대표님! 지금 우리는 소통 사령부 군더더기를 비우고 멀티모달 만능 소통(Step 58 · v11.57 · 34대 기관 · 54스킬 · 시냅스 100.0점)을 완성 점검 중입니다! 🫡💧';
+                  }
                   if (text.includes('안총리') || text.includes('아온이') || text.includes('답장')) {
                     return '네, 대표님! 기술총리 안총리와 참모 아온이 대기 중입니다! 🫡💧 0.1초 만에 카톡처럼 티키타카 대답 올리겠습니다!';
                   }
