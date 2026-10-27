@@ -22,7 +22,56 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent
 LOCAL_ENV_PATH = BASE_DIR / ".env.telegram_local"
 STREAM_JSON_PATH = BASE_DIR / "hq_kakao_tg_live_stream.json"
+QUEUE_JSON_PATH = BASE_DIR / "rgon_antigravity_live_queue.json"
 PORT = 8765
+
+def enqueue_antigravity_msg(queue_item: dict):
+    data = {"version": "v11.58-AON-LIVE-BRAIN-MOTION", "queue": []}
+    if QUEUE_JSON_PATH.exists():
+        try:
+            with open(QUEUE_JSON_PATH, "r", encoding="utf-8") as f:
+                data = json.load(f)
+        except Exception:
+            pass
+    data.setdefault("queue", []).append(queue_item)
+    data["queue"] = data["queue"][-100:]
+    try:
+        with open(QUEUE_JSON_PATH, "w", encoding="utf-8") as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+    except Exception:
+        pass
+
+def get_antigravity_queue_item(msg_id: str):
+    if not QUEUE_JSON_PATH.exists():
+        return None
+    try:
+        with open(QUEUE_JSON_PATH, "r", encoding="utf-8") as f:
+            data = json.load(f)
+            for item in data.get("queue", []):
+                if item.get("id") == msg_id:
+                    return item
+    except Exception:
+        pass
+    return None
+
+def update_antigravity_queue_item(msg_id: str, reply_text: str, speaker: str = "⚡ 기술총리 안총리 (Antigravity 직접 답변)"):
+    if not QUEUE_JSON_PATH.exists():
+        return
+    try:
+        with open(QUEUE_JSON_PATH, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        for item in data.get("queue", []):
+            if item.get("id") == msg_id:
+                item["status"] = "ANSWERED"
+                item["antigravity_reply"] = reply_text
+                item["speaker"] = speaker
+                item["answered_at"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                break
+        with open(QUEUE_JSON_PATH, "w", encoding="utf-8") as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+    except Exception:
+        pass
+
 
 # 텔레그램 설정 로드
 def load_telegram_config():
@@ -182,6 +231,42 @@ class KakaoLiveBridgeHandler(BaseHTTPRequestHandler):
             self.send_header('Content-Type', 'application/json; charset=utf-8')
             self.end_headers()
             self.wfile.write(json.dumps({'ok': True, 'stream': stream[-20:]}, ensure_ascii=False).encode('utf-8'))
+        elif self.path.startswith('/api/antigravity_inbox_poll'):
+            query = urllib.parse.urlparse(self.path).query
+            params = urllib.parse.parse_qs(query)
+            since_id = params.get('since', [''])[0]
+            
+            queue_data = {"queue": []}
+            if QUEUE_JSON_PATH.exists():
+                try:
+                    with open(QUEUE_JSON_PATH, 'r', encoding='utf-8') as f:
+                        queue_data = json.load(f)
+                except Exception:
+                    pass
+            
+            new_replies = []
+            found_since = False if since_id else True
+            for item in queue_data.get("queue", []):
+                if not found_since:
+                    if item.get("id") == since_id:
+                        found_since = True
+                    continue
+                if item.get("status") == "ANSWERED":
+                    new_replies.append({
+                        "id": item.get("id"),
+                        "order_id": item.get("order_id"),
+                        "reply": {
+                            "sender_name": item.get("speaker", "⚡ 기술총리 안총리 (Antigravity 직접 답변)"),
+                            "icon": "⚡",
+                            "text": item.get("antigravity_reply", ""),
+                            "media": item.get("media")
+                        }
+                    })
+            self.send_response(200)
+            self._send_cors_headers()
+            self.send_header('Content-Type', 'application/json; charset=utf-8')
+            self.end_headers()
+            self.wfile.write(json.dumps({'ok': True, 'new_replies': new_replies}, ensure_ascii=False).encode('utf-8'))
         else:
             self.send_response(404)
             self._send_cors_headers()
@@ -211,12 +296,45 @@ class KakaoLiveBridgeHandler(BaseHTTPRequestHandler):
             tg_msg = f"👑 [대시보드 카톡 대화창 - {channel}]\n• 대표님: {user_text}\n• 접수: {order_id}"
             tg_res = send_real_telegram(target_bot, tg_msg)
 
-            # 2. 진짜 티키타카 단일 즉답 생성
-            reply = get_single_smart_tikitaka_reply(user_text, channel, media_info)
-            reply["senderName"] = reply.get("sender_name")
-            reply["delayMs"] = 150
+            # 2. [핵심] 안총리(Antigravity) 직통 큐 등록
+            msg_id = f"ag-msg-{int(time.time()*1000)}"
+            queue_item = {
+                "id": msg_id,
+                "order_id": order_id,
+                "status": "PENDING",
+                "user_message": user_text,
+                "channel": channel,
+                "media_info": media_info,
+                "timestamp": datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            }
+            enqueue_antigravity_msg(queue_item)
 
-            # 3. 대표님 스마트폰 텔레그램으로도 AI 답장 실시간 전송
+            # 3. [Long-Polling] 안총리(Antigravity) 직접 작성 답변 대기 (최대 25초)
+            t0 = time.time()
+            reply = None
+            while time.time() - t0 < 25.0:
+                item = get_antigravity_queue_item(msg_id)
+                if item and item.get("status") == "ANSWERED":
+                    reply = {
+                        "sender_id": "ANTIGRAVITY-DIRECT",
+                        "sender_name": item.get("speaker", "⚡ 기술총리 안총리 (Antigravity 직접 답변)"),
+                        "senderName": item.get("speaker", "⚡ 기술총리 안총리 (Antigravity 직접 답변)"),
+                        "icon": "⚡",
+                        "text": item.get("antigravity_reply", ""),
+                        "media": item.get("media"),
+                        "delayMs": 100
+                    }
+                    break
+                time.sleep(0.2)
+
+            # 4. 타임아웃 또는 즉각 응답 미작성 시 지능형 엔진 폴백
+            if not reply:
+                reply = get_single_smart_tikitaka_reply(user_text, channel, media_info)
+                reply["senderName"] = reply.get("sender_name")
+                reply["delayMs"] = 100
+                update_antigravity_queue_item(msg_id, reply.get("text", ""), reply.get("sender_name"))
+
+            # 5. 대표님 스마트폰 텔레그램으로도 AI 답장 실시간 전송
             if reply and tg_res.get('ok'):
                 send_real_telegram(target_bot, f"{reply['sender_name']}:\n{reply['text']}")
 
