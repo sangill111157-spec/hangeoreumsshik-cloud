@@ -135,5 +135,7 @@
 
 | 53 | `aon-invisible-kakao-tg-backbone` | 제33기관 아온 인비저블 텔레그램 백본 & 카톡형 만능 대화창 스킬 | `v11.56-AON-INVISIBLE-KAKAO-TG` | `R57` |
 
-| 54 | `aon-pinnacle-omni-communicator` | 제34기관 아온 피너클 옴니 커뮤니케이터 & 멀티모달 두뇌 스킬 | `v11.57-AON-PINNACLE-OMNI-COMM` | `R58` |
+| 54 | `aon-pinnacle-omni-communicator` | 제34기관 아온 피너클 옴니 커뮤니케이터 & 멀티모달 두뇌 스킬 | `v11.58-AON-LIVE-BRAIN-MOTION` | `R58` |
+
+| 55 | `aon-opus-motion-studio` | 제35기관 아온 클로드 오퍼스 5.5 모션 그래픽 스튜디오 스킬 | `v11.58-AON-LIVE-BRAIN-MOTION` | `R59` |
 

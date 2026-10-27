@@ -12,7 +12,7 @@ try:
 except Exception:
     pass
 
-VERSION = "v11.57-AON-PINNACLE-OMNI-COMM"
+VERSION = "v11.58-AON-LIVE-BRAIN-MOTION"
 ANTIBODY = "R1~R57"
 ROOT = Path(__file__).resolve().parent
 if str(ROOT) not in sys.path:
@@ -130,7 +130,7 @@ SFX_PRESETS.update(R40_UNIFIED_SFX_MAP)
 
 def get_unified_sfx_registry():
     rec = globals().get("SOUND_RECIPES")
-    return {"version": "v11.57-AON-PINNACLE-OMNI-COMM", "antibody": "R1~R57",
+    return {"version": "v11.58-AON-LIVE-BRAIN-MOTION", "antibody": "R1~R57",
             "sfx_presets": sorted(SFX_PRESETS.keys()),
             "sound_recipes": sorted(rec.keys()) if isinstance(rec, dict) else [],
             "r40_unified": sorted(R40_UNIFIED_SFX_MAP.keys())}

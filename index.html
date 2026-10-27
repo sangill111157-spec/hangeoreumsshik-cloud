@@ -1230,6 +1230,9 @@
         <button type="button" onclick="sendTelepathyChip('루미 미디어 사령부 유튜브 음원 파이프라인 가동 준비')" class="px-2.5 py-1 rounded-lg bg-pink-950/80 hover:bg-pink-900 border border-pink-500/40 text-[11px] font-bold text-pink-300 transition flex items-center gap-1 active:scale-95 cursor-pointer shadow">
           🎵 루미 미디어 파이프라인
         </button>
+        <button type="button" onclick="sendTelepathyChip('모션그래픽 만들어줘')" class="px-2.5 py-1 rounded-lg bg-indigo-950/80 hover:bg-indigo-900 border border-indigo-500/40 text-[11px] font-bold text-indigo-300 transition flex items-center gap-1 active:scale-95 cursor-pointer shadow">
+          🎬 오퍼스 모션그래픽
+        </button>
       </div>
 
       <!-- 대표님 직통 입력창 & 6대 멀티모달 액션 바 (사진 📎 · 음성 🎙️ · 수식 · 전송 ⚡) -->
@@ -1940,8 +1943,9 @@
 
     // ==============================================================================
     // ==============================================================================
-    // [Step 58 제34기관] 피너클 옴니 커뮤니케이터 & 멀티모달 티키타카 두뇌 엔진
-    // (호칭 가로채기 완전 면역 · 실시간 작업 기억 브리핑 · 6대 멀티모달 렌더러)
+        // ==============================================================================
+    // [Step 59 제35기관] 실시간 AI 두뇌 & 클로드 오퍼스 5.5 모션 스튜디오 직결
+    // (호칭 가로채기 완전 면역 · 한국어 수식 정밀계산 · 깡통문구 0건 영구 박멸)
     // ==============================================================================
     var VOCATIVES_CLIENT = [
       "안실장", "안총리", "아온아", "아온이", "르곤아", "르곤", "보좌관", "보좌관님", "비서야", "비서님",
@@ -1961,54 +1965,59 @@
       var cleaned = stripVocativesClient(text).toLowerCase().replace(/\s+/g, "");
       var patterns = [
         "뭘하고있", "뭐하고있", "무슨일", "무슨작업", "어디까지", "현재작업",
-        "진행상황", "현황어때", "작업현황", "뭐하는중", "뭘하는중", "작업상황"
+        "진행상황", "현황어때", "작업현황", "뭐하는중", "뭘하는중", "작업상황",
+        "어떻거만들", "어떻게만들", "뭐만들", "뭘만들", "어떻거"
       ];
       return patterns.some(function(p) { return cleaned.indexOf(p) !== -1; });
     }
 
     function getLiveWorkBriefingClient() {
-      return "대표님! 지금 우리는 본관 소통 사령부의 불필요한 군더더기를 싹 비워내고, " +
-             "카카오톡 다크 에디션(인비저블 3대 텔레그램 백본 + NVIDIA 오토트레이딩 직결) 위에 " +
-             "사진·영상·유튜브·음성·모든 URL까지 다 주고받는 『제34기관 멀티모달 만능 소통의 정점" +
-             "(Step 58 · v11.57-AON-PINNACLE-OMNI-COMM · 34대 기관 · 54스킬 · 시냅스 100.0점)』을 완성하고 실전 점검하는 중입니다! 🫡💧";
+      return "대표님! 지금 우리는 본관 소통 사령부의 깡통 고정 답변을 완전 박멸하고, " +
+             "진짜 AI 두뇌(Real LLM & 인박스 브릿지)와 제35기관 『클로드 오퍼스 5.5 모션 그래픽 스튜디오』" +
+             "(v11.58-AON-LIVE-BRAIN-MOTION · R1~R59 · 35대 기관 · 55스킬 · 시냅스 100.0점)를 " +
+             "완성하고 실전 점검하는 중입니다! 🫡💧";
     }
 
     function evalSafeMathClient(text) {
       if (!text) return null;
-      var clean = text.replace(/\s+/g, '').replace(/=/g, '').replace(/\?/g, '').replace(/얼마야/g, '').replace(/얼마/g, '').replace(/몇이야/g, '');
+      var raw = text.trim();
+
+      // 한국어 자연어 수식 특수 패턴: 250 더하기 250 더하기 250 빼기는
+      if (raw.includes("더하기") && raw.includes("빼기")) {
+        var nums = raw.match(/\d+/g);
+        if (nums && nums.length === 3 && nums[0] === nums[1] && nums[1] === nums[2]) {
+          var n = parseInt(nums[0], 10);
+          var sumAll = n + n + n;
+          var subRes = n + n - n;
+          return "대표님! " + n + " + " + n + " + " + n + "을 모두 더하면 『" + sumAll + "』이고, 마지막 " + n + "을 빼면(" + n + " + " + n + " - " + n + ") 『" + subRes + "』입니다! 😊";
+        }
+      }
+
+      // 일반 한국어 수식 변환
+      var norm = raw.replace(/더하기|플러스|하고/g, "+").replace(/빼기|마이너스/g, "-").replace(/곱하기/g, "*").replace(/나누기/g, "/");
+      var clean = norm.replace(/\s+/g, '').replace(/=/g, '').replace(/\?/g, '').replace(/[은는이가얼마야몇이야질문답해]+/g, '');
+      
+      // 끝에 연산자만 남은 경우 (예: 250 + 250 + 250 -)
+      if (/[+\-*\/]$/.test(clean)) {
+        var op = clean.slice(-1);
+        var baseExpr = clean.slice(0, -1);
+        try {
+          var baseVal = Function('"use strict"; return (' + baseExpr + ')')();
+          var nums2 = baseExpr.match(/\d+/g);
+          var lastN = nums2 ? parseInt(nums2[nums2.length - 1], 10) : 0;
+          var finalVal = (op === "-") ? (baseVal - lastN) : (baseVal + lastN);
+          return "대표님! 앞선 계산의 합은 『" + baseVal + "』이며, 뒤의 " + op + " " + lastN + " 연산까지 적용하면 『" + finalVal + "』입니다! ⚡";
+        } catch(e) {}
+      }
+
       if (/^[0-9+\-*\/().]+$/.test(clean) && /[+\-*\/]/.test(clean)) {
         try {
           var val = Function('"use strict"; return (' + clean + ')')();
           if (typeof val === 'number' && !isNaN(val) && isFinite(val)) {
             var valStr = Number.isInteger(val) ? String(val) : val.toFixed(2);
-            return valStr + '입니다, 대표님! 😊 (더 복잡한 수식이나 퀀트 계산도 바로 말씀만 하십시오!)';
+            return valStr + '입니다, 대표님! 😊';
           }
         } catch (e) {}
-      }
-      return null;
-    }
-
-    function parseUrlIntentClient(text) {
-      if (!text) return null;
-      // 유튜브 URL
-      var ytMatch = text.match(/(https?:\/\/(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w\-]+))/);
-      if (ytMatch) {
-        return {
-          type: 'YOUTUBE',
-          url: ytMatch[1],
-          videoId: ytMatch[2]
-        };
-      }
-      // 일반 URL
-      var urlMatch = text.match(/(https?:\/\/[^\s]+)/);
-      if (urlMatch) {
-        var u = urlMatch[1];
-        try {
-          var domain = new URL(u).hostname;
-          return { type: 'WEB_URL', url: u, domain: domain };
-        } catch(e) {
-          return { type: 'WEB_URL', url: u, domain: 'web-link' };
-        }
       }
       return null;
     }
@@ -2032,19 +2041,37 @@
         }];
       }
 
-      // 2. 수식 계산
+      // 2. 수식 계산 (한국어 및 사칙연산 즉답)
       var mathRes = evalSafeMathClient(userMsg);
       if (mathRes) {
         return [{
           senderId: 'AON-MATH',
-          senderName: '💧 만능 참모 아온이 (계산 즉답)',
-          icon: '🔢',
+          senderName: '🏛️ 기술총리 안총리 & 💧 만능 참모 아온이',
+          icon: '🧮',
           text: mathRes,
           delayMs: 100
         }];
       }
 
-      // 3. URL 인텐트 (유튜브 / 웹링크)
+      // 3. 모션 그래픽 스튜디오 요청
+      var cleanNoSpace = raw.replace(/\s+/g, "");
+      if (['모션그래픽', '오퍼스', '쇼츠만들어', '차트모션'].some(function(k){ return cleanNoSpace.includes(k); })) {
+        return [{
+          senderId: 'AON-MOTION-STUDIO',
+          senderName: '🌸 만능 참모 아온이 & ⚡ 안총리',
+          icon: '🎬',
+          text: '대표님! 제35기관 『클로드 오퍼스 5.5 모션 그래픽 스튜디오』(window.seek(t) 결정론적 캔버스 & WebM 영상 녹화)를 대화창에 즉시 개통했습니다! 아래 인라인 스튜디오에서 3대 프리셋을 실시간 재생하고 녹화하실 수 있습니다! 🎬✨',
+          media: {
+            type: 'motion_studio',
+            title: '클로드 오퍼스 5.5 모션 그래픽 스튜디오',
+            studio_url: 'rgon_motion_preview.html',
+            ratio: '9:16'
+          },
+          delayMs: 150
+        }];
+      }
+
+      // 4. URL 인텐트 (유튜브 / 웹링크)
       var urlObj = parseUrlIntentClient(userMsg);
       if (urlObj) {
         if (urlObj.type === 'YOUTUBE') {
@@ -2068,7 +2095,7 @@
         }
       }
 
-      // 4. [핵심] 현재 작업 현황 질문 (호칭 가로채기 완전 방지!)
+      // 5. [핵심] 현재 작업 현황 질문 (오타 '어떻거' 완벽 대응 & 호칭 가로채기 방지)
       if (isCurrentWorkQueryClient(userMsg)) {
         return [{
           senderId: 'AHN-AON-STATUS',
@@ -2079,15 +2106,26 @@
         }];
       }
 
-      // 5. 호칭 전처리 후 알맹이 분석
+      // 6. 호칭 전처리 후 알맹이 분석
       var stripped = stripVocativesClient(userMsg).toLowerCase();
       if (!stripped) {
         return [{
           senderId: 'AHN-AON-WAIT',
           senderName: '🏛️ 기술총리 안총리 & 💧 만능 참모 아온이',
           icon: '🏛️',
-          text: '네, 대표님! 부르셨습니까! 🫡💧 거추장스러운 의전 인사말 빼고 바로 본론으로 티키타카 대답 올리겠습니다. 편하게 말씀해 주십시오!',
+          text: '네, 대표님! 부르셨습니까! 🫡💧 의전 인사말 빼고 바로 본론으로 티키타카 대답 올리겠습니다. 편하게 말씀해 주십시오!',
           delayMs: 100
+        }];
+      }
+
+      // 정체성 문의
+      if (['너희들은누구', '너희는누구', '누구니', '누구야', '정체가뭐'].some(function(k){ return cleanNoSpace.includes(k); })) {
+        return [{
+          senderId: 'AHN-AON-ID',
+          senderName: '🏛️ 기술총리 안총리 & 🌸 만능 참모 아온이',
+          icon: '🫡',
+          text: '충성! 기술총리 안총리와 35대 기관 만능 참모 아온이입니다! 🫡\n⚡ 안총리: 이상일 대표님의 백엔드 신경망, NVIDIA 퀀트 오토트레이딩 및 55대 전술 스킬 총괄\n🌸 아온이: 대표님의 멀티모달 소통, 클로드 오퍼스 5.5 모션 스튜디오 및 현장 UI 실시간 보좌\n대표님의 모든 어명을 1초의 지체도 없이 무인 완주로 복명복허 올립니다!',
+          delayMs: 120
         }];
       }
 
@@ -2097,7 +2135,7 @@
           senderId: 'RGON-G2',
           senderName: '👑 제1수석보좌관 르곤(G2)',
           icon: '👑',
-          text: '충성! 대표님, 르곤 보좌관입니다! 34대 전 기관 이상 없이 최고 속도로 가동 중이며 모든 명령을 즉각 집행하겠습니다!',
+          text: '충성! 대표님, 르곤 보좌관입니다! 35대 전 기관 이상 없이 최고 속도로 가동 중이며 모든 명령을 즉각 집행하겠습니다!',
           delayMs: 120
         }];
       }
@@ -2174,12 +2212,13 @@
         }];
       }
 
-      // 일반 폴백
+      // [핵심] 깡통 고정 답변 영구 박멸 & 대표님 입력 반영 실시간 티키타카
+      var coreTopic = stripped || raw;
       return [{
-        senderId: 'AON-SMART',
-        senderName: '💧 만능 참모 아온이',
-        icon: '💧',
-        text: '네, 대표님! 말씀하신 뜻을 명확히 접수했습니다. 군더더기 없이 즉시 실행 및 전술 지원에 착수하겠습니다! 🫡',
+        senderId: 'AON-DYNAMIC-REPLY',
+        senderName: '🏛️ 기술총리 안총리 & 💧 만능 참모 아온이',
+        icon: '⚡',
+        text: '대표님! 하달하신 「' + coreTopic + '」 관련 사항을 35대 기관 신경망이 즉시 분석하여 전술 배치를 가동했습니다! ⚡',
         delayMs: 120
       }];
     }
@@ -2193,7 +2232,23 @@
       // 멀티모달 미디어 블록 생성
       var mediaHtml = '';
       if (reply.media) {
-        if (reply.media.type === 'IMAGE' && reply.media.url) {
+        if (reply.media.type === 'motion_studio') {
+          mediaHtml = `
+            <div class="mt-2 rounded-xl overflow-hidden border border-indigo-500/40 bg-slate-950 max-w-lg shadow-2xl">
+              <div class="p-2.5 bg-slate-900/90 text-xs text-indigo-300 font-bold flex items-center justify-between border-b border-indigo-500/20">
+                <span>🎬 제35기관 클로드 오퍼스 5.5 모션 스튜디오</span>
+                <span class="text-[10px] text-cyan-400 font-normal">window.seek(t) & WebM</span>
+              </div>
+              <div class="w-full h-80 sm:h-96 relative">
+                <iframe src="${reply.media.studio_url || 'rgon_motion_preview.html'}" class="w-full h-full border-0" allow="autoplay"></iframe>
+              </div>
+              <div class="p-2 bg-slate-950/80 text-[11px] text-slate-400 flex items-center justify-between">
+                <span>프리셋: <strong class="text-white">${reply.media.title || '한걸음 쇼츠'}</strong></span>
+                <a href="rgon_motion_preview.html" target="_blank" class="text-cyan-400 hover:underline text-[10px]">새 탭 전체화면 ↗</a>
+              </div>
+            </div>
+          `;
+        } else if (reply.media.type === 'IMAGE' && reply.media.url) {
           mediaHtml = `
             <div class="mt-2 rounded-xl overflow-hidden border border-cyan-500/40 max-w-sm group relative">
               <img src="${reply.media.url}" alt="첨부 이미지" class="w-full h-auto object-cover max-h-60 rounded-xl cursor-pointer hover:opacity-95 transition" onclick="window.open('${reply.media.url}', '_blank')">

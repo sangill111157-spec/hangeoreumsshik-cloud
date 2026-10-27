@@ -1,14 +1,14 @@
 ---
 name: aon-pinnacle-omni-communicator
 description: 제34기관 아온 피너클 옴니 커뮤니케이터 (멀티모달 6대 매체 융합 · 실시간 사령부 작업기억 티키타카 두뇌 · 호칭가로채기 완전면역)
-version: v11.57-AON-PINNACLE-OMNI-COMM
+version: v11.58-AON-LIVE-BRAIN-MOTION
 antibody: R58_PINNACLE_VOICE_ARTIFACT_TIKITAKA_ZERO_FLUFF_LOCK
 ---
 
 # 🌌 제34기관: 아온 피너클 옴니 커뮤니케이터 (AON Pinnacle Omni-Communicator)
 
 ## 📌 개요
-- **버전:** `v11.57-AON-PINNACLE-OMNI-COMM`
+- **버전:** `v11.58-AON-LIVE-BRAIN-MOTION`
 - **항체:** `R1~R58` (`R58_PINNACLE_VOICE_ARTIFACT_TIKITAKA_ZERO_FLUFF_LOCK`)
 - **주역 괘:** `#55 뇌화풍(雷火豊)` — 천둥과 번개가 함께 울려 퍼져 온 천하를 환히 밝히고 풍요롭게 하는 상.
 - **핵심 역할:**

@@ -2,7 +2,7 @@
 """
 [RGON-AON-PINNACLE-OMNI-COMM-V11.57]
 제34기관: 아온 피너클 옴니 커뮤니케이터 (AON Pinnacle Omni Communicator & Multi-Modal Brain)
-버전: v11.57-AON-PINNACLE-OMNI-COMM
+버전: v11.58-AON-LIVE-BRAIN-MOTION
 항체: R1~R58 (R58_PINNACLE_VOICE_ARTIFACT_TIKITAKA_ZERO_FLUFF_LOCK)
 정식 스킬: 54개 (aon_pinnacle_omni_communicator)
 주역: #55 뇌화풍(雷火豊) — 천둥과 번개가 천하를 가득 채우는 풍요와 지혜의 상 (사진·영상·음성·URL 모든 매체의 완전 융합)
@@ -29,9 +29,9 @@ if sys.stderr.encoding != 'utf-8':
 
 BASE_DIR = Path(__file__).resolve().parent
 
-VERSION = "v11.57-AON-PINNACLE-OMNI-COMM"
-ANTIBODY_RANGE = "R1~R58"
-SKILL_COUNT = 54
+VERSION = "v11.58-AON-LIVE-BRAIN-MOTION"
+ANTIBODY_RANGE = "R1~R59"
+SKILL_COUNT = 55
 ORGAN_NAME = "제34기관 아온 피너클 옴니 커뮤니케이터 & 멀티모달 두뇌"
 HEXAGRAM = "#55 뇌화풍(雷火豊) — 천둥과 번개가 천하를 가득 채우는 풍요와 지혜의 상"
 
@@ -52,21 +52,22 @@ def strip_vocatives(text: str) -> str:
     return t
 
 def is_current_work_query(text: str) -> bool:
-    """현재 작업 현황 질문 탐지"""
+    """현재 작업 현황 질문 탐지 (오타 '어떻거' 및 다양한 구어체 지원)"""
     cleaned = strip_vocatives(text).lower().replace(" ", "")
     patterns = [
         "뭘하고있", "뭐하고있", "무슨일", "무슨작업", "어디까지", "현재작업",
-        "진행상황", "현황어때", "작업현황", "뭐하는중", "뭘하는중", "작업상황"
+        "진행상황", "현황어때", "작업현황", "뭐하는중", "뭘하는중", "작업상황",
+        "어떻거만들", "어떻게만들", "뭐만들", "뭘만들", "어떻거"
     ]
     return any(p in cleaned for p in patterns)
 
 def get_live_work_briefing() -> str:
     """실시간 사령부 작업 기억 브리핑 생성"""
     return (
-        "대표님! 지금 우리는 본관 소통 사령부의 불필요한 군더더기를 싹 비워내고, "
-        "카카오톡 다크 에디션(인비저블 3대 텔레그램 백본 + NVIDIA 오토트레이딩 직결) 위에 "
-        "사진·영상·유튜브·음성·모든 URL까지 다 주고받는 『제34기관 멀티모달 만능 소통의 정점"
-        f"(Step 58 · {VERSION} · 34대 기관 · {SKILL_COUNT}스킬 · 시냅스 100.0점)』을 완성하고 실전 점검하는 중입니다! 🫡💧"
+        "대표님! 지금 우리는 본관 소통 사령부의 깡통 고정 답변을 완전 박멸하고, "
+        "진짜 AI 두뇌(Real LLM & 인박스 브릿지)와 제35기관 『클로드 오퍼스 5.5 모션 그래픽 스튜디오』"
+        f"(Step 59 · {VERSION} · 35대 기관 · {SKILL_COUNT}스킬 · 시냅스 100.0점)를 "
+        "완성하고 실전 점검하는 중입니다! 🫡💧"
     )
 
 def eval_safe_math(text: str):
@@ -155,12 +156,52 @@ def generate_smart_reply(user_text: str, channel: str = "ALL", media_info: dict 
                 'media': url_info
             }
 
-    # 4단: [핵심] 현재 작업 현황 브리핑 (호칭 가로채기 완전 방지!)
+    # 4단: [핵심] 모션 그래픽 스튜디오 요청 탐지
+    from rgon_live_brain_connector import (
+        parse_korean_math_expression,
+        is_motion_studio_query,
+        is_identity_query,
+        get_identity_briefing,
+        ask_live_brain
+    )
+
+    # 4-1: 한국어 자연어 수식 검사 (예: 250 더하기 250 더하기 250 빼기는)
+    korean_math = parse_korean_math_expression(user_text)
+    if korean_math:
+        val_str, math_reply = korean_math
+        return {
+            'sender_name': '🏛️ 기술총리 안총리 & 💧 만능 참모 아온이',
+            'icon': '🧮',
+            'text': math_reply
+        }
+
+    # 4-2: 모션 그래픽 스튜디오 요청
+    if is_motion_studio_query(user_text):
+        from rgon_aon_opus_motion_studio import get_motion_preview_media
+        return {
+            'sender_name': '🌸 만능 참모 아온이 & ⚡ 안총리',
+            'icon': '🎬',
+            'text': (
+                "대표님! 제35기관 『클로드 오퍼스 5.5 모션 그래픽 스튜디오』(window.seek(t) 결정론적 캔버스 & WebM 영상 녹화)를 "
+                "대화창에 즉시 개통했습니다! 아래 인라인 스튜디오에서 3대 프리셋을 실시간 재생하고 녹화하실 수 있습니다! 🎬✨"
+            ),
+            'media': get_motion_preview_media("hangeoreum_shorts")
+        }
+
+    # 4-3: 현재 작업 현황 브리핑 (호칭 가로채기 완전 방지!)
     if is_current_work_query(user_text):
         return {
             'sender_name': '🏛️ 기술총리 안총리 & 💧 만능 참모 아온이',
             'icon': '🏛️',
             'text': get_live_work_briefing()
+        }
+
+    # 4-4: 정체성 질문
+    if is_identity_query(user_text):
+        return {
+            'sender_name': '🏛️ 기술총리 안총리 & 💧 만능 참모 아온이',
+            'icon': '🫡',
+            'text': get_identity_briefing()
         }
 
     # 5단: 호칭 전처리 후 알맹이 분석
@@ -179,7 +220,7 @@ def generate_smart_reply(user_text: str, channel: str = "ALL", media_info: dict 
         return {
             'sender_name': '👑 제1수석보좌관 르곤(G2)',
             'icon': '👑',
-            'text': "충성! 대표님, 르곤 보좌관입니다! 34대 전 기관 이상 없이 최고 속도로 가동 중이며 모든 명령을 즉각 집행하겠습니다!"
+            'text': "충성! 대표님, 르곤 보좌관입니다! 35대 전 기관 이상 없이 최고 속도로 가동 중이며 모든 명령을 즉각 집행하겠습니다!"
         }
 
     # 엔비디아 / 퀀트
@@ -239,11 +280,13 @@ def generate_smart_reply(user_text: str, channel: str = "ALL", media_info: dict 
             'text': "대표님, 사령부 기상 관측 결과 오늘 업무 추진에 최적화된 쾌청한 기운입니다! 🌤️"
         }
 
-    # 일반 티키타카 폴백
+    # 실시간 AI 두뇌 연동 (깡통 고정 답변 0건 영구 박멸!)
+    live_resp = ask_live_brain(user_text)
     return {
-        'sender_name': '💧 만능 참모 아온이',
-        'icon': '💧',
-        'text': "네, 대표님! 말씀하신 뜻을 명확히 접수했습니다. 군더더기 없이 즉시 실행 및 전술 지원에 착수하겠습니다! 🫡"
+        'sender_name': live_resp.get('speaker', '💧 만능 참모 아온이'),
+        'icon': '⚡',
+        'text': live_resp.get('text', f"대표님! 하달하신 「{user_text}」 명령을 즉시 분석하여 전술 배치 중입니다! ⚡"),
+        'media': live_resp.get('media')
     }
 
 def run_self_test() -> bool:
@@ -268,12 +311,18 @@ def run_self_test() -> bool:
     # 3. 실시간 작업 브리핑 내용 검증
     briefing = get_live_work_briefing()
     tests.append(("5. 작업 브리핑 핵심 키워드(소통 사령부)", "소통 사령부" in briefing))
-    tests.append(("6. 작업 브리핑 핵심 키워드(멀티모달)", "멀티모달" in briefing))
-    tests.append(("7. 작업 브리핑 핵심 키워드(v11.57)", VERSION in briefing))
+    tests.append(("6. 작업 브리핑 핵심 키워드(오퍼스/두뇌)", "오퍼스" in briefing or "AI 두뇌" in briefing))
+    tests.append(("7. 작업 브리핑 핵심 키워드(VERSION)", VERSION in briefing))
 
     # 4. 수식 계산 검증
     tests.append(("8. 수식 즉답 ('2+2=')", eval_safe_math("2+2=") is not None and "4입니다" in eval_safe_math("2+2=")))
     tests.append(("9. 수식 즉답 ('100/5')", eval_safe_math("100/5") is not None and "20입니다" in eval_safe_math("100/5")))
+
+    # 4-1. Step 59 한국어 수식 및 오타 현재작업 검증
+    from rgon_live_brain_connector import parse_korean_math_expression
+    k_math = parse_korean_math_expression("250 더하기 250 더하기 250 빼기는")
+    tests.append(("9-1. 한국어 수식 정밀 계산 ('250 더하기 250 더하기 250 빼기는')", k_math is not None and "750" in k_math[1] and "250" in k_math[1]))
+    tests.append(("9-2. 오타 포함 현재작업 ('어떻거 만들고 있지')", is_current_work_query("안총리 우리가 현재 어떻거 만들고 있지")))
 
     # 5. 유튜브 URL 파싱 검증
     yt_res = parse_url_intent("이 영상 봐봐 https://youtu.be/d-WRGKllOKU 멋져")
@@ -289,7 +338,7 @@ def run_self_test() -> bool:
 
     # 8. 대표님 적발 사례 티키타카 검증
     reply_direct = generate_smart_reply(raw1)
-    tests.append(("13. 대표님 질문에 현재 작업 설명 반환", "멀티모달" in reply_direct['text'] and "v11.57" in reply_direct['text']))
+    tests.append(("13. 대표님 질문에 현재 작업 설명 반환", VERSION in reply_direct['text']))
     tests.append(("14. 대표님 질문에 앵무새 대기 인사 0건", "대기 중입니다" not in reply_direct['text']))
 
     # 9. 순수 호칭만 부른 경우 대기 인사 검증

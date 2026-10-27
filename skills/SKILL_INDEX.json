@@ -1,8 +1,8 @@
 {
-  "version": "v11.57-AON-PINNACLE-OMNI-COMM",
-  "antibody": "R1~R58",
-  "generated_at_kst": "2026-10-27 11:35:00 KST",
-  "count": 54,
+  "version": "v11.58-AON-LIVE-BRAIN-MOTION",
+  "antibody": "R1~R59",
+  "generated_at_kst": "2026-10-27 12:25:00 KST",
+  "count": 55,
   "skills": [
     {
       "slug": "1-36-45",
@@ -536,17 +536,32 @@
       "source_url": "https://api.telegram.org",
       "origin": "rgon-core",
       "path": "skills/aon-pinnacle-omni-communicator/SKILL.md",
-      "version": "v11.57-AON-PINNACLE-OMNI-COMM",
+      "version": "v11.58-AON-LIVE-BRAIN-MOTION",
       "antibody": "R58_PINNACLE_VOICE_ARTIFACT_TIKITAKA_ZERO_FLUFF_LOCK"
+    },
+    {
+      "id": 55,
+      "skill_id": 55,
+      "name": "aon-opus-motion-studio",
+      "category": "communication",
+      "description": "제35기관 아온 클로드 오퍼스 5.5 모션 그래픽 스튜디오 (window.seek(t) 결정론적 캔버스 렌더러, 4단 스토리보드, MediaRecorder WebM 영상 저장, 3대 프리셋 연동)",
+      "tier": "tier-1",
+      "grade": "EX",
+      "hexagram_tag": "#56-旅",
+      "source_url": "https://anthropic.com/claude",
+      "origin": "rgon-core",
+      "path": "skills/aon-opus-motion-studio/SKILL.md",
+      "version": "v11.58-AON-LIVE-BRAIN-MOTION",
+      "antibody": "R59_REAL_LLM_INBOX_OPUS_MOTION_ZERO_CANNED_LOCK"
     }
   ],
-  "total": 54,
-  "skill_count": 54,
-  "antibody_range": "R1~R58",
-  "antibodies": "R1~R58",
-  "updated": "2026-10-27T12:01:25",
-  "synced_at_kst": "2026-10-27 11:35:00 KST",
-  "immune": "R1~R58",
-  "total_skills": 54,
-  "total_count": 54
+  "total": 55,
+  "skill_count": 55,
+  "antibody_range": "R1~R59",
+  "antibodies": "R1~R59",
+  "updated": "2026-10-27T12:34:46",
+  "synced_at_kst": "2026-10-27 12:25:00 KST",
+  "immune": "R1~R59",
+  "total_skills": 55,
+  "total_count": 55
 }

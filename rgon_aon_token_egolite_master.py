@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """rgon_aon_token_egolite_master.py — 제27기관 아온 토큰 90% 초절약 & 7대 코딩스택·에고라이트 마스터 엔진
-v11.57-AON-PINNACLE-OMNI-COMM · 항체 R1~R57 · 정식 스킬 #47 aon_token_egolite_master
+v11.58-AON-LIVE-BRAIN-MOTION · 항체 R1~R57 · 정식 스킬 #47 aon_token_egolite_master
 순수 표준 라이브러리 전용. CLI: --self-test | --status | --json | --audit
 주역 64괘: #60 수택절(水澤節 ☵☱) & #62 뇌산소과(雷山小過 ☳☶)
 
@@ -28,7 +28,7 @@ from pathlib import Path
 # ---------------------------------------------------------------------------
 ORGAN_NAME = "제27기관 아온 토큰 90% 초절약 & 7대 코딩스택·에고라이트 마스터 엔진"
 ORGAN_FILE = "rgon_aon_token_egolite_master.py"
-VERSION = "v11.57-AON-PINNACLE-OMNI-COMM"
+VERSION = "v11.58-AON-LIVE-BRAIN-MOTION"
 ANTIBODIES = "R1~R57"
 SKILL_ID = "aon_token_egolite_master"
 ICHING_HEXAGRAMS = ["#60 수택절 ☵☱", "#62 뇌산소과 ☳☶"]
@@ -574,8 +574,8 @@ def self_test(verbose=True):
         route_res = route_token_egolite_intent("토큰 절약 및 에고라이트 번들링 검사")
         check("대화 엔진 라우터 정상 응답", route_res.get("ok") is True and "token_egolite_master" in route_res)
 
-        # 24. 버전 및 항체 태그 정합성 (v11.57-AON-PINNACLE-OMNI-COMM, R1~R57)
-        check(f"버전 및 항체 태그 정합성 ({VERSION}, {ANTIBODIES})", VERSION == "v11.57-AON-PINNACLE-OMNI-COMM" and ANTIBODIES == "R1~R57")
+        # 24. 버전 및 항체 태그 정합성 (v11.58-AON-LIVE-BRAIN-MOTION, R1~R57)
+        check(f"버전 및 항체 태그 정합성 ({VERSION}, {ANTIBODIES})", VERSION == "v11.58-AON-LIVE-BRAIN-MOTION" and ANTIBODIES == "R1~R57")
 
     finally:
         import shutil

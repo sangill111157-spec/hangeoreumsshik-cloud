@@ -4,7 +4,7 @@
 rgon_aon_supreme_org_chart_engine.py
 ================================================================================
 제31기관: 아온 세계 Top 1 초일류 자율 조직구성도 & 배타적 영토·5대 전술 진형 지휘 엔진
-(v11.57-AON-PINNACLE-OMNI-COMM · R1~R57 · 정식 스킬 53개)
+(v11.58-AON-LIVE-BRAIN-MOTION · R1~R57 · 정식 스킬 53개)
 ================================================================================
 주역: #14 화천대유(☲☰) — 하늘 위에 밝은 해가 떠서 천하 만물을 비추고 포용함 (세계 Top 1 조직 대통일)
 부주역: #01 중천건(☰☰) — 원형이정(元亨利貞), 굳건한 북극성 영도력과 자율 진화
@@ -23,7 +23,7 @@ import time
 import hashlib
 from typing import Dict, List, Any, Optional
 
-VERSION = "v11.57-AON-PINNACLE-OMNI-COMM"
+VERSION = "v11.58-AON-LIVE-BRAIN-MOTION"
 ANTIBODY_RANGE = "R1~R57"
 ORGAN_INDEX = 31
 ORGAN_NAME = "제31기관 아온 세계 Top 1 초일류 자율 조직구성도 & 5대 전술 진형 지휘 본부"
@@ -261,7 +261,7 @@ class SupremeOrgChartEngine:
         def check(desc: str, cond: bool, note: str = ""):
             tests.append({"desc": desc, "ok": bool(cond), "note": note})
 
-        check("버전 v11.54 일치", self.version == "v11.57-AON-PINNACLE-OMNI-COMM", self.version)
+        check("버전 v11.54 일치", self.version == "v11.58-AON-LIVE-BRAIN-MOTION", self.version)
         check("항체 R1~R57 일치", self.antibody_range == "R1~R57", self.antibody_range)
         check("정식 스킬 53개 일치", self.skill_count == 51, f"{self.skill_count}개")
         check("제31기관 명칭 확인", "제31기관" in self.organ_name)
