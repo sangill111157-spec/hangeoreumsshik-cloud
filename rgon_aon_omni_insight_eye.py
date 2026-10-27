@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """rgon_aon_omni_insight_eye.py — 제14기관 아온 만물 격물치지 통찰안 (표준 라이브러리 전용)
-[RGON-R38] v11.61-AON-GDRIVE-5TB-DECIMAL · 항체 R1~R57 · 정식 스킬 35개
+[RGON-R38] v11.62-AON-13SHORTS-OMNI-ENGINE · 항체 R1~R57 · 정식 스킬 35개
 OTA 능동 지각(Observation→Thought→Action) → FPCOS L0~L5 해부 → 아온 혜안 브리핑.
 한계: 규칙 기반 휴리스틱. 이미지·영상 속 '무엇이 있는가'(객체·장면 인식)는 판정하지 않으며
 헤더·픽셀 통계·URL 구조·텍스트 신호만 실측한다. 신뢰도는 85%를 넘기지 않는다."""
@@ -16,7 +16,7 @@ except Exception:
     pass
 
 ROOT = Path(__file__).resolve().parent
-VERSION = "v11.61-AON-GDRIVE-5TB-DECIMAL"
+VERSION = "v11.62-AON-13SHORTS-OMNI-ENGINE"
 ANTIBODY = "R1~R57"
 SKILL_COUNT = 39
 STATE_PATHS = ("rgon_aon_insight_state.json", "docs/rgon_aon_insight_state.json")

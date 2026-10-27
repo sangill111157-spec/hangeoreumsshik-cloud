@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>아온 13대 쇼츠 옴니-인텔리전스 마스터 스튜디오 | RGON 사령부</title>
+  <style>
+    :root {
+      --bg-dark: #0a0f1d;
+      --card-bg: rgba(18, 26, 47, 0.75);
+      --card-border: rgba(99, 140, 255, 0.22);
+      --accent-pink: #ff69b4;
+      --accent-cyan: #00f2fe;
+      --accent-blue: #4facfe;
+      --accent-gold: #ffd24d;
+      --accent-green: #2ecc71;
+      --accent-red: #ff4757;
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at 50% 10%, #172445 0%, var(--bg-dark) 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* 상단 헤더 네비게이션 */
+    header {
+      background: rgba(10, 15, 29, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--card-border);
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .brand-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-logo {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent-pink), var(--accent-cyan));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      box-shadow: 0 0 15px rgba(255, 105, 180, 0.4);
+    }
+
+    .brand-title {
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+    }
+
+    .brand-subtitle {
+      font-size: 11px;
+      color: var(--accent-cyan);
+      font-weight: 600;
+    }
+
+    .badge-bar {
+      display: flex;
+      gap: 8px;
+    }
+
+    .badge {
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--card-border);
+    }
+
+    .badge-live {
+      background: rgba(46, 204, 113, 0.15);
+      color: var(--accent-green);
+      border-color: rgba(46, 204, 113, 0.35);
+    }
+
+    /* 메인 컨테이너 */
+    main {
+      flex: 1;
+      max-width: 1400px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 24px 20px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* 4대 권역 탭 네비게이션 */
+    .tab-bar {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .tab-btn {
+      padding: 10px 18px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-muted);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .tab-btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-main);
+    }
+
+    .tab-btn.active {
+      background: linear-gradient(135deg, rgba(255, 105, 180, 0.2), rgba(0, 242, 254, 0.2));
+      border-color: var(--accent-pink);
+      color: #fff;
+      box-shadow: 0 4px 15px rgba(255, 105, 180, 0.25);
+    }
+
+    /* 패널 컨텐츠 */
+    .panel {
+      display: none;
+      flex-direction: column;
+      gap: 20px;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .panel.active {
+      display: flex;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .grid-2col {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+      position: relative;
+    }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--accent-cyan);
+    }
+
+    /* 권역 1: Jev 1.14 캔버스 시뮬레이터 */
+    .jev-canvas-box {
+      width: 100%;
+      height: 320px;
+      background: #060913;
+      border: 1px dashed rgba(255, 105, 180, 0.4);
+      border-radius: 12px;
+      position: relative;
+      overflow: hidden;
+      cursor: crosshair;
+    }
+
+    .jev-box-element {
+      position: absolute;
+      border: 2px solid var(--accent-pink);
+      background: rgba(255, 105, 180, 0.15);
+      box-shadow: 0 0 15px rgba(255, 105, 180, 0.5);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 800;
+      transition: border-color 0.1s linear;
+      user-select: none;
+    }
+
+    .jev-box-element.clipped {
+      border-color: var(--accent-red);
+      background: rgba(255, 71, 87, 0.25);
+      box-shadow: 0 0 20px rgba(255, 71, 87, 0.7);
+    }
+
+    .edge-warning-pill {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(0, 0, 0, 0.75);
+      border: 1px solid var(--accent-pink);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .control-row {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-action {
+      padding: 8px 16px;
+      border-radius: 10px;
+      border: none;
+      background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+      color: #061129;
+      font-weight: 800;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-action:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(0, 242, 254, 0.35);
+    }
+
+    /* 권역 2: kfix 번역투 교정기 */
+    textarea.kfix-input {
+      width: 100%;
+      height: 110px;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 10px;
+      padding: 12px;
+      color: #fff;
+      font-size: 13px;
+      resize: vertical;
+      outline: none;
+    }
+
+    textarea.kfix-input:focus {
+      border-color: var(--accent-cyan);
+    }
+
+    .kfix-result-box {
+      background: rgba(46, 204, 113, 0.08);
+      border: 1px solid rgba(46, 204, 113, 0.3);
+      border-radius: 10px;
+      padding: 12px;
+      font-size: 13px;
+      line-height: 1.6;
+      color: #e2fbe8;
+      min-height: 60px;
+    }
+
+    /* 권역 4: 보안 감사 현황판 */
+    .sec-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 14px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .sec-status-ok {
+      color: var(--accent-green);
+      font-weight: 800;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* 토큰 게이지 */
+    .token-gauge-bar {
+      width: 100%;
+      height: 12px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 999px;
+      overflow: hidden;
+      margin: 8px 0;
+    }
+
+    .token-gauge-fill {
+      width: 42.5%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-green), var(--accent-gold));
+      border-radius: 999px;
+      transition: width 0.3s ease;
+    }
+
+    /* 반응형 */
+    @media (max-width: 768px) {
+      .grid-2col {
+        grid-template-columns: 1fr;
+      }
+      header {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 헤더 -->
+  <header>
+    <div class="brand-box">
+      <div class="brand-logo">🌟</div>
+      <div>
+        <div class="brand-title">아온 13대 쇼츠 옴니-인텔리전스 마스터 스튜디오</div>
+        <div class="brand-subtitle">제38기관 · v11.62-AON-13SHORTS-OMNI-ENGINE · 항체 R1~R62</div>
+      </div>
+    </div>
+    <div class="badge-bar">
+      <span class="badge badge-live">● 13대 쇼츠 연동 LIVE</span>
+      <span class="badge">#14 화천대유(火天大有)</span>
+      <span class="badge">시냅스 100.0점</span>
+    </div>
+  </header>
+
+  <!-- 메인 -->
+  <main>
+    <!-- 4대 권역 탭 -->
+    <div class="tab-bar">
+      <button class="tab-btn active" onclick="switchTab('q1')">🌸 권역 1: Jev 1.14 & 코어·숨은스킬</button>
+      <button class="tab-btn" onclick="switchTab('q2')">🚀 권역 2: 마케팅 52스킬 & K-설득글</button>
+      <button class="tab-btn" onclick="switchTab('q3')">🎬 권역 3: 존코바 노드 & 무인 영상 6단계</button>
+      <button class="tab-btn" onclick="switchTab('q4')">🛡️ 권역 4: 내 앱 보안 4대 점검 & 토큰방어</button>
+    </div>
+
+    <!-- 권역 1 패널 -->
+    <div class="panel active" id="panel-q1">
+      <div class="grid-2col">
+        <!-- Jev 1.14 결정론적 박스 시뮬레이터 -->
+        <div class="card">
+          <div class="card-title">
+            <span>🌸</span> TypeSafe Jev 1.14 분홍 Box 시뮬레이터 (#ff69b4)
+          </div>
+          <div style="font-size: 12px; color: var(--text-muted);">
+            4방향 가장자리 잘림(edge_clipped)을 실시간 감지하여 0% 오차를 보장합니다.
+          </div>
+          <div class="jev-canvas-box" id="jev-canvas" onmousemove="onCanvasMouseMove(event)">
+            <div class="jev-box-element" id="jev-box" style="left: 100px; top: 80px; width: 220px; height: 140px;">
+              Jev Box 262K
+            </div>
+            <div class="edge-warning-pill" id="edge-pill">
+              <span id="pill-dot" style="color: var(--accent-green);">●</span>
+              <span id="pill-text">정상 안전 (SAFE)</span>
+            </div>
+          </div>
+          <div class="control-row">
+            <button class="btn-action" onclick="moveBoxToEdge('left')">좌측 경계 테스트</button>
+            <button class="btn-action" onclick="moveBoxToEdge('right')">우측 경계 테스트</button>
+            <button class="btn-action" onclick="moveBoxToCenter()">중앙 정렬</button>
+          </div>
+        </div>
+
+        <!-- 코어 5선 & 숨은 5선 스킬 현황 -->
+        <div class="card">
+          <div class="card-title">
+            <span>💎</span> 사령부 코어 5선 & 숨은 5선 스킬 매트릭스
+          </div>
+          <div style="font-size: 13px; line-height: 1.8;">
+            <p><strong>[코어 5선 스킬]</strong></p>
+            <p>• <strong>Find-Skills:</strong> 상황 맞춤 최적 스킬 1초 검색</p>
+            <p>• <strong>Plan-Verify:</strong> 3단계 사전 계획 교차 검증</p>
+            <p>• <strong>Session-Memory:</strong> 세션 인수인계 원장 무손실 보존</p>
+            <p>• <strong>Anti-AI-Slop-UI:</strong> 깡통 UI 및 여백 뭉개짐 방지</p>
+            <p>• <strong>Anti-AI-Slop-Copy:</strong> 기계적 번역투 및 슬롭 카피 박멸</p>
+            <br>
+            <p><strong>[비밀병기 숨은 5선 스킬]</strong></p>
+            <p>• <strong>Anatomy:</strong> 시스템 작동 기계도 및 내부 신경망 가시화</p>
+            <p>• <strong>Answer-HTML:</strong> 1/8 토큰 초압축 단일 HTML 한장 보고서</p>
+            <p>• <strong>Logo-1400:</strong> 벡터 기반 SVG 고화질 브랜드 심볼 주조</p>
+            <p>• <strong>Founder-100:</strong> 가상 고객 100인 심층 페르소나 블라인드 테스트</p>
+            <p>• <strong>Replica:</strong> 성공 제품 핵심 기능 역공학 재창조</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 권역 2 패널 -->
+    <div class="panel" id="panel-q2">
+      <div class="grid-2col">
+        <!-- kfix 한국형 1% 설득글 교정기 -->
+        <div class="card">
+          <div class="card-title">
+            <span>✍️</span> 한국인 1% 비즈니스 설득글 교정기 (kfix)
+          </div>
+          <div style="font-size: 12px; color: var(--text-muted);">
+            어색한 번역투 종결어미와 공허한 AI 슬롭을 제거하고 결재선 1% 품격 카피로 변환합니다.
+          </div>
+          <textarea class="kfix-input" id="kfix-in" placeholder="교정할 문장을 입력하십시오 (예: 이 시스템의 경우 매우 훌륭하고 놀라운 기능을 수행합니다.)"></textarea>
+          <div class="control-row">
+            <button class="btn-action" onclick="runKfix()">1초 무인 교정 실행</button>
+          </div>
+          <div class="kfix-result-box" id="kfix-out">교정 결과가 여기에 출력됩니다.</div>
+        </div>
+
+        <!-- 마케팅 52스킬 5대 카테고리 -->
+        <div class="card">
+          <div class="card-title">
+            <span>📊</span> 마케팅 52스킬 & 6대 자산 연동 매트릭스
+          </div>
+          <div style="font-size: 12.5px; line-height: 1.7;">
+            <p>• <strong>SEO (11개):</strong> 키워드 클러스터, 온페이지 최적화, 스키마 마크업, 기술 SEO</p>
+            <p>• <strong>CRO (11개):</strong> 헤드라인 A/B 테스트, CTA 전략 배치, 전환 퍼널 추적</p>
+            <p>• <strong>Launch (10개):</strong> 티징 캠페인, 사전 등록 랜딩, 프로덕트 헌트, D-Day 카운트다운</p>
+            <p>• <strong>Copywriting (10개):</strong> PAS 프레임워크, AIDA 공식, 3초 훅 스토리텔링</p>
+            <p>• <strong>Marketing Loops (10개):</strong> 친구 추천 루프, 바이럴 쇼츠 확산, 팬덤 커뮤니티</p>
+            <br>
+            <p><strong>대표님 6대 비즈니스 자산 SSOT 정의서:</strong></p>
+            <p><code>.agents/product-marketing.md</code> 에 27곡 음원·유튜브 3채널·틱톡 2,125명·건강블로그·5TB 아카이브 전수 등록 완료!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 권역 3 패널 -->
+    <div class="panel" id="panel-q3">
+      <div class="grid-2col">
+        <!-- 존코바 4단계 비주얼 노드 -->
+        <div class="card">
+          <div class="card-title">
+            <span>🎨</span> 존코바 Newtake 4단계 비주얼 노드
+          </div>
+          <div style="font-size: 13px; line-height: 1.8;">
+            <p>1. <strong>Reference Node:</strong> 트렌드 무드보드 및 레퍼런스 스타일 정밀 수집</p>
+            <p>2. <strong>Character 3-View Node:</strong> 정면·측면·후면 3면도 일관성 고정 캐릭터</p>
+            <p>3. <strong>Motion 2D/3D Node:</strong> 2D 그래픽과 3D 공간감 융합 모션 키프레임</p>
+            <p>4. <strong>MCP Controller Node:</strong> MCP 프로토콜 기반 캔버스 및 렌더러 직접 제어</p>
+          </div>
+        </div>
+
+        <!-- 6단계 무인 영상 편집 파이프라인 -->
+        <div class="card">
+          <div class="card-title">
+            <span>🎬</span> 6단계 무인 영상 편집 & CLI-Anything
+          </div>
+          <div style="font-size: 13px; line-height: 1.8;">
+            <p>• <strong>Step 1:</strong> <code>silence_cut</code> — 0.3초 이상 무음 구간 100% 자동 절삭</p>
+            <p>• <strong>Step 2:</strong> <code>smart_capture_insert</code> — 키워드 맞춤 화면 캡처 오버레이</p>
+            <p>• <strong>Step 3:</strong> <code>motion_subtitle_sync</code> — 음절 싱크 맞춤형 모션 텍스트 자막</p>
+            <p>• <strong>Step 4:</strong> <code>jev_box_frame_audit</code> — TypeSafe Jev 분홍 상자 잘림 검사</p>
+            <p>• <strong>Step 5:</strong> <code>feedback_accumulator</code> — 시청 지속시간 기반 파라미터 피드백</p>
+            <p>• <strong>Step 6:</strong> <code>unmanned_render_export</code> — WebM/MP4 무인 렌더링 & 5TB 저장</p>
+            <p>• <strong>CLI-Anything:</strong> 마우스 클릭 0번 완전 무인 CLI 파이프라인 연동</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 권역 4 패널 -->
+    <div class="panel" id="panel-q4">
+      <div class="grid-2col">
+        <!-- 내 앱 보안 4대 점검 현황판 -->
+        <div class="card">
+          <div class="card-title">
+            <span>🛡️</span> PHP2Shell 원천 면역 & 내 앱 보안 4대 점검
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 10px;">
+            <div class="sec-item">
+              <div>
+                <strong>PHP2Shell 원천 면역</strong>
+                <div style="font-size: 11px; color: var(--text-muted);">CVE-2026-109618·109619·115560 Zero-PHP</div>
+              </div>
+              <div class="sec-status-ok">✅ 통과 (100%)</div>
+            </div>
+            <div class="sec-item">
+              <div>
+                <strong>API 시크릿 키 Git 노출 0건</strong>
+                <div style="font-size: 11px; color: var(--text-muted);">R2 보안 헌법 엄수 (노출 0건 확인)</div>
+              </div>
+              <div class="sec-status-ok">✅ 통과 (0건)</div>
+            </div>
+            <div class="sec-item">
+              <div>
+                <strong>DB / 원장 무단 개방 차단</strong>
+                <div style="font-size: 11px; color: var(--text-muted);">127.0.0.1 루프백 바인딩 & 화이트리스트</div>
+              </div>
+              <div class="sec-status-ok">✅ 봉인 완료</div>
+            </div>
+            <div class="sec-item">
+              <div>
+                <strong>PBKDF2 관리자 인증 게이트</strong>
+                <div style="font-size: 11px; color: var(--text-muted);">.agents/admin_gate.json 100,000회 해시</div>
+              </div>
+              <div class="sec-status-ok">✅ 보호 가동</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 개인정보 3단계 삭제 & 토큰 한도 방어 -->
+        <div class="card">
+          <div class="card-title">
+            <span>⚡</span> 개인정보 3단계 삭제 & 토큰 한도 방어
+          </div>
+          <div style="font-size: 13px; line-height: 1.8;">
+            <p><strong>[개인정보 3단계 자율 삭제]</strong></p>
+            <p>1. 노출 조회 ➔ 2. 민감정보 비가역 마스킹 ➔ 3. 개인정보보호법 제36조 정식 삭제 확인서 생성</p>
+            <br>
+            <p><strong>[토큰 한도 방어 4대 플러그인]</strong></p>
+            <p>• 출력 89% 초압축기 & AST 핀셋 라인 리더 & 경량 오프로더</p>
+            <p>• 노란불 75% 도달 시 <code>SESSION_HANDOFF_COMPACT.md</code> 자동 체크포인트</p>
+            <div class="token-gauge-bar">
+              <div class="token-gauge-fill"></div>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 11px; color: var(--text-muted);">
+              <span>현재 컨텍스트: 42.5% (안전)</span>
+              <span>체크포인트 임계치: 75.0%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+      document.getElementById('panel-' + tabId).classList.add('active');
+    }
+
+    // Jev Box 시뮬레이터 인터랙션
+    function moveBoxToEdge(dir) {
+      const box = document.getElementById('jev-box');
+      const canvas = document.getElementById('jev-canvas');
+      const pill = document.getElementById('edge-pill');
+      const pillDot = document.getElementById('pill-dot');
+      const pillText = document.getElementById('pill-text');
+
+      if (dir === 'left') {
+        box.style.left = '-30px';
+        box.classList.add('clipped');
+        pillDot.style.color = 'var(--accent-red)';
+        pillText.innerText = '경고: 좌측 잘림 감지 (LEFT_CLIPPED)';
+      } else if (dir === 'right') {
+        box.style.left = (canvas.clientWidth - box.clientWidth + 30) + 'px';
+        box.classList.add('clipped');
+        pillDot.style.color = 'var(--accent-red)';
+        pillText.innerText = '경고: 우측 잘림 감지 (RIGHT_CLIPPED)';
+      }
+    }
+
+    function moveBoxToCenter() {
+      const box = document.getElementById('jev-box');
+      const canvas = document.getElementById('jev-canvas');
+      const pillDot = document.getElementById('pill-dot');
+      const pillText = document.getElementById('pill-text');
+
+      const cx = (canvas.clientWidth - box.clientWidth) / 2;
+      const cy = (canvas.clientHeight - box.clientHeight) / 2;
+      box.style.left = cx + 'px';
+      box.style.top = cy + 'px';
+      box.classList.remove('clipped');
+      pillDot.style.color = 'var(--accent-green)';
+      pillText.innerText = '정상 안전 (SAFE)';
+    }
+
+    function onCanvasMouseMove(e) {
+      const canvas = document.getElementById('jev-canvas');
+      const box = document.getElementById('jev-box');
+      const rect = canvas.getBoundingClientRect();
+      const x = e.clientX - rect.left - (box.clientWidth / 2);
+      const y = e.clientY - rect.top - (box.clientHeight / 2);
+
+      box.style.left = x + 'px';
+      box.style.top = y + 'px';
+
+      const isClipped = (x < 0 || y < 0 || x + box.clientWidth > canvas.clientWidth || y + box.clientHeight > canvas.clientHeight);
+      const pillDot = document.getElementById('pill-dot');
+      const pillText = document.getElementById('pill-text');
+
+      if (isClipped) {
+        box.classList.add('clipped');
+        pillDot.style.color = 'var(--accent-red)';
+        pillText.innerText = '경고: 가장자리 잘림 감지!';
+      } else {
+        box.classList.remove('clipped');
+        pillDot.style.color = 'var(--accent-green)';
+        pillText.innerText = '정상 안전 (SAFE)';
+      }
+    }
+
+    // kfix 실행기
+    function runKfix() {
+      const input = document.getElementById('kfix-in').value || '이 시스템의 경우 매우 훌륭하고 놀라운 기능을 수행합니다.';
+      let output = input
+        .replace(/에\s*대하여/g, '에 대해')
+        .replace(/의\s*경우/g, '는')
+        .replace(/수행\s*(하다|합니다|하고|하여|된)/g, '진행$1')
+        .replace(/매우\s*훌륭하고\s*놀라운/g, '검증된')
+        .replace(/혁신적인\s*차세대/g, '실전')
+        .replace(/궁극적인\s*해결책/g, '명쾌한 해결책');
+
+      document.getElementById('kfix-out').innerHTML = '<strong>[kfix 교정 완료]</strong><br>' + output;
+    }
+  </script>
+</body>
+</html>

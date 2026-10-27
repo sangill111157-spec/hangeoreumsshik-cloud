@@ -40,7 +40,7 @@ def sync_inbox_file(data: dict):
         pass
 
 def enqueue_antigravity_msg(queue_item: dict):
-    data = {"version": "v11.61-AON-GDRIVE-5TB-DECIMAL", "queue": []}
+    data = {"version": "v11.62-AON-13SHORTS-OMNI-ENGINE", "queue": []}
     if QUEUE_JSON_PATH.exists():
         try:
             with open(QUEUE_JSON_PATH, "r", encoding="utf-8") as f:

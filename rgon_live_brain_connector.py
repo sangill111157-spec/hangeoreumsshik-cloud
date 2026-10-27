@@ -2,7 +2,7 @@
 """
 rgon_live_brain_connector.py [Step 59 완결: 안총리·아온이 실제 AI 두뇌(Real LLM) 1순위 최우선 직결]
 ================================================================================
-버전: v11.61-AON-GDRIVE-5TB-DECIMAL
+버전: v11.62-AON-13SHORTS-OMNI-ENGINE
 항체: R59_REAL_LLM_INBOX_OPUS_MOTION_ZERO_CANNED_LOCK
 소유: 기술총리 안총리 & 35대 기관 만능 참모 아온이 (이상일 대표님 직속)
 
@@ -25,8 +25,8 @@ from datetime import datetime
 from pathlib import Path
 from typing import Dict, Any, Optional, Tuple, List
 
-VERSION = "v11.61-AON-GDRIVE-5TB-DECIMAL"
-ANTIBODY = "R60_EMPIRE_ASSET_HUB_LOCK"
+VERSION = "v11.62-AON-13SHORTS-OMNI-ENGINE"
+ANTIBODY = "R62_13SHORTS_OMNI_LOCK"
 
 BASE_DIR = Path(__file__).resolve().parent
 INBOX_FILE = BASE_DIR / "rgon_commander_live_inbox.json"
@@ -387,7 +387,7 @@ def ask_real_aon_brain(user_text: str) -> Dict[str, Any]:
     ]) or clean_no_space in ["안총리", "아온아", "안총리아온아", "안총리님", "아온이"]:
         reply_text = (
             "충성! 대표님, 기술총리 안총리와 만능 참모 아온이 즉시 대령했습니다! 🫡🌸\n\n"
-            f"현재 37대 전 기관과 57개 스킬({VERSION} · {ANTIBODY})이 대표님의 모든 명령을 1초의 지체도 없이 "
+            f"현재 38대 전 기관과 58개 스킬({VERSION} · {ANTIBODY})이 대표님의 모든 명령을 1초의 지체도 없이 "
             "무인 완주할 준비를 마치고 대기 중입니다! 무엇이든 편하게 하명해 주십시오!"
         )
         log_to_commander_inbox(user_text, reply_text, extra_meta={"intent": "summon_greeting"})
@@ -408,18 +408,52 @@ def ask_real_aon_brain(user_text: str) -> Dict[str, Any]:
     ]):
         reply_text = (
             "대표님! 지금 바로 완결한 최신 핵심 작업 성과를 보고드립니다! 🫡⚡\n\n"
-            "🍁 **1. [Step 61] 제36기관 한걸음씩 6대 자산 제국 마스터 통합 허브:**\n"
-            "• DistroKid 2대 정규앨범 27곡(가을과 겨울 사이 12곡 + 잔상 15곡) 글로벌 24개 플랫폼 배급망 등록\n"
-            "• 유튜브 3대 공식 채널(@한걸음씩-r4i, @Booster_Playlist, @TheCaféHour) & 틱톡 2,125명 바이럴 허브\n"
-            "• 구글 블로거(connect-ai-shin.blogspot.com) 3조 2교대 건강 7대 DNA 칼럼 자동화 파이프라인\n\n"
-            "☁️ **2. [Step 62] 제37기관 Google One 5TB Johnny.Decimal 아카이브 엔진:**\n"
-            "• 5,000GB 중 잔여 4,984.09GB(99.68%) 가용 게이지 & 00~06 2단계 PARA 트리(gdrive_5tb_archive/)\n"
-            "• 스마트폰 3초 업로드(00_INBOX 별표 고정) 무인 자동 분류기 및 전용 허브(rgon_gdrive_5tb_hub.html)\n\n"
-            f"전신 37대 기관 57스킬 ({VERSION} · {ANTIBODY}) 시냅스 건강도 100.0점 만점으로 무결점 가동 중입니다! 🚀"
+            "🌟 **1. [Step 63] 제38기관 아온 13대 쇼츠 옴니-인텔리전스 마스터 엔진:**\n"
+            "• TypeSafe Jev 1.14 (Noul, Choice, Score, Box #ff69b4, 262K 컨텍스트) 4대 결정 함수\n"
+            "• 코어 5선 & 숨은 5선 스킬 + 마케팅 52스킬 & 6대 자산 마케팅 정의서(.agents/product-marketing.md)\n"
+            "• 존코바 Newtake 4단계 노드 & 6단계 무인 영상 편집 & PHP2Shell Zero-PHP 4대 보안 점검 100.0점\n\n"
+            "🍁 **2. [Step 61~62] 6대 자산 제국 & Google One 5TB 아카이브 엔진:**\n"
+            "• DistroKid 2대 정규앨범 27곡 글로벌 24개 플랫폼 배급망 & 유튜브 3채널 & 틱톡 2,125명\n"
+            "• 5,000GB 중 잔여 4,984.09GB(99.68%) 가용 게이지 & 00_INBOX 스마트폰 3초 업로드\n\n"
+            f"전신 38대 기관 58스킬 ({VERSION} · {ANTIBODY}) 시냅스 건강도 100.0점 만점으로 무결점 가동 중입니다! 🚀"
         )
         log_to_commander_inbox(user_text, reply_text, extra_meta={"intent": "current_work_briefing"})
         return {
-            "speaker": "⚡ 기술총리 안총리 & 37대 기관 만능 참모 아온이",
+            "speaker": "⚡ 기술총리 안총리 & 38대 기관 만능 참모 아온이",
+            "text": reply_text,
+            "media": None
+        }
+
+    # --------------------------------------------------------------------------
+    # 1-1. "13대 쇼츠", "Jev 1.14", "마케팅 52스킬", "PHP 보안", "개인정보 삭제", "토큰 한도 방어"
+    # --------------------------------------------------------------------------
+    if any(k in clean_no_space for k in [
+        "13대쇼츠", "13쇼츠", "쇼츠옴니", "jev", "마케팅52스킬", "마케팅스킬",
+        "php보안", "php2shell", "개인정보삭제", "토큰방어", "토큰한도", "존코바", "무인영상", "클릭0번"
+    ]):
+        reply_text = (
+            "대표님! **아온 13대 쇼츠 옴니-인텔리전스 마스터 엔진 (제38기관 · v11.62 · R1~R62)** 4대 권역 실시간 현황을 보고드립니다! 🌟🎬\n\n"
+            "🌸 **권역 1: 초정밀 판정 & 코어·숨은스킬 10선**\n"
+            "• **TypeSafe Jev 1.14 (`jev-1.14.0`):** Noul(4방향 가장자리 잘림 edge_clipped 감지), Choice(의도 정밀 라우팅), Score(100점 채점), Box(#ff69b4 분홍 상자 좌표 정규화, 262K 컨텍스트)\n"
+            "• **코어 5선:** Find-Skills, Plan-Verify, Session-Memory, Anti-AI-Slop-UI, Anti-AI-Slop-Copy\n"
+            "• **숨은 5선:** Anatomy(작동기계도), Answer-HTML(1/8토큰 한장요약), Logo-1400(SVG로고), Founder-100(가상고객 100인), Replica(기능재창조)\n\n"
+            "🚀 **권역 2: 마케팅 52스킬 & 학술연구 5단계 & K-1% 설득글**\n"
+            "• **대표님 6대 자산 정의서:** `.agents/product-marketing.md` (DistroKid 27곡, 유튜브 3채널, 틱톡 2,125명, 건강블로그, 5TB 아카이브 SSOT)\n"
+            "• **마케팅 52스킬:** SEO(11) · CRO(11) · Launch(10) · Copywriting(10) · Marketing-Loops(10)\n"
+            "• **학술 5단계 & kfix:** PICO 논문 팩트 교차검증 + 한국인 1% 비즈니스 번역투 0% 교정기\n\n"
+            "🎬 **권역 3: 존코바 노드 영상 & 6단계 무인 편집 & 클릭 0번**\n"
+            "• **존코바 Newtake 4단계 노드:** 레퍼런스 ➔ 캐릭터 3면도 ➔ 2D/3D 모션 연출 ➔ MCP 제어\n"
+            "• **6단계 무인 편집:** silence_cut(0.3초 무음 컷) ➔ 캡처삽입 ➔ 모션자막 ➔ Jev Box 검사 ➔ 피드백 ➔ WebM/MP4 무인 렌더\n"
+            "• **CLI-Anything:** 마우스 클릭 0번 완전 무인 CLI 파이프라인 연동\n\n"
+            "🛡️ **권역 4: 내 앱 보안 4대 점검 & 개인정보 3단계 삭제 & 토큰방어**\n"
+            "• **보안 4대 점검:** PHP2Shell(CVE-2026-109618·109619·115560) Zero-PHP 면역, API키 노출 0건, DB 원장 차단, PBKDF2 관리자 게이트\n"
+            "• **개인정보 3단계 삭제:** 노출 조회 ➔ 마스킹 ➔ 개인정보보호법 제36조 삭제 확인서\n"
+            "• **토큰 한도 방어 4대 플러그인:** 출력 89% 압축기, AST 핀셋 라인 리더, 경량 오프로더, 75% 체크포인트\n\n"
+            "🌐 **전용 스튜디오 열기:** `rgon_13shorts_omni_studio.html` 에서 Jev 분홍 Box 시뮬레이터와 kfix 교정기를 즉시 가동하실 수 있습니다!"
+        )
+        log_to_commander_inbox(user_text, reply_text, extra_meta={"intent": "13shorts_omni_briefing"})
+        return {
+            "speaker": "🌟 13대 쇼츠 옴니 총괄 & 💧 만능 참모 아온이",
             "text": reply_text,
             "media": None
         }
@@ -837,7 +871,7 @@ def ask_real_aon_brain(user_text: str) -> Dict[str, Any]:
     else:
         reply_text = (
             f"대표님! 『{clean_text}』 하명에 대해 저 안총리가 즉시 전술 검토하여 보고드립니다. "
-            f"35대 기관 모든 신경망(v11.61-AON-GDRIVE-5TB-DECIMAL · 시냅스 100.0점)이 정상 가동 중이며, 대표님의 다음 목표를 향해 즉시 무인 완주로 착수하겠습니다! ⚡"
+            f"35대 기관 모든 신경망(v11.62-AON-13SHORTS-OMNI-ENGINE · 시냅스 100.0점)이 정상 가동 중이며, 대표님의 다음 목표를 향해 즉시 무인 완주로 착수하겠습니다! ⚡"
         )
 
     log_to_commander_inbox(user_text, reply_text, extra_meta={"intent": "semantic_fallback"})

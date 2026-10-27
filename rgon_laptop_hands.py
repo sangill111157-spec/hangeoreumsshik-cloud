@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """rgon_laptop_hands.py — 제11기관: 아온(A-ON) 노트북 만능 제어 수족 & 중요 결재 수동 ON/OFF 마스터 스위치
-버전 v11.61-AON-GDRIVE-5TB-DECIMAL · 항체 R1~R57
+버전 v11.62-AON-13SHORTS-OMNI-ENGINE · 항체 R1~R57
 주역 #60 수택절(水澤節): 마디를 두어 절제한다 — 스위치가 곧 마디다.
 주역 #62 뇌산소과(雷山小過): 작은 일은 넘쳐도 되나 큰 일은 넘치면 안 된다 — 조회는 열고 큰 결재는 잠근다.
 주역 #14 화천대유(火天大有): 크게 가진 자는 겸손히 지킨다.
@@ -16,7 +16,7 @@ try:
 except Exception:
     pass
 
-VERSION = "v11.61-AON-GDRIVE-5TB-DECIMAL"
+VERSION = "v11.62-AON-13SHORTS-OMNI-ENGINE"
 ANTIBODY = "R1~R57"
 ROOT = Path(__file__).resolve().parent
 STATE_PATHS = ("rgon_manual_gate_state.json", "docs/rgon_manual_gate_state.json")

@@ -1,8 +1,8 @@
 {
-  "version": "v11.61-AON-GDRIVE-5TB-DECIMAL",
-  "antibody": "R1~R61",
-  "generated_at_kst": "2026-10-27 20:35:00 KST",
-  "count": 57,
+  "version": "v11.62-AON-13SHORTS-OMNI-ENGINE",
+  "antibody": "R1~R62",
+  "generated_at_kst": "2026-10-27 22:58:00 KST",
+  "count": 58,
   "skills": [
     {
       "slug": "1-36-45",
@@ -583,17 +583,33 @@
       "source_url": "https://one.google.com/",
       "origin": "rgon-core",
       "path": "skills/aon-gdrive-5tb-organizer/SKILL.md",
-      "version": "v11.61-AON-GDRIVE-5TB-DECIMAL",
+      "version": "v11.62-AON-13SHORTS-OMNI-ENGINE",
       "antibody": "R61_GDRIVE_5TB_DECIMAL_LOCK"
+    },
+    {
+      "id": 58,
+      "skill_id": 58,
+      "slug": "aon-13shorts-omni",
+      "name": "aon-13shorts-omni",
+      "category": "omni-shorts-intelligence",
+      "description": "제38기관 아온 13대 쇼츠 옴니-인텔리전스 마스터 엔진 (TypeSafe Jev 1.14 4대 결정 함수, 마케팅 52스킬, 존코바 6단계 무인 영상 편집, PHP2Shell 내 앱 4대 보안 점검 통합)",
+      "tier": "tier-1",
+      "grade": "EX",
+      "hexagram_tag": "#14-大有",
+      "source_url": "https://github.com/sangill111157-spec/hangeoreumsshik-cloud",
+      "origin": "rgon-core",
+      "path": "skills/aon-13shorts-omni/SKILL.md",
+      "version": "v11.62-AON-13SHORTS-OMNI-ENGINE",
+      "antibody": "R62_13SHORTS_OMNI_LOCK"
     }
   ],
-  "total": 57,
-  "skill_count": 57,
-  "antibody_range": "R1~R61",
-  "antibodies": "R1~R61",
-  "updated": "2026-10-27T21:41:15",
-  "synced_at_kst": "2026-10-27 20:35:00 KST",
-  "immune": "R1~R61",
-  "total_skills": 57,
-  "total_count": 57
+  "total": 58,
+  "skill_count": 58,
+  "antibody_range": "R1~R62",
+  "antibodies": "R1~R62",
+  "updated": "2026-10-27T23:14:06",
+  "synced_at_kst": "2026-10-27 22:58:00 KST",
+  "immune": "R1~R62",
+  "total_skills": 58,
+  "total_count": 58
 }

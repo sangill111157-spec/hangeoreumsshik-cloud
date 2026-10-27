@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 rgon_aon_haesang_morph_avatar.py — 제24기관 · 이해상 수석 디자이너 헌정 아온이 6대 변신술 아바타 엔진
-Step 48 — v11.61-AON-GDRIVE-5TB-DECIMAL · 항체 R1~R57 · 정식 스킬 47개 (aon-haesang-6form-morph)
+Step 48 — v11.62-AON-13SHORTS-OMNI-ENGINE · 항체 R1~R57 · 정식 스킬 47개 (aon-haesang-6form-morph)
 
 수석 캐릭터 아트 디렉터: 이해상 (초등학교 4학년 · 이상일 대표님 막내 따님)
 주역 3대 괘상:
@@ -13,7 +13,7 @@ Step 48 — v11.61-AON-GDRIVE-5TB-DECIMAL · 항체 R1~R57 · 정식 스킬 47�
 import os, sys, json, re, time
 
 CHIEF_ART_DIRECTOR = "이해상 (초4 수석 캐릭터 디자이너)"
-VERSION = "v11.61-AON-GDRIVE-5TB-DECIMAL"
+VERSION = "v11.62-AON-13SHORTS-OMNI-ENGINE"
 ANTIBODY = "R48"
 SKILL_SLUG = "aon-haesang-6form-morph"
 HEXAGRAMS = ["#49 택화혁(澤火革)", "#58 태위택(兌爲澤)", "#37 풍화가인(風火家人)"]

@@ -141,5 +141,6 @@
 
 | 56 | `aon-empire-asset-hub` | 제36기관 아온 한걸음씩 6대 자산 제국 마스터 통합 허브 스킬 | `v11.60-AON-EMPIRE-ASSETS` | `R60` |
 
-| 57 | `aon-gdrive-5tb-organizer` | 제37기관 아온 Google One 5TB 초심플 클라우드 아카이브 엔진 스킬 | `v11.61-AON-GDRIVE-5TB-DECIMAL` | `R61` |
+| 57 | `aon-gdrive-5tb-organizer` | 제37기관 아온 Google One 5TB 초심플 클라우드 아카이브 엔진 스킬 | `v11.62-AON-13SHORTS-OMNI-ENGINE` | `R61` |
 
+| 58 | `aon-13shorts-omni` | 제38기관 아온 13대 쇼츠 옴니-인텔리전스 마스터 엔진 스킬 | `v11.62-AON-13SHORTS-OMNI-ENGINE` | `R62` |

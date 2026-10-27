@@ -112,10 +112,17 @@
 - **발효 버전:** `v11.60-AON-EMPIRE-ASSETS`
 
 ### R61: `R61_GDRIVE_5TB_DECIMAL_LOCK`
-- **범위**: R1~R61 · 정식 스킬 57개
+- **범위**: R1~R62 · 정식 스킬 57개
 - **제37기관:** 아온 Google One 5TB 초심플 클라우드 아카이브 엔진 (`rgon_aon_gdrive_5tb_organizer.py`)
 - **역할:** Google One 5TB(5,000GB 중 15.91GB 사용, 4,984.09GB / 99.68% 가용) 스토리지 실시간 게이지, 세계 Top 1 파일 정리 표준 『Johnny.Decimal (00~06 대분류 + 11~62 중분류, 최대 2단계 제한) × PARA』 아카이브 트리, 스마트폰 3초 업로드 무인 투입구(`00_📥_INBOX_일단여기에넣기`) 및 파일명 키워드 기반 무인 자동 라우팅, 대기/가족 서브계정(99 ROBLGYE @99ROBLGYE, 이해상 수석 디자이너, 이송효 공주님) 레지스트리 안전 보존.
-- **발효 버전:** `v11.61-AON-GDRIVE-5TB-DECIMAL`
+- **발효 버전:** `v11.62-AON-13SHORTS-OMNI-ENGINE`
+
+### R62: `R62_13SHORTS_OMNI_LOCK`
+- **범위**: R1~R62 · 정식 스킬 58개
+- **제38기관:** 아온 13대 쇼츠 옴니-인텔리전스 마스터 엔진 (`rgon_aon_13shorts_omni_engine.py`)
+- **역할:** TypeSafe Jev 1.14 (Noul, Choice, Score, Box #ff69b4, 262K 컨텍스트) 4대 결정 함수, 코어 5선 및 숨은 5선 스킬, 마케팅 52스킬 5대 카테고리(SEO, CRO, Launch, Copy, Loops), 학술 연구 5단계(PICO) 및 한국형 1% 설득글(kfix) 번역투 0% 교정, 존코바 Newtake 4단계 비주얼 노드, 6단계 무인 영상 편집 파이프라인, CLI-Anything 클릭 0번 무인 연동, PHP2Shell(CVE-2026-109618/109619/115560) Zero-PHP 원천 면역 및 내 앱 보안 4대 점검, 개인정보 3단계 자율 삭제 및 토큰 한도 방어 4대 플러그인 봉인.
+- **발효 버전:** `v11.62-AON-13SHORTS-OMNI-ENGINE`
+
 
 
 

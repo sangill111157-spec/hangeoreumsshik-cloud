@@ -1,0 +1,207 @@
+{
+  "engine_version": "v11.62-AON-13SHORTS-OMNI-ENGINE",
+  "antibody": "R62_13SHORTS_OMNI_LOCK",
+  "antibody_range": "R1~R62",
+  "organ_id": "ORGAN_38_13SHORTS_OMNI_ENGINE",
+  "organ_number": 38,
+  "organ_name": "제38기관 아온 13대 쇼츠 옴니-인텔리전스 마스터 엔진",
+  "skill_id": "aon-13shorts-omni",
+  "skill_number": 58,
+  "iching": {
+    "hexagram": "#14 화천대유(火天大有)",
+    "meaning": "광명정대하게 만물을 비추고 13대 쇼츠 지능으로 대업을 완수함",
+    "spirit": "상선약수(上善若水)와 무인 완주 100.0점"
+  },
+  "created_at": "2026-10-27T22:55:00",
+  "stats": {
+    "total_shorts": 13,
+    "total_quadrants": 4,
+    "total_marketing_skills": 52,
+    "total_core_and_hidden_skills": 10,
+    "total_security_audit_items": 4,
+    "total_privacy_steps": 3,
+    "total_token_guard_plugins": 4,
+    "total_unmanned_video_steps": 6
+  },
+  "quadrants": {
+    "quadrant_1": {
+      "id": "Q1_PRECISION_AND_SKILLS",
+      "title": "초정밀 판정 & 코어·숨은스킬 10선",
+      "shorts": [1, 5, 10],
+      "shorts_detail": {
+        "short_1": {
+          "title": "TypeSafe Jev 1.14 4대 결정 함수",
+          "version": "jev-1.14.0",
+          "context_window": "262K",
+          "box_color": "#ff69b4",
+          "functions": [
+            {
+              "name": "Noul",
+              "role": "예/아니오 이진 판정 및 4방향 가장자리 잘림(edge_clipped) 무결성 검사",
+              "output_type": "boolean | { valid: bool, edge_clipped: { top: bool, bottom: bool, left: bool, right: bool } }"
+            },
+            {
+              "name": "Choice",
+              "role": "질문 의도 정밀 라우팅 및 최적 카피 선택",
+              "output_type": "enum_selection"
+            },
+            {
+              "name": "Score",
+              "role": "0~100점 연속형 수치 정밀 채점 (임계치 검증)",
+              "output_type": "float (0.0 ~ 100.0)"
+            },
+            {
+              "name": "Box",
+              "role": "분홍 상자(#ff69b4) 좌표 정규화 및 바운딩 박스 검사",
+              "output_type": "bbox { x: float, y: float, w: float, h: float, color: '#ff69b4' }"
+            }
+          ]
+        },
+        "short_5": {
+          "title": "Antigravity 코어 5선 스킬",
+          "skills": [
+            {"id": "Find-Skills", "role": "상황에 맞는 최적 도구 및 스킬 즉시 검색"},
+            {"id": "Plan-Verify", "role": "3단계 사전 계획 수립 및 교차검증"},
+            {"id": "Session-Memory", "role": "세션 간 기억 유지 및 인수인계 원장 보존"},
+            {"id": "Anti-AI-Slop-UI", "role": "어설픈 깡통 UI 및 여백 뭉개짐 방지"},
+            {"id": "Anti-AI-Slop-Copy", "role": "기계적 번역투 및 공허한 AI 수식어 박멸"}
+          ]
+        },
+        "short_10": {
+          "title": "사령부 비밀병기 숨은 5선 스킬",
+          "skills": [
+            {"id": "Anatomy", "role": "시스템 작동 기계도 및 내부 아키텍처 가시화"},
+            {"id": "Answer-HTML", "role": "1/8 토큰 초압축 단일 HTML 한장 보고서"},
+            {"id": "Logo-1400", "role": "벡터 기반 SVG 고화질 브랜드 심볼 주조"},
+            {"id": "Founder-100", "role": "가상 고객 100인 심층 페르소나 블라인드 테스트"},
+            {"id": "Replica", "role": "현존하는 성공 제품 핵심 기능 역공학 재창조"}
+          ]
+        }
+      }
+    },
+    "quadrant_2": {
+      "id": "Q2_MARKETING_AND_RESEARCH",
+      "title": "마케팅 52스킬 & 학술연구 5단계 & 한국형 1% 설득글",
+      "shorts": [2, 7, 8],
+      "shorts_detail": {
+        "short_2": {
+          "title": "대표님 6대 비즈니스 자산 마케팅 정의서",
+          "target_file": ".agents/product-marketing.md",
+          "assets_covered": [
+            "DistroKid 2대 정규앨범 27곡 (가을과 겨울 사이 12곡 + 잔상 15곡)",
+            "유튜브 3대 공식 채널 (@한걸음씩-r4i, @Booster_Playlist, @TheCaféHour)",
+            "틱톡 바이럴 본진 @boosterplaylist (2,125명 팔로워, 8,793 좋아요)",
+            "구글 건강 블로그 connect-ai-shin.blogspot.com (3조 2교대 건강 7대 DNA)",
+            "클로드 오퍼스 5.5 모션 스튜디오 (5대 자산 프리셋)",
+            "Google One 5TB Johnny.Decimal 아카이브 (4,984.09GB 가용)"
+          ]
+        },
+        "short_7": {
+          "title": "52개 마케팅 전문 스킬 5대 카테고리",
+          "categories": {
+            "SEO": {"count": 11, "items": ["키워드클러스터", "서치인텐트", "온페이지최적화", "스키마마크업", "백링크전략", "기술SEO", "콘텐츠허브", "SERP피처", "내부링크망", "SEO감사", "로컬SEO"]},
+            "CRO": {"count": 11, "items": ["헤드라인A/B", "CTA배치", "스크롤맵분석", "이탈방지트리거", "사회적증거", "마찰비용제거", "양식단순화", "속도최적화", "가치제안명확화", "가격앵커링", "전환퍼널추적"]},
+            "Launch": {"count": 10, "items": ["티징캠페인", "사전등록페이지", "얼리버드오퍼", "프로덕트헌트", "인플루언서시딩", "언론보도자료", "론칭이메일시퀀스", "커뮤니티바이럴", "카운트다운D-Day", "론칭데이라이브"]},
+            "Copywriting": {"count": 10, "items": ["PAS프레임워크", "AIDA공식", "스토리텔링훅", "감정자극단어", "명확한혜택제시", "고객후기활용", "긴급성부여", "반론선제차단", "헤드라인3초룰", "마이크로카피"]},
+            "Marketing_Loops": {"count": 10, "items": ["친구추천루프", "공유인센티브", "바이럴쇼츠배포", "재방문트리거", "리텐션이메일", "NPS피드백순환", "UGC콘텐츠유도", "소셜증폭루프", "크로스셀링", "팬덤커뮤니티"]}
+          }
+        },
+        "short_8": {
+          "title": "학술 연구 5단계 & 한국인 1% 설득글(kfix)",
+          "academic_steps": [
+            "1. PICO (Patient/Problem, Intervention, Comparison, Outcome) 질문 구조화",
+            "2. Consensus 논문 팩트 및 PubMed/Semantic Scholar 실증 데이터 교차검증",
+            "3. 동료 평가(Peer-Review) 저널 메타분석 신뢰도 가중치 산출",
+            "4. 구조화된 학술 초록(Abstract: 배경-방법-결과-결론) 합성",
+            "5. APA/하버드 양식 학술 각주 및 정밀 DOI 출처 명기"
+          ],
+          "kfix_rules": [
+            "번역투 종결어미(~에 대해, ~의 경우, ~을 수행하다) 완전 퇴출",
+            "한국 비즈니스 결재선 1% 톤앤매너: 두괄식 결론 + 명확한 수치 + 겸손하면서 당당한 어조",
+            "AI 슬롭(형용사 과잉, 공허한 칭찬, 상투적 서론) 100% 제거",
+            "자연스러운 조사 결합(은/는, 이/가, 을/를, 와/과) 완벽 보정"
+          ]
+        }
+      }
+    },
+    "quadrant_3": {
+      "id": "Q3_VIDEO_AND_AUTOMATION",
+      "title": "존코바 노드 영상 & 6단계 무인 편집 & 클릭 0번",
+      "shorts": [6, 12, 13],
+      "shorts_detail": {
+        "short_6": {
+          "title": "존코바 Newtake 4단계 비주얼 노드",
+          "nodes": [
+            {"step": 1, "name": "Reference_Node", "desc": "트렌드 무드보드 및 레퍼런스 스타일 정밀 수집"},
+            {"step": 2, "name": "Character_3View_Node", "desc": "정면·측면·후면 3면도 일관성 고정 캐릭터 생성"},
+            {"step": 3, "name": "Motion_2D3D_Node", "desc": "2D 그래픽과 3D 공간감 융합 모션 키프레임 연출"},
+            {"step": 4, "name": "MCP_Controller_Node", "desc": "MCP 프로토콜 기반 캔버스 및 렌더러 직접 제어"}
+          ]
+        },
+        "short_12": {
+          "title": "6단계 무인 영상 편집 파이프라인",
+          "pipeline": [
+            {"step": 1, "func": "silence_cut", "desc": "0.3초 이상 무음 구간 100% 자동 감지 및 컷편집"},
+            {"step": 2, "func": "smart_capture_insert", "desc": "핵심 키워드 등장 시점 관련 화면 캡처 자동 오버레이"},
+            {"step": 3, "func": "motion_subtitle_sync", "desc": "음성 음절 단위 싱크 맞춤형 모션 텍스트 자막 생성"},
+            {"step": 4, "func": "jev_box_frame_audit", "desc": "TypeSafe Jev 분홍 상자(#ff69b4)로 화면 잘림 및 시선 집중 검사"},
+            {"step": 5, "func": "feedback_accumulator", "desc": "시청 지속 시간 및 클릭률 기반 편집 파라미터 자율 피드백 누적"},
+            {"step": 6, "func": "unmanned_render_export", "desc": "WebM/MP4 고화질 무인 렌더링 및 클라우드 아카이브 자동 저장"}
+          ]
+        },
+        "short_13": {
+          "title": "CLI-Anything 클릭 0번 연동기",
+          "capabilities": [
+            "마우스 클릭 0번 완전 무인 CLI 명령줄 파이프라인",
+            "포토샵/GIMP 이미지 자산 자동 리사이징 및 배치 처리",
+            "엑셀/CSV 데이터 원장 자동 파싱 및 시각화 차트 생성",
+            "비디오 인코딩 및 멀티 플랫폼 포맷 변환 자동화"
+          ]
+        }
+      }
+    },
+    "quadrant_4": {
+      "id": "Q4_SECURITY_AND_TOKEN_GUARD",
+      "title": "PHP2Shell·내앱보안 4대 점검 & 개인정보 3단계 삭제 & 토큰방어 4플러그인",
+      "shorts": [3, 4, 9, 11],
+      "shorts_detail": {
+        "short_3": {
+          "title": "PHP2Shell 원천 차단 & 내 앱 보안 4대 점검",
+          "cve_immunities": ["CVE-2026-109618", "CVE-2026-109619", "CVE-2026-115560"],
+          "audit_items": [
+            {"id": "ZERO_PHP_IMMUNITY", "name": "PHP2Shell 원천 면역", "desc": "PHP 런타임 의존성 0% 및 웹쉘 업로드 원천 봉쇄"},
+            {"id": "API_SECRET_ZERO_LEAK", "name": "API 시크릿 키 노출 0건", "desc": "Git 리포지토리 내 비밀키 노출 완전 0건 엄수"},
+            {"id": "LEDGER_UNAUTHORIZED_SHIELD", "name": "원장/DB 무단 개방 차단", "desc": "로컬 포트 바인딩 및 화이트리스트 접근 제어"},
+            {"id": "PBKDF2_ADMIN_GATE", "name": "PBKDF2 관리자 인증 게이트", "desc": ".agents/admin_gate.json 기반 관리자 서명 검증"}
+          ]
+        },
+        "short_4": {
+          "title": "개인정보 3단계 자율 삭제 (privacy_delete_3step)",
+          "steps": [
+            {"step": 1, "name": "Exposure_Audit", "desc": "코드·로그·원장 내 주민번호·전화번호·이메일·계좌번호 실시간 노출 검색"},
+            {"step": 2, "name": "Sensitive_Masking", "desc": "개인 식별 정보 SHA-256 비가역 해시 또는 마스킹(***) 처리"},
+            {"step": 3, "name": "Statutory_Deletion_Notice", "desc": "개인정보보호법 제36조에 준하는 정식 삭제 요청서 및 조치 확인서 자동 생성"}
+          ]
+        },
+        "short_9": {
+          "title": "토큰 한도 방어 4대 플러그인 (token_guard_4plugins)",
+          "plugins": [
+            {"name": "Output_89_Compressor", "desc": "장문 출력 시 본질 정보 유지하며 토큰 89% 초압축"},
+            {"name": "AST_Pinpoint_Line_Reader", "desc": "전체 파일 덤프 금지, 필요한 라인만 핀셋 AST 발췌"},
+            {"name": "Lightweight_Offloader", "desc": "대용량 중간 데이터 로컬 스크래치 파일 오프로드"},
+            {"name": "Yellow_Light_75_Checkpoint", "desc": "컨텍스트 75% 도달 시 SESSION_HANDOFF_COMPACT.md 자동 생성 인수인계"}
+          ]
+        },
+        "short_11": {
+          "title": "내 앱 취약점 전수 진단 및 자가치유 쉴드",
+          "features": [
+            "XSS / CSRF / SSRF 웹 취약점 자율 탐지",
+            "의존성 패키지 CVE 실시간 스캔",
+            "HTTP 보안 헤더(CSP, HSTS, X-Frame-Options) 자동 주입",
+            "이상 징후 감지 시 0.1초 내 백혈구 면역 항체 가동"
+          ]
+        }
+      }
+    }
+  }
+}

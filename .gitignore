@@ -30,6 +30,11 @@
 !gdrive_5tb_decimal_manifest.json
 !dashboard/gdrive_5tb_decimal_manifest.json
 !docs/gdrive_5tb_decimal_manifest.json
+!aon_13shorts_omni_manifest.json
+!dashboard/aon_13shorts_omni_manifest.json
+!docs/aon_13shorts_omni_manifest.json
+!rgon_neural_synapse_map.json
+!docs/rgon_neural_synapse_map.json
 *_secret*.json
 *_token*.json
 client_secret*.json
