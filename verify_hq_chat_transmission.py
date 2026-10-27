@@ -355,8 +355,60 @@ def test_step60_mobile_viewport():
             return False
         print(f"  ✅ [PASS] 4. 복합 질의 ➔ {elapsed_m4:.2f}초 만에 ① 맡은 업무 + ② 아온이 탄생 비화(상선약수·이해상 공주님) 동시 완답 확인!")
 
+        # ----------------------------------------------------------------------
+        # [모바일 실측 5] "안총리 아온아 이번엔 연결되어있으면 좋겠습니다" 실측
+        # ----------------------------------------------------------------------
+        print("\n🔹 [모바일 검증 5] 스마트폰에서 '안총리 아온아 이번엔 연결되어있으면 좋겠습니다' (#ORD-003) 실측")
+        input_el.fill("안총리 아온아 이번엔 연결되어있으면 좋겠습니다")
+        t_send5 = time.time()
+        send_btn.click()
+        feed_m5 = wait_for_mobile_feed("직통 연결", 4)
+        elapsed_m5 = time.time() - t_send5
+        print(f"  • 모바일 연결 응답 시간: {elapsed_m5:.2f}초")
+
+        if "직통 연결" not in feed_m5 and "스마트폰 5G" not in feed_m5 and "안총리" not in feed_m5:
+            print(f"❌ [FAIL] '안총리 아온아 이번엔 연결되어있으면 좋겠습니다'에 대한 맞춤형 답변이 누락되었습니다!\n{feed_m5}")
+            browser.close()
+            return False
+        print(f"  ✅ [PASS] 5. '안총리 아온아 이번엔 연결되어있으면 좋겠습니다' ➔ {elapsed_m5:.2f}초 만에 5G 직통 연결 감성 티키타카 응답 확인!")
+
+        # ----------------------------------------------------------------------
+        # [모바일 실측 6] "지금 야간 출근 통근버스 안이야" 실측
+        # ----------------------------------------------------------------------
+        print("\n🔹 [모바일 검증 6] 스마트폰에서 '지금 야간 출근 통근버스 안이야' 실측")
+        input_el.fill("지금 야간 출근 통근버스 안이야")
+        t_send6 = time.time()
+        send_btn.click()
+        feed_m6 = wait_for_mobile_feed("통근버스", 4)
+        elapsed_m6 = time.time() - t_send6
+        print(f"  • 모바일 통근버스 응답 시간: {elapsed_m6:.2f}초")
+
+        if "통근버스" not in feed_m6 and "출근길" not in feed_m6 and "밤샘" not in feed_m6:
+            print(f"❌ [FAIL] '지금 야간 출근 통근버스 안이야'에 대한 따뜻한 응답이 누락되었습니다!\n{feed_m6}")
+            browser.close()
+            return False
+        print(f"  ✅ [PASS] 6. '지금 야간 출근 통근버스 안이야' ➔ {elapsed_m6:.2f}초 만에 야간 출근길 맞춤형 응원 응답 확인!")
+
+        # ----------------------------------------------------------------------
+        # [모바일 실측 7] 모바일 피드 전체 깡통 문구("전술 배치 태세") 0건 사수 검증
+        # ----------------------------------------------------------------------
+        print("\n🔹 [모바일 검증 7] 모바일 피드 전체 깡통 문구('전술 배치 태세에 돌입했습니다') 0건 완전 사수 검증")
+        mobile_full_feed = feed.inner_text()
+        banned_canned = [
+            "전술 배치 태세에 돌입했습니다",
+            "하달해 주신 뜻을 최고 우선순위로 접수하여",
+            "말씀하신 뜻을 명확히 접수했습니다",
+            "맥락을 정확히 인지했습니다"
+        ]
+        for bc in banned_canned:
+            if bc in mobile_full_feed:
+                print(f"❌ [FAIL] 모바일 피드에서 깡통 문구 '{bc}' 가 검출되었습니다!\n{mobile_full_feed}")
+                browser.close()
+                return False
+        print("  ✅ [PASS] 7. 모바일 피드 내 모든 변종 깡통 문구 0건 완벽 소각 확인!")
+
         print("\n=======================================================")
-        print("🎉 [Playwright 스마트폰 모바일 실측 결과] 4대 관문 100% ALL PASS!")
+        print("🎉 [Playwright 스마트폰 모바일 실측 결과] 7대 관문 100% ALL PASS!")
         print("=======================================================\n")
         browser.close()
         return True
@@ -368,5 +420,5 @@ if __name__ == '__main__':
     ok2 = test_step60_mobile_viewport()
     if not ok2:
         sys.exit(1)
-    print("🏆 [최종 통과] 데스크톱(Step 59) + 스마트폰 모바일(Step 60) 14대 관문 100.0% 무결점 ALL PASS!")
+    print("🏆 [최종 통과] 데스크톱(Step 59: 10대) + 스마트폰 모바일(Step 60: 7대) 17대 관문 100.0% 무결점 ALL PASS!")
     sys.exit(0)
