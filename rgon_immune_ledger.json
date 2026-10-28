@@ -4,7 +4,7 @@
   "current_step": 68,
   "antibody_range": "R1~R64",
   "principle": "만물은 하나로 이어져 있으며, 한 걸음씩 나아가면 반드시 이루어진다.",
-  "updated_at_kst": "2026-10-28T13:29:26",
+  "updated_at_kst": "2026-10-28T17:31:08",
   "health_score": 100,
   "inspection_mode": "standard",
   "today_hexagram": {
@@ -16,7 +16,7 @@
     "action": "상선약수(上善若水) · 삼성(三省) — 43대 기관을 물처럼 순환시키고 하루 세 번 무결성(100.0점)을 살핀다.",
     "inspection_mode": "standard"
   },
-  "suppressed_count": 167,
+  "suppressed_count": 169,
   "antibodies": "R1~R64",
   "fingerprints": {
     "3cf3c4ec29753bf7": {
@@ -25,29 +25,13 @@
       "context": "self_test_bypass",
       "sample_message": "'simulated_missing_key'",
       "first_seen_kst": "2026-10-24T08:11:50",
-      "last_seen_kst": "2026-10-28T13:29:26",
-      "count": 169,
+      "last_seen_kst": "2026-10-28T17:31:08",
+      "count": 171,
       "suppressed": true,
       "known_remedy": "R18 상선약수: adapt_dict 안전 키 매핑 및 기본값 반환"
     }
   },
   "healed_events": [
-    {
-      "timestamp_kst": "2026-10-26T20:22:17",
-      "file": ".rgon_backup/wbc_selftest/_wbc_dummy_sample.py",
-      "reason": "self_test_syntax_error",
-      "restored": true,
-      "source_backup": ".rgon_backup/wbc_snapshots/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.clean",
-      "quarantined_to": ".rgon_backup/wbc_quarantine/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.20261026_202217.corrupt"
-    },
-    {
-      "timestamp_kst": "2026-10-26T20:46:51",
-      "file": ".rgon_backup/wbc_selftest/_wbc_dummy_sample.py",
-      "reason": "self_test_syntax_error",
-      "restored": true,
-      "source_backup": ".rgon_backup/wbc_snapshots/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.clean",
-      "quarantined_to": ".rgon_backup/wbc_quarantine/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.20261026_204651.corrupt"
-    },
     {
       "timestamp_kst": "2026-10-26T20:48:58",
       "file": ".rgon_backup/wbc_selftest/_wbc_dummy_sample.py",
@@ -991,27 +975,25 @@
       "restored": true,
       "source_backup": ".rgon_backup/wbc_snapshots/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.clean",
       "quarantined_to": ".rgon_backup/wbc_quarantine/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.20261028_132926.corrupt"
+    },
+    {
+      "timestamp_kst": "2026-10-28T17:07:34",
+      "file": ".rgon_backup/wbc_selftest/_wbc_dummy_sample.py",
+      "reason": "self_test_syntax_error",
+      "restored": true,
+      "source_backup": ".rgon_backup/wbc_snapshots/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.clean",
+      "quarantined_to": ".rgon_backup/wbc_quarantine/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.20261028_170734.corrupt"
+    },
+    {
+      "timestamp_kst": "2026-10-28T17:31:08",
+      "file": ".rgon_backup/wbc_selftest/_wbc_dummy_sample.py",
+      "reason": "self_test_syntax_error",
+      "restored": true,
+      "source_backup": ".rgon_backup/wbc_snapshots/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.clean",
+      "quarantined_to": ".rgon_backup/wbc_quarantine/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.20261028_173108.corrupt"
     }
   ],
   "bypass_log": [
-    {
-      "timestamp_kst": "2026-10-26T20:22:17",
-      "context": "self_test_bypass",
-      "exc_type": "KeyError",
-      "message": "'simulated_missing_key'",
-      "fingerprint": "3cf3c4ec29753bf7",
-      "suppressed": true,
-      "action": "default_value"
-    },
-    {
-      "timestamp_kst": "2026-10-26T20:46:52",
-      "context": "self_test_bypass",
-      "exc_type": "KeyError",
-      "message": "'simulated_missing_key'",
-      "fingerprint": "3cf3c4ec29753bf7",
-      "suppressed": true,
-      "action": "default_value"
-    },
     {
       "timestamp_kst": "2026-10-26T20:48:59",
       "context": "self_test_bypass",
@@ -2067,6 +2049,24 @@
     },
     {
       "timestamp_kst": "2026-10-28T13:29:26",
+      "context": "self_test_bypass",
+      "exc_type": "KeyError",
+      "message": "'simulated_missing_key'",
+      "fingerprint": "3cf3c4ec29753bf7",
+      "suppressed": true,
+      "action": "default_value"
+    },
+    {
+      "timestamp_kst": "2026-10-28T17:07:34",
+      "context": "self_test_bypass",
+      "exc_type": "KeyError",
+      "message": "'simulated_missing_key'",
+      "fingerprint": "3cf3c4ec29753bf7",
+      "suppressed": true,
+      "action": "default_value"
+    },
+    {
+      "timestamp_kst": "2026-10-28T17:31:08",
       "context": "self_test_bypass",
       "exc_type": "KeyError",
       "message": "'simulated_missing_key'",

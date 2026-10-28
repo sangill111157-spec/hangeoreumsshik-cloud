@@ -1245,8 +1245,12 @@ def send_single_unified_mp4_to_telegram(
         }
 
     vault = m70.AonMasterKeyVault(ROOT)
-    token = vault.get_secret("TELEGRAM_BOT_TOKEN")
-    chat_id = vault.get_secret("TELEGRAM_CHAT_ID")
+    token = (
+        vault._raw_secrets.get("TELEGRAM_BOT_TOKEN_2")
+        or vault._raw_secrets.get("TELEGRAM_BOT_TOKEN")
+        or ""
+    ).strip()
+    chat_id = vault._raw_secrets.get("TELEGRAM_CHAT_ID", "").strip()
     if not token or not chat_id:
         return {"ok": False, "error": "missing_telegram_credentials"}
 

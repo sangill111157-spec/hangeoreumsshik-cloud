@@ -47,7 +47,21 @@
   "qc_total": 10,
   "live_showcase_url": "https://sangill111157-spec.github.io/hangeoreumsshik-cloud/deliverables/top10_unified_mp4_showcase.html",
   "live_showcase_mirror_url": "https://sangill111157-spec.github.io/hangeoreumsshik-cloud/docs/deliverables/top10_unified_mp4_showcase.html",
-  "live_telegram_receipt": null,
-  "elapsed_sec": 0.0247,
-  "timestamp": "2026-10-28T17:07:47+09:00"
+  "live_telegram_receipt": {
+    "ok": true,
+    "mode": "live_single_unified_mp4_sent",
+    "single_message_only": true,
+    "bot_username": "@sangi_ai_secretary_bot",
+    "masked_chat_id": "872***02",
+    "video_message_id": 1961,
+    "supports_streaming": true,
+    "fake_links_count": 0,
+    "video_file_sent": "docs/deliverables/top10/item_01_unified.mp4",
+    "video_kb": 1547.7,
+    "live_showcase_url": "https://sangill111157-spec.github.io/hangeoreumsshik-cloud/deliverables/top10_unified_mp4_showcase.html",
+    "live_showcase_mirror_url": "https://sangill111157-spec.github.io/hangeoreumsshik-cloud/docs/deliverables/top10_unified_mp4_showcase.html",
+    "elapsed_sec": 66.441
+  },
+  "elapsed_sec": 0.0212,
+  "timestamp": "2026-10-28T17:31:19+09:00"
 }
