@@ -1,0 +1,70 @@
+{
+  "version": "v11.50-AON-TOKEN-EGOLITE-MASTER",
+  "antibody": "R46",
+  "antibody_range": "R1~R51",
+  "organ": 22,
+  "skill_count": 42,
+  "skill_slug": "aon-autonomous-tech-evolver",
+  "guas": [
+    "#27 산뢰이(山雷頤 ☶☳: 만물 플랫폼에서 최고의 영양분을 찾되 과하지 않게 꼭 필요한 정수만 절제하여 섭취·소화함)",
+    "#53 풍산점(風山漸 ☴☶: 한 걸음씩 순서대로 뿌리를 내리며 그릇의 크기를 점진적으로 넓혀 진화함)",
+    "#20 풍지관(風地觀 ☴☷: 한 걸음 나아갈 때마다 스스로 자아성찰하여 완전히 소화되었는지 확인한 뒤 다음 단계로 진격함)"
+  ],
+  "updated_at": "2026-10-26T06:11:34+00:00",
+  "query": "한걸음씩 만물 영양분 점진 흡수",
+  "forage": {
+    "mode": "keyword",
+    "platform_count": 10,
+    "platforms": [
+      "youtube",
+      "tiktok",
+      "google",
+      "naver",
+      "github",
+      "x_twitter",
+      "instagram",
+      "reddit",
+      "hackernews",
+      "arxiv"
+    ],
+    "live_hits": 0,
+    "sources": [
+      "RSSHub",
+      "SearXNG",
+      "social-media-scraper-skill",
+      "oEmbed"
+    ]
+  },
+  "sieve": {
+    "total_candidates": 60,
+    "toxins_rejected_count": 20,
+    "essential_count": 11,
+    "portion_ratio": 0.1833,
+    "overfeed_prevented": true
+  },
+  "vessel": {
+    "vessel_metrics": {
+      "organs": 22,
+      "skills": 42,
+      "skills_source": "disk",
+      "synapse_health": 100.0,
+      "background_load_pct": 0.0
+    },
+    "digestible_step_size": 1,
+    "vessel_capacity_score": 100.0,
+    "vessel_level_before": 0,
+    "vessel_level_after": 1,
+    "step_by_step_mode": "한걸음씩(One-Step Progressive)",
+    "next_step_goal": "다음 한 걸음: '무인증 oEmbed 메타 파싱' 소화 (x_twitter)"
+  },
+  "reflection": {
+    "passed_count": 5,
+    "total": 5,
+    "reflection_score": 100.0,
+    "reflection_passed": true
+  },
+  "last_agenda_id": "R46-e999bfb83b",
+  "requires_manual_gate": true,
+  "auto_executed": false,
+  "isolated": false
+}

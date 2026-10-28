@@ -1,0 +1,720 @@
+[
+  {
+    "order_id": "#ORD-001",
+    "timestamp": "2026-10-27 09:32:15",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "426d2a41d8d41192"
+  },
+  {
+    "order_id": "#ORD-002",
+    "timestamp": "2026-10-27 09:32:43",
+    "source": "DASHBOARD_COMM_BOTH",
+    "text": "1차 테스트 확인용 지시서 전달 확인 응답 보고",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {
+      "제1호기(@hangaeum_lumi_bot)": {
+        "ok": true,
+        "result": {
+          "message_id": 18,
+          "from": {
+            "id": 8163159653,
+            "is_bot": true,
+            "first_name": "루미비서",
+            "username": "hangaeum_lumi_bot"
+          },
+          "chat": {
+            "id": 8724874502,
+            "first_name": "상일",
+            "last_name": "이",
+            "type": "private"
+          },
+          "date": 1793061162,
+          "text": "👑 [RGON 사령부 실시간 지시 수신 보고]\n• 접수 시각: 2026-10-27 09:32:41\n• 대표님 지시: 1차 테스트 확인용 지시서 전달 확인 응답 보고\n• 상태: 르곤·안총리·32대 기관 100% 수신 및 즉시 집행 착수"
+        }
+      },
+      "제2호기(@sangi_ai_secretary_bot)": {
+        "ok": true,
+        "result": {
+          "message_id": 1702,
+          "from": {
+            "id": 8378111824,
+            "is_bot": true,
+            "first_name": "Sangi AI 비서",
+            "username": "sangi_ai_secretary_bot"
+          },
+          "chat": {
+            "id": 8724874502,
+            "first_name": "상일",
+            "last_name": "이",
+            "type": "private"
+          },
+          "date": 1793061163,
+          "text": "👑 [RGON 사령부 실시간 지시 수신 보고]\n• 접수 시각: 2026-10-27 09:32:41\n• 대표님 지시: 1차 테스트 확인용 지시서 전달 확인 응답 보고\n• 상태: 르곤·안총리·32대 기관 100% 수신 및 즉시 집행 착수"
+        }
+      }
+    },
+    "hash": "9852c954d7902d99"
+  },
+  {
+    "order_id": "#ORD-003",
+    "timestamp": "2026-10-27 09:42:06",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "1ee1c0a3221f724b"
+  },
+  {
+    "order_id": "#ORD-004",
+    "timestamp": "2026-10-27 09:51:14",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "7996866a0794eec2"
+  },
+  {
+    "order_id": "#ORD-005",
+    "timestamp": "2026-10-27 09:51:40",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "bb857dedb396626b"
+  },
+  {
+    "order_id": "#ORD-006",
+    "timestamp": "2026-10-27 10:11:36",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "08064e3db89243c0"
+  },
+  {
+    "order_id": "#ORD-007",
+    "timestamp": "2026-10-27 10:12:39",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "4d6dc2028e20c9ae"
+  },
+  {
+    "order_id": "#ORD-008",
+    "timestamp": "2026-10-27 10:23:03",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "a6cf9d37e6d0a349"
+  },
+  {
+    "order_id": "#ORD-009",
+    "timestamp": "2026-10-27 10:50:04",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "0778cb9274135c13"
+  },
+  {
+    "order_id": "#ORD-010",
+    "timestamp": "2026-10-27 11:18:52",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "2917dd60d010b36c"
+  },
+  {
+    "order_id": "#ORD-011",
+    "timestamp": "2026-10-27 11:19:24",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "c0401ff98dea1b49"
+  },
+  {
+    "order_id": "#ORD-012",
+    "timestamp": "2026-10-27 11:42:46",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "36b4271ae6206f9c"
+  },
+  {
+    "order_id": "#ORD-013",
+    "timestamp": "2026-10-27 11:43:17",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "f06a4157a5d2ea32"
+  },
+  {
+    "order_id": "#ORD-014",
+    "timestamp": "2026-10-27 11:49:55",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "c2ded7493a5f2767"
+  },
+  {
+    "order_id": "#ORD-015",
+    "timestamp": "2026-10-27 11:50:25",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "cbab057c5e733834"
+  },
+  {
+    "order_id": "#ORD-016",
+    "timestamp": "2026-10-27 11:51:20",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "859d67446ca2fd6b"
+  },
+  {
+    "order_id": "#ORD-017",
+    "timestamp": "2026-10-27 11:54:01",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "f975f3b1964d8d33"
+  },
+  {
+    "order_id": "#ORD-018",
+    "timestamp": "2026-10-27 11:54:26",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "b11ceba0ee7d15e7"
+  },
+  {
+    "order_id": "#ORD-019",
+    "timestamp": "2026-10-27 12:00:49",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "ad0c5d7badf30b14"
+  },
+  {
+    "order_id": "#ORD-020",
+    "timestamp": "2026-10-27 12:01:24",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "ce50d5f4c34007d0"
+  },
+  {
+    "order_id": "#ORD-021",
+    "timestamp": "2026-10-27 12:30:23",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "4a0275cec43b29c9"
+  },
+  {
+    "order_id": "#ORD-022",
+    "timestamp": "2026-10-27 12:33:38",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "d8d3f8a4e18a51f9"
+  },
+  {
+    "order_id": "#ORD-023",
+    "timestamp": "2026-10-27 12:34:46",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "7e6cd6960146aff0"
+  },
+  {
+    "order_id": "#ORD-024",
+    "timestamp": "2026-10-27 12:40:47",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "45b32e54cc3cf22d"
+  },
+  {
+    "order_id": "#ORD-025",
+    "timestamp": "2026-10-27 13:33:31",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "e8f5e4d47af86982"
+  },
+  {
+    "order_id": "#ORD-026",
+    "timestamp": "2026-10-27 14:08:25",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "a53cbb8bec197618"
+  },
+  {
+    "order_id": "#ORD-027",
+    "timestamp": "2026-10-27 14:09:12",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "189fe5f3cccc2863"
+  },
+  {
+    "order_id": "#ORD-028",
+    "timestamp": "2026-10-27 14:09:16",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "3c06069e94168797"
+  },
+  {
+    "order_id": "#ORD-029",
+    "timestamp": "2026-10-27 17:07:20",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "9f1819c93fe73a03"
+  },
+  {
+    "order_id": "#ORD-030",
+    "timestamp": "2026-10-27 17:41:28",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "703f7d3d9a2427eb"
+  },
+  {
+    "order_id": "#ORD-031",
+    "timestamp": "2026-10-27 18:05:14",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "73bbd9e8ed93512c"
+  },
+  {
+    "order_id": "#ORD-032",
+    "timestamp": "2026-10-27 18:47:36",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "a36fa1e8ddd05583"
+  },
+  {
+    "order_id": "#ORD-033",
+    "timestamp": "2026-10-27 19:23:34",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "121846161ec21e59"
+  },
+  {
+    "order_id": "#ORD-034",
+    "timestamp": "2026-10-27 20:04:08",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "ead4614647e9daa6"
+  },
+  {
+    "order_id": "#ORD-035",
+    "timestamp": "2026-10-27 20:12:08",
+    "source": "TELEGRAM_REMOTE_MOBILE",
+    "text": "안총리 뭐하고 있니",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {
+      "telegram_msg_id": 1903
+    },
+    "hash": "b2290029975bbd40"
+  },
+  {
+    "order_id": "#ORD-036",
+    "timestamp": "2026-10-27 20:14:23",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "e472885f7192794a"
+  },
+  {
+    "order_id": "#ORD-037",
+    "timestamp": "2026-10-27 20:15:41",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "ff0d53babf89e995"
+  },
+  {
+    "order_id": "#ORD-038",
+    "timestamp": "2026-10-27 20:15:58",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "e54a2c6de2782200"
+  },
+  {
+    "order_id": "#ORD-039",
+    "timestamp": "2026-10-27 20:41:24",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "ff2379cfe7c6f56d"
+  },
+  {
+    "order_id": "#ORD-040",
+    "timestamp": "2026-10-27 20:43:20",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "5d042c54f00c2300"
+  },
+  {
+    "order_id": "#ORD-041",
+    "timestamp": "2026-10-27 20:44:07",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "93788b6345316bb9"
+  },
+  {
+    "order_id": "#ORD-042",
+    "timestamp": "2026-10-27 20:44:47",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "20f1954dc2ac9d52"
+  },
+  {
+    "order_id": "#ORD-043",
+    "timestamp": "2026-10-27 20:45:34",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "913fd65ac03dff11"
+  },
+  {
+    "order_id": "#ORD-044",
+    "timestamp": "2026-10-27 20:46:22",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "29fb5a2b1fd859e1"
+  },
+  {
+    "order_id": "#ORD-045",
+    "timestamp": "2026-10-27 20:47:30",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "75d9f1002f4d5ca3"
+  },
+  {
+    "order_id": "#ORD-046",
+    "timestamp": "2026-10-27 20:48:15",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "ed5a3b7f94699de5"
+  },
+  {
+    "order_id": "#ORD-047",
+    "timestamp": "2026-10-27 20:49:48",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "466be1bcc300b287"
+  },
+  {
+    "order_id": "#ORD-048",
+    "timestamp": "2026-10-27 20:50:29",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "b337b980b99dece0"
+  },
+  {
+    "order_id": "#ORD-049",
+    "timestamp": "2026-10-27 20:51:21",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "6d9c33c171caaaf9"
+  },
+  {
+    "order_id": "#ORD-050",
+    "timestamp": "2026-10-27 21:10:47",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "a4af322fb86225ed"
+  },
+  {
+    "order_id": "#ORD-051",
+    "timestamp": "2026-10-27 21:13:04",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "dd10edafe804820f"
+  },
+  {
+    "order_id": "#ORD-052",
+    "timestamp": "2026-10-27 21:14:18",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "56fdb74d4c134dbd"
+  },
+  {
+    "order_id": "#ORD-053",
+    "timestamp": "2026-10-27 21:16:22",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "4d1b9b5a65057011"
+  },
+  {
+    "order_id": "#ORD-054",
+    "timestamp": "2026-10-27 21:41:14",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "c975b2cc1a1a9a0b"
+  },
+  {
+    "order_id": "#ORD-055",
+    "timestamp": "2026-10-27 23:12:11",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "e59288f9340207a8"
+  },
+  {
+    "order_id": "#ORD-056",
+    "timestamp": "2026-10-27 23:14:06",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "b9f41b4068db05b6"
+  },
+  {
+    "order_id": "#ORD-057",
+    "timestamp": "2026-10-28 00:31:45",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "4d6f07bddb7684f8"
+  },
+  {
+    "order_id": "#ORD-058",
+    "timestamp": "2026-10-28 00:32:38",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "d1b0830c9e68a25f"
+  },
+  {
+    "order_id": "#ORD-059",
+    "timestamp": "2026-10-28 00:33:36",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "d92e77ac4b9f3493"
+  },
+  {
+    "order_id": "#ORD-060",
+    "timestamp": "2026-10-28 00:35:28",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "0bec21f7ae8fd7b0"
+  },
+  {
+    "order_id": "#ORD-061",
+    "timestamp": "2026-10-28 03:22:27",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "2984a07d171de232"
+  },
+  {
+    "order_id": "#ORD-062",
+    "timestamp": "2026-10-28 03:24:21",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "608d0df4837be500"
+  },
+  {
+    "order_id": "#ORD-063",
+    "timestamp": "2026-10-28 03:25:41",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "23b2049eef7d1209"
+  },
+  {
+    "order_id": "#ORD-064",
+    "timestamp": "2026-10-28 03:27:25",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "c6145bb7844972be"
+  },
+  {
+    "order_id": "#ORD-065",
+    "timestamp": "2026-10-28 03:28:54",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "89e4f41728f0840d"
+  },
+  {
+    "order_id": "#ORD-066",
+    "timestamp": "2026-10-28 03:30:09",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "6d7d557faf0d51bb"
+  },
+  {
+    "order_id": "#ORD-067",
+    "timestamp": "2026-10-28 03:30:56",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "dd4e30f9dab52762"
+  },
+  {
+    "order_id": "#ORD-068",
+    "timestamp": "2026-10-28 03:31:21",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "3c12997726d45487"
+  },
+  {
+    "order_id": "#ORD-069",
+    "timestamp": "2026-10-28 03:32:07",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "2426be1800fb5ac8"
+  },
+  {
+    "order_id": "#ORD-070",
+    "timestamp": "2026-10-28 03:32:52",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "92276c16680efefe"
+  },
+  {
+    "order_id": "#ORD-071",
+    "timestamp": "2026-10-28 09:34:31",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "79adbdcc60c75cc7"
+  },
+  {
+    "order_id": "#ORD-072",
+    "timestamp": "2026-10-28 09:36:15",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "b8bedaeff54ff1b5"
+  },
+  {
+    "order_id": "#ORD-073",
+    "timestamp": "2026-10-28 09:37:42",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "a8ec4784956498a1"
+  },
+  {
+    "order_id": "#ORD-074",
+    "timestamp": "2026-10-28 09:59:24",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "891648a45c58680c"
+  },
+  {
+    "order_id": "#ORD-075",
+    "timestamp": "2026-10-28 17:45:25",
+    "source": "SELF_TEST",
+    "text": "시스템 자가진단 무결성 검증 지시",
+    "status": "RECEIVED_AND_SEALED",
+    "tg_dispatch": {},
+    "hash": "77d2102ff27402e9"
+  }
+]

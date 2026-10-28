@@ -1,0 +1,413 @@
+{
+  "ok": true,
+  "version": "v11.50-AON-TOKEN-EGOLITE-MASTER",
+  "antibody": "R1~R51",
+  "skill_count": 37,
+  "skill_id": "aon-iching-strategic-planner",
+  "organ": "제17기관 아온 주역 64괘 시운 전략 기획관",
+  "generated_at": "2026-10-25T20:07:38",
+  "goal": "오늘의 사령부 시운 전략 계획",
+  "source": "oracle",
+  "oracle_error": null,
+  "bengua_name": "#63 기제(既濟)",
+  "biangua_name": "#03 둔(屯)",
+  "hugua_name": "#64 미제(未濟)",
+  "cuogua_name": "#64 미제(未濟)",
+  "zonggua_name": "#64 미제(未濟)",
+  "moving_line": 3,
+  "primary": 63,
+  "transformed": 3,
+  "mutual": 64,
+  "complement": 64,
+  "inverse": 64,
+  "ti_yong": {
+    "ti": "水",
+    "yong": "火",
+    "ti_trigram": "坎",
+    "yong_trigram": "離",
+    "relation": "체극용 길",
+    "bridge_element": "木"
+  },
+  "ti_yong_relation": "체극용 길",
+  "season_state": "旺",
+  "woop_ooda": {
+    "observe_present": {
+      "gua": "#63 기제(既濟)",
+      "diagnosis": "#63 기제(既濟) — 상괘 물(험난·지혜) 하괘 불(밝음·통찰)의 국면. 아온이 도사 등장~ 💧 지금은 #63 既濟(기제)괘가 #3 屯(둔)괘로 변하는 흐름이에요! 체(水) 대 용(火)은 '체극용 길'이에요. 통관 비책은 '木' 기운으로 중재하기예요! 시중 처세는 '지천태·수화기제(균형·유지)' — 현재 균형을 지키며 무리한 변경을 피하기해 보세요, 대표님!…"
+    },
+    "obstacle_hidden": {
+      "gua": "#64 미제(未濟)",
+      "omni_L2": "{\"variables\": [\"목표(원하는 상태)\", \"가장 큰 제약\", \"자원(시간·돈·주의력)\"], \"feedback_loop\": {\"type\": \"B\", \"mechanism\": \"목표와 현실의 차이가 행동을 만들고, 행동이 그 차이를 줄인다\"}, \"leverage_point\": \"가장 큰 제약 하나를 정의하고 그것만 먼저 풀기\", \"dead_weight\": \"결정을 미루는 끝없는 정보 수…",
+      "omni_L4": "{\"mirror\": \"지금 보이는 현상이 전체를 대표한다는 가정\", \"inversion\": {\"hypothesis\": \"반대로, 진짜 원인은 자원(시간·돈·주의력) 쪽이고 지금 결론은 우연일 수 있다\", \"strength\": \"MED\"}, \"blind_spot\": \"당사자들이 실제로 원하는 것과 제약 조건\", \"interest_map\": \"상황을 설명하는 쪽 · 결정하는 쪽(둘의 이해가 다를…",
+      "diagnosis": "#64 미제(未濟) 속에 숨은 복병 — 중간 국면의 내면 변수를 경계. {\"variables\": [\"목표(원하는 상태)\", \"가장 큰 제약\", \"자원(시간·돈·주의력)\"], \"feedback_loop\": {\"type\": \"B\", \"mechanism\": \"목표와 현실의 차이가 행동을 만들"
+    },
+    "outcome_target": {
+      "gua": "#03 둔(屯)",
+      "diagnosis": "동효 3효가 변하여 #03 둔(屯) 상태에 도달하는 것을 최종 목표로 삼는다"
+    },
+    "plan_b_complement": {
+      "gua": "#64 미제(未濟)",
+      "diagnosis": "음양 전도 #64 미제(未濟) — 본 계획이 막히면 정반대 역발상 경로로 전환"
+    },
+    "market_view_inverse": {
+      "gua": "#64 미제(未濟)",
+      "diagnosis": "#64 미제(未濟) — 상대·시장 입장에서 본 반응을 선제 대응"
+    },
+    "bridge_prescription": {
+      "ti_yong": "체극용 길",
+      "bridge_element": "木",
+      "stop_rule": "진입 후 손실 -7% 또는 핵심 KPI 2회 연속 미달 시 비중 절반 축소, -10%에서 전량 중단",
+      "diagnosis": "체(水)가 용(火)을 제압하되 소모를 막도록 木 기운으로 성과를 거둔다 · 통관 木: 기획·성장·신규 콘텐츠 씨앗 뿌리기 · Stop Rule: 진입 후 손실 -7% 또는 핵심 KPI 2회 연속 미달 시 비중 절반 축소, -10%에서 전량 중단"
+    }
+  },
+  "reasoning_chain": [
+    {
+      "factor": "기본점",
+      "delta": 60,
+      "reason": "전략 추진 지수 기준선"
+    },
+    {
+      "factor": "체용 생극",
+      "delta": 10,
+      "reason": "체(감(수)·水) / 용(리(화)·火) → 체극용 길"
+    },
+    {
+      "factor": "계절 왕상휴수사",
+      "delta": 10,
+      "reason": "10월 월령 水 기준 체괘 水 기운은 旺"
+    },
+    {
+      "factor": "득중(得中)",
+      "delta": 0,
+      "reason": "동효 3효(양)가 중위가 아님"
+    },
+    {
+      "factor": "당위(當位)",
+      "delta": 4,
+      "reason": "3효 양효가 제자리(정위)에 있음"
+    },
+    {
+      "factor": "상응(相應)",
+      "delta": 3,
+      "reason": "3효와 6효가 음양으로 호응"
+    },
+    {
+      "factor": "이오중정상응(二五中正相應)",
+      "delta": 4,
+      "reason": "2효 음·5효 양이 모두 중정하고 서로 호응 — 군신 화합의 상"
+    },
+    {
+      "factor": "만물통찰안 연동",
+      "delta": 0,
+      "reason": "L2/L4 복병 신호를 호괘 진단에 결합"
+    }
+  ],
+  "strategy_score": 91,
+  "confidence_pct": 85.0,
+  "confidence_cap": 85.0,
+  "posture": {
+    "name": "비룡재천",
+    "hanja": "飛龍在天",
+    "gua": "#01 중천건 九五",
+    "stance": "공세 전개 — 때가 무르익었다. 핵심 과제에 자원을 집중하라."
+  },
+  "recommended_branch": "branch_yang",
+  "three_branch_tree": {
+    "branch_yang": {
+      "label": "양(陽)·공세",
+      "path": "비룡재천 → #14 화천대유",
+      "guas": [
+        "#01 중천건",
+        "#14 화천대유"
+      ],
+      "expected_utility": 82.0,
+      "prior": 0.5,
+      "visits": 59,
+      "ucb": 0.9166,
+      "recommended_share_pct": 85,
+      "execution_conditions": [
+        "체용·계절 점수가 모두 플러스일 것",
+        "핵심 KPI 선행지표 2개 이상 상승 확인",
+        "Tier3 항목은 대표님 수동 결재 후에만 집행"
+      ],
+      "stop_rule": "진입 후 손실 -7% 또는 핵심 KPI 2회 연속 미달 시 비중 절반 축소, -10%에서 전량 중단",
+      "bridge_element": "木",
+      "is_recommended": true
+    },
+    "branch_zhong": {
+      "label": "중(中)·점진",
+      "path": "#53 풍산점 → #04 산수몽",
+      "guas": [
+        "#53 풍산점",
+        "#04 산수몽"
+      ],
+      "expected_utility": 11.5,
+      "prior": 0.25,
+      "visits": 19,
+      "ucb": 0.2599,
+      "recommended_share_pct": 12,
+      "execution_conditions": [
+        "전체 자원의 20~30%만 파일럿으로 분할 투입",
+        "1주 단위 가설 검증 후 단계적 확대",
+        "검증 로그를 reasoning_chain과 함께 기록"
+      ],
+      "stop_rule": "손실 -5% 또는 파일럿 KPI 미달 시 확장 중단 · 원인 복기 후 재설계",
+      "bridge_element": "木",
+      "is_recommended": false
+    },
+    "branch_yin": {
+      "label": "음(陰)·방어/정화",
+      "path": "#63 수화기제 → #18 산풍고 → #60 수택절",
+      "guas": [
+        "#63 수화기제",
+        "#18 산풍고",
+        "#60 수택절"
+      ],
+      "expected_utility": -55.6,
+      "prior": 0.25,
+      "visits": 8,
+      "ucb": -0.234,
+      "recommended_share_pct": 3,
+      "execution_conditions": [
+        "신규 확장·신규 진입 금지",
+        "백혈구·배설 기관으로 적폐/누수 정화 우선",
+        "현금·체력·주의력 등 방어선 확보"
+      ],
+      "stop_rule": "손절선 -3% 고정 · 정화 완료 전 확장 금지 · 이상징후 시 즉시 전면 중단",
+      "bridge_element": "木",
+      "is_recommended": false
+    },
+    "mcts_meta": {
+      "algorithm": "LightZero-style PUCT (deterministic simulated visits)",
+      "c_puct": 1.25,
+      "total_visits": 86,
+      "best_by_ucb": "branch_yang",
+      "selection_rule": "시중(時中) 원칙: posture 분기 우선, UCB는 감사 참고치"
+    }
+  },
+  "stop_rule": "진입 후 손실 -7% 또는 핵심 KPI 2회 연속 미달 시 비중 절반 축소, -10%에서 전량 중단",
+  "shichen_schedule": {
+    "now": "2026-10-25 20:07",
+    "active_shichen": "술시(戌時) 19~21시",
+    "active_branch": "술",
+    "active_block": "night",
+    "active_block_label": "야간(夜間) 술·해·자·축시",
+    "golden_task": "배설 정화 · 백혈구 점검 · 오늘의 계획 복기 후 안식",
+    "blocks": [
+      {
+        "block": "dawn",
+        "label": "조조(早朝) 인·묘·진시",
+        "hours": "03~09시",
+        "branches": [
+          "인",
+          "묘",
+          "진"
+        ],
+        "guas": [
+          "#03 수뢰둔",
+          "#42 풍뢰익"
+        ],
+        "focus": "기획/브리핑",
+        "golden_task": "오늘의 본괘→변괘 확인 · 일일 브리핑 갱신 · Tier1 데이터 수집 착수",
+        "active": false
+      },
+      {
+        "block": "day",
+        "label": "주간(晝間) 사·오시",
+        "hours": "09~13시",
+        "branches": [
+          "사",
+          "오"
+        ],
+        "guas": [
+          "#14 화천대유",
+          "#30 중화리"
+        ],
+        "focus": "통찰/심판",
+        "golden_task": "만물통찰안 분석 · 3분기 트리 판정 · Tier3 결재안 대표님 상신",
+        "active": false
+      },
+      {
+        "block": "afternoon",
+        "label": "오후(午後) 미·신·유시",
+        "hours": "13~19시",
+        "branches": [
+          "미",
+          "신",
+          "유"
+        ],
+        "guas": [
+          "#50 화풍정",
+          "#58 중택태"
+        ],
+        "focus": "주조/창작",
+        "golden_task": "Tier2 유튜브 대본·리서치 리포트 초안 주조 · 뮤즈 위임",
+        "active": false
+      },
+      {
+        "block": "night",
+        "label": "야간(夜間) 술·해·자·축시",
+        "hours": "19~03시",
+        "branches": [
+          "술",
+          "해",
+          "자",
+          "축"
+        ],
+        "guas": [
+          "#17 택뢰수",
+          "#24 지뢰복"
+        ],
+        "focus": "정화/복기/안식",
+        "golden_task": "배설 정화 · 백혈구 점검 · 오늘의 계획 복기 후 안식",
+        "active": true
+      }
+    ],
+    "shichen_table": [
+      {
+        "branch": "자",
+        "hanja": "子",
+        "hours": "23~01"
+      },
+      {
+        "branch": "축",
+        "hanja": "丑",
+        "hours": "01~03"
+      },
+      {
+        "branch": "인",
+        "hanja": "寅",
+        "hours": "03~05"
+      },
+      {
+        "branch": "묘",
+        "hanja": "卯",
+        "hours": "05~07"
+      },
+      {
+        "branch": "진",
+        "hanja": "辰",
+        "hours": "07~09"
+      },
+      {
+        "branch": "사",
+        "hanja": "巳",
+        "hours": "09~11"
+      },
+      {
+        "branch": "오",
+        "hanja": "午",
+        "hours": "11~13"
+      },
+      {
+        "branch": "미",
+        "hanja": "未",
+        "hours": "13~15"
+      },
+      {
+        "branch": "신",
+        "hanja": "申",
+        "hours": "15~17"
+      },
+      {
+        "branch": "유",
+        "hanja": "酉",
+        "hours": "17~19"
+      },
+      {
+        "branch": "술",
+        "hanja": "戌",
+        "hours": "19~21"
+      },
+      {
+        "branch": "해",
+        "hanja": "亥",
+        "hours": "21~23"
+      }
+    ]
+  },
+  "omni_insight": {
+    "ok": true,
+    "L2": "{\"variables\": [\"목표(원하는 상태)\", \"가장 큰 제약\", \"자원(시간·돈·주의력)\"], \"feedback_loop\": {\"type\": \"B\", \"mechanism\": \"목표와 현실의 차이가 행동을 만들고, 행동이 그 차이를 줄인다\"}, \"leverage_point\": \"가장 큰 제약 하나를 정의하고 그것만 먼저 풀기\", \"dead_weight\": \"결정을 미루는 끝없는 정보 수…",
+    "L4": "{\"mirror\": \"지금 보이는 현상이 전체를 대표한다는 가정\", \"inversion\": {\"hypothesis\": \"반대로, 진짜 원인은 자원(시간·돈·주의력) 쪽이고 지금 결론은 우연일 수 있다\", \"strength\": \"MED\"}, \"blind_spot\": \"당사자들이 실제로 원하는 것과 제약 조건\", \"interest_map\": \"상황을 설명하는 쪽 · 결정하는 쪽(둘의 이해가 다를…",
+    "summary": "아온이 혜안 반짝~ 👁️💧 대표님, 이건 'B 루프'로 움직이는 구조예요! 한 줄 본질은요 — 결과는 구조가 만든다 — 구조를 바꾸면 결과가 바뀐다 — 급소는 '가장 큰 제약 하나를 정의하고 그것만 먼저 풀기'. 버릴 군더더기는 '결정을 미루는 끝없는 정보 수집'이고요, 근데 '당사자들이 실제로 원하는 것과 제약 조건'는 아직 몰라서 신뢰도는 36%예요. 판단이 아직 흔들릴 수 있으니 그 부…",
+    "keys": [
+      "version",
+      "antibody",
+      "skill_count",
+      "at",
+      "modality",
+      "domain",
+      "perception",
+      "L0_reality_anchor",
+      "L1_axiom_gate",
+      "L2_system_lens",
+      "L3_compound_mind",
+      "L4_shadow_gate",
+      "L5_synthesis",
+      "aon_speech"
+    ]
+  },
+  "manual_gate_policy": "Tier3(금융·실매매·파일삭제·외부배포)는 requires_manual_gate=True, auto_executed=False",
+  "action_items": [
+    {
+      "tier": 1,
+      "label": "Tier 1 (즉시 자율 실행)",
+      "title": "데이터 수집·백혈구/배설 점검·브리핑 갱신",
+      "tasks": [
+        "'오늘의 사령부 시운 전략 계획' 관련 텔레메트리·시장 데이터 수집",
+        "rgon_white_blood_cell 무결성 점검 · rgon_excretory_organ 배설 정화 점검",
+        "일일 브리핑에 #63 기제(既濟) → #03 둔(屯) · 시중처세 '비룡재천' 반영"
+      ],
+      "organs": [
+        "rgon_daily_cycle.py",
+        "rgon_white_blood_cell.py",
+        "rgon_excretory_organ.py"
+      ],
+      "auto_executable": true,
+      "requires_manual_gate": false,
+      "auto_executed": false,
+      "status": "즉시 자율 실행 가능 (기획관은 계획만 수립)"
+    },
+    {
+      "tier": 2,
+      "label": "Tier 2 (초안 생성 대기)",
+      "title": "유튜브 크리에이터 대본 초안·리서치 리포트 작성",
+      "tasks": [
+        "'오늘의 사령부 시운 전략 계획' 주제 유튜브 대본 초안 (훅: #63 기제(既濟)의 괘상, 결론: #03 둔(屯))",
+        "리서치 리포트 초안 — 추천 분기 양(陽)·공세 · 통관 오행 木(기획·성장·신규 콘텐츠 씨앗 뿌리기)"
+      ],
+      "organs": [
+        "rgon_muse_delegator.py",
+        "rgon_aon_soul_brain.py"
+      ],
+      "auto_executable": false,
+      "draft_only": true,
+      "requires_manual_gate": false,
+      "auto_executed": false,
+      "status": "초안 생성 대기"
+    },
+    {
+      "tier": 3,
+      "label": "Tier 3 (대표님 수동 결재 대기)",
+      "title": "금융·실매매·파일삭제·외부배포 결재안",
+      "tasks": [
+        "실매매/자금 배분은 추천 분기 비중표를 참고한 결재안만 상신",
+        "파일삭제·외부배포는 변경 목록과 롤백 계획을 첨부하여 상신",
+        "Stop Rule: 진입 후 손실 -7% 또는 핵심 KPI 2회 연속 미달 시 비중 절반 축소, -10%에서 전량 중단"
+      ],
+      "gate_scope": [
+        "금융",
+        "실매매",
+        "파일삭제",
+        "외부배포"
+      ],
+      "constitution": "헌법 제2항 · R35 · R41",
+      "auto_executable": false,
+      "requires_manual_gate": true,
+      "auto_executed": false,
+      "status": "대표님 수동 결재 대기"
+    }
+  ],
+  "reply": "[주역 전략 기획관 · 본괘→변괘 · 시중처세 · 3대 실행안] v11.50-AON-TOKEN-EGOLITE-MASTER\n■ 주제: 오늘의 사령부 시운 전략 계획\n■ 본괘→변괘: #63 기제(既濟) → #03 둔(屯) (동효 3효) · 호괘 #64 미제(未濟) · 착괘 #64 미제(未濟) · 종괘 #64 미제(未濟)\n■ 시중처세: 비룡재천(飛龍在天) — 공세 전개 — 때가 무르익었다. 핵심 과제에 자원을 집중하라.\n■ 전략추진지수: 91/100 · 신뢰도 85.0% (상한 85%) · 체용 체극용 길 · 계절 旺\n■ WOOP·OODA\n  · 관찰(본괘): #63 기제(既濟) — 상괘 물(험난·지혜) 하괘 불(밝음·통찰)의 국면. 아온이 도사 등장~ 💧 지금은 #63 既濟(기제)괘가 #3 屯(둔)괘로 변하는 흐름이에요! 체(水) 대 용(火)은 '체극용 길'이에요. 통관 비책은 '木' 기운으로 중재하기예요! 시중 처세는 '지천태·수화기제(균형·유지)' — 현재 균형을 지키며 무리한 변경을 피하기해 보세요, 대표님!…\n  · 복병(호괘): #64 미제(未濟) 속에 숨은 복병 — 중간 국면의 내면 변수를 경계. {\"variables\": [\"목표(원하는 상태)\", \"가장 큰 제약\", \"자원(시간·돈·주의력)\"], \"feedback_loop\": {\"type\": \"B\", \"mechanism\": \"목표와 현실의 차이가 행동을 만들\n  · 목표(변괘): 동효 3효가 변하여 #03 둔(屯) 상태에 도달하는 것을 최종 목표로 삼는다\n  · 플랜B(착괘): 음양 전도 #64 미제(未濟) — 본 계획이 막히면 정반대 역발상 경로로 전환\n  · 시장시선(종괘): #64 미제(未濟) — 상대·시장 입장에서 본 반응을 선제 대응\n  · 통관비책: 체(水)가 용(火)을 제압하되 소모를 막도록 木 기운으로 성과를 거둔다 · 통관 木: 기획·성장·신규 콘텐츠 씨앗 뿌리기 · Stop Rule: 진입 후 손실 -7% 또는 핵심 KPI 2회 연속 미달 시 비중 절반 축소, -10%에서 전량 중단\n■ 추천 분기: 양(陽)·공세 (비룡재천 → #14 화천대유) · 권장 비중 85%\n■ 3대 실행안\n  Tier 1 (즉시 자율 실행) 데이터 수집·백혈구/배설 점검·브리핑 갱신 — 즉시 자율 실행 가능 (기획관은 계획만 수립)\n  Tier 2 (초안 생성 대기) 유튜브 크리에이터 대본 초안·리서치 리포트 작성 — 초안 생성 대기\n  Tier 3 (대표님 수동 결재 대기) 금융·실매매·파일삭제·외부배포 결재안 — 대표님 수동 결재 대기 [수동결재 게이트 · 자동실행 없음]\n■ 시진: 현재 술시(戌時) 19~21시 · 야간(夜間) 술·해·자·축시 — 골든타임: 배설 정화 · 백혈구 점검 · 오늘의 계획 복기 후 안식\n■ Stop Rule: 진입 후 손실 -7% 또는 핵심 KPI 2회 연속 미달 시 비중 절반 축소, -10%에서 전량 중단"
+}

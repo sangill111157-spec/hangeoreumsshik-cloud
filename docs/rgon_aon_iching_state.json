@@ -1,0 +1,196 @@
+{
+  "version": "v11.50-AON-TOKEN-EGOLITE-MASTER",
+  "antibody": "R1~R51",
+  "skill_count": 42,
+  "mode": "telemetry",
+  "at": "2026-10-26T08:28:33",
+  "moving": 5,
+  "lunar": {
+    "year_branch": "午",
+    "month": 9,
+    "day": 17,
+    "is_leap": false
+  },
+  "primary": {
+    "no": 5,
+    "hanja": "需",
+    "ko": "수",
+    "upper": 6,
+    "lower": 1,
+    "symbol": "☵☰",
+    "gist": "때를기다림",
+    "guidance": "'때를기다림'의 때 — 괘덕 陷·健을 따라 시중(時中)을 지켜라",
+    "lines": [
+      1,
+      1,
+      1,
+      0,
+      1,
+      0
+    ]
+  },
+  "mutual": {
+    "no": 38,
+    "hanja": "睽",
+    "ko": "규",
+    "upper": 3,
+    "lower": 2,
+    "symbol": "☲☱",
+    "gist": "어긋남",
+    "guidance": "'어긋남'의 때 — 괘덕 麗·說을 따라 시중(時中)을 지켜라",
+    "lines": [
+      1,
+      1,
+      0,
+      1,
+      0,
+      1
+    ]
+  },
+  "transformed": {
+    "no": 11,
+    "hanja": "泰",
+    "ko": "태",
+    "upper": 8,
+    "lower": 1,
+    "symbol": "☷☰",
+    "gist": "소통태평",
+    "guidance": "'소통태평'의 때 — 괘덕 順·健을 따라 시중(時中)을 지켜라",
+    "lines": [
+      1,
+      1,
+      1,
+      0,
+      0,
+      0
+    ]
+  },
+  "complement": {
+    "no": 35,
+    "hanja": "晉",
+    "ko": "진",
+    "upper": 3,
+    "lower": 8,
+    "symbol": "☲☷",
+    "gist": "전진상승",
+    "guidance": "'전진상승'의 때 — 괘덕 麗·順을 따라 시중(時中)을 지켜라",
+    "lines": [
+      0,
+      0,
+      0,
+      1,
+      0,
+      1
+    ]
+  },
+  "inverse": {
+    "no": 6,
+    "hanja": "訟",
+    "ko": "송",
+    "upper": 1,
+    "lower": 6,
+    "symbol": "☰☵",
+    "gist": "다툼조심",
+    "guidance": "'다툼조심'의 때 — 괘덕 健·陷을 따라 시중(時中)을 지켜라",
+    "lines": [
+      0,
+      1,
+      0,
+      1,
+      1,
+      1
+    ]
+  },
+  "ti_yong": {
+    "ti": "乾",
+    "yong": "坎",
+    "ti_element": "金",
+    "yong_element": "水",
+    "relation": "체생용 소모",
+    "bridge": null,
+    "season": "四季末",
+    "ti_wangxiang": "相",
+    "yong_wangxiang": "死",
+    "lens": "健(체) vs 陷(용)"
+  },
+  "yao_analysis": {
+    "yao": [
+      {
+        "pos": 1,
+        "name": "初九",
+        "yang": true,
+        "dangwei": "득정",
+        "dezhong": false,
+        "xiangying": true,
+        "chengcheng": "",
+        "moving": false
+      },
+      {
+        "pos": 2,
+        "name": "九二",
+        "yang": true,
+        "dangwei": "실정",
+        "dezhong": true,
+        "xiangying": false,
+        "chengcheng": "",
+        "moving": false
+      },
+      {
+        "pos": 3,
+        "name": "九三",
+        "yang": true,
+        "dangwei": "득정",
+        "dezhong": false,
+        "xiangying": true,
+        "chengcheng": "",
+        "moving": false
+      },
+      {
+        "pos": 4,
+        "name": "六四",
+        "yang": false,
+        "dangwei": "득정",
+        "dezhong": false,
+        "xiangying": true,
+        "chengcheng": "승강(陰乘陽)",
+        "moving": false
+      },
+      {
+        "pos": 5,
+        "name": "九五",
+        "yang": true,
+        "dangwei": "득정",
+        "dezhong": true,
+        "xiangying": false,
+        "chengcheng": "",
+        "moving": true
+      },
+      {
+        "pos": 6,
+        "name": "上六",
+        "yang": false,
+        "dangwei": "득정",
+        "dezhong": false,
+        "xiangying": true,
+        "chengcheng": "승강(陰乘陽)",
+        "moving": false
+      }
+    ],
+    "erwu_zhongzheng_xiangying": false,
+    "moving_summary": "九五 동효 · 득정 · 득중 · 무응"
+  },
+  "posture": "몽이양정(점진·분할)",
+  "next_step": "작게 나눠 시험하고 단계적으로 진입",
+  "shichen": "辰時",
+  "extra": {
+    "sources": {
+      "rgon_white_blood_cell.py": 42838,
+      "rgon_morning_brief.json": 7604,
+      "rgon_muse_queue.json": 0,
+      "rgon_aon_memory.json": 2724,
+      "rgon_laptop_hands_state.json": 0,
+      "rgon_aon_playground_state.json": 1221
+    }
+  },
+  "aon_speech": "아온이 도사 등장~ 💧 지금은 #5 需(수)괘가 #11 泰(태)괘로 변하는 흐름이에요! 체(金) 대 용(水)은 '체생용 소모'이에요. 시중 처세는 '몽이양정(점진·분할)' — 작게 나눠 시험하고 단계적으로 진입해 보세요, 대표님! ☯️"
+}

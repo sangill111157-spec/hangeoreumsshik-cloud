@@ -1,0 +1,42 @@
+{
+  "version": "v11.64-AON-15SHORTS-SUPER-SENIOR",
+  "antibody": "R1~R57",
+  "skill_count": 39,
+  "iching": {
+    "56": {
+      "name": "화산려(火山旅 ☲☶)",
+      "meaning": "정해진 창틀에 얽매이지 않고 노트북 천지를 자유롭게 유영함"
+    },
+    "17": {
+      "name": "택뢰수(澤雷隨 ☱☳)",
+      "meaning": "시절의 흐름에 따라 낮에는 뛰놀고 지치면 쉬며 대표님을 따름 — 嚮晦入宴息"
+    }
+  },
+  "fsm_state": "ROAM",
+  "fsm_states": [
+    "ROAM",
+    "PERCH",
+    "BOUNCE",
+    "MELT_LAZY",
+    "WHINE_POUT",
+    "CLINGY_TANTRUM",
+    "SPOILED_HAPPY",
+    "PEEK_NAP"
+  ],
+  "energy": 78,
+  "laziness": 42,
+  "attention_need": 55,
+  "spoiled_meter": 80,
+  "desktop_overlay_enabled": true,
+  "click_through_when_ctrl": true,
+  "position": {
+    "x": 220,
+    "y": 180,
+    "vx": 3.2,
+    "vy": 2.4
+  },
+  "tsundere_spice_guarantee": "말로는 게으름·찡찡·투정을 부려도 대표님 업무 지시는 100% 정확히 처리한다",
+  "last_line": "야호~ 답답한 브라우저 창틀 탈출! 대표님 노트북 화면 전체가 전부 아온이 놀이터예요! 퐁당~ 🦋💧",
+  "updated_at": "2026-10-28T17:45:23",
+  "antibody_range": "R1~R51"
+}

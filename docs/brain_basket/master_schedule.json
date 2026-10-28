@@ -1,0 +1,65 @@
+{
+  "TOP_PRIORITY_1": {
+    "priority": 1,
+    "task_id": "TOP1_SELF_EVOLVING_BRAIN",
+    "title": "전 에이전트 합심·융합 자율 진화 두뇌(Auto-Evolve Brain) 상시 가동",
+    "status": "ACTIVE_TOTAL_WAR",
+    "fusion": [
+      "DSPy",
+      "AlphaEvolve",
+      "Letta/Voyager",
+      "LangGraph Reflexion"
+    ],
+    "engine": "rgon_auto_evolve_brain.py v1.0",
+    "cadence": "상시 가동 + 매일 03:00 KST 외부 주방(GitHub Actions --ci) 무인 진화",
+    "owner": "사령관님",
+    "first_registered_at": "2026-10-20 22:24:14 KST",
+    "registered_at": "2026-10-20 22:24:14 KST"
+  },
+  "schedules": [
+    {
+      "priority": 1,
+      "task_id": "GEN1_AUTONOMOUS_EVOLUTION_CLOSED_LOOP",
+      "title": "GEN-1 완전 무인 자가 진화 폐쇄 루프 개통",
+      "description": "사령관 한 줄 지시 -> 멀티 AI 발사 -> 완료 감지 -> 자동 수거 -> 문법/실행 자동 검증 -> 실패 시 자동 재발사 -> 승리 코드 자동 적용",
+      "target_date": "2026-10-21 (내일 아침)",
+      "status": "SCHEDULED_TOP1",
+      "engine": "rgon_auto_evolve_brain.py + omni_bridge.py /reflect",
+      "registered_at": "2026-10-20 23:38:04"
+    },
+    {
+      "priority": 1,
+      "task_id": "TOP1_SELF_EVOLVING_BRAIN",
+      "title": "전 에이전트 합심·융합 자율 진화 두뇌(Auto-Evolve Brain) 상시 가동",
+      "status": "ACTIVE_TOTAL_WAR",
+      "fusion": [
+        "DSPy",
+        "AlphaEvolve",
+        "Letta/Voyager",
+        "LangGraph Reflexion"
+      ],
+      "engine": "rgon_auto_evolve_brain.py v1.0",
+      "cadence": "상시 가동 + 매일 03:00 KST 외부 주방(GitHub Actions --ci) 무인 진화",
+      "owner": "사령관님",
+      "first_registered_at": "2026-10-20 22:24:14 KST",
+      "registered_at": "2026-10-20 22:24:14 KST"
+    }
+  ],
+  "R7_ANTIBODY": {
+    "id": "R7_TARGET_ROW_BADGE_ONLY_SCAN",
+    "name": "발사 대상 행 영구 보존 및 배지 전용 스캔",
+    "rule": "3.5초 주기 스캔(refreshScan) 시 체크박스 DOM(innerHTML)을 재생성하면 체크 상태가 초기화되므로, 행(Row)은 최초 1회만 빌드하고 주기적 스캔은 오직 연결 배지(textContent)만 갱신한다 (v6.0.7 완치)",
+    "version": "6.0.7",
+    "registered_at": "2026-10-20 23:38:04"
+  },
+  "NEXT_MORNING_TOP1": {
+    "priority": 1,
+    "task_id": "GEN1_AUTONOMOUS_EVOLUTION_CLOSED_LOOP",
+    "title": "GEN-1 완전 무인 자가 진화 폐쇄 루프 개통",
+    "description": "사령관 한 줄 지시 -> 멀티 AI 발사 -> 완료 감지 -> 자동 수거 -> 문법/실행 자동 검증 -> 실패 시 자동 재발사 -> 승리 코드 자동 적용",
+    "target_date": "2026-10-21 (내일 아침)",
+    "status": "SCHEDULED_TOP1",
+    "engine": "rgon_auto_evolve_brain.py + omni_bridge.py /reflect",
+    "registered_at": "2026-10-20 23:38:04"
+  }
+}

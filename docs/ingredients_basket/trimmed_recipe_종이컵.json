@@ -1,0 +1,256 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-10-20T01:26:15.111693+00:00",
+  "topic": "종이컵",
+  "status": "complete",
+  "generation_method": "deterministic_local_copy_and_prompt_templates",
+  "video_spec": {
+    "width": 540,
+    "height": 960,
+    "aspect_ratio": "9:16",
+    "fps": 30,
+    "frames": 300,
+    "duration_seconds": 10.0,
+    "video_codec": "H.264",
+    "pixel_format": "yuv420p",
+    "audio_codec": "AAC",
+    "audio_sample_rate": 48000,
+    "audio_channels": 2
+  },
+  "source_image": "C:\\Users\\sangi\\Downloads\\shin-agent\\ingredients_basket\\sample_paper_cup.jpg",
+  "script": {
+    "hook_0_3s": "평범한 한 잔,\n다르게.",
+    "body_3_7s": "한 잔의 순간을\n더 근사하게.",
+    "cta_7_10s": "당신의 한 잔을\n골라보세요.",
+    "narration_10s": "평범한 한 잔도, 다르게. 종이컵 하나로 완성하는 작은 분위기. 당신의 한 잔을 골라보세요.",
+    "voice": "ko-KR-InJoonNeural",
+    "voice_direction": "자연스럽고 선명한 한국어 남성 광고 톤. 목소리의 실제 연령을 보장하지 않으며, InJoon 프리셋을 사용합니다.",
+    "timing_method": "TTS를 실제 생성하고 디코딩한 길이를 측정한 뒤, 피치를 유지하는 atempo로 9.35초에 맞춥니다. 앞 0.15초와 끝 0.50초를 포함해 총 10초로 정렬합니다."
+  },
+  "scenes": [
+    {
+      "index": 0,
+      "key": "hook",
+      "headline": "방금 돈 버렸다",
+      "sub": "끝까지 보면 반전!",
+      "start": 0.0,
+      "end": 3.0,
+      "file": "scene_0_hook.jpg"
+    },
+    {
+      "index": 1,
+      "key": "body",
+      "headline": "네 통장에 구멍 났다",
+      "sub": "손잡이 없는 진짜 일회용 종이컵",
+      "start": 3.0,
+      "end": 7.0,
+      "file": "scene_1_body.jpg"
+    },
+    {
+      "index": 2,
+      "key": "cta",
+      "headline": "저장하고 다시 봐",
+      "sub": "친환경 일회용 종이컵 · 대량 할인",
+      "start": 7.0,
+      "end": 10.0,
+      "file": "scene_2_cta.jpg"
+    }
+  ],
+  "adobe_firefly": {
+    "image_prompt_en": "Photorealistic vertical 9:16 commercial product photograph of a single disposable white paper cup, single-use takeaway paper cup, rolled rim, no handle, no ceramic mug, no saucer, on a warm wooden table, soft studio lighting, clean upper negative space",
+    "video_prompt_en": "Vertical 9:16 photorealistic commercial shot of an unbranded premium-looking paper cup, a stable hero product on a warm ivory tabletop, gentle slow camera push-in, subtle parallax, soft daylight and realistic shadows, consistent product shape and materials across frames, premium minimal editorial product cinematography. Leave the upper area clear for typography added in editing. No generated text, no logos, no hands, no sudden cuts, no object morphing. Generate a short usable clip and trim or extend in editing to fit a 10-second ad.",
+    "negative_prompt": "ceramic mug, coffee mug, cup handle, saucer, porcelain, glass cup",
+    "usage": "프롬프트를 Firefly에 직접 입력합니다. 화면비 9:16을 선택하고, 글자는 생성 이미지에 넣지 말고 후편집으로 추가합니다.",
+    "r1_corrected": true
+  },
+  "adobe_express": {
+    "template_search_keywords_ko": [
+      "미니멀 제품 광고 세로",
+      "감성 제품 릴스",
+      "제품 소개 인스타그램 스토리"
+    ],
+    "template_search_keywords_en": [
+      "minimal product vertical ad",
+      "editorial product Instagram story",
+      "clean product reel"
+    ],
+    "layout_guide": {
+      "canvas": "540 × 960 px / 9:16",
+      "headline": "상단 x=40~500, y=130~340. 굵은 한글, 2~3줄 이내.",
+      "hero_product": "중앙 제품을 가리지 않도록 텍스트 영역을 분리.",
+      "subtitle": "하단 x=32~508, y=710~844. 반투명 박스, 충분한 대비.",
+      "progress": "y=876 부근에 3/10, 7/10, 10/10 정적 진행바.",
+      "safe_area": "상하 여백을 확보하되, 게시 플랫폼의 실제 UI 가림은 최종 업로드 미리보기에서 다시 확인.",
+      "timeline": "Hook 3초 → Body 4초 → CTA 3초",
+      "font": "맑은 고딕 Bold 또는 사용 권한이 있는 한글 고딕"
+    }
+  },
+  "adobe_podcast_enhance": {
+    "purpose": "성우 원본의 잡음이나 실내 잔향이 있을 때 선택적으로 정리.",
+    "workflow": [
+      "필요한 경우 원본 성우 파일만 Adobe Podcast Enhance에 업로드.",
+      "처리 전후 발음, 치찰음, 숨소리, 음색 변화를 비교.",
+      "배경음악이 합쳐진 최종 영상을 음성 정리용으로 처리하지 않기.",
+      "개선된 음성을 원본 대신 사용할 경우 길이 정렬과 합성을 다시 실행."
+    ],
+    "note": "본 스크립트는 Adobe 계정에 로그인하거나 업로드하지 않습니다. 이미 깨끗한 TTS에는 추가 처리가 불필요할 수 있습니다."
+  },
+  "suno_ai": {
+    "prompt_en": "Instrumental only, no vocals, no speech. Refined minimalist commercial music bed for a 10-second vertical product ad about 종이컵. 62 BPM, warm electric-piano-style major ninth chords, soft rounded bass, delicate muted bell accents, sparse soft percussion, clean stereo image, elegant optimistic mood, plenty of midrange space for a Korean male voiceover. Immediate gentle opening, a subtle lift near 7 seconds, a clean soft ending at 10 seconds, no loud riser or crash. If exact duration is unsupported, generate and edit a 10-second excerpt with short fades.",
+    "requested_bpm": 62,
+    "requested_duration_seconds": 10.0,
+    "local_fallback": "외부 음악 생성 없이 wave/math 기반의 오리지널 62BPM 스테레오 PCM 음악을 생성합니다."
+  },
+  "warnings": [
+    "대본과 프롬프트는 로컬 규칙 기반 템플릿으로 생성됩니다.",
+    "광고 제품의 인증, 친환경성, 내열성, 할인, 가격 등 미확인 사실은 주장하지 않습니다.",
+    "Adobe 및 Suno 결과물은 자동 생성하거나 다운로드하지 않습니다.",
+    "각 서비스의 무료 제공량과 상업적 이용 조건은 계정 및 당시 약관을 확인해야 합니다."
+  ],
+  "ffmpeg": {
+    "path": "C:\\Users\\sangi\\AppData\\Local\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0.1-full_build\\bin\\ffmpeg.exe",
+    "ffprobe_path": "C:\\Users\\sangi\\AppData\\Local\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0.1-full_build\\bin\\ffprobe.exe",
+    "version": "ffmpeg version 8.0.1-full_build-www.gyan.dev Copyright (c) 2000-2025 the FFmpeg developers"
+  },
+  "font_path": "C:\\Windows\\Fonts\\malgunbd.ttf",
+  "voice_processing": {
+    "source": "edge-tts",
+    "voice": "ko-KR-InJoonNeural",
+    "matches_requested_script": true,
+    "source_path": "C:\\Users\\sangi\\Downloads\\shin-agent\\ingredients_basket\\.prep_trim_j38p0cny\\generated_narration.mp3",
+    "errors": [],
+    "source_decoded_stats": {
+      "duration_seconds": 10.104,
+      "sample_rate": 48000,
+      "channels": 1,
+      "frames": 484992,
+      "peak": 0.58728,
+      "rms": 0.089889,
+      "rms_dbfs": -20.93
+    },
+    "tempo_factor": 1.080642,
+    "speech_target_seconds": 9.35,
+    "leading_silence_seconds": 0.15,
+    "aligned_pcm_stats": {
+      "duration_seconds": 10.0,
+      "sample_rate": 48000,
+      "channels": 1,
+      "frames": 480000,
+      "peak": 0.8414,
+      "rms": 0.135888,
+      "rms_dbfs": -17.34
+    },
+    "mp3_decoded_stats": {
+      "duration_seconds": 10.0,
+      "sample_rate": 48000,
+      "channels": 1,
+      "frames": 480000,
+      "peak": 0.816711,
+      "rms": 0.131815,
+      "rms_dbfs": -17.6
+    },
+    "output_file": "trimmed_voice_10s.mp3"
+  },
+  "bgm_processing": {
+    "duration_seconds": 10.0,
+    "sample_rate": 48000,
+    "channels": 2,
+    "frames": 480000,
+    "peak": 0.659973,
+    "rms": 0.179354,
+    "rms_dbfs": -14.93,
+    "bpm": 62,
+    "bit_depth": 16,
+    "composition": "original mathematical synthesis",
+    "beat_interval_seconds": 0.967741935483871
+  },
+  "artifacts": [
+    {
+      "file": "scene_0_hook.jpg",
+      "path": "C:\\Users\\sangi\\Downloads\\shin-agent\\ingredients_basket\\scene_0_hook.jpg",
+      "bytes": 96168
+    },
+    {
+      "file": "scene_1_body.jpg",
+      "path": "C:\\Users\\sangi\\Downloads\\shin-agent\\ingredients_basket\\scene_1_body.jpg",
+      "bytes": 100125
+    },
+    {
+      "file": "scene_2_cta.jpg",
+      "path": "C:\\Users\\sangi\\Downloads\\shin-agent\\ingredients_basket\\scene_2_cta.jpg",
+      "bytes": 101501
+    },
+    {
+      "file": "trimmed_voice_10s.mp3",
+      "path": "C:\\Users\\sangi\\Downloads\\shin-agent\\ingredients_basket\\trimmed_voice_10s.mp3",
+      "bytes": 241388
+    },
+    {
+      "file": "trimmed_bgm_10s.wav",
+      "path": "C:\\Users\\sangi\\Downloads\\shin-agent\\ingredients_basket\\trimmed_bgm_10s.wav",
+      "bytes": 1920044
+    },
+    {
+      "file": "trimmed_ad_paper_cup_10s.mp4",
+      "path": "C:\\Users\\sangi\\Downloads\\shin-agent\\ingredients_basket\\trimmed_ad_paper_cup_10s.mp4",
+      "bytes": 397874
+    }
+  ],
+  "verification": {
+    "file": "trimmed_ad_paper_cup_10s.mp4",
+    "bytes": 397874,
+    "expected_duration_seconds": 10.0,
+    "expected_video_frames": 300,
+    "decoded_video_frames": 300,
+    "full_decode_passed": true,
+    "probe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 540,
+          "height": 960,
+          "avg_frame_rate": "30/1",
+          "duration": "10.000000",
+          "nb_frames": "300"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "sample_rate": "48000",
+          "channels": 2,
+          "avg_frame_rate": "0/0",
+          "duration": "10.000000",
+          "nb_frames": "470"
+        }
+      ],
+      "format": {
+        "duration": "10.000000",
+        "size": "397874"
+      }
+    },
+    "duration_seconds": 10.0,
+    "final_audio_stats": {
+      "duration_seconds": 10.005333333333333,
+      "sample_rate": 48000,
+      "channels": 2,
+      "frames": 480256,
+      "peak": 0.592957,
+      "rms": 0.09706,
+      "rms_dbfs": -20.26
+    },
+    "voice_inclusion_verification": "성우 MP3의 비무음을 별도 검증하고, 그 파일을 직접 amix 입력으로 매핑하여 인코딩했습니다. 최종 AAC도 비무음 및 전체 디코딩 검사를 통과했습니다. 음성 인식에 의한 대본 내용 검증은 수행하지 않습니다.",
+    "success": true
+  },
+  "elapsed_seconds": 15.81,
+  "grok_style": "반전형",
+  "self_correction": {
+    "rule": "R1_PAPER_CUP_NOT_MUG",
+    "applied_at": "2026-10-20 15:40:03 KST",
+    "note": "coffee cup → disposable white paper cup, no handle, no ceramic mug, no saucer"
+  }
+}

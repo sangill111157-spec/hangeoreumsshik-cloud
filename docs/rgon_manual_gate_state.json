@@ -1,0 +1,44 @@
+{
+  "version": "v11.64-AON-15SHORTS-SUPER-SENIOR",
+  "antibody": "R1~R57",
+  "master_approval_on": false,
+  "gates": {
+    "finance_payment": false,
+    "laptop_app_browser": false,
+    "file_modify_delete": false,
+    "external_dispatch": false
+  },
+  "labels": {
+    "finance_payment": "💰 금융·결제",
+    "laptop_app_browser": "💻 노트북앱",
+    "file_modify_delete": "🗂️ 파일삭제·이동",
+    "external_dispatch": "🌐 외부전송"
+  },
+  "history": [
+    {
+      "t": "2026-10-28T17:45:23",
+      "event": "finance_payment=ON"
+    },
+    {
+      "t": "2026-10-28T17:45:23",
+      "event": "master=ON"
+    },
+    {
+      "t": "2026-10-28T17:45:23",
+      "event": "finance_payment=ON"
+    },
+    {
+      "t": "2026-10-28T17:45:23",
+      "event": "LOCK_ALL"
+    },
+    {
+      "t": "2026-10-28T17:45:23",
+      "event": "laptop_app_browser=ON"
+    },
+    {
+      "t": "2026-10-28T17:45:29",
+      "event": "LOCK_ALL"
+    }
+  ],
+  "updated_at": "2026-10-28T17:45:29"
+}

@@ -1,0 +1,29 @@
+{
+  "version": "v11.50-AON-TOKEN-EGOLITE-MASTER",
+  "updated_at": "2026-10-26T20:48:52",
+  "preferences": [
+    {
+      "id": "P001",
+      "category": "command_rule",
+      "category_ko": "지휘 원칙",
+      "rule": "내년 1분기 목표 매출은 100억이야",
+      "raw": "기억해둬: 내년 1분기 목표 매출은 100억이야",
+      "priority": "HIGH",
+      "created_at": "2026-10-25T16:05:06",
+      "hit_count": 2,
+      "updated_at": "2026-10-25T16:06:21"
+    },
+    {
+      "id": "P002",
+      "category": "command_rule",
+      "category_ko": "지휘 원칙",
+      "rule": "손절 기준은 3% 엄수",
+      "raw": "기억해둬: 손절 기준은 3% 엄수",
+      "priority": "HIGH",
+      "created_at": "2026-10-26T20:48:52",
+      "hit_count": 1
+    }
+  ],
+  "skill_count": 37,
+  "antibody_range": "R1~R51"
+}

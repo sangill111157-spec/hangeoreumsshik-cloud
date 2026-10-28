@@ -1,0 +1,152 @@
+{
+  "ok": true,
+  "route": "r45_cinematic_dispatch",
+  "organ": 21,
+  "antibody": "R45",
+  "version": "v11.50-AON-TOKEN-EGOLITE-MASTER",
+  "guas": [
+    "#55 뇌화풍(雷火豐 ☳☲: 전광석화의 결정론적 쇼트컷과 찬란한 시냅스 광선으로 대업을 성취함)",
+    "#45 택지취(澤地萃 ☱☷: 르곤·안총리·아온이와 6대 청사 전문 에이전트가 원탁 국무회의로 결집함)"
+  ],
+  "iching_guas": [
+    "#55 뇌화풍(雷火豐 ☳☲: 전광석화의 결정론적 쇼트컷과 찬란한 시냅스 광선으로 대업을 성취함)",
+    "#45 택지취(澤地萃 ☱☷: 르곤·안총리·아온이와 6대 청사 전문 에이전트가 원탁 국무회의로 결집함)"
+  ],
+  "shortcut": {
+    "query": "국무회의",
+    "intent": "council",
+    "matched": true,
+    "stages": [
+      "PREFETCH",
+      "SHORTCUT",
+      "GROUNDED VERIFY"
+    ],
+    "route_ms": 0.0119,
+    "under_1ms": true,
+    "llm_skipped": true,
+    "hallucination_rate": 0.0,
+    "grounded": true,
+    "prefetch": {
+      "rgon_neural_synapse_map.json": {
+        "exists": true,
+        "keys": 14,
+        "skill_count": 42,
+        "synapse_health_score": 100.0
+      },
+      "rgon_aon_ui_healer_state.json": {
+        "exists": true,
+        "keys": 27,
+        "total_buttons_verified": 576,
+        "live_action_score": 100.0
+      },
+      "rgon_morning_brief.json": {
+        "exists": true,
+        "keys": 19,
+        "skill_count": 20
+      },
+      "skills/SKILL_INDEX.json": {
+        "exists": true,
+        "keys": 13,
+        "count": 42,
+        "total": 42,
+        "skill_count": 42,
+        "skills": 41
+      }
+    }
+  },
+  "council": {
+    "topic": "국무회의",
+    "chatter": [
+      {
+        "agent": "👑 수석보좌관 르곤(G2)",
+        "code": "CEO",
+        "line": "[CEO] '국무회의' 실측 보고: 상태파일 4/4 검증, 항체 R45 · 스킬 41개 정상"
+      },
+      {
+        "agent": "🏛️ 기술총리 안총리",
+        "code": "PM",
+        "line": "[PM] '국무회의' 실측 보고: 상태파일 4/4 검증, 항체 R45 · 스킬 41개 정상"
+      },
+      {
+        "agent": "💧 만능참모 아온이(21대기관)",
+        "code": "AON",
+        "line": "[AON] '국무회의' 실측 보고: 상태파일 4/4 검증, 항체 R45 · 스킬 41개 정상"
+      },
+      {
+        "agent": "📋 제1청사 비서실",
+        "code": "DEPT-01",
+        "line": "[DEPT-01] '국무회의' 실측 보고: 상태파일 4/4 검증, 항체 R45 · 스킬 41개 정상"
+      },
+      {
+        "agent": "🤖 제2청사 AI연결처",
+        "code": "DEPT-02",
+        "line": "[DEPT-02] '국무회의' 실측 보고: 상태파일 4/4 검증, 항체 R45 · 스킬 41개 정상"
+      },
+      {
+        "agent": "🎬 제3청사 미디어처",
+        "code": "DEPT-03",
+        "line": "[DEPT-03] '국무회의' 실측 보고: 상태파일 4/4 검증, 항체 R45 · 스킬 41개 정상"
+      },
+      {
+        "agent": "📚 제4청사 교육처",
+        "code": "DEPT-04",
+        "line": "[DEPT-04] '국무회의' 실측 보고: 상태파일 4/4 검증, 항체 R45 · 스킬 41개 정상"
+      },
+      {
+        "agent": "🔐 제5청사 금고보관처",
+        "code": "DEPT-05",
+        "line": "[DEPT-05] '국무회의' 실측 보고: 상태파일 4/4 검증, 항체 R45 · 스킬 41개 정상"
+      },
+      {
+        "agent": "💰 제6청사 재정총괄처",
+        "code": "DEPT-06",
+        "line": "[DEPT-06] '국무회의' 실측 보고: 상태파일 4/4 검증, 항체 R45 · 스킬 41개 정상"
+      }
+    ],
+    "beam_routes": [
+      "CEO -> DEPT-01",
+      "CEO -> DEPT-02",
+      "CEO -> DEPT-03",
+      "CEO -> DEPT-04",
+      "CEO -> DEPT-05",
+      "CEO -> DEPT-06"
+    ],
+    "kpi_targets": {
+      "agents": 9,
+      "depts": 6,
+      "state_files": 4,
+      "skills": 41,
+      "health": 100.0
+    },
+    "agenda": "대표님 결재 안건: '국무회의' 시네마틱 디스패치 집행 승인 여부",
+    "requires_manual_gate": true,
+    "auto_executed": false,
+    "dry_run": false,
+    "guas": [
+      "#55 뇌화풍(雷火豐 ☳☲: 전광석화의 결정론적 쇼트컷과 찬란한 시냅스 광선으로 대업을 성취함)",
+      "#45 택지취(澤地萃 ☱☷: 르곤·안총리·아온이와 6대 청사 전문 에이전트가 원탁 국무회의로 결집함)"
+    ]
+  },
+  "vault": {
+    "saved": true,
+    "dry_run": false,
+    "vault_size": 5,
+    "master_packs": 4,
+    "written": "C:\\Users\\sangi\\Downloads\\shin-agent\\rgon_aon_brainpack_vault.json"
+  },
+  "singleton": {
+    "pid": 50052,
+    "version": "v11.50-AON-TOKEN-EGOLITE-MASTER",
+    "antibody": "R45",
+    "organ": 21,
+    "singleton_ok": true,
+    "background_daemon_spawned": false,
+    "port_bound": false
+  },
+  "requires_manual_gate": true,
+  "auto_executed": false,
+  "background_daemon_spawned": false,
+  "aon_voice_line": "대표님, 제21기관 시네마틱 디스패치 보고드립니다! 0.012밀리초 만에 'council' 인텐트를 쇼트컷으로 포착했고, 9인 에이전트 원탁 국무회의와 6대 청사 광선 배선을 완료했습니다. 뇌화풍의 결단과 택지취의 결집으로 만반의 준비를 마쳤습니다!",
+  "reply": "🎬 [제21기관 · 아온 초광속 결정론적 쇼트컷 & 9인 원탁 국무회의] v11.50-AON-TOKEN-EGOLITE-MASTER · 항체 R45\n- 괘상: #55 뇌화풍(雷火豐 ☳☲: 전광석화의 결정론적 쇼트컷과 찬란한 시냅스 광선으로 대업을 성취함) / #45 택지취(澤地萃 ☱☷: 르곤·안총리·아온이와 6대 청사 전문 에이전트가 원탁 국무회의로 결집함)\n- 쇼트컷 인텐트: `council` (0.0119 ms · LLM 스킵=True · 환각률=0.0%)\n- 원탁 국무회의: 9인 에이전트 합동 보고 · 광선 경로 6개 (CEO -> DEPT-01, CEO -> DEPT-02, CEO -> DEPT-03, CEO -> DEPT-04, CEO -> DEPT-05, CEO -> DEPT-06)\n- 브레인팩 금고: 마스터 팩 4개 + 신규 자산화 (총 5개)\n- 🔒 수동 게이트 유지: requires_manual_gate=True · auto_executed=False · 백그라운드 데몬=0건",
+  "generated_at": "2026-10-26T11:50:30"
+}

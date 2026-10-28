@@ -1,0 +1,112 @@
+{
+  "version": "v5",
+  "build": "v5-20261020154003",
+  "generated_at": "2026-10-20T15:40:03",
+  "topic": "종이컵",
+  "video": "trimmed_ad_paper_cup_10s.mp4",
+  "video_bytes": 379417,
+  "video_spec": "540x960 · 30fps · 10.0s · H.264/AAC",
+  "voice": "InJoon (Korean voice actor)",
+  "bgm": "62 BPM ducking BGM",
+  "recipe_file": "trimmed_recipe_종이컵.json",
+  "recipes": [
+    "trimmed_recipe_종이컵.json"
+  ],
+  "scenes": [
+    {
+      "index": 0,
+      "key": "hook",
+      "title": "방금 돈 버렸다",
+      "sub": "끝까지 보면 반전!",
+      "start": 0.0,
+      "end": 3.0,
+      "file": "scene_0_hook.jpg"
+    },
+    {
+      "index": 1,
+      "key": "benefit",
+      "title": "네 통장에 구멍 났다",
+      "sub": "손잡이 없는 진짜 일회용 종이컵",
+      "start": 3.0,
+      "end": 7.0,
+      "file": "scene_1_body.jpg"
+    },
+    {
+      "index": 2,
+      "key": "cta",
+      "title": "저장하고 다시 봐",
+      "sub": "친환경 일회용 종이컵 · 대량 할인",
+      "start": 7.0,
+      "end": 10.0,
+      "file": "scene_2_cta.jpg"
+    }
+  ],
+  "grok_viral_styles": [
+    {
+      "style_name": "반전형",
+      "hook_0_3s": "방금 돈 버렸다",
+      "body_3_7s": "네 통장에 구멍 났다",
+      "cta_7_10s": "저장하고 다시 봐",
+      "narration_10s": "야, {topic}. 방금 버린 거, 네 돈이다. 한 번만 다시 봐. 저장해.",
+      "viral_title": "{topic}, 방금 네 돈을 버렸다",
+      "pinned_comment": "오늘 {topic} 몇 개 버렸어? 숫자만 댓글 #반전 #숏폼 #10초광고 #낭비 #저장각 #틱톡",
+      "adobe_firefly_prompt_en": "Vertical 9:16 photoreal commercial advertising still, a {topic_en} frozen mid-fall just above an open trash bin, one hand releasing it, single hard sidelight, deep shadow, shallow depth of field, 50mm, ultra-sharp product texture, dark muted background, premium campaign, no text, no logo, no watermark, no brand name",
+      "suno_bgm_prompt_en": "10-second ad sting, instrumental only, A minor, 96 BPM, dry hit and low bass drop in the first 0.3 seconds, tense pizzicato and muted kick, no vocals, no intro, phone-speaker midrange, ends on a short unresolved bass note"
+    },
+    {
+      "style_name": "감성형",
+      "hook_0_3s": "말 없이 식었다",
+      "body_3_7s": "하루의 끝이 여기야",
+      "cta_7_10s": "저장하고 보내 줘",
+      "narration_10s": "오늘 {topic}. 말 없이 여기 있었어. 아무도 몰랐어. 너는 알지. 저장해.",
+      "viral_title": "{topic}, 밤새 혼자 남아 있었다",
+      "pinned_comment": "이 {topic} 보면 누구 생각나? 관계는 한 단어만 #감성 #공감 #숏폼 #10초광고 #저장각 #일상",
+      "adobe_firefly_prompt_en": "Vertical 9:16 photoreal cinematic still, a single {topic_en} left alone on a small wooden table at night, one warm tungsten lamp, faint steam, quiet empty room, shallow depth of field, 85mm, filmic color, intimate lonely mood, ultra-detailed texture, no faces, no text, no logo, no watermark",
+      "suno_bgm_prompt_en": "10-second ad bed, instrumental only, 68 BPM, solo felt piano and soft cello, warm and aching, first note immediate, no drums, no vocals, close-mic, gentle room tone, fade on the same piano note as the opening"
+    },
+    {
+      "style_name": "비교형",
+      "hook_0_3s": "같은 돈 다른 끝",
+      "body_3_7s": "하나는 남고 하나는 사라져",
+      "cta_7_10s": "너는 어느 쪽이야",
+      "narration_10s": "같은 {topic}인데. 하나는 남고, 하나는 사라진다. 너는 어느 쪽이야.",
+      "viral_title": "같은 {topic}, 끝만 정반대다",
+      "pinned_comment": "같은 {topic} 기준, 너는 A야 B야? A 또는 B만 댓글 #비교 #선택 #숏폼 #10초광고 #댓글 #틱톡",
+      "adobe_firefly_prompt_en": "Vertical 9:16 photoreal commercial split still of the same {topic_en} twice, left side crushed and discarded in cold blue light, right side pristine and prized in warm gold light, hard contrast, razor sharp, advertising campaign, no text, no logo, no watermark, no brand",
+      "suno_bgm_prompt_en": "10-second comparison ad sting, instrumental only, 110 BPM, cold synth tick then warm chord stab, tight kick, no vocals, no intro, clean phone mix, hard cut ending"
+    },
+    {
+      "style_name": "숫자충격형",
+      "hook_0_3s": "365를 곱해봐",
+      "body_3_7s": "네 습관이 숫자가 된다",
+      "cta_7_10s": "숫자만 댓글 ㄱㄱ",
+      "narration_10s": "{topic}. 네가 하루 몇 번 써? 그 숫자, 일 년으로 곱해 봐. 지금 세봐.",
+      "viral_title": "{topic} 하루 몇 번? 1년으로 곱해봐",
+      "pinned_comment": "{topic} 하루 몇 번? 숫자만 남겨. 1년 곱은 내가 한다 #숫자 #충격 #숏폼 #10초광고 #계산 #저장",
+      "adobe_firefly_prompt_en": "Vertical 9:16 photoreal extreme advertising still, many identical {topic_en} lined up in a receding row, harsh direct flash, high contrast, tactile surface detail, overwhelming quantity, dark background, no readable text, no numerals, no logo, no watermark, commercial campaign",
+      "suno_bgm_prompt_en": "10-second shock ad sting, instrumental only, 120 BPM, metronome click and punchy kick from beat one, rising synth ticks like a counter, no vocals, no melody intro, dry and urgent, hard stop ending"
+    },
+    {
+      "style_name": "ASMR몰입형",
+      "hook_0_3s": "이 소리 중독이다",
+      "body_3_7s": "더 가까이, 숨 죽여",
+      "cta_7_10s": "저장. 내일 또 틀어",
+      "narration_10s": "가까이. {topic} 소리만 들어. 눈 감아. 한 번만 더. 저장하고 내일 또.",
+      "viral_title": "볼륨 올려. {topic} 소리만 들어",
+      "pinned_comment": "소리 듣고 소름 1, 별로 2. {topic} 숫자만 댓글 #ASMR #소리 #몰입 #숏폼 #10초 #틱톡",
+      "adobe_firefly_prompt_en": "Vertical 9:16 extreme macro photoreal still of a {topic_en}, surface texture filling the frame, tiny condensation and fibers visible, soft rim light, dark background, intimate ASMR commercial mood, 100mm macro, ultra sharp, no text, no logo, no watermark, no face",
+      "suno_bgm_prompt_en": "10-second ASMR ad bed, instrumental only, 72 BPM, close-mic soft percussion, light vinyl crackle, warm rhodes chord on beat one, no vocals, intimate, low dynamic range, short loop feel, phone-friendly"
+    }
+  ],
+  "adobe": {
+    "firefly_prompt": "Photorealistic vertical 9:16 commercial product photograph of a single disposable white paper cup, single-use takeaway paper cup, rolled rim, no handle, no ceramic mug, no saucer, on a warm wooden table, soft studio lighting, clean upper negative space",
+    "firefly_url": "https://firefly.adobe.com",
+    "express_keywords": "미니멀 제품 광고 세로, 감성 제품 릴스, 제품 소개 인스타그램 스토리",
+    "express_url": "https://new.express.adobe.com",
+    "podcast_tip": "성우 원본의 잡음이나 실내 잔향이 있을 때 선택적으로 정리.",
+    "podcast_url": "https://podcast.adobe.com/enhance"
+  },
+  "suno": {
+    "prompt": "Instrumental only, no vocals, no speech. Refined minimalist commercial music bed for a 10-second vertical product ad about 종이컵. 62 BPM, warm electric-piano-style major ninth chords, soft rounded bass, delicate muted bell accents, sparse soft percussion, clean stereo image, elegant optimistic mood, plenty of midrange space for a Korean male voiceover. Immediate gentle opening, a subtle lift near 7 seconds, a clean soft ending at 10 seconds, no loud riser or crash. If exact duration is unsupported, generate and edit a 10-second excerpt with short fades."
+  }
+}

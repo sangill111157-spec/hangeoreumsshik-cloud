@@ -1,0 +1,91 @@
+{
+  "version": "v12.0-GROK-4.7-VIRAL-MASTER",
+  "updated_at": "2026-10-19 17:30:00",
+  "engine": "Grok 4.7 Realtime Social Engine",
+  "slots": [
+    {
+      "slot_id": "SLOT-01",
+      "time": "오늘 20:30",
+      "target_platforms": ["틱톡 @boosterplaylist", "유튜브 @한걸음씩-r4i"],
+      "video_theme": "어머니의 식은 밥 서사 (감성 자극 & 효도)",
+      "duration": "22~26초 (9:16, 얼굴 노출 금지)",
+      "three_second_hook": "엄마는 나를 기다리다 밥을 식혔다",
+      "hook_timing": "0.5초 내 자막 완전 노출",
+      "expected_views": "18,000~22,000 뷰",
+      "pinned_comment": "엄마한테, 말 없이 이 영상만 보내세요. 오늘 밤 숙면 주파수 432Hz는 프로필에 열어두었습니다.",
+      "suno_prompt": "Intimate Korean emotional ballad, 62 BPM, A minor, solo warm felt piano and deep cello, nostalgic, no vocals, 30s seamless loop",
+      "suno_spec": {
+        "bpm": 62,
+        "key": "A minor",
+        "instruments": "Felt Piano, Deep Cello",
+        "duration": "30s loop",
+        "vocals": "No Vocals"
+      }
+    },
+    {
+      "slot_id": "SLOT-02",
+      "time": "오늘 22:10",
+      "target_platforms": ["유튜브 @TheCaféHour (단독)"],
+      "video_theme": "비 오는 서울 밤 카페 창가 로파이 재즈",
+      "duration": "18~24초 (9:16, 빗방울 창가 감성)",
+      "three_second_hook": "이 소리를 들으면 오늘 밤 반드시 잠듭니다",
+      "hook_timing": "0.5초 내 감성 텍스트 노출",
+      "expected_views": "12,000~15,000 뷰",
+      "pinned_comment": "저장. 비 오는 날 다시 켜. 풀버전 수면용 432Hz는 프로필에.",
+      "suno_prompt": "Seoul rainy night cafe lo-fi jazz, 78 BPM, warm Rhodes electric piano, subtle vinyl crackle and gentle rain ambiance, 24s loop",
+      "suno_spec": {
+        "bpm": 78,
+        "key": "C major / Dm",
+        "instruments": "Warm Rhodes, Vinyl Crackle, Gentle Rain",
+        "duration": "24s loop",
+        "vocals": "No Vocals"
+      }
+    },
+    {
+      "slot_id": "SLOT-03",
+      "time": "내일 07:30",
+      "target_platforms": ["틱톡 @boosterplaylist", "유튜브 @Booster_Playlist"],
+      "video_theme": "출근길 도파민 일렉트로닉 팝 (하루 1% 성공 루틴)",
+      "duration": "15~18초 (빠른 비트, 모티베이션 컷)",
+      "three_second_hook": "출근길 3초 만에 뇌를 깨우는 도파민 비트",
+      "hook_timing": "0.3초 내 강력 비트 & 타이포그래피",
+      "expected_views": "20,000~25,000 뷰",
+      "pinned_comment": "저장만 해. 내일 7시, 알람 대신 이거 켜고 나가. 하루 1% 루틴은 프로필에.",
+      "suno_prompt": "Night-drive motivational electronic pop, 128 BPM, F minor, punchy synth bass, crisp drums, energetic uplift, no vocals, 18s loop",
+      "suno_spec": {
+        "bpm": 128,
+        "key": "F minor",
+        "instruments": "Synth Bass, Crisp Drums, Energetic Uplift",
+        "duration": "18s loop",
+        "vocals": "No Vocals"
+      }
+    },
+    {
+      "slot_id": "SLOT-04",
+      "time": "내일 22:00",
+      "target_platforms": ["틱톡 @TheCaféHour (교차 업로드)"],
+      "video_theme": "TheCaféHour 영상 틱톡 심야 교차 업로드",
+      "duration": "18~24초",
+      "three_second_hook": "지친 하루의 끝, 서울의 밤이 내리는 소리",
+      "hook_timing": "0.5초 내 감성 유입",
+      "expected_views": "15,000~18,000 뷰",
+      "pinned_comment": "저장. 비 오는 날 다시 켜. 풀버전 수면용 432Hz는 프로필에.",
+      "suno_prompt": "Seoul rainy night cafe lo-fi jazz, 78 BPM, warm Rhodes electric piano, subtle vinyl crackle and gentle rain ambiance, 24s loop",
+      "suno_spec": {
+        "bpm": 78,
+        "key": "C major / Dm",
+        "instruments": "Rhodes, Vinyl Crackle, Rain",
+        "duration": "24s loop",
+        "vocals": "No Vocals"
+      }
+    }
+  ],
+  "profile_bio": "한걸음씩 유튜브 | 432Hz 힐링 | Booster_Playlist | 하루 1% 루틴 | 연봉 계산기 · 행운컬러 · 부자DNA",
+  "zero_violation_guard": [
+    "워터마크/플랫폼 로고 삽입 절대 금지",
+    "채널명 자막 삽입 금지 (몰입도 저하 방지)",
+    "AI 기계음 보이스(TTS) 금지 (순수 무부하 BGM/ASMR 집중)",
+    "저작권 음원 무단 사용 금지 (Suno AI 100% 무부하 오리지널 음원만 채택)",
+    "432Hz 표기는 수면/힐링 영상(슬롯1, 슬롯2, 슬롯4)에만 한정 적용"
+  ]
+}
