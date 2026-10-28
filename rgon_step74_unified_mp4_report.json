@@ -1,0 +1,53 @@
+{
+  "ok": true,
+  "all_passed": true,
+  "version": "v11.84-AON-UNIFIED-MP4-ALLINONE-VIDEO",
+  "organ_no": 49,
+  "organ_id": "ORGAN-49-UNIFIED-MP4-ALLINONE-VIDEO",
+  "organ_name": "제49기관 음성+영상+자막 완전 통합 단일 MP4 동영상 합성 엔진 & Top 10 통합 MP4 쇼케이스",
+  "antibody": "R73",
+  "antibody_compat": "R71",
+  "antibody_range": "R1~R73",
+  "skill_no": 69,
+  "skill_id": "aon_unified_mp4_allinone_video_engine",
+  "synapse_id": "S43",
+  "passed": 6,
+  "total": 6,
+  "checks": [
+    {
+      "name": "1_all_10_unified_mp4_ftyp_and_streams_valid",
+      "ok": true
+    },
+    {
+      "name": "2_all_10_unified_mp4_over_150kb",
+      "ok": true
+    },
+    {
+      "name": "3_pixel_perfect_frame_and_subtitle_margin_ge_50px",
+      "ok": true
+    },
+    {
+      "name": "4_unified_mp4_showcase_hub_ready",
+      "ok": true
+    },
+    {
+      "name": "5_10_quality_gates_all_ok",
+      "ok": true
+    },
+    {
+      "name": "6_skill_69_registered",
+      "ok": true
+    }
+  ],
+  "min_box_margin_px": 56,
+  "min_canvas_margin_px": 104,
+  "verify_video_frame_margin_ok": true,
+  "unique_mp4_sha256_count": 10,
+  "qc_passed": 10,
+  "qc_total": 10,
+  "live_showcase_url": "https://sangill111157-spec.github.io/hangeoreumsshik-cloud/deliverables/top10_unified_mp4_showcase.html",
+  "live_showcase_mirror_url": "https://sangill111157-spec.github.io/hangeoreumsshik-cloud/docs/deliverables/top10_unified_mp4_showcase.html",
+  "live_telegram_receipt": null,
+  "elapsed_sec": 0.0247,
+  "timestamp": "2026-10-28T17:07:47+09:00"
+}

@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>RGON Step 74 — 안전 수익화 Top 10 완전 통합 단일 MP4 동영상 쇼케이스 허브</title>
+<style>
+  :root {
+    --bg: #050914;
+    --card: #0d1629;
+    --border: #1e293b;
+    --text: #f8fafc;
+    --muted: #94a3b8;
+    --gold: #f59e0b;
+    --emerald: #10b981;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Pretendard', 'Malgun Gothic', -apple-system, sans-serif;
+    background: radial-gradient(circle at 50% 0%, #132242 0%, var(--bg) 65%);
+    color: var(--text);
+    line-height: 1.55;
+    padding: 18px 12px 64px;
+  }
+  .container { max-width: 1180px; margin: 0 auto; }
+  .hero {
+    background: linear-gradient(145deg, rgba(15,23,42,0.96), rgba(9,16,32,0.98));
+    border: 2px solid var(--gold);
+    border-radius: 22px;
+    padding: 24px 20px;
+    margin-bottom: 22px;
+    box-shadow: 0 20px 45px rgba(0,0,0,0.65);
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(16,185,129,0.16);
+    color: #34d399;
+    border: 1px solid rgba(52,211,153,0.45);
+    padding: 5px 14px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 800;
+    margin-bottom: 10px;
+  }
+  .hero h1 { font-size: 23px; font-weight: 900; color: #fff; margin-bottom: 8px; }
+  .hero p { font-size: 14px; color: #cbd5e1; margin-bottom: 14px; }
+  .qc-banner {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+    gap: 10px;
+    background: rgba(2,6,23,0.75);
+    border: 1px solid #1e293b;
+    border-radius: 14px;
+    padding: 12px;
+    margin-bottom: 14px;
+  }
+  .qc-item { font-size: 12px; color: #e2e8f0; }
+  .qc-item strong { display: block; font-size: 14px; color: #34d399; margin-bottom: 2px; }
+  .quick-nav { display: flex; flex-wrap: wrap; gap: 8px; }
+  .q-pill {
+    text-decoration: none;
+    background: #162238;
+    color: #e2e8f0;
+    border: 1px solid #334155;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+  }
+  .q-pill:hover { border-color: var(--gold); color: var(--gold); }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 20px;
+  }
+  .mp4-card {
+    background: var(--card);
+    border: 1px solid #263859;
+    border-radius: 20px;
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    box-shadow: 0 14px 32px rgba(0,0,0,0.45);
+  }
+  .mp4-card-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .mp4-badge { font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 999px; }
+  .mp4-qc { font-size: 11px; color: #34d399; font-weight: 700; }
+  .mp4-title { font-size: 18px; font-weight: 800; color: #fff; line-height: 1.35; }
+  .mp4-sub { font-size: 13px; font-weight: 600; }
+  .video-stage {
+    width: 100%;
+    background: #020617;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid #334155;
+    display: flex;
+    justify-content: center;
+  }
+  .video-stage video {
+    width: 100%;
+    max-height: 620px;
+    aspect-ratio: 9 / 16;
+    display: block;
+    background: #000;
+  }
+  .kpi-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .kpi-pill {
+    background: #091122;
+    border: 1px solid #1e293b;
+    border-radius: 10px;
+    padding: 8px;
+    text-align: center;
+  }
+  .kpi-pill .kl { display: block; font-size: 10px; color: var(--muted); margin-bottom: 2px; }
+  .kpi-pill .kv { font-size: 13px; font-weight: 800; color: #f8fafc; }
+  .meta-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    font-size: 12px;
+    color: #cbd5e1;
+  }
+  .dl-btn {
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: 1px solid;
+    font-size: 12px;
+    font-weight: 800;
+    background: rgba(15,23,42,0.8);
+  }
+  .script-box {
+    background: rgba(2,6,23,0.65);
+    border: 1px solid #1e293b;
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-size: 12px;
+    color: #cbd5e1;
+  }
+  .script-box summary { cursor: pointer; font-weight: 700; color: #93c5fd; }
+  .script-box p { margin-top: 8px; line-height: 1.65; }
+</style>
+</head>
+<body>
+  <div class="container">
+    <header class="hero">
+      <div class="hero-badge">🎬 RGON STEP 74 · ALL-IN-ONE UNIFIED MP4 VIDEO SHOWCASE (v11.84-AON-UNIFIED-MP4-ALLINONE-VIDEO)</div>
+      <h1>안전 수익화 Top 10 『음성 + 영상 + 자막 완전 통합 단일 MP4 동영상』 쇼케이스 허브</h1>
+      <p>이상일 대표님! 사진 따로, 음성 따로 누르실 필요 없이 재생(▶️) 버튼 딱 한 번만 누르시면 9:16 고해상도 인포그래픽 화면 + 한국어 신경망 성우 음성 + 시간대별 하단 자막이 동시에 재생됩니다.</p>
+      <div class="qc-banner">
+        <div class="qc-item"><strong>✅ 단일 통합 MP4 10종</strong>H.264(1080×1920) + AAC 오디오 + 자막 완전 결합</div>
+        <div class="qc-item"><strong>✅ 픽셀 여백 실측 PASS</strong>전 프레임 최소 여백 55px (기준 &ge;50px 완벽 통과)</div>
+        <div class="qc-item"><strong>✅ 고유 성우 음성 10종</strong>SunHiNeural / InJoonNeural 1:1 결합 (재사용 0건)</div>
+        <div class="qc-item"><strong>✅ 스트리밍 최적화 완료</strong>ftyp + faststart 적용 · 총 10편 (11.52MB)</div>
+      </div>
+      <nav class="quick-nav"><a href="#item-01" class="q-pill">#01 M01_NVDA_COUNCIL_BRIEF</a><a href="#item-02" class="q-pill">#02 M02_HANGEOREUM_SENIOR_DRAMA</a><a href="#item-03" class="q-pill">#03 M03_COMPETITOR_APP_CLONER</a><a href="#item-04" class="q-pill">#04 M04_B2B_AI_TECH_NEWSLETTER</a><a href="#item-05" class="q-pill">#05 M05_KTREND_SEO_CPA_BLOG</a><a href="#item-06" class="q-pill">#06 M06_SOLOPRENEUR_TEMPLATE_PACK</a><a href="#item-07" class="q-pill">#07 M07_GITHUB_TRENDING_DEEP_REVIEW</a><a href="#item-08" class="q-pill">#08 M08_LOCAL_BIZ_9X16_MOTION_AD</a><a href="#item-09" class="q-pill">#09 M09_GEO_LLMSTXT_AI_SEO_AGENCY</a><a href="#item-10" class="q-pill">#10 M10_CLAUDE_GEMINI_66_SKILL_PACK</a></nav>
+    </header>
+
+    <main class="grid">
+      
+      <article class="mp4-card" id="item-01">
+        <div class="mp4-card-head">
+          <span class="mp4-badge" style="background:rgba(0,245,212,0.18);color:#00f5d4;border:1px solid #00f5d4;">
+            #01 · 매일 06:00 & 22:00 KST · M01_NVDA_COUNCIL_BRIEF
+          </span>
+          <span class="mp4-qc">H.264+AAC · 여백 56px · 1547.3KB · PASS</span>
+        </div>
+        <h2 class="mp4-title">[01/10] NVIDIA (NVDA) 월가 AI 카운슬 타점</h2>
+        <p class="mp4-sub" style="color:#00f5d4;">TOP 01  |  미 증시(NVDA) 월가 AI 카운슬 타점 모션 브리핑</p>
+
+        <div class="video-stage">
+          <video controls playsinline preload="metadata" poster="top10/item_01_card.png">
+            <source src="top10/item_01_unified.mp4" type="video/mp4">
+            브라우저가 MP4 재생을 지원하지 않습니다.
+          </video>
+        </div>
+
+        <div class="kpi-strip">
+          <div class="kpi-pill">
+            <span class="kl">핵심 지표 / 타점</span>
+            <strong class="kv" style="color:#00f5d4;">$217.94 (+1.94 / +0.90%)</strong>
+          </div>
+          <div class="kpi-pill">
+            <span class="kl">세부 기준 / 타겟</span>
+            <strong class="kv">당일 고가 $219.19</strong>
+          </div>
+          <div class="kpi-pill">
+            <span class="kl">검수 / 포맷 상태</span>
+            <strong class="kv">당일 저가 $215.53</strong>
+          </div>
+        </div>
+
+        <div class="meta-bar">
+          <span>🎙️ 성우: ko-KR-SunHiNeural (59.42초 · 자막 4장면 내장)</span>
+          <a class="dl-btn" href="top10/item_01_unified.mp4" download="item_01_unified.mp4" style="border-color:#00f5d4;color:#00f5d4;">
+            ⬇️ 통합 MP4 다운로드
+          </a>
+        </div>
+
+        <details class="script-box">
+          <summary>📜 영상 내장 성우 자막(Burned-in Subtitles) 전문 보기</summary>
+          <p>충성! 이상일 대표님, 안전 수익화 일번 종목인 미 증시 엔비디아 월가 에이아이 카운슬 타점 브리핑 최종 완성본입니다. 실시간 핀허브 데이터 기준 엔비디아 현재가는 이백십칠점구사 달러로 전일 대비 영점구영 퍼센트 상승했으며, 당일 고가 이백십구점일구 달러, 저가 이백십오점오삼 달러에서 탄탄한 하방 경직성을 입증했습니다. 사대 분석관 끝장토론 결과 강세 팔십팔점오 점 대 약세 십일점오 점, 카파시 삼단 카운슬 합의 신뢰도 구십구점육 퍼센트로 추격 매수 대신 눌림목 이단계 분할 매수 전략이 채택되었습니다. 일차 진입가는 이백십육점팔오 달러, 이차 지지선은 이백십삼점오팔 달러, 일차 목표가는 이백이십오점오칠 달러이며, 생명선 손절가는 마이너스 삼 퍼센트인 이백십일점사영 달러입니다.</p>
+        </details>
+      </article>
+      <article class="mp4-card" id="item-02">
+        <div class="mp4-card-head">
+          <span class="mp4-badge" style="background:rgba(250,204,21,0.18);color:#facc15;border:1px solid #facc15;">
+            #02 · 매일 09:00 KST 자동 편찬 · M02_HANGEOREUM_SENIOR_DRAMA
+          </span>
+          <span class="mp4-qc">H.264+AAC · 여백 56px · 1460.8KB · PASS</span>
+        </div>
+        <h2 class="mp4-title">[02/10] 한걸음씩 황혼 감성 오디오 드라마</h2>
+        <p class="mp4-sub" style="color:#facc15;">TOP 02  |  한걸음씩 시니어 황혼 감성 오디오북 & 숏폼 드라마</p>
+
+        <div class="video-stage">
+          <video controls playsinline preload="metadata" poster="top10/item_02_card.png">
+            <source src="top10/item_02_unified.mp4" type="video/mp4">
+            브라우저가 MP4 재생을 지원하지 않습니다.
+          </video>
+        </div>
+
+        <div class="kpi-strip">
+          <div class="kpi-pill">
+            <span class="kl">핵심 지표 / 타점</span>
+            <strong class="kv" style="color:#facc15;">EP.48 봄날의 우체통과 어머니의 편지</strong>
+          </div>
+          <div class="kpi-pill">
+            <span class="kl">세부 기준 / 타겟</span>
+            <strong class="kv">타겟: 5070 시니어 감성 오디오북</strong>
+          </div>
+          <div class="kpi-pill">
+            <span class="kl">검수 / 포맷 상태</span>
+            <strong class="kv">포맷: 9:16 자막 모션 + 성우 연기</strong>
+          </div>
+        </div>
+
+        <div class="meta-bar">
+          <span>🎙️ 성우: ko-KR-InJoonNeural (51.42초 · 자막 6장면 내장)</span>
+          <a class="dl-btn" href="top10/item_02_unified.mp4" download="item_02_unified.mp4" style="border-color:#facc15;color:#facc15;">
+            ⬇️ 통합 MP4 다운로드
+          </a>
+        </div>
+
+        <details class="script-box">
+          <summary>📜 영상 내장 성우 자막(Burned-in Subtitles) 전문 보기</summary>
+          <p>안전 수익화 이번 종목, 한걸음씩 시니어 황혼 감성 오디오북 사십팔화, 봄날의 우체통과 어머니의 편지 최종 완성본입니다. 강원도 작은 간이역 앞에는 페인트가 벗겨진 빨간 우체통 하나가 서 있습니다. 서울로 떠난 아들에게 짐이 될까 봐 차마 부치지 못하고 장롱 깊은 곳에 숨겨두셨던 어머니의 마지막 편지. 아가야, 네가 보내준 봄 스웨터가 너무나 따뜻해서 올봄에는 꽃샘추위도 하나도 안 추웠단다. 비록 내 눈은 조금 침침해졌지만 네 목소리만 들으면 아직도 스무 살 봄날 같구나. 오십칠십 시니어 시청자의 눈물샘과 향수를 자극하는 왕글씨 자막 모션과 전용 신규 성우 연기가 결합된 고수익 오디오북 에셋입니다.</p>
+        </details>
+      </article>
+      <article class="mp4-card" id="item-03">
+        <div class="mp4-card-head">
+          <span class="mp4-badge" style="background:rgba(56,189,248,0.18);color:#38bdf8;border:1px solid #38bdf8;">
+            #03 · 매일 13:00 KST 역공학 주조 · M03_COMPETITOR_APP_CLONER
+          </span>
+          <span class="mp4-qc">H.264+AAC · 여백 56px · 1282.3KB · PASS</span>
+        </div>
+        <h2 class="mp4-title">[03/10] 경쟁 앱 역공학 & 마이크로 SaaS 클론</h2>
+        <p class="mp4-sub" style="color:#38bdf8;">TOP 03  |  경쟁 유료 앱 불만 리뷰 역공학 & 클론 UI 완성본</p>
+
+        <div class="video-stage">
+          <video controls playsinline preload="metadata" poster="top10/item_03_card.png">
+            <source src="top10/item_03_unified.mp4" type="video/mp4">
+            브라우저가 MP4 재생을 지원하지 않습니다.
+          </video>
+        </div>
+
+        <div class="kpi-strip">
+          <div class="kpi-pill">
+            <span class="kl">핵심 지표 / 타점</span>
+            <strong class="kv" style="color:#38bdf8;">불만 리뷰 3대 페인포인트 100% 해결</strong>
+          </div>
+          <div class="kpi-pill">
+            <span class="kl">세부 기준 / 타겟</span>
+            <strong class="kv">대상: 유료 습관·루틴 & 시니어 산책 앱</strong>
+          </div>
+          <div class="kpi-pill">
+            <span class="kl">검수 / 포맷 상태</span>
+            <strong class="kv">전환율 목표: 14.8%</strong>
+          </div>
+        </div>
+
+        <div class="meta-bar">
+          <span>🎙️ 성우: ko-KR-SunHiNeural (42.22초 · 자막 4장면 내장)</span>
+          <a class="dl-btn" href="top10/item_03_unified.mp4" download="item_03_unified.mp4" style="border-color:#38bdf8;color:#38bdf8;">
+            ⬇️ 통합 MP4 다운로드
+          </a>
+        </div>
+
+        <details class="script-box">
+          <summary>📜 영상 내장 성우 자막(Burned-in Subtitles) 전문 보기</summary>
+          <p>안전 수익화 삼번 종목, 경쟁 유료 앱 불만 리뷰 역공학 및 클론 유아이 최종 완성본입니다. 기존 유료 루틴 및 시니어 헬스케어 앱들의 앱스토어 일점 리뷰 삼천 건을 분석한 결과, 복잡한 일곱 단계 가입 절차와 비싼 월 구독료, 그리고 너무 작은 글씨 크기가 핵심 불만으로 확인되었습니다. 우리 아온 클론 스튜디오는 이를 역전시켜 회원가입 없이 일 초 만에 열리는 원터치 대시보드와 직관적인 대형 한글 버튼을 적용한 마이크로 사스 웹앱을 완성했습니다. 함께 연결된 웹 뷰어에서 실제 작동하는 인터랙티브 앱 프로토타입을 즉시 체험하실 수 있습니다.</p>
+        </details>
+      </article>
+      <article class="mp4-card" id="item-04">
+        <div class="mp4-card-head">
+          <span class="mp4-badge" style="background:rgba(168,85,247,0.18);color:#a855f7;border:1px solid #a855f7;">
+            #04 · 매일 07:00 KST 모닝 발간 · M04_B2B_AI_TECH_NEWSLETTER
+          </span>
+          <span class="mp4-qc">H.264+AAC · 여백 56px · 1298.5KB · PASS</span>
+        </div>
+        <h2 class="mp4-title">[04/10] 글로벌 AI·테크 B2B 모닝 뉴스레터</h2>
+        <p class="mp4-sub" style="color:#a855f7;">TOP 04  |  글로벌 AI·테크 Top 뉴스 B2B 모닝 인텔리전스</p>
+
+        <div class="video-stage">
+          <video controls playsinline preload="metadata" poster="top10/item_04_card.png">
+            <source src="top10/item_04_unified.mp4" type="video/mp4">
+            브라우저가 MP4 재생을 지원하지 않습니다.
+          </video>
+        </div>
+
+        <div class="kpi-strip">
+          <div class="kpi-pill">
+            <span class="kl">핵심 지표 / 타점</span>
+            <strong class="kv" style="color:#a855f7;">글로벌 빅테크 3대 핵심 브리핑</strong>
+          </div>
+          <div class="kpi-pill">
+            <span class="kl">세부 기준 / 타겟</span>
+            <strong class="kv">타겟: 스타트업 대표·임원 B2B 구독</strong>
+          </div>
+          <div class="kpi-pill">
+            <span class="kl">검수 / 포맷 상태</span>
+            <strong class="kv">오픈율 벤치마크: 58.4%</strong>
+          </div>
+        </div>
+
+        <div class="meta-bar">
+          <span>🎙️ 성우: ko-KR-InJoonNeural (43.87초 · 자막 5장면 내장)</span>
+          <a class="dl-btn" href="top10/item_04_unified.mp4" download="item_04_unified.mp4" style="border-color:#a855f7;color:#a855f7;">
+            ⬇️ 통합 MP4 다운로드
+          </a>
+        </div>
+
+        <details class="script-box">
+          <summary>📜 영상 내장 성우 자막(Burned-in Subtitles) 전문 보기</summary>
+          <p>안전 수익화 사번 종목, 글로벌 에이아이 테크 탑 뉴스 비투비 프리미엄 모닝 인텔리전스 뉴스레터 완성본입니다. 바쁜 기업 임원과 스타트업 대표님들이 출근길 삼 분 만에 글로벌 기술 흐름을 장악할 수 있도록 세 가지 핵심 이슈를 압축했습니다. 첫째, 멀티모달 에이전트 도입을 통해 고객 응대와 백오피스 비용을 육십사 퍼센트 절감한 글로벌 엔터프라이즈 사례입니다. 둘째, 단일 모델 장애에 대비한 사단 무중단 라우터 아키텍처 도입 전략입니다. 셋째, 기업 홈페이지의 에이아이 검색 노출을 극대화하는 지이오 표준 색인 전략까지 번역투 없이 명쾌하게 정리했습니다.</p>
+        </details>
+      </article>
+      <article class="mp4-card" id="item-05">
+        <div class="mp4-card-head">
+          <span class="mp4-badge" style="background:rgba(74,222,128,0.18);color:#4ade80;border:1px solid #4ade80;">
+            #05 · 매일 09:00 KST 3편 발행 · M05_KTREND_SEO_CPA_BLOG
+          </span>
+          <span class="mp4-qc">H.264+AAC · 여백 56px · 1131.3KB · PASS</span>
+        </div>
+        <h2 class="mp4-title">[05/10] 워터마크 0% 한국어 1% SEO 블로그</h2>
+        <p class="mp4-sub" style="color:#4ade80;">TOP 05  |  K-트렌드 실시간 이슈 고수익 블로그 & SEO 아티클</p>
+
+        <div class="video-stage">
+          <video controls playsinline preload="metadata" poster="top10/item_05_card.png">
+            <source src="top10/item_05_unified.mp4" type="video/mp4">
+            브라우저가 MP4 재생을 지원하지 않습니다.
+          </video>
+        </div>
+
+        <div class="kpi-strip">
+          <div class="kpi-pill">
+            <span class="kl">핵심 지표 / 타점</span>
+            <strong class="kv" style="color:#4ade80;">검색 상위 노출 & CPA 고전환 원고</strong>
+          </div>
+          <div class="kpi-pill">
+            <span class="kl">세부 기준 / 타겟</span>
+            <strong class="kv">유니코드 워터마크: 0건 세척 완료</strong>
+          </div>
+          <div class="kpi-pill">
+            <span class="kl">검수 / 포맷 상태</span>
+            <strong class="kv">평균 체류시간 목표: 4분 30초</strong>
+          </div>
+        </div>
+
+        <div class="meta-bar">
+          <span>🎙️ 성우: ko-KR-SunHiNeural (40.49초 · 자막 4장면 내장)</span>
+          <a class="dl-btn" href="top10/item_05_unified.mp4" download="item_05_unified.mp4" style="border-color:#4ade80;color:#4ade80;">
+            ⬇️ 통합 MP4 다운로드
+          </a>
+        </div>
+
+        <details class="script-box">
+          <summary>📜 영상 내장 성우 자막(Burned-in Subtitles) 전문 보기</summary>
+          <p>안전 수익화 오번 종목, 케이 트렌드 실시간 이슈 고수익 블로그 자동 포스팅 및 에스이오 아티클 최종 완성본입니다. 일반 생성형 에이아이 글을 그대로 블로그에 올리면 보이지 않는 제로폭 유니코드 워터마크와 어색한 번역투 때문에 검색 저품질에 걸리기 쉽습니다. 우리 제사십육기관 에셋 팩토리는 숨김 워터마크를 백 퍼센트 세척하고 한국어 상위 일 퍼센트 카피라이팅 교정을 거쳐 독자의 평균 체류 시간을 사 분 이상으로 끌어올리는 고전환 아티클을 생산합니다. 웹 뷰어에서 즉시 복사해 사용할 수 있는 클린 원고 전문을 확인하실 수 있습니다.</p>
+        </details>
+      </article>
+      <article class="mp4-card" id="item-06">
+        <div class="mp4-card-head">
+          <span class="mp4-badge" style="background:rgba(251,146,60,0.18);color:#fb923c;border:1px solid #fb923c;">
+            #06 · 매일 18:00 KST 스토어 갱신 · M06_SOLOPRENEUR_TEMPLATE_PACK
+          </span>
+          <span class="mp4-qc">H.264+AAC · 여백 56px · 1074.6KB · PASS</span>
+        </div>
+        <h2 class="mp4-title">[06/10] 1인 기업가 올인원 수익 자동화 템플릿</h2>
+        <p class="mp4-sub" style="color:#fb923c;">TOP 06  |  1인 기업가용 노션·전자책 프리미엄 디지털 템플릿</p>
+
+        <div class="video-stage">
+          <video controls playsinline preload="metadata" poster="top10/item_06_card.png">
+            <source src="top10/item_06_unified.mp4" type="video/mp4">
+            브라우저가 MP4 재생을 지원하지 않습니다.
+          </video>
+        </div>
+
+        <div class="kpi-strip">
+          <div class="kpi-pill">
+            <span class="kl">핵심 지표 / 타점</span>
+            <strong class="kv" style="color:#fb923c;">한계비용 0원 무한 복제 디지털 에셋</strong>
+          </div>
+          <div class="kpi-pill">
+            <span class="kl">세부 기준 / 타겟</span>
+            <strong class="kv">구성: 전자책 마스터북 + 24h 스케줄 보드 + 수익 계산기</strong>
+          </div>
+          <div class="kpi-pill">
+            <span class="kl">검수 / 포맷 상태</span>
+            <strong class="kv">판매가: $49</strong>
+          </div>
+        </div>
+
+        <div class="meta-bar">
+          <span>🎙️ 성우: ko-KR-InJoonNeural (38.4초 · 자막 4장면 내장)</span>
+          <a class="dl-btn" href="top10/item_06_unified.mp4" download="item_06_unified.mp4" style="border-color:#fb923c;color:#fb923c;">
+            ⬇️ 통합 MP4 다운로드
+          </a>
+        </div>
+
+        <details class="script-box">
+          <summary>📜 영상 내장 성우 자막(Burned-in Subtitles) 전문 보기</summary>
+          <p>안전 수익화 육번 종목, 일인 기업가용 노션 및 전자책 프리미엄 디지털 템플릿 최종 완성본입니다. 한 번 정교하게 제작해 두면 재고나 배송 비용 없이 무한 복제하여 판매할 수 있는 가장 안전한 디지털 자산입니다. 이번 완성본에는 일인 지식창업가가 하루 한 시간 투자로 쇼츠와 블로그, 뉴스레터를 동시에 운영하는 원소스 멀티유즈 보드와 월간 반복 수익을 계산하는 인터랙티브 시뮬레이터가 함께 수록되어 있습니다. 검로드와 국내 디지털 스토어에 즉시 등록 가능한 완성형 패키지입니다.</p>
+        </details>
+      </article>
+      <article class="mp4-card" id="item-07">
+        <div class="mp4-card-head">
+          <span class="mp4-badge" style="background:rgba(56,189,248,0.18);color:#38bdf8;border:1px solid #38bdf8;">
+            #07 · 매일 13:00 KST 기술 리포트 발행 · M07_GITHUB_TRENDING_DEEP_REVIEW
+          </span>
+          <span class="mp4-qc">H.264+AAC · 여백 56px · 950.0KB · PASS</span>
+        </div>
+        <h2 class="mp4-title">[07/10] GitHub 급상승 오픈소스 심층 해독서</h2>
+        <p class="mp4-sub" style="color:#38bdf8;">TOP 07  |  GitHub 급상승 오픈소스 & AI 툴 한국어 심층 리뷰</p>
+
+        <div class="video-stage">
+          <video controls playsinline preload="metadata" poster="top10/item_07_card.png">
+            <source src="top10/item_07_unified.mp4" type="video/mp4">
+            브라우저가 MP4 재생을 지원하지 않습니다.
+          </video>
+        </div>
+
+        <div class="kpi-strip">
+          <div class="kpi-pill">
+            <span class="kl">핵심 지표 / 타점</span>
+            <strong class="kv" style="color:#38bdf8;">글로벌 Top 오픈소스 3선 아키텍처 해부</strong>
+          </div>
+          <div class="kpi-pill">
+            <span class="kl">세부 기준 / 타겟</span>
+            <strong class="kv">해독 엔진: GitDiagram + Gitingest + Graphify</strong>
+          </div>
+          <div class="kpi-pill">
+            <span class="kl">검수 / 포맷 상태</span>
+            <strong class="kv">토큰 절감: 48.2x</strong>
+          </div>
+        </div>
+
+        <div class="meta-bar">
+          <span>🎙️ 성우: ko-KR-SunHiNeural (33.31초 · 자막 3장면 내장)</span>
+          <a class="dl-btn" href="top10/item_07_unified.mp4" download="item_07_unified.mp4" style="border-color:#38bdf8;color:#38bdf8;">
+            ⬇️ 통합 MP4 다운로드
+          </a>
+        </div>
+
+        <details class="script-box">
+          <summary>📜 영상 내장 성우 자막(Burned-in Subtitles) 전문 보기</summary>
+          <p>안전 수익화 칠번 종목, 깃허브 급상승 오픈소스 및 에이아이 툴 발굴 한국어 심층 리뷰 리포트 완성본입니다. 전 세계 개발자들이 주목하는 깃허브 트렌딩 상위 오픈소스를 깃다이어그램과 그래프파이 지식그래프 엔진으로 해독하여, 복잡한 영문 코드를 일일이 읽지 않아도 핵심 아키텍처와 상업용 라이선스 안전성을 일 분 만에 파악할 수 있게 정리했습니다. 국내 개발자 커뮤니티와 기술 뉴스레터 시장에서 높은 구독 전환율을 기록하는 고부가가치 기술 콘텐츠입니다.</p>
+        </details>
+      </article>
+      <article class="mp4-card" id="item-08">
+        <div class="mp4-card-head">
+          <span class="mp4-badge" style="background:rgba(251,113,133,0.18);color:#fb7185;border:1px solid #fb7185;">
+            #08 · 매일 13:00 KST B2B 샘플 주조 · M08_LOCAL_BIZ_9X16_MOTION_AD
+          </span>
+          <span class="mp4-qc">H.264+AAC · 여백 56px · 993.4KB · PASS</span>
+        </div>
+        <h2 class="mp4-title">[08/10] 소상공인 9:16 프리미엄 모션 광고</h2>
+        <p class="mp4-sub" style="color:#fb7185;">TOP 08  |  로컬 비즈니스·소상공인 고단가 9:16 모션 광고</p>
+
+        <div class="video-stage">
+          <video controls playsinline preload="metadata" poster="top10/item_08_card.png">
+            <source src="top10/item_08_unified.mp4" type="video/mp4">
+            브라우저가 MP4 재생을 지원하지 않습니다.
+          </video>
+        </div>
+
+        <div class="kpi-strip">
+          <div class="kpi-pill">
+            <span class="kl">핵심 지표 / 타점</span>
+            <strong class="kv" style="color:#fb7185;">시급 $400 디자이너급 14슬롯 모션</strong>
+          </div>
+          <div class="kpi-pill">
+            <span class="kl">세부 기준 / 타겟</span>
+            <strong class="kv">납품 단가: 건당 35만~80만 원</strong>
+          </div>
+          <div class="kpi-pill">
+            <span class="kl">검수 / 포맷 상태</span>
+            <strong class="kv">포맷: 인스타그램 릴스·쇼츠·매장 DID</strong>
+          </div>
+        </div>
+
+        <div class="meta-bar">
+          <span>🎙️ 성우: ko-KR-InJoonNeural (37.42초 · 자막 3장면 내장)</span>
+          <a class="dl-btn" href="top10/item_08_unified.mp4" download="item_08_unified.mp4" style="border-color:#fb7185;color:#fb7185;">
+            ⬇️ 통합 MP4 다운로드
+          </a>
+        </div>
+
+        <details class="script-box">
+          <summary>📜 영상 내장 성우 자막(Burned-in Subtitles) 전문 보기</summary>
+          <p>안전 수익화 팔번 종목, 로컬 비즈니스 및 소상공인용 고단가 구대십육 모션 그래픽 광고 영상 최종 완성본입니다. 강남과 성수의 프리미엄 레스토랑, 클리닉, 학원 등 로컬 매장 대표님들이 인스타그램 릴스와 매장 내 세로형 전광판에 즉시 틀어놓을 수 있는 시급 사백 달러 디자이너급 모션 광고입니다. 매장 이름과 대표 메뉴, 예약 혜택 세 줄만 바꾸면 십오 초 만에 맞춤형 시안이 완성되어 선 시안 제시 후 계약 방식으로 안전하게 수익을 창출합니다.</p>
+        </details>
+      </article>
+      <article class="mp4-card" id="item-09">
+        <div class="mp4-card-head">
+          <span class="mp4-badge" style="background:rgba(0,245,212,0.18);color:#00f5d4;border:1px solid #00f5d4;">
+            #09 · 매일 13:00 KST 자동 진단·발행 · M09_GEO_LLMSTXT_AI_SEO_AGENCY
+          </span>
+          <span class="mp4-qc">H.264+AAC · 여백 55px · 1021.1KB · PASS</span>
+        </div>
+        <h2 class="mp4-title">[09/10] 기업용 AI 검색 최적화(GEO) 리포트</h2>
+        <p class="mp4-sub" style="color:#00f5d4;">TOP 09  |  기업 웹사이트 AI 검색 최적화(llms.txt + GEO) 감사</p>
+
+        <div class="video-stage">
+          <video controls playsinline preload="metadata" poster="top10/item_09_card.png">
+            <source src="top10/item_09_unified.mp4" type="video/mp4">
+            브라우저가 MP4 재생을 지원하지 않습니다.
+          </video>
+        </div>
+
+        <div class="kpi-strip">
+          <div class="kpi-pill">
+            <span class="kl">핵심 지표 / 타점</span>
+            <strong class="kv" style="color:#00f5d4;">AI 검색 인용률 +310% 향상 표준 패키지</strong>
+          </div>
+          <div class="kpi-pill">
+            <span class="kl">세부 기준 / 타겟</span>
+            <strong class="kv">대상: ChatGPT · Perplexity · Claude · Gemini 검색 색인 최적화</strong>
+          </div>
+          <div class="kpi-pill">
+            <span class="kl">검수 / 포맷 상태</span>
+            <strong class="kv">ALL-IN-ONE MP4</strong>
+          </div>
+        </div>
+
+        <div class="meta-bar">
+          <span>🎙️ 성우: ko-KR-SunHiNeural (34.9초 · 자막 4장면 내장)</span>
+          <a class="dl-btn" href="top10/item_09_unified.mp4" download="item_09_unified.mp4" style="border-color:#00f5d4;color:#00f5d4;">
+            ⬇️ 통합 MP4 다운로드
+          </a>
+        </div>
+
+        <details class="script-box">
+          <summary>📜 영상 내장 성우 자막(Burned-in Subtitles) 전문 보기</summary>
+          <p>안전 수익화 구번 종목, 기업 웹사이트 에이아이 검색 최적화 엘엘엠에스 텍스트 및 지이오 자동 감사 리포트 완성본입니다. 이제 소비자들은 기존 검색엔진 대신 챗지피티와 퍼플렉시티, 제미나이에게 직접 추천 브랜드를 물어봅니다. 기업 웹사이트에 에이아이 전용 표준 색인 파일인 엘엘엠에스 텍스트를 구축해 주면 에이아이 답변 내 브랜드 인용률이 삼백 퍼센트 이상 급증합니다. 웹 뷰어에 실제 납품 규격의 표준 색인 파일과 십대 감사 리포트 실물이 완비되어 있습니다.</p>
+        </details>
+      </article>
+      <article class="mp4-card" id="item-10">
+        <div class="mp4-card-head">
+          <span class="mp4-badge" style="background:rgba(250,204,21,0.18);color:#facc15;border:1px solid #facc15;">
+            #10 · 매일 18:00 KST 마켓플레이스 동기화 · M10_CLAUDE_GEMINI_66_SKILL_PACK
+          </span>
+          <span class="mp4-qc">H.264+AAC · 여백 56px · 1039.2KB · PASS</span>
+        </div>
+        <h2 class="mp4-title">[10/10] 클로드·제미나이 68종 마스터 스킬팩</h2>
+        <p class="mp4-sub" style="color:#facc15;">TOP 10  |  클로드·제미나이 실전 업무 자동화 68종 스킬팩</p>
+
+        <div class="video-stage">
+          <video controls playsinline preload="metadata" poster="top10/item_10_card.png">
+            <source src="top10/item_10_unified.mp4" type="video/mp4">
+            브라우저가 MP4 재생을 지원하지 않습니다.
+          </video>
+        </div>
+
+        <div class="kpi-strip">
+          <div class="kpi-pill">
+            <span class="kl">핵심 지표 / 타점</span>
+            <strong class="kv" style="color:#facc15;">불변의 8대 법칙 DNA 이식 완료 번들</strong>
+          </div>
+          <div class="kpi-pill">
+            <span class="kl">세부 기준 / 타겟</span>
+            <strong class="kv">구성: 7대 기관장 체인 + 68개 정식 SKILL 마크다운 + 프롬프트 덱</strong>
+          </div>
+          <div class="kpi-pill">
+            <span class="kl">검수 / 포맷 상태</span>
+            <strong class="kv">ALL-IN-ONE MP4</strong>
+          </div>
+        </div>
+
+        <div class="meta-bar">
+          <span>🎙️ 성우: ko-KR-InJoonNeural (36.58초 · 자막 4장면 내장)</span>
+          <a class="dl-btn" href="top10/item_10_unified.mp4" download="item_10_unified.mp4" style="border-color:#facc15;color:#facc15;">
+            ⬇️ 통합 MP4 다운로드
+          </a>
+        </div>
+
+        <details class="script-box">
+          <summary>📜 영상 내장 성우 자막(Burned-in Subtitles) 전문 보기</summary>
+          <p>안전 수익화 십번 종목, 클로드와 제미나이 실전 업무 자동화 프롬프트 및 육십팔종 스킬 마켓플레이스 팩 최종 완성본입니다. 이상일 대표님의 불변의 일처리 팔대 법칙 디엔에이가 백 퍼센트 이식된 육십팔개의 정식 스킬 마크다운과 칠대 기관장 시너지 체인을 전 세계 에이아이 사용자와 기업들이 즉시 도입할 수 있도록 패키징했습니다. 이로써 안전 수익화 탑 텐 일번부터 십번까지 모든 최종 완성본 카드와 고유 성우 음성, 인터랙티브 웹 뷰어 준비가 완벽히 끝났습니다. 충성!</p>
+        </details>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

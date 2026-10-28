@@ -1843,6 +1843,7 @@ try:
         "step71_aon_safe_monetization_top10_engine.py",
         "step72_aon_final_deliverable_sender.py",
         "step73_aon_top10_masterpiece_factory.py",
+        "step74_aon_unified_mp4_video_engine.py",
     ):
         if _org_f not in ORGANS:
             ORGANS.append(_org_f)
@@ -1856,6 +1857,7 @@ except NameError:
         "step71_aon_safe_monetization_top10_engine.py",
         "step72_aon_final_deliverable_sender.py",
         "step73_aon_top10_masterpiece_factory.py",
+        "step74_aon_unified_mp4_video_engine.py",
     ]
 
 
@@ -2067,6 +2069,27 @@ def _r72_s42_check():
                 "evidence": repr(e), "detail": repr(e)}
 
 
+def _r73_s43_check():
+    import time as _tm, importlib as _il
+    _t0 = _tm.perf_counter()
+    name = "대화허브(/통합MP4·/올인원영상·/자막합성·/단일영상배달)→제49기관 음성+영상+자막 완전 통합 단일 MP4 동영상 합성 엔진"
+    try:
+        mod = _il.import_module("step74_aon_unified_mp4_video_engine")
+        res = mod.run_self_test()
+        ok = (
+            mod.ORGAN_NO == 49
+            and res.get("ok") is True
+            and res.get("min_box_margin_px", 0) >= 50
+            and res.get("unique_mp4_sha256_count") == 10
+        )
+        ev = f"organ=49, min_margin_px={res.get('min_box_margin_px')}, mp4s={res.get('unique_mp4_sha256_count')}/10, gates={res.get('qc_passed')}/{res.get('qc_total')}"
+        return {"id": "S43", "name": name, "ok": bool(ok), "sec": round(_tm.perf_counter() - _t0, 3),
+                "evidence": ev, "detail": ev}
+    except Exception as e:
+        return {"id": "S43", "name": name, "ok": False, "sec": round(_tm.perf_counter() - _t0, 3),
+                "evidence": repr(e), "detail": repr(e)}
+
+
 _r66_orig_vsl = globals().get("verify_synapse_links")
 if callable(_r66_orig_vsl) and not getattr(_r66_orig_vsl, "_r66", False):
     def verify_synapse_links(*args, **kwargs):
@@ -2079,8 +2102,9 @@ if callable(_r66_orig_vsl) and not getattr(_r66_orig_vsl, "_r66", False):
         s40 = _r70_s40_check()
         s41 = _r71_s41_check()
         s42 = _r72_s42_check()
+        s43 = _r73_s43_check()
         if isinstance(res, dict) and isinstance(res.get("synapses"), list):
-            items = [x for x in res["synapses"] if not (isinstance(x, dict) and x.get("id") in ("S35", "S36", "S37", "S38", "S39", "S40", "S41", "S42"))] + [s35, s36, s37, s38, s39, s40, s41, s42]
+            items = [x for x in res["synapses"] if not (isinstance(x, dict) and x.get("id") in ("S35", "S36", "S37", "S38", "S39", "S40", "S41", "S42", "S43"))] + [s35, s36, s37, s38, s39, s40, s41, s42, s43]
             res["synapses"] = items
             res["passed"] = sum(1 for x in items if isinstance(x, dict) and x.get("ok"))
             res["total"] = len(items)

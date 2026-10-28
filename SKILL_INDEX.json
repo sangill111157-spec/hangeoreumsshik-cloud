@@ -1,15 +1,15 @@
 {
-  "version": "v11.82-AON-PIXEL-PERFECT-TOP10-MASTERPIECE",
+  "version": "v11.84-AON-UNIFIED-MP4-ALLINONE-VIDEO",
   "ssot_baseline_version": "v11.66-AON-GENERAL-HOSPITAL",
-  "antibody": "R1~R72",
-  "antibody_range": "R1~R72",
-  "antibodies": "R1~R72",
-  "immune": "R1~R72",
-  "generated_at_kst": "2026-10-28 13:11:55 KST",
-  "count": 68,
-  "total": 68,
-  "skill_count": 68,
-  "total_skills": 68,
+  "antibody": "R1~R73",
+  "antibody_range": "R1~R73",
+  "antibodies": "R1~R73",
+  "immune": "R1~R73",
+  "generated_at_kst": "2026-10-28 17:03:47 KST",
+  "count": 69,
+  "total": 69,
+  "skill_count": 69,
+  "total_skills": 69,
   "ssot_baseline_skill_count": 60,
   "skills": [
     {
@@ -637,6 +637,18 @@
       "antibody": "R72",
       "engine_file": "step73_aon_top10_masterpiece_factory.py",
       "path": "skills/aon_pixel_perfect_top10_masterpiece_factory/SKILL.md"
+    },
+    {
+      "no": 69,
+      "id": "aon_unified_mp4_allinone_video_engine",
+      "slug": "aon_unified_mp4_allinone_video_engine",
+      "name": "제49기관 음성+영상+자막 완전 통합 단일 MP4 동영상 합성 엔진 & Top 10 통합 MP4 쇼케이스",
+      "organ": "ORGAN-49-UNIFIED-MP4-ALLINONE-VIDEO",
+      "step": 74,
+      "version": "v11.84-AON-UNIFIED-MP4-ALLINONE-VIDEO",
+      "antibody": "R73",
+      "engine_file": "step74_aon_unified_mp4_video_engine.py",
+      "path": "skills/aon_unified_mp4_allinone_video_engine/SKILL.md"
     }
   ]
 }
