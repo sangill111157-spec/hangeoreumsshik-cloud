@@ -1841,6 +1841,7 @@ try:
         "step69_aon_maestro_synergy_scheduler.py",
         "step70_aon_immutable_dna_keyvault.py",
         "step71_aon_safe_monetization_top10_engine.py",
+        "step72_aon_final_deliverable_sender.py",
     ):
         if _org_f not in ORGANS:
             ORGANS.append(_org_f)
@@ -1852,6 +1853,7 @@ except NameError:
         "step69_aon_maestro_synergy_scheduler.py",
         "step70_aon_immutable_dna_keyvault.py",
         "step71_aon_safe_monetization_top10_engine.py",
+        "step72_aon_final_deliverable_sender.py",
     ]
 
 
@@ -2018,6 +2020,30 @@ def _r70_s40_check():
                 "evidence": repr(e), "detail": repr(e)}
 
 
+def _r71_s41_check():
+    import time as _tm, importlib as _il
+    _t0 = _tm.perf_counter()
+    name = "대화허브(/최종완성본·/루미배달부·/3탭전송·/가짜링크박멸)→제47기관 루미-스타일 1차 검수 All-OK 최종 완성본 실물 직통 배달부"
+    try:
+        mod = _il.import_module("step72_aon_final_deliverable_sender")
+        gate = mod.verify_first_pass_all_ok_gate()
+        dry = mod.send_lumi_3tab_final_deliverables(live_send=False)
+        ok = (
+            mod.ORGAN_NO == 47
+            and gate.get("all_ok") is True
+            and gate.get("passed") == 7
+            and dry.get("ok") is True
+            and dry.get("fake_links_count") == 0
+            and "_immutable_dna_seal" in gate
+        )
+        ev = f"organ=47, gates={gate.get('passed')}/{gate.get('total')}, fake_links={dry.get('fake_links_count')}, tabs={len(dry.get('tabs_prepared', []))}"
+        return {"id": "S41", "name": name, "ok": bool(ok), "sec": round(_tm.perf_counter() - _t0, 3),
+                "evidence": ev, "detail": ev}
+    except Exception as e:
+        return {"id": "S41", "name": name, "ok": False, "sec": round(_tm.perf_counter() - _t0, 3),
+                "evidence": repr(e), "detail": repr(e)}
+
+
 _r66_orig_vsl = globals().get("verify_synapse_links")
 if callable(_r66_orig_vsl) and not getattr(_r66_orig_vsl, "_r66", False):
     def verify_synapse_links(*args, **kwargs):
@@ -2028,8 +2054,9 @@ if callable(_r66_orig_vsl) and not getattr(_r66_orig_vsl, "_r66", False):
         s38 = _r68_s38_check()
         s39 = _r69_s39_check()
         s40 = _r70_s40_check()
+        s41 = _r71_s41_check()
         if isinstance(res, dict) and isinstance(res.get("synapses"), list):
-            items = [x for x in res["synapses"] if not (isinstance(x, dict) and x.get("id") in ("S35", "S36", "S37", "S38", "S39", "S40"))] + [s35, s36, s37, s38, s39, s40]
+            items = [x for x in res["synapses"] if not (isinstance(x, dict) and x.get("id") in ("S35", "S36", "S37", "S38", "S39", "S40", "S41"))] + [s35, s36, s37, s38, s39, s40, s41]
             res["synapses"] = items
             res["passed"] = sum(1 for x in items if isinstance(x, dict) and x.get("ok"))
             res["total"] = len(items)

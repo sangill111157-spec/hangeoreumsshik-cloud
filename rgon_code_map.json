@@ -1,11 +1,11 @@
 {
   "schema": "RGON_CODE_MAP_V1170",
-  "version": "v11.78-AON-SAFE-MONETIZATION-TOP10",
+  "version": "v11.80-AON-LUMI-FINAL-DELIVERABLE-SENDER",
   "ssot_baseline_version": "v11.66-AON-GENERAL-HOSPITAL",
-  "antibody_range": "R1~R70",
-  "formal_skills_total": 66,
+  "antibody_range": "R1~R71",
+  "formal_skills_total": 67,
   "ssot_verified_skills": 60,
-  "total_organs": 46,
+  "total_organs": 47,
   "total_shorts_integrated": 43,
   "shorts_breakdown": {
     "batch_1_step63": 13,
@@ -202,6 +202,22 @@
       "html_drawer_id": "step71-safe-monetization-top10-drawer",
       "monetization_models_count": 10,
       "schedule_slots_count": 6
+    },
+    "Step72_Organ47": {
+      "step": 72,
+      "organ_no": 47,
+      "organ_id": "ORGAN-47-LUMI-FINAL-DELIVERABLE-SENDER",
+      "organ_name": "제47기관 루미-스타일 1차 검수 All-OK 최종 완성본 실물 직통 배달부",
+      "version": "v11.80-AON-LUMI-FINAL-DELIVERABLE-SENDER",
+      "antibody": "R71",
+      "skill_no": 67,
+      "skill_id": "aon_lumi_final_deliverable_sender",
+      "synapse_id": "S41",
+      "engine_file": "step72_aon_final_deliverable_sender.py",
+      "report_json": "rgon_step72_lumi_deliverable_report.json",
+      "html_drawer_id": "step72-lumi-final-deliverable-drawer",
+      "live_hub_url": "https://sangill111157-spec.github.io/hangeoreumsshik-cloud/deliverables/final_deliverable_hub.html",
+      "live_motion_url": "https://sangill111157-spec.github.io/hangeoreumsshik-cloud/deliverables/nvda_shorts_motion_preview.html"
     }
   },
   "neural_synapse_verifier": {
@@ -213,5 +229,5 @@
     ],
     "target_score": 100.0
   },
-  "formal_skills_count": 66
+  "formal_skills_count": 67
 }

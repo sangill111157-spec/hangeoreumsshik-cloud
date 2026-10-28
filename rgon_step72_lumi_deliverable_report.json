@@ -1,0 +1,144 @@
+{
+  "ok": true,
+  "all_passed": true,
+  "version": "v11.80-AON-LUMI-FINAL-DELIVERABLE-SENDER",
+  "organ_no": 47,
+  "organ_id": "ORGAN-47-LUMI-FINAL-DELIVERABLE-SENDER",
+  "organ_name": "제47기관 루미-스타일 1차 검수 All-OK 최종 완성본 실물 직통 배달부",
+  "antibody": "R71",
+  "antibody_compat": "R69",
+  "antibody_range": "R1~R71",
+  "skill_no": 67,
+  "skill_id": "aon_lumi_final_deliverable_sender",
+  "synapse_id": "S41",
+  "passed": 6,
+  "total": 6,
+  "checks": [
+    {
+      "name": "1_fake_link_scrubber_zero_pollution",
+      "ok": true
+    },
+    {
+      "name": "2_first_pass_7_gates_all_ok",
+      "ok": true
+    },
+    {
+      "name": "3_media_tab_png_card_generated",
+      "ok": true
+    },
+    {
+      "name": "4_music_tab_mp3_narration_generated",
+      "ok": true
+    },
+    {
+      "name": "5_link_tab_github_pages_hub_published",
+      "ok": true
+    },
+    {
+      "name": "6_skill_67_and_dna_seal_verified",
+      "ok": true
+    }
+  ],
+  "first_pass_gate": {
+    "all_ok": true,
+    "passed": 7,
+    "total": 7,
+    "gates": [
+      {
+        "gate": "G1_PROTECTED_4_FILES_INTACT",
+        "ok": true
+      },
+      {
+        "gate": "G2_IMMUTABLE_8_LAWS_DNA_COMPLIANCE",
+        "ok": true
+      },
+      {
+        "gate": "G3_ZERO_SECRET_LEAK_VERIFIED",
+        "ok": true
+      },
+      {
+        "gate": "G4_FAKE_LINK_SCRUBBER_ZERO_POLLUTION",
+        "ok": true
+      },
+      {
+        "gate": "G5_MEDIA_TAB_PNG_CARD_READY",
+        "ok": true
+      },
+      {
+        "gate": "G6_MUSIC_TAB_MP3_NARRATION_READY",
+        "ok": true
+      },
+      {
+        "gate": "G7_LINK_TAB_LIVE_WEB_HUB_READY",
+        "ok": true
+      }
+    ],
+    "deliverables": {
+      "media_png": {
+        "ok": true,
+        "path": "docs/deliverables/nvda_final_deliverable_card.png",
+        "bytes": 163488,
+        "dimensions": "1080x1350"
+      },
+      "music_mp3": {
+        "ok": true,
+        "path": "docs/deliverables/nvda_final_narration_ko.mp3",
+        "bytes": 314496,
+        "voice": "ko-KR-SunHiNeural",
+        "title": "[최종완성본] NVDA $217.94 월가 AI 카운슬 30초 브리핑",
+        "performer": "RGON 아온 & 루미비서"
+      },
+      "web_links": {
+        "ok": true,
+        "hub_html_path": "docs/deliverables/final_deliverable_hub.html",
+        "motion_html_path": "docs/deliverables/nvda_shorts_motion_preview.html",
+        "live_hub_url": "https://sangill111157-spec.github.io/hangeoreumsshik-cloud/deliverables/final_deliverable_hub.html",
+        "live_motion_url": "https://sangill111157-spec.github.io/hangeoreumsshik-cloud/deliverables/nvda_shorts_motion_preview.html",
+        "htmlpreview_hub_url": "https://htmlpreview.github.io/?https://github.com/sangill111157-spec/hangeoreumsshik-cloud/blob/main/docs/deliverables/final_deliverable_hub.html"
+      }
+    },
+    "_immutable_dna_seal": {
+      "agent_or_chain_id": "ORGAN-47-LUMI-FINAL-DELIVERABLE-SENDER",
+      "laws_enforced": 8,
+      "law_codes": [
+        "LAW_1_GLOBAL_TOP1_BENCHMARK",
+        "LAW_2_KARPATHY_4RULES_AND_COUNCIL",
+        "LAW_3_MASTER_KEY_VAULT_LEVERAGE",
+        "LAW_4_NO_FAKE_CHRONOMETER_PROOF",
+        "LAW_5_MAESTRO_SYNERGY_DAG_RELAY",
+        "LAW_6_PONYTAIL_ZERO_BLOAT_DIET",
+        "LAW_7_WATER_SELF_HEALING_SAMSEONG",
+        "LAW_8_COMMANDER_APPROVAL_GATE"
+      ],
+      "antibody": "R69",
+      "version": "v11.76-AON-IMMUTABLE-DNA-KEYVAULT",
+      "verified_in_sec": 0.0
+    }
+  },
+  "dry_run_dispatch": {
+    "ok": true,
+    "mode": "dry_run_selftest",
+    "first_pass_all_ok": true,
+    "fake_links_count": 0,
+    "bot_username": "@sangi_ai_secretary_bot",
+    "tabs_prepared": [
+      "MEDIA_PHOTO_PNG",
+      "MUSIC_AUDIO_MP3",
+      "LINK_VERIFIED_HTTPS"
+    ],
+    "live_urls": [
+      "https://sangill111157-spec.github.io/hangeoreumsshik-cloud/deliverables/final_deliverable_hub.html",
+      "https://sangill111157-spec.github.io/hangeoreumsshik-cloud/deliverables/nvda_shorts_motion_preview.html"
+    ],
+    "elapsed_sec": 0.2249
+  },
+  "live_telegram_3tab_receipt": null,
+  "elapsed_sec": 12.4034,
+  "timestamp": "2026-10-28T12:41:04+09:00",
+  "skill_index_sync": {
+    "ok": true,
+    "total_formal_skills": 67,
+    "skill_67_md_exists": true
+  },
+  "zero_secret_leak_verified": true
+}

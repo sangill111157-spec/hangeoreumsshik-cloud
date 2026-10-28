@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>[RGON 최종완성본] NVDA 월가 카운슬 & 9:16 모션 쇼츠 실물 뷰어</title>
+  <style>
+    :root {
+      --bg: #070b14;
+      --card: #11192c;
+      --mint: #00f5d4;
+      --sky: #38bdf8;
+      --gold: #facc15;
+      --rose: #fb7185;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Pretendard', 'Malgun Gothic', -apple-system, sans-serif;
+      background: radial-gradient(circle at top, #13203d 0%, var(--bg) 70%);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 16px;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    .badge {
+      display: inline-block;
+      background: rgba(0, 245, 212, 0.14);
+      border: 1px solid var(--mint);
+      color: var(--mint);
+      font-weight: 700;
+      font-size: 0.85rem;
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 12px;
+    }
+    h1 { font-size: 1.45rem; margin-bottom: 8px; color: #fff; }
+    .sub { font-size: 0.9rem; color: var(--muted); margin-bottom: 18px; }
+    .card {
+      background: var(--card);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      border-radius: 18px;
+      padding: 18px;
+      margin-bottom: 18px;
+      box-shadow: 0 12px 32px rgba(0,0,0,0.45);
+    }
+    .card h2 {
+      font-size: 1.1rem;
+      color: var(--sky);
+      margin-bottom: 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding-bottom: 8px;
+    }
+    .btn-primary {
+      display: block;
+      width: 100%;
+      text-align: center;
+      background: linear-gradient(135deg, #00f5d4 0%, #38bdf8 100%);
+      color: #06101e;
+      font-weight: 800;
+      font-size: 1.05rem;
+      padding: 14px;
+      border-radius: 14px;
+      text-decoration: none;
+      margin: 12px 0;
+    }
+    audio { width: 100%; margin-top: 8px; border-radius: 12px; }
+    .preview-img { width: 100%; border-radius: 14px; border: 1px solid rgba(0,245,212,0.4); }
+    .iframe-wrap {
+      width: 100%;
+      height: 760px;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 2px solid var(--mint);
+      background: #000;
+    }
+    iframe { width: 100%; height: 100%; border: none; }
+    .kv { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px dashed rgba(255,255,255,0.08); font-size: 0.95rem; }
+    .kv strong { color: var(--gold); }
+  </style>
+</head>
+<body>
+  <div class="badge">👑 RGON × 루미비서 | 1차 검수 ALL-OK 최종 완성본</div>
+  <h1>NVIDIA (NVDA) $217.94 (+0.90%) 실전 타점 & 9:16 모션 쇼츠</h1>
+  <p class="sub">검수 시각: 2026-10-28 12:41:04 KST · 7대 검수 게이트 & 불변의 8대 법칙 100% 통과</p>
+
+  <div class="card">
+    <h2>🎬 1. 9:16 모션그래픽 쇼츠 플레이어 (전체화면 재생 지원)</h2>
+    <a class="btn-primary" href="./nvda_shorts_motion_preview.html" target="_blank">▶️ 9:16 모션그래픽 쇼츠 전체화면으로 열기</a>
+    <div class="iframe-wrap">
+      <iframe src="./nvda_shorts_motion_preview.html" title="NVDA 9:16 Motion Shorts Player"></iframe>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>🎵 2. 한국어 성우 30초 내레이션 오디오 (루미-스타일)</h2>
+    <p style="font-size:0.9rem;color:#cbd5e1;">아래 재생 버튼을 누르시면 30초 쇼츠 성우 내레이션을 바로 들으실 수 있습니다.</p>
+    <audio controls preload="metadata" src="./nvda_final_narration_ko.mp3"></audio>
+  </div>
+
+  <div class="card">
+    <h2>🖼️ 3. 고화질 한눈 요약 브리핑 카드</h2>
+    <img class="preview-img" src="./nvda_final_deliverable_card.png" alt="NVDA 최종 완성본 브리핑 카드" />
+  </div>
+
+  <div class="card">
+    <h2>🎯 4. 월가 AI 카운슬 핵심 타점 요약</h2>
+    <div class="kv"><span>실시간 현재가 (Finnhub)</span><strong>$217.94 (+0.90%)</strong></div>
+    <div class="kv"><span>Bull vs Bear / 3단 카운슬</span><strong>강세 88.5 vs 약세 11.5 (합의 99.6%)</strong></div>
+    <div class="kv"><span>1차 눌림목 진입가</span><strong>$216.85 (-0.5%)</strong></div>
+    <div class="kv"><span>2차 핵심 지지선</span><strong>$213.58 (당일 하단 밴드)</strong></div>
+    <div class="kv"><span>1차 / 2차 목표가</span><strong>$225.57 / $234.29</strong></div>
+    <div class="kv"><span>기계적 손절선 (생명선)</span><strong style="color:#fb7185;">$211.40 (-3.0% 칼손절)</strong></div>
+  </div>
+</body>
+</html>

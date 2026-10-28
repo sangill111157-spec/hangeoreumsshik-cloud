@@ -1,15 +1,15 @@
 {
-  "version": "v11.76-AON-IMMUTABLE-DNA-KEYVAULT",
+  "version": "v11.80-AON-LUMI-FINAL-DELIVERABLE-SENDER",
   "ssot_baseline_version": "v11.66-AON-GENERAL-HOSPITAL",
-  "antibody": "R1~R69",
-  "antibody_range": "R1~R69",
-  "antibodies": "R1~R69",
-  "immune": "R1~R69",
-  "generated_at_kst": "2026-10-28 12:03:26 KST",
-  "count": 65,
-  "total": 65,
-  "skill_count": 65,
-  "total_skills": 65,
+  "antibody": "R1~R71",
+  "antibody_range": "R1~R71",
+  "antibodies": "R1~R71",
+  "immune": "R1~R71",
+  "generated_at_kst": "2026-10-28 12:40:52 KST",
+  "count": 67,
+  "total": 67,
+  "skill_count": 67,
+  "total_skills": 67,
   "ssot_baseline_skill_count": 60,
   "skills": [
     {
@@ -601,6 +601,30 @@
       "origin": "core-organ-45",
       "skill_no": 65,
       "path": "skills/aon_immutable_dna_keyvault/SKILL.md"
+    },
+    {
+      "no": 66,
+      "id": "aon_safe_monetization_top10_engine",
+      "slug": "aon_safe_monetization_top10_engine",
+      "name": "제46기관 아온 무위험 AI 수익화 Top 10 마스터 스케줄러 & 에셋 팩토리",
+      "organ": "ORGAN-46-SAFE-MONETIZATION-TOP10",
+      "step": 71,
+      "version": "v11.78-AON-SAFE-MONETIZATION-TOP10",
+      "antibody": "R70",
+      "engine_file": "step71_aon_safe_monetization_top10_engine.py",
+      "path": "skills/aon_safe_monetization_top10_engine/SKILL.md"
+    },
+    {
+      "no": 67,
+      "id": "aon_lumi_final_deliverable_sender",
+      "slug": "aon_lumi_final_deliverable_sender",
+      "name": "제47기관 루미-스타일 1차 검수 All-OK 최종 완성본 실물 직통 배달부",
+      "organ": "ORGAN-47-LUMI-FINAL-DELIVERABLE-SENDER",
+      "step": 72,
+      "version": "v11.80-AON-LUMI-FINAL-DELIVERABLE-SENDER",
+      "antibody": "R71",
+      "engine_file": "step72_aon_final_deliverable_sender.py",
+      "path": "skills/aon_lumi_final_deliverable_sender/SKILL.md"
     }
   ]
 }

@@ -219,13 +219,33 @@ def get_daily_brief_text(root_dir=None):
         return "[RGON 아침 브리핑] %s · %s (브리핑 생성 보류: %s)" % (VERSION, ANTIBODY_RANGE, e)
 
 
-def send_telegram(text):
+def sanitize_telegram_fake_links(text):
+    if not text:
+        return ""
+    s = str(text)
+    saved = []
+    def _save(m):
+        saved.append(m.group(0))
+        return "__RGON_HTTPS_%d__" % (len(saved) - 1)
+    s = re.sub(r"https://[^\s<>\"\'\)\]]+", _save, s)
+    s = re.sub(r"(?<=[A-Za-z0-9_])\.(?=[A-Za-z]{2,12}\b)", "·", s)
+    for i, u in enumerate(saved):
+        s = s.replace("__RGON_HTTPS_%d__" % i, u)
+    return s
+
+
+def send_telegram(text, disable_web_page_preview=True):
     token = os.environ.get("TELEGRAM_BOT_TOKEN") or os.environ.get("TELEGRAM_TOKEN")
     chat = os.environ.get("TELEGRAM_CHAT_ID")
     if not token or not chat or os.environ.get("RGON_DAILY_TELEGRAM", "1") == "0":
         return "skipped(no env)"
     try:
-        data = urllib.parse.urlencode({"chat_id": chat, "text": text[:4000]}).encode("utf-8")
+        clean_text = sanitize_telegram_fake_links(text[:4000])
+        data = urllib.parse.urlencode({
+            "chat_id": chat,
+            "text": clean_text,
+            "disable_web_page_preview": "true" if disable_web_page_preview else "false",
+        }).encode("utf-8")
         urllib.request.urlopen("https://api.telegram.org/bot%s/sendMessage" % token, data=data, timeout=20).read()
         return "sent"
     except Exception as e:

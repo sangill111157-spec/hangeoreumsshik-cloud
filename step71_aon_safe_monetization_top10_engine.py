@@ -450,11 +450,26 @@ python -X utf8 step71_aon_safe_monetization_top10_engine.py --self-test
 python -X utf8 step71_aon_safe_monetization_top10_engine.py --apply
 ```
 """
-    sk_md.write_text(skill_body, encoding="utf-8")
+    if not sk_md.is_file():
+        sk_md.write_text(skill_body, encoding="utf-8")
+
+    idx_path = root / "SKILL_INDEX.json"
+    if idx_path.is_file():
+        try:
+            cur_data = json.loads(idx_path.read_text(encoding="utf-8"))
+            cur_skills = cur_data.get("skills", [])
+            cur_slugs = {s.get("slug") for s in cur_skills if isinstance(s, dict)}
+            if SKILL_ID in cur_slugs and len(cur_skills) >= 66:
+                return {
+                    "ok": sk_md.is_file(),
+                    "total_formal_skills": len(cur_skills),
+                    "skill_66_md_exists": sk_md.is_file(),
+                }
+        except Exception:
+            pass
 
     # 먼저 Step 70의 65개 인덱스를 기준으로 동기화한 뒤 #66 추가
     m70.sync_root_skill_index_65(root)
-    idx_path = root / "SKILL_INDEX.json"
     data = json.loads(idx_path.read_text(encoding="utf-8"))
     skills_list: list[dict[str, Any]] = data.get("skills", [])
 

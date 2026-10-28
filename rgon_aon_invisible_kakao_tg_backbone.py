@@ -140,14 +140,41 @@ def load_triple_telegram_config():
     return cfg
 
 
-def send_tg_api(token: str, chat_id: str, text: str, timeout: int = 8):
-    """텔레그램 메시지 발송 API"""
+def sanitize_telegram_fake_links(text: str, allow_https: bool = True) -> str:
+    """
+    [Step 72 · R71] 텔레그램 가짜 링크(window.seek, SKILL.md, *.py, *.json 등) 원천 박멸 필터.
+    실제 https:// 웹 URL은 보존하고, 일반 텍스트 내 코드/파일명의 마침표(.)는 가운뎃점(·)으로 치환하여
+    텔레그램 [링크] 보관함에 깨진 가짜 도메인이 등록되는 현상을 0건으로 차단한다.
+    """
+    import re as _re
+    if not text:
+        return ""
+    s = str(text)
+    saved_urls = []
+    if allow_https:
+        def _save_url(m):
+            idx = len(saved_urls)
+            saved_urls.append(m.group(0))
+            return f"__RGON_LIVE_HTTPS_URL_{idx}__"
+        s = _re.sub(r"https://[^\s<>\"\'\)\]]+", _save_url, s)
+    # http:// 가짜 링크 제거 및 코드/파일명 .확장자 -> ·확장자 치환 (숫자 소수점 217.94 등은 보존)
+    s = _re.sub(r"http://", "http_//", s)
+    s = _re.sub(r"(?<=[A-Za-z0-9_])\.(?=[A-Za-z]{2,12}\b)", "·", s)
+    for idx, url in enumerate(saved_urls):
+        s = s.replace(f"__RGON_LIVE_HTTPS_URL_{idx}__", url)
+    return s
+
+
+def send_tg_api(token: str, chat_id: str, text: str, timeout: int = 8, disable_web_page_preview: bool = True):
+    """텔레그램 메시지 발송 API (가짜 링크 원천 박멸 필터 + 기본 프리뷰 차단)"""
     if not token or not chat_id:
         return {'ok': False, 'error': 'Missing token or chat_id'}
+    clean_text = sanitize_telegram_fake_links(text, allow_https=True)
     url = f"https://api.telegram.org/bot{token}/sendMessage"
     payload = urllib.parse.urlencode({
         'chat_id': chat_id,
-        'text': text
+        'text': clean_text,
+        'disable_web_page_preview': 'true' if disable_web_page_preview else 'false',
     }).encode('utf-8')
     req = urllib.request.Request(url, data=payload, headers={'User-Agent': 'RGON-InvisibleBackbone/1.0'})
     try:

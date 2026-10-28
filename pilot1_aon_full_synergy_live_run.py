@@ -965,6 +965,12 @@ def run_stage4_telegram_live_dispatch(
         f"• 신경망 시냅스: 100.0점 (노드 38/38 · 시냅스 36/36 · 백혈구 100/100 · SSOT OK)"
     )
 
+    try:
+        _bb = _imp("rgon_aon_invisible_kakao_tg_backbone")
+        msg_text = _bb.sanitize_telegram_fake_links(msg_text, allow_https=True)
+    except Exception:
+        pass
+
     if not live_pilot:
         return {
             "ok": True,

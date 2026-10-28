@@ -620,7 +620,22 @@ def build_step70_drawer_html() -> str:
 
 
 def sync_root_skill_index_65(root: Path = ROOT) -> dict[str, Any]:
-    """루트 SKILL_INDEX.json에 정식 스킬 #65(aon_immutable_dna_keyvault)까지 총 65개 등록"""
+    """루트 SKILL_INDEX.json에 정식 스킬 #65(aon_immutable_dna_keyvault)까지 총 65개 이상 등록 (상위 스킬 보존)"""
+    idx_path = root / "SKILL_INDEX.json"
+    if idx_path.is_file():
+        try:
+            cur_data = json.loads(idx_path.read_text(encoding="utf-8"))
+            cur_skills = cur_data.get("skills", [])
+            cur_slugs = {s.get("slug") for s in cur_skills if isinstance(s, dict)}
+            if SKILL_ID in cur_slugs and len(cur_skills) >= 65:
+                return {
+                    "ok": SKILL_MD_PATH.is_file(),
+                    "total_formal_skills": len(cur_skills),
+                    "skill_65_md_exists": SKILL_MD_PATH.is_file(),
+                }
+        except Exception:
+            pass
+
     if str(root) not in sys.path:
         sys.path.insert(0, str(root))
     try:
@@ -629,7 +644,6 @@ def sync_root_skill_index_65(root: Path = ROOT) -> dict[str, Any]:
     except Exception:
         pass
 
-    idx_path = root / "SKILL_INDEX.json"
     skills_list: list[dict[str, Any]] = []
     if idx_path.is_file():
         try:
