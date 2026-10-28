@@ -21,7 +21,7 @@ warnings.filterwarnings("ignore", category=SyntaxWarning)
 
 VERSION = "v11.66-AON-GENERAL-HOSPITAL"
 ANTIBODY_RANGE = "R1~R64"
-EXPECTED_SKILL_COUNT = 61
+EXPECTED_SKILL_COUNT = 60
 SKILL_ID = "aon-neural-synapse-verifier"
 ROOT = Path(__file__).resolve().parent
 TIME_BUDGET_SEC = 2.0
@@ -376,7 +376,7 @@ def status():
 # >>> RGON R41 VERIFIER EXT BEGIN >>>
 VERSION = "v11.66-AON-GENERAL-HOSPITAL"
 ANTIBODY_RANGE = "R1~R64"
-EXPECTED_SKILL_COUNT = 61
+EXPECTED_SKILL_COUNT = 60
 STATUS_LINE = "%s · 항체 %s · 정식 스킬 %d개" % (VERSION, ANTIBODY_RANGE, EXPECTED_SKILL_COUNT)
 try:
     if "rgon_aon_iching_planner.py" not in ORGANS:
@@ -503,7 +503,7 @@ def _r42_s12_check():
         checks = {
             "route_ok": isinstance(r, dict) and r.get("ok") is True,
             "hydro_ok": hc.get("ok") is True and hc.get("antibody") == "R42",
-            "four_stages": len(stages) == 4 and all(("#%02d" % n) in gtxt for n in (41, 18, 48, 29, 61, 63, 64)),
+            "four_stages": len(stages) == 4 and all(("#%02d" % n) in gtxt for n in (41, 18, 48, 29, 60, 63, 64)),
             "empty_space": isinstance(es, (int, float)) and 0 <= es <= 100,
             "tiers": all(k in tiers for k in ("TIER1_KEEP", "TIER2_SAFE_EMPTY", "TIER3_GATE_HOLD")),
             "tier3_gate": t3.get("requires_manual_gate") is True and t3.get("auto_executed") is False,
@@ -1685,7 +1685,7 @@ if callable(_r59_orig_vsl) and not getattr(_r59_orig_vsl, "_r59", False):
 # [RGON-R64-VERIFIER-EXT-START]
 VERSION = "v11.66-AON-GENERAL-HOSPITAL"
 ANTIBODY_RANGE = "R1~R64"
-EXPECTED_SKILL_COUNT = 61
+EXPECTED_SKILL_COUNT = 60
 STATUS_LINE = "%s · 항체 %s · 정식 스킬 %d개" % (VERSION, ANTIBODY_RANGE, EXPECTED_SKILL_COUNT)
 R60_EMPIRE_ORGAN = "rgon_aon_empire_asset_hub.py"
 R61_GDRIVE_ORGAN = "rgon_aon_gdrive_5tb_organizer.py"
@@ -1773,7 +1773,7 @@ def _r63_s33_check():
         ok = (
             mod.VERSION == VERSION and
             mod.ORGAN == 39 and
-            mod.SKILLS == 61 and
+            mod.SKILLS == 60 and
             len(mod.SHORTS_15_ARSENAL) == 15 and
             bool(deb.get("consensus")) and
             len(rows) == 1 and
@@ -1802,7 +1802,7 @@ def _r64_s34_check():
         ok = (
             mod.VERSION == VERSION and
             mod.ORGAN == 40 and
-            mod.SKILLS == 61 and
+            mod.SKILLS == 60 and
             len(mod.HOSPITAL_DEPARTMENTS) == 5 and
             len(mod.RCA8) == 8
         )
