@@ -1,11 +1,11 @@
 {
   "schema": "RGON_CODE_MAP_V1170",
-  "version": "v11.70-AON-CHRONOMETER-AUDITOR",
+  "version": "v11.72-AON-CHRONO-DIET-PERFECTION",
   "ssot_baseline_version": "v11.66-AON-GENERAL-HOSPITAL",
-  "antibody_range": "R1~R66",
+  "antibody_range": "R1~R67",
   "formal_skills_total": 62,
   "ssot_verified_skills": 60,
-  "total_organs": 42,
+  "total_organs": 43,
   "total_shorts_integrated": 43,
   "shorts_breakdown": {
     "batch_1_step63": 13,
@@ -139,6 +139,19 @@
         "run_self_test",
         "apply_chronometer_audit"
       ]
+    },
+    "Step68_Organ43": {
+      "step": 68,
+      "organ_no": 43,
+      "organ_id": "ORGAN-43-CHRONO-DIET-PERFECTION",
+      "organ_name": "제43기관 아온 텔레그램 실측 무결성 & Ponytail 무결점 다이어트 마스터 감사원",
+      "version": "v11.72-AON-CHRONO-DIET-PERFECTION",
+      "antibody": "R67",
+      "skill_no": 63,
+      "skill_id": "skill_63_aon_chrono_diet_perfection",
+      "engine_file": "step68_aon_chrono_diet_perfection.py",
+      "html_drawer_id": "rgon-organ43-chrono-diet-drawer",
+      "report_json": "rgon_step68_chrono_diet_report.json"
     }
   },
   "neural_synapse_verifier": {
@@ -149,6 +162,6 @@
       "docs/rgon_neural_synapse_map.json"
     ],
     "target_score": 100.0
-  }
+  },
+  "formal_skills_count": 63
 }
-

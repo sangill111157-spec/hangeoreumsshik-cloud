@@ -13,12 +13,12 @@ for _s in ("stdout", "stderr"):
         except Exception:
             pass
 
-VERSION = "v11.64-AON-15SHORTS-SUPER-SENIOR"
-ANTIBODY_RANGE = "R1~R57"
+VERSION = "v11.72-AON-CHRONO-DIET-PERFECTION"
+ANTIBODY_RANGE = "R1~R67"
 R20_TEXT = "일일 자율 순환 루프(백혈구 순찰 → 영양분 소화·스킬 주조 → 3자 심판 → 주역 64괘 아침 브리핑) 무인 자동화"
 ROOT = os.path.dirname(os.path.abspath(__file__))
 KST = datetime.timezone(datetime.timedelta(hours=9))
-EXCLUDE_DIRS = {".git", "__pycache__", "node_modules", ".venv", "venv", ".rgon_backup", ".rgon_backups", ".idea", ".vscode"}
+EXCLUDE_DIRS = {".git", "__pycache__", "node_modules", ".venv", "venv", ".rgon_backup", ".rgon_backups", ".idea", ".vscode", ".aon_hospital", ".rgon_ad_backups", "_backup_clean_ui", ".swarm_sandbox", "brain_basket"}
 BRIEF_JSON, BRIEF_MD = "rgon_morning_brief.json", "MORNING_BRIEF.md"
 HEXAGRAMS = ("건위천", "곤위지", "수뢰둔", "산수몽", "수천수", "천수송", "지수사", "수지비",
              "풍천소축", "천택리", "지천태", "천지비", "천화동인", "화천대유", "지산겸", "뇌지예",
@@ -99,6 +99,9 @@ def stage1_patrol(root):
 
 
 def _count_skills(root):
+    sk_dir = os.path.join(root, "skills")
+    if os.path.isdir(sk_dir):
+        return sum(1 for n in os.listdir(sk_dir) if os.path.isfile(os.path.join(sk_dir, n, "SKILL.md")) or os.path.isfile(os.path.join(sk_dir, n, "skill.md")))
     n = 0
     for dp, dns, fns in os.walk(root):
         dns[:] = [d for d in dns if d not in EXCLUDE_DIRS and not d.startswith(".rgon_backup")]
@@ -136,8 +139,8 @@ def _norm_hex(obj):
         name = pick("name", "hexagram", "title", "name_ko", "korean", "괘")
         if not name:
             return None
-        return {"name": name, "meaning": pick("meaning", "interpretation", "summary", "core", "judgment", "풀이", "wisdom"),
-                "guidance": pick("guidance", "action", "advice", "instruction", "지침")}
+        return {"name": name, "meaning": pick("meaning", "interpretation", "summary", "core", "judgment", "풀이", "wisdom") or "자강불식(自強不息) — 스스로 강건히 쉬지 않고 정진한다",
+                "guidance": pick("guidance", "action", "advice", "instruction", "지침") or "상선약수(上善若水) · 삼성(三省) — 43대 기관을 물처럼 순환시키고 하루 세 번 무결성(100.0점)을 살핀다."}
     return None
 
 
@@ -249,20 +252,20 @@ def self_test():
     def chk(name, cond):
         checks.append(bool(cond))
         print(("PASS " if cond else "FAIL ") + name)
-    chk("version", VERSION == "v11.64-AON-15SHORTS-SUPER-SENIOR")
-    chk("antibody range", ANTIBODY_RANGE == "R1~R57")
+    chk("version", VERSION == "v11.72-AON-CHRONO-DIET-PERFECTION")
+    chk("antibody range", ANTIBODY_RANGE == "R1~R67")
     chk("64 hexagrams", len(HEXAGRAMS) == 64 and len(set(HEXAGRAMS)) == 64)
     chk("norm dict", (_norm_hex({"name": "건위천", "meaning": "m"}) or {}).get("name") == "건위천")
     chk("norm str", (_norm_hex("지천태") or {}).get("name") == "지천태")
     tmp = tempfile.mkdtemp(prefix="rgon_dc_")
     try:
-        b = build_brief({"health_score": 100, "heals": 0, "antibody_count": 20},
+        b = build_brief({"health_score": 100, "heals": 0, "antibody_count": 67},
                         {"skill_total": 3, "new_skills": 1, "updated_skills": 0, "trinity": ["PASS"]}, stage3_hexagram(tmp))
         write_brief(tmp, b)
         chk("brief json", os.path.exists(os.path.join(tmp, BRIEF_JSON)))
         chk("brief md", os.path.exists(os.path.join(tmp, BRIEF_MD)))
         t = get_daily_brief_text(tmp)
-        chk("brief text", isinstance(t, str) and "R1~R57" in t and "100 / 100" in t)
+        chk("brief text", isinstance(t, str) and "R1~R67" in t and "100 / 100" in t)
         chk("brief text (empty root)", isinstance(get_daily_brief_text(os.path.join(tmp, "none")), str))
     finally:
         shutil.rmtree(tmp, ignore_errors=True)
@@ -319,7 +322,7 @@ def _s24_trading_council():
         _p = _s24_os.path.join(_s24_os.path.dirname(_s24_os.path.abspath(__file__)), "rgon_trading_council.py")
         if _s24_os.path.exists(_p): _s24_sp.run([_s24_sys.executable, _p, "--run", "--merge"], timeout=300)
     except Exception as _e: print("[R24] trading council hook skipped:", _e)
-if __name__ == "__main__": _s24_atexit.register(_s24_trading_council)
+if __name__ == "__main__" and "--self-test" not in _s24_sys.argv: _s24_atexit.register(_s24_trading_council)
 # <<< STEP24_TRADING_COUNCIL_HOOK
 
 if __name__ == '__main__' and '--run' in _rg_sys.argv and not _rg_os.environ.get('RGON_HEART_INNER'):
@@ -331,12 +334,14 @@ if __name__ == '__main__' and '--run' in _rg_sys.argv and not _rg_os.environ.get
 # [STEP26-HOOK] v11.64-AON-15SHORTS-SUPER-SENIOR · R26: 실행 종료 시 21번째 스킬(self-evolving-gene-ratchet) 인덱스 보존
 import atexit as _s26_ax, subprocess as _s26_sp, sys as _s26_sys, os as _s26_os
 _s26_dc_target = _s26_os.path.join(_s26_os.path.dirname(_s26_os.path.abspath(__file__)), "rgon_self_evolution_engine.py") if "__file__" in globals() else "rgon_self_evolution_engine.py"
-_s26_ax.register(lambda p=_s26_dc_target: _s26_sp.run([_s26_sys.executable, p, "--ensure-index"], capture_output=True))
+if "--self-test" not in _s26_sys.argv:
+    _s26_ax.register(lambda p=_s26_dc_target: _s26_sp.run([_s26_sys.executable, p, "--ensure-index"], capture_output=True))
 
 # >>> STEP39_SKILL35_HOOK (R27: 정식 스킬 23개 유지)
 import atexit as _rg_ax, os as _rg_os, subprocess as _rg_sp, sys as _rg_sys
 EXPECTED_SKILL_COUNT = 42  # Step 32 · v11.64-AON-15SHORTS-SUPER-SENIOR
-_rg_ax.register(lambda: _rg_sp.run([_rg_sys.executable, _rg_os.path.join(_rg_os.path.dirname(_rg_os.path.abspath(__file__)), "rgon_omni_creator_forge.py"), "--ensure-index"], capture_output=True))
+if "--self-test" not in _rg_sys.argv:
+    _rg_ax.register(lambda: _rg_sp.run([_rg_sys.executable, _rg_os.path.join(_rg_os.path.dirname(_rg_os.path.abspath(__file__)), "rgon_omni_creator_forge.py"), "--ensure-index"], capture_output=True))
 # <<< STEP39_SKILL35_HOOK
 
 if __name__ == "__main__":

@@ -1,9 +1,9 @@
 name: RGON External Brain Kitchen
 
 on:
-  workflow_dispatch::
   schedule:
     - cron: "0 18 * * *"   # 매일 03:00 KST
+    - cron: "17 18 * * *"
   workflow_dispatch:
     inputs:
       topic:
@@ -21,8 +21,6 @@ on:
         required: true
         default: false
         type: boolean
-  schedule:
-    - cron: "17 18 * * *"
 
 permissions:
   contents: read

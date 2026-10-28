@@ -1,7 +1,7 @@
 {
   "version": "v11.66-AON-GENERAL-HOSPITAL",
   "antibody": "R1~R64",
-  "generated_at_kst": "2026-10-28 03:15:00 KST",
+  "generated_at_kst": "2026-10-28 10:32:42 KST",
   "count": 60,
   "skills": [
     {
@@ -41,6 +41,42 @@
       "path": "skills/ai-5/SKILL.md"
     },
     {
+      "slug": "aon-13shorts-omni",
+      "name": "aon-13shorts-omni",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/aon-13shorts-omni/SKILL.md"
+    },
+    {
+      "slug": "aon-15shorts-super-senior",
+      "name": "aon-15shorts-super-senior",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/aon-15shorts-super-senior/SKILL.md"
+    },
+    {
+      "slug": "aon-autonomous-tech-evolver",
+      "name": "aon-autonomous-tech-evolver",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/aon-autonomous-tech-evolver/SKILL.md"
+    },
+    {
+      "slug": "aon-cinematic-dispatch-council",
+      "name": "aon-cinematic-dispatch-council",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/aon-cinematic-dispatch-council/SKILL.md"
+    },
+    {
       "slug": "aon-desktop-playground-brat",
       "name": "aon-desktop-playground-brat",
       "category": "",
@@ -48,6 +84,42 @@
       "source_url": "",
       "origin": "",
       "path": "skills/aon-desktop-playground-brat/SKILL.md"
+    },
+    {
+      "slug": "aon-empire-asset-hub",
+      "name": "aon-empire-asset-hub",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/aon-empire-asset-hub/SKILL.md"
+    },
+    {
+      "slug": "aon-gdrive-5tb-organizer",
+      "name": "aon-gdrive-5tb-organizer",
+      "category": "cloud-storage-automation",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/aon-gdrive-5tb-organizer/SKILL.md"
+    },
+    {
+      "slug": "aon-general-hospital",
+      "name": "aon-general-hospital",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/aon-general-hospital/SKILL.md"
+    },
+    {
+      "slug": "aon-haesang-6form-morph",
+      "name": "aon-haesang-6form-morph",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/aon-haesang-6form-morph/SKILL.md"
     },
     {
       "slug": "aon-hydro-cycle-homeostasis",
@@ -77,6 +149,24 @@
       "path": "skills/aon-iching-strategic-planner/SKILL.md"
     },
     {
+      "slug": "aon-inspector-general-gate",
+      "name": "aon-inspector-general-gate",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/aon-inspector-general-gate/SKILL.md"
+    },
+    {
+      "slug": "aon-invisible-kakao-tg-backbone",
+      "name": "aon-invisible-kakao-tg-backbone",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/aon-invisible-kakao-tg-backbone/SKILL.md"
+    },
+    {
       "slug": "aon-laptop-hands-manual-gate",
       "name": "aon-laptop-hands-manual-gate",
       "category": "",
@@ -84,6 +174,15 @@
       "source_url": "",
       "origin": "",
       "path": "skills/aon-laptop-hands-manual-gate/SKILL.md"
+    },
+    {
+      "slug": "aon-live-ui-self-healer",
+      "name": "aon-live-ui-self-healer",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/aon-live-ui-self-healer/SKILL.md"
     },
     {
       "slug": "aon-neural-synapse-verifier",
@@ -122,6 +221,33 @@
       "path": "skills/aon-omni-nexus-synthesizer/SKILL.md"
     },
     {
+      "slug": "aon-opus-motion-studio",
+      "name": "aon-opus-motion-studio",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/aon-opus-motion-studio/SKILL.md"
+    },
+    {
+      "slug": "aon-page-button-bot-engine",
+      "name": "aon-page-button-bot-engine",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/aon-page-button-bot-engine/SKILL.md"
+    },
+    {
+      "slug": "aon-pinnacle-omni-communicator",
+      "name": "aon-pinnacle-omni-communicator",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/aon-pinnacle-omni-communicator/SKILL.md"
+    },
+    {
       "slug": "aon-procedural-voice-synth",
       "name": "aon-procedural-voice-synth",
       "category": "",
@@ -138,6 +264,69 @@
       "source_url": "",
       "origin": "",
       "path": "skills/aon-soul-empathy-brain/SKILL.md"
+    },
+    {
+      "slug": "aon-supreme-org-chart-architect",
+      "name": "aon-supreme-org-chart-architect",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/aon-supreme-org-chart-architect/SKILL.md"
+    },
+    {
+      "slug": "aon-telegram-omni-messenger",
+      "name": "aon-telegram-omni-messenger",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/aon-telegram-omni-messenger/SKILL.md"
+    },
+    {
+      "slug": "aon-zeroclick-creative-studio",
+      "name": "aon-zeroclick-creative-studio",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/aon-zeroclick-creative-studio/SKILL.md"
+    },
+    {
+      "slug": "aon_commander_digital_twin",
+      "name": "aon-commander-digital-twin",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/aon_commander_digital_twin/SKILL.md"
+    },
+    {
+      "slug": "aon_impeccable_audit_shield",
+      "name": "aon_impeccable_audit_shield",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/aon_impeccable_audit_shield/SKILL.md"
+    },
+    {
+      "slug": "aon_token_egolite_master",
+      "name": "aon_token_egolite_master",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/aon_token_egolite_master/SKILL.md"
+    },
+    {
+      "slug": "aon_vibe3d_movie_director",
+      "name": "aon-vibe3d-movie-director",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/aon_vibe3d_movie_director/SKILL.md"
     },
     {
       "slug": "autonomous-creator-forge",
@@ -354,294 +543,13 @@
       "source_url": "local://rgon_youtube_skill_scout.py",
       "origin": "core",
       "path": "skills/youtube-trend-scout/SKILL.md"
-    },
-    {
-      "id": 40,
-      "name": "aon-live-ui-self-healer",
-      "slug": "aon-live-ui-self-healer",
-      "version": "v11.50-AON-TOKEN-EGOLITE-MASTER",
-      "antibody": "R44",
-      "organ": 20,
-      "path": "skills/aon-live-ui-self-healer/SKILL.md",
-      "description": "아온 실전 UI 전수 클릭·동작 검증 & 자가배선 수리 (제20기관, R44)"
-    },
-    {
-      "id": 41,
-      "name": "aon-cinematic-dispatch-council",
-      "slug": "aon-cinematic-dispatch-council",
-      "version": "v11.50-AON-TOKEN-EGOLITE-MASTER",
-      "antibody": "R45",
-      "organ": 21,
-      "path": "skills/aon-cinematic-dispatch-council/SKILL.md",
-      "description": "아온 0.7ms 초광속 결정론적 쇼트컷 & 9인 원탁 국무회의 시네마틱 디스패치 (제21기관, R45)"
-    },
-    {
-      "id": 42,
-      "name": "aon-autonomous-tech-evolver",
-      "slug": "aon-autonomous-tech-evolver",
-      "version": "v11.50-AON-TOKEN-EGOLITE-MASTER",
-      "antibody": "R46",
-      "organ": 22,
-      "path": "skills/aon-autonomous-tech-evolver/SKILL.md",
-      "description": "아온 10대 전 플랫폼 영양분 선별 채집 & 한걸음씩 자아성찰 그릇 확장 진화기 (제22기관, R46)"
-    },
-    {
-      "no": 43,
-      "id": "aon-zeroclick-creative-studio",
-      "slug": "aon-zeroclick-creative-studio",
-      "name": "aon-zeroclick-creative-studio",
-      "title": "아온 클릭 0번 헤드리스 포토·카드뉴스 & 엑셀·시트 창작 스튜디오",
-      "path": "skills/aon-zeroclick-creative-studio/SKILL.md",
-      "organ": "rgon_aon_zeroclick_studio.py",
-      "antibody": "R47",
-      "version": "v11.50-AON-TOKEN-EGOLITE-MASTER"
-    },
-    {
-      "index": 44,
-      "slug": "aon-haesang-6form-morph",
-      "name": "aon-haesang-6form-morph",
-      "version": "v11.50-AON-TOKEN-EGOLITE-MASTER",
-      "antibody": "R48",
-      "organ": "rgon_aon_haesang_morph_avatar.py",
-      "chief_art_director": "이해상 (초4 수석 캐릭터 디자이너)",
-      "hexagrams": [
-        "#49",
-        "#58",
-        "#37"
-      ],
-      "description": "이해상(초4) 수석 디자이너 헌정 아온이 6대 변신술 아바타 엔진"
-    },
-    {
-      "index": 45,
-      "slug": "aon_vibe3d_movie_director",
-      "name": "aon_vibe3d_movie_director",
-      "version": "v11.50-AON-TOKEN-EGOLITE-MASTER",
-      "antibody": "R49",
-      "organ": "rgon_aon_vibe3d_director.py",
-      "title": "아온 바이브 3D 시네마틱 디렉터 & VARCO 플로우 스튜디오",
-      "hexagrams": [
-        "#22",
-        "#14"
-      ],
-      "path": "skills/aon_vibe3d_movie_director/SKILL.md",
-      "description": "Blender MCP 결정론적 Scene-as-Code 세트장 & 국산 VARCO 3D 다중 에셋 분리·PBR·AI 자동 리깅 스튜디오"
-    },
-    {
-      "index": 46,
-      "slug": "aon_impeccable_audit_shield",
-      "name": "aon_impeccable_audit_shield",
-      "version": "v11.50-AON-TOKEN-EGOLITE-MASTER",
-      "antibody": "R50",
-      "organ": "rgon_aon_impeccable_audit_shield.py",
-      "title": "아온 임페커블 UI 폴리시(62규칙) & 오픈셸·클라우드플레어 적대적 교차감사 방패",
-      "hexagrams": [
-        "#61",
-        "#15"
-      ],
-      "path": "skills/aon_impeccable_audit_shield/SKILL.md",
-      "description": "Cloudflare 2단계 적대적 반박 감사 + NVIDIA OpenShell 샌드박스 가드 + Impeccable 62규칙 UI 무결점 탐지 & Hallmark 48 테마"
-    },
-    {
-      "index": 47,
-      "slug": "aon_token_egolite_master",
-      "name": "aon_token_egolite_master",
-      "version": "v11.50-AON-TOKEN-EGOLITE-MASTER",
-      "antibody": "R51",
-      "organ": "rgon_aon_token_egolite_master.py",
-      "title": "아온 토큰 90% 초절약 & 7대 코딩스택·에고라이트 마스터 엔진",
-      "hexagrams": [
-        "#60",
-        "#62"
-      ],
-      "path": "skills/aon_token_egolite_master/SKILL.md",
-      "description": "GitHub 토큰 절약 TOP 7 4대 가드 + 세계 7대 AI 코딩스택 Spec Kit 수렴 + Ego-Lite 에이전트 브라우저 5대 원리"
-    },
-    {
-      "index": 48,
-      "slug": "aon_commander_digital_twin",
-      "name": "aon_commander_digital_twin",
-      "version": "v11.51-AON-COMMANDER-TWIN",
-      "antibody": "R52",
-      "organ": "rgon_aon_commander_twin.py",
-      "title": "아온 대표님 인지 디지털 트윈 & 노트북·스마트폰 무인 대행 사령관",
-      "hexagrams": [
-        "#01",
-        "#30"
-      ],
-      "path": "skills/aon_commander_digital_twin/SKILL.md",
-      "description": "이상일 대표님의 7단계 일처리 DNA(The Sang-Il Command Loop) 파이프라인 + 노트북 단독 무인 대행 & 스마트폰 1-Tap 1초 지휘 직결"
-    },
-    {
-      "index": 49,
-      "slug": "aon-page-button-bot-engine",
-      "name": "aon-page-button-bot-engine",
-      "version": "v11.52-AON-PAGE-BUTTON-BOT",
-      "antibody": "R53",
-      "organ": "rgon_aon_page_button_bot_engine.py",
-      "title": "아온 WebMCP & Stagehand/n8n-Lite 전 페이지·전 버튼 자율 자동화 봇 전환 엔진",
-      "hexagrams": [
-        "#16",
-        "#60"
-      ],
-      "path": "skills/aon-page-button-bot-engine/SKILL.md",
-      "description": "WebMCP/Stagehand 전 페이지·전 버튼 결정론적 자동화 봇 전환 + n8n-Lite 5대 표준 체인 오케스트레이터 및 SHA-256 감사 영수증"
-    },
-    {
-      "slug": "aon-inspector-general-gate",
-      "id": "aon-inspector-general-gate",
-      "name": "아온 7대 방침 기관장 분신단 & 독립 검수담당 총장·기관별 특화 검수장 100% 출하 봉인 관문 시스템",
-      "category": "governance-inspection",
-      "hexagram_tag": "#21-噬嗑 · #15-謙",
-      "source_url": "rgon_aon_inspector_general_gate.py",
-      "origin": "organ-30",
-      "path": "skills/aon-inspector-general-gate/SKILL.md"
-    },
-    {
-      "id": 51,
-      "name": "aon-supreme-org-chart-architect",
-      "title": "아온 세계 Top 1 초일류 자율 조직구성도 & 5대 전술 진형 지휘 설계사",
-      "organ": "제31기관",
-      "category": "supreme_org_chart",
-      "description": "4계층 권력분립 조직도 및 5대 동적 전술 진형, 배타적 쓰기 영토 관리",
-      "version": "11.54",
-      "status": "ACTIVE"
-    },
-    {
-      "slug": "aon-telegram-omni-messenger",
-      "name": "제32기관 아온 듀얼 텔레그램·카톡형 실시간 양방향 메신저",
-      "category": "messenger-hotline",
-      "hexagram_tag": "#58-兌",
-      "source_url": "https://api.telegram.org",
-      "origin": "rgon-core",
-      "path": "skills/aon-telegram-omni-messenger/SKILL.md",
-      "version": "v11.55-AON-TELEGRAM-MESSENGER",
-      "antibody": "R56_TELEGRAM_KAKAO_BIDIRECTIONAL_LIVE_MESSENGER_LOCK"
-    },
-    {
-      "slug": "aon-invisible-kakao-tg-backbone",
-      "name": "제33기관 아온 인비저블 텔레그램 백본 & 카카오톡형 올인원 만능 대화창",
-      "category": "invisible-messenger",
-      "hexagram_tag": "#30-離",
-      "source_url": "https://api.telegram.org",
-      "origin": "rgon-core",
-      "path": "skills/aon-invisible-kakao-tg-backbone/SKILL.md",
-      "version": "v11.56-AON-INVISIBLE-KAKAO-TG",
-      "antibody": "R57_INVISIBLE_TELEGRAM_KAKAO_ALL_IN_ONE_CHAT_LOCK"
-    },
-    {
-      "slug": "aon-pinnacle-omni-communicator",
-      "name": "제34기관 아온 피너클 옴니 커뮤니케이터 & 멀티모달 두뇌",
-      "category": "omni-communicator",
-      "hexagram_tag": "#55-豊",
-      "source_url": "https://api.telegram.org",
-      "origin": "rgon-core",
-      "path": "skills/aon-pinnacle-omni-communicator/SKILL.md",
-      "version": "v11.58-AON-LIVE-BRAIN-MOTION",
-      "antibody": "R58_PINNACLE_VOICE_ARTIFACT_TIKITAKA_ZERO_FLUFF_LOCK"
-    },
-    {
-      "id": 55,
-      "skill_id": 55,
-      "name": "aon-opus-motion-studio",
-      "category": "communication",
-      "description": "제35기관 아온 클로드 오퍼스 5.5 모션 그래픽 스튜디오 (window.seek(t) 결정론적 캔버스 렌더러, 4단 스토리보드, MediaRecorder WebM 영상 저장, 3대 프리셋 연동)",
-      "tier": "tier-1",
-      "grade": "EX",
-      "hexagram_tag": "#56-旅",
-      "source_url": "https://anthropic.com/claude",
-      "origin": "rgon-core",
-      "path": "skills/aon-opus-motion-studio/SKILL.md",
-      "version": "v11.60-AON-EMPIRE-ASSETS",
-      "antibody": "R60_EMPIRE_ASSET_HUB_LOCK"
-    },
-    {
-      "id": 56,
-      "skill_id": 56,
-      "slug": "aon-empire-asset-hub",
-      "name": "aon-empire-asset-hub",
-      "category": "assets-hub",
-      "description": "제36기관 아온 한걸음씩 6대 자산 제국 마스터 통합 허브 (DistroKid 27곡 + 유튜브 3채널 + 틱톡 2,125명 + 메타 원클릭 + 구글 블로그 3조2교대 자동화)",
-      "tier": "tier-1",
-      "grade": "EX",
-      "hexagram_tag": "#14-大有",
-      "source_url": "https://connect-ai-shin.blogspot.com/",
-      "origin": "rgon-core",
-      "path": "skills/aon-empire-asset-hub/SKILL.md",
-      "version": "v11.60-AON-EMPIRE-ASSETS",
-      "antibody": "R60_EMPIRE_ASSET_HUB_LOCK"
-    },
-    {
-      "id": 57,
-      "skill_id": 57,
-      "slug": "aon-gdrive-5tb-organizer",
-      "name": "aon-gdrive-5tb-organizer",
-      "category": "cloud-storage-automation",
-      "description": "제37기관 아온 Google One 5TB 초심플 클라우드 아카이브 엔진 (Johnny.Decimal 00~06 대분류 + 11~62 중분류, PARA 3초 업로드 무인 분류기, 서브계정 레지스트리)",
-      "tier": "tier-1",
-      "grade": "EX",
-      "hexagram_tag": "#37-家人",
-      "source_url": "https://one.google.com/",
-      "origin": "rgon-core",
-      "path": "skills/aon-gdrive-5tb-organizer/SKILL.md",
-      "version": "v11.64-AON-15SHORTS-SUPER-SENIOR",
-      "antibody": "R61_GDRIVE_5TB_DECIMAL_LOCK"
-    },
-    {
-      "id": 58,
-      "skill_id": 58,
-      "slug": "aon-13shorts-omni",
-      "name": "aon-13shorts-omni",
-      "category": "omni-shorts-intelligence",
-      "description": "제38기관 아온 13대 쇼츠 옴니-인텔리전스 마스터 엔진 (TypeSafe Jev 1.14 4대 결정 함수, 마케팅 52스킬, 존코바 6단계 무인 영상 편집, PHP2Shell 내 앱 4대 보안 점검 통합)",
-      "tier": "tier-1",
-      "grade": "EX",
-      "hexagram_tag": "#14-大有",
-      "source_url": "https://github.com/sangill111157-spec/hangeoreumsshik-cloud",
-      "origin": "rgon-core",
-      "path": "skills/aon-13shorts-omni/SKILL.md",
-      "version": "v11.64-AON-15SHORTS-SUPER-SENIOR",
-      "antibody": "R62_13SHORTS_OMNI_LOCK"
-    },
-    {
-      "id": 59,
-      "skill_id": 59,
-      "slug": "aon-15shorts-super-senior",
-      "name": "aon-15shorts-super-senior",
-      "category": "super-senior-knowledge-graph",
-      "description": "제39기관 아온 15대 슈퍼-시니어 & 지식그래프 토큰 절감 마스터 엔진 (Graphify AST 정적분석 지식그래프 토큰 790배 절감, Karpathy 4원칙, Ponytail 7단 사다리, Bull vs Bear 토론 및 무삭제 스마트 리네임 통합)",
-      "tier": "tier-1",
-      "grade": "EX",
-      "hexagram_tag": "#14-大有",
-      "source_url": "https://github.com/sangill111157-spec/hangeoreumsshik-cloud",
-      "origin": "rgon-core",
-      "path": "skills/aon-15shorts-super-senior/SKILL.md",
-      "version": "v11.66-AON-GENERAL-HOSPITAL",
-      "antibody": "R63_GRAPHIFY_PONYTAIL_KARPATHY_SURGICAL_GUARD"
-    },
-    {
-      "id": 60,
-      "skill_id": 60,
-      "slug": "aon-general-hospital",
-      "name": "aon-general-hospital",
-      "category": "general-hospital-self-healing",
-      "description": "제40기관 아온 초일류 종합병원 (119 소방서 Fast-Path <2s 바이탈·포렌식 보존·3초 자동수혈 × 무인 AS센터 8단계 RCA·완치영수증 × 정밀 영상의학과 전신 혈관·모바일 엣지 안과·시냅스 뇌파 × 카파시 외과수술실 핀셋수술 × 백혈구 자가치료 3중 동기화 봉합 마스터 센터)",
-      "tier": "tier-1",
-      "grade": "EX",
-      "hexagram_tag": "#14-大有",
-      "source_url": "https://github.com/sangill111157-spec/hangeoreumsshik-cloud",
-      "origin": "rgon-core",
-      "path": "skills/aon-general-hospital/SKILL.md",
-      "version": "v11.66-AON-GENERAL-HOSPITAL",
-      "antibody": "R64_GENERAL_HOSPITAL_119_AS_WBC_AUTO_HEAL_GUARD"
     }
   ],
   "total": 60,
   "skill_count": 60,
   "antibody_range": "R1~R64",
   "antibodies": "R1~R64",
-  "updated": "2026-10-28T10:14:46",
-  "synced_at_kst": "2026-10-28 03:15:00 KST",
+  "updated": "2026-10-28T10:42:01",
   "immune": "R1~R64",
-  "total_skills": 60,
-  "total_count": 60
+  "total_skills": 60
 }

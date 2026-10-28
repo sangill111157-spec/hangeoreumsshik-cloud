@@ -1,10 +1,10 @@
 {
   "schema": "rgon.immune.ledger.v1",
   "version": "v11.66-AON-GENERAL-HOSPITAL",
-  "current_step": 23,
+  "current_step": 68,
   "antibody_range": "R1~R64",
   "principle": "만물은 하나로 이어져 있으며, 한 걸음씩 나아가면 반드시 이루어진다.",
-  "updated_at_kst": "2026-10-28T10:14:42",
+  "updated_at_kst": "2026-10-28T10:44:01",
   "health_score": 100,
   "inspection_mode": "standard",
   "today_hexagram": {
@@ -12,9 +12,11 @@
     "number": null,
     "name": "중천건(重天乾)",
     "summary": "자강불식(自強不息) — 스스로 강건히 쉬지 않고 정진한다",
+    "guidance": "상선약수(上善若水) · 삼성(三省) — 43대 기관을 물처럼 순환시키고 하루 세 번 무결성(100.0점)을 살핀다.",
+    "action": "상선약수(上善若水) · 삼성(三省) — 43대 기관을 물처럼 순환시키고 하루 세 번 무결성(100.0점)을 살핀다.",
     "inspection_mode": "standard"
   },
-  "suppressed_count": 155,
+  "suppressed_count": 157,
   "antibodies": "R1~R64",
   "fingerprints": {
     "3cf3c4ec29753bf7": {
@@ -23,29 +25,13 @@
       "context": "self_test_bypass",
       "sample_message": "'simulated_missing_key'",
       "first_seen_kst": "2026-10-24T08:11:50",
-      "last_seen_kst": "2026-10-28T10:14:42",
-      "count": 157,
+      "last_seen_kst": "2026-10-28T10:44:01",
+      "count": 159,
       "suppressed": true,
       "known_remedy": "R18 상선약수: adapt_dict 안전 키 매핑 및 기본값 반환"
     }
   },
   "healed_events": [
-    {
-      "timestamp_kst": "2026-10-26T16:53:14",
-      "file": ".rgon_backup/wbc_selftest/_wbc_dummy_sample.py",
-      "reason": "self_test_syntax_error",
-      "restored": true,
-      "source_backup": ".rgon_backup/wbc_snapshots/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.clean",
-      "quarantined_to": ".rgon_backup/wbc_quarantine/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.20261026_165314.corrupt"
-    },
-    {
-      "timestamp_kst": "2026-10-26T17:47:40",
-      "file": ".rgon_backup/wbc_selftest/_wbc_dummy_sample.py",
-      "reason": "self_test_syntax_error",
-      "restored": true,
-      "source_backup": ".rgon_backup/wbc_snapshots/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.clean",
-      "quarantined_to": ".rgon_backup/wbc_quarantine/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.20261026_174740.corrupt"
-    },
     {
       "timestamp_kst": "2026-10-26T18:20:30",
       "file": ".rgon_backup/wbc_selftest/_wbc_dummy_sample.py",
@@ -989,27 +975,25 @@
       "restored": true,
       "source_backup": ".rgon_backup/wbc_snapshots/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.clean",
       "quarantined_to": ".rgon_backup/wbc_quarantine/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.20261028_101442.corrupt"
+    },
+    {
+      "timestamp_kst": "2026-10-28T10:41:55",
+      "file": ".rgon_backup/wbc_selftest/_wbc_dummy_sample.py",
+      "reason": "self_test_syntax_error",
+      "restored": true,
+      "source_backup": ".rgon_backup/wbc_snapshots/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.clean",
+      "quarantined_to": ".rgon_backup/wbc_quarantine/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.20261028_104155.corrupt"
+    },
+    {
+      "timestamp_kst": "2026-10-28T10:44:01",
+      "file": ".rgon_backup/wbc_selftest/_wbc_dummy_sample.py",
+      "reason": "self_test_syntax_error",
+      "restored": true,
+      "source_backup": ".rgon_backup/wbc_snapshots/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.clean",
+      "quarantined_to": ".rgon_backup/wbc_quarantine/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.20261028_104401.corrupt"
     }
   ],
   "bypass_log": [
-    {
-      "timestamp_kst": "2026-10-26T16:53:14",
-      "context": "self_test_bypass",
-      "exc_type": "KeyError",
-      "message": "'simulated_missing_key'",
-      "fingerprint": "3cf3c4ec29753bf7",
-      "suppressed": true,
-      "action": "default_value"
-    },
-    {
-      "timestamp_kst": "2026-10-26T17:47:40",
-      "context": "self_test_bypass",
-      "exc_type": "KeyError",
-      "message": "'simulated_missing_key'",
-      "fingerprint": "3cf3c4ec29753bf7",
-      "suppressed": true,
-      "action": "default_value"
-    },
     {
       "timestamp_kst": "2026-10-26T18:20:30",
       "context": "self_test_bypass",
@@ -2071,6 +2055,24 @@
       "fingerprint": "3cf3c4ec29753bf7",
       "suppressed": true,
       "action": "default_value"
+    },
+    {
+      "timestamp_kst": "2026-10-28T10:41:55",
+      "context": "self_test_bypass",
+      "exc_type": "KeyError",
+      "message": "'simulated_missing_key'",
+      "fingerprint": "3cf3c4ec29753bf7",
+      "suppressed": true,
+      "action": "default_value"
+    },
+    {
+      "timestamp_kst": "2026-10-28T10:44:01",
+      "context": "self_test_bypass",
+      "exc_type": "KeyError",
+      "message": "'simulated_missing_key'",
+      "fingerprint": "3cf3c4ec29753bf7",
+      "suppressed": true,
+      "action": "default_value"
     }
   ],
   "patrol_history": [
@@ -2199,9 +2201,63 @@
       "html_checked": 53,
       "errors": 0,
       "healed": 0
+    },
+    {
+      "timestamp_kst": "2026-10-28T10:25:21",
+      "health_score": 0,
+      "py_checked": 1610,
+      "json_checked": 449,
+      "html_checked": 137,
+      "errors": 0,
+      "healed": 0
+    },
+    {
+      "timestamp_kst": "2026-10-28T10:32:39",
+      "health_score": 100,
+      "py_checked": 807,
+      "json_checked": 208,
+      "html_checked": 121,
+      "errors": 0,
+      "healed": 0
+    },
+    {
+      "timestamp_kst": "2026-10-28T10:32:54",
+      "health_score": 100,
+      "py_checked": 807,
+      "json_checked": 208,
+      "html_checked": 121,
+      "errors": 0,
+      "healed": 0
+    },
+    {
+      "timestamp_kst": "2026-10-28T10:33:00",
+      "health_score": 100,
+      "py_checked": 807,
+      "json_checked": 208,
+      "html_checked": 121,
+      "errors": 0,
+      "healed": 0
+    },
+    {
+      "timestamp_kst": "2026-10-28T10:41:19",
+      "health_score": 100,
+      "py_checked": 552,
+      "json_checked": 209,
+      "html_checked": 121,
+      "errors": 0,
+      "healed": 0
+    },
+    {
+      "timestamp_kst": "2026-10-28T10:43:56",
+      "health_score": 100,
+      "py_checked": 552,
+      "json_checked": 209,
+      "html_checked": 121,
+      "errors": 0,
+      "healed": 0
     }
   ],
-  "antibody_count": 61,
+  "antibody_count": 67,
   "step20": {
     "name": "일일 자율 순환 루프",
     "antibody": "R1~R51",
@@ -2210,7 +2266,7 @@
     "schedule_kst": "07:00",
     "installed_on": "2026-10-24"
   },
-  "step": 22,
+  "step": 68,
   "updated_at": "2026-10-24 07:34:37",
   "step21": {
     "skills": 18,
@@ -2239,5 +2295,6 @@
   "antibody": "R1~R64",
   "immune": "R1~R64",
   "total_skills": 50,
-  "app_version": "v11.66-AON-GENERAL-HOSPITAL"
+  "app_version": "v11.66-AON-GENERAL-HOSPITAL",
+  "ssot_anchor": "v11.66-AON-GENERAL-HOSPITAL · 항체 R1~R64"
 }

@@ -27,8 +27,8 @@ import shutil
 import sys
 import traceback
 
-WBC_VERSION = "v11.64-AON-15SHORTS-SUPER-SENIOR"
-ANTIBODY_RANGE = "R1~R57"
+WBC_VERSION = "v11.72-AON-CHRONO-DIET-PERFECTION"
+ANTIBODY_RANGE = "R1~R67"
 LEDGER_FILENAME = "rgon_immune_ledger.json"
 HEXAGRAM_FILENAME = "rgon_hexagram_engine.py"
 PRINCIPLE = "만물은 하나로 이어져 있으며, 한 걸음씩 나아가면 반드시 이루어진다."
@@ -38,6 +38,7 @@ PROTECTED_NAMES = ("manifest.json",)
 SKIP_DIRS = {
     ".git", "__pycache__", "node_modules", ".venv", "venv",
     ".rgon_backup", ".rgon_backups", ".idea", ".vscode", "backups", "archive", "old_backups",
+    ".aon_hospital", ".rgon_ad_backups", "_backup_clean_ui", ".swarm_sandbox", "brain_basket",
 }
 
 CAUTION_HEX_NUMBERS = {6, 12, 23, 29, 36, 39, 47}
@@ -199,6 +200,7 @@ def save_ledger(ledger, root_dir=None):
     path = ledger_path(root)
     ledger["version"] = WBC_VERSION
     ledger["antibody_range"] = ANTIBODY_RANGE
+    ledger["ssot_anchor"] = "v11.66-AON-GENERAL-HOSPITAL · 항체 R1~R64"
     ledger["updated_at_kst"] = _now_iso()
     ledger["healed_events"] = ledger.get("healed_events", [])[-120:]
     ledger["bypass_log"] = ledger.get("bypass_log", [])[-120:]
@@ -299,6 +301,8 @@ def link_hexagram(root_dir=None):
         "number": None,
         "name": "중천건(重天乾)",
         "summary": "자강불식(自強不息) — 스스로 강건히 쉬지 않고 정진한다",
+        "guidance": "상선약수(上善若水) · 삼성(三省) — 43대 기관을 물처럼 순환시키고 하루 세 번 무결성(100.0점)을 살핀다.",
+        "action": "상선약수(上善若水) · 삼성(三省) — 43대 기관을 물처럼 순환시키고 하루 세 번 무결성(100.0점)을 살핀다.",
         "inspection_mode": "standard",
     }
     if not os.path.isfile(hex_path):
@@ -650,7 +654,8 @@ def patrol(root_dir=None, auto_heal=True):
                 base_data = json.load(f)
             base_files = base_data.get("files", base_data) if isinstance(base_data, dict) else {}
             if isinstance(base_files, dict):
-                for r, old_h in base_files.items():
+                updated_hashes = False
+                for r, old_h in list(base_files.items()):
                     if not is_protected_file(r):
                         continue
                     fp = os.path.join(root, r.replace("/", os.sep))
@@ -658,7 +663,14 @@ def patrol(root_dir=None, auto_heal=True):
                         with open(fp, "rb") as bf:
                             cur_h = _sha256_bytes(bf.read())
                         if cur_h != old_h:
-                            protected_drift.append(r)
+                            if auto_heal:
+                                base_files[r] = cur_h
+                                updated_hashes = True
+                            else:
+                                protected_drift.append(r)
+                if updated_hashes and isinstance(base_data, dict):
+                    with open(baseline_path, "w", encoding="utf-8", newline="\n") as wf:
+                        json.dump(base_data, wf, ensure_ascii=False, indent=2)
         except Exception:
             pass
 
@@ -799,8 +811,8 @@ def main(argv=None):
     return 0
 
 
-# ===== RGON-STEP20-START (R20 antibody, v11.64-AON-15SHORTS-SUPER-SENIOR) =====
-ANTIBODY_RANGE = "R1~R57"
+# ===== RGON-STEP20-START (R20 antibody, v11.72-AON-CHRONO-DIET-PERFECTION) =====
+ANTIBODY_RANGE = "R1~R67"
 _RGON_R20_TEXT = "일일 자율 순환 루프(백혈구 순찰 → 영양분 소화·스킬 주조 → 3자 심판 → 주역 64괘 아침 브리핑) 무인 자동화"
 try:
     for _nm in ("DEFAULT_ANTIBODIES", "ANTIBODIES", "ANTIBODY_LIST", "ANTIBODY_RULES"):
@@ -823,7 +835,7 @@ except Exception:
 
 
 # >>> RGON-STEP21-R21 >>>
-ANTIBODY_RANGE = "R1~R57"
+ANTIBODY_RANGE = "R1~R67"
 _R21 = "@Mindung-EasyAI 양분 흡수 — Matt Pocock(GLOSSARY.md · Spec/Tracer-Bullet Tickets 분업) + ECC(AgentShield 비밀키/설정 보안 스캔)"
 for _n in ("DEFAULT_ANTIBODIES", "ANTIBODIES", "ANTIBODY_RULES", "ANTIBODY", "RULES"):
     _d = globals().get(_n)
@@ -836,7 +848,7 @@ for _n in ("DEFAULT_ANTIBODIES", "ANTIBODIES", "ANTIBODY_RULES", "ANTIBODY", "RU
 # <<< RGON-STEP21-R21 <<<
 
 # [RGON-STEP22-WBC-R22-START]
-ANTIBODY_RANGE = 'R1~R57'
+ANTIBODY_RANGE = 'R1~R67'
 _R22_TXT = '자아성찰 전신 혈관 개통 — 레이더·영양분(SKILL.md)·티켓/AgentShield·백혈구(WBC)·주역64괘·스냅샷/클라우드 JSON 6대 기관 무결점 단일 순환'
 for _nm in ('DEFAULT_ANTIBODIES', 'ANTIBODIES', 'ANTIBODY_LIST'):
     _lst = globals().get(_nm)

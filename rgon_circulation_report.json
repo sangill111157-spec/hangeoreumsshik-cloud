@@ -1,6 +1,6 @@
 {
-  "at_kst": "2026-10-26 00:23:47 KST",
-  "version": "v11.51-AON-COMMANDER-TWIN",
+  "at_kst": "2026-10-28 10:32:41 KST",
+  "version": "v11.72-AON-CHRONO-DIET-PERFECTION",
   "organs": {
     "1_radar": {
       "ok": true,
@@ -11,7 +11,7 @@
     "2_nutrient": {
       "ok": true,
       "rc": 0,
-      "skill_count": 42,
+      "skill_count": 60,
       "report": true
     },
     "3_ticket_shield": {
@@ -19,7 +19,7 @@
       "ok": true,
       "auto_verify": {
         "promoted": [],
-        "S22-01": "open",
+        "S22-01": "done",
         "checks": {
           "S21-01": true,
           "S21-02": true,
@@ -38,7 +38,7 @@
     "5_iching": {
       "name": "중천건(重天乾)",
       "meaning": "자강불식(自強不息) — 스스로 강건히 쉬지 않고 정진한다",
-      "action": "상선약수(上善若水) · 삼성(三省) — 6대 기관을 물처럼 순환시키고 하루 세 번 무결성을 살핀다.",
+      "action": "상선약수(上善若水) · 삼성(三省) — 43대 기관을 물처럼 순환시키고 하루 세 번 무결성(100.0점)을 살핀다.",
       "source": "rgon_daily_cycle",
       "ok": true,
       "rc": 0

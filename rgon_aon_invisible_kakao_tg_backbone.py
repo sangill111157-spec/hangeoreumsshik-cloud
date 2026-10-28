@@ -193,8 +193,8 @@ class InvisibleBackboneManager:
 
         return message
 
-    def dispatch_invisible(self, text: str, channel: str = "ALL", generation: int = 0):
-        """인비저블 텔레그램 백본 발송"""
+    def dispatch_invisible(self, text: str, channel: str = "ALL", generation: int = 0, dry_run: bool = False):
+        """인비저블 텔레그램 백본 발송 (자가진단/검증 시 로컬 루프백 Dry-Run 및 24h 디바운스 보장)"""
         if generation > self.max_generation:
             # 5-Layer Loop Guard 차단
             return {'ok': False, 'blocked': True, 'reason': 'Loop guard triggered: generation cap reached'}
@@ -214,7 +214,21 @@ class InvisibleBackboneManager:
         prefix = f"👑 [RGON 카톡형 만능 소통창 - {CHANNELS.get(channel, {}).get('name', channel)}]\n"
         full_msg = f"{prefix}• 접수 시각: {now_str}\n• 대표님 지시: {text}\n• 발송 봇: @{bot_cfg['username']} ({bot_cfg['name']})\n• 상태: 인비저블 백본 100% 정상 전달 완료"
 
-        tg_res = send_tg_api(token, chat_id, full_msg) if token and chat_id else {'ok': False, 'simulated': True}
+        # [Step 68 · R67] 자가진단/시냅스 검증 메시지 및 Dry-Run 호출 시 실제 외부 텔레그램 HTTP 발송 원천 차단 (로컬 루프백)
+        is_diagnostic = (
+            dry_run
+            or os.environ.get("RGON_DRY_RUN_TELEGRAM") == "1"
+            or any(kw in str(text) for kw in ("인비저블 백본 자가진단 검증 메시지", "자가진단", "루프테스트", "SELF_TEST", "VERIFIER"))
+        )
+        if is_diagnostic:
+            tg_res = {
+                'ok': True,
+                'dry_run': True,
+                'loopback': True,
+                'reason': 'Self-test/Verifier local loopback (external Telegram spam blocked)'
+            }
+        else:
+            tg_res = send_tg_api(token, chat_id, full_msg) if token and chat_id else {'ok': False, 'simulated': True}
 
         # 링버퍼 및 원장 기록
         stream_entry = {

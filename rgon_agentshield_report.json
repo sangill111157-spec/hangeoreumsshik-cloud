@@ -1,12 +1,33 @@
 {
-  "version": "v11.26-CREATOR-FORGE",
-  "scanned_at": "2026-10-26 00:23:58",
-  "files_scanned": 1464,
+  "version": "v11.64-AON-15SHORTS-SUPER-SENIOR",
+  "scanned_at": "2026-10-28 10:32:48",
+  "files_scanned": 2500,
   "critical": 0,
   "high": 0,
-  "advisory": 1,
+  "advisory": 4,
   "clean": true,
   "findings": [
+    {
+      "file": "rgon_aon_impeccable_audit_shield.py",
+      "line": 471,
+      "rule": "openai_api_key",
+      "severity": "advisory",
+      "preview": "sk-exa***(34)"
+    },
+    {
+      "file": ".aon_hospital\\ssot\\rgon_aon_impeccable_audit_shield.py",
+      "line": 471,
+      "rule": "openai_api_key",
+      "severity": "advisory",
+      "preview": "sk-exa***(34)"
+    },
+    {
+      "file": ".aon_hospital\\ssot\\scripts\\rgon_telegram_bridge.py",
+      "line": 379,
+      "rule": "telegram_bot_token",
+      "severity": "advisory",
+      "preview": "123456***(45)"
+    },
     {
       "file": "scripts\\rgon_telegram_bridge.py",
       "line": 379,

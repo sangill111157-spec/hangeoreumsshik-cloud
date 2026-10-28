@@ -1,8 +1,8 @@
 {
-  "version": "v11.51-AON-COMMANDER-TWIN",
+  "version": "v11.72-AON-CHRONO-DIET-PERFECTION",
   "goal": "Step 21 @Mindung-EasyAI 양분 흡수",
   "goal_glossary": [],
-  "generated_at": "2026-10-26 00:23:52",
+  "generated_at": "2026-10-28 10:32:42",
   "frontier": [],
   "tickets": [
     {
@@ -82,7 +82,7 @@
         "S21-06"
       ],
       "demo_path": "6대 기관 순환 완주 + Self-Test 4/4 PASS",
-      "status": "open",
+      "status": "done",
       "checks": {
         "S21-01": true,
         "S21-02": true,
@@ -91,9 +91,9 @@
         "S21-05": true,
         "S21-06": true
       },
-      "verified_at_kst": "2026-10-26 00:24:14 KST"
+      "verified_at_kst": "2026-10-28 10:32:54 KST"
     }
   ],
-  "antibody_range": "R1~R52",
-  "auto_verified_at_kst": "2026-10-26 00:24:14 KST"
+  "antibody_range": "R1~R67",
+  "auto_verified_at_kst": "2026-10-28 10:32:54 KST"
 }

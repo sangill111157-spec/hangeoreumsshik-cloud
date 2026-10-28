@@ -35,11 +35,11 @@
   "details": {
     "python_ast": {
       "ok": true,
-      "total_py_files": 807,
-      "passed_py_files": 807,
+      "total_py_files": 552,
+      "passed_py_files": 552,
       "failed_py_files": 0,
       "errors": [],
-      "elapsed_sec": 1.659
+      "elapsed_sec": 2.078
     },
     "runtime_gears": {
       "ok": true,
@@ -62,7 +62,7 @@
           "ok": true,
           "departments": 5,
           "rca_steps": 8,
-          "sample_receipt": "#AS-2026-EF1975"
+          "sample_receipt": "#AS-2026-8BFD68"
         },
         "step66_organ41_omniroute": {
           "ok": true,
@@ -74,7 +74,7 @@
           "work_plugins": 11
         }
       },
-      "elapsed_sec": 0.132
+      "elapsed_sec": 0.201
     },
     "shorts_43_registries": {
       "ok": true,
@@ -105,11 +105,11 @@
         "index_20260405_backup.html": "MISSING"
       },
       "handover_ok": true,
-      "handover_lines": 112,
+      "handover_lines": 115,
       "codemap_json_ok": true
     }
   },
-  "timestamp": "2026-10-28T10:15:21.825096+09:00",
+  "timestamp": "2026-10-28T10:45:06.625167+09:00",
   "applied_patches": {
     "index.html": "already_patched",
     "trio_synced_files": [],

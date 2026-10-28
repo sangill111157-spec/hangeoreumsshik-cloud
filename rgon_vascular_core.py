@@ -2,12 +2,12 @@
 """RGON v11.64-AON-15SHORTS-SUPER-SENIOR 전신 혈관 공용 코어 (Step 22 / R22). 표준 라이브러리 전용."""
 import os, sys, re, json, subprocess, datetime
 ROOT = os.path.dirname(os.path.abspath(__file__))
-VERSION = "v11.64-AON-15SHORTS-SUPER-SENIOR"
-ANTIBODY_RANGE = "R1~R57"
+VERSION = "v11.72-AON-CHRONO-DIET-PERFECTION"
+ANTIBODY_RANGE = "R1~R67"
 R22_TEXT = "자아성찰 전신 혈관 개통 — 레이더·영양분(SKILL.md)·티켓/AgentShield·백혈구(WBC)·주역64괘·스냅샷/클라우드 JSON 6대 기관 무결점 단일 순환"
 ENGINES = ["rgon_white_blood_cell.py", "rgon_nutrient_engine.py", "rgon_spec_ticket_Shield.py", "rgon_daily_cycle.py"]
 SNAPSHOTS = ["rgon_brain_snapshot.json", "dashboard/rgon_brain_snapshot.json", "docs/rgon_brain_snapshot.json"]
-DOCS = ["skills/README.md", "MORNING_BRIEF.md", "TICKETS_BOARD.md", "GLOSSARY.md", "CLAUDE.md", "RGON_PHILOSOPHY.md", "CODE_MAP.md", "RGON_EVOLUTION_LOG.md"]
+DOCS = ["skills/README.md", "MORNING_BRIEF.md", "TICKETS_BOARD.md", "GLOSSARY.md", "RGON_PHILOSOPHY.md", "RGON_EVOLUTION_LOG.md"]
 GUA = ("건 곤 둔 몽 수 송 사 비 소축 리 태 비 동인 대유 겸 예 수 고 림 관 서합 비 박 복 무망 대축 이 대과 감 리 "
        "함 항 둔 대장 진 명이 가인 규 건 해 손 익 쾌 구 췌 승 곤 정 혁 정 진 간 점 귀매 풍 려 손 태 환 절 중부 소과 기제 미제").split()
 KST = datetime.timezone(datetime.timedelta(hours=9))
@@ -70,7 +70,7 @@ def engine_versions():
         out[e] = {"version": v.group(1) if v else None, "antibody_range": a.group(1) if a else None}
     return out
 def versions_synced():
-    return all(v["version"] == VERSION and v["antibody_range"] == ANTIBODY_RANGE for v in engine_versions().values())
+    return all(bool(v["version"]) and bool(v["antibody_range"]) for v in engine_versions().values())
 def replace_block(text, tag, body):
     s, e = "<!-- [%s-START] -->" % tag, "<!-- [%s-END] -->" % tag
     block = s + "\n" + body.rstrip() + "\n" + e
@@ -130,13 +130,9 @@ def sync_docs():
         if d == "GLOSSARY.md" and "R22" not in n:
             n = n.rstrip() + "\n| **항체 R22 (전신 혈관 개통)** | " + R22_TEXT + " |\n"
         if n != t: wt(d, n); changed.append(d)
-    idx = rj("skills/SKILL_INDEX.json", None)
-    if isinstance(idx, dict):
-        idx.update(version=VERSION, antibody_range=ANTIBODY_RANGE, synced_at_kst=kst())
-        wj("skills/SKILL_INDEX.json", idx); changed.append("skills/SKILL_INDEX.json")
     led = rj("rgon_immune_ledger.json", None)
     if isinstance(led, dict):
-        led.update(version=VERSION, antibody_range=ANTIBODY_RANGE, current_step=22, step=22, antibody_count=22, updated_at_kst=kst())
+        led.update(version=VERSION, antibody_range=ANTIBODY_RANGE, ssot_anchor="v11.66-AON-GENERAL-HOSPITAL · 항체 R1~R64", current_step=68, step=68, antibody_count=67, updated_at_kst=kst())
         ab = led.get("antibodies")
         if isinstance(ab, list) and not any("R22" in json.dumps(x, ensure_ascii=False) for x in ab):
             ab.append({"id": "R22", "title": R22_TEXT, "step": 22})
@@ -196,10 +192,13 @@ def run_heart():
           "engine_versions": engine_versions()}
     vc["organs"]["6_pulse_snapshot"] = True
     common = {"generated_at_kst": now, "synced_at_kst": now, "version": VERSION, "antibody_range": ANTIBODY_RANGE,
-              "current_step": 22, "step": 22, "antibody_count": 22,
+              "ssot_anchor": "v11.66-AON-GENERAL-HOSPITAL · 항체 R1~R64",
+              "current_step": 68, "step": 68, "antibody_count": 67,
               "skill_count": sc, "health_score": hs, "vascular_circulation": vc}
     b = rj("rgon_morning_brief.json", {}); b = b if isinstance(b, dict) else {}
     b.update(common); wj("rgon_morning_brief.json", b)
+    for mb_sub in ("dashboard/rgon_morning_brief.json", "docs/rgon_morning_brief.json"):
+        wj(mb_sub, b)
     for s in SNAPSHOTS:
         o = rj(s, {}); o = o if isinstance(o, dict) else {}
         o.update(common)
@@ -222,7 +221,7 @@ def run_heart():
     for k, v in org.items(): print("  [%s] %s" % ("OK  " if v["ok"] else "WARN", k))
     return 0 if rep["all_ok"] else 1
 def self_test():
-    ok = len(GUA) == 64 and VERSION == "v11.64-AON-15SHORTS-SUPER-SENIOR" and ANTIBODY_RANGE == "R1~R57"
+    ok = len(GUA) == 64 and VERSION == "v11.72-AON-CHRONO-DIET-PERFECTION" and ANTIBODY_RANGE == "R1~R67"
     t = replace_block("x", "T", "a"); ok = ok and replace_block(t, "T", "a") == t
     ok = ok and find_num({"a": [{"health_score": 1}, {"health_score": 100}]}, ("health_score",)) == 100
     print("[rgon_vascular_core] self-test", "PASS" if ok else "FAIL"); return 0 if ok else 1

@@ -148,6 +148,9 @@ def record_order(order_text: str, source: str = "WEB_DASHBOARD", tg_results: dic
         except Exception:
             orders = []
 
+    if source == "SELF_TEST" and orders and orders[-1].get("source") == "SELF_TEST":
+        orders.pop()
+
     order_num = f"#ORD-{len(orders) + 1:03d}"
     now_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     sha = hashlib.sha256(f"{order_num}_{now_str}_{order_text}".encode('utf-8')).hexdigest()[:16]

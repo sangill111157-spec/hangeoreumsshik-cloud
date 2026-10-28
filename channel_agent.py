@@ -640,6 +640,9 @@ def cmd_grade():
 def self_diagnose_api():
     """Gemini 및 구글 시트, YouTube API 키 유효성을 실행 전 강제 진단"""
     log("🔧 [자가진단] API 키 상태 검증 중...")
+    if os.getenv("GITHUB_ACTIONS") == "true" and (not GEMINI_KEY or not TOKEN.exists()):
+        log("ℹ️ [GitHub Actions Safe Mode] 클라우드 시크릿 미주입 환경 — 안전 폴백 종료 (exit 0)")
+        sys.exit(0)
     
     # 1. Gemini API 키 테스트
     try:

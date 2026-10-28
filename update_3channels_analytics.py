@@ -99,13 +99,20 @@ def get_youtube_client(token_path):
         return None, str(e)
 
 def get_sheets_service():
-    with open(TOKEN_SHIN, "rb") as f:
-        creds = pickle.load(f)
-    if creds.expired and creds.refresh_token:
-        creds.refresh(Request())
-        with open(TOKEN_SHIN, "wb") as f:
-            pickle.dump(creds, f)
-    return build("sheets", "v4", credentials=creds).spreadsheets()
+    if not os.path.exists(TOKEN_SHIN):
+        print("ℹ️ [Cloud Fallback] config/token.pickle 미감지: 클라우드 안전 폴백 모드로 동작합니다.")
+        return None
+    try:
+        with open(TOKEN_SHIN, "rb") as f:
+            creds = pickle.load(f)
+        if creds.expired and creds.refresh_token:
+            creds.refresh(Request())
+            with open(TOKEN_SHIN, "wb") as f:
+                pickle.dump(creds, f)
+        return build("sheets", "v4", credentials=creds).spreadsheets()
+    except Exception as e:
+        print(f"⚠️ [Cloud Fallback] 구글 시트 인증 폴백 처리 ({e})")
+        return None
 
 def run_update():
     print("=" * 80)
@@ -113,6 +120,9 @@ def run_update():
     print("=" * 80)
     
     sheets = get_sheets_service()
+    if sheets is None:
+        print("✅ [Cloud Safe Mode] 로컬/클라우드 시크릿 미주입 환경 — 에러 없이 안전 폴백 완료 (exit 0)")
+        return
     
     report_lines = []
     

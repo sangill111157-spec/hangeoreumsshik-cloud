@@ -146,7 +146,7 @@
 > 하나로 이어져 있되 나뉘어 각자 빛나고, 막히면 변하여 통하고, 한걸음씩 올바르게 나아간다. — RGON
 
 <!-- [RGON-STEP18-WBC-START] -->
-## 제5장. 백혈구(WBC) 자가치유 면역의 도(道) — 항체 R18 (v11.50-AON-TOKEN-EGOLITE-MASTER)
+## 제5장. 백혈구(WBC) 자가치유 면역의 도(道) — 항체 R18 (v11.72-AON-CHRONO-DIET-PERFECTION)
 
 > **만물은 하나로 이어져 있으며, 한 걸음씩 나아가면 반드시 이루어진다.**
 
@@ -157,7 +157,7 @@
 <!-- [RGON-STEP18-WBC-END] -->
 
 <!-- RGON:STEP19-PHILOSOPHY:BEGIN -->
-## 🍯 영양분 3스푼의 철학 — v11.50-AON-TOKEN-EGOLITE-MASTER (R19)
+## 🍯 영양분 3스푼의 철학 — v11.72-AON-CHRONO-DIET-PERFECTION (R19)
 
 - 1스푼 정(井) — MarkdownPurifier: 우물은 맑은 물만 길어 올린다. 광고·추적·잡음을 걷어내고 지식의 본질만 마신다.
 - 2스푼 정(鼎) — SkillAutoForge: 솥은 새것을 세운다. 흡수한 지식을 표준 SKILL.md로 주조해 스스로 증식한다.
@@ -168,8 +168,8 @@
 <!-- RGON:STEP19-PHILOSOPHY:END -->
 
 <!-- RGON-STEP20-START -->
-## [Step 20] v11.50-AON-TOKEN-EGOLITE-MASTER — 일일 자율 순환 루프 (R20)
-- 버전: v11.50-AON-TOKEN-EGOLITE-MASTER / 항체 범위: R1~R51
+## [Step 20] v11.72-AON-CHRONO-DIET-PERFECTION — 일일 자율 순환 루프 (R20)
+- 버전: v11.72-AON-CHRONO-DIET-PERFECTION / 항체 범위: R1~R67
 - R20: 일일 자율 순환 루프(백혈구 순찰 → 영양분 소화·스킬 주조 → 3자 심판 → 주역 64괘 아침 브리핑) 무인 자동화
 - 심장: rgon_daily_cycle.py (--run / --status / --self-test)
 - 4단계: 백혈구 순찰 → 영양분 3스푼 소화·SKILL.md 주조·TrinityCouncil 심의 → 주역 64괘 → MORNING_BRIEF.md / rgon_morning_brief.json
@@ -179,6 +179,6 @@
 <!-- RGON-STEP20-END -->
 
 <!-- RGON:STEP21:START -->
-## v11.50-AON-TOKEN-EGOLITE-MASTER — 공유 언어와 방패
-하나의 단어가 스무 단어를 대신하고(GLOSSARY), 얇은 관통 티켓이 큰 목표를 나누며(Tracer-Bullet), 방패(AgentShield)가 비밀을 지킨다. 항체 R1~R51.
+## v11.72-AON-CHRONO-DIET-PERFECTION — 공유 언어와 방패
+하나의 단어가 스무 단어를 대신하고(GLOSSARY), 얇은 관통 티켓이 큰 목표를 나누며(Tracer-Bullet), 방패(AgentShield)가 비밀을 지킨다. 항체 R1~R67.
 <!-- RGON:STEP21:END -->

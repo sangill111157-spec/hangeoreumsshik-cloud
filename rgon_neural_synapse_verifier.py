@@ -1832,13 +1832,21 @@ if callable(_r64_orig_vsl) and not getattr(_r64_orig_vsl, "_r64", False):
     verify_synapse_links._r64 = True
 # [RGON-R64-HOSPITAL-SYNAPSE-END]
 
-# [RGON-R65-R66-CHRONOMETER-SYNAPSE-BEGIN]
+# [RGON-R65-R66-R67-CHRONOMETER-SYNAPSE-BEGIN]
 try:
-    for _org_f in ("step66_aon_omniroute_council_15shorts_engine.py", "step67_aon_chronometer_deep_auditor.py"):
+    for _org_f in (
+        "step66_aon_omniroute_council_15shorts_engine.py",
+        "step67_aon_chronometer_deep_auditor.py",
+        "step68_aon_chrono_diet_perfection.py",
+    ):
         if _org_f not in ORGANS:
             ORGANS.append(_org_f)
 except NameError:
-    ORGANS = ["step66_aon_omniroute_council_15shorts_engine.py", "step67_aon_chronometer_deep_auditor.py"]
+    ORGANS = [
+        "step66_aon_omniroute_council_15shorts_engine.py",
+        "step67_aon_chronometer_deep_auditor.py",
+        "step68_aon_chrono_diet_perfection.py",
+    ]
 
 
 def _r65_s35_check():
@@ -1901,14 +1909,40 @@ def _r66_s36_check():
                 "evidence": repr(e), "detail": repr(e)}
 
 
+def _r67_s37_check():
+    import time as _tm, importlib as _il
+    _t0 = _tm.perf_counter()
+    name = "대화허브(/비워내기·/다이어트·/텔레그램무결성)→제43기관 아온 텔레그램 실측 무결성 & Ponytail 무결점 다이어트 감사원"
+    try:
+        mod = _il.import_module("step68_aon_chrono_diet_perfection")
+        a1 = mod.verify_axis_a1_telegram_antispam()
+        a2 = mod.verify_axis_a2_morning_brief()
+        a3 = mod.verify_axis_a3_github_actions_analytics()
+        a4 = mod.verify_axis_a4_nvda_scheduler_misfire()
+        ok = (
+            mod.ORGAN_NO == 43
+            and a1.get("ok") is True
+            and a2.get("ok") is True
+            and a3.get("ok") is True
+            and a4.get("ok") is True
+        )
+        ev = f"organ=43, tg_loopback={a1.get('dry_run_loopback')}, brief_ok={a2.get('ok')}, actions_ok={a3.get('ok')}, nvda_sched_ok={a4.get('ok')}"
+        return {"id": "S37", "name": name, "ok": bool(ok), "sec": round(_tm.perf_counter() - _t0, 3),
+                "evidence": ev, "detail": ev}
+    except Exception as e:
+        return {"id": "S37", "name": name, "ok": False, "sec": round(_tm.perf_counter() - _t0, 3),
+                "evidence": repr(e), "detail": repr(e)}
+
+
 _r66_orig_vsl = globals().get("verify_synapse_links")
 if callable(_r66_orig_vsl) and not getattr(_r66_orig_vsl, "_r66", False):
     def verify_synapse_links(*args, **kwargs):
         res = _r66_orig_vsl(*args, **kwargs)
         s35 = _r65_s35_check()
         s36 = _r66_s36_check()
+        s37 = _r67_s37_check()
         if isinstance(res, dict) and isinstance(res.get("synapses"), list):
-            items = [x for x in res["synapses"] if not (isinstance(x, dict) and x.get("id") in ("S35", "S36"))] + [s35, s36]
+            items = [x for x in res["synapses"] if not (isinstance(x, dict) and x.get("id") in ("S35", "S36", "S37"))] + [s35, s36, s37]
             res["synapses"] = items
             res["passed"] = sum(1 for x in items if isinstance(x, dict) and x.get("ok"))
             res["total"] = len(items)

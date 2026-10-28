@@ -7,7 +7,7 @@ created_at_kst: "2026-10-24 07:34:38 KST"
 hexagram_tag: "#36-明夷"
 slug: "ecc-agentshield-harness"
 origin: "radar"
-version: "v11.26-CREATOR-FORGE"
+version: "v11.64-AON-15SHORTS-SUPER-SENIOR"
 antibody: "R19"
 ---
 
@@ -25,7 +25,7 @@ antibody: "R19"
 - MarkdownPurifier로 문서를 정제해 요약을 보강한다.
 - TrinityCouncil에 도입 안건으로 올려 3자 심의를 거친다.
 
-## 안전 수칙 (백혈구 항체 R1~R27)
+## 안전 수칙 (백혈구 항체 R1~R57)
 
 - UI/확장 파일(.html · .js · manifest.json)은 단 1바이트도 수정하지 않는다 (R14·R15·R16·R18).
 - 파이썬 3 표준 라이브러리만 사용하고 외부 pip 설치를 하지 않는다.
@@ -35,4 +35,4 @@ antibody: "R19"
 
 ---
 
-_RGON SkillAutoForge v11.26-CREATOR-FORGE 자동 주조 · 출처: https://github.com/affaan-m/everything-claude-code_
+_RGON SkillAutoForge v11.64-AON-15SHORTS-SUPER-SENIOR 자동 주조 · 출처: https://github.com/affaan-m/everything-claude-code_
