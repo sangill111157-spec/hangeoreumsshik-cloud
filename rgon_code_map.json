@@ -1,11 +1,11 @@
 {
   "schema": "RGON_CODE_MAP_V1170",
-  "version": "v11.74-AON-MAESTRO-SYNERGY-SCHEDULER",
+  "version": "v11.76-AON-IMMUTABLE-DNA-KEYVAULT",
   "ssot_baseline_version": "v11.66-AON-GENERAL-HOSPITAL",
-  "antibody_range": "R1~R68",
-  "formal_skills_total": 64,
+  "antibody_range": "R1~R69",
+  "formal_skills_total": 65,
   "ssot_verified_skills": 60,
-  "total_organs": 44,
+  "total_organs": 45,
   "total_shorts_integrated": 43,
   "shorts_breakdown": {
     "batch_1_step63": 13,
@@ -169,6 +169,22 @@
       "directors_count": 7,
       "synergy_chains_count": 5,
       "schedule_slots_24h": 6
+    },
+    "Step70_Organ45": {
+      "step": 70,
+      "organ_no": 45,
+      "organ_id": "ORGAN-45-IMMUTABLE-DNA-KEYVAULT",
+      "organ_name": "제45기관 아온 불변의 일처리 8대 법칙(Immutable Work DNA) 전 에이전트 이식 & 마스터 키 금고(Key Vault) 실전 바인딩 엔진",
+      "version": "v11.76-AON-IMMUTABLE-DNA-KEYVAULT",
+      "antibody": "R69",
+      "skill_no": 65,
+      "skill_id": "aon_immutable_dna_keyvault",
+      "engine_file": "step70_aon_immutable_dna_keyvault.py",
+      "registry_file": "rgon_immutable_dna_keyvault_registry.json",
+      "report_json": "rgon_step70_dna_keyvault_report.json",
+      "html_drawer_id": "step70-immutable-dna-keyvault-drawer",
+      "immutable_laws_count": 8,
+      "key_categories_count": 5
     }
   },
   "neural_synapse_verifier": {
@@ -180,5 +196,5 @@
     ],
     "target_score": 100.0
   },
-  "formal_skills_count": 64
+  "formal_skills_count": 65
 }

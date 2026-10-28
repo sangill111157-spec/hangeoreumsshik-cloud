@@ -78,8 +78,8 @@
       "newly_pruned_dirs_count": 1,
       "total_pruned_files_count": 317,
       "total_pruned_dirs_count": 2,
-      "freed_bytes": 11205017,
-      "freed_kb": 10942.4,
+      "freed_bytes": 12690312,
+      "freed_kb": 12392.88,
       "pruned_files": [
         "apply_50c_doc.py",
         "apply_52c_doc.py",
@@ -406,10 +406,10 @@
     },
     "remaining_python_ast": {
       "ok": true,
-      "remaining_py_files": 561,
+      "remaining_py_files": 562,
       "failed_py_files": 0,
       "errors": []
     }
   },
-  "timestamp": "2026-10-28T11:17:16+09:00"
+  "timestamp": "2026-10-28T11:35:02+09:00"
 }

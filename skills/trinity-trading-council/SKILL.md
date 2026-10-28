@@ -30,3 +30,8 @@ python rgon_trading_council.py --json          # 구조화 결과 출력
 
 ## 출력 포맷 (Step 23 parseTri 호환)
 `⚖️ [GO|HOLD|DEFEND] XX.X점 (Bull XX.X / Bear XX.X / #NN-괘명) 안건 — 판단`
+
+<!-- RGON_IMMUTABLE_WORK_DNA_V1176 -->
+> **[RGON 불변의 일처리 8대 법칙 (Immutable Work DNA v11.76 · 항체 R69) 이식 완료]**
+> 1. Global Top-1 Benchmark | 2. Karpathy 4-Rules & LLM Council | 3. Master KeyVault Leverage (0% Leak) | 4. Chronometer Runtime Proof | 5. Maestro Synergy DAG Relay | 6. Ponytail Zero-Bloat Diet | 7. Water Self-Healing & Samseong(三省) | 8. Commander Approval Gate
+<!-- /RGON_IMMUTABLE_WORK_DNA_V1176 -->

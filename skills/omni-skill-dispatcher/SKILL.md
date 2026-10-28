@@ -23,3 +23,8 @@ V15 placeOnce 블록 보존. 감시 루프·반복 타이머·프레임 루프 A
 [⚡ 스킬 호출] omni-skill-dispatcher
 → skills/omni-skill-dispatcher/SKILL.md 지침에 따라 실행해 줘.
 ```
+
+<!-- RGON_IMMUTABLE_WORK_DNA_V1176 -->
+> **[RGON 불변의 일처리 8대 법칙 (Immutable Work DNA v11.76 · 항체 R69) 이식 완료]**
+> 1. Global Top-1 Benchmark | 2. Karpathy 4-Rules & LLM Council | 3. Master KeyVault Leverage (0% Leak) | 4. Chronometer Runtime Proof | 5. Maestro Synergy DAG Relay | 6. Ponytail Zero-Bloat Diet | 7. Water Self-Healing & Samseong(三省) | 8. Commander Approval Gate
+<!-- /RGON_IMMUTABLE_WORK_DNA_V1176 -->

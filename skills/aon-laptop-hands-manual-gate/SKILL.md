@@ -24,3 +24,8 @@
 - 제10기관 분별기: `gate_control`(켜기는 마스터만, 끄기는 즉시 전체 잠금) · `laptop_check` · `laptop_open`
 - 뮤즈: `approve` 계열 함수를 R35 게이트로 감쌉니다.
 - HTML: `[RGON-GATE-V1]`. 상단 `🔒 결재수동 OFF ⇄ 🔓 결재수동 ON` 토글과 📋 보드의 🎛️ 제어판으로 구성되며, `[✅ 승인 집행]`은 캡처 단계에서 차단합니다.
+
+<!-- RGON_IMMUTABLE_WORK_DNA_V1176 -->
+> **[RGON 불변의 일처리 8대 법칙 (Immutable Work DNA v11.76 · 항체 R69) 이식 완료]**
+> 1. Global Top-1 Benchmark | 2. Karpathy 4-Rules & LLM Council | 3. Master KeyVault Leverage (0% Leak) | 4. Chronometer Runtime Proof | 5. Maestro Synergy DAG Relay | 6. Ponytail Zero-Bloat Diet | 7. Water Self-Healing & Samseong(三省) | 8. Commander Approval Gate
+<!-- /RGON_IMMUTABLE_WORK_DNA_V1176 -->

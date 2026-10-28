@@ -4,7 +4,7 @@
   "current_step": 68,
   "antibody_range": "R1~R64",
   "principle": "만물은 하나로 이어져 있으며, 한 걸음씩 나아가면 반드시 이루어진다.",
-  "updated_at_kst": "2026-10-28T11:17:04",
+  "updated_at_kst": "2026-10-28T11:34:48",
   "health_score": 100,
   "inspection_mode": "standard",
   "today_hexagram": {
@@ -16,7 +16,7 @@
     "action": "상선약수(上善若水) · 삼성(三省) — 43대 기관을 물처럼 순환시키고 하루 세 번 무결성(100.0점)을 살핀다.",
     "inspection_mode": "standard"
   },
-  "suppressed_count": 158,
+  "suppressed_count": 160,
   "antibodies": "R1~R64",
   "fingerprints": {
     "3cf3c4ec29753bf7": {
@@ -25,29 +25,13 @@
       "context": "self_test_bypass",
       "sample_message": "'simulated_missing_key'",
       "first_seen_kst": "2026-10-24T08:11:50",
-      "last_seen_kst": "2026-10-28T11:17:04",
-      "count": 160,
+      "last_seen_kst": "2026-10-28T11:34:47",
+      "count": 162,
       "suppressed": true,
       "known_remedy": "R18 상선약수: adapt_dict 안전 키 매핑 및 기본값 반환"
     }
   },
   "healed_events": [
-    {
-      "timestamp_kst": "2026-10-26T18:22:22",
-      "file": ".rgon_backup/wbc_selftest/_wbc_dummy_sample.py",
-      "reason": "self_test_syntax_error",
-      "restored": true,
-      "source_backup": ".rgon_backup/wbc_snapshots/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.clean",
-      "quarantined_to": ".rgon_backup/wbc_quarantine/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.20261026_182222.corrupt"
-    },
-    {
-      "timestamp_kst": "2026-10-26T18:25:02",
-      "file": ".rgon_backup/wbc_selftest/_wbc_dummy_sample.py",
-      "reason": "self_test_syntax_error",
-      "restored": true,
-      "source_backup": ".rgon_backup/wbc_snapshots/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.clean",
-      "quarantined_to": ".rgon_backup/wbc_quarantine/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.20261026_182502.corrupt"
-    },
     {
       "timestamp_kst": "2026-10-26T18:25:49",
       "file": ".rgon_backup/wbc_selftest/_wbc_dummy_sample.py",
@@ -991,27 +975,25 @@
       "restored": true,
       "source_backup": ".rgon_backup/wbc_snapshots/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.clean",
       "quarantined_to": ".rgon_backup/wbc_quarantine/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.20261028_111704.corrupt"
+    },
+    {
+      "timestamp_kst": "2026-10-28T11:33:17",
+      "file": ".rgon_backup/wbc_selftest/_wbc_dummy_sample.py",
+      "reason": "self_test_syntax_error",
+      "restored": true,
+      "source_backup": ".rgon_backup/wbc_snapshots/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.clean",
+      "quarantined_to": ".rgon_backup/wbc_quarantine/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.20261028_113317.corrupt"
+    },
+    {
+      "timestamp_kst": "2026-10-28T11:34:47",
+      "file": ".rgon_backup/wbc_selftest/_wbc_dummy_sample.py",
+      "reason": "self_test_syntax_error",
+      "restored": true,
+      "source_backup": ".rgon_backup/wbc_snapshots/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.clean",
+      "quarantined_to": ".rgon_backup/wbc_quarantine/.rgon_backup__wbc_selftest___wbc_dummy_sample.py.20261028_113447.corrupt"
     }
   ],
   "bypass_log": [
-    {
-      "timestamp_kst": "2026-10-26T18:22:22",
-      "context": "self_test_bypass",
-      "exc_type": "KeyError",
-      "message": "'simulated_missing_key'",
-      "fingerprint": "3cf3c4ec29753bf7",
-      "suppressed": true,
-      "action": "default_value"
-    },
-    {
-      "timestamp_kst": "2026-10-26T18:25:02",
-      "context": "self_test_bypass",
-      "exc_type": "KeyError",
-      "message": "'simulated_missing_key'",
-      "fingerprint": "3cf3c4ec29753bf7",
-      "suppressed": true,
-      "action": "default_value"
-    },
     {
       "timestamp_kst": "2026-10-26T18:25:49",
       "context": "self_test_bypass",
@@ -2073,6 +2055,24 @@
       "fingerprint": "3cf3c4ec29753bf7",
       "suppressed": true,
       "action": "default_value"
+    },
+    {
+      "timestamp_kst": "2026-10-28T11:33:18",
+      "context": "self_test_bypass",
+      "exc_type": "KeyError",
+      "message": "'simulated_missing_key'",
+      "fingerprint": "3cf3c4ec29753bf7",
+      "suppressed": true,
+      "action": "default_value"
+    },
+    {
+      "timestamp_kst": "2026-10-28T11:34:48",
+      "context": "self_test_bypass",
+      "exc_type": "KeyError",
+      "message": "'simulated_missing_key'",
+      "fingerprint": "3cf3c4ec29753bf7",
+      "suppressed": true,
+      "action": "default_value"
     }
   ],
   "patrol_history": [
@@ -2270,6 +2270,24 @@
       "health_score": 100,
       "py_checked": 553,
       "json_checked": 212,
+      "html_checked": 121,
+      "errors": 0,
+      "healed": 0
+    },
+    {
+      "timestamp_kst": "2026-10-28T11:33:04",
+      "health_score": 100,
+      "py_checked": 554,
+      "json_checked": 213,
+      "html_checked": 121,
+      "errors": 0,
+      "healed": 0
+    },
+    {
+      "timestamp_kst": "2026-10-28T11:34:46",
+      "health_score": 100,
+      "py_checked": 554,
+      "json_checked": 214,
       "html_checked": 121,
       "errors": 0,
       "healed": 0

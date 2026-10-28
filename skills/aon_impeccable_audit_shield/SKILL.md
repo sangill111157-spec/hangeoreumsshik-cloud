@@ -22,3 +22,8 @@ hexagrams: ["#61 풍택중부 ☴☱", "#15 지산겸 ☷☶"]
    - 24개 Impeccable 디자인 커맨드 및 62개 결정론적 UI 결함 규칙 스캔, UI 무결점 100.0점 산출.
 4. **Claude How-To Hook & AWS Agent Toolkit 연쇄 실행기 (`run_post_edit_hook`)**:
    - 코드/UI 수정 시 3대 엔진을 연쇄 교차감사하여 런타임 결함 사전 방어.
+
+<!-- RGON_IMMUTABLE_WORK_DNA_V1176 -->
+> **[RGON 불변의 일처리 8대 법칙 (Immutable Work DNA v11.76 · 항체 R69) 이식 완료]**
+> 1. Global Top-1 Benchmark | 2. Karpathy 4-Rules & LLM Council | 3. Master KeyVault Leverage (0% Leak) | 4. Chronometer Runtime Proof | 5. Maestro Synergy DAG Relay | 6. Ponytail Zero-Bloat Diet | 7. Water Self-Healing & Samseong(三省) | 8. Commander Approval Gate
+<!-- /RGON_IMMUTABLE_WORK_DNA_V1176 -->

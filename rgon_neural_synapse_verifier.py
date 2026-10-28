@@ -1839,6 +1839,7 @@ try:
         "step67_aon_chronometer_deep_auditor.py",
         "step68_aon_chrono_diet_perfection.py",
         "step69_aon_maestro_synergy_scheduler.py",
+        "step70_aon_immutable_dna_keyvault.py",
     ):
         if _org_f not in ORGANS:
             ORGANS.append(_org_f)
@@ -1848,6 +1849,7 @@ except NameError:
         "step67_aon_chronometer_deep_auditor.py",
         "step68_aon_chrono_diet_perfection.py",
         "step69_aon_maestro_synergy_scheduler.py",
+        "step70_aon_immutable_dna_keyvault.py",
     ]
 
 
@@ -1963,6 +1965,33 @@ def _r68_s38_check():
                 "evidence": repr(e), "detail": repr(e)}
 
 
+def _r69_s39_check():
+    import time as _tm, importlib as _il
+    _t0 = _tm.perf_counter()
+    name = "대화허브(/불변법칙·/8대법칙·/마스터키금고·/키바인딩)→제45기관 아온 불변의 일처리 8대 법칙 DNA 이식 & 마스터 키 금고 바인딩 엔진"
+    try:
+        mod = _il.import_module("step70_aon_immutable_dna_keyvault")
+        inj = mod.ImmutableWorkDnaInjector()
+        dna_res = inj.verify_all_agents_dna_compliance()
+        vault = mod.AonMasterKeyVault()
+        bind_res = vault.bind_to_directors_and_chains()
+        leak_res = vault.verify_zero_secret_leak(str(bind_res))
+        ok = (
+            mod.ORGAN_NO == 45
+            and len(mod.RGON_IMMUTABLE_WORK_LAWS_8) == 8
+            and dna_res.get("ok") is True
+            and bind_res.get("ok") is True
+            and leak_res.get("ok") is True
+            and leak_res.get("zero_leak_guaranteed") is True
+        )
+        ev = f"organ=45, laws={len(mod.RGON_IMMUTABLE_WORK_LAWS_8)}, skills_dna={dna_res.get('skills_dna_injection', {}).get('total_skill_mds_scanned')}, keys_bound={bind_res.get('total_keys_bound')}/{bind_res.get('total_keys_checked')}, zero_leak={leak_res.get('zero_leak_guaranteed')}"
+        return {"id": "S39", "name": name, "ok": bool(ok), "sec": round(_tm.perf_counter() - _t0, 3),
+                "evidence": ev, "detail": ev}
+    except Exception as e:
+        return {"id": "S39", "name": name, "ok": False, "sec": round(_tm.perf_counter() - _t0, 3),
+                "evidence": repr(e), "detail": repr(e)}
+
+
 _r66_orig_vsl = globals().get("verify_synapse_links")
 if callable(_r66_orig_vsl) and not getattr(_r66_orig_vsl, "_r66", False):
     def verify_synapse_links(*args, **kwargs):
@@ -1971,8 +2000,9 @@ if callable(_r66_orig_vsl) and not getattr(_r66_orig_vsl, "_r66", False):
         s36 = _r66_s36_check()
         s37 = _r67_s37_check()
         s38 = _r68_s38_check()
+        s39 = _r69_s39_check()
         if isinstance(res, dict) and isinstance(res.get("synapses"), list):
-            items = [x for x in res["synapses"] if not (isinstance(x, dict) and x.get("id") in ("S35", "S36", "S37", "S38"))] + [s35, s36, s37, s38]
+            items = [x for x in res["synapses"] if not (isinstance(x, dict) and x.get("id") in ("S35", "S36", "S37", "S38", "S39"))] + [s35, s36, s37, s38, s39]
             res["synapses"] = items
             res["passed"] = sum(1 for x in items if isinstance(x, dict) and x.get("ok"))
             res["total"] = len(items)

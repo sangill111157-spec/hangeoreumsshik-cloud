@@ -20,3 +20,8 @@ antibody: R58_PINNACLE_VOICE_ARTIFACT_TIKITAKA_ZERO_FLUFF_LOCK
 1. **의도 우선 판별 원칙:** 호칭을 먼저 걷어내고 질문 문맥을 분석하여 단순 대기 인사가 아닌 질문에 맞는 핵심 대답을 첫 줄부터 즉답한다.
 2. **군더더기 0건 불변 원칙:** 초록색 영수증 박스, ↩️ 답장 바, BotMux 설명 박스 등 5대 군더더기를 0건으로 유지한다.
 3. **보안 헌법 R2 준수:** 실제 텔레그램 토큰 및 개인정보 Git 노출 0% 엄수.
+
+<!-- RGON_IMMUTABLE_WORK_DNA_V1176 -->
+> **[RGON 불변의 일처리 8대 법칙 (Immutable Work DNA v11.76 · 항체 R69) 이식 완료]**
+> 1. Global Top-1 Benchmark | 2. Karpathy 4-Rules & LLM Council | 3. Master KeyVault Leverage (0% Leak) | 4. Chronometer Runtime Proof | 5. Maestro Synergy DAG Relay | 6. Ponytail Zero-Bloat Diet | 7. Water Self-Healing & Samseong(三省) | 8. Commander Approval Gate
+<!-- /RGON_IMMUTABLE_WORK_DNA_V1176 -->

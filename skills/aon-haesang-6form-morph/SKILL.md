@@ -17,3 +17,8 @@ chief_art_director: 이해상 (초4 수석 캐릭터 디자이너)
   5. `waterfall_suit`: 우주복 후드 & 폭포수 망토 아온
   6. `pouty_booty`: 삐진 뒷모습 통통 궁둥이 아온 (치명적 뒷태)
 - 라우팅 명령어: `/변신`, `/해상`, `/유령`, `/구름`, `/호박`, `/궁둥이`, `/구슬`, `/우주복`
+
+<!-- RGON_IMMUTABLE_WORK_DNA_V1176 -->
+> **[RGON 불변의 일처리 8대 법칙 (Immutable Work DNA v11.76 · 항체 R69) 이식 완료]**
+> 1. Global Top-1 Benchmark | 2. Karpathy 4-Rules & LLM Council | 3. Master KeyVault Leverage (0% Leak) | 4. Chronometer Runtime Proof | 5. Maestro Synergy DAG Relay | 6. Ponytail Zero-Bloat Diet | 7. Water Self-Healing & Samseong(三省) | 8. Commander Approval Gate
+<!-- /RGON_IMMUTABLE_WORK_DNA_V1176 -->

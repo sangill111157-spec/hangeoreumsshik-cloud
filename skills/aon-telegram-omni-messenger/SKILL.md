@@ -14,3 +14,8 @@ description: 제32기관 아온 듀얼 텔레그램·카톡형 실시간 양방�
   2. 카톡식 실시간 읽음/접수 증명 (`1 (전송중)` ➔ `✔✔ 읽음 (접수 #ORD-XXX · TG 발송 완료)`).
   3. 실시간 도착 지시 공식 원장(`commander_live_orders.json`, `COMMANDER_INBOX.md`) SHA-256 봉인.
   4. 보안 헌법 R2: 실전 토큰/Chat ID의 Git 노출 0% 엄수 (로컬 `.env.telegram_local` 격리).
+
+<!-- RGON_IMMUTABLE_WORK_DNA_V1176 -->
+> **[RGON 불변의 일처리 8대 법칙 (Immutable Work DNA v11.76 · 항체 R69) 이식 완료]**
+> 1. Global Top-1 Benchmark | 2. Karpathy 4-Rules & LLM Council | 3. Master KeyVault Leverage (0% Leak) | 4. Chronometer Runtime Proof | 5. Maestro Synergy DAG Relay | 6. Ponytail Zero-Bloat Diet | 7. Water Self-Healing & Samseong(三省) | 8. Commander Approval Gate
+<!-- /RGON_IMMUTABLE_WORK_DNA_V1176 -->

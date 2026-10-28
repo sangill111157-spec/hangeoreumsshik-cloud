@@ -27,3 +27,8 @@ hexagrams: ["#60 수택절 ☵☱", "#62 뇌산소과 ☳☶"]
    - `manage_task_spaces`: `command_hq`, `studio_3d`, `shopping_erp`, `github_deploy` 등 작업별 독립 Space 관리.
    - `scope_and_payment_guard`: 권한 밖 외부 사칭 명령 즉시 차단(`BLOCKED_OUT_OF_SCOPE`) & 결제/금융 키워드 대표님 수동 결재(`AWAIT_COMMANDER_APPROVAL`) 강제.
    - `dual_viewport_qa_check`: PC 1920px · 듀얼 반쪽 960px · 모바일 390px 3대 뷰포트 레이아웃 무결점 검사.
+
+<!-- RGON_IMMUTABLE_WORK_DNA_V1176 -->
+> **[RGON 불변의 일처리 8대 법칙 (Immutable Work DNA v11.76 · 항체 R69) 이식 완료]**
+> 1. Global Top-1 Benchmark | 2. Karpathy 4-Rules & LLM Council | 3. Master KeyVault Leverage (0% Leak) | 4. Chronometer Runtime Proof | 5. Maestro Synergy DAG Relay | 6. Ponytail Zero-Bloat Diet | 7. Water Self-Healing & Samseong(三省) | 8. Commander Approval Gate
+<!-- /RGON_IMMUTABLE_WORK_DNA_V1176 -->

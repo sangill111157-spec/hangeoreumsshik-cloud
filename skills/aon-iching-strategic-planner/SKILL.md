@@ -28,3 +28,8 @@ python rgon_aon_iching_planner.py --status
 ## 안전 (헌법 제2항 · R35 · R41)
 
 Tier3(금융·실매매·파일삭제·외부배포)은 항상 `requires_manual_gate: True`, `auto_executed: False`이다. 기획관은 계획만 세우고 실행하지 않는다.
+
+<!-- RGON_IMMUTABLE_WORK_DNA_V1176 -->
+> **[RGON 불변의 일처리 8대 법칙 (Immutable Work DNA v11.76 · 항체 R69) 이식 완료]**
+> 1. Global Top-1 Benchmark | 2. Karpathy 4-Rules & LLM Council | 3. Master KeyVault Leverage (0% Leak) | 4. Chronometer Runtime Proof | 5. Maestro Synergy DAG Relay | 6. Ponytail Zero-Bloat Diet | 7. Water Self-Healing & Samseong(三省) | 8. Commander Approval Gate
+<!-- /RGON_IMMUTABLE_WORK_DNA_V1176 -->

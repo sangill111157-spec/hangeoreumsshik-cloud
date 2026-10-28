@@ -24,3 +24,8 @@ hexagrams: ["#22 산화비 ☶☲", "#14 화천대유 ☲☰"]
 4. **듀얼 출력 렌더러**:
    - 외부 CDN 0% HTML5 Canvas 3D 플레이어 + WebM 즉시 녹화.
    - 오픈소스 `mcp-for-blender` 호환 표준 `import bpy` 스크립트.
+
+<!-- RGON_IMMUTABLE_WORK_DNA_V1176 -->
+> **[RGON 불변의 일처리 8대 법칙 (Immutable Work DNA v11.76 · 항체 R69) 이식 완료]**
+> 1. Global Top-1 Benchmark | 2. Karpathy 4-Rules & LLM Council | 3. Master KeyVault Leverage (0% Leak) | 4. Chronometer Runtime Proof | 5. Maestro Synergy DAG Relay | 6. Ponytail Zero-Bloat Diet | 7. Water Self-Healing & Samseong(三省) | 8. Commander Approval Gate
+<!-- /RGON_IMMUTABLE_WORK_DNA_V1176 -->

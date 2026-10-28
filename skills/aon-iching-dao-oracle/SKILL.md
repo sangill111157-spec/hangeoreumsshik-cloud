@@ -13,3 +13,8 @@ antibody: R1~R37
 - **5대 입체 괘상**: 본괘(현재) · 호괘(내막) · 변괘(결말) · 착괘(반전 사각지대) · 종괘(상대방 시점)
 - **체용·통관·효위반**: 체용 오행 생극, 상극 시 통관(通關) 중재 오행 처방, 사계절 왕상휴수사, 육효 당위/득중/상응/승강/이오중정상응
 - **6대 시중(時中) 처세**: 잠룡물용 · 몽이양정 · 비룡재천 · 산풍고·뇌수해 · 항룡유회 · 지천태·수화기제
+
+<!-- RGON_IMMUTABLE_WORK_DNA_V1176 -->
+> **[RGON 불변의 일처리 8대 법칙 (Immutable Work DNA v11.76 · 항체 R69) 이식 완료]**
+> 1. Global Top-1 Benchmark | 2. Karpathy 4-Rules & LLM Council | 3. Master KeyVault Leverage (0% Leak) | 4. Chronometer Runtime Proof | 5. Maestro Synergy DAG Relay | 6. Ponytail Zero-Bloat Diet | 7. Water Self-Healing & Samseong(三省) | 8. Commander Approval Gate
+<!-- /RGON_IMMUTABLE_WORK_DNA_V1176 -->

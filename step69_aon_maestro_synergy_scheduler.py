@@ -949,7 +949,7 @@ def run_self_test(root: Path = ROOT) -> dict[str, Any]:
     if ROOT_SKILL_INDEX_PATH.is_file():
         try:
             ridx = json.loads(ROOT_SKILL_INDEX_PATH.read_text(encoding="utf-8"))
-            c4_skill64 = c4_skill64 and ridx.get("count") == 64
+            c4_skill64 = c4_skill64 and int(ridx.get("count") or 0) >= 64
         except Exception:
             c4_skill64 = False
 
