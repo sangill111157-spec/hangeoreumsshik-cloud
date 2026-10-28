@@ -81,10 +81,10 @@ SHOWCASE_DIR = ROOT / "outputs" / "pilot1_live_showcase"
 SHOWCASE_HTML_DOCS = DOCS_DELIV_DIR / "top10_master_showcase.html"
 SHOWCASE_HTML_ROOT = ROOT_DELIV_DIR / "top10_master_showcase.html"
 
-GITHUB_PAGES_DOCS_BASE = "https://sangill111157-spec.github.io/hangeoreumsshik-cloud/docs/deliverables"
+GITHUB_PAGES_DOCS_BASE = "https://sangill111157-spec.github.io/hangeoreumsshik-cloud/deliverables"
 GITHUB_PAGES_ROOT_BASE = "https://sangill111157-spec.github.io/hangeoreumsshik-cloud/deliverables"
 LIVE_TOP10_SHOWCASE_URL = f"{GITHUB_PAGES_DOCS_BASE}/top10_master_showcase.html"
-LIVE_TOP10_SHOWCASE_MIRROR_URL = f"{GITHUB_PAGES_ROOT_BASE}/top10_master_showcase.html"
+LIVE_TOP10_SHOWCASE_MIRROR_URL = f"{GITHUB_PAGES_DOCS_BASE}/top10/item_01_view.html"
 LIVE_ITEM01_VIEW_URL = f"{GITHUB_PAGES_DOCS_BASE}/top10/item_01_view.html"
 
 REPORT_PATH = ROOT / "rgon_step73_top10_masterpiece_report.json"
