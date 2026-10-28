@@ -215,3 +215,8 @@ setTimeout(placeOnce,300); setTimeout(placeOnce,900);   // 총 3회 단발, Obse
 - 버전 **v11.50-AON-TOKEN-EGOLITE-MASTER** · 항체 **R1~R51** · 정식 스킬 **27개**
 - R31: 배설기관(신장·대장·뇌척수액 정화, 주역 #18 산풍고·#40 뇌수해) — ECC config-gc + reclaim-code-entropy + autoDream 기반으로 캐시·구백업·중복 마커·컨텍스트 찌꺼기를 안전 배출하여 엔트로피 0% 유지
 <!-- [RGON-STEP31-EXCRETORY-END] -->
+
+<!-- RGON_STEP66_OMNIROUTE_COUNCIL_15SHORTS_V1168 -->
+### Step 66 — 제41기관 아온 3차 15대 쇼츠 무중단 라우터 & LLM 카운슬 마스터 엔진 (v11.68-AON-OMNIROUTE-COUNCIL-15)
+- **항체/스킬**: R1~R65 / 정식 스킬 **#61** (skill_61_aon_3rd_15shorts_omniroute_council_engine)
+- **핵심**: OmniRoute 무중단 쿼터 폴백 + MCP Tasks 비동기 + Karpathy LLM Council 3단 합의 + 3차 15대 쇼츠 통합
