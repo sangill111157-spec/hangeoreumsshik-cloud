@@ -77,7 +77,7 @@
       "media_png": {
         "ok": true,
         "path": "docs/deliverables/nvda_final_deliverable_card.png",
-        "bytes": 163488,
+        "bytes": 163455,
         "dimensions": "1080x1350"
       },
       "music_mp3": {
@@ -130,11 +130,38 @@
       "https://sangill111157-spec.github.io/hangeoreumsshik-cloud/deliverables/final_deliverable_hub.html",
       "https://sangill111157-spec.github.io/hangeoreumsshik-cloud/deliverables/nvda_shorts_motion_preview.html"
     ],
-    "elapsed_sec": 0.2249
+    "elapsed_sec": 0.3273
   },
-  "live_telegram_3tab_receipt": null,
-  "elapsed_sec": 12.4034,
-  "timestamp": "2026-10-28T12:41:04+09:00",
+  "live_telegram_3tab_receipt": {
+    "ok": true,
+    "mode": "live_3tab_deliverables_sent",
+    "bot_username": "@sangi_ai_secretary_bot",
+    "masked_chat_id": "872***02",
+    "fake_links_count": 0,
+    "media_tab_photo": {
+      "ok": true,
+      "message_id": 1955,
+      "file": "nvda_final_deliverable_card.png",
+      "bytes": 163455
+    },
+    "music_tab_audio": {
+      "ok": true,
+      "message_id": 1956,
+      "file": "nvda_final_narration_ko.mp3",
+      "bytes": 314496,
+      "title": "[최종완성본] NVDA $217.94 월가 AI 카운슬 30초 브리핑",
+      "performer": "RGON 아온 & 루미비서"
+    },
+    "link_tab_web": {
+      "ok": true,
+      "message_id": 1957,
+      "live_hub_url": "https://sangill111157-spec.github.io/hangeoreumsshik-cloud/deliverables/final_deliverable_hub.html",
+      "live_motion_url": "https://sangill111157-spec.github.io/hangeoreumsshik-cloud/deliverables/nvda_shorts_motion_preview.html"
+    },
+    "elapsed_sec": 7.4754
+  },
+  "elapsed_sec": 0.6029,
+  "timestamp": "2026-10-28T12:41:48+09:00",
   "skill_index_sync": {
     "ok": true,
     "total_formal_skills": 67,
