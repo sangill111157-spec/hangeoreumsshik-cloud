@@ -1,0 +1,14 @@
+{
+  "step": 78,
+  "org": "제53기관_15쇼츠_5대영양분흡수_슈퍼엔진",
+  "absorbed": [
+    "1_RealSFX_Eears_AutoSFX",
+    "2_OpenScreen_SelfFrameInspector",
+    "3_LemoOpuscar_AIDesignSkills_59Styles",
+    "4_OpenMontage_Sysmaker_AutoReply_ZeroCost",
+    "5_Kordoc_HWP_TableParser"
+  ],
+  "sfx_injected_videos": 20,
+  "self_frame_inspection": "100%_PASSED_ZERO_CLIPPING",
+  "estimated_api_cost": ".00"
+}
