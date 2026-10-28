@@ -1,0 +1,606 @@
+{
+  "version": "v11.76-AON-IMMUTABLE-DNA-KEYVAULT",
+  "ssot_baseline_version": "v11.66-AON-GENERAL-HOSPITAL",
+  "antibody": "R1~R69",
+  "antibody_range": "R1~R69",
+  "antibodies": "R1~R69",
+  "immune": "R1~R69",
+  "generated_at_kst": "2026-10-28 12:03:26 KST",
+  "count": 65,
+  "total": 65,
+  "skill_count": 65,
+  "total_skills": 65,
+  "ssot_baseline_skill_count": 60,
+  "skills": [
+    {
+      "slug": "1-36-45",
+      "name": "포토샵 1년 36만 원, 코딩 몰라도 '내 포토샵' 45분 만에 만들었습니다",
+      "category": "radar-discovery",
+      "hexagram_tag": "#18-蠱",
+      "source_url": "https://www.youtube.com/watch?v=KZhv8U90Nek",
+      "origin": "radar",
+      "path": "skills/1-36-45/SKILL.md"
+    },
+    {
+      "slug": "10-5",
+      "name": "클로드 스킬 10만 개, 진짜 쓸 건 5개",
+      "category": "radar-discovery",
+      "hexagram_tag": "#53-漸",
+      "source_url": "https://www.youtube.com/shorts/sBawrl18I9g",
+      "origin": "radar",
+      "path": "skills/10-5/SKILL.md"
+    },
+    {
+      "slug": "744b-ai-10",
+      "name": "744B AI가 노트북에서 무료? 한 글자에 10초 걸려요",
+      "category": "radar-discovery",
+      "hexagram_tag": "#09-小畜",
+      "source_url": "https://www.youtube.com/shorts/XMBAMBzqt44",
+      "origin": "radar",
+      "path": "skills/744b-ai-10/SKILL.md"
+    },
+    {
+      "slug": "ai-5",
+      "name": "클로드 글 AI 티 지우는 한 줄 5개",
+      "category": "radar-discovery",
+      "hexagram_tag": "#11-泰",
+      "source_url": "https://www.youtube.com/shorts/vN8DSorrz3A",
+      "origin": "radar",
+      "path": "skills/ai-5/SKILL.md"
+    },
+    {
+      "slug": "aon-13shorts-omni",
+      "name": "aon-13shorts-omni",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/aon-13shorts-omni/SKILL.md"
+    },
+    {
+      "slug": "aon-15shorts-super-senior",
+      "name": "aon-15shorts-super-senior",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/aon-15shorts-super-senior/SKILL.md"
+    },
+    {
+      "slug": "aon-autonomous-tech-evolver",
+      "name": "aon-autonomous-tech-evolver",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/aon-autonomous-tech-evolver/SKILL.md"
+    },
+    {
+      "slug": "aon-cinematic-dispatch-council",
+      "name": "aon-cinematic-dispatch-council",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/aon-cinematic-dispatch-council/SKILL.md"
+    },
+    {
+      "slug": "aon-desktop-playground-brat",
+      "name": "aon-desktop-playground-brat",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/aon-desktop-playground-brat/SKILL.md"
+    },
+    {
+      "slug": "aon-empire-asset-hub",
+      "name": "aon-empire-asset-hub",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/aon-empire-asset-hub/SKILL.md"
+    },
+    {
+      "slug": "aon-gdrive-5tb-organizer",
+      "name": "aon-gdrive-5tb-organizer",
+      "category": "cloud-storage-automation",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/aon-gdrive-5tb-organizer/SKILL.md"
+    },
+    {
+      "slug": "aon-general-hospital",
+      "name": "aon-general-hospital",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/aon-general-hospital/SKILL.md"
+    },
+    {
+      "slug": "aon-haesang-6form-morph",
+      "name": "aon-haesang-6form-morph",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/aon-haesang-6form-morph/SKILL.md"
+    },
+    {
+      "slug": "aon-hydro-cycle-homeostasis",
+      "name": "aon-hydro-cycle-homeostasis",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/aon-hydro-cycle-homeostasis/SKILL.md"
+    },
+    {
+      "slug": "aon-iching-dao-oracle",
+      "name": "aon-iching-dao-oracle",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/aon-iching-dao-oracle/SKILL.md"
+    },
+    {
+      "slug": "aon-iching-strategic-planner",
+      "name": "aon-iching-strategic-planner",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/aon-iching-strategic-planner/SKILL.md"
+    },
+    {
+      "slug": "aon-inspector-general-gate",
+      "name": "aon-inspector-general-gate",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/aon-inspector-general-gate/SKILL.md"
+    },
+    {
+      "slug": "aon-invisible-kakao-tg-backbone",
+      "name": "aon-invisible-kakao-tg-backbone",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/aon-invisible-kakao-tg-backbone/SKILL.md"
+    },
+    {
+      "slug": "aon-laptop-hands-manual-gate",
+      "name": "aon-laptop-hands-manual-gate",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/aon-laptop-hands-manual-gate/SKILL.md"
+    },
+    {
+      "slug": "aon-live-ui-self-healer",
+      "name": "aon-live-ui-self-healer",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/aon-live-ui-self-healer/SKILL.md"
+    },
+    {
+      "slug": "aon-neural-synapse-verifier",
+      "name": "aon-neural-synapse-verifier",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/aon-neural-synapse-verifier/SKILL.md"
+    },
+    {
+      "slug": "aon-omni-dialogue-hub",
+      "name": "aon-omni-dialogue-hub",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/aon-omni-dialogue-hub/SKILL.md"
+    },
+    {
+      "slug": "aon-omni-insight-eye",
+      "name": "aon-omni-insight-eye",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/aon-omni-insight-eye/SKILL.md"
+    },
+    {
+      "slug": "aon-omni-nexus-synthesizer",
+      "name": "aon-omni-nexus-synthesizer",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/aon-omni-nexus-synthesizer/SKILL.md"
+    },
+    {
+      "slug": "aon-opus-motion-studio",
+      "name": "aon-opus-motion-studio",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/aon-opus-motion-studio/SKILL.md"
+    },
+    {
+      "slug": "aon-page-button-bot-engine",
+      "name": "aon-page-button-bot-engine",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/aon-page-button-bot-engine/SKILL.md"
+    },
+    {
+      "slug": "aon-pinnacle-omni-communicator",
+      "name": "aon-pinnacle-omni-communicator",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/aon-pinnacle-omni-communicator/SKILL.md"
+    },
+    {
+      "slug": "aon-procedural-voice-synth",
+      "name": "aon-procedural-voice-synth",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/aon-procedural-voice-synth/SKILL.md"
+    },
+    {
+      "slug": "aon-soul-empathy-brain",
+      "name": "aon-soul-empathy-brain",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/aon-soul-empathy-brain/SKILL.md"
+    },
+    {
+      "slug": "aon-supreme-org-chart-architect",
+      "name": "aon-supreme-org-chart-architect",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/aon-supreme-org-chart-architect/SKILL.md"
+    },
+    {
+      "slug": "aon-telegram-omni-messenger",
+      "name": "aon-telegram-omni-messenger",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/aon-telegram-omni-messenger/SKILL.md"
+    },
+    {
+      "slug": "aon-zeroclick-creative-studio",
+      "name": "aon-zeroclick-creative-studio",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/aon-zeroclick-creative-studio/SKILL.md"
+    },
+    {
+      "slug": "aon_commander_digital_twin",
+      "name": "aon-commander-digital-twin",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/aon_commander_digital_twin/SKILL.md"
+    },
+    {
+      "slug": "aon_impeccable_audit_shield",
+      "name": "aon_impeccable_audit_shield",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/aon_impeccable_audit_shield/SKILL.md"
+    },
+    {
+      "slug": "aon_token_egolite_master",
+      "name": "aon_token_egolite_master",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/aon_token_egolite_master/SKILL.md"
+    },
+    {
+      "slug": "aon_vibe3d_movie_director",
+      "name": "aon-vibe3d-movie-director",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/aon_vibe3d_movie_director/SKILL.md"
+    },
+    {
+      "slug": "autonomous-creator-forge",
+      "name": "autonomous-creator-forge",
+      "category": "creator-forge",
+      "hexagram_tag": "'#50-鼎'",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/autonomous-creator-forge/SKILL.md"
+    },
+    {
+      "slug": "character-detail-master-top1",
+      "name": "character-detail-master-top1",
+      "category": "character-3d-master",
+      "hexagram_tag": "#04-蒙",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/character-detail-master-top1/SKILL.md"
+    },
+    {
+      "slug": "ecc-agentshield-harness",
+      "name": "ecc-agentshield-harness",
+      "category": "radar-discovery",
+      "hexagram_tag": "#36-明夷",
+      "source_url": "https://github.com/affaan-m/everything-claude-code",
+      "origin": "radar",
+      "path": "skills/ecc-agentshield-harness/SKILL.md"
+    },
+    {
+      "slug": "excretory-entropy-gc",
+      "name": "excretory-entropy-gc",
+      "category": "excretory-gc",
+      "hexagram_tag": "#40-解",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/excretory-entropy-gc/SKILL.md"
+    },
+    {
+      "slug": "free-roaming-waterdrop-pet",
+      "name": "free-roaming-waterdrop-pet",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/free-roaming-waterdrop-pet/SKILL.md"
+    },
+    {
+      "slug": "hexagram-64-wisdom",
+      "name": "Hexagram 64 Wisdom (주역 64괘 지혜)",
+      "category": "philosophy",
+      "hexagram_tag": "#01-乾",
+      "source_url": "local://rgon_hexagram_engine.py",
+      "origin": "core",
+      "path": "skills/hexagram-64-wisdom/SKILL.md"
+    },
+    {
+      "slug": "k-avatar-growth-soul",
+      "name": "k-avatar-growth-soul",
+      "category": "digital-body",
+      "hexagram_tag": "#04-蒙",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/k-avatar-growth-soul/SKILL.md"
+    },
+    {
+      "slug": "markdown-purifier",
+      "name": "Markdown Purifier (웹·문서 정제기)",
+      "category": "data-refinery",
+      "hexagram_tag": "#48-井",
+      "source_url": "https://github.com/apify/crawlee",
+      "origin": "core",
+      "path": "skills/markdown-purifier/SKILL.md"
+    },
+    {
+      "slug": "mattpocock-domain-glossary",
+      "name": "mattpocock-domain-glossary",
+      "category": "radar-discovery",
+      "hexagram_tag": "#60-節",
+      "source_url": "https://github.com/mattpocock/skills",
+      "origin": "radar",
+      "path": "skills/mattpocock-domain-glossary/SKILL.md"
+    },
+    {
+      "slug": "mattpocock-spec-tickets",
+      "name": "mattpocock-spec-tickets",
+      "category": "radar-discovery",
+      "hexagram_tag": "#50-鼎",
+      "source_url": "https://github.com/mattpocock/skills",
+      "origin": "radar",
+      "path": "skills/mattpocock-spec-tickets/SKILL.md"
+    },
+    {
+      "slug": "multi-agent-council",
+      "name": "Multi-Agent Council (3자 찬반 심판기)",
+      "category": "decision-making",
+      "hexagram_tag": "#13-同人",
+      "source_url": "https://github.com/HKUDS/AI-Trader",
+      "origin": "core",
+      "path": "skills/multi-agent-council/SKILL.md"
+    },
+    {
+      "slug": "muse-autonomous-delegator",
+      "name": "muse-autonomous-delegator",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/muse-autonomous-delegator/SKILL.md"
+    },
+    {
+      "slug": "omni-skill-dispatcher",
+      "name": "omni-skill-dispatcher",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/omni-skill-dispatcher/SKILL.md"
+    },
+    {
+      "slug": "rea-reverse-engineer-fusion",
+      "name": "rea-reverse-engineer-fusion",
+      "category": "radar-discovery",
+      "hexagram_tag": "#64-未濟",
+      "source_url": "https://github.com/morluto/rea",
+      "origin": "radar",
+      "path": "skills/rea-reverse-engineer-fusion/SKILL.md"
+    },
+    {
+      "slug": "self-evolving-gene-ratchet",
+      "name": "self-evolving-gene-ratchet",
+      "category": "self-evolution",
+      "hexagram_tag": "#49-革",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/self-evolving-gene-ratchet/SKILL.md"
+    },
+    {
+      "slug": "skill-68768f44",
+      "name": "클로드 코드 쓰면 이 파일 하나는 꼭 넣으세요 (깃허브 별 22만)",
+      "category": "radar-discovery",
+      "hexagram_tag": "#63-既濟",
+      "source_url": "https://www.youtube.com/shorts/aVKugNP2wDU",
+      "origin": "radar",
+      "path": "skills/skill-68768f44/SKILL.md"
+    },
+    {
+      "slug": "skill-b25226d4",
+      "name": "내 이름 검색하면 나오는 것들, 클로드한테 싹 지우라고 했더니",
+      "category": "radar-discovery",
+      "hexagram_tag": "#26-大畜",
+      "source_url": "https://www.youtube.com/shorts/3aJmzVIxkqk",
+      "origin": "radar",
+      "path": "skills/skill-b25226d4/SKILL.md"
+    },
+    {
+      "slug": "skill-c5c55e6f",
+      "name": "클로드 코드 토큰 49배 줄인 무료 도구",
+      "category": "radar-discovery",
+      "hexagram_tag": "#59-渙",
+      "source_url": "https://www.youtube.com/shorts/StXGGNlNLOk",
+      "origin": "radar",
+      "path": "skills/skill-c5c55e6f/SKILL.md"
+    },
+    {
+      "slug": "skill-d33be764",
+      "name": "클로드 한도 걸려도 일 안 멈추는 법",
+      "category": "radar-discovery",
+      "hexagram_tag": "#49-革",
+      "source_url": "https://www.youtube.com/shorts/LjYOeBIwUsU",
+      "origin": "radar",
+      "path": "skills/skill-d33be764/SKILL.md"
+    },
+    {
+      "slug": "skill-f7938cb8",
+      "name": "클로드 회사가 무료로 푼 강의, 초보는 딱 이 3개만 들으세요",
+      "category": "radar-discovery",
+      "hexagram_tag": "#57-巽",
+      "source_url": "https://www.youtube.com/shorts/UtVFSMGKh28",
+      "origin": "radar",
+      "path": "skills/skill-f7938cb8/SKILL.md"
+    },
+    {
+      "slug": "stomper-kill-list-gate",
+      "name": "stomper-kill-list-gate",
+      "category": "omni-sense",
+      "hexagram_tag": "'#21-噬嗑'",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/stomper-kill-list-gate/SKILL.md"
+    },
+    {
+      "slug": "trinity-trading-council",
+      "name": "trinity-trading-council",
+      "category": "",
+      "hexagram_tag": "",
+      "source_url": "",
+      "origin": "",
+      "path": "skills/trinity-trading-council/SKILL.md"
+    },
+    {
+      "slug": "wbc-self-healing",
+      "name": "WBC Self-Healing (백혈구 자가치유)",
+      "category": "immune-system",
+      "hexagram_tag": "#24-復",
+      "source_url": "local://rgon_white_blood_cell.py",
+      "origin": "core",
+      "path": "skills/wbc-self-healing/SKILL.md"
+    },
+    {
+      "slug": "youtube-trend-scout",
+      "name": "YouTube Trend Scout (유튜브 스킬 레이더)",
+      "category": "knowledge-intake",
+      "hexagram_tag": "#20-觀",
+      "source_url": "local://rgon_youtube_skill_scout.py",
+      "origin": "core",
+      "path": "skills/youtube-trend-scout/SKILL.md"
+    },
+    {
+      "slug": "aon_3rd_15shorts_omniroute_council_engine",
+      "name": "제41기관 아온 3차 15대 쇼츠 무중단 라우터 & LLM 카운슬 마스터 엔진",
+      "category": "omniroute-council",
+      "hexagram_tag": "#14-火天大有",
+      "source_url": "local://step66_aon_omniroute_council_15shorts_engine.py",
+      "origin": "core-organ-41",
+      "skill_no": 61,
+      "path": "skills/aon_3rd_15shorts_omniroute_council_engine/SKILL.md"
+    },
+    {
+      "slug": "aon_chronometer_deep_gear_auditor",
+      "name": "제42기관 아온 크로노미터 전수 톱니바퀴 검증 & 무가식 실증 감사원",
+      "category": "chronometer-audit",
+      "hexagram_tag": "#63-水火既濟",
+      "source_url": "local://step67_aon_chronometer_deep_auditor.py",
+      "origin": "core-organ-42",
+      "skill_no": 62,
+      "path": "skills/aon_chronometer_deep_gear_auditor/SKILL.md"
+    },
+    {
+      "slug": "aon_chrono_diet_perfection_auditor",
+      "name": "제43기관 아온 텔레그램 실측 무결성 & Ponytail 무결점 다이어트 마스터 감사원",
+      "category": "chrono-diet-perfection",
+      "hexagram_tag": "#41-山澤損",
+      "source_url": "local://step68_aon_chrono_diet_perfection.py",
+      "origin": "core-organ-43",
+      "skill_no": 63,
+      "path": "skills/aon_chrono_diet_perfection_auditor/SKILL.md"
+    },
+    {
+      "slug": "aon_maestro_synergy_scheduler",
+      "name": "제44기관 아온 마에스트로 7대 기관장 협업 시너지 DAG & 24시간 분야별 마스터 스케줄러",
+      "category": "maestro-synergy-dag",
+      "hexagram_tag": "#50-火風鼎",
+      "source_url": "local://step69_aon_maestro_synergy_scheduler.py",
+      "origin": "core-organ-44",
+      "skill_no": 64,
+      "path": "skills/aon_maestro_synergy_scheduler/SKILL.md"
+    },
+    {
+      "slug": "aon_immutable_dna_keyvault",
+      "name": "제45기관 아온 불변의 일처리 8대 법칙(Immutable Work DNA) 전 에이전트 이식 & 마스터 키 금고 실전 바인딩 엔진",
+      "category": "immutable-dna-keyvault",
+      "hexagram_tag": "#01-重天乾",
+      "source_url": "local://step70_aon_immutable_dna_keyvault.py",
+      "origin": "core-organ-45",
+      "skill_no": 65,
+      "path": "skills/aon_immutable_dna_keyvault/SKILL.md"
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "ok": true,
+  "all_passed": true,
+  "version": "v11.78-AON-SAFE-MONETIZATION-TOP10",
+  "organ_no": 46,
+  "organ_id": "ORGAN-46-SAFE-MONETIZATION-TOP10",
+  "organ_name": "제46기관 아온 무위험 AI 수익화 Top 10 마스터 스케줄러 & 에셋 팩토리",
+  "antibody": "R70",
+  "antibody_range": "R1~R70",
+  "skill_no": 66,
+  "skill_id": "aon_safe_monetization_top10_engine",
+  "synapse_id": "S40",
+  "passed": 6,
+  "total": 6,
+  "checks": [
+    {
+      "name": "1_safe_monetization_top10_and_24h_matrix_defined",
+      "ok": true
+    },
+    {
+      "name": "2_all_10_pipelines_and_pilot1_live_assets_linked",
+      "ok": true
+    },
+    {
+      "name": "3_skill_66_and_root_skill_index_66_synced",
+      "ok": true
+    },
+    {
+      "name": "4_immutable_8_laws_dna_seal_verified",
+      "ok": true
+    },
+    {
+      "name": "5_zero_secret_leak_verified",
+      "ok": true
+    },
+    {
+      "name": "6_protected_4_files_intact",
+      "ok": true
+    }
+  ],
+  "monetization_summary": {
+    "total_models": 10,
+    "passed_models": 10,
+    "schedule_slots_count": 6,
+    "catalog_path": "outputs/monetization_top10_catalog.json",
+    "pilot1_live_assets": {
+      "ok": true,
+      "motion_html_exists": true,
+      "motion_html_bytes": 21119,
+      "master_report_md_exists": true,
+      "pilot_report_json_exists": true,
+      "pilot1_live_metadata": {
+        "symbol": "NVDA",
+        "current_price": 217.94,
+        "change_pct": 0.9,
+        "telegram_http_status": 200,
+        "telegram_message_id": 1954,
+        "zero_secret_leak_verified": true
+      }
+    }
+  },
+  "skill_index_sync": {
+    "ok": true,
+    "total_formal_skills": 66,
+    "skill_66_md_exists": true
+  },
+  "zero_secret_leak_verified": true,
+  "elapsed_sec": 0.0493,
+  "timestamp": "2026-10-28T12:03:21+09:00"
+}

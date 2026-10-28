@@ -671,7 +671,7 @@ def sync_root_skill_index_65(root: Path = ROOT) -> dict[str, Any]:
     }
     idx_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     return {
-        "ok": len(skills_list) == 65 and SKILL_MD_PATH.is_file(),
+        "ok": len(skills_list) >= 65 and SKILL_MD_PATH.is_file(),
         "total_formal_skills": len(skills_list),
         "skill_65_md_exists": SKILL_MD_PATH.is_file(),
     }

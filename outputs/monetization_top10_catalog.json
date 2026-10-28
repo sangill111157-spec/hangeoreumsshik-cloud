@@ -1,0 +1,277 @@
+{
+  "ok": true,
+  "organ_no": 46,
+  "organ_id": "ORGAN-46-SAFE-MONETIZATION-TOP10",
+  "version": "v11.78-AON-SAFE-MONETIZATION-TOP10",
+  "antibody": "R70",
+  "total_models": 10,
+  "passed_models": 10,
+  "schedule_slots_count": 6,
+  "pilot1_live_assets": {
+    "ok": true,
+    "motion_html_exists": true,
+    "motion_html_bytes": 21119,
+    "master_report_md_exists": true,
+    "pilot_report_json_exists": true,
+    "pilot1_live_metadata": {
+      "symbol": "NVDA",
+      "current_price": 217.94,
+      "change_pct": 0.9,
+      "telegram_http_status": 200,
+      "telegram_message_id": 1954,
+      "zero_secret_leak_verified": true
+    }
+  },
+  "pipelines": [
+    {
+      "model_id": "M01_YOUTUBE_3CH_FACELESS_SHORTS",
+      "rank": 1,
+      "title_ko": "유튜브 3채널 무얼굴 쇼츠·모션 공장",
+      "schedule_kst": "09:00",
+      "directors": [
+        "D4_MEDIA_MOTION_STUDIO_CHIEF"
+      ],
+      "directors_valid": true,
+      "engines_verified": true,
+      "linked_live_asset": "outputs/pilot1_live_showcase/nvda_shorts_motion_preview.html",
+      "asset_verified": true,
+      "asset_bytes": 21119,
+      "ok": true
+    },
+    {
+      "model_id": "M02_B2B_400HR_MOTION_LANDING_AGENCY",
+      "rank": 2,
+      "title_ko": "$400/hr 14슬롯 모션 & 명품 UI 랜딩페이지 B2B 납품",
+      "schedule_kst": "13:00",
+      "directors": [
+        "D4_MEDIA_MOTION_STUDIO_CHIEF",
+        "D5_APP_CLONER_VENTURE_CHIEF"
+      ],
+      "directors_valid": true,
+      "engines_verified": true,
+      "linked_live_asset": "outputs/pilot1_live_showcase/nvda_shorts_motion_preview.html",
+      "asset_verified": true,
+      "asset_bytes": 21119,
+      "ok": true
+    },
+    {
+      "model_id": "M03_ZERO_WATERMARK_BLOG_CPA_AFFILIATE",
+      "rank": 3,
+      "title_ko": "AI 워터마크 0% 한국어 1% 블로그·스레드 CPA 제휴마케팅",
+      "schedule_kst": "09:00",
+      "directors": [
+        "D4_MEDIA_MOTION_STUDIO_CHIEF"
+      ],
+      "directors_valid": true,
+      "engines_verified": true,
+      "linked_live_asset": "outputs/pilot1_live_showcase/PILOT1_MASTER_REPORT.md",
+      "asset_verified": true,
+      "asset_bytes": 4655,
+      "ok": true
+    },
+    {
+      "model_id": "M04_SECOND_BRAIN_MCP_SKILL_PACK_STORE",
+      "rank": 4,
+      "title_ko": "세컨드 브레인 MCP & 66개 정식 클로드 스킬팩 디지털 스토어",
+      "schedule_kst": "18:00",
+      "directors": [
+        "D2_SYNAPSE_BRAIN_CHIEF",
+        "D6_ENTERPRISE_OPS_RPA_CHIEF"
+      ],
+      "directors_valid": true,
+      "engines_verified": true,
+      "linked_live_asset": "SKILL_INDEX.json",
+      "asset_verified": true,
+      "asset_bytes": 20211,
+      "ok": true
+    },
+    {
+      "model_id": "M05_MICRO_SAAS_COMPETITOR_APP_CLONER",
+      "rank": 5,
+      "title_ko": "경쟁 유료 앱 불만 리뷰 역공학 무료 클로닝 마이크로 SaaS",
+      "schedule_kst": "13:00",
+      "directors": [
+        "D5_APP_CLONER_VENTURE_CHIEF"
+      ],
+      "directors_valid": true,
+      "engines_verified": true,
+      "linked_live_asset": "outputs/pilot1_live_showcase/pilot1_live_report.json",
+      "asset_verified": true,
+      "asset_bytes": 7622,
+      "ok": true
+    },
+    {
+      "model_id": "M06_WALLSTREET_COUNCIL_PREMIUM_BRIEF",
+      "rank": 6,
+      "title_ko": "월가 & 국장 AI 투자 위원회 프리미엄 모닝 리포트 멤버십",
+      "schedule_kst": "06:00 & 22:00",
+      "directors": [
+        "D3_WALLSTREET_TRADING_CHIEF"
+      ],
+      "directors_valid": true,
+      "engines_verified": true,
+      "linked_live_asset": "outputs/pilot1_live_showcase/PILOT1_MASTER_REPORT.md",
+      "asset_verified": true,
+      "asset_bytes": 4655,
+      "ok": true
+    },
+    {
+      "model_id": "M07_SME_VISUAL_RPA_DRIVE_AUTOMATION",
+      "rank": 7,
+      "title_ko": "중소기업 1회 시연 시각 모방 RPA & 구글 드라이브 자동화 구독",
+      "schedule_kst": "13:00",
+      "directors": [
+        "D6_ENTERPRISE_OPS_RPA_CHIEF"
+      ],
+      "directors_valid": true,
+      "engines_verified": true,
+      "linked_live_asset": "rgon_step69_maestro_report.json",
+      "asset_verified": true,
+      "asset_bytes": 17081,
+      "ok": true
+    },
+    {
+      "model_id": "M08_VIBE_CODE_SECURITY_HOSPITAL_CLINIC",
+      "rank": 8,
+      "title_ko": "바이브 코더 앱 보안 4대 감사 & 8단계 RCA 자동 패치 클리닉",
+      "schedule_kst": "24h 상시",
+      "directors": [
+        "D1_IMMUNE_HOSPITAL_CHIEF",
+        "D7_CHRONO_OMNIROUTE_AUDITOR_CHIEF"
+      ],
+      "directors_valid": true,
+      "engines_verified": true,
+      "linked_live_asset": "rgon_step70_dna_keyvault_report.json",
+      "asset_verified": true,
+      "asset_bytes": 11837,
+      "ok": true
+    },
+    {
+      "model_id": "M09_OPENMAIC_WIKILLM_COURSE_PUBLISHER",
+      "rank": 9,
+      "title_ko": "OpenMAIC 대화형 AI 강의실 & Wiki LLM 전자책 자동 출판",
+      "schedule_kst": "18:00",
+      "directors": [
+        "D2_SYNAPSE_BRAIN_CHIEF",
+        "D6_ENTERPRISE_OPS_RPA_CHIEF"
+      ],
+      "directors_valid": true,
+      "engines_verified": true,
+      "linked_live_asset": "outputs/pilot1_live_showcase/PILOT1_MASTER_REPORT.md",
+      "asset_verified": true,
+      "asset_bytes": 4655,
+      "ok": true
+    },
+    {
+      "model_id": "M10_GEO_LLMSTXT_AI_SEO_AGENCY",
+      "rank": 10,
+      "title_ko": "기업용 AI 검색엔진 최적화 llms.txt 자동 구축 대행",
+      "schedule_kst": "13:00",
+      "directors": [
+        "D5_APP_CLONER_VENTURE_CHIEF",
+        "D6_ENTERPRISE_OPS_RPA_CHIEF"
+      ],
+      "directors_valid": true,
+      "engines_verified": true,
+      "linked_live_asset": "outputs/pilot1_live_showcase/pilot1_live_report.json",
+      "asset_verified": true,
+      "asset_bytes": 7622,
+      "ok": true
+    }
+  ],
+  "schedule_matrix_24h": [
+    {
+      "slot_id": "SLOT_0600_MORNING_WALLSTREET",
+      "time_kst": "06:00",
+      "title": "모닝 월가·국장 AI 카운슬 프리미엄 리포트 발간",
+      "models": [
+        "M06_WALLSTREET_COUNCIL_PREMIUM_BRIEF"
+      ],
+      "directors": [
+        "D3_WALLSTREET_TRADING_CHIEF"
+      ]
+    },
+    {
+      "slot_id": "SLOT_0900_SHORTS_AND_CPA_FACTORY",
+      "time_kst": "09:00",
+      "title": "유튜브 3채널 무얼굴 모션 쇼츠 & 워터마크 0% CPA 블로그 동시 출격",
+      "models": [
+        "M01_YOUTUBE_3CH_FACELESS_SHORTS",
+        "M03_ZERO_WATERMARK_BLOG_CPA_AFFILIATE"
+      ],
+      "directors": [
+        "D4_MEDIA_MOTION_STUDIO_CHIEF"
+      ]
+    },
+    {
+      "slot_id": "SLOT_1300_B2B_SAAS_RPA_GEO_STUDIO",
+      "time_kst": "13:00",
+      "title": "$400/hr 모션 랜딩 · 마이크로 SaaS · 시각 모방 RPA · llms.txt B2B 에셋 주조",
+      "models": [
+        "M02_B2B_400HR_MOTION_LANDING_AGENCY",
+        "M05_MICRO_SAAS_COMPETITOR_APP_CLONER",
+        "M07_SME_VISUAL_RPA_DRIVE_AUTOMATION",
+        "M10_GEO_LLMSTXT_AI_SEO_AGENCY"
+      ],
+      "directors": [
+        "D4_MEDIA_MOTION_STUDIO_CHIEF",
+        "D5_APP_CLONER_VENTURE_CHIEF",
+        "D6_ENTERPRISE_OPS_RPA_CHIEF"
+      ]
+    },
+    {
+      "slot_id": "SLOT_1800_SKILLPACK_AND_COURSE_STORE",
+      "time_kst": "18:00",
+      "title": "세컨드 브레인 66종 스킬팩 스토어 & OpenMAIC/WikiLLM 전자책 출판",
+      "models": [
+        "M04_SECOND_BRAIN_MCP_SKILL_PACK_STORE",
+        "M09_OPENMAIC_WIKILLM_COURSE_PUBLISHER"
+      ],
+      "directors": [
+        "D2_SYNAPSE_BRAIN_CHIEF",
+        "D6_ENTERPRISE_OPS_RPA_CHIEF"
+      ]
+    },
+    {
+      "slot_id": "SLOT_2200_US_PREMARKET_COUNCIL",
+      "time_kst": "22:00",
+      "title": "미국 프리마켓 실시간 Finnhub 타점 & 카운슬 VIP 브리핑",
+      "models": [
+        "M06_WALLSTREET_COUNCIL_PREMIUM_BRIEF"
+      ],
+      "directors": [
+        "D3_WALLSTREET_TRADING_CHIEF"
+      ]
+    },
+    {
+      "slot_id": "SLOT_24H_VIBE_SECURITY_CLINIC",
+      "time_kst": "24h 상시",
+      "title": "바이브 코더 보안 4대 감사 & 종합병원 8단계 RCA 자동 패치 클리닉",
+      "models": [
+        "M08_VIBE_CODE_SECURITY_HOSPITAL_CLINIC"
+      ],
+      "directors": [
+        "D1_IMMUNE_HOSPITAL_CHIEF",
+        "D7_CHRONO_OMNIROUTE_AUDITOR_CHIEF"
+      ]
+    }
+  ],
+  "elapsed_sec": 0.0985,
+  "_immutable_dna_seal": {
+    "agent_or_chain_id": "ORGAN-46-SAFE-MONETIZATION-TOP10",
+    "laws_enforced": 8,
+    "law_codes": [
+      "LAW_1_GLOBAL_TOP1_BENCHMARK",
+      "LAW_2_KARPATHY_4RULES_AND_COUNCIL",
+      "LAW_3_MASTER_KEY_VAULT_LEVERAGE",
+      "LAW_4_NO_FAKE_CHRONOMETER_PROOF",
+      "LAW_5_MAESTRO_SYNERGY_DAG_RELAY",
+      "LAW_6_PONYTAIL_ZERO_BLOAT_DIET",
+      "LAW_7_WATER_SELF_HEALING_SAMSEONG",
+      "LAW_8_COMMANDER_APPROVAL_GATE"
+    ],
+    "antibody": "R69",
+    "version": "v11.76-AON-IMMUTABLE-DNA-KEYVAULT",
+    "verified_in_sec": 0.0
+  }
+}

@@ -1840,6 +1840,7 @@ try:
         "step68_aon_chrono_diet_perfection.py",
         "step69_aon_maestro_synergy_scheduler.py",
         "step70_aon_immutable_dna_keyvault.py",
+        "step71_aon_safe_monetization_top10_engine.py",
     ):
         if _org_f not in ORGANS:
             ORGANS.append(_org_f)
@@ -1850,6 +1851,7 @@ except NameError:
         "step68_aon_chrono_diet_perfection.py",
         "step69_aon_maestro_synergy_scheduler.py",
         "step70_aon_immutable_dna_keyvault.py",
+        "step71_aon_safe_monetization_top10_engine.py",
     ]
 
 
@@ -1992,6 +1994,30 @@ def _r69_s39_check():
                 "evidence": repr(e), "detail": repr(e)}
 
 
+def _r70_s40_check():
+    import time as _tm, importlib as _il
+    _t0 = _tm.perf_counter()
+    name = "대화허브(/수익화톱10·/무위험수익화·/에셋팩토리·/24시간수익스케줄)→제46기관 아온 무위험 AI 수익화 Top 10 마스터 스케줄러 & 에셋 팩토리"
+    try:
+        mod = _il.import_module("step71_aon_safe_monetization_top10_engine")
+        fac = mod.AonSafeMonetizationFactory()
+        res = fac.run_all_10_monetization_pipelines()
+        ok = (
+            mod.ORGAN_NO == 46
+            and len(mod.SAFE_MONETIZATION_TOP10) == 10
+            and len(mod.MONETIZATION_24H_SCHEDULE_MATRIX) == 6
+            and res.get("ok") is True
+            and res.get("passed_models") == 10
+            and "_immutable_dna_seal" in res
+        )
+        ev = f"organ=46, models={res.get('passed_models')}/{res.get('total_models')}, schedule_slots={res.get('schedule_slots_count')}, pilot1_linked={res.get('pilot1_live_assets', {}).get('ok')}"
+        return {"id": "S40", "name": name, "ok": bool(ok), "sec": round(_tm.perf_counter() - _t0, 3),
+                "evidence": ev, "detail": ev}
+    except Exception as e:
+        return {"id": "S40", "name": name, "ok": False, "sec": round(_tm.perf_counter() - _t0, 3),
+                "evidence": repr(e), "detail": repr(e)}
+
+
 _r66_orig_vsl = globals().get("verify_synapse_links")
 if callable(_r66_orig_vsl) and not getattr(_r66_orig_vsl, "_r66", False):
     def verify_synapse_links(*args, **kwargs):
@@ -2001,8 +2027,9 @@ if callable(_r66_orig_vsl) and not getattr(_r66_orig_vsl, "_r66", False):
         s37 = _r67_s37_check()
         s38 = _r68_s38_check()
         s39 = _r69_s39_check()
+        s40 = _r70_s40_check()
         if isinstance(res, dict) and isinstance(res.get("synapses"), list):
-            items = [x for x in res["synapses"] if not (isinstance(x, dict) and x.get("id") in ("S35", "S36", "S37", "S38", "S39"))] + [s35, s36, s37, s38, s39]
+            items = [x for x in res["synapses"] if not (isinstance(x, dict) and x.get("id") in ("S35", "S36", "S37", "S38", "S39", "S40"))] + [s35, s36, s37, s38, s39, s40]
             res["synapses"] = items
             res["passed"] = sum(1 for x in items if isinstance(x, dict) and x.get("ok"))
             res["total"] = len(items)
