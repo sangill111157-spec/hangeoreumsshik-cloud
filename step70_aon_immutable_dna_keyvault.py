@@ -590,7 +590,10 @@ class AonMasterKeyVault:
         for k, raw_v in self._raw_secrets.items():
             if raw_v in non_sensitive_synthetic or raw_v.startswith(("PICKLE_SHA256_", "BRIDGE_SHA256_")):
                 continue
-            if k in ("RISK_KILL_SWITCH_PATH", "SEC_EDGAR_USER_AGENT", "LOG_LEVEL"):
+            if (
+                k in ("RISK_KILL_SWITCH_PATH", "SEC_EDGAR_USER_AGENT", "LOG_LEVEL")
+                or any(tag in k for tag in ("USERNAME", "_NAME", "_PATH", "_ROOT", "_ENDPOINT", "_REGION"))
+            ):
                 continue
             if len(raw_v) >= 12:
                 checked_sensitive_count += 1

@@ -1,0 +1,161 @@
+{
+  "ok": true,
+  "all_passed": true,
+  "pilot_id": "PILOT_1_NVDA_COUNCIL_SHORTS_MOTION_TELEGRAM",
+  "version": "v11.76-AON-IMMUTABLE-DNA-KEYVAULT",
+  "antibody_range": "R1~R69",
+  "live_pilot": true,
+  "browser_opened": true,
+  "passed": 4,
+  "total": 4,
+  "checks": [
+    {
+      "name": "1_stage1_nvda_finnhub_and_council",
+      "ok": true
+    },
+    {
+      "name": "2_stage2_korean_1pct_shorts_and_watermark_scrub",
+      "ok": true
+    },
+    {
+      "name": "3_stage3_9x16_motion_html_and_master_report",
+      "ok": true
+    },
+    {
+      "name": "4_stage4_telegram_dispatch",
+      "ok": true
+    }
+  ],
+  "stage1_wallstreet_nvda": {
+    "ok": true,
+    "director": "D3_WALLSTREET_TRADING_CHIEF",
+    "quote_source": "finnhub_live_api",
+    "http_status": 200,
+    "symbol": "NVDA",
+    "quote": {
+      "current_price": 217.94,
+      "change": 1.94,
+      "change_pct": 0.9,
+      "high_price": 219.19,
+      "low_price": 215.53,
+      "open_price": 218.31,
+      "prev_close": 216.0
+    },
+    "bull_vs_bear": {
+      "bull_score": 88.5,
+      "bear_score": 11.5,
+      "trading_agents_decision": "팽팽 — 관망 및 추가 검증",
+      "max_position_pct": 5.9
+    },
+    "llm_council": {
+      "consensus_score": 0.996,
+      "confidence_pct": 99.6,
+      "chairman_synthesis": "[의장 최종합성] 'NVDA 엔비디아 실시간 $217.94 (+0.90%, 고가 $219.19 / 저가 $215.53) | TradingAgents 결론: 팽팽 — 관망 및 추가 검증' 안건 만장일치 채택 (경쟁사 역전 기획 + R65 무중단 방어 결합)"
+    },
+    "investment_judgment": {
+      "verdict": "강세 우위 (BUY ON DIPS) — 추격 매수 금지 · 2단계 눌림목 분할 진입 & -3.0% 기계적 손절",
+      "confidence_pct": 99.6,
+      "core_reasons_3": [
+        "[실시간 시세·수급] Finnhub 실측 현재가 $217.94 (+1.94 / +0.90%), 당일 고가 $219.19 · 저가 $215.53 구간에서 견조한 하방 경직성 입증",
+        "[TradingAgents 4대 분석관 토론] 강세(88.5점: AI 데이터센터 독점 마진·현금흐름) vs 약세(11.5점: 단기 밸류에이션 부담) 교차검증 결과 상방 기대수익 우세",
+        "[Karpathy 3단 카운슬 합의(신뢰도 99.6%)] 1차 진입 $216.85 · 2차 지지 $213.58 분할 매수 및 손절선 $211.40(-3.0%) + 스케줄러 300초 Misfire 방어 결합"
+      ],
+      "actionable_levels": {
+        "entry_1_usd": 216.85,
+        "entry_2_usd": 213.58,
+        "target_1_usd": 225.57,
+        "target_2_usd": 234.29,
+        "stop_loss_usd": 211.4,
+        "stop_loss_pct": -3.0
+      }
+    },
+    "elapsed_sec": 0.5492
+  },
+  "stage2_media_script": {
+    "ok": true,
+    "director": "D4_MEDIA_MOTION_STUDIO_CHIEF",
+    "watermark_removed": true,
+    "zero_watermark_verified": true,
+    "shorts_script_30s": "[0~3초 오프닝 후킹]\n엔비디아 실시간 현재가 217.94달러(+0.90%), 지금 추격 매수하면 물릴까요? 월가 AI 3대장 카운슬의 실전 타점에 대해 30초 만에 공개합니다.\n\n[3~10초 핵심 팩트 1 — 실시간 시세 & 고저 밴드]\n첫째, 방금 수신된 월가 Finnhub 실시간 데이터 기준 엔비디아는 당일 고가 219.19달러, 저가 215.53달러 구간에서 검증된 하방 지지력을 입증하고 있습니다.\n\n[10~18초 핵심 팩트 2 — Bull vs Bear 끝장토론 & 3단 합의]\n둘째, 4대 분석관 끝장토론 결과 강세 88.5점 대 약세 11.5점, 그리고 Karpathy 3단 카운슬 합의 신뢰도 99.6%로 눌림목 분할 매수 우위가 확정된 것입니다.\n\n[18~25초 핵심 팩트 3 — 실전 분할 진입 & 기계적 손절선]\n셋째, 감으로 사지 마세요! 1차 진입가 216.85달러, 2차 핵심 지지선 213.58달러, 1차 목표가 225.57달러, 그리고 내 계좌를 지키는 생명선 손절가 211.40달러(-3.0%)만 기계처럼 지키면 됩니다.\n\n[25~30초 클로징 CTA]\n매일 아침 깨어나는 월가 AI 실전 타점 브리핑, 지금 바로 구독과 좋아요 누르고 흔들리지 않는 투자 기준을 세우세요!",
+    "blog_threads_summary": "📌 [한걸음씩 월가 AI 타점 노트] 엔비디아(NVDA) 실시간 $217.94 (+0.90%) 긴급 해부\n• 당일 밴드: 고가 $219.19 / 저가 $215.53 (전일종가 $216.00)\n• AI 카운슬 판정: 강세 88.5 vs 약세 11.5 (합의 신뢰도 99.6%)\n• 실전 전략: 1차 눌림목 $216.85 / 2차 지지 $213.58 분할 접근 · 목표 $225.57~$234.29 · 칼손절 $211.40(-3.0%)\n• 핵심 한 줄: 추격 매수는 금물, 정해진 눌림목 타점과 -3% 기계적 손절선으로 리스크를 통제합니다.",
+    "scenes_5": [
+      {
+        "scene_no": 1,
+        "time_range": "0.0s ~ 3.0s",
+        "t_start": 0.0,
+        "t_end": 3.0,
+        "tag": "HOOK · 3초 후킹 오프닝",
+        "headline": "NVDA $217.94 (+0.90%)",
+        "subcopy": "지금 추격 매수하면 물릴까? 월가 AI 3대장 합의 타점 30초 공개!",
+        "accent": "#00f5d4"
+      },
+      {
+        "scene_no": 2,
+        "time_range": "3.0s ~ 10.0s",
+        "t_start": 3.0,
+        "t_end": 10.0,
+        "tag": "FACT 1 · 실시간 Finnhub 시세 & 고저 밴드",
+        "headline": "고가 $219.19 · 저가 $215.53",
+        "subcopy": "방금 수신된 월가 실측 데이터 기준 $215.53 하방 지지력 완벽 입증!",
+        "accent": "#38bdf8"
+      },
+      {
+        "scene_no": 3,
+        "time_range": "10.0s ~ 18.0s",
+        "t_start": 10.0,
+        "t_end": 18.0,
+        "tag": "FACT 2 · Bull vs Bear 끝장토론 & 3단 카운슬",
+        "headline": "강세 88.5 vs 약세 11.5 (합의 99.6%)",
+        "subcopy": "AI 데이터센터 독점 마진 vs 단기 고점 피로도 → 눌림목 분할 매수 우위 확정!",
+        "accent": "#a855f7"
+      },
+      {
+        "scene_no": 4,
+        "time_range": "18.0s ~ 25.0s",
+        "t_start": 18.0,
+        "t_end": 25.0,
+        "tag": "FACT 3 · 실전 분할 타점 & -3% 칼손절 라인",
+        "headline": "진입 $216.85 / 손절 $211.40",
+        "subcopy": "1차 $216.85 · 2차 $213.58 분할 진입 | 목표 $225.57 | 손절 -3.0% 엄수!",
+        "accent": "#f43f5e"
+      },
+      {
+        "scene_no": 5,
+        "time_range": "25.0s ~ 30.0s",
+        "t_start": 25.0,
+        "t_end": 30.0,
+        "tag": "CLOSING CTA · 매일 아침 월가 AI 브리핑",
+        "headline": "구독 & 좋아요 = 계좌의 방패",
+        "subcopy": "매일 아침 실시간 AI 월가 타점 브리핑, 지금 바로 구독하고 함께 이기세요!",
+        "accent": "#facc15"
+      }
+    ],
+    "elapsed_sec": 0.0082
+  },
+  "stage3_motion_and_report": {
+    "ok": true,
+    "directors": [
+      "D4_MEDIA_MOTION_STUDIO_CHIEF",
+      "D5_APP_CLONER_VENTURE_CHIEF"
+    ],
+    "motion_html_path": "outputs/pilot1_live_showcase/nvda_shorts_motion_preview.html",
+    "motion_html_bytes": 21119,
+    "master_report_md_path": "outputs/pilot1_live_showcase/PILOT1_MASTER_REPORT.md",
+    "master_report_md_bytes": 4655,
+    "elapsed_sec": 0.0055
+  },
+  "stage4_telegram_report": {
+    "ok": true,
+    "mode": "live_pilot_real_telegram_sent",
+    "bot_username": "@sangi_ai_secretary_bot",
+    "http_status": 200,
+    "external_http_sent": true,
+    "telegram_message_id": 1954,
+    "masked_chat_id": "872***02",
+    "message_length": 1417,
+    "elapsed_sec": 0.9895
+  },
+  "elapsed_sec": 1.8415,
+  "timestamp": "2026-10-28T11:49:38+09:00",
+  "zero_secret_leak_verified": true
+}
