@@ -78,8 +78,8 @@
       "newly_pruned_dirs_count": 1,
       "total_pruned_files_count": 317,
       "total_pruned_dirs_count": 2,
-      "freed_bytes": 21246082,
-      "freed_kb": 20748.13,
+      "freed_bytes": 22230684,
+      "freed_kb": 21709.65,
       "pruned_files": [
         "apply_50c_doc.py",
         "apply_52c_doc.py",
@@ -411,5 +411,5 @@
       "errors": []
     }
   },
-  "timestamp": "2026-10-28T17:41:44+09:00"
+  "timestamp": "2026-10-28T17:45:29+09:00"
 }
