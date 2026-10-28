@@ -8,7 +8,7 @@ Step 72 — 제47기관: 『루미-스타일(Lumi-Style) 1차 검수 All-OK 최�
 버전: v11.80-AON-LUMI-FINAL-DELIVERABLE-SENDER · 항체: R1~R71 (R71 / R69 호환) · 정식 스킬: #67 (65+ 호환)
 시냅스: 노드 #40 (step72_aon_final_deliverable_sender.py) / 시냅스 S41 (S37_STEP72 호환)
 
-[이상일 대표님 3대 핵심 경영 지침 구현]
+[썬원 에이온(SUN-ONE AON) 3대 핵심 경영 지침 구현]
 1. 1차 검수 All-OK 게이트: 내부에서 7대 검수 게이트 + 불변의 8대 법칙이 100% OK 판정을 받은
    『최종 완성본 결과물 실물』만 텔레그램으로 발송한다 (중간 로그·잡다한 텍스트 발송 금지).
 2. 가짜 링크(window.seek, SKILL.md, *.py, *.json 등) 원천 박멸:
@@ -293,7 +293,7 @@ def publish_deliverable_web_hub() -> dict[str, Any]:
   </style>
 </head>
 <body>
-  <div class="badge">👑 RGON × 루미비서 | 1차 검수 ALL-OK 최종 완성본</div>
+  <div class="badge">👑 SUN-ONE AON (S1-AON Labs) | 1차 검수 ALL-OK 최종 완성본</div>
   <h1>NVIDIA (NVDA) $217.94 (+0.90%) 실전 타점 & 9:16 모션 쇼츠</h1>
   <p class="sub">검수 시각: {now_kst} · 7대 검수 게이트 & 불변의 8대 법칙 100% 통과</p>
 

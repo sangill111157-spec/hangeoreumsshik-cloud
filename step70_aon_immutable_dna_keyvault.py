@@ -138,7 +138,7 @@ RGON_IMMUTABLE_WORK_LAWS_8: dict[str, dict[str, Any]] = {
         "law_no": 8,
         "code": "LAW_8_COMMANDER_APPROVAL_GATE",
         "title": "통수권자 최종 승인 게이트 & 1초 정직 보고 법칙",
-        "principle": "모든 중대 실행은 통수권자(이상일 대표님)의 최종 승인 아래 집행하며, 모바일에서도 1초 만에 파악 가능한 정직하고 명쾌한 수치로 보고한다.",
+        "principle": "모든 중대 실행은 통수권자(썬원 에이온(SUN-ONE AON))의 최종 승인 아래 집행하며, 모바일에서도 1초 만에 파악 가능한 정직하고 명쾌한 수치로 보고한다.",
         "enforcement_gate": "commander_approval_and_transparent_metrics",
     },
 }

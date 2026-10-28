@@ -8,7 +8,7 @@ Step 74 — 제49기관: 『음성+영상+자막 완전 통합 단일 동영상 
 버전: v11.84-AON-UNIFIED-MP4-ALLINONE-VIDEO · 항체: R1~R73 (R71 호환) · 정식 스킬: #69 (67+ 호환)
 시냅스: 노드 #42 (step74_aon_unified_mp4_video_engine.py) / 시냅스 S43
 
-[이상일 대표님 기상 직후 긴급 특명 — 파편화 전송 영구 폐지 & 단일 통합 MP4 완성본 직통 배달]
+[썬원 에이온(SUN-ONE AON) 기상 직후 긴급 특명 — 파편화 전송 영구 폐지 & 단일 통합 MP4 완성본 직통 배달]
 1. [핵심 #1] 음성 + 영상 + 자막(대본) 완전 통합 단일 .mp4 최종 완성본 합성 엔진:
    - 9:16 세로형 Full-HD (1080×1920) 인포그래픽 모션 프레임 + 실시간 진행률 프로그레스 바 +
      오디오 타임라인에 1:1 동기화된 하단 대본 자막(Burned-in Subtitles) +
@@ -1043,7 +1043,7 @@ def build_top10_unified_mp4_showcase_html(
     <header class="hero">
       <div class="hero-badge">🎬 RGON STEP 74 · ALL-IN-ONE UNIFIED MP4 VIDEO SHOWCASE ({VERSION})</div>
       <h1>안전 수익화 Top 10 『음성 + 영상 + 자막 완전 통합 단일 MP4 동영상』 쇼케이스 허브</h1>
-      <p>이상일 대표님! 사진 따로, 음성 따로 누르실 필요 없이 재생(▶️) 버튼 딱 한 번만 누르시면 9:16 고해상도 인포그래픽 화면 + 한국어 신경망 성우 음성 + 시간대별 하단 자막이 동시에 재생됩니다.</p>
+      <p>썬원 에이온(SUN-ONE AON)! 사진 따로, 음성 따로 누르실 필요 없이 재생(▶️) 버튼 딱 한 번만 누르시면 9:16 고해상도 인포그래픽 화면 + 한국어 신경망 성우 음성 + 시간대별 하단 자막이 동시에 재생됩니다.</p>
       <div class="qc-banner">
         <div class="qc-item"><strong>✅ 단일 통합 MP4 10종</strong>H.264(1080×1920) + AAC 오디오 + 자막 완전 결합</div>
         <div class="qc-item"><strong>✅ 픽셀 여백 실측 PASS</strong>전 프레임 최소 여백 {min_box_m}px (기준 &ge;50px 완벽 통과)</div>

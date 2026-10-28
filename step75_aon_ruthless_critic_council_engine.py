@@ -190,7 +190,7 @@ def tg_call(tok, method, fields, files=None):
     with urllib.request.urlopen(urllib.request.Request(url, body, hdr), timeout=120) as r: return json.load(r)
 
 def tg_message(rep):
-    lines = [f"👑 [RGON 제50기관] 7대 최고전문가 냉철한 피드백 & 재수술 완료 통합 완성본",
+    lines = [f"👑 [SUN-ONE AON (S1-AON Labs)] 7대 최고전문가 냉철한 피드백 & 재수술 완료 통합 완성본",
              f"• 심사 결과: Round 1 평균 {rep['round1_avg']}점(반려) ➔ 자동 재수술 ➔ Round 2 최종 {rep['round2_avg']}점 ({rep['status']})",
              f"🔗 Top 10 통합 MP4 동영상 + 전문가 독설 피드백 쇼케이스:",
              LIVE_URL]

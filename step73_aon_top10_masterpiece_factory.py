@@ -8,7 +8,7 @@ Step 73 — 제48기관: 『픽셀-퍼펙트(Pixel-Perfect) 시각 검수기 & �
 버전: v11.82-AON-PIXEL-PERFECT-TOP10-MASTERPIECE · 항체: R1~R72 (R70 호환) · 정식 스킬: #68 (66+ 호환)
 시냅스: 노드 #41 (step73_aon_top10_masterpiece_factory.py) / 시냅스 S42
 
-[이상일 대표님 야간 특명 — 3대 결함 100% 완치 & Top 10 전 종목 실물 제작]
+[썬원 에이온(SUN-ONE AON) 야간 특명 — 3대 결함 100% 완치 & Top 10 전 종목 실물 제작]
 1. [결함 #1 완치] 픽셀-퍼펙트(Pixel-Perfect) 텍스트 바운딩 박스 & 네모(▯) 깨짐 제로(0) 렌더러:
    - 모든 유니코드 이모지 원천 제거 + 순수 벡터 배지([01]~[10]) 및 malgun.ttf 100% 호환 기호(◆, ▶, •)만 사용.
    - ImageDraw.textbbox() 실측 기반 자동 폰트 축소(Auto Font-Fit) 및 자동 줄바꿈(Auto Word-Wrap)을 적용하여
@@ -186,7 +186,7 @@ def build_top10_masterpiece_specs() -> list[dict[str, Any]]:
                 "• 전용 성우 내레이션 MP3 및 9:16 모션 쇼츠 플레이어 직결",
             ],
             "narration_script": (
-                "충성! 이상일 대표님, 안전 수익화 일번 종목인 미 증시 엔비디아 월가 에이아이 카운슬 타점 브리핑 최종 완성본입니다. "
+                "충성! 썬원 에이온(SUN-ONE AON), 안전 수익화 일번 종목인 미 증시 엔비디아 월가 에이아이 카운슬 타점 브리핑 최종 완성본입니다. "
                 "실시간 핀허브 데이터 기준 엔비디아 현재가는 이백십칠점구사 달러로 전일 대비 영점구영 퍼센트 상승했으며, "
                 "당일 고가 이백십구점일구 달러, 저가 이백십오점오삼 달러에서 탄탄한 하방 경직성을 입증했습니다. "
                 "사대 분석관 끝장토론 결과 강세 팔십팔점오 점 대 약세 십일점오 점, 카파시 삼단 카운슬 합의 신뢰도 구십구점육 퍼센트로 "
@@ -512,7 +512,7 @@ def build_top10_masterpiece_specs() -> list[dict[str, Any]]:
             ],
             "narration_script": (
                 "안전 수익화 십번 종목, 클로드와 제미나이 실전 업무 자동화 프롬프트 및 육십팔종 스킬 마켓플레이스 팩 최종 완성본입니다. "
-                "이상일 대표님의 불변의 일처리 팔대 법칙 디엔에이가 백 퍼센트 이식된 육십팔개의 정식 스킬 마크다운과 "
+                "썬원 에이온(SUN-ONE AON)의 불변의 일처리 팔대 법칙 디엔에이가 백 퍼센트 이식된 육십팔개의 정식 스킬 마크다운과 "
                 "칠대 기관장 시너지 체인을 전 세계 에이아이 사용자와 기업들이 즉시 도입할 수 있도록 패키징했습니다. "
                 "이로써 안전 수익화 탑 텐 일번부터 십번까지 모든 최종 완성본 카드와 고유 성우 음성, 인터랙티브 웹 뷰어 준비가 완벽히 끝났습니다. 충성!"
             ),
@@ -735,7 +735,7 @@ class PixelPerfectCardRenderer:
 
         # 하단 푸터
         now_kst = datetime.datetime.now(KST).strftime("%Y-%m-%d %H:%M KST")
-        footer_text = f"발행: {now_kst}  |  스케줄: {spec['schedule_kst']}  |  RGON 제48기관 픽셀-퍼펙트 검수 필"
+        footer_text = f"발행: {now_kst}  |  스케줄: {spec['schedule_kst']}  |  SUN-ONE AON (S1-AON Labs) 픽셀-퍼펙트 검수 필"
         self.draw_fitted_line(
             draw, 78, 1236, footer_text, max_size=24, min_size=16, bold=True, fill=(148, 163, 184),
             box_right=self.BOX_RIGHT, audit_list=audit_log,
@@ -1215,9 +1215,9 @@ def build_top10_master_showcase_html(
 </head>
 <body>
   <section class="hero-banner">
-    <div class="hero-badge">RGON 제48기관 | 픽셀-퍼펙트 10/10 전 종목 실물 검수 허브</div>
+    <div class="hero-badge">SUN-ONE AON (S1-AON Labs) | 픽셀-퍼펙트 10/10 전 종목 실물 검수 허브</div>
     <h1>안전 수익화 Top 10 마스터 스케줄러 최종 완성본 쇼케이스</h1>
-    <p>이상일 대표님께서 기상 즉시 스마트폰으로 1번부터 10번까지 카드를 보시고, 고유 성우 내레이션을 들으시며 원터치로 결재(OK)하실 수 있도록 준비된 통합 쇼케이스입니다. ({now_kst})</p>
+    <p>썬원 에이온(SUN-ONE AON)께서 기상 즉시 스마트폰으로 1번부터 10번까지 카드를 보시고, 고유 성우 내레이션을 들으시며 원터치로 결재(OK)하실 수 있도록 준비된 통합 쇼케이스입니다. ({now_kst})</p>
     <div class="qc-summary">
       <div class="qc-chip">픽셀 우측 여백: <strong>최소 {min_margin_all}px (&gt;=35px)</strong></div>
       <div class="qc-chip">이모지 네모(▯) 깨짐: <strong>0건 (10/10 완치)</strong></div>
@@ -1479,7 +1479,7 @@ def send_top10_showcase_to_telegram(live_send: bool = False, build_res: dict[str
             "chat_id": chat_id,
             "caption": audio_caption,
             "title": "[Top 10 완성본 #01] NVDA $217.94 월가 AI 카운슬 성우 브리핑",
-            "performer": "RGON 제48기관 아온 & 루미",
+            "performer": "SUN-ONE AON (S1-AON Labs) 아온 & 루미",
         },
         "audio",
         audio_path,
