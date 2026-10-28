@@ -82,7 +82,7 @@
       "engines_verified": true,
       "linked_live_asset": "SKILL_INDEX.json",
       "asset_verified": true,
-      "asset_bytes": 20754,
+      "asset_bytes": 21354,
       "ok": true
     },
     {
@@ -256,7 +256,7 @@
       ]
     }
   ],
-  "elapsed_sec": 0.067,
+  "elapsed_sec": 0.4805,
   "_immutable_dna_seal": {
     "agent_or_chain_id": "ORGAN-46-SAFE-MONETIZATION-TOP10",
     "laws_enforced": 8,
