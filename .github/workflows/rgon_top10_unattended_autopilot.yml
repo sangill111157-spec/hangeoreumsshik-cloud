@@ -1,0 +1,26 @@
+name: RGON 24H Feedback-Verified Unattended Autopilot
+on:
+  schedule:
+    - cron: '0 22 * * *'   # 07:00 KST
+    - cron: '0 3 * * *'    # 12:00 KST
+    - cron: '0 9 * * *'    # 18:00 KST
+    - cron: '30 14 * * *'  # 23:30 KST
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  feedback-verified-autopilot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Critic Feedback -> Auto-Fix -> Pass Gate -> Unattended Delivery
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          SANGI_AI_SECRETARY_BOT_TOKEN: ${{ secrets.SANGI_AI_SECRETARY_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          python -X utf8 step75_aon_ruthless_critic_council_engine.py --self-test
+          python -X utf8 step75_aon_ruthless_critic_council_engine.py --send-telegram
