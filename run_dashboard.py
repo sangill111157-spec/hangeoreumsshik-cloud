@@ -1405,6 +1405,8 @@ class DashboardHandler(SimpleHTTPRequestHandler):
                 self.send_header("Access-Control-Allow-Origin", "*")
                 self.send_header("Content-Length", str(len(err_body)))
                 self.end_headers()
+                self.wfile.write(err_body)
+                return
         # 🛡️ [Step 50 · R50] 제26기관 아온 임페커블 UI 폴리시 & 감사 방패 상태 (GET /api/aon_impeccable_shield)
         if path == '/api/aon_impeccable_shield':
             try:
@@ -1459,7 +1461,7 @@ class DashboardHandler(SimpleHTTPRequestHandler):
             except Exception as e:
                 self._send_json({"ok": False, "error": str(e)}, status=500)
                 return
-if path == '/api/aon_page_button_bot':
+        if path == '/api/aon_page_button_bot':
             try:
                 import rgon_aon_page_button_bot_engine as pbe
                 cat = pbe.WebMcpStagehandBotCompiler.load_or_compile()
@@ -1481,7 +1483,7 @@ if path == '/api/aon_page_button_bot':
             except Exception as e:
                 self._send_json({"ok": False, "error": str(e)}, status=500)
                 return
-if path == '/api/aon_commander_twin':
+        if path == '/api/aon_commander_twin':
             try:
                 import rgon_aon_commander_twin as _r52_twin
                 eng = _r52_twin.get_commander_twin()
@@ -2523,7 +2525,7 @@ if path == '/api/aon_commander_twin':
             except Exception as e:
                 self._send_json({"ok": False, "error": str(e)}, status=500)
                 return
-if self.path == '/api/aon_page_button_bot':
+        if self.path == '/api/aon_page_button_bot':
             try:
                 import rgon_aon_page_button_bot_engine as pbe
                 req = self._read_json_body() or {}
@@ -2544,7 +2546,7 @@ if self.path == '/api/aon_page_button_bot':
             except Exception as e:
                 self._send_json({"ok": False, "error": str(e)}, status=500)
                 return
-if self.path == '/api/aon_commander_twin':
+        if self.path == '/api/aon_commander_twin':
             length = int(self.headers.get('Content-Length', 0))
             raw_body = self.rfile.read(length) if length > 0 else b'{}'
             try:

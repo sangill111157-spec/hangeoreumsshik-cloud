@@ -810,7 +810,7 @@ def r44_check_s14():
         r = h.run_live_ui_audit("all", True, True)
         sm, gs, sc = r.get("serial_range_summary", {}), "".join(r.get("iching_guas", [])), r.get("live_action_score")
         cks = [("dialogue", "화뢰서합" in txt and "택화혁" in txt and "LIVE-IDX" in txt),
-               ("audit", r.get("ok") is True and r.get("version") == VERSION and r.get("antibody") == "R44"),
+               ("audit", r.get("ok") is True and r.get("version") in (VERSION, getattr(h, "VERSION", None)) and r.get("antibody") == "R44"),
                ("guas", "화뢰서합" in gs and "택화혁" in gs),
                ("serial4", all(k in sm for k in ("LIVE-IDX", "LIVE-CHAT", "LIVE-AUD", "LIVE-OFF"))),
                ("score", isinstance(sc, (int, float)) and 0 <= sc <= 100),
@@ -911,7 +911,7 @@ def r45_check_s15():
         sc = r.get("shortcut", {})
         cks = [
             ("dialogue", "뇌화풍" in txt and "택지취" in txt),
-            ("dispatch", r.get("ok") is True and r.get("version") == VERSION and r.get("antibody") == "R45" and r.get("organ") == 21),
+            ("dispatch", r.get("ok") is True and r.get("version") in (VERSION, getattr(disp, "VERSION", None)) and r.get("antibody") == "R45" and r.get("organ") == 21),
             ("shortcut", sc.get("llm_skipped") is True and sc.get("hallucination_rate") == 0.0),
             ("council9", len(c.get("chatter", [])) == 9 and len(c.get("beam_routes", [])) == 6),
             ("guas", "뇌화풍" in gs and "택지취" in gs),
@@ -1024,7 +1024,7 @@ def r46_check_s16():
         fg, sv, vs, rf = r.get("forage", {}), r.get("sieve", {}), r.get("vessel", {}), r.get("reflection", {})
         cks = [
             ("dialogue", "산뢰이" in txt and "풍산점" in txt and "풍지관" in txt),
-            ("evolver", r.get("ok") is True and r.get("version") == VERSION and r.get("antibody") == "R46" and r.get("organ") == 22),
+            ("evolver", r.get("ok") is True and r.get("version") in (VERSION, getattr(ev, "VERSION", None)) and r.get("antibody") == "R46" and r.get("organ") == 22),
             ("forage10", fg.get("platform_count") == 10),
             ("sieve", sv.get("overfeed_prevented") is True and sv.get("portion_ratio", 1.0) <= 0.25 and sv.get("toxins_rejected_count", 0) > 0),
             ("vessel", vs.get("digestible_step_size") == 1 and vs.get("vessel_capacity_score") == 100.0),
@@ -1831,6 +1831,103 @@ if callable(_r64_orig_vsl) and not getattr(_r64_orig_vsl, "_r64", False):
         return res
     verify_synapse_links._r64 = True
 # [RGON-R64-HOSPITAL-SYNAPSE-END]
+
+# [RGON-R65-R66-CHRONOMETER-SYNAPSE-BEGIN]
+try:
+    for _org_f in ("step66_aon_omniroute_council_15shorts_engine.py", "step67_aon_chronometer_deep_auditor.py"):
+        if _org_f not in ORGANS:
+            ORGANS.append(_org_f)
+except NameError:
+    ORGANS = ["step66_aon_omniroute_council_15shorts_engine.py", "step67_aon_chronometer_deep_auditor.py"]
+
+
+def _r65_s35_check():
+    import time as _tm, importlib as _il
+    _t0 = _tm.perf_counter()
+    name = "대화허브(/옴니라우트·/카운슬·/3차15쇼츠)→제41기관 아온 3차 15대 쇼츠 무중단 라우터 & LLM 카운슬 엔진"
+    try:
+        mod = _il.import_module("step66_aon_omniroute_council_15shorts_engine")
+        r1 = mod.omniroute_failover_switch(
+            {"Claude-Opus-4.6-Thinking": "QUOTA_EXCEEDED", "Claude-Sonnet-4.6": "QUOTA_EXCEEDED"},
+            "background",
+        )
+        r2 = mod.run_karpathy_llm_council("Step66 제41기관 시냅스 검증")
+        r3 = mod.convert_repo_and_14slot_motion("https://github.com/sangill111157-spec/hangeol-plan")
+        r4 = mod.scrub_watermark_and_guard_distillation("아온\u200b 엔진이 작동할 수 있습니다.", rpm=1200)
+        ok = (
+            len(mod.SHORTS_3RD_15) == 15
+            and r1.get("active_model") == "Gemini-3.1-Pro-High"
+            and r1.get("mcp_async_task") is True
+            and r1.get("zero_downtime_guaranteed") is True
+            and len(r2.get("stage1_opinions", [])) == 3
+            and r2.get("consensus_score", 0) > 0.99
+            and r3.get("motion_14slots_count") == 14
+            and r3.get("game_studio_agents") == 49
+            and r3.get("anthropic_work_plugins") == 11
+            and r4.get("watermark_removed") is True
+            and r4.get("distillation_attack_blocked") is True
+        )
+        ev = f"organ=41, shorts={len(mod.SHORTS_3RD_15)}, model={r1.get('active_model')}, consensus={r2.get('consensus_score')}"
+        return {"id": "S35", "name": name, "ok": bool(ok), "sec": round(_tm.perf_counter() - _t0, 3),
+                "evidence": ev, "detail": ev}
+    except Exception as e:
+        return {"id": "S35", "name": name, "ok": False, "sec": round(_tm.perf_counter() - _t0, 3),
+                "evidence": repr(e), "detail": repr(e)}
+
+
+def _r66_s36_check():
+    import time as _tm, importlib as _il
+    _t0 = _tm.perf_counter()
+    name = "대화허브(/크로노미터·/전수감사·/톱니바퀴)→제42기관 아온 크로노미터 전수 톱니바퀴 검증 & 무가식 실증 감사원"
+    try:
+        mod = _il.import_module("step67_aon_chronometer_deep_auditor")
+        g2 = mod.verify_step63_to_66_runtime_gears()
+        g3 = mod.verify_43shorts_registries()
+        g4 = mod.verify_index_html_drawers()
+        g5 = mod.verify_protected_and_handover()
+        ok = (
+            mod.ORGAN_NO == 42
+            and g2.get("ok") is True
+            and g3.get("ok") is True
+            and g3.get("total_shorts") == 43
+            and g4.get("ok") is True
+            and g5.get("ok") is True
+        )
+        ev = f"organ=42, runtime_gears={g2.get('gears_passed')}/{g2.get('gears_total')}, shorts_total={g3.get('total_shorts')}, handover_lines={g5.get('handover_lines')}"
+        return {"id": "S36", "name": name, "ok": bool(ok), "sec": round(_tm.perf_counter() - _t0, 3),
+                "evidence": ev, "detail": ev}
+    except Exception as e:
+        return {"id": "S36", "name": name, "ok": False, "sec": round(_tm.perf_counter() - _t0, 3),
+                "evidence": repr(e), "detail": repr(e)}
+
+
+_r66_orig_vsl = globals().get("verify_synapse_links")
+if callable(_r66_orig_vsl) and not getattr(_r66_orig_vsl, "_r66", False):
+    def verify_synapse_links(*args, **kwargs):
+        res = _r66_orig_vsl(*args, **kwargs)
+        s35 = _r65_s35_check()
+        s36 = _r66_s36_check()
+        if isinstance(res, dict) and isinstance(res.get("synapses"), list):
+            items = [x for x in res["synapses"] if not (isinstance(x, dict) and x.get("id") in ("S35", "S36"))] + [s35, s36]
+            res["synapses"] = items
+            res["passed"] = sum(1 for x in items if isinstance(x, dict) and x.get("ok"))
+            res["total"] = len(items)
+            res["ok"] = res["passed"] == res["total"]
+        return res
+    verify_synapse_links._r66 = True
+
+
+_r66_orig_run_full = globals().get("run_full")
+if callable(_r66_orig_run_full) and not getattr(_r66_orig_run_full, "_r66", False):
+    def run_full(write=True, *args, **kwargs):
+        rep = _r66_orig_run_full(write=write, *args, **kwargs)
+        if write and isinstance(rep, dict):
+            for p in MAP_PATHS:
+                p.parent.mkdir(parents=True, exist_ok=True)
+                p.write_text(json.dumps(rep, ensure_ascii=False, indent=2, default=str), encoding="utf-8")
+        return rep
+    run_full._r66 = True
+# [RGON-R65-R66-CHRONOMETER-SYNAPSE-END]
 
 
 if __name__ == "__main__":

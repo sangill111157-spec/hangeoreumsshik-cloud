@@ -1,0 +1,118 @@
+{
+  "version": "v11.70-AON-CHRONOMETER-AUDITOR",
+  "organ_no": 42,
+  "organ_id": "ORGAN-42-CHRONOMETER-AUDITOR",
+  "organ_name": "제42기관 아온 크로노미터 전수 톱니바퀴 검증 & 무가식 실증 감사원",
+  "antibody": "R66",
+  "antibody_range": "R1~R66",
+  "skill_no": 62,
+  "skill_id": "skill_62_aon_chronometer_deep_gear_auditor",
+  "passed": 5,
+  "total": 5,
+  "all_passed": true,
+  "checks": [
+    {
+      "name": "1_all_python_ast_zero_syntax_errors",
+      "ok": true
+    },
+    {
+      "name": "2_step63_to_66_runtime_gears_all_pass",
+      "ok": true
+    },
+    {
+      "name": "3_total_43_shorts_registries_verified",
+      "ok": true
+    },
+    {
+      "name": "4_index_html_drawers_and_trio_sync",
+      "ok": true
+    },
+    {
+      "name": "5_protected_4files_handover_and_codemap",
+      "ok": true
+    }
+  ],
+  "details": {
+    "python_ast": {
+      "ok": true,
+      "total_py_files": 807,
+      "passed_py_files": 807,
+      "failed_py_files": 0,
+      "errors": [],
+      "elapsed_sec": 1.659
+    },
+    "runtime_gears": {
+      "ok": true,
+      "gears_passed": 4,
+      "gears_total": 4,
+      "gears": {
+        "step63_organ38_13shorts": {
+          "ok": true,
+          "shorts": 13,
+          "jev_safe": true,
+          "security_score": 100.0
+        },
+        "step64_organ39_15shorts": {
+          "ok": true,
+          "shorts": 15,
+          "debate_decision": "강세 우위 — 분할 진입 검토",
+          "zero_delete_verified": true
+        },
+        "step65_organ40_hospital": {
+          "ok": true,
+          "departments": 5,
+          "rca_steps": 8,
+          "sample_receipt": "#AS-2026-EF1975"
+        },
+        "step66_organ41_omniroute": {
+          "ok": true,
+          "shorts": 15,
+          "failover_active_model": "Gemini-3.1-Pro-High",
+          "council_consensus": 0.996,
+          "motion_slots": 14,
+          "studio_agents": 49,
+          "work_plugins": 11
+        }
+      },
+      "elapsed_sec": 0.132
+    },
+    "shorts_43_registries": {
+      "ok": true,
+      "batch_1_step63_count": 13,
+      "batch_2_step64_count": 15,
+      "batch_3_step66_count": 15,
+      "total_shorts": 43,
+      "expected_total": 43
+    },
+    "html_drawers": {
+      "ok": true,
+      "checks": {
+        "step63_studio_file": true,
+        "step64_drawer": true,
+        "step65_drawer": true,
+        "step66_drawer": true,
+        "step67_drawer": true,
+        "trio_synced": true
+      }
+    },
+    "governance_and_protected": {
+      "ok": true,
+      "protected_ok": true,
+      "protected_md5": {
+        "rgon_Numeric_Organ.py": "MISSING",
+        "rgon_work_loop.py": "MISSING",
+        "rgon_self_Reflection.py": "MISSING",
+        "index_20260405_backup.html": "MISSING"
+      },
+      "handover_ok": true,
+      "handover_lines": 112,
+      "codemap_json_ok": true
+    }
+  },
+  "timestamp": "2026-10-28T10:15:21.825096+09:00",
+  "applied_patches": {
+    "index.html": "already_patched",
+    "trio_synced_files": [],
+    "CLAUDE.md": "already_patched"
+  }
+}

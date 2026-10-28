@@ -1,0 +1,154 @@
+{
+  "schema": "RGON_CODE_MAP_V1170",
+  "version": "v11.70-AON-CHRONOMETER-AUDITOR",
+  "ssot_baseline_version": "v11.66-AON-GENERAL-HOSPITAL",
+  "antibody_range": "R1~R66",
+  "formal_skills_total": 62,
+  "ssot_verified_skills": 60,
+  "total_organs": 42,
+  "total_shorts_integrated": 43,
+  "shorts_breakdown": {
+    "batch_1_step63": 13,
+    "batch_2_step64": 15,
+    "batch_3_step66": 15,
+    "total": 43
+  },
+  "protected_files": [
+    "rgon_Numeric_Organ.py",
+    "rgon_work_loop.py",
+    "rgon_self_Reflection.py",
+    "index_20260405_backup.html"
+  ],
+  "core_governance_docs": {
+    "CLAUDE.md": "RGON AI 코딩 헌법 V17 (창립자 만물일체 선언 · 동양 3대 고전 × Karpathy 4원칙)",
+    "HANDOVER.md": "제1기관~제42기관 마스터 인수인계서 (Step 63~67 및 43편 쇼츠 통합)",
+    "CODE_MAP.md": "전체 파일 트리 및 마커 인덱스 코드 지도",
+    "GRAPH_REPORT.md": "제39기관 Graphify 로컬 코드 지식 그래프 (God Nodes & Communities)",
+    "ANTIBODY_REGISTRY.md": "항체 R1~R66 마스터 레지스트리",
+    "HOSPITAL_MEDICAL_CHART.md": "제40기관 아온 초일류 종합병원 5대 진료과 실시간 종합검진표"
+  },
+  "steps_63_to_67_mapping": {
+    "Step63_Organ38": {
+      "organ_no": 38,
+      "organ_id": "ORGAN_38_13SHORTS_OMNI_ENGINE",
+      "name": "제38기관 아온 13대 쇼츠 옴니-인텔리전스 마스터 엔진",
+      "version": "v11.66-AON-GENERAL-HOSPITAL",
+      "antibody": "R62_13SHORTS_OMNI_LOCK",
+      "skill_no": 58,
+      "skill_slug": "aon-13shorts-omni",
+      "engine_file": "rgon_aon_13shorts_omni_engine.py",
+      "manifest_file": "aon_13shorts_omni_manifest.json",
+      "studio_html": "rgon_13shorts_omni_studio.html",
+      "shorts_count": 13,
+      "key_Entrypoints": [
+        "load_manifest",
+        "TypeSafeJevEngine.noul",
+        "TypeSafeJevEngine.choice",
+        "TypeSafeJevEngine.score",
+        "TypeSafeJevEngine.box",
+        "security_audit",
+        "privacy_delete_3step",
+        "token_guard_4plugins"
+      ]
+    },
+    "Step64_Organ39": {
+      "organ_no": 39,
+      "organ_id": "ORGAN_39_15SHORTS_SUPER_SENIOR",
+      "name": "제39기관 아온 15대 슈퍼-시니어 & 지식그래프 토큰 절감 마스터 엔진",
+      "version": "v11.66-AON-GENERAL-HOSPITAL",
+      "antibody": "R63_GRAPHIFY_PONYTAIL_KARPATHY_SURGICAL_GUARD",
+      "skill_no": 59,
+      "skill_slug": "aon-15shorts-super-senior",
+      "engine_file": "step64_aon_15shorts_super_senior_engine.py",
+      "manifest_file": "aon_15shorts_super_senior_manifest.json",
+      "report_file": "GRAPH_REPORT.md",
+      "rules_file": "KARPATHY_PONYTAIL_RULES.md",
+      "html_drawer_id": "aon-step64",
+      "shorts_count": 15,
+      "key_entrypoints": [
+        "build_graphify_report",
+        "run_bull_vs_bear_debate",
+        "preview_zero_delete_rename",
+        "generate_seek_motion_template",
+        "apply_step64",
+        "self_test"
+      ]
+    },
+    "Step65_Organ40": {
+      "organ_no": 40,
+      "organ_id": "ORGAN_40_AON_GENERAL_HOSPITAL",
+      "name": "제40기관 아온 초일류 종합병원 (119 소방서 × 무인 AS센터 × 백혈구 자가치료)",
+      "version": "v11.66-AON-GENERAL-HOSPITAL",
+      "antibody": "R64_GENERAL_HOSPITAL_119_AS_WBC_AUTO_HEAL_GUARD",
+      "skill_no": 60,
+      "skill_slug": "aon-general-hospital",
+      "engine_file": "step65_aon_general_hospital_self_healing.py",
+      "manifest_file": "aon_general_hospital_manifest.json",
+      "chart_file": "HOSPITAL_MEDICAL_CHART.md",
+      "log_file": "hospital_health.jsonl",
+      "html_drawer_id": "aon-step65",
+      "departments_count": 5,
+      "key_entrypoints": [
+        "run_119_vital_check_and_heal",
+        "issue_as_medical_ticket",
+        "trim_jsonl_log",
+        "apply_step65",
+        "self_test"
+      ]
+    },
+    "Step66_Organ41": {
+      "organ_no": 41,
+      "organ_id": "ORGAN-41-OMNIROUTE-COUNCIL",
+      "name": "제41기관 아온 3차 15대 쇼츠 무중단 라우터 & LLM 카운슬 마스터 엔진",
+      "version": "v11.68-AON-OMNIROUTE-COUNCIL-15",
+      "antibody": "R65",
+      "skill_no": 61,
+      "skill_slug": "skill_61_aon_3rd_15shorts_omniroute_council_engine",
+      "engine_file": "step66_aon_omniroute_council_15shorts_engine.py",
+      "registry_file": "rgon_3rd_15shorts_omniroute_registry.json",
+      "report_file": "rgon_step66_omniroute_report.json",
+      "html_drawer_id": "rgon-organ41-omniroute-drawer",
+      "shorts_count": 15,
+      "key_entrypoints": [
+        "omniroute_failover_switch",
+        "run_karpathy_llm_council",
+        "convert_repo_and_14slot_motion",
+        "scrub_watermark_and_guard_distillation",
+        "run_self_test",
+        "apply_patches"
+      ]
+    },
+    "Step67_Organ42": {
+      "organ_no": 42,
+      "organ_id": "ORGAN-42-CHRONOMETER-AUDITOR",
+      "name": "제42기관 아온 크로노미터 전수 톱니바퀴 검증 & 무가식 실증 감사원",
+      "version": "v11.70-AON-CHRONOMETER-AUDITOR",
+      "antibody": "R66",
+      "skill_no": 62,
+      "skill_slug": "skill_62_aon_chronometer_deep_gear_auditor",
+      "engine_file": "step67_aon_chronometer_deep_auditor.py",
+      "report_file": "rgon_step67_chronometer_audit_report.json",
+      "code_map_json": "rgon_code_map.json",
+      "html_drawer_id": "rgon-organ42-chronometer-drawer",
+      "key_entrypoints": [
+        "verify_all_python_ast",
+        "verify_step63_to_66_runtime_gears",
+        "verify_43shorts_registries",
+        "verify_index_html_drawers",
+        "verify_protected_and_handover",
+        "run_self_test",
+        "apply_chronometer_audit"
+      ]
+    }
+  },
+  "neural_synapse_verifier": {
+    "organ_no": 16,
+    "file": "rgon_neural_synapse_verifier.py",
+    "map_files": [
+      "rgon_neural_synapse_map.json",
+      "docs/rgon_neural_synapse_map.json"
+    ],
+    "target_score": 100.0
+  }
+}
+
