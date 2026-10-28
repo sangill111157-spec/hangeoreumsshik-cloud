@@ -4,10 +4,10 @@
   "version": "v11.66-AON-GENERAL-HOSPITAL",
   "antibody_range": "R1~R64",
   "skill_count": 60,
-  "generated_at": "2026-10-28T13:15:34",
+  "generated_at": "2026-10-28T13:29:35",
   "synapse_health_score": 100.0,
   "ok": true,
-  "total_sec": 34.164,
+  "total_sec": 9.756,
   "skill_index_heal": {
     "after_nodes": {
       "ok": true,
@@ -195,7 +195,7 @@
   },
   "organ_nodes": {
     "ok": true,
-    "wall_sec": 23.92,
+    "wall_sec": 5.883,
     "time_budget_sec": 2.0,
     "within_budget": false,
     "passed": 41,
@@ -205,288 +205,288 @@
         "organ": "rgon_white_blood_cell.py",
         "ok": true,
         "rc": 0,
-        "sec": 1.241,
+        "sec": 0.351,
         "tail": "{\n  \"restore_ok\": true,\n  \"bypass_ok\": true,\n  \"adapt_ok\": true\n}"
       },
       {
         "organ": "rgon_daily_cycle.py",
         "ok": true,
         "rc": 0,
-        "sec": 0.744,
+        "sec": 0.351,
         "tail": "norm dict\nPASS norm str\nPASS brief json\nPASS brief md\nPASS brief text\nPASS brief text (empty root)\nPASS protected guard\nPASS telegram quiet\nSELF-TEST PASS 11/11"
       },
       {
         "organ": "rgon_vascular_core.py",
         "ok": true,
         "rc": 0,
-        "sec": 0.33,
+        "sec": 0.157,
         "tail": "[rgon_vascular_core] self-test PASS"
       },
       {
         "organ": "rgon_excretory_organ.py",
         "ok": true,
         "rc": 0,
-        "sec": 1.24,
+        "sec": 0.638,
         "tail": "[EXCRETORY-ORGAN self-test] PASS [True, True, True, True]"
       },
       {
         "organ": "rgon_muse_delegator.py",
         "ok": true,
         "rc": 0,
-        "sec": 0.534,
+        "sec": 0.329,
         "tail": "전·항체 표기\n  [PASS] 키워드 Tier 자동 분류\n  [PASS] HITL 게이트: Tier 1 결재 시도 차단\n  [PASS] 신규 Tier 3 작업 → PENDING_APPROVAL\n  [PASS] 승인 시 APPROVED_DONE 전이 (메모리 전용, 저장 안 함)\nPASS"
       },
       {
         "organ": "rgon_voice_organ.py",
         "ok": true,
         "rc": 0,
-        "sec": 1.349,
+        "sec": 0.631,
         "tail": "리 질문: 너 오늘 기분 어때 → chat\n  ✅ 안총리 질문: 대표님 사랑해 → chat\n  ✅ 안총리 질문: 결재 보여줘 → muse\n  ✅ JSON 무결성 rgon_voice_profile.json\n  ✅ JSON 무결성 docs/rgon_voice_profile.json\nPASS"
       },
       {
         "organ": "rgon_aon_soul_brain.py",
         "ok": true,
         "rc": 0,
-        "sec": 9.092,
+        "sec": 2.007,
         "tail": "오늘 장세 어때 → judge\n  ✅ 분별: 아침 브리핑 해줘 → briefing\n  ✅ 분별: 나랑 놀아줘 → chat_mood\n  ✅ 분별: 주역 점괘 봐줘 → iching_dao\n  ✅ 통찰안 응답 & 대행 큐 미오염\n  ✅ 찡찡이 상태에서 통찰 요청 → 츤데레 혜안 통변\nPASS"
       },
       {
         "organ": "rgon_laptop_hands.py",
         "ok": true,
         "rc": 0,
-        "sec": 9.091,
+        "sec": 1.058,
         "tail": " 목록 외 명령 거부\n  ✅ 초안 파일 dry-run (실제 생성 없음)\n  ✅ system_check 디스크·파일·파이썬\n  ✅ JSON 무결성 rgon_manual_gate_state.json\n  ✅ JSON 무결성 docs/rgon_manual_gate_state.json\nPASS"
       },
       {
         "organ": "rgon_aon_desktop_playground.py",
         "ok": true,
         "rc": 0,
-        "sec": 2.395,
+        "sec": 0.272,
         "tail": "트북 전체 화면 경계 물리 유영 계산\n  ✅ 창틀 탈출 데스크톱 투명 오버레이 안전 dry-run\n  ✅ 상태 JSON 무결성: rgon_aon_playground_state.json\n  ✅ 상태 JSON 무결성: docs/rgon_aon_playground_state.json\nPASS"
       },
       {
         "organ": "rgon_aon_iching_dao_oracle.py",
         "ok": true,
         "rc": 0,
-        "sec": 2.189,
-        "tail": "9 蹇 · 산풍고·뇌수해(정화·통관 중재)\n  ✅ 기괘(question) → #20 觀 · 잠룡물용(관망·축적)\n  ✅ 상태 JSON 무결성: rgon_aon_iching_state.json\n  ✅ 상태 JSON 무결성: docs/rgon_aon_iching_state.json\nPASS"
+        "sec": 0.309,
+        "tail": "8 井 · 잠룡물용(관망·축적)\n  ✅ 기괘(question) → #20 觀 · 산풍고·뇌수해(정화·통관 중재)\n  ✅ 상태 JSON 무결성: rgon_aon_iching_state.json\n  ✅ 상태 JSON 무결성: docs/rgon_aon_iching_state.json\nPASS"
       },
       {
         "organ": "rgon_aon_omni_insight_eye.py",
         "ok": true,
         "rc": 0,
-        "sec": 2.416,
+        "sec": 0.26,
         "tail": " ≤ 85%\n  ✅ PNG 8x8 픽셀 실측(밝기·대비·RGB·초점·대칭)\n  ✅ 단정어(무조건) 자동 탐지\n  ✅ 상태 JSON 무결성: rgon_aon_insight_state.json\n  ✅ 상태 JSON 무결성: docs/rgon_aon_insight_state.json\nPASS"
       },
       {
         "organ": "rgon_aon_dialogue_engine.py",
         "ok": true,
         "rc": 0,
-        "sec": 7.854,
+        "sec": 1.243,
         "tail": "{\"ok\": true, \"version\": \"v11.66-AON-GENERAL-HOSPITAL\", \"tests\": 5, \"status\": \"PASS\"}"
       },
       {
         "organ": "rgon_aon_iching_planner.py",
         "ok": true,
         "rc": 0,
-        "sec": 1.918,
+        "sec": 0.463,
         "tail": " 격리\",\n      \"ok\": true\n    },\n    {\n      \"name\": \"일일계획\",\n      \"ok\": true\n    },\n    {\n      \"name\": \"응답 포맷\",\n      \"ok\": true\n    }\n  ]\n}\nSELF-TEST PASS 13/13"
       },
       {
         "organ": "rgon_aon_hydro_cycle.py",
         "ok": true,
         "rc": 0,
-        "sec": 8.32,
+        "sec": 3.066,
         "tail": "거부\",\n      \"ok\": true\n    },\n    {\n      \"name\": \"아온 대사\",\n      \"ok\": true\n    },\n    {\n      \"name\": \"응답 포맷\",\n      \"ok\": true\n    }\n  ]\n}\nSELF-TEST PASS 13/13"
       },
       {
         "organ": "rgon_aon_omni_nexus.py",
         "ok": true,
         "rc": 0,
-        "sec": 3.56,
+        "sec": 0.347,
         "tail": "트\",\n      \"ok\": true\n    },\n    {\n      \"name\": \"상태 격리 기록\",\n      \"ok\": true\n    },\n    {\n      \"name\": \"교감 대사\",\n      \"ok\": true\n    }\n  ]\n}\nSELF-TEST PASS 9/9"
       },
       {
         "organ": "rgon_aon_zeroclick_studio.py",
         "ok": true,
         "rc": 0,
-        "sec": 3.936,
+        "sec": 1.056,
         "tail": "_csv_bom\n  PASS 13_html_table\n  PASS 14_sheet_zero_click\n  PASS 15_summary_math\n  PASS 16_no_daemon\n  PASS 17_manual_gate\n  PASS 18_router\n[R47] self_test 18/18"
       },
       {
         "organ": "rgon_aon_haesang_morph_avatar.py",
         "ok": true,
         "rc": 0,
-        "sec": 3.342,
+        "sec": 0.154,
         "tail": "[PASS] rgon_aon_haesang_morph_avatar self_test (18/18)"
       },
       {
         "organ": "rgon_aon_vibe3d_director.py",
         "ok": true,
         "rc": 0,
-        "sec": 9.162,
+        "sec": 0.234,
         "tail": "N 의존 0% 보장\n  ✅ [Test 18] 자율 리테이크 루프 quality_score >= 98.0\n  ✅ [Test 19] 제품 3D 광고 exploded_view 지원\n  ✅ [Test 20] AI 디지털 트윈 시뮬레이터 세트 생성\n\n🏆 결과: 20/20 통과 (ALL PASS)"
       },
       {
         "organ": "rgon_aon_impeccable_audit_shield.py",
         "ok": true,
         "rc": 0,
-        "sec": 6.037,
+        "sec": 0.861,
         "tail": "st 18] 주역 #61 풍택중부 & #15 지산겸 장착\n  ✅ [Test 19] 대화 엔진 라우터 정상 응답\n  ✅ [Test 20] 버전 및 항체 태그 정합성 (v11.64-AON-15SHORTS-SUPER-SENIOR, R1~R57)\n\n🏆 결과: 20/20 통과 (ALL PASS)"
       },
       {
         "organ": "rgon_aon_token_egolite_master.py",
         "ok": true,
         "rc": 0,
-        "sec": 5.822,
+        "sec": 0.636,
         "tail": "st 22] 주역 #60 수택절 & #62 뇌산소과 장착\n  ✅ [Test 23] 대화 엔진 라우터 정상 응답\n  ✅ [Test 24] 버전 및 항체 태그 정합성 (v11.64-AON-15SHORTS-SUPER-SENIOR, R1~R57)\n\n🏆 결과: 24/24 통과 (ALL PASS)"
       },
       {
         "organ": "rgon_aon_commander_twin.py",
         "ok": true,
         "rc": 0,
-        "sec": 6.904,
-        "tail": "눈 검열 통과 (대표님 실전 눈 검열 무결점 통과)\n  23. ✅ PASS - 스마트폰 원터치 지휘 성공 (sec=0.021)\n  24. ✅ PASS - 스마트폰 모드 태깅 (pocket_one_tap)\n  25. ✅ PASS - 중요 결재 감지 AWAIT 전환 (GATE_ACTIVE)"
+        "sec": 0.301,
+        "tail": "눈 검열 통과 (대표님 실전 눈 검열 무결점 통과)\n  23. ✅ PASS - 스마트폰 원터치 지휘 성공 (sec=0.032)\n  24. ✅ PASS - 스마트폰 모드 태깅 (pocket_one_tap)\n  25. ✅ PASS - 중요 결재 감지 AWAIT 전환 (GATE_ACTIVE)"
       },
       {
         "organ": "rgon_aon_page_button_bot_engine.py",
         "ok": true,
         "rc": 0,
-        "sec": 5.496,
-        "tail": "1741)\n  23. ✅ PASS - CHAIN-4 무인 검열 릴레이 성공 (sec=0.0995)\n  24. ✅ PASS - 고위험 작업 HITL 대기 전환 (AWAIT_COMMANDER_APPROVAL)\n  25. ✅ PASS - 안전 작업 즉시 자율 승인 (AUTO_APPROVED)"
+        "sec": 1.013,
+        "tail": "2738)\n  23. ✅ PASS - CHAIN-4 무인 검열 릴레이 성공 (sec=0.1224)\n  24. ✅ PASS - 고위험 작업 HITL 대기 전환 (AWAIT_COMMANDER_APPROVAL)\n  25. ✅ PASS - 안전 작업 즉시 자율 승인 (AUTO_APPROVED)"
       },
       {
         "organ": "rgon_aon_inspector_general_gate.py",
         "ok": true,
         "rc": 0,
-        "sec": 4.469,
-        "tail": "be 중복 도배 원천 차단 ()\n  23. ✅ PASS - INSP-08 구버전 박제 텍스트 원천 차단 ()\n  24. ✅ PASS - INSP-08 소통사령부 입력창·전송버튼 100% 실전 개통 ()\n  25. ✅ PASS - 검수총장 독립 감찰 체제 총괄 무결성 (소요 0.072초)"
+        "sec": 0.322,
+        "tail": "be 중복 도배 원천 차단 ()\n  23. ✅ PASS - INSP-08 구버전 박제 텍스트 원천 차단 ()\n  24. ✅ PASS - INSP-08 소통사령부 입력창·전송버튼 100% 실전 개통 ()\n  25. ✅ PASS - 검수총장 독립 감찰 체제 총괄 무결성 (소요 0.022초)"
       },
       {
         "organ": "rgon_aon_supreme_org_chart_engine.py",
         "ok": true,
         "rc": 0,
-        "sec": 4.245,
+        "sec": 0.443,
         "tail": "rdination/AgentSpace) 융합 완비 ()\n  23. ✅ PASS - 마스터 매니페스트 JSON 직렬화 무결성 ()\n  24. ✅ PASS - 아티팩트 파일 자동 내보내기 정상 ()\n  25. ✅ PASS - 제31기관 세계 Top 1 자율 조직구성도 체제 총괄 무결성 ()"
       },
       {
         "organ": "rgon_aon_telegram_omni_messenger.py",
         "ok": true,
         "rc": 0,
-        "sec": 3.223,
+        "sec": 0.578,
         "tail": " ✅ PASS - 22. 카톡식 읽음/접수 확인 상태 플래그 검증\n  ✅ PASS - 23. 1호기/2호기/동시 발송 멀티캐스트 모드 지원\n  ✅ PASS - 24. 대시보드 및 문서 폴더 실시간 동기화 지원\n  ✅ PASS - 25. 제32기관 듀얼 텔레그램 양방향 메신저 총괄 무결성"
       },
       {
         "organ": "rgon_aon_invisible_kakao_tg_backbone.py",
         "ok": true,
         "rc": 0,
-        "sec": 0.775,
+        "sec": 0.721,
         "tail": "22. 카톡식 읽음/접수 확인 상태 플래그 검증\n  ✅ PASS - 23. 대시보드 및 문서 폴더 실시간 동기화 지원\n  ✅ PASS - 24. GitHub Actions 실패 원인 수리 및 워크플로우 방어막 완비\n  ✅ PASS - 25. 제33기관 인비저블 텔레그램 백본 총괄 무결성"
       },
       {
         "organ": "rgon_aon_pinnacle_omni_comm.py",
         "ok": true,
         "rc": 0,
-        "sec": 7.031,
+        "sec": 1.935,
         "tail": "0건 보장\n\n=======================================================\n📊 [검수 결과] 22/22 PASS (점수: 100.0 / 100.0점)\n======================================================="
       },
       {
         "organ": "rgon_aon_opus_motion_studio.py",
         "ok": true,
         "rc": 0,
-        "sec": 0.328,
+        "sec": 0.276,
         "tail": "[아온 클로드 오퍼스 5.5 모션 그래픽 스튜디오] 자율 검증 시작: v11.64-AON-15SHORTS-SUPER-SENIOR (R60_EMPIRE_ASSET_HUB_LOCK)\n[아온 클로드 오퍼스 5.5 모션 그래픽 스튜디오] 검증 결과: 20/20 통과 (100.0점)"
       },
       {
         "organ": "rgon_aon_empire_asset_hub.py",
         "ok": true,
         "rc": 0,
-        "sec": 0.913,
+        "sec": 0.552,
         "tail": " 한걸음씩 6대 자산 제국 마스터 통합 허브] 셀프테스트 시작 (버전: v11.64-AON-15SHORTS-SUPER-SENIOR, 항체: R60_EMPIRE_ASSET_HUB_LOCK)\n[아온 한걸음씩 6대 자산 제국 마스터 통합 허브] 셀프테스트 100% 통과! (성공: 25/25)"
       },
       {
         "organ": "rgon_aon_gdrive_5tb_organizer.py",
         "ok": true,
         "rc": 0,
-        "sec": 1.695,
+        "sec": 0.395,
         "tail": "ogle One 5TB 초심플 클라우드 아카이브 엔진] 자율 검증 가동: v11.66-AON-GENERAL-HOSPITAL (R61_GDRIVE_5TB_DECIMAL_LOCK)\n[아온 Google One 5TB 초심플 클라우드 아카이브 엔진] 검증 결과: 25/25 통과 (100.0점)"
       },
       {
         "organ": "rgon_aon_13shorts_omni_engine.py",
         "ok": true,
         "rc": 0,
-        "sec": 1.494,
+        "sec": 0.856,
         "tail": "Shell 원천 면역 및 4대 보안 점검 통과\n  ✅ PASS [24/25] 개인정보 3단계 자율 삭제 및 마스킹\n  ✅ PASS [25/25] 토큰 한도 방어 4대 플러그인 완비\n[ORGAN_38_13SHORTS_OMNI_ENGINE] 셀프테스트 결과: 25/25 통과 (100.0점)"
       },
       {
         "organ": "step64_aon_15shorts_super_senior_engine.py",
         "ok": true,
         "rc": 0,
-        "sec": 1.514,
+        "sec": 0.76,
         "tail": "화\n  ✅ 규칙서 생성\n  ✅ 3중 index 마커 멱등 + 배지 갱신\n  ✅ 플로팅 배너 0 · 전송 버튼 보존\n  ✅ 4대 보호 파일 무결성\n[SELF-TEST PASS] Step64 v11.66-AON-GENERAL-HOSPITAL · 제39기관 · 스킬 60 · 항체 R1~R64"
       },
       {
         "organ": "step65_aon_general_hospital_self_healing.py",
         "ok": true,
         "rc": 0,
-        "sec": 5.509,
+        "sec": 1.478,
         "tail": "0줄 원자 캡핑\n  ✅ 종합검진표 + 진단로그\n  ✅ 3중 index 마커 멱등·배지·플로팅 0·전송 보존\n  ✅ 4대 보호 파일 MD5 무결성\n[SELF-TEST PASS] Step65 v11.66-AON-GENERAL-HOSPITAL · 제40기관 · 스킬 60 · 항체 R1~R64"
       },
       {
         "organ": "step66_aon_omniroute_council_15shorts_engine.py",
         "ok": true,
         "rc": 0,
-        "sec": 8.165,
-        "tail": "till\",\n      \"ok\": true\n    },\n    {\n      \"name\": \"7_llms_txt_discovery_ready\",\n      \"ok\": true\n    }\n  ],\n  \"timestamp\": \"2026-10-28T13:15:20.477069+09:00\"\n}"
+        "sec": 0.282,
+        "tail": "till\",\n      \"ok\": true\n    },\n    {\n      \"name\": \"7_llms_txt_discovery_ready\",\n      \"ok\": true\n    }\n  ],\n  \"timestamp\": \"2026-10-28T13:29:29.026946+09:00\"\n}"
       },
       {
         "organ": "step67_aon_chronometer_deep_auditor.py",
         "ok": true,
         "rc": 0,
-        "sec": 8.165,
-        "tail": "G\"\n      },\n      \"handover_ok\": true,\n      \"handover_lines\": 130,\n      \"codemap_json_ok\": true\n    }\n  },\n  \"timestamp\": \"2026-10-28T13:15:20.723903+09:00\"\n}"
+        "sec": 1.864,
+        "tail": "G\"\n      },\n      \"handover_ok\": true,\n      \"handover_lines\": 130,\n      \"codemap_json_ok\": true\n    }\n  },\n  \"timestamp\": \"2026-10-28T13:29:30.653923+09:00\"\n}"
       },
       {
         "organ": "step68_aon_chrono_diet_perfection.py",
         "ok": true,
         "rc": 0,
-        "sec": 9.327,
-        "tail": "st\": {\n      \"ok\": true,\n      \"remaining_py_files\": 566,\n      \"failed_py_files\": 0,\n      \"errors\": []\n    }\n  },\n  \"timestamp\": \"2026-10-28T13:15:24+09:00\"\n}"
+        "sec": 3.319,
+        "tail": "st\": {\n      \"ok\": true,\n      \"remaining_py_files\": 566,\n      \"failed_py_files\": 0,\n      \"errors\": []\n    }\n  },\n  \"timestamp\": \"2026-10-28T13:29:32+09:00\"\n}"
       },
       {
         "organ": "step69_aon_maestro_synergy_scheduler.py",
         "ok": true,
         "rc": 0,
-        "sec": 7.138,
-        "tail": "     \"coalesce\": true,\n      \"max_instances\": 3,\n      \"timezone\": \"Asia/Seoul\"\n    }\n  },\n  \"elapsed_sec\": 1.5497,\n  \"timestamp\": \"2026-10-28T13:15:22+09:00\"\n}"
+        "sec": 1.986,
+        "tail": "     \"coalesce\": true,\n      \"max_instances\": 3,\n      \"timezone\": \"Asia/Seoul\"\n    }\n  },\n  \"elapsed_sec\": 1.6005,\n  \"timestamp\": \"2026-10-28T13:29:31+09:00\"\n}"
       },
       {
         "organ": "step70_aon_immutable_dna_keyvault.py",
         "ok": true,
         "rc": 0,
-        "sec": 7.139,
-        "tail": "_secrets_count\": 0,\n      \"leaked_keys\": [],\n      \"zero_leak_guaranteed\": true\n    }\n  },\n  \"elapsed_sec\": 0.1205,\n  \"timestamp\": \"2026-10-28T13:15:20+09:00\"\n}"
+        "sec": 0.491,
+        "tail": "_secrets_count\": 0,\n      \"leaked_keys\": [],\n      \"zero_leak_guaranteed\": true\n    }\n  },\n  \"elapsed_sec\": 0.1494,\n  \"timestamp\": \"2026-10-28T13:29:29+09:00\"\n}"
       },
       {
         "organ": "step71_aon_safe_monetization_top10_engine.py",
         "ok": true,
         "rc": 0,
-        "sec": 7.896,
-        "tail": "rmal_skills\": 68,\n    \"skill_66_md_exists\": true\n  },\n  \"zero_secret_leak_verified\": true,\n  \"elapsed_sec\": 0.5544,\n  \"timestamp\": \"2026-10-28T13:15:23+09:00\"\n}"
+        "sec": 0.72,
+        "tail": "rmal_skills\": 68,\n    \"skill_66_md_exists\": true\n  },\n  \"zero_secret_leak_verified\": true,\n  \"elapsed_sec\": 0.2089,\n  \"timestamp\": \"2026-10-28T13:29:29+09:00\"\n}"
       },
       {
         "organ": "step72_aon_final_deliverable_sender.py",
         "ok": true,
         "rc": 0,
-        "sec": 4.031,
-        "tail": "-cloud/deliverables/nvda_shorts_motion_preview.html\"\n    },\n    \"elapsed_sec\": 7.4754\n  },\n  \"elapsed_sec\": 0.3061,\n  \"timestamp\": \"2026-10-28T13:15:23+09:00\"\n}"
+        "sec": 1.026,
+        "tail": "-cloud/deliverables/nvda_shorts_motion_preview.html\"\n    },\n    \"elapsed_sec\": 7.4754\n  },\n  \"elapsed_sec\": 0.3984,\n  \"timestamp\": \"2026-10-28T13:29:30+09:00\"\n}"
       },
       {
         "organ": "step73_aon_top10_masterpiece_factory.py",
         "ok": true,
         "rc": 0,
-        "sec": 4.453,
-        "tail": "eoreumsshik-cloud/deliverables/top10_master_showcase.html\",\n    \"elapsed_sec\": 7.1768\n  },\n  \"elapsed_sec\": 0.0301,\n  \"timestamp\": \"2026-10-28T13:15:24+09:00\"\n}"
+        "sec": 0.488,
+        "tail": "eoreumsshik-cloud/deliverables/top10_master_showcase.html\",\n    \"elapsed_sec\": 7.1768\n  },\n  \"elapsed_sec\": 0.0421,\n  \"timestamp\": \"2026-10-28T13:29:30+09:00\"\n}"
       }
     ]
   },
@@ -494,7 +494,7 @@
     "ok": true,
     "passed": 39,
     "total": 39,
-    "state_dir": "C:\\Users\\sangi\\AppData\\Local\\Temp\\rgon_r40_syn_x3i09ext",
+    "state_dir": "C:\\Users\\sangi\\AppData\\Local\\Temp\\rgon_r40_syn_lgziurcq",
     "synapses": [
       {
         "id": "S01",
@@ -507,49 +507,49 @@
         "id": "S02",
         "name": "대명사 복원",
         "ok": true,
-        "sec": 0.838,
+        "sec": 0.066,
         "evidence": "엔비디아 주역 점괘 봐줘"
       },
       {
         "id": "S03",
         "name": "대화허브→주역도술관",
         "ok": true,
-        "sec": 0.004,
-        "evidence": "[본괘: 師(사) → 변괘: 解(해)] 아온이 도사 등장~ 💧 지금은 #7 師(사)괘가 #40 解(해)괘로 변하는 흐름이에요! 체(水) 대 용(土)은 '용극체 흉/주의'이에요. 통관 비책은 '金' 기운으로 중재하기예요! 시중 처세는 '산풍고·뇌수해(정화·통관 중재)' — 막힌 곳을 정리"
+        "sec": 0.003,
+        "evidence": "[본괘: 師(사) → 변괘: 蒙(몽)] 아온이 도사 등장~ 💧 지금은 #7 師(사)괘가 #4 蒙(몽)괘로 변하는 흐름이에요! 체(水) 대 용(土)은 '용극체 흉/주의'이에요. 통관 비책은 '金' 기운으로 중재하기예요! 시중 처세는 '항룡유회(과열 경계·방어)' — 욕심을 줄이고 익절·방"
       },
       {
         "id": "S04",
         "name": "대화허브→만물통찰안",
         "ok": true,
-        "sec": 0.008,
+        "sec": 0.007,
         "evidence": "[만물통찰안 L0~L5 · 6계층] 아온이 혜안 반짝~ 👁️💧 대표님, 이건 'B 루프'로 움직이는 구조예요! 한 줄 본질은요 — 결과는 구조가 만든다 — 구조를 바꾸면 결과가 바뀐다 — 급소는 '가장 큰 제약 하나를 정의하고 그것만 먼저 풀기'. 버릴 군더더기는 '결정을 미루는 끝없는"
       },
       {
         "id": "S05",
         "name": "대화허브→노트북수족",
         "ok": true,
-        "sec": 3.894,
-        "evidence": "대표님 노트북 점검 결과예요! Windows 11, 파이썬 3.12.10, 디스크 여유 392.1GB / 952.2GB(41.2%), 사령부 파일 2727개예요. 여유 공간도 넉넉해요!"
+        "sec": 0.147,
+        "evidence": "대표님 노트북 점검 결과예요! Windows 11, 파이썬 3.12.10, 디스크 여유 392.1GB / 952.2GB(41.2%), 사령부 파일 2772개예요. 여유 공간도 넉넉해요!"
       },
       {
         "id": "S06",
         "name": "대화허브→수동결재스위치",
         "ok": true,
-        "sec": 0.009,
+        "sec": 0.007,
         "evidence": "🔒 모든 결재 게이트 잠금 완료(잠금 보호 ON) — master_approval_on=False, 게이트 0/4 열림"
       },
       {
         "id": "S07",
         "name": "대화허브→능동경청해마",
         "ok": true,
-        "sec": 0.009,
+        "sec": 0.006,
         "evidence": "📜 각인된 원칙 4개: 1) 리스크 관리는 언제나 1순위 / 2) [{'id': 'P001', 'category': 'command_rule', 'category_ko': '지휘 원칙', 'rule': '리스크 관리는 언제나 1순위', 'raw': '기억해둬: 리스크 관리는 언제나 1순"
       },
       {
         "id": "S08",
         "name": "복합의도 연쇄",
         "ok": true,
-        "sec": 0.053,
+        "sec": 0.044,
         "evidence": "['iching', 'hands']"
       },
       {
@@ -563,22 +563,22 @@
         "id": "S10",
         "name": "성대 SFX & 놀이터 츤데레",
         "ok": true,
-        "sec": 0.011,
+        "sec": 0.009,
         "evidence": "{'missing': [], 'spice': '오늘도 수고했어'}"
       },
       {
         "id": "S11",
         "name": "대화허브(/계획)→주역전략기획관",
         "ok": true,
-        "sec": 0.027,
-        "evidence": "#13 동인(同人) -> #25 무망(无妄) (score=52)",
-        "detail": "#13 동인(同人) -> #25 무망(无妄) (score=52)"
+        "sec": 0.019,
+        "evidence": "#13 동인(同人) -> #30 리(離) (score=76)",
+        "detail": "#13 동인(同人) -> #30 리(離) (score=76)"
       },
       {
         "id": "S12",
         "name": "대화허브(/순환)→제18기관 수순환 대사",
         "ok": true,
-        "sec": 1.55,
+        "sec": 1.034,
         "evidence": "{'route_ok': True, 'hydro_ok': True, 'four_stages': True, 'empty_space': True, 'tiers': True, 'tier3_gate': True, 'top_gate': True, 'isolated': True}",
         "detail": {
           "route_ok": true,
@@ -595,7 +595,7 @@
         "id": "S13",
         "name": "대화허브(/만능)→제19기관 연결·소통·만능 대집약체",
         "ok": true,
-        "sec": 0.029,
+        "sec": 0.017,
         "evidence": "{'route_ok': True, 'nexus_ok': True, 'three_pillars': True, 'skill_chain': True, 'total_score': True, 'manual_gate': True, 'isolated': True}",
         "detail": {
           "route_ok": true,
@@ -611,7 +611,7 @@
         "id": "S17",
         "name": "대화허브(/썸네일·/엑셀)→제23기관 클릭0번 스튜디오",
         "ok": true,
-        "sec": 0.36,
+        "sec": 0.247,
         "evidence": "photo=True, xlsx=True",
         "detail": {
           "photo": true,
@@ -638,7 +638,7 @@
         "id": "S19",
         "name": "대화허브(/3D·/시네마틱)→제25기관 바이브 3D 시네마틱 디렉터",
         "ok": true,
-        "sec": 0.014,
+        "sec": 0.01,
         "evidence": "intent=vibe3d_director, score=99.2",
         "detail": {
           "ok": true,
@@ -692,7 +692,7 @@
         "id": "S20",
         "name": "대화허브(/impeccable·/보안감사)→제26기관 아온 임페커블 UI & 감사 방패",
         "ok": true,
-        "sec": 0.15,
+        "sec": 0.097,
         "evidence": "intent=impeccable_shield, ok=True",
         "detail": {
           "ok": true,
@@ -702,16 +702,16 @@
           "intents": [
             "impeccable_shield"
           ],
-          "speech": "🛡️ [제26기관 아온 임페커블 감사 방패] 3대 연쇄 교차감사(Cloudflare 2단계 적대적 감사 + NVIDIA OpenShell 샌드박스 + Impeccable 62규칙 UI 탐지) 전원 무결점 ALL PASS 완료! (UI 점수: 100.0점, 검사 시간: 0.139초) ✨",
+          "speech": "🛡️ [제26기관 아온 임페커블 감사 방패] 3대 연쇄 교차감사(Cloudflare 2단계 적대적 감사 + NVIDIA OpenShell 샌드박스 + Impeccable 62규칙 UI 탐지) 전원 무결점 ALL PASS 완료! (UI 점수: 100.0점, 검사 시간: 0.089초) ✨",
           "impeccable_shield": {
             "ok": true,
             "organ": "제26기관 아온 임페커블 UI 폴리시 & 오픈셸·클라우드플레어 적대적 교차감사 방패",
             "version": "v11.64-AON-15SHORTS-SUPER-SENIOR",
             "antibody": "R1~R57",
-            "elapsed_sec": 0.139,
+            "elapsed_sec": 0.089,
             "impeccable_shield": {
               "ok": true,
-              "elapsed_sec": 0.139,
+              "elapsed_sec": 0.089,
               "organ": "제26기관 아온 임페커블 UI 폴리시 & 오픈셸·클라우드플레어 적대적 교차감사 방패",
               "version": "v11.64-AON-15SHORTS-SUPER-SENIOR",
               "adversarial_audit": {
@@ -732,7 +732,7 @@
                   }
                 ],
                 "audit_pass": true,
-                "timestamp_kst": "2026-10-28 13:15:31 KST"
+                "timestamp_kst": "2026-10-28 13:29:34 KST"
               },
               "openshell_guard": {
                 "policy_frozen": true,
@@ -774,17 +774,17 @@
               },
               "summary": "3대 엔진 전원 무결점 합격"
             },
-            "speech": "🛡️ [제26기관 아온 임페커블 감사 방패] 3대 연쇄 교차감사(Cloudflare 2단계 적대적 감사 + NVIDIA OpenShell 샌드박스 + Impeccable 62규칙 UI 탐지) 전원 무결점 ALL PASS 완료! (UI 점수: 100.0점, 검사 시간: 0.139초) ✨"
+            "speech": "🛡️ [제26기관 아온 임페커블 감사 방패] 3대 연쇄 교차감사(Cloudflare 2단계 적대적 감사 + NVIDIA OpenShell 샌드박스 + Impeccable 62규칙 UI 탐지) 전원 무결점 ALL PASS 완료! (UI 점수: 100.0점, 검사 시간: 0.089초) ✨"
           },
           "data": {
             "ok": true,
             "organ": "제26기관 아온 임페커블 UI 폴리시 & 오픈셸·클라우드플레어 적대적 교차감사 방패",
             "version": "v11.64-AON-15SHORTS-SUPER-SENIOR",
             "antibody": "R1~R57",
-            "elapsed_sec": 0.139,
+            "elapsed_sec": 0.089,
             "impeccable_shield": {
               "ok": true,
-              "elapsed_sec": 0.139,
+              "elapsed_sec": 0.089,
               "organ": "제26기관 아온 임페커블 UI 폴리시 & 오픈셸·클라우드플레어 적대적 교차감사 방패",
               "version": "v11.64-AON-15SHORTS-SUPER-SENIOR",
               "adversarial_audit": {
@@ -805,7 +805,7 @@
                   }
                 ],
                 "audit_pass": true,
-                "timestamp_kst": "2026-10-28 13:15:31 KST"
+                "timestamp_kst": "2026-10-28 13:29:34 KST"
               },
               "openshell_guard": {
                 "policy_frozen": true,
@@ -847,22 +847,22 @@
               },
               "summary": "3대 엔진 전원 무결점 합격"
             },
-            "speech": "🛡️ [제26기관 아온 임페커블 감사 방패] 3대 연쇄 교차감사(Cloudflare 2단계 적대적 감사 + NVIDIA OpenShell 샌드박스 + Impeccable 62규칙 UI 탐지) 전원 무결점 ALL PASS 완료! (UI 점수: 100.0점, 검사 시간: 0.139초) ✨"
+            "speech": "🛡️ [제26기관 아온 임페커블 감사 방패] 3대 연쇄 교차감사(Cloudflare 2단계 적대적 감사 + NVIDIA OpenShell 샌드박스 + Impeccable 62규칙 UI 탐지) 전원 무결점 ALL PASS 완료! (UI 점수: 100.0점, 검사 시간: 0.089초) ✨"
           },
           "results": [
             {
               "intent": "impeccable_shield",
               "ok": true,
-              "speech": "🛡️ [제26기관 아온 임페커블 감사 방패] 3대 연쇄 교차감사(Cloudflare 2단계 적대적 감사 + NVIDIA OpenShell 샌드박스 + Impeccable 62규칙 UI 탐지) 전원 무결점 ALL PASS 완료! (UI 점수: 100.0점, 검사 시간: 0.139초) ✨",
+              "speech": "🛡️ [제26기관 아온 임페커블 감사 방패] 3대 연쇄 교차감사(Cloudflare 2단계 적대적 감사 + NVIDIA OpenShell 샌드박스 + Impeccable 62규칙 UI 탐지) 전원 무결점 ALL PASS 완료! (UI 점수: 100.0점, 검사 시간: 0.089초) ✨",
               "data": {
                 "ok": true,
                 "organ": "제26기관 아온 임페커블 UI 폴리시 & 오픈셸·클라우드플레어 적대적 교차감사 방패",
                 "version": "v11.64-AON-15SHORTS-SUPER-SENIOR",
                 "antibody": "R1~R57",
-                "elapsed_sec": 0.139,
+                "elapsed_sec": 0.089,
                 "impeccable_shield": {
                   "ok": true,
-                  "elapsed_sec": 0.139,
+                  "elapsed_sec": 0.089,
                   "organ": "제26기관 아온 임페커블 UI 폴리시 & 오픈셸·클라우드플레어 적대적 교차감사 방패",
                   "version": "v11.64-AON-15SHORTS-SUPER-SENIOR",
                   "adversarial_audit": {
@@ -883,7 +883,7 @@
                       }
                     ],
                     "audit_pass": true,
-                    "timestamp_kst": "2026-10-28 13:15:31 KST"
+                    "timestamp_kst": "2026-10-28 13:29:34 KST"
                   },
                   "openshell_guard": {
                     "policy_frozen": true,
@@ -925,7 +925,7 @@
                   },
                   "summary": "3대 엔진 전원 무결점 합격"
                 },
-                "speech": "🛡️ [제26기관 아온 임페커블 감사 방패] 3대 연쇄 교차감사(Cloudflare 2단계 적대적 감사 + NVIDIA OpenShell 샌드박스 + Impeccable 62규칙 UI 탐지) 전원 무결점 ALL PASS 완료! (UI 점수: 100.0점, 검사 시간: 0.139초) ✨"
+                "speech": "🛡️ [제26기관 아온 임페커블 감사 방패] 3대 연쇄 교차감사(Cloudflare 2단계 적대적 감사 + NVIDIA OpenShell 샌드박스 + Impeccable 62규칙 UI 탐지) 전원 무결점 ALL PASS 완료! (UI 점수: 100.0점, 검사 시간: 0.089초) ✨"
               }
             }
           ]
@@ -935,7 +935,7 @@
         "id": "S21",
         "name": "대화허브(/token·/egolite)→제27기관 아온 토큰 초절약 & 에고라이트 마스터",
         "ok": true,
-        "sec": 0.012,
+        "sec": 0.009,
         "evidence": "intent=token_egolite_master, ok=True",
         "detail": {
           "ok": true,
@@ -1148,7 +1148,7 @@
         "id": "S22",
         "name": "대화허브(/twin·/commander)→제28기관 아온 대표님 인지 디지털 트윈 & 사령관",
         "ok": true,
-        "sec": 0.037,
+        "sec": 0.024,
         "evidence": "intent=commander_twin, ok=True",
         "detail": {
           "ok": true,
@@ -1165,8 +1165,8 @@
             "antibody": "R1~R57",
             "mode": "dialogue_auto",
             "raw_input": "/twin 이상일 대표님 7단계 일처리 DNA 무인 대행",
-            "dispatched_at": "2026-10-28T13:15:31",
-            "elapsed_sec": 0.015,
+            "dispatched_at": "2026-10-28T13:29:34",
+            "elapsed_sec": 0.01,
             "all_passed": true,
             "stages": [
               {
@@ -1283,8 +1283,8 @@
             "antibody": "R1~R57",
             "mode": "dialogue_auto",
             "raw_input": "/twin 이상일 대표님 7단계 일처리 DNA 무인 대행",
-            "dispatched_at": "2026-10-28T13:15:31",
-            "elapsed_sec": 0.015,
+            "dispatched_at": "2026-10-28T13:29:34",
+            "elapsed_sec": 0.01,
             "all_passed": true,
             "stages": [
               {
@@ -1406,8 +1406,8 @@
                 "antibody": "R1~R57",
                 "mode": "dialogue_auto",
                 "raw_input": "/twin 이상일 대표님 7단계 일처리 DNA 무인 대행",
-                "dispatched_at": "2026-10-28T13:15:31",
-                "elapsed_sec": 0.015,
+                "dispatched_at": "2026-10-28T13:29:34",
+                "elapsed_sec": 0.01,
                 "all_passed": true,
                 "stages": [
                   {
@@ -1526,7 +1526,7 @@
         "id": "S23",
         "name": "대화허브(/bot·/버튼봇·/체인봇)→제29기관 아온 WebMCP 전 페이지·전 버튼 자동화 봇 엔진",
         "ok": true,
-        "sec": 0.022,
+        "sec": 0.015,
         "evidence": "intent=page_button_bot, ok=True",
         "detail": {
           "ok": true,
@@ -1562,7 +1562,7 @@
         "id": "S24",
         "name": "대화허브(/검수·/검수총장·/감찰)→제30기관 독립 검수담당 총장 & 100% 출하 관문",
         "ok": true,
-        "sec": 0.02,
+        "sec": 0.015,
         "evidence": "intent=inspector_general, ok=True",
         "detail": {
           "ok": true,
@@ -1601,7 +1601,7 @@
         "id": "S25",
         "name": "대화허브(/조직도·/진형·/지휘)→제31기관 세계 Top 1 자율 조직구성도 & 5대 전술 진형 본부",
         "ok": true,
-        "sec": 0.008,
+        "sec": 0.005,
         "evidence": "intent=supreme_org_chart, ok=True",
         "detail": {
           "ok": true,
@@ -1796,7 +1796,7 @@
               "cg0296/human-coordination-patterns (6 Core Elements & 5 Dynamic Formations)",
               "HKUDS/AgentSpace (31 Autonomous Organs Digital Workforce Board)"
             ],
-            "updated_at_kst": "2026-10-28 13:15:31 KST"
+            "updated_at_kst": "2026-10-28 13:29:34 KST"
           },
           "reply": "🏛️ [제31기관 아온 세계 Top 1 초일류 자율 조직구성도 & 5대 전술 진형 지휘 본부 · v11.64-AON-15SHORTS-SUPER-SENIOR] 4계층 권력분립 조직도 및 5대 동적 전술 진형이 완전 가동 중입니다. (북극성 정렬도 100.0% 만점)"
         }
@@ -1805,7 +1805,7 @@
         "id": "S26",
         "name": "대화허브(/텔레그램·/카톡·/메신저)→제32기관 듀얼 텔레그램·카톡형 실시간 양방향 메신저",
         "ok": true,
-        "sec": 0.012,
+        "sec": 0.009,
         "evidence": "intent=telegram_messenger, ok=True",
         "detail": {
           "ok": true,
@@ -1823,7 +1823,7 @@
         "id": "S27",
         "name": "대화허브(/인비저블·/카톡·/사령부톡)→제33기관 인비저블 텔레그램 백본 & 카톡형 만능 대화창",
         "ok": true,
-        "sec": 0.003,
+        "sec": 0.002,
         "evidence": "intent=invisible_kakao_tg, ok=True",
         "detail": {
           "ok": true,
@@ -1850,7 +1850,7 @@
         "id": "S28",
         "name": "대화허브(/멀티모달·/피너클)→제34기관 피너클 옴니 커뮤니케이터 & 멀티모달 두뇌",
         "ok": true,
-        "sec": 0.008,
+        "sec": 0.005,
         "evidence": "intent=pinnacle_omni_comm, ok=True",
         "detail": {
           "ok": true,
@@ -1866,7 +1866,7 @@
         "id": "S29",
         "name": "대화허브(/모션·/오퍼스)→제35기관 클로드 오퍼스 5.5 모션 그래픽 스튜디오",
         "ok": true,
-        "sec": 0.007,
+        "sec": 0.004,
         "evidence": "intent=opus_motion_studio, ok=True",
         "detail": {
           "ok": true,
@@ -1897,7 +1897,7 @@
         "id": "S30",
         "name": "대화허브(/자산·/음원·/블로그)→제36기관 아온 한걸음씩 6대 자산 제국 마스터 통합 허브",
         "ok": true,
-        "sec": 0.015,
+        "sec": 0.01,
         "evidence": "intent=empire_distrokid_album, ok=True",
         "detail": {
           "ok": true,
@@ -2074,7 +2074,7 @@
         "id": "S31",
         "name": "대화허브(/구글드라이브·/5TB·/조니데시멀)→제37기관 아온 Google One 5TB 초심플 클라우드 아카이브 엔진",
         "ok": true,
-        "sec": 0.013,
+        "sec": 0.009,
         "evidence": "intent=gdrive_5tb_decimal, ok=True",
         "detail": {
           "ok": true,
@@ -2098,7 +2098,7 @@
         "id": "S32",
         "name": "대화허브(/13대쇼츠·/jev·/마케팅·/보안)→제38기관 아온 13대 쇼츠 옴니-인텔리전스 마스터 엔진",
         "ok": true,
-        "sec": 0.274,
+        "sec": 0.134,
         "evidence": "manifest_shorts=13, jev_safe=True, sec_score=100.0",
         "detail": "manifest_shorts=13, jev_safe=True, sec_score=100.0"
       },
@@ -2106,7 +2106,7 @@
         "id": "S33",
         "name": "대화허브(/지식그래프·/카파시·/슈퍼시니어)→제39기관 아온 15대 슈퍼-시니어 & 지식그래프 엔진",
         "ok": true,
-        "sec": 0.003,
+        "sec": 0.001,
         "evidence": "organ=39, skills=60, shorts=15, deb_decision=강세 우위 — 분할 진입 검토",
         "detail": "organ=39, skills=60, shorts=15, deb_decision=강세 우위 — 분할 진입 검토"
       },
@@ -2122,7 +2122,7 @@
         "id": "S35",
         "name": "대화허브(/옴니라우트·/카운슬·/3차15쇼츠)→제41기관 아온 3차 15대 쇼츠 무중단 라우터 & LLM 카운슬 엔진",
         "ok": true,
-        "sec": 0.002,
+        "sec": 0.001,
         "evidence": "organ=41, shorts=15, model=Gemini-3.1-Pro-High, consensus=0.996",
         "detail": "organ=41, shorts=15, model=Gemini-3.1-Pro-High, consensus=0.996"
       },
@@ -2130,7 +2130,7 @@
         "id": "S36",
         "name": "대화허브(/크로노미터·/전수감사·/톱니바퀴)→제42기관 아온 크로노미터 전수 톱니바퀴 검증 & 무가식 실증 감사원",
         "ok": true,
-        "sec": 0.232,
+        "sec": 0.158,
         "evidence": "organ=42, runtime_gears=4/4, shorts_total=43, handover_lines=130",
         "detail": "organ=42, runtime_gears=4/4, shorts_total=43, handover_lines=130"
       },
@@ -2138,7 +2138,7 @@
         "id": "S37",
         "name": "대화허브(/비워내기·/다이어트·/텔레그램무결성)→제43기관 아온 텔레그램 실측 무결성 & Ponytail 무결점 다이어트 감사원",
         "ok": true,
-        "sec": 0.025,
+        "sec": 0.02,
         "evidence": "organ=43, tg_loopback=True, brief_ok=True, actions_ok=True, nvda_sched_ok=True",
         "detail": "organ=43, tg_loopback=True, brief_ok=True, actions_ok=True, nvda_sched_ok=True"
       },
@@ -2146,7 +2146,7 @@
         "id": "S38",
         "name": "대화허브(/마에스트로·/7대기관장·/시너지체인·/24시간스케줄)→제44기관 아온 마에스트로 7대 기관장 협업 시너지 DAG & 24시간 마스터 스케줄러",
         "ok": true,
-        "sec": 0.987,
+        "sec": 0.684,
         "evidence": "organ=44, directors=7, chains=5/5, errors=0, slot=SLOT_3_1300_AFTERNOON_RND_APP_CLONE",
         "detail": "organ=44, directors=7, chains=5/5, errors=0, slot=SLOT_3_1300_AFTERNOON_RND_APP_CLONE"
       },
@@ -2154,7 +2154,7 @@
         "id": "S39",
         "name": "대화허브(/불변법칙·/8대법칙·/마스터키금고·/키바인딩)→제45기관 아온 불변의 일처리 8대 법칙 DNA 이식 & 마스터 키 금고 바인딩 엔진",
         "ok": true,
-        "sec": 0.049,
+        "sec": 0.031,
         "evidence": "organ=45, laws=8, skills_dna=68, keys_bound=36/36, zero_leak=True",
         "detail": "organ=45, laws=8, skills_dna=68, keys_bound=36/36, zero_leak=True"
       },
@@ -2162,7 +2162,7 @@
         "id": "S40",
         "name": "대화허브(/수익화톱10·/무위험수익화·/에셋팩토리·/24시간수익스케줄)→제46기관 아온 무위험 AI 수익화 Top 10 마스터 스케줄러 & 에셋 팩토리",
         "ok": true,
-        "sec": 0.004,
+        "sec": 0.003,
         "evidence": "organ=46, models=10/10, schedule_slots=6, pilot1_linked=True",
         "detail": "organ=46, models=10/10, schedule_slots=6, pilot1_linked=True"
       },
@@ -2170,7 +2170,7 @@
         "id": "S41",
         "name": "대화허브(/최종완성본·/루미배달부·/3탭전송·/가짜링크박멸)→제47기관 루미-스타일 1차 검수 All-OK 최종 완성본 실물 직통 배달부",
         "ok": true,
-        "sec": 0.252,
+        "sec": 0.17,
         "evidence": "organ=47, gates=7/7, fake_links=0, tabs=3",
         "detail": "organ=47, gates=7/7, fake_links=0, tabs=3"
       },
@@ -2178,7 +2178,7 @@
         "id": "S42",
         "name": "대화허브(/픽셀퍼펙트·/톱10완성본·/통합쇼케이스·/성우10종)→제48기관 픽셀-퍼펙트 시각 검수기 & 안전 수익화 Top 10 최종 완성본 마스터피스 팩토리",
         "ok": true,
-        "sec": 0.012,
+        "sec": 0.009,
         "evidence": "organ=48, min_margin_px=42, unique_mp3s=10/10, gates=10/10",
         "detail": "organ=48, min_margin_px=42, unique_mp3s=10/10, gates=10/10"
       }

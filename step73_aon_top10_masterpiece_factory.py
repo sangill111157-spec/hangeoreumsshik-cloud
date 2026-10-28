@@ -74,6 +74,8 @@ MARKER = "RGON-STEP73-PIXEL-PERFECT-TOP10-20261028"
 
 DOCS_DELIV_DIR = ROOT / "docs" / "deliverables"
 DOCS_TOP10_DIR = DOCS_DELIV_DIR / "top10"
+DOCS_NESTED_DELIV_DIR = ROOT / "docs" / "docs" / "deliverables"
+DOCS_NESTED_TOP10_DIR = DOCS_NESTED_DELIV_DIR / "top10"
 ROOT_DELIV_DIR = ROOT / "deliverables"
 ROOT_TOP10_DIR = ROOT_DELIV_DIR / "top10"
 SHOWCASE_DIR = ROOT / "outputs" / "pilot1_live_showcase"
@@ -82,9 +84,9 @@ SHOWCASE_HTML_DOCS = DOCS_DELIV_DIR / "top10_master_showcase.html"
 SHOWCASE_HTML_ROOT = ROOT_DELIV_DIR / "top10_master_showcase.html"
 
 GITHUB_PAGES_DOCS_BASE = "https://sangill111157-spec.github.io/hangeoreumsshik-cloud/deliverables"
-GITHUB_PAGES_ROOT_BASE = "https://sangill111157-spec.github.io/hangeoreumsshik-cloud/deliverables"
+GITHUB_PAGES_ROOT_BASE = "https://sangill111157-spec.github.io/hangeoreumsshik-cloud/docs/deliverables"
 LIVE_TOP10_SHOWCASE_URL = f"{GITHUB_PAGES_DOCS_BASE}/top10_master_showcase.html"
-LIVE_TOP10_SHOWCASE_MIRROR_URL = f"{GITHUB_PAGES_DOCS_BASE}/top10/item_01_view.html"
+LIVE_TOP10_SHOWCASE_MIRROR_URL = f"{GITHUB_PAGES_ROOT_BASE}/top10_master_showcase.html"
 LIVE_ITEM01_VIEW_URL = f"{GITHUB_PAGES_DOCS_BASE}/top10/item_01_view.html"
 
 REPORT_PATH = ROOT / "rgon_step73_top10_masterpiece_report.json"
@@ -1297,13 +1299,17 @@ def build_all_top10_masterpieces() -> dict[str, Any]:
     showcase_html = build_top10_master_showcase_html(specs, card_results, audio_items)
     SHOWCASE_HTML_DOCS.write_text(showcase_html, encoding="utf-8")
 
-    # 5. 루트 deliverables/ 및 deliverables/top10/ 에 100% 바이트 미러링
+    # 5. 루트 deliverables/ 및 docs/docs/deliverables/ 에 100% 바이트 미러링 (두 라이브 URL 모두 HTTP 200 보장)
+    DOCS_NESTED_DELIV_DIR.mkdir(parents=True, exist_ok=True)
+    DOCS_NESTED_TOP10_DIR.mkdir(parents=True, exist_ok=True)
     for f in DOCS_DELIV_DIR.iterdir():
         if f.is_file():
             shutil.copy2(f, ROOT_DELIV_DIR / f.name)
+            shutil.copy2(f, DOCS_NESTED_DELIV_DIR / f.name)
     for f in DOCS_TOP10_DIR.iterdir():
         if f.is_file():
             shutil.copy2(f, ROOT_TOP10_DIR / f.name)
+            shutil.copy2(f, DOCS_NESTED_TOP10_DIR / f.name)
 
     min_margin_px = min(c["min_margin_right_px"] for c in card_results)
     all_cards_ok = all(c["ok"] and c["verify_pixel_margin_ok"] and c["zero_tofu_verified"] for c in card_results)
