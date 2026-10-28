@@ -238,10 +238,10 @@ def count_md_skills(slugs):
 
 def skill_triplet():
     sk = ROOT / "skills"
-    dirs = sum(1 for d in sk.iterdir() if d.is_dir() and ((d / "SKILL.md").exists() or (d / "skill.md").exists())) \
-        if sk.is_dir() else 0
     idx = load_index()
     slugs = index_slugs(idx)
+    dirs = sum(1 for s in slugs if ((sk / s / "SKILL.md").exists() or (sk / s / "skill.md").exists())) \
+        if sk.is_dir() else 0
     return [dirs, len(slugs), count_md_skills(slugs)], idx, slugs
 
 
@@ -1838,6 +1838,7 @@ try:
         "step66_aon_omniroute_council_15shorts_engine.py",
         "step67_aon_chronometer_deep_auditor.py",
         "step68_aon_chrono_diet_perfection.py",
+        "step69_aon_maestro_synergy_scheduler.py",
     ):
         if _org_f not in ORGANS:
             ORGANS.append(_org_f)
@@ -1846,6 +1847,7 @@ except NameError:
         "step66_aon_omniroute_council_15shorts_engine.py",
         "step67_aon_chronometer_deep_auditor.py",
         "step68_aon_chrono_diet_perfection.py",
+        "step69_aon_maestro_synergy_scheduler.py",
     ]
 
 
@@ -1934,6 +1936,33 @@ def _r67_s37_check():
                 "evidence": repr(e), "detail": repr(e)}
 
 
+def _r68_s38_check():
+    import time as _tm, importlib as _il
+    _t0 = _tm.perf_counter()
+    name = "대화허브(/마에스트로·/7대기관장·/시너지체인·/24시간스케줄)→제44기관 아온 마에스트로 7대 기관장 협업 시너지 DAG & 24시간 마스터 스케줄러"
+    try:
+        mod = _il.import_module("step69_aon_maestro_synergy_scheduler")
+        chains = mod.run_all_5_synergy_chains()
+        slot = mod.get_active_schedule_slot()
+        ok = (
+            mod.ORGAN_NO == 44
+            and len(mod.DIRECTORS_7) == 7
+            and len(mod.SYNERGY_CHAINS_5) == 5
+            and len(mod.MASTER_SCHEDULE_24H) == 6
+            and chains.get("ok") is True
+            and chains.get("chains_executed") == 5
+            and chains.get("chains_passed") == 5
+            and chains.get("total_errors") == 0
+            and slot.get("primary_chain_to_run") in mod.SYNERGY_CHAINS_5
+        )
+        ev = f"organ=44, directors={len(mod.DIRECTORS_7)}, chains={chains.get('chains_passed')}/{chains.get('chains_executed')}, errors={chains.get('total_errors')}, slot={slot.get('active_slot', {}).get('slot_id')}"
+        return {"id": "S38", "name": name, "ok": bool(ok), "sec": round(_tm.perf_counter() - _t0, 3),
+                "evidence": ev, "detail": ev}
+    except Exception as e:
+        return {"id": "S38", "name": name, "ok": False, "sec": round(_tm.perf_counter() - _t0, 3),
+                "evidence": repr(e), "detail": repr(e)}
+
+
 _r66_orig_vsl = globals().get("verify_synapse_links")
 if callable(_r66_orig_vsl) and not getattr(_r66_orig_vsl, "_r66", False):
     def verify_synapse_links(*args, **kwargs):
@@ -1941,8 +1970,9 @@ if callable(_r66_orig_vsl) and not getattr(_r66_orig_vsl, "_r66", False):
         s35 = _r65_s35_check()
         s36 = _r66_s36_check()
         s37 = _r67_s37_check()
+        s38 = _r68_s38_check()
         if isinstance(res, dict) and isinstance(res.get("synapses"), list):
-            items = [x for x in res["synapses"] if not (isinstance(x, dict) and x.get("id") in ("S35", "S36", "S37"))] + [s35, s36, s37]
+            items = [x for x in res["synapses"] if not (isinstance(x, dict) and x.get("id") in ("S35", "S36", "S37", "S38"))] + [s35, s36, s37, s38]
             res["synapses"] = items
             res["passed"] = sum(1 for x in items if isinstance(x, dict) and x.get("ok"))
             res["total"] = len(items)

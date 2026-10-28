@@ -55,6 +55,9 @@ def find_num(obj, keys):
             if r is not None: return r
     return None
 def skill_count():
+    idx = rj("skills/SKILL_INDEX.json", {})
+    if isinstance(idx, dict) and isinstance(idx.get("count"), int):
+        return idx["count"]
     d = P("skills")
     if not os.path.isdir(d): return 0
     return sum(1 for n in os.listdir(d) if os.path.isfile(os.path.join(d, n, "SKILL.md")))

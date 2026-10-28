@@ -1,11 +1,11 @@
 {
   "schema": "RGON_CODE_MAP_V1170",
-  "version": "v11.72-AON-CHRONO-DIET-PERFECTION",
+  "version": "v11.74-AON-MAESTRO-SYNERGY-SCHEDULER",
   "ssot_baseline_version": "v11.66-AON-GENERAL-HOSPITAL",
-  "antibody_range": "R1~R67",
-  "formal_skills_total": 62,
+  "antibody_range": "R1~R68",
+  "formal_skills_total": 64,
   "ssot_verified_skills": 60,
-  "total_organs": 43,
+  "total_organs": 44,
   "total_shorts_integrated": 43,
   "shorts_breakdown": {
     "batch_1_step63": 13,
@@ -152,6 +152,23 @@
       "engine_file": "step68_aon_chrono_diet_perfection.py",
       "html_drawer_id": "rgon-organ43-chrono-diet-drawer",
       "report_json": "rgon_step68_chrono_diet_report.json"
+    },
+    "Step69_Organ44": {
+      "step": 69,
+      "organ_no": 44,
+      "organ_id": "ORGAN-44-MAESTRO-SYNERGY-SCHEDULER",
+      "organ_name": "제44기관 아온 마에스트로(Maestro) 7대 기관장 협업 시너지 DAG & 24시간 분야별 마스터 스케줄러",
+      "version": "v11.74-AON-MAESTRO-SYNERGY-SCHEDULER",
+      "antibody": "R68",
+      "skill_no": 64,
+      "skill_id": "aon_maestro_synergy_scheduler",
+      "engine_file": "step69_aon_maestro_synergy_scheduler.py",
+      "registry_file": "rgon_maestro_synergy_schedule_registry.json",
+      "report_json": "rgon_step69_maestro_report.json",
+      "html_drawer_id": "step69-maestro-synergy-drawer",
+      "directors_count": 7,
+      "synergy_chains_count": 5,
+      "schedule_slots_24h": 6
     }
   },
   "neural_synapse_verifier": {
@@ -163,5 +180,5 @@
     ],
     "target_score": 100.0
   },
-  "formal_skills_count": 63
+  "formal_skills_count": 64
 }

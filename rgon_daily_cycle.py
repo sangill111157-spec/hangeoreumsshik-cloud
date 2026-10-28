@@ -99,6 +99,9 @@ def stage1_patrol(root):
 
 
 def _count_skills(root):
+    idx = _read_json(os.path.join(root, "skills", "SKILL_INDEX.json"), {})
+    if isinstance(idx, dict) and isinstance(idx.get("count"), int):
+        return idx["count"]
     sk_dir = os.path.join(root, "skills")
     if os.path.isdir(sk_dir):
         return sum(1 for n in os.listdir(sk_dir) if os.path.isfile(os.path.join(sk_dir, n, "SKILL.md")) or os.path.isfile(os.path.join(sk_dir, n, "skill.md")))
