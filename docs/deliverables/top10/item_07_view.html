@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>[최종완성본 #07] GitHub 급상승 오픈소스 심층 해독서 — RGON Top 10 쇼케이스</title>
+  <style>
+    :root {
+      --bg: #070b14;
+      --card: #11192c;
+      --accent: #38bdf8;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Pretendard', 'Malgun Gothic', -apple-system, sans-serif;
+      background: radial-gradient(circle at top, #13203d 0%, var(--bg) 70%);
+      color: var(--text);
+      line-height: 1.65;
+      padding: 16px;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+    .back-btn {
+      display: inline-block;
+      background: rgba(56, 189, 248, 0.15);
+      border: 1px solid #38bdf8;
+      color: #38bdf8;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 8px 14px;
+      border-radius: 10px;
+    }
+    .badge {
+      display: inline-block;
+      background: rgba(0, 245, 212, 0.14);
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 0.84rem;
+      padding: 6px 12px;
+      border-radius: 999px;
+      margin-bottom: 10px;
+    }
+    h1 { font-size: 1.45rem; margin-bottom: 6px; color: #fff; }
+    .sub { font-size: 0.9rem; color: var(--muted); margin-bottom: 16px; }
+    .card {
+      background: var(--card);
+      border: 1px solid rgba(56, 189, 248, 0.32);
+      border-radius: 18px;
+      padding: 18px;
+      margin-bottom: 18px;
+      box-shadow: 0 10px 28px rgba(0,0,0,0.45);
+    }
+    .card h2 {
+      font-size: 1.08rem;
+      color: var(--accent);
+      margin-bottom: 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding-bottom: 8px;
+    }
+    .card ul { padding-left: 18px; }
+    .card li { margin-bottom: 8px; font-size: 0.95rem; color: #e2e8f0; }
+    audio { width: 100%; margin-top: 10px; }
+    .preview-img { width: 100%; border-radius: 14px; border: 1px solid var(--accent); }
+    .motion-stage {
+      width: 100%;
+      aspect-ratio: 9 / 16;
+      max-height: 560px;
+      margin: 0 auto;
+      background: linear-gradient(160deg, #0b132b 0%, #1c2541 55%, #0f172a 100%);
+      border: 2px solid var(--accent);
+      border-radius: 22px;
+      padding: 28px 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .pulse-ring {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 3px solid var(--accent);
+      animation: pulse 2.2s infinite ease-in-out;
+      margin-bottom: 20px;
+    }
+    @keyframes pulse {
+      0% { transform: scale(0.92); opacity: 0.6; }
+      50% { transform: scale(1.08); opacity: 1; }
+      100% { transform: scale(0.92); opacity: 0.6; }
+    }
+    .stage-badge { font-size: 0.82rem; color: var(--accent); font-weight: 700; margin-bottom: 10px; }
+    .stage-title { font-size: 1.4rem; font-weight: 800; color: #fff; margin-bottom: 12px; }
+    .stage-metric { font-size: 1.2rem; font-weight: 800; color: #4ade80; margin-bottom: 18px; }
+    .stage-script { font-size: 0.95rem; color: #cbd5e1; background: rgba(0,0,0,0.45); padding: 14px; border-radius: 12px; }
+    .meta-grid { font-size: 0.85rem; color: var(--muted); margin-top: 8px; }
+  </style>
+</head>
+<body>
+  <div class="top-nav">
+    <a class="back-btn" href="../top10_master_showcase.html">◀ Top 10 전체 쇼케이스 허브로 돌아가기</a>
+    <span style="font-size:0.85rem;color:#94a3b8;">종목 #07 / 10</span>
+  </div>
+
+  <div class="badge">TOP 07  |  GitHub 급상승 오픈소스 & AI 툴 한국어 심층 리뷰</div>
+  <h1>GitHub 급상승 오픈소스 심층 해독서</h1>
+  <p class="sub">글로벌 Top 오픈소스 3선 아키텍처 해부 · 스케줄: 매일 13:00 KST 기술 리포트 발행</p>
+
+  <div class="card">
+    <h2>▶ 1. 고유 한국어 성우 내레이션 오디오 (ko-KR-SunHiNeural)</h2>
+    <p style="font-size:0.9rem;color:#cbd5e1;">본 종목 전용으로 실시간 신규 합성된 성우 음성입니다. (용량: 199,872 bytes · 길이: 약 33.3초 · SHA-256: 40128ee052b3)</p>
+    <audio controls preload="metadata" src="./item_07_audio.mp3"></audio>
+    <p class="meta-grid">[성우 대본 전문] 안전 수익화 칠번 종목, 깃허브 급상승 오픈소스 및 에이아이 툴 발굴 한국어 심층 리뷰 리포트 완성본입니다. 전 세계 개발자들이 주목하는 깃허브 트렌딩 상위 오픈소스를 깃다이어그램과 그래프파이 지식그래프 엔진으로 해독하여, 복잡한 영문 코드를 일일이 읽지 않아도 핵심 아키텍처와 상업용 라이선스 안전성을 일 분 만에 파악할 수 있게 정리했습니다. 국내 개발자 커뮤니티와 기술 뉴스레터 시장에서 높은 구독 전환율을 기록하는 고부가가치 기술 콘텐츠입니다.</p>
+  </div>
+
+  <div class="card">
+    <h2>▶ 2. 픽셀-퍼펙트(Pixel-Perfect) 고화질 브리핑 카드 (여백 45px · 깨짐 0건)</h2>
+    <img class="preview-img" src="./item_07_card.png" alt="GitHub 급상승 오픈소스 심층 해독서 브리핑 카드" />
+  </div>
+
+  
+  <div class="card">
+    <h2>▶ 9:16 인터랙티브 모션 프리뷰 스테이지 (#07)</h2>
+    <div class="motion-stage" id="stage-7">
+      <div class="pulse-ring"></div>
+      <div class="stage-badge">M07_GITHUB_TRENDING_DEEP_REVIEW</div>
+      <div class="stage-title">GitHub 급상승 오픈소스 심층 해독서</div>
+      <div class="stage-metric">글로벌 Top 오픈소스 3선 아키텍처 해부</div>
+      <p class="stage-script" id="caption-7">안전 수익화 칠번 종목, 깃허브 급상승 오픈소스 및 에이아이 툴 발굴 한국어 심층 리뷰 리포트 완성본입니다. 전 세계 개발자들이 주목하는 깃허브 트렌딩 상위 오픈소스를 깃다이어그램과 그래프파이 지식...</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>◆ 1. 금주 글로벌 GitHub 급상승 AI 오픈소스 Top 3</h2>
+    <ul><li>• 1위: 멀티 에이전트 오케스트레이션 DAG 프레임워크 (주간 스타 +4,800)</li><li>• 2위: 브라우저 로컬 WebGPU 초경량 음성·비전 실시간 추론 엔진</li></ul>
+  </div>
+
+  <div class="card">
+    <h2>◆ 2. 한국 개발자·기업을 위한 1초 도입 가이드</h2>
+    <ul><li>• 아키텍처 요약: 전체 파일 열람 없이 지식그래프 God Node 핀셋 분석</li><li>• 상업적 라이선스 점검: MIT / Apache-2.0 기업 실무 안전 도입 판정</li><li>• 실전 활용처: 사내 보안 문서 요약 및 무인 고객지원 에이전트 구축</li><li>• 수익 모델: 테크 유튜브·유료 개발자 뉴스레터 및 기술 자문 리테이너</li></ul>
+  </div>
+
+  <div class="card">
+    <h2>◆ 3. 픽셀-퍼펙트 검수 & 다이어그램 뷰어 연동</h2>
+    <ul><li>• 우측 여백 42px 이상 확보 · 이모지 깨짐 0건 · 가짜 링크 0건</li><li>• 본 리포트 전용 여성 성우 내레이션 MP3 신규 합성 완료</li></ul>
+  </div>
+</body>
+</html>

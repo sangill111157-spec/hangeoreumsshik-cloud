@@ -1,0 +1,332 @@
+{
+  "ok": true,
+  "all_passed": true,
+  "version": "v11.82-AON-PIXEL-PERFECT-TOP10-MASTERPIECE",
+  "organ_no": 48,
+  "organ_id": "ORGAN-48-PIXEL-PERFECT-TOP10-MASTERPIECE",
+  "organ_name": "제48기관 픽셀-퍼펙트 시각 검수기 & 안전 수익화 Top 10 최종 완성본 마스터피스 팩토리",
+  "antibody": "R72",
+  "antibody_compat": "R70",
+  "antibody_range": "R1~R72",
+  "skill_no": 68,
+  "skill_id": "aon_pixel_perfect_top10_masterpiece_factory",
+  "synapse_id": "S42",
+  "passed": 6,
+  "total": 6,
+  "checks": [
+    {
+      "name": "1_pixel_perfect_margin_ge_35px_and_zero_tofu",
+      "ok": true
+    },
+    {
+      "name": "2_10_unique_korean_neural_mp3s_over_30kb",
+      "ok": true
+    },
+    {
+      "name": "3_all_10_cards_and_interactive_views_published",
+      "ok": true
+    },
+    {
+      "name": "4_top10_master_showcase_hub_ready",
+      "ok": true
+    },
+    {
+      "name": "5_10_quality_gates_all_ok",
+      "ok": true
+    },
+    {
+      "name": "6_skill_68_registered",
+      "ok": true
+    }
+  ],
+  "min_margin_right_px": 42,
+  "unique_mp3_sha256_count": 10,
+  "qc_passed": 10,
+  "qc_total": 10,
+  "live_showcase_url": "https://sangill111157-spec.github.io/hangeoreumsshik-cloud/docs/deliverables/top10_master_showcase.html",
+  "live_showcase_mirror_url": "https://sangill111157-spec.github.io/hangeoreumsshik-cloud/deliverables/top10_master_showcase.html",
+  "live_telegram_receipt": null,
+  "elapsed_sec": 0.0057,
+  "timestamp": "2026-10-28T13:14:18+09:00",
+  "build_summary": {
+    "min_margin_right_px": 43,
+    "verify_pixel_margin_ok": true,
+    "zero_tofu_verified": true,
+    "audio_summary": {
+      "ok": true,
+      "total_synthesized": 10,
+      "unique_sha256_count": 10,
+      "duplicate_hashes": 0,
+      "all_over_30kb": true,
+      "zero_legacy_reuse_verified": true,
+      "audio_items": [
+        {
+          "no": 1,
+          "slug": "item_01_nvda_wallstreet_brief",
+          "voice": "ko-KR-SunHiNeural",
+          "path": "docs/deliverables/top10/item_01_audio.mp3",
+          "bytes": 330768,
+          "sha256": "f874c9168c1a736539925269f71b37bfd4f553a710a543fa9c11d1f6a65fe81b",
+          "duration_sec": 55.1,
+          "script_chars": 382,
+          "ok": true
+        },
+        {
+          "no": 2,
+          "slug": "item_02_senior_audio_drama",
+          "voice": "ko-KR-InJoonNeural",
+          "path": "docs/deliverables/top10/item_02_audio.mp3",
+          "bytes": 303552,
+          "sha256": "36591e371f9689a24dbb7da51a8b9b5218b3f48f19c674463aa8f22895024ec5",
+          "duration_sec": 50.6,
+          "script_chars": 338,
+          "ok": true
+        },
+        {
+          "no": 3,
+          "slug": "item_03_competitor_app_clone",
+          "voice": "ko-KR-SunHiNeural",
+          "path": "docs/deliverables/top10/item_03_audio.mp3",
+          "bytes": 253296,
+          "sha256": "7dc327b26692a393a7d5047f82de598224b303de2cfd8d35e90076f0af51cf9c",
+          "duration_sec": 42.2,
+          "script_chars": 305,
+          "ok": true
+        },
+        {
+          "no": 4,
+          "slug": "item_04_b2b_ai_tech_newsletter",
+          "voice": "ko-KR-InJoonNeural",
+          "path": "docs/deliverables/top10/item_04_audio.mp3",
+          "bytes": 263232,
+          "sha256": "0177d7686bd254311052f1b61f8306cde21f042f7291121829c5bdc90cd1090c",
+          "duration_sec": 43.9,
+          "script_chars": 311,
+          "ok": true
+        },
+        {
+          "no": 5,
+          "slug": "item_05_ktrend_seo_blog_article",
+          "voice": "ko-KR-SunHiNeural",
+          "path": "docs/deliverables/top10/item_05_audio.mp3",
+          "bytes": 242928,
+          "sha256": "e30d6c2ae6bb0b8ebcb18d9527c08a6f9b186d51d3942ce520e1719fae46911f",
+          "duration_sec": 40.5,
+          "script_chars": 299,
+          "ok": true
+        },
+        {
+          "no": 6,
+          "slug": "item_06_solopreneur_digital_template",
+          "voice": "ko-KR-InJoonNeural",
+          "path": "docs/deliverables/top10/item_06_audio.mp3",
+          "bytes": 230400,
+          "sha256": "44375acc10eaa21ab1d82c8067740c4532d855df62d26bece95bc77a4d7fce39",
+          "duration_sec": 38.4,
+          "script_chars": 267,
+          "ok": true
+        },
+        {
+          "no": 7,
+          "slug": "item_07_github_trending_deep_review",
+          "voice": "ko-KR-SunHiNeural",
+          "path": "docs/deliverables/top10/item_07_audio.mp3",
+          "bytes": 199872,
+          "sha256": "40128ee052b3a6b53cf271837f87fc66e7ff691a1a6f83a410093d41677f9775",
+          "duration_sec": 33.3,
+          "script_chars": 252,
+          "ok": true
+        },
+        {
+          "no": 8,
+          "slug": "item_08_local_biz_motion_ad",
+          "voice": "ko-KR-InJoonNeural",
+          "path": "docs/deliverables/top10/item_08_audio.mp3",
+          "bytes": 212544,
+          "sha256": "d10796560ca8f8db8b4b0406632fb34d9ed843cd847fa9e4136184898b012c17",
+          "duration_sec": 35.4,
+          "script_chars": 249,
+          "ok": true
+        },
+        {
+          "no": 9,
+          "slug": "item_09_enterprise_llmstxt_geo_audit",
+          "voice": "ko-KR-SunHiNeural",
+          "path": "docs/deliverables/top10/item_09_audio.mp3",
+          "bytes": 209376,
+          "sha256": "6730c1828c4e720deeee6546b1aa66238669cf8e06ef077af6838008355d5005",
+          "duration_sec": 34.9,
+          "script_chars": 257,
+          "ok": true
+        },
+        {
+          "no": 10,
+          "slug": "item_10_claude_gemini_skill_pack",
+          "voice": "ko-KR-InJoonNeural",
+          "path": "docs/deliverables/top10/item_10_audio.mp3",
+          "bytes": 219456,
+          "sha256": "88482a22fe4e9e6f411434c5749df71b80c605bcdcf24ce5782567116c1a196e",
+          "duration_sec": 36.6,
+          "script_chars": 261,
+          "ok": true
+        }
+      ]
+    },
+    "cards": [
+      {
+        "ok": true,
+        "path": "docs/deliverables/top10/item_01_card.png",
+        "bytes": 140950,
+        "dimensions": "1080x1350",
+        "lines_inspected": 16,
+        "min_margin_right_px": 83,
+        "verify_pixel_margin_ok": true,
+        "zero_tofu_verified": true
+      },
+      {
+        "ok": true,
+        "path": "docs/deliverables/top10/item_02_card.png",
+        "bytes": 146165,
+        "dimensions": "1080x1350",
+        "lines_inspected": 16,
+        "min_margin_right_px": 44,
+        "verify_pixel_margin_ok": true,
+        "zero_tofu_verified": true
+      },
+      {
+        "ok": true,
+        "path": "docs/deliverables/top10/item_03_card.png",
+        "bytes": 139362,
+        "dimensions": "1080x1350",
+        "lines_inspected": 16,
+        "min_margin_right_px": 52,
+        "verify_pixel_margin_ok": true,
+        "zero_tofu_verified": true
+      },
+      {
+        "ok": true,
+        "path": "docs/deliverables/top10/item_04_card.png",
+        "bytes": 130743,
+        "dimensions": "1080x1350",
+        "lines_inspected": 16,
+        "min_margin_right_px": 48,
+        "verify_pixel_margin_ok": true,
+        "zero_tofu_verified": true
+      },
+      {
+        "ok": true,
+        "path": "docs/deliverables/top10/item_05_card.png",
+        "bytes": 140015,
+        "dimensions": "1080x1350",
+        "lines_inspected": 16,
+        "min_margin_right_px": 43,
+        "verify_pixel_margin_ok": true,
+        "zero_tofu_verified": true
+      },
+      {
+        "ok": true,
+        "path": "docs/deliverables/top10/item_06_card.png",
+        "bytes": 134635,
+        "dimensions": "1080x1350",
+        "lines_inspected": 16,
+        "min_margin_right_px": 46,
+        "verify_pixel_margin_ok": true,
+        "zero_tofu_verified": true
+      },
+      {
+        "ok": true,
+        "path": "docs/deliverables/top10/item_07_card.png",
+        "bytes": 145482,
+        "dimensions": "1080x1350",
+        "lines_inspected": 16,
+        "min_margin_right_px": 45,
+        "verify_pixel_margin_ok": true,
+        "zero_tofu_verified": true
+      },
+      {
+        "ok": true,
+        "path": "docs/deliverables/top10/item_08_card.png",
+        "bytes": 141170,
+        "dimensions": "1080x1350",
+        "lines_inspected": 16,
+        "min_margin_right_px": 46,
+        "verify_pixel_margin_ok": true,
+        "zero_tofu_verified": true
+      },
+      {
+        "ok": true,
+        "path": "docs/deliverables/top10/item_09_card.png",
+        "bytes": 151064,
+        "dimensions": "1080x1350",
+        "lines_inspected": 16,
+        "min_margin_right_px": 44,
+        "verify_pixel_margin_ok": true,
+        "zero_tofu_verified": true
+      },
+      {
+        "ok": true,
+        "path": "docs/deliverables/top10/item_10_card.png",
+        "bytes": 149403,
+        "dimensions": "1080x1350",
+        "lines_inspected": 16,
+        "min_margin_right_px": 43,
+        "verify_pixel_margin_ok": true,
+        "zero_tofu_verified": true
+      }
+    ]
+  },
+  "quality_gates_10": {
+    "all_ok": true,
+    "passed": 10,
+    "total": 10,
+    "gates": [
+      {
+        "gate": "Q01_PIXEL_MARGIN_GE_35PX_ALL_10_CARDS",
+        "ok": true,
+        "min_margin_px": 43
+      },
+      {
+        "gate": "Q02_ZERO_EMOJI_TOFU_BOXES_ALL_10_CARDS",
+        "ok": true
+      },
+      {
+        "gate": "Q03_10_UNIQUE_NEW_MP3_SHA256_ZERO_DUPLICATES",
+        "ok": true
+      },
+      {
+        "gate": "Q04_ALL_10_MP3_FILES_OVER_30KB",
+        "ok": true
+      },
+      {
+        "gate": "Q05_ALL_10_INTERACTIVE_HTML_AND_SHOWCASE_HUB",
+        "ok": true
+      },
+      {
+        "gate": "Q06_ZERO_FAKE_LINKS_FILTER_ACTIVE",
+        "ok": true
+      },
+      {
+        "gate": "Q07_PROTECTED_4_FILES_INTACT",
+        "ok": true
+      },
+      {
+        "gate": "Q08_IMMUTABLE_8_LAWS_DNA_SEAL",
+        "ok": true
+      },
+      {
+        "gate": "Q09_ZERO_SECRET_LEAK_VERIFIED",
+        "ok": true
+      },
+      {
+        "gate": "Q10_STEP72_CARD_AND_AUDIO_SYNCED",
+        "ok": true
+      }
+    ]
+  },
+  "skill_index_sync": {
+    "ok": true,
+    "total_formal_skills": 68,
+    "skill_68_md_exists": true
+  },
+  "zero_secret_leak_verified": true
+}

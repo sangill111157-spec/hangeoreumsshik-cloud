@@ -1,11 +1,11 @@
 {
   "schema": "RGON_CODE_MAP_V1170",
-  "version": "v11.80-AON-LUMI-FINAL-DELIVERABLE-SENDER",
+  "version": "v11.82-AON-PIXEL-PERFECT-TOP10-MASTERPIECE",
   "ssot_baseline_version": "v11.66-AON-GENERAL-HOSPITAL",
-  "antibody_range": "R1~R71",
-  "formal_skills_total": 67,
+  "antibody_range": "R1~R72",
+  "formal_skills_total": 68,
   "ssot_verified_skills": 60,
-  "total_organs": 47,
+  "total_organs": 48,
   "total_shorts_integrated": 43,
   "shorts_breakdown": {
     "batch_1_step63": 13,
@@ -218,6 +218,21 @@
       "html_drawer_id": "step72-lumi-final-deliverable-drawer",
       "live_hub_url": "https://sangill111157-spec.github.io/hangeoreumsshik-cloud/docs/deliverables/final_deliverable_hub.html",
       "live_motion_url": "https://sangill111157-spec.github.io/hangeoreumsshik-cloud/docs/deliverables/nvda_shorts_motion_preview.html"
+    },
+    "Step73_Organ48": {
+      "step": 73,
+      "organ_no": 48,
+      "organ_id": "ORGAN-48-PIXEL-PERFECT-TOP10-MASTERPIECE",
+      "organ_name": "제48기관 픽셀-퍼펙트 시각 검수기 & 안전 수익화 Top 10 최종 완성본 마스터피스 팩토리",
+      "version": "v11.82-AON-PIXEL-PERFECT-TOP10-MASTERPIECE",
+      "antibody": "R72",
+      "skill_no": 68,
+      "skill_id": "aon_pixel_perfect_top10_masterpiece_factory",
+      "synapse_id": "S42",
+      "engine_file": "step73_aon_top10_masterpiece_factory.py",
+      "report_json": "rgon_step73_top10_masterpiece_report.json",
+      "html_drawer_id": "step73-pixel-perfect-top10-drawer",
+      "live_showcase_url": "https://sangill111157-spec.github.io/hangeoreumsshik-cloud/docs/deliverables/top10_master_showcase.html"
     }
   },
   "neural_synapse_verifier": {
@@ -229,5 +244,5 @@
     ],
     "target_score": 100.0
   },
-  "formal_skills_count": 67
+  "formal_skills_count": 68
 }

@@ -1842,6 +1842,7 @@ try:
         "step70_aon_immutable_dna_keyvault.py",
         "step71_aon_safe_monetization_top10_engine.py",
         "step72_aon_final_deliverable_sender.py",
+        "step73_aon_top10_masterpiece_factory.py",
     ):
         if _org_f not in ORGANS:
             ORGANS.append(_org_f)
@@ -1854,6 +1855,7 @@ except NameError:
         "step70_aon_immutable_dna_keyvault.py",
         "step71_aon_safe_monetization_top10_engine.py",
         "step72_aon_final_deliverable_sender.py",
+        "step73_aon_top10_masterpiece_factory.py",
     ]
 
 
@@ -2044,6 +2046,27 @@ def _r71_s41_check():
                 "evidence": repr(e), "detail": repr(e)}
 
 
+def _r72_s42_check():
+    import time as _tm, importlib as _il
+    _t0 = _tm.perf_counter()
+    name = "대화허브(/픽셀퍼펙트·/톱10완성본·/통합쇼케이스·/성우10종)→제48기관 픽셀-퍼펙트 시각 검수기 & 안전 수익화 Top 10 최종 완성본 마스터피스 팩토리"
+    try:
+        mod = _il.import_module("step73_aon_top10_masterpiece_factory")
+        res = mod.run_self_test()
+        ok = (
+            mod.ORGAN_NO == 48
+            and res.get("ok") is True
+            and res.get("min_margin_right_px", 0) >= 35
+            and res.get("unique_mp3_sha256_count") == 10
+        )
+        ev = f"organ=48, min_margin_px={res.get('min_margin_right_px')}, unique_mp3s={res.get('unique_mp3_sha256_count')}/10, gates={res.get('qc_passed')}/{res.get('qc_total')}"
+        return {"id": "S42", "name": name, "ok": bool(ok), "sec": round(_tm.perf_counter() - _t0, 3),
+                "evidence": ev, "detail": ev}
+    except Exception as e:
+        return {"id": "S42", "name": name, "ok": False, "sec": round(_tm.perf_counter() - _t0, 3),
+                "evidence": repr(e), "detail": repr(e)}
+
+
 _r66_orig_vsl = globals().get("verify_synapse_links")
 if callable(_r66_orig_vsl) and not getattr(_r66_orig_vsl, "_r66", False):
     def verify_synapse_links(*args, **kwargs):
@@ -2055,8 +2078,9 @@ if callable(_r66_orig_vsl) and not getattr(_r66_orig_vsl, "_r66", False):
         s39 = _r69_s39_check()
         s40 = _r70_s40_check()
         s41 = _r71_s41_check()
+        s42 = _r72_s42_check()
         if isinstance(res, dict) and isinstance(res.get("synapses"), list):
-            items = [x for x in res["synapses"] if not (isinstance(x, dict) and x.get("id") in ("S35", "S36", "S37", "S38", "S39", "S40", "S41"))] + [s35, s36, s37, s38, s39, s40, s41]
+            items = [x for x in res["synapses"] if not (isinstance(x, dict) and x.get("id") in ("S35", "S36", "S37", "S38", "S39", "S40", "S41", "S42"))] + [s35, s36, s37, s38, s39, s40, s41, s42]
             res["synapses"] = items
             res["passed"] = sum(1 for x in items if isinstance(x, dict) and x.get("ok"))
             res["total"] = len(items)

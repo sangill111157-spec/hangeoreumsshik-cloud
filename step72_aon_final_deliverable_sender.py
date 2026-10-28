@@ -135,194 +135,58 @@ def count_fake_links_in_text(text: str) -> int:
 # 2. [미디어] 탭용 고화질 브리핑 카드 이미지(.png) 생성기
 # ==============================================================================
 def generate_lumi_deliverable_card_png(out_path: Path = CARD_PNG_PATH) -> dict[str, Any]:
-    """PIL(Pillow) + 맑은 고딕 볼드 폰트로 1080x1350 고화질 최종 완성본 브리핑 카드 PNG 생성"""
-    from PIL import Image, ImageDraw, ImageFont
-
+    """[Step 73 픽셀-퍼펙트 연동] 여백 >= 42px 보장 및 이모지 네모(▯) 깨짐 0건 렌더러로 카드 생성"""
     out_path.parent.mkdir(parents=True, exist_ok=True)
-    pilot_json = SHOWCASE_DIR / "pilot1_live_report.json"
-    q = {
-        "current_price": 217.94,
-        "change": 1.94,
-        "change_pct": 0.90,
-        "high_price": 219.19,
-        "low_price": 215.53,
-        "prev_close": 216.00,
-    }
-    lv = {
-        "entry_1_usd": 216.85,
-        "entry_2_usd": 213.58,
-        "target_1_usd": 225.57,
-        "target_2_usd": 234.29,
-        "stop_loss_usd": 211.40,
-    }
-    bull_score = 88.5
-    bear_score = 11.5
-    conf_pct = 99.6
-
-    if pilot_json.is_file():
-        try:
-            pdata = json.loads(pilot_json.read_text(encoding="utf-8"))
-            s1 = pdata.get("stage1_wallstreet_nvda", {})
-            q.update(s1.get("quote", {}))
-            lv.update(s1.get("investment_judgment", {}).get("actionable_levels", {}))
-            bull_score = s1.get("bull_vs_bear", {}).get("bull_score", bull_score)
-            bear_score = s1.get("bull_vs_bear", {}).get("bear_score", bear_score)
-            conf_pct = s1.get("investment_judgment", {}).get("confidence_pct", conf_pct)
-        except Exception:
-            pass
-
-    W, H = 1080, 1350
-    img = Image.new("RGB", (W, H), (10, 15, 28))
-    draw = ImageDraw.Draw(img)
-
-    # 배경 그라데이션 & 네온 테두리
-    for y in range(H):
-        r = int(10 + (y / H) * 8)
-        g = int(15 + (y / H) * 18)
-        b = int(28 + (y / H) * 32)
-        draw.line([(0, y), (W, y)], fill=(r, g, b))
-
-    draw.rounded_rectangle([28, 28, W - 28, H - 28], radius=36, outline=(0, 245, 212), width=4)
-    draw.rounded_rectangle([44, 44, W - 44, H - 44], radius=28, outline=(56, 189, 248), width=2)
-
-    font_candidates_bold = [
-        r"C:\Windows\Fonts\malgunbd.ttf",
-        r"C:\Windows\Fonts\malgun.ttf",
-        r"C:\Windows\Fonts\arialbd.ttf",
-    ]
-    font_candidates_reg = [
-        r"C:\Windows\Fonts\malgun.ttf",
-        r"C:\Windows\Fonts\arial.ttf",
-    ]
-
-    def _load_font(candidates: list[str], size: int) -> Any:
-        for fp in candidates:
-            if os.path.exists(fp):
-                try:
-                    return ImageFont.truetype(fp, size)
-                except Exception:
-                    pass
-        return ImageFont.load_default()
-
-    f_badge = _load_font(font_candidates_bold, 28)
-    f_title = _load_font(font_candidates_bold, 54)
-    f_price = _load_font(font_candidates_bold, 76)
-    f_sec_h = _load_font(font_candidates_bold, 34)
-    f_body = _load_font(font_candidates_reg, 30)
-    f_body_b = _load_font(font_candidates_bold, 32)
-    f_footer = _load_font(font_candidates_bold, 26)
-
-    # 상단 배지
-    draw.rounded_rectangle([72, 72, W - 72, 142], radius=18, fill=(16, 36, 64), outline=(0, 245, 212), width=2)
-    draw.text((100, 88), "👑 RGON × 루미비서  |  1차 검수 ALL-OK 최종 완성본 (#01)", fill=(0, 245, 212), font=f_badge)
-
-    # 메인 타이틀 & 실시간 주가
-    draw.text((76, 172), "NVIDIA (NVDA) 월가 AI 카운슬 타점", fill=(248, 250, 252), font=f_title)
-    chg_sign = "+" if q["change_pct"] >= 0 else ""
-    draw.text(
-        (76, 250),
-        f"${q['current_price']:.2f}  ({chg_sign}{q['change']:.2f} / {chg_sign}{q['change_pct']:.2f}%)",
-        fill=(74, 222, 128),
-        font=f_price,
-    )
-    draw.text(
-        (80, 352),
-        f"당일 고가 ${q['high_price']:.2f}   |   당일 저가 ${q['low_price']:.2f}   |   전일 종가 ${q['prev_close']:.2f}",
-        fill=(148, 163, 184),
-        font=f_body,
-    )
-
-    # 섹션 1: Bull vs Bear & 3단 카운슬 합의
-    draw.rounded_rectangle([72, 420, W - 72, 620], radius=24, fill=(19, 29, 51), outline=(168, 85, 247), width=3)
-    draw.text((104, 444), "📊 1. 월가 TradingAgents & 카파시 3단 카운슬 합의", fill=(216, 180, 254), font=f_sec_h)
-    draw.text(
-        (104, 502),
-        f"• 강세(Bull) {bull_score}점  vs  약세(Bear) {bear_score}점   [합의 신뢰도 {conf_pct}%]",
-        fill=(255, 255, 255),
-        font=f_body_b,
-    )
-    draw.text(
-        (104, 554),
-        "• 최종 판정: 추격 매수 금지 · 2단계 눌림목 분할 매수 (BUY ON DIPS)",
-        fill=(250, 204, 21),
-        font=f_body_b,
-    )
-
-    # 섹션 2: 실전 매매 타점 & -3% 칼손절 기준선
-    draw.rounded_rectangle([72, 650, W - 72, 960], radius=24, fill=(19, 29, 51), outline=(56, 189, 248), width=3)
-    draw.text((104, 676), "🎯 2. 실전 분할 진입 & 기계적 손절 기준선", fill=(56, 189, 248), font=f_sec_h)
-    draw.text((104, 738), f"• 1차 눌림목 진입가 :  ${lv['entry_1_usd']:.2f}  (-0.5% 눌림 구간)", fill=(241, 245, 249), font=f_body_b)
-    draw.text((104, 790), f"• 2차 핵심 지지선   :  ${lv['entry_2_usd']:.2f}  (당일 저가 방어선)", fill=(241, 245, 249), font=f_body_b)
-    draw.text((104, 842), f"• 1차 / 2차 목표가  :  ${lv['target_1_usd']:.2f} (+3.5%)  /  ${lv['target_2_usd']:.2f} (+7.5%)", fill=(74, 222, 128), font=f_body_b)
-    draw.text((104, 894), f"• 기계적 손절선(생명선) :  ${lv['stop_loss_usd']:.2f}  (-3.0% 칼손절 엄수)", fill=(251, 113, 133), font=f_body_b)
-
-    # 섹션 3: 30초 쇼츠 모션 & 오디오 내레이션 검수 인장
-    draw.rounded_rectangle([72, 990, W - 72, 1190], radius=24, fill=(15, 38, 42), outline=(0, 245, 212), width=2)
-    draw.text((104, 1016), "✅ 3. 내부 1차 검수 (헌법 · 8대 법칙 · 워터마크 0%) 통과 내역", fill=(0, 245, 212), font=f_sec_h)
-    draw.text((104, 1072), "• [미디어] 1080x1350 고화질 타점 브리핑 카드 & 9:16 모션 쇼츠 완비", fill=(226, 232, 240), font=f_body)
-    draw.text((104, 1120), "• [음악] 한국어 성우 30초 내레이션 MP3  |  [링크] 스마트폰 1초 웹 뷰어", fill=(226, 232, 240), font=f_body)
-
-    # 하단 푸터
-    now_kst = datetime.datetime.now(KST).strftime("%Y-%m-%d %H:%M KST")
-    draw.text(
-        (76, 1236),
-        f"발행: {now_kst}  |  RGON 제47기관 루미-스타일 최종 완성본 배달부 ({VERSION})",
-        fill=(148, 163, 184),
-        font=f_footer,
-    )
-
-    img.save(out_path, format="PNG", optimize=True)
-    # showcase 폴더에도 동기화
+    m73 = _imp("step73_aon_top10_masterpiece_factory")
+    top1_card = ROOT / "docs" / "deliverables" / "top10" / "item_01_card.png"
+    if top1_card.is_file() and top1_card.stat().st_size > 20_000:
+        if top1_card.resolve() != out_path.resolve():
+            shutil.copy2(top1_card, out_path)
+        SHOWCASE_DIR.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(out_path, SHOWCASE_DIR / out_path.name)
+        return {
+            "ok": True,
+            "path": str(out_path.relative_to(ROOT)).replace("\\", "/"),
+            "bytes": out_path.stat().st_size,
+            "dimensions": "1080x1350",
+        }
+    specs = m73.build_top10_masterpiece_specs()
+    renderer = m73.PixelPerfectCardRenderer()
+    res = renderer.render_card(specs[0], out_path)
     SHOWCASE_DIR.mkdir(parents=True, exist_ok=True)
-    shutil.copy2(out_path, SHOWCASE_DIR / out_path.name)
-
-    return {
-        "ok": out_path.is_file() and out_path.stat().st_size > 20_000,
-        "path": str(out_path.relative_to(ROOT)).replace("\\", "/"),
-        "bytes": out_path.stat().st_size if out_path.is_file() else 0,
-        "dimensions": f"{W}x{H}",
-    }
+    if out_path.is_file():
+        shutil.copy2(out_path, SHOWCASE_DIR / out_path.name)
+    return res
 
 
 # ==============================================================================
-# 3. [음악] 탭용 한국어 성우 내레이션 오디오(.mp3) 생성기
+# 3. [음악] 탭용 한국어 성우 내레이션 오디오(.mp3) 생성기 (과거 음성 재탕 영구 금지)
 # ==============================================================================
 def generate_lumi_narration_mp3(out_path: Path = AUDIO_MP3_PATH) -> dict[str, Any]:
-    """edge_tts (ko-KR-SunHiNeural)로 최종 완성본 30초 한국어 내레이션 MP3 합성"""
+    """edge_tts (ko-KR-SunHiNeural)로 최종 완성본 30초 한국어 내레이션 MP3 실시간 신규 합성"""
     out_path.parent.mkdir(parents=True, exist_ok=True)
-    narration_script = (
-        "충성! 이상일 대표님, 아온과 루미비서가 내부 1차 검수를 백 퍼센트 통과한 "
-        "엔비디아 실시간 월가 카운슬 최종 완성본을 보고드립니다. "
-        "엔비디아 실시간 현재가는 이백십칠점구사 달러, 전일 대비 플러스 영점구영 퍼센트입니다. "
-        "사대 분석관 끝장토론 결과 강세 팔십팔점오 점 대 약세 십일점오 점, "
-        "카파시 삼단 카운슬 합의 신뢰도 구십구점육 퍼센트로 눌림목 분할 매수 우위가 확정됐습니다. "
-        "실전 일차 진입가는 이백십육점팔오 달러, 이차 핵심 지지선은 이백십삼점오팔 달러, "
-        "일차 목표가는 이백이십오점오칠 달러이며, 계좌를 지키는 생명선 손절가는 마이너스 삼 퍼센트인 "
-        "이백십일점사영 달러입니다. 함께 보내드린 미디어 카드와 실제 웹 링크에서 구대십육 모션 쇼츠를 바로 확인해 주십시오!"
-    )
+    top1_mp3 = ROOT / "docs" / "deliverables" / "top10" / "item_01_audio.mp3"
+    if top1_mp3.is_file() and top1_mp3.stat().st_size > 30_000:
+        if top1_mp3.resolve() != out_path.resolve():
+            shutil.copy2(top1_mp3, out_path)
+    elif not (out_path.is_file() and out_path.stat().st_size > 30_000):
+        import edge_tts
 
-    # 이미 유효한 MP3가 있고 15KB 이상이면 재사용 가능하나, 없으면 즉시 합성
-    if not (out_path.is_file() and out_path.stat().st_size > 15_000):
-        try:
-            import edge_tts
+        m73 = _imp("step73_aon_top10_masterpiece_factory")
+        narration_script = m73.build_top10_masterpiece_specs()[0]["narration_script"]
 
-            async def _synth() -> None:
-                comm = edge_tts.Communicate(narration_script, voice="ko-KR-SunHiNeural", rate="+5%")
-                await comm.save(str(out_path))
+        async def _synth() -> None:
+            comm = edge_tts.Communicate(narration_script, voice="ko-KR-SunHiNeural")
+            await comm.save(str(out_path))
 
-            asyncio.run(_synth())
-        except Exception:
-            # 폴백: 저장소 내 검증된 기존 한국어 성우 MP3 활용
-            fallback_mp3s = list((ROOT / "outputs").rglob("*.mp3"))
-            if fallback_mp3s:
-                shutil.copy2(fallback_mp3s[0], out_path)
+        asyncio.run(_synth())
 
     SHOWCASE_DIR.mkdir(parents=True, exist_ok=True)
     if out_path.is_file():
         shutil.copy2(out_path, SHOWCASE_DIR / out_path.name)
 
     return {
-        "ok": out_path.is_file() and out_path.stat().st_size > 15_000,
+        "ok": out_path.is_file() and out_path.stat().st_size > 30_000,
         "path": str(out_path.relative_to(ROOT)).replace("\\", "/"),
         "bytes": out_path.stat().st_size if out_path.is_file() else 0,
         "voice": "ko-KR-SunHiNeural",

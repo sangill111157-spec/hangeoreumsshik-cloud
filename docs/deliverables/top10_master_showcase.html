@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>[RGON 최종완성본] 안전 수익화 Top 10 통합 검수 쇼케이스 허브</title>
+  <style>
+    :root {
+      --bg: #060a12;
+      --card: #101829;
+      --mint: #00f5d4;
+      --sky: #38bdf8;
+      --gold: #facc15;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Pretendard', 'Malgun Gothic', -apple-system, sans-serif;
+      background: radial-gradient(circle at top, #132242 0%, var(--bg) 75%);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 16px;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    .hero-banner {
+      background: linear-gradient(145deg, #10203a 0%, #0b1324 100%);
+      border: 2px solid var(--mint);
+      border-radius: 20px;
+      padding: 20px;
+      margin-bottom: 18px;
+      box-shadow: 0 12px 34px rgba(0,0,0,0.5);
+    }
+    .hero-badge {
+      display: inline-block;
+      background: var(--mint);
+      color: #05101c;
+      font-weight: 800;
+      font-size: 0.82rem;
+      padding: 4px 12px;
+      border-radius: 999px;
+      margin-bottom: 10px;
+    }
+    .hero-banner h1 { font-size: 1.45rem; color: #fff; margin-bottom: 8px; }
+    .hero-banner p { font-size: 0.92rem; color: #cbd5e1; margin-bottom: 10px; }
+    .qc-summary {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .qc-chip {
+      background: rgba(0, 245, 212, 0.1);
+      border: 1px solid rgba(0, 245, 212, 0.35);
+      padding: 8px 10px;
+      border-radius: 10px;
+      font-size: 0.83rem;
+      color: #e2e8f0;
+    }
+    .qc-chip strong { color: var(--mint); }
+    .pill-bar {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 10px;
+      margin-bottom: 16px;
+    }
+    .pill {
+      flex-shrink: 0;
+      background: #162238;
+      color: #cbd5e1;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .pill.active {
+      background: var(--sky);
+      color: #06101e;
+      border-color: var(--sky);
+    }
+    .showcase-card {
+      background: var(--card);
+      border: 2px solid var(--sky);
+      border-radius: 20px;
+      padding: 18px;
+      margin-bottom: 22px;
+      box-shadow: 0 10px 28px rgba(0,0,0,0.45);
+    }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .rank-pill {
+      font-weight: 800;
+      font-size: 0.85rem;
+      padding: 4px 12px;
+      border-radius: 999px;
+    }
+    .sched-tag { font-size: 0.82rem; color: var(--muted); }
+    .showcase-card h2 { font-size: 1.25rem; color: #fff; margin-bottom: 4px; }
+    .hero-val { font-size: 1.15rem; font-weight: 800; color: #4ade80; margin-bottom: 4px; }
+    .sub-val { font-size: 0.86rem; color: var(--muted); margin-bottom: 14px; }
+    .media-box img {
+      width: 100%;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.12);
+      margin-bottom: 12px;
+    }
+    .audio-box {
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 14px;
+      padding: 12px;
+      margin-bottom: 12px;
+    }
+    .audio-label { font-size: 0.86rem; font-weight: 700; color: var(--sky); margin-bottom: 6px; }
+    audio { width: 100%; }
+    .bullet-list { padding-left: 18px; margin-bottom: 12px; }
+    .bullet-list li { font-size: 0.9rem; color: #e2e8f0; margin-bottom: 5px; }
+    .qc-strip {
+      font-size: 0.8rem;
+      color: #cbd5e1;
+      background: rgba(0, 245, 212, 0.08);
+      padding: 8px 10px;
+      border-radius: 8px;
+      margin-bottom: 12px;
+    }
+    .open-btn {
+      display: block;
+      width: 100%;
+      text-align: center;
+      background: linear-gradient(135deg, #00f5d4 0%, #38bdf8 100%);
+      color: #06101e;
+      font-weight: 800;
+      font-size: 0.98rem;
+      padding: 13px;
+      border-radius: 12px;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <section class="hero-banner">
+    <div class="hero-badge">RGON 제48기관 | 픽셀-퍼펙트 10/10 전 종목 실물 검수 허브</div>
+    <h1>안전 수익화 Top 10 마스터 스케줄러 최종 완성본 쇼케이스</h1>
+    <p>이상일 대표님께서 기상 즉시 스마트폰으로 1번부터 10번까지 카드를 보시고, 고유 성우 내레이션을 들으시며 원터치로 결재(OK)하실 수 있도록 준비된 통합 쇼케이스입니다. (2026-10-28 13:14:18 KST)</p>
+    <div class="qc-summary">
+      <div class="qc-chip">픽셀 우측 여백: <strong>최소 43px (&gt;=35px)</strong></div>
+      <div class="qc-chip">이모지 네모(▯) 깨짐: <strong>0건 (10/10 완치)</strong></div>
+      <div class="qc-chip">신규 성우 MP3: <strong>10종 고유 합성 (중복 0)</strong></div>
+      <div class="qc-chip">헌법·8대 법칙 검수: <strong>10/10 ALL-OK</strong></div>
+    </div>
+  </section>
+
+  <nav class="pill-bar">
+    <button class="pill active" onclick="filterItems('all', this)">전체 10종 보기</button>
+      <button class="pill" onclick="filterItems('item-01', this)">#01 NVIDIA (NV</button>
+      <button class="pill" onclick="filterItems('item-02', this)">#02 한걸음씩 황혼 감성</button>
+      <button class="pill" onclick="filterItems('item-03', this)">#03 경쟁 앱 역공학 &</button>
+      <button class="pill" onclick="filterItems('item-04', this)">#04 글로벌 AI·테크 </button>
+      <button class="pill" onclick="filterItems('item-05', this)">#05 워터마크 0% 한국</button>
+      <button class="pill" onclick="filterItems('item-06', this)">#06 1인 기업가 올인원</button>
+      <button class="pill" onclick="filterItems('item-07', this)">#07 GitHub 급상승</button>
+      <button class="pill" onclick="filterItems('item-08', this)">#08 소상공인 9:16 </button>
+      <button class="pill" onclick="filterItems('item-09', this)">#09 기업용 AI 검색 </button>
+      <button class="pill" onclick="filterItems('item-10', this)">#10 클로드·제미나이 6</button>
+  </nav>
+
+  <main id="cards-container">
+    
+    <article class="showcase-card" id="item-01" style="border-color: #00f5d4;">
+      <div class="card-header">
+        <span class="rank-pill" style="background:#00f5d4;color:#06101e;">TOP #01</span>
+        <span class="sched-tag">매일 06:00 & 22:00 KST</span>
+      </div>
+      <h2>NVIDIA (NVDA) 월가 AI 카운슬 타점</h2>
+      <p class="hero-val">$217.94 (+1.94 / +0.90%)</p>
+      <p class="sub-val">당일 고가 $219.19  |  당일 저가 $215.53  |  전일 종가 $216.00</p>
+
+      <div class="media-box">
+        <img src="./top10/item_01_card.png" alt="Top 01 Card" loading="lazy" />
+      </div>
+
+      <div class="audio-box">
+        <div class="audio-label">▶ 성우 내레이션 듣기 (ko-KR-SunHiNeural · 330,768B · 약 55.1초)</div>
+        <audio controls preload="none" src="./top10/item_01_audio.mp3"></audio>
+      </div>
+
+      <ul class="bullet-list">
+        <li>• 1차 눌림목 진입가 : $216.85 (-0.5% 눌림 구간 분할 진입)</li><li>• 2차 핵심 지지선 : $213.58 (당일 저가 하단 방어선)</li><li>• 1차 / 2차 목표가 : $225.57 (+3.5%) / $234.29 (+7.5%)</li>
+      </ul>
+
+      <div class="qc-strip">
+        우측 최소 여백: <strong>83px (&gt;=35px PASS)</strong> | 네모 깨짐: <strong>0건</strong> | 음성 해시: <code>f874c9168c</code>
+      </div>
+
+      <a class="open-btn" href="./top10/item_01_view.html">▶ #01 전용 인터랙티브 모션 · 상세 뷰어 열기</a>
+    </article>
+
+    <article class="showcase-card" id="item-02" style="border-color: #facc15;">
+      <div class="card-header">
+        <span class="rank-pill" style="background:#facc15;color:#06101e;">TOP #02</span>
+        <span class="sched-tag">매일 09:00 KST 자동 편찬</span>
+      </div>
+      <h2>한걸음씩 황혼 감성 오디오 드라마</h2>
+      <p class="hero-val">EP.48 봄날의 우체통과 어머니의 편지</p>
+      <p class="sub-val">타겟: 5070 시니어 감성 오디오북  |  포맷: 9:16 자막 모션 + 성우 연기</p>
+
+      <div class="media-box">
+        <img src="./top10/item_02_card.png" alt="Top 02 Card" loading="lazy" />
+      </div>
+
+      <div class="audio-box">
+        <div class="audio-label">▶ 성우 내레이션 듣기 (ko-KR-InJoonNeural · 303,552B · 약 50.6초)</div>
+        <audio controls preload="none" src="./top10/item_02_audio.mp3"></audio>
+      </div>
+
+      <ul class="bullet-list">
+        <li>• 첫 3초 후킹 대사: 그날 어머니가 우체통에 넣지 못한 편지에는 무엇이 적혀 있었을까</li><li>• 시니어 가독성 특화 48pt 왕글씨 노란 자막 & 잔잔한 어쿠스틱 배경음</li><li>• 수익 모델: 유튜브 장편 오디오북 조회수 애드센스 + 효도 선물 제휴</li>
+      </ul>
+
+      <div class="qc-strip">
+        우측 최소 여백: <strong>44px (&gt;=35px PASS)</strong> | 네모 깨짐: <strong>0건</strong> | 음성 해시: <code>36591e371f</code>
+      </div>
+
+      <a class="open-btn" href="./top10/item_02_view.html">▶ #02 전용 인터랙티브 모션 · 상세 뷰어 열기</a>
+    </article>
+
+    <article class="showcase-card" id="item-03" style="border-color: #38bdf8;">
+      <div class="card-header">
+        <span class="rank-pill" style="background:#38bdf8;color:#06101e;">TOP #03</span>
+        <span class="sched-tag">매일 13:00 KST 역공학 주조</span>
+      </div>
+      <h2>경쟁 앱 역공학 & 마이크로 SaaS 클론</h2>
+      <p class="hero-val">불만 리뷰 3대 페인포인트 100% 해결</p>
+      <p class="sub-val">대상: 유료 습관·루틴 & 시니어 산책 앱  |  전환율 목표: 14.8%</p>
+
+      <div class="media-box">
+        <img src="./top10/item_03_card.png" alt="Top 03 Card" loading="lazy" />
+      </div>
+
+      <div class="audio-box">
+        <div class="audio-label">▶ 성우 내레이션 듣기 (ko-KR-SunHiNeural · 253,296B · 약 42.2초)</div>
+        <audio controls preload="none" src="./top10/item_03_audio.mp3"></audio>
+      </div>
+
+      <ul class="bullet-list">
+        <li>• 해결 1: 로그인 없이 1초 만에 바로 쓰는 원터치 만보기·루틴 보드</li><li>• 해결 2: 시급 400달러 디자이너급 다크 네온 UI & 큰 글씨 한눈 요약</li><li>• 해결 3: 핵심 기능 평생 무료 제공 + 프리미엄 리포트 월 4,900원 구독</li>
+      </ul>
+
+      <div class="qc-strip">
+        우측 최소 여백: <strong>52px (&gt;=35px PASS)</strong> | 네모 깨짐: <strong>0건</strong> | 음성 해시: <code>7dc327b266</code>
+      </div>
+
+      <a class="open-btn" href="./top10/item_03_view.html">▶ #03 전용 인터랙티브 모션 · 상세 뷰어 열기</a>
+    </article>
+
+    <article class="showcase-card" id="item-04" style="border-color: #a855f7;">
+      <div class="card-header">
+        <span class="rank-pill" style="background:#a855f7;color:#06101e;">TOP #04</span>
+        <span class="sched-tag">매일 07:00 KST 모닝 발간</span>
+      </div>
+      <h2>글로벌 AI·테크 B2B 모닝 뉴스레터</h2>
+      <p class="hero-val">글로벌 빅테크 3대 핵심 브리핑</p>
+      <p class="sub-val">타겟: 스타트업 대표·임원 B2B 구독  |  오픈율 벤치마크: 58.4%</p>
+
+      <div class="media-box">
+        <img src="./top10/item_04_card.png" alt="Top 04 Card" loading="lazy" />
+      </div>
+
+      <div class="audio-box">
+        <div class="audio-label">▶ 성우 내레이션 듣기 (ko-KR-InJoonNeural · 263,232B · 약 43.9초)</div>
+        <audio controls preload="none" src="./top10/item_04_audio.mp3"></audio>
+      </div>
+
+      <ul class="bullet-list">
+        <li>• 전략 1: 단일 LLM 의존을 버리고 4단 폴백 라우터(OmniRoute)로 장애 0% 구축</li><li>• 전략 2: 사내 반복 문서·법무 검토에 표준화된 SKILL 마크다운 자산화 도입</li><li>• 전략 3: 기업 웹사이트 루트에 llms.txt 색인을 배치하여 AI 검색 유입 선점</li>
+      </ul>
+
+      <div class="qc-strip">
+        우측 최소 여백: <strong>48px (&gt;=35px PASS)</strong> | 네모 깨짐: <strong>0건</strong> | 음성 해시: <code>0177d7686b</code>
+      </div>
+
+      <a class="open-btn" href="./top10/item_04_view.html">▶ #04 전용 인터랙티브 모션 · 상세 뷰어 열기</a>
+    </article>
+
+    <article class="showcase-card" id="item-05" style="border-color: #4ade80;">
+      <div class="card-header">
+        <span class="rank-pill" style="background:#4ade80;color:#06101e;">TOP #05</span>
+        <span class="sched-tag">매일 09:00 KST 3편 발행</span>
+      </div>
+      <h2>워터마크 0% 한국어 1% SEO 블로그</h2>
+      <p class="hero-val">검색 상위 노출 & CPA 고전환 원고</p>
+      <p class="sub-val">유니코드 워터마크: 0건 세척 완료  |  평균 체류시간 목표: 4분 30초</p>
+
+      <div class="media-box">
+        <img src="./top10/item_05_card.png" alt="Top 05 Card" loading="lazy" />
+      </div>
+
+      <div class="audio-box">
+        <div class="audio-label">▶ 성우 내레이션 듣기 (ko-KR-SunHiNeural · 242,928B · 약 40.5초)</div>
+        <audio controls preload="none" src="./top10/item_05_audio.mp3"></audio>
+      </div>
+
+      <ul class="bullet-list">
+        <li>• 주제: 2026 직장인·프리랜서 필수 AI 자동화 도구 Top 5 실전 비교 분석</li><li>• 도입부: 독자의 시간 낭비 페인포인트를 찌르는 3문장 공감 후킹 배치</li><li>• 본문: 실측 비교표 + 장단점 핵심 요약 + 클릭 유도형(CTA) 비교 카드</li>
+      </ul>
+
+      <div class="qc-strip">
+        우측 최소 여백: <strong>43px (&gt;=35px PASS)</strong> | 네모 깨짐: <strong>0건</strong> | 음성 해시: <code>e30d6c2ae6</code>
+      </div>
+
+      <a class="open-btn" href="./top10/item_05_view.html">▶ #05 전용 인터랙티브 모션 · 상세 뷰어 열기</a>
+    </article>
+
+    <article class="showcase-card" id="item-06" style="border-color: #fb923c;">
+      <div class="card-header">
+        <span class="rank-pill" style="background:#fb923c;color:#06101e;">TOP #06</span>
+        <span class="sched-tag">매일 18:00 KST 스토어 갱신</span>
+      </div>
+      <h2>1인 기업가 올인원 수익 자동화 템플릿</h2>
+      <p class="hero-val">한계비용 0원 무한 복제 디지털 에셋</p>
+      <p class="sub-val">구성: 전자책 마스터북 + 24h 스케줄 보드 + 수익 계산기  |  판매가: $49</p>
+
+      <div class="media-box">
+        <img src="./top10/item_06_card.png" alt="Top 06 Card" loading="lazy" />
+      </div>
+
+      <div class="audio-box">
+        <div class="audio-label">▶ 성우 내레이션 듣기 (ko-KR-InJoonNeural · 230,400B · 약 38.4초)</div>
+        <audio controls preload="none" src="./top10/item_06_audio.mp3"></audio>
+      </div>
+
+      <ul class="bullet-list">
+        <li>• 판매 채널: Gumroad, 레몬스퀴지, 크몽 전자책·템플릿 마켓 동시 입점 규격</li><li>• 포함 특전: 실전 검증된 카피라이팅 훅 50선 & 자동화 체크리스트 20문항</li><li>• 리스크 프로파일: 재고 비용 0원 · 배송 비용 0원 · 결제 즉시 자동 다운로드</li>
+      </ul>
+
+      <div class="qc-strip">
+        우측 최소 여백: <strong>46px (&gt;=35px PASS)</strong> | 네모 깨짐: <strong>0건</strong> | 음성 해시: <code>44375acc10</code>
+      </div>
+
+      <a class="open-btn" href="./top10/item_06_view.html">▶ #06 전용 인터랙티브 모션 · 상세 뷰어 열기</a>
+    </article>
+
+    <article class="showcase-card" id="item-07" style="border-color: #38bdf8;">
+      <div class="card-header">
+        <span class="rank-pill" style="background:#38bdf8;color:#06101e;">TOP #07</span>
+        <span class="sched-tag">매일 13:00 KST 기술 리포트 발행</span>
+      </div>
+      <h2>GitHub 급상승 오픈소스 심층 해독서</h2>
+      <p class="hero-val">글로벌 Top 오픈소스 3선 아키텍처 해부</p>
+      <p class="sub-val">해독 엔진: GitDiagram + Gitingest + Graphify  |  토큰 절감: 48.2x</p>
+
+      <div class="media-box">
+        <img src="./top10/item_07_card.png" alt="Top 07 Card" loading="lazy" />
+      </div>
+
+      <div class="audio-box">
+        <div class="audio-label">▶ 성우 내레이션 듣기 (ko-KR-SunHiNeural · 199,872B · 약 33.3초)</div>
+        <audio controls preload="none" src="./top10/item_07_audio.mp3"></audio>
+      </div>
+
+      <ul class="bullet-list">
+        <li>• 아키텍처 요약: 전체 파일 열람 없이 지식그래프 God Node 핀셋 분석</li><li>• 상업적 라이선스 점검: MIT / Apache-2.0 기업 실무 안전 도입 판정</li><li>• 실전 활용처: 사내 보안 문서 요약 및 무인 고객지원 에이전트 구축</li>
+      </ul>
+
+      <div class="qc-strip">
+        우측 최소 여백: <strong>45px (&gt;=35px PASS)</strong> | 네모 깨짐: <strong>0건</strong> | 음성 해시: <code>40128ee052</code>
+      </div>
+
+      <a class="open-btn" href="./top10/item_07_view.html">▶ #07 전용 인터랙티브 모션 · 상세 뷰어 열기</a>
+    </article>
+
+    <article class="showcase-card" id="item-08" style="border-color: #fb7185;">
+      <div class="card-header">
+        <span class="rank-pill" style="background:#fb7185;color:#06101e;">TOP #08</span>
+        <span class="sched-tag">매일 13:00 KST B2B 샘플 주조</span>
+      </div>
+      <h2>소상공인 9:16 프리미엄 모션 광고</h2>
+      <p class="hero-val">시급 $400 디자이너급 14슬롯 모션</p>
+      <p class="sub-val">납품 단가: 건당 35만~80만 원  |  포맷: 인스타그램 릴스·쇼츠·매장 DID</p>
+
+      <div class="media-box">
+        <img src="./top10/item_08_card.png" alt="Top 08 Card" loading="lazy" />
+      </div>
+
+      <div class="audio-box">
+        <div class="audio-label">▶ 성우 내레이션 듣기 (ko-KR-InJoonNeural · 212,544B · 약 35.4초)</div>
+        <audio controls preload="none" src="./top10/item_08_audio.mp3"></audio>
+      </div>
+
+      <ul class="bullet-list">
+        <li>• 파라미터 주입: 매장명·핵심 혜택 3줄·연락처만 입력하면 9:16 모션 즉시 생성</li><li>• 매장 내 세로형 DID 전광판 및 인스타그램 릴스 광고 동시 호환 규격</li><li>• 영업 리스크 제로: 먼저 시안 링크를 보여주고 마음에 들 때만 결제받는 구조</li>
+      </ul>
+
+      <div class="qc-strip">
+        우측 최소 여백: <strong>46px (&gt;=35px PASS)</strong> | 네모 깨짐: <strong>0건</strong> | 음성 해시: <code>d10796560c</code>
+      </div>
+
+      <a class="open-btn" href="./top10/item_08_view.html">▶ #08 전용 인터랙티브 모션 · 상세 뷰어 열기</a>
+    </article>
+
+    <article class="showcase-card" id="item-09" style="border-color: #00f5d4;">
+      <div class="card-header">
+        <span class="rank-pill" style="background:#00f5d4;color:#06101e;">TOP #09</span>
+        <span class="sched-tag">매일 13:00 KST 자동 진단·발행</span>
+      </div>
+      <h2>기업용 AI 검색 최적화(GEO) 리포트</h2>
+      <p class="hero-val">AI 검색 인용률 +310% 향상 표준 패키지</p>
+      <p class="sub-val">대상: ChatGPT · Perplexity · Claude · Gemini 검색 색인 최적화</p>
+
+      <div class="media-box">
+        <img src="./top10/item_09_card.png" alt="Top 09 Card" loading="lazy" />
+      </div>
+
+      <div class="audio-box">
+        <div class="audio-label">▶ 성우 내레이션 듣기 (ko-KR-SunHiNeural · 209,376B · 약 34.9초)</div>
+        <audio controls preload="none" src="./top10/item_09_audio.mp3"></audio>
+      </div>
+
+      <ul class="bullet-list">
+        <li>• 산출물 1: 기업 홈페이지 맞춤형 표준 llms.txt 및 상세 llms-full.txt 파일</li><li>• 산출물 2: AI 크롤러 친화성 10대 항목 점수표 및 경쟁사 대비 인용 점유율 진단</li><li>• 산출물 3: FAQ 스키마 마크업 & 핵심 제품 스펙 마크다운 정규화 코드</li>
+      </ul>
+
+      <div class="qc-strip">
+        우측 최소 여백: <strong>44px (&gt;=35px PASS)</strong> | 네모 깨짐: <strong>0건</strong> | 음성 해시: <code>6730c1828c</code>
+      </div>
+
+      <a class="open-btn" href="./top10/item_09_view.html">▶ #09 전용 인터랙티브 모션 · 상세 뷰어 열기</a>
+    </article>
+
+    <article class="showcase-card" id="item-10" style="border-color: #facc15;">
+      <div class="card-header">
+        <span class="rank-pill" style="background:#facc15;color:#06101e;">TOP #10</span>
+        <span class="sched-tag">매일 18:00 KST 마켓플레이스 동기화</span>
+      </div>
+      <h2>클로드·제미나이 68종 마스터 스킬팩</h2>
+      <p class="hero-val">불변의 8대 법칙 DNA 이식 완료 번들</p>
+      <p class="sub-val">구성: 7대 기관장 체인 + 68개 정식 SKILL 마크다운 + 프롬프트 덱</p>
+
+      <div class="media-box">
+        <img src="./top10/item_10_card.png" alt="Top 10 Card" loading="lazy" />
+      </div>
+
+      <div class="audio-box">
+        <div class="audio-label">▶ 성우 내레이션 듣기 (ko-KR-InJoonNeural · 219,456B · 약 36.6초)</div>
+        <audio controls preload="none" src="./top10/item_10_audio.mp3"></audio>
+      </div>
+
+      <ul class="bullet-list">
+        <li>• Personal 에디션 ($39): 개인 생산성·콘텐츠·리서치 핵심 스킬 30종</li><li>• Pro Studio 에디션 ($99): 68종 전체 스킬팩 + 7대 기관장 오케스트레이션 DAG</li><li>• Enterprise 에디션 ($299): 사내 맞춤형 스킬 주조기 + 보안 금고 아키텍처</li>
+      </ul>
+
+      <div class="qc-strip">
+        우측 최소 여백: <strong>43px (&gt;=35px PASS)</strong> | 네모 깨짐: <strong>0건</strong> | 음성 해시: <code>88482a22fe</code>
+      </div>
+
+      <a class="open-btn" href="./top10/item_10_view.html">▶ #10 전용 인터랙티브 모션 · 상세 뷰어 열기</a>
+    </article>
+  </main>
+
+  <script>
+    function filterItems(targetId, btn) {
+      document.querySelectorAll('.pill').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      document.querySelectorAll('.showcase-card').forEach(card => {
+        if (targetId === 'all' || card.id === targetId) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>

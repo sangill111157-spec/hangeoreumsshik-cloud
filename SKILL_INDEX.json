@@ -1,15 +1,15 @@
 {
-  "version": "v11.80-AON-LUMI-FINAL-DELIVERABLE-SENDER",
+  "version": "v11.82-AON-PIXEL-PERFECT-TOP10-MASTERPIECE",
   "ssot_baseline_version": "v11.66-AON-GENERAL-HOSPITAL",
-  "antibody": "R1~R71",
-  "antibody_range": "R1~R71",
-  "antibodies": "R1~R71",
-  "immune": "R1~R71",
-  "generated_at_kst": "2026-10-28 12:40:52 KST",
-  "count": 67,
-  "total": 67,
-  "skill_count": 67,
-  "total_skills": 67,
+  "antibody": "R1~R72",
+  "antibody_range": "R1~R72",
+  "antibodies": "R1~R72",
+  "immune": "R1~R72",
+  "generated_at_kst": "2026-10-28 13:11:55 KST",
+  "count": 68,
+  "total": 68,
+  "skill_count": 68,
+  "total_skills": 68,
   "ssot_baseline_skill_count": 60,
   "skills": [
     {
@@ -625,6 +625,18 @@
       "antibody": "R71",
       "engine_file": "step72_aon_final_deliverable_sender.py",
       "path": "skills/aon_lumi_final_deliverable_sender/SKILL.md"
+    },
+    {
+      "no": 68,
+      "id": "aon_pixel_perfect_top10_masterpiece_factory",
+      "slug": "aon_pixel_perfect_top10_masterpiece_factory",
+      "name": "제48기관 픽셀-퍼펙트 시각 검수기 & 안전 수익화 Top 10 최종 완성본 마스터피스 팩토리",
+      "organ": "ORGAN-48-PIXEL-PERFECT-TOP10-MASTERPIECE",
+      "step": 73,
+      "version": "v11.82-AON-PIXEL-PERFECT-TOP10-MASTERPIECE",
+      "antibody": "R72",
+      "engine_file": "step73_aon_top10_masterpiece_factory.py",
+      "path": "skills/aon_pixel_perfect_top10_masterpiece_factory/SKILL.md"
     }
   ]
 }
