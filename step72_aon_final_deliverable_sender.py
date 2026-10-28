@@ -68,6 +68,7 @@ DRAWER_ID = "step72-lumi-final-deliverable-drawer"
 MARKER = "RGON-STEP72-LUMI-FINAL-DELIVERABLE-SENDER-20261028"
 
 DELIVERABLES_DIR = ROOT / "docs" / "deliverables"
+ROOT_DELIVERABLES_DIR = ROOT / "deliverables"
 SHOWCASE_DIR = ROOT / "outputs" / "pilot1_live_showcase"
 
 CARD_PNG_PATH = DELIVERABLES_DIR / "nvda_final_deliverable_card.png"
@@ -75,12 +76,11 @@ AUDIO_MP3_PATH = DELIVERABLES_DIR / "nvda_final_narration_ko.mp3"
 MOTION_HTML_DST_PATH = DELIVERABLES_DIR / "nvda_shorts_motion_preview.html"
 HUB_HTML_DST_PATH = DELIVERABLES_DIR / "final_deliverable_hub.html"
 
-GITHUB_PAGES_BASE = "https://sangill111157-spec.github.io/hangeoreumsshik-cloud/deliverables"
+GITHUB_PAGES_BASE = "https://sangill111157-spec.github.io/hangeoreumsshik-cloud/docs/deliverables"
 LIVE_HUB_URL = f"{GITHUB_PAGES_BASE}/final_deliverable_hub.html"
 LIVE_MOTION_URL = f"{GITHUB_PAGES_BASE}/nvda_shorts_motion_preview.html"
 HTMLPREVIEW_HUB_URL = (
-    "https://htmlpreview.github.io/?https://github.com/sangill111157-spec/"
-    "hangeoreumsshik-cloud/blob/main/docs/deliverables/final_deliverable_hub.html"
+    "https://sangill111157-spec.github.io/hangeoreumsshik-cloud/deliverables/final_deliverable_hub.html"
 )
 
 REPORT_PATH = ROOT / "rgon_step72_lumi_deliverable_report.json"
@@ -465,6 +465,13 @@ def publish_deliverable_web_hub() -> dict[str, Any]:
 </html>
 """
     HUB_HTML_DST_PATH.write_text(hub_html, encoding="utf-8")
+
+    # 루트 deliverables/ 경로에도 동일 미러링하여 /deliverables/... 및 /docs/deliverables/... 양쪽 URL 100% HTTP 200 보장
+    ROOT_DELIVERABLES_DIR.mkdir(parents=True, exist_ok=True)
+    for f in DELIVERABLES_DIR.iterdir():
+        if f.is_file():
+            shutil.copy2(f, ROOT_DELIVERABLES_DIR / f.name)
+
     return {
         "ok": HUB_HTML_DST_PATH.is_file() and MOTION_HTML_DST_PATH.is_file(),
         "hub_html_path": str(HUB_HTML_DST_PATH.relative_to(ROOT)).replace("\\", "/"),

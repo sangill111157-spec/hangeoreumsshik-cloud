@@ -216,8 +216,8 @@
       "engine_file": "step72_aon_final_deliverable_sender.py",
       "report_json": "rgon_step72_lumi_deliverable_report.json",
       "html_drawer_id": "step72-lumi-final-deliverable-drawer",
-      "live_hub_url": "https://sangill111157-spec.github.io/hangeoreumsshik-cloud/deliverables/final_deliverable_hub.html",
-      "live_motion_url": "https://sangill111157-spec.github.io/hangeoreumsshik-cloud/deliverables/nvda_shorts_motion_preview.html"
+      "live_hub_url": "https://sangill111157-spec.github.io/hangeoreumsshik-cloud/docs/deliverables/final_deliverable_hub.html",
+      "live_motion_url": "https://sangill111157-spec.github.io/hangeoreumsshik-cloud/docs/deliverables/nvda_shorts_motion_preview.html"
     }
   },
   "neural_synapse_verifier": {

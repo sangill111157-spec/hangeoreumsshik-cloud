@@ -77,7 +77,7 @@
       "media_png": {
         "ok": true,
         "path": "docs/deliverables/nvda_final_deliverable_card.png",
-        "bytes": 163455,
+        "bytes": 163485,
         "dimensions": "1080x1350"
       },
       "music_mp3": {
@@ -92,9 +92,9 @@
         "ok": true,
         "hub_html_path": "docs/deliverables/final_deliverable_hub.html",
         "motion_html_path": "docs/deliverables/nvda_shorts_motion_preview.html",
-        "live_hub_url": "https://sangill111157-spec.github.io/hangeoreumsshik-cloud/deliverables/final_deliverable_hub.html",
-        "live_motion_url": "https://sangill111157-spec.github.io/hangeoreumsshik-cloud/deliverables/nvda_shorts_motion_preview.html",
-        "htmlpreview_hub_url": "https://htmlpreview.github.io/?https://github.com/sangill111157-spec/hangeoreumsshik-cloud/blob/main/docs/deliverables/final_deliverable_hub.html"
+        "live_hub_url": "https://sangill111157-spec.github.io/hangeoreumsshik-cloud/docs/deliverables/final_deliverable_hub.html",
+        "live_motion_url": "https://sangill111157-spec.github.io/hangeoreumsshik-cloud/docs/deliverables/nvda_shorts_motion_preview.html",
+        "htmlpreview_hub_url": "https://sangill111157-spec.github.io/hangeoreumsshik-cloud/deliverables/final_deliverable_hub.html"
       }
     },
     "_immutable_dna_seal": {
@@ -127,10 +127,10 @@
       "LINK_VERIFIED_HTTPS"
     ],
     "live_urls": [
-      "https://sangill111157-spec.github.io/hangeoreumsshik-cloud/deliverables/final_deliverable_hub.html",
-      "https://sangill111157-spec.github.io/hangeoreumsshik-cloud/deliverables/nvda_shorts_motion_preview.html"
+      "https://sangill111157-spec.github.io/hangeoreumsshik-cloud/docs/deliverables/final_deliverable_hub.html",
+      "https://sangill111157-spec.github.io/hangeoreumsshik-cloud/docs/deliverables/nvda_shorts_motion_preview.html"
     ],
-    "elapsed_sec": 0.3273
+    "elapsed_sec": 0.249
   },
   "live_telegram_3tab_receipt": {
     "ok": true,
@@ -160,8 +160,8 @@
     },
     "elapsed_sec": 7.4754
   },
-  "elapsed_sec": 0.6029,
-  "timestamp": "2026-10-28T12:41:48+09:00",
+  "elapsed_sec": 0.5991,
+  "timestamp": "2026-10-28T12:44:30+09:00",
   "skill_index_sync": {
     "ok": true,
     "total_formal_skills": 67,
