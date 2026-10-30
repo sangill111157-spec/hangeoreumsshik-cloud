@@ -1,2 +1,5 @@
-[{"createdBy":"user","id":0,"name":"","ownership":"agent","profileId":"Profile 2","profileName":"sangill lee","recentTabTitles":["르곤 보좌관 인수인계 및 GitHub 푸시 검증 요청","Library | Suno"],"taskId":""},{"createdBy":"user","id":2,"name":"","ownership":"agent","profileId":"Profile 2","profileName":"sangill lee","recentTabTitles":["썬원 에이온 환원 제국 마스터 파이프라인 설계 요청","Genspark(젠스파크) - 누구나 쉽게 쓰는 올인원 AI 워크스페이스"],"taskId":""},{"createdBy":"user","id":3,"name":"","ownership":"agent","profileId":"Profile 2","profileName":"sangill lee","recentTabTitles":["썬원 에이온 S1 완공 파이프라인 및 보안 아키텍처 설계 요청","Genspark(젠스파크) - 누구나 쉽게 쓰는 올인원 AI 워크스페이스"],"taskId":""}]
+LEN=206
+TypeError: t.pages is not a function or its return value is not iterable
+    at file:///C:/Program%20Files/Citro%20Labs/ego%20lite/Application/0.6.2.5/[eval2]:1:68
 
+ego's nodejs process exited with code 1.
