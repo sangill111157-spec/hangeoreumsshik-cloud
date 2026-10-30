@@ -1,12 +1,17 @@
 {
-  "id": "./rgon_alpha_chat.html",
-  "name": "RGON 독대실",
-  "short_name": "RGON",
-  "description": "이상일 대표님 전용 RGON AI 독대실",
-  "start_url": "./rgon_alpha_chat.html?v5=1",
+  "name": "S1 썬원 에이온 중앙컨트롤타워 & 만능소통창",
+  "short_name": "S1 컨트롤타워",
+  "description": "이상일 대표님 전용 S1 환원 제국 중앙컨트롤타워 및 만능소통창 (모바일/PC 전 브라우저 완벽 호환)",
+  "id": "./index.html",
+  "start_url": "./index.html?source=pwa",
   "scope": "./",
   "display": "standalone",
-  "orientation": "portrait-primary",
+  "display_override": [
+    "window-controls-overlay",
+    "standalone",
+    "minimal-ui"
+  ],
+  "orientation": "any",
   "background_color": "#070b14",
   "theme_color": "#070b14",
   "icons": [
@@ -14,25 +19,23 @@
       "src": "icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any"
+      "purpose": "any maskable"
     },
     {
       "src": "icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any"
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "만능소통창 독대실",
+      "url": "./rgon_alpha_chat.html"
     },
     {
-      "src": "icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "maskable"
-    },
-    {
-      "src": "icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
+      "name": "중앙컨트롤타워 본관",
+      "url": "./index.html"
     }
   ]
 }
