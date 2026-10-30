@@ -9,11 +9,11 @@ root
       image
       container
         text "SUN-ONE AON"
-        text "S1 만능소통창 · 8대 코어 ON"
+        text "S1 만능소통창 · 읽기 전용 (서버 미연결)"
     container
-      button [ref=16]
+      button [ref=25]
         text "8대코어"
-      button [ref=17]
+      button [ref=26]
         text "+ 앱 설치"
   container
     container
@@ -25,96 +25,100 @@ root
       text "온 세상에 본연의 밝음을 되찾아주는 환원의 시작점."
       text "어느 브라우저·스마트폰에서든 하나로 연결되는 만능소통창입니다."
     container
-      button [ref=18]
+      button [ref=27]
         text "삼성 5회전 현황"
-      button [ref=19]
+      button [ref=28]
         text "8대 코어 실측 상태"
-      button [ref=20]
+      button [ref=29]
         text "Suno v6 명작 작업"
-      button [ref=21]
+      button [ref=30]
         text "킬스위치 점검"
   form
-    button [ref=22]
+    button [ref=31]
       text "+"
-    textbox [ref=23, loc=css:input[placeholder="대표님, 무엇이든 하명하십시오..."]]
+    textbox [ref=32, loc=css:input[placeholder="대표님, 무엇이든 하명하십시오..."]]
       text "대표님, 무엇이든 하명하십시오..."
-    button [ref=24]
+    button [ref=33]
       text "전송"
 
 ```
 
 ## SPACE 2
- class="bs">S1 만능소통창 · 8대 코어 ON</span></div></div><div class="ac"><button type="button" class="btn" id="b-core">8대코어</button><button type="button" class="btn pri" id="b-pwa">+ 앱 설치</button></div></header><section class="dr" id="dr-core"><div class="cc"><span>Core 1 킬스위치</span><span class="dot"></span></div><div class="cc"><span>Core 2 UUID원장</span><span class="dot"></span></div><div class="cc"><span>Core 3 48kHz마스터</span><span class="dot"></span></div><div class="cc"><span>Core 4 시네마틱루프</span><span class="dot"></span></div><div class="cc"><span>Core 5 SHA256감사</span><span class="dot"></span></div><div class="cc"><span>Core 6 옴니채널배급</span><span class="dot"></span></div><div class="cc"><span>Core 7 성과·IP확장</span><span class="dot"></span></div><div class="cc"><span>Core 8 퀀트·환원</span><span class="dot"></span></div></section><main class="mn" id="st"><div class="hr" id="hr"><div class="hr-logos"><img class="emblem" src="./s1_logo_2.png" alt="Emblem"><img class="wide" src="./s1_logo_3.png" alt="Banner"></div><h1>SUN-ONE AON · 썬원 에이온</h1><p>온 세상에 본연의 밝음을 되찾아주는 환원의 시작점.<br>어느 브라우저·스마트폰에서든 하나로 연결되는 만능소통창입니다.</p><div class="cps"><button class="cp" data-q="삼성 5회전 회의 현황 보고해">삼성 5회전 현황</button><button class="cp" data-q="S1 8대 코어 및 V3 정밀 검산 상태 브리핑해">8대 코어 실측 상태</button><button class="cp" data-q="Suno v6 제1호 명작 앨범 작업 이어가자">Suno v6 명작 작업</button><button class="cp" data-q="비상 정지 스위치 상태 확인해">킬스위치 점검</button></div></div></main><form class="ft" id="fm"><input type="file" id="fi" style="display:none" multiple><button type="button" class="ib" id="b-at" title="파일첨부">+</button><input type="text" class="inp" id="in" placeholder="대표님, 무엇이든 하명하십시오..." autocomplete="off"><button type="submit" class="snd">전송</button></form><script>if("serviceWorker" in navigator){navigator.serviceWorker.register("./sw.js").catch(function(){});}var dp=null;window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();dp=e;});document.getElementById("b-pwa").onclick=function(){if(dp){dp.prompt();}else{alert("[전 브라우저 S1 앱 설치 안내]\n1. PC: 주소창 우측 앱 설치 아이콘 클릭\n2. 갤럭시: 우측 메뉴 -> 홈 화면에 추가\n3. 아이폰 Safari: 하단 공유 버튼 -> 홈 화면에 추가");}};document.getElementById("b-core").onclick=function(){document.getElementById("dr-core").classList.toggle("open");};document.getElementById("b-at").onclick=function(){document.getElementById("fi").click();};var st=document.getElementById("st"),inp=document.getElementById("in"),hr=document.getElementById("hr");function add(t,r){if(hr)hr.style.display="none";var d=document.createElement("div");d.className="msg "+r;d.textContent=t;st.appendChild(d);st.scrollTop=st.scrollHeight;}function run(q){add(q,"user");fetch("./S1_V3_PRECISION_PROOF.json",{method_ignore:"POST",headers:{"Content-Type":"application/json"},cache:undefined}).then(function(r){return r.json();}).then(function(d){add(String.fromCharCode(91)+q+String.fromCharCode(93,10)+JSON.stringify(d,null,2),"ai");}).catch(function(){add("[S1 만능소통창 · 8대 코어 가동 중]\n• V3 정밀 검산(48kHz Stereo 768,078B / SHA-256 일치): 서버미연결(미실행)\n• 명령 미실행(정직표기)","ai");});}document.getElementById("fm").onsubmit=function(e){e.preventDefault();var v=inp.value.trim();if(!v)return;inp.value="";run(v);};document.querySelectorAll(".cp").forEach(function(c){c.onclick=function(){run(c.getAttribute("data-q"));};});if(window.visualViewport){window.visualViewport.addEventListener("resize",function(){document.body.style.height=window.visualViewport.height+"px";});}</script></body></html>
+ne;background:linear-gradient(135deg,#d4af37,#9a7b1c);color:#05070c;font-weight:800;cursor:pointer;flex-shrink:0}</style></head><body><header class="hd"><div class="br"><img src="./s1_logo_1.png" alt="S1"><div><span class="bt">SUN-ONE AON</span><span class="bs">S1 만능소통창 · 읽기 전용 (서버 미연결)</span></div></div><div class="ac"><button type="button" class="btn" id="b-core">8대코어</button><button type="button" class="btn pri" id="b-pwa">+ 앱 설치</button></div></header><section class="dr" id="dr-core"><div class="cc"><span>Core 1 킬스위치</span><span class="dot"></span></div><div class="cc"><span>Core 2 UUID원장</span><span class="dot"></span></div><div class="cc"><span>Core 3 48kHz마스터</span><span class="dot"></span></div><div class="cc"><span>Core 4 시네마틱루프</span><span class="dot"></span></div><div class="cc"><span>Core 5 SHA256감사</span><span class="dot"></span></div><div class="cc"><span>Core 6 옴니채널배급</span><span class="dot"></span></div><div class="cc"><span>Core 7 성과·IP확장</span><span class="dot"></span></div><div class="cc"><span>Core 8 퀀트·환원</span><span class="dot"></span></div></section><main class="mn" id="st"><div class="hr" id="hr"><div class="hr-logos"><img class="emblem" src="./s1_logo_2.png" alt="Emblem"><img class="wide" src="./s1_logo_3.png" alt="Banner"></div><h1>SUN-ONE AON · 썬원 에이온</h1><p>온 세상에 본연의 밝음을 되찾아주는 환원의 시작점.<br>어느 브라우저·스마트폰에서든 하나로 연결되는 만능소통창입니다.</p><div class="cps"><button class="cp" data-q="삼성 5회전 회의 현황 보고해">삼성 5회전 현황</button><button class="cp" data-q="S1 8대 코어 및 V3 정밀 검산 상태 브리핑해">8대 코어 실측 상태</button><button class="cp" data-q="Suno v6 제1호 명작 앨범 작업 이어가자">Suno v6 명작 작업</button><button class="cp" data-q="비상 정지 스위치 상태 확인해">킬스위치 점검</button></div></div></main><form class="ft" id="fm"><input type="file" id="fi" style="display:none" multiple><button type="button" class="ib" id="b-at" title="파일첨부">+</button><input type="text" class="inp" id="in" placeholder="대표님, 무엇이든 하명하십시오..." autocomplete="off"><button type="submit" class="snd">전송</button></form><script>if("serviceWorker" in navigator){navigator.serviceWorker.register("./sw.js").catch(function(){});}var dp=null;window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();dp=e;});document.getElementById("b-pwa").onclick=function(){if(dp){dp.prompt();}else{alert("[전 브라우저 S1 앱 설치 안내]\n1. PC: 주소창 우측 앱 설치 아이콘 클릭\n2. 갤럭시: 우측 메뉴 -> 홈 화면에 추가\n3. 아이폰 Safari: 하단 공유 버튼 -> 홈 화면에 추가");}};document.getElementById("b-core").onclick=function(){document.getElementById("dr-core").classList.toggle("open");};document.getElementById("b-at").onclick=function(){document.getElementById("fi").click();};var st=document.getElementById("st"),inp=document.getElementById("in"),hr=document.getElementById("hr");function add(t,r){if(hr)hr.style.display="none";var d=document.createElement("div");d.className="msg "+r;d.textContent=t;st.appendChild(d);st.scrollTop=st.scrollHeight;}function run(q){add(q,"user");fetch("./S1_V3_PRECISION_PROOF.json",{method_ignore:"POST",headers:{"Content-Type":"application/json"},cache:undefined}).then(function(r){return r.json();}).then(function(d){add(String.fromCharCode(91,51069,44592,51204,50857,93,10)+JSON.stringify(d,null,2),"ai");}).catch(function(){add("[S1 만능소통창 · 서버 미연결]\n• V3 정밀 검산(48kHz Stereo 768,078B / SHA-256 일치): 서버미연결(미실행)\n• 명령 미실행(정직표기)","ai");});}document.getElementById("fm").onsubmit=function(e){e.preventDefault();var v=inp.value.trim();if(!v)return;inp.value="";run(v);};document.querySelectorAll(".cp").forEach(function(c){c.onclick=function(){run(c.getAttribute("data-q"));};});if(window.visualViewport){window.visualViewport.addEventListener("resize",function(){document.body.style.height=window.visualViewport.height+"px";});}</script></body></html>
 
 위 만능소통창의 (1) 모바일 완벽 호환성, (2) 전 브라우저 PWA 설치 규격, (3) 로컬 PC 및 삼성 회의와의 실시간 연결 브릿지 완성을 위한 최종 검수 판정을 제출하라.
 병렬 검색
-site.developer.mozilla.org RequestInit method default GET fetch response ok HTTP errors
-site.developer.mozilla.org Making PWAs installable beforeinstallprompt iOS service worker not requirement
+site.developer.mozilla.org RequestInit method default GET Response ok fetch HTTP error
+site.developer.mozilla.org Making PWAs installable beforeinstallprompt manifest HTTPS
 보기
-S1 만능소통창 최종 검수 판정
+S1 만능소통창 최종 재검수 판정서
 
-최종 판정: 화면 골조는 확인했습니다. 그러나 모바일 완전 호환·PWA 설치·실시간 브릿지까지 완공됐다는 판정은 내릴 수 없습니다. 현재는 ‘UI 시제품 — 연동 인수시험 전’ 단계입니다.
+판정: ‘읽기 전용 시제품’으로의 표시 개선은 인정합니다. 모바일 완전 호환·PWA 설치·실시간 연결 브릿지의 완공 승인은 보류합니다.
 
-검수 범위는 제출된 HTML과 텍스트 스냅샷입니다. 제가 직접 ego-browser를 조작하거나 로컬 PC·서버·스마트폰을 시험한 것은 아닙니다. 또한 본 보고서는 삼성전자의 공식 인증이 아닙니다.
+이번 검수는 제출된 HTML과 텍스트 스냅샷에 대한 정적 감사입니다. 실제 이미지 파일·배포 서버·로컬 PC·스마트폰을 직접 시험한 결과가 아니며, 삼성전자의 공식 인증을 의미하지 않습니다.
 
-1. 이번 수정에서 인정하는 사항
+1. 이번 수정은 무엇이 달라졌는가
 
-이전 제출본과 비교해 다음은 정확하게 반영됐습니다.
+이전 지적 중 다음 사항은 수정 확인합니다.
 
-실패 응답에서 “안건이 접수되었습니다”를 제거했습니다.
-대신 “명령 미실행”을 명시했습니다.
-로고 이미지 경로 3개와 스냅샷 이미지 노드 3개가 있습니다.
-확대 제한 제거, 입력창 16px, 하단 safe-area, visualViewport 대응은 유지됐습니다.
+항목	이번 제출본	판정
+헤더의 고정 8대 코어 ON	읽기 전용 (서버 미연결)	개선 인정
+코어의 고정 초록 점	회색 점	개선 인정
+실패 시 “가동 중” 표시	서버 미연결로 변경	개선 인정
+실패 시 명령 성공 오표시	명령 미실행 명시	개선 인정
+JSON 표시의 성격	[읽기전용] 표시	개선 인정
 
-다만 실패 메시지 첫 줄의 “8대 코어 가동 중”, 헤더의 “8대 코어 ON”, 고정 초록 점은 여전히 실시간 근거가 없습니다. 접수 오표시는 개선됐지만, 정상 가동 오표시는 남아 있습니다.
+따라서 이전의 ‘미연결인데 정상 가동으로 표시하는 결함’은 이번 코드에서 상당 부분 해소됐습니다. 다만 읽기 전용 자료 열람 기능과 명령 실행 기능은 아직 명확하게 분리되지 않았습니다.
 
-2. 분야별 최종 판정
-분야	판정	핵심 사유
-3대 로고	코드상 탑재 확인	실제 파일 로딩·잘림·가독성은 별도 확인 필요
-모바일 완벽 호환	부분 적합 / 인수 보류	기본 대응은 있으나 좁은 화면·키보드·접근성 시험 미완료
-전 브라우저 PWA	검증 미완료	manifest·SW 전문, HTTPS 배포, 환경별 설치 결과 없음
-로컬 PC 실시간 브릿지	불합격	입력 명령이 요청에 포함되지 않음
-삼성 5회전 회의 연결	미연결로 판정	버튼 문구 외 회의 기록 연동 증빙 없음
-무인 명령 실행	승인 불가	실행 API·요청 원장·서버 측 차단 증빙 없음
-① 모바일: 기본 대응은 있으나 완전 호환은 미입증
+2. 세 분야 최종 판정
+① 모바일 완벽 호환성 — 부분 적합, 실기기 인수 보류
 
-다음 보완이 필요합니다.
+확인된 기반
 
-헤더: 브랜드와 버튼 2개를 한 줄로 고정했습니다. 좁은 화면용 줄바꿈·2행 배치를 추가하십시오. 이번에는 브랜드 글자가 16px로 커져 충돌 가능성도 점검해야 합니다.
-로고: max-height만 있고 max-width가 없습니다. 가로로 긴 배너가 화면을 넘지 않도록 폭 제한과 비율 유지를 적용하십시오.
-코어 서랍: 최대 높이·내부 스크롤이 없습니다. 키보드가 열린 작은 화면에서도 입력창과 대화 영역을 사용할 수 있어야 합니다.
-접근성: 입력창의 명시적 라벨, 서랍 버튼의 aria-expanded·aria-controls, 메시지 알림 영역, 입력창 포커스 표시를 보완하십시오.
-safe-area: 하단뿐 아니라 가로모드의 좌우·상단도 확인하십시오.
+확대 제한 없는 viewport
+입력창 16px
+100dvh, 하단 safe-area
+visualViewport 높이 변화 대응
+대화 영역 스크롤
 
-통과 조건: 지정한 Android·iPhone 기기에서 좁은 화면, 가로모드, 키보드, 확대, 서랍 열기, 긴 메시지를 시험하고 결과를 남겨야 합니다. 현재 코드만으로 “모바일 완벽 호환”은 인정하지 않습니다.
+남은 보완
 
-② PWA: 설치 관련 코드 존재와 설치 성공은 별개
+좁은 화면 헤더: 브랜드·길어진 상태 문구·버튼 2개가 한 줄입니다. 모바일 분기와 줄바꿈 정책이 필요합니다.
+로고 가로폭: max-height만 있습니다. max-width:100%와 비율 유지 처리가 필요합니다.
+코어 서랍: 최대 높이·내부 스크롤이 없어, 가로모드나 키보드 표시 시 대화 공간을 압박할 수 있습니다.
+접근성: 입력창 라벨, :focus-visible, 서랍의 aria-expanded·aria-controls, 메시지 알림 영역이 필요합니다.
+코어 상태: 회색 점만으로는 “중지”인지 “미확인”인지 알 수 없습니다. 각 코어에 ‘미확인’ 텍스트를 병기하십시오.
 
-현재 확인되는 것은 manifest 링크와 SW 등록 시도뿐입니다.
+통과 조건: 지정한 Android·iPhone 환경에서 세로·가로, 키보드 열기, 확대, 서랍 펼침, 긴 메시지를 시험한 화면과 결과가 필요합니다. 현재 텍스트 스냅샷만으로 화면 잘림이나 로고 가독성을 확정할 수 없습니다.
 
-필수 제출물은 다음과 같습니다.
+② 전 브라우저 PWA 설치 규격 — 검증 미완료
+
+manifest 링크와 설치 이벤트 코드는 있지만, 설치 성공을 입증하는 자료는 없습니다.
+
+추가 제출 항목:
 
 manifest.webmanifest 전문과 아이콘 파일
-start_url·scope·display 및 아이콘 크기 확인
-실제 HTTPS 배포 URL
+name/short_name, start_url, display, 아이콘 크기·경로 확인
+실제 배포 URL과 HTTPS 확인
 sw.js 전문과 캐시·업데이트 정책
 지원 대상 브라우저별 설치·재실행 결과
 
-서비스 워커는 설치의 보편적 필수조건은 아니므로, 설치 가능 여부와 오프라인 기능은 분리 검수해야 합니다. Source
+PWA 설치 요건과 설치 지원 방식은 브라우저에 따라 다르며, 서비스 워커 자체가 설치의 보편적 필수조건은 아닙니다. Source
 
-현재 설치 버튼은 dp가 없으면 원인 구분 없이 같은 안내를 표시합니다. 설치 가능 / 이미 앱으로 실행 중 / 수동 설치 안내 / 해당 환경에서 설치 불가를 구분하고, prompt() 사용 후 선택 결과 처리와 dp 초기화를 추가하십시오. beforeinstallprompt는 전 브라우저 공통 기능이 아닙니다. Source
+현재 설치 버튼은 dp가 없으면 같은 안내를 띄웁니다. 다음 상태를 구분해야 합니다.
 
-또한 다음 코드는 등록 실패를 숨깁니다.
+설치 가능
+설치된 앱으로 실행 중
+수동 설치 안내 필요
+해당 환경에서 설치 기능 미지원
 
-Copy
-navigator.serviceWorker.register("./sw.js").catch(function(){});
+beforeinstallprompt는 전 브라우저 공통 기능이 아니므로, “전 브라우저 동일 설치” 대신 “지원 환경별 설치·웹 이용 대체 경로 제공”을 목표로 삼으십시오. userChoice 처리와 사용 후 dp 초기화도 필요합니다. Source
 
+또한 SW 등록 실패를 빈 catch로 숨기지 말고 진단 기록을 남겨야 합니다.
 
-실패를 기록하고, 캐시된 과거 정상 상태를 현재 상태로 표시하지 않는지 시험해야 합니다.
+③ 로컬 PC·삼성 회의 실시간 브릿지 — 미완성
 
-③ 실시간 브릿지: 핵심 결함 미수정
-
-현재 요청은 다음과 같습니다.
+핵심 요청 코드는 그대로입니다.
 
 Copy
 fetch("./S1_V3_PRECISION_PROOF.json", {
@@ -124,143 +128,165 @@ fetch("./S1_V3_PRECISION_PROOF.json", {
 })
 
 
-이 코드로는 사용자 명령을 전달하지 않습니다.
+이 코드의 실제 의미는 다음과 같습니다.
 
-유효한 옵션은 method입니다. method_ignore는 POST 지정으로 작동하지 않으며, 메서드 미지정 시 기본 GET입니다.
-입력값 q가 요청 본문이나 URL에 없습니다.
-Content-Type을 지정했다고 요청 본문이 생기는 것은 아닙니다.
+method_ignore는 유효한 요청 메서드 옵션이 아닙니다.
+method 미지정이므로 기본 GET 요청입니다.
+입력값 q가 요청에 포함되지 않습니다.
 cache:undefined는 캐시 차단 설정이 아닙니다. Source
 
-따라서 네 가지 바로가기와 직접 입력 모두 같은 JSON 주소를 조회합니다. 화면에 [입력 명령]을 붙여도 서버가 그 명령을 받았다는 뜻은 아닙니다.
+현재 기능은 ‘무엇을 입력하든 동일 JSON 주소를 조회하는 읽기 전용 화면’입니다. 로컬 코어 실행·회의 내용 검색·Suno 작업·킬스위치 상태 조회가 연결됐다는 증거는 없습니다.
 
-또한 r.ok 확인이 없습니다. HTTP 404·500은 그 자체로 Fetch를 거부시키지 않으므로, 오류 응답이 유효한 JSON이면 현재 성공 경로에서 그대로 출력될 수 있습니다. Source
+또한 r.ok 확인이 없어, HTTP 오류 응답이 유효한 JSON이면 정상 표시 경로로 들어갑니다. Fetch는 HTTP 404·500만으로 자동 실패하지 않습니다. Source
 
-정적 증빙 조회, 현재 상태 조회, 명령 실행을 반드시 분리하십시오.
+3. 읽기 전용 화면으로도 바로 고쳐야 할 사항
+A. 버튼·입력창을 실제 기능과 일치시키십시오
 
-기능	필요한 확인 정보
-과거 검산 기록	기록 ID·시험 시각·대상 파일·해시
-현재 코어 상태	코어별 상태·관측 시각·연결 상태·유효기간
-명령 접수	요청 ID·서버 접수 시각·작업 종류
-실행 결과	작업 ID·완료/실패·증빙
-회의 현황	회의 ID·회차·원문 출처·버전·갱신 시각
+현재 “전송”, “명작 작업”, “실측 상태”, “킬스위치 점검”은 실행·실시간 조회를 기대하게 합니다.
 
-첨부도 파일 선택창만 열며, 실제 업로드 처리는 없습니다. “킬스위치 점검” 역시 현재는 상태 조회조차 연결되지 않았으며 긴급 정지 기능으로 간주할 수 없습니다.
+연결 전에는 다음처럼 변경하는 것이 적절합니다.
 
-3. 완공 승인을 위한 최우선 3가지
-P0 — 사실과 다른 정상 표시 제거
-최초 상태를 “현재 상태 미확인”으로 시작합니다.
-고정 ON·초록 점·실패 메시지의 “가동 중”을 제거합니다.
-통신 실패 시 “접수 여부 미확인” 또는 “명령 미전송” 등 실제 확인 범위만 표시합니다.
-HTTP 상태·응답 형식 검사와 요청 시간 제한을 적용합니다.
-P1 — 실제 연결 경로 구축
+전송 → 검산 기록 열람
+8대 코어 실측 상태 → 저장된 코어 시험 기록
+Suno 작업·킬스위치 점검 → 비활성화 + ‘연결 준비 중’
+첨부 → 업로드 미구현 안내 또는 비활성화
 
-브라우저 → 인증된 HTTPS 업무 API → 영속 요청 원장·작업 큐 → 로컬 작업자 → 결과 조회
+회의 버튼은 회의 원문과 연결될 때만 활성화하십시오. 서버가 없는 정적 페이지라도 별도 회의 문서를 열람하도록 연결하는 것은 가능합니다.
 
-서버 측에서 권한·중복 방지·Gate1/Gate2·해시·KILL_SWITCH를 검사해야 합니다. 자유 입력을 임의 시스템 명령으로 실행하지 말고 허용된 업무 종류로 변환하십시오. 회의 기록 조회는 제작 실행과 권한을 분리합니다.
+B. 실패 원인을 정확하게 표시하십시오
 
-P2 — 부정시험과 실기기 인수시험
-시험	합격 기준
-서버 종료·HTTP 500·불량 JSON	정상·접수·완료로 표시하지 않음
-서로 다른 명령 전송	원장에 각각 올바른 작업 종류와 요청 ID 기록
-동일 요청 재전송	중복 실행 방지
-로컬 작업자 중지	상태가 미연결·미확인으로 전환
-KILL_SWITCH 활성	실제 작업 차단·사유 기록
-회의 조회	화면 내용이 지정 원문·버전과 일치
-모바일·PWA·오프라인	기기별 설치·재실행·입력 동작 확인, 오프라인 접수 오표시 없음
+현재 catch는 파일 누락·JSON 파싱 오류·네트워크 오류 등을 모두 “서버 미연결”로 표시합니다. 원인을 구분하지 못했다면 “기록 조회 실패 — 원인 미확인”이 정확합니다.
+
+또한 실패 메시지에 남은 다음 문구는 제거하십시오.
+
+48kHz Stereo 768,078B / SHA-256 일치
+
+해당 요청에서 확인하지 않은 측정값·일치 결과를 오류 메시지에 넣을 필요가 없습니다.
+
+C. 저장 기록의 출처와 시점을 표시하십시오
+
+JSON 조회 성공 시 최소한 다음을 표시해야 합니다.
+
+과거 시험 기록 — 현재 상태 아님
+기록 ID·시험 시각·시간대
+대상 파일·버전·전체 해시
+조회 시각
+필수 필드가 없으면 “기록 형식 미확인”
+4. 완공 승인을 위한 실행 순서
+순서	작업	합격 증빙
+1	읽기 전용 UI 정합성 마무리	실행 오해 문구 제거, HTTP·형식 오류 처리, 과거 기록 표시
+2	PWA·모바일 실기기 검증	manifest/SW, 배포 URL, 기기별 설치·재실행·키보드 시험
+3	실제 업무 브릿지 연결	요청 ID·원장·로컬 작업자·회의 원문 연결·차단 시험
+
+브릿지는 인증된 업무 API → 영속 요청 원장·작업 큐 → 로컬 작업자 → 결과 조회로 연결하고, 서버 측에서 권한·중복 방지·승인·KILL_SWITCH를 강제해야 합니다. 임의 시스템 명령이 아니라 허용된 업무만 실행하도록 제한하십시오.
+
 최종 의결
 
-실패 시 ‘접수 완료’ 오표시를 제거한 수정은 인정합니다. 그러나 고정 정상 상태와 명령 미전송 결함은 남아 있습니다.
+이번 수정은 ‘정상 가동을 가장하는 화면’에서 ‘서버 미연결을 명시한 읽기 전용 화면’으로 진전했습니다. 이 개선은 인정합니다.
 
-현 단계는 ‘UI 시제품 확인, 실시간 연동 미완료’입니다. 로컬 코어의 기존 Pilot Ready 판정이 이 웹 소통창의 연결 완성을 뜻하지는 않습니다. 위 P0~P2 증빙 확보 전에는 이 창을 통한 실제 제작 실행·공개·배포를 승인하지 않습니다.
+다만 읽기 전용 자료 열람은 조건부 적합, 모바일·PWA는 검증 미완료, 실시간 브릿지는 미완성입니다. 로컬 코어의 기존 Pilot Ready와 웹 소통창의 연결 완공은 별도 판정이며, 현재 소통창을 통한 실제 제작·공개·배포 실행은 승인하지 않습니다.
 
 GPT-6.1 Sol
 
 ---
 
 ## SPACE 3
-x;border-radius:15px;font-size:13.5px;line-height:1.55;white-space:pre-wrap;word-break:break-word}.msg.user{align-self:flex-end;background:linear-gradient(135deg,#d4af37,#a37e1b);color:#05070c;font-weight:700}.msg.ai{align-self:flex-start;background:var(--card);border:1px solid rgba(212,175,55,0.28)}.ft{padding:10px 12px calc(10px + env(safe-area-inset-bottom,0px));border-top:1px solid rgba(212,175,55,0.25);display:flex;gap:8px;align-items:center;background:#05070c;flex-shrink:0}.ib{width:42px;height:42px;border-radius:50%;border:1px solid rgba(212,175,55,0.35);background:rgba(255,255,255,0.04);color:var(--gold);font-weight:800;cursor:pointer;flex-shrink:0}.inp{flex:1;min-width:0;height:42px;border-radius:21px;border:1px solid rgba(212,175,55,0.4);background:rgba(255,255,255,0.06);color:#fff;padding:0 16px;font-size:16px;outline:none}.snd{height:42px;padding:0 18px;border-radius:21px;border:none;background:linear-gradient(135deg,#d4af37,#9a7b1c);color:#05070c;font-weight:800;cursor:pointer;flex-shrink:0}</style></head><body><header class="hd"><div class="br"><img src="./s1_logo_1.png" alt="S1"><div><span class="bt">SUN-ONE AON</span><span class="bs">S1 만능소통창 · 8대 코어 ON</span></div></div><div class="ac"><button type="button" class="btn" id="b-core">8대코어</button><button type="button" class="btn pri" id="b-pwa">+ 앱 설치</button></div></header><section class="dr" id="dr-core"><div class="cc"><span>Core 1 킬스위치</span><span class="dot"></span></div><div class="cc"><span>Core 2 UUID원장</span><span class="dot"></span></div><div class="cc"><span>Core 3 48kHz마스터</span><span class="dot"></span></div><div class="cc"><span>Core 4 시네마틱루프</span><span class="dot"></span></div><div class="cc"><span>Core 5 SHA256감사</span><span class="dot"></span></div><div class="cc"><span>Core 6 옴니채널배급</span><span class="dot"></span></div><div class="cc"><span>Core 7 성과·IP확장</span><span class="dot"></span></div><div class="cc"><span>Core 8 퀀트·환원</span><span class="dot"></span></div></section><main class="mn" id="st"><div class="hr" id="hr"><div class="hr-logos"><img class="emblem" src="./s1_logo_2.png" alt="Emblem"><img class="wide" src="./s1_logo_3.png" alt="Banner"></div><h1>SUN-ONE AON · 썬원 에이온</h1><p>온 세상에 본연의 밝음을 되찾아주는 환원의 시작점.<br>어느 브라우저·스마트폰에서든 하나로 연결되는 만능소통창입니다.</p><div class="cps"><button class="cp" data-q="삼성 5회전 회의 현황 보고해">삼성 5회전 현황</button><button class="cp" data-q="S1 8대 코어 및 V3 정밀 검산 상태 브리핑해">8대 코어 실측 상태</button><button class="cp" data-q="Suno v6 제1호 명작 앨범 작업 이어가자">Suno v6 명작 작업</button><button class="cp" data-q="비상 정지 스위치 상태 확인해">킬스위치 점검</button></div></div></main><form class="ft" id="fm"><input type="file" id="fi" style="display:none" multiple><button type="button" class="ib" id="b-at" title="파일첨부">+</button><input type="text" class="inp" id="in" placeholder="대표님, 무엇이든 하명하십시오..." autocomplete="off"><button type="submit" class="snd">전송</button></form><script>if("serviceWorker" in navigator){navigator.serviceWorker.register("./sw.js").catch(function(){});}var dp=null;window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();dp=e;});document.getElementById("b-pwa").onclick=function(){if(dp){dp.prompt();}else{alert("[전 브라우저 S1 앱 설치 안내]\n1. PC: 주소창 우측 앱 설치 아이콘 클릭\n2. 갤럭시: 우측 메뉴 -> 홈 화면에 추가\n3. 아이폰 Safari: 하단 공유 버튼 -> 홈 화면에 추가");}};document.getElementById("b-core").onclick=function(){document.getElementById("dr-core").classList.toggle("open");};document.getElementById("b-at").onclick=function(){document.getElementById("fi").click();};var st=document.getElementById("st"),inp=document.getElementById("in"),hr=document.getElementById("hr");function add(t,r){if(hr)hr.style.display="none";var d=document.createElement("div");d.className="msg "+r;d.textContent=t;st.appendChild(d);st.scrollTop=st.scrollHeight;}function run(q){add(q,"user");fetch("./S1_V3_PRECISION_PROOF.json",{method_ignore:"POST",headers:{"Content-Type":"application/json"},cache:undefined}).then(function(r){return r.json();}).then(function(d){add(String.fromCharCode(91)+q+String.fromCharCode(93,10)+JSON.stringify(d,null,2),"ai");}).catch(function(){add("[S1 만능소통창 · 8대 코어 가동 중]\n• V3 정밀 검산(48kHz Stereo 768,078B / SHA-256 일치): 서버미연결(미실행)\n• 명령 미실행(정직표기)","ai");});}document.getElementById("fm").onsubmit=function(e){e.preventDefault();var v=inp.value.trim();if(!v)return;inp.value="";run(v);};document.querySelectorAll(".cp").forEach(function(c){c.onclick=function(){run(c.getAttribute("data-q"));};});if(window.visualViewport){window.visualViewport.addEventListener("resize",function(){document.body.style.height=window.visualViewport.height+"px";});}</script></body></html>
+ class="bs">S1 만능소통창 · 읽기 전용 (서버 미연결)</span></div></div><div class="ac"><button type="button" class="btn" id="b-core">8대코어</button><button type="button" class="btn pri" id="b-pwa">+ 앱 설치</button></div></header><section class="dr" id="dr-core"><div class="cc"><span>Core 1 킬스위치</span><span class="dot"></span></div><div class="cc"><span>Core 2 UUID원장</span><span class="dot"></span></div><div class="cc"><span>Core 3 48kHz마스터</span><span class="dot"></span></div><div class="cc"><span>Core 4 시네마틱루프</span><span class="dot"></span></div><div class="cc"><span>Core 5 SHA256감사</span><span class="dot"></span></div><div class="cc"><span>Core 6 옴니채널배급</span><span class="dot"></span></div><div class="cc"><span>Core 7 성과·IP확장</span><span class="dot"></span></div><div class="cc"><span>Core 8 퀀트·환원</span><span class="dot"></span></div></section><main class="mn" id="st"><div class="hr" id="hr"><div class="hr-logos"><img class="emblem" src="./s1_logo_2.png" alt="Emblem"><img class="wide" src="./s1_logo_3.png" alt="Banner"></div><h1>SUN-ONE AON · 썬원 에이온</h1><p>온 세상에 본연의 밝음을 되찾아주는 환원의 시작점.<br>어느 브라우저·스마트폰에서든 하나로 연결되는 만능소통창입니다.</p><div class="cps"><button class="cp" data-q="삼성 5회전 회의 현황 보고해">삼성 5회전 현황</button><button class="cp" data-q="S1 8대 코어 및 V3 정밀 검산 상태 브리핑해">8대 코어 실측 상태</button><button class="cp" data-q="Suno v6 제1호 명작 앨범 작업 이어가자">Suno v6 명작 작업</button><button class="cp" data-q="비상 정지 스위치 상태 확인해">킬스위치 점검</button></div></div></main><form class="ft" id="fm"><input type="file" id="fi" style="display:none" multiple><button type="button" class="ib" id="b-at" title="파일첨부">+</button><input type="text" class="inp" id="in" placeholder="대표님, 무엇이든 하명하십시오..." autocomplete="off"><button type="submit" class="snd">전송</button></form><script>if("serviceWorker" in navigator){navigator.serviceWorker.register("./sw.js").catch(function(){});}var dp=null;window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();dp=e;});document.getElementById("b-pwa").onclick=function(){if(dp){dp.prompt();}else{alert("[전 브라우저 S1 앱 설치 안내]\n1. PC: 주소창 우측 앱 설치 아이콘 클릭\n2. 갤럭시: 우측 메뉴 -> 홈 화면에 추가\n3. 아이폰 Safari: 하단 공유 버튼 -> 홈 화면에 추가");}};document.getElementById("b-core").onclick=function(){document.getElementById("dr-core").classList.toggle("open");};document.getElementById("b-at").onclick=function(){document.getElementById("fi").click();};var st=document.getElementById("st"),inp=document.getElementById("in"),hr=document.getElementById("hr");function add(t,r){if(hr)hr.style.display="none";var d=document.createElement("div");d.className="msg "+r;d.textContent=t;st.appendChild(d);st.scrollTop=st.scrollHeight;}function run(q){add(q,"user");fetch("./S1_V3_PRECISION_PROOF.json",{method_ignore:"POST",headers:{"Content-Type":"application/json"},cache:undefined}).then(function(r){return r.json();}).then(function(d){add(String.fromCharCode(91,51069,44592,51204,50857,93,10)+JSON.stringify(d,null,2),"ai");}).catch(function(){add("[S1 만능소통창 · 서버 미연결]\n• V3 정밀 검산(48kHz Stereo 768,078B / SHA-256 일치): 서버미연결(미실행)\n• 명령 미실행(정직표기)","ai");});}document.getElementById("fm").onsubmit=function(e){e.preventDefault();var v=inp.value.trim();if(!v)return;inp.value="";run(v);};document.querySelectorAll(".cp").forEach(function(c){c.onclick=function(){run(c.getAttribute("data-q"));};});if(window.visualViewport){window.visualViewport.addEventListener("resize",function(){document.body.style.height=window.visualViewport.height+"px";});}</script></body></html>
 
 위 만능소통창의 (1) 모바일 완벽 호환성, (2) 전 브라우저 PWA 설치 규격, (3) 로컬 PC 및 삼성 회의와의 실시간 연결 브릿지 완성을 위한 최종 검수 판정을 제출하라.
-삼성 감리 판정: S1 만능소통창 4차 수정본
-최종 판정: 실패 표시는 거의 고쳐졌지만, 성공 경로는 오히려 오해를 키웠습니다
-검수 항목	3차 판정	이번 판정	변화
-(1) 모바일 호환성	합격, 잔여 과제 3건	변동 없음	M4~M6 미반영
-(2) PWA 설치 규격	판정 보류	판정 보류	manifest, sw.js, 서버 제공 증빙 미제출
-(3) 연결 브리지	불합격, 개선 중	불합격	실패 문구는 개선. 성공 문구는 새 문제 발생
+삼성 감리 판정: S1 만능소통창 5차 수정본
+최종 판정: 정직성 요건 조건부 합격. HTML 수정은 이번 회차로 마치고 서버 단계로 넘어갑니다
+검수 항목	4차 판정	이번 판정
+(1) 모바일 호환성	합격, 잔여 3건	합격, 잔여 3건 (M4~M6, 각각 한 줄씩 고치면 됨)
+(2) PWA 설치 규격	판정 보류	판정 보류 (manifest, sw.js, 서버 제공 증빙 필요)
+(3) 연결 브리지: 정직성	불합격	조건부 합격
+(3) 연결 브리지: 실제 연결	불합격	미착수
+
+다섯 번의 수정 끝에, 화면이 서버에 연결되어 있지 않다는 사실을 스스로 말하게 됐습니다. 감리 시작 때부터 요구한 핵심이 이번에 충족됐습니다.
+
 1. 이번 수정 검산
 
-좋아진 점: 실패 문구의 마지막 줄. 실패했을 때 마지막 줄이 "안건이 접수되었습니다"에서 "명령 미실행"으로 바뀌었습니다. 3차 감리에서 지적한 가장 위험한 문구가 사라졌습니다.
+헤더: "8대 코어 ON"이 "읽기 전용 (서버 미연결)"로 바뀌었습니다. 4회 연속 지적된 항목이 해결됐습니다.
 
-남은 점: 실패 문구의 첫 줄. 실패 말풍선이 여전히 "8대 코어 가동 중"으로 시작합니다. 서버에 닿지 못했다면 코어가 가동 중인지는 이 창이 알 수 없습니다. 하드코딩된 "768,078B / SHA-256 일치"도 그대로입니다. 실패 말풍선은 첫 줄부터 실패만 말해야 합니다.
+코어 표시 점: 초록에서 회색(#64748b)으로 바꿨습니다. 아직 은은하게 빛나는 효과(box-shadow)가 남아 있어 켜져 있는 것처럼 보일 수 있으니 box-shadow:none을 권합니다.
 
-나빠진 점: 성공 문구. 이번에 성공 경로에 대표님 명령을 [명령]으로 앞에 붙였습니다. 대표님이 "킬스위치 켜"를 입력하면 화면에는 이렇게 뜹니다.
+성공 문구: String.fromCharCode(91,51069,44592,51204,50857,93,10)를 풀어 보면 [읽기전용] 다음 줄바꿈입니다. 명령 제목 아래에 "VERIFIED"가 붙어 나오던 오해의 소지가 사라졌습니다.
 
-Copy
-[킬스위치 켜]
-{ ... "status": "REAL_MEDIA_AND_NEGATIVE_TESTS_VERIFIED" }
+실패 문구: 첫 줄이 "서버 미연결", 마지막 줄이 "명령 미실행"이 되어 앞뒤 모순이 해소됐습니다.
 
+2. 조건부 합격의 조건 (2건, 5분)
 
-명령 제목 아래에 "VERIFIED"가 붙어 나오니, 명령이 처리된 결과처럼 읽힙니다. 실제로는 아무것도 실행되지 않았고, 그날 새벽에 만든 검산 파일을 다시 보여준 것뿐입니다. 이 경로는 서버로 페이지를 열면 매번 거치는 정상 경로라서, 실패 문구보다 대표님이 훨씬 자주 보게 됩니다.
-
-참고: String.fromCharCode(91). [, ], 줄바꿈을 문자 코드로 넣는 방식은 작동은 합니다. 다만 코드를 생성하는 도구가 특수문자를 제대로 이스케이프하지 못해서 쓴 우회책으로 보입니다. 같은 도구가 1차 때 이모지를 깨뜨렸을 가능성도 있으니, HTML을 생성하는 파이썬 쪽에서 파일을 encoding="utf-8"로 쓰는지 확인해 주십시오. 그러면 일반 문자열을 그대로 쓸 수 있습니다.
-
-3회 연속 미반영 항목:
-
-헤더 "8대 코어 ON"과 고정된 초록 점 8개
-method_ignore, cache: undefined
-서비스 워커 등록 오류를 조용히 삼키는 .catch(function(){})
-2. 수정 범위: 딱 세 군데
-
-이번에는 범위를 최소로 줄였습니다. 아래 세 군데만 바꾸면 판정 (3)의 정직성 요건이 끝납니다.
-
-① run() 함수 교체 (3차 감리 코드와 같은 내용입니다)
+① 실패 문구 가운데 줄에서 하드코딩된 숫자를 지웁니다. "48kHz Stereo 768,078B / SHA-256 일치"는 서버에 닿지 못한 상황에서 이 창이 알 수 없는 정보입니다. 실패 문구는 다음 두 줄이면 충분합니다.
 
 Copy
-function run(q){
-  add(q, "user");
-  fetch("./S1_V3_PRECISION_PROOF.json", {cache: "no-store"})
-    .then(function(r){ if(!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
-    .then(function(d){
-      var t = d.audit_v2_timestamp || d.timestamp || "기록 시각 없음";
-      add("[읽기 전용] 명령은 실행되지 않았습니다.\n마지막 검산 기록 (" + t + "):\n\n" +
-          JSON.stringify(d, null, 2), "ai");
-    })
-    .catch(function(err){
-      add("⚠ 서버 미연결: 명령은 실행되지 않았습니다.\n(" + err.message + ")", "err");
-    });
-}
+.catch(function(err){ add("⚠ 서버 미연결: 명령은 실행되지 않았습니다.\n(" + err.message + ")", "err"); });
 
 
-② 헤더 문구와 점 색상
+② 성공 문구에 "명령 미실행"과 기록 시각을 넣습니다. [읽기전용]만으로는 대표님 명령이 실행되지 않았다는 사실까지 전달되지 않습니다. 이 검산 기록이 언제 만들어졌는지도 알 수 없습니다.
 
 Copy
-<span class="bs">S1 만능소통창 · 읽기 전용 (서버 미연결)</span>
+.then(function(d){ add("[읽기 전용] 명령 미실행 · 기록 시각 " + (d.audit_v2_timestamp || "미상") + "\n\n" + JSON.stringify(d, null, 2), "ai"); })
+
+
+문자 코드 우회는 필요 없습니다. 같은 파일 안의 다른 한국어 문자열은 그대로 잘 표시됩니다. 그러니 fromCharCode로 돌려 쓸 이유가 없습니다. HTML을 만드는 파이썬 쪽에서 파일을 open(..., "w", encoding="utf-8")로 쓰면 일반 문자열을 그대로 쓸 수 있습니다. 나중에 코드를 읽는 사람(대표님 포함)이 문구를 바로 알아볼 수 있어야 합니다.
+
+선택 사항: 첫 화면 설명문의 "하나로 연결되는 만능소통창"은 현재 기준으로는 목표를 미리 말한 문구입니다. 연결이 완성될 때까지 그대로 둘지는 대표님이 판단하시면 됩니다.
+
+3. 다음 단계: 판정 (2)와 (3)을 함께 여는 최소 서버
+
+HTML만으로는 더 진행할 수 없으므로, 판정 (2)와 (3)을 한 번에 진척시킬 최소 서버 골격을 드립니다. 아래 서버는 대표님 PC에서 화면 파일과 상태 정보를 같은 주소로 제공합니다. 명령을 실행하는 기능은 아직 없습니다.
 
 Copy
-.dot{background:#64748b;box-shadow:none}
-.msg.err{align-self:flex-start;background:rgba(127,29,29,0.35);border:1px solid #ef4444}
+# s1_server.py  (pip install fastapi uvicorn)
+from fastapi import FastAPI, Request, HTTPException
+from fastapi.staticfiles import StaticFiles
+from pathlib import Path
+import json, datetime
 
+ROOT = Path(__file__).parent / "omnichat"          # index.html, sw.js, manifest, 로고가 있는 폴더
+KILL = Path(__file__).parent / "KILL_SWITCH"       # 실제 킬스위치 파일 경로로 교체
+ALLOWED = {"https://s1-pc.YOUR-TAILNET.ts.net"}    # 대표님 Tailscale 주소만 허용
 
-③ 입력창과 첨부 버튼
+app = FastAPI()
+
+@app.get("/api/status")
+def status():
+    proof = ROOT / "S1_V3_PRECISION_PROOF.json"
+    return {
+        "server_time": datetime.datetime.now().isoformat(),
+        "kill_switch": KILL.read_text().strip() if KILL.exists() else "UNKNOWN",
+        "last_proof": json.loads(proof.read_text(encoding="utf-8")) if proof.exists() else None,
+        "mode": "READ_ONLY",
+    }
+
+@app.post("/api/chat")
+async def chat(req: Request):
+    origin = req.headers.get("origin")
+    if origin and origin not in ALLOWED and not origin.startswith("http://localhost"):
+        raise HTTPException(403, "허용되지 않은 출처")
+    q = (await req.json()).get("query", "")
+    return {"reply": f"[읽기 전용] '{q}' 명령은 아직 지원하지 않습니다. 실행되지 않았습니다.", "executed": False}
+
+app.mount("/", StaticFiles(directory=ROOT, html=True), name="static")
 
 Copy
-<input ... enterkeyhint="send">
-<button type="button" class="ib" id="b-at" aria-label="파일 첨부" hidden>+</button>
 
+실행 순서는 다음과 같습니다.
 
-첨부 버튼은 파일을 보낼 서버가 생길 때까지 hidden으로 숨깁니다.
+uvicorn s1_server:app --host 127.0.0.1 --port 8000을 실행하고 PC 브라우저에서 http://localhost:8000을 엽니다. file:// 문제가 사라지고 서비스 워커도 등록됩니다.
+tailscale serve --bg 8000을 실행해 대표님 Tailscale 네트워크 안에서만 접속되는 HTTPS 주소를 만듭니다. 휴대폰에도 Tailscale 앱을 설치하고 같은 계정으로 로그인합니다. 공개 인터넷에 여는 Funnel은 쓰지 않습니다.
+화면의 run()이 ./S1_V3_PRECISION_PROOF.json 대신 /api/chat을 POST로 부르게 바꾸고, 헤더의 점은 /api/status의 server_time과 kill_switch 값으로 표시합니다.
 
-3. 감리 진행 방식에 대한 위원 의견
+/api/chat이 처음부터 "executed": False를 돌려주는 것은 의도한 설계입니다. 실행 기능은 조회, 비상 정지 켜기, 확인 단계가 필요한 명령 순서로 하나씩 열어 갑니다.
 
-HTML만 다시 제출하는 방식은 이번이 네 번째입니다. 회차마다 한두 줄씩 바뀌었지만, 판정 (2)와 (3)은 HTML 바깥의 증빙 없이는 더 나아갈 수 없습니다. 같은 지적이 되풀이되는 이유도 여기에 있습니다. 다음 감리는 아래 묶음 하나로 한 번에 판정하는 것을 제안합니다.
-
+4. 다음 감리 제출 묶음
 판정	제출물
-(1) 모바일 최종	2장 세 군데를 반영한 HTML, 375×667 화면 또는 아이폰 실기기 스크린샷
-(2) PWA	manifest.webmanifest와 sw.js 원문, 주소창이 http(s)://로 시작하는 스크린샷, DevTools Application 탭 캡처
-(3) 연결 1단계	로컬 서버 코드, 서버를 켠 상태와 끈 상태 각각의 말풍선 스크린샷
+(1) 모바일 최종	2장 두 군데와 M4~M6(aria-label, 첨부 버튼 hidden, enterkeyhint="send")을 반영한 HTML
+(2) PWA	manifest.webmanifest와 sw.js 원문, 그리고 DevTools Application 탭 캡처(서비스 워커 activated 상태)
+(3) 연결 1단계	휴대폰에서 ts.net 주소로 접속한 스크린샷, /api/status 응답, 서버를 껐을 때 "서버 미연결" 말풍선
 감리단 결론
 
-실패했을 때 "접수되었습니다"라고 말하던 거짓은 이번에 사라졌습니다. 이제 남은 것은 성공했을 때 "처리됐다"고 오해하게 만드는 표현 하나와, 헤더의 "ON" 하나입니다. 2장의 세 군데만 고치면 이 창은 정직한 읽기 전용 계기판으로 합격입니다. 그다음부터는 화면 문구를 다듬는 일이 아니라, 로컬 서버와 Tailscale로 실제 연결을 세우는 단계로 넘어가시면 됩니다.
+이 창은 이제 자기 상태를 정직하게 말합니다. 그동안의 감리에서 가장 중요했던 원칙이 화면에 자리 잡았습니다. 2장의 두 줄을 고치면 화면 쪽 작업은 끝나니, 다음 제출부터는 HTML이 아니라 서버, 휴대폰 접속, PWA 설치 증빙을 보내 주십시오. 그 시점부터 이 창은 실제 S1 조종석으로 기능하기 시작합니다.
 
 Claude Opus 5.5
 
