@@ -1,0 +1,44 @@
+{
+  "timestamp_kst": "2026-10-31T04:10:50.159538+09:00",
+  "wav_48k_stereo_bytes": 768078,
+  "mp4_ebur128_independent": [
+    "  True peak:",
+    "    Peak:      -14.8 dBFS",
+    "[out#0/null @ 0000014e563f1680] video:49KiB audio:752KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: unknown",
+    "frame=  120 fps=0.0 q=-0.0 Lsize=N/A time=00:00:04.00 bitrate=N/A speed=9.22x elapsed=0:00:00.43    "
+  ],
+  "ffprobe_full": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_name": "h264",
+        "width": 1920,
+        "height": 1080,
+        "pix_fmt": "yuv420p",
+        "r_frame_rate": "30/1",
+        "duration": "4.000000"
+      },
+      {
+        "codec_name": "aac",
+        "sample_rate": "48000",
+        "channels": 2,
+        "r_frame_rate": "0/0",
+        "duration": "4.000000"
+      }
+    ],
+    "format": {
+      "duration": "4.000000",
+      "size": "708244",
+      "bit_rate": "1416488"
+    }
+  },
+  "hashes": {
+    "raw_wav": "616cc8f86e845f440378cf7443adb17683ebffc8749bec0e217f368962647e14",
+    "master_wav_48k": "1c7011da1270626fb348063ba271784e5b43051fb779f6aea3c07c713e4b6eef",
+    "final_mp4": "bc70a86ada9f83f0dfb7689aa9383981488875096a8358e71f5ffd9badf01e42",
+    "gdrive_roundtrip": "bc70a86ada9f83f0dfb7689aa9383981488875096a8358e71f5ffd9badf01e42",
+    "exact_match": true
+  },
+  "status": "V3_ALL_10_PRECISION_TESTS_PASSED"
+}
