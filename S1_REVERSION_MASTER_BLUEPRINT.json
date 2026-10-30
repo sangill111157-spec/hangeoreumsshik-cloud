@@ -1,0 +1,39 @@
+{
+  "project": "SUN-ONE AON (S1) Reversion Empire",
+  "philosophy": "Purge old habits, leverage World Top 1 via 5-Round Triumvirate (Gemini 4 Argon, Claude Opus 5.5, GPT-6.1 Sol), restore original light to the world",
+  "governance": "5-Round Triumvirate & ego-browser Secretary -> Commander Final Sign-off",
+  "suno_v6_master_formula": {
+    "model": "v6",
+    "max_mode": true,
+    "vocal_gender": "Female",
+    "weirdness_pct": 30,
+    "style_influence_pct": 85,
+    "variety_pct": 0,
+    "exclude_styles": "drums, percussion, heavy bass, synthesizer, electric guitar, fast tempo, rap, spoken words, pop beat, harsh noise",
+    "style_order": "Genre -> Vocals -> Instruments -> Arrangement -> Production -> Ending"
+  },
+  "divisions": [
+    "00_triumvirate_council",
+    "01_outlier_radar_replica",
+    "02_suno_v6_audio_forge",
+    "03_living_light_visuals",
+    "04_zero_defect_inspector",
+    "05_global_osmu_distribution"
+  ],
+  "distrokid_artists": [
+    "한걸음씩",
+    "Own The Hour"
+  ],
+  "album_vol1_tracks": [
+    "01_새벽을 여는 첫 번째 빛",
+    "02_영혼을 감싸는 두 번째 빛",
+    "03_아침 이슬이 된 눈물",
+    "04_고요한 호수의 숨결",
+    "05_황금빛 수평선의 개화",
+    "06_본연의 밝음으로",
+    "07_빛이 머무는 지상낙원의 정원",
+    "08_바람이 전하는 생명의 노래",
+    "09_당신은 본래 빛이었습니다",
+    "10_영원한 평화의 안식처"
+  ]
+}
