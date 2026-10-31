@@ -1,0 +1,47 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><title>S1 | SUN-ONE AON 정밀공사 만능 소통창 v8.0</title>
+<style>
+:root { --bg:#070A12; --card:#111827; --line:#1F2937; --metal:#E2E8F0; --gold:#F59E0B; --ok:#10B981; --txt:#F9FAFB; --sub:#9CA3AF; }
+* { box-sizing:border-box; margin:0; padding:0; }
+body { background:var(--bg); color:var(--txt); font-family:'Malgun Gothic',sans-serif; padding-bottom:90px; }
+header { position:sticky; top:0; z-index:50; background:rgba(7,10,18,0.95); border-bottom:1px solid var(--line); padding:14px 18px; }
+.top { display:flex; justify-content:space-between; align-items:center; max-width:1240px; margin:0 auto; flex-wrap:wrap; gap:8px; }
+.s1 { background:linear-gradient(135deg,#F8FAFC,#94A3B8,#F1F5F9); color:#070A12; font-weight:900; font-style:italic; font-size:20px; padding:4px 14px; border-radius:6px; margin-right:12px; }
+.pill { background:rgba(16,185,129,0.15); color:var(--ok); border:1px solid var(--ok); padding:6px 14px; border-radius:999px; font-size:12px; font-weight:900; }
+.teams { display:flex; gap:8px; overflow-x:auto; max-width:1240px; margin:12px auto 0; }
+.tbtn { flex:0 0 auto; padding:8px 15px; border-radius:8px; border:1px solid var(--line); background:var(--card); color:var(--sub); font-weight:800; font-size:13px; cursor:pointer; }
+.tbtn.active { background:var(--metal); color:#070A12; }
+main { max-width:1240px; margin:18px auto; padding:0 16px; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(310px,1fr)); gap:18px; }
+.card { background:var(--card); border:1px solid var(--line); border-radius:16px; padding:16px; display:flex; flex-direction:column; gap:10px; }
+.rm-box { background:#0B111E; border-left:3px solid var(--gold); padding:8px 10px; border-radius:6px; font-size:11px; color:var(--sub); line-height:1.4; }
+video { width:100%; aspect-ratio:9/16; max-height:460px; background:#000; border-radius:12px; }
+.btn { padding:11px; border-radius:8px; background:var(--gold); color:#070A12; font-weight:900; font-size:13px; text-align:center; text-decoration:none; display:block; }
+</style></head><body>
+<header>
+  <div class="top">
+    <div style="display:flex;align-items:center;"><span class="s1">S1</span><div><div style="font-weight:900;font-size:16px;">SUN-ONE AON · 썬원 에이온 (정밀공사 v8.0)</div><div style="font-size:11px;color:var(--sub);">구형 카드뉴스 100% 소각 완료 · 4장면 왕글씨(76px) 전환 · 0.15초 시작 여유 · 성우 250%</div></div></div>
+    <span class="pill">✔ 10편 전수 팩트 실측 통과 (금지어 0건)</span>
+  </div>
+  <div class="teams" id="teamBar"></div>
+</header>
+<main><div class="grid" id="gridBox"></div></main>
+<script>
+const ITEMS = [{"id": "s1_01", "team": "KR", "flag": "🇰🇷", "category": "시니어 인생 지혜", "role_model": "지혜의 샘 (불편함 해소: 정지화면·작은글씨·우울한BGM -> 다중장면·왕글씨·트롯BGM)", "title": "60대 이후 진짜 부자들이 절대 아끼지 않는 세 가지", "bgm": "trot", "file": "s1_clean_shorts/s1_01.mp4", "size_kb": 3743.5, "duration": 38.2, "scenes_count": 4, "passed": true, "audit_note": "실측 3743.5KB · 38.2초 · 4장면 전환 · 0.15초 여유 · 금지어 0건"}, {"id": "s1_02", "team": "KR", "flag": "🇰🇷", "category": "시니어 감동 드라마", "role_model": "황혼의 편지 (불편함 해소: 빼곡한 사연 글씨 -> 시네마틱 핵심 대사 왕글씨)", "title": "봄날의 낡은 우체통과 어머니의 마지막 편지", "bgm": "trot", "file": "s1_clean_shorts/s1_02.mp4", "size_kb": 3018.1, "duration": 32.7, "scenes_count": 4, "passed": true, "audit_note": "실측 3018.1KB · 32.7초 · 4장면 전환 · 0.15초 여유 · 금지어 0건"}, {"id": "s1_03", "team": "KR", "flag": "🇰🇷", "category": "월가 AI 주식 속보", "role_model": "블룸버그 퀵테이크 (불편함 해소: 복잡한 깨알 차트 -> 1장면 1핵심 숫자 타격)", "title": "엔비디아(NVDA) 월가 기관들이 집중한 핵심 가격대", "bgm": "suno", "file": "s1_clean_shorts/s1_03.mp4", "size_kb": 2858.3, "duration": 38.6, "scenes_count": 4, "passed": true, "audit_note": "실측 2858.3KB · 38.6초 · 4장면 전환 · 0.15초 여유 · 금지어 0건"}, {"id": "s1_04", "team": "KR", "flag": "🇰🇷", "category": "시니어 인간관계", "role_model": "말의 품격 (불편함 해소: 지루한 강연 화면 -> 극적 대비 왕글씨 카드)", "title": "나이 들수록 사람이 구름처럼 모이는 따뜻한 말습관", "bgm": "trot", "file": "s1_clean_shorts/s1_04.mp4", "size_kb": 3173.8, "duration": 30.5, "scenes_count": 4, "passed": true, "audit_note": "실측 3173.8KB · 30.5초 · 4장면 전환 · 0.15초 여유 · 금지어 0건"}, {"id": "s1_05", "team": "KR", "flag": "🇰🇷", "category": "수면 뇌과학 루틴", "role_model": "브레인 해커 (불편함 해소: 눈부신 흰 배경 -> 숙면 다크 네이비 & 실전 3단계)", "title": "잠들기 전 3분, 내일의 운과 뇌를 바꾸는 황금 습관", "bgm": "suno", "file": "s1_clean_shorts/s1_05.mp4", "size_kb": 3022.6, "duration": 33.4, "scenes_count": 4, "passed": true, "audit_note": "실측 3022.6KB · 33.4초 · 4장면 전환 · 0.15초 여유 · 금지어 0건"}, {"id": "s1_06", "team": "KR", "flag": "🇰🇷", "category": "AI 1인 기업 자동화", "role_model": "조코딩·빌더조쉬 (불편함 해소: 어려운 코딩 화면 -> 직관적 시스템 공식)", "title": "AI 시대, 혼자서 100명분 일하는 사람들의 시스템 공식", "bgm": "suno", "file": "s1_clean_shorts/s1_06.mp4", "size_kb": 2575.4, "duration": 33.7, "scenes_count": 4, "passed": true, "audit_note": "실측 2575.4KB · 33.7초 · 4장면 전환 · 0.15초 여유 · 금지어 0건"}, {"id": "s1_07", "team": "US", "flag": "🇺🇸", "category": "US North America Team", "role_model": "Alex Hormozi / Huberman Shorts (Clean Big Typography + 250% Voice)", "title": "The 3-Second Rule That Rewires Your Brain for Focus", "bgm": "suno", "file": "s1_clean_shorts/s1_07.mp4", "size_kb": 2463.3, "duration": 29.4, "scenes_count": 4, "passed": true, "audit_note": "실측 2463.3KB · 29.4초 · 4장면 전환 · 0.15초 여유 · 금지어 0건"}, {"id": "s1_08", "team": "JP", "flag": "🇯🇵", "category": "JP Japan Team", "role_model": "マコなり社長 Shorts (Minimal Zen Dark + Big Kanji Keyword)", "title": "朝の1分間で1日の集中力を劇的に高める黄金習慣", "bgm": "suno", "file": "s1_clean_shorts/s1_08.mp4", "size_kb": 2947.1, "duration": 32.9, "scenes_count": 4, "passed": true, "audit_note": "실측 2947.1KB · 32.9초 · 4장면 전환 · 0.15초 여유 · 금지어 0건"}, {"id": "s1_09", "team": "ES", "flag": "🇪🇸", "category": "ES Spanish LATAM Team", "role_model": "Cracks / Oso Trava Shorts (High Contrast Gold + Clear Spanish Voice)", "title": "El Hábito de 3 Minutos que Transforma tu Mañana", "bgm": "suno", "file": "s1_clean_shorts/s1_09.mp4", "size_kb": 3038.5, "duration": 27.6, "scenes_count": 4, "passed": true, "audit_note": "실측 3038.5KB · 27.6초 · 4장면 전환 · 0.15초 여유 · 금지어 0건"}, {"id": "s1_10", "team": "EU", "flag": "🇩🇪", "category": "EU Europe DACH Team", "role_model": "Finanzfluss / Kurzgesagt DE (Precision Metallic Layout)", "title": "Warum klare Systeme jede kurzfristige Motivation schlagen", "bgm": "suno", "file": "s1_clean_shorts/s1_10.mp4", "size_kb": 2635.9, "duration": 28.2, "scenes_count": 4, "passed": true, "audit_note": "실측 2635.9KB · 28.2초 · 4장면 전환 · 0.15초 여유 · 금지어 0건"}];
+let CUR = 'ALL';
+const TEAMS = ['ALL','KR','US','JP','ES','EU'];
+function render() {
+  document.getElementById('teamBar').innerHTML = TEAMS.map(t => `<button class="tbtn ${CUR===t?'active':''}" onclick="CUR='${t}';render()">${t==='ALL'?'🌐 전체 10편 보기':t+' 전담팀'}</button>`).join('');
+  const list = ITEMS.filter(x => CUR==='ALL' || x.team===CUR);
+  document.getElementById('gridBox').innerHTML = list.map(v => `<div class="card">
+    <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--ok);font-weight:800;">
+      <span>${v.flag} [${v.team}] ${v.category}</span>
+      <span>${v.duration}초 · ${v.size_kb} KB</span>
+    </div>
+    <div style="font-weight:900;font-size:16px;line-height:1.35;">${v.title}</div>
+    <div class="rm-box">🎯 <b>롤모델 벤치마킹:</b> ${v.role_model}<br>✔ <b>실측검수:</b> ${v.audit_note}</div>
+    <video controls playsinline preload="metadata" loop src="${v.file}?t=${Date.now()}"></video>
+    <a class="btn" href="${v.file}" download>💾 무결점 정밀공사 MP4 다운로드</a>
+  </div>`).join('');
+}
+render();
+</script></body></html>

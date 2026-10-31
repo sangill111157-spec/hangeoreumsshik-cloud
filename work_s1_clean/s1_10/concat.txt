@@ -1,0 +1,4 @@
+file 'C:/Users/sangi/Downloads/shin-agent/work_s1_clean/s1_10/sc_0_clip.mp4'
+file 'C:/Users/sangi/Downloads/shin-agent/work_s1_clean/s1_10/sc_1_clip.mp4'
+file 'C:/Users/sangi/Downloads/shin-agent/work_s1_clean/s1_10/sc_2_clip.mp4'
+file 'C:/Users/sangi/Downloads/shin-agent/work_s1_clean/s1_10/sc_3_clip.mp4'

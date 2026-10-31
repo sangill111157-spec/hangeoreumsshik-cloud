@@ -1,0 +1,1 @@
+﻿const task = await taskSpace(1); const p1 = task.page("p1"); await p1.evaluate(() => { const btns = [...document.querySelectorAll("button, div")]; const m = btns.find(b => b.innerText && b.innerText.includes("Gemini 4 Argon") && b.innerText.length < 30); if(m) m.click(); }); await new Promise(r => setTimeout(r, 1500)); console.log(await p1.snapshot());

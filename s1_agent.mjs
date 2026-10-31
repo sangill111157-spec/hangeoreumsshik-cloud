@@ -1,0 +1,1 @@
+const u=await listTaskSpaces();for(const x of u){if(x.owner==='user'){const t=await takeOverTaskSpace(x.name,{leaseMs:8000});for(const p of t.pages()){if(p.url().includes('genspark'))console.log(await p.evaluate(()=>document.body.innerText));}await t.yieldToUser({message:"S1 Agt"});}}

@@ -1,0 +1,1 @@
+const k=await taskSpace(0);for(const x of await k.tabs()){const p=x.label?k.page(x.label):await k.adopt(x.page);console.log(await p.evaluate(()=>document.body.innerText));}

@@ -1,0 +1,1 @@
+﻿const task = await taskSpace(1); const p1 = task.page("p1"); await p1.goto("https://www.genspark.ai/agents?type=ai_chat"); await new Promise(r => setTimeout(r, 3000)); const s1 = await p1.snapshot(); await p1.click(17); await new Promise(r => setTimeout(r, 1500)); console.log(await p1.snapshot());

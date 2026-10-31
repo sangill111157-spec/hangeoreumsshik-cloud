@@ -1,0 +1,1 @@
+﻿const task = await taskSpace(1); const p1 = task.page("p1"); const s = await p1.snapshot(); const m = s.match(/button \[ref=(\d+)\][\s\S]{1,80}?Gemini 4 Argon/); if(m){ await p1.click(Number(m[1])); await new Promise(r => setTimeout(r, 1500)); console.log(await p1.snapshot()); } else { console.log(s); }
