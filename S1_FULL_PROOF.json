@@ -1,4 +1,5 @@
 {
+  "run_timestamp_kst": "2026-10-31T21:21:21.425766+09:00",
   "icons": {
     "icon-192.png": {
       "size": [
@@ -27,24 +28,24 @@
   },
   "api_status_live": {
     "ok": true,
-    "server_time": "2026-10-31T19:35:17.291981",
+    "server_time": "2026-10-31T21:21:21.399067",
     "kill_switch": false,
     "mode": "READ_ONLY",
     "last_proof": "2026-10-31T04:10:50.159538+09:00"
   },
   "api_chat_live": {
     "ok": true,
-    "uuid": "6ed7d832-4ebe-419a-ac24-b89f34e5032f",
-    "req_id": "6ed7d832",
+    "uuid": "ae2d45ca-b0a8-4206-8853-042ca71e0867",
+    "req_id": "ae2d45ca",
     "executed": false,
-    "reply": "[읽기 전용 · 원장ID 6ed7d832] '킬스위치 점검' 명령이 원장(s1_command_ledger.jsonl)에 기록되었으나 실행되지 않았습니다."
+    "reply": "[읽기 전용 · 원장ID ae2d45ca] '킬스위치 점검' 명령이 원장(s1_command_ledger.jsonl)에 기록되었으나 실행되지 않았습니다."
   },
   "source_code_protection_test": "HTTP_403_BLOCKED",
   "head_protection_test": "HTTP_403_BLOCKED",
   "ledger_jsonl_last": {
-    "uuid": "6ed7d832-4ebe-419a-ac24-b89f34e5032f",
-    "req_id": "6ed7d832",
-    "time": "2026-10-31T19:35:17.294987",
+    "uuid": "ae2d45ca-b0a8-4206-8853-042ca71e0867",
+    "req_id": "ae2d45ca",
+    "time": "2026-10-31T21:21:21.420767",
     "query": "킬스위치 점검",
     "kill_switch": false,
     "executed": false
