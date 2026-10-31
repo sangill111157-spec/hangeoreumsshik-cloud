@@ -42,44 +42,36 @@ def save_json_atomic(path, data):
     tmp.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
     os.replace(tmp, path)
 
-def extract_raw_block(text, target_id="REAL_DOM_004"):
-    s_tag = f"===S1_AUTO_START:{target_id}==="
-    e_tag = f"===S1_AUTO_END:{target_id}==="
-    pos = 0
-    best = None
-    while True:
-        i = text.find(s_tag, pos)
-        if i == -1:
-            break
-        j = text.find(e_tag, i + len(s_tag))
-        if j == -1:
-            break
-        body = text[i + len(s_tag):j].strip()
-        pos = j + len(e_tag)
-        if "import platform" in body and "VERIFIED_EUNOS_2026" in body and "s_tag" not in body:
-            lines = [ln.strip() for ln in body.splitlines() if ln.strip()]
-            clean_code = "\n".join(lines)
-            best = (target_id, clean_code)
-    return [best] if best else []
+def extract_raw_block(text):
+    for target_id in ("REAL_DOM_004", "REAL_DOM_003"):
+        s_tag = f"===S1_AUTO_START:{target_id}==="
+        e_tag = f"===S1_AUTO_END:{target_id}==="
+        pos = 0
+        while True:
+            i = text.find(s_tag, pos)
+            if i == -1:
+                break
+            j = text.find(e_tag, i + len(s_tag))
+            if j == -1:
+                break
+            body = text[i + len(s_tag):j].strip()
+            pos = j + len(e_tag)
+            if "import platform" in body and "VERIFIED_EUNOS_2026" in body:
+                # 세미콜론(;) 또는 줄바꿈으로 이어진 원본 파이썬 문장들을 정식 멀티라인 파이썬 코드로 보존
+                raw_stmts = []
+                for ln in body.splitlines():
+                    for part in ln.split(";"):
+                        p_str = part.strip()
+                        if p_str:
+                            raw_stmts.append(p_str)
+                clean_code = "\n".join(raw_stmts)
+                return [(target_id, clean_code)]
+    return []
 
 def scan_space0_live():
-    js = (
-        "const t = await taskSpace(0); "
-        "const tbs = await t.tabs(); "
-        "const out = []; "
-        "for (const b of tbs) { "
-        "  if (String(b.url).includes('genspark.ai/agents')) { "
-        "    const p = await t.userPage(b.label); "
-        "    await p.evaluate(() => window.scrollTo(0, document.body.scrollHeight)); "
-        "    const txt = await p.evaluate(() => document.body ? document.body.innerText : ''); "
-        "    out.push({space:0, label:b.label, url:b.url, title:b.title, text:txt}); "
-        "  } "
-        "} "
-        "console.log('__S1_JSON__' + JSON.stringify(out));"
-    )
-    r = subprocess.run([EGO_BIN, "run", js], capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=30)
+    r = subprocess.run([EGO_BIN, "run", "-f", str(ROOT / "scan_s0.mjs")], cwd=str(ROOT), capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=30)
     if r.returncode != 0:
-        logger.error(f"EGO_SCAN_ERROR rc={r.returncode}")
+        logger.error(f"EGO_SCAN_ERROR rc={r.returncode} err={r.stderr.strip()[:120]}")
         return [], 1
     for line in r.stdout.splitlines():
         if line.startswith("__S1_JSON__"):
@@ -134,14 +126,14 @@ def execute_approved(state, pend):
         save_json_atomic(STATE_FILE, state)
         save_json_atomic(PENDING_FILE, pend)
 
-        r_add = subprocess.run(["git", "add", "state/daemon_state.json", "logs/s1_daemon.log"], cwd=str(ROOT), capture_output=True, text=True)
+        r_add = subprocess.run(["git", "add", "-f", "state/daemon_state.json", "logs/s1_daemon.log"], cwd=str(ROOT), capture_output=True, text=True)
         r_cm = subprocess.run(["git", "commit", "-m", f"S1 Auto-Commit after {cid} raw multi-line execution"], cwd=str(ROOT), capture_output=True, text=True)
         r_rev = subprocess.run(["git", "rev-parse", "--short", "HEAD"], cwd=str(ROOT), capture_output=True, text=True)
         sha_now = r_rev.stdout.strip()
         logger.info(f"GIT_COMMIT_DONE id={cid} rc={r_cm.returncode} commit_sha={sha_now}")
 
 def run_cycles(cycles, interval):
-    logger.info(f"PRECHECK ego-browser -> {EGO_BIN} mode=RAW_MULTILINE_EGO_SCAN")
+    logger.info(f"PRECHECK ego-browser -> {EGO_BIN} mode=RAW_MULTILINE_EGO_SCAN_FILE")
     for i in range(1, cycles + 1):
         if KILL_FILE.exists():
             logger.warning(f"KILL_SWITCH_ACTIVE file={KILL_FILE.name} -> immediate stop at cycle={i}")
@@ -151,7 +143,7 @@ def run_cycles(cycles, interval):
 
         tabs, err = scan_space0_live()
         for tb in tabs:
-            blocks = extract_raw_block(tb.get("text", ""), "REAL_DOM_004")
+            blocks = extract_raw_block(tb.get("text", ""))
             for cid, code in blocks:
                 h = sha256_text(code)
                 if cid in state.get("executed", {}) and state["executed"][cid].get("sha256") == h:
