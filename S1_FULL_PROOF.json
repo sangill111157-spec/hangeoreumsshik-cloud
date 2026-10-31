@@ -27,14 +27,16 @@
   },
   "api_status_live": {
     "ok": true,
-    "server_time": "2026-10-31T10:13:13.869447",
+    "server_time": "2026-10-31T10:45:13.143844",
     "kill_switch": false,
     "mode": "READ_ONLY",
     "last_proof": "2026-10-31T04:10:50.159538+09:00"
   },
   "api_chat_live": {
     "ok": true,
+    "req_id": "63327907",
     "executed": false,
-    "reply": "[읽기 전용] '8대 코어 실측 상태' 명령은 기록되었으나 아직 실행되지 않았습니다."
-  }
+    "reply": "[읽기 전용 · 원장ID 63327907] '8대 코어 실측 상태' 명령이 원장(s1_command_ledger.json)에 기록되었으나 실행되지 않았습니다."
+  },
+  "source_code_protection_test": "HTTP_403_BLOCKED"
 }
