@@ -1,6 +1,6 @@
 ﻿# -*- coding: utf-8 -*-
 # S1 Zero Copy-Paste Daemon v3.3 (CEO Permission-Gated Universal Ego Agent — Pure Live Browser Scan & Isolated RUN_DIR)
-import argparse, datetime, hashlib, json, logging, msvcrt, os, re, shutil, subprocess, sys, time, traceback, urllib.request
+import argparse, uuid, datetime, hashlib, json, logging, msvcrt, os, re, shutil, subprocess, sys, time, traceback, urllib.request
 from pathlib import Path
 
 sys.stdout.reconfigure(encoding="utf-8")
@@ -101,7 +101,7 @@ def load_approvals():
 
 MARKER_START = "===S1_AUTO_" + "START:"
 MARKER_END = "===S1_AUTO_" + "END:"
-BLOCK_RE = re.compile(r"={1,3}S1_AUTO_START:([A-Za-z0-9_.-]+)={1,3}\s*([\s\S]{1,600}?)\s*={1,3}S1_AUTO_END:\1={1,3}")
+BLOCK_RE = re.compile(r"(?m)^=+S1_AUTO_START:([A-Za-z0-9_.-]+)=+[ \t]*\n?([\s\S]{1,600}?)\n?=+S1_AUTO_END:\1=+[ \t]*$")
 
 def clean_snapshot_body(raw_body):
     s = raw_body.replace(chr(92) + chr(34), chr(34)).replace("\r\n", "\n").strip()
@@ -151,8 +151,8 @@ try {
       if (!u.includes("genspark.ai/agents")) continue;
       const page = tb.label ? task.page(tb.label) : await task.adopt(tb.page);
       let text = await Promise.race([page.evaluate(() => document.body ? document.body.innerText : ""), new Promise(r => setTimeout(() => r(""), 8000))]);
-      if (!text) text = toText(await page.snapshot());
-      out.tabs.push({ space: sp.id, label: tb.label || "p1", title: tb.title || "", url: u, text });
+      let snapFallback = false; if (!text) { snapFallback = true; text = toText(await page.snapshot()); }
+      out.tabs.push({ space: sp.id, label: tb.label || "p1", title: tb.title || "", url: u, text, snapFallback });
     }
   }
 } catch (e) { out.errors.push(e.message); }
@@ -181,6 +181,9 @@ def process_blocks(tabs, dry_run=False, exec_timeout=30.0):
     for tb in tabs:
         blocks = extract_blocks_with_context(tb.get("text", ""))
         if not blocks:
+            continue
+        if tb.get("snapFallback"):
+            log(f"SNAPSHOT_FALLBACK_OBSERVE_ONLY space={tb.get('space')} label={tb.get('label')} -> innerText 타임아웃 폴백 발생, 실행 없이 관측만 수행", level="ERROR")
             continue
         if not is_trusted_tab(tb):
             log(f"UNTRUSTED_TAB_IGNORED space={tb.get('space')} label={tb.get('label')} url={tb.get('url')} count={len(blocks)}")
@@ -223,13 +226,17 @@ def process_blocks(tabs, dry_run=False, exec_timeout=30.0):
                 log(f"KILL_SWITCH_BEFORE_EXEC id={bid} sha={sha[:12]} -> 실행 직전 킬스위치 감지! 원장 추가 0건 즉시 정지(HALT)")
                 return "HALT"
 
-            led["executed"][bid] = {"sha256": sha, "status": "STARTED", "time": now()}
+            work_id = str(uuid.uuid4())
+            led["executed"][bid] = {"sha256": sha, "status": "STARTED", "work_id": work_id, "uuid": work_id, "time": now()}
             if sha not in led["hashes"]:
                 led["hashes"].append(sha)
             save_ledger_atomic(led)
 
             script_path = RUN_DIR / f"{bid}.py"
-            script_path.write_text(body, encoding="utf-8")
+            script_path.write_bytes(body.encode("utf-8"))
+            if hashlib.sha256(script_path.read_bytes()).hexdigest() != sha:
+                log(f"FILE_SHA_MISMATCH_HOLD id={bid}", level="ERROR")
+                continue
             try:
                 proc = subprocess.run([sys.executable, str(script_path)], cwd=str(RUN_DIR),
                                       capture_output=True, text=True, encoding="utf-8", timeout=exec_timeout)
@@ -255,7 +262,7 @@ def process_blocks(tabs, dry_run=False, exec_timeout=30.0):
             except Exception as api_err:
                 log(f"SERVER_DOWN_API_FAIL id={bid} err={api_err!r} -> 로컬 서버 다운이나 원장({status_str})은 영속 보존됨", level="ERROR")
 
-            work_id = chat_res.get("uuid") or f"local-{bid}-{sha[:8]}"
+            work_id = chat_res.get("uuid") or work_id
             entry_result = {
                 "block_id": bid,
                 "sha256": sha,
@@ -310,7 +317,7 @@ def main():
 
     precheck()
     load_ledger_strict()
-    log(f"DAEMON_V3_3_START dry_run={args.dry} cycles={args.cycles}")
+    log(f"DAEMON_V3_4_START dry_run={args.dry} cycles={args.cycles}")
     for c in range(1, args.cycles + 1):
         if kill_switch_active():
             log(f"KILL_SWITCH_ACTIVE cycle={c} -> IMMEDIATE_SAFE_HALT")
@@ -325,7 +332,7 @@ def main():
             return
         if c < args.cycles:
             time.sleep(args.poll)
-    log(f"DAEMON_V3_3_FINISH dry_run={args.dry} cycles={args.cycles}")
+    log(f"DAEMON_V3_4_FINISH dry_run={args.dry} cycles={args.cycles}")
 
 if __name__ == "__main__":
     main()
