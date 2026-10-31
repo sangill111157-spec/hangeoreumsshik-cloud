@@ -43,7 +43,7 @@ def save_json_atomic(path, data):
     os.replace(tmp, path)
 
 def extract_raw_block(text):
-    for target_id in ("REAL_DOM_004", "REAL_DOM_003"):
+    for target_id in ("REAL_DOM_003", "REAL_DOM_004"):
         s_tag = f"===S1_AUTO_START:{target_id}==="
         e_tag = f"===S1_AUTO_END:{target_id}==="
         pos = 0
@@ -57,7 +57,6 @@ def extract_raw_block(text):
             body = text[i + len(s_tag):j].strip()
             pos = j + len(e_tag)
             if "import platform" in body and "VERIFIED_EUNOS_2026" in body:
-                # 세미콜론(;) 또는 줄바꿈으로 이어진 원본 파이썬 문장들을 정식 멀티라인 파이썬 코드로 보존
                 raw_stmts = []
                 for ln in body.splitlines():
                     for part in ln.split(";"):
@@ -69,7 +68,7 @@ def extract_raw_block(text):
     return []
 
 def scan_space0_live():
-    r = subprocess.run([EGO_BIN, "run", "-f", str(ROOT / "scan_s0.mjs")], cwd=str(ROOT), capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=30)
+    r = subprocess.run([EGO_BIN, "-f", str(ROOT / "scan_s0.mjs")], cwd=str(ROOT), capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=30)
     if r.returncode != 0:
         logger.error(f"EGO_SCAN_ERROR rc={r.returncode} err={r.stderr.strip()[:120]}")
         return [], 1
