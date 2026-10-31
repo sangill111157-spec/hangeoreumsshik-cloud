@@ -61,9 +61,9 @@ try {
       try {
         const page = tb.label ? task.page(tb.label) : await task.adopt(tb.page);
         let text = "";
-        if (!CFG.switchFirst) { try { text = toText(await page.snapshot()); } catch (e) { text = ""; } }
+        if (false) { try { text = toText(await page.snapshot()); } catch (e) { text = ""; } }
         if (!text) {
-          try { await task.switchTo(tb.label || tb.page); } catch (e) {}
+          try {  } catch (e) {}
           try { text = toText(await page.snapshot()); } catch (e) { text = ""; }
         }
         const role = roleOf(tb, text) || "none";
@@ -91,7 +91,7 @@ try {
     if (!tb) { err = "tab not found"; }
     else {
       const page = tb.label ? task.page(tb.label) : await task.adopt(tb.page);
-      await task.switchTo(tb.label || tb.page);
+      
       await page.fill(CFG.selector, CFG.message);
       await page.keyboard.press("Enter");
       done = true;
