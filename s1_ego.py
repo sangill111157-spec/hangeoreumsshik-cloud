@@ -319,7 +319,7 @@ def cmd_ask(space_id, prompt_text, wait_sec=60, tail_chars=4500, override_chat_i
               if (tas.length === 0) return {{ ok: false, code: "NO_TEXTAREA" }};
               const ta = document.querySelector('textarea[name="query"]') || tas[0];
               const draft = (ta.value || "").trim();
-              if (draft.length > 0) return {{ ok: false, code: "DRAFT_PRESENT", draft_len: draft.length }};
+              if (draft.length > 0) {{ ta.value = ""; ta.dispatchEvent(new Event("input", {{ bubbles: true }})); }}
               const bodyTxt = document.body ? document.body.innerText : "";
               if (!bodyTxt.includes(expModel)) {{
                 return {{ ok: false, code: "MODEL_MISMATCH", expected_model: expModel }};
@@ -371,7 +371,7 @@ def cmd_ask(space_id, prompt_text, wait_sec=60, tail_chars=4500, override_chat_i
             page.evaluate(() => {{
               const ta = document.querySelector('textarea[name="query"]') || document.querySelector('textarea');
               const bodyTxt = document.body ? document.body.innerText : "";
-              const rateLimited = bodyTxt.includes("5시간 제한") || bodyTxt.includes("재설정됩니다");
+              const rateLimited = Array.from(document.querySelectorAll("[role=alert], .ant-message, .toast")).some(e => (e.innerText || "").includes("5시간 제한"));
               return {{ valLen: ta ? (ta.value || "").trim().length : -1, rateLimited }};
             }}).catch(() => null),
             new Promise(r => setTimeout(() => r(null), 5000))
@@ -404,7 +404,7 @@ def cmd_ask(space_id, prompt_text, wait_sec=60, tail_chars=4500, override_chat_i
             const poll = await Promise.race([
               page.evaluate((baseProseCount, baseLastProse) => {{
                 const bodyTxt = document.body ? document.body.innerText : "";
-                if (bodyTxt.includes("5시간 제한") || bodyTxt.includes("재설정됩니다")) {{
+                if (Array.from(document.querySelectorAll("[role=alert], .ant-message, .toast")).some(e => (e.innerText || "").includes("5시간 제한"))) {{
                   return {{ ok: true, rateLimited: true }};
                 }}
                 const tailWindow = bodyTxt.slice(-600);
