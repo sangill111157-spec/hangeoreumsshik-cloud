@@ -116,7 +116,7 @@ def extract_blocks_with_context(text):
     for m in BLOCK_RE.finditer(src_text):
         bid, raw_body = m.group(1), m.group(2).strip()
         if "MARKER_START" in raw_body or "clean_snapshot_body" in raw_body:
-            continue
+            log(f"SELF_CODE_BLOCK_SKIPPED id={bid}"); continue
         if bid in seen_ids:
             continue
         seen_ids.add(bid)
@@ -129,7 +129,7 @@ def extract_blocks_with_context(text):
     return res
 
 def is_trusted_tab(tab):
-    return int(tab.get("space", -1)) == TRUSTED_SPACE_ID and f"genspark.ai/agents?id={TRUSTED_CHAT_ID}" in str(tab.get("url", ""))
+    u = urllib.parse.urlparse(str(tab.get("url", ""))); q = urllib.parse.parse_qs(u.query); return int(tab.get("space", -1)) == TRUSTED_SPACE_ID and u.netloc.endswith("genspark.ai") and u.path == "/agents" and q.get("id") == [TRUSTED_CHAT_ID]
 
 SCAN_JS = r"""
 const out = { tabs: [], errors: [] };
@@ -144,7 +144,7 @@ try {
   const spaces = await listTaskSpaces();
   for (const sp of spaces) {
     if (sp.id !== 0) continue;
-    const task = sp.ownership === "user" ? await claimTaskSpace(sp.id) : await taskSpace(sp.id);
+    const task = await taskSpace(sp.id);
     const tabs = await task.tabs();
     for (const tb of tabs) {
       const u = String(tb.url || "");
@@ -284,10 +284,11 @@ def process_blocks(tabs, dry_run=False, exec_timeout=30.0):
             led["executed"][bid] = entry_result
             save_ledger_atomic(led)
 
-            out_file = RUN_DIR / f"result_{bid}.json"
-            out_file.write_text(json.dumps(entry_result, ensure_ascii=False, indent=2), encoding="utf-8")
+            for out_file in (RUN_DIR / f"result_{bid}.json", RUN_DIR / "live_cycle_result.json"):
+                tmp_f = out_file.with_suffix(".json.tmp")
+                tmp_f.write_text(json.dumps(entry_result, ensure_ascii=False, indent=2), encoding="utf-8")
+                os.replace(tmp_f, out_file)
             live_file = RUN_DIR / "live_cycle_result.json"
-            live_file.write_text(json.dumps(entry_result, ensure_ascii=False, indent=2), encoding="utf-8")
 
             stdout_inline = " | ".join(stdout_val.splitlines())
             log(f"LIVE_EXEC_{status_str} id={bid} sha={sha[:12]} rc={rc_val} work_id={work_id} isolated_cwd={RUN_DIR.name} stdout_3lines=[{stdout_inline}] result_file={live_file.name}")
