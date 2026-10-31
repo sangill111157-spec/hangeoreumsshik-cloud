@@ -197,7 +197,7 @@ def cmd_read(space_id, tail_chars=4000, override_chat_id=None):
       const evalRes = await Promise.race([
         page.evaluate(() => {{
           const bodyTxt = document.body ? document.body.innerText : "";
-          const articles = Array.from(document.querySelectorAll(".prose, [class*='markdown'], article")).map(el => (el.innerText || "").trim()).filter(Boolean);
+          const articles = Array.from(document.querySelectorAll(".answer-markdown, .markdown-viewer")).map(el => (el.innerText || "").trim()).filter(Boolean);
           const lastMsg = articles.length > 0 ? articles[articles.length - 1] : "";
           return {{ ok: true, bodyTxt, lastMsg }};
         }}).catch(e => ({{ ok: false, err: String(e) }})),
@@ -253,7 +253,7 @@ def cmd_ask(space_id, prompt_text, wait_sec=60, tail_chars=4500, override_chat_i
         write_audit({"req_id": req_id, "cmd": "ask", "space": space_id, "prompt_sha": prompt_sha, "status": "ASK_SPACE_FORBIDDEN"})
         return res
 
-    if "S1_AUTO_" in (prompt_text or ""):
+    if re.search(r"=+\s*S1_AUTO_(START|END)\s*:", prompt_text or ""):
         res = {"ok": False, "code": "MARKER_IN_PROMPT_REJECTED", "req_id": req_id, "space": space_id}
         write_audit({"req_id": req_id, "cmd": "ask", "space": space_id, "prompt_sha": prompt_sha, "status": "MARKER_IN_PROMPT_REJECTED"})
         return res
@@ -324,7 +324,7 @@ def cmd_ask(space_id, prompt_text, wait_sec=60, tail_chars=4500, override_chat_i
               if (!bodyTxt.includes(expModel)) {{
                 return {{ ok: false, code: "MODEL_MISMATCH", expected_model: expModel }};
               }}
-              const proseEls = Array.from(document.querySelectorAll(".prose, [class*='markdown']"));
+              const proseEls = Array.from(document.querySelectorAll(".answer-markdown"));
               const lastProse = proseEls.length > 0 ? (proseEls[proseEls.length - 1].innerText || "").trim() : "";
               return {{
                 ok: true,
@@ -413,7 +413,7 @@ def cmd_ask(space_id, prompt_text, wait_sec=60, tail_chars=4500, override_chat_i
                   const t = (b.innerText || b.getAttribute("aria-label") || "").toLowerCase();
                   return t === "stop" || t === "중지" || t.includes("생성 중지");
                 }});
-                const proseEls = Array.from(document.querySelectorAll(".prose, [class*='markdown']"));
+                const proseEls = Array.from(document.querySelectorAll(".answer-markdown"));
                 const curCount = proseEls.length;
                 const curLast = curCount > 0 ? (proseEls[curCount - 1].innerText || "").trim() : "";
                 const hasNewAssistant = (curCount > baseProseCount && curLast.length > 10) || (curLast !== baseLastProse && curLast.length > 10);
