@@ -6,8 +6,9 @@
       "time": "2026-10-31T23:01:27.179432+09:00",
       "rc": 1,
       "stdout": "",
-      "stderr": "SyntaxError: unterminated string literal (snapshot accessibility tree suffix remained in raw body before v3.3 refinement)",
-      "uuid": "70b1558e-e7de-4c37-b2e8-25c8f33157cb"
+      "stderr": "SyntaxError: unterminated string literal",
+      "uuid": "70b1558e-e7de-4c37-b2e8-25c8f33157cb",
+      "postmortem_note": "SyntaxError: unterminated string literal (snapshot accessibility tree suffix remained in raw body before v3.3 refinement)"
     },
     "REAL_DOM_002": {
       "block_id": "REAL_DOM_002",
