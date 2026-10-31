@@ -2,7 +2,7 @@
 
 ## SNAPSHOT
 ```
-[p1 "SUN-ONE AON | S1 만능소통창" | space "S1_OmniChat"(5): 1 managed, 0 untracked — p1* "SUN-ONE AON | S1 만능소통창"]
+[p1 "SUN-ONE AON | S1 만능소통창" | space "S1_OmniChat"(6): 1 managed, 0 untracked — p1* "SUN-ONE AON | S1 만능소통창"]
 root
   container
     container
@@ -11,9 +11,9 @@ root
         text "SUN-ONE AON"
         text "S1 만능소통창 · 읽기 전용 (서버 미연결)"
     container
-      button [ref=25]
+      button [ref=1]
         text "8대코어"
-      button [ref=26]
+      button [ref=2]
         text "+ 앱 설치"
   container
     container
@@ -25,100 +25,169 @@ root
       text "온 세상에 본연의 밝음을 되찾아주는 환원의 시작점."
       text "어느 브라우저·스마트폰에서든 하나로 연결되는 만능소통창입니다."
     container
-      button [ref=27]
+      button [ref=3]
         text "삼성 5회전 현황"
-      button [ref=28]
+      button [ref=4]
         text "8대 코어 실측 상태"
-      button [ref=29]
+      button [ref=5]
         text "Suno v6 명작 작업"
-      button [ref=30]
+      button [ref=6]
         text "킬스위치 점검"
   form
-    button [ref=31]
+    button [ref=7]
       text "+"
-    textbox [ref=32, loc=css:input[placeholder="대표님, 무엇이든 하명하십시오..."]]
+    textbox [ref=8, loc=css:input[placeholder="대표님, 무엇이든 하명하십시오..."]]
       text "대표님, 무엇이든 하명하십시오..."
-    button [ref=33]
+    button [ref=9]
       text "전송"
 
 ```
 
 ## SPACE 2
-ne;background:linear-gradient(135deg,#d4af37,#9a7b1c);color:#05070c;font-weight:800;cursor:pointer;flex-shrink:0}</style></head><body><header class="hd"><div class="br"><img src="./s1_logo_1.png" alt="S1"><div><span class="bt">SUN-ONE AON</span><span class="bs">S1 만능소통창 · 읽기 전용 (서버 미연결)</span></div></div><div class="ac"><button type="button" class="btn" id="b-core">8대코어</button><button type="button" class="btn pri" id="b-pwa">+ 앱 설치</button></div></header><section class="dr" id="dr-core"><div class="cc"><span>Core 1 킬스위치</span><span class="dot"></span></div><div class="cc"><span>Core 2 UUID원장</span><span class="dot"></span></div><div class="cc"><span>Core 3 48kHz마스터</span><span class="dot"></span></div><div class="cc"><span>Core 4 시네마틱루프</span><span class="dot"></span></div><div class="cc"><span>Core 5 SHA256감사</span><span class="dot"></span></div><div class="cc"><span>Core 6 옴니채널배급</span><span class="dot"></span></div><div class="cc"><span>Core 7 성과·IP확장</span><span class="dot"></span></div><div class="cc"><span>Core 8 퀀트·환원</span><span class="dot"></span></div></section><main class="mn" id="st"><div class="hr" id="hr"><div class="hr-logos"><img class="emblem" src="./s1_logo_2.png" alt="Emblem"><img class="wide" src="./s1_logo_3.png" alt="Banner"></div><h1>SUN-ONE AON · 썬원 에이온</h1><p>온 세상에 본연의 밝음을 되찾아주는 환원의 시작점.<br>어느 브라우저·스마트폰에서든 하나로 연결되는 만능소통창입니다.</p><div class="cps"><button class="cp" data-q="삼성 5회전 회의 현황 보고해">삼성 5회전 현황</button><button class="cp" data-q="S1 8대 코어 및 V3 정밀 검산 상태 브리핑해">8대 코어 실측 상태</button><button class="cp" data-q="Suno v6 제1호 명작 앨범 작업 이어가자">Suno v6 명작 작업</button><button class="cp" data-q="비상 정지 스위치 상태 확인해">킬스위치 점검</button></div></div></main><form class="ft" id="fm"><input type="file" id="fi" style="display:none" multiple><button type="button" class="ib" id="b-at" title="파일첨부">+</button><input type="text" class="inp" id="in" placeholder="대표님, 무엇이든 하명하십시오..." autocomplete="off"><button type="submit" class="snd">전송</button></form><script>if("serviceWorker" in navigator){navigator.serviceWorker.register("./sw.js").catch(function(){});}var dp=null;window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();dp=e;});document.getElementById("b-pwa").onclick=function(){if(dp){dp.prompt();}else{alert("[전 브라우저 S1 앱 설치 안내]\n1. PC: 주소창 우측 앱 설치 아이콘 클릭\n2. 갤럭시: 우측 메뉴 -> 홈 화면에 추가\n3. 아이폰 Safari: 하단 공유 버튼 -> 홈 화면에 추가");}};document.getElementById("b-core").onclick=function(){document.getElementById("dr-core").classList.toggle("open");};document.getElementById("b-at").onclick=function(){document.getElementById("fi").click();};var st=document.getElementById("st"),inp=document.getElementById("in"),hr=document.getElementById("hr");function add(t,r){if(hr)hr.style.display="none";var d=document.createElement("div");d.className="msg "+r;d.textContent=t;st.appendChild(d);st.scrollTop=st.scrollHeight;}function run(q){add(q,"user");fetch("./S1_V3_PRECISION_PROOF.json",{method_ignore:"POST",headers:{"Content-Type":"application/json"},cache:undefined}).then(function(r){return r.json();}).then(function(d){add(String.fromCharCode(91,51069,44592,51204,50857,93,10)+JSON.stringify(d,null,2),"ai");}).catch(function(){add("[S1 만능소통창 · 서버 미연결]\n• V3 정밀 검산(48kHz Stereo 768,078B / SHA-256 일치): 서버미연결(미실행)\n• 명령 미실행(정직표기)","ai");});}document.getElementById("fm").onsubmit=function(e){e.preventDefault();var v=inp.value.trim();if(!v)return;inp.value="";run(v);};document.querySelectorAll(".cp").forEach(function(c){c.onclick=function(){run(c.getAttribute("data-q"));};});if(window.visualViewport){window.visualViewport.addEventListener("resize",function(){document.body.style.height=window.visualViewport.height+"px";});}</script></body></html>
+p=null;window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();dp=e;});document.getElementById("b-pwa").onclick=function(){if(dp){dp.prompt();}else{alert("[전 브라우저 S1 앱 설치 안내]\n1. PC: 주소창 우측 앱 설치 아이콘 클릭\n2. 갤럭시: 우측 메뉴 -> 홈 화면에 추가\n3. 아이폰 Safari: 하단 공유 버튼 -> 홈 화면에 추가");}};document.getElementById("b-core").onclick=function(){document.getElementById("dr-core").classList.toggle("open");};document.getElementById("b-at").onclick=function(){document.getElementById("fi").click();};var st=document.getElementById("st"),inp=document.getElementById("in"),hr=document.getElementById("hr");function add(t,r){if(hr)hr.style.display="none";var d=document.createElement("div");d.className="msg "+r;d.textContent=t;st.appendChild(d);st.scrollTop=st.scrollHeight;}function run(q){add(q,"user");fetch("./S1_V3_PRECISION_PROOF.json",{method_ignore:"POST",headers:{"Content-Type":"application/json"},cache:undefined}).then(function(r){return r.json();}).then(function(d){add(String.fromCharCode(91,51069,44592,51204,50857,93,10)+JSON.stringify(d,null,2),"ai");}).catch(function(){add("[S1 만능소통창 · 서버 미연결]\n• V3 정밀 검산(48kHz Stereo 768,078B / SHA-256 일치): 서버미연결(미실행)\n• 명령 미실행(정직표기)","ai");});}document.getElementById("fm").onsubmit=function(e){e.preventDefault();var v=inp.value.trim();if(!v)return;inp.value="";run(v);};document.querySelectorAll(".cp").forEach(function(c){c.onclick=function(){run(c.getAttribute("data-q"));};});if(window.visualViewport){window.visualViewport.addEventListener("resize",function(){document.body.style.height=window.visualViewport.height+"px";});}</script></body></html><!-- MANIFEST:{
+  "name": "SUN-ONE AON (S1) 만능소통창",
+  "short_name": "S1 에이온",
+  "start_url": "./index.html?pwa=1",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#05070c",
+  "theme_color": "#05070c",
+  "icons": [
+    {
+      "src": "s1_logo_1.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "s1_logo_1.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+} SW:// SHIN service worker: v5 cache reset worker (build v5-20261020154003)
+const BUILD = 'v5-20261020154003';
+
+self.addEventListener('install', (event) => {
+  self.skipWaiting();
+});
+
+self.addEventListener('activate', (event) => {
+  event.waitUntil((async () => {
+    const keys = await caches.keys();
+    await Promise.all(keys.map((k) => caches.delete(k)));
+    await self.clients.claim();
+    const clients = await self.clients.matchAll({ type: 'window' });
+    clients.forEach((c) => c.postMessage({ type: 'SHIN_SW_RESET', build: BUILD }));
+  })());
+});
+
+self.addEventListener('fetch', (event) => {
+  const req = event.request;
+  if (req.method !== 'GET') return;
+  const url = new URL(req.url);
+  if (url.origin !== self.location.origin) return;
+  if (req.headers.has('range')) return;
+  if (url.pathname.includes('/ingredients_basket/')) return;
+  if (/\.(mp4|webm|mp3|wav|m4a|ogg|jpg|jpeg|png|webp|gif|json)$/i.test(url.pathname)) return;
+  if (req.mode === 'navigate' || /\.html?$/i.test(url.pathname)) {
+    event.respondWith(fetch(req, { cache: 'no-store' }).catch(() => caches.match(req)));
+  }
+});
+ -->
 
 위 만능소통창의 (1) 모바일 완벽 호환성, (2) 전 브라우저 PWA 설치 규격, (3) 로컬 PC 및 삼성 회의와의 실시간 연결 브릿지 완성을 위한 최종 검수 판정을 제출하라.
 병렬 검색
-site.developer.mozilla.org RequestInit method default GET Response ok fetch HTTP error
-site.developer.mozilla.org Making PWAs installable beforeinstallprompt manifest HTTPS
+site.developer.mozilla.org manifest icons sizes actual image maskable safe zone
+site.developer.mozilla.org CacheStorage keys delete origin service worker cache
+site.developer.mozilla.org PWA installable beforeinstallprompt manifest HTTPS
 보기
-S1 만능소통창 최종 재검수 판정서
+읽기
+https://developer.mozilla.org/en-US/docs/Web/API/CacheStorage/keys
+보기
+읽기
+https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Manifest/Reference/icons
+보기
+S1 만능소통창 최종 검수 판정서
 
-판정: ‘읽기 전용 시제품’으로의 표시 개선은 인정합니다. 모바일 완전 호환·PWA 설치·실시간 연결 브릿지의 완공 승인은 보류합니다.
+최종 판정: 읽기 전용 UI 골조는 확인했습니다. 이번에 manifest·서비스 워커 내용이 추가됐지만, 모바일·PWA·실시간 브릿지의 완공 승인은 아직 불가합니다. 특히 서비스 워커에서 새로운 수정 필요 사항이 확인됐습니다.
 
-이번 검수는 제출된 HTML과 텍스트 스냅샷에 대한 정적 감사입니다. 실제 이미지 파일·배포 서버·로컬 PC·스마트폰을 직접 시험한 결과가 아니며, 삼성전자의 공식 인증을 의미하지 않습니다.
+검수는 제출된 HTML·manifest·SW 텍스트와 사용자 제공 스냅샷을 대상으로 했습니다. 실제 배포 파일·기기·로컬 서버를 직접 실행한 검증이나 삼성전자의 공식 인증은 아닙니다.
 
-1. 이번 수정은 무엇이 달라졌는가
+1. 종합 판정
+대상	판정	근거
+3대 로고	코드상 탑재 확인	이미지 경로 3개 존재. 실제 로딩·잘림은 미검증
+상태 표시 정직성	개선 인정	읽기 전용·서버 미연결·명령 미실행 명시
+모바일 완벽 호환성	부분 적합 / 인수 보류	좁은 화면·키보드·접근성 보완 및 실기기 시험 필요
+PWA 설치	설정 초안 확인 / 인수 보류	실제 파일 제공 여부·아이콘·설치 결과 미확인
+서비스 워커	수정 필요	캐시 일괄 삭제, 오프라인 대체 응답 미보장
+로컬 PC·회의 실시간 브릿지	미완성	명령 전달·작업자·회의 기록 연결이 없음
+2. 모바일 호환성: 기본 대응은 있으나 “완벽” 판정 불가
 
-이전 지적 중 다음 사항은 수정 확인합니다.
+확대 제한 제거, 입력창 16px, 하단 safe-area, visualViewport 대응은 적절한 기반입니다. 그러나 다음은 그대로 남았습니다.
 
-항목	이번 제출본	판정
-헤더의 고정 8대 코어 ON	읽기 전용 (서버 미연결)	개선 인정
-코어의 고정 초록 점	회색 점	개선 인정
-실패 시 “가동 중” 표시	서버 미연결로 변경	개선 인정
-실패 시 명령 성공 오표시	명령 미실행 명시	개선 인정
-JSON 표시의 성격	[읽기전용] 표시	개선 인정
+헤더: 브랜드·상태 문구·버튼 2개를 좁은 화면에 배치할 모바일 분기가 없습니다.
+로고: 높이 제한만 있어 넓은 이미지가 넘칠 수 있습니다. max-width:100%와 비율 유지가 필요합니다.
+코어 서랍: 최대 높이·내부 스크롤이 없어 가로모드나 키보드 표시 때 대화 영역을 압박할 수 있습니다.
+접근성: 입력창 라벨, 입력창 포커스 표시, 서랍의 aria-expanded·aria-controls, 메시지 알림 처리가 없습니다.
+상태 의미: 회색 점에 “미확인” 텍스트를 병기해야 합니다.
 
-따라서 이전의 ‘미연결인데 정상 가동으로 표시하는 결함’은 이번 코드에서 상당 부분 해소됐습니다. 다만 읽기 전용 자료 열람 기능과 명령 실행 기능은 아직 명확하게 분리되지 않았습니다.
+인수 조건: Android Chrome·Samsung Internet·iPhone Safari 등 지정 환경에서 좁은 화면, 가로모드, 키보드, 확대, 서랍 펼침을 시험하고 결과를 남기십시오. 텍스트 스냅샷은 픽셀 단위의 겹침·잘림을 입증하지 않습니다.
 
-2. 세 분야 최종 판정
-① 모바일 완벽 호환성 — 부분 적합, 실기기 인수 보류
+3. PWA: 이번 추가 자료에서 확인된 핵심 사항
+A. HTML 주석은 실제 manifest·SW 파일을 대체하지 않습니다
 
-확인된 기반
+추가 내용은 다음 주석 안에 있습니다.
 
-확대 제한 없는 viewport
-입력창 16px
-100dvh, 하단 safe-area
-visualViewport 높이 변화 대응
-대화 영역 스크롤
+Copy
+<!-- MANIFEST:{ ... } SW: ... -->
 
-남은 보완
 
-좁은 화면 헤더: 브랜드·길어진 상태 문구·버튼 2개가 한 줄입니다. 모바일 분기와 줄바꿈 정책이 필요합니다.
-로고 가로폭: max-height만 있습니다. max-width:100%와 비율 유지 처리가 필요합니다.
-코어 서랍: 최대 높이·내부 스크롤이 없어, 가로모드나 키보드 표시 시 대화 공간을 압박할 수 있습니다.
-접근성: 입력창 라벨, :focus-visible, 서랍의 aria-expanded·aria-controls, 메시지 알림 영역이 필요합니다.
-코어 상태: 회색 점만으로는 “중지”인지 “미확인”인지 알 수 없습니다. 각 코어에 ‘미확인’ 텍스트를 병기하십시오.
+설명용으로 첨부한 것이라면 문제없지만, 이것만 HTML에 넣었다면 manifest나 서비스 워커로 실행되지 않습니다. 브라우저가 요청하는 다음 URL에 각각 독립 파일이 실제 제공되는지 확인해야 합니다.
 
-통과 조건: 지정한 Android·iPhone 환경에서 세로·가로, 키보드 열기, 확대, 서랍 펼침, 긴 메시지를 시험한 화면과 결과가 필요합니다. 현재 텍스트 스냅샷만으로 화면 잘림이나 로고 가독성을 확정할 수 없습니다.
+./manifest.webmanifest
+./sw.js
 
-② 전 브라우저 PWA 설치 규격 — 검증 미완료
+manifest의 name, short_name, start_url, scope, display, 색상 항목은 초안으로 적절합니다. 다만 실제 시작 URL의 정상 응답·범위·HTTPS 배포·설치 결과는 별도 검증 대상입니다. Source
 
-manifest 링크와 설치 이벤트 코드는 있지만, 설치 성공을 입증하는 자료는 없습니다.
+B. 같은 PNG를 두 크기로 선언한 문제
 
-추가 제출 항목:
+현재 두 아이콘 모두 s1_logo_1.png인데 각각 192x192, 512x512로 선언했습니다.
 
-manifest.webmanifest 전문과 아이콘 파일
-name/short_name, start_url, display, 아이콘 크기·경로 확인
-실제 배포 URL과 HTTPS 확인
-sw.js 전문과 캐시·업데이트 정책
-지원 대상 브라우저별 설치·재실행 결과
+일반적인 단일 PNG가 선언만으로 두 해상도 파일이 되는 것은 아닙니다. 실제 픽셀 크기를 확인하고, 192px·512px 파일을 각각 만들어 경로를 분리하는 것이 명확합니다. 또한 purpose:"any maskable"은 문법상 가능하지만, 실제 이미지가 마스킹 안전영역에 맞게 제작됐는지 확인해야 합니다. Source
 
-PWA 설치 요건과 설치 지원 방식은 브라우저에 따라 다르며, 서비스 워커 자체가 설치의 보편적 필수조건은 아닙니다. Source
+C. 서비스 워커의 캐시 전체 삭제 — 우선 수정
+Copy
+const keys = await caches.keys();
+await Promise.all(keys.map((k) => caches.delete(k)));
 
-현재 설치 버튼은 dp가 없으면 같은 안내를 띄웁니다. 다음 상태를 구분해야 합니다.
 
-설치 가능
-설치된 앱으로 실행 중
-수동 설치 안내 필요
-해당 환경에서 설치 기능 미지원
+이 코드는 S1 캐시 이름을 구분하지 않고 접근 가능한 Cache Storage의 모든 이름을 삭제합니다. 같은 출처에서 다른 앱이 캐시를 공유한다면 영향을 줄 수 있습니다. S1 전용 접두어를 사용하고, 그중 이전 버전만 삭제하도록 제한하십시오. 이는 HTTP 캐시·쿠키 등 모든 브라우저 저장소를 지운다는 의미는 아닙니다. Source
 
-beforeinstallprompt는 전 브라우저 공통 기능이 아니므로, “전 브라우저 동일 설치” 대신 “지원 환경별 설치·웹 이용 대체 경로 제공”을 목표로 삼으십시오. userChoice 처리와 사용 후 dp 초기화도 필요합니다. Source
+D. 오프라인 대체 응답이 보장되지 않습니다
+Copy
+fetch(req, { cache:'no-store' }).catch(() => caches.match(req))
 
-또한 SW 등록 실패를 빈 catch로 숨기지 말고 진단 기록을 남겨야 합니다.
 
-③ 로컬 PC·삼성 회의 실시간 브릿지 — 미완성
+제출된 SW에는 캐시를 채우는 코드가 없고 활성화 때 캐시를 삭제합니다. 따라서 오프라인에서 caches.match(req)가 반환할 페이지가 보장되지 않습니다.
 
-핵심 요청 코드는 그대로입니다.
+둘 중 하나를 명시적으로 선택하십시오.
+
+온라인 전용: 오프라인 기능을 약속하지 않고 연결 불가를 안내
+오프라인 화면 지원: 정적 안내 화면만 캐시하고 현재 코어 상태·명령 성공과 구분
+
+JSON 요청은 SW 처리에서 제외돼 있으므로, 이 SW가 JSON의 HTTP 캐시까지 차단하는 것도 아닙니다.
+
+추가로 SHIN_SW_RESET 메시지를 받는 화면 코드가 없고 SW 등록 실패도 숨겨집니다. 빌드 명칭 자체가 오류는 아니지만, S1 배포 파일·버전·적용 상태를 일치시켜 추적할 필요가 있습니다.
+
+E. “전 브라우저 동일 설치”는 승인 기준으로 부적절
+
+beforeinstallprompt는 지원이 제한된 기능입니다. 설치 가능·앱으로 실행 중·수동 안내·미지원 상태를 분리하고, userChoice 처리와 사용 후 dp 초기화를 추가하십시오. Source
+
+4. 실시간 브릿지: 기능 변화 없음
+
+현재는 모든 입력과 바로가기가 같은 JSON 주소를 조회합니다.
 
 Copy
 fetch("./S1_V3_PRECISION_PROOF.json", {
@@ -127,166 +196,213 @@ fetch("./S1_V3_PRECISION_PROOF.json", {
   cache:undefined
 })
 
+method_ignore는 유효한 메서드 지정이 아닙니다.
+기본 GET이며, 사용자 입력 q가 요청에 포함되지 않습니다.
+cache:undefined는 캐시 차단 지정이 아닙니다.
 
-이 코드의 실제 의미는 다음과 같습니다.
+따라서 저장된 검산 기록 열람이지 명령 접수·회의 검색·로컬 실행이 아닙니다. r.ok와 응답 형식 검사도 필요합니다.
 
-method_ignore는 유효한 요청 메서드 옵션이 아닙니다.
-method 미지정이므로 기본 GET 요청입니다.
-입력값 q가 요청에 포함되지 않습니다.
-cache:undefined는 캐시 차단 설정이 아닙니다. Source
+읽기 전용으로 유지할 동안에는:
 
-현재 기능은 ‘무엇을 입력하든 동일 JSON 주소를 조회하는 읽기 전용 화면’입니다. 로컬 코어 실행·회의 내용 검색·Suno 작업·킬스위치 상태 조회가 연결됐다는 증거는 없습니다.
+“전송” → 저장 기록 열람
+“8대 코어 실측 상태” → 과거 코어 시험 기록
+Suno 작업·킬스위치 점검·첨부 → 미연결 안내 또는 비활성화
+실패 문구의 고정 측정값·“SHA-256 일치” 제거
+실패 원인 불명 시 “기록 조회 실패 — 원인 미확인” 표시
 
-또한 r.ok 확인이 없어, HTTP 오류 응답이 유효한 JSON이면 정상 표시 경로로 들어갑니다. Fetch는 HTTP 404·500만으로 자동 실패하지 않습니다. Source
+실시간 연결 완공에는 인증된 업무 API → 요청 원장·작업 큐 → 로컬 작업자 → 결과 조회와 별도의 회의 원문·버전 연결이 필요합니다. 단순히 method_ignore를 method로 바꾸는 것으로 해결되지 않습니다.
 
-3. 읽기 전용 화면으로도 바로 고쳐야 할 사항
-A. 버튼·입력창을 실제 기능과 일치시키십시오
+5. 최종 인수까지의 우선순위
+순위	조치	제출할 증빙
+1	SW 삭제 범위 제한, 온라인/오프라인 정책 확정, 읽기 전용 UI 정합성 수정	수정 파일·파일별 해시·오류 시험 결과
+2	독립 manifest/SW 배포, 실제 아이콘, 모바일·설치 시험	배포 URL·응답 상태·기기별 설치/재실행 기록
+3	업무 API·로컬 작업자·회의 원문 연결	요청 ID·작업 결과·회의 버전·중복/KILL_SWITCH 차단 기록
 
-현재 “전송”, “명작 작업”, “실측 상태”, “킬스위치 점검”은 실행·실시간 조회를 기대하게 합니다.
-
-연결 전에는 다음처럼 변경하는 것이 적절합니다.
-
-전송 → 검산 기록 열람
-8대 코어 실측 상태 → 저장된 코어 시험 기록
-Suno 작업·킬스위치 점검 → 비활성화 + ‘연결 준비 중’
-첨부 → 업로드 미구현 안내 또는 비활성화
-
-회의 버튼은 회의 원문과 연결될 때만 활성화하십시오. 서버가 없는 정적 페이지라도 별도 회의 문서를 열람하도록 연결하는 것은 가능합니다.
-
-B. 실패 원인을 정확하게 표시하십시오
-
-현재 catch는 파일 누락·JSON 파싱 오류·네트워크 오류 등을 모두 “서버 미연결”로 표시합니다. 원인을 구분하지 못했다면 “기록 조회 실패 — 원인 미확인”이 정확합니다.
-
-또한 실패 메시지에 남은 다음 문구는 제거하십시오.
-
-48kHz Stereo 768,078B / SHA-256 일치
-
-해당 요청에서 확인하지 않은 측정값·일치 결과를 오류 메시지에 넣을 필요가 없습니다.
-
-C. 저장 기록의 출처와 시점을 표시하십시오
-
-JSON 조회 성공 시 최소한 다음을 표시해야 합니다.
-
-과거 시험 기록 — 현재 상태 아님
-기록 ID·시험 시각·시간대
-대상 파일·버전·전체 해시
-조회 시각
-필수 필드가 없으면 “기록 형식 미확인”
-4. 완공 승인을 위한 실행 순서
-순서	작업	합격 증빙
-1	읽기 전용 UI 정합성 마무리	실행 오해 문구 제거, HTTP·형식 오류 처리, 과거 기록 표시
-2	PWA·모바일 실기기 검증	manifest/SW, 배포 URL, 기기별 설치·재실행·키보드 시험
-3	실제 업무 브릿지 연결	요청 ID·원장·로컬 작업자·회의 원문 연결·차단 시험
-
-브릿지는 인증된 업무 API → 영속 요청 원장·작업 큐 → 로컬 작업자 → 결과 조회로 연결하고, 서버 측에서 권한·중복 방지·승인·KILL_SWITCH를 강제해야 합니다. 임의 시스템 명령이 아니라 허용된 업무만 실행하도록 제한하십시오.
-
-최종 의결
-
-이번 수정은 ‘정상 가동을 가장하는 화면’에서 ‘서버 미연결을 명시한 읽기 전용 화면’으로 진전했습니다. 이 개선은 인정합니다.
-
-다만 읽기 전용 자료 열람은 조건부 적합, 모바일·PWA는 검증 미완료, 실시간 브릿지는 미완성입니다. 로컬 코어의 기존 Pilot Ready와 웹 소통창의 연결 완공은 별도 판정이며, 현재 소통창을 통한 실제 제작·공개·배포 실행은 승인하지 않습니다.
+최종 의결: 이번 자료는 PWA 설정 검토를 진전시켰지만, 실제 배포·설치·연결의 증거는 아닙니다. ‘읽기 전용 UI 시제품’ 판정은 유지하고, 모바일·PWA 인수 및 실시간 실행 승인은 보류합니다. 다음 재검수에는 같은 화면 스냅샷보다 실제 파일 응답·설치 결과·요청 원장·차단 시험 증빙을 제출하는 것이 우선입니다.
 
 GPT-6.1 Sol
 
 ---
 
 ## SPACE 3
- class="bs">S1 만능소통창 · 읽기 전용 (서버 미연결)</span></div></div><div class="ac"><button type="button" class="btn" id="b-core">8대코어</button><button type="button" class="btn pri" id="b-pwa">+ 앱 설치</button></div></header><section class="dr" id="dr-core"><div class="cc"><span>Core 1 킬스위치</span><span class="dot"></span></div><div class="cc"><span>Core 2 UUID원장</span><span class="dot"></span></div><div class="cc"><span>Core 3 48kHz마스터</span><span class="dot"></span></div><div class="cc"><span>Core 4 시네마틱루프</span><span class="dot"></span></div><div class="cc"><span>Core 5 SHA256감사</span><span class="dot"></span></div><div class="cc"><span>Core 6 옴니채널배급</span><span class="dot"></span></div><div class="cc"><span>Core 7 성과·IP확장</span><span class="dot"></span></div><div class="cc"><span>Core 8 퀀트·환원</span><span class="dot"></span></div></section><main class="mn" id="st"><div class="hr" id="hr"><div class="hr-logos"><img class="emblem" src="./s1_logo_2.png" alt="Emblem"><img class="wide" src="./s1_logo_3.png" alt="Banner"></div><h1>SUN-ONE AON · 썬원 에이온</h1><p>온 세상에 본연의 밝음을 되찾아주는 환원의 시작점.<br>어느 브라우저·스마트폰에서든 하나로 연결되는 만능소통창입니다.</p><div class="cps"><button class="cp" data-q="삼성 5회전 회의 현황 보고해">삼성 5회전 현황</button><button class="cp" data-q="S1 8대 코어 및 V3 정밀 검산 상태 브리핑해">8대 코어 실측 상태</button><button class="cp" data-q="Suno v6 제1호 명작 앨범 작업 이어가자">Suno v6 명작 작업</button><button class="cp" data-q="비상 정지 스위치 상태 확인해">킬스위치 점검</button></div></div></main><form class="ft" id="fm"><input type="file" id="fi" style="display:none" multiple><button type="button" class="ib" id="b-at" title="파일첨부">+</button><input type="text" class="inp" id="in" placeholder="대표님, 무엇이든 하명하십시오..." autocomplete="off"><button type="submit" class="snd">전송</button></form><script>if("serviceWorker" in navigator){navigator.serviceWorker.register("./sw.js").catch(function(){});}var dp=null;window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();dp=e;});document.getElementById("b-pwa").onclick=function(){if(dp){dp.prompt();}else{alert("[전 브라우저 S1 앱 설치 안내]\n1. PC: 주소창 우측 앱 설치 아이콘 클릭\n2. 갤럭시: 우측 메뉴 -> 홈 화면에 추가\n3. 아이폰 Safari: 하단 공유 버튼 -> 홈 화면에 추가");}};document.getElementById("b-core").onclick=function(){document.getElementById("dr-core").classList.toggle("open");};document.getElementById("b-at").onclick=function(){document.getElementById("fi").click();};var st=document.getElementById("st"),inp=document.getElementById("in"),hr=document.getElementById("hr");function add(t,r){if(hr)hr.style.display="none";var d=document.createElement("div");d.className="msg "+r;d.textContent=t;st.appendChild(d);st.scrollTop=st.scrollHeight;}function run(q){add(q,"user");fetch("./S1_V3_PRECISION_PROOF.json",{method_ignore:"POST",headers:{"Content-Type":"application/json"},cache:undefined}).then(function(r){return r.json();}).then(function(d){add(String.fromCharCode(91,51069,44592,51204,50857,93,10)+JSON.stringify(d,null,2),"ai");}).catch(function(){add("[S1 만능소통창 · 서버 미연결]\n• V3 정밀 검산(48kHz Stereo 768,078B / SHA-256 일치): 서버미연결(미실행)\n• 명령 미실행(정직표기)","ai");});}document.getElementById("fm").onsubmit=function(e){e.preventDefault();var v=inp.value.trim();if(!v)return;inp.value="";run(v);};document.querySelectorAll(".cp").forEach(function(c){c.onclick=function(){run(c.getAttribute("data-q"));};});if(window.visualViewport){window.visualViewport.addEventListener("resize",function(){document.body.style.height=window.visualViewport.height+"px";});}</script></body></html>
+if(window.visualViewport){window.visualViewport.addEventListener("resize",function(){document.body.style.height=window.visualViewport.height+"px";});}</script></body></html><!-- MANIFEST:{
+  "name": "SUN-ONE AON (S1) 만능소통창",
+  "short_name": "S1 에이온",
+  "start_url": "./index.html?pwa=1",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#05070c",
+  "theme_color": "#05070c",
+  "icons": [
+    {
+      "src": "s1_logo_1.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "s1_logo_1.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+} SW:// SHIN service worker: v5 cache reset worker (build v5-20261020154003)
+const BUILD = 'v5-20261020154003';
+
+self.addEventListener('install', (event) => {
+  self.skipWaiting();
+});
+
+self.addEventListener('activate', (event) => {
+  event.waitUntil((async () => {
+    const keys = await caches.keys();
+    await Promise.all(keys.map((k) => caches.delete(k)));
+    await self.clients.claim();
+    const clients = await self.clients.matchAll({ type: 'window' });
+    clients.forEach((c) => c.postMessage({ type: 'SHIN_SW_RESET', build: BUILD }));
+  })());
+});
+
+self.addEventListener('fetch', (event) => {
+  const req = event.request;
+  if (req.method !== 'GET') return;
+  const url = new URL(req.url);
+  if (url.origin !== self.location.origin) return;
+  if (req.headers.has('range')) return;
+  if (url.pathname.includes('/ingredients_basket/')) return;
+  if (/\.(mp4|webm|mp3|wav|m4a|ogg|jpg|jpeg|png|webp|gif|json)$/i.test(url.pathname)) return;
+  if (req.mode === 'navigate' || /\.html?$/i.test(url.pathname)) {
+    event.respondWith(fetch(req, { cache: 'no-store' }).catch(() => caches.match(req)));
+  }
+});
+ -->
 
 위 만능소통창의 (1) 모바일 완벽 호환성, (2) 전 브라우저 PWA 설치 규격, (3) 로컬 PC 및 삼성 회의와의 실시간 연결 브릿지 완성을 위한 최종 검수 판정을 제출하라.
-삼성 감리 판정: S1 만능소통창 5차 수정본
-최종 판정: 정직성 요건 조건부 합격. HTML 수정은 이번 회차로 마치고 서버 단계로 넘어갑니다
-검수 항목	4차 판정	이번 판정
-(1) 모바일 호환성	합격, 잔여 3건	합격, 잔여 3건 (M4~M6, 각각 한 줄씩 고치면 됨)
-(2) PWA 설치 규격	판정 보류	판정 보류 (manifest, sw.js, 서버 제공 증빙 필요)
-(3) 연결 브리지: 정직성	불합격	조건부 합격
-(3) 연결 브리지: 실제 연결	불합격	미착수
+삼성 감리 판정: S1 만능소통창 6차 제출 (manifest와 sw.js 첫 감사)
+최종 판정: 처음으로 PWA 규격을 판정할 수 있게 됐습니다. 다만 sw.js는 다른 프로젝트 것이라 교체해야 합니다
+검수 항목	5차 판정	이번 판정	변화
+(1) 모바일 호환성	합격, 잔여 3건	변동 없음	HTML이 5차와 같음
+(2) PWA: manifest	판정 보류	조건부 합격	구조는 맞음. 아이콘 규격 3건 수정 필요
+(2) PWA: sw.js	판정 보류	불합격 (교체)	다른 프로젝트의 캐시 초기화용 워커
+(3) 정직성	조건부 합격	변동 없음	5차 조건 2건이 아직 반영되지 않음
+(3) 실제 연결	미착수	미착수	서버 증빙 없음
 
-다섯 번의 수정 끝에, 화면이 서버에 연결되어 있지 않다는 사실을 스스로 말하게 됐습니다. 감리 시작 때부터 요구한 핵심이 이번에 충족됐습니다.
+HTML 본문은 5차 제출본과 한 글자도 다르지 않습니다. 이번 회차의 새 자료는 맨 끝 주석에 붙인 manifest와 sw.js입니다. 지금까지 받지 못했던 자료라, 이번 감사는 이 두 파일에 집중합니다.
 
-1. 이번 수정 검산
+1. sw.js 감사: 다른 프로젝트에서 가져온 워커입니다
 
-헤더: "8대 코어 ON"이 "읽기 전용 (서버 미연결)"로 바뀌었습니다. 4회 연속 지적된 항목이 해결됐습니다.
+이 워커의 첫 줄은 // SHIN service worker: v5 cache reset worker (build v5-20261020154003)입니다. 코드에도 SHIN_SW_RESET, /ingredients_basket/가 들어 있습니다. 10월 20일에 만든 다른 프로젝트(SHIN)의 워커이고, S1을 위해 작성된 것이 아닙니다.
 
-코어 표시 점: 초록에서 회색(#64748b)으로 바꿨습니다. 아직 은은하게 빛나는 효과(box-shadow)가 남아 있어 켜져 있는 것처럼 보일 수 있으니 box-shadow:none을 권합니다.
+#	문제	영향
+W1	activate 단계에서 같은 주소의 캐시를 전부 지움 (caches.keys() → 전체 삭제)	S1과 SHIN을 같은 주소(예: localhost:8000)로 띄우면, 한쪽이 활성화될 때마다 다른 쪽 캐시가 사라짐. 같은 범위(scope)에 워커가 하나만 등록되므로 두 프로젝트가 서로를 덮어씀
+W2	캐시에 저장하는 코드가 없음	오프라인 대비용 caches.match(req)가 항상 빈 값을 반환함. 그 결과 네트워크가 끊기면 정직한 "서버 미연결" 화면 대신 브라우저 기본 오류 화면이 뜸
+W3	페이지가 받지 않는 메시지를 보냄 (SHIN_SW_RESET)	지금은 아무 영향이 없음. 다만 나중에 페이지 쪽에 메시지 수신기를 붙이면 엉뚱하게 동작할 수 있음
+W4	S1과 관계없는 예외 경로가 있음 (/ingredients_basket/)	무해하지만, 다른 프로젝트의 흔적이 남아 있어 코드를 읽는 사람을 헷갈리게 함
 
-성공 문구: String.fromCharCode(91,51069,44592,51204,50857,93,10)를 풀어 보면 [읽기전용] 다음 줄바꿈입니다. 명령 제목 아래에 "VERIFIED"가 붙어 나오던 오해의 소지가 사라졌습니다.
+제대로 된 부분도 있습니다. .json 파일을 가로채지 않으므로 검산 기록이 옛 캐시로 보이지 않습니다. 다른 출처로 가는 요청과 POST 요청도 그대로 통과시키고, fetch 처리기가 있어서 Chrome의 설치 조건도 충족합니다. 이 원칙은 그대로 살려서 S1 전용 워커로 다시 씁니다.
 
-실패 문구: 첫 줄이 "서버 미연결", 마지막 줄이 "명령 미실행"이 되어 앞뒤 모순이 해소됐습니다.
-
-2. 조건부 합격의 조건 (2건, 5분)
-
-① 실패 문구 가운데 줄에서 하드코딩된 숫자를 지웁니다. "48kHz Stereo 768,078B / SHA-256 일치"는 서버에 닿지 못한 상황에서 이 창이 알 수 없는 정보입니다. 실패 문구는 다음 두 줄이면 충분합니다.
-
-Copy
-.catch(function(err){ add("⚠ 서버 미연결: 명령은 실행되지 않았습니다.\n(" + err.message + ")", "err"); });
-
-
-② 성공 문구에 "명령 미실행"과 기록 시각을 넣습니다. [읽기전용]만으로는 대표님 명령이 실행되지 않았다는 사실까지 전달되지 않습니다. 이 검산 기록이 언제 만들어졌는지도 알 수 없습니다.
+S1 전용 sw.js (교체본)
 
 Copy
-.then(function(d){ add("[읽기 전용] 명령 미실행 · 기록 시각 " + (d.audit_v2_timestamp || "미상") + "\n\n" + JSON.stringify(d, null, 2), "ai"); })
+// S1 OmniChat service worker
+const BUILD = "s1-v1";
+const SHELL = "s1-shell-" + BUILD;
+const SHELL_FILES = ["./", "./index.html", "./offline.html",
+                     "./s1_logo_1.png", "./s1_logo_2.png", "./s1_logo_3.png"];
 
+self.addEventListener("install", e => {
+  e.waitUntil(caches.open(SHELL).then(c => c.addAll(SHELL_FILES)));
+  self.skipWaiting();
+});
 
-문자 코드 우회는 필요 없습니다. 같은 파일 안의 다른 한국어 문자열은 그대로 잘 표시됩니다. 그러니 fromCharCode로 돌려 쓸 이유가 없습니다. HTML을 만드는 파이썬 쪽에서 파일을 open(..., "w", encoding="utf-8")로 쓰면 일반 문자열을 그대로 쓸 수 있습니다. 나중에 코드를 읽는 사람(대표님 포함)이 문구를 바로 알아볼 수 있어야 합니다.
+self.addEventListener("activate", e => {
+  e.waitUntil((async () => {
+    const keys = await caches.keys();
+    // S1 자기 캐시 중 예전 버전만 지움 (다른 프로젝트 캐시는 건드리지 않음)
+    await Promise.all(keys.filter(k => k.startsWith("s1-shell-") && k !== SHELL)
+                          .map(k => caches.delete(k)));
+    await self.clients.claim();
+  })());
+});
 
-선택 사항: 첫 화면 설명문의 "하나로 연결되는 만능소통창"은 현재 기준으로는 목표를 미리 말한 문구입니다. 연결이 완성될 때까지 그대로 둘지는 대표님이 판단하시면 됩니다.
-
-3. 다음 단계: 판정 (2)와 (3)을 함께 여는 최소 서버
-
-HTML만으로는 더 진행할 수 없으므로, 판정 (2)와 (3)을 한 번에 진척시킬 최소 서버 골격을 드립니다. 아래 서버는 대표님 PC에서 화면 파일과 상태 정보를 같은 주소로 제공합니다. 명령을 실행하는 기능은 아직 없습니다.
-
-Copy
-# s1_server.py  (pip install fastapi uvicorn)
-from fastapi import FastAPI, Request, HTTPException
-from fastapi.staticfiles import StaticFiles
-from pathlib import Path
-import json, datetime
-
-ROOT = Path(__file__).parent / "omnichat"          # index.html, sw.js, manifest, 로고가 있는 폴더
-KILL = Path(__file__).parent / "KILL_SWITCH"       # 실제 킬스위치 파일 경로로 교체
-ALLOWED = {"https://s1-pc.YOUR-TAILNET.ts.net"}    # 대표님 Tailscale 주소만 허용
-
-app = FastAPI()
-
-@app.get("/api/status")
-def status():
-    proof = ROOT / "S1_V3_PRECISION_PROOF.json"
-    return {
-        "server_time": datetime.datetime.now().isoformat(),
-        "kill_switch": KILL.read_text().strip() if KILL.exists() else "UNKNOWN",
-        "last_proof": json.loads(proof.read_text(encoding="utf-8")) if proof.exists() else None,
-        "mode": "READ_ONLY",
-    }
-
-@app.post("/api/chat")
-async def chat(req: Request):
-    origin = req.headers.get("origin")
-    if origin and origin not in ALLOWED and not origin.startswith("http://localhost"):
-        raise HTTPException(403, "허용되지 않은 출처")
-    q = (await req.json()).get("query", "")
-    return {"reply": f"[읽기 전용] '{q}' 명령은 아직 지원하지 않습니다. 실행되지 않았습니다.", "executed": False}
-
-app.mount("/", StaticFiles(directory=ROOT, html=True), name="static")
+self.addEventListener("fetch", e => {
+  const req = e.request, url = new URL(req.url);
+  if (req.method !== "GET" || url.origin !== self.location.origin) return;
+  if (url.pathname.startsWith("/api/") || url.pathname.endsWith(".json")) return; // 상태·검산은 항상 실시간
+  if (req.mode === "navigate") {
+    e.respondWith(fetch(req, {cache: "no-store"})
+      .catch(() => caches.match("./offline.html")));   // 오프라인이면 정직한 안내 페이지
+    return;
+  }
+  e.respondWith(caches.match(req).then(r => r || fetch(req)));  // 로고 등 화면 파일
+});
 
 Copy
 
-실행 순서는 다음과 같습니다.
+offline.html은 한 줄짜리 페이지면 충분합니다. 내용은 "S1 서버에 연결되지 않았습니다. 명령은 실행되지 않습니다."입니다. 오프라인일 때도 정직성 원칙이 지켜집니다.
 
-uvicorn s1_server:app --host 127.0.0.1 --port 8000을 실행하고 PC 브라우저에서 http://localhost:8000을 엽니다. file:// 문제가 사라지고 서비스 워커도 등록됩니다.
-tailscale serve --bg 8000을 실행해 대표님 Tailscale 네트워크 안에서만 접속되는 HTTPS 주소를 만듭니다. 휴대폰에도 Tailscale 앱을 설치하고 같은 계정으로 로그인합니다. 공개 인터넷에 여는 Funnel은 쓰지 않습니다.
-화면의 run()이 ./S1_V3_PRECISION_PROOF.json 대신 /api/chat을 POST로 부르게 바꾸고, 헤더의 점은 /api/status의 server_time과 kill_switch 값으로 표시합니다.
+운영 권고: S1과 SHIN은 포트를 나눠서 띄우십시오(예: S1은 8000, SHIN은 8100). 브라우저는 출처(프로토콜+주소+포트)마다 워커와 캐시를 따로 관리하므로 W1 충돌이 원천적으로 사라집니다. 지금 브라우저에 SHIN 워커가 S1 주소로 이미 등록돼 있을 수 있습니다. DevTools → Application → Service Workers에서 Unregister한 뒤 새로 등록하십시오.
 
-/api/chat이 처음부터 "executed": False를 돌려주는 것은 의도한 설계입니다. 실행 기능은 조회, 비상 정지 켜기, 확인 단계가 필요한 명령 순서로 하나씩 열어 갑니다.
+2. manifest 감사
+#	항목	현재	판정과 조치
+F1	아이콘 크기	파일 하나(s1_logo_1.png)를 192와 512 두 크기로 선언	Chrome은 선언한 크기와 실제 픽셀 크기가 다르면 경고하고, 설치 아이콘이 흐려질 수 있음. 실제 192×192, 512×512 정사각형 PNG를 따로 만들어야 함
+F2	"purpose": "any maskable"	두 용도를 한 파일에 지정	마스커블 아이콘은 가장자리 약 20%가 잘려 나갈 수 있음. 여백 없는 로고를 마스커블로 쓰면 갤럭시 홈 화면에서 로고 테두리가 잘림. any용과 maskable용(가운데 80% 안에 로고 배치)을 따로 둠
+F3	id 없음	—	"id": "/"를 추가. 나중에 start_url을 바꿔도 같은 앱으로 인식됨
+F4	start_url	./index.html?pwa=1	합격. 홈 화면에서 실행한 경우를 구분하는 데 유용함
+F5	lang, description	없음	"lang": "ko", 짧은 설명 추가 권장
+F6	이름	"SUN-ONE AON (S1) 만능소통창" / "S1 에이온"	합격. 짧은 이름이 홈 화면 글자 수에 맞음
 
-4. 다음 감리 제출 묶음
+manifest 수정본
+
+Copy
+{
+  "id": "/",
+  "name": "SUN-ONE AON (S1) 만능소통창",
+  "short_name": "S1 에이온",
+  "description": "S1 환원 제국 읽기 전용 상황판",
+  "lang": "ko",
+  "start_url": "./index.html?pwa=1",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#05070c",
+  "theme_color": "#05070c",
+  "icons": [
+    {"src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+    {"src": "icon-512-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ]
+}
+
+
+아이콘은 maskable.app 같은 도구로 로고가 안전 영역 안에 들어오는지 미리 확인할 수 있습니다. 헤더에서 s1_logo_1.png에 object-fit:cover를 쓴 것을 보면 원본이 정사각형이 아닐 수 있습니다. 그렇다면 정사각형으로 따로 잘라 내야 합니다.
+
+3. 제출 방식 확인 요청
+
+manifest와 sw.js를 </html> 뒤 HTML 주석 안에 넣어서 제출하셨습니다. 감리 자료로는 괜찮지만, 브라우저는 주석 안의 내용을 읽지 않습니다. 실제로 작동하려면 다음 세 가지가 필요합니다.
+
+manifest.webmanifest와 sw.js가 index.html과 같은 폴더에 별도 파일로 있어야 합니다.
+서버가 이 파일들을 올바른 형식으로 내보내야 합니다(manifest는 application/manifest+json 또는 JSON, sw.js는 JavaScript). 5차 감리의 FastAPI StaticFiles는 이를 자동으로 처리합니다.
+배포용 index.html에서는 끝에 붙은 주석을 지웁니다. 주석은 </html> 바깥이라 문법상 문제는 없지만, 다른 프로젝트 이름이 사용자에게 그대로 전달됩니다.
+4. HTML: 5차 조건 재확인 (아직 미반영)
+
+5차 감리에서 남은 조건은 다음과 같습니다.
+
+실패 문구 가운데 줄에서 "48kHz Stereo 768,078B / SHA-256 일치"를 삭제합니다.
+성공 문구에 "명령 미실행"과 기록 시각을 추가합니다.
+M4~M6을 반영합니다(aria-label="파일 첨부", 첨부 버튼 hidden, enterkeyhint="send").
+점 표시의 box-shadow를 없앱니다.
+serviceWorker.register(...).catch(console.error)로 바꿉니다. 이번 sw.js 문제처럼 워커 등록이나 활성화에 문제가 생기면 콘솔에 남아야 원인을 찾을 수 있습니다.
+5. 다음 감리 제출 묶음
 판정	제출물
-(1) 모바일 최종	2장 두 군데와 M4~M6(aria-label, 첨부 버튼 hidden, enterkeyhint="send")을 반영한 HTML
-(2) PWA	manifest.webmanifest와 sw.js 원문, 그리고 DevTools Application 탭 캡처(서비스 워커 activated 상태)
-(3) 연결 1단계	휴대폰에서 ts.net 주소로 접속한 스크린샷, /api/status 응답, 서버를 껐을 때 "서버 미연결" 말풍선
+(1) 모바일 최종	4장 1~5를 반영한 HTML
+(2) PWA 최종	별도 파일로 둔 manifest.webmanifest와 S1 전용 sw.js, 아이콘 3종, DevTools Application 탭 캡처 2장(Manifest 오류 없음, Service Worker s1-v1 activated)
+(3) 연결 1단계	http://localhost:8000 또는 ts.net 주소로 연 스크린샷, /api/status 응답
 감리단 결론
 
-이 창은 이제 자기 상태를 정직하게 말합니다. 그동안의 감리에서 가장 중요했던 원칙이 화면에 자리 잡았습니다. 2장의 두 줄을 고치면 화면 쪽 작업은 끝나니, 다음 제출부터는 HTML이 아니라 서버, 휴대폰 접속, PWA 설치 증빙을 보내 주십시오. 그 시점부터 이 창은 실제 S1 조종석으로 기능하기 시작합니다.
+manifest가 처음 제출되면서 판정 (2)가 마침내 움직이기 시작했습니다. 이번에 찾은 sw.js 문제는 작은 실수로 보이지만, 고치지 않으면 S1과 SHIN 두 프로젝트가 서로의 캐시를 계속 지우게 됩니다. 프로젝트마다 워커와 포트를 나누는 원칙은 앞으로 S1 안에 생길 다른 화면들(대시보드, 감리 뷰어 등)에도 똑같이 적용하십시오.
+
+순서는 이렇습니다. S1 전용 sw.js로 교체하고 브라우저에서 SHIN 워커 등록을 해제한 뒤, 아이콘 3종을 만들고, 5차 감리의 서버를 띄웁니다. 이 세 가지면 다음 감리에서 판정 (1)과 (2)는 최종 합격을 바라볼 수 있습니다.
 
 Claude Opus 5.5
 
