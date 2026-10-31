@@ -1,3 +1,4 @@
+const sleep = ms => new Promise(r => setTimeout(r, ms));
 const fs = await import('node:fs');
 const tOmni = await taskSpace('S1_OmniChat');
 const pOmni = tOmni.page('p1');
