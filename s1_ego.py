@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# S1 Ego-Lite Universal Nerve CLI v1.1.2 (s1_ego.py)
+# S1 Ego-Lite Universal Nerve CLI v1.1.3 (s1_ego.py)
 # Triumvirate Verified Architecture (GPT-6.1 Sol & Claude Opus 5.5 Audit Compliant):
 # - R0 (spaces): URL query stripping (keep only chat id), read-only safe.
 # - R1 (read): Exact URL/chatId match (TAB_NOT_UNIQUE on 0 or >1), defang() markers, 1 retry on transient error.
@@ -242,7 +242,7 @@ def cmd_read(space_id, tail_chars=4000, override_chat_id=None):
         res["last_message"] = defang(res.get("last_message", ""))
     return res
 
-def cmd_ask(space_id, prompt_text, wait_sec=60, tail_chars=4500, override_chat_id=None, override_model=None, min_interval=0):
+def cmd_ask(space_id, prompt_text, wait_sec=60, tail_chars=4500, override_chat_id=None, override_model=None, min_interval=0, selftest=False):
     req_id = str(uuid.uuid4())
     prompt_sha = sha256_hex(prompt_text)
 
@@ -273,6 +273,9 @@ def cmd_ask(space_id, prompt_text, wait_sec=60, tail_chars=4500, override_chat_i
 
     # Global Ask File Lock (non-blocking msvcrt lock -> prevents concurrent ask collisions)
     lock_fh = open(ASK_LOCK_FILE, "w", encoding="utf-8")
+    if (override_chat_id is not None or override_model is not None) and not selftest:
+        lock_fh.close()
+        return {"ok": False, "code": "OVERRIDE_REQUIRES_SELFTEST", "req_id": req_id, "space": space_id}
     expected_id_for_log = override_chat_id if override_chat_id is not None else KNOWN_CHATS.get(space_id, "")
     try:
         msvcrt.locking(lock_fh.fileno(), msvcrt.LK_NBLCK, 1)
@@ -414,8 +417,7 @@ def cmd_ask(space_id, prompt_text, wait_sec=60, tail_chars=4500, override_chat_i
                 if (toastRateLimit) {{
                   return {{ ok: true, rateLimited: true, toastRateLimit: true }};
                 }}
-                const tailWindow = bodyTxt.slice(-600);
-                const isThinking = tailWindow.includes("Thinking...") || tailWindow.includes("생각 중") || tailWindow.includes("생성 중");
+                const isThinking = false;
                 const stopBtn = Array.from(document.querySelectorAll("button, [role='button']")).some(b => {{
                   const t = (b.innerText || b.getAttribute("aria-label") || "").toLowerCase();
                   return t === "stop" || t === "중지" || t.includes("생성 중지");
@@ -423,7 +425,7 @@ def cmd_ask(space_id, prompt_text, wait_sec=60, tail_chars=4500, override_chat_i
                 const proseEls = Array.from(document.querySelectorAll(".answer-markdown"));
                 const curCount = proseEls.length;
                 const curLast = curCount > 0 ? (proseEls[curCount - 1].innerText || "").trim() : "";
-                const hasNewAssistant = (curCount > baseProseCount && curLast.length > 0) || (curLast !== baseLastProse && curLast.length > 0);
+                const hasNewAssistant = (curCount > baseProseCount && curLast.length > 10) || (curLast !== baseLastProse && curLast.length > 10);
                 return {{
                   ok: true,
                   rateLimited: false,
@@ -436,44 +438,35 @@ def cmd_ask(space_id, prompt_text, wait_sec=60, tail_chars=4500, override_chat_i
               new Promise(r => setTimeout(() => r({{ ok: false, timeout: true }}), 5000))
             ]);
 
-            if (!poll || !poll.ok) continue; // Ignore timed-out poll cycle
+            if (!poll || !poll.ok) {{
+              stableCount = 0;
+              continue;
+            }}
             if (poll.rateLimited) {{
               rateLimitedNow = true;
               break;
             }}
-            if (poll.curLast && (poll.curCount > pre.proseCount || poll.curLast !== pre.lastProse) && !poll.isThinking) {{
-              if (poll.curLast === lastAssistantMsg && poll.curLast.length > 0) {{
-                stableCount += 1;
-              }} else {{
-                stableCount = 1;
-              }}
-              lastAssistantMsg = poll.curLast;
-              pollLogs.push({{
-                t_ms: Date.now() - start,
-                stop_present: Boolean(poll.stopBtn),
-                answer_count: poll.curCount,
-                answer_count_before: pre.proseCount,
-                last_answer_len: poll.curLast.length,
-                last_answer_text: poll.curLast.slice(-120),
-                stable_n: stableCount,
-                toast_rate_limit: false
-              }});
-              if (stableCount >= 3) {{
-                completed = true;
-                break;
-              }}
+            const fresh = Boolean(poll.curLast && (poll.curCount > pre.proseCount || poll.curLast !== pre.lastProse));
+            if (fresh && !poll.stopBtn) {{
+              stableCount = (poll.curLast === lastAssistantMsg) ? stableCount + 1 : 1;
             }} else {{
               stableCount = 0;
-              pollLogs.push({{
-                t_ms: Date.now() - start,
-                stop_present: Boolean(poll.stopBtn),
-                answer_count: poll.curCount || 0,
-                answer_count_before: pre.proseCount,
-                last_answer_len: (poll.curLast || "").length,
-                last_answer_text: (poll.curLast || "").slice(-120),
-                stable_n: 0,
-                toast_rate_limit: false
-              }});
+            }}
+            if (poll.curLast) lastAssistantMsg = poll.curLast;
+            pollLogs.push({{
+              t_ms: Date.now() - start,
+              stop_present: Boolean(poll.stopBtn),
+              fresh,
+              answer_count: poll.curCount || 0,
+              answer_count_before: pre.proseCount,
+              last_answer_len: (poll.curLast || "").length,
+              last_answer_full: poll.curLast || "",
+              stable_n: stableCount,
+              toast_rate_limit: false
+            }});
+            if (stableCount >= 4) {{
+              completed = true;
+              break;
             }}
           }}
 
@@ -506,9 +499,10 @@ def cmd_ask(space_id, prompt_text, wait_sec=60, tail_chars=4500, override_chat_i
                 "req_id": req_id,
                 "t_ms": pl.get("t_ms"),
                 "stop_present": pl.get("stop_present"),
+                "fresh": pl.get("fresh"),
                 "answer_count": pl.get("answer_count"),
                 "answer_count_before": pl.get("answer_count_before"),
-                "last_answer_sha": sha256_hex(pl.get("last_answer_text", ""))[:16],
+                "last_answer_sha": sha256_hex(pl.get("last_answer_full", "")),
                 "last_answer_len": pl.get("last_answer_len"),
                 "stable_n": pl.get("stable_n"),
                 "toast_rate_limit": pl.get("toast_rate_limit", False),
@@ -542,7 +536,7 @@ def cmd_ask(space_id, prompt_text, wait_sec=60, tail_chars=4500, override_chat_i
         lock_fh.close()
 
 def main():
-    ap = argparse.ArgumentParser(description="S1 Ego-Lite Universal Nerve CLI v1.1.2")
+    ap = argparse.ArgumentParser(description="S1 Ego-Lite Universal Nerve CLI v1.1.3")
     sub = ap.add_subparsers(dest="cmd", required=True)
     sub.add_parser("spaces")
     p_read = sub.add_parser("read")
@@ -556,6 +550,7 @@ def main():
     p_ask.add_argument("--wait", type=int, default=60)
     p_ask.add_argument("--expect-id", type=str, default=None)
     p_ask.add_argument("--expect-model", type=str, default=None)
+    p_ask.add_argument("--selftest", action="store_true")
     args = ap.parse_args()
 
     if args.cmd == "spaces":
@@ -564,7 +559,7 @@ def main():
         res = cmd_read(args.space, args.tail, override_chat_id=args.expect_id)
     elif args.cmd == "ask":
         txt = Path(args.prompt_file).read_text(encoding="utf-8") if args.prompt_file else args.prompt
-        res = cmd_ask(args.space, txt, wait_sec=args.wait, override_chat_id=args.expect_id, override_model=args.expect_model)
+        res = cmd_ask(args.space, txt, wait_sec=args.wait, override_chat_id=args.expect_id, override_model=args.expect_model, selftest=args.selftest)
     print(json.dumps(res, ensure_ascii=False, indent=2))
     if not res.get("ok"):
         sys.exit(1)
