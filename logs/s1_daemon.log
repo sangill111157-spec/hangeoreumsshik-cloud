@@ -1,0 +1,46 @@
+2026-10-31 23:01:20,591 INFO PRECHECK ego-browser -> C:\Users\sangi\.local/share/ego\active_version_dir\ego-browser.exe
+2026-10-31 23:01:20,595 INFO PRECHECK python -> C:\Users\sangi\AppData\Local\Programs\Python\Python312\python.EXE
+2026-10-31 23:01:20,599 INFO PRECHECK git -> C:\Program Files\Git\cmd\git.EXE
+2026-10-31 23:01:20,605 INFO PRECHECK node -> C:\Program Files\nodejs\node.EXE
+2026-10-31 23:01:20,622 INFO PRECHECK ffmpeg -> C:\Users\sangi\AppData\Local\Microsoft\WinGet\Packages\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\ffmpeg-8.0.1-full_build\bin\ffmpeg.EXE
+2026-10-31 23:01:20,634 INFO PRECHECK ffprobe -> C:\Users\sangi\AppData\Local\Microsoft\WinGet\Packages\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\ffmpeg-8.0.1-full_build\bin\ffprobe.EXE
+2026-10-31 23:01:20,636 INFO DAEMON_V3_2_START dry_run=False cycles=3
+2026-10-31 23:01:21,918 INFO CYCLE 1/3 tabs=1 errors=0
+2026-10-31 23:01:21,924 INFO MARKER_CONTEXT_300 source=LIVE_EGO_SCAN space=0 label=p3 id=REAL_DOM_001 sha=08f084432dea BEFORE_300='s.stdout...."\n              button [ref=87]\n                text "Copy"\n            container\n              svg_root\n              svg_root\n              svg_root\n              svg_root\n        container\n          textbox "무엇이든 물어보고 만들어보세요" [ref=88, loc=css:textarea[name="query"]]\n            text "' AFTER_300='"\n          container\n            container\n              button "파일 및 기타 추가" [ref=89, loc=role:button[name="파일 및 기타 추가"]]\n                svg_root\n              button [ref=90]\n                image\n                text "Gemini 4 Argon"\n                svg_root\n            container\n              b'
+2026-10-31 23:01:21,933 INFO STABILITY_WAIT id=REAL_DOM_001 count=1/2 sha=08f084432dea
+2026-10-31 23:01:23,359 INFO CYCLE 2/3 tabs=1 errors=0
+2026-10-31 23:01:23,364 INFO MARKER_CONTEXT_300 source=LIVE_EGO_SCAN space=0 label=p3 id=REAL_DOM_001 sha=08f084432dea BEFORE_300='s.stdout...."\n              button [ref=87]\n                text "Copy"\n            container\n              svg_root\n              svg_root\n              svg_root\n              svg_root\n        container\n          textbox "무엇이든 물어보고 만들어보세요" [ref=88, loc=css:textarea[name="query"]]\n            text "' AFTER_300='"\n          container\n            container\n              button "파일 및 기타 추가" [ref=89, loc=role:button[name="파일 및 기타 추가"]]\n                svg_root\n              button [ref=90]\n                image\n                text "Gemini 4 Argon"\n                svg_root\n            container\n              b'
+2026-10-31 23:01:23,376 INFO STABILITY_VERIFIED id=REAL_DOM_001 count=2/2 sha=08f084432dea
+2026-10-31 23:01:23,377 INFO APPROVAL_WAIT_HOLD id=REAL_DOM_001 sha=08f084432dea -> 미승인 상태 (실행 0건 대기 중)
+2026-10-31 23:01:24,436 INFO CYCLE 3/3 tabs=1 errors=0
+2026-10-31 23:01:24,438 INFO MARKER_CONTEXT_300 source=LIVE_EGO_SCAN space=0 label=p3 id=REAL_DOM_001 sha=08f084432dea BEFORE_300='s.stdout...."\n              button [ref=87]\n                text "Copy"\n            container\n              svg_root\n              svg_root\n              svg_root\n              svg_root\n        container\n          textbox "무엇이든 물어보고 만들어보세요" [ref=88, loc=css:textarea[name="query"]]\n            text "' AFTER_300='"\n          container\n            container\n              button "파일 및 기타 추가" [ref=89, loc=role:button[name="파일 및 기타 추가"]]\n                svg_root\n              button [ref=90]\n                image\n                text "Gemini 4 Argon"\n                svg_root\n            container\n              b'
+2026-10-31 23:01:24,443 INFO STABILITY_VERIFIED id=REAL_DOM_001 count=3/2 sha=08f084432dea
+2026-10-31 23:01:24,443 INFO APPROVAL_WAIT_HOLD id=REAL_DOM_001 sha=08f084432dea -> 미승인 상태 (실행 0건 대기 중)
+2026-10-31 23:01:24,445 INFO DAEMON_V3_2_FINISH dry_run=False cycles=3
+2026-10-31 23:01:24,702 INFO PRECHECK ego-browser -> C:\Users\sangi\.local/share/ego\active_version_dir\ego-browser.exe
+2026-10-31 23:01:24,706 INFO PRECHECK python -> C:\Users\sangi\AppData\Local\Programs\Python\Python312\python.EXE
+2026-10-31 23:01:24,709 INFO PRECHECK git -> C:\Program Files\Git\cmd\git.EXE
+2026-10-31 23:01:24,712 INFO PRECHECK node -> C:\Program Files\nodejs\node.EXE
+2026-10-31 23:01:24,717 INFO PRECHECK ffmpeg -> C:\Users\sangi\AppData\Local\Microsoft\WinGet\Packages\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\ffmpeg-8.0.1-full_build\bin\ffmpeg.EXE
+2026-10-31 23:01:24,727 INFO PRECHECK ffprobe -> C:\Users\sangi\AppData\Local\Microsoft\WinGet\Packages\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\ffmpeg-8.0.1-full_build\bin\ffprobe.EXE
+2026-10-31 23:01:24,728 INFO DAEMON_V3_2_START dry_run=False cycles=1
+2026-10-31 23:01:25,742 INFO CYCLE 1/1 tabs=1 errors=0
+2026-10-31 23:01:25,747 INFO MARKER_CONTEXT_300 source=LIVE_EGO_SCAN space=0 label=p3 id=REAL_DOM_001 sha=08f084432dea BEFORE_300='s.stdout...."\n              button [ref=87]\n                text "Copy"\n            container\n              svg_root\n              svg_root\n              svg_root\n              svg_root\n        container\n          textbox "무엇이든 물어보고 만들어보세요" [ref=88, loc=css:textarea[name="query"]]\n            text "' AFTER_300='"\n          container\n            container\n              button "파일 및 기타 추가" [ref=89, loc=role:button[name="파일 및 기타 추가"]]\n                svg_root\n              button [ref=90]\n                image\n                text "Gemini 4 Argon"\n                svg_root\n            container\n              b'
+2026-10-31 23:01:25,755 INFO STABILITY_VERIFIED id=REAL_DOM_001 count=4/2 sha=08f084432dea
+2026-10-31 23:01:25,755 ERROR APPROVAL_HASH_MISMATCH_HOLD id=REAL_DOM_001 approved_sha=18f084432dea current_sha=08f084432dea -> 해시/출처 불일치! 실행 차단 및 보류
+2026-10-31 23:01:25,758 INFO DAEMON_V3_2_FINISH dry_run=False cycles=1
+2026-10-31 23:01:26,085 INFO PRECHECK ego-browser -> C:\Users\sangi\.local/share/ego\active_version_dir\ego-browser.exe
+2026-10-31 23:01:26,090 INFO PRECHECK python -> C:\Users\sangi\AppData\Local\Programs\Python\Python312\python.EXE
+2026-10-31 23:01:26,093 INFO PRECHECK git -> C:\Program Files\Git\cmd\git.EXE
+2026-10-31 23:01:26,096 INFO PRECHECK node -> C:\Program Files\nodejs\node.EXE
+2026-10-31 23:01:26,107 INFO PRECHECK ffmpeg -> C:\Users\sangi\AppData\Local\Microsoft\WinGet\Packages\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\ffmpeg-8.0.1-full_build\bin\ffmpeg.EXE
+2026-10-31 23:01:26,113 INFO PRECHECK ffprobe -> C:\Users\sangi\AppData\Local\Microsoft\WinGet\Packages\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\ffmpeg-8.0.1-full_build\bin\ffprobe.EXE
+2026-10-31 23:01:26,115 INFO DAEMON_V3_2_START dry_run=False cycles=2
+2026-10-31 23:01:26,893 INFO CYCLE 1/2 tabs=1 errors=0
+2026-10-31 23:01:26,896 INFO MARKER_CONTEXT_300 source=LIVE_EGO_SCAN space=0 label=p3 id=REAL_DOM_001 sha=08f084432dea BEFORE_300='s.stdout...."\n              button [ref=87]\n                text "Copy"\n            container\n              svg_root\n              svg_root\n              svg_root\n              svg_root\n        container\n          textbox "무엇이든 물어보고 만들어보세요" [ref=88, loc=css:textarea[name="query"]]\n            text "' AFTER_300='"\n          container\n            container\n              button "파일 및 기타 추가" [ref=89, loc=role:button[name="파일 및 기타 추가"]]\n                svg_root\n              button [ref=90]\n                image\n                text "Gemini 4 Argon"\n                svg_root\n            container\n              b'
+2026-10-31 23:01:26,905 INFO STABILITY_VERIFIED id=REAL_DOM_001 count=5/2 sha=08f084432dea
+2026-10-31 23:01:27,189 INFO LIVE_EXEC_FAIL id=REAL_DOM_001 sha=08f084432dea rc=1 stdout= uuid=70b1558e-e7de-4c37-b2e8-25c8f33157cb result_file=result_REAL_DOM_001.json
+2026-10-31 23:01:28,320 INFO CYCLE 2/2 tabs=1 errors=0
+2026-10-31 23:01:28,323 INFO MARKER_CONTEXT_300 source=LIVE_EGO_SCAN space=0 label=p3 id=REAL_DOM_001 sha=08f084432dea BEFORE_300='s.stdout...."\n              button [ref=87]\n                text "Copy"\n            container\n              svg_root\n              svg_root\n              svg_root\n              svg_root\n        container\n          textbox "무엇이든 물어보고 만들어보세요" [ref=88, loc=css:textarea[name="query"]]\n            text "' AFTER_300='"\n          container\n            container\n              button "파일 및 기타 추가" [ref=89, loc=role:button[name="파일 및 기타 추가"]]\n                svg_root\n              button [ref=90]\n                image\n                text "Gemini 4 Argon"\n                svg_root\n            container\n              b'
+2026-10-31 23:01:28,323 INFO DUP_BLOCK_SKIPPED id=REAL_DOM_001 sha=08f084432dea prev_status=FAIL -> 재실행 영구 차단
+2026-10-31 23:01:28,324 INFO DAEMON_V3_2_FINISH dry_run=False cycles=2

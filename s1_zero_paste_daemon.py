@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# S1 Zero Copy-Paste Daemon v3.1 (Pure Production Engine — Snapshot-Aware & 5-Point Verified)
+# S1 Zero Copy-Paste Daemon v3.2 (100% Pure Live Browser Scan — Zero File Bypass / Zero Test Hooks)
 import argparse, datetime, hashlib, json, logging, os, re, shutil, subprocess, sys, time, traceback, urllib.request
 from pathlib import Path
 
@@ -20,7 +20,7 @@ RUN_DIR.mkdir(exist_ok=True)
 KILL_FLAG = BASE / "KILL_SWITCH.flag"
 STABLE_SCANS = 2
 TRUSTED_SPACE_ID = 0
-TRUSTED_CHAT_ID = "c1647638"
+TRUSTED_CHAT_ID = "c1647638-2531-43db-a059-c153d8da14d9"
 
 logging.basicConfig(
     filename=str(LOG_FILE),
@@ -60,7 +60,8 @@ def kill_switch_active():
 
 def load_ledger_strict():
     if not LEDGER.exists():
-        return {"executed": {}, "hashes": []}
+        log(f"LEDGER_MISSING_HOLD file={LEDGER.name} -> 원장 파일 누락 감지로 실행 보류 및 정지", level="ERROR")
+        sys.exit(3)
     raw = LEDGER.read_text(encoding="utf-8")
     try:
         data = json.loads(raw)
@@ -71,8 +72,10 @@ def load_ledger_strict():
         log(f"LEDGER_CORRUPT_HALT file={LEDGER.name} err={e!r} -> 원장 손상 즉시 정지", level="ERROR")
         sys.exit(3)
 
-def save_ledger(data):
-    LEDGER.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+def save_ledger_atomic(data):
+    tmp = LEDGER.with_suffix(".json.tmp")
+    tmp.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+    os.replace(tmp, LEDGER)
 
 def load_pending():
     if not PENDING_FILE.exists():
@@ -82,8 +85,10 @@ def load_pending():
     except Exception:
         return {}
 
-def save_pending(data):
-    PENDING_FILE.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+def save_pending_atomic(data):
+    tmp = PENDING_FILE.with_suffix(".json.tmp")
+    tmp.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+    os.replace(tmp, PENDING_FILE)
 
 def load_approvals():
     if not APPROVAL_FILE.exists():
@@ -95,8 +100,19 @@ def load_approvals():
 
 MARKER_START = "===S1_AUTO_" + "START:"
 MARKER_END = "===S1_AUTO_" + "END:"
-# page.snapshot()의 한 줄/멀티라인 모두 매칭되도록 유연한 공백/줄바꿈 허용
 BLOCK_RE = re.compile(re.escape(MARKER_START) + r"([A-Za-z0-9_.-]+)===\s*([\s\S]*?)\s*" + re.escape(MARKER_END) + r"\1===")
+
+def clean_snapshot_body(raw_body):
+    lines = []
+    for line in raw_body.splitlines():
+        s = line.strip()
+        m = re.match(r'^text\s+"(.*)"$', s)
+        if m:
+            lines.append(m.group(1).replace('\\"', '"'))
+        elif not s.startswith(("container", "paragraph", "code", "button", "heading", "svg_root", "list_item")):
+            lines.append(s.replace('\\"', '"'))
+    cleaned = "\n".join([l for l in lines if l]).strip()
+    return cleaned if cleaned else raw_body.strip()
 
 def extract_blocks_with_context(text):
     res = []
@@ -104,11 +120,9 @@ def extract_blocks_with_context(text):
     seen = set()
     for m in BLOCK_RE.finditer(src_text):
         bid, raw_body = m.group(1), m.group(2).strip()
-        # 파워셸/파이썬 생성 코드 본문 내부의 문자열은 제외
-        if "MARKER_START" in raw_body or "DAEMON_V3_1" in raw_body or "Set-Content" in raw_body:
+        if "MARKER_START" in raw_body or "DAEMON_V3_2" in raw_body or "clean_snapshot_body" in raw_body:
             continue
-        # snapshot 포맷에서 앞뒤 따옴표 이스케이프 정리
-        body = raw_body.replace('\\"', '"')
+        body = clean_snapshot_body(raw_body)
         sha = hashlib.sha256(body.encode("utf-8")).hexdigest()
         if (bid, sha) in seen:
             continue
@@ -120,7 +134,7 @@ def extract_blocks_with_context(text):
     return res
 
 def is_trusted_tab(tab):
-    return int(tab.get("space", -1)) == TRUSTED_SPACE_ID and TRUSTED_CHAT_ID in str(tab.get("url", ""))
+    return int(tab.get("space", -1)) == TRUSTED_SPACE_ID and f"genspark.ai/agents?id={TRUSTED_CHAT_ID}" in str(tab.get("url", ""))
 
 SCAN_JS = r"""
 const out = { tabs: [], errors: [] };
@@ -150,9 +164,6 @@ process.stdout.write("\nS1JSON::" + JSON.stringify(out) + "\n");
 """
 
 def ego_scan():
-    snap_override = os.environ.get("S1_SCAN_SOURCE_JSON", "")
-    if snap_override and Path(snap_override).exists():
-        return json.loads(Path(snap_override).read_text(encoding="utf-8"))
     ego_bin = resolve_ego()
     tmp_js = BASE / "_s1_scan_tmp.js"
     tmp_js.write_text(SCAN_JS, encoding="utf-8")
@@ -169,6 +180,7 @@ def process_blocks(tabs, dry_run=False, exec_timeout=30.0):
     led = load_ledger_strict()
     approvals = load_approvals()
     pending = {} if dry_run else load_pending()
+    observed_ids_this_cycle = set()
 
     for tb in tabs:
         blocks = extract_blocks_with_context(tb.get("text", ""))
@@ -179,7 +191,8 @@ def process_blocks(tabs, dry_run=False, exec_timeout=30.0):
             continue
         for b in blocks:
             bid, sha, body = b["id"], b["sha256"], b["body"]
-            log(f"MARKER_CONTEXT_300 id={bid} sha={sha[:12]} BEFORE_300={b['before_300']} AFTER_300={b['after_300']}")
+            observed_ids_this_cycle.add(bid)
+            log(f"MARKER_CONTEXT_300 source=LIVE_EGO_SCAN space={tb.get('space')} label={tb.get('label')} id={bid} sha={sha[:12]} BEFORE_300={b['before_300']} AFTER_300={b['after_300']}")
 
             if bid in led["executed"] or sha in led["hashes"]:
                 prev_st = led["executed"].get(bid, {}).get("status", "HASH_RECORDED")
@@ -192,11 +205,11 @@ def process_blocks(tabs, dry_run=False, exec_timeout=30.0):
             prev = pending.get(bid)
             if not prev or prev["sha256"] != sha:
                 pending[bid] = {"sha256": sha, "count": 1}
-                save_pending(pending)
-                log(f"STABILITY_WAIT id={bid} count=1/{STABLE_SCANS} sha={sha[:12]} (내용 변경 또는 최초 감지 -> 재안정화 대기)")
+                save_pending_atomic(pending)
+                log(f"STABILITY_WAIT id={bid} count=1/{STABLE_SCANS} sha={sha[:12]}")
                 continue
             prev["count"] += 1
-            save_pending(pending)
+            save_pending_atomic(pending)
             log(f"STABILITY_VERIFIED id={bid} count={prev['count']}/{STABLE_SCANS} sha={sha[:12]}")
             if prev["count"] < STABLE_SCANS:
                 continue
@@ -206,11 +219,9 @@ def process_blocks(tabs, dry_run=False, exec_timeout=30.0):
                 log(f"APPROVAL_WAIT_HOLD id={bid} sha={sha[:12]} -> 미승인 상태 (실행 0건 대기 중)")
                 continue
             if ap.get("sha256") != sha or int(ap.get("space", -1)) != TRUSTED_SPACE_ID or ap.get("chat_id") != TRUSTED_CHAT_ID:
-                log(f"APPROVAL_HASH_MISMATCH_HOLD id={bid} approved_sha={str(ap.get('sha256'))[:12]} current_sha={sha[:12]} -> 내용 1글자 변경/해시 불일치 감지! 실행 차단 및 보류", level="ERROR")
+                log(f"APPROVAL_HASH_MISMATCH_HOLD id={bid} approved_sha={str(ap.get('sha256'))[:12]} current_sha={sha[:12]} -> 해시/출처 불일치! 실행 차단 및 보류", level="ERROR")
                 continue
 
-            if os.environ.get("S1_ARM_KILL_BEFORE_EXEC") == "1":
-                KILL_FLAG.write_text("ON", encoding="utf-8")
             if kill_switch_active():
                 log(f"KILL_SWITCH_BEFORE_EXEC id={bid} sha={sha[:12]} -> 실행 직전 킬스위치 감지! 원장 추가 0건 즉시 정지(HALT)")
                 return "HALT"
@@ -218,7 +229,7 @@ def process_blocks(tabs, dry_run=False, exec_timeout=30.0):
             led["executed"][bid] = {"sha256": sha, "status": "STARTED", "time": now()}
             if sha not in led["hashes"]:
                 led["hashes"].append(sha)
-            save_ledger(led)
+            save_ledger_atomic(led)
 
             script_path = RUN_DIR / f"{bid}.py"
             script_path.write_text(body, encoding="utf-8")
@@ -234,19 +245,27 @@ def process_blocks(tabs, dry_run=False, exec_timeout=30.0):
                 stdout_val = ""
                 log(f"EXEC_TIMEOUT_RECORDED id={bid} timeout={exec_timeout}s -> 원장에 TIMEOUT 영속 기록 완료", level="ERROR")
 
-            api_url = os.environ.get("S1_API_BASE_OVERRIDE", API_BASE)
             chat_res = {}
             try:
-                req_body = json.dumps({"query": f"v3.1 실행 ({bid} status={status_str})"}).encode("utf-8")
-                req = urllib.request.Request(f"{api_url}/api/chat", data=req_body, headers={"Content-Type": "application/json"}, method="POST")
+                req_body = json.dumps({"query": f"v3.2 실행 ({bid} status={status_str})"}).encode("utf-8")
+                req = urllib.request.Request(f"{API_BASE}/api/chat", data=req_body, headers={"Content-Type": "application/json"}, method="POST")
                 with urllib.request.urlopen(req, timeout=3) as resp:
                     chat_res = json.loads(resp.read().decode("utf-8"))
             except Exception as api_err:
-                log(f"SERVER_DOWN_API_FAIL id={bid} err={api_err!r} -> 로컬 서버 다운 상태이나 원장({status_str})은 영속 보존되어 재실행 차단됨", level="ERROR")
+                log(f"SERVER_DOWN_API_FAIL id={bid} err={api_err!r} -> 로컬 서버 다운 상태이나 원장({status_str})은 영속 보존됨", level="ERROR")
 
             led["executed"][bid] = {"sha256": sha, "status": status_str, "time": now(), "rc": rc_val, "stdout": stdout_val, "uuid": chat_res.get("uuid")}
-            save_ledger(led)
-            log(f"LIVE_EXEC_{status_str} id={bid} sha={sha[:12]} rc={rc_val} stdout={stdout_val} uuid={chat_res.get('uuid')}")
+            save_ledger_atomic(led)
+            out_file = RUN_DIR / f"result_{bid}.json"
+            out_file.write_text(json.dumps(led["executed"][bid], ensure_ascii=False, indent=2), encoding="utf-8")
+            log(f"LIVE_EXEC_{status_str} id={bid} sha={sha[:12]} rc={rc_val} stdout={stdout_val} uuid={chat_res.get('uuid')} result_file={out_file.name}")
+
+    if not dry_run:
+        for k in list(pending.keys()):
+            if k not in observed_ids_this_cycle:
+                del pending[k]
+                save_pending_atomic(pending)
+                log(f"STABILITY_RESET_UNOBSERVED id={k} -> 해당 사이클 미관측으로 안정화 카운트 초기화")
     return "OK"
 
 def main():
@@ -259,7 +278,7 @@ def main():
 
     precheck()
     load_ledger_strict()
-    log(f"DAEMON_V3_1_START dry_run={args.dry} cycles={args.cycles}")
+    log(f"DAEMON_V3_2_START dry_run={args.dry} cycles={args.cycles}")
     for c in range(1, args.cycles + 1):
         if kill_switch_active():
             log(f"KILL_SWITCH_ACTIVE cycle={c} -> IMMEDIATE_SAFE_HALT")
@@ -271,7 +290,7 @@ def main():
             return
         if c < args.cycles:
             time.sleep(args.poll)
-    log(f"DAEMON_V3_1_FINISH dry_run={args.dry} cycles={args.cycles}")
+    log(f"DAEMON_V3_2_FINISH dry_run={args.dry} cycles={args.cycles}")
 
 if __name__ == "__main__":
     main()

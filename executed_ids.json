@@ -1,0 +1,15 @@
+{
+  "executed": {
+    "REAL_DOM_001": {
+      "sha256": "08f084432dead91d5512ba45cbb9a2c13641b2a8095b52522290b82a6a6ea715",
+      "status": "FAIL",
+      "time": "2026-10-31T23:01:27.179432+09:00",
+      "rc": 1,
+      "stdout": "",
+      "uuid": "70b1558e-e7de-4c37-b2e8-25c8f33157cb"
+    }
+  },
+  "hashes": [
+    "08f084432dead91d5512ba45cbb9a2c13641b2a8095b52522290b82a6a6ea715"
+  ]
+}
