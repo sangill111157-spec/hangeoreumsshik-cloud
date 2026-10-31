@@ -1,11 +1,11 @@
 {
   "approvals": {
-    "REAL_DOM_002": {
-      "sha256": "7dde568b6abd54d6b4c57e729806f533f1816926d48f5fbdb16939098ed6bb77",
+    "REAL_DOM_003": {
+      "sha256": "f329204fa03448823a4a600b81caac37711a38257d9fe47fe492a6d17ab24ea3",
       "space": 0,
       "chat_id": "c1647638-2531-43db-a059-c153d8da14d9",
       "approved_by": "CEO_SANGILL_LEE_DIRECT_ENTER",
-      "approved_at": "2026-10-31T23:23:40.626457+09:00"
+      "approved_at": "2026-11-01T00:30:39.941737+09:00"
     }
   }
 }

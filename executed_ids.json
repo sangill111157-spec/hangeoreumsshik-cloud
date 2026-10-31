@@ -1,51 +1,27 @@
 {
   "executed": {
-    "REAL_DOM_001": {
-      "sha256": "08f084432dead91d5512ba45cbb9a2c13641b2a8095b52522290b82a6a6ea715",
-      "status": "FAIL",
-      "time": "2026-10-31T23:01:27.179432+09:00",
-      "rc": 1,
-      "stdout": "",
-      "stderr": "SyntaxError: unterminated string literal (snapshot accessibility tree suffix remained in raw body before v3.3 refinement)",
-      "uuid": "70b1558e-e7de-4c37-b2e8-25c8f33157cb"
-    },
-    "REAL_DOM_002": {
-      "block_id": "REAL_DOM_002",
-      "sha256": "7dde568b6abd54d6b4c57e729806f533f1816926d48f5fbdb16939098ed6bb77",
+    "REAL_DOM_003": {
+      "block_id": "REAL_DOM_003",
+      "sha256": "f329204fa03448823a4a600b81caac37711a38257d9fe47fe492a6d17ab24ea3",
       "status": "DONE",
-      "time": "2026-10-31T23:23:41.977884+09:00",
+      "time": "2026-11-01T00:30:51.545205+09:00",
       "approved_by": "CEO_SANGILL_LEE_DIRECT_ENTER",
-      "approved_at": "2026-10-31T23:23:40.626457+09:00",
+      "approved_at": "2026-11-01T00:30:39.941737+09:00",
       "isolated_cwd": "C:\\Users\\sangi\\Downloads\\shin-agent\\s1_runs",
-      "script_path": "C:\\Users\\sangi\\Downloads\\shin-agent\\s1_runs\\REAL_DOM_002.py",
+      "script_path": "C:\\Users\\sangi\\Downloads\\shin-agent\\s1_runs\\REAL_DOM_003.py",
       "rc": 0,
-      "stdout": "LINE1_S1_SANDBOX_ISOLATED_OK\nLINE2_REAL_DOM_002_RC0_VERIFIED\nLINE3_LEDGER_AND_RESULT_LINKED",
+      "stdout": "VERIFIED_5LINES_DOM: 3.12.10 win32",
       "stdout_lines": [
-        "LINE1_S1_SANDBOX_ISOLATED_OK",
-        "LINE2_REAL_DOM_002_RC0_VERIFIED",
-        "LINE3_LEDGER_AND_RESULT_LINKED"
+        "VERIFIED_5LINES_DOM: 3.12.10 win32"
       ],
       "stderr": "",
-      "work_id": "741af4d7-f072-4370-b152-ef3d5771c298",
-      "uuid": "741af4d7-f072-4370-b152-ef3d5771c298",
-      "api_status": {
-        "ok": true,
-        "server_time": "2026-10-31T23:23:41.976374",
-        "kill_switch": false,
-        "mode": "READ_ONLY",
-        "last_proof": "2026-10-31T04:10:50.159538+09:00"
-      },
-      "api_chat": {
-        "ok": true,
-        "uuid": "741af4d7-f072-4370-b152-ef3d5771c298",
-        "req_id": "741af4d7",
-        "executed": false,
-        "reply": "[읽기 전용 · 원장ID 741af4d7] 'v3.3 대표님 허락 실행 (REAL_DOM_002 status=DONE)' 명령이 원장(s1_command_ledger.jsonl)에 기록되었으나 실행되지 않았습니다."
-      }
+      "work_id": "local-REAL_DOM_003-f329204f",
+      "uuid": "local-REAL_DOM_003-f329204f",
+      "api_status": {},
+      "api_chat": {}
     }
   },
   "hashes": [
-    "08f084432dead91d5512ba45cbb9a2c13641b2a8095b52522290b82a6a6ea715",
-    "7dde568b6abd54d6b4c57e729806f533f1816926d48f5fbdb16939098ed6bb77"
+    "f329204fa03448823a4a600b81caac37711a38257d9fe47fe492a6d17ab24ea3"
   ]
 }
