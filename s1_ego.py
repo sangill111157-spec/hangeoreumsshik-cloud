@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# S1 Ego-Lite Universal Nerve CLI v1.1 (s1_ego.py)
+# S1 Ego-Lite Universal Nerve CLI v1.1.2 (s1_ego.py)
 # Triumvirate Verified Architecture (GPT-6.1 Sol & Claude Opus 5.5 Audit Compliant):
 # - R0 (spaces): URL query stripping (keep only chat id), read-only safe.
 # - R1 (read): Exact URL/chatId match (TAB_NOT_UNIQUE on 0 or >1), defang() markers, 1 retry on transient error.
@@ -20,6 +20,7 @@ TMP_DIR.mkdir(exist_ok=True)
 LOG_DIR = BASE / "logs"
 LOG_DIR.mkdir(exist_ok=True)
 AUDIT_FILE = LOG_DIR / "s1_ego_audit.jsonl"
+POLL_FILE = LOG_DIR / "s1_ego_poll.jsonl"
 HEALTH_FILE = TMP_DIR / "ego_health.json"
 KILL_FLAG = BASE / "KILL_SWITCH.flag"
 ASK_LOCK_FILE = BASE / "s1_ego_ask.lock"
@@ -223,6 +224,8 @@ def cmd_read(space_id, tail_chars=4000, override_chat_id=None):
         url: {json.dumps( f"https://www.genspark.ai/agents?id={expected_id}" )},
         source,
         total_len: fullStr.length,
+        last_message_total_len: lastMsg.length,
+        truncated: lastMsg.length > {tail_chars},
         last_message: lastMsg.slice(-{tail_chars}),
         tail: fullStr.slice(-{tail_chars})
       }}) + "\\n");
@@ -270,12 +273,14 @@ def cmd_ask(space_id, prompt_text, wait_sec=60, tail_chars=4500, override_chat_i
 
     # Global Ask File Lock (non-blocking msvcrt lock -> prevents concurrent ask collisions)
     lock_fh = open(ASK_LOCK_FILE, "w", encoding="utf-8")
+    expected_id_for_log = override_chat_id if override_chat_id is not None else KNOWN_CHATS.get(space_id, "")
     try:
         msvcrt.locking(lock_fh.fileno(), msvcrt.LK_NBLCK, 1)
+        write_audit({"req_id": req_id, "cmd": "ask", "space": space_id, "chat_id": expected_id_for_log, "prompt_sha": prompt_sha, "ok": True, "status": "LOCK_ACQUIRED", "elapsed_ms": 0, "response_sha": ""})
     except OSError:
         lock_fh.close()
         res = {"ok": False, "code": "ASK_LOCK_HELD", "message": "Another ask command is currently holding s1_ego_ask.lock", "req_id": req_id, "space": space_id}
-        write_audit({"req_id": req_id, "cmd": "ask", "space": space_id, "prompt_sha": prompt_sha, "status": "ASK_LOCK_HELD"})
+        write_audit({"req_id": req_id, "cmd": "ask", "space": space_id, "chat_id": expected_id_for_log, "prompt_sha": prompt_sha, "ok": False, "status": "ASK_LOCK_HELD", "elapsed_ms": 0, "response_sha": ""})
         return res
 
     try:
@@ -319,7 +324,7 @@ def cmd_ask(space_id, prompt_text, wait_sec=60, tail_chars=4500, override_chat_i
               if (tas.length === 0) return {{ ok: false, code: "NO_TEXTAREA" }};
               const ta = document.querySelector('textarea[name="query"]') || tas[0];
               const draft = (ta.value || "").trim();
-              if (draft.length > 0) {{ ta.value = ""; ta.dispatchEvent(new Event("input", {{ bubbles: true }})); }}
+              if (draft.length > 0) return {{ ok: false, code: "DRAFT_PRESENT", draft_len: draft.length }};
               const bodyTxt = document.body ? document.body.innerText : "";
               if (!bodyTxt.includes(expModel)) {{
                 return {{ ok: false, code: "MODEL_MISMATCH", expected_model: expModel }};
@@ -371,7 +376,7 @@ def cmd_ask(space_id, prompt_text, wait_sec=60, tail_chars=4500, override_chat_i
             page.evaluate(() => {{
               const ta = document.querySelector('textarea[name="query"]') || document.querySelector('textarea');
               const bodyTxt = document.body ? document.body.innerText : "";
-              const rateLimited = Array.from(document.querySelectorAll("[role=alert], .ant-message, .toast")).some(e => (e.innerText || "").includes("5시간 제한"));
+              const rateLimited = Array.from(document.querySelectorAll("[role=alert], .ant-message, .toast")).some(e => e.offsetParent !== null && ((e.innerText || "").includes("5시간 제한") || (e.innerText || "").includes("재설정됩니다")));
               return {{ valLen: ta ? (ta.value || "").trim().length : -1, rateLimited }};
             }}).catch(() => null),
             new Promise(r => setTimeout(() => r(null), 5000))
@@ -397,15 +402,17 @@ def cmd_ask(space_id, prompt_text, wait_sec=60, tail_chars=4500, override_chat_i
           let stableCount = 0;
           let completed = false;
           let rateLimitedNow = false;
+          const pollLogs = [];
 
-          await sleep(3000);
+          await sleep(2000);
           while (Date.now() - start < maxWaitMs) {{
             await sleep(2500);
             const poll = await Promise.race([
               page.evaluate((baseProseCount, baseLastProse) => {{
                 const bodyTxt = document.body ? document.body.innerText : "";
-                if (Array.from(document.querySelectorAll("[role=alert], .ant-message, .toast")).some(e => (e.innerText || "").includes("5시간 제한"))) {{
-                  return {{ ok: true, rateLimited: true }};
+                const toastRateLimit = Array.from(document.querySelectorAll("[role=alert], .ant-message, .toast")).some(e => e.offsetParent !== null && ((e.innerText || "").includes("5시간 제한") || (e.innerText || "").includes("재설정됩니다")));
+                if (toastRateLimit) {{
+                  return {{ ok: true, rateLimited: true, toastRateLimit: true }};
                 }}
                 const tailWindow = bodyTxt.slice(-600);
                 const isThinking = tailWindow.includes("Thinking...") || tailWindow.includes("생각 중") || tailWindow.includes("생성 중");
@@ -416,7 +423,7 @@ def cmd_ask(space_id, prompt_text, wait_sec=60, tail_chars=4500, override_chat_i
                 const proseEls = Array.from(document.querySelectorAll(".answer-markdown"));
                 const curCount = proseEls.length;
                 const curLast = curCount > 0 ? (proseEls[curCount - 1].innerText || "").trim() : "";
-                const hasNewAssistant = (curCount > baseProseCount && curLast.length > 10) || (curLast !== baseLastProse && curLast.length > 10);
+                const hasNewAssistant = (curCount > baseProseCount && curLast.length > 0) || (curLast !== baseLastProse && curLast.length > 0);
                 return {{
                   ok: true,
                   rateLimited: false,
@@ -434,20 +441,39 @@ def cmd_ask(space_id, prompt_text, wait_sec=60, tail_chars=4500, override_chat_i
               rateLimitedNow = true;
               break;
             }}
-            if (poll.curLast && (poll.curCount > pre.proseCount || poll.curLast !== pre.lastProse) && !poll.isThinking && !poll.stopBtn) {{
-              if (poll.curLast === lastAssistantMsg && poll.curLast.length > 15) {{
+            if (poll.curLast && (poll.curCount > pre.proseCount || poll.curLast !== pre.lastProse) && !poll.isThinking) {{
+              if (poll.curLast === lastAssistantMsg && poll.curLast.length > 0) {{
                 stableCount += 1;
-                if (stableCount >= 2) {{
-                  completed = true;
-                  break;
-                }}
               }} else {{
-                stableCount = 0;
+                stableCount = 1;
               }}
               lastAssistantMsg = poll.curLast;
+              pollLogs.push({{
+                t_ms: Date.now() - start,
+                stop_present: Boolean(poll.stopBtn),
+                answer_count: poll.curCount,
+                answer_count_before: pre.proseCount,
+                last_answer_len: poll.curLast.length,
+                last_answer_text: poll.curLast.slice(-120),
+                stable_n: stableCount,
+                toast_rate_limit: false
+              }});
+              if (stableCount >= 3) {{
+                completed = true;
+                break;
+              }}
             }} else {{
               stableCount = 0;
-              if (poll.curLast) lastAssistantMsg = poll.curLast;
+              pollLogs.push({{
+                t_ms: Date.now() - start,
+                stop_present: Boolean(poll.stopBtn),
+                answer_count: poll.curCount || 0,
+                answer_count_before: pre.proseCount,
+                last_answer_len: (poll.curLast || "").length,
+                last_answer_text: (poll.curLast || "").slice(-120),
+                stable_n: 0,
+                toast_rate_limit: false
+              }});
             }}
           }}
 
@@ -467,13 +493,28 @@ def cmd_ask(space_id, prompt_text, wait_sec=60, tail_chars=4500, override_chat_i
             space: {space_id},
             chat_id: expected,
             elapsed_ms: elapsed,
-            last_message: String(lastAssistantMsg || "").slice(-{tail_chars})
+            last_message: String(lastAssistantMsg || "").slice(-{tail_chars}),
+            poll_logs: pollLogs
           }}) + "\\n");
         }} catch (err) {{
           process.stdout.write("\\nS1EGO_JSON::" + JSON.stringify({{ ok: false, code: "JS_EXCEPTION", message: String(err.message || err) }}) + "\\n");
         }}
         """
         res = run_ego_js(js, timeout=wait_sec + 35)
+        for pl in res.pop("poll_logs", []):
+            pl_rec = {
+                "req_id": req_id,
+                "t_ms": pl.get("t_ms"),
+                "stop_present": pl.get("stop_present"),
+                "answer_count": pl.get("answer_count"),
+                "answer_count_before": pl.get("answer_count_before"),
+                "last_answer_sha": sha256_hex(pl.get("last_answer_text", ""))[:16],
+                "last_answer_len": pl.get("last_answer_len"),
+                "stable_n": pl.get("stable_n"),
+                "toast_rate_limit": pl.get("toast_rate_limit", False),
+            }
+            with POLL_FILE.open("a", encoding="utf-8") as pf:
+                pf.write(json.dumps(pl_rec, ensure_ascii=False) + "\n")
         if "last_message" in res:
             res["last_message"] = defang(res["last_message"])
         res["req_id"] = req_id
@@ -495,12 +536,13 @@ def cmd_ask(space_id, prompt_text, wait_sec=60, tail_chars=4500, override_chat_i
             prompt_file.unlink(missing_ok=True)
         try:
             msvcrt.locking(lock_fh.fileno(), msvcrt.LK_UNLCK, 1)
+            write_audit({"req_id": req_id, "cmd": "ask", "space": space_id, "chat_id": expected_id_for_log, "prompt_sha": prompt_sha, "ok": True, "status": "LOCK_RELEASED", "elapsed_ms": 0, "response_sha": ""})
         except OSError:
             pass
         lock_fh.close()
 
 def main():
-    ap = argparse.ArgumentParser(description="S1 Ego-Lite Universal Nerve CLI v1.1")
+    ap = argparse.ArgumentParser(description="S1 Ego-Lite Universal Nerve CLI v1.1.2")
     sub = ap.add_subparsers(dest="cmd", required=True)
     sub.add_parser("spaces")
     p_read = sub.add_parser("read")
