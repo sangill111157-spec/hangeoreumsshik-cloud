@@ -3,7 +3,7 @@
 
 const OMNI_VERSION = "6.0.0";
 const BRIDGE = "http://127.0.0.1:8765";
-const OMNI_TOKEN = "bfd63676bb00046db6e55eaf2d631652";
+const OMNI_TOKEN = "9333afb222e7f026651c83546465c7ef";
 const AI_ROLES = ["claude", "gpt", "grok"];
 const ROLE_META = {
   rgon: { label: "르곤 독대실", icon: "🏛️" },
