@@ -1,0 +1,34 @@
+{
+  "block_id": "REAL_DOM_002",
+  "sha256": "7dde568b6abd54d6b4c57e729806f533f1816926d48f5fbdb16939098ed6bb77",
+  "status": "DONE",
+  "time": "2026-10-31T23:23:41.977884+09:00",
+  "approved_by": "CEO_SANGILL_LEE_DIRECT_ENTER",
+  "approved_at": "2026-10-31T23:23:40.626457+09:00",
+  "isolated_cwd": "C:\\Users\\sangi\\Downloads\\shin-agent\\s1_runs",
+  "script_path": "C:\\Users\\sangi\\Downloads\\shin-agent\\s1_runs\\REAL_DOM_002.py",
+  "rc": 0,
+  "stdout": "LINE1_S1_SANDBOX_ISOLATED_OK\nLINE2_REAL_DOM_002_RC0_VERIFIED\nLINE3_LEDGER_AND_RESULT_LINKED",
+  "stdout_lines": [
+    "LINE1_S1_SANDBOX_ISOLATED_OK",
+    "LINE2_REAL_DOM_002_RC0_VERIFIED",
+    "LINE3_LEDGER_AND_RESULT_LINKED"
+  ],
+  "stderr": "",
+  "work_id": "741af4d7-f072-4370-b152-ef3d5771c298",
+  "uuid": "741af4d7-f072-4370-b152-ef3d5771c298",
+  "api_status": {
+    "ok": true,
+    "server_time": "2026-10-31T23:23:41.976374",
+    "kill_switch": false,
+    "mode": "READ_ONLY",
+    "last_proof": "2026-10-31T04:10:50.159538+09:00"
+  },
+  "api_chat": {
+    "ok": true,
+    "uuid": "741af4d7-f072-4370-b152-ef3d5771c298",
+    "req_id": "741af4d7",
+    "executed": false,
+    "reply": "[읽기 전용 · 원장ID 741af4d7] 'v3.3 대표님 허락 실행 (REAL_DOM_002 status=DONE)' 명령이 원장(s1_command_ledger.jsonl)에 기록되었으나 실행되지 않았습니다."
+  }
+}
