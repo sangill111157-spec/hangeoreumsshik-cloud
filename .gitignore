@@ -233,6 +233,8 @@ _ego_tmp/
 !S1_US_AON_CHANNEL_STAGE.json
 !S1_SUNO_AGENT_WORK_SCHEDULE.json
 !S1_SUNO_MAESTRO_TRIUMVIRATE_PROOF.json
+!S1_DISTROKID_2SLOT_AND_STUDIO_PROOF.json
+!DISTROKID_2SLOT_STAGED_MANIFEST.json
 !suno_dispatch_queue.json
 !master_ledgers/
 !master_ledgers/**

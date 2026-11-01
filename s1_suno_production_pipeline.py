@@ -83,7 +83,7 @@ CHANNEL_DIRS_MAP = {
         "dir_name": "04_US_SUNONE_AON",
         "maestro_id": "Suno_Maestro_US_AON",
         "channel_name": "SUN-ONE AON",
-        "handle": "@SUNONE_AON",
+        "handle": "@SUN-ONEAON",
         "slogan": "Music for the Soul, Value Returned to the World",
         "sub_slogan": "Global K-Ethics AI Story & Music Label · 33% Philanthropy Pledge",
         "bg_color": (8, 14, 26, 255), # Deep Obsidian Sapphire
@@ -346,3 +346,4 @@ def run_suno_production_pipeline():
 
 if __name__ == "__main__":
     run_suno_production_pipeline()
+

@@ -14,16 +14,16 @@
     "06_distrokid_release_ledger": {
       "file": "06_DISTROKID_RELEASE_LEDGER.csv",
       "format": "UTF-8 with BOM CSV",
-      "description": "4대 채널 DistroKid 글로벌 음원 등록 및 D-14 역산 릴리즈 스케줄 원장",
-      "total_rows": 4,
-      "updated_at": "2026-11-01T20:03:23.458700+09:00"
+      "description": "DistroKid 2-Artist Slots (한걸음씩 + SUN-ONE AON) 통합 음원 릴리즈 원장",
+      "total_rows": 8,
+      "updated_at": "2026-11-01T21:00:00+09:00"
     },
     "07_suno_agent_production_ledger": {
       "file": "07_SUNO_AGENT_PRODUCTION_LEDGER.csv",
       "format": "UTF-8 with BOM CSV",
       "description": "4대 채널 전담 수노 마에스트로 에이전트 8대 명작 음원 생성 및 주간 작업 스케줄 원장",
       "total_rows": 8,
-      "updated_at": "2026-11-01T20:42:16.286191+09:00"
+      "updated_at": "2026-11-01T21:01:27.825880+09:00"
     }
   },
   "total_stocked_episodes": 6,

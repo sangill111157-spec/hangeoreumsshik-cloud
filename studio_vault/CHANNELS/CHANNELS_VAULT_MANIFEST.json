@@ -119,7 +119,7 @@
     },
     "04_US_AON": {
       "channel_name": "SUN-ONE AON",
-      "handle": "@SUNONE_AON",
+      "handle": "@SUN-ONEAON",
       "vault_path": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_vault\\CHANNELS\\04_US_SUNONE_AON",
       "branding_kit": {
         "avatar": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_vault\\CHANNELS\\04_US_SUNONE_AON\\BRANDING_KIT\\avatar_800x800.png",

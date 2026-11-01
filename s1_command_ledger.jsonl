@@ -86,3 +86,6 @@
 {"uuid": "f907bd2d-9318-4fb3-b777-e3e6ed869bad", "req_id": "f907bd2d", "query": "", "mode": "LEDGER_RECORD_ONLY", "executed": false, "ts": "2026-11-01T20:06:06.239934+09:00"}
 {"uuid": "0165053e-3633-4fe2-aee6-c74868eef2f9", "req_id": "0165053e", "query": "디스트로키드 24시간 스케줄러 현황 알려줘", "mode": "LEDGER_RECORD_ONLY", "executed": false, "ts": "2026-11-01T20:06:30.104528+09:00"}
 {"uuid": "373d9deb-9af8-4cf9-abce-628b41ffe79a", "req_id": "373d9deb", "query": "수노 마에스트로 8트랙 현황", "mode": "LEDGER_RECORD_ONLY", "executed": false, "ts": "2026-11-01T20:44:21.100253+09:00"}
+{"uuid": "c40a78c4-ba53-4263-9055-d440d13e129f", "req_id": "c40a78c4", "query": "", "mode": "LEDGER_RECORD_ONLY", "executed": false, "ts": "2026-11-01T21:04:55.300872+09:00"}
+{"uuid": "bf3455ff-6a4c-41f5-ab63-79f76743ff5a", "req_id": "bf3455ff", "query": "디스트로키드 2슬롯 상태 알려줘", "mode": "LEDGER_RECORD_ONLY", "executed": false, "ts": "2026-11-01T21:05:55.019580+09:00"}
+{"uuid": "e920816d-6a8f-4b42-a294-ce53e08006af", "req_id": "e920816d", "query": "디스트로키드 2슬롯 상태 알려줘", "mode": "LEDGER_RECORD_ONLY", "executed": false, "ts": "2026-11-01T21:06:01.265570+09:00"}

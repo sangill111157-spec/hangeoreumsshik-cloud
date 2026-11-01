@@ -120,7 +120,7 @@ def build_suno_agent_work_schedule():
         {
             "channel_id": "04_US_AON",
             "channel_name": "SUN-ONE AON",
-            "handle": "@SUNONE_AON",
+            "handle": "@SUN-ONEAON",
             "space_index": 17,
             "suno_maestro": "Suno_Maestro_US_AON",
             "channel_director": "Director_US_AON",
@@ -221,3 +221,4 @@ def build_suno_agent_work_schedule():
 
 if __name__ == "__main__":
     build_suno_agent_work_schedule()
+

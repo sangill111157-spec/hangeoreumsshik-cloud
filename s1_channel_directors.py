@@ -7,7 +7,7 @@ Implements:
    - Director_Step (Space 6: 한걸음씩 | @한걸음씩-r4i)
    - Director_Booster (Space 7: 부스터 플리 | @Booster_Playlist)
    - Director_Cafe (Space 8: The Café Hour | @TheCaféHour)
-   - Director_US_AON (Space 17: SUN-ONE AON | @SUNONE_AON)
+   - Director_US_AON (Space 17: SUN-ONE AON | @SUN-ONEAON)
 2. K-Heritage / Eastern Land of Courtesy (동방예의지국) Core Philosophical Foundations:
    - Filial piety, respect, integrity, warm 'Jeong' (情), hospitable tea culture, righteous dynamic energy.
 3. Suno AI v4/v4.5 Structured Prompt Builder:
@@ -131,7 +131,7 @@ CHANNEL_DIRECTORS = {
         "channel_id": "CH_04_US_AON",
         "name": "Director_US_AON",
         "target_channel": "SUN-ONE AON",
-        "handle": "@SUNONE_AON",
+        "handle": "@SUN-ONEAON",
         "space_index": 17,
         "subscribers": 0,
         "video_count": 0,

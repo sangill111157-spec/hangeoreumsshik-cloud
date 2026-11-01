@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-11-01T20:42:16.271673+09:00",
+  "timestamp": "2026-11-01T21:01:27.817500+09:00",
   "mission": "S1_SUNO_AGENTS_WORK_SCHEDULE_AND_LEDGER",
   "total_agent_pairs": 4,
   "total_active_tracks": 8,
@@ -82,7 +82,7 @@
     {
       "channel_id": "04_US_AON",
       "channel_name": "SUN-ONE AON",
-      "handle": "@SUNONE_AON",
+      "handle": "@SUN-ONEAON",
       "space_index": 17,
       "suno_maestro": "Suno_Maestro_US_AON",
       "channel_director": "Director_US_AON",

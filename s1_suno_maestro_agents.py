@@ -163,7 +163,7 @@ SUNO_MAESTROS = {
     "Suno_Maestro_US_AON": {
         "channel_id": "04_US_AON",
         "channel_name": "SUN-ONE AON",
-        "handle": "@SUNONE_AON",
+        "handle": "@SUN-ONEAON",
         "space_index": 17,
         "specialty": "Global K-Ethics Epic Orchestra & Philanthropy Anthem 마스터",
         "style_formula": {
@@ -279,3 +279,4 @@ if __name__ == "__main__":
         print(f"Title: {pkg['titles']['bilingual']}")
         print(f"5-Tier Style ({len(pkg['suno_custom_mode_fields']['style_prompt_1000char'])} chars):\n  {pkg['suno_custom_mode_fields']['style_prompt_1000char'][:140]}...")
     print("\nAll 4 Suno Maestro Agents operational.")
+
