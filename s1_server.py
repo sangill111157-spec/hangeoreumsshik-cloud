@@ -90,6 +90,17 @@ ALLOWED_FILES = {
     "/DISTROKID_27TRACKS_LYRICS_MASTER.md": ("DISTROKID_27TRACKS_LYRICS_MASTER.md", "text/markdown; charset=utf-8"),
     "/S1_VIDEO_UPLOAD_STAGING_MANIFEST.json": ("S1_VIDEO_UPLOAD_STAGING_MANIFEST.json", "application/json; charset=utf-8"),
     "/S1_RGON_SCHEDULE_DECISION.json": ("S1_RGON_SCHEDULE_DECISION.json", "application/json; charset=utf-8"),
+    "/S1_16VIDEOS_VERIFIED_SYSTEMS_PROOF.json": ("S1_16VIDEOS_VERIFIED_SYSTEMS_PROOF.json", "application/json; charset=utf-8"),
+    "/S1_41TRACKS_SHORTS_BATCH_MANIFEST.json": ("S1_41TRACKS_SHORTS_BATCH_MANIFEST.json", "application/json; charset=utf-8"),
+    "/S1_9AGENTS_MASTER_WORKFLOW.json": ("S1_9AGENTS_MASTER_WORKFLOW.json", "application/json; charset=utf-8"),
+    "/studio_vault/NAVER_BLOG_OUT/NOV06_NAVER_BLOG_POST_PACKAGE.html": ("studio_vault/NAVER_BLOG_OUT/NOV06_NAVER_BLOG_POST_PACKAGE.html", "text/html; charset=utf-8"),
+    "/studio_vault/NAVER_BLOG_OUT/NOV06_NAVER_BLOG_POST_PACKAGE.md": ("studio_vault/NAVER_BLOG_OUT/NOV06_NAVER_BLOG_POST_PACKAGE.md", "text/markdown; charset=utf-8"),
+    "/studio_vault/THREADS_FUNNEL_OUT/S1_7DAYS_THREADS_GLOBAL_PACK.md": ("studio_vault/THREADS_FUNNEL_OUT/S1_7DAYS_THREADS_GLOBAL_PACK.md", "text/markdown; charset=utf-8"),
+    "/studio_vault/THREADS_FUNNEL_OUT/S1_7DAYS_THREADS_GLOBAL_PACK.json": ("studio_vault/THREADS_FUNNEL_OUT/S1_7DAYS_THREADS_GLOBAL_PACK.json", "application/json; charset=utf-8"),
+    "/studio_vault/SHORTS_FACTORY_OUT/01_SHORTS_HANGEOREUM_MAKCHA_1080x1920.mp4": ("studio_vault/SHORTS_FACTORY_OUT/01_SHORTS_HANGEOREUM_MAKCHA_1080x1920.mp4", "video/mp4"),
+    "/studio_vault/SHORTS_FACTORY_OUT/02_SHORTS_HANGEOREUM_DONT_CLOSE_WINDOW_1080x1920.mp4": ("studio_vault/SHORTS_FACTORY_OUT/02_SHORTS_HANGEOREUM_DONT_CLOSE_WINDOW_1080x1920.mp4", "video/mp4"),
+    "/studio_vault/SHORTS_FACTORY_OUT/03_SHORTS_HANGEOREUM_FIRST_BREATH_1080x1920.mp4": ("studio_vault/SHORTS_FACTORY_OUT/03_SHORTS_HANGEOREUM_FIRST_BREATH_1080x1920.mp4", "video/mp4"),
+    "/studio_vault/SHORTS_FACTORY_OUT/04_SHORTS_USAON_BEACON_OF_HOPE_1080x1920.mp4": ("studio_vault/SHORTS_FACTORY_OUT/04_SHORTS_USAON_BEACON_OF_HOPE_1080x1920.mp4", "video/mp4"),
 }
 
 class ReusableTCPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
