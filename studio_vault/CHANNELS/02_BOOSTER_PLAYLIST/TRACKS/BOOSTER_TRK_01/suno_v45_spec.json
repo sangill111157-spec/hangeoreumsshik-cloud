@@ -1,0 +1,27 @@
+{
+  "maestro_id": "Suno_Maestro_Booster",
+  "channel_id": "02_BOOSTER",
+  "channel_name": "부스터 플리 | 운동·드라이브 음악",
+  "handle": "@Booster_Playlist",
+  "space_index": 7,
+  "specialty": "K-Dynamic Clean Synthwave & Melodic Workout Phonk 마스터",
+  "track_id": "BOOSTER_TRK_01",
+  "titles": {
+    "bilingual": "여름밤 한강 드라이브 & 러닝 비트 | Summer Night Han River Drive & Workout Beat",
+    "korean": "여름밤 한강 드라이브 & 러닝 비트",
+    "english": "Summer Night Han River Drive & Workout Beat"
+  },
+  "musical_parameters": {
+    "bpm": 128,
+    "key": "A Minor",
+    "target_lufs": -14.0,
+    "sample_rate": 44100,
+    "bit_depth": 16
+  },
+  "suno_custom_mode_fields": {
+    "title_field": "여름밤 한강 드라이브 & 러닝 비트 | Summer Night Han River Drive & Workout Beat",
+    "style_prompt_1000char": "[GENRE]: 2026 Euphoric Melodic Synthwave, Clean Korean Workout Phonk, High-Tension Night Drive | [MOOD & ETHOS]: Righteous Dynamic Spirit, Fairplay Sportsmanship, Seoul Han River Nightline Passion, Zero Vulgarity | [INSTRUMENTATION]: Juno-106 Analog Synth Arpeggios, Punchy 808 Sub-Bass, 128 BPM 4-on-the-Floor Kick, Subtle Taepyeongso Brass Accents | [VOCALS & DYNAMICS]: Anthemic Vocoder Chops, High-Energy Shouts, Motivational Vocal Echoes, Dynamic Filter Sweep | [PRODUCTION & MASTERING]: 44.1kHz 16-bit Master, -14.0 LUFS Club & Gym Master, Wide Stereo Panning, Punchy Low-End Clarity",
+    "lyrics_structure_meta": "[Intro: Atmospheric Analog Synth Lead] -> [Verse: Steady 128 BPM Pulse] -> [Build-Up: Rising Synth Filter & Snare Roll] -> [Drop: High-Energy Euphoric Seoul Night Drive Beat] -> [Verse 2: Punchy 808 Bassline] -> [Build-Up: Rising Intensity] -> [Drop: Climax Drive Anthem] -> [Outro: Ambient Synthwave Highway Trail] -> [Fade Out]\n\n[Verse 1]\nFrom the deepest mountain spring, pure and humble\nNo desire for glory, no desire for strife\nEvery drop a blessing, every stream a life\n\n[Chorus]\n여름밤 한강 드라이브 & 러닝 비트 - Summer Night Han River Drive & Workout Beat\nLike water in the wind, flowing wide and free\nThe highest excellence is here for all to see\nBenevolence returned to humanity\n\n[Bridge]\nWith honor to the past and courage for the dawn\nRighteous in our spirit, forever marching on\n\n[Chorus]\n여름밤 한강 드라이브 & 러닝 비트 - Summer Night Han River Drive & Workout Beat\nLike water in the wind, flowing wide and free\nThe highest excellence is here for all to see\nBenevolence returned to humanity\n\n[Outro]\nGrace upon the earth, peace upon the soul."
+  },
+  "created_at": "2026-11-01T20:38:15.397880+09:00"
+}

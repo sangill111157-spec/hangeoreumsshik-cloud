@@ -1,0 +1,27 @@
+{
+  "maestro_id": "Suno_Maestro_Booster",
+  "channel_id": "02_BOOSTER",
+  "channel_name": "부스터 플리 | 운동·드라이브 음악",
+  "handle": "@Booster_Playlist",
+  "space_index": 7,
+  "specialty": "K-Dynamic Clean Synthwave & Melodic Workout Phonk 마스터",
+  "track_id": "BOOSTER_TRK_02",
+  "titles": {
+    "bilingual": "결승선을 향한 질주 | Sprint to the Finish Line",
+    "korean": "결승선을 향한 질주",
+    "english": "Sprint to the Finish Line"
+  },
+  "musical_parameters": {
+    "bpm": 130,
+    "key": "F Minor",
+    "target_lufs": -14.0,
+    "sample_rate": 44100,
+    "bit_depth": 16
+  },
+  "suno_custom_mode_fields": {
+    "title_field": "결승선을 향한 질주 | Sprint to the Finish Line",
+    "style_prompt_1000char": "[GENRE]: 2026 Euphoric Melodic Synthwave, Clean Korean Workout Phonk, High-Tension Night Drive | [MOOD & ETHOS]: Righteous Dynamic Spirit, Fairplay Sportsmanship, Seoul Han River Nightline Passion, Zero Vulgarity | [INSTRUMENTATION]: Juno-106 Analog Synth Arpeggios, Punchy 808 Sub-Bass, 128 BPM 4-on-the-Floor Kick, Subtle Taepyeongso Brass Accents | [VOCALS & DYNAMICS]: Anthemic Vocoder Chops, High-Energy Shouts, Motivational Vocal Echoes, Dynamic Filter Sweep | [PRODUCTION & MASTERING]: 44.1kHz 16-bit Master, -14.0 LUFS Club & Gym Master, Wide Stereo Panning, Punchy Low-End Clarity",
+    "lyrics_structure_meta": "[Intro: Fast Arpeggiator & Heartbeat Kick] -> [Build-Up: Rising Snare Riser] -> [Drop: Maximum Power Workout Beat] -> [Verse: Chiseled Bassline Groove] -> [Bridge: Euphoric Synth Pad Breakdown] -> [Drop 2: Ultimate Acceleration Climax] -> [Outro: Victorious Synth Chords] -> [Fade Out]\n\n[Verse 1]\nFrom the deepest mountain spring, pure and humble\nNo desire for glory, no desire for strife\nEvery drop a blessing, every stream a life\n\n[Chorus]\n결승선을 향한 질주 - Sprint to the Finish Line\nLike water in the wind, flowing wide and free\nThe highest excellence is here for all to see\nBenevolence returned to humanity\n\n[Bridge]\nWith honor to the past and courage for the dawn\nRighteous in our spirit, forever marching on\n\n[Chorus]\n결승선을 향한 질주 - Sprint to the Finish Line\nLike water in the wind, flowing wide and free\nThe highest excellence is here for all to see\nBenevolence returned to humanity\n\n[Outro]\nGrace upon the earth, peace upon the soul."
+  },
+  "created_at": "2026-11-01T20:38:42.487047+09:00"
+}

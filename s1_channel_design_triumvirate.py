@@ -294,3 +294,4 @@ def run_branding_generation():
 
 if __name__ == "__main__":
     run_branding_generation()
+

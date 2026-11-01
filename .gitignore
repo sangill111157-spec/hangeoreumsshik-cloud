@@ -231,6 +231,8 @@ _ego_tmp/
 !S1_K_GLOBAL_TRIUMVIRATE_PROOF.json
 !S1_US_CHANNEL_LAUNCH_TRIUMVIRATE_PROOF.json
 !S1_US_AON_CHANNEL_STAGE.json
+!S1_SUNO_AGENT_WORK_SCHEDULE.json
+!S1_SUNO_MAESTRO_TRIUMVIRATE_PROOF.json
 !suno_dispatch_queue.json
 !master_ledgers/
 !master_ledgers/**

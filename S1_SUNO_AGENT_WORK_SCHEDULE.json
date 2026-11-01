@@ -1,0 +1,108 @@
+{
+  "timestamp": "2026-11-01T20:42:16.271673+09:00",
+  "mission": "S1_SUNO_AGENTS_WORK_SCHEDULE_AND_LEDGER",
+  "total_agent_pairs": 4,
+  "total_active_tracks": 8,
+  "schedules": [
+    {
+      "channel_id": "01_STEP",
+      "channel_name": "한걸음씩",
+      "handle": "@한걸음씩-r4i",
+      "space_index": 6,
+      "suno_maestro": "Suno_Maestro_Step",
+      "channel_director": "Director_Step",
+      "weekly_routine": "매주 월요일 05:00 KST 신곡 주조 -> 05:30 전용 금고 마스터링 -> 06:00 DistroKid D-14 등록 -> 목요일 D-3 쇼츠 티저 -> 익주 월요일 06:00 KST 유튜브 예약 공개",
+      "active_cycle_tracks": [
+        {
+          "track_id": "STEP_TRK_01",
+          "title": "사냥꾼의 새벽 | Hunter's Dawn",
+          "format": "44.1kHz 16-bit WAV (-14.0 LUFS) + 1080p MP4",
+          "vault_rel": "studio_vault/CHANNELS/01_STEP_HANGEOREUM/TRACKS/STEP_TRK_01",
+          "distrokid_status": "D14_SCHEDULED"
+        },
+        {
+          "track_id": "STEP_TRK_02",
+          "title": "어머니의 등불 | Mother's Lantern",
+          "format": "44.1kHz 16-bit WAV (-14.0 LUFS) + 1080p MP4",
+          "vault_rel": "studio_vault/CHANNELS/01_STEP_HANGEOREUM/TRACKS/STEP_TRK_02",
+          "distrokid_status": "D14_SCHEDULED"
+        }
+      ]
+    },
+    {
+      "channel_id": "02_BOOSTER",
+      "channel_name": "부스터 플리 | 운동·드라이브 음악",
+      "handle": "@Booster_Playlist",
+      "space_index": 7,
+      "suno_maestro": "Suno_Maestro_Booster",
+      "channel_director": "Director_Booster",
+      "weekly_routine": "매주 수요일 17:00 KST 하이텐션 128 BPM 신곡 주조 -> 17:30 60분 롱폼 컴파일 -> 18:00 DistroKid D-14 등록 -> 일요일 D-3 쇼츠 티저 -> 익주 수요일 18:00 KST 유튜브 예약 공개",
+      "active_cycle_tracks": [
+        {
+          "track_id": "BOOSTER_TRK_01",
+          "title": "여름밤 한강 드라이브 & 러닝 비트 | Summer Night Han River Drive & Workout Beat",
+          "format": "44.1kHz 16-bit WAV (-14.0 LUFS) + 1080p MP4",
+          "vault_rel": "studio_vault/CHANNELS/02_BOOSTER_PLAYLIST/TRACKS/BOOSTER_TRK_01",
+          "distrokid_status": "D14_SCHEDULED"
+        },
+        {
+          "track_id": "BOOSTER_TRK_02",
+          "title": "결승선을 향한 질주 | Sprint to the Finish Line",
+          "format": "44.1kHz 16-bit WAV (-14.0 LUFS) + 1080p MP4",
+          "vault_rel": "studio_vault/CHANNELS/02_BOOSTER_PLAYLIST/TRACKS/BOOSTER_TRK_02",
+          "distrokid_status": "D14_SCHEDULED"
+        }
+      ]
+    },
+    {
+      "channel_id": "03_CAFE",
+      "channel_name": "The Café Hour",
+      "handle": "@TheCaféHour",
+      "space_index": 8,
+      "suno_maestro": "Suno_Maestro_Cafe",
+      "channel_director": "Director_Cafe",
+      "weekly_routine": "매주 화·목요일 11:00 KST 정갈한 한옥 Lo-Fi 재즈 주조 -> 11:30 전용 금고 마스터링 -> 12:00 DistroKid D-14 등록 -> D-3 쇼츠 티저 -> 익주 12:00 KST 점심 휴식 예약 공개",
+      "active_cycle_tracks": [
+        {
+          "track_id": "CAFE_TRK_01",
+          "title": "북촌 한옥의 아침 다도 | Morning Tea at Bukchon Hanok",
+          "format": "44.1kHz 16-bit WAV (-14.0 LUFS) + 1080p MP4",
+          "vault_rel": "studio_vault/CHANNELS/03_THE_CAFE_HOUR/TRACKS/CAFE_TRK_01",
+          "distrokid_status": "D14_SCHEDULED"
+        },
+        {
+          "track_id": "CAFE_TRK_02",
+          "title": "성수동 비 내리는 오후의 커피 | Rainy Afternoon Coffee in Seongsu",
+          "format": "44.1kHz 16-bit WAV (-14.0 LUFS) + 1080p MP4",
+          "vault_rel": "studio_vault/CHANNELS/03_THE_CAFE_HOUR/TRACKS/CAFE_TRK_02",
+          "distrokid_status": "D14_SCHEDULED"
+        }
+      ]
+    },
+    {
+      "channel_id": "04_US_AON",
+      "channel_name": "SUN-ONE AON",
+      "handle": "@SUNONE_AON",
+      "space_index": 17,
+      "suno_maestro": "Suno_Maestro_US_AON",
+      "channel_director": "Director_US_AON",
+      "weekly_routine": "매주 금요일 20:00 KST (07:00 EST) 월드클래스 심포니 주조 -> 20:30 미국 금고 비축 -> 21:00 KST (08:00 EST) DistroKid 등록 -> 화요일 쇼츠 티저 -> 익주 금요일 21:00 KST (08:00 EST) 북미 프라임타임 공개",
+      "active_cycle_tracks": [
+        {
+          "track_id": "USAON_TRK_01",
+          "title": "상선약수: 선한 영향력의 바다 | Water of Benevolence (Global Philanthropy Symphony)",
+          "format": "44.1kHz 16-bit WAV (-14.0 LUFS) + 1080p MP4",
+          "vault_rel": "studio_vault/CHANNELS/04_US_SUNONE_AON/TRACKS/USAON_TRK_01",
+          "distrokid_status": "D14_SCHEDULED"
+        },
+        {
+          "track_id": "USAON_TRK_02",
+          "title": "새벽의 지평선 너머로 | Beyond the Golden Horizon",
+          "format": "44.1kHz 16-bit WAV (-14.0 LUFS) + 1080p MP4",
+          "vault_rel": "studio_vault/CHANNELS/04_US_SUNONE_AON/TRACKS/USAON_TRK_02",
+          "distrokid_status": "D14_SCHEDULED"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "maestro_id": "Suno_Maestro_Cafe",
+  "channel_id": "03_CAFE",
+  "channel_name": "The Café Hour",
+  "handle": "@TheCaféHour",
+  "space_index": 8,
+  "specialty": "K-Café Hospitality Jazz & Hanok Lo-Fi 마스터",
+  "track_id": "CAFE_TRK_01",
+  "titles": {
+    "bilingual": "북촌 한옥의 아침 다도 | Morning Tea at Bukchon Hanok",
+    "korean": "북촌 한옥의 아침 다도",
+    "english": "Morning Tea at Bukchon Hanok"
+  },
+  "musical_parameters": {
+    "bpm": 75,
+    "key": "Eb Major",
+    "target_lufs": -14.0,
+    "sample_rate": 44100,
+    "bit_depth": 16
+  },
+  "suno_custom_mode_fields": {
+    "title_field": "북촌 한옥의 아침 다도 | Morning Tea at Bukchon Hanok",
+    "style_prompt_1000char": "[GENRE]: 2026 Cozy K-Indie Jazz, Bukchon Hanok Coffeehouse Lo-Fi, Mindful Tea Ambience | [MOOD & ETHOS]: Warm Hospitality (다도 예절), Tranquil Aesthetics, Gentle Solitude, Healing Calmness | [INSTRUMENTATION]: Vintage Fender Rhodes Mark I, Upright Double Bass, Brushed Jazz Snare Drums, Gayageum Harmonics, Soft Vinyl Ambience | [VOCALS & DYNAMICS]: Pure Instrumental Priority, Gentle Muted Vocal Humming, Breath Texture in Background | [PRODUCTION & MASTERING]: 44.1kHz 16-bit Master, -14.0 LUFS Warm Velvet Master, Smooth Analog Rolloff, Relaxing Acoustic Space",
+    "lyrics_structure_meta": "[Morning Brew: Gentle Rhodes Chords] -> [Verse: Warm Brushed Snare Rhythm] -> [Chorus: Cozy Piano & Gayageum Harmonics] -> [Afternoon Sunlight: Soft Muted Trumpet Dialogue] -> [Bridge: Steaming Tea Ambience] -> [Chorus: Serene Café Harmony] -> [Evening Rain in Bukchon: Mellow Double Bass Outro] -> [Fade Out]\n\n[Verse 1]\nFrom the deepest mountain spring, pure and humble\nNo desire for glory, no desire for strife\nEvery drop a blessing, every stream a life\n\n[Chorus]\n북촌 한옥의 아침 다도 - Morning Tea at Bukchon Hanok\nLike water in the wind, flowing wide and free\nThe highest excellence is here for all to see\nBenevolence returned to humanity\n\n[Bridge]\nWith honor to the past and courage for the dawn\nRighteous in our spirit, forever marching on\n\n[Chorus]\n북촌 한옥의 아침 다도 - Morning Tea at Bukchon Hanok\nLike water in the wind, flowing wide and free\nThe highest excellence is here for all to see\nBenevolence returned to humanity\n\n[Outro]\nGrace upon the earth, peace upon the soul."
+  },
+  "created_at": "2026-11-01T20:39:30.705738+09:00"
+}
