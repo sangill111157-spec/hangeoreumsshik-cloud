@@ -1,0 +1,79 @@
+{
+  "calendar_name": "S1_MASTER_EXECUTION_CALENDAR_2026_11",
+  "created_at": "2026-11-01T23:35:00+09:00",
+  "governance": {
+    "commander": "Lee Sang-il (CEO)",
+    "chief_aide": "Rgon (Gemini 4 Argon · G2)",
+    "tech_premier": "Antigravity (Premier)",
+    "status": "APPROVED_BY_RGON_G2"
+  },
+  "milestones": [
+    {
+      "date": "2026-11-01",
+      "day_of_week": "Sunday",
+      "time_kst": "23:00",
+      "channel": "ALL",
+      "event": "4대 정규앨범 41곡 원장 동기화 및 캡컷 41분 14초 하이브리드 리마스터 주조 완료",
+      "status": "COMPLETED"
+    },
+    {
+      "date": "2026-11-03",
+      "day_of_week": "Tuesday",
+      "time_kst": "12:00",
+      "channel": "@한걸음씩-r4i",
+      "event": "『가을과 겨울 사이』 D-3 유튜브 커뮤니티 발매 예고 티저 등록",
+      "status": "SCHEDULED"
+    },
+    {
+      "date": "2026-11-04",
+      "day_of_week": "Wednesday",
+      "time_kst": "21:00",
+      "time_est": "07:00",
+      "channel": "@SUN-ONEAON",
+      "event": "개국 1호 『희망의 등불 (Suno V6)』 1080p 공식 MV 전 세계 론칭 (미국 동부 아침 프라임타임)",
+      "status": "STAGED_READY"
+    },
+    {
+      "date": "2026-11-05",
+      "day_of_week": "Thursday",
+      "time_kst": "18:00",
+      "channel": "@한걸음씩-r4i",
+      "event": "『가을과 겨울 사이』 41분 풀영상 유튜브 스튜디오 최종 예약 업로드 완료 (공개: 11/06 00:00 KST)",
+      "status": "STAGED_READY"
+    },
+    {
+      "date": "2026-11-06",
+      "day_of_week": "Friday",
+      "day_tag": "D-Day (D-5 from 11/01)",
+      "time_kst": "00:00",
+      "channel": "@한걸음씩-r4i & DistroKid",
+      "event": "『가을과 겨울 사이 (12곡, UPC: 700563848544)』 전 세계 24개 음원 플랫폼 및 유튜브 풀영상 정식 발매",
+      "status": "ARMED_FOR_LAUNCH"
+    },
+    {
+      "date": "2026-11-15",
+      "day_of_week": "Sunday",
+      "time_kst": "15:00",
+      "channel": "@한걸음씩-r4i",
+      "event": "정규 2집 『잔상 (15곡, UPC: 700486463268)』 15곡 풀트랙 캡컷/오디오 2차 점검 및 가사집 확정",
+      "status": "PENDING"
+    },
+    {
+      "date": "2026-11-24",
+      "day_of_week": "Tuesday",
+      "time_kst": "12:00",
+      "channel": "@한걸음씩-r4i",
+      "event": "정규 2집 『잔상』 D-3 유튜브 커뮤니티 발매 예고 티저 등록",
+      "status": "PENDING"
+    },
+    {
+      "date": "2026-11-27",
+      "day_of_week": "Friday",
+      "day_tag": "D-Day (D-26 from 11/01)",
+      "time_kst": "00:00",
+      "channel": "@한걸음씩-r4i & DistroKid",
+      "event": "정규 2집 『잔상 (15곡, UPC: 700486463268)』 전 세계 24개 음원 플랫폼 공식 발매",
+      "status": "ARMED_FOR_LAUNCH"
+    }
+  ]
+}

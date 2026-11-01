@@ -1,0 +1,49 @@
+{
+  "manifest_name": "S1_VIDEO_UPLOAD_STAGING_MANIFEST",
+  "version": "2.0.0",
+  "created_at": "2026-11-01T23:38:00+09:00",
+  "safety_constitution": {
+    "unauthorized_public_block": true,
+    "default_upload_privacy": "PRIVATE_OR_SCHEDULED_DRAFT",
+    "tty_sha8_gate_required": true,
+    "rule": "절대 대표님의 승인 없이 즉시 공개(Public)로 게시하지 않으며, 지정된 D-Day 예약 스케줄로만 안전 적재한다."
+  },
+  "staging_queue": [
+    {
+      "queue_id": "STAGE_01_HANGEOREUM_FULL_ALBUM",
+      "channel_handle": "@한걸음씩-r4i",
+      "channel_space": 6,
+      "video_file": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_vault\\CHANNELS\\01_STEP_HANGEOREUM\\NOV06_FINAL_MASTER\\AUTUMN_AND_WINTER_12TRACKS_HYBRID_MASTER_14LUFS.mp4",
+      "video_exists": true,
+      "video_size_bytes": 3539511959,
+      "thumbnail_file": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_vault\\CHANNELS\\01_STEP_HANGEOREUM\\NOV06_FINAL_MASTER\\THUMBNAIL_1280x720_MASTER.jpg",
+      "thumbnail_exists": true,
+      "title": "[Full Album] 한걸음씩 - 가을과 겨울 사이 (Between Autumn and Winter) | Official 1st Full Album [4K/FHD 41분 전곡]",
+      "scheduled_publish_kst": "2026-11-06 00:00:00 KST",
+      "scheduled_publish_utc": "2026-11-05 15:00:00 UTC",
+      "visibility_mode": "SCHEDULED",
+      "distrokid_upc": "700563848544",
+      "track_count": 12,
+      "total_duration": "41:14",
+      "status": "STAGED_DRAFT_READY"
+    },
+    {
+      "queue_id": "STAGE_02_SUNONE_AON_GENESIS_MV",
+      "channel_handle": "@SUN-ONEAON",
+      "channel_space": 18,
+      "video_file": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_vault\\CEO_SUNO_V6_MASTERS\\01_BEACON_OF_HOPE_1080p_MV.mp4",
+      "video_exists": true,
+      "video_size_bytes": 10073744,
+      "thumbnail_file": "C:\\Users\\sangi\\Downloads\\shin-agent\\assets\\channel_branding_2026\\thumbnail_EP01_1920x1080.png",
+      "thumbnail_exists": true,
+      "title": "[Official MV] 썬원 에이온 - 희망의 등불 (SUN-ONE AON) | 개국 1호 공식 테마곡 [1080p FHD]",
+      "scheduled_publish_kst": "2026-11-04 21:00:00 KST",
+      "scheduled_publish_est": "2026-11-04 07:00:00 EST",
+      "visibility_mode": "SCHEDULED",
+      "distrokid_upc": "883071294093",
+      "audio_source": "Suno V6 Authentic 320kbps Master (-14.0 LUFS)",
+      "total_duration": "02:38",
+      "status": "STAGED_DRAFT_READY"
+    }
+  ]
+}

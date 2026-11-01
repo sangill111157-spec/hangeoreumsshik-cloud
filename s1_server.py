@@ -86,6 +86,10 @@ ALLOWED_FILES = {
     "/S1_CAPCUT_VS_STUDIO_COMPARISON_PROOF.json": ("S1_CAPCUT_VS_STUDIO_COMPARISON_PROOF.json", "application/json; charset=utf-8"),
     "/s1_capcut_vault_specs.json": ("s1_capcut_vault_specs.json", "application/json; charset=utf-8"),
     "/master_ledgers/06_DISTROKID_RELEASE_LEDGER.csv": ("master_ledgers/06_DISTROKID_RELEASE_LEDGER.csv", "text/csv; charset=utf-8"),
+    "/S1_MASTER_EXECUTION_CALENDAR_2026_11.json": ("S1_MASTER_EXECUTION_CALENDAR_2026_11.json", "application/json; charset=utf-8"),
+    "/DISTROKID_27TRACKS_LYRICS_MASTER.md": ("DISTROKID_27TRACKS_LYRICS_MASTER.md", "text/markdown; charset=utf-8"),
+    "/S1_VIDEO_UPLOAD_STAGING_MANIFEST.json": ("S1_VIDEO_UPLOAD_STAGING_MANIFEST.json", "application/json; charset=utf-8"),
+    "/S1_RGON_SCHEDULE_DECISION.json": ("S1_RGON_SCHEDULE_DECISION.json", "application/json; charset=utf-8"),
 }
 
 class ReusableTCPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):

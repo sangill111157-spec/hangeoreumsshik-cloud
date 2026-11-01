@@ -254,3 +254,6 @@ studio_vault/**/*.mp4
 studio_vault/**/*.wav
 studio_vault/**/DISTROKID_ALBUMS/**/*.mp3
 studio_vault/**/DISTROKID_ALBUMS/**/*_art.png
+!S1_MASTER_EXECUTION_CALENDAR_2026_11.json
+!S1_VIDEO_UPLOAD_STAGING_MANIFEST.json
+!S1_RGON_SCHEDULE_DECISION.json
