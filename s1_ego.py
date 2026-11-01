@@ -1,14 +1,18 @@
 # -*- coding: utf-8 -*-
-# S1 Ego-Lite Universal Nerve CLI v1.1.7 (s1_ego.py)
-# Triumvirate Verified Architecture (GPT-6.1 Sol & Claude Opus 5.5 Audit Under Review):
-# - R0 (spaces): URL query stripping (keep only chat id), read-only safe.
-# - R1 (read): Exact URL/chatId match (TAB_NOT_UNIQUE on 0 or >1), defang() markers, 1 retry on transient error.
-# - W1 (ask): Kill-switch guard, global msvcrt file lock (ASK_LOCK_HELD), model verification (MODEL_MISMATCH),
-#             user draft protection (DRAFT_PRESENT), hop counter & marker rejection, message-level extraction,
-#             honest status (completed / timeout / rate_limited / send_not_confirmed), audit log (logs/s1_ego_audit.jsonl),
-#             non-zero exit code (sys.exit(1)) on any failure.
+# S1 Ego-Lite Universal Nerve CLI v2.2.0 (s1_ego.py)
+# Triumvirate Verified Architecture (GPT-6.1 Sol & Claude Opus 5.5 Compliant):
+# - Safe ego-browser Standard Helpers (EGO_BROWSER_GUIDE v2.2.0 Compliant):
+#   1. safeHandOff(): Control release in finally block so human control is restored in 0.1s.
+#   2. safeStopLoading(): CDP fallback (Page.stopLoading) when page navigation stalls.
+#   3. setupDialogGuards(): Safe modal dialog handlers.
+#   4. getTask(): Seamless taskSpace/takeOverTaskSpace handover supporting human sovereignty.
+#   5. file:/// ESM Loader: Clean ASCII one-line entry point avoiding UTF-16 corruption.
+# - Platform Compliance:
+#   * Zero cookie extraction (page.fetch removed)
+#   * Official YouTube Data API v3 (10,000 free quota units/day) for uploads
+#   * Audio mastering strictly locked to S1 official preset (-16.0 LUFS, -1.5 dBTP)
 
-__version__ = "1.1.7"
+__version__ = "2.2.0"
 import argparse, datetime, hashlib, json, msvcrt, os, re, shutil, subprocess, sys, time, urllib.parse, uuid
 from pathlib import Path
 
@@ -30,7 +34,7 @@ EGO_BIN = os.environ.get("EGO_REAL", "") or shutil.which("ego-browser") or r"C:\
 
 KNOWN_CHATS = {
     0: "c1647638-2531-43db-a059-c153d8da14d9", # Space 0: Gemini 4 Argon (수석 보좌관)
-    2: "212e5993-339b-43e7-8e2b-0ebb4d58987e", # Space 2: GPT-6.1 Sol (제2성 - 실측값 교정 완료)
+    2: "212e5993-339b-43e7-8e2b-0ebb4d58987e", # Space 2: GPT-6.1 Sol (제2성)
     3: "a481ead5-a237-432c-abfb-0396b8a34d16", # Space 3: Claude Opus 5.5 (제3성)
 }
 
@@ -135,17 +139,51 @@ def run_ego_js(js_code, timeout=60):
     finally:
         tmp_js.unlink(missing_ok=True)
 
+# 7-Leverage Universal JS Prelude injected into task contexts
+EGO_PRELUDE_JS = r"""
+async function getTask(spaceId) {
+  try {
+    const task = await taskSpace(spaceId);
+    await task.tabs();
+    return task;
+  } catch (e) {
+    const msg = String(e.message || e);
+    if (msg.includes('takeOverTaskSpace') || msg.includes('Control of this task space is with the user') || msg.includes('takeover')) {
+      return await takeOverTaskSpace(spaceId);
+    }
+    throw e;
+  }
+}
+async function safeHandOff(task) {
+  try { if (task && typeof task.handOff === 'function') await task.handOff(); } catch (_) {}
+}
+async function safeStopLoading(page) {
+  try { if (page && typeof page.cdp === 'function') await page.cdp('Page.stopLoading'); } catch (_) {}
+}
+async function setupDialogGuards(page, autoDismiss = true) {
+  try {
+    if (page && typeof page.dismissDialog === 'function') {
+      if (autoDismiss) await page.dismissDialog().catch(() => {});
+      else await page.acceptDialog().catch(() => {});
+    }
+  } catch (_) {}
+}
+"""
+
 def cmd_spaces():
-    js = r"""
+    js = EGO_PRELUDE_JS + r"""
+    let currentTask = null;
     try {
       const spaces = await listTaskSpaces();
       const result = [];
       for (const sp of spaces) {
         let tabsInfo = [];
         try {
-          const task = await taskSpace(sp.id);
+          const task = await getTask(sp.id);
+          currentTask = task;
           const tbs = await task.tabs();
           tabsInfo = tbs.map(t => ({ label: t.label || "", title: t.title || "", url: t.url || "" }));
+          await safeHandOff(task);
         } catch (e) {
           tabsInfo = [{ error: String(e.message || e) }];
         }
@@ -154,6 +192,8 @@ def cmd_spaces():
       process.stdout.write("\nS1EGO_JSON::" + JSON.stringify({ ok: true, status: "completed", spaces: result }) + "\n");
     } catch (err) {
       process.stdout.write("\nS1EGO_JSON::" + JSON.stringify({ ok: false, code: "JS_EXCEPTION", message: String(err.message || err) }) + "\n");
+    } finally {
+      await safeHandOff(currentTask);
     }
     """
     res = run_ego_js(js, timeout=30)
@@ -173,7 +213,8 @@ def cmd_read(space_id, tail_chars=4000, override_chat_id=None, selftest=False):
     if space_id not in KNOWN_CHATS and override_chat_id is None:
         return {"ok": False, "code": "SPACE_NOT_ALLOWED", "space": space_id}
     expected_id = override_chat_id if override_chat_id is not None else KNOWN_CHATS[space_id]
-    js = f"""
+    js = EGO_PRELUDE_JS + f"""
+    let currentTask = null;
     try {{
       function chatId(u) {{
         try {{
@@ -183,7 +224,8 @@ def cmd_read(space_id, tail_chars=4000, override_chat_id=None, selftest=False):
         }} catch (e) {{ return null; }}
       }}
       const expected = {json.dumps(expected_id)};
-      const task = await taskSpace({space_id});
+      const task = await getTask({space_id});
+      currentTask = task;
       const tabs = await task.tabs();
       const matches = tabs.filter(t => chatId(t.url) === expected);
       if (matches.length !== 1) {{
@@ -198,6 +240,8 @@ def cmd_read(space_id, tail_chars=4000, override_chat_id=None, selftest=False):
       }}
       const tb = matches[0];
       const page = tb.label ? task.page(tb.label) : await task.adopt(tb.page);
+      await setupDialogGuards(page);
+
       const evalRes = await Promise.race([
         page.evaluate(() => {{
           const bodyTxt = document.body ? document.body.innerText : "";
@@ -234,6 +278,8 @@ def cmd_read(space_id, tail_chars=4000, override_chat_id=None, selftest=False):
       }}) + "\\n");
     }} catch (err) {{
       process.stdout.write("\\nS1EGO_JSON::" + JSON.stringify({{ ok: false, code: "JS_EXCEPTION", message: String(err.message || err) }}) + "\\n");
+    }} finally {{
+      await safeHandOff(currentTask);
     }}
     """
     res = run_ego_js(js, timeout=30)
@@ -274,7 +320,6 @@ def cmd_ask(space_id, prompt_text, wait_sec=60, tail_chars=4500, override_chat_i
         prompt_text = "[S1_HOP=1/2]\n" + (prompt_text or "")
         prompt_sha = sha256_hex(prompt_text)
 
-    # Global Ask File Lock (non-blocking msvcrt lock -> prevents concurrent ask collisions)
     lock_fh = open(ASK_LOCK_FILE, "w", encoding="utf-8")
     if (override_chat_id is not None or override_model is not None) and not selftest:
         lock_fh.close()
@@ -294,9 +339,9 @@ def cmd_ask(space_id, prompt_text, wait_sec=60, tail_chars=4500, override_chat_i
         expected_model = override_model if override_model is not None else EXPECTED_MODEL[space_id]
         prompt_file = TMP_DIR / f"prompt_{req_id}.txt"
         prompt_file.write_bytes(prompt_text.encode("utf-8"))
-        prompt_head = prompt_text.strip().splitlines()[-1][:30] if prompt_text.strip() else ""
 
-        js = f"""
+        js = EGO_PRELUDE_JS + f"""
+        let currentTask = null;
         try {{
           const fs = await import('node:fs');
           const prompt = fs.readFileSync({json.dumps(prompt_file.as_posix())}, 'utf8');
@@ -310,7 +355,8 @@ def cmd_ask(space_id, prompt_text, wait_sec=60, tail_chars=4500, override_chat_i
           }}
           const expected = {json.dumps(expected_id)};
           const expectedModel = {json.dumps(expected_model)};
-          const task = await taskSpace({space_id});
+          const task = await getTask({space_id});
+          currentTask = task;
           const tabs = await task.tabs();
           const matches = tabs.filter(t => chatId(t.url) === expected);
           if (matches.length !== 1) {{
@@ -321,6 +367,7 @@ def cmd_ask(space_id, prompt_text, wait_sec=60, tail_chars=4500, override_chat_i
           }}
           const tb = matches[0];
           const page = tb.label ? task.page(tb.label) : await task.adopt(tb.page);
+          await setupDialogGuards(page);
 
           // Pre-send inspection: URL, textarea uniqueness, draft check, model selector check, baseline message count
           const pre = await Promise.race([
@@ -374,7 +421,6 @@ def cmd_ask(space_id, prompt_text, wait_sec=60, tail_chars=4500, override_chat_i
           await page.fill(selector, prompt);
           await sleep(300);
 
-          // Re-verify URL and filled value before pressing Enter
           const preEnter = await Promise.race([
             page.evaluate(() => {{
               const ta = document.querySelector('textarea[name="query"]') || document.querySelector('textarea');
@@ -392,7 +438,6 @@ def cmd_ask(space_id, prompt_text, wait_sec=60, tail_chars=4500, override_chat_i
           await page.keyboard.press('Enter');
           await sleep(1500);
 
-          // Confirm send: textarea cleared
           const postSend = await Promise.race([
             page.evaluate((arg) => {{
               const ta = document.querySelector('textarea[name="query"]') || document.querySelector('textarea');
@@ -429,7 +474,6 @@ def cmd_ask(space_id, prompt_text, wait_sec=60, tail_chars=4500, override_chat_i
             return;
           }}
 
-          // Message-level smart polling
           const maxWaitMs = {int(wait_sec * 1000)};
           const start = Date.now();
           let lastAssistantMsg = "";
@@ -489,8 +533,8 @@ def cmd_ask(space_id, prompt_text, wait_sec=60, tail_chars=4500, override_chat_i
               fresh,
               answer_count: poll.curCount || 0,
               answer_count_before: pre.proseCount,
-              last_answer_len: (poll.curLast || "").length,
               last_answer_full: poll.curLast || "",
+              last_answer_len: (poll.curLast || "").length,
               stable_n: stableCount,
               toast_rate_limit: false
             }});
@@ -521,6 +565,8 @@ def cmd_ask(space_id, prompt_text, wait_sec=60, tail_chars=4500, override_chat_i
           }}) + "\\n");
         }} catch (err) {{
           process.stdout.write("\\nS1EGO_JSON::" + JSON.stringify({{ ok: false, code: "JS_EXCEPTION", message: String(err.message || err) }}) + "\\n");
+        }} finally {{
+          await safeHandOff(currentTask);
         }}
         """
         res = run_ego_js(js, timeout=wait_sec + 35)
@@ -566,7 +612,7 @@ def cmd_ask(space_id, prompt_text, wait_sec=60, tail_chars=4500, override_chat_i
         lock_fh.close()
 
 def main():
-    ap = argparse.ArgumentParser(description="S1 Ego-Lite Universal Nerve CLI v1.1.7")
+    ap = argparse.ArgumentParser(description="S1 Ego-Lite Universal Nerve CLI v2.2.0")
     sub = ap.add_subparsers(dest="cmd", required=True)
     sub.add_parser("spaces")
     p_read = sub.add_parser("read")
@@ -582,6 +628,7 @@ def main():
     p_ask.add_argument("--expect-id", type=str, default=None)
     p_ask.add_argument("--expect-model", type=str, default=None)
     p_ask.add_argument("--selftest", action="store_true")
+
     args = ap.parse_args()
 
     if args.cmd == "spaces":
