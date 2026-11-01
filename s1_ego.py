@@ -8,6 +8,7 @@
 #             honest status (completed / timeout / rate_limited / send_not_confirmed), audit log (logs/s1_ego_audit.jsonl),
 #             non-zero exit code (sys.exit(1)) on any failure.
 
+__version__ = "1.1.7"
 import argparse, datetime, hashlib, json, msvcrt, os, re, shutil, subprocess, sys, time, urllib.parse, uuid
 from pathlib import Path
 

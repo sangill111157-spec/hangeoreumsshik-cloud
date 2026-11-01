@@ -1,14 +1,16 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# S1 Local Bridge Server v1.2 (s1_server.py - Integrated with s1_ego.py v1.1.7)
-import os, sys, json, uuid, datetime, urllib.parse, http.server, socketserver
+# S1 Local Bridge Server v1.3 (PENDING Queue + SHA-8 Approval Gate + Strict Validation)
+import os, sys, json, uuid, datetime, hashlib, threading, urllib.parse, http.server, socketserver
 import s1_ego
 PORT = 8504
 MAX_BODY = 65536
 ROOT = os.path.dirname(os.path.abspath(__file__))
 LEDGER = os.path.join(ROOT, "s1_command_ledger.jsonl")
+QUEUE_FILE = os.path.join(ROOT, "s1_ask_queue.json")
+LEDGER_LOCK = threading.Lock()
 ALLOWED_HOSTS = {"127.0.0.1:8504", "localhost:8504", "127.0.0.1", "localhost"}
-ALLOWED_ORIGINS = {None, "", "http://127.0.0.1:8504", "http://localhost:8504"}
+ALLOWED_ORIGINS = {"http://127.0.0.1:8504", "http://localhost:8504"}
 ALLOWED_FILES = {
     "/": ("index.html", "text/html; charset=utf-8"),
     "/index.html": ("index.html", "text/html; charset=utf-8"),
@@ -20,19 +22,26 @@ ALLOWED_FILES = {
     "/apple-touch-icon.png": ("apple-touch-icon.png", "image/png"),
     "/S1_FULL_PROOF.json": ("S1_FULL_PROOF.json", "application/json; charset=utf-8"),
 }
+def now_kst(): return datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9))).isoformat()
+def write_ledger(entry):
+    entry["ts"] = now_kst()
+    with LEDGER_LOCK:
+        with open(LEDGER, "a", encoding="utf-8") as lf: lf.write(json.dumps(entry, ensure_ascii=False) + "\n")
 class ReusableTCPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
     allow_reuse_address = True
 class S1Handler(http.server.BaseHTTPRequestHandler):
     def log_message(self, fmt, *args): pass
-    def _check_local_guard(self):
+    def _check_local_guard(self, is_write=False):
         host = (self.headers.get("Host") or "").strip().lower()
         origin = (self.headers.get("Origin") or "").strip().lower()
         if host not in ALLOWED_HOSTS:
-            self._send(403, {"ok": False, "code": "HOST_FORBIDDEN", "host": host})
-            return False
-        if origin not in ALLOWED_ORIGINS:
-            self._send(403, {"ok": False, "code": "ORIGIN_FORBIDDEN", "origin": origin})
-            return False
+            self._send(403, {"ok": False, "code": "HOST_FORBIDDEN", "host": host}); return False
+        if is_write:
+            if origin not in ALLOWED_ORIGINS:
+                self._send(403, {"ok": False, "code": "ORIGIN_FORBIDDEN", "origin": origin}); return False
+        else:
+            if origin and origin not in ALLOWED_ORIGINS:
+                self._send(403, {"ok": False, "code": "ORIGIN_FORBIDDEN", "origin": origin}); return False
         return True
     def _send(self, code, payload, ctype="application/json; charset=utf-8"):
         raw = json.dumps(payload, ensure_ascii=False).encode("utf-8") if isinstance(payload, (dict, list)) else payload
@@ -44,67 +53,91 @@ class S1Handler(http.server.BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(raw)
     def do_GET(self):
-        if not self._check_local_guard(): return
-        parsed = urllib.parse.urlparse(self.path)
-        path = parsed.path
-        qs = urllib.parse.parse_qs(parsed.query)
-        if path == "/api/status":
-            kill_on = s1_ego.kill_switch_active()
-            led_file = os.path.join(ROOT, "executed_ids.json")
-            exec_ids, last_exec = [], None
-            if os.path.exists(led_file):
+        try:
+            if not self._check_local_guard(is_write=False): return
+            parsed = urllib.parse.urlparse(self.path)
+            path, qs = parsed.path, urllib.parse.parse_qs(parsed.query)
+            if path == "/api/status":
+                kill_on = s1_ego.kill_switch_active()
+                led_file = os.path.join(ROOT, "executed_ids.json")
+                ledger_status, rec_ids, ok_cnt, fail_cnt, last_rec = "OK", [], 0, 0, None
+                if os.path.exists(led_file):
+                    try:
+                        with open(led_file, "r", encoding="utf-8") as f:
+                            ex_map = json.load(f).get("executed", {})
+                            rec_ids = list(ex_map.keys())
+                            for k, v in ex_map.items():
+                                if v.get("status") == "DONE" and v.get("rc") == 0: ok_cnt += 1
+                                else: fail_cnt += 1
+                            if rec_ids:
+                                raw_last = dict(ex_map[rec_ids[-1]])
+                                raw_last.pop("isolated_cwd", None); raw_last.pop("script_path", None)
+                                raw_last["id_format"] = "legacy_work_id"
+                                last_rec = raw_last
+                    except Exception as e: ledger_status = "CORRUPTED: " + str(e)
+                return self._send(200, {
+                    "ok": ledger_status == "OK", "version": "1.3", "ego_cli_version": getattr(s1_ego, "__version__", "1.1.7"),
+                    "server_time": now_kst(), "kill_switch": kill_on, "mode": "APPROVAL_GATED_BRIDGE",
+                    "ledger_status": ledger_status, "recorded_count": len(rec_ids), "succeeded_count": ok_cnt, "failed_count": fail_cnt,
+                    "recorded_ids": rec_ids, "last_recorded": last_rec
+                })
+            if path == "/api/ego/spaces":
+                res = s1_ego.cmd_spaces()
+                return self._send(200 if res.get("ok") else 502, res)
+            if path == "/api/ego/read":
                 try:
-                    with open(led_file, "r", encoding="utf-8") as f:
-                        ex_map = json.load(f).get("executed", {})
-                        exec_ids = list(ex_map.keys())
-                        if exec_ids: last_exec = ex_map[exec_ids[-1]]
-                except Exception: pass
-            return self._send(200, {"ok": True, "version": "1.2", "ego_cli_version": "1.1.7", "server_time": datetime.datetime.now().isoformat(), "kill_switch": kill_on, "mode": "BRIDGE_ACTIVE", "executed_count": len(exec_ids), "executed_ids": exec_ids, "last_executed": last_exec})
-        if path == "/api/ego/spaces":
-            res = s1_ego.cmd_spaces()
-            return self._send(200 if res.get("ok") else 502, res)
-        if path == "/api/ego/read":
-            try:
-                sp = int(qs.get("space", ["0"])[0])
-                tail = max(100, min(10000, int(qs.get("tail", ["2000"])[0])))
-            except ValueError:
-                return self._send(400, {"ok": False, "code": "INVALID_PARAMS"})
-            if sp not in s1_ego.KNOWN_CHATS:
-                return self._send(400, {"ok": False, "code": "SPACE_NOT_ALLOWED", "space": sp})
-            res = s1_ego.cmd_read(sp, tail)
-            return self._send(200 if res.get("ok") else 502, res)
-        if path in ALLOWED_FILES:
-            fname, ctype = ALLOWED_FILES[path]
-            fpath = os.path.join(ROOT, fname)
-            if os.path.isfile(fpath):
-                with open(fpath, "rb") as f: return self._send(200, f.read(), ctype)
-        return self._send(404, {"ok": False, "code": "NOT_FOUND"})
+                    sp = int(qs.get("space", ["0"])[0])
+                    tail = max(100, min(10000, int(qs.get("tail", ["2000"])[0])))
+                except ValueError: return self._send(400, {"ok": False, "code": "INVALID_PARAMS"})
+                if sp not in s1_ego.KNOWN_CHATS: return self._send(400, {"ok": False, "code": "SPACE_NOT_ALLOWED", "space": sp})
+                res = s1_ego.cmd_read(sp, tail)
+                res["truncation_rule"] = f"tail_chars_limit={tail} (sliced from end of message)"
+                return self._send(200 if res.get("ok") else 502, res)
+            if path in ALLOWED_FILES:
+                fname, ctype = ALLOWED_FILES[path]
+                fpath = os.path.join(ROOT, fname)
+                if os.path.isfile(fpath):
+                    with open(fpath, "rb") as f: return self._send(200, f.read(), ctype)
+            return self._send(404, {"ok": False, "code": "NOT_FOUND"})
+        except Exception as e: return self._send(500, {"ok": False, "code": "INTERNAL_ERROR", "message": str(e)})
     def do_POST(self):
-        if not self._check_local_guard(): return
-        path = self.path.split("?", 1)[0]
-        length = int(self.headers.get("Content-Length", "0"))
-        if length > MAX_BODY: return self._send(413, {"ok": False, "code": "PAYLOAD_TOO_LARGE"})
-        raw = self.rfile.read(length).decode("utf-8") if length > 0 else "{}"
-        try: body = json.loads(raw)
-        except Exception: return self._send(400, {"ok": False, "code": "INVALID_JSON"})
-        if path == "/api/chat":
-            q = str(body.get("query", body.get("cmd", ""))).strip()
-            uid = str(uuid.uuid4())
-            req_id = uid[:8]
-            entry = {"uuid": uid, "req_id": req_id, "ts": datetime.datetime.now().isoformat(), "query": q, "mode": "READ_ONLY", "executed": False}
-            with open(LEDGER, "a", encoding="utf-8") as lf: lf.write(json.dumps(entry, ensure_ascii=False) + "\n")
-            return self._send(200, {"ok": True, "uuid": uid, "req_id": req_id, "executed": False, "reply": "[ID " + req_id + "] Recorded in ledger."})
-        if path == "/api/ego/ask":
-            if s1_ego.kill_switch_active(): return self._send(423, {"ok": False, "code": "KILL_SWITCH_ACTIVE"})
-            if body.get("confirm") != "S1_WEB_ASK_CONFIRMED": return self._send(403, {"ok": False, "code": "CONFIRM_REQUIRED"})
-            sp = body.get("space")
-            prompt = str(body.get("prompt", "")).strip()
-            wait_s = max(10, min(180, int(body.get("wait", 60))))
-            if sp not in (2, 3) or not prompt: return self._send(400, {"ok": False, "code": "ASK_SPACE_FORBIDDEN_OR_EMPTY", "space": sp})
-            res = s1_ego.cmd_ask(int(sp), prompt, wait_sec=wait_s)
-            with open(LEDGER, "a", encoding="utf-8") as lf: lf.write(json.dumps({"req_id": res.get("req_id"), "ts": datetime.datetime.now().isoformat(), "cmd": "api_ego_ask", "space": sp, "ok": res.get("ok"), "status": res.get("status")}, ensure_ascii=False) + "\n")
-            return self._send(200 if res.get("ok") else 409, res)
-        return self._send(404, {"ok": False, "code": "NOT_FOUND"})
+        try:
+            if not self._check_local_guard(is_write=True): return
+            ctype = (self.headers.get("Content-Type") or "").split(";")[0].strip().lower()
+            if ctype != "application/json": return self._send(415, {"ok": False, "code": "UNSUPPORTED_MEDIA_TYPE"})
+            try: length = int(self.headers.get("Content-Length", "0"))
+            except ValueError: return self._send(400, {"ok": False, "code": "INVALID_CONTENT_LENGTH"})
+            if length < 0 or length > MAX_BODY: return self._send(413, {"ok": False, "code": "PAYLOAD_TOO_LARGE"})
+            try: raw = self.rfile.read(length).decode("utf-8") if length > 0 else "{}"
+            except UnicodeDecodeError: return self._send(400, {"ok": False, "code": "INVALID_UTF8"})
+            try: body = json.loads(raw)
+            except Exception: return self._send(400, {"ok": False, "code": "INVALID_JSON"})
+            if not isinstance(body, dict): return self._send(400, {"ok": False, "code": "JSON_OBJECT_REQUIRED"})
+            path = self.path.split("?", 1)[0]
+            if path == "/api/chat":
+                q_val = body.get("query", body.get("cmd", ""))
+                if not isinstance(q_val, str): return self._send(400, {"ok": False, "code": "INVALID_QUERY_TYPE"})
+                q = q_val.strip()
+                uid = str(uuid.uuid4()); req_id = uid[:8]
+                write_ledger({"uuid": uid, "req_id": req_id, "query": q, "mode": "LEDGER_RECORD_ONLY", "executed": False})
+                return self._send(200, {"ok": True, "uuid": uid, "req_id": req_id, "executed": False, "reply": f"[읽기 전용 · 원장ID {req_id}] 명령이 원장(s1_command_ledger.jsonl)에 기록되었으나 실행되지 않았습니다."})
+            if path == "/api/ego/ask":
+                if s1_ego.kill_switch_active(): return self._send(423, {"ok": False, "code": "KILL_SWITCH_ACTIVE"})
+                sp = body.get("space"); prompt = body.get("prompt"); wait_v = body.get("wait", 60)
+                if type(sp) is not int or sp not in (2, 3): return self._send(400, {"ok": False, "code": "ASK_SPACE_FORBIDDEN", "space": sp})
+                if not isinstance(prompt, str) or not prompt.strip(): return self._send(400, {"ok": False, "code": "INVALID_PROMPT"})
+                if type(wait_v) is not int or wait_v < 10 or wait_v > 180: return self._send(400, {"ok": False, "code": "INVALID_WAIT"})
+                req_id = str(uuid.uuid4())
+                psha = hashlib.sha256(prompt.strip().encode("utf-8")).hexdigest()
+                origin = (self.headers.get("Origin") or "").strip().lower()
+                with LEDGER_LOCK:
+                    q_map = json.loads(open(QUEUE_FILE, "r", encoding="utf-8").read()) if os.path.exists(QUEUE_FILE) else {}
+                    q_map[req_id] = {"req_id": req_id, "space": sp, "prompt": prompt.strip(), "prompt_sha256": psha, "wait": wait_v, "origin": origin, "status": "PENDING", "created_at": now_kst()}
+                    with open(QUEUE_FILE, "w", encoding="utf-8") as qf: qf.write(json.dumps(q_map, ensure_ascii=False, indent=2))
+                write_ledger({"req_id": req_id, "cmd": "api_ego_ask_enqueue", "space": sp, "prompt_sha256": psha, "wait": wait_v, "origin": origin, "status": "PENDING", "executed": False})
+                return self._send(202, {"ok": True, "status": "PENDING", "req_id": req_id, "space": sp, "prompt_sha256": psha, "approval_required_sha8": psha[:8], "how_to_approve": f"python s1.py approve {req_id} {psha[:8]}"})
+            return self._send(404, {"ok": False, "code": "NOT_FOUND"})
+        except Exception as e: return self._send(500, {"ok": False, "code": "INTERNAL_ERROR", "message": str(e)})
 if __name__ == "__main__":
     with ReusableTCPServer(("127.0.0.1", PORT), S1Handler) as httpd:
         print(f"S1_SERVER_READY port={PORT}", flush=True)
