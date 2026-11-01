@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # S1 Local Bridge Server v1.5 (s1_server.py — Interactive TTY Approval & Atomic Shared Queue & CORS Enhanced)
-import os, sys, json, uuid, datetime, hashlib, urllib.parse, http.server, socketserver, time
+import os, sys, json, threading, s1_rgon_to_anchongri_bridge, uuid, datetime, hashlib, urllib.parse, http.server, socketserver, time
 import s1_ego
 from s1_queue_store import now_kst, compute_Spec_hashes, append_ledger, update_queue_item
 
@@ -92,6 +92,11 @@ ALLOWED_FILES = {
     "/S1_RGON_SCHEDULE_DECISION.json": ("S1_RGON_SCHEDULE_DECISION.json", "application/json; charset=utf-8"),
     "/S1_16VIDEOS_VERIFIED_SYSTEMS_PROOF.json": ("S1_16VIDEOS_VERIFIED_SYSTEMS_PROOF.json", "application/json; charset=utf-8"),
     "/S1_41TRACKS_SHORTS_BATCH_MANIFEST.json": ("S1_41TRACKS_SHORTS_BATCH_MANIFEST.json", "application/json; charset=utf-8"),
+    "/S1_RGON_DIRECTIVE_QUEUE.json": ("S1_RGON_DIRECTIVE_QUEUE.json", "application/json; charset=utf-8"),
+    "/S1_RGON_DIRECTIVE_INBOX.md": ("S1_RGON_DIRECTIVE_INBOX.md", "text/markdown; charset=utf-8"),
+    "/S1_MOBILE_DISPATCH_QUEUE.json": ("S1_MOBILE_DISPATCH_QUEUE.json", "application/json; charset=utf-8"),
+    "/S1_10SHORTS_AND_TRIUMVIRATE_RULE_PROOF.json": ("S1_10SHORTS_AND_TRIUMVIRATE_RULE_PROOF.json", "application/json; charset=utf-8"),
+    "/s1_triumvirate_gate.py": ("s1_triumvirate_gate.py", "text/plain; charset=utf-8"),
     "/S1_9AGENTS_MASTER_WORKFLOW.json": ("S1_9AGENTS_MASTER_WORKFLOW.json", "application/json; charset=utf-8"),
     "/studio_vault/NAVER_BLOG_OUT/NOV06_NAVER_BLOG_POST_PACKAGE.html": ("studio_vault/NAVER_BLOG_OUT/NOV06_NAVER_BLOG_POST_PACKAGE.html", "text/html; charset=utf-8"),
     "/studio_vault/NAVER_BLOG_OUT/NOV06_NAVER_BLOG_POST_PACKAGE.md": ("studio_vault/NAVER_BLOG_OUT/NOV06_NAVER_BLOG_POST_PACKAGE.md", "text/markdown; charset=utf-8"),
@@ -220,6 +225,21 @@ class S1Handler(http.server.BaseHTTPRequestHandler):
                 res = s1_ego.cmd_read(sp, tail)
                 res["truncation_rule"] = f"tail_chars_limit={tail} (sliced from end of message)"
                 return self._send(200 if res.get("ok") else 502, res)
+            if path == "/api/rgon_directives":
+                q_path = os.path.join(ROOT, "S1_RGON_DIRECTIVE_QUEUE.json")
+                if os.path.exists(q_path):
+                    try:
+                        with open(q_path, "r", encoding="utf-8") as f:
+                            return self._send(200, json.load(f))
+                    except Exception:
+                        pass
+                return self._send(200, {"directives": [], "version": "2.0.0"})
+
+            if path == "/api/triumvirate_audit":
+                import s1_triumvirate_gate
+                res = s1_triumvirate_gate.audit_full_system()
+                return self._send(200, res)
+
             if path == "/api/studio":
                 proof_p = os.path.join(ROOT, "S1_STUDIO_PIPELINE_PROOF.json")
                 vault_p = os.path.join(ROOT, "studio_vault", "US_SUN_ONE_AON", "VAULT_INVENTORY.json")
@@ -511,6 +531,11 @@ class S1Handler(http.server.BaseHTTPRequestHandler):
             return self._send(500, {"ok": False, "code": "INTERNAL_ERROR"})
 
 if __name__ == "__main__":
+    # Start S1 Zero-Paste Bridge persistent daemon loop in background thread
+    bridge_thread = threading.Thread(target=s1_rgon_to_anchongri_bridge.bridge_daemon_loop, args=(8,), daemon=True)
+    bridge_thread.start()
+    print(f"S1_BRIDGE_DAEMON_ATTACHED polling=8s", flush=True)
+
     with ReusableTCPServer(("127.0.0.1", PORT), S1Handler) as httpd:
         print(f"S1_SERVER_READY port={PORT}", flush=True)
         httpd.serve_forever()

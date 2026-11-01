@@ -30,6 +30,51 @@ HEALTH_FILE = TMP_DIR / "ego_health.json"
 KILL_FLAG = BASE / "KILL_SWITCH.flag"
 ASK_LOCK_FILE = BASE / "s1_ego_ask.lock"
 
+class ZeroTokenReplayCache:
+    """Zero-Token Action Replay Cache (Absorbed from Shorts Tech #1)."""
+    CACHE_PATH = TMP_DIR / "zero_token_replay_cache.json"
+
+    @classmethod
+    def load(cls):
+        if cls.CACHE_PATH.exists():
+            try:
+                import json
+                return json.loads(cls.CACHE_PATH.read_text(encoding="utf-8"))
+            except Exception:
+                return {}
+        return {
+            "selectors": {
+                "space0_textarea": "textarea, [contenteditable='true'], input[type='text']",
+                "space0_send_btn": "button[type='submit'], button[aria-label*='send' i], button:has(svg)",
+                "space2_textarea": "textarea[placeholder*='Ask' i], textarea",
+                "space3_textarea": "div[contenteditable='true'], textarea"
+            },
+            "last_updated": now_iso()
+        }
+
+    @classmethod
+    def save(cls, data):
+        try:
+            import json
+            cls.CACHE_PATH.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+        except Exception:
+            pass
+
+    @classmethod
+    def get_selector(cls, key: str, default: str = "") -> str:
+        data = cls.load()
+        return data.get("selectors", {}).get(key, default)
+
+    @classmethod
+    def set_selector(cls, key: str, selector: str):
+        data = cls.load()
+        if "selectors" not in data:
+            data["selectors"] = {}
+        data["selectors"][key] = selector
+        data["last_updated"] = now_iso()
+        cls.save(data)
+
+
 EGO_BIN = os.environ.get("EGO_REAL", "") or shutil.which("ego-browser") or r"C:\Users\sangi\.local\share\ego\active_version_dir\ego-browser.exe"
 
 KNOWN_CHATS = {

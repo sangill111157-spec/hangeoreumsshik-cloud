@@ -1,13 +1,8 @@
 # -*- coding: utf-8 -*-
-# S1 Rgon-to-Anchongri Zero-Paste Bridge Daemon (s1_rgon_to_anchongri_bridge.py)
-# Architecture:
-# 1. Non-invasive scan of Space 0 (Chief Aide Rgon's chat window)
-# 2. Detect [S1_AUTO_DISPATCH_TO_ANCHONGRI] or RGON_DIR_XXXX tags
-# 3. Automatically record to S1_RGON_DIRECTIVE_INBOX.md & S1_RGON_DIRECTIVE_QUEUE.json
-# 4. Auto-commit & push to GitHub repository (SSOT Sync)
-# 5. Two-way dispatch: Mobile phone inputs -> Space 0 / Anchongri Inbox
+# S1 Rgon-to-Anchongri Zero-Paste Bridge Daemon v2.0 (s1_rgon_to_anchongri_bridge.py)
+# 24H Autonomous Background Loop & Deep Multi-Message Scanning
 
-import os, sys, time, json, datetime, re, subprocess
+import os, sys, time, json, datetime, re, subprocess, threading
 from pathlib import Path
 
 sys.stdout.reconfigure(encoding="utf-8")
@@ -16,8 +11,11 @@ sys.stderr.reconfigure(encoding="utf-8")
 BASE = Path(__file__).resolve().parent
 INBOX_MD = BASE / "S1_RGON_DIRECTIVE_INBOX.md"
 QUEUE_JSON = BASE / "S1_RGON_DIRECTIVE_QUEUE.json"
+DOCS_QUEUE_JSON = BASE / "docs" / "S1_RGON_DIRECTIVE_QUEUE.json"
 MOBILE_QUEUE_JSON = BASE / "S1_MOBILE_DISPATCH_QUEUE.json"
 PROCESSED_FILE = BASE / "S1_RGON_PROCESSED_IDS.json"
+
+RUNNING_FLAG = True
 
 def now_iso():
     return datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9))).isoformat()
@@ -31,6 +29,7 @@ def load_json(p, default):
     return default
 
 def save_json(p, data):
+    p.parent.mkdir(parents=True, exist_ok=True)
     p.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
 
 def init_ledgers():
@@ -44,14 +43,14 @@ def init_ledgers():
 
     if not QUEUE_JSON.exists():
         save_json(QUEUE_JSON, {
-            "version": "1.0.0",
+            "version": "2.0.0",
             "last_synced": now_iso(),
             "directives": []
         })
 
     if not MOBILE_QUEUE_JSON.exists():
         save_json(MOBILE_QUEUE_JSON, {
-            "version": "1.0.0",
+            "version": "2.0.0",
             "last_synced": now_iso(),
             "messages": []
         })
@@ -59,10 +58,10 @@ def init_ledgers():
     if not PROCESSED_FILE.exists():
         save_json(PROCESSED_FILE, [])
 
-def scan_space0_once():
+def scan_space0_deep():
     """
     Scans Space 0 via ego-browser without stealing pointer control.
-    Uses non-invasive Page.evaluate to extract the last assistant message.
+    Extracts the last 5 AI assistant message blocks to catch any missed directives.
     """
     script = """
     (async () => {
@@ -88,11 +87,10 @@ def scan_space0_once():
         });
 
         const data = await page.evaluate(() => {
-          // Look for AI response messages
           const items = Array.from(document.querySelectorAll('.message-content, .markdown, [class*="response"], [class*="message"]'));
           const texts = items.map(el => (el.innerText || '').trim()).filter(t => t.length > 20);
           return {
-            last_message: texts.length > 0 ? texts[texts.length - 1] : '',
+            recent_messages: texts.slice(-6),
             total_messages: texts.length
           };
         });
@@ -111,18 +109,17 @@ def scan_space0_once():
         capture_output=True,
         text=True,
         encoding="utf-8",
-        timeout=15
+        timeout=18
     )
 
     out = res.stdout.strip()
     try:
-        # Extract json from stdout
         for line in out.splitlines():
             line = line.strip()
             if line.startswith("{") and line.endswith("}"):
                 return json.loads(line)
     except Exception as e:
-        return {"ok": False, "error": f"JSON parse error: {e}, raw: {out[:200]}"}
+        return {"ok": False, "error": f"JSON parse error: {e}"}
 
     return {"ok": False, "error": "No JSON returned"}
 
@@ -145,8 +142,8 @@ def register_new_directive(directive_id, title, full_text):
     queue["directives"].append(entry)
     queue["last_synced"] = now_iso()
     save_json(QUEUE_JSON, queue)
+    save_json(DOCS_QUEUE_JSON, queue)
 
-    # Append to INBOX.md
     with INBOX_MD.open("a", encoding="utf-8") as f:
         f.write(f"\n### 📩 [지시서 등재] {directive_id} — {title}\n")
         f.write(f"- **등재 시각:** `{entry['timestamp']}`\n")
@@ -159,26 +156,23 @@ def register_new_directive(directive_id, title, full_text):
 
     processed.append(directive_id)
     save_json(PROCESSED_FILE, processed)
-    print(f"[BRIDGE] Successfully registered directive: {directive_id}")
+    print(f"[BRIDGE] Registered directive: {directive_id} ({title})")
 
     # Auto commit and push to GitHub
     try:
-        subprocess.run(["git", "add", "S1_RGON_DIRECTIVE_QUEUE.json", "S1_RGON_DIRECTIVE_INBOX.md"], check=True)
+        subprocess.run(["git", "add", "S1_RGON_DIRECTIVE_QUEUE.json", "docs/S1_RGON_DIRECTIVE_QUEUE.json", "S1_RGON_DIRECTIVE_INBOX.md"], check=True)
         subprocess.run(["git", "commit", "-m", f"auto(bridge): Rgon directive {directive_id} synced to GitHub SSOT"], check=True)
         subprocess.run(["git", "push", "origin", "main"], check=True)
         print(f"[BRIDGE] Auto-pushed directive {directive_id} to GitHub main!")
     except Exception as e:
-        print(f"[BRIDGE] Git sync notice: {e}")
+        print(f"[BRIDGE] Git sync note: {e}")
 
     return True
 
 def process_mobile_queue():
-    """
-    Checks mobile dispatch queue and relays messages to Space 0 or Anchongri Inbox.
-    """
     mobile_data = load_json(MOBILE_QUEUE_JSON, {"messages": []})
     messages = mobile_data.get("messages", [])
-    pending = [m for m in messages if m.get("status") == "PENDING"]
+    pending = [m for m in messages if m.get("status") == "RECEIVED" or m.get("status") == "PENDING"]
 
     if not pending:
         return
@@ -190,10 +184,9 @@ def process_mobile_queue():
         target = msg.get("target", "all")
         query = msg.get("query", "")
 
-        print(f"[BRIDGE] Processing mobile message {mid} -> Target: {target}")
+        print(f"[BRIDGE] Dispatching mobile msg {mid} -> Target: {target}")
 
         if target in ["all", "rgon"]:
-            # Relay to Space 0
             envelope = f"""[S1_NERVE_REPORT v2]
 [모바일 직통 어명 릴레이: {mid}]
 대표님 하명: "{query}"
@@ -204,7 +197,7 @@ def process_mobile_queue():
                 res = s1_test_reply0_live.test_reply0_live(envelope, selftest=False)
                 print(f"[BRIDGE] Relayed to Space 0: {res.get('ok')}")
             except Exception as e:
-                print(f"[BRIDGE] Space 0 relay notice: {e}")
+                print(f"[BRIDGE] Space 0 relay note: {e}")
 
         if target in ["all", "anchongri"]:
             register_new_directive(
@@ -221,34 +214,58 @@ def process_mobile_queue():
 
 def run_bridge_cycle():
     init_ledgers()
-    print(f"[{now_iso()}] S1 Zero-Paste Bridge Cycle running...")
-
     # 1. Process Mobile Queue
     try:
         process_mobile_queue()
     except Exception as e:
-        print(f"[BRIDGE] Mobile queue processing notice: {e}")
+        print(f"[BRIDGE] Mobile queue note: {e}")
 
-    # 2. Scan Space 0 for Rgon directives
+    # 2. Deep Scan Space 0 for Rgon directives (Recent 5 blocks)
     try:
-        res = scan_space0_once()
+        res = scan_space0_deep()
         if res.get("ok"):
-            last_msg = res["data"].get("last_message", "")
-            # Check for directive patterns
-            match = re.search(r"(\[S1_AUTO_DISPATCH_TO_ANCHONGRI\][\s\S]*?\[\/S1_AUTO_DISPATCH_TO_ANCHONGRI\])", last_msg)
-            dir_id_match = re.search(r"(RGON_DIR_[A-Za-z0-9_]+)", last_msg)
+            recent = res["data"].get("recent_messages", [])
+            for msg_text in recent:
+                # Check for explicit directive tags or IDs
+                match = re.search(r"(\[S1_AUTO_DISPATCH_TO_ANCHONGRI\][\s\S]*?\[\/S1_AUTO_DISPATCH_TO_ANCHONGRI\])", msg_text)
+                dir_id_match = re.search(r"(RGON_DIR_[A-Za-z0-9_]+)", msg_text)
 
-            if match:
-                full_dir = match.group(1)
-                did = dir_id_match.group(1) if dir_id_match else "RGON_DIR_" + str(int(time.time()))
-                register_new_directive(did, "르곤 보좌관 자동 디스패치 지시서", full_dir)
-            elif "[S1_DIRECTIVE" in last_msg and "RGON_DIR_" in last_msg:
-                did = dir_id_match.group(1) if dir_id_match else "RGON_DIR_" + str(int(time.time()))
-                register_new_directive(did, "르곤 보좌관 S1 공식 지시서", last_msg)
+                if match:
+                    full_dir = match.group(1)
+                    did = dir_id_match.group(1) if dir_id_match else "RGON_DIR_" + str(int(time.time()))
+                    register_new_directive(did, "르곤 보좌관 자동 디스패치 지시서", full_dir)
+                elif dir_id_match:
+                    did = dir_id_match.group(1)
+                    register_new_directive(did, f"르곤 보좌관 공식 지시서 ({did})", msg_text)
+                elif "[S1_DIRECTIVE" in msg_text or "안총리 긴급" in msg_text:
+                    did = "RGON_DIR_" + str(int(time.time()))
+                    register_new_directive(did, "르곤 보좌관 긴급 통합 지시서", msg_text)
     except Exception as e:
-        print(f"[BRIDGE] Space 0 scan notice: {e}")
+        print(f"[BRIDGE] Space 0 scan note: {e}")
+
+def bridge_daemon_loop(poll_interval=8):
+    """
+    24H Persistent Loop. Runs inside s1_server or standalone.
+    """
+    print(f"[{now_iso()}] S1 Zero-Paste Persistent Daemon started (Interval: {poll_interval}s)")
+    init_ledgers()
+
+    # Pre-register known directives from Rgon
+    known_directives = [
+        ("RGON_DIR_LIVE_001", "무복붙 자동 전달망 실전 라이브 개통", "Space 0 -> GitHub -> Anchongri 무복붙 파이프라인 가동"),
+        ("RGON_DIR_ABSORB_10SHORTS_002", "쇼츠 10편 6대 초경량 핵심 기술 흡수 및 시각화", "Interactive Anatomy 실시간 에너지 구슬, Savvy Progress & File Tree, 3단 뷰포트 클린 검증"),
+        ("RGON_DIR_TRIUMVIRATE_MANDATE_003", "전 작업 삼성(三聖) 제도 만장일치 통과 강제 룰 헌법 잠금", "Open Agent Harness 4대 안전장치 + 삼성 만장일치 통과 룰 영구 강제")
+    ]
+    for did, title, content in known_directives:
+        register_new_directive(did, title, content)
+
+    while RUNNING_FLAG:
+        try:
+            run_bridge_cycle()
+        except Exception as e:
+            print(f"[BRIDGE] Error in cycle: {e}")
+        time.sleep(poll_interval)
 
 if __name__ == "__main__":
     init_ledgers()
-    run_bridge_cycle()
-    print("Bridge cycle complete!")
+    bridge_daemon_loop(8)

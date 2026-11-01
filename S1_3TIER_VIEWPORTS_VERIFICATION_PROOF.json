@@ -1,0 +1,59 @@
+{
+  "ok": true,
+  "results": [
+    {
+      "viewport": {
+        "name": "desktop_1440",
+        "width": 1440,
+        "height": 900,
+        "mobile": false
+      },
+      "check": {
+        "viewportWidth": 1440,
+        "clientWidth": 1440,
+        "scrollWidth": 1440,
+        "bodyScrollWidth": 1440,
+        "horizontalOverflow": false,
+        "hasAnatomyPanel": true,
+        "hasMarbleAnimation": true
+      },
+      "status": "PASS"
+    },
+    {
+      "viewport": {
+        "name": "tablet_768",
+        "width": 768,
+        "height": 1024,
+        "mobile": false
+      },
+      "check": {
+        "viewportWidth": 768,
+        "clientWidth": 768,
+        "scrollWidth": 768,
+        "bodyScrollWidth": 768,
+        "horizontalOverflow": false,
+        "hasAnatomyPanel": true,
+        "hasMarbleAnimation": true
+      },
+      "status": "PASS"
+    },
+    {
+      "viewport": {
+        "name": "mobile_390",
+        "width": 390,
+        "height": 844,
+        "mobile": true
+      },
+      "check": {
+        "viewportWidth": 390,
+        "clientWidth": 390,
+        "scrollWidth": 390,
+        "bodyScrollWidth": 390,
+        "horizontalOverflow": false,
+        "hasAnatomyPanel": true,
+        "hasMarbleAnimation": true
+      },
+      "status": "PASS"
+    }
+  ]
+}
