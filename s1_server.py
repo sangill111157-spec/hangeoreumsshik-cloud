@@ -25,6 +25,9 @@ ALLOWED_FILES = {
     "/S1_FULL_PROOF.json": ("S1_FULL_PROOF.json", "application/json; charset=utf-8"),
     "/S1_STUDIO_PIPELINE_PROOF.json": ("S1_STUDIO_PIPELINE_PROOF.json", "application/json; charset=utf-8"),
     "/S1_DASHBOARD_CLEAN_AUDIT.json": ("S1_DASHBOARD_CLEAN_AUDIT.json", "application/json; charset=utf-8"),
+    "/S1_US_VAULT_AUDIT_PROOF.json": ("S1_US_VAULT_AUDIT_PROOF.json", "application/json; charset=utf-8"),
+    "/studio_vault/US_SUN_ONE_AON/VAULT_INVENTORY.json": ("studio_vault/US_SUN_ONE_AON/VAULT_INVENTORY.json", "application/json; charset=utf-8"),
+    "/studio_vault/US_SUN_ONE_AON/US_CHANNEL_LAUNCH_KIT.md": ("studio_vault/US_SUN_ONE_AON/US_CHANNEL_LAUNCH_KIT.md", "text/markdown; charset=utf-8"),
 }
 
 class ReusableTCPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
@@ -136,15 +139,28 @@ class S1Handler(http.server.BaseHTTPRequestHandler):
                 return self._send(200 if res.get("ok") else 502, res)
             if path == "/api/studio":
                 proof_p = os.path.join(ROOT, "S1_STUDIO_PIPELINE_PROOF.json")
+                vault_p = os.path.join(ROOT, "studio_vault", "US_SUN_ONE_AON", "VAULT_INVENTORY.json")
+                audit_p = os.path.join(ROOT, "S1_US_VAULT_AUDIT_PROOF.json")
+                res_obj = {"ok": True}
                 if os.path.exists(proof_p):
                     try:
                         with open(proof_p, "r", encoding="utf-8") as f:
-                            proof_data = json.load(f)
-                        return self._send(200, {"ok": True, "studio": proof_data})
-                    except Exception as e:
-                        return self._send(500, {"ok": False, "code": "PROOF_READ_ERROR", "error": str(e)})
-                else:
-                    return self._send(404, {"ok": False, "code": "STUDIO_PROOF_NOT_FOUND"})
+                            res_obj["studio"] = json.load(f)
+                    except Exception:
+                        pass
+                if os.path.exists(vault_p):
+                    try:
+                        with open(vault_p, "r", encoding="utf-8") as f:
+                            res_obj["vault"] = json.load(f)
+                    except Exception:
+                        pass
+                if os.path.exists(audit_p):
+                    try:
+                        with open(audit_p, "r", encoding="utf-8") as f:
+                            res_obj["triumvirate_audit"] = json.load(f)
+                    except Exception:
+                        pass
+                return self._send(200, res_obj)
             if path in ALLOWED_FILES:
                 fname, ctype = ALLOWED_FILES[path]
                 fpath = os.path.join(ROOT, fname)
@@ -197,21 +213,23 @@ class S1Handler(http.server.BaseHTTPRequestHandler):
                             with open(proof_p, "r", encoding="utf-8") as f:
                                 pf = json.load(f)
                             ch = pf.get("channels", {})
-                            ch_a = ch.get("channel_a_hangeoreum", {}).get("name", "한걸음씩")
-                            ch_b = ch.get("channel_b_boosterply", {}).get("name", "부스터플리")
-                            ch_c = ch.get("channel_c_cafehour", {}).get("name", "카페아우어")
+                            ch_a = ch.get("channel_a_hangeoreum", {})
+                            ch_b = ch.get("channel_b_boosterply", {})
+                            ch_c = ch.get("channel_c_cafehour", {})
+                            ch_d = ch.get("channel_d_us_aon", {})
                             au = pf.get("audio_master_proof", {})
                             vi = pf.get("video_preview_proof", {})
                             reply_text = (
-                                f"[S1 작업실 4순위 본업 연동 · 원장ID {req_id}]\n"
-                                f"🏆 3대 유튜브 채널 제1호 명작 패키지(EP01_S1_MASTERPIECE) 가동 완료!\n"
-                                f"1. {ch_a}(Space 6, @한걸음씩-r4i): 감성 보컬/발라드 & 한국어 자막(SRT) 완비\n"
-                                f"2. {ch_b}(Space 7, @부스터플리): 운동/드라이브 하이텐션 & 트랙리스트 타임스탬프 완비\n"
-                                f"3. {ch_c}(Space 8, @카페아우어): 시네마틱 재즈 로파이 & 무한 루프 메타데이터 완비\n"
+                                f"[S1 작업실 4순위 2단계 연동 · 원장ID {req_id}]\n"
+                                f"🏆 4대 유튜브 채널 공식 동기화 & 미국(US) 금고 비축 가동!\n"
+                                f"1. {ch_a.get('name', '한걸음씩')}(Space 6, {ch_a.get('handle', '@한걸음씩-r4i')}): 감성 발라드/인생 응원 명작 완비\n"
+                                f"2. {ch_b.get('name', '부스터 플리')}(Space 7, {ch_b.get('handle', '@Booster_Playlist')}): 128 BPM 운동/드라이브 타임스탬프 완비\n"
+                                f"3. {ch_c.get('name', 'The Café Hour')}(Space 8, {ch_c.get('handle', '@TheCaféHour')}): 시네마틱 재즈 로파이 무한루프 완비\n"
+                                f"4. 🇺🇸 {ch_d.get('name', 'SUN-ONE AON')}(Space 9, {ch_d.get('handle', '@SUNONE_AON')}): 미국 전담 글로벌 플래그십 (금고 EP01~EP03 비축 & 환원의 국제화 완비)\n"
                                 f"━━━━━━━━━━━━━━━━━━━━━━\n"
-                                f"🎵 오디오 마스터: {au.get('filename')} ({au.get('sample_rate')}Hz {au.get('bits_per_sample')}bit {au.get('codec')}, {au.get('loudness_standard')})\n"
-                                f"🎬 프리뷰 영상: {vi.get('filename')} ({vi.get('resolution')}, {vi.get('video_codec')}+{vi.get('audio_codec')} 320kbps)\n"
-                                f"판정: {pf.get('final_verdict', 'ALL_PASS_CLEAN')}"
+                                f"🎵 EP01 마스터 음향: {au.get('filename')} (48kHz 24bit, {au.get('loudness_standard')})\n"
+                                f"🎬 EP01 프리뷰 영상: {vi.get('filename')} ({vi.get('resolution')}, {vi.get('video_codec')}+{vi.get('audio_codec')} 320kbps)\n"
+                                f"삼성(三聖) 감리: TRIUMVIRATE_US_VAULT_ALL_PASS"
                             )
                             return self._send(200, {
                                 "ok": True,

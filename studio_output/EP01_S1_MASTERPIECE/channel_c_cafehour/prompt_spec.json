@@ -1,8 +1,9 @@
 {
-  "channel_name": "카페아우어",
-  "channel_id": "@카페아우어",
+  "channel_name": "The Café Hour",
+  "channel_id": "@TheCaféHour",
   "space": 8,
-  "theme": "시네마틱 로파이 / 재즈 카페 BGM & 집중 힐링 루프",
+  "subscribers": 5,
+  "theme": "시네마틱 카페 재즈 · 로파이 앰비언스 (75 BPM Lo-Fi Rhodes)",
   "suno_v6_spec": {
     "title": "비 내리는 오후의 따뜻한 재즈 라떼 (Rainy Cafe Rhodes)",
     "style_tags": "Cozy Lo-Fi hip hop, smooth Rhodes piano, mellow jazz guitar, soft vinyl crackle, gentle rain ambience, relaxing study beats, 75 bpm, warm vintage tape saturation, peaceful",

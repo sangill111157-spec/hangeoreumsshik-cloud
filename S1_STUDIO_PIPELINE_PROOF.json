@@ -1,6 +1,6 @@
 {
-  "timestamp": "2026-11-01T19:14:58.957042+09:00",
-  "mission": "PRIORITY_4_STUDIO_PIPELINE_PHASE1",
+  "timestamp": "2026-11-01T19:25:05.448231+09:00",
+  "mission": "PRIORITY_4_STUDIO_PIPELINE_PHASE2_US_VAULT",
   "project_id": "EP01_S1_MASTERPIECE",
   "channels": {
     "channel_a_hangeoreum": {
@@ -14,9 +14,10 @@
       "status": "READY"
     },
     "channel_b_boosterply": {
-      "name": "부스터플리",
-      "handle": "@부스터플리",
+      "name": "부스터 플리 | 운동·드라이브 음악",
+      "handle": "@Booster_Playlist",
       "space": 7,
+      "subscribers": 26,
       "theme": "하이텐션 드라이브 / 운동 부스터 플레이리스트",
       "prompt_file": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_output\\EP01_S1_MASTERPIECE\\channel_b_boosterply\\prompt_spec.json",
       "tracklist_file": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_output\\EP01_S1_MASTERPIECE\\channel_b_boosterply\\tracklist_description.txt",
@@ -24,14 +25,27 @@
       "status": "READY"
     },
     "channel_c_cafehour": {
-      "name": "카페아우어",
-      "handle": "@카페아우어",
+      "name": "The Café Hour",
+      "handle": "@TheCaféHour",
       "space": 8,
-      "theme": "시네마틱 로파이 / 재즈 카페 BGM & 집중 힐링 루프",
+      "subscribers": 5,
+      "theme": "시네마틱 카페 재즈 · 로파이 앰비언스 (75 BPM Lo-Fi Rhodes)",
       "prompt_file": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_output\\EP01_S1_MASTERPIECE\\channel_c_cafehour\\prompt_spec.json",
       "loop_file": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_output\\EP01_S1_MASTERPIECE\\channel_c_cafehour\\loop_metadata.json",
       "yt_metadata_file": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_output\\EP01_S1_MASTERPIECE\\channel_c_cafehour\\youtube_metadata.json",
       "status": "READY"
+    },
+    "channel_d_us_aon": {
+      "name": "SUN-ONE AON",
+      "handle": "@SUNONE_AON",
+      "alt_handle": "@SUNONEAON_US",
+      "space": 9,
+      "subscribers": 0,
+      "target_market": "en-US",
+      "theme": "Music for the Soul, Value Returned to the World: Global Philanthropy through Sound",
+      "launch_kit": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_vault\\US_SUN_ONE_AON\\US_CHANNEL_LAUNCH_KIT.md",
+      "vault_inventory": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_vault\\US_SUN_ONE_AON\\VAULT_INVENTORY.json",
+      "status": "VAULT_SEED_COMPLETE"
     }
   },
   "audio_master_proof": {

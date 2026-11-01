@@ -183,15 +183,16 @@ Design & Art: Hae-sang Lee (Chief Character Designer) & AON Studio
     (dir_a / "youtube_metadata.json").write_text(json.dumps(yt_a, ensure_ascii=False, indent=2), encoding="utf-8")
 
     # ----------------------------------------------------
-    # Channel B: 부스터플리 (@부스터플리, Space 7)
+    # Channel B: 부스터 플리 | 운동·드라이브 음악 (@Booster_Playlist, Space 7)
     # ----------------------------------------------------
     dir_b = STUDIO_DIR / "channel_b_boosterply"
     dir_b.mkdir(exist_ok=True)
 
     spec_b = {
-        "channel_name": "부스터플리",
-        "channel_id": "@부스터플리",
+        "channel_name": "부스터 플리 | 운동·드라이브 음악",
+        "channel_id": "@Booster_Playlist",
         "space": 7,
+        "subscribers": 26,
         "theme": "하이텐션 드라이브 / 운동 부스터 플레이리스트",
         "suno_v6_spec": {
             "title": "심장을 뛰게 하는 하이텐션 부스터 비트 Vol.1 (Ignition Pulse)",
@@ -233,16 +234,17 @@ S1 음향 연구소의 48kHz 정밀 마스터링으로 왜곡 없이 타격감 �
     (dir_b / "youtube_metadata.json").write_text(json.dumps(yt_b, ensure_ascii=False, indent=2), encoding="utf-8")
 
     # ----------------------------------------------------
-    # Channel C: 카페아우어 (@카페아우어, Space 8)
+    # Channel C: The Café Hour (@TheCaféHour, Space 8)
     # ----------------------------------------------------
     dir_c = STUDIO_DIR / "channel_c_cafehour"
     dir_c.mkdir(exist_ok=True)
 
     spec_c = {
-        "channel_name": "카페아우어",
-        "channel_id": "@카페아우어",
+        "channel_name": "The Café Hour",
+        "channel_id": "@TheCaféHour",
         "space": 8,
-        "theme": "시네마틱 로파이 / 재즈 카페 BGM & 집중 힐링 루프",
+        "subscribers": 5,
+        "theme": "시네마틱 카페 재즈 · 로파이 앰비언스 (75 BPM Lo-Fi Rhodes)",
         "suno_v6_spec": {
             "title": "비 내리는 오후의 따뜻한 재즈 라떼 (Rainy Cafe Rhodes)",
             "style_tags": "Cozy Lo-Fi hip hop, smooth Rhodes piano, mellow jazz guitar, soft vinyl crackle, gentle rain ambience, relaxing study beats, 75 bpm, warm vintage tape saturation, peaceful",
@@ -262,7 +264,7 @@ S1 음향 연구소의 48kHz 정밀 마스터링으로 왜곡 없이 타격감 �
     (dir_c / "loop_metadata.json").write_text(json.dumps(loop_c, ensure_ascii=False, indent=2), encoding="utf-8")
 
     yt_c = {
-        "title": "[1시간/집중음악] 비 내리는 창가, 조용한 재즈 카페 로파이 BGM — 집중/독서/수면 [S1 카페아우어 EP01]",
+        "title": "[1시간/집중음악] 비 내리는 창가, 조용한 재즈 카페 로파이 BGM — 집중/독서/수면 [S1 The Café Hour EP01]",
         "description": """창밖으로 조용히 내리는 빗소리와 따뜻한 커피 한 잔.
 부드러운 로즈 건반과 빈티지 바이닐 질감이 마음을 차분히 가라앉혀 줍니다.
 집중이 필요한 공부 시간, 코딩, 독서, 혹은 하루를 마감하는 수면 시간에 함께하세요.
@@ -272,17 +274,23 @@ Format: 48kHz 24-bit Lossless Studio Mastering
 Volume Norm: -16.0 LUFS (-1.5 dBTP)
 Seamless Crossfade: 1.2s Infinite Loop Ready
 
-#카페아우어 #카페BGM #로파이재즈 #집중음악 #수면음악 #공부할때듣는음악 #S1AON""",
-        "tags": ["카페아우어", "카페BGM", "로파이재즈", "집중음악", "수면음악", "공부할때듣는음악", "S1AON"],
+#TheCafeHour #카페BGM #로파이재즈 #집중음악 #수면음악 #공부할때듣는음악 #S1AON""",
+        "tags": ["The Café Hour", "카페BGM", "로파이재즈", "집중음악", "수면음악", "공부할때듣는음악", "S1AON"],
         "category_id": "10",
         "privacy_status": "private"
     }
     (dir_c / "youtube_metadata.json").write_text(json.dumps(yt_c, ensure_ascii=False, indent=2), encoding="utf-8")
 
+    # ----------------------------------------------------
+    # Channel D: SUN-ONE AON (@SUNONE_AON, Space 9 — 미국 전담 플래그십)
+    # ----------------------------------------------------
+    vault_us_dir = ROOT_DIR / "studio_vault" / "US_SUN_ONE_AON"
+
     return {
         "channel_a": str(dir_a),
         "channel_b": str(dir_b),
-        "channel_c": str(dir_c)
+        "channel_c": str(dir_c),
+        "channel_d_us_aon": str(vault_us_dir)
     }
 
 def render_sample_master_and_preview():
@@ -364,7 +372,7 @@ def run_pipeline():
 
     proof_data = {
         "timestamp": now_kst(),
-        "mission": "PRIORITY_4_STUDIO_PIPELINE_PHASE1",
+        "mission": "PRIORITY_4_STUDIO_PIPELINE_PHASE2_US_VAULT",
         "project_id": "EP01_S1_MASTERPIECE",
         "channels": {
             "channel_a_hangeoreum": {
@@ -378,9 +386,10 @@ def run_pipeline():
                 "status": "READY"
             },
             "channel_b_boosterply": {
-                "name": "부스터플리",
-                "handle": "@부스터플리",
+                "name": "부스터 플리 | 운동·드라이브 음악",
+                "handle": "@Booster_Playlist",
                 "space": 7,
+                "subscribers": 26,
                 "theme": "하이텐션 드라이브 / 운동 부스터 플레이리스트",
                 "prompt_file": str(STUDIO_DIR / "channel_b_boosterply" / "prompt_spec.json"),
                 "tracklist_file": str(STUDIO_DIR / "channel_b_boosterply" / "tracklist_description.txt"),
@@ -388,14 +397,27 @@ def run_pipeline():
                 "status": "READY"
             },
             "channel_c_cafehour": {
-                "name": "카페아우어",
-                "handle": "@카페아우어",
+                "name": "The Café Hour",
+                "handle": "@TheCaféHour",
                 "space": 8,
-                "theme": "시네마틱 로파이 / 재즈 카페 BGM & 집중 힐링 루프",
+                "subscribers": 5,
+                "theme": "시네마틱 카페 재즈 · 로파이 앰비언스 (75 BPM Lo-Fi Rhodes)",
                 "prompt_file": str(STUDIO_DIR / "channel_c_cafehour" / "prompt_spec.json"),
                 "loop_file": str(STUDIO_DIR / "channel_c_cafehour" / "loop_metadata.json"),
                 "yt_metadata_file": str(STUDIO_DIR / "channel_c_cafehour" / "youtube_metadata.json"),
                 "status": "READY"
+            },
+            "channel_d_us_aon": {
+                "name": "SUN-ONE AON",
+                "handle": "@SUNONE_AON",
+                "alt_handle": "@SUNONEAON_US",
+                "space": 9,
+                "subscribers": 0,
+                "target_market": "en-US",
+                "theme": "Music for the Soul, Value Returned to the World: Global Philanthropy through Sound",
+                "launch_kit": str(ROOT_DIR / "studio_vault" / "US_SUN_ONE_AON" / "US_CHANNEL_LAUNCH_KIT.md"),
+                "vault_inventory": str(ROOT_DIR / "studio_vault" / "US_SUN_ONE_AON" / "VAULT_INVENTORY.json"),
+                "status": "VAULT_SEED_COMPLETE"
             }
         },
         "audio_master_proof": {
@@ -447,3 +469,4 @@ def run_pipeline():
 if __name__ == "__main__":
     proof = run_pipeline()
     print("VERDICT:", proof["final_verdict"])
+

@@ -1,7 +1,8 @@
 {
-  "channel_name": "부스터플리",
-  "channel_id": "@부스터플리",
+  "channel_name": "부스터 플리 | 운동·드라이브 음악",
+  "channel_id": "@Booster_Playlist",
   "space": 7,
+  "subscribers": 26,
   "theme": "하이텐션 드라이브 / 운동 부스터 플레이리스트",
   "suno_v6_spec": {
     "title": "심장을 뛰게 하는 하이텐션 부스터 비트 Vol.1 (Ignition Pulse)",

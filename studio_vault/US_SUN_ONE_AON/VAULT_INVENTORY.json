@@ -1,0 +1,50 @@
+{
+  "timestamp": "2026-11-01T19:23:35.747718+09:00",
+  "channel": {
+    "name": "SUN-ONE AON",
+    "handle": "@SUNONE_AON",
+    "alt_handle": "@SUNONEAON_US",
+    "target_market": "en-US",
+    "mission": "Global Philanthropy through Sound (환원의 국제화)",
+    "launch_kit": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_vault\\US_SUN_ONE_AON\\US_CHANNEL_LAUNCH_KIT.md"
+  },
+  "vault_episodes": {
+    "VAULT_US_EP01": {
+      "title": "Dawn of Hope (Like Water in the Wind)",
+      "genre": "Cinematic Inspirational Ballad",
+      "folder": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_vault\\US_SUN_ONE_AON\\VAULT_US_EP01_DAWN_OF_HOPE",
+      "status": "MEDIA_RENDERED_AND_VERIFIED",
+      "audio_master": {
+        "filename": "sample_master_48k.wav",
+        "codec": "pcm_s24le",
+        "sample_rate": 48000,
+        "channels": 2,
+        "bits_per_sample": 24,
+        "loudness": "-16.0 LUFS (-1.5 dBTP)",
+        "sha256": "b28c1711a8157ea42fb6e7dbb992fe7afe5b3d8d7955a25574c4fda59602b86a",
+        "size_bytes": 2880102
+      },
+      "video_preview": {
+        "filename": "preview_1080p.mp4",
+        "resolution": "1920x1080",
+        "codec": "h264+aac",
+        "audio_rate": 48000,
+        "sha256": "f33d0d739a582785c4c99466bc3413174a81ab995eb37ae921d1efaeb4adcde3",
+        "size_bytes": 436137
+      }
+    },
+    "VAULT_US_EP02": {
+      "title": "Golden Horizon (Chasing the Light)",
+      "genre": "Uplifting Synthwave / Melodic Electro-Pop",
+      "folder": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_vault\\US_SUN_ONE_AON\\VAULT_US_EP02_GOLDEN_HORIZON",
+      "status": "PACKAGE_SEEDED_AWAITING_SUNO"
+    },
+    "VAULT_US_EP03": {
+      "title": "Light Returned (The Water and the Sea)",
+      "genre": "Neo-Classical / Ambient Piano & Cello",
+      "folder": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_vault\\US_SUN_ONE_AON\\VAULT_US_EP03_LIGHT_RETURNED",
+      "status": "PACKAGE_SEEDED_AWAITING_SUNO"
+    }
+  },
+  "verdict": "US_VAULT_SEED_COMPLETE"
+}

@@ -3,25 +3,29 @@
     "index": 0,
     "space_name": "S1_00_RGON",
     "title": "0. 우리창 (르곤 보좌관)",
-    "url": "https://www.genspark.ai/agents?id=c1647638-2531-43db-a059-c153d8da14d9"
+    "url": "https://www.genspark.ai/agents?id=c1647638-2531-43db-a059-c153d8da14d9",
+    "model": "Gemini 4 Argon"
   },
   {
     "index": 1,
     "space_name": "S1_01_GPT",
-    "title": "1. GPT-6.1 Sol",
-    "url": "https://www.genspark.ai/agents"
+    "title": "1. GPT-6.1 Sol (제2성 감리관)",
+    "url": "https://www.genspark.ai/agents?id=212e5993-339b-43e7-8e2b-0ebb4d58987e",
+    "model": "GPT-6.1 Sol"
   },
   {
     "index": 2,
     "space_name": "S1_02_CLAUDE",
-    "title": "2. Claude Opus 5.5",
-    "url": "https://www.genspark.ai/agents"
+    "title": "2. Claude Opus 5.5 (제3성 감리관)",
+    "url": "https://www.genspark.ai/agents?id=a481ead5-a237-432c-abfb-0396b8a34d16",
+    "model": "Claude Opus 5.5"
   },
   {
     "index": 3,
     "space_name": "S1_03_DASHBOARD",
     "title": "3. S1 대시보드 (만능소통창)",
-    "url": "http://127.0.0.1:8503/index.html"
+    "url": "http://127.0.0.1:8504/index.html",
+    "server_port": 8504
   },
   {
     "index": 4,
@@ -39,55 +43,77 @@
     "index": 6,
     "space_name": "S1_06_YT_STEP",
     "title": "6. 유튜브 (한걸음씩)",
+    "channel_name": "한걸음씩",
+    "handle": "@한걸음씩-r4i",
+    "subscribers": 33,
+    "theme": "한국형 감성 보컬/발라드 · 인생 응원 명작",
     "url": "https://www.youtube.com/@%ED%95%9C%EA%B1%B8%EC%9D%8C%EC%94%A9-r4i"
   },
   {
     "index": 7,
     "space_name": "S1_07_YT_BOOSTER",
-    "title": "7. 유튜브 (부스터 플리)",
+    "title": "7. 유튜브 (부스터 플리 | 운동·드라이브 음악)",
+    "channel_name": "부스터 플리 | 운동·드라이브 음악",
+    "handle": "@Booster_Playlist",
+    "subscribers": 26,
+    "theme": "하이텐션 운동·드라이브 플레이리스트 (128 BPM Synthwave)",
     "url": "https://www.youtube.com/@Booster_Playlist"
   },
   {
     "index": 8,
     "space_name": "S1_08_YT_CAFE",
-    "title": "8. 유튜브 (The Cafe Hour)",
+    "title": "8. 유튜브 (The Café Hour)",
+    "channel_name": "The Café Hour",
+    "handle": "@TheCaféHour",
+    "subscribers": 5,
+    "theme": "시네마틱 카페 재즈 · 로파이 앰비언스 (75 BPM Lo-Fi Rhodes)",
     "url": "https://www.youtube.com/@TheCaf%C3%A9Hour"
   },
   {
     "index": 9,
-    "space_name": "S1_09_TIKTOK",
-    "title": "9. 틱톡",
-    "url": "https://www.tiktok.com"
+    "space_name": "S1_09_YT_US_AON",
+    "title": "9. 유튜브 (SUN-ONE AON — 미국 전담 글로벌 플래그십)",
+    "channel_name": "SUN-ONE AON",
+    "handle": "@SUNONE_AON",
+    "alt_handle": "@SUNONEAON_US",
+    "target_market": "en-US (United States / North America)",
+    "theme": "Music for the Soul, Value Returned to the World: Global Philanthropy through Sound",
+    "role": "미국 시장 100% 전담 · 환원의 국제화 글로벌 플래그십 (초기 금고 비축 트랙)",
+    "url": "https://www.youtube.com/@SUNONE_AON",
+    "auxiliary_reference": {
+      "channel_name": "99 ROBLGYE",
+      "handle": "@99ROBLGYE"
+    }
   },
   {
     "index": 10,
-    "space_name": "S1_10_THREADS",
-    "title": "10. 스레드",
-    "url": "https://www.threads.net"
+    "space_name": "S1_10_TIKTOK",
+    "title": "10. 틱톡",
+    "url": "https://www.tiktok.com"
   },
   {
     "index": 11,
-    "space_name": "S1_11_INSTA",
-    "title": "11. 인스타그램",
-    "url": "https://www.instagram.com"
+    "space_name": "S1_11_THREADS",
+    "title": "11. 스레드",
+    "url": "https://www.threads.net"
   },
   {
     "index": 12,
-    "space_name": "S1_12_FACEBOOK",
-    "title": "12. 페이스북",
-    "url": "https://www.facebook.com"
+    "space_name": "S1_12_INSTA",
+    "title": "12. 인스타그램",
+    "url": "https://www.instagram.com"
   },
   {
     "index": 13,
-    "space_name": "S1_13_BLOG",
-    "title": "13. 블로그",
-    "url": "https://www.tistory.com"
+    "space_name": "S1_13_FACEBOOK",
+    "title": "13. 페이스북",
+    "url": "https://www.facebook.com"
   },
   {
     "index": 14,
-    "space_name": "S1_14_NAVER",
-    "title": "14. 네이버",
-    "url": "https://www.naver.com"
+    "space_name": "S1_14_BLOG",
+    "title": "14. 블로그",
+    "url": "https://www.tistory.com"
   },
   {
     "index": 15,

@@ -221,3 +221,7 @@ _ego_tmp/
 !s1_studio_ledger.jsonl
 !studio_output/
 !studio_output/**
+
+!S1_US_VAULT_AUDIT_PROOF.json
+!studio_vault/
+!studio_vault/**
