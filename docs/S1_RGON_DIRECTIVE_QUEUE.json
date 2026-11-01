@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "last_synced": "2026-11-02T08:08:30.952070+09:00",
+  "last_synced": "2026-11-02T08:08:35.516933+09:00",
   "directives": [
     {
       "directive_id": "RGON_DIR_TEST_1793571056",
@@ -41,6 +41,15 @@
     {
       "directive_id": "MOBILE_DIR_MOB_1793570885319",
       "timestamp": "2026-11-02T08:08:30.952070+09:00",
+      "sender": "수석보좌관 르곤 (Gemini 4 Argon · Space 0)",
+      "recipient": "기술총리 안총리 (Antigravity Technical PM)",
+      "title": "대표님 모바일 하명: 모바일 테스트 어명",
+      "status": "DISPATCHED_TO_ANCHONGRI",
+      "full_text": "모바일 테스트 어명"
+    },
+    {
+      "directive_id": "MOBILE_DIR_MOB_1793570895367",
+      "timestamp": "2026-11-02T08:08:35.516933+09:00",
       "sender": "수석보좌관 르곤 (Gemini 4 Argon · Space 0)",
       "recipient": "기술총리 안총리 (Antigravity Technical PM)",
       "title": "대표님 모바일 하명: 모바일 테스트 어명",
