@@ -96,3 +96,4 @@
 - **수익 배분 규정:**
   - 글로벌 음원 스트리밍 및 동영상 Content ID 수익의 33%는 매 분기 결산 시 '상선약수 글로벌 환원 기금'으로 자동 적립.
   - 투명한 정산 내역은 `master_ledgers/06_DISTROKID_RELEASE_LEDGER.csv`에 영구 기록.
+

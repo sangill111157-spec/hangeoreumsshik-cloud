@@ -1,0 +1,113 @@
+{
+  "timestamp": "2026-11-01T22:21:47.587999+09:00",
+  "audit_name": "SUN-ONE AON 2026 YouTube Studio Channel Design & 3-Logo Synergy Audit",
+  "port": 8504,
+  "checks": {
+    "preview_page_status": {
+      "status": "PASS",
+      "code": 200,
+      "title": "SUN-ONE AON | 2026 유튜브 신규채널 미래지향적 브랜딩 디자인 스튜디오"
+    },
+    "images_loaded": {
+      "status": "PASS",
+      "count": 11,
+      "details": [
+        {
+          "src": "http://127.0.0.1:8504/avatar_800x800.png",
+          "alt": "SUN-ONE AON",
+          "naturalWidth": 800,
+          "naturalHeight": 800,
+          "loaded": true
+        },
+        {
+          "src": "http://127.0.0.1:8504/banner_2560x1440.png",
+          "alt": "YouTube Channel Banner",
+          "naturalWidth": 2560,
+          "naturalHeight": 1440,
+          "loaded": true
+        },
+        {
+          "src": "http://127.0.0.1:8504/watermark_150x150.png",
+          "alt": "Watermark",
+          "naturalWidth": 150,
+          "naturalHeight": 150,
+          "loaded": true
+        },
+        {
+          "src": "http://127.0.0.1:8504/avatar_800x800.png",
+          "alt": "Profile Avatar",
+          "naturalWidth": 800,
+          "naturalHeight": 800,
+          "loaded": true
+        },
+        {
+          "src": "http://127.0.0.1:8504/assets/channel_branding_2026/thumbnail_EP01_1920x1080.png",
+          "alt": "EP01",
+          "naturalWidth": 1920,
+          "naturalHeight": 1080,
+          "loaded": true
+        },
+        {
+          "src": "http://127.0.0.1:8504/assets/channel_branding_2026/thumbnail_EP02_1920x1080.png",
+          "alt": "EP02",
+          "naturalWidth": 1920,
+          "naturalHeight": 1080,
+          "loaded": true
+        },
+        {
+          "src": "http://127.0.0.1:8504/assets/channel_branding_2026/thumbnail_EP03_1920x1080.png",
+          "alt": "EP03",
+          "naturalWidth": 1920,
+          "naturalHeight": 1080,
+          "loaded": true
+        },
+        {
+          "src": "http://127.0.0.1:8504/assets/channel_branding_2026/thumbnail_EP04_1920x1080.png",
+          "alt": "EP04",
+          "naturalWidth": 1920,
+          "naturalHeight": 1080,
+          "loaded": true
+        },
+        {
+          "src": "http://127.0.0.1:8504/s1_logo_1_clean.png",
+          "alt": "Logo 1 Wordmark",
+          "naturalWidth": 924,
+          "naturalHeight": 439,
+          "loaded": true
+        },
+        {
+          "src": "http://127.0.0.1:8504/s1_logo_2_clean.png",
+          "alt": "Logo 2 Aqua-Solar Core",
+          "naturalWidth": 549,
+          "naturalHeight": 328,
+          "loaded": true
+        },
+        {
+          "src": "http://127.0.0.1:8504/s1_logo_3_clean.png",
+          "alt": "Logo 3 Sovereign Crest",
+          "naturalWidth": 658,
+          "naturalHeight": 542,
+          "loaded": true
+        }
+      ]
+    },
+    "preview_screenshot": {
+      "status": "PASS",
+      "path": "studio_vault/CHANNELS/04_US_SUNONE_AON/2026_channel_design_studio_verified.png"
+    },
+    "index_elements": {
+      "status": "PASS",
+      "logo1_wordmark": true,
+      "logo2_core": true,
+      "logo3_crest": true,
+      "suite_card": true,
+      "jukebox": true
+    },
+    "index_screenshot": {
+      "status": "PASS",
+      "path": "studio_vault/CHANNELS/04_US_SUNONE_AON/2026_index_dashboard_verified.png"
+    }
+  },
+  "overall_score": 100.0,
+  "verdict": "ALL_PASS_PERFECT"
+}

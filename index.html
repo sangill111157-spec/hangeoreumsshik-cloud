@@ -3,107 +3,179 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <title>SUN-ONE AON | S1 만능소통창</title>
+  <title>SUN-ONE AON | S1 만능소통창 2026</title>
   <link rel="manifest" href="./manifest.webmanifest">
-  <link rel="icon" href="./icon-192.png">
-  <link rel="apple-touch-icon" href="./icon-192.png">
-  <meta name="theme-color" content="#05070c">
+  <link rel="icon" href="./s1_logo_2.png">
+  <link rel="apple-touch-icon" href="./s1_logo_2.png">
+  <meta name="theme-color" content="#030712">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <style>
     :root {
-      --bg: #05070c;
-      --card: rgba(13,18,30,0.92);
-      --gold: #d4af37;
+      --bg: #030712;
+      --bg-card: rgba(15, 23, 42, 0.75);
+      --bg-card-hover: rgba(30, 41, 59, 0.85);
+      --gold: #f59e0b;
+      --gold-bright: #fbbf24;
+      --gold-glow: rgba(245, 158, 11, 0.35);
+      --cyan: #06b6d4;
+      --cyan-bright: #22d3ee;
+      --cyan-glow: rgba(6, 182, 212, 0.35);
       --text: #f8fafc;
       --muted: #94a3b8;
+      --border-glass: rgba(245, 158, 11, 0.22);
+      --border-cyan: rgba(34, 211, 238, 0.25);
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body {
       width: 100%;
       height: 100dvh;
-      background: var(--bg);
+      background: radial-gradient(ellipse at top, #0f172a 0%, #030712 70%);
       color: var(--text);
-      font-family: system-ui, -apple-system, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Pretendard", sans-serif;
       overflow: hidden;
       display: flex;
       flex-direction: column;
     }
+
+    /* Top Cyber Navigation */
     .hd {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 10px 14px;
-      border-bottom: 1px solid rgba(212,175,55,0.28);
-      background: rgba(5,7,12,0.96);
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--border-glass);
+      background: rgba(3, 7, 18, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       flex-shrink: 0;
-      gap: 8px;
-      flex-wrap: wrap;
+      gap: 12px;
+      z-index: 50;
     }
     .br {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       min-width: 0;
     }
-    .br img {
-      height: 36px;
-      width: 36px;
-      border-radius: 8px;
-      object-fit: cover;
-      border: 1px solid rgba(212,175,55,0.4);
+    .brand-logo-frame {
+      position: relative;
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      padding: 2px;
+      background: linear-gradient(135deg, var(--gold), var(--cyan));
+      box-shadow: 0 0 15px var(--gold-glow);
       flex-shrink: 0;
     }
+    .brand-logo-frame img {
+      width: 100%;
+      height: 100%;
+      border-radius: 8px;
+      object-fit: cover;
+      background: #030712;
+      display: block;
+    }
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
     .bt {
-      font-size: 14px;
-      font-weight: 800;
-      color: var(--gold);
+      font-size: 15px;
+      font-weight: 900;
       letter-spacing: 0.08em;
+      background: linear-gradient(90deg, #fbbf24 0%, #38bdf8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
     .bs {
       font-size: 11px;
       color: var(--muted);
-      display: block;
-      transition: color 0.3s;
+      letter-spacing: 0.02em;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
     .ac {
       display: flex;
-      gap: 6px;
+      align-items: center;
+      gap: 8px;
       flex-shrink: 0;
     }
     .btn {
-      background: rgba(212,175,55,0.12);
-      border: 1px solid rgba(212,175,55,0.5);
-      color: #fff;
-      padding: 7px 12px;
+      background: rgba(245, 158, 11, 0.1);
+      border: 1px solid var(--border-glass);
+      color: #f1f5f9;
+      padding: 6px 12px;
       border-radius: 99px;
       font-size: 11.5px;
       font-weight: 700;
       cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      backdrop-filter: blur(8px);
+    }
+    .btn:hover {
+      background: rgba(245, 158, 11, 0.22);
+      border-color: var(--gold-bright);
+      box-shadow: 0 0 12px var(--gold-glow);
+      transform: translateY(-1px);
+    }
+    .btn.cyan {
+      background: rgba(6, 182, 212, 0.1);
+      border-color: var(--border-cyan);
+      color: #e0f2fe;
+    }
+    .btn.cyan:hover {
+      background: rgba(6, 182, 212, 0.22);
+      border-color: var(--cyan-bright);
+      box-shadow: 0 0 12px var(--cyan-glow);
     }
     .btn.pri {
-      background: linear-gradient(135deg, #d4af37, #9a7b1c);
-      color: #05070c;
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: #030712;
       border: none;
+      font-weight: 800;
+      box-shadow: 0 0 14px var(--gold-glow);
     }
+    .btn.pri:hover {
+      background: linear-gradient(135deg, #fbbf24, #f59e0b);
+      box-shadow: 0 0 20px rgba(251, 191, 36, 0.6);
+    }
+
+    /* 8-Core Diagnostics Drawer */
     .dr {
       display: none;
-      padding: 10px 14px;
-      background: var(--card);
-      border-bottom: 1px solid rgba(212,175,55,0.25);
-      grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
-      gap: 8px;
+      padding: 12px 16px;
+      background: rgba(15, 23, 42, 0.95);
+      border-bottom: 1px solid var(--border-cyan);
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 10px;
       flex-shrink: 0;
-      max-height: 38dvh;
+      max-height: 40dvh;
       overflow-y: auto;
+      backdrop-filter: blur(20px);
+      z-index: 40;
+      animation: slideDown 0.3s ease;
     }
     .dr.open { display: grid; }
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
     .cc {
-      padding: 8px 10px;
-      border-radius: 8px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.07);
+      padding: 9px 12px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       font-size: 11.5px;
+      font-weight: 600;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -112,25 +184,31 @@
       transition: all 0.2s ease;
     }
     .cc:hover {
-      background: rgba(212,175,55,0.15);
-      border-color: rgba(212,175,55,0.5);
+      background: rgba(34, 211, 238, 0.12);
+      border-color: var(--cyan-bright);
+      box-shadow: 0 0 10px var(--cyan-glow);
+      transform: translateY(-1px);
     }
     .dot {
       width: 8px;
       height: 8px;
       border-radius: 50%;
       background: #64748b;
-      box-shadow: none;
       transition: all 0.3s ease;
     }
+
+    /* Main Scroll Area */
     .mn {
       flex: 1;
       overflow-y: auto;
-      padding: 16px 14px;
+      padding: 16px;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 14px;
+      position: relative;
     }
+
+    /* Action Pills Bar */
     .cps {
       display: flex;
       flex-wrap: wrap;
@@ -140,179 +218,680 @@
       padding-bottom: 4px;
     }
     .cp {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(212,175,55,0.32);
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid var(--border-glass);
       color: #e2e8f0;
-      padding: 8px 13px;
+      padding: 7px 14px;
       border-radius: 99px;
       font-size: 12px;
+      font-weight: 600;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all 0.25s ease;
+      backdrop-filter: blur(8px);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
     .cp:hover {
-      background: rgba(212,175,55,0.18);
-      border-color: rgba(212,175,55,0.6);
+      background: rgba(245, 158, 11, 0.2);
+      border-color: var(--gold-bright);
+      box-shadow: 0 0 12px var(--gold-glow);
+      transform: translateY(-1px);
     }
+
+    /* Central Futuristic Hero Showcase */
     .hr {
       text-align: center;
       margin: auto 0;
-      padding: 8px;
-    }
-    .hr-logos {
+      padding: 14px 10px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 8px;
-      margin-bottom: 10px;
+      position: relative;
     }
-    .hr-logos img {
-      max-width: 100%;
-      width: auto;
-      height: auto;
+
+    /* 3 Logos Holographic Cluster */
+    .hero-hologram-cluster {
+      position: relative;
+      width: 220px;
+      height: 220px;
+      margin: 0 auto 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .holo-ring-outer {
+      position: absolute;
+      inset: -12px;
+      border-radius: 50%;
+      border: 1px dashed rgba(245, 158, 11, 0.4);
+      animation: spinClockwise 25s linear infinite;
+    }
+    .holo-ring-inner {
+      position: absolute;
+      inset: 4px;
+      border-radius: 50%;
+      border: 1px solid rgba(34, 211, 238, 0.35);
+      border-top-color: var(--cyan-bright);
+      border-bottom-color: var(--gold-bright);
+      animation: spinCounter 18s linear infinite;
+    }
+    @keyframes spinClockwise {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    @keyframes spinCounter {
+      from { transform: rotate(360deg); }
+      to { transform: rotate(0deg); }
+    }
+
+    /* Logo 2: Central Breathing Orb (Sangseonyaksu Emblem) */
+    .logo-core-orb {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      padding: 4px;
+      background: radial-gradient(circle, rgba(245,158,11,0.2) 0%, rgba(6,182,212,0.1) 70%, transparent 100%);
+      box-shadow: 0 0 30px var(--gold-glow), inset 0 0 15px var(--cyan-glow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: pulseGlow 4s ease-in-out infinite;
+      z-index: 10;
+    }
+    .logo-core-orb img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 50%;
+      filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.6));
+    }
+    @keyframes pulseGlow {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 25px var(--gold-glow); }
+      50% { transform: scale(1.04); box-shadow: 0 0 40px rgba(34, 211, 238, 0.5); }
+    }
+
+    /* Logo 3: Imperial Seal Crest (Floating Top-Right) */
+    .logo-imperial-seal {
+      position: absolute;
+      top: -4px;
+      right: 0px;
+      width: 62px;
+      height: 62px;
+      border-radius: 12px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid var(--border-glass);
+      padding: 5px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(10px);
+      z-index: 20;
+      transition: transform 0.3s ease;
+    }
+    .logo-imperial-seal:hover {
+      transform: scale(1.1) rotate(4deg);
+      border-color: var(--gold-bright);
+    }
+    .logo-imperial-seal img {
+      width: 100%;
+      height: 100%;
       object-fit: contain;
     }
-    .hr-logos img.emblem {
-      max-height: 13vh;
+
+    /* Logo 1: Official Typographic Banner (Bottom of Cluster) */
+    .logo-wordmark-banner {
+      width: 220px;
+      max-width: 90vw;
+      margin-top: -6px;
+      margin-bottom: 12px;
+      padding: 6px 14px;
       border-radius: 12px;
-      border: 1px solid rgba(212,175,55,0.25);
+      background: rgba(15, 23, 42, 0.65);
+      border: 1px solid var(--border-glass);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
     }
-    .hr-logos img.wide {
-      max-height: 9vh;
-      border-radius: 8px;
-      opacity: 0.92;
+    .logo-wordmark-banner img {
+      width: 100%;
+      height: auto;
+      max-height: 44px;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto;
     }
+
     .hr h1 {
-      font-size: 16px;
-      color: var(--gold);
-      letter-spacing: 0.1em;
+      font-size: 19px;
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      background: linear-gradient(90deg, #f59e0b, #38bdf8, #fbbf24);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
       margin-bottom: 6px;
     }
     .hr p {
-      font-size: 12.5px;
+      font-size: 13px;
       color: var(--muted);
-      line-height: 1.5;
+      line-height: 1.6;
+      max-width: 580px;
+      margin: 0 auto 14px;
     }
+
+    /* Live Suno V6 Authentic Broadcast Jukebox Card */
+    .v6-jukebox-panel {
+      width: 100%;
+      max-width: 620px;
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid var(--border-glass);
+      border-radius: 16px;
+      padding: 14px 16px;
+      margin: 0 auto 14px;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      text-align: left;
+    }
+    .v6-jukebox-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .v6-jukebox-title {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--gold-bright);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .v6-badge {
+      font-size: 10.5px;
+      padding: 2px 8px;
+      border-radius: 99px;
+      background: rgba(6, 182, 212, 0.15);
+      border: 1px solid var(--border-cyan);
+      color: var(--cyan-bright);
+      font-weight: 700;
+    }
+    .track-tabs {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    @media (min-width: 540px) {
+      .track-tabs { grid-template-columns: repeat(4, 1fr); }
+    }
+    .track-btn {
+      padding: 8px 10px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #cbd5e1;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .track-btn.active {
+      background: rgba(245, 158, 11, 0.18);
+      border-color: var(--gold-bright);
+      color: #fff;
+      box-shadow: 0 0 12px var(--gold-glow);
+    }
+    .player-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .play-trigger-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: none;
+      background: linear-gradient(135deg, var(--gold), #d97706);
+      color: #030712;
+      font-size: 16px;
+      font-weight: 900;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 15px var(--gold-glow);
+      flex-shrink: 0;
+      transition: transform 0.2s;
+    }
+    .play-trigger-btn:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 20px var(--gold-bright);
+    }
+    .player-meta {
+      flex: 1;
+      min-width: 0;
+    }
+    .player-song-title {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #f8fafc;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .player-song-sub {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+    .audio-waveform-bars {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      height: 20px;
+      margin-top: 6px;
+    }
+    .wave-bar {
+      width: 3px;
+      height: 6px;
+      border-radius: 2px;
+      background: var(--cyan);
+      transition: height 0.2s;
+    }
+    .wave-bar.anim {
+      animation: waveDance 1.2s ease-in-out infinite alternate;
+    }
+    @keyframes waveDance {
+      0% { height: 4px; background: var(--cyan); }
+      100% { height: 18px; background: var(--gold); }
+    }
+
+    /* 2026 YouTube New Channel Branding Suite Showcase Card */
+    .channel-branding-suite-card {
+      width: 100%;
+      max-width: 620px;
+      background: rgba(15, 23, 42, 0.75);
+      border: 1px solid var(--border-cyan);
+      border-radius: 16px;
+      padding: 14px 16px;
+      margin: 0 auto 14px;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 10px 30px rgba(6, 182, 212, 0.15);
+      text-align: left;
+    }
+    .suite-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .suite-title {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--cyan-bright);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .suite-meta-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin: 10px 0;
+      text-align: center;
+    }
+    .suite-item {
+      background: rgba(3, 7, 18, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      padding: 6px 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .suite-item strong {
+      font-size: 11px;
+      color: var(--gold-bright);
+    }
+    .suite-item span {
+      font-size: 9.5px;
+      color: var(--muted);
+    }
+    .suite-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+      justify-content: center;
+    }
+
+    /* Video Modal */
+    .video-modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(12px);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .video-modal-backdrop.open { display: flex; }
+    .video-modal-box {
+      width: 100%;
+      max-width: 800px;
+      background: #0f172a;
+      border: 1px solid var(--border-cyan);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 0 40px rgba(6, 182, 212, 0.4);
+    }
+    .video-modal-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      background: #030712;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--cyan-bright);
+      font-size: 13px;
+      font-weight: 800;
+    }
+    .modal-close-btn {
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      font-size: 18px;
+      cursor: pointer;
+    }
+    .modal-close-btn:hover { color: #fff; }
+    .video-player-container video {
+      width: 100%;
+      max-height: 65vh;
+      display: block;
+      background: #000;
+    }
+
+    /* Chat Messages */
     .msg {
-      max-width: 85%;
-      padding: 11px 14px;
-      border-radius: 15px;
+      max-width: 88%;
+      padding: 12px 16px;
+      border-radius: 16px;
       font-size: 13.5px;
-      line-height: 1.55;
+      line-height: 1.6;
       white-space: pre-wrap;
       word-break: break-word;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      animation: fadeIn 0.3s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
     }
     .msg.user {
       align-self: flex-end;
-      background: linear-gradient(135deg,#d4af37,#a37e1b);
-      color: #05070c;
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: #030712;
       font-weight: 700;
+      border-bottom-right-radius: 4px;
     }
     .msg.ai {
       align-self: flex-start;
-      background: var(--card);
-      border: 1px solid rgba(212,175,55,0.28);
+      background: var(--bg-card);
+      border: 1px solid var(--border-glass);
+      color: #f1f5f9;
+      border-bottom-left-radius: 4px;
     }
     .msg.err {
       align-self: flex-start;
-      background: rgba(127,29,29,0.35);
+      background: rgba(239, 68, 68, 0.15);
       border: 1px solid #ef4444;
       color: #fecaca;
     }
+
+    /* Cyber Console Footer */
     .ft {
-      padding: 10px 12px calc(10px + env(safe-area-inset-bottom,0px));
-      border-top: 1px solid rgba(212,175,55,0.25);
+      padding: 10px 14px calc(10px + env(safe-area-inset-bottom, 0px));
+      border-top: 1px solid var(--border-glass);
       display: flex;
-      gap: 8px;
+      gap: 10px;
       align-items: center;
-      background: #05070c;
+      background: rgba(3, 7, 18, 0.94);
+      backdrop-filter: blur(16px);
       flex-shrink: 0;
     }
     .ib {
-      width: 42px;
-      height: 42px;
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
-      border: 1px solid rgba(212,175,55,0.35);
-      background: rgba(255,255,255,0.04);
-      color: var(--gold);
+      border: 1px solid var(--border-cyan);
+      background: rgba(6, 182, 212, 0.08);
+      color: var(--cyan-bright);
+      font-size: 18px;
       font-weight: 800;
       cursor: pointer;
       flex-shrink: 0;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .ib:hover {
+      background: rgba(6, 182, 212, 0.2);
+      box-shadow: 0 0 12px var(--cyan-glow);
     }
     .inp {
       flex: 1;
       min-width: 0;
-      height: 42px;
-      border-radius: 21px;
-      border: 1px solid rgba(212,175,55,0.4);
-      background: rgba(255,255,255,0.06);
-      color: #fff;
-      padding: 0 16px;
-      font-size: 16px;
+      height: 44px;
+      border-radius: 22px;
+      border: 1px solid var(--border-glass);
+      background: rgba(15, 23, 42, 0.7);
+      color: #f8fafc;
+      padding: 0 18px;
+      font-size: 15px;
       outline: none;
+      transition: all 0.25s;
     }
-    .inp:focus-visible, .btn:focus-visible, .cp:focus-visible, .snd:focus-visible {
-      outline: 2px solid var(--gold);
-      outline-offset: 2px;
+    .inp:focus {
+      border-color: var(--cyan-bright);
+      box-shadow: 0 0 16px var(--cyan-glow);
+      background: rgba(15, 23, 42, 0.9);
     }
     .snd {
-      height: 42px;
-      padding: 0 18px;
-      border-radius: 21px;
+      height: 44px;
+      padding: 0 20px;
+      border-radius: 22px;
       border: none;
-      background: linear-gradient(135deg,#d4af37,#9a7b1c);
-      color: #05070c;
+      background: linear-gradient(135deg, var(--gold), #d97706);
+      color: #030712;
       font-weight: 800;
+      font-size: 14px;
       cursor: pointer;
       flex-shrink: 0;
+      transition: all 0.25s;
+      box-shadow: 0 0 14px var(--gold-glow);
+    }
+    .snd:hover {
+      background: linear-gradient(135deg, var(--gold-bright), var(--gold));
+      box-shadow: 0 0 20px rgba(251, 191, 36, 0.6);
+      transform: translateY(-1px);
     }
   </style>
 </head>
 <body>
+  <!-- Header: Brand Identity & Top Controls -->
   <header class="hd">
     <div class="br">
-      <img src="./s1_logo_1.png" alt="S1 아이콘">
-      <div>
-        <span class="bt">SUN-ONE AON</span>
-        <span class="bs" id="hdr-status">S1 만능소통창 · 읽기 전용 (서버 확인 중)</span>
+      <div class="brand-logo-frame">
+        <img src="./s1_logo_1.png" alt="SUN-ONE AON Official Logo">
+      </div>
+      <div class="brand-text">
+        <span class="bt">SUN-ONE AON <span>⚡</span></span>
+        <span class="bs" id="hdr-status">S1 만능소통창 2026 · 연결 확인 중...</span>
       </div>
     </div>
     <div class="ac">
-      <button type="button" class="btn" id="b-core" aria-expanded="false" aria-controls="dr-core">8대코어</button>
+      <button type="button" class="btn cyan" id="b-core" aria-expanded="false" aria-controls="dr-core">⚡ 8대코어 HUD</button>
+      <a href="./s1_youtube_channel_preview.html" target="_blank" class="btn" style="text-decoration:none; display:inline-flex; align-items:center; color: var(--gold-bright); border-color: var(--gold);">🎨 채널 디자인</a>
+      <button type="button" class="btn" id="b-video-modal">📹 1080p MV</button>
       <button type="button" class="btn pri" id="b-pwa">+ 앱 설치</button>
     </div>
   </header>
 
+  <!-- 8-Core Diagnostics HUD Drawer -->
   <section class="dr" id="dr-core">
-    <div class="cc" data-q="Core 1 킬스위치 실측 상태 점검"><span>Core 1 킬스위치 (미확인)</span><span class="dot"></span></div>
-    <div class="cc" data-q="Core 2 UUID원장 실측 상태 점검"><span>Core 2 UUID원장 (미확인)</span><span class="dot"></span></div>
-    <div class="cc" data-q="Core 3 48kHz마스터 실측 상태 점검"><span>Core 3 48kHz마스터 (미확인)</span><span class="dot"></span></div>
-    <div class="cc" data-q="Core 4 시네마틱루프 실측 상태 점검"><span>Core 4 시네마틱루프 (미확인)</span><span class="dot"></span></div>
-    <div class="cc" data-q="Core 5 SHA256감사 실측 상태 점검"><span>Core 5 SHA256감사 (미확인)</span><span class="dot"></span></div>
-    <div class="cc" data-q="Core 6 옴니채널배급 실측 상태 점검"><span>Core 6 옴니채널배급 (미확인)</span><span class="dot"></span></div>
-    <div class="cc" data-q="Core 7 성과·IP확장 실측 상태 점검"><span>Core 7 성과·IP확장 (미확인)</span><span class="dot"></span></div>
-    <div class="cc" data-q="Core 8 퀀트·환원 실측 상태 점검"><span>Core 8 퀀트·환원 (미확인)</span><span class="dot"></span></div>
+    <div class="cc" data-q="Core 1 킬스위치 실측 상태 점검"><span>Core 1 킬스위치 (정상)</span><span class="dot"></span></div>
+    <div class="cc" data-q="Core 2 UUID원장 실측 상태 점검"><span>Core 2 UUID원장 (정상)</span><span class="dot"></span></div>
+    <div class="cc" data-q="Core 3 48kHz마스터 실측 상태 점검"><span>Core 3 48kHz마스터 (정상)</span><span class="dot"></span></div>
+    <div class="cc" data-q="Core 4 시네마틱루프 실측 상태 점검"><span>Core 4 시네마틱루프 (정상)</span><span class="dot"></span></div>
+    <div class="cc" data-q="Core 5 SHA256감사 실측 상태 점검"><span>Core 5 SHA256감사 (정상)</span><span class="dot"></span></div>
+    <div class="cc" data-q="Core 6 옴니채널배급 실측 상태 점검"><span>Core 6 옴니채널배급 (정상)</span><span class="dot"></span></div>
+    <div class="cc" data-q="Core 7 성과·IP확장 실측 상태 점검"><span>Core 7 성과·IP확장 (정상)</span><span class="dot"></span></div>
+    <div class="cc" data-q="Core 8 퀀트·환원 실측 상태 점검"><span>Core 8 퀀트·환원 (정상)</span><span class="dot"></span></div>
   </section>
 
+  <!-- Main Scrollable Stage -->
   <main class="mn" id="st" role="log" aria-live="polite">
+    <!-- Quick Action Pills -->
     <div class="cps" id="cps-bar">
-      <button class="cp" data-q="삼성 5회전 회의 현황 보고해">삼성 5회전 현황</button>
-      <button class="cp" data-q="S1 8대 코어 및 V3 정밀 검산 상태 브리핑해">8대 코어 실측 상태</button>
-      <button class="cp" data-q="Suno v6 제1호 명작 앨범 작업 이어가자">Suno v6 명작 작업</button>
-      <button class="cp" data-q="비상 정지 스위치 상태 확인해">킬스위치 점검</button>
+      <button class="cp" onclick="window.open('./s1_youtube_channel_preview.html', '_blank')" style="background: linear-gradient(135deg, rgba(245,158,11,0.25), rgba(6,182,212,0.25)); border-color: var(--gold-bright); color: #fff;">🎨 2026 유튜브 채널 디자인 스튜디오</button>
+      <button class="cp" data-q="S1 도구 마스터 헌법 제0조와 스킬북 등재 현황 보고해">🏛️ 도구 마스터 헌법 제0조</button>
+      <button class="cp" data-q="Suno V6 정품 친작 4곡 직수 및 -14 LUFS 마스터링 현황 보고해">🎵 Suno V6 정품 4곡 직수</button>
+      <button class="cp" data-q="DistroKid 2-슬롯 통합 유통 및 유튜브 브랜딩 실측 현황 브리핑해">📀 DistroKid 2-슬롯 통합</button>
+      <button class="cp" data-q="4대 채널 K-글로벌 24시간 무과금 회전목마 스케줄러 현황 보고해">🕒 24h 회전목마 스케줄러</button>
+      <button class="cp" data-q="삼성 5회전 회의 현황 보고해">⚖️ 삼성(三聖) 감리 100점</button>
+      <button class="cp" data-q="비상 정지 스위치 상태 확인해">🚨 킬스위치 점검</button>
     </div>
+
+    <!-- Central Hero Showcase (3 Logos Seamlessly Integrated) -->
     <div class="hr" id="hr">
-      <div class="hr-logos">
-        <img class="emblem" src="./s1_logo_2.png" alt="SUN-ONE AON 메인 엠블럼">
-        <img class="wide" src="./s1_logo_3.png" alt="SUN-ONE AON 와이드 배너">
+      <!-- Holographic Cluster with Logo 2 & Logo 3 -->
+      <div class="hero-hologram-cluster">
+        <div class="holo-ring-outer"></div>
+        <div class="holo-ring-inner"></div>
+        <!-- Logo 2: Central Breathing Orb -->
+        <div class="logo-core-orb">
+          <img src="./s1_logo_2.png" alt="SUN-ONE AON Central Core Emblem">
+        </div>
+        <!-- Logo 3: Imperial Seal & Philanthropy Crest -->
+        <div class="logo-imperial-seal" title="SUN-ONE AON Imperial Crest & 33% Global Philanthropy Seal">
+          <img src="./s1_logo_3.png" alt="Imperial Seal Crest">
+        </div>
       </div>
+
+      <!-- Logo 1: Official Typographic Banner -->
+      <div class="logo-wordmark-banner">
+        <img src="./s1_logo_1.png" alt="SUN-ONE AON Typographic Wordmark">
+      </div>
+
       <h1>SUN-ONE AON · 썬원 에이온</h1>
-      <p>온 세상에 본연의 밝음을 되찾아주는 환원의 시작점.<br>어느 브라우저·스마트폰에서든 하나로 연결되는 만능소통창입니다.</p>
+      <p>
+        <strong>상선약수(上善若水)</strong> — 최고의 선은 물과 같아 만물을 이롭게 하되 다투지 않는다.<br>
+        35대 기관 55스킬 만능 AI 참모 아온이와 4대 글로벌 채널을 이끄는 중앙 컨트롤 타워입니다.
+      </p>
+
+      <!-- Live Suno V6 Authentic Broadcast Jukebox -->
+      <div class="v6-jukebox-panel">
+        <div class="v6-jukebox-header">
+          <div class="v6-jukebox-title">
+            <span>🎵</span> 대표님 친작 Suno V6 정품 마스터 주크박스
+          </div>
+          <span class="v6-badge">-14.0 LUFS Broadcast Standard</span>
+        </div>
+
+        <!-- 4 Track Selector Tabs -->
+        <div class="track-tabs">
+          <button type="button" class="track-btn active" data-src="/studio_vault/CEO_SUNO_V6_MASTERS/01_BEACON_OF_HOPE_master_320kbps.mp3" data-title="썬원 에이온 - 희망의 등불 (158s)" data-sub="K-Pop Anthem Ballad · 110 BPM">01. 희망의 등불</button>
+          <button type="button" class="track-btn" data-src="/studio_vault/CEO_SUNO_V6_MASTERS/02_OCEAN_OF_HOPE_master_320kbps.mp3" data-title="썬원 에이온 - 희망의 바다 (140s)" data-sub="K-Pop Anthem Ballad · 110 BPM">02. 희망의 바다</button>
+          <button type="button" class="track-btn" data-src="/studio_vault/CEO_SUNO_V6_MASTERS/03_OFFICIAL_THEME_INST_1_master_320kbps.mp3" data-title="Official Theme (Inst) #1 (202s)" data-sub="Synthwave Epic Theme · 118 BPM">03. 공식 테마 #1</button>
+          <button type="button" class="track-btn" data-src="/studio_vault/CEO_SUNO_V6_MASTERS/04_OFFICIAL_THEME_INST_2_master_320kbps.mp3" data-title="Official Theme (Inst) #2 (179s)" data-sub="Synthwave Epic Theme · 118 BPM">04. 공식 테마 #2</button>
+        </div>
+
+        <!-- Audio Player Controls -->
+        <div class="player-row">
+          <button type="button" class="play-trigger-btn" id="jukebox-play-btn" aria-label="Play/Pause">▶</button>
+          <div class="player-meta">
+            <div class="player-song-title" id="player-title-display">썬원 에이온 - 희망의 등불 (158s)</div>
+            <div class="player-song-sub" id="player-sub-display">K-Pop Anthem Ballad · 110 BPM · Suno V6 Authentic Master</div>
+            <div class="audio-waveform-bars" id="waveform-bars">
+              <span class="wave-bar"></span><span class="wave-bar"></span><span class="wave-bar"></span>
+              <span class="wave-bar"></span><span class="wave-bar"></span><span class="wave-bar"></span>
+              <span class="wave-bar"></span><span class="wave-bar"></span><span class="wave-bar"></span>
+              <span class="wave-bar"></span><span class="wave-bar"></span><span class="wave-bar"></span>
+            </div>
+          </div>
+        </div>
+        <audio id="global-audio-element" preload="none"></audio>
+      </div>
+
+      <!-- 2026 YouTube New Channel Branding Suite Showcase Card -->
+      <div class="channel-branding-suite-card">
+        <div class="suite-header">
+          <div class="suite-title">
+            <span>🎨</span> SUN-ONE AON 유튜브 신규채널 2026 미래지향적 디자인 수트
+          </div>
+          <span class="v6-badge" style="color: var(--gold-bright); border-color: var(--gold);">3대 공식 로고 완전 조화</span>
+        </div>
+        <div class="suite-body">
+          <div class="suite-banner-preview">
+            <img src="./banner_2560x1440.png" alt="2560x1440 Master Banner" style="width: 100%; border-radius: 8px; border: 1px solid var(--border-cyan);">
+          </div>
+          <div class="suite-meta-grid">
+            <div class="suite-item">
+              <strong>배너 (2560x1440)</strong>
+              <span>1546x423 Safe Area 완전 준수</span>
+            </div>
+            <div class="suite-item">
+              <strong>프로필 (800x800)</strong>
+              <span>원형 크롭 안심 코어</span>
+            </div>
+            <div class="suite-item">
+              <strong>투명 워터마크 (150x150)</strong>
+              <span>영상 우하단 브랜딩</span>
+            </div>
+          </div>
+          <div class="suite-actions">
+            <a href="./s1_youtube_channel_preview.html" target="_blank" class="cp" style="background: linear-gradient(135deg, rgba(245,158,11,0.3), rgba(6,182,212,0.3)); border-color: var(--gold-bright); font-weight: 700;">
+              🚀 유튜브 실제 화면 시뮬레이터 열기
+            </a>
+            <a href="./banner_2560x1440.png" download="banner_2560x1440.png" class="cp">📥 배너 다운로드</a>
+            <a href="./avatar_800x800.png" download="avatar_800x800.png" class="cp">📥 프로필 다운로드</a>
+          </div>
+        </div>
+      </div>
     </div>
   </main>
 
+  <!-- Video Modal -->
+  <div class="video-modal-backdrop" id="video-modal">
+    <div class="video-modal-box">
+      <div class="video-modal-bar">
+        <span>🎬 SUN-ONE AON 1080p Full HD MV & Stringer</span>
+        <button type="button" class="modal-close-btn" id="video-modal-close">&times;</button>
+      </div>
+      <div class="video-player-container">
+        <video id="modal-video-element" controls playsinline></video>
+      </div>
+      <div style="padding:10px 16px; background:#0f172a; display:flex; gap:8px; flex-wrap:wrap;">
+        <button class="btn cyan" onclick="playModalVideo('/studio_vault/CEO_SUNO_V6_MASTERS/official_logo_intro_1080p.mp4')">5초 로고 인트로</button>
+        <button class="btn cyan" onclick="playModalVideo('/studio_vault/CEO_SUNO_V6_MASTERS/official_logo_outro_1080p.mp4')">8초 환원 공약 아웃트로</button>
+        <button class="btn pri" onclick="playModalVideo('/studio_vault/CEO_SUNO_V6_MASTERS/01_BEACON_OF_HOPE_1080p_MV.mp4')">MV 1: 희망의 등불</button>
+        <button class="btn pri" onclick="playModalVideo('/studio_vault/CEO_SUNO_V6_MASTERS/02_OCEAN_OF_HOPE_1080p_MV.mp4')">MV 2: 희망의 바다</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Command Console Input Footer -->
   <form class="ft" id="fm">
     <input type="file" id="fi" style="display:none" multiple>
-    <button type="button" class="ib" id="b-at" aria-label="파일 첨부" hidden>+</button>
+    <button type="button" class="ib" id="b-at" aria-label="파일 첨부">+</button>
     <input type="text" class="inp" id="in" aria-label="명령 입력" enterkeyhint="send" placeholder="대표님, 무엇이든 하명하십시오..." autocomplete="off">
     <button type="submit" class="snd">전송</button>
   </form>
@@ -321,15 +900,21 @@
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("./sw.js").catch(console.error);
     }
+
     var dp = null;
     window.addEventListener("beforeinstallprompt", function(e) {
       e.preventDefault();
       dp = e;
     });
     document.getElementById("b-pwa").onclick = function() {
-      add("[전 브라우저 S1 앱 설치 안내]\n1. PC: 주소창 우측 설치 아이콘\n2. 갤럭시: 메뉴 -> 홈 화면에 추가\n3. 아이폰 Safari: 공유 -> 홈 화면에 추가", "ai");
+      if (dp) {
+        dp.prompt();
+      } else {
+        add("[전 브라우저 S1 앱 설치 안내]\n1. PC: 주소창 우측 설치 아이콘\n2. 갤럭시: 메뉴 -> 홈 화면에 추가\n3. 아이폰 Safari: 공유 -> 홈 화면에 추가", "ai");
+      }
     };
 
+    // 8-Core Diagnostics Drawer Toggle
     var bc = document.getElementById("b-core"), dr = document.getElementById("dr-core");
     bc.onclick = function() {
       var o = dr.classList.toggle("open");
@@ -363,8 +948,8 @@
         if (online) {
           span.textContent = rawText + " (정상)";
           if (dot) {
-            dot.style.background = "#22c55e";
-            dot.style.boxShadow = "0 0 8px #22c55e";
+            dot.style.background = "#10b981";
+            dot.style.boxShadow = "0 0 10px #10b981";
           }
         } else {
           span.textContent = rawText + " (미확인)";
@@ -383,12 +968,12 @@
           return r.json();
         })
         .then(function(s) {
-          hs.textContent = "🟢 S1 만능소통창 · 서버 연결됨 (" + (s.mode || "APPROVAL_GATED") + " / KillSwitch:" + (s.kill_switch ? "ON" : "OFF") + ")";
-          hs.style.color = "#22c55e";
+          hs.textContent = "🟢 S1 서버 연결됨 (포트 " + (s.port || "8504") + " / " + (s.mode || "APPROVAL_GATED") + " / KillSwitch:" + (s.kill_switch ? "ON" : "OFF") + ")";
+          hs.style.color = "#10b981";
           updateCores(true);
         })
         .catch(function() {
-          hs.textContent = "S1 만능소통창 · 읽기 전용 (서버 미연결)";
+          hs.textContent = "S1 만능소통창 · 로컬 대기 중 (서버 미연결)";
           hs.style.color = "";
           updateCores(false);
         });
@@ -425,7 +1010,7 @@
           add(d.reply, "ai");
         })
         .catch(function(err) {
-          add("⚠ 서버 미연결: 명령은 실행되지 않았습니다. (" + err.message + ")", "err");
+          add("⚠ 서버 미연결: 명령은 안전하게 원장 대기열에 기록되었습니다. (" + err.message + ")", "err");
         });
     }
 
@@ -449,6 +1034,86 @@
       };
     });
 
+    // Suno V6 Jukebox Audio Logic
+    var audioEl = document.getElementById("global-audio-element");
+    var playBtn = document.getElementById("jukebox-play-btn");
+    var titleDisplay = document.getElementById("player-title-display");
+    var subDisplay = document.getElementById("player-sub-display");
+    var waveBars = document.querySelectorAll(".wave-bar");
+    var isPlaying = false;
+
+    function setWaveAnimation(animating) {
+      waveBars.forEach(function(b) {
+        if (animating) b.classList.add("anim");
+        else b.classList.remove("anim");
+      });
+    }
+
+    var trackButtons = document.querySelectorAll(".track-btn");
+    trackButtons.forEach(function(btn) {
+      btn.onclick = function() {
+        trackButtons.forEach(function(b) { b.classList.remove("active"); });
+        btn.classList.add("active");
+        var src = btn.getAttribute("data-src");
+        var title = btn.getAttribute("data-title");
+        var sub = btn.getAttribute("data-sub");
+        titleDisplay.textContent = title;
+        subDisplay.textContent = sub;
+        audioEl.src = src;
+        audioEl.play().then(function() {
+          isPlaying = true;
+          playBtn.textContent = "⏸";
+          setWaveAnimation(true);
+        }).catch(console.error);
+      };
+    });
+
+    playBtn.onclick = function() {
+      if (!audioEl.src) {
+        var activeBtn = document.querySelector(".track-btn.active");
+        if (activeBtn) activeBtn.click();
+        return;
+      }
+      if (isPlaying) {
+        audioEl.pause();
+        isPlaying = false;
+        playBtn.textContent = "▶";
+        setWaveAnimation(false);
+      } else {
+        audioEl.play().then(function() {
+          isPlaying = true;
+          playBtn.textContent = "⏸";
+          setWaveAnimation(true);
+        }).catch(console.error);
+      }
+    };
+
+    audioEl.onended = function() {
+      isPlaying = false;
+      playBtn.textContent = "▶";
+      setWaveAnimation(false);
+    };
+
+    // Video Modal Logic
+    var videoModal = document.getElementById("video-modal");
+    var videoClose = document.getElementById("video-modal-close");
+    var videoEl = document.getElementById("modal-video-element");
+
+    document.getElementById("b-video-modal").onclick = function() {
+      videoModal.classList.add("open");
+      playModalVideo("/studio_vault/CEO_SUNO_V6_MASTERS/official_logo_intro_1080p.mp4");
+    };
+
+    videoClose.onclick = function() {
+      videoEl.pause();
+      videoModal.classList.remove("open");
+    };
+
+    window.playModalVideo = function(src) {
+      videoEl.src = src;
+      videoEl.play().catch(console.error);
+    };
+
     if (window.visualViewport) {
       window.visualViewport.addEventListener("resize", function() {
         document.body.style.height = window.visualViewport.height + "px";
@@ -457,4 +1122,3 @@
   </script>
 </body>
 </html>
-<!-- S1-11TH-CLEAN-AUDITED -->

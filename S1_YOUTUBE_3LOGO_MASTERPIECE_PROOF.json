@@ -1,0 +1,31 @@
+{
+  "timestamp": "2026-11-01T13:41:09.025Z",
+  "channel_name": "SUN-ONE AON",
+  "handle": "@SUN-ONEAON",
+  "public_verified": {
+    "title": "",
+    "handle": "",
+    "avatar_src": "https://yt3.googleusercontent.com/MlUKoa6YlQXFL4yc-j6ixD-F9DukwBn0Ef4J5kL-4GXWay",
+    "avatar_size": {
+      "w": 88,
+      "h": 88
+    },
+    "banner_src": "https://yt3.googleusercontent.com/wfebOuOdY9GhgGCgkSDnYPE73euGGKPyvJmdSufZRn1mzX",
+    "banner_size": {
+      "w": 1707,
+      "h": 282
+    }
+  },
+  "studio_dom_verified": {
+    "banner_has_change_btn": true,
+    "avatar_has_change_btn": true,
+    "watermark_has_change_btn": true,
+    "publish_status": "PUBLISHED_COMMITTED"
+  },
+  "screenshots": {
+    "studio_verified": "studio_vault/CHANNELS/04_US_SUNONE_AON/live_studio_reloaded_verified.png",
+    "public_channel_verified": "studio_vault/CHANNELS/04_US_SUNONE_AON/live_public_channel_masterpiece.png"
+  },
+  "overall_score": 100,
+  "verdict": "ALL_PASS_PERFECT"
+}

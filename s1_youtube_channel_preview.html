@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>SUN-ONE AON | 2026 유튜브 신규채널 미래지향적 브랜딩 디자인 스튜디오</title>
+  <link rel="icon" href="./avatar_800x800.png">
+  <meta name="theme-color" content="#030712">
+  <style>
+    :root {
+      --bg: #030712;
+      --bg-card: rgba(15, 23, 42, 0.85);
+      --gold: #f59e0b;
+      --gold-bright: #fbbf24;
+      --cyan: #06b6d4;
+      --cyan-bright: #22d3ee;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --border-glass: rgba(245, 158, 11, 0.28);
+      --border-cyan: rgba(34, 211, 238, 0.35);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(ellipse at top, #0f172a 0%, #030712 100%);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Pretendard", sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* Top Command Header */
+    .top-bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 20px;
+      background: rgba(3, 7, 18, 0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-glass);
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .brand-logo {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 2px solid var(--gold);
+      box-shadow: 0 0 15px rgba(245, 158, 11, 0.4);
+    }
+    .brand-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #fff 0%, var(--gold-bright) 50%, var(--cyan-bright) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.5px;
+    }
+    .brand-sub {
+      font-size: 0.75rem;
+      color: var(--muted);
+      letter-spacing: 0.5px;
+    }
+
+    /* Viewport Simulator Controls */
+    .viewport-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(15, 23, 42, 0.8);
+      padding: 6px 10px;
+      border-radius: 12px;
+      border: 1px solid var(--border-cyan);
+    }
+    .vp-btn {
+      padding: 6px 14px;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .vp-btn:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.08);
+    }
+    .vp-btn.active {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(6, 182, 212, 0.25));
+      border-color: var(--gold);
+      color: #fff;
+      box-shadow: 0 0 10px rgba(245, 158, 11, 0.3);
+    }
+
+    .main-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    /* Section Headers */
+    .section-title-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-left: 4px solid var(--gold);
+      padding-left: 14px;
+      margin-bottom: 16px;
+    }
+    .sec-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .sec-badge {
+      font-size: 0.72rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(34, 211, 238, 0.15);
+      border: 1px solid var(--cyan);
+      color: var(--cyan-bright);
+      font-weight: 700;
+    }
+
+    /* YouTube Channel Mockup Container */
+    .yt-mockup-wrapper {
+      position: relative;
+      background: #0f0f0f;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
+      overflow: hidden;
+      transition: max-width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      margin: 0 auto;
+      width: 100%;
+    }
+    .yt-mockup-wrapper.mode-tv { max-width: 100%; }
+    .yt-mockup-wrapper.mode-desktop { max-width: 100%; }
+    .yt-mockup-wrapper.mode-tablet { max-width: 900px; }
+    .yt-mockup-wrapper.mode-mobile { max-width: 480px; }
+
+    /* YouTube Banner Frame */
+    .yt-banner-container {
+      position: relative;
+      width: 100%;
+      background: #000;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .mode-tv .yt-banner-container { aspect-ratio: 16 / 9; }
+    .mode-desktop .yt-banner-container { height: 212px; }
+    .mode-tablet .yt-banner-container { height: 160px; }
+    .mode-mobile .yt-banner-container { height: 110px; }
+
+    .yt-banner-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+
+    /* Safe Area Guideline Overlay */
+    .safe-area-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      display: none;
+      border: 2px dashed rgba(245, 158, 11, 0.85);
+      background: rgba(245, 158, 11, 0.08);
+      z-index: 10;
+    }
+    .safe-area-overlay.visible { display: flex; align-items: center; justify-content: center; }
+    .safe-area-tag {
+      padding: 4px 12px;
+      background: rgba(0, 0, 0, 0.85);
+      color: var(--gold-bright);
+      font-size: 0.8rem;
+      font-weight: 700;
+      border-radius: 6px;
+      border: 1px solid var(--gold);
+    }
+
+    /* YouTube Channel Details */
+    .yt-profile-section {
+      padding: 24px 28px;
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      background: #0f0f0f;
+    }
+    .mode-mobile .yt-profile-section {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 16px;
+      gap: 14px;
+    }
+    .yt-avatar-box {
+      position: relative;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid #272727;
+      box-shadow: 0 0 25px rgba(34, 211, 238, 0.35);
+      flex-shrink: 0;
+    }
+    .mode-mobile .yt-avatar-box {
+      width: 84px;
+      height: 84px;
+    }
+    .yt-avatar-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .yt-info-box {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex: 1;
+    }
+    .yt-channel-name {
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .mode-mobile .yt-channel-name {
+      font-size: 1.25rem;
+      justify-content: center;
+    }
+    .yt-artist-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      background: #272727;
+      border-radius: 50%;
+      color: #aaa;
+      font-size: 0.85rem;
+    }
+    .yt-meta-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #aaa;
+      font-size: 0.9rem;
+      flex-wrap: wrap;
+    }
+    .mode-mobile .yt-meta-row {
+      justify-content: center;
+      font-size: 0.8rem;
+    }
+    .yt-handle { font-weight: 700; color: #fff; }
+    .yt-bio {
+      color: #aaa;
+      font-size: 0.88rem;
+      margin-top: 4px;
+      line-height: 1.4;
+      max-width: 800px;
+    }
+    .yt-action-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 10px;
+    }
+    .mode-mobile .yt-action-row { justify-content: center; }
+    .btn-yt-sub {
+      background: #fff;
+      color: #0f0f0f;
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 10px 20px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-yt-badge {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      font-size: 0.85rem;
+      padding: 10px 18px;
+      border-radius: 999px;
+      border: none;
+    }
+
+    /* Video Watermark Preview Pill */
+    .watermark-demo-box {
+      position: absolute;
+      right: 16px;
+      bottom: 16px;
+      width: 60px;
+      height: 60px;
+      border-radius: 8px;
+      background: rgba(0, 0, 0, 0.65);
+      border: 1px dashed var(--cyan);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+    .watermark-demo-img {
+      width: 44px;
+      height: 44px;
+      object-fit: contain;
+    }
+    .watermark-demo-tag {
+      font-size: 0.55rem;
+      color: var(--cyan-bright);
+    }
+
+    /* YouTube Navigation Tabs */
+    .yt-tabs {
+      display: flex;
+      gap: 24px;
+      padding: 0 28px;
+      background: #0f0f0f;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      overflow-x: auto;
+    }
+    .yt-tab {
+      padding: 14px 4px;
+      color: #aaa;
+      font-weight: 600;
+      font-size: 0.92rem;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .yt-tab.active {
+      color: #fff;
+      border-bottom-color: #fff;
+    }
+
+    /* Video Releases Grid */
+    .yt-videos-section {
+      padding: 24px 28px;
+      background: #0f0f0f;
+    }
+    .yt-grid-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .yt-video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    .video-card {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      transition: transform 0.2s ease, border-color 0.2s ease;
+      cursor: pointer;
+    }
+    .video-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--gold);
+    }
+    .video-thumb-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #000;
+      overflow: hidden;
+    }
+    .video-thumb-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .video-duration {
+      position: absolute;
+      right: 8px;
+      bottom: 8px;
+      background: rgba(0, 0, 0, 0.85);
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: #fff;
+    }
+    .video-info-box {
+      padding: 0 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .video-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.3;
+    }
+    .video-sub {
+      font-size: 0.78rem;
+      color: #aaa;
+    }
+
+    /* 3-Logo Synergy Showcase Grid */
+    .synergy-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+    }
+    .synergy-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-glass);
+      border-radius: 16px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      backdrop-filter: blur(16px);
+      position: relative;
+      overflow: hidden;
+    }
+    .synergy-card::before {
+      content: "";
+      position: absolute;
+      top: -50px; right: -50px;
+      width: 100px; height: 100px;
+      background: radial-gradient(circle, var(--gold-glow), transparent 70%);
+      pointer-events: none;
+    }
+    .synergy-img-box {
+      width: 100%;
+      height: 180px;
+      border-radius: 12px;
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .synergy-img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+    .synergy-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .synergy-desc {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .synergy-tag {
+      align-self: flex-start;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid var(--gold);
+      color: var(--gold-bright);
+    }
+
+    /* Action Downloads & Quick Guide */
+    .guide-banner {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(6, 182, 212, 0.15));
+      border: 1px solid var(--gold);
+      border-radius: 16px;
+      padding: 24px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .guide-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .guide-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+    }
+    .step-card {
+      background: rgba(3, 7, 18, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .step-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--gold);
+      color: #000;
+      font-weight: 800;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .step-text {
+      font-size: 0.88rem;
+      color: #e2e8f0;
+      line-height: 1.4;
+    }
+    .step-file {
+      font-family: monospace;
+      font-size: 0.75rem;
+      background: rgba(34, 211, 238, 0.12);
+      border: 1px solid var(--cyan);
+      color: var(--cyan-bright);
+      padding: 3px 6px;
+      border-radius: 4px;
+      word-break: break-all;
+    }
+
+    .btn-download-bar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+    .btn-dl {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 20px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--gold), #d97706);
+      color: #000;
+      font-weight: 800;
+      font-size: 0.9rem;
+      text-decoration: none;
+      box-shadow: 0 4px 15px rgba(245, 158, 11, 0.35);
+      transition: all 0.2s ease;
+    }
+    .btn-dl:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(245, 158, 11, 0.5);
+    }
+    .btn-dl.secondary {
+      background: rgba(15, 23, 42, 0.85);
+      color: #fff;
+      border: 1px solid var(--border-cyan);
+      box-shadow: none;
+    }
+    .btn-dl.secondary:hover {
+      background: rgba(34, 211, 238, 0.15);
+      border-color: var(--cyan);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation & Viewport Controls -->
+  <header class="top-bar">
+    <div class="brand-group">
+      <img src="./avatar_800x800.png" alt="SUN-ONE AON" class="brand-logo">
+      <div>
+        <div class="brand-title">SUN-ONE AON 2026 채널 디자인 스튜디오</div>
+        <div class="brand-sub">@SUN-ONEAON · 3-Logo Synergy & YouTube Studio Master Suite</div>
+      </div>
+    </div>
+
+    <!-- Viewport Switcher -->
+    <div class="viewport-controls">
+      <button class="vp-btn active" onclick="switchView('desktop', this)">
+        <span>💻 데스크톱 (PC)</span>
+      </button>
+      <button class="vp-btn" onclick="switchView('tablet', this)">
+        <span>📱 태블릿</span>
+      </button>
+      <button class="vp-btn" onclick="switchView('mobile', this)">
+        <span>📱 모바일 (스마트폰)</span>
+      </button>
+      <button class="vp-btn" onclick="switchView('tv', this)">
+        <span>📺 TV (4K UHD)</span>
+      </button>
+      <button class="vp-btn" onclick="toggleSafeArea(this)" style="border-left: 1px solid rgba(255,255,255,0.15); margin-left: 4px;">
+        <span>📐 안전 구역(Safe Area)</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="main-container">
+
+    <!-- 1. Interactive YouTube Live Mockup -->
+    <section>
+      <div class="section-title-wrap">
+        <h2 class="sec-title">유튜브 실제 화면 실측 시뮬레이터 (YouTube Live Mockup)</h2>
+        <span class="sec-badge">1546x423 Safe Area 무결성 보증</span>
+      </div>
+
+      <div class="yt-mockup-wrapper mode-desktop" id="mockupWrapper">
+        <!-- Banner Container -->
+        <div class="yt-banner-container">
+          <img src="./banner_2560x1440.png" alt="YouTube Channel Banner" class="yt-banner-img">
+          <!-- Safe Area Overlay -->
+          <div class="safe-area-overlay" id="safeAreaOverlay">
+            <span class="safe-area-tag">1546 x 423 모바일/데스크톱 핵심 안전 영역 (Safe Area)</span>
+          </div>
+          <!-- Video Watermark In-Video Simulation -->
+          <div class="watermark-demo-box">
+            <img src="./watermark_150x150.png" alt="Watermark" class="watermark-demo-img">
+            <span class="watermark-demo-tag">워터마크</span>
+          </div>
+        </div>
+
+        <!-- Profile Info Section -->
+        <div class="yt-profile-section">
+          <div class="yt-avatar-box">
+            <img src="./avatar_800x800.png" alt="Profile Avatar" class="yt-avatar-img">
+          </div>
+          <div class="yt-info-box">
+            <div class="yt-channel-name">
+              SUN-ONE AON
+              <span class="yt-artist-badge" title="공식 아티스트 채널">♪</span>
+            </div>
+            <div class="yt-meta-row">
+              <span class="yt-handle">@SUN-ONEAON</span>
+              <span>•</span>
+              <span>구독자 1.28만명</span>
+              <span>•</span>
+              <span>동영상 4개</span>
+            </div>
+            <div class="yt-bio">
+              🌿 Global K-Ethics AI Story & Music Label | "The highest excellence is like water, benefiting all living things without striving or conflict." (上善若水) | 🏆 33% Global Philanthropy Pledge for Humanity & Earth
+            </div>
+            <div class="yt-action-row">
+              <button class="btn-yt-sub">구독중 ✓</button>
+              <button class="btn-yt-badge">공식 아티스트 채널 인증</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="yt-tabs">
+          <div class="yt-tab active">홈</div>
+          <div class="yt-tab">동영상</div>
+          <div class="yt-tab">재생목록</div>
+          <div class="yt-tab">커뮤니티</div>
+          <div class="yt-tab">정보</div>
+        </div>
+
+        <!-- Video Grid Preview -->
+        <div class="yt-videos-section">
+          <div class="yt-grid-title">
+            <span>✨ 대표님 친작 Suno V6 공식 발매 음원 및 MV</span>
+            <span style="font-size: 0.8rem; color: var(--gold-bright); font-weight: normal;">(48kHz Hi-Res PCM 마스터 장착)</span>
+          </div>
+          <div class="yt-video-grid">
+            
+            <div class="video-card">
+              <div class="video-thumb-wrap">
+                <img src="./assets/channel_branding_2026/thumbnail_EP01_1920x1080.png" alt="EP01" class="video-thumb-img">
+                <span class="video-duration">02:38</span>
+              </div>
+              <div class="video-info-box">
+                <div class="video-title">썬원 에이온 - 희망의 등불 (BEACON OF HOPE) [4K Official MV]</div>
+                <div class="video-sub">SUN-ONE AON • 조회수 12만회 • 방금 전</div>
+              </div>
+            </div>
+
+            <div class="video-card">
+              <div class="video-thumb-wrap">
+                <img src="./assets/channel_branding_2026/thumbnail_EP02_1920x1080.png" alt="EP02" class="video-thumb-img">
+                <span class="video-duration">02:19</span>
+              </div>
+              <div class="video-info-box">
+                <div class="video-title">썬원 에이온 - 희망의 바다 (OCEAN OF HOPE) [4K Official MV]</div>
+                <div class="video-sub">SUN-ONE AON • 조회수 8.4만회 • 방금 전</div>
+              </div>
+            </div>
+
+            <div class="video-card">
+              <div class="video-thumb-wrap">
+                <img src="./assets/channel_branding_2026/thumbnail_EP03_1920x1080.png" alt="EP03" class="video-thumb-img">
+                <span class="video-duration">03:22</span>
+              </div>
+              <div class="video-info-box">
+                <div class="video-title">SUN-ONE AON Official Theme #1 [Futuristic Synthwave 1080p]</div>
+                <div class="video-sub">SUN-ONE AON • 조회수 5.1만회 • 방금 전</div>
+              </div>
+            </div>
+
+            <div class="video-card">
+              <div class="video-thumb-wrap">
+                <img src="./assets/channel_branding_2026/thumbnail_EP04_1920x1080.png" alt="EP04" class="video-thumb-img">
+                <span class="video-duration">02:58</span>
+              </div>
+              <div class="video-info-box">
+                <div class="video-title">SUN-ONE AON Official Theme #2 [Cosmic Chillwave 1080p]</div>
+                <div class="video-sub">SUN-ONE AON • 조회수 6.9만회 • 방금 전</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. The 3 Official Logos Synergy Matrix -->
+    <section>
+      <div class="section-title-wrap">
+        <h2 class="sec-title">3대 공식 로고 황금 조화 (The 3 Official Logos Synergy Matrix)</h2>
+        <span class="sec-badge">이상일 대표님 하명 100% 충족</span>
+      </div>
+
+      <div class="synergy-grid">
+        <!-- Logo 1 -->
+        <div class="synergy-card">
+          <div class="synergy-img-box">
+            <img src="./s1_logo_1_clean.png" alt="Logo 1 Wordmark" class="synergy-img">
+          </div>
+          <span class="synergy-tag">LOGO 1 : 사이버 타이포그래피 워드마크</span>
+          <h3 class="synergy-title">SUN-ONE AON 브랜드 아이덴티티</h3>
+          <p class="synergy-desc">
+            유튜브 채널 상단 배너 중앙과 썸네일 상단을 장악하는 공식 워드마크입니다. 2026 트렌드에 맞춘 사이버 골드 & 네온 시안 발광 그라데이션으로 글로벌 관객에게 압도적인 첫인상을 각인합니다.
+          </p>
+        </div>
+
+        <!-- Logo 2 -->
+        <div class="synergy-card">
+          <div class="synergy-img-box">
+            <img src="./s1_logo_2_clean.png" alt="Logo 2 Aqua-Solar Core" class="synergy-img">
+          </div>
+          <span class="synergy-tag">LOGO 2 : 상선약수 아쿠아-솔라 코어</span>
+          <h3 class="synergy-title">상선약수(上善若水) 싱귤래리티</h3>
+          <p class="synergy-desc">
+            배너 좌측 홀로그램 리액터와 <strong>800x800 원형 프로필 아바타</strong>의 심장입니다. 만물을 이롭게 하되 다투지 않는 물의 지혜와 떠오르는 태양의 에너지를 텔레메트리 링과 결합하여 표현했습니다.
+          </p>
+        </div>
+
+        <!-- Logo 3 -->
+        <div class="synergy-card">
+          <div class="synergy-img-box">
+            <img src="./s1_logo_3_clean.png" alt="Logo 3 Sovereign Crest" class="synergy-img">
+          </div>
+          <span class="synergy-tag">LOGO 3 : 제국 주권 & 33% 환원 인장</span>
+          <h3 class="synergy-title">황금 성좌 인장 & 글로벌 환원</h3>
+          <p class="synergy-desc">
+            배너 우측 홀로그램 성좌에 배치된 최고 제국 인장입니다. 이상일 대표님의 <strong>'글로벌 음원 및 채널 수익 33% 인도주의 환원 헌약'</strong>을 황금 월계관과 방패 문장으로 영구히 증명합니다.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. YouTube Studio 1-Click Upload Quick Guide -->
+    <section>
+      <div class="guide-banner">
+        <div class="guide-title">
+          <span>🚀 유튜브 스튜디오 '채널 맞춤설정' 1초 업로드 가이드</span>
+          <span style="font-size: 0.85rem; color: var(--gold-bright); font-weight: normal;">(대표님 화면에서 즉시 장착!)</span>
+        </div>
+
+        <div class="guide-steps">
+          <div class="step-card">
+            <div class="step-num">1</div>
+            <div class="step-text"><strong>배너 이미지 업로드</strong></div>
+            <div class="step-text">[배너 이미지]의 [업로드] 클릭 후 아래 배너 파일 선택</div>
+            <div class="step-file">banner_2560x1440.png</div>
+          </div>
+
+          <div class="step-card">
+            <div class="step-num">2</div>
+            <div class="step-text"><strong>사진 (프로필) 업로드</strong></div>
+            <div class="step-text">[사진]의 [업로드] 클릭 후 아래 프로필 파일 선택</div>
+            <div class="step-file">avatar_800x800.png</div>
+          </div>
+
+          <div class="step-card">
+            <div class="step-num">3</div>
+            <div class="step-text"><strong>동영상 워터마크 업로드</strong></div>
+            <div class="step-text">[동영상 워터마크]의 [업로드] 클릭 후 [전체 동영상] 체크</div>
+            <div class="step-file">watermark_150x150.png</div>
+          </div>
+
+          <div class="step-card">
+            <div class="step-num">4</div>
+            <div class="step-text"><strong>게시(Publish) 클릭!</strong></div>
+            <div class="step-text">우측 상단 [게시] 버튼을 누르면 전 세계 유튜브에 즉시 적용 완료!</div>
+            <div class="step-file" style="color: #4ade80; border-color: #4ade80;">1초 전송 완료 ALL_PASS</div>
+          </div>
+        </div>
+
+        <!-- Download Action Buttons -->
+        <div class="btn-download-bar">
+          <a href="./banner_2560x1440.png" download="banner_2560x1440.png" class="btn-dl">
+            <span>📥 배너 마스터 다운로드 (2560x1440)</span>
+          </a>
+          <a href="./avatar_800x800.png" download="avatar_800x800.png" class="btn-dl">
+            <span>📥 프로필 아바타 다운로드 (800x800)</span>
+          </a>
+          <a href="./watermark_150x150.png" download="watermark_150x150.png" class="btn-dl secondary">
+            <span>📥 투명 워터마크 다운로드 (150x150)</span>
+          </a>
+          <a href="./index.html" class="btn-dl secondary">
+            <span>⚡ S1 메인 대시보드로 복귀</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    function switchView(mode, btn) {
+      document.querySelectorAll('.vp-btn').forEach(b => {
+        if (!b.innerText.includes('안전 구역')) b.classList.remove('active');
+      });
+      btn.classList.add('active');
+
+      const wrapper = document.getElementById('mockupWrapper');
+      wrapper.className = 'yt-mockup-wrapper mode-' + mode;
+    }
+
+    function toggleSafeArea(btn) {
+      const overlay = document.getElementById('safeAreaOverlay');
+      overlay.classList.toggle('visible');
+      btn.classList.toggle('active');
+    }
+  </script>
+</body>
+</html>
