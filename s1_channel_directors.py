@@ -244,13 +244,34 @@ def build_suno_master_prompt(director_name, song_concept):
     return prompt_pkg
 
 # =============================================================================
+# 2.5 TOOL MASTERY CONSTITUTION GATE (Article 0)
+# =============================================================================
+
+def verify_tool_mastery_before_start(tool_name: str = "Suno_Ego_Browser", skill_book_path: str = None) -> bool:
+    """
+    S1 도구 마스터 헌법 제0조/제3조 준수 검증 게이트 (S1_TOOL_MASTERY_CONSTITUTION.md)
+    """
+    if skill_book_path is None:
+        skill_book_path = str(ROOT_DIR / "skills" / "SKILL_EGO_SUNO_DIRECT_DOWNLOAD.md")
+    p = pathlib.Path(skill_book_path)
+    if not p.is_file():
+        raise PermissionError(f"[헌법 위반] 도구 {tool_name}의 스킬북({skill_book_path})이 존재하지 않아 작업을 착수할 수 없습니다.")
+    content = p.read_text(encoding="utf-8")
+    for kw in ["dom", "api", "download", "verification"]:
+        if kw not in content.lower():
+            raise ValueError(f"[헌법 위반] 스킬북({skill_book_path})에 필수 실측 항목 '{kw}'이 결여되었습니다.")
+    return True
+
+# =============================================================================
 # 3. SUNO DISPATCH QUEUE MANAGER (Space 4 Integration)
 # =============================================================================
 
 def push_to_suno_queue(prompt_package):
     """
     Appends a new generation task to suno_dispatch_queue.json.
+    Enforces Tool Mastery Gate before queuing.
     """
+    verify_tool_mastery_before_start("Suno_Ego_Browser")
     tasks = []
     if QUEUE_FILE.is_file():
         try:

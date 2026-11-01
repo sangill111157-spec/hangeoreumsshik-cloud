@@ -1,0 +1,38 @@
+[
+  {
+    "track_num": "01",
+    "title": "썬원 에이온 - 희망의 등불 (SUN-ONE AON)",
+    "master_wav": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_vault\\CEO_SUNO_V6_MASTERS\\01_BEACON_OF_HOPE_master_14LUFS.wav",
+    "master_mp3": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_vault\\CEO_SUNO_V6_MASTERS\\01_BEACON_OF_HOPE_master_320kbps.mp3",
+    "master_mv": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_vault\\CEO_SUNO_V6_MASTERS\\01_BEACON_OF_HOPE_1080p_MV.mp4",
+    "duration": 158.0,
+    "ffprobe_summary": "[STREAM] | codec_name=pcm_s16le | sample_rate=44100 | channels=2 | [/STREAM] | [FORMAT] | duration=158.000000 | bit_rate=1411212 | [/FORMAT]"
+  },
+  {
+    "track_num": "02",
+    "title": "썬원 에이온 - 희망의 바다 (SUN-ONE AON)",
+    "master_wav": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_vault\\CEO_SUNO_V6_MASTERS\\02_OCEAN_OF_HOPE_master_14LUFS.wav",
+    "master_mp3": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_vault\\CEO_SUNO_V6_MASTERS\\02_OCEAN_OF_HOPE_master_320kbps.mp3",
+    "master_mv": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_vault\\CEO_SUNO_V6_MASTERS\\02_OCEAN_OF_HOPE_1080p_MV.mp4",
+    "duration": 139.8,
+    "ffprobe_summary": "[STREAM] | codec_name=pcm_s16le | sample_rate=44100 | channels=2 | [/STREAM] | [FORMAT] | duration=139.800000 | bit_rate=1411214 | [/FORMAT]"
+  },
+  {
+    "track_num": "03",
+    "title": "SUN-ONE AON Official Theme (Instrumental) #1",
+    "master_wav": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_vault\\CEO_SUNO_V6_MASTERS\\03_OFFICIAL_THEME_INST_1_master_14LUFS.wav",
+    "master_mp3": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_vault\\CEO_SUNO_V6_MASTERS\\03_OFFICIAL_THEME_INST_1_master_320kbps.mp3",
+    "master_mv": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_vault\\CEO_SUNO_V6_MASTERS\\03_OFFICIAL_THEME_INST_1_1080p_MV.mp4",
+    "duration": 202.36,
+    "ffprobe_summary": "[STREAM] | codec_name=pcm_s16le | sample_rate=44100 | channels=2 | [/STREAM] | [FORMAT] | duration=202.360000 | bit_rate=1411209 | [/FORMAT]"
+  },
+  {
+    "track_num": "04",
+    "title": "SUN-ONE AON Official Theme (Instrumental) #2",
+    "master_wav": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_vault\\CEO_SUNO_V6_MASTERS\\04_OFFICIAL_THEME_INST_2_master_14LUFS.wav",
+    "master_mp3": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_vault\\CEO_SUNO_V6_MASTERS\\04_OFFICIAL_THEME_INST_2_master_320kbps.mp3",
+    "master_mv": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_vault\\CEO_SUNO_V6_MASTERS\\04_OFFICIAL_THEME_INST_2_1080p_MV.mp4",
+    "duration": 178.8,
+    "ffprobe_summary": "[STREAM] | codec_name=pcm_s16le | sample_rate=44100 | channels=2 | [/STREAM] | [FORMAT] | duration=178.800000 | bit_rate=1411210 | [/FORMAT]"
+  }
+]

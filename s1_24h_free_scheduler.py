@@ -115,11 +115,28 @@ def get_current_slot():
     else:
         return TIMETABLE_24H[4]
 
+def verify_tool_mastery_before_start(tool_name: str = "Rotary_Scheduler", skill_book_path: str = None) -> bool:
+    """
+    S1 도구 마스터 헌법 제0조/제3조 준수 검증 게이트 (S1_TOOL_MASTERY_CONSTITUTION.md)
+    """
+    if skill_book_path is None:
+        skill_book_path = str(ROOT_DIR / "skills" / "SKILL_EGO_SUNO_DIRECT_DOWNLOAD.md")
+    p = pathlib.Path(skill_book_path)
+    if not p.is_file():
+        raise PermissionError(f"[헌법 위반] 도구 {tool_name}의 스킬북({skill_book_path})이 존재하지 않아 작업을 착수할 수 없습니다.")
+    content = p.read_text(encoding="utf-8")
+    for kw in ["dom", "api", "download", "verification"]:
+        if kw not in content.lower():
+            raise ValueError(f"[헌법 위반] 스킬북({skill_book_path})에 필수 실측 항목 '{kw}'이 결여되었습니다.")
+    return True
+
 def simulate_rotary_execution(slot):
     """
     Simulates the Free Plan A rotary execution for a given slot.
     Ensures memory overhead is zero by closing auxiliary tab.
+    Enforces Tool Mastery Gate before execution.
     """
+    verify_tool_mastery_before_start("Rotary_Scheduler")
     print(f"\n[ROTARY SCHEDULER] Triggering Slot: {slot['slot_id']} ({slot['director']})")
     print(f"  - Target Space: Space {slot['space_index']} ({slot['channel_name']} / {slot['handle']})")
     print(f"  - Timetable: KST {slot['time_kst']} / EST {slot['time_est']}")
