@@ -1,19 +1,20 @@
-// S1 Service Worker v2026-aon-mobile-v3 (SUN-ONE AON Mobile Live Sync)
-const CACHE = 's1-v2026-aon-mobile-v3';
+// S1 Service Worker v2026-s1max-v4 (SUN-ONE AON Pure S1 Metallic Full-Bleed)
+const CACHE = 's1-v2026-s1max-v4';
 const ASSETS = [
   './',
   './index.html',
   './rgon_alpha_chat.html',
   './manifest.webmanifest',
   './manifest.json',
-  './s1_logo_1.png',
-  './s1_logo_2.png',
-  './s1_logo_3.png',
+  './icon-192.png?v=2026s1max',
+  './icon-512.png?v=2026s1max',
+  './icon-512-maskable.png?v=2026s1max',
+  './apple-touch-icon.png?v=2026s1max',
+  './favicon.ico',
   './icon-192.png',
   './icon-512.png',
   './icon-512-maskable.png',
-  './apple-touch-icon.png',
-  './favicon.ico'
+  './apple-touch-icon.png'
 ];
 
 self.addEventListener('install', e => {
