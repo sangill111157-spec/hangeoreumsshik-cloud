@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -26,8 +27,15 @@
       --border-glass: rgba(245, 158, 11, 0.22);
       --border-cyan: rgba(34, 211, 238, 0.25);
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body {
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
       width: 100%;
       height: 100dvh;
       background: radial-gradient(ellipse at top, #0f172a 0%, #030712 70%);
@@ -52,12 +60,14 @@
       gap: 12px;
       z-index: 50;
     }
+
     .br {
       display: flex;
       align-items: center;
       gap: 12px;
       min-width: 0;
     }
+
     .brand-logo-frame {
       position: relative;
       width: 42px;
@@ -68,6 +78,7 @@
       box-shadow: 0 0 15px var(--gold-glow);
       flex-shrink: 0;
     }
+
     .brand-logo-frame img {
       width: 100%;
       height: 100%;
@@ -76,11 +87,13 @@
       background: #030712;
       display: block;
     }
+
     .brand-text {
       display: flex;
       flex-direction: column;
       gap: 2px;
     }
+
     .bt {
       font-size: 15px;
       font-weight: 900;
@@ -92,6 +105,7 @@
       align-items: center;
       gap: 6px;
     }
+
     .bs {
       font-size: 11px;
       color: var(--muted);
@@ -100,12 +114,14 @@
       align-items: center;
       gap: 6px;
     }
+
     .ac {
       display: flex;
       align-items: center;
       gap: 8px;
       flex-shrink: 0;
     }
+
     .btn {
       background: rgba(245, 158, 11, 0.1);
       border: 1px solid var(--border-glass);
@@ -121,22 +137,26 @@
       gap: 5px;
       backdrop-filter: blur(8px);
     }
+
     .btn:hover {
       background: rgba(245, 158, 11, 0.22);
       border-color: var(--gold-bright);
       box-shadow: 0 0 12px var(--gold-glow);
       transform: translateY(-1px);
     }
+
     .btn.cyan {
       background: rgba(6, 182, 212, 0.1);
       border-color: var(--border-cyan);
       color: #e0f2fe;
     }
+
     .btn.cyan:hover {
       background: rgba(6, 182, 212, 0.22);
       border-color: var(--cyan-bright);
       box-shadow: 0 0 12px var(--cyan-glow);
     }
+
     .btn.pri {
       background: linear-gradient(135deg, #f59e0b, #d97706);
       color: #030712;
@@ -144,6 +164,7 @@
       font-weight: 800;
       box-shadow: 0 0 14px var(--gold-glow);
     }
+
     .btn.pri:hover {
       background: linear-gradient(135deg, #fbbf24, #f59e0b);
       box-shadow: 0 0 20px rgba(251, 191, 36, 0.6);
@@ -164,11 +185,23 @@
       z-index: 40;
       animation: slideDown 0.3s ease;
     }
-    .dr.open { display: grid; }
-    @keyframes slideDown {
-      from { opacity: 0; transform: translateY(-10px); }
-      to { opacity: 1; transform: translateY(0); }
+
+    .dr.open {
+      display: grid;
     }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
     .cc {
       padding: 9px 12px;
       border-radius: 10px;
@@ -183,12 +216,14 @@
       user-select: none;
       transition: all 0.2s ease;
     }
+
     .cc:hover {
       background: rgba(34, 211, 238, 0.12);
       border-color: var(--cyan-bright);
       box-shadow: 0 0 10px var(--cyan-glow);
       transform: translateY(-1px);
     }
+
     .dot {
       width: 8px;
       height: 8px;
@@ -217,6 +252,7 @@
       flex-shrink: 0;
       padding-bottom: 4px;
     }
+
     .cp {
       background: rgba(15, 23, 42, 0.7);
       border: 1px solid var(--border-glass);
@@ -232,6 +268,7 @@
       align-items: center;
       gap: 6px;
     }
+
     .cp:hover {
       background: rgba(245, 158, 11, 0.2);
       border-color: var(--gold-bright);
@@ -260,6 +297,7 @@
       align-items: center;
       justify-content: center;
     }
+
     .holo-ring-outer {
       position: absolute;
       inset: -12px;
@@ -267,6 +305,7 @@
       border: 1px dashed rgba(245, 158, 11, 0.4);
       animation: spinClockwise 25s linear infinite;
     }
+
     .holo-ring-inner {
       position: absolute;
       inset: 4px;
@@ -276,13 +315,25 @@
       border-bottom-color: var(--gold-bright);
       animation: spinCounter 18s linear infinite;
     }
+
     @keyframes spinClockwise {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
     }
+
     @keyframes spinCounter {
-      from { transform: rotate(360deg); }
-      to { transform: rotate(0deg); }
+      from {
+        transform: rotate(360deg);
+      }
+
+      to {
+        transform: rotate(0deg);
+      }
     }
 
     /* Logo 2: Central Breathing Orb (Sangseonyaksu Emblem) */
@@ -291,7 +342,7 @@
       height: 130px;
       border-radius: 50%;
       padding: 4px;
-      background: radial-gradient(circle, rgba(245,158,11,0.2) 0%, rgba(6,182,212,0.1) 70%, transparent 100%);
+      background: radial-gradient(circle, rgba(245, 158, 11, 0.2) 0%, rgba(6, 182, 212, 0.1) 70%, transparent 100%);
       box-shadow: 0 0 30px var(--gold-glow), inset 0 0 15px var(--cyan-glow);
       display: flex;
       align-items: center;
@@ -299,6 +350,7 @@
       animation: pulseGlow 4s ease-in-out infinite;
       z-index: 10;
     }
+
     .logo-core-orb img {
       width: 100%;
       height: 100%;
@@ -306,9 +358,19 @@
       border-radius: 50%;
       filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.6));
     }
+
     @keyframes pulseGlow {
-      0%, 100% { transform: scale(1); box-shadow: 0 0 25px var(--gold-glow); }
-      50% { transform: scale(1.04); box-shadow: 0 0 40px rgba(34, 211, 238, 0.5); }
+
+      0%,
+      100% {
+        transform: scale(1);
+        box-shadow: 0 0 25px var(--gold-glow);
+      }
+
+      50% {
+        transform: scale(1.04);
+        box-shadow: 0 0 40px rgba(34, 211, 238, 0.5);
+      }
     }
 
     /* Logo 3: Imperial Seal Crest (Floating Top-Right) */
@@ -327,10 +389,12 @@
       z-index: 20;
       transition: transform 0.3s ease;
     }
+
     .logo-imperial-seal:hover {
       transform: scale(1.1) rotate(4deg);
       border-color: var(--gold-bright);
     }
+
     .logo-imperial-seal img {
       width: 100%;
       height: 100%;
@@ -350,6 +414,7 @@
       backdrop-filter: blur(10px);
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
     }
+
     .logo-wordmark-banner img {
       width: 100%;
       height: auto;
@@ -368,6 +433,7 @@
       -webkit-text-fill-color: transparent;
       margin-bottom: 6px;
     }
+
     .hr p {
       font-size: 13px;
       color: var(--muted);
@@ -389,6 +455,7 @@
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
       text-align: left;
     }
+
     .v6-jukebox-header {
       display: flex;
       align-items: center;
@@ -397,6 +464,7 @@
       padding-bottom: 8px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     }
+
     .v6-jukebox-title {
       font-size: 13px;
       font-weight: 800;
@@ -405,6 +473,7 @@
       align-items: center;
       gap: 6px;
     }
+
     .v6-badge {
       font-size: 10.5px;
       padding: 2px 8px;
@@ -414,15 +483,20 @@
       color: var(--cyan-bright);
       font-weight: 700;
     }
+
     .track-tabs {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 8px;
       margin-bottom: 12px;
     }
+
     @media (min-width: 540px) {
-      .track-tabs { grid-template-columns: repeat(4, 1fr); }
+      .track-tabs {
+        grid-template-columns: repeat(4, 1fr);
+      }
     }
+
     .track-btn {
       padding: 8px 10px;
       border-radius: 10px;
@@ -438,17 +512,20 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
+
     .track-btn.active {
       background: rgba(245, 158, 11, 0.18);
       border-color: var(--gold-bright);
       color: #fff;
       box-shadow: 0 0 12px var(--gold-glow);
     }
+
     .player-row {
       display: flex;
       align-items: center;
       gap: 12px;
     }
+
     .play-trigger-btn {
       width: 44px;
       height: 44px;
@@ -466,14 +543,17 @@
       flex-shrink: 0;
       transition: transform 0.2s;
     }
+
     .play-trigger-btn:hover {
       transform: scale(1.08);
       box-shadow: 0 0 20px var(--gold-bright);
     }
+
     .player-meta {
       flex: 1;
       min-width: 0;
     }
+
     .player-song-title {
       font-size: 12.5px;
       font-weight: 700;
@@ -482,11 +562,13 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
+
     .player-song-sub {
       font-size: 11px;
       color: var(--muted);
       margin-top: 2px;
     }
+
     .audio-waveform-bars {
       display: flex;
       align-items: center;
@@ -494,6 +576,7 @@
       height: 20px;
       margin-top: 6px;
     }
+
     .wave-bar {
       width: 3px;
       height: 6px;
@@ -501,12 +584,21 @@
       background: var(--cyan);
       transition: height 0.2s;
     }
+
     .wave-bar.anim {
       animation: waveDance 1.2s ease-in-out infinite alternate;
     }
+
     @keyframes waveDance {
-      0% { height: 4px; background: var(--cyan); }
-      100% { height: 18px; background: var(--gold); }
+      0% {
+        height: 4px;
+        background: var(--cyan);
+      }
+
+      100% {
+        height: 18px;
+        background: var(--gold);
+      }
     }
 
     /* 2026 YouTube New Channel Branding Suite Showcase Card */
@@ -522,6 +614,7 @@
       box-shadow: 0 10px 30px rgba(6, 182, 212, 0.15);
       text-align: left;
     }
+
     .suite-header {
       display: flex;
       align-items: center;
@@ -530,6 +623,7 @@
       padding-bottom: 8px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     }
+
     .suite-title {
       font-size: 13px;
       font-weight: 800;
@@ -538,6 +632,7 @@
       align-items: center;
       gap: 6px;
     }
+
     .suite-meta-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -545,6 +640,7 @@
       margin: 10px 0;
       text-align: center;
     }
+
     .suite-item {
       background: rgba(3, 7, 18, 0.6);
       border: 1px solid rgba(255, 255, 255, 0.08);
@@ -554,14 +650,17 @@
       flex-direction: column;
       gap: 2px;
     }
+
     .suite-item strong {
       font-size: 11px;
       color: var(--gold-bright);
     }
+
     .suite-item span {
       font-size: 9.5px;
       color: var(--muted);
     }
+
     .suite-actions {
       display: flex;
       flex-wrap: wrap;
@@ -582,7 +681,11 @@
       justify-content: center;
       padding: 16px;
     }
-    .video-modal-backdrop.open { display: flex; }
+
+    .video-modal-backdrop.open {
+      display: flex;
+    }
+
     .video-modal-box {
       width: 100%;
       max-width: 800px;
@@ -592,6 +695,7 @@
       overflow: hidden;
       box-shadow: 0 0 40px rgba(6, 182, 212, 0.4);
     }
+
     .video-modal-bar {
       display: flex;
       align-items: center;
@@ -603,6 +707,7 @@
       font-size: 13px;
       font-weight: 800;
     }
+
     .modal-close-btn {
       background: transparent;
       border: none;
@@ -610,7 +715,11 @@
       font-size: 18px;
       cursor: pointer;
     }
-    .modal-close-btn:hover { color: #fff; }
+
+    .modal-close-btn:hover {
+      color: #fff;
+    }
+
     .video-player-container video {
       width: 100%;
       max-height: 65vh;
@@ -630,10 +739,19 @@
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
       animation: fadeIn 0.3s ease;
     }
+
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
+
     .msg.user {
       align-self: flex-end;
       background: linear-gradient(135deg, #f59e0b, #d97706);
@@ -641,6 +759,7 @@
       font-weight: 700;
       border-bottom-right-radius: 4px;
     }
+
     .msg.ai {
       align-self: flex-start;
       background: var(--bg-card);
@@ -648,6 +767,7 @@
       color: #f1f5f9;
       border-bottom-left-radius: 4px;
     }
+
     .msg.err {
       align-self: flex-start;
       background: rgba(239, 68, 68, 0.15);
@@ -666,6 +786,7 @@
       backdrop-filter: blur(16px);
       flex-shrink: 0;
     }
+
     .ib {
       width: 44px;
       height: 44px;
@@ -682,10 +803,12 @@
       align-items: center;
       justify-content: center;
     }
+
     .ib:hover {
       background: rgba(6, 182, 212, 0.2);
       box-shadow: 0 0 12px var(--cyan-glow);
     }
+
     .inp {
       flex: 1;
       min-width: 0;
@@ -699,11 +822,13 @@
       outline: none;
       transition: all 0.25s;
     }
+
     .inp:focus {
       border-color: var(--cyan-bright);
       box-shadow: 0 0 16px var(--cyan-glow);
       background: rgba(15, 23, 42, 0.9);
     }
+
     .snd {
       height: 44px;
       padding: 0 20px;
@@ -718,6 +843,7 @@
       transition: all 0.25s;
       box-shadow: 0 0 14px var(--gold-glow);
     }
+
     .snd:hover {
       background: linear-gradient(135deg, var(--gold-bright), var(--gold));
       box-shadow: 0 0 20px rgba(251, 191, 36, 0.6);
@@ -725,6 +851,7 @@
     }
   </style>
 </head>
+
 <body>
   <!-- Header: Brand Identity & Top Controls -->
   <header class="hd">
@@ -738,8 +865,11 @@
       </div>
     </div>
     <div class="ac">
-      <button type="button" class="btn cyan" id="b-core" aria-expanded="false" aria-controls="dr-core">⚡ 8대코어 HUD</button>
-      <a href="./s1_youtube_channel_preview.html" target="_blank" class="btn" style="text-decoration:none; display:inline-flex; align-items:center; color: var(--gold-bright); border-color: var(--gold);">🎨 채널 디자인</a>
+      <button type="button" class="btn cyan" id="b-core" aria-expanded="false" aria-controls="dr-core">⚡ 8대코어
+        HUD</button>
+      <a href="./s1_youtube_channel_preview.html" target="_blank" class="btn"
+        style="text-decoration:none; display:inline-flex; align-items:center; color: var(--gold-bright); border-color: var(--gold);">🎨
+        채널 디자인</a>
       <button type="button" class="btn" id="b-video-modal">📹 1080p MV</button>
       <button type="button" class="btn pri" id="b-pwa">+ 앱 설치</button>
     </div>
@@ -761,7 +891,10 @@
   <main class="mn" id="st" role="log" aria-live="polite">
     <!-- Quick Action Pills -->
     <div class="cps" id="cps-bar">
-      <button class="cp" onclick="window.open('./s1_youtube_channel_preview.html', '_blank')" style="background: linear-gradient(135deg, rgba(245,158,11,0.25), rgba(6,182,212,0.25)); border-color: var(--gold-bright); color: #fff;">🎨 2026 유튜브 채널 디자인 스튜디오</button>
+      <button class="cp" onclick="window.open('./s1_youtube_channel_preview.html', '_blank')"
+        style="background: linear-gradient(135deg, rgba(245,158,11,0.25), rgba(6,182,212,0.25)); border-color: var(--gold-bright); color: #fff;">🎨
+        2026 유튜브 채널 디자인 스튜디오</button>
+      <button class="cp" data-q="11월 6일 가을과 겨울 사이 D-5 하이브리드 마스터 및 캡컷 원본 비교 결과 보고해">🍂 11/6 D-5 가을과겨울사이 마스터</button>
       <button class="cp" data-q="S1 도구 마스터 헌법 제0조와 스킬북 등재 현황 보고해">🏛️ 도구 마스터 헌법 제0조</button>
       <button class="cp" data-q="Suno V6 정품 친작 4곡 직수 및 -14 LUFS 마스터링 현황 보고해">🎵 Suno V6 정품 4곡 직수</button>
       <button class="cp" data-q="DistroKid 2-슬롯 통합 유통 및 유튜브 브랜딩 실측 현황 브리핑해">📀 DistroKid 2-슬롯 통합</button>
@@ -808,10 +941,18 @@
 
         <!-- 4 Track Selector Tabs -->
         <div class="track-tabs">
-          <button type="button" class="track-btn active" data-src="/studio_vault/CEO_SUNO_V6_MASTERS/01_BEACON_OF_HOPE_master_320kbps.mp3" data-title="썬원 에이온 - 희망의 등불 (158s)" data-sub="K-Pop Anthem Ballad · 110 BPM">01. 희망의 등불</button>
-          <button type="button" class="track-btn" data-src="/studio_vault/CEO_SUNO_V6_MASTERS/02_OCEAN_OF_HOPE_master_320kbps.mp3" data-title="썬원 에이온 - 희망의 바다 (140s)" data-sub="K-Pop Anthem Ballad · 110 BPM">02. 희망의 바다</button>
-          <button type="button" class="track-btn" data-src="/studio_vault/CEO_SUNO_V6_MASTERS/03_OFFICIAL_THEME_INST_1_master_320kbps.mp3" data-title="Official Theme (Inst) #1 (202s)" data-sub="Synthwave Epic Theme · 118 BPM">03. 공식 테마 #1</button>
-          <button type="button" class="track-btn" data-src="/studio_vault/CEO_SUNO_V6_MASTERS/04_OFFICIAL_THEME_INST_2_master_320kbps.mp3" data-title="Official Theme (Inst) #2 (179s)" data-sub="Synthwave Epic Theme · 118 BPM">04. 공식 테마 #2</button>
+          <button type="button" class="track-btn active"
+            data-src="/studio_vault/CEO_SUNO_V6_MASTERS/01_BEACON_OF_HOPE_master_320kbps.mp3"
+            data-title="썬원 에이온 - 희망의 등불 (158s)" data-sub="K-Pop Anthem Ballad · 110 BPM">01. 희망의 등불</button>
+          <button type="button" class="track-btn"
+            data-src="/studio_vault/CEO_SUNO_V6_MASTERS/02_OCEAN_OF_HOPE_master_320kbps.mp3"
+            data-title="썬원 에이온 - 희망의 바다 (140s)" data-sub="K-Pop Anthem Ballad · 110 BPM">02. 희망의 바다</button>
+          <button type="button" class="track-btn"
+            data-src="/studio_vault/CEO_SUNO_V6_MASTERS/03_OFFICIAL_THEME_INST_1_master_320kbps.mp3"
+            data-title="Official Theme (Inst) #1 (202s)" data-sub="Synthwave Epic Theme · 118 BPM">03. 공식 테마 #1</button>
+          <button type="button" class="track-btn"
+            data-src="/studio_vault/CEO_SUNO_V6_MASTERS/04_OFFICIAL_THEME_INST_2_master_320kbps.mp3"
+            data-title="Official Theme (Inst) #2 (179s)" data-sub="Synthwave Epic Theme · 118 BPM">04. 공식 테마 #2</button>
         </div>
 
         <!-- Audio Player Controls -->
@@ -819,7 +960,8 @@
           <button type="button" class="play-trigger-btn" id="jukebox-play-btn" aria-label="Play/Pause">▶</button>
           <div class="player-meta">
             <div class="player-song-title" id="player-title-display">썬원 에이온 - 희망의 등불 (158s)</div>
-            <div class="player-song-sub" id="player-sub-display">K-Pop Anthem Ballad · 110 BPM · Suno V6 Authentic Master</div>
+            <div class="player-song-sub" id="player-sub-display">K-Pop Anthem Ballad · 110 BPM · Suno V6 Authentic
+              Master</div>
             <div class="audio-waveform-bars" id="waveform-bars">
               <span class="wave-bar"></span><span class="wave-bar"></span><span class="wave-bar"></span>
               <span class="wave-bar"></span><span class="wave-bar"></span><span class="wave-bar"></span>
@@ -841,7 +983,8 @@
         </div>
         <div class="suite-body">
           <div class="suite-banner-preview">
-            <img src="./banner_2560x1440.png" alt="2560x1440 Master Banner" style="width: 100%; border-radius: 8px; border: 1px solid var(--border-cyan);">
+            <img src="./banner_2560x1440.png" alt="2560x1440 Master Banner"
+              style="width: 100%; border-radius: 8px; border: 1px solid var(--border-cyan);">
           </div>
           <div class="suite-meta-grid">
             <div class="suite-item">
@@ -858,11 +1001,79 @@
             </div>
           </div>
           <div class="suite-actions">
-            <a href="./s1_youtube_channel_preview.html" target="_blank" class="cp" style="background: linear-gradient(135deg, rgba(245,158,11,0.3), rgba(6,182,212,0.3)); border-color: var(--gold-bright); font-weight: 700;">
+            <a href="./s1_youtube_channel_preview.html" target="_blank" class="cp"
+              style="background: linear-gradient(135deg, rgba(245,158,11,0.3), rgba(6,182,212,0.3)); border-color: var(--gold-bright); font-weight: 700;">
               🚀 유튜브 실제 화면 시뮬레이터 열기
             </a>
             <a href="./banner_2560x1440.png" download="banner_2560x1440.png" class="cp">📥 배너 다운로드</a>
             <a href="./avatar_800x800.png" download="avatar_800x800.png" class="cp">📥 프로필 다운로드</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2026 Nov 06 D-5 Launch: CEO CapCut Vault vs Version C Hybrid Master Showcase Card -->
+      <div class="channel-branding-suite-card" style="margin-top: 24px; border-color: rgba(245, 158, 11, 0.4); background: linear-gradient(180deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.95));">
+        <div class="suite-header">
+          <div class="suite-title">
+            <span>🍂</span> 한걸음씩 정규 1집 『가을과 겨울 사이』 D-5 글로벌 발매 & 마스터 심사
+          </div>
+          <span class="v6-badge" style="color: #38bdf8; border-color: #0284c7;">UPC: 700563848544 · 2026-11-06 (D-5)</span>
+        </div>
+        <div class="suite-body">
+          <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 16px;">
+            <div style="flex: 1 1 360px; min-width: 300px;">
+              <img src="/studio_vault/CHANNELS/01_STEP_HANGEOREUM/NOV06_FINAL_MASTER/THUMBNAIL_1280x720_MASTER.jpg" alt="Master Thumbnail" style="width: 100%; border-radius: 8px; border: 1px solid var(--border-cyan); box-shadow: 0 4px 20px rgba(0,0,0,0.5);">
+            </div>
+            <div style="flex: 1 1 360px; min-width: 300px;">
+              <h3 style="margin: 0 0 8px 0; font-size: 1.15rem; color: var(--gold-bright);">👑 삼성(三聖) 심의 만장일치 채택: Version C (하이브리드 울트라 마스터)</h3>
+              <p style="font-size: 0.88rem; line-height: 1.5; color: #cbd5e1; margin-bottom: 12px;">
+                대표님께서 캡컷으로 연출하신 <strong>41분 14초 원본 영상미를 100% 무손실 보존</strong>하고, 오디오를 유튜브 방송 표준(<strong>-14.0 LUFS · 320k AAC</strong>)으로 최적화하여 12곡 전곡 타임스탬프를 탑재한 최종 출격본입니다.
+              </p>
+              <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; padding: 10px; font-size: 0.82rem;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                  <span style="color: #94a3b8;">대표님 친작 캡컷 원본:</span>
+                  <span style="color: #38bdf8; font-weight: 600;">1009.mp4 (41분 14초 · 3.5GB · 1080p FHD)</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                  <span style="color: #94a3b8;">오디오 음량 마스터링:</span>
+                  <span style="color: #4ade80; font-weight: 600;">-16.6 LUFS &rarr; -14.0 LUFS (유튜브 권장 규격 완벽 일치)</span>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                  <span style="color: #94a3b8;">글로벌 음원 배급:</span>
+                  <span style="color: var(--gold-bright); font-weight: 600;">Spotify, Apple Music, MelOn 등 24개 플랫폼 전달 완료</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 12 Track Timeline Accordion/List -->
+          <details style="background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 10px 14px; margin-bottom: 16px;">
+            <summary style="font-size: 0.9rem; font-weight: 600; color: var(--cyan); cursor: pointer;">
+              🎧 12곡 전곡 실측 챕터 타임라인 (클릭하여 펼치기)
+            </summary>
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 8px; margin-top: 10px; font-size: 0.82rem;">
+              <div style="padding: 6px 10px; background: rgba(255,255,255,0.03); border-radius: 4px;"><span style="color: var(--gold);">00:00</span> 01. 막차 (Last Train)</div>
+              <div style="padding: 6px 10px; background: rgba(255,255,255,0.03); border-radius: 4px;"><span style="color: var(--gold);">03:29</span> 02. 창을 닫지 마 (Don't Close)</div>
+              <div style="padding: 6px 10px; background: rgba(255,255,255,0.03); border-radius: 4px;"><span style="color: var(--gold);">06:38</span> 03. 첫 입김 (First Breath)</div>
+              <div style="padding: 6px 10px; background: rgba(255,255,255,0.03); border-radius: 4px;"><span style="color: var(--gold);">10:01</span> 04. 오늘은 여기까지 (That's All)</div>
+              <div style="padding: 6px 10px; background: rgba(255,255,255,0.03); border-radius: 4px;"><span style="color: var(--gold);">14:18</span> 05. 밥은 먹었니 (Have You Eaten)</div>
+              <div style="padding: 6px 10px; background: rgba(255,255,255,0.03); border-radius: 4px;"><span style="color: var(--gold);">17:36</span> 06. 식어 가는 차 (Cooling Tea)</div>
+              <div style="padding: 6px 10px; background: rgba(255,255,255,0.03); border-radius: 4px;"><span style="color: var(--gold);">20:44</span> 07. 가로등 아래서 (Streetlight)</div>
+              <div style="padding: 6px 10px; background: rgba(255,255,255,0.03); border-radius: 4px;"><span style="color: var(--gold);">24:10</span> 08. 남겨둔 자리 (Reserved Seat)</div>
+              <div style="padding: 6px 10px; background: rgba(255,255,255,0.03); border-radius: 4px;"><span style="color: var(--gold);">27:56</span> 09. 보내지 않은 말 (Unsent Words)</div>
+              <div style="padding: 6px 10px; background: rgba(255,255,255,0.03); border-radius: 4px;"><span style="color: var(--gold);">31:40</span> 10. 불은 꺼지지 않아 (The Light)</div>
+              <div style="padding: 6px 10px; background: rgba(255,255,255,0.03); border-radius: 4px;"><span style="color: var(--gold);">34:58</span> 11. 난로 옆에서 (Beside Stove)</div>
+              <div style="padding: 6px 10px; background: rgba(255,255,255,0.03); border-radius: 4px;"><span style="color: var(--gold);">38:17</span> 12. 내일의 아침 (Tomorrow)</div>
+            </div>
+          </details>
+
+          <div class="suite-actions">
+            <button type="button" class="cp" onclick="playModalVideo('/studio_vault/CHANNELS/01_STEP_HANGEOREUM/NOV06_FINAL_MASTER/AUTUMN_AND_WINTER_12TRACKS_HYBRID_MASTER_14LUFS.mp4')" style="background: linear-gradient(135deg, rgba(245,158,11,0.3), rgba(6,182,212,0.3)); border-color: var(--gold-bright); font-weight: 700;">
+              🎬 41분 풀영상 하이브리드 마스터 재생
+            </button>
+            <a href="/studio_vault/CHANNELS/01_STEP_HANGEOREUM/NOV06_FINAL_MASTER/THUMBNAIL_1920x1080_MASTER.png" download="THUMBNAIL_1920x1080_MASTER.png" class="cp">📥 1080p 마스터 썸네일</a>
+            <a href="/S1_CAPCUT_VS_STUDIO_COMPARISON_PROOF.json" target="_blank" class="cp">📋 삼성 비교평가서 열기</a>
+            <a href="/master_ledgers/06_DISTROKID_RELEASE_LEDGER.csv" target="_blank" class="cp">📀 41곡 디스트로키드 원장</a>
           </div>
         </div>
       </div>
@@ -880,10 +1091,17 @@
         <video id="modal-video-element" controls playsinline></video>
       </div>
       <div style="padding:10px 16px; background:#0f172a; display:flex; gap:8px; flex-wrap:wrap;">
-        <button class="btn cyan" onclick="playModalVideo('/studio_vault/CEO_SUNO_V6_MASTERS/official_logo_intro_1080p.mp4')">5초 로고 인트로</button>
-        <button class="btn cyan" onclick="playModalVideo('/studio_vault/CEO_SUNO_V6_MASTERS/official_logo_outro_1080p.mp4')">8초 환원 공약 아웃트로</button>
-        <button class="btn pri" onclick="playModalVideo('/studio_vault/CEO_SUNO_V6_MASTERS/01_BEACON_OF_HOPE_1080p_MV.mp4')">MV 1: 희망의 등불</button>
-        <button class="btn pri" onclick="playModalVideo('/studio_vault/CEO_SUNO_V6_MASTERS/02_OCEAN_OF_HOPE_1080p_MV.mp4')">MV 2: 희망의 바다</button>
+        <button class="btn cyan"
+          onclick="playModalVideo('/studio_vault/CEO_SUNO_V6_MASTERS/official_logo_intro_1080p.mp4')">5초 로고 인트로</button>
+        <button class="btn cyan"
+          onclick="playModalVideo('/studio_vault/CEO_SUNO_V6_MASTERS/official_logo_outro_1080p.mp4')">8초 환원 공약
+          아웃트로</button>
+        <button class="btn pri"
+          onclick="playModalVideo('/studio_vault/CEO_SUNO_V6_MASTERS/01_BEACON_OF_HOPE_1080p_MV.mp4')">MV 1: 희망의
+          등불</button>
+        <button class="btn pri"
+          onclick="playModalVideo('/studio_vault/CEO_SUNO_V6_MASTERS/02_OCEAN_OF_HOPE_1080p_MV.mp4')">MV 2: 희망의
+          바다</button>
       </div>
     </div>
   </div>
@@ -892,7 +1110,8 @@
   <form class="ft" id="fm">
     <input type="file" id="fi" style="display:none" multiple>
     <button type="button" class="ib" id="b-at" aria-label="파일 첨부">+</button>
-    <input type="text" class="inp" id="in" aria-label="명령 입력" enterkeyhint="send" placeholder="대표님, 무엇이든 하명하십시오..." autocomplete="off">
+    <input type="text" class="inp" id="in" aria-label="명령 입력" enterkeyhint="send" placeholder="대표님, 무엇이든 하명하십시오..."
+      autocomplete="off">
     <button type="submit" class="snd">전송</button>
   </form>
 
@@ -902,11 +1121,11 @@
     }
 
     var dp = null;
-    window.addEventListener("beforeinstallprompt", function(e) {
+    window.addEventListener("beforeinstallprompt", function (e) {
       e.preventDefault();
       dp = e;
     });
-    document.getElementById("b-pwa").onclick = function() {
+    document.getElementById("b-pwa").onclick = function () {
       if (dp) {
         dp.prompt();
       } else {
@@ -916,7 +1135,7 @@
 
     // 8-Core Diagnostics Drawer Toggle
     var bc = document.getElementById("b-core"), dr = document.getElementById("dr-core");
-    bc.onclick = function() {
+    bc.onclick = function () {
       var o = dr.classList.toggle("open");
       bc.setAttribute("aria-expanded", o ? "true" : "false");
     };
@@ -927,9 +1146,9 @@
     function apiFetch(endpoint, opts) {
       var url1 = (API_BASE || "") + endpoint;
       var url2 = "http://127.0.0.1:8504" + endpoint;
-      return fetch(url1, opts).catch(function(err) {
+      return fetch(url1, opts).catch(function (err) {
         if (url1 !== url2) {
-          return fetch(url2, opts).then(function(res) {
+          return fetch(url2, opts).then(function (res) {
             API_BASE = "http://127.0.0.1:8504";
             return res;
           });
@@ -940,7 +1159,7 @@
 
     function updateCores(online) {
       var cards = document.querySelectorAll("#dr-core .cc");
-      cards.forEach(function(card) {
+      cards.forEach(function (card) {
         var span = card.querySelector("span:first-child");
         var dot = card.querySelector(".dot");
         if (!span) return;
@@ -963,16 +1182,16 @@
 
     function ping() {
       apiFetch("/api/status", { cache: "no-store" })
-        .then(function(r) {
+        .then(function (r) {
           if (!r.ok) throw new Error(r.status);
           return r.json();
         })
-        .then(function(s) {
+        .then(function (s) {
           hs.textContent = "🟢 S1 서버 연결됨 (포트 " + (s.port || "8504") + " / " + (s.mode || "APPROVAL_GATED") + " / KillSwitch:" + (s.kill_switch ? "ON" : "OFF") + ")";
           hs.style.color = "#10b981";
           updateCores(true);
         })
-        .catch(function() {
+        .catch(function () {
           hs.textContent = "S1 만능소통창 · 로컬 대기 중 (서버 미연결)";
           hs.style.color = "";
           updateCores(false);
@@ -1002,19 +1221,19 @@
         body: JSON.stringify({ query: q }),
         cache: "no-store"
       })
-        .then(function(r) {
+        .then(function (r) {
           if (!r.ok) throw new Error("HTTP " + r.status);
           return r.json();
         })
-        .then(function(d) {
+        .then(function (d) {
           add(d.reply, "ai");
         })
-        .catch(function(err) {
+        .catch(function (err) {
           add("⚠ 서버 미연결: 명령은 안전하게 원장 대기열에 기록되었습니다. (" + err.message + ")", "err");
         });
     }
 
-    document.getElementById("fm").onsubmit = function(e) {
+    document.getElementById("fm").onsubmit = function (e) {
       e.preventDefault();
       var v = inp.value.trim();
       if (!v) return;
@@ -1022,14 +1241,14 @@
       run(v);
     };
 
-    document.querySelectorAll(".cp").forEach(function(c) {
-      c.onclick = function() {
+    document.querySelectorAll(".cp").forEach(function (c) {
+      c.onclick = function () {
         run(c.getAttribute("data-q"));
       };
     });
 
-    document.querySelectorAll("#dr-core .cc").forEach(function(card) {
-      card.onclick = function() {
+    document.querySelectorAll("#dr-core .cc").forEach(function (card) {
+      card.onclick = function () {
         run(card.getAttribute("data-q"));
       };
     });
@@ -1043,16 +1262,16 @@
     var isPlaying = false;
 
     function setWaveAnimation(animating) {
-      waveBars.forEach(function(b) {
+      waveBars.forEach(function (b) {
         if (animating) b.classList.add("anim");
         else b.classList.remove("anim");
       });
     }
 
     var trackButtons = document.querySelectorAll(".track-btn");
-    trackButtons.forEach(function(btn) {
-      btn.onclick = function() {
-        trackButtons.forEach(function(b) { b.classList.remove("active"); });
+    trackButtons.forEach(function (btn) {
+      btn.onclick = function () {
+        trackButtons.forEach(function (b) { b.classList.remove("active"); });
         btn.classList.add("active");
         var src = btn.getAttribute("data-src");
         var title = btn.getAttribute("data-title");
@@ -1060,7 +1279,7 @@
         titleDisplay.textContent = title;
         subDisplay.textContent = sub;
         audioEl.src = src;
-        audioEl.play().then(function() {
+        audioEl.play().then(function () {
           isPlaying = true;
           playBtn.textContent = "⏸";
           setWaveAnimation(true);
@@ -1068,7 +1287,7 @@
       };
     });
 
-    playBtn.onclick = function() {
+    playBtn.onclick = function () {
       if (!audioEl.src) {
         var activeBtn = document.querySelector(".track-btn.active");
         if (activeBtn) activeBtn.click();
@@ -1080,7 +1299,7 @@
         playBtn.textContent = "▶";
         setWaveAnimation(false);
       } else {
-        audioEl.play().then(function() {
+        audioEl.play().then(function () {
           isPlaying = true;
           playBtn.textContent = "⏸";
           setWaveAnimation(true);
@@ -1088,7 +1307,7 @@
       }
     };
 
-    audioEl.onended = function() {
+    audioEl.onended = function () {
       isPlaying = false;
       playBtn.textContent = "▶";
       setWaveAnimation(false);
@@ -1099,26 +1318,27 @@
     var videoClose = document.getElementById("video-modal-close");
     var videoEl = document.getElementById("modal-video-element");
 
-    document.getElementById("b-video-modal").onclick = function() {
+    document.getElementById("b-video-modal").onclick = function () {
       videoModal.classList.add("open");
       playModalVideo("/studio_vault/CEO_SUNO_V6_MASTERS/official_logo_intro_1080p.mp4");
     };
 
-    videoClose.onclick = function() {
+    videoClose.onclick = function () {
       videoEl.pause();
       videoModal.classList.remove("open");
     };
 
-    window.playModalVideo = function(src) {
+    window.playModalVideo = function (src) {
       videoEl.src = src;
       videoEl.play().catch(console.error);
     };
 
     if (window.visualViewport) {
-      window.visualViewport.addEventListener("resize", function() {
+      window.visualViewport.addEventListener("resize", function () {
         document.body.style.height = window.visualViewport.height + "px";
       });
     }
   </script>
 </body>
+
 </html>

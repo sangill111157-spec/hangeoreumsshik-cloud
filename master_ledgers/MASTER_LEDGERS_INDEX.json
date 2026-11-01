@@ -28,5 +28,53 @@
   },
   "total_stocked_episodes": 6,
   "total_channels": 5,
-  "verdict": "SHEETS_MASTER_SYNC_COMPLETE"
+  "verdict": "SHEETS_MASTER_SYNC_COMPLETE",
+  "06_DISTROKID_RELEASE_LEDGER": {
+    "file": "06_DISTROKID_RELEASE_LEDGER.csv",
+    "description": "DistroKid 2-Artist Slots (한걸음씩 & SUN-ONE AON) 4 Major Real Albums (41 Tracks Total)",
+    "total_tracks": 41,
+    "artist_slot_1": {
+      "name": "한걸음씩",
+      "channel": "@한걸음씩-r4i",
+      "albums": [
+        {
+          "title": "가을과 겨울 사이 (12곡)",
+          "upc": "700563848544",
+          "release_date": "2026-11-06 (D-5)",
+          "status": "PENDING_LAUNCH"
+        },
+        {
+          "title": "잔상 (15곡)",
+          "upc": "700486463268",
+          "release_date": "2026-11-27 (D-26)",
+          "status": "PENDING_LAUNCH"
+        }
+      ]
+    },
+    "artist_slot_2": {
+      "name": "SUN-ONE AON",
+      "channel": "@SUN-ONEAON / @Booster_Playlist",
+      "albums": [
+        {
+          "title": "모두의 응원가 (5곡)",
+          "upc": "883071294062",
+          "release_date": "2026-06-06",
+          "status": "RELEASED_AND_UPLOADED"
+        },
+        {
+          "title": "Booster Playlist (EP2) (5곡)",
+          "upc": "883071294079",
+          "release_date": "2026-07-07",
+          "status": "RELEASED_AND_UPLOADED"
+        },
+        {
+          "title": "SUN-ONE AON Genesis Collection (4곡)",
+          "upc": "883071294093",
+          "release_date": "2026-11-01",
+          "status": "VAULTED"
+        }
+      ]
+    },
+    "last_updated": "2026-11-01T23:15:00+09:00"
+  }
 }

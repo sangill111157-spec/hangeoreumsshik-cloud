@@ -1,0 +1,39 @@
+{
+  "album_title": "Booster Playlist (EP2)",
+  "artist": "SUN-ONE AON (formerly Own The Hour)",
+  "label": "Booster Playlist / SUN-ONE AON Records",
+  "upc": "883071294079",
+  "release_date": "2026-07-07",
+  "tracks": [
+    {
+      "track": 1,
+      "title": "Booster Focus Alpha",
+      "duration": "03:20",
+      "isrc": "QZ-TB9-26-00401"
+    },
+    {
+      "track": 2,
+      "title": "Midnight Drive 128",
+      "duration": "03:45",
+      "isrc": "QZ-TB9-26-00402"
+    },
+    {
+      "track": 3,
+      "title": "Energy Pulse Zero",
+      "duration": "03:30",
+      "isrc": "QZ-TB9-26-00403"
+    },
+    {
+      "track": 4,
+      "title": "Sprint Velocity",
+      "duration": "03:15",
+      "isrc": "QZ-TB9-26-00404"
+    },
+    {
+      "track": 5,
+      "title": "Dawn Horizon",
+      "duration": "03:50",
+      "isrc": "QZ-TB9-26-00405"
+    }
+  ]
+}

@@ -243,3 +243,14 @@ _ego_tmp/
 !suno_dispatch_queue.json
 !master_ledgers/
 !master_ledgers/**
+
+!S1_CAPCUT_VS_STUDIO_COMPARISON_PROOF.json
+!s1_capcut_vault_specs.json
+
+# Isolate large media binaries from Git repository (GitHub 100MB limit)
+*.mp4
+*.wav
+studio_vault/**/*.mp4
+studio_vault/**/*.wav
+studio_vault/**/DISTROKID_ALBUMS/**/*.mp3
+studio_vault/**/DISTROKID_ALBUMS/**/*_art.png

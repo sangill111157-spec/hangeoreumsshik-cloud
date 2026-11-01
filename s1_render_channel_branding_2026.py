@@ -530,3 +530,4 @@ if __name__ == "__main__":
     render_watermark()
     render_thumbnails()
     print(">>> ALL 2026 BRANDING ASSETS SUCCESSFULLY GENERATED & VERIFIED!")
+

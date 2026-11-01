@@ -79,6 +79,13 @@ ALLOWED_FILES = {
     "/assets/channel_branding_2026/thumbnail_EP02_1920x1080.png": ("assets/channel_branding_2026/thumbnail_EP02_1920x1080.png", "image/png"),
     "/assets/channel_branding_2026/thumbnail_EP03_1920x1080.png": ("assets/channel_branding_2026/thumbnail_EP03_1920x1080.png", "image/png"),
     "/assets/channel_branding_2026/thumbnail_EP04_1920x1080.png": ("assets/channel_branding_2026/thumbnail_EP04_1920x1080.png", "image/png"),
+    "/studio_vault/CHANNELS/01_STEP_HANGEOREUM/NOV06_FINAL_MASTER/THUMBNAIL_1280x720_MASTER.jpg": ("studio_vault/CHANNELS/01_STEP_HANGEOREUM/NOV06_FINAL_MASTER/THUMBNAIL_1280x720_MASTER.jpg", "image/jpeg"),
+    "/studio_vault/CHANNELS/01_STEP_HANGEOREUM/NOV06_FINAL_MASTER/THUMBNAIL_1920x1080_MASTER.png": ("studio_vault/CHANNELS/01_STEP_HANGEOREUM/NOV06_FINAL_MASTER/THUMBNAIL_1920x1080_MASTER.png", "image/png"),
+    "/studio_vault/CHANNELS/01_STEP_HANGEOREUM/NOV06_FINAL_MASTER/YOUTUBE_RELEASE_METADATA_NOV06.json": ("studio_vault/CHANNELS/01_STEP_HANGEOREUM/NOV06_FINAL_MASTER/YOUTUBE_RELEASE_METADATA_NOV06.json", "application/json; charset=utf-8"),
+    "/studio_vault/CHANNELS/01_STEP_HANGEOREUM/NOV06_FINAL_MASTER/AUTUMN_AND_WINTER_12TRACKS_HYBRID_MASTER_14LUFS.mp4": ("studio_vault/CHANNELS/01_STEP_HANGEOREUM/NOV06_FINAL_MASTER/AUTUMN_AND_WINTER_12TRACKS_HYBRID_MASTER_14LUFS.mp4", "video/mp4"),
+    "/S1_CAPCUT_VS_STUDIO_COMPARISON_PROOF.json": ("S1_CAPCUT_VS_STUDIO_COMPARISON_PROOF.json", "application/json; charset=utf-8"),
+    "/s1_capcut_vault_specs.json": ("s1_capcut_vault_specs.json", "application/json; charset=utf-8"),
+    "/master_ledgers/06_DISTROKID_RELEASE_LEDGER.csv": ("master_ledgers/06_DISTROKID_RELEASE_LEDGER.csv", "text/csv; charset=utf-8"),
 }
 
 class ReusableTCPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):

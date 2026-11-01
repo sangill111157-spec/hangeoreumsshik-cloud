@@ -1,0 +1,116 @@
+{
+  "source": "OneDrive/켑컷 재작 영상/가을과 겨울사이 앨범",
+  "mp4_file": "C:\\Users\\sangi\\OneDrive\\Videos\\켑컷 재작 영상\\가을과 겨울사이 앨범\\1009.mp4",
+  "thumbnail_file": "C:\\Users\\sangi\\OneDrive\\Videos\\켑컷 재작 영상\\가을과 겨울사이 앨범\\thumbnail.jpg",
+  "file_size_bytes": 3499002276,
+  "file_size_mb": 3336.91,
+  "duration_seconds": 2474.020998,
+  "duration_formatted": "41:14",
+  "resolution": "1920x1080",
+  "width": 1920,
+  "height": 1080,
+  "fps": 30.0,
+  "video_codec": "h264",
+  "audio_codec": "aac",
+  "sample_rate": "44100",
+  "channels": 2,
+  "integrated_lufs": -16.6,
+  "track_timeline": [
+    {
+      "track": 1,
+      "title": "막차",
+      "title_en": "Last Train",
+      "start_time_sec": 0.0,
+      "timestamp": "00:00",
+      "duration_sec": 209.16
+    },
+    {
+      "track": 2,
+      "title": "창을 닫지 마",
+      "title_en": "Don't Close the Window",
+      "start_time_sec": 209.16,
+      "timestamp": "03:29",
+      "duration_sec": 189.2
+    },
+    {
+      "track": 3,
+      "title": "첫 입김",
+      "title_en": "First Breath in Cold Air",
+      "start_time_sec": 398.36,
+      "timestamp": "06:38",
+      "duration_sec": 202.8
+    },
+    {
+      "track": 4,
+      "title": "오늘은 여기까지",
+      "title_en": "That's All for Today",
+      "start_time_sec": 601.16,
+      "timestamp": "10:01",
+      "duration_sec": 256.96
+    },
+    {
+      "track": 5,
+      "title": "밥은 먹었니",
+      "title_en": "Have You Eaten",
+      "start_time_sec": 858.12,
+      "timestamp": "14:18",
+      "duration_sec": 198.0
+    },
+    {
+      "track": 6,
+      "title": "식어 가는 차",
+      "title_en": "Cooling Tea",
+      "start_time_sec": 1056.12,
+      "timestamp": "17:36",
+      "duration_sec": 188.0
+    },
+    {
+      "track": 7,
+      "title": "가로등 아래서",
+      "title_en": "Under the Streetlight",
+      "start_time_sec": 1244.12,
+      "timestamp": "20:44",
+      "duration_sec": 206.0
+    },
+    {
+      "track": 8,
+      "title": "남겨둔 자리",
+      "title_en": "Reserved Seat",
+      "start_time_sec": 1450.12,
+      "timestamp": "24:10",
+      "duration_sec": 226.0
+    },
+    {
+      "track": 9,
+      "title": "보내지 않은 말",
+      "title_en": "Unsent Words",
+      "start_time_sec": 1676.12,
+      "timestamp": "27:56",
+      "duration_sec": 224.4
+    },
+    {
+      "track": 10,
+      "title": "불은 꺼지지 않아",
+      "title_en": "The Light Won't Go Out",
+      "start_time_sec": 1900.52,
+      "timestamp": "31:40",
+      "duration_sec": 198.36
+    },
+    {
+      "track": 11,
+      "title": "난로 옆에서",
+      "title_en": "Beside the Stove",
+      "start_time_sec": 2098.88,
+      "timestamp": "34:58",
+      "duration_sec": 198.8
+    },
+    {
+      "track": 12,
+      "title": "내일의 아침",
+      "title_en": "Tomorrow's Morning",
+      "start_time_sec": 2297.68,
+      "timestamp": "38:17",
+      "duration_sec": 199.2
+    }
+  ]
+}

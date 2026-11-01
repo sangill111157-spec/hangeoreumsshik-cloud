@@ -1,0 +1,41 @@
+{
+  "album_title": "모두의 응원가 (EVERYONE'S ANTHEM)",
+  "artist": "SUN-ONE AON (formerly Own The Hour)",
+  "rebranded_from": "Own The Hour",
+  "rebranding_status": "SUBMITTED_APPROVED",
+  "label": "Booster Playlist / SUN-ONE AON Records",
+  "upc": "883071294062",
+  "release_date": "2026-06-06",
+  "tracks": [
+    {
+      "track": 1,
+      "title": "Rise Up",
+      "duration": "03:15",
+      "isrc": "QZ-TB9-26-00301"
+    },
+    {
+      "track": 2,
+      "title": "We Are The Fire",
+      "duration": "03:32",
+      "isrc": "QZ-TB9-26-00302"
+    },
+    {
+      "track": 3,
+      "title": "Forever One",
+      "duration": "03:45",
+      "isrc": "QZ-TB9-26-00303"
+    },
+    {
+      "track": 4,
+      "title": "When You Play",
+      "duration": "03:18",
+      "isrc": "QZ-TB9-26-00304"
+    },
+    {
+      "track": 5,
+      "title": "We'll Meet Again",
+      "duration": "03:50",
+      "isrc": "QZ-TB9-26-00305"
+    }
+  ]
+}
