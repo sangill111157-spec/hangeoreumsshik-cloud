@@ -172,13 +172,14 @@ class S1Handler(http.server.BaseHTTPRequestHandler):
                     return self._send(400, {"ok": False, "code": "INVALID_WAIT"})
 
                 req_id = str(uuid.uuid4())
-                sent_prompt, psha, tsig = compute_Spec_hashes(sp, prompt, wait_v)
+                sent_prompt, psha, tsig, cid = compute_Spec_hashes(sp, prompt, wait_v)
                 origin = (self.headers.get("Origin") or "").strip().lower()
 
                 def add_pending(q_map, _):
                     q_map[req_id] = {
                         "req_id": req_id,
                         "space": sp,
+                        "chat_id": cid,
                         "prompt": sent_prompt,
                         "prompt_sha256": psha,
                         "target_sig": tsig,
@@ -188,7 +189,7 @@ class S1Handler(http.server.BaseHTTPRequestHandler):
                         "created_at": now_kst(),
                     }
                 update_queue_item(req_id, add_pending)
-                append_ledger({"req_id": req_id, "cmd": "api_ego_ask_enqueue", "space": sp, "prompt_sha256": psha, "target_sig": tsig, "wait": wait_v, "origin": origin, "status": "PENDING", "executed": False})
+                append_ledger({"req_id": req_id, "cmd": "api_ego_ask_enqueue", "space": sp, "chat_id": cid, "prompt_sha256": psha, "target_sig": tsig, "wait": wait_v, "origin": origin, "status": "PENDING", "executed": False})
                 # 202 응답에는 sha8이나 완성된 승인 명령을 절대 포함하지 않음!
                 return self._send(202, {"ok": True, "status": "PENDING", "req_id": req_id})
 

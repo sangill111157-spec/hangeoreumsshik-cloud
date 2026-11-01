@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import json, os, time, datetime, hashlib, msvcrt
 from pathlib import Path
+import s1_ego
 
 BASE = Path(__file__).resolve().parent
 QUEUE_FILE = BASE / "s1_ask_queue.json"
@@ -11,12 +12,17 @@ def now_kst():
     return datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9))).isoformat()
 
 def compute_Spec_hashes(space, prompt, wait):
+    sp_int = int(space)
+    wt_int = int(wait)
+    chat_id = s1_ego.KNOWN_CHATS.get(sp_int, "")
+    if not chat_id:
+        raise ValueError(f"UNKNOWN_CHAT_FOR_SPACE_{sp_int}")
     sent = str(prompt or "").strip()
     if not sent.startswith("[S1_HOP="):
         sent = "[S1_HOP=1/2]\n" + sent
     psha = hashlib.sha256(sent.encode("utf-8")).hexdigest()
-    tsig = hashlib.sha256(f"{int(space)}|{int(wait)}|{psha}".encode("utf-8")).hexdigest()
-    return sent, psha, tsig
+    tsig = hashlib.sha256(f"{sp_int}|{chat_id}|{wt_int}|{psha}".encode("utf-8")).hexdigest()
+    return sent, psha, tsig, chat_id
 
 class InterProcessLock:
     def __enter__(self):
