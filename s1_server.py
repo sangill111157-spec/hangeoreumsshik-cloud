@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # S1 Local Bridge Server v1.5 (s1_server.py — Interactive TTY Approval & Atomic Shared Queue & CORS Enhanced)
-import os, sys, json, uuid, datetime, hashlib, urllib.parse, http.server, socketserver
+import os, sys, json, uuid, datetime, hashlib, urllib.parse, http.server, socketserver, time
 import s1_ego
 from s1_queue_store import now_kst, compute_Spec_hashes, append_ledger, update_queue_item
 
@@ -196,6 +196,16 @@ class S1Handler(http.server.BaseHTTPRequestHandler):
                     "recorded_ids": rec_ids,
                     "last_recorded": last_rec
                 })
+            if path == "/api/directive_queue":
+                q_path = os.path.join(ROOT, "S1_RGON_DIRECTIVE_QUEUE.json")
+                if os.path.exists(q_path):
+                    try:
+                        with open(q_path, "r", encoding="utf-8") as f:
+                            data = json.load(f)
+                        return self._send(200, {"ok": True, "data": data})
+                    except Exception as e:
+                        return self._send(500, {"ok": False, "error": str(e)})
+                return self._send(200, {"ok": True, "data": {"directives": []}})
             if path == "/api/ego/spaces":
                 res = s1_ego.cmd_spaces()
                 return self._send(200 if res.get("ok") else 502, res)
@@ -289,6 +299,44 @@ class S1Handler(http.server.BaseHTTPRequestHandler):
                 return self._send(400, {"ok": False, "code": "JSON_OBJECT_REQUIRED"})
 
             path = self.path.split("?", 1)[0]
+            if path == "/api/mobile_dispatch":
+                q_val = body.get("query", body.get("cmd", ""))
+                if not isinstance(q_val, str) or not q_val.strip():
+                    return self._send(400, {"ok": False, "code": "EMPTY_QUERY"})
+                target = body.get("target", "all")
+                plan = body.get("plan", "B")
+                mid = f"MOB_{int(time.time()*1000)}"
+
+                mob_q_path = os.path.join(ROOT, "S1_MOBILE_DISPATCH_QUEUE.json")
+                mob_data = {"version": "1.0.0", "messages": []}
+                if os.path.exists(mob_q_path):
+                    try:
+                        with open(mob_q_path, "r", encoding="utf-8") as f:
+                            mob_data = json.load(f)
+                    except Exception:
+                        pass
+
+                entry = {
+                    "id": mid,
+                    "timestamp": now_kst(),
+                    "target": target,
+                    "query": q_val.strip(),
+                    "plan_used": plan,
+                    "status": "RECEIVED"
+                }
+                mob_data.setdefault("messages", []).append(entry)
+                mob_data["last_synced"] = now_kst()
+                with open(mob_q_path, "w", encoding="utf-8") as f:
+                    json.dump(mob_data, f, ensure_ascii=False, indent=2)
+
+                return self._send(200, {
+                    "ok": True,
+                    "code": "DISPATCH_ACCEPTED",
+                    "mid": mid,
+                    "plan_used": plan,
+                    "target": target,
+                    "reply": f"[⚡ 실시간 모바일 직통 접수 완료: {mid}]\n대표님의 어명이 S1 사령부({target})에 성공적으로 도달했습니다!"
+                })
             if path == "/api/chat":
                 q_val = body.get("query", body.get("cmd", ""))
                 if not isinstance(q_val, str):

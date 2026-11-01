@@ -1,0 +1,43 @@
+{
+  "timestamp": "2026-11-01T22:11:25.582Z",
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "steps": {
+    "target_chips": {
+      "status": "PASS",
+      "chips": [
+        {
+          "text": "🎯 르곤+안총리 동시",
+          "active": true
+        },
+        {
+          "text": "👑 르곤 보좌관 직통",
+          "active": false
+        },
+        {
+          "text": "⚙️ 안총리 직통",
+          "active": false
+        }
+      ]
+    },
+    "directive_modal": {
+      "status": "PASS"
+    },
+    "dual_bridge_dispatch": {
+      "status": "PASS",
+      "messages": [
+        {
+          "role": "user",
+          "html": "르곤 보좌관, 무복붙 전달망 및 플랜 A/B 가동 상태 최종 확인하라!"
+        },
+        {
+          "role": "ai",
+          "html": "[어명 도달 보고 | 수신: 르곤 보좌관 직통]<br><span class=\"route-badge plan-b\">⚡ 플랜 B (직접 브릿지 자동전환) 배달 완료</span><br><br>[📡 S1 모바일 브리핑: 르곤 보좌관 ⇄ 안총리 무복붙 자동 지시 전달망]<br><br>• Space 0 비침투 감시 데몬: 정상 가동 중 (5초 주기)<br>• 르곤 "
+        }
+      ]
+    }
+  },
+  "overall": "100.0_ALL_PASS"
+}

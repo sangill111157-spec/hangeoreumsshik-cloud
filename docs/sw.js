@@ -1,5 +1,5 @@
-// S1 Service Worker v2026-s1max-v4 (SUN-ONE AON Pure S1 Metallic Full-Bleed)
-const CACHE = 's1-v2026-s1max-v4';
+// S1 Service Worker v2026-zeropaste-v7 (SUN-ONE AON Zero-Paste & Dual Bridge)
+const CACHE = 's1-v2026-zeropaste-v7';
 const ASSETS = [
   './',
   './index.html',

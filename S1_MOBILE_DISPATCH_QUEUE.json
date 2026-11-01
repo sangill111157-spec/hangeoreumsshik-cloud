@@ -1,0 +1,38 @@
+{
+  "version": "1.0.0",
+  "messages": [
+    {
+      "id": "MOB_1793570885319",
+      "timestamp": "2026-11-02T07:08:05.320484+09:00",
+      "target": "all",
+      "query": "모바일 테스트 어명",
+      "plan_used": "B",
+      "status": "RECEIVED"
+    },
+    {
+      "id": "MOB_1793570895367",
+      "timestamp": "2026-11-02T07:08:15.368342+09:00",
+      "target": "all",
+      "query": "모바일 테스트 어명",
+      "plan_used": "B",
+      "status": "RECEIVED"
+    },
+    {
+      "id": "MOB_1793571056419",
+      "timestamp": "2026-11-02T07:10:56.420867+09:00",
+      "target": "all",
+      "query": "모바일 듀얼 브릿지 플랜 B 실측 테스트",
+      "plan_used": "B",
+      "status": "RECEIVED"
+    },
+    {
+      "id": "MOB_1793571091011",
+      "timestamp": "2026-11-02T07:11:31.012610+09:00",
+      "target": "rgon",
+      "query": "르곤 보좌관, 무복붙 전달망 및 플랜 A/B 가동 상태 최종 확인하라!",
+      "plan_used": "B",
+      "status": "RECEIVED"
+    }
+  ],
+  "last_synced": "2026-11-02T07:11:31.013117+09:00"
+}

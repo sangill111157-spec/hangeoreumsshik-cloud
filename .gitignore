@@ -266,3 +266,10 @@ studio_vault/**/DISTROKID_ALBUMS/**/*_art.png
 !mobile_390x844_dashboard.png
 !mobile_390x844_pipeline_modal.png
 !mobile_390x844_chat_response.png
+
+!S1_RGON_DIRECTIVE_QUEUE.json
+!S1_RGON_DIRECTIVE_INBOX.md
+!S1_MOBILE_DISPATCH_QUEUE.json
+!S1_ZERO_PASTE_AND_DUAL_BRIDGE_PROOF.json
+!mobile_390x844_zeropaste_dual_bridge.png
+!mobile_390x844_directive_ledger_modal.png
