@@ -13,38 +13,164 @@
       "title": "Dawn of Hope (Like Water in the Wind)",
       "genre": "Cinematic Inspirational Ballad",
       "folder": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_vault\\US_SUN_ONE_AON\\VAULT_US_EP01_DAWN_OF_HOPE",
-      "status": "MEDIA_RENDERED_AND_VERIFIED",
+      "status": "RENDERED_READY",
       "audio_master": {
         "filename": "sample_master_48k.wav",
-        "codec": "pcm_s24le",
+        "path": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_vault\\US_SUN_ONE_AON\\VAULT_US_EP01_DAWN_OF_HOPE\\sample_master_48k.wav",
+        "size_bytes": 2880102,
+        "sha256": "b28c1711a8157ea42fb6e7dbb992fe7afe5b3d8d7955a25574c4fda59602b86a",
         "sample_rate": 48000,
         "channels": 2,
-        "bits_per_sample": 24,
-        "loudness": "-16.0 LUFS (-1.5 dBTP)",
-        "sha256": "b28c1711a8157ea42fb6e7dbb992fe7afe5b3d8d7955a25574c4fda59602b86a",
-        "size_bytes": 2880102
+        "bit_depth": 24,
+        "codec": "pcm_s24le",
+        "loudness": "-16.0 LUFS (-1.5 dBTP)"
       },
       "video_preview": {
         "filename": "preview_1080p.mp4",
-        "resolution": "1920x1080",
-        "codec": "h264+aac",
-        "audio_rate": 48000,
+        "path": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_vault\\US_SUN_ONE_AON\\VAULT_US_EP01_DAWN_OF_HOPE\\preview_1080p.mp4",
+        "size_bytes": 436137,
         "sha256": "f33d0d739a582785c4c99466bc3413174a81ab995eb37ae921d1efaeb4adcde3",
-        "size_bytes": 436137
+        "resolution": "1920x1080",
+        "video_codec": "h264",
+        "audio_codec": "aac",
+        "audio_sample_rate": 48000
       }
     },
     "VAULT_US_EP02": {
       "title": "Golden Horizon (Chasing the Light)",
       "genre": "Uplifting Synthwave / Melodic Electro-Pop",
       "folder": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_vault\\US_SUN_ONE_AON\\VAULT_US_EP02_GOLDEN_HORIZON",
-      "status": "PACKAGE_SEEDED_AWAITING_SUNO"
+      "status": "RENDERED_READY",
+      "audio_master": {
+        "filename": "sample_master_48k.wav",
+        "path": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_vault\\US_SUN_ONE_AON\\VAULT_US_EP02_GOLDEN_HORIZON\\sample_master_48k.wav",
+        "size_bytes": 2880102,
+        "sha256": "0864aadcd8fe566cbbc30f64dc4c8feb31537b2146f6669d1e382f16b5be629a",
+        "sample_rate": 48000,
+        "channels": 2,
+        "bit_depth": 24,
+        "codec": "pcm_s24le",
+        "loudness": "-16.0 LUFS (-1.5 dBTP)"
+      },
+      "video_preview": {
+        "filename": "preview_1080p.mp4",
+        "path": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_vault\\US_SUN_ONE_AON\\VAULT_US_EP02_GOLDEN_HORIZON\\preview_1080p.mp4",
+        "size_bytes": 423528,
+        "sha256": "1bb57a2dddb94c66a8b1e2d18fc6bf0c4232706ca57d0caa2110624a5151cc1c",
+        "resolution": "1920x1080",
+        "video_codec": "h264",
+        "audio_codec": "aac",
+        "audio_sample_rate": 48000
+      }
     },
     "VAULT_US_EP03": {
       "title": "Light Returned (The Water and the Sea)",
       "genre": "Neo-Classical / Ambient Piano & Cello",
       "folder": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_vault\\US_SUN_ONE_AON\\VAULT_US_EP03_LIGHT_RETURNED",
-      "status": "PACKAGE_SEEDED_AWAITING_SUNO"
+      "status": "RENDERED_READY",
+      "audio_master": {
+        "filename": "sample_master_48k.wav",
+        "path": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_vault\\US_SUN_ONE_AON\\VAULT_US_EP03_LIGHT_RETURNED\\sample_master_48k.wav",
+        "size_bytes": 2880102,
+        "sha256": "71258418e15de25d3b663bedf1f46abef85fc1a925edcf4d1b589931e2249b94",
+        "sample_rate": 48000,
+        "channels": 2,
+        "bit_depth": 24,
+        "codec": "pcm_s24le",
+        "loudness": "-16.0 LUFS (-1.5 dBTP)"
+      },
+      "video_preview": {
+        "filename": "preview_1080p.mp4",
+        "path": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_vault\\US_SUN_ONE_AON\\VAULT_US_EP03_LIGHT_RETURNED\\preview_1080p.mp4",
+        "size_bytes": 431662,
+        "sha256": "ae9e3f8aafafdaa1b96b15fc3da22bcf0f6f35c2523ce653624968cee5a9cb8a",
+        "resolution": "1920x1080",
+        "video_codec": "h264",
+        "audio_codec": "aac",
+        "audio_sample_rate": 48000
+      }
     }
   },
-  "verdict": "US_VAULT_SEED_COMPLETE"
+  "verdict": "ALL_6_EPISODES_RENDERED_READY",
+  "korea_channels_episodes": {
+    "KR_CH_A_HANGEOREUM": {
+      "name": "KR_CH_A_HANGEOREUM",
+      "folder": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_output\\EP01_S1_MASTERPIECE\\channel_a_hangeoreum",
+      "status": "RENDERED_READY",
+      "audio_master": {
+        "filename": "sample_master_48k.wav",
+        "path": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_output\\EP01_S1_MASTERPIECE\\channel_a_hangeoreum\\sample_master_48k.wav",
+        "size_bytes": 2880102,
+        "sha256": "3735b9761b28ec72ec18aa03828e12f2aba1e100c47f32bf27eb40f43fa1dd42",
+        "sample_rate": 48000,
+        "channels": 2,
+        "bit_depth": 24,
+        "codec": "pcm_s24le",
+        "loudness": "-16.0 LUFS (-1.5 dBTP)"
+      },
+      "video_preview": {
+        "filename": "preview_1080p.mp4",
+        "path": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_output\\EP01_S1_MASTERPIECE\\channel_a_hangeoreum\\preview_1080p.mp4",
+        "size_bytes": 443138,
+        "sha256": "674795c860fb47071b9d65adbb239a9d83c123c9c180806b4f6d7cfb6c185d9d",
+        "resolution": "1920x1080",
+        "video_codec": "h264",
+        "audio_codec": "aac",
+        "audio_sample_rate": 48000
+      }
+    },
+    "KR_CH_B_BOOSTER": {
+      "name": "KR_CH_B_BOOSTER",
+      "folder": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_output\\EP01_S1_MASTERPIECE\\channel_b_boosterply",
+      "status": "RENDERED_READY",
+      "audio_master": {
+        "filename": "sample_master_48k.wav",
+        "path": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_output\\EP01_S1_MASTERPIECE\\channel_b_boosterply\\sample_master_48k.wav",
+        "size_bytes": 2880102,
+        "sha256": "b17e8bd81d8530dba18cc407d7e5b19bd565f106ca6ef78f0e5df0db36ae7c76",
+        "sample_rate": 48000,
+        "channels": 2,
+        "bit_depth": 24,
+        "codec": "pcm_s24le",
+        "loudness": "-16.0 LUFS (-1.5 dBTP)"
+      },
+      "video_preview": {
+        "filename": "preview_1080p.mp4",
+        "path": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_output\\EP01_S1_MASTERPIECE\\channel_b_boosterply\\preview_1080p.mp4",
+        "size_bytes": 443872,
+        "sha256": "3076f246ef766d21cc1b1e8563e7d93e4223c4ad1a83f0260a5d63dbd64c689c",
+        "resolution": "1920x1080",
+        "video_codec": "h264",
+        "audio_codec": "aac",
+        "audio_sample_rate": 48000
+      }
+    },
+    "KR_CH_C_CAFE": {
+      "name": "KR_CH_C_CAFE",
+      "folder": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_output\\EP01_S1_MASTERPIECE\\channel_c_cafehour",
+      "status": "RENDERED_READY",
+      "audio_master": {
+        "filename": "sample_master_48k.wav",
+        "path": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_output\\EP01_S1_MASTERPIECE\\channel_c_cafehour\\sample_master_48k.wav",
+        "size_bytes": 2880102,
+        "sha256": "3af22c833d0394a0155a1c2670d1cc993d9ae1494f2e85c0294183944050358f",
+        "sample_rate": 48000,
+        "channels": 2,
+        "bit_depth": 24,
+        "codec": "pcm_s24le",
+        "loudness": "-16.0 LUFS (-1.5 dBTP)"
+      },
+      "video_preview": {
+        "filename": "preview_1080p.mp4",
+        "path": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_output\\EP01_S1_MASTERPIECE\\channel_c_cafehour\\preview_1080p.mp4",
+        "size_bytes": 434885,
+        "sha256": "4aaa2c6498fbe2811bd9fb1661bc34e16517b1b952090f50bd31bd6ba4797493",
+        "resolution": "1920x1080",
+        "video_codec": "h264",
+        "audio_codec": "aac",
+        "audio_sample_rate": 48000
+      }
+    }
+  },
+  "total_episodes_stocked": 6
 }

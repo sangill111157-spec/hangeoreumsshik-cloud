@@ -225,3 +225,7 @@ _ego_tmp/
 !S1_US_VAULT_AUDIT_PROOF.json
 !studio_vault/
 !studio_vault/**
+
+!S1_STAGE4_FULL_COMPLETION_PROOF.json
+!master_ledgers/
+!master_ledgers/**
