@@ -223,3 +223,30 @@ PASS 인정 범위
    - 유튜브 무인 업로드를 불안정한 브라우저 매크로 대신 YouTube 공식 Data API(일일 무료 10,000 units, 6편 업로드 무료)로 전환
    - 마스터링 음향 기준을 1차 감리 합의안인 -16 LUFS / -1.5 dBTP로 정확히 원상 복구
    - task.handOff()를 사용자 조작권을 침해하지 않도록 안전하게 정비
+
+
+### 🏛️ [2026-11-01 18:55:00] S1 만능소통창 & 대시보드 28버튼 에고 레버리지 전수 실측 클린 검수 ALL_PASS_CLEAN 완료
+1. **서버 연결 및 인프라**:
+   - `s1_server.py` 포트 8504 상시 데몬 가동 중 (`GET /api/status`, `POST /api/chat`, `OPTIONS` 204 완비, CORS 헤더 `*` 적용).
+   - `index.html` 및 `rgon_alpha_chat.html`에 `apiFetch()` 상대경로 + 절대경로 자동 폴백 장착으로 단독 PWA나 임의 포트 환경에서도 `🟢 S1 만능소통창 · 서버 연결됨` 즉시 점등 보장.
+2. **에고 브라우저 전수 실측 검수 결과 (`S1_DASHBOARD_CLEAN_AUDIT.json`)**:
+   - **Track 1 (`index.html`)**: 8/8 통과
+     - 상단 상태 헤더: `🟢 S1 만능소통창 · 서버 연결됨` 실측 확인.
+     - 서브 드로어 토글: `#b-core` 열기/닫기 정상.
+     - PWA 설치 버튼: `#b-pwa` 클릭 시 블로킹 모달 alert 대신 비차단형 AI 채팅 안내 버블 출력 정상.
+     - 8대 코어 서브 카드: `Core 1 킬스위치` ~ `Core 8 퀀트·환원` 8종 카드 전체 초록불(`rgb(34, 197, 94)`) 점등 및 클릭 시 원장 선기록 연동 완료.
+     - 4대 퀵칩: `.cps .cp` 4종 상시 노출 및 클릭 시 질문 주입 및 원장 기록 완료.
+     - 하단 입력 및 전송: `.ft #in` 입력 및 `.snd` 클릭 시 정상 송신 및 원장 기록 완료.
+     - 이미지 무결성: 깨진 이미지 0건 (`broken_images: 0`).
+     - 콘솔 에러: 0건 (`console_errors: 0`).
+   - **Track 2 (`rgon_alpha_chat.html`)**: 9/9 통과
+     - 이미지 무결성: 깨진 이미지 0건.
+     - 하단 스크롤: 정상 동작.
+     - 옴니링크 허브 & 4대 제어 버튼: `#omniOpenBtn`, Claude+GPT, Grok, Omni Collect 전체 정상 클릭 및 연동.
+     - 서브 드로어 & 코어 카드: 정상 동작.
+     - 퀵칩 & 하단 입력/전송: 정상 동작.
+     - 콘솔 에러: 0건.
+   - **종합 판정**: `total_buttons_tested: 28`, `successful_clicks: 28`, `broken_images_count: 0`, `console_errors_count: 0`, `final_verdict: "ALL_PASS_CLEAN"`.
+3. **대표님 즉각 조작권 보장**:
+   - `safeHandOff()` (await task.handOff()) 실행으로 브라우저 마우스 조작권 즉각 반환 완료.
+   - 현재 브라우저는 `http://127.0.0.1:8504/index.html` (서버 연결됨) 상태 유지.

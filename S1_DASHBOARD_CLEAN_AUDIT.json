@@ -1,0 +1,254 @@
+{
+  "timestamp": "2026-11-01T09:52:09.333Z",
+  "environment": "http://127.0.0.1:8504",
+  "track1_index_html": {
+    "url": "http://127.0.0.1:8504/index.html",
+    "all_checks": [
+      {
+        "target": "Header Status (#hdr-status)",
+        "text": "🟢 S1 만능소통창 · 서버 연결됨 (APPROVAL_GATED_BRIDGE / KillSwitch:OFF)",
+        "pass": true
+      },
+      {
+        "target": "Drawer Open Button (#b-core)",
+        "open": true,
+        "pass": true
+      },
+      {
+        "target": "PWA Install Button (#b-pwa)",
+        "response": {
+          "user": "",
+          "ai": "[전 브라우저 S1 앱 설치 안내]\n1. PC: 주소창 우측 설치 아이콘\n2. 갤럭시: 메뉴 -> 홈 화면에 추가\n3. 아이폰 Safari: 공유 -> 홈 화면에 추가",
+          "total": 1
+        },
+        "pass": true
+      },
+      {
+        "target": "8 Core Cards (#dr-core .cc)",
+        "details": [
+          {
+            "core": "Core 1 킬스위치 (정상)",
+            "dotColor": "rgb(34, 197, 94)",
+            "dotPass": true,
+            "response": {
+              "user": "Core 1 킬스위치 실측 상태 점검",
+              "ai": "[읽기 전용 · 원장ID e138a7a6] 명령이 원장(s1_command_ledger.jsonl)에 기록되었으나 실행되지 않았습니다.",
+              "total": 3
+            },
+            "pass": true
+          },
+          {
+            "core": "Core 2 UUID원장 (정상)",
+            "dotColor": "rgb(34, 197, 94)",
+            "dotPass": true,
+            "response": {
+              "user": "Core 2 UUID원장 실측 상태 점검",
+              "ai": "[읽기 전용 · 원장ID 5763c307] 명령이 원장(s1_command_ledger.jsonl)에 기록되었으나 실행되지 않았습니다.",
+              "total": 5
+            },
+            "pass": true
+          },
+          {
+            "core": "Core 3 48kHz마스터 (정상)",
+            "dotColor": "rgb(34, 197, 94)",
+            "dotPass": true,
+            "response": {
+              "user": "Core 3 48kHz마스터 실측 상태 점검",
+              "ai": "[읽기 전용 · 원장ID eb5dfa84] 명령이 원장(s1_command_ledger.jsonl)에 기록되었으나 실행되지 않았습니다.",
+              "total": 7
+            },
+            "pass": true
+          },
+          {
+            "core": "Core 4 시네마틱루프 (정상)",
+            "dotColor": "rgb(34, 197, 94)",
+            "dotPass": true,
+            "response": {
+              "user": "Core 4 시네마틱루프 실측 상태 점검",
+              "ai": "[읽기 전용 · 원장ID f4a81dcb] 명령이 원장(s1_command_ledger.jsonl)에 기록되었으나 실행되지 않았습니다.",
+              "total": 9
+            },
+            "pass": true
+          },
+          {
+            "core": "Core 5 SHA256감사 (정상)",
+            "dotColor": "rgb(34, 197, 94)",
+            "dotPass": true,
+            "response": {
+              "user": "Core 5 SHA256감사 실측 상태 점검",
+              "ai": "[읽기 전용 · 원장ID 2039f9a6] 명령이 원장(s1_command_ledger.jsonl)에 기록되었으나 실행되지 않았습니다.",
+              "total": 11
+            },
+            "pass": true
+          },
+          {
+            "core": "Core 6 옴니채널배급 (정상)",
+            "dotColor": "rgb(34, 197, 94)",
+            "dotPass": true,
+            "response": {
+              "user": "Core 6 옴니채널배급 실측 상태 점검",
+              "ai": "[읽기 전용 · 원장ID 81bd8950] 명령이 원장(s1_command_ledger.jsonl)에 기록되었으나 실행되지 않았습니다.",
+              "total": 13
+            },
+            "pass": true
+          },
+          {
+            "core": "Core 7 성과·IP확장 (정상)",
+            "dotColor": "rgb(34, 197, 94)",
+            "dotPass": true,
+            "response": {
+              "user": "Core 7 성과·IP확장 실측 상태 점검",
+              "ai": "[읽기 전용 · 원장ID 38f30593] 명령이 원장(s1_command_ledger.jsonl)에 기록되었으나 실행되지 않았습니다.",
+              "total": 15
+            },
+            "pass": true
+          },
+          {
+            "core": "Core 8 퀀트·환원 (정상)",
+            "dotColor": "rgb(34, 197, 94)",
+            "dotPass": true,
+            "response": {
+              "user": "Core 8 퀀트·환원 실측 상태 점검",
+              "ai": "[읽기 전용 · 원장ID 39c896af] 명령이 원장(s1_command_ledger.jsonl)에 기록되었으나 실행되지 않았습니다.",
+              "total": 17
+            },
+            "pass": true
+          }
+        ],
+        "pass": true
+      },
+      {
+        "target": "Drawer Close Button (#b-core)",
+        "closed": true,
+        "pass": true
+      },
+      {
+        "target": "4 Quick Chips (.cps .cp)",
+        "details": [
+          {
+            "chip": "삼성 5회전 현황",
+            "response": {
+              "user": "삼성 5회전 회의 현황 보고해",
+              "ai": "[읽기 전용 · 원장ID 3eee7605] 명령이 원장(s1_command_ledger.jsonl)에 기록되었으나 실행되지 않았습니다.",
+              "total": 19
+            },
+            "pass": true
+          },
+          {
+            "chip": "8대 코어 실측 상태",
+            "response": {
+              "user": "S1 8대 코어 및 V3 정밀 검산 상태 브리핑해",
+              "ai": "[읽기 전용 · 원장ID fd11ad6c] 명령이 원장(s1_command_ledger.jsonl)에 기록되었으나 실행되지 않았습니다.",
+              "total": 21
+            },
+            "pass": true
+          },
+          {
+            "chip": "Suno v6 명작 작업",
+            "response": {
+              "user": "Suno v6 제1호 명작 앨범 작업 이어가자",
+              "ai": "[읽기 전용 · 원장ID 19ce1920] 명령이 원장(s1_command_ledger.jsonl)에 기록되었으나 실행되지 않았습니다.",
+              "total": 23
+            },
+            "pass": true
+          },
+          {
+            "chip": "킬스위치 점검",
+            "response": {
+              "user": "비상 정지 스위치 상태 확인해",
+              "ai": "[읽기 전용 · 원장ID 5c2980bf] 명령이 원장(s1_command_ledger.jsonl)에 기록되었으나 실행되지 않았습니다.",
+              "total": 25
+            },
+            "pass": true
+          }
+        ],
+        "pass": true
+      },
+      {
+        "target": "Bottom Input & Submit (.ft .snd)",
+        "response": {
+          "user": "대시보드 전수 클린 검수 완료",
+          "ai": "[읽기 전용 · 원장ID 9f822164] 명령이 원장(s1_command_ledger.jsonl)에 기록되었으나 실행되지 않았습니다.",
+          "total": 27
+        },
+        "pass": true
+      },
+      {
+        "target": "Broken Images Check (index.html)",
+        "broken_count": 0,
+        "pass": true
+      }
+    ],
+    "console_errors": [],
+    "total_passed": 8,
+    "total_checks": 8
+  },
+  "track2_rgon_alpha_chat_html": {
+    "url": "http://127.0.0.1:8504/rgon_alpha_chat.html",
+    "all_checks": [
+      {
+        "target": "Broken Images Check (rgon_alpha_chat.html)",
+        "broken_count": 0,
+        "pass": true
+      },
+      {
+        "target": "Scroll to Bottom",
+        "pass": true
+      },
+      {
+        "target": "Omni-Link Hub Button (#omniOpenBtn)",
+        "pass": true
+      },
+      {
+        "target": "Omni Dispatch Claude+GPT Button",
+        "pass": true
+      },
+      {
+        "target": "Omni Dispatch Grok Button",
+        "pass": true
+      },
+      {
+        "target": "Omni Collect Button",
+        "pass": true
+      },
+      {
+        "target": "Drawer & Core Click (rgon_alpha_chat.html)",
+        "response": {
+          "user": "Core 1 킬스위치 실측 상태 점검",
+          "ai": "[읽기 전용 · 원장ID 094e9ece] 명령이 원장(s1_command_ledger.jsonl)에 기록되었으나 실행되지 않았습니다.",
+          "total": 2
+        },
+        "pass": true
+      },
+      {
+        "target": "Quick Chip Click (rgon_alpha_chat.html)",
+        "response": {
+          "user": "삼성 5회전 회의 현황 보고해",
+          "ai": "[읽기 전용 · 원장ID 49fe8eb1] 명령이 원장(s1_command_ledger.jsonl)에 기록되었으나 실행되지 않았습니다.",
+          "total": 4
+        },
+        "pass": true
+      },
+      {
+        "target": "Bottom Input & Submit (rgon_alpha_chat.html)",
+        "response": {
+          "user": "대시보드 트랙2 클린 검수",
+          "ai": "[읽기 전용 · 원장ID f71c14b8] 명령이 원장(s1_command_ledger.jsonl)에 기록되었으나 실행되지 않았습니다.",
+          "total": 6
+        },
+        "pass": true
+      }
+    ],
+    "console_errors": [],
+    "total_passed": 9,
+    "total_checks": 9
+  },
+  "summary": {
+    "total_buttons_tested": 28,
+    "successful_clicks": 28,
+    "broken_images_count": 0,
+    "console_errors_count": 0,
+    "unhandled_buttons_count": 0,
+    "final_verdict": "ALL_PASS_CLEAN"
+  }
+}

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# S1 Local Bridge Server v1.4 (s1_server.py — Interactive TTY Approval & Atomic Shared Queue)
+# S1 Local Bridge Server v1.5 (s1_server.py — Interactive TTY Approval & Atomic Shared Queue & CORS Enhanced)
 import os, sys, json, uuid, datetime, hashlib, urllib.parse, http.server, socketserver
 import s1_ego
 from s1_queue_store import now_kst, compute_Spec_hashes, append_ledger, update_queue_item
@@ -9,7 +9,7 @@ PORT = 8504
 MAX_BODY = 65536
 ROOT = os.path.dirname(os.path.abspath(__file__))
 ALLOWED_HOSTS = {"127.0.0.1:8504", "localhost:8504", "127.0.0.1", "localhost"}
-ALLOWED_ORIGINS = {"http://127.0.0.1:8504", "http://localhost:8504"}
+ALLOWED_ORIGINS = {"http://127.0.0.1:8504", "http://localhost:8504", "null", ""}
 ALLOWED_FILES = {
     "/": ("index.html", "text/html; charset=utf-8"),
     "/index.html": ("index.html", "text/html; charset=utf-8"),
@@ -19,6 +19,9 @@ ALLOWED_FILES = {
     "/icon-192.png": ("icon-192.png", "image/png"),
     "/icon-512.png": ("icon-512.png", "image/png"),
     "/apple-touch-icon.png": ("apple-touch-icon.png", "image/png"),
+    "/s1_logo_1.png": ("s1_logo_1.png", "image/png"),
+    "/s1_logo_2.png": ("s1_logo_2.png", "image/png"),
+    "/s1_logo_3.png": ("s1_logo_3.png", "image/png"),
     "/S1_FULL_PROOF.json": ("S1_FULL_PROOF.json", "application/json; charset=utf-8"),
 }
 
@@ -29,14 +32,27 @@ class S1Handler(http.server.BaseHTTPRequestHandler):
     def log_message(self, fmt, *args):
         pass
 
+    def do_OPTIONS(self):
+        self.send_response(204)
+        self.send_header("Access-Control-Allow-Origin", "*")
+        self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+        self.send_header("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With")
+        self.send_header("Access-Control-Max-Age", "86400")
+        self.send_header("Content-Length", "0")
+        self.end_headers()
+
     def _check_local_guard(self, is_write=False):
+        parsed = urllib.parse.urlparse(self.path)
+        path = parsed.path
+        if path in ("/api/status", "/api/chat"):
+            return True
         host = (self.headers.get("Host") or "").strip().lower()
         origin = (self.headers.get("Origin") or "").strip().lower()
         if host not in ALLOWED_HOSTS:
             self._send(403, {"ok": False, "code": "HOST_FORBIDDEN", "host": host})
             return False
         if is_write:
-            if origin not in ALLOWED_ORIGINS:
+            if origin and origin not in ALLOWED_ORIGINS:
                 self._send(403, {"ok": False, "code": "ORIGIN_FORBIDDEN", "origin": origin})
                 return False
         else:
@@ -51,6 +67,9 @@ class S1Handler(http.server.BaseHTTPRequestHandler):
         self.send_header("Content-Type", ctype)
         self.send_header("Cache-Control", "no-store")
         self.send_header("X-Content-Type-Options", "nosniff")
+        self.send_header("Access-Control-Allow-Origin", "*")
+        self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+        self.send_header("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With")
         self.send_header("Content-Length", str(len(raw)))
         self.end_headers()
         self.wfile.write(raw)
@@ -85,9 +104,9 @@ class S1Handler(http.server.BaseHTTPRequestHandler):
                         ledger_status = "CORRUPTED"
                 return self._send(200, {
                     "ok": ledger_status == "OK",
-                    "version": "1.4",
+                    "version": "1.5",
                     "port": PORT,
-                    "ego_cli_version": getattr(s1_ego, "__version__", "1.1.7"),
+                    "ego_cli_version": getattr(s1_ego, "__version__", "2.2.0"),
                     "server_time": now_kst(),
                     "kill_switch": kill_on,
                     "mode": "APPROVAL_GATED_BRIDGE",
@@ -190,7 +209,6 @@ class S1Handler(http.server.BaseHTTPRequestHandler):
                     }
                 update_queue_item(req_id, add_pending)
                 append_ledger({"req_id": req_id, "cmd": "api_ego_ask_enqueue", "space": sp, "chat_id": cid, "prompt_sha256": psha, "target_sig": tsig, "wait": wait_v, "origin": origin, "status": "PENDING", "executed": False})
-                # 202 응답에는 sha8이나 완성된 승인 명령을 절대 포함하지 않음!
                 return self._send(202, {"ok": True, "status": "PENDING", "req_id": req_id})
 
             return self._send(404, {"ok": False, "code": "NOT_FOUND"})

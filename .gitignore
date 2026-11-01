@@ -212,3 +212,7 @@ skills/**/*token*
 !skills/aon_commander_digital_twin/**
 skills/**/credentials*
 # [RGON-STEP22-VASCULAR-ALLOW-END]
+
+!S1_DASHBOARD_CLEAN_AUDIT.json
+!S1_HANDOVER_STATE.json
+_ego_tmp/
