@@ -299,3 +299,4 @@ if __name__ == "__main__":
     print("Style:", pkg["suno_v4_style_prompt"][:100], "...")
     print("Bilingual Title:", pkg["titles"]["bilingual"])
     print("Queue Entry Created Successfully.")
+

@@ -124,3 +124,4 @@ if __name__ == "__main__":
         sys.exit(0 if success else 1)
     else:
         print("Usage: python s1_release_gate.py <release_directory> [--verify-dry-run]")
+

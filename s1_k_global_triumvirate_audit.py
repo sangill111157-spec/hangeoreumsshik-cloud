@@ -149,3 +149,4 @@ def run_k_global_audit():
 if __name__ == "__main__":
     res = run_k_global_audit()
     print("VERDICT:", res["verdict"])
+

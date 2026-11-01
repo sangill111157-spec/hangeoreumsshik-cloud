@@ -105,3 +105,4 @@ if __name__ == "__main__":
     m = compile_playlist_manifest("@Booster_Playlist", "Summer Night Drive & Run 60m Master Compilation", sample_tracks)
     print(f"Compiled {m['total_tracks']} tracks, Total Duration: {m['actual_duration_formatted']}")
     print("Chapter Sample:\n", "\n".join(m['chapters_text'].splitlines()[:5]))
+

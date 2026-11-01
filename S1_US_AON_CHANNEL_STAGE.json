@@ -1,0 +1,60 @@
+{
+  "channel_name": "SUN-ONE AON",
+  "primary_handle": "@SUNONE_AON",
+  "alt_handles": [
+    "@SUNONE_AON_Official",
+    "@SUNONEAON_US",
+    "@SUNONEAON"
+  ],
+  "target_market": "en-US (United States / North America / Global)",
+  "language": "English (United States)",
+  "country": "United States",
+  "category": "10 (Music / Entertainment)",
+  "tagline": "Music for the Soul, Value Returned to the World: Global Philanthropy through Sound",
+  "description": "🌿 SUN-ONE AON Official Channel | Global K-Ethics AI Story & Music Label\n\n\"The highest excellence is like water, benefiting all living things without striving or conflict.\" (上善若水)\n\nRooted in the timeless courtesy and righteous wisdom of Korea's Eastern heritage (동방예의지국), SUN-ONE AON delivers world-class cinematic soundscapes, uplifting K-Synthwave, cozy cafe lo-fi, and transformative life philosophies to global audiences.\n\n🏆 Global Philanthropy Pledge:\nExecutive Producer Sangill Lee has pledged 33% of all global music streaming and YouTube revenues directly toward clean water initiatives, humanitarian relief, and educational empowerment worldwide.\n\n• Executive Producer: Sangill Lee (이상일)\n• Chief Aide & Strategic Architect: Rgon (Gemini 4 Argon · G2)\n• Technology Prime Minister: Anchongri (Antigravity)\n• Official Label: SUN-ONE Records / AON Philanthropy Sound\n• Distribution: DistroKid (150+ Digital Streaming Platforms worldwide)\n\n#SUNONE_AON #Sangseonyaksu #KGlobal #CinematicMusic #WorldMusic #Philanthropy",
+  "links": [
+    {
+      "title": "Global Philanthropy Pledge",
+      "url": "https://github.com/sangill111157-spec/hangeoreumsshik-cloud"
+    },
+    {
+      "title": "S1 Universal Portal",
+      "url": "http://127.0.0.1:8504/"
+    }
+  ],
+  "branding_assets": {
+    "avatar_profile": {
+      "file": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_vault\\US_AON_VAULT\\BRANDING_KIT\\avatar_800x800.png",
+      "resolution": "800 x 800 px",
+      "size_bytes": 448513,
+      "target_tab": "YouTube Studio -> Customization -> Branding -> Picture"
+    },
+    "banner_wide": {
+      "file": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_vault\\US_AON_VAULT\\BRANDING_KIT\\banner_2560x1440.png",
+      "resolution": "2560 x 1440 px (Safe Area 1546 x 423 px)",
+      "size_bytes": 261381,
+      "target_tab": "YouTube Studio -> Customization -> Branding -> Banner image"
+    },
+    "video_watermark": {
+      "file": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_vault\\US_AON_VAULT\\BRANDING_KIT\\watermark_800x800.png",
+      "resolution": "800 x 800 px (Transparent PNG)",
+      "display_time": "Entire video (전체 동영상 표시)",
+      "size_bytes": 343272,
+      "target_tab": "YouTube Studio -> Customization -> Branding -> Video watermark"
+    },
+    "outro_stinger": {
+      "file": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_vault\\US_AON_VAULT\\BRANDING_KIT\\outro_stinger_1080p.mp4",
+      "resolution": "1920 x 1080 px (5s Full HD)",
+      "size_bytes": 135517
+    }
+  },
+  "space_registration": {
+    "space_index": 17,
+    "space_name": "S1_17_YT_US_AON",
+    "url": "https://www.youtube.com/@SUNONE_AON",
+    "studio_url": "https://studio.youtube.com",
+    "switcher_url": "https://www.youtube.com/channel_switcher",
+    "status": "BRANDING_KIT_STAGED_READY"
+  },
+  "created_at": "2026-11-01T20:20:44.387050+09:00"
+}

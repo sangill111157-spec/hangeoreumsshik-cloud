@@ -36,7 +36,12 @@ ALLOWED_FILES = {
     "/master_ledgers/06_DISTROKID_RELEASE_LEDGER.csv": ("master_ledgers/06_DISTROKID_RELEASE_LEDGER.csv", "text/csv; charset=utf-8"),
     "/S1_CHANNEL_DIRECTORS_PROOF.json": ("S1_CHANNEL_DIRECTORS_PROOF.json", "application/json; charset=utf-8"),
     "/S1_K_GLOBAL_TRIUMVIRATE_PROOF.json": ("S1_K_GLOBAL_TRIUMVIRATE_PROOF.json", "application/json; charset=utf-8"),
+    "/S1_US_CHANNEL_LAUNCH_TRIUMVIRATE_PROOF.json": ("S1_US_CHANNEL_LAUNCH_TRIUMVIRATE_PROOF.json", "application/json; charset=utf-8"),
+    "/S1_US_AON_CHANNEL_STAGE.json": ("S1_US_AON_CHANNEL_STAGE.json", "application/json; charset=utf-8"),
     "/S1_24H_SCHEDULE_MASTER.md": ("S1_24H_SCHEDULE_MASTER.md", "text/markdown; charset=utf-8"),
+    "/studio_vault/US_AON_VAULT/BRANDING_KIT/avatar_800x800.png": ("studio_vault/US_AON_VAULT/BRANDING_KIT/avatar_800x800.png", "image/png"),
+    "/studio_vault/US_AON_VAULT/BRANDING_KIT/banner_2560x1440.png": ("studio_vault/US_AON_VAULT/BRANDING_KIT/banner_2560x1440.png", "image/png"),
+    "/studio_vault/US_AON_VAULT/BRANDING_KIT/watermark_800x800.png": ("studio_vault/US_AON_VAULT/BRANDING_KIT/watermark_800x800.png", "image/png"),
     "/studio_vault/US_SUN_ONE_AON/VAULT_INVENTORY.json": ("studio_vault/US_SUN_ONE_AON/VAULT_INVENTORY.json", "application/json; charset=utf-8"),
     "/studio_vault/US_SUN_ONE_AON/US_CHANNEL_LAUNCH_KIT.md": ("studio_vault/US_SUN_ONE_AON/US_CHANNEL_LAUNCH_KIT.md", "text/markdown; charset=utf-8"),
 }
@@ -155,11 +160,14 @@ class S1Handler(http.server.BaseHTTPRequestHandler):
                 stage4_p = os.path.join(ROOT, "S1_STAGE4_FULL_COMPLETION_PROOF.json")
                 k_global_p = os.path.join(ROOT, "S1_CHANNEL_DIRECTORS_PROOF.json")
                 k_audit_p = os.path.join(ROOT, "S1_K_GLOBAL_TRIUMVIRATE_PROOF.json")
+                op2_proof_p = os.path.join(ROOT, "S1_US_CHANNEL_LAUNCH_TRIUMVIRATE_PROOF.json")
+                op2_stage_p = os.path.join(ROOT, "S1_US_AON_CHANNEL_STAGE.json")
                 ledgers_p = os.path.join(ROOT, "master_ledgers", "MASTER_LEDGERS_INDEX.json")
                 res_obj = {"ok": True}
                 for k, p in [("studio", proof_p), ("vault", vault_p), ("triumvirate_audit", audit_p),
                              ("stage4_proof", stage4_p), ("k_global_packages", k_global_p),
-                             ("k_global_audit", k_audit_p), ("master_ledgers", ledgers_p)]:
+                             ("k_global_audit", k_audit_p), ("op2_branding_proof", op2_proof_p),
+                             ("op2_channel_stage", op2_stage_p), ("master_ledgers", ledgers_p)]:
                     if os.path.exists(p):
                         try:
                             with open(p, "r", encoding="utf-8") as f:

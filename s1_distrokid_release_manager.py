@@ -252,3 +252,4 @@ if __name__ == "__main__":
     print("ISRC:", test_pkg["distrokid_metadata"]["isrc"])
     print("Shorts Title:", test_pkg["d3_teaser"]["shorts_title"])
     sync_distrokid_to_master_ledgers([test_pkg])
+
