@@ -1,0 +1,4 @@
+space=2 label=p2 active=False
+title=Genspark(젠스파크) - 누구나 쉽게 쓰는 올인원 AI 워크스페이스
+url=https://www.genspark.ai/?utm_source=google&utm_medium=cpc-search&utm_campaign=ACC_Global-en-feature&utm_term=competitor&campaign_id=23235867550&adgroup_id=191292082507&ad_id=782789654570&keyword=usegalileo.ai&matchtype=b&network=g&device=c&loc=9214122&gclid=Cj0KCQiAwYrNBhDcARIsAGo3u32UZ_5UlutDoZkb8j6gBzSrBh3FshGC2IrU_T7MLdYLJJ7GdCQSEi0aAq4IEALw_wcB&gclid=Cj0KCQiAwYrNBhDcARIsAGo3u32UZ_5UlutDoZkb8j6gBzSrBh3FshGC2IrU_T7MLdYLJJ7GdCQSEi0aAq4IEALw_wcB&random=14564140441600019416&gad_source=1&gad_campaignid=23235867550&gbraid=0AAAABBSC2JwGsa9zg8v_NI4o2J2qQpWMR
+

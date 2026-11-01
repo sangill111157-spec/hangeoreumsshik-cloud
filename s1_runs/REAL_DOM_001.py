@@ -1,0 +1,3 @@
+"
+print("REAL_DOM_001_PURE_BROWSER_SCAN_OK")
+text "

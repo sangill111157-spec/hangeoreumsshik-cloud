@@ -1,0 +1,118 @@
+space=2 label=p1 active=True
+title=썬원 에이온 환원 제국 마스터 파이프라인 설계 요청
+url=https://www.genspark.ai/agents?id=212e5993-339b-43e7-8e2b-0ebb4d58987e
+
+[p1 "썬원 에이온 환원 제국 마스터 파이프라인 설계 요청" | space ""(2): 2 managed, 0 untracked — p1* "썬원 에이온 환원 제국 마스터 파이프라인 설계 요청", p2 "Genspark(젠스파크) - 누구나 쉽게 쓰는 올인원 AI 워크스페이스"]
+root
+  container
+    container "Genspark"
+      container
+        button "Genspark" [ref=21, loc=role:button[name="Genspark"]]
+          svg_root
+        container
+          button "에이전트" [ref=22, loc=css:button[aria-label="에이전트"]]
+            svg_root
+            text "에이전트"
+          container
+            svg_root
+            text "AI 채팅"
+          button "홈" [ref=23, loc=css:button[aria-label="홈"]]
+            svg_root
+            text "홈"
+          button "세컨드 브레인" [ref=24, loc=css:button[aria-label="세컨드 브레인"]]
+            svg_root
+            text "세컨드 브레인"
+          button [ref=25]
+            svg_root
+            text "더보기"
+      container
+        image
+        button "메뉴" [ref=26, loc=role:button[name="메뉴"]]
+          svg_root
+    main
+      container
+        container
+          svg_root
+          svg_root
+        container
+          text "썬원 에이온 환원 제국 마스터 파이프라인 설계 요청"
+          button "이름 변경 썬원 에이온 환원 제국 마스터 파이프라인 설계 요청" [ref=27]
+            svg_root
+        container
+          button [ref=28]
+            svg_root
+            text "공유"
+          container "새 채팅"
+            svg_root
+          container "더보기"
+            svg_root
+      container
+        container [ref=14]
+          container
+            container
+              table
+                table_row
+                  table_cell
+                    text "보호"
+                  table_cell
+                    text "비공개 파일·HEAD·잘못된 요청 차단 결과"
+                table_row
+                  table_cell
+                    text "모바일·PWA"
+                  table_cell
+                    text "기기별 설치·재실행·키보드·오프라인 시험"
+                table_row
+                  table_cell
+                    text "회의"
+                  table_cell
+                    text "회의 ID·원문·버전·갱신 시각과 화면 결과 대조"
+              heading
+                text "최종 의결"
+              container
+                paragraph
+                  text "‘UI 시제품’에서 ‘로컬 읽기 전용 접수·기록 Pilot’으로 판정을 상향합니다."
+                  text "이는 제출 증빙에 근거한 조건부 판정입니다."
+                paragraph
+                  text "모바일 완전 호환·PWA 설치 완료·회의 실시간 연결·8대 코어 실행 완공은 미승인입니다."
+                  text "다음 우선순위는 디자인 추가가 아니라"
+                  text "① 원장 내구성, ② 상태 정확성·서버 보호, ③ 모바일/PWA·회의 연결 인수시험"
+                  text "입니다."
+            container
+              svg_root
+              svg_root
+              svg_root
+              svg_root
+        container
+          textbox "무엇이든 물어보고 만들어보세요" [ref=7, loc=css:textarea[name="query"]]
+            text "무엇이든 물어보고 만들어보세요"
+          container
+            container
+              button "파일 및 기타 추가" [ref=8, loc=role:button[name="파일 및 기타 추가"]]
+                svg_root
+              button [ref=9]
+                image
+                text "GPT-6.1 Sol"
+                svg_root
+            container
+              button "타이핑하지 말고, 그냥 Speakly하세요" [ref=10, loc=css:button[aria-label="타이핑하지 말고, 그냥 Speakly하세요"]]
+                svg_root
+              button "메시지 전송" [ref=11, loc=css:button[aria-label="메시지 전송"]]
+                svg_root
+  container "내 메시지"
+    button "메시지 1(으)로 이동" [ref=29, loc=css:button[aria-label="메시지 1(으)로 이동"]]
+    button "메시지 2(으)로 이동" [ref=30, loc=css:button[aria-label="메시지 2(으)로 이동"]]
+    button "메시지 3(으)로 이동" [ref=31, loc=css:button[aria-label="메시지 3(으)로 이동"]]
+    button "메시지 4(으)로 이동" [ref=32, loc=css:button[aria-label="메시지 4(으)로 이동"]]
+    button "메시지 5(으)로 이동" [ref=33, loc=css:button[aria-label="메시지 5(으)로 이동"]]
+    button "메시지 6(으)로 이동" [ref=34, loc=css:button[aria-label="메시지 6(으)로 이동"]]
+    button "메시지 7(으)로 이동" [ref=35, loc=css:button[aria-label="메시지 7(으)로 이동"]]
+    button "메시지 8(으)로 이동" [ref=36, loc=css:button[aria-label="메시지 8(으)로 이동"]]
+    button "메시지 9(으)로 이동" [ref=37, loc=css:button[aria-label="메시지 9(으)로 이동"]]
+    button "메시지 10(으)로 이동" [ref=38, loc=css:button[aria-label="메시지 10(으)로 이동"]]
+    button "메시지 11(으)로 이동" [ref=39, loc=css:button[aria-label="메시지 11(으)로 이동"]]
+    button "메시지 12(으)로 이동" [ref=40, loc=css:button[aria-label="메시지 12(으)로 이동"]]
+    button "메시지 13(으)로 이동" [ref=41, loc=css:button[aria-label="메시지 13(으)로 이동"]]
+    button "메시지 14(으)로 이동" [ref=42, loc=css:button[aria-label="메시지 14(으)로 이동"]]
+    button "메시지 15(으)로 이동" [ref=43, loc=css:button[aria-label="메시지 15(으)로 이동"]]
+    button "메시지 16(으)로 이동" [ref=44, loc=css:button[aria-label="메시지 16(으)로 이동"]]
+    button "메시지 17(으)로 이동" [ref=45, loc=css:button[aria-label="메시지 17(으)로 이동"]]

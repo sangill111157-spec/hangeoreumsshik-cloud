@@ -1,0 +1,110 @@
+space=3 label=p1 active=True
+title=썬원 에이온 S1 완공 파이프라인 및 보안 아키텍처 설계 요청
+url=https://www.genspark.ai/agents?id=a481ead5-a237-432c-abfb-0396b8a34d16
+
+[p1 "썬원 에이온 S1 완공 파이프라인 및 보안 아키텍처 설계 요청" | space ""(3): 2 managed, 0 untracked — p1* "썬원 에이온 S1 완공 파이프라인 및 보안 아키텍처 설계 요청", p2 "SUN-ONE AON | S1 만능소통창"]
+root
+  container
+    container "Genspark"
+      container
+        button "Genspark" [ref=22, loc=role:button[name="Genspark"]]
+          svg_root
+        container
+          button "에이전트" [ref=23, loc=css:button[aria-label="에이전트"]]
+            svg_root
+            text "에이전트"
+          container
+            svg_root
+            text "AI 채팅"
+          button "홈" [ref=24, loc=css:button[aria-label="홈"]]
+            svg_root
+            text "홈"
+          button "세컨드 브레인" [ref=25, loc=css:button[aria-label="세컨드 브레인"]]
+            svg_root
+            text "세컨드 브레인"
+          button [ref=26]
+            svg_root
+            text "더보기"
+      container
+        image
+        button "메뉴" [ref=27, loc=role:button[name="메뉴"]]
+          svg_root
+    main
+      container
+        container
+          svg_root
+          svg_root
+        container
+          text "썬원 에이온 S1 완공 파이프라인 및 보안 아키텍처 설계 요청"
+          button "이름 변경 썬원 에이온 S1 완공 파이프라인 및 보안 아키텍처 설계 요청" [ref=28]
+            svg_root
+        container
+          button [ref=29]
+            svg_root
+            text "공유"
+          container "새 채팅"
+            svg_root
+          container "더보기"
+            svg_root
+      container
+        container [ref=14]
+          container
+            container
+              ordered_list
+                list_item
+                  text "네트워크를 끊고 새로고침했을 때 offline.html이 뜨는 화면"
+                list_item
+                  text "KILL_SWITCH.flag"
+                  text "를 만든 뒤 30초 안에 헤더가 "킬스위치 ON"으로 바뀌는 화면(조건 A 실증)"
+                list_item
+                  text "휴대폰을 LTE로 두고"
+                  text "https://…ts.net"
+                  text "으로 접속해 칩 버튼을 눌렀을 때 원장ID가 담긴 응답이 오는 화면, 그리고"
+                  text "s1_command_ledger.jsonl"
+                  text "의 마지막 줄"
+              paragraph
+                text "조건 A~C를 반영하고 이 4건을 내시면, 세 항목을 최종 합격으로 판정하고 이 안건을 종결하겠습니다."
+              heading
+                text "위원 소견"
+              paragraph
+                text "이 소통창은 8~9차에 걸쳐 장식에서 실제로 동작하는 도구가 됐습니다. 남은 일은 30분 안쪽 분량입니다. 종결 뒤에는 시간을 Suno v6 제1호 작품과 @TheCafé..."
+            container
+              svg_root
+              svg_root
+              svg_root
+              svg_root
+        container
+          textbox "무엇이든 물어보고 만들어보세요" [ref=7, loc=css:textarea[name="query"]]
+            text "무엇이든 물어보고 만들어보세요"
+          container
+            container
+              button "파일 및 기타 추가" [ref=8, loc=role:button[name="파일 및 기타 추가"]]
+                svg_root
+              button [ref=9]
+                image
+                text "Claude Opus 5.5"
+                svg_root
+            container
+              button "타이핑하지 말고, 그냥 Speakly하세요" [ref=10, loc=css:button[aria-label="타이핑하지 말고, 그냥 Speakly하세요"]]
+                svg_root
+              button "메시지 전송" [ref=11, loc=css:button[aria-label="메시지 전송"]]
+                svg_root
+  container "내 메시지"
+    button "메시지 1(으)로 이동" [ref=30, loc=css:button[aria-label="메시지 1(으)로 이동"]]
+    button "메시지 2(으)로 이동" [ref=31, loc=css:button[aria-label="메시지 2(으)로 이동"]]
+    button "메시지 3(으)로 이동" [ref=32, loc=css:button[aria-label="메시지 3(으)로 이동"]]
+    button "메시지 4(으)로 이동" [ref=33, loc=css:button[aria-label="메시지 4(으)로 이동"]]
+    button "메시지 5(으)로 이동" [ref=34, loc=css:button[aria-label="메시지 5(으)로 이동"]]
+    button "메시지 6(으)로 이동" [ref=35, loc=css:button[aria-label="메시지 6(으)로 이동"]]
+    button "메시지 7(으)로 이동" [ref=36, loc=css:button[aria-label="메시지 7(으)로 이동"]]
+    button "메시지 8(으)로 이동" [ref=37, loc=css:button[aria-label="메시지 8(으)로 이동"]]
+    button "메시지 9(으)로 이동" [ref=38, loc=css:button[aria-label="메시지 9(으)로 이동"]]
+    button "메시지 10(으)로 이동" [ref=39, loc=css:button[aria-label="메시지 10(으)로 이동"]]
+    button "메시지 11(으)로 이동" [ref=40, loc=css:button[aria-label="메시지 11(으)로 이동"]]
+    button "메시지 12(으)로 이동" [ref=41, loc=css:button[aria-label="메시지 12(으)로 이동"]]
+    button "메시지 13(으)로 이동" [ref=42, loc=css:button[aria-label="메시지 13(으)로 이동"]]
+    button "메시지 14(으)로 이동" [ref=43, loc=css:button[aria-label="메시지 14(으)로 이동"]]
+    button "메시지 15(으)로 이동" [ref=44, loc=css:button[aria-label="메시지 15(으)로 이동"]]
+    button "메시지 16(으)로 이동" [ref=45, loc=css:button[aria-label="메시지 16(으)로 이동"]]
+    button "메시지 17(으)로 이동" [ref=46, loc=css:button[aria-label="메시지 17(으)로 이동"]]
+    button "메시지 18(으)로 이동" [ref=47, loc=css:button[aria-label="메시지 18(으)로 이동"]]
