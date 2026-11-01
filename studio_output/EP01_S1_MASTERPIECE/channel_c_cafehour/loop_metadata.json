@@ -1,0 +1,19 @@
+{
+  "loop_mode": "SEAMLESS_CROSSFADE",
+  "loop_points_sec": [
+    0.0,
+    15.0
+  ],
+  "crossfade_sec": 1.2,
+  "ambient_layers": [
+    "rain_ambient_bed",
+    "warm_vinyl_dust"
+  ],
+  "recommended_repeat_hours": 1.0,
+  "recommended_use_cases": [
+    "독서",
+    "코딩 및 심층 업무",
+    "카페 감성 휴식",
+    "편안한 숙면"
+  ]
+}

@@ -216,3 +216,8 @@ skills/**/credentials*
 !S1_DASHBOARD_CLEAN_AUDIT.json
 !S1_HANDOVER_STATE.json
 _ego_tmp/
+
+!S1_STUDIO_PIPELINE_PROOF.json
+!s1_studio_ledger.jsonl
+!studio_output/
+!studio_output/**

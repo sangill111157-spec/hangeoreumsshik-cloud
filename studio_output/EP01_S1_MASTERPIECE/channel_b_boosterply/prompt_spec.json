@@ -1,0 +1,43 @@
+{
+  "channel_name": "부스터플리",
+  "channel_id": "@부스터플리",
+  "space": 7,
+  "theme": "하이텐션 드라이브 / 운동 부스터 플레이리스트",
+  "suno_v6_spec": {
+    "title": "심장을 뛰게 하는 하이텐션 부스터 비트 Vol.1 (Ignition Pulse)",
+    "style_tags": "Synthwave, cyberpunk bass, energetic electronic dance, 128 bpm, punchy kick drum, driving synth arpeggios, motivational, workout gym booster, athletic pump, adrenaline rush",
+    "exclude_tags": "sad ballad, slow tempo, lo-fi, silence, acoustic guitar, sleepy, quiet",
+    "playlist_tracks": [
+      {
+        "track": 1,
+        "title": "Engine Ignition (엔진 점화)",
+        "start": "00:00",
+        "bpm": 126
+      },
+      {
+        "track": 2,
+        "title": "Highway Sprint (질주하는 심장)",
+        "start": "02:45",
+        "bpm": 128
+      },
+      {
+        "track": 3,
+        "title": "Maximum Velocity (한계 돌파)",
+        "start": "05:30",
+        "bpm": 130
+      },
+      {
+        "track": 4,
+        "title": "Neon Horizon (네온 지평선)",
+        "start": "08:15",
+        "bpm": 128
+      },
+      {
+        "track": 5,
+        "title": "Cool Down Walk (승리의 호흡)",
+        "start": "11:00",
+        "bpm": 120
+      }
+    ]
+  }
+}

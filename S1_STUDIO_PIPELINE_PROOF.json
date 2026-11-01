@@ -1,0 +1,61 @@
+{
+  "timestamp": "2026-11-01T19:14:58.957042+09:00",
+  "mission": "PRIORITY_4_STUDIO_PIPELINE_PHASE1",
+  "project_id": "EP01_S1_MASTERPIECE",
+  "channels": {
+    "channel_a_hangeoreum": {
+      "name": "한걸음씩",
+      "handle": "@한걸음씩-r4i",
+      "space": 6,
+      "theme": "감성 보컬/발라드 · 인생 응원 명작",
+      "prompt_file": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_output\\EP01_S1_MASTERPIECE\\channel_a_hangeoreum\\prompt_spec.json",
+      "srt_file": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_output\\EP01_S1_MASTERPIECE\\channel_a_hangeoreum\\subtitles_ko.srt",
+      "yt_metadata_file": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_output\\EP01_S1_MASTERPIECE\\channel_a_hangeoreum\\youtube_metadata.json",
+      "status": "READY"
+    },
+    "channel_b_boosterply": {
+      "name": "부스터플리",
+      "handle": "@부스터플리",
+      "space": 7,
+      "theme": "하이텐션 드라이브 / 운동 부스터 플레이리스트",
+      "prompt_file": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_output\\EP01_S1_MASTERPIECE\\channel_b_boosterply\\prompt_spec.json",
+      "tracklist_file": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_output\\EP01_S1_MASTERPIECE\\channel_b_boosterply\\tracklist_description.txt",
+      "yt_metadata_file": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_output\\EP01_S1_MASTERPIECE\\channel_b_boosterply\\youtube_metadata.json",
+      "status": "READY"
+    },
+    "channel_c_cafehour": {
+      "name": "카페아우어",
+      "handle": "@카페아우어",
+      "space": 8,
+      "theme": "시네마틱 로파이 / 재즈 카페 BGM & 집중 힐링 루프",
+      "prompt_file": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_output\\EP01_S1_MASTERPIECE\\channel_c_cafehour\\prompt_spec.json",
+      "loop_file": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_output\\EP01_S1_MASTERPIECE\\channel_c_cafehour\\loop_metadata.json",
+      "yt_metadata_file": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_output\\EP01_S1_MASTERPIECE\\channel_c_cafehour\\youtube_metadata.json",
+      "status": "READY"
+    }
+  },
+  "audio_master_proof": {
+    "filename": "sample_master_48k.wav",
+    "codec": "pcm_s24le",
+    "sample_rate": 48000,
+    "channels": 2,
+    "bits_per_sample": 24,
+    "loudness_standard": "-16.0 LUFS (-1.5 dBTP True Peak)",
+    "size_bytes": 2880102,
+    "sha256": "3735b9761b28ec72ec18aa03828e12f2aba1e100c47f32bf27eb40f43fa1dd42",
+    "pass": true
+  },
+  "video_preview_proof": {
+    "filename": "preview_1080p.mp4",
+    "video_codec": "h264",
+    "resolution": "1920x1080",
+    "pix_fmt": "yuv420p",
+    "audio_codec": "aac",
+    "audio_sample_rate": 48000,
+    "audio_channels": 2,
+    "size_bytes": 440693,
+    "sha256": "8c56a87a94c874a2a60238869c30c83edd163da1dae5247e02ea06e0414e860b",
+    "pass": true
+  },
+  "final_verdict": "ALL_PASS_CLEAN"
+}

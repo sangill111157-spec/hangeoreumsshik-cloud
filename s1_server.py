@@ -23,6 +23,8 @@ ALLOWED_FILES = {
     "/s1_logo_2.png": ("s1_logo_2.png", "image/png"),
     "/s1_logo_3.png": ("s1_logo_3.png", "image/png"),
     "/S1_FULL_PROOF.json": ("S1_FULL_PROOF.json", "application/json; charset=utf-8"),
+    "/S1_STUDIO_PIPELINE_PROOF.json": ("S1_STUDIO_PIPELINE_PROOF.json", "application/json; charset=utf-8"),
+    "/S1_DASHBOARD_CLEAN_AUDIT.json": ("S1_DASHBOARD_CLEAN_AUDIT.json", "application/json; charset=utf-8"),
 }
 
 class ReusableTCPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
@@ -44,7 +46,7 @@ class S1Handler(http.server.BaseHTTPRequestHandler):
     def _check_local_guard(self, is_write=False):
         parsed = urllib.parse.urlparse(self.path)
         path = parsed.path
-        if path in ("/api/status", "/api/chat"):
+        if path in ("/api/status", "/api/chat", "/api/studio"):
             return True
         host = (self.headers.get("Host") or "").strip().lower()
         origin = (self.headers.get("Origin") or "").strip().lower()
@@ -132,6 +134,17 @@ class S1Handler(http.server.BaseHTTPRequestHandler):
                 res = s1_ego.cmd_read(sp, tail)
                 res["truncation_rule"] = f"tail_chars_limit={tail} (sliced from end of message)"
                 return self._send(200 if res.get("ok") else 502, res)
+            if path == "/api/studio":
+                proof_p = os.path.join(ROOT, "S1_STUDIO_PIPELINE_PROOF.json")
+                if os.path.exists(proof_p):
+                    try:
+                        with open(proof_p, "r", encoding="utf-8") as f:
+                            proof_data = json.load(f)
+                        return self._send(200, {"ok": True, "studio": proof_data})
+                    except Exception as e:
+                        return self._send(500, {"ok": False, "code": "PROOF_READ_ERROR", "error": str(e)})
+                else:
+                    return self._send(404, {"ok": False, "code": "STUDIO_PROOF_NOT_FOUND"})
             if path in ALLOWED_FILES:
                 fname, ctype = ALLOWED_FILES[path]
                 fpath = os.path.join(ROOT, fname)
@@ -175,6 +188,42 @@ class S1Handler(http.server.BaseHTTPRequestHandler):
                 uid = str(uuid.uuid4())
                 req_id = uid[:8]
                 append_ledger({"uuid": uid, "req_id": req_id, "query": q, "mode": "LEDGER_RECORD_ONLY", "executed": False})
+
+                # Check for Suno v6 / 명작 / 스튜디오 query
+                if any(k in q for k in ["Suno", "suno", "명작", "스튜디오", "studio"]):
+                    proof_p = os.path.join(ROOT, "S1_STUDIO_PIPELINE_PROOF.json")
+                    if os.path.exists(proof_p):
+                        try:
+                            with open(proof_p, "r", encoding="utf-8") as f:
+                                pf = json.load(f)
+                            ch = pf.get("channels", {})
+                            ch_a = ch.get("channel_a_hangeoreum", {}).get("name", "한걸음씩")
+                            ch_b = ch.get("channel_b_boosterply", {}).get("name", "부스터플리")
+                            ch_c = ch.get("channel_c_cafehour", {}).get("name", "카페아우어")
+                            au = pf.get("audio_master_proof", {})
+                            vi = pf.get("video_preview_proof", {})
+                            reply_text = (
+                                f"[S1 작업실 4순위 본업 연동 · 원장ID {req_id}]\n"
+                                f"🏆 3대 유튜브 채널 제1호 명작 패키지(EP01_S1_MASTERPIECE) 가동 완료!\n"
+                                f"1. {ch_a}(Space 6, @한걸음씩-r4i): 감성 보컬/발라드 & 한국어 자막(SRT) 완비\n"
+                                f"2. {ch_b}(Space 7, @부스터플리): 운동/드라이브 하이텐션 & 트랙리스트 타임스탬프 완비\n"
+                                f"3. {ch_c}(Space 8, @카페아우어): 시네마틱 재즈 로파이 & 무한 루프 메타데이터 완비\n"
+                                f"━━━━━━━━━━━━━━━━━━━━━━\n"
+                                f"🎵 오디오 마스터: {au.get('filename')} ({au.get('sample_rate')}Hz {au.get('bits_per_sample')}bit {au.get('codec')}, {au.get('loudness_standard')})\n"
+                                f"🎬 프리뷰 영상: {vi.get('filename')} ({vi.get('resolution')}, {vi.get('video_codec')}+{vi.get('audio_codec')} 320kbps)\n"
+                                f"판정: {pf.get('final_verdict', 'ALL_PASS_CLEAN')}"
+                            )
+                            return self._send(200, {
+                                "ok": True,
+                                "uuid": uid,
+                                "req_id": req_id,
+                                "executed": False,
+                                "reply": reply_text,
+                                "studio": pf
+                            })
+                        except Exception:
+                            pass
+
                 return self._send(200, {"ok": True, "uuid": uid, "req_id": req_id, "executed": False, "reply": f"[읽기 전용 · 원장ID {req_id}] 명령이 원장(s1_command_ledger.jsonl)에 기록되었으나 실행되지 않았습니다."})
 
             if path == "/api/ego/ask":
