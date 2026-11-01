@@ -31,3 +31,15 @@ Space 0 -> GitHub -> Anchongri 무복붙 파이프라인 가동
 ```
 
 ---
+
+### 📩 [지시서 등재] RGON_DIR_ABSORB_10SHORTS_002 — 쇼츠 10편 6대 초경량 핵심 기술 흡수 및 시각화
+- **등재 시각:** `2026-11-02T08:08:18.465608+09:00`
+- **발신:** 수석보좌관 르곤 (Gemini 4 Argon · Space 0)
+- **수신:** 기술총리 안총리 (Antigravity Technical PM)
+- **상태:** `🟢 안총리 수신 및 집행 대기`
+
+```markdown
+Interactive Anatomy 실시간 에너지 구슬, Savvy Progress & File Tree, 3단 뷰포트 클린 검증
+```
+
+---
