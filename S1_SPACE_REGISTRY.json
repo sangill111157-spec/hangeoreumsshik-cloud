@@ -46,7 +46,11 @@
     "channel_name": "한걸음씩",
     "handle": "@한걸음씩-r4i",
     "subscribers": 33,
+    "video_count": 48,
+    "slogan": "🌿 한마디가 당신의 인생을 바꿉니다",
     "theme": "한국형 감성 보컬/발라드 · 인생 응원 명작",
+    "director_agent": "Director_Step",
+    "k_global_identity": "K-Wisdom & Courteous Life Philosophy (부모·스승 예의, 인과응보·성실, 따뜻한 정(情)과 인생의 깨달음을 전하는 한/영 병기 K-시네마틱 포크·발라드 & 스토리텔링)",
     "url": "https://www.youtube.com/@%ED%95%9C%EA%B1%B8%EC%9D%8C%EC%94%A9-r4i"
   },
   {
@@ -56,7 +60,11 @@
     "channel_name": "부스터 플리 | 운동·드라이브 음악",
     "handle": "@Booster_Playlist",
     "subscribers": 26,
+    "video_count": 15,
+    "slogan": "지친 일상에 강력한 에너지를 채워줄 '부스터 플리(Booster Playlist)'입니다.",
     "theme": "하이텐션 운동·드라이브 플레이리스트 (128 BPM Synthwave)",
+    "director_agent": "Director_Booster",
+    "k_global_identity": "K-Dynamic Spirit & Righteous Energy (상호응원·건강한 한국적 열정, 서울 한강 야경 드라이브, Melodic Chill Phonk / K-Synthwave / Workout Mix)",
     "url": "https://www.youtube.com/@Booster_Playlist"
   },
   {
@@ -66,7 +74,11 @@
     "channel_name": "The Café Hour",
     "handle": "@TheCaféHour",
     "subscribers": 5,
+    "video_count": 4,
+    "slogan": "☕ The Café Hour – 음악으로 채우는 카페의 하루",
     "theme": "시네마틱 카페 재즈 · 로파이 앰비언스 (75 BPM Lo-Fi Rhodes)",
+    "director_agent": "Director_Cafe",
+    "k_global_identity": "K-Café Hospitality & Serene Aesthetics (다도(茶道)의 예절, 서울 한옥·성수·연남 카페의 따뜻하고 정갈한 여유, MORNING · AFTERNOON · EVENING K-Indie Jazz & Cozy Piano Lo-Fi)",
     "url": "https://www.youtube.com/@TheCaf%C3%A9Hour"
   },
   {
@@ -126,5 +138,18 @@
     "space_name": "S1_16_GSHEETS",
     "title": "16. 구글 시트",
     "url": "https://docs.google.com/spreadsheets/"
+  },
+  {
+    "index": 17,
+    "space_name": "S1_17_YT_US_AON",
+    "title": "17. 유튜브 (SUN-ONE AON — 미국/글로벌 플래그십)",
+    "channel_name": "SUN-ONE AON",
+    "handle": "@SUNONE_AON",
+    "alt_handle": "@SUNONEAON_US",
+    "target_market": "en-US (United States / North America / Global)",
+    "theme": "Global K-Ethics AI Story & Music Label (동방예의지국 한국의 정직함, 깊은 인간미, K-시네마틱 사운드트랙)",
+    "role": "미국/글로벌 전담 신규 플래그십 채널",
+    "url": "https://www.youtube.com/@SUNONE_AON",
+    "director_agent": "Director_US_AON"
   }
 ]

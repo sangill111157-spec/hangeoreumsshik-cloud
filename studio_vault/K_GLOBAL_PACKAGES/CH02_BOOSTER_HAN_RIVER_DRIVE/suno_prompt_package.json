@@ -1,0 +1,23 @@
+{
+  "director": "Director_Booster",
+  "channel_id": "CH_02_BOOSTER",
+  "handle": "@Booster_Playlist",
+  "titles": {
+    "bilingual": "여름밤 한강 드라이브 & 러닝 비트 | Summer Night Han River Drive & Workout Beat",
+    "korean": "여름밤 한강 드라이브 & 러닝 비트",
+    "english": "Summer Night Han River Drive & Workout Beat"
+  },
+  "concept_story": "퇴폐성을 배제하고 서로를 응원하며 함께 달리는 건강한 한국적 열정과 서울 한강 야경 드라이브 128 BPM",
+  "k_heritage_theme": "퇴폐성 배제, 건강한 스포츠맨십과 페어플레이 (Clean Athletic Energy)",
+  "suno_v4_style_prompt": "Melodic Chill Phonk / K-Synthwave / High-Tension Workout Drive, Analog Juno synth leads, Moog bassline, punchy 808 kick, 128 BPM 4-on-the-floor drums, subtle Taepyeongso (태평소) brass accent, 124 - 130 BPM, F Minor, melodic synth vocal chops / anthemic voice, mastered, wide stereo, polished acoustics, inspiring emotional resonance",
+  "suno_v4_lyrics": "[Intro: Instrumental - Analog Juno synth leads, Moog bassline, punchy 808 kick, 128 BPM 4-on-the-floor drums, subtle Taepyeongso (태평소) brass accent]\n(Slow building melody, evoking K-Dynamic Spirit & Righteous Energy (역동적 기상과 의로운 열정))\n\n[Verse 1]\n강바람을 가르며 타오르는 심장의 박동\\n앞서가는 발걸음도 뒤따르는 숨결도\\n우리는 하나의 리듬으로 서울의 밤을 달리네\n\n[Pre-Chorus]\n포기하지 않는 끈기, 정정당당한 승부\\n동료의 어깨를 두드려주는 진정한 스포츠맨십\\n땀방울 속에 빛나는 우리의 의리\n\n[Chorus]\nSummer Night Han River Drive\\n네온사인 물결치는 올림픽대로를 지나\\n한계를 넘어 날아오르는 청춘의 에너지\\nNever slowing down, we conquer the night\n\n[Verse 2]\n어두운 터널을 지나 환하게 밝아오는 다리\\n서로의 불빛이 되어 어둠을 밝혀주니\\n어떤 언덕도 두렵지 않네\n\n[Bridge]\n지친 하루의 끝에서 다시 피어나는 힘\\n의로운 열정으로 내일을 충전하라\\nRun with pride, run with honor\n\n[Chorus]\nSummer Night Han River Drive\\n네온사인 물결치는 올림픽대로를 지나\\n한계를 넘어 날아오르는 청춘의 에너지\\nNever slowing down, we conquer the night\n\n[Outro]\n결승선을 통과하며 마주치는 뜨거운 눈빛\\n우리가 함께 해냈다는 자랑스러운 미소\n\n[Fade Out]\n[End]",
+  "meta_tags": {
+    "bpm": "124 - 130 BPM",
+    "key": "F Minor",
+    "vocal_profile": "melodic synth vocal chops / anthemic voice",
+    "lufs_target": -14.0,
+    "sample_rate": 44100,
+    "bit_depth": 16
+  },
+  "created_at": "2026-11-01T20:02:33.383812+09:00"
+}

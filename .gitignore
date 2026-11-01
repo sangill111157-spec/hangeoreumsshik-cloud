@@ -227,5 +227,8 @@ _ego_tmp/
 !studio_vault/**
 
 !S1_STAGE4_FULL_COMPLETION_PROOF.json
+!S1_CHANNEL_DIRECTORS_PROOF.json
+!S1_K_GLOBAL_TRIUMVIRATE_PROOF.json
+!suno_dispatch_queue.json
 !master_ledgers/
 !master_ledgers/**

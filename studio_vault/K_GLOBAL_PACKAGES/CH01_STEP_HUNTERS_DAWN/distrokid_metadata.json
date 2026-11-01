@@ -1,0 +1,39 @@
+{
+  "release_id": "REL_CH_01_STEP_6D46B8",
+  "director": "Director_Step",
+  "channel_id": "CH_01_STEP",
+  "handle": "@한걸음씩-r4i",
+  "album_title": "사냥꾼의 새벽 | Hunter's Dawn",
+  "track_title": "사냥꾼의 새벽 | Hunter's Dawn",
+  "track_version": "Original Master (Clean)",
+  "artist_name": "한걸음씩 (SUN-ONE AON)",
+  "featured_artist": "Sangill Lee",
+  "songwriter": "Sangill Lee (이상일)",
+  "composer": "Sangill Lee (이상일) & SUN-ONE AON Engine",
+  "producer": "SUN-ONE Studio (Executive Producer: Sangill Lee)",
+  "record_label": "SUN-ONE Records / AON Philanthropy Sound",
+  "isrc": "KR-S01-26-2C05E",
+  "upc": "UPC-6F8A4705",
+  "primary_genre": "K-Cinematic Acoustic Folk Ballad",
+  "secondary_genre": "K-Heritage / World Cinematic",
+  "language": "Korean & English (Bilingual)",
+  "explicit": "No (Clean, Safe for All Audiences)",
+  "target_release_date": "2026-11-15 20:02:18 KST",
+  "distribution_scope": "Worldwide (150+ Digital Streaming Platforms including Spotify, Apple Music, YouTube Music, Amazon, TikTok, Melon, Bugs, Flo, Genie)",
+  "audio_format": {
+    "format": "WAV",
+    "sample_rate": 44100,
+    "bit_depth": 16,
+    "channels": 2,
+    "integrated_lufs": -14.0,
+    "true_peak_db": -1.5
+  },
+  "artwork_spec": {
+    "resolution": "3000 x 3000 px",
+    "aspect_ratio": "1:1 Square",
+    "color_space": "RGB",
+    "format": "PNG / TIFF (300 DPI)",
+    "requirements": "Exact title matching, high resolution, no blurred edges, zero social links on cover"
+  },
+  "k_courtesy_bio": "Rooted in Korea's timeless 'Eastern Land of Courtesy' (동방예의지국) heritage and Sangseonyaksu ('The highest excellence is like water'), this release embodies 부모와 스승에 대한 공경과 보은 (Filial Piety & Gratitude)."
+}

@@ -174,3 +174,4 @@ if __name__ == "__main__":
     # Default to dry-run-verify if no flags provided or if requested
     proof = run_dry_run_verification()
     print("VERIFICATION VERDICT:", proof["verdict"])
+

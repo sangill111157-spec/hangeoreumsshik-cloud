@@ -1,0 +1,39 @@
+{
+  "release_id": "REL_CH_04_US_AON_AF5CBC",
+  "director": "Director_US_AON",
+  "channel_id": "CH_04_US_AON",
+  "handle": "@SUNONE_AON",
+  "album_title": "상선약수: 선한 영향력의 바다 | Water of Benevolence (Global Philanthropy Symphony)",
+  "track_title": "상선약수: 선한 영향력의 바다 | Water of Benevolence (Global Philanthropy Symphony)",
+  "track_version": "Original Master (Clean)",
+  "artist_name": "SUN-ONE AON (SUN-ONE AON)",
+  "featured_artist": "Sangill Lee",
+  "songwriter": "Sangill Lee (이상일)",
+  "composer": "Sangill Lee (이상일) & SUN-ONE AON Engine",
+  "producer": "SUN-ONE Studio (Executive Producer: Sangill Lee)",
+  "record_label": "SUN-ONE Records / AON Philanthropy Sound",
+  "isrc": "KR-S01-26-E9573",
+  "upc": "UPC-1EBC8E37",
+  "primary_genre": "Epic K-Cinematic Future Bass",
+  "secondary_genre": "K-Heritage / World Cinematic",
+  "language": "Korean & English (Bilingual)",
+  "explicit": "No (Clean, Safe for All Audiences)",
+  "target_release_date": "2026-11-15 20:03:07 KST",
+  "distribution_scope": "Worldwide (150+ Digital Streaming Platforms including Spotify, Apple Music, YouTube Music, Amazon, TikTok, Melon, Bugs, Flo, Genie)",
+  "audio_format": {
+    "format": "WAV",
+    "sample_rate": 44100,
+    "bit_depth": 16,
+    "channels": 2,
+    "integrated_lufs": -14.0,
+    "true_peak_db": -1.5
+  },
+  "artwork_spec": {
+    "resolution": "3000 x 3000 px",
+    "aspect_ratio": "1:1 Square",
+    "color_space": "RGB",
+    "format": "PNG / TIFF (300 DPI)",
+    "requirements": "Exact title matching, high resolution, no blurred edges, zero social links on cover"
+  },
+  "k_courtesy_bio": "Rooted in Korea's timeless 'Eastern Land of Courtesy' (동방예의지국) heritage and Sangseonyaksu ('The highest excellence is like water'), this release embodies 상선약수(上善若水): 만물을 이롭게 하되 다투지 않는 지혜 (The Highest Good is Like Water)."
+}

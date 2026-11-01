@@ -1,0 +1,23 @@
+{
+  "director": "Director_US_AON",
+  "channel_id": "CH_04_US_AON",
+  "handle": "@SUNONE_AON",
+  "titles": {
+    "bilingual": "상선약수: 선한 영향력의 바다 | Water of Benevolence (Global Philanthropy Symphony)",
+    "korean": "상선약수: 선한 영향력의 바다",
+    "english": "Water of Benevolence (Global Philanthropy Symphony)"
+  },
+  "concept_story": "동방예의지국의 정직함과 깊은 인간미, 상선약수(上善若水) 철학의 세계화와 인류 환원의 서약",
+  "k_heritage_theme": "상선약수(上善若水): 만물을 이롭게 하되 다투지 않는 지혜 (The Highest Good is Like Water)",
+  "suno_v4_style_prompt": "Epic K-Cinematic Future Bass / Ambient Orchestral Hybrid, Full cinematic strings, electric cello, grand piano, atmospheric pads, Korean 5-tone pentatonic melodic motifs, sub-bass pulse, 90 - 110 BPM, D Major, world-class anthemic male & female cinematic chorus, mastered, wide stereo, polished acoustics, inspiring emotional resonance",
+  "suno_v4_lyrics": "[Intro: Instrumental - Full cinematic strings, electric cello, grand piano, atmospheric pads, Korean 5-tone pentatonic melodic motifs, sub-bass pulse]\n(Slow building melody, evoking Global K-Ethics AI Story & Music Label (동방예의지국 철학의 세계화))\n\n[Verse 1]\nFrom the quiet mountain springs of the morning calm\\nA gentle stream begins its destined journey\\nSeeking not the highest peak, but blessing the lowest valley\\nWater teaches us the silent power of grace\n\n[Pre-Chorus]\nTo give without counting, to serve without strife\\nThis is the timeless wisdom of the East\\nReturning all light to the world that gave us breath\n\n[Chorus]\nWater of Benevolence, flowing wide and free\\nNo conflict in its heart, yet shaping destiny\\nSangseonyaksu, the highest good we share\\nA global symphony of compassion and care\n\n[Verse 2]\nAcross oceans and continents, the melody takes flight\\nBridging every border with pure and righteous light\\nIntegrity our anchor, humanity our home\n\n[Bridge]\nHonor to the fathers, kindness to the small\\nA promise to return the blessings given to all\\nEver humble, ever unbroken\n\n[Chorus]\nWater of Benevolence, flowing wide and free\\nNo conflict in its heart, yet shaping destiny\\nSangseonyaksu, the highest good we share\\nA global symphony of compassion and care\n\n[Outro]\nAs the river meets the vast boundless sea\\nWe stand together in harmony and peace\n\n[Fade Out]\n[End]",
+  "meta_tags": {
+    "bpm": "90 - 110 BPM",
+    "key": "D Major",
+    "vocal_profile": "world-class anthemic male & female cinematic chorus",
+    "lufs_target": -14.0,
+    "sample_rate": 44100,
+    "bit_depth": 16
+  },
+  "created_at": "2026-11-01T20:03:07.324674+09:00"
+}

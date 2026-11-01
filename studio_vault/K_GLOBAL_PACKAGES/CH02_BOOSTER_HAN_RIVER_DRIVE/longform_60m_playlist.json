@@ -1,0 +1,154 @@
+{
+  "channel_handle": "@Booster_Playlist",
+  "playlist_title": "여름밤 한강 드라이브 & 러닝 비트 | Summer Night Han River Drive & Workout Beat - 60 Min Full Compilation Playlist",
+  "target_duration_minutes": 60,
+  "actual_duration_seconds": 3670,
+  "actual_duration_formatted": "61:10",
+  "total_tracks": 15,
+  "crossfade_seconds": 4,
+  "chapters_text": "00:00 여름밤 한강 드라이브 & 러닝 비트 Part 1 | Summer Night Han River Drive & Workout Beat Part 1 (128 BPM)\n03:56 여름밤 한강 드라이브 & 러닝 비트 Part 2 | Summer Night Han River Drive & Workout Beat Part 2 (128 BPM)\n08:02 여름밤 한강 드라이브 & 러닝 비트 Part 3 | Summer Night Han River Drive & Workout Beat Part 3 (128 BPM)\n12:18 여름밤 한강 드라이브 & 러닝 비트 Part 4 | Summer Night Han River Drive & Workout Beat Part 4 (128 BPM)\n16:14 여름밤 한강 드라이브 & 러닝 비트 Part 5 | Summer Night Han River Drive & Workout Beat Part 5 (128 BPM)\n20:20 여름밤 한강 드라이브 & 러닝 비트 Part 6 | Summer Night Han River Drive & Workout Beat Part 6 (128 BPM)\n24:16 여름밤 한강 드라이브 & 러닝 비트 Part 7 | Summer Night Han River Drive & Workout Beat Part 7 (128 BPM)\n28:32 여름밤 한강 드라이브 & 러닝 비트 Part 8 | Summer Night Han River Drive & Workout Beat Part 8 (128 BPM)\n32:38 여름밤 한강 드라이브 & 러닝 비트 Part 9 | Summer Night Han River Drive & Workout Beat Part 9 (128 BPM)\n36:34 여름밤 한강 드라이브 & 러닝 비트 Part 10 | Summer Night Han River Drive & Workout Beat Part 10 (128 BPM)\n40:40 여름밤 한강 드라이브 & 러닝 비트 Part 11 | Summer Night Han River Drive & Workout Beat Part 11 (128 BPM)\n44:36 여름밤 한강 드라이브 & 러닝 비트 Part 12 | Summer Night Han River Drive & Workout Beat Part 12 (128 BPM)\n48:52 여름밤 한강 드라이브 & 러닝 비트 Part 13 | Summer Night Han River Drive & Workout Beat Part 13 (128 BPM)\n52:58 여름밤 한강 드라이브 & 러닝 비트 Part 14 | Summer Night Han River Drive & Workout Beat Part 14 (128 BPM)\n56:54 여름밤 한강 드라이브 & 러닝 비트 Part 15 | Summer Night Han River Drive & Workout Beat Part 15 (128 BPM)",
+  "chapters": [
+    {
+      "track_number": 1,
+      "timestamp": "00:00",
+      "start_seconds": 0,
+      "duration_seconds": 240,
+      "title_bilingual": "여름밤 한강 드라이브 & 러닝 비트 Part 1 | Summer Night Han River Drive & Workout Beat Part 1",
+      "artist": "SUN-ONE AON",
+      "bpm": 128
+    },
+    {
+      "track_number": 2,
+      "timestamp": "03:56",
+      "start_seconds": 236,
+      "duration_seconds": 250,
+      "title_bilingual": "여름밤 한강 드라이브 & 러닝 비트 Part 2 | Summer Night Han River Drive & Workout Beat Part 2",
+      "artist": "SUN-ONE AON",
+      "bpm": 128
+    },
+    {
+      "track_number": 3,
+      "timestamp": "08:02",
+      "start_seconds": 482,
+      "duration_seconds": 260,
+      "title_bilingual": "여름밤 한강 드라이브 & 러닝 비트 Part 3 | Summer Night Han River Drive & Workout Beat Part 3",
+      "artist": "SUN-ONE AON",
+      "bpm": 128
+    },
+    {
+      "track_number": 4,
+      "timestamp": "12:18",
+      "start_seconds": 738,
+      "duration_seconds": 240,
+      "title_bilingual": "여름밤 한강 드라이브 & 러닝 비트 Part 4 | Summer Night Han River Drive & Workout Beat Part 4",
+      "artist": "SUN-ONE AON",
+      "bpm": 128
+    },
+    {
+      "track_number": 5,
+      "timestamp": "16:14",
+      "start_seconds": 974,
+      "duration_seconds": 250,
+      "title_bilingual": "여름밤 한강 드라이브 & 러닝 비트 Part 5 | Summer Night Han River Drive & Workout Beat Part 5",
+      "artist": "SUN-ONE AON",
+      "bpm": 128
+    },
+    {
+      "track_number": 6,
+      "timestamp": "20:20",
+      "start_seconds": 1220,
+      "duration_seconds": 240,
+      "title_bilingual": "여름밤 한강 드라이브 & 러닝 비트 Part 6 | Summer Night Han River Drive & Workout Beat Part 6",
+      "artist": "SUN-ONE AON",
+      "bpm": 128
+    },
+    {
+      "track_number": 7,
+      "timestamp": "24:16",
+      "start_seconds": 1456,
+      "duration_seconds": 260,
+      "title_bilingual": "여름밤 한강 드라이브 & 러닝 비트 Part 7 | Summer Night Han River Drive & Workout Beat Part 7",
+      "artist": "SUN-ONE AON",
+      "bpm": 128
+    },
+    {
+      "track_number": 8,
+      "timestamp": "28:32",
+      "start_seconds": 1712,
+      "duration_seconds": 250,
+      "title_bilingual": "여름밤 한강 드라이브 & 러닝 비트 Part 8 | Summer Night Han River Drive & Workout Beat Part 8",
+      "artist": "SUN-ONE AON",
+      "bpm": 128
+    },
+    {
+      "track_number": 9,
+      "timestamp": "32:38",
+      "start_seconds": 1958,
+      "duration_seconds": 240,
+      "title_bilingual": "여름밤 한강 드라이브 & 러닝 비트 Part 9 | Summer Night Han River Drive & Workout Beat Part 9",
+      "artist": "SUN-ONE AON",
+      "bpm": 128
+    },
+    {
+      "track_number": 10,
+      "timestamp": "36:34",
+      "start_seconds": 2194,
+      "duration_seconds": 250,
+      "title_bilingual": "여름밤 한강 드라이브 & 러닝 비트 Part 10 | Summer Night Han River Drive & Workout Beat Part 10",
+      "artist": "SUN-ONE AON",
+      "bpm": 128
+    },
+    {
+      "track_number": 11,
+      "timestamp": "40:40",
+      "start_seconds": 2440,
+      "duration_seconds": 240,
+      "title_bilingual": "여름밤 한강 드라이브 & 러닝 비트 Part 11 | Summer Night Han River Drive & Workout Beat Part 11",
+      "artist": "SUN-ONE AON",
+      "bpm": 128
+    },
+    {
+      "track_number": 12,
+      "timestamp": "44:36",
+      "start_seconds": 2676,
+      "duration_seconds": 260,
+      "title_bilingual": "여름밤 한강 드라이브 & 러닝 비트 Part 12 | Summer Night Han River Drive & Workout Beat Part 12",
+      "artist": "SUN-ONE AON",
+      "bpm": 128
+    },
+    {
+      "track_number": 13,
+      "timestamp": "48:52",
+      "start_seconds": 2932,
+      "duration_seconds": 250,
+      "title_bilingual": "여름밤 한강 드라이브 & 러닝 비트 Part 13 | Summer Night Han River Drive & Workout Beat Part 13",
+      "artist": "SUN-ONE AON",
+      "bpm": 128
+    },
+    {
+      "track_number": 14,
+      "timestamp": "52:58",
+      "start_seconds": 3178,
+      "duration_seconds": 240,
+      "title_bilingual": "여름밤 한강 드라이브 & 러닝 비트 Part 14 | Summer Night Han River Drive & Workout Beat Part 14",
+      "artist": "SUN-ONE AON",
+      "bpm": 128
+    },
+    {
+      "track_number": 15,
+      "timestamp": "56:54",
+      "start_seconds": 3414,
+      "duration_seconds": 260,
+      "title_bilingual": "여름밤 한강 드라이브 & 러닝 비트 Part 15 | Summer Night Han River Drive & Workout Beat Part 15",
+      "artist": "SUN-ONE AON",
+      "bpm": 128
+    }
+  ],
+  "ffmpeg_filter_complex_ready": true,
+  "audio_specs": {
+    "sample_rate": 44100,
+    "bit_depth": 16,
+    "channels": 2,
+    "target_lufs": -14.0
+  }
+}

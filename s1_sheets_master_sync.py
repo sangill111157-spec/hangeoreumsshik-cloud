@@ -389,3 +389,4 @@ def sync_master_ledgers():
 if __name__ == "__main__":
     idx = sync_master_ledgers()
     print("SYNC VERDICT:", idx["verdict"])
+

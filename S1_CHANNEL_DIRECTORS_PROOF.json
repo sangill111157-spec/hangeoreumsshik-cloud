@@ -1,0 +1,149 @@
+{
+  "timestamp": "2026-11-01T20:03:23.461698+09:00",
+  "mission": "S1_K_GLOBAL_EASTERN_COURTESY_4CH_PACKAGING",
+  "verdict": "K_GLOBAL_4CH_ALL_PASS_COMPLETED",
+  "total_packages": 4,
+  "distrokid_delivery_lufs": -14.0,
+  "distrokid_format": "44.1kHz 16-bit PCM Stereo WAV",
+  "youtube_format": "1080p H.264 + AAC 320k",
+  "artwork_format": "3000x3000 px PNG",
+  "packages": [
+    {
+      "pkg_id": "CH01_STEP_HUNTERS_DAWN",
+      "director": "Director_Step",
+      "channel_handle": "@한걸음씩-r4i",
+      "title_bilingual": "사냥꾼의 새벽 | Hunter's Dawn",
+      "theme_accent": "K-Wisdom & Filial Piety",
+      "media_files": {
+        "wav_44k16b": {
+          "path": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_vault\\K_GLOBAL_PACKAGES\\CH01_STEP_HUNTERS_DAWN\\master_44k16b.wav",
+          "sha256": "edde981bcb5663b6ab34e6258fdd6bd4dab9004a8540904ef2d2a7a853e7f393",
+          "sha8": "edde981b",
+          "size_bytes": 1411278,
+          "spec": "44.1kHz 16-bit PCM Stereo (-14.0 LUFS)"
+        },
+        "mp4_1080p": {
+          "path": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_vault\\K_GLOBAL_PACKAGES\\CH01_STEP_HUNTERS_DAWN\\preview_1080p.mp4",
+          "sha256": "73c08270476a1461724570aa532f51ee0fbf8f40a4990ff57242c2d35b46333c",
+          "sha8": "73c08270",
+          "size_bytes": 237737,
+          "spec": "1920x1080 H.264 + AAC 320k"
+        },
+        "cover_3000": {
+          "path": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_vault\\K_GLOBAL_PACKAGES\\CH01_STEP_HUNTERS_DAWN\\cover_3000.png",
+          "sha256": "c5e01abf14672d2f2c2b37ba7ec59092dc53d7c775478e195e394bdb2cafe04a",
+          "size_bytes": 33424,
+          "spec": "3000x3000 px PNG RGB"
+        }
+      },
+      "distrokid_isrc": "KR-S01-26-2C05E",
+      "scheduled_d_day": "2026-11-15 20:02:18 KST",
+      "has_longform_playlist": false,
+      "gate_status": "READY_FOR_TTY_SHA8_APPROVAL"
+    },
+    {
+      "pkg_id": "CH02_BOOSTER_HAN_RIVER_DRIVE",
+      "director": "Director_Booster",
+      "channel_handle": "@Booster_Playlist",
+      "title_bilingual": "여름밤 한강 드라이브 & 러닝 비트 | Summer Night Han River Drive & Workout Beat",
+      "theme_accent": "Clean Dynamic Spirit & Sportsmanship",
+      "media_files": {
+        "wav_44k16b": {
+          "path": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_vault\\K_GLOBAL_PACKAGES\\CH02_BOOSTER_HAN_RIVER_DRIVE\\master_44k16b.wav",
+          "sha256": "37f69bc60690df8ac39e7203c49fc068a7561f4c614e9b8a54a28f8faa1b058f",
+          "sha8": "37f69bc6",
+          "size_bytes": 1411278,
+          "spec": "44.1kHz 16-bit PCM Stereo (-14.0 LUFS)"
+        },
+        "mp4_1080p": {
+          "path": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_vault\\K_GLOBAL_PACKAGES\\CH02_BOOSTER_HAN_RIVER_DRIVE\\preview_1080p.mp4",
+          "sha256": "c28cfddbe8fb4450139e2bdf586416695f6c8c5f7dcd0f7a758089fe2d28cdab",
+          "sha8": "c28cfddb",
+          "size_bytes": 243578,
+          "spec": "1920x1080 H.264 + AAC 320k"
+        },
+        "cover_3000": {
+          "path": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_vault\\K_GLOBAL_PACKAGES\\CH02_BOOSTER_HAN_RIVER_DRIVE\\cover_3000.png",
+          "sha256": "28ce775a80e39f2792a5ea5e2ce38d749ddaa89769282421547aa5e33462bcbe",
+          "size_bytes": 33424,
+          "spec": "3000x3000 px PNG RGB"
+        }
+      },
+      "distrokid_isrc": "KR-S01-26-DDA2D",
+      "scheduled_d_day": "2026-11-15 20:02:33 KST",
+      "has_longform_playlist": true,
+      "gate_status": "READY_FOR_TTY_SHA8_APPROVAL"
+    },
+    {
+      "pkg_id": "CH03_CAFE_HANOK_TEA",
+      "director": "Director_Cafe",
+      "channel_handle": "@TheCaféHour",
+      "title_bilingual": "북촌 한옥의 아침 다도 | Morning Tea at Bukchon Hanok",
+      "theme_accent": "K-Tea Hospitality & Mindful Serenity",
+      "media_files": {
+        "wav_44k16b": {
+          "path": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_vault\\K_GLOBAL_PACKAGES\\CH03_CAFE_HANOK_TEA\\master_44k16b.wav",
+          "sha256": "d42e605e3608db50bdb4ba03d6f7cdd3fc2ae35809ab927f9b027551a0575f9b",
+          "sha8": "d42e605e",
+          "size_bytes": 1411278,
+          "spec": "44.1kHz 16-bit PCM Stereo (-14.0 LUFS)"
+        },
+        "mp4_1080p": {
+          "path": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_vault\\K_GLOBAL_PACKAGES\\CH03_CAFE_HANOK_TEA\\preview_1080p.mp4",
+          "sha256": "f22d123b6336f467df03bbd62bdbb26e3f18bd612a101db6b4dd6397a8e1fe12",
+          "sha8": "f22d123b",
+          "size_bytes": 238540,
+          "spec": "1920x1080 H.264 + AAC 320k"
+        },
+        "cover_3000": {
+          "path": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_vault\\K_GLOBAL_PACKAGES\\CH03_CAFE_HANOK_TEA\\cover_3000.png",
+          "sha256": "1214b74d01be8bd1ba8ede03cfd6694f98ad04d2e051cffa09a8206cf5873802",
+          "size_bytes": 33424,
+          "spec": "3000x3000 px PNG RGB"
+        }
+      },
+      "distrokid_isrc": "KR-S01-26-7FC23",
+      "scheduled_d_day": "2026-11-15 20:02:49 KST",
+      "has_longform_playlist": true,
+      "gate_status": "READY_FOR_TTY_SHA8_APPROVAL"
+    },
+    {
+      "pkg_id": "CH04_USAON_WATER_OF_BENEVOLENCE",
+      "director": "Director_US_AON",
+      "channel_handle": "@SUNONE_AON",
+      "title_bilingual": "상선약수: 선한 영향력의 바다 | Water of Benevolence (Global Philanthropy Symphony)",
+      "theme_accent": "Global K-Ethics & Philanthropy",
+      "media_files": {
+        "wav_44k16b": {
+          "path": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_vault\\K_GLOBAL_PACKAGES\\CH04_USAON_WATER_OF_BENEVOLENCE\\master_44k16b.wav",
+          "sha256": "2aa58655ec2a998381eee444b522604028eed12d8495883af10049a1e5df9a9f",
+          "sha8": "2aa58655",
+          "size_bytes": 1411278,
+          "spec": "44.1kHz 16-bit PCM Stereo (-14.0 LUFS)"
+        },
+        "mp4_1080p": {
+          "path": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_vault\\K_GLOBAL_PACKAGES\\CH04_USAON_WATER_OF_BENEVOLENCE\\preview_1080p.mp4",
+          "sha256": "3845b92630d91f7fc967ff8813abd488624c646015eae7d472ed280c9b67064a",
+          "sha8": "3845b926",
+          "size_bytes": 250164,
+          "spec": "1920x1080 H.264 + AAC 320k"
+        },
+        "cover_3000": {
+          "path": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_vault\\K_GLOBAL_PACKAGES\\CH04_USAON_WATER_OF_BENEVOLENCE\\cover_3000.png",
+          "sha256": "e6d37bb0757eefe07f032a7c3f0a73960a10c3bfd82c1ee8fb3ac0400e61a4ba",
+          "size_bytes": 33424,
+          "spec": "3000x3000 px PNG RGB"
+        }
+      },
+      "distrokid_isrc": "KR-S01-26-E9573",
+      "scheduled_d_day": "2026-11-15 20:03:07 KST",
+      "has_longform_playlist": false,
+      "gate_status": "READY_FOR_TTY_SHA8_APPROVAL"
+    }
+  ],
+  "safety_gate": {
+    "enforced_script": "s1_release_gate.py",
+    "condition": "CEO TTY SHA-8 approval required before actual YouTube upload or DistroKid submission",
+    "zero_unauthorized_upload": true
+  }
+}

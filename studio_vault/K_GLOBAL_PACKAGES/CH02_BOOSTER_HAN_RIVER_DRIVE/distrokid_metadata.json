@@ -1,0 +1,39 @@
+{
+  "release_id": "REL_CH_02_BOOSTER_BED5BF",
+  "director": "Director_Booster",
+  "channel_id": "CH_02_BOOSTER",
+  "handle": "@Booster_Playlist",
+  "album_title": "여름밤 한강 드라이브 & 러닝 비트 | Summer Night Han River Drive & Workout Beat",
+  "track_title": "여름밤 한강 드라이브 & 러닝 비트 | Summer Night Han River Drive & Workout Beat",
+  "track_version": "Original Master (Clean)",
+  "artist_name": "부스터 플리 | 운동·드라이브 음악 (SUN-ONE AON)",
+  "featured_artist": "Sangill Lee",
+  "songwriter": "Sangill Lee (이상일)",
+  "composer": "Sangill Lee (이상일) & SUN-ONE AON Engine",
+  "producer": "SUN-ONE Studio (Executive Producer: Sangill Lee)",
+  "record_label": "SUN-ONE Records / AON Philanthropy Sound",
+  "isrc": "KR-S01-26-DDA2D",
+  "upc": "UPC-367924A8",
+  "primary_genre": "Melodic Chill Phonk",
+  "secondary_genre": "K-Heritage / World Cinematic",
+  "language": "Korean & English (Bilingual)",
+  "explicit": "No (Clean, Safe for All Audiences)",
+  "target_release_date": "2026-11-15 20:02:33 KST",
+  "distribution_scope": "Worldwide (150+ Digital Streaming Platforms including Spotify, Apple Music, YouTube Music, Amazon, TikTok, Melon, Bugs, Flo, Genie)",
+  "audio_format": {
+    "format": "WAV",
+    "sample_rate": 44100,
+    "bit_depth": 16,
+    "channels": 2,
+    "integrated_lufs": -14.0,
+    "true_peak_db": -1.5
+  },
+  "artwork_spec": {
+    "resolution": "3000 x 3000 px",
+    "aspect_ratio": "1:1 Square",
+    "color_space": "RGB",
+    "format": "PNG / TIFF (300 DPI)",
+    "requirements": "Exact title matching, high resolution, no blurred edges, zero social links on cover"
+  },
+  "k_courtesy_bio": "Rooted in Korea's timeless 'Eastern Land of Courtesy' (동방예의지국) heritage and Sangseonyaksu ('The highest excellence is like water'), this release embodies 퇴폐성 배제, 건강한 스포츠맨십과 페어플레이 (Clean Athletic Energy)."
+}

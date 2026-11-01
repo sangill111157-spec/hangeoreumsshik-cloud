@@ -1,0 +1,23 @@
+{
+  "director": "Director_Step",
+  "channel_id": "CH_01_STEP",
+  "handle": "@한걸음씩-r4i",
+  "titles": {
+    "bilingual": "사냥꾼의 새벽 | Hunter's Dawn",
+    "korean": "사냥꾼의 새벽",
+    "english": "Hunter's Dawn"
+  },
+  "concept_story": "거친 산속에서 가족을 지키기 위해 새벽을 여는 가장의 효와 성실한 노동의 서사",
+  "k_heritage_theme": "부모와 스승에 대한 공경과 보은 (Filial Piety & Gratitude)",
+  "suno_v4_style_prompt": "K-Cinematic Acoustic Folk Ballad, Acoustic guitar, warm piano, Haegeum (해금 선율), Gayageum (가야금 아르페지오), string quartet, subtle orchestral percussion, 70 - 82 BPM, C Major, warm baritone male / soulful female vocal, mastered, wide stereo, polished acoustics, inspiring emotional resonance",
+  "suno_v4_lyrics": "[Intro: Instrumental - Acoustic guitar, warm piano, Haegeum (해금 선율), Gayageum (가야금 아르페지오), string quartet, subtle orchestral percussion]\n(Slow building melody, evoking K-Wisdom & Courteous Life Philosophy (동방예의지국 삶의 지혜와 예절))\n\n[Verse 1]\n눈 덮인 산마루에 안개가 걷히고\\n아버지 낡은 장화 소리 눈길을 가르네\\n가족의 하루를 어깨에 짊어진 채\\n한걸음씩 새벽을 열어가는 침묵의 기도\n\n[Pre-Chorus]\n예절과 정직으로 다져온 세월\\n남을 해치지 않고 땀 흘려 얻은 것만이\\n우리 밥상을 따스하게 채운다 하셨지\n\n[Chorus]\n사냥꾼의 새벽 | Hunter's Dawn\\n산새들이 깨어나 지저귀는 그 길목에서\\n부모님의 은혜를 가슴에 품고\\n정의로운 발걸음으로 내일을 맞이하리\n\n[Verse 2]\n시린 손끝을 모아 입김을 불어넣고\\n자연이 내어준 만큼만 감사히 받으니\\n욕심을 버린 자리에 피어나는 평온함\n\n[Bridge]\n동방의 오랜 지혜가 가르쳐준 길\\n물처럼 겸손하되 바위처럼 굳세게\\n우리는 살아간다, 성실한 마음 하나로\n\n[Chorus]\n사냥꾼의 새벽 | Hunter's Dawn\\n산새들이 깨어나 지저귀는 그 길목에서\\n부모님의 은혜를 가슴에 품고\\n정의로운 발걸음으로 내일을 맞이하리\n\n[Outro]\n새벽 노을이 산마루를 붉게 물들일 때\\n집으로 향하는 발걸음엔 감사의 노래만 가득하네\n\n[Fade Out]\n[End]",
+  "meta_tags": {
+    "bpm": "70 - 82 BPM",
+    "key": "C Major",
+    "vocal_profile": "warm baritone male / soulful female vocal",
+    "lufs_target": -14.0,
+    "sample_rate": 44100,
+    "bit_depth": 16
+  },
+  "created_at": "2026-11-01T20:02:18.553179+09:00"
+}

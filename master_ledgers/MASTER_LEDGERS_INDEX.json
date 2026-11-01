@@ -10,7 +10,14 @@
     "02_vault_content_inventory": "C:\\Users\\sangi\\Downloads\\shin-agent\\master_ledgers\\02_VAULT_CONTENT_INVENTORY.csv",
     "03_triumvirate_audit": "C:\\Users\\sangi\\Downloads\\shin-agent\\master_ledgers\\03_TRIUMVIRATE_AUDIT_LEDGER.csv",
     "04_us_prime_schedule": "C:\\Users\\sangi\\Downloads\\shin-agent\\master_ledgers\\04_US_PRIME_SCHEDULE_LEDGER.csv",
-    "05_global_philanthropy": "C:\\Users\\sangi\\Downloads\\shin-agent\\master_ledgers\\05_GLOBAL_PHILANTHROPY_LEDGER.csv"
+    "05_global_philanthropy": "C:\\Users\\sangi\\Downloads\\shin-agent\\master_ledgers\\05_GLOBAL_PHILANTHROPY_LEDGER.csv",
+    "06_distrokid_release_ledger": {
+      "file": "06_DISTROKID_RELEASE_LEDGER.csv",
+      "format": "UTF-8 with BOM CSV",
+      "description": "4대 채널 DistroKid 글로벌 음원 등록 및 D-14 역산 릴리즈 스케줄 원장",
+      "total_rows": 4,
+      "updated_at": "2026-11-01T20:03:23.458700+09:00"
+    }
   },
   "total_stocked_episodes": 6,
   "total_channels": 5,
