@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-# S1 Ego-Lite Universal Nerve CLI v1.1.5 (s1_ego.py)
-# Triumvirate Verified Architecture (GPT-6.1 Sol & Claude Opus 5.5 Audit Compliant):
+# S1 Ego-Lite Universal Nerve CLI v1.1.6 (s1_ego.py)
+# Triumvirate Verified Architecture (GPT-6.1 Sol & Claude Opus 5.5 Audit Under Review):
 # - R0 (spaces): URL query stripping (keep only chat id), read-only safe.
 # - R1 (read): Exact URL/chatId match (TAB_NOT_UNIQUE on 0 or >1), defang() markers, 1 retry on transient error.
 # - W1 (ask): Kill-switch guard, global msvcrt file lock (ASK_LOCK_HELD), model verification (MODEL_MISMATCH),
@@ -354,6 +354,12 @@ def cmd_ask(space_id, prompt_text, wait_sec=60, tail_chars=4500, override_chat_i
             return;
           }}
 
+          if (Boolean({1 if selftest else 0})) {{
+            process.stdout.write("\\nS1EGO_JSON::" + JSON.stringify({{ ok: false, code: "SELFTEST_NO_SEND", status: "selftest_stopped_before_fill", space: {space_id}, precheck: pre }}) + "\\n");
+            return;
+          }}
+          const promptProbe = {json.dumps(prompt_head)};
+          const preProbeCount = await page.evaluate((prb) => (document.body ? document.body.innerText.split(prb).length - 1 : 0), promptProbe);
           const selector = 'loc=css:textarea[name="query"]';
           await page.fill(selector, prompt);
           await sleep(300);
@@ -378,12 +384,12 @@ def cmd_ask(space_id, prompt_text, wait_sec=60, tail_chars=4500, override_chat_i
 
           // Confirm send: textarea cleared
           const postSend = await Promise.race([
-            page.evaluate((baseLen) => {{
+            page.evaluate((arg) => {{
               const ta = document.querySelector('textarea[name="query"]') || document.querySelector('textarea');
               const bodyTxt = document.body ? document.body.innerText : "";
               const rateLimited = Array.from(document.querySelectorAll("[role=alert], .ant-message, .toast")).some(e => e.offsetParent !== null && ((e.innerText || "").includes("5시간 제한") || (e.innerText || "").includes("재설정됩니다")));
-              const tailNow = bodyTxt.slice(-1500); return {{ taPresent: Boolean(ta), valLen: ta ? (ta.value || "").trim().length : -1, userMsgSeen: bodyTxt.length > baseLen, tailSample: tailNow.slice(-120), rateLimited }};
-            }}, pre.bodyLen).catch(() => null),
+              const postProbeCount = arg.prb ? (bodyTxt.split(arg.prb).length - 1) : 0; const newUserMsgMatched = Boolean(arg.prb && postProbeCount > arg.preCnt); return {{ taPresent: Boolean(ta), valLen: ta ? (ta.value || "").trim().length : -1, probe: arg.prb, probeCountBefore: arg.preCnt, probeCountAfter: postProbeCount, userMsgSeen: newUserMsgMatched, rateLimited }};
+            }}, {{ baseLen: pre.bodyLen, prb: promptProbe, preCnt: preProbeCount }}).catch(() => null),
             new Promise(r => setTimeout(() => r(null), 5000))
           ]);
 
@@ -538,7 +544,7 @@ def cmd_ask(space_id, prompt_text, wait_sec=60, tail_chars=4500, override_chat_i
         lock_fh.close()
 
 def main():
-    ap = argparse.ArgumentParser(description="S1 Ego-Lite Universal Nerve CLI v1.1.5")
+    ap = argparse.ArgumentParser(description="S1 Ego-Lite Universal Nerve CLI v1.1.6")
     sub = ap.add_subparsers(dest="cmd", required=True)
     sub.add_parser("spaces")
     p_read = sub.add_parser("read")
