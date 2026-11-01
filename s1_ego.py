@@ -456,7 +456,6 @@ def cmd_ask(space_id, prompt_text, wait_sec=60, tail_chars=4500, override_chat_i
                 const proseEls = Array.from(document.querySelectorAll(".answer-markdown"));
                 const curCount = proseEls.length;
                 const curLast = curCount > 0 ? (proseEls[curCount - 1].innerText || "").trim() : "";
-                const hasNewAssistant = (curCount > baseProseCount && curLast.length > 10) || (curLast !== baseLastProse && curLast.length > 10);
                 return {{
                   ok: true,
                   rateLimited: false,
