@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# S1 Ego-Lite Universal Nerve CLI v1.1.3 (s1_ego.py)
+# S1 Ego-Lite Universal Nerve CLI v1.1.4 (s1_ego.py)
 # Triumvirate Verified Architecture (GPT-6.1 Sol & Claude Opus 5.5 Audit Compliant):
 # - R0 (spaces): URL query stripping (keep only chat id), read-only safe.
 # - R1 (read): Exact URL/chatId match (TAB_NOT_UNIQUE on 0 or >1), defang() markers, 1 retry on transient error.
@@ -166,7 +166,9 @@ def cmd_spaces():
                     tb["url"] = sanitize_url(tb["url"])
     return res
 
-def cmd_read(space_id, tail_chars=4000, override_chat_id=None):
+def cmd_read(space_id, tail_chars=4000, override_chat_id=None, selftest=False):
+    if override_chat_id is not None and not selftest:
+        return {"ok": False, "code": "OVERRIDE_REQUIRES_SELFTEST", "space": space_id}
     if space_id not in KNOWN_CHATS and override_chat_id is None:
         return {"ok": False, "code": "SPACE_NOT_ALLOWED", "space": space_id}
     expected_id = override_chat_id if override_chat_id is not None else KNOWN_CHATS[space_id]
@@ -391,7 +393,7 @@ def cmd_ask(space_id, prompt_text, wait_sec=60, tail_chars=4500, override_chat_i
             }}) + "\\n");
             return;
           }}
-          if (!postSend || postSend.valLen > 0) {{
+          if (!postSend || postSend.valLen !== 0) {{
             process.stdout.write("\\nS1EGO_JSON::" + JSON.stringify({{
               ok: false, code: "SEND_NOT_CONFIRMED", status: "send_not_confirmed", details: postSend
             }}) + "\\n");
@@ -536,13 +538,14 @@ def cmd_ask(space_id, prompt_text, wait_sec=60, tail_chars=4500, override_chat_i
         lock_fh.close()
 
 def main():
-    ap = argparse.ArgumentParser(description="S1 Ego-Lite Universal Nerve CLI v1.1.3")
+    ap = argparse.ArgumentParser(description="S1 Ego-Lite Universal Nerve CLI v1.1.4")
     sub = ap.add_subparsers(dest="cmd", required=True)
     sub.add_parser("spaces")
     p_read = sub.add_parser("read")
     p_read.add_argument("space", type=int)
     p_read.add_argument("--tail", type=int, default=4000)
     p_read.add_argument("--expect-id", type=str, default=None)
+    p_read.add_argument("--selftest", action="store_true")
     p_ask = sub.add_parser("ask")
     p_ask.add_argument("space", type=int)
     p_ask.add_argument("--prompt-file", type=str, default="")
@@ -556,7 +559,7 @@ def main():
     if args.cmd == "spaces":
         res = cmd_spaces()
     elif args.cmd == "read":
-        res = cmd_read(args.space, args.tail, override_chat_id=args.expect_id)
+        res = cmd_read(args.space, args.tail, override_chat_id=args.expect_id, selftest=args.selftest)
     elif args.cmd == "ask":
         txt = Path(args.prompt_file).read_text(encoding="utf-8") if args.prompt_file else args.prompt
         res = cmd_ask(args.space, txt, wait_sec=args.wait, override_chat_id=args.expect_id, override_model=args.expect_model, selftest=args.selftest)
