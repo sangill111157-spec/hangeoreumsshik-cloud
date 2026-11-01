@@ -269,7 +269,7 @@ def cmd_ask(space_id, prompt_text, wait_sec=60, tail_chars=4500, override_chat_i
         res = {"ok": False, "code": "HOP_LIMIT_EXCEEDED", "req_id": req_id, "space": space_id}
         write_audit({"req_id": req_id, "cmd": "ask", "space": space_id, "prompt_sha": prompt_sha, "status": "HOP_LIMIT_EXCEEDED"})
         return res
-    if "[S1_HOP=" not in (prompt_text or ""):
+    if not (prompt_text or "").lstrip().startswith("[S1_HOP="):
         prompt_text = "[S1_HOP=1/2]\n" + (prompt_text or "")
         prompt_sha = sha256_hex(prompt_text)
 
@@ -408,7 +408,7 @@ def cmd_ask(space_id, prompt_text, wait_sec=60, tail_chars=4500, override_chat_i
               const lastEl = uEls.length ? uEls[uEls.length - 1] : null;
               const lastTxt = lastEl ? norm(lastEl.innerText) : "";
               const expNorm = norm(arg.fullPrompt);
-              const fullMatch = (uEls.length > arg.preCount) && (lastTxt === expNorm || expNorm.startsWith(lastTxt.slice(0, 80)));
+              const fullMatch = (uEls.length > arg.preCount) && (lastTxt === expNorm);
               const selInfo = lastEl ? (lastEl.tagName.toLowerCase() + (lastEl.className ? "." + String(lastEl.className).trim().split(/\\s+/).join(".") : "")) : "none";
               return {{ taPresent: Boolean(ta), valLen: ta ? (ta.value || "").trim().length : -1, selectorRule: "innermost block element outside .answer-markdown starting with [S1_HOP=", matchedElementSelector: selInfo, normalizationRule: "String(s).replace(/\\r\\n/g, \\n).trim()", userMsgCountBefore: arg.preCount, userMsgCountAfter: uEls.length, newMsgText: lastTxt.slice(0, 300), expectedPromptText: expNorm.slice(0, 300), exactFullStringEqual: lastTxt === expNorm, fullTextExactMatch: fullMatch, userMsgSeen: fullMatch, rateLimited }};
             }}, {{ fullPrompt: prompt, preCount: preUserDom.count }}).catch(() => null),
