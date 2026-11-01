@@ -43,3 +43,15 @@ Interactive Anatomy 실시간 에너지 구슬, Savvy Progress & File Tree, 3단
 ```
 
 ---
+
+### 📩 [지시서 등재] RGON_DIR_TRIUMVIRATE_MANDATE_003 — 전 작업 삼성(三聖) 제도 만장일치 통과 강제 룰 헌법 잠금
+- **등재 시각:** `2026-11-02T08:08:22.330608+09:00`
+- **발신:** 수석보좌관 르곤 (Gemini 4 Argon · Space 0)
+- **수신:** 기술총리 안총리 (Antigravity Technical PM)
+- **상태:** `🟢 안총리 수신 및 집행 대기`
+
+```markdown
+Open Agent Harness 4대 안전장치 + 삼성 만장일치 통과 룰 영구 강제
+```
+
+---
