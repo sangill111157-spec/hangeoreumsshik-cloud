@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# S1 Ego-Lite Universal Nerve CLI v1.1.6 (s1_ego.py)
+# S1 Ego-Lite Universal Nerve CLI v1.1.7 (s1_ego.py)
 # Triumvirate Verified Architecture (GPT-6.1 Sol & Claude Opus 5.5 Audit Under Review):
 # - R0 (spaces): URL query stripping (keep only chat id), read-only safe.
 # - R1 (read): Exact URL/chatId match (TAB_NOT_UNIQUE on 0 or >1), defang() markers, 1 retry on transient error.
@@ -358,8 +358,15 @@ def cmd_ask(space_id, prompt_text, wait_sec=60, tail_chars=4500, override_chat_i
             process.stdout.write("\\nS1EGO_JSON::" + JSON.stringify({{ ok: false, code: "SELFTEST_NO_SEND", status: "selftest_stopped_before_fill", space: {space_id}, precheck: pre }}) + "\\n");
             return;
           }}
-          const promptProbe = {json.dumps(prompt_head)};
-          const preProbeCount = await page.evaluate((prb) => (document.body ? document.body.innerText.split(prb).length - 1 : 0), promptProbe);
+          const preUserDom = await page.evaluate((hopTag) => {{
+            const norm = s => String(s || "").replace(/\\r\\n/g, "\\n").trim();
+            const all = Array.from(document.querySelectorAll("div, article, section, p")).filter(el => {{
+              if (el.closest(".answer-markdown, .markdown-viewer, textarea, button")) return false;
+              const t = norm(el.innerText);
+              return t.startsWith("[S1_HOP=") && !Array.from(el.children).some(c => norm(c.innerText) === t);
+            }});
+            return {{ count: all.length, lastText: all.length ? norm(all[all.length - 1].innerText) : "" }};
+          }}, "[S1_HOP=");
           const selector = 'loc=css:textarea[name="query"]';
           await page.fill(selector, prompt);
           await sleep(300);
@@ -388,8 +395,19 @@ def cmd_ask(space_id, prompt_text, wait_sec=60, tail_chars=4500, override_chat_i
               const ta = document.querySelector('textarea[name="query"]') || document.querySelector('textarea');
               const bodyTxt = document.body ? document.body.innerText : "";
               const rateLimited = Array.from(document.querySelectorAll("[role=alert], .ant-message, .toast")).some(e => e.offsetParent !== null && ((e.innerText || "").includes("5시간 제한") || (e.innerText || "").includes("재설정됩니다")));
-              const postProbeCount = arg.prb ? (bodyTxt.split(arg.prb).length - 1) : 0; const newUserMsgMatched = Boolean(arg.prb && postProbeCount > arg.preCnt); return {{ taPresent: Boolean(ta), valLen: ta ? (ta.value || "").trim().length : -1, probe: arg.prb, probeCountBefore: arg.preCnt, probeCountAfter: postProbeCount, userMsgSeen: newUserMsgMatched, rateLimited }};
-            }}, {{ baseLen: pre.bodyLen, prb: promptProbe, preCnt: preProbeCount }}).catch(() => null),
+              const norm = s => String(s || "").replace(/\\r\\n/g, "\\n").trim();
+              const uEls = Array.from(document.querySelectorAll("div, article, section, p")).filter(el => {{
+                if (el.closest(".answer-markdown, .markdown-viewer, textarea, button")) return false;
+                const t = norm(el.innerText);
+                return t.startsWith("[S1_HOP=") && !Array.from(el.children).some(c => norm(c.innerText) === t);
+              }});
+              const lastEl = uEls.length ? uEls[uEls.length - 1] : null;
+              const lastTxt = lastEl ? norm(lastEl.innerText) : "";
+              const expNorm = norm(arg.fullPrompt);
+              const fullMatch = (uEls.length > arg.preCount) && (lastTxt === expNorm);
+              const selInfo = lastEl ? (lastEl.tagName.toLowerCase() + (lastEl.className ? "." + String(lastEl.className).trim().split(/\\s+/).join(".") : "")) : "none";
+              return {{ taPresent: Boolean(ta), valLen: ta ? (ta.value || "").trim().length : -1, selectorRule: "leaf element outside .answer-markdown starting with [S1_HOP=", matchedElementSelector: selInfo, normalizationRule: "String(s).replace(/\\r\\n/g, \\n).trim()", userMsgCountBefore: arg.preCount, userMsgCountAfter: uEls.length, newMsgText: lastTxt, expectedPromptText: expNorm, fullTextExactMatch: fullMatch, userMsgSeen: fullMatch, rateLimited }};
+            }}, {{ fullPrompt: prompt, preCount: preUserDom.count }}).catch(() => null),
             new Promise(r => setTimeout(() => r(null), 5000))
           ]);
 
@@ -544,7 +562,7 @@ def cmd_ask(space_id, prompt_text, wait_sec=60, tail_chars=4500, override_chat_i
         lock_fh.close()
 
 def main():
-    ap = argparse.ArgumentParser(description="S1 Ego-Lite Universal Nerve CLI v1.1.6")
+    ap = argparse.ArgumentParser(description="S1 Ego-Lite Universal Nerve CLI v1.1.7")
     sub = ap.add_subparsers(dest="cmd", required=True)
     sub.add_parser("spaces")
     p_read = sub.add_parser("read")
