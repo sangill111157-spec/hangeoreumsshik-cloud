@@ -1,35 +1,28 @@
 {
-  "id": "./rgon_alpha_chat.html",
-  "name": "RGON 독대실",
-  "short_name": "RGON",
-  "description": "이상일 대표님 전용 RGON AI 독대실",
-  "start_url": "./rgon_alpha_chat.html?v5=1",
+  "id": "./index.html?v=2026aon",
+  "name": "SUN-ONE AON (썬원 에이온)",
+  "short_name": "SUN-ONE AON",
+  "description": "이상일 대표님 전용 S1 환원 제국 중앙컨트롤타워 및 모바일 만능 사령부",
+  "start_url": "./index.html?v=2026aon",
   "scope": "./",
   "display": "standalone",
-  "orientation": "portrait-primary",
-  "background_color": "#070b14",
-  "theme_color": "#070b14",
+  "background_color": "#030712",
+  "theme_color": "#030712",
   "icons": [
     {
-      "src": "icon-192.png",
+      "src": "./icon-192.png?v=2026aon",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "icon-512.png",
+      "src": "./icon-512.png?v=2026aon",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "maskable"
-    },
-    {
-      "src": "icon-512.png",
+      "src": "./icon-512-maskable.png?v=2026aon",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"

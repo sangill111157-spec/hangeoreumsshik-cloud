@@ -261,3 +261,8 @@ studio_vault/**/DISTROKID_ALBUMS/**/*_art.png
 !S1_16VIDEOS_VERIFIED_SYSTEMS_PROOF.json
 !S1_41TRACKS_SHORTS_BATCH_MANIFEST.json
 !S1_9AGENTS_MASTER_WORKFLOW.json
+
+!S1_MOBILE_VERIFICATION_PROOF.json
+!mobile_390x844_dashboard.png
+!mobile_390x844_pipeline_modal.png
+!mobile_390x844_chat_response.png

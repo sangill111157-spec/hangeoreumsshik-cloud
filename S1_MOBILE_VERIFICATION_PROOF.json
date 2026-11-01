@@ -1,0 +1,47 @@
+{
+  "timestamp": "2026-11-01T20:55:52.801Z",
+  "test_viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "steps": {
+    "header": {
+      "status": "PASS",
+      "info": {
+        "title": "SUN-ONE AON",
+        "status": "🟢 S1 로컬 서버 연결됨 (포트 8504 / APPROVAL_GATED_BRIDGE)"
+      }
+    },
+    "btn_pipeline": {
+      "status": "PASS"
+    },
+    "btn_ledger": {
+      "status": "PASS"
+    },
+    "btn_calendar": {
+      "status": "PASS"
+    },
+    "chat_engine": {
+      "status": "PASS",
+      "messages": [
+        {
+          "role": "user",
+          "text": "3+1 신규 파이프라인 실물 스펙 브리핑해줘"
+        },
+        {
+          "role": "ai",
+          "text": "[⚡ S1 모바일 브리핑: 3+1 신규 홍보·수익화 파이프라인 완공 현황]\n\n1. 9:16 음악 쇼츠 자동공장:\n   • 1080x1920 60fps 20초 실물 쇼츠 MP4 4편 렌더링 완료!\n   • 41곡 전 트랙 배치 매니페스트 구축 및 ISRC 음원 로열티 더"
+        }
+      ]
+    },
+    "rgon_alpha_unification": {
+      "status": "PASS",
+      "info": {
+        "title": "SUN-ONE AON",
+        "status": "🟢 S1 로컬 서버 연결됨 (포트 8504 / APPROVAL_GATED_BRIDGE)",
+        "hasOmniLink": false
+      }
+    }
+  },
+  "overall": "100.0_ALL_PASS"
+}

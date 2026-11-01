@@ -1,9 +1,10 @@
 name: RGON External Brain Kitchen
 
 on:
-  schedule:
-    - cron: "0 18 * * *"   # 매일 03:00 KST
-    - cron: "17 18 * * *"
+# [SCHEDULE_DISABLED_FOR_ZERO_SPAM]
+#   schedule:
+#     - cron: "0 18 * * *"   # 매일 03:00 KST
+#     - cron: "17 18 * * *"
   workflow_dispatch:
     inputs:
       topic:

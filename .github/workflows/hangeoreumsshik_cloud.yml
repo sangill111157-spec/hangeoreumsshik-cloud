@@ -2,13 +2,13 @@ name: HanGeoreumSShik Cloud Automation (한걸음씩 클라우드 무인 자동�
 
 on:
   # 1. 정기 자동 실행 (UTC 기준 스케줄 설정)
-  schedule:
-    # 매일 07:00 KST (Report) -> UTC 22:00 (전날)
-    - cron: '0 22 * * *'
-    # 매일 09:00 KST (Analytics) -> UTC 00:00
-    - cron: '0 0 * * *'
-    # 매주 일요일 10:00 KST (Strategy) -> UTC 일요일 01:00
-    - cron: '0 1 * * 0'
+  # schedule: [SCHEDULE_DISABLED_FOR_ZERO_SPAM]
+  #     # 매일 07:00 KST (Report) -> UTC 22:00 (전날)
+  #     - cron: '0 22 * * *'
+  #     # 매일 09:00 KST (Analytics) -> UTC 00:00
+  #     - cron: '0 0 * * *'
+  #     # 매주 일요일 10:00 KST (Strategy) -> UTC 일요일 01:00
+  #     - cron: '0 1 * * 0'
 
   # 2. 대표님 스마트폰 / 텔레그램 원격 수동 트리거
   workflow_dispatch:
