@@ -378,12 +378,12 @@ def cmd_ask(space_id, prompt_text, wait_sec=60, tail_chars=4500, override_chat_i
 
           // Confirm send: textarea cleared
           const postSend = await Promise.race([
-            page.evaluate(() => {{
+            page.evaluate((baseLen) => {{
               const ta = document.querySelector('textarea[name="query"]') || document.querySelector('textarea');
               const bodyTxt = document.body ? document.body.innerText : "";
               const rateLimited = Array.from(document.querySelectorAll("[role=alert], .ant-message, .toast")).some(e => e.offsetParent !== null && ((e.innerText || "").includes("5시간 제한") || (e.innerText || "").includes("재설정됩니다")));
-              const tailNow = bodyTxt.slice(-1500); return {{ taPresent: Boolean(ta), valLen: ta ? (ta.value || "").trim().length : -1, userMsgSeen: bodyTxt.length > pre.bodyLen, tailSample: tailNow.slice(-120), rateLimited }};
-            }}).catch(() => null),
+              const tailNow = bodyTxt.slice(-1500); return {{ taPresent: Boolean(ta), valLen: ta ? (ta.value || "").trim().length : -1, userMsgSeen: bodyTxt.length > baseLen, tailSample: tailNow.slice(-120), rateLimited }};
+            }}, pre.bodyLen).catch(() => null),
             new Promise(r => setTimeout(() => r(null), 5000))
           ]);
 
