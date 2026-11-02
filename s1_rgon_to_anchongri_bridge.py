@@ -365,11 +365,15 @@ def bridge_daemon_loop(poll_interval=10):
     for did, title, content in known_directives:
         register_new_directive(did, title, content)
 
+    cycle_count = 0
     while RUNNING_FLAG:
         try:
+            cycle_count += 1
             run_bridge_cycle()
+            if cycle_count % 6 == 0:
+                print(f"[{now_iso()}] [HARVESTER_HEARTBEAT] 10s cycle #{cycle_count} running healthy. SSOT scan ok.", flush=True)
         except Exception as e:
-            print(f"[BRIDGE] Error in cycle: {e}")
+            print(f"[BRIDGE] Error in cycle: {e}", flush=True)
         time.sleep(poll_interval)
 
 if __name__ == "__main__":
