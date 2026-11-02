@@ -1,14 +1,18 @@
 # -*- coding: utf-8 -*-
 """
-S1 System #3: Threads & Instagram Non-Viral Global Funnel Engine (s1_threads_global_funnel.py)
-- Generates 7-Day Korean & English 3-Tier High-Conversion Funnel Threads
-- Tier 1: Scroll-Stopping Hook + Shorts Attachment Instruction
-- Tier 2: Deep Emotional Story & K-Wisdom Philosophy
-- Tier 3: Direct Conversion Link to YouTube Full Version & DistroKid Pre-save
+[RULE_DATE / REASON / EXPIRY_CONDITION]
+- Rule Date: 2026-11-02
+- Reason: 7-Day Non-Viral Threads & Instagram High-Conversion Funnel with S1 Humanizer.
+- Expiry Condition: Permanent (Universal 7-Day Growth Engine).
+
+[INPUT / OUTPUT / KILL_SWITCH_CMD]
+- Input: 12-Track Emotion Themes + 4-Track Genesis Master Info
+- Output: S1_7DAYS_THREADS_GLOBAL_PACK (.json, .md) with AI cliches purged
+- Kill Switch Command: S1_THREADS_DISABLED=1
 """
-import os
-import sys
-import json
+import os, sys, json
+import s1_humanizer
+
 
 ROOT_DIR = r"C:\Users\sangi\Downloads\shin-agent"
 OUT_DIR = os.path.join(ROOT_DIR, "studio_vault", "THREADS_FUNNEL_OUT")
@@ -160,9 +164,12 @@ def main():
         md_lines.append("")
 
     md_path = os.path.join(OUT_DIR, "S1_7DAYS_THREADS_GLOBAL_PACK.md")
+    full_md = "\n".join(md_lines)
+    h_th_md = s1_humanizer.humanize_text(full_md)["humanized_text"]
     with open(md_path, "w", encoding="utf-8") as f:
-        f.write("\n".join(md_lines))
+        f.write(h_th_md)
     print(f"Saved Threads Markdown -> {md_path}")
 
 if __name__ == "__main__":
     main()
+

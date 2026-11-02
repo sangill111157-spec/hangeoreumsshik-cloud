@@ -1,6 +1,18 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # S1 Local Bridge Server v1.5 (s1_server.py — Interactive TTY Approval & Atomic Shared Queue & CORS Enhanced)
+
+"""
+[RULE_DATE / REASON / EXPIRY_CONDITION]
+- Rule Date: 2026-11-02
+- Reason: S1 Universal Nerve Server and 24H Bridge Daemon Host (Port 8504).
+- Expiry Condition: Permanent (24/7 Operations).
+
+[INPUT / OUTPUT / KILL_SWITCH_CMD]
+- Input: HTTP requests from Mobile App, Space 0 directives, and CLI
+- Output: JSON API responses and static assets
+- Kill Switch Command: python -c "from pathlib import Path; Path('KILL_SWITCH.flag').write_text('ON')"
+"""
 import os, sys, json, threading, s1_rgon_to_anchongri_bridge, uuid, datetime, hashlib, urllib.parse, http.server, socketserver, time
 import s1_ego
 from s1_queue_store import now_kst, compute_Spec_hashes, append_ledger, update_queue_item
@@ -92,6 +104,7 @@ ALLOWED_FILES = {
     "/S1_RGON_SCHEDULE_DECISION.json": ("S1_RGON_SCHEDULE_DECISION.json", "application/json; charset=utf-8"),
     "/S1_16VIDEOS_VERIFIED_SYSTEMS_PROOF.json": ("S1_16VIDEOS_VERIFIED_SYSTEMS_PROOF.json", "application/json; charset=utf-8"),
     "/S1_41TRACKS_SHORTS_BATCH_MANIFEST.json": ("S1_41TRACKS_SHORTS_BATCH_MANIFEST.json", "application/json; charset=utf-8"),
+    "/S1_KNOWLEDGE_GRAPH_MAP.json": ("S1_KNOWLEDGE_GRAPH_MAP.json", "application/json; charset=utf-8"),
     "/S1_DAILY_RND_LATEST_REPORT.json": ("S1_DAILY_RND_LATEST_REPORT.json", "application/json; charset=utf-8"),
     "/S1_DEPARTMENT_REFLECTION_PURGE_REPORT.json": ("S1_DEPARTMENT_REFLECTION_PURGE_REPORT.json", "application/json; charset=utf-8"),
     "/S1_STAGE1_RND_AND_REFLECTION_BLUEPRINT_AUDIT.json": ("S1_STAGE1_RND_AND_REFLECTION_BLUEPRINT_AUDIT.json", "application/json; charset=utf-8"),
@@ -232,6 +245,16 @@ class S1Handler(http.server.BaseHTTPRequestHandler):
                 res = s1_ego.cmd_read(sp, tail)
                 res["truncation_rule"] = f"tail_chars_limit={tail} (sliced from end of message)"
                 return self._send(200 if res.get("ok") else 502, res)
+            if path == "/api/knowledge_graph":
+                kg_path = os.path.join(ROOT, "S1_KNOWLEDGE_GRAPH_MAP.json")
+                if os.path.exists(kg_path):
+                    try:
+                        with open(kg_path, "r", encoding="utf-8") as f:
+                            return self._send(200, json.load(f))
+                    except Exception:
+                        pass
+                return self._send(200, {"nodes": [], "edges": []})
+
             if path == "/api/daily_rnd":
                 rnd_path = os.path.join(ROOT, "S1_DAILY_RND_LATEST_REPORT.json")
                 if os.path.exists(rnd_path):

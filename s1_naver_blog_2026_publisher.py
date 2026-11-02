@@ -1,12 +1,18 @@
 # -*- coding: utf-8 -*-
 """
-S1 System #2: 2026 Naver C-Rank/DIA+ Blog Publisher Engine (s1_naver_blog_2026_publisher.py)
-- Generates 2026 Naver Algorithm Optimized Post Package (.md & .html)
-- Integrates Ego-Lite SmartEditor ONE Draft Staging Automation
+[RULE_DATE / REASON / EXPIRY_CONDITION]
+- Rule Date: 2026-11-02
+- Reason: Naver DIA+/C-Rank SEO optimization with S1 Humanizer 25 AI Cliches Purge.
+- Expiry Condition: Permanent (2026 D-Day Release Lifecycle).
+
+[INPUT / OUTPUT / KILL_SWITCH_CMD]
+- Input: CapCut 41:14 raw metadata + 12 tracks inventory
+- Output: Humanized Naver Blog Post package (.md, .html, manifest.json)
+- Kill Switch Command: S1_BLOG_DISABLED=1
 """
-import os
-import sys
-import json
+import os, sys, json
+import s1_humanizer
+
 
 ROOT_DIR = r"C:\Users\sangi\Downloads\shin-agent"
 OUT_DIR = os.path.join(ROOT_DIR, "studio_vault", "NAVER_BLOG_OUT")
@@ -141,10 +147,12 @@ def generate_blog_package():
     md_path = os.path.join(OUT_DIR, "NOV06_NAVER_BLOG_POST_PACKAGE.md")
     html_path = os.path.join(OUT_DIR, "NOV06_NAVER_BLOG_POST_PACKAGE.html")
     
+    h_md = s1_humanizer.humanize_text(POST_MD)["humanized_text"]
+    h_html = s1_humanizer.humanize_text(POST_HTML)["humanized_text"]
     with open(md_path, "w", encoding="utf-8") as f:
-        f.write(POST_MD)
+        f.write(h_md)
     with open(html_path, "w", encoding="utf-8") as f:
-        f.write(POST_HTML)
+        f.write(h_html)
         
     print(f"Saved Naver Blog Package -> {md_path} and {html_path}")
 
@@ -167,3 +175,4 @@ def generate_smarteditor_staging_script():
 if __name__ == "__main__":
     generate_blog_package()
     generate_smarteditor_staging_script()
+

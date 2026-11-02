@@ -1,7 +1,19 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# S1 Department Self-Reflection & Waste Purge Engine v1.0 (s1_department_reflection_purge_engine.py)
+# S1 Department Self-Reflection & Waste Purge Engine v2.0 (s1_department_reflection_purge_engine.py)
 # Department #07: 전 부서 자아성찰 및 폐기물 소각 전담 본부
+
+"""
+[RULE_DATE / REASON / EXPIRY_CONDITION]
+- Rule Date: 2026-11-02
+- Reason: Enforce Nielsen Norman Group 2 Anti-Mudball Habits & Digital Waste Purge across all S1 departments.
+- Expiry Condition: Permanent (Never expire, core constitution of S1).
+
+[INPUT / OUTPUT / KILL_SWITCH_CMD]
+- Input: S1 Engine codebase + 6 Departments historical metrics
+- Output: S1_DEPARTMENT_REFLECTION_PURGE_REPORT.json + 09_SELF_REFLECTION_WASTE_PURGE_LEDGER.csv
+- Kill Switch Command: S1_PURGE_DISABLED=1
+"""
 
 import os, sys, json, csv, datetime, shutil
 from pathlib import Path
@@ -95,6 +107,47 @@ def now_iso():
 def today_str():
     return datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9))).strftime("%Y-%m-%d")
 
+
+class AntiMudballInspector:
+    """
+    Absorbed from Shorts #3 (Nielsen Norman Group: 2 Habits to Prevent Mudball Code):
+    1. [RULE_DATE / REASON / EXPIRY_CONDITION]
+    2. [INPUT / OUTPUT / KILL_SWITCH_CMD]
+    """
+    TARGET_ENGINES = [
+        "s1_server.py",
+        "s1_daily_rnd_department.py",
+        "s1_department_reflection_purge_engine.py",
+        "s1_naver_blog_2026_publisher.py",
+        "s1_threads_global_funnel.py",
+        "s1_humanizer.py",
+        "s1_triumvirate_gate.py"
+    ]
+
+    @classmethod
+    def audit_codebase(cls):
+        results = []
+        for fname in cls.TARGET_ENGINES:
+            fpath = BASE / fname
+            if not fpath.exists():
+                continue
+            content = fpath.read_text(encoding="utf-8", errors="ignore")
+            has_rule_header = "[RULE_DATE" in content or "RULE_DATE" in content
+            has_io_header = "[INPUT" in content or "KILL_SWITCH_CMD" in content
+
+            passed = has_rule_header and has_io_header
+            results.append({
+                "file": fname,
+                "has_rule_metadata": has_rule_header,
+                "has_io_and_killswitch_metadata": has_io_header,
+                "status": "PASS" if passed else "NEEDS_HEADER_ATTACHMENT"
+            })
+        return {
+            "total_engines_audited": len(results),
+            "all_passed": all(r["status"] == "PASS" for r in results),
+            "audit_details": results
+        }
+
 def init_ledger():
     LEDGER_CSV.parent.mkdir(parents=True, exist_ok=True)
     if not LEDGER_CSV.exists():
@@ -157,7 +210,11 @@ def run_reflection_and_purge():
                 dept["remedy"]
             ])
 
+    # Run Anti-Mudball Inspector (Shorts #3)
+    mudball_audit = AntiMudballInspector.audit_codebase()
+
     report = {
+        "anti_mudball_audit": mudball_audit,
         "report_id": f"REFLECTION_PURGE_REPORT_{date_now.replace('-', '')}",
         "timestamp": time_now,
         "department": "사령부 산하 6대 전 부서 자아성찰 및 폐기물 소각 전담 본부",
@@ -198,3 +255,4 @@ if __name__ == "__main__":
         "purged_bytes": rep["waste_purge_summary"]["purged_bytes_total"],
         "status": rep["status"]
     }, ensure_ascii=False, indent=2))
+

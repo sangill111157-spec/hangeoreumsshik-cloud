@@ -7,6 +7,18 @@
 # 3. Triumvirate Mandatory Gate (Unanimous 100.0 PASS across Space 0, 2, 3)
 # 4. Key Guard (0% API Token / Secret leakage)
 
+"""
+[RULE_DATE / REASON / EXPIRY_CONDITION]
+- Rule Date: 2026-11-02
+- Reason: Open Agent Harness 4 Safety Gates Lockdown (File Lease, Evidence, Triumvirate, Key Guard).
+- Expiry Condition: Permanent (Constitution Level Security Gate).
+
+[INPUT / OUTPUT / KILL_SWITCH_CMD]
+- Input: Target Proof JSON + Git staged files
+- Output: Gate validation JSON and exit code 0/1
+- Kill Switch Command: S1_HARNESS_LOCK_OVERRIDE=1 (Emergency only)
+"""
+
 import os, sys, json, re, datetime, hashlib
 from pathlib import Path
 
@@ -140,7 +152,7 @@ def check_key_guard(target_dir=BASE, max_files=100):
         "detail": "실제 API 토큰 및 시크릿 키 누출 0% 무결성 확인" if passed else f"누출 의심: {leaks}"
     }
 
-def audit_full_system(proof_file="S1_RND_AND_REFLECTION_PURGE_TRIUMVIRATE_PROOF.json", modified_files=None):
+def audit_full_system(proof_file="S1_12SHORTS_RND_TRIUMVIRATE_PROOF.json", modified_files=None):
     if modified_files is None:
         modified_files = [
             "s1_server.py", "s1_ego.py", "s1_rgon_to_anchongri_bridge.py",
