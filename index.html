@@ -837,98 +837,345 @@
 
     <!-- INTERACTIVE ANATOMY: 6-NODE ENERGY MARBLE PANEL (SHORTS #8) -->
     <!-- [S1-DELIVERABLE-REVIEW-START] -->
+
 <div class="anatomy-panel" id="s1-deliverable-review-panel" style="border-color:#f59e0b;margin-bottom:10px;">
+
   <div class="anatomy-header">
+
     <div class="anatomy-title" style="color:#fbbf24;">🏛️ 각 부서별 완성품 바로보기 & 어전 결재 (승인·수정·폐기)</div>
+
     <div class="anatomy-status" id="s1-rev-summary">집계 중...</div>
+
   </div>
+
   <div id="s1-deliverable-list" style="display:flex;flex-direction:column;gap:8px;max-height:360px;overflow-y:auto;padding-right:2px;"></div>
+
 </div>
+
+
+
+<!-- FULLSCREEN DELIVERABLE VIEWER OVERLAY -->
+
+<div id="s1-fullscreen-viewer" style="display:none;position:fixed;inset:0;width:100vw;height:100dvh;background:rgba(4,7,16,0.98);z-index:99999;flex-direction:column;overflow:hidden;">
+
+  <div style="display:flex;justify-content:space-between;align-items:center;padding:calc(12px + env(safe-area-inset-top,0px)) 14px 12px;background:#0f172a;border-bottom:1.5px solid #f59e0b;flex-shrink:0;">
+
+    <div style="display:flex;flex-direction:column;gap:2px;max-width:75%;">
+
+      <span id="s1-fs-dept" style="font-size:11px;color:#22d3ee;font-weight:800;"></span>
+
+      <span id="s1-fs-title" style="font-size:14px;color:#fbbf24;font-weight:900;line-height:1.3;"></span>
+
+    </div>
+
+    <button onclick="s1CloseFullscreen()" style="padding:8px 14px;border-radius:10px;border:1.5px solid #f87171;background:rgba(239,68,68,0.25);color:#fff;font-size:13px;font-weight:900;cursor:pointer;flex-shrink:0;">✕ 닫기</button>
+
+  </div>
+
+  <div id="s1-fs-body" style="flex:1;overflow-y:auto;padding:16px;color:#f8fafc;font-size:13.5px;line-height:1.65;"></div>
+
+  <div style="padding:12px 14px calc(12px + env(safe-area-inset-bottom,0px));background:#0f172a;border-top:1px solid rgba(245,158,11,0.35);display:flex;flex-direction:column;gap:8px;flex-shrink:0;">
+
+    <div id="s1-fs-actions" style="display:flex;gap:6px;"></div>
+
+    <button onclick="s1CloseFullscreen()" style="width:100%;padding:11px;border-radius:10px;border:1.5px solid #22d3ee;background:rgba(6,182,212,0.22);color:#fff;font-size:13px;font-weight:900;cursor:pointer;">⬅️ 닫고 이전 결재화면으로 복귀</button>
+
+  </div>
+
+</div>
+
+
+
 <script>
+
 (function(){
-  const DEFAULT_ITEMS = [{"id": "DELIV-AUDIO-01", "dept": "🎵 음원·DistroKid부", "title": "대표님 친작 Suno V6 #1: 희망의 등불 (Beacon of Hope)", "type": "audio", "url": "./01_BEACON_OF_HOPE_master_320kbps.mp3", "desc": "-14.0 LUFS / 320kbps 마스터 음원 (ISRC: KR-S01-26-V601)", "status": "PENDING", "feedback": ""}, {"id": "DELIV-AUDIO-02", "dept": "🎵 음원·DistroKid부", "title": "대표님 친작 Suno V6 #2: 희망의 바다 (Ocean of Hope)", "type": "audio", "url": "./02_OCEAN_OF_HOPE_master_320kbps.mp3", "desc": "-14.0 LUFS / 320kbps 마스터 음원 (ISRC: KR-S01-26-V602)", "status": "PENDING", "feedback": ""}, {"id": "DELIV-VIDEO-01", "dept": "🎬 4대 채널·영상부", "title": "정규 1집 『가을과 겨울 사이』 12곡 하이브리드 마스터 (41분 14초)", "type": "link", "url": "./S1_D3_LAUNCH_PREP_TRIUMVIRATE_PROOF.json", "desc": "11월 6일 00:00 @한걸음씩-r4i & 전 세계 24개 플랫폼 동시 출격 대기본", "status": "APPROVED_SCHEDULED", "feedback": "11월 6일 스케줄 출격 대기"}, {"id": "DELIV-VIRAL-01", "dept": "✍️ 3+1 바이럴 홍보부", "title": "네이버 블로그 고체류 원고 & 스레드 120자+첫댓글 분리 7일 패키지", "type": "text", "url": "./S1_DAILY_RND_LATEST_REPORT.json", "desc": "AI 상투어 32종 소거 + 스레드 120자 본문/첫댓글 분리 + MiroFish 가상청취자 예측 98.5점", "status": "PENDING", "feedback": ""}, {"id": "DELIV-LEGAL-01", "dept": "⚖️ 저작권·R&D부", "title": "황금 S1 3종 로고 국제 베른협약 SHA-256 디지털 공증 & 출원 패키지", "type": "logo", "url": "./s1_logo_3.png", "desc": "s1_logo_1~3.png SHA-256 해시 박제 및 한국저작권위원회/특허청 출원 명세서", "status": "APPROVED_SCHEDULED", "feedback": "공증 완료"}];
-  const STORAGE_KEY = 'S1_CEO_DELIVERABLE_REVIEWS_V2_CLEAN';
+
+  const DEFAULT_ITEMS = [{"id": "DELIV-AUDIO-01", "dept": "🎵 음원·DistroKid부", "title": "대표님 친작 Suno V6 #1: 희망의 등불 (Beacon of Hope)", "type": "audio_mv", "audio_url": "https://raw.githubusercontent.com/sangill111157-spec/hangeoreumsshik-cloud/main/studio_vault/CEO_SUNO_V6_MASTERS/01_BEACON_OF_HOPE_master_320kbps.mp3", "video_url": "https://raw.githubusercontent.com/sangill111157-spec/hangeoreumsshik-cloud/main/studio_vault/CEO_SUNO_V6_MASTERS/01_BEACON_OF_HOPE_1080p_MV.mp4", "desc": "-14.0 LUFS / 320kbps 마스터 음원 & 1080p 공식 MV (ISRC: KR-S01-26-V601)", "status": "PENDING", "feedback": ""}, {"id": "DELIV-AUDIO-02", "dept": "🎵 음원·DistroKid부", "title": "대표님 친작 Suno V6 #2: 희망의 바다 (Ocean of Hope)", "type": "audio_mv", "audio_url": "https://raw.githubusercontent.com/sangill111157-spec/hangeoreumsshik-cloud/main/studio_vault/CEO_SUNO_V6_MASTERS/02_OCEAN_OF_HOPE_master_320kbps.mp3", "video_url": "https://raw.githubusercontent.com/sangill111157-spec/hangeoreumsshik-cloud/main/studio_vault/CEO_SUNO_V6_MASTERS/02_OCEAN_OF_HOPE_1080p_MV.mp4", "desc": "-14.0 LUFS / 320kbps 마스터 음원 & 1080p 공식 MV (ISRC: KR-S01-26-V602)", "status": "PENDING", "feedback": ""}, {"id": "DELIV-VIDEO-01", "dept": "🎬 4대 채널·영상부", "title": "정규 1집 『가을과 겨울 사이』 12곡 하이브리드 마스터 & 로고 인트로", "type": "video_doc", "video_url": "https://raw.githubusercontent.com/sangill111157-spec/hangeoreumsshik-cloud/main/studio_vault/CEO_SUNO_V6_MASTERS/official_logo_intro_1080p.mp4", "doc_url": "https://raw.githubusercontent.com/sangill111157-spec/hangeoreumsshik-cloud/main/S1_D3_LAUNCH_PREP_TRIUMVIRATE_PROOF.json", "thumb_url": "https://raw.githubusercontent.com/sangill111157-spec/hangeoreumsshik-cloud/main/studio_vault/SHORTS_FACTORY_OUT/SHORTS_01_MAKCHA_composite.png", "desc": "11월 6일 00:00 @한걸음씩-r4i & 전 세계 24개 플랫폼 동시 출격 대기본 (41분 14초)", "status": "APPROVED_SCHEDULED", "feedback": "11월 6일 스케줄 출격 대기"}, {"id": "DELIV-VIRAL-01", "dept": "✍️ 3+1 바이럴 홍보부", "title": "네이버 블로그 고체류 원고 & 스레드 120자+첫댓글 7일 패키지 전문", "type": "manuscript", "doc_url": "https://raw.githubusercontent.com/sangill111157-spec/hangeoreumsshik-cloud/main/studio_vault/THREADS_FUNNEL_OUT/S1_7DAYS_THREADS_GLOBAL_PACK.md", "sub_doc_url": "https://raw.githubusercontent.com/sangill111157-spec/hangeoreumsshik-cloud/main/studio_vault/NAVER_BLOG_OUT/NOV06_NAVER_BLOG_POST_PACKAGE.md", "desc": "AI 상투어 32종 소거 + 스레드 120자 본문/첫댓글 분리 + MiroFish 가상청취자 예측 98.5점", "status": "PENDING", "feedback": ""}, {"id": "DELIV-LEGAL-01", "dept": "⚖️ 저작권·R&D부", "title": "황금 S1 3종 로고 국제 베른협약 SHA-256 디지털 공증 & 3종 도면", "type": "logos_cert", "doc_url": "https://raw.githubusercontent.com/sangill111157-spec/hangeoreumsshik-cloud/main/studio_vault/COPYRIGHT_AND_TRADEMARK_PACK/S1_3LOGOS_OFFICIAL_COPYRIGHT_CERTIFICATE.json", "logos": ["https://raw.githubusercontent.com/sangill111157-spec/hangeoreumsshik-cloud/main/s1_logo_3.png", "https://raw.githubusercontent.com/sangill111157-spec/hangeoreumsshik-cloud/main/s1_logo_1.png", "https://raw.githubusercontent.com/sangill111157-spec/hangeoreumsshik-cloud/main/s1_logo_2.png"], "desc": "s1_logo_1~3.png SHA-256 해시 박제 및 한국저작권위원회/특허청 출원 명세서", "status": "APPROVED_SCHEDULED", "feedback": "공증 완료"}];
+
+  const STORAGE_KEY = 'S1_CEO_DELIVERABLE_REVIEWS_V3_FULLSCREEN';
+
   function loadItems(){
+
     try {
+
       localStorage.removeItem('S1_CEO_DELIVERABLE_REVIEWS_V1');
+
+      localStorage.removeItem('S1_CEO_DELIVERABLE_REVIEWS_V2_CLEAN');
+
       const saved = localStorage.getItem(STORAGE_KEY);
+
       if(saved && !saved.includes('???')) return JSON.parse(saved);
+
     } catch(e){}
+
     return DEFAULT_ITEMS;
+
   }
+
   function saveItems(items){
+
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(items)); } catch(e){}
+
     renderItems();
+
   }
-  window.s1PreviewDeliverable = function(idx){
-    const items = loadItems();
-    const it = items[idx];
-    if(!it) return;
-    if(it.type === 'audio'){
-      let player = document.getElementById('s1-inline-audio-' + idx);
-      if(player){ player.style.display = player.style.display === 'none' ? 'block' : 'none'; }
-    } else if(it.type === 'logo'){
-      window.open(it.url, '_blank');
-    } else {
-      alert('[' + it.dept + ']\n' + it.title + '\n\n' + it.desc + '\n\nStatus: ' + it.status + (it.feedback ? '\nFeedback: ' + it.feedback : ''));
-    }
+
+  window.s1CloseFullscreen = function(){
+
+    const ov = document.getElementById('s1-fullscreen-viewer');
+
+    const bd = document.getElementById('s1-fs-body');
+
+    if(bd) bd.innerHTML = '';
+
+    if(ov) ov.style.display = 'none';
+
   };
+
+  window.s1PreviewDeliverable = async function(idx){
+
+    const items = loadItems();
+
+    const it = items[idx];
+
+    if(!it) return;
+
+    const ov = document.getElementById('s1-fullscreen-viewer');
+
+    const dp = document.getElementById('s1-fs-dept');
+
+    const tt = document.getElementById('s1-fs-title');
+
+    const bd = document.getElementById('s1-fs-body');
+
+    const ac = document.getElementById('s1-fs-actions');
+
+    if(!ov || !bd) return;
+
+    dp.innerText = it.dept;
+
+    tt.innerText = it.title;
+
+    ac.innerHTML =
+
+      '<button onclick="s1DecideDeliverable(' + idx + ',\"APPROVE\");s1CloseFullscreen();" style="flex:1;padding:9px;border-radius:8px;border:1px solid #10b981;background:rgba(16,185,129,0.25);color:#34d399;font-size:12px;font-weight:900;cursor:pointer;">✅ 승인</button>' +
+
+      '<button onclick="s1DecideDeliverable(' + idx + ',\"REVISION\");s1CloseFullscreen();" style="flex:1;padding:9px;border-radius:8px;border:1px solid #f59e0b;background:rgba(245,158,11,0.25);color:#fbbf24;font-size:12px;font-weight:900;cursor:pointer;">✏️ 수정</button>' +
+
+      '<button onclick="s1DecideDeliverable(' + idx + ',\"DISCARD\");s1CloseFullscreen();" style="flex:1;padding:9px;border-radius:8px;border:1px solid #ef4444;background:rgba(239,68,68,0.25);color:#f87171;font-size:12px;font-weight:900;cursor:pointer;">🗑️ 폐기</button>';
+
+    ov.style.display = 'flex';
+
+
+
+    if(it.type === 'audio_mv'){
+
+      bd.innerHTML =
+
+        '<div style="background:#1e293b;padding:14px;border-radius:12px;border:1px solid #f59e0b;margin-bottom:14px;">' +
+
+          '<div style="font-weight:800;color:#fbbf24;margin-bottom:8px;">🎧 320kbps 마스터 음원 즉시 스트리밍 재생:</div>' +
+
+          '<audio controls autoplay src="' + it.audio_url + '" style="width:100%;height:44px;"></audio>' +
+
+        '</div>' +
+
+        '<div style="background:#1e293b;padding:14px;border-radius:12px;border:1px solid #22d3ee;">' +
+
+          '<div style="font-weight:800;color:#22d3ee;margin-bottom:8px;">🎬 1080p Full-HD 공식 뮤직비디오 영상 재생:</div>' +
+
+          '<video controls playsinline src="' + it.video_url + '" style="width:100%;max-height:52vh;border-radius:8px;background:#000;"></video>' +
+
+        '</div>' +
+
+        '<div style="margin-top:12px;padding:12px;background:rgba(255,255,255,0.04);border-radius:8px;font-size:12px;color:#cbd5e1;">' + it.desc + '</div>';
+
+    } else if(it.type === 'video_doc'){
+
+      bd.innerHTML =
+
+        '<div style="background:#1e293b;padding:14px;border-radius:12px;border:1px solid #22d3ee;margin-bottom:14px;">' +
+
+          '<div style="font-weight:800;color:#22d3ee;margin-bottom:8px;">🎬 1080p Full-HD 공식 뮤직비디오 영상 재생:</div>' +
+
+          '<video controls autoplay playsinline src="' + it.video_url + '" style="width:100%;max-height:42vh;border-radius:8px;background:#000;"></video>' +
+
+        '</div>' +
+
+        (it.thumb_url ? '<img src="' + it.thumb_url + '" style="width:100%;border-radius:10px;border:1px solid #f59e0b;margin-bottom:12px;">' : '') +
+
+        '<pre id="s1-fs-pre" style="white-space:pre-wrap;word-break:break-word;background:#0f172a;padding:12px;border-radius:10px;border:1px solid #334155;font-size:12px;color:#e2e8f0;">📄 클라우드 금고에서 실물 원고 전문을 불러오는 중입니다...</pre>';
+
+      try {
+
+        const r = await fetch(it.doc_url);
+
+        const t = await r.text();
+
+        const pre = document.getElementById('s1-fs-pre');
+
+        if(pre) pre.innerText = t;
+
+      } catch(e){}
+
+    } else if(it.type === 'manuscript'){
+
+      bd.innerHTML = '<pre id="s1-fs-pre" style="white-space:pre-wrap;word-break:break-word;background:#0f172a;padding:14px;border-radius:10px;border:1px solid #f59e0b;font-size:13px;line-height:1.7;color:#f8fafc;">📄 클라우드 금고에서 실물 원고 전문을 불러오는 중입니다...</pre>';
+
+      try {
+
+        const r1 = await fetch(it.doc_url);
+
+        const t1 = await r1.text();
+
+        let t2 = '';
+
+        if(it.sub_doc_url){
+
+          const r2 = await fetch(it.sub_doc_url);
+
+          t2 = '\n\n========================================\n[NAVER BLOG FULL PACKAGE]\n========================================\n\n' + (await r2.text());
+
+        }
+
+        const pre = document.getElementById('s1-fs-pre');
+
+        if(pre) pre.innerText = t1 + t2;
+
+      } catch(e){}
+
+    } else if(it.type === 'logos_cert'){
+
+      const imgs = (it.logos || []).map(u => '<img src="' + u + '" style="width:100%;border-radius:12px;border:1.5px solid #f59e0b;margin-bottom:12px;background:#000;">').join('');
+
+      bd.innerHTML = imgs + '<pre id="s1-fs-pre" style="white-space:pre-wrap;word-break:break-word;background:#0f172a;padding:14px;border-radius:10px;border:1px solid #22d3ee;font-size:12px;color:#e2e8f0;">📄 클라우드 금고에서 실물 원고 전문을 불러오는 중입니다...</pre>';
+
+      try {
+
+        const r = await fetch(it.doc_url);
+
+        const t = await r.text();
+
+        const pre = document.getElementById('s1-fs-pre');
+
+        if(pre) pre.innerText = t;
+
+      } catch(e){}
+
+    }
+
+  };
+
   window.s1DecideDeliverable = function(idx, action){
+
     const items = loadItems();
+
     const it = items[idx];
+
     if(!it) return;
+
     if(action === 'APPROVE'){
+
       it.status = 'APPROVED_SCHEDULED';
+
       it.feedback = "대표님 승인 완료 (스케줄대로 업로드 대기)";
+
     } else if(action === 'REVISION'){
+
       const fb = prompt('[' + it.title + '] ' + "수정 지시사항(피드백)을 입력해 주세요:", it.feedback || "도입부 임팩트 및 디테일 보완 요망");
+
       if(fb === null) return;
+
       it.status = 'REVISION_REQUESTED';
+
       it.feedback = fb;
+
       if(typeof window.dispatchCommand === 'function'){
+
         try { window.dispatchCommand('[REVISION] ' + it.title + ' -> ' + fb); } catch(e){}
+
       }
+
     } else if(action === 'DISCARD'){
+
       if(!confirm('[' + it.title + '] ' + "완성품을 업로드 대기열에서 즉시 폐기하시겠습니까? (원본 보호파일 안전락 적용)")) return;
+
       it.status = 'DISCARDED_PURGED';
+
       it.feedback = "대표님 즉시 폐기 처분 완료 (스케줄 제외)";
+
     }
+
     saveItems(items);
+
   };
+
   function renderItems(){
+
     const box = document.getElementById('s1-deliverable-list');
+
     const sumEl = document.getElementById('s1-rev-summary');
+
     if(!box) return;
+
     const items = loadItems();
+
     let appCnt=0, revCnt=0, disCnt=0;
+
     box.innerHTML = items.map((it, idx) => {
+
       let badge = '<span style="background:#334155;color:#e2e8f0;padding:2px 7px;border-radius:99px;font-size:10px;">⏳ 미결재</span>';
+
       if(it.status === 'APPROVED_SCHEDULED'){ appCnt++; badge = '<span style="background:rgba(16,185,129,0.2);border:1px solid #10b981;color:#34d399;padding:2px 7px;border-radius:99px;font-size:10px;font-weight:800;">🟢 승인완료·업로드대기</span>'; }
+
       else if(it.status === 'REVISION_REQUESTED'){ revCnt++; badge = '<span style="background:rgba(245,158,11,0.2);border:1px solid #f59e0b;color:#fbbf24;padding:2px 7px;border-radius:99px;font-size:10px;font-weight:800;">🟡 수정대기</span>'; }
+
       else if(it.status === 'DISCARDED_PURGED'){ disCnt++; badge = '<span style="background:rgba(239,68,68,0.2);border:1px solid #ef4444;color:#f87171;padding:2px 7px;border-radius:99px;font-size:10px;font-weight:800;">🔴 즉시폐기됨</span>'; }
-      const audioTag = it.type === 'audio' ? '<audio id="s1-inline-audio-' + idx + '" controls preload="none" src="' + it.url + '" style="display:none;width:100%;height:32px;margin-top:6px;"></audio>' : '';
+
       const fbLine = it.feedback ? '<div style="font-size:10.5px;color:#fbbf24;margin-top:4px;">💬 ' + it.feedback + '</div>' : '';
+
       return '<div style="background:rgba(255,255,255,0.04);border:1px solid rgba(245,158,11,0.25);border-radius:10px;padding:9px;">' +
+
         '<div style="display:flex;justify-content:space-between;align-items:center;gap:6px;margin-bottom:4px;">' +
+
           '<span style="font-size:10.5px;color:#22d3ee;font-weight:700;">' + it.dept + '</span>' + badge +
+
         '</div>' +
+
         '<div style="font-size:12px;font-weight:800;color:#f8fafc;margin-bottom:3px;">' + it.title + '</div>' +
+
         '<div style="font-size:10.5px;color:#94a3b8;margin-bottom:6px;">' + it.desc + '</div>' +
-        audioTag + fbLine +
+
+        fbLine +
+
         '<div style="display:flex;gap:5px;margin-top:6px;flex-wrap:wrap;">' +
-          '<button onclick="s1PreviewDeliverable(' + idx + ')" style="flex:1;padding:5px 8px;border-radius:6px;border:1px solid #22d3ee;background:rgba(6,182,212,0.15);color:#fff;font-size:11px;font-weight:700;cursor:pointer;">👁️ 바로보기/듣기</button>' +
-          '<button onclick="s1DecideDeliverable(' + idx + ',\"APPROVE\")" style="flex:1;padding:5px 8px;border-radius:6px;border:1px solid #10b981;background:rgba(16,185,129,0.2);color:#34d399;font-size:11px;font-weight:800;cursor:pointer;">✅ 승인</button>' +
-          '<button onclick="s1DecideDeliverable(' + idx + ',\"REVISION\")" style="flex:1;padding:5px 8px;border-radius:6px;border:1px solid #f59e0b;background:rgba(245,158,11,0.2);color:#fbbf24;font-size:11px;font-weight:800;cursor:pointer;">✏️ 수정</button>' +
-          '<button onclick="s1DecideDeliverable(' + idx + ',\"DISCARD\")" style="flex:1;padding:5px 8px;border-radius:6px;border:1px solid #ef4444;background:rgba(239,68,68,0.2);color:#f87171;font-size:11px;font-weight:800;cursor:pointer;">🗑️ 폐기</button>' +
+
+          '<button onclick="s1PreviewDeliverable(' + idx + ')" style="flex:1.4;padding:6px 8px;border-radius:6px;border:1px solid #22d3ee;background:rgba(6,182,212,0.22);color:#fff;font-size:11px;font-weight:800;cursor:pointer;">👁️ 전체화면 보기/듣기</button>' +
+
+          '<button onclick="s1DecideDeliverable(' + idx + ',\"APPROVE\")" style="flex:1;padding:6px 8px;border-radius:6px;border:1px solid #10b981;background:rgba(16,185,129,0.2);color:#34d399;font-size:11px;font-weight:800;cursor:pointer;">✅ 승인</button>' +
+
+          '<button onclick="s1DecideDeliverable(' + idx + ',\"REVISION\")" style="flex:1;padding:6px 8px;border-radius:6px;border:1px solid #f59e0b;background:rgba(245,158,11,0.2);color:#fbbf24;font-size:11px;font-weight:800;cursor:pointer;">✏️ 수정</button>' +
+
+          '<button onclick="s1DecideDeliverable(' + idx + ',\"DISCARD\")" style="flex:1;padding:6px 8px;border-radius:6px;border:1px solid #ef4444;background:rgba(239,68,68,0.2);color:#f87171;font-size:11px;font-weight:800;cursor:pointer;">🗑️ 폐기</button>' +
+
         '</div>' +
+
       '</div>';
+
     }).join('');
+
     if(sumEl) sumEl.innerText = '🟢' + appCnt + ' · 🟡' + revCnt + ' · 🔴' + disCnt;
+
   }
+
   document.addEventListener('DOMContentLoaded', renderItems);
+
   setTimeout(renderItems, 200);
+
 })();
+
 </script>
+
 <!-- [S1-DELIVERABLE-REVIEW-END] -->
 <section class="anatomy-panel" id="anatomy-panel">
       <div class="anatomy-header">
