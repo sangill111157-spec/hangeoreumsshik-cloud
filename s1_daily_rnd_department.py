@@ -139,7 +139,15 @@ def run_rnd_cycle():
         "daily_summary": {
             "total_investigated": len(RND_RESEARCH_KNOWLEDGE),
             "adopted_technologies": 4,
-            "filtered_hype": ["유료 강의 광고 봇", "단발성 슬라이드 쇼츠", "비실측 짐작 매크로"],
+            "filtered_hype": [
+                "유료 강의 광고 봇",
+                "단발성 슬라이드 쇼츠",
+                "비실측 짐작 매크로",
+                "Atticus (Mac 전용 음성비서 - Windows 부적합)",
+                "REA (리버스 엔지니어링 MCP - 본업 무관 및 과부하)",
+                "Open-Premiere / Open-Photoshop (초기 클론 앱 - 무거움, FFmpeg/PIL로 대체 완료)",
+                "EmbeddingGemma 2 / Qwen3-Omni 30B (로컬 GPU/RAM 과부하 - 초경량 CSV/JSON 원장으로 대체 완료)"
+            ],
             "core_focus": "초경량 실무 적용성 100% 무결점 기술 우선 채택"
         },
         "status": "RND_CYCLE_COMPLETED_100_PERCENT"

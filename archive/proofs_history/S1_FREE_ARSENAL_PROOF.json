@@ -1,0 +1,34 @@
+{
+  "timestamp": "2026-10-31 12:32:56 KST",
+  "cost_policy": "ZERO_PAID_API (100% 무료 오픈소스 & 로컬/웹 세션 우회)",
+  "engines": {
+    "audio_mastering": {
+      "name": "FFmpeg + Python Wave DSP (EBU R128 -14 LUFS / 48kHz 24bit)",
+      "ready": true,
+      "binary": "C:\\Users\\sangi\\AppData\\Local\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0.1-full_build\\bin\\ffmpeg.EXE"
+    },
+    "voice_tts": {
+      "name": "Microsoft Edge-TTS Free Stream / WebSpeech Synth",
+      "ready": true,
+      "module_installed": true
+    },
+    "video_render": {
+      "name": "STUDIO v5 FFmpeg 10s MP4 H.264/AAC Renderer",
+      "ready": true
+    },
+    "ai_orchestration": {
+      "name": "EGO-Browser Triumvirate Web-Session Bridge (Gemini + GPT + Claude 무과금 연동)",
+      "ready": true
+    },
+    "sheet_sync": {
+      "name": "Google Visualization JSONP / CSV Zero-Key Bridge",
+      "ready": true
+    }
+  },
+  "studio_v5_sample": {
+    "wav": "s1_studio_v5_10s.wav",
+    "mp4": "s1_studio_v5_10s.mp4",
+    "exists": true,
+    "bytes": 269139
+  }
+}

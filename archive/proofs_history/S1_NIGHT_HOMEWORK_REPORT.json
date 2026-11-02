@@ -1,0 +1,8 @@
+{
+  "total_buttons_clicked": 0,
+  "total_failures": 0,
+  "pages_tested": [],
+  "triumvirate_audit": {},
+  "raw_stdout": "",
+  "raw_stderr": "SyntaxError: Unexpected end of input at node:internal/vm:203\n"
+}

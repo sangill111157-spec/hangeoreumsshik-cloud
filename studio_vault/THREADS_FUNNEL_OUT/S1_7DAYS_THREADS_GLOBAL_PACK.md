@@ -1,12 +1,16 @@
 # 🧵 Threads & Instagram Non-Viral 7-Day Global High-Conversion Funnel Pack
 
-> **전략:** 무리한 알고리즘 바이럴이 아닌, 진성 청자(힐링/사색/포커스) 타겟 3단 고전환 퍼널(후킹 -> 스토리 -> 직결 링크)
+> **전략:** 26대 바이럴 훅 & 3단 해시태그(Niche 40% + Category 40% + Branded 20%) & 3단 고전환 퍼널(후킹 -> 스토리 -> 직결 링크)
 
 ---
 
 ## Part 1. 한국 본진 [@한걸음씩-r4i] 7일 감성 스레드 타래 원고
 
 ### [Day 1] 01. 막차 (Last Train)
+**[바이럴 훅 추천 A (Curiosity Gap)]** `대부분의 사람들이 모르는 3분 쉼표의 치명적인 비밀`
+**[바이럴 훅 추천 B (Contrarian)]** `열심히 살지 마세요. 오늘은 그냥 쉬어도 충분합니다`
+**[바이럴 훅 추천 C (Story Opening)]** `막차가 떠난 플랫폼 벤치에 혼자 앉아 이 글을 씁니다`
+
 **[1번째 타래 - 후킹 & 영상 지시]**
 ```text
 오늘 하루도 참 치열하게 버텼습니다. 마지막 열차에 기대어 듣는 작은 숨소리 하나.
@@ -28,9 +32,16 @@
 여러분의 오늘 하루는 어떠셨나요? 댓글로 짧은 안부를 나눠주세요 🍂
 ```
 
+**[3단 최적화 해시태그 (40% Niche + 40% Category + 20% Branded)]**
+`#막차퇴근길 #위로의음악 #혼자만의시간 #마음의쉼표 #어쿠스틱포크 #한국인디음악 #감성플레이리스트 #힐링음악 #한걸음씩 #상선약수`
+
 ---
 
 ### [Day 2] 02. 창을 닫지 마 (Don't Close the Window)
+**[바이럴 훅 추천 A (Curiosity Gap)]** `스포티파이 알고리즘이 침묵과 여백을 추천하기 시작한 이유`
+**[바이럴 훅 추천 B (Contrarian)]** `음악을 들으며 억지 동기부여를 얻으려 하지 마세요`
+**[바이럴 훅 추천 C (Story Opening)]** `어머니가 차려주신 따뜻한 국 한 그릇이 문득 떠오르던 날`
+
 **[1번째 타래 - 후킹 & 영상 지시]**
 ```text
 바람이 차가워졌다고 마음의 문까지 닫아걸진 마세요.
@@ -50,9 +61,16 @@
 멜론/지니/스포티파이 공식 발매 중
 ```
 
+**[3단 최적화 해시태그 (40% Niche + 40% Category + 20% Branded)]**
+`#막차퇴근길 #위로의음악 #혼자만의시간 #마음의쉼표 #어쿠스틱포크 #한국인디음악 #감성플레이리스트 #힐링음악 #한걸음씩 #상선약수`
+
 ---
 
 ### [Day 3] 03. 첫 입김 (First Breath in Cold Air)
+**[바이럴 훅 추천 A (Curiosity Gap)]** `번아웃 직전까지 아무도 알려주지 않았던 진실 하나`
+**[바이럴 훅 추천 B (Contrarian)]** `더 빨리 가려는 노력이 오히려 당신의 영혼을 메마르게 합니다`
+**[바이럴 훅 추천 C (Story Opening)]** `새벽 2시, 모니터 불빛 앞에서 모든 걸 포기하고 싶었을 때`
+
 **[1번째 타래 - 후킹 & 영상 지시]**
 ```text
 입김이 하얗게 피어오르는 순간, 비로소 겨울이 왔음을 실감합니다.
@@ -71,9 +89,16 @@
 👉 프로필 링크에서 41분 풀영상과 고음질 스트리밍을 만나보세요.
 ```
 
+**[3단 최적화 해시태그 (40% Niche + 40% Category + 20% Branded)]**
+`#막차퇴근길 #위로의음악 #혼자만의시간 #마음의쉼표 #어쿠스틱포크 #한국인디음악 #감성플레이리스트 #힐링음악 #한걸음씩 #상선약수`
+
 ---
 
 ### [Day 4] 04. 오늘은 여기까지 (That's All for Today)
+**[바이럴 훅 추천 A (Curiosity Gap)]** `단 1곡으로 머릿속 잡념을 90% 소거하는 음향 구조`
+**[바이럴 훅 추천 B (Contrarian)]** `수백만 조회수 쇼츠보다 단 1명의 진성 청자가 귀한 이유`
+**[바이럴 훅 추천 C (Story Opening)]** `초등학교 4학년 딸아이가 그려준 작은 물방울 스케치에서 시작된 기적`
+
 **[1번째 타래 - 후킹 & 영상 지시]**
 ```text
 모든 짐을 혼자 짊어지려 하지 마세요. 오늘은 여기까지만 해도 충분합니다.
@@ -92,9 +117,16 @@
 유튜브 풀앨범: https://www.youtube.com/@한걸음씩-r4i
 ```
 
+**[3단 최적화 해시태그 (40% Niche + 40% Category + 20% Branded)]**
+`#막차퇴근길 #위로의음악 #혼자만의시간 #마음의쉼표 #어쿠스틱포크 #한국인디음악 #감성플레이리스트 #힐링음악 #한걸음씩 #상선약수`
+
 ---
 
 ### [Day 5] 05. 밥은 먹었니 (Have You Eaten)
+**[바이럴 훅 추천 A (Curiosity Gap)]** `왜 성공한 사람들은 새벽에 이 잔잔한 멜로디만 반복해서 들을까?`
+**[바이럴 훅 추천 B (Contrarian)]** `성공학 책 100권보다 퇴근길 3분의 사색이 강력한 이유`
+**[바이럴 훅 추천 C (Story Opening)]** `차가운 겨울바람이 불어올 때면 문득 생각나는 한 사람`
+
 **[1번째 타래 - 후킹 & 영상 지시]**
 ```text
 세상에서 가장 평범하지만, 가장 위대한 사랑의 질문: '밥은 먹었니?'
@@ -110,9 +142,16 @@
 한걸음씩 정규 1집 수록곡 전곡 스트리밍 중입니다.
 ```
 
+**[3단 최적화 해시태그 (40% Niche + 40% Category + 20% Branded)]**
+`#막차퇴근길 #위로의음악 #혼자만의시간 #마음의쉼표 #어쿠스틱포크 #한국인디음악 #감성플레이리스트 #힐링음악 #한걸음씩 #상선약수`
+
 ---
 
 ### [Day 6] 06. 식어 가는 차 (Cooling Tea)
+**[바이럴 훅 추천 A (Curiosity Gap)]** `밤 11시 40분, 막차 승강장에서 모두가 멈춰 선 진짜 이유`
+**[바이럴 훅 추천 B (Contrarian)]** `다투지 않고 낮은 곳으로 흐르는 음악이 어떻게 전 세계를 감동시키는가`
+**[바이럴 훅 추천 C (Story Opening)]** `10년 전 오늘, 나는 세상에서 가장 소중한 것을 잃어버렸습니다`
+
 **[1번째 타래 - 후킹 & 영상 지시]**
 ```text
 뜨거움이 지나간 자리에 비로소 찾아오는 은은하고 깊은 향기.
@@ -129,9 +168,16 @@
 프로필 링크 확인
 ```
 
+**[3단 최적화 해시태그 (40% Niche + 40% Category + 20% Branded)]**
+`#막차퇴근길 #위로의음악 #혼자만의시간 #마음의쉼표 #어쿠스틱포크 #한국인디음악 #감성플레이리스트 #힐링음악 #한걸음씩 #상선약수`
+
 ---
 
 ### [Day 7] 12. 내일의 아침 (Tomorrow's Morning)
+**[바이럴 훅 추천 A (Curiosity Gap)]** `한 번 들으면 머릿속에서 떠나지 않는 '상선약수' 물의 주파수`
+**[바이럴 훅 추천 B (Contrarian)]** `화려한 테크닉을 다 덜어낸 가장 단순한 어쿠스틱 선율의 힘`
+**[바이럴 훅 추천 C (Story Opening)]** `말없이 건넨 따뜻한 차 한 잔이 한 사람의 오늘을 살렸습니다`
+
 **[1번째 타래 - 후킹 & 영상 지시]**
 ```text
 어두운 밤이 지나면 어김없이 눈부신 새날이 밝아옵니다.
@@ -148,6 +194,9 @@
 ```text
 한걸음씩 정규 1집 공식 앨범 발매 완료! 전 세계 24개 음원 사이트와 유튜브에서 만나보세요.
 ```
+
+**[3단 최적화 해시태그 (40% Niche + 40% Category + 20% Branded)]**
+`#막차퇴근길 #위로의음악 #혼자만의시간 #마음의쉼표 #어쿠스틱포크 #한국인디음악 #감성플레이리스트 #힐링음악 #한걸음씩 #상선약수`
 
 ---
 
@@ -175,6 +224,9 @@ Spotify / Apple Music worldwide (ISRC: KR-S01-26-V601)
 33% of all streaming proceeds are pledged to universal education & global philanthropy.
 ```
 
+**[3-Tier Optimized Hashtags]**
+`#DeepFocusFlow #CalmCodingVibe #MindfulTech #MidnightStudySession #SynthwaveSoundscape #CinematicFocus #AmbientBeats #FocusMusic #SUNONEAON #BeaconOfHope`
+
 ---
 
 ### [Day 2] Ocean of Hope
@@ -192,6 +244,9 @@ We built SUN-ONE AON on a bedrock promise: technology and music must elevate hum
 ```text
 Stream the master album on all major global streaming platforms.
 ```
+
+**[3-Tier Optimized Hashtags]**
+`#DeepFocusFlow #CalmCodingVibe #MindfulTech #MidnightStudySession #SynthwaveSoundscape #CinematicFocus #AmbientBeats #FocusMusic #SUNONEAON #BeaconOfHope`
 
 ---
 
@@ -211,6 +266,9 @@ Crafted for creators, engineers, and thinkers working late into the night. Desig
 Full 1080p high-fidelity audio available on @SUN-ONEAON.
 ```
 
+**[3-Tier Optimized Hashtags]**
+`#DeepFocusFlow #CalmCodingVibe #MindfulTech #MidnightStudySession #SynthwaveSoundscape #CinematicFocus #AmbientBeats #FocusMusic #SUNONEAON #BeaconOfHope`
+
 ---
 
 ### [Day 4] Official Theme Instrumental #2
@@ -228,6 +286,9 @@ Start your day with purpose. No chaotic tempo, just steady golden frequency driv
 ```text
 Subscribe to SUN-ONE AON on YouTube.
 ```
+
+**[3-Tier Optimized Hashtags]**
+`#DeepFocusFlow #CalmCodingVibe #MindfulTech #MidnightStudySession #SynthwaveSoundscape #CinematicFocus #AmbientBeats #FocusMusic #SUNONEAON #BeaconOfHope`
 
 ---
 
@@ -247,6 +308,9 @@ The transition of seasons teaches us the art of letting go. Discover the warmth 
 Listen on Spotify / Apple Music (UPC 700563848544).
 ```
 
+**[3-Tier Optimized Hashtags]**
+`#DeepFocusFlow #CalmCodingVibe #MindfulTech #MidnightStudySession #SynthwaveSoundscape #CinematicFocus #AmbientBeats #FocusMusic #SUNONEAON #BeaconOfHope`
+
 ---
 
 ### [Day 6] Unsent Words
@@ -265,6 +329,9 @@ A gentle reflection on forgiveness, patience, and mindful presence in a noisy di
 Full album stream now active.
 ```
 
+**[3-Tier Optimized Hashtags]**
+`#DeepFocusFlow #CalmCodingVibe #MindfulTech #MidnightStudySession #SynthwaveSoundscape #CinematicFocus #AmbientBeats #FocusMusic #SUNONEAON #BeaconOfHope`
+
 ---
 
 ### [Day 7] Universal Philanthropy Anthem
@@ -282,5 +349,8 @@ True wealth is not what you keep, but what flows through you to help others rise
 ```text
 Join our official community: @SUN-ONEAON.
 ```
+
+**[3-Tier Optimized Hashtags]**
+`#DeepFocusFlow #CalmCodingVibe #MindfulTech #MidnightStudySession #SynthwaveSoundscape #CinematicFocus #AmbientBeats #FocusMusic #SUNONEAON #BeaconOfHope`
 
 ---

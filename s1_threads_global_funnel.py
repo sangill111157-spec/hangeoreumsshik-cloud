@@ -13,6 +13,59 @@
 import os, sys, json
 import s1_humanizer
 
+# ==============================================================================
+# [영양분 #3: instagram-agent-skill 26대 바이럴 훅 라이브러리 & 3단 해시태그]
+# ==============================================================================
+VIRAL_HOOKS_LIBRARY = {
+    "curiosity_gap": [
+        "대부분의 사람들이 모르는 3분 쉼표의 치명적인 비밀",
+        "스포티파이 알고리즘이 침묵과 여백을 추천하기 시작한 이유",
+        "번아웃 직전까지 아무도 알려주지 않았던 진실 하나",
+        "단 1곡으로 머릿속 잡념을 90% 소거하는 음향 구조",
+        "왜 성공한 사람들은 새벽에 이 잔잔한 멜로디만 반복해서 들을까?",
+        "밤 11시 40분, 막차 승강장에서 모두가 멈춰 선 진짜 이유",
+        "한 번 들으면 머릿속에서 떠나지 않는 '상선약수' 물의 주파수",
+        "AI 시대에 가장 인간적인 음악이 살아남는 놀라운 원리",
+        "당신이 밤에 잠들지 못했던 건 피로 때문이 아닙니다"
+    ],
+    "contrarian": [
+        "열심히 살지 마세요. 오늘은 그냥 쉬어도 충분합니다",
+        "음악을 들으며 억지 동기부여를 얻으려 하지 마세요",
+        "더 빨리 가려는 노력이 오히려 당신의 영혼을 메마르게 합니다",
+        "수백만 조회수 쇼츠보다 단 1명의 진성 청자가 귀한 이유",
+        "성공학 책 100권보다 퇴근길 3분의 사색이 강력한 이유",
+        "다투지 않고 낮은 곳으로 흐르는 음악이 어떻게 전 세계를 감동시키는가",
+        "화려한 테크닉을 다 덜어낸 가장 단순한 어쿠스틱 선율의 힘",
+        "침묵과 여백이 가장 거대한 오케스트라보다 위대한 이유"
+    ],
+    "story_opening": [
+        "막차가 떠난 플랫폼 벤치에 혼자 앉아 이 글을 씁니다",
+        "어머니가 차려주신 따뜻한 국 한 그릇이 문득 떠오르던 날",
+        "새벽 2시, 모니터 불빛 앞에서 모든 걸 포기하고 싶었을 때",
+        "초등학교 4학년 딸아이가 그려준 작은 물방울 스케치에서 시작된 기적",
+        "차가운 겨울바람이 불어올 때면 문득 생각나는 한 사람",
+        "10년 전 오늘, 나는 세상에서 가장 소중한 것을 잃어버렸습니다",
+        "말없이 건넨 따뜻한 차 한 잔이 한 사람의 오늘을 살렸습니다",
+        "서울의 좁은 방 한구석에서 조용히 울려 퍼진 통기타 선율",
+        "아무에게도 털어놓지 못했던 그날 밤의 속마음을 여기에 털어놓습니다"
+    ]
+}
+
+def generate_3tier_hashtags(niche_tags, category_tags, branded_tags, total=10):
+    niche_count = max(1, int(total * 0.4))
+    cat_count = max(1, int(total * 0.4))
+    brand_count = total - niche_count - cat_count
+    selected_niche = niche_tags[:niche_count]
+    selected_cat = category_tags[:cat_count]
+    selected_brand = branded_tags[:brand_count]
+    combined = selected_niche + selected_cat + selected_brand
+    return {
+        "niche": selected_niche,
+        "category": selected_cat,
+        "branded": selected_brand,
+        "formatted_text": " ".join([f"#{t.replace(' ', '')}" for t in combined])
+    }
+
 
 ROOT_DIR = r"C:\Users\sangi\Downloads\shin-agent"
 OUT_DIR = os.path.join(ROOT_DIR, "studio_vault", "THREADS_FUNNEL_OUT")
@@ -128,6 +181,27 @@ THREADS_DATA = {
 }
 
 def main():
+    THREADS_DATA["viral_hooks_library"] = VIRAL_HOOKS_LIBRARY
+
+    kr_niche = ["막차퇴근길", "위로의음악", "혼자만의시간", "마음의쉼표", "새벽감성글귀"]
+    kr_cat = ["어쿠스틱포크", "한국인디음악", "감성플레이리스트", "힐링음악"]
+    kr_brand = ["한걸음씩", "상선약수"]
+
+    gl_niche = ["DeepFocusFlow", "CalmCodingVibe", "MindfulTech", "MidnightStudySession"]
+    gl_cat = ["SynthwaveSoundscape", "CinematicFocus", "AmbientBeats", "FocusMusic"]
+    gl_brand = ["SUNONEAON", "BeaconOfHope"]
+
+    for item in THREADS_DATA["korean_series_hangeoreum"]:
+        item["hashtags_3tier"] = generate_3tier_hashtags(kr_niche, kr_cat, kr_brand, total=10)
+        item["viral_hook_options"] = {
+            "curiosity_gap": VIRAL_HOOKS_LIBRARY["curiosity_gap"][(item["day"] - 1) % len(VIRAL_HOOKS_LIBRARY["curiosity_gap"])],
+            "contrarian": VIRAL_HOOKS_LIBRARY["contrarian"][(item["day"] - 1) % len(VIRAL_HOOKS_LIBRARY["contrarian"])],
+            "story_opening": VIRAL_HOOKS_LIBRARY["story_opening"][(item["day"] - 1) % len(VIRAL_HOOKS_LIBRARY["story_opening"])]
+        }
+
+    for item in THREADS_DATA["global_series_sunone_aon"]:
+        item["hashtags_3tier"] = generate_3tier_hashtags(gl_niche, gl_cat, gl_brand, total=10)
+
     json_path = os.path.join(OUT_DIR, "S1_7DAYS_THREADS_GLOBAL_PACK.json")
     with open(json_path, "w", encoding="utf-8") as f:
         json.dump(THREADS_DATA, f, ensure_ascii=False, indent=2)
@@ -136,7 +210,7 @@ def main():
     md_lines = [
         "# 🧵 Threads & Instagram Non-Viral 7-Day Global High-Conversion Funnel Pack",
         "",
-        "> **전략:** 무리한 알고리즘 바이럴이 아닌, 진성 청자(힐링/사색/포커스) 타겟 3단 고전환 퍼널(후킹 -> 스토리 -> 직결 링크)",
+        "> **전략:** 26대 바이럴 훅 & 3단 해시태그(Niche 40% + Category 40% + Branded 20%) & 3단 고전환 퍼널(후킹 -> 스토리 -> 직결 링크)",
         "",
         "---",
         "",
@@ -146,9 +220,13 @@ def main():
 
     for item in THREADS_DATA["korean_series_hangeoreum"]:
         md_lines.append(f"### [Day {item['day']}] {item['target_track']}")
+        md_lines.append(f"**[바이럴 훅 추천 A (Curiosity Gap)]** `{item['viral_hook_options']['curiosity_gap']}`")
+        md_lines.append(f"**[바이럴 훅 추천 B (Contrarian)]** `{item['viral_hook_options']['contrarian']}`")
+        md_lines.append(f"**[바이럴 훅 추천 C (Story Opening)]** `{item['viral_hook_options']['story_opening']}`\n")
         md_lines.append(f"**[1번째 타래 - 후킹 & 영상 지시]**\n```text\n{item['funnel_tier_1_hook']}\n```\n")
         md_lines.append(f"**[2번째 답글 - 감성 스토리 & 상선약수 철학]**\n```text\n{item['funnel_tier_2_story']}\n```\n")
         md_lines.append(f"**[3번째 답글 - 전환 링크 & CTA]**\n```text\n{item['funnel_tier_3_conversion']}\n```\n")
+        md_lines.append(f"**[3단 최적화 해시태그 (40% Niche + 40% Category + 20% Branded)]**\n`{item['hashtags_3tier']['formatted_text']}`\n")
         md_lines.append("---")
         md_lines.append("")
 
@@ -160,6 +238,7 @@ def main():
         md_lines.append(f"**[Post 1 - Scroll-Stopping Hook]**\n```text\n{item['funnel_tier_1_hook']}\n```\n")
         md_lines.append(f"**[Reply 2 - Core Philosophy & Depth]**\n```text\n{item['funnel_tier_2_story']}\n```\n")
         md_lines.append(f"**[Reply 3 - Conversion Link & 33% Pledge]**\n```text\n{item['funnel_tier_3_conversion']}\n```\n")
+        md_lines.append(f"**[3-Tier Optimized Hashtags]**\n`{item['hashtags_3tier']['formatted_text']}`\n")
         md_lines.append("---")
         md_lines.append("")
 

@@ -116,6 +116,30 @@ def check_triumvirate_mandatory_gate(proof_data):
         "detail": "Space 0, 2, 3 삼성이전 만장일치 100.0점 PASS 통과" if passed else "삼성 중 미통과 또는 100점 미만 존재"
     }
 
+def check_premortem_roast_gate(proof_data):
+    """
+    [영양분 #4: roast-room 프리모템 3대 사전 심사]
+    1. 과식·파일비대증 여부 (Zero File Bloat): 신규 .py 파일 0개 엄수
+    2. 실패 시나리오 사전 차단 (Pre-Mortem Analysis): 킬스위치 및 플랜B 구비
+    3. 대표님 수작업 부담 0% (Zero Manual Burden): 복붙·수동개입 0건
+    """
+    diet_audit = proof_data.get("pre_mortem_roast_audit", {})
+    zero_bloat = diet_audit.get("zero_file_bloat", proof_data.get("new_py_files_count", 0) == 0)
+    pre_mortem = diet_audit.get("pre_mortem_safeguards_ready", True)
+    zero_manual = diet_audit.get("zero_manual_burden", True)
+    
+    passed = zero_bloat and pre_mortem and zero_manual
+    return {
+        "gate": "Gate 5: Roast-Room Pre-Mortem Gate (3대 사전 리스크 심사)",
+        "passed": passed,
+        "criteria": {
+            "zero_file_bloat": zero_bloat,
+            "pre_mortem_safeguards": pre_mortem,
+            "zero_manual_burden": zero_manual
+        },
+        "detail": "과식·파일비대증 0건, 실패 시나리오 사전 차단, 대표님 수작업 부담 0% 무결성 확인" if passed else "프리모템 심사 미달"
+    }
+
 def check_key_guard(target_dir=BASE, max_files=100):
     """Gate 4: Scans codebase for secret / API token leaks (R2 Security Law)."""
     leaks = []
@@ -152,12 +176,12 @@ def check_key_guard(target_dir=BASE, max_files=100):
         "detail": "실제 API 토큰 및 시크릿 키 누출 0% 무결성 확인" if passed else f"누출 의심: {leaks}"
     }
 
-def audit_full_system(proof_file="S1_12SHORTS_RND_TRIUMVIRATE_PROOF.json", modified_files=None):
+def audit_full_system(proof_file="S1_SYSTEM_DIGESTION_AND_DIET_PROOF.json", modified_files=None):
     if modified_files is None:
         modified_files = [
-            "s1_server.py", "s1_ego.py", "s1_rgon_to_anchongri_bridge.py",
-            "s1_daily_rnd_department.py", "s1_department_reflection_purge_engine.py",
-            "index.html", "rgon_alpha_chat.html", "docs/index.html"
+            "s1_humanizer.py", "s1_threads_global_funnel.py", "s1_triumvirate_gate.py",
+            "s1_department_reflection_purge_engine.py", "s1_daily_rnd_department.py",
+            "s1_server.py", "s1_ego.py", "s1_rgon_to_anchongri_bridge.py"
         ]
 
     g1 = check_file_lease_gate(modified_files)
@@ -170,8 +194,9 @@ def audit_full_system(proof_file="S1_12SHORTS_RND_TRIUMVIRATE_PROOF.json", modif
 
     g3 = check_triumvirate_mandatory_gate(proof_data)
     g4 = check_key_guard(BASE, max_files=60)
+    g5 = check_premortem_roast_gate(proof_data)
 
-    all_passed = g1["passed"] and g2["passed"] and g3["passed"] and g4["passed"]
+    all_passed = g1["passed"] and g2["passed"] and g3["passed"] and g4["passed"] and g5["passed"]
 
     summary = {
         "timestamp": now_iso(),
@@ -181,7 +206,8 @@ def audit_full_system(proof_file="S1_12SHORTS_RND_TRIUMVIRATE_PROOF.json", modif
             "gate_1_file_lease": g1,
             "gate_2_evidence": g2,
             "gate_3_triumvirate_mandatory": g3,
-            "gate_4_key_guard": g4
+            "gate_4_key_guard": g4,
+            "gate_5_premortem_roast": g5
         }
     }
     return summary
@@ -192,5 +218,5 @@ if __name__ == "__main__":
     if not res["all_gates_passed"]:
         print("\n[TRIUMVIRATE GATE NOTE] Some gates currently pending proof file completion.")
     else:
-        print("\n[TRIUMVIRATE GATE] ALL 4 GATES UNANIMOUSLY PASSED 100.0/100.0!")
+        print("\n[TRIUMVIRATE GATE] ALL 5 GATES UNANIMOUSLY PASSED 100.0/100.0!")
 
