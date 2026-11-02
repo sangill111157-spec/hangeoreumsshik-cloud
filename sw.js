@@ -1,5 +1,5 @@
 // S1 Service Worker v2026-zeropaste-v7 (SUN-ONE AON Zero-Paste & Dual Bridge)
-const CACHE = 's1-v2026-fullscreen-viewer-v11';
+const CACHE = 's1-v2026-4ch-masters-v12';
 const ASSETS = [
   './',
   './index.html',

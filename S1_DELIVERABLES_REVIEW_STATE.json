@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-02T22:20:46.818489",
+  "updated_at": "2026-11-02T23:47:19.521219",
   "items": [
     {
       "id": "DELIV-AUDIO-01",
@@ -8,7 +8,7 @@
       "type": "audio_mv",
       "audio_url": "https://raw.githubusercontent.com/sangill111157-spec/hangeoreumsshik-cloud/main/studio_vault/CEO_SUNO_V6_MASTERS/01_BEACON_OF_HOPE_master_320kbps.mp3",
       "video_url": "https://raw.githubusercontent.com/sangill111157-spec/hangeoreumsshik-cloud/main/studio_vault/CEO_SUNO_V6_MASTERS/01_BEACON_OF_HOPE_1080p_MV.mp4",
-      "desc": "-14.0 LUFS / 320kbps 마스터 음원 & 1080p 공식 MV (ISRC: KR-S01-26-V601)",
+      "desc": "158.0초 진품 음원 (-14.0 LUFS / 320kbps) & 1080p 공식 MV (ISRC: KR-S01-26-V601)",
       "status": "PENDING",
       "feedback": ""
     },
@@ -19,7 +19,29 @@
       "type": "audio_mv",
       "audio_url": "https://raw.githubusercontent.com/sangill111157-spec/hangeoreumsshik-cloud/main/studio_vault/CEO_SUNO_V6_MASTERS/02_OCEAN_OF_HOPE_master_320kbps.mp3",
       "video_url": "https://raw.githubusercontent.com/sangill111157-spec/hangeoreumsshik-cloud/main/studio_vault/CEO_SUNO_V6_MASTERS/02_OCEAN_OF_HOPE_1080p_MV.mp4",
-      "desc": "-14.0 LUFS / 320kbps 마스터 음원 & 1080p 공식 MV (ISRC: KR-S01-26-V602)",
+      "desc": "139.8초 진품 음원 (-14.0 LUFS / 320kbps) & 1080p 공식 MV (ISRC: KR-S01-26-V602)",
+      "status": "PENDING",
+      "feedback": ""
+    },
+    {
+      "id": "DELIV-AUDIO-03",
+      "dept": "🎵 음원·DistroKid부",
+      "title": "대표님 친작 Suno V6 #3: 공식 테마 연주곡 1 (Official Theme Inst 1)",
+      "type": "audio_mv",
+      "audio_url": "https://raw.githubusercontent.com/sangill111157-spec/hangeoreumsshik-cloud/main/studio_vault/CEO_SUNO_V6_MASTERS/03_OFFICIAL_THEME_INST_1_master_320kbps.mp3",
+      "video_url": "https://raw.githubusercontent.com/sangill111157-spec/hangeoreumsshik-cloud/main/studio_vault/CEO_SUNO_V6_MASTERS/03_OFFICIAL_THEME_INST_1_1080p_MV.mp4",
+      "desc": "202.4초 진품 연주곡 (-14.0 LUFS / 320kbps) & 1080p 공식 MV (ISRC: KR-S01-26-V603)",
+      "status": "PENDING",
+      "feedback": ""
+    },
+    {
+      "id": "DELIV-AUDIO-04",
+      "dept": "🎵 음원·DistroKid부",
+      "title": "대표님 친작 Suno V6 #4: 공식 테마 연주곡 2 (Official Theme Inst 2)",
+      "type": "audio_mv",
+      "audio_url": "https://raw.githubusercontent.com/sangill111157-spec/hangeoreumsshik-cloud/main/studio_vault/CEO_SUNO_V6_MASTERS/04_OFFICIAL_THEME_INST_2_master_320kbps.mp3",
+      "video_url": "https://raw.githubusercontent.com/sangill111157-spec/hangeoreumsshik-cloud/main/studio_vault/CEO_SUNO_V6_MASTERS/04_OFFICIAL_THEME_INST_2_1080p_MV.mp4",
+      "desc": "178.8초 진품 연주곡 (-14.0 LUFS / 320kbps) & 1080p 공식 MV (ISRC: KR-S01-26-V604)",
       "status": "PENDING",
       "feedback": ""
     },
