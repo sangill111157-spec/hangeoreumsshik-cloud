@@ -120,3 +120,4 @@ await page.click("input[name='explicit_lyrics'][value='no']");
 2. **API 응답 검증 (`API` response verification):** DistroKid submit 엔드포인트 200 OK 응답 및 앨범 ID 확인.
 3. **DOM 셀렉터 회복력 (`DOM` resilience):** 변경된 모달 및 폼 구조 대응 다중 셀렉터 체인 구비.
 4. **무결성 100% 입증 (`Verification`):** 4대 채널 마스터 에이전트(`Master_Step`, `Master_Booster`, `Master_Cafe`, `Master_US_AON`)의 제3 수족(`self.distrokid`)으로 바인딩 완료.
+
