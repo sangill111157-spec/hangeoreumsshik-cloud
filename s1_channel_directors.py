@@ -400,9 +400,11 @@ class ChannelMasterAgent:
         self.space_index = director_config["space_index"]
         self.target_channel = director_config["target_channel"]
         
-        # Deploy Hands & Feet
+        # Deploy 3 Hands & Feet (수족 3대 체계: Suno + Upload + DistroKid)
         self.suno_hand = SunoFullMasterAgent(self.space_index)
         self.upload_hand = YouTubeStudioUploadAgent()
+        from s1_distrokid_release_manager import DistroKidFullMasterAgent
+        self.distrokid = DistroKidFullMasterAgent()
 
     def execute_full_channel_command(self, command_type: str, **kwargs) -> dict:
         """
@@ -432,6 +434,12 @@ class ChannelMasterAgent:
                 self.space_index, video_path, thumb_path, metadata, schedule_time
             )
             log_entry["upload_hand_result"] = res
+            return log_entry
+
+        elif command_type == "DISTROKID_RELEASE":
+            track_meta = kwargs.get("track_meta", {})
+            res = self.distrokid.execute_full_distrokid_pipeline(self.name, track_meta)
+            log_entry["distrokid_result"] = res
             return log_entry
 
         elif command_type in ["FULL_AUTO_PIPELINE", "DEFAULT_NOV06_SCHEDULE"]:
@@ -484,7 +492,7 @@ def get_channel_masters_summary():
                 "handle": v.handle,
                 "space_index": v.space_index,
                 "target_channel": v.target_channel,
-                "hands": ["suno_hand (SunoFullMasterAgent)", "upload_hand (YouTubeStudioUploadAgent)"]
+                "hands": ["suno_hand (SunoFullMasterAgent)", "upload_hand (YouTubeStudioUploadAgent)", "distrokid (DistroKidFullMasterAgent)"]
             }
             for k, v in CHANNEL_MASTERS.items()
         }

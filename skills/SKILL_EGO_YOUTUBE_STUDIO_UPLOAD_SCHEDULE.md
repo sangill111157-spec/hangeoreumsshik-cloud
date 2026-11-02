@@ -155,3 +155,4 @@ console.log(`[Verification] Video Scheduled Successfully! URL: ${videoUrl}`);
 1. **다운로드/스트림 검증 (`Download` / Stream integrity):** 업로드 전 로컬 비디오가 `ffprobe`로 검증된 진품 비디오(`duration >= 120s`, -14.0 LUFS)인지 확인. 가짜 8초 더미 오디오/비디오는 진입 전 차단.
 2. **API 응답 검증 (`API` response verification):** `metadata_update` 및 YouTube Studio의 예약 확정 다이얼로그에서 비디오 ID(`v=...`) 획득 확인.
 3. **DOM 셀렉터 회복력 (`DOM` resilience):** Shadow DOM 또는 변경된 셀렉터 대비 다중 폴백 셀렉터 체인 구비.
+

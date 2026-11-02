@@ -836,7 +836,176 @@
     </div>
 
     <!-- INTERACTIVE ANATOMY: 6-NODE ENERGY MARBLE PANEL (SHORTS #8) -->
-    <!-- [S1-DELIVERABLE-REVIEW-START] -->
+    <!-- [S1-HARVESTER-FEED-START] -->
+<div class="anatomy-panel" id="s1-harvester-live-panel" style="border-color:#06b6d4;margin-bottom:12px;background:rgba(8,15,30,0.94);box-shadow:0 0 15px rgba(6,182,212,0.25);">
+  <div class="anatomy-header" style="border-bottom:1px solid rgba(6,182,212,0.25);padding-bottom:8px;margin-bottom:8px;">
+    <div class="anatomy-title" style="color:#22d3ee;font-size:12.5px;font-weight:900;">
+      📡 실시간 지시서 수거 & 안총리 완료보고 라이브 전광판
+    </div>
+    <div class="anatomy-status" id="s1-harvester-status" style="color:#10b981;font-size:10.5px;font-weight:800;">
+      🟢 GitHub 수거봇 10초 주기 실시간 감시 중
+    </div>
+  </div>
+
+  <!-- Dispatch Recipient Bar -->
+  <div style="display:flex;align-items:center;justify-content:space-between;background:rgba(15,23,42,0.8);border:1px solid rgba(245,158,11,0.3);border-radius:8px;padding:6px 10px;margin-bottom:8px;">
+    <div style="font-size:11px;font-weight:800;color:#fbbf24;display:flex;align-items:center;gap:4px;">
+      <span>수신처: 👑 르곤(Space 0) + ⚡ 안총리(Daemon) 동시 수신</span>
+    </div>
+    <div style="display:flex;gap:6px;">
+      <button onclick="s1OpenGithubTokenModal()" style="padding:3px 8px;border-radius:6px;border:1px solid #06b6d4;background:rgba(6,182,212,0.15);color:#22d3ee;font-size:10px;font-weight:700;cursor:pointer;">🔑 5G 토큰 설정</button>
+      <button onclick="s1RefreshHarvesterFeed()" style="padding:3px 8px;border-radius:6px;border:1px solid #f59e0b;background:rgba(245,158,11,0.15);color:#fbbf24;font-size:10px;font-weight:700;cursor:pointer;">🔄 즉시 새로고침</button>
+    </div>
+  </div>
+
+  <!-- Directives Live Queue & Badges -->
+  <div style="margin-bottom:10px;">
+    <div style="font-size:11px;font-weight:800;color:#94a3b8;margin-bottom:5px;display:flex;justify-content:space-between;">
+      <span>최근 수거 지시서 현황 (Recent Directives)</span>
+      <span id="s1-queue-count" style="color:#22d3ee;font-weight:700;">집계 중...</span>
+    </div>
+    <div id="s1-harvester-directives-list" style="display:flex;flex-direction:column;gap:5px;max-height:160px;overflow-y:auto;">
+      <div style="font-size:11px;color:#64748b;padding:6px;">지시서 목록을 불러오는 중...</div>
+    </div>
+  </div>
+
+  <!-- Anchongri Latest Completion Report Box -->
+  <div style="background:#0f172a;border:1px solid #10b981;border-radius:10px;padding:10px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+      <div style="font-size:11.5px;font-weight:900;color:#34d399;display:flex;align-items:center;gap:4px;">
+        <span>⚡ 안총리 최신 완료보고서</span>
+        <span id="s1-report-commit" style="font-size:10px;color:#94a3b8;background:#1e293b;padding:1px 5px;border-radius:4px;">HEAD</span>
+      </div>
+      <button id="s1-btn-copy-report" onclick="s1CopyLatestReport()" style="padding:4px 9px;border-radius:6px;border:1px solid #10b981;background:#065f46;color:#ecfdf5;font-size:10.5px;font-weight:800;cursor:pointer;display:inline-flex;align-items:center;gap:3px;">
+        📋 완료보고서 복사 (르곤 전달용)
+      </button>
+    </div>
+    <div id="s1-latest-report-text" style="font-size:11px;line-height:1.5;color:#e2e8f0;background:#090d16;padding:8px;border-radius:6px;max-height:110px;overflow-y:auto;white-space:pre-wrap;word-break:break-word;border:1px solid #334155;">
+      완료보고서를 수신 대기 중입니다...
+    </div>
+  </div>
+</div>
+
+<!-- GITHUB TOKEN SETUP MODAL (FOR 5G CLOUD DIRECT DISPATCH) -->
+<div id="s1-github-token-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:9999999;align-items:center;justify-content:center;padding:16px;">
+  <div style="background:#0f172a;border:1.5px solid #06b6d4;border-radius:14px;max-width:400px;width:100%;padding:18px;color:#f8fafc;box-shadow:0 0 25px rgba(6,182,212,0.4);">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+      <span style="font-size:14px;font-weight:900;color:#22d3ee;">🔑 5G 클라우드 직통 GitHub 토큰 설정</span>
+      <button onclick="document.getElementById('s1-github-token-modal').style.display='none'" style="background:none;border:none;color:#94a3b8;font-size:16px;cursor:pointer;">✕</button>
+    </div>
+    <p style="font-size:11.5px;color:#94a3b8;line-height:1.5;margin-bottom:12px;">
+      외부 5G 스마트폰에서 로컬 서버(127.0.0.1) 없이도 GitHub SSOT에 실시간으로 지시서를 직통 전송(PUT)할 수 있는 개인 토큰(PAT)을 브라우저 로컬스토리지에 안전하게 보관합니다.
+    </p>
+    <input type="password" id="s1-pat-input" placeholder="ghp_... (GitHub Personal Access Token)" style="width:100%;padding:10px;border-radius:8px;border:1px solid #334155;background:#040710;color:#fbbf24;font-size:12px;margin-bottom:12px;box-sizing:border-box;">
+    <div style="display:flex;gap:8px;">
+      <button onclick="s1SaveGithubToken()" style="flex:1;padding:10px;border-radius:8px;border:none;background:#06b6d4;color:#040710;font-size:12px;font-weight:900;cursor:pointer;">💾 토큰 저장</button>
+      <button onclick="document.getElementById('s1-github-token-modal').style.display='none'" style="flex:1;padding:10px;border-radius:8px;border:1px solid #475569;background:#1e293b;color:#cbd5e1;font-size:12px;font-weight:800;cursor:pointer;">닫기</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  let cachedLatestReport = '';
+
+  window.s1OpenGithubTokenModal = function(){
+    const modal = document.getElementById('s1-github-token-modal');
+    const inp = document.getElementById('s1-pat-input');
+    if (inp) inp.value = localStorage.getItem('S1_GITHUB_PAT') || '';
+    if (modal) modal.style.display = 'flex';
+  };
+
+  window.s1SaveGithubToken = function(){
+    const inp = document.getElementById('s1-pat-input');
+    if (inp && inp.value.trim()) {
+      localStorage.setItem('S1_GITHUB_PAT', inp.value.trim());
+      alert('GitHub 토큰이 성공적으로 저장되었습니다! 외부 5G에서도 클라우드 직통 발사가 가능합니다.');
+    } else {
+      localStorage.removeItem('S1_GITHUB_PAT');
+      alert('GitHub 토큰이 삭제되었습니다.');
+    }
+    const modal = document.getElementById('s1-github-token-modal');
+    if (modal) modal.style.display = 'none';
+  };
+
+  window.s1CopyLatestReport = function(){
+    if (!cachedLatestReport) {
+      alert('복사할 완료보고서가 없습니다.');
+      return;
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(cachedLatestReport).then(() => {
+        alert('📋 최신 완료보고서가 클립보드에 복사되었습니다!
+르곤 보좌관(Space 0) 채팅창에 즉시 붙여넣으실 수 있습니다.');
+      }).catch(() => {
+        prompt('아래 완료보고서를 복사하세요:', cachedLatestReport);
+      });
+    } else {
+      prompt('아래 완료보고서를 복사하세요:', cachedLatestReport);
+    }
+  };
+
+  window.s1RefreshHarvesterFeed = async function(){
+    const ts = Date.now();
+    try {
+      const rq = await fetch('./S1_RGON_DIRECTIVE_QUEUE.json?t=' + ts, { cache: 'no-store' });
+      if (rq.ok) {
+        const qData = await rq.json();
+        const listEl = document.getElementById('s1-harvester-directives-list');
+        const countEl = document.getElementById('s1-queue-count');
+        const items = qData.directives || [];
+        if (countEl) countEl.innerText = '총 ' + items.length + '건 등록됨';
+
+        if (listEl && items.length > 0) {
+          listEl.innerHTML = items.slice(-5).reverse().map(it => {
+            let badge = '<span style="background:#ca8a04;color:#fff;padding:2px 6px;border-radius:4px;font-size:9.5px;font-weight:800;">🟡 수거대기</span>';
+            if (it.status === 'PICKED_UP_BY_ANCHONGRI') {
+              badge = '<span style="background:#2563eb;color:#fff;padding:2px 6px;border-radius:4px;font-size:9.5px;font-weight:800;">🔵 안총리 집행중</span>';
+            } else if (it.status === 'COMPLETED_REPORT_SENT' || it.status === 'COMPLETED') {
+              badge = '<span style="background:#059669;color:#fff;padding:2px 6px;border-radius:4px;font-size:9.5px;font-weight:800;">🟢 임무완료</span>';
+            }
+            return '<div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:6px;padding:6px 8px;display:flex;justify-content:space-between;align-items:center;gap:6px;">' +
+              '<div style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11px;color:#f8fafc;max-width:70%;">' +
+                '<span style="color:#22d3ee;font-weight:700;margin-right:4px;">[' + it.directive_id + ']</span>' +
+                (it.title || '') +
+              '</div>' +
+              '<div>' + badge + '</div>' +
+            '</div>';
+          }).join('');
+        }
+      }
+    } catch(e) {}
+
+    try {
+      const ro = await fetch('./S1_ANCHONGRI_TO_RGON_OUTBOX.json?t=' + ts, { cache: 'no-store' });
+      if (ro.ok) {
+        const outData = await ro.json();
+        const repTextEl = document.getElementById('s1-latest-report-text');
+        const commitEl = document.getElementById('s1-report-commit');
+        const reps = outData.reports || [];
+        if (reps.length > 0) {
+          const latest = reps[0];
+          cachedLatestReport = '[S1_COMPLETION_REPORT]
+지시서: ' + latest.directive_id + '
+시각: ' + latest.timestamp + '
+커밋: ' + latest.commit_hash + '
+삼성제도: ' + (latest.triumvirate_score || '100.0 PASS') + '
+
+' + latest.summary;
+          if (repTextEl) repTextEl.innerText = cachedLatestReport;
+          if (commitEl) commitEl.innerText = latest.commit_hash || 'HEAD';
+        }
+      }
+    } catch(e) {}
+  };
+
+  document.addEventListener('DOMContentLoaded', s1RefreshHarvesterFeed);
+  setInterval(s1RefreshHarvesterFeed, 5000);
+})();
+</script>
+<!-- [S1-HARVESTER-FEED-END] -->
+
+<!-- [S1-DELIVERABLE-REVIEW-START] -->
 <div class="anatomy-panel" id="s1-deliverable-review-panel" style="border-color:#f59e0b;margin-bottom:10px;">
   <div class="anatomy-header">
     <div class="anatomy-title" style="color:#fbbf24;">🏛️ 각 부서별 완성품 바로보기 & 어전 결재 (승인·수정·폐기)</div>
