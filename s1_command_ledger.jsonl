@@ -89,3 +89,6 @@
 {"uuid": "c40a78c4-ba53-4263-9055-d440d13e129f", "req_id": "c40a78c4", "query": "", "mode": "LEDGER_RECORD_ONLY", "executed": false, "ts": "2026-11-01T21:04:55.300872+09:00"}
 {"uuid": "bf3455ff-6a4c-41f5-ab63-79f76743ff5a", "req_id": "bf3455ff", "query": "디스트로키드 2슬롯 상태 알려줘", "mode": "LEDGER_RECORD_ONLY", "executed": false, "ts": "2026-11-01T21:05:55.019580+09:00"}
 {"uuid": "e920816d-6a8f-4b42-a294-ce53e08006af", "req_id": "e920816d", "query": "디스트로키드 2슬롯 상태 알려줘", "mode": "LEDGER_RECORD_ONLY", "executed": false, "ts": "2026-11-01T21:06:01.265570+09:00"}
+{"uuid": "155c71cf-0efe-41b3-a282-d5918cc2da96", "req_id": "155c71cf", "query": "3+1 신규 파이프라인 실물 스펙 브리핑해줘", "mode": "LEDGER_RECORD_ONLY", "executed": false, "ts": "2026-11-02T05:54:57.485613+09:00"}
+{"uuid": "d5b978bc-57bf-4ace-b159-a56fe4cb05cd", "req_id": "d5b978bc", "query": "3+1 신규 파이프라인 실물 스펙 브리핑해줘", "mode": "LEDGER_RECORD_ONLY", "executed": false, "ts": "2026-11-02T05:56:00.273275+09:00"}
+{"uuid": "983095de-e760-403d-9aa8-28ca3dc98e04", "req_id": "983095de", "query": "3+1 신규 파이프라인 실물 스펙 브리핑해줘", "mode": "LEDGER_RECORD_ONLY", "executed": false, "ts": "2026-11-02T06:40:08.486527+09:00"}

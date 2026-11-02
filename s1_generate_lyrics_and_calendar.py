@@ -354,3 +354,4 @@ def build_lyrics():
 if __name__ == "__main__":
     build_calendar()
     build_lyrics()
+

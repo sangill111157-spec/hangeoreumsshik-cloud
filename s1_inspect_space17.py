@@ -46,3 +46,4 @@ try {{
 
 res = s1_ego.run_ego_js(js, timeout=30)
 print(json.dumps(res, ensure_ascii=False, indent=2))
+

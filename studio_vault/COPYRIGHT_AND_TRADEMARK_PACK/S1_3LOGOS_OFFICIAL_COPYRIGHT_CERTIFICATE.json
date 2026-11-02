@@ -1,0 +1,22 @@
+{
+  "creator": "??? (Sang-Ill Lee) ???",
+  "convention": "Berne Convention 181 Countries & Korea Copyright Act Art.10",
+  "logos": {
+    "s1_logo_1.png": {
+      "sha256": "5905a7e66041eaecea4bec50d8bd2d60c412581131af0c39634cae5d77f844b5",
+      "bytes": 1339545
+    },
+    "s1_logo_2.png": {
+      "sha256": "e9492bcaa089b05820c88ebc4b4581907175fc9681649c79e8790f937a8d9be1",
+      "bytes": 1126613
+    },
+    "s1_logo_3.png": {
+      "sha256": "38407ca316d54d7719814596bc95e4193bd8ab6efa4461fb14fd9856a7750789",
+      "bytes": 1261841
+    },
+    "icon-512.png": {
+      "sha256": "25defc16c7a562a1b3f5c50cb85c3e84aa136768a897418276ac62287256e385",
+      "bytes": 130681
+    }
+  }
+}
