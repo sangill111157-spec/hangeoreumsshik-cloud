@@ -34,14 +34,9 @@ def test_reply0_live(envelope_text, selftest=False):
       const expected = {json.dumps(expected_id)};
       let task;
       try {{
-        task = await taskSpace(0);
-        await task.tabs();
+        task = await takeOverTaskSpace(0);
       }} catch (e) {{
-        if (String(e.message || e).includes("takeOverTaskSpace") || String(e.message || e).includes("Control of this task space is with the user")) {{
-          task = await takeOverTaskSpace(0);
-        }} else {{
-          throw e;
-        }}
+        task = await taskSpace(0);
       }}
       const tabs = await task.tabs();
       const matches = tabs.filter(t => chatId(t.url) === expected);
