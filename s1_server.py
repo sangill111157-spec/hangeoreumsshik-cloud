@@ -92,6 +92,13 @@ ALLOWED_FILES = {
     "/S1_RGON_SCHEDULE_DECISION.json": ("S1_RGON_SCHEDULE_DECISION.json", "application/json; charset=utf-8"),
     "/S1_16VIDEOS_VERIFIED_SYSTEMS_PROOF.json": ("S1_16VIDEOS_VERIFIED_SYSTEMS_PROOF.json", "application/json; charset=utf-8"),
     "/S1_41TRACKS_SHORTS_BATCH_MANIFEST.json": ("S1_41TRACKS_SHORTS_BATCH_MANIFEST.json", "application/json; charset=utf-8"),
+    "/S1_DAILY_RND_LATEST_REPORT.json": ("S1_DAILY_RND_LATEST_REPORT.json", "application/json; charset=utf-8"),
+    "/S1_DEPARTMENT_REFLECTION_PURGE_REPORT.json": ("S1_DEPARTMENT_REFLECTION_PURGE_REPORT.json", "application/json; charset=utf-8"),
+    "/S1_STAGE1_RND_AND_REFLECTION_BLUEPRINT_AUDIT.json": ("S1_STAGE1_RND_AND_REFLECTION_BLUEPRINT_AUDIT.json", "application/json; charset=utf-8"),
+    "/S1_RND_AND_REFLECTION_PURGE_TRIUMVIRATE_PROOF.json": ("S1_RND_AND_REFLECTION_PURGE_TRIUMVIRATE_PROOF.json", "application/json; charset=utf-8"),
+    "/master_ledgers/08_DAILY_RND_INNOVATION_LEDGER.csv": ("master_ledgers/08_DAILY_RND_INNOVATION_LEDGER.csv", "text/csv; charset=utf-8"),
+    "/master_ledgers/09_SELF_REFLECTION_WASTE_PURGE_LEDGER.csv": ("master_ledgers/09_SELF_REFLECTION_WASTE_PURGE_LEDGER.csv", "text/csv; charset=utf-8"),
+    "/S1_SELF_REFLECTION_AND_PURGE_CHARTER.md": ("S1_SELF_REFLECTION_AND_PURGE_CHARTER.md", "text/markdown; charset=utf-8"),
     "/S1_RGON_DIRECTIVE_QUEUE.json": ("S1_RGON_DIRECTIVE_QUEUE.json", "application/json; charset=utf-8"),
     "/S1_RGON_DIRECTIVE_INBOX.md": ("S1_RGON_DIRECTIVE_INBOX.md", "text/markdown; charset=utf-8"),
     "/S1_MOBILE_DISPATCH_QUEUE.json": ("S1_MOBILE_DISPATCH_QUEUE.json", "application/json; charset=utf-8"),
@@ -225,6 +232,26 @@ class S1Handler(http.server.BaseHTTPRequestHandler):
                 res = s1_ego.cmd_read(sp, tail)
                 res["truncation_rule"] = f"tail_chars_limit={tail} (sliced from end of message)"
                 return self._send(200 if res.get("ok") else 502, res)
+            if path == "/api/daily_rnd":
+                rnd_path = os.path.join(ROOT, "S1_DAILY_RND_LATEST_REPORT.json")
+                if os.path.exists(rnd_path):
+                    try:
+                        with open(rnd_path, "r", encoding="utf-8") as f:
+                            return self._send(200, json.load(f))
+                    except Exception:
+                        pass
+                return self._send(200, {"status": "INITIALIZING"})
+
+            if path == "/api/reflection_purge":
+                purge_path = os.path.join(ROOT, "S1_DEPARTMENT_REFLECTION_PURGE_REPORT.json")
+                if os.path.exists(purge_path):
+                    try:
+                        with open(purge_path, "r", encoding="utf-8") as f:
+                            return self._send(200, json.load(f))
+                    except Exception:
+                        pass
+                return self._send(200, {"status": "INITIALIZING"})
+
             if path == "/api/rgon_directives":
                 q_path = os.path.join(ROOT, "S1_RGON_DIRECTIVE_QUEUE.json")
                 if os.path.exists(q_path):

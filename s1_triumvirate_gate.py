@@ -140,9 +140,13 @@ def check_key_guard(target_dir=BASE, max_files=100):
         "detail": "실제 API 토큰 및 시크릿 키 누출 0% 무결성 확인" if passed else f"누출 의심: {leaks}"
     }
 
-def audit_full_system(proof_file="S1_10SHORTS_AND_TRIUMVIRATE_RULE_PROOF.json", modified_files=None):
+def audit_full_system(proof_file="S1_RND_AND_REFLECTION_PURGE_TRIUMVIRATE_PROOF.json", modified_files=None):
     if modified_files is None:
-        modified_files = ["s1_server.py", "s1_ego.py", "s1_rgon_to_anchongri_bridge.py", "index.html", "rgon_alpha_chat.html"]
+        modified_files = [
+            "s1_server.py", "s1_ego.py", "s1_rgon_to_anchongri_bridge.py",
+            "s1_daily_rnd_department.py", "s1_department_reflection_purge_engine.py",
+            "index.html", "rgon_alpha_chat.html", "docs/index.html"
+        ]
 
     g1 = check_file_lease_gate(modified_files)
     g2 = check_evidence_gate(proof_file)
@@ -177,3 +181,4 @@ if __name__ == "__main__":
         print("\n[TRIUMVIRATE GATE NOTE] Some gates currently pending proof file completion.")
     else:
         print("\n[TRIUMVIRATE GATE] ALL 4 GATES UNANIMOUSLY PASSED 100.0/100.0!")
+

@@ -24,6 +24,18 @@
       "description": "4대 채널 전담 수노 마에스트로 에이전트 8대 명작 음원 생성 및 주간 작업 스케줄 원장",
       "total_rows": 8,
       "updated_at": "2026-11-01T21:01:27.825880+09:00"
+    },
+    "08_daily_rnd_innovation": {
+      "file": "08_DAILY_RND_INNOVATION_LEDGER.csv",
+      "format": "UTF-8 with BOM CSV",
+      "description": "제6부서 일일 최신도구·트렌드 R&D 본부 조사·분석 혁신 원장",
+      "updated_at": "2026-11-02T12:22:00+09:00"
+    },
+    "09_self_reflection_waste_purge": {
+      "file": "09_SELF_REFLECTION_WASTE_PURGE_LEDGER.csv",
+      "format": "UTF-8 with BOM CSV",
+      "description": "전 부서 자아성찰 8대 오류 반성 점수 및 폐기물 소각 정화 원장",
+      "updated_at": "2026-11-02T12:22:00+09:00"
     }
   },
   "total_stocked_episodes": 6,
@@ -76,5 +88,6 @@
       ]
     },
     "last_updated": "2026-11-01T23:15:00+09:00"
-  }
+  },
+  "last_updated": "2026-11-02T12:22:00+09:00"
 }
