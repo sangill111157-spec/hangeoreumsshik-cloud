@@ -1,11 +1,57 @@
 {
   "calendar_name": "S1_MASTER_EXECUTION_CALENDAR_2026_11",
-  "created_at": "2026-11-01T23:35:00+09:00",
+  "version": "2.1.0",
+  "updated_at": "2026-11-02T17:11:00+09:00",
   "governance": {
-    "commander": "Lee Sang-il (CEO)",
-    "chief_aide": "Rgon (Gemini 4 Argon · G2)",
-    "tech_premier": "Antigravity (Premier)",
-    "status": "APPROVED_BY_RGON_G2"
+    "commander": "이상일 대표님 (CEO)",
+    "chief_aide": "수석보좌관 르곤 (Gemini 4 Argon · G2)",
+    "tech_premier": "기술총리 안총리 (Antigravity Technical PM)",
+    "status": "APPROVED_BY_RGON_G2_010"
+  },
+  "deployment_pipeline_d3_to_dday": {
+    "d3_teaser_pack_nov03": {
+      "date": "2026-11-03",
+      "target_channel": "@한걸음씩-r4i",
+      "event": "『가을과 겨울 사이』 D-3 공식 티저 & 쇼츠 1호(01. 막차) 출격",
+      "shorts_video_file": "studio_vault/SHORTS_OUT/01_SHORTS_HANGEOREUM_MAKCHA_1080x1920.mp4",
+      "community_teaser_post": "🍂 [D-3] 한걸음씩 정규 1집 『가을과 겨울 사이』 2026.11.06 00:00 KST 공식 발매.\n\n오늘 하루도 참 치열하게 버텼습니다. 마지막 열차에 기대어 듣는 작은 숨소리 하나.\n성공이나 속도보다 중요한 건, 오늘 하루를 정직하게 살아낸 자신을 토닥여주는 일입니다.\n상선약수(上善若水)의 물처럼, 조용히 마음을 적시는 12편의 이야기가 11월 6일 자정에 찾아옵니다.\n\n🎧 타이틀곡: 01. 막차 (Last Train)\n💿 전 세계 24개 음원 사이트 및 유튜브 41분 풀영상 정식 공개\n#한걸음씩 #가을과겨울사이 #막차 #어쿠스틱포크 #음악치유",
+      "one_click_ready": true
+    },
+    "global_launch_nov04": {
+      "date": "2026-11-04",
+      "time_kst": "21:00",
+      "time_est": "07:00",
+      "target_channel": "@SUN-ONEAON",
+      "event": "글로벌 개국 1호 『Beacon of Hope (Suno V6)』 1080p 공식 MV 전 세계 프리미어",
+      "master_audio": "01_BEACON_OF_HOPE_master_320kbps.mp3",
+      "isrc": "KR-S01-26-V601",
+      "pledge": "33% Universal Philanthropy & Global Education",
+      "status": "STAGED_READY"
+    },
+    "dday_master_launch_nov06": {
+      "date": "2026-11-06",
+      "time_kst": "00:00",
+      "target_channel": "@한걸음씩-r4i & DistroKid",
+      "event": "정규 1집 『가을과 겨울 사이 (12곡)』 41분 14초 풀앨범 및 전 세계 24개 음원 사이트 정식 발매",
+      "master_audio_specs": "41분 14초 하이브리드 리마스터 (-14.0 LUFS, -1.5 dBTP)",
+      "upc": "700563848544",
+      "timestamps_12tracks": [
+        "00:00 01. 막차",
+        "03:22 02. 창을 닫지 마",
+        "06:45 03. 첫 입김",
+        "10:11 04. 오늘은 여기까지",
+        "13:30 05. 밥은 먹었니",
+        "17:05 06. 식어 가는 차",
+        "20:30 07. 그늘의 온도",
+        "24:00 08. 낡은 외투",
+        "27:25 09. 묵음",
+        "30:50 10. 빈자리",
+        "34:15 11. 서리 내린 길",
+        "37:45 12. 내일의 아침"
+      ],
+      "blog_release_text": "studio_vault/THREADS_FUNNEL_OUT/S1_7DAYS_THREADS_GLOBAL_PACK.md",
+      "status": "ARMED_FOR_LAUNCH"
+    }
   },
   "milestones": [
     {
@@ -21,8 +67,8 @@
       "day_of_week": "Tuesday",
       "time_kst": "12:00",
       "channel": "@한걸음씩-r4i",
-      "event": "『가을과 겨울 사이』 D-3 유튜브 커뮤니티 발매 예고 티저 등록",
-      "status": "SCHEDULED"
+      "event": "『가을과 겨울 사이』 D-3 유튜브 커뮤니티 발매 예고 티저 등록 & 막차 쇼츠 1호 출격",
+      "status": "READY_FOR_DISPATCH"
     },
     {
       "date": "2026-11-04",

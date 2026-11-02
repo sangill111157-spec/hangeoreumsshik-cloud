@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import json, subprocess, pathlib
+import json, subprocess, pathlib, base64
 import s1_ego
 
 # s1_ego.py의 실제 검증된 taskSpace(0) -> task.tabs() -> task.page(tb.label) -> page.fill -> page.keyboard.press('Enter') 그대로 사용!
@@ -12,16 +12,16 @@ def test_reply0_live(envelope_text, selftest=False):
         return {"ok": False, "code": "ENVELOPE_HAS_LIVE_MARKER"}
     if s1_ego.kill_switch_active():
         return {"ok": False, "code": "KILL_SWITCH_ACTIVE"}
+    if "??" in envelope_text:
+        return {"ok": False, "code": "ENVELOPE_ENCODING_CORRUPTED", "error": "Double question mark detected"}
 
     full_env = envelope_text.replace("[S1_NERVE_REPORT v2]", f"[S1_NERVE_REPORT v2] {token}", 1)
-    env_file = s1_ego.TMP_DIR / f"reply0_{req_id}.txt"
-    env_file.write_bytes(full_env.encode("utf-8"))
+    b64_env = base64.b64encode(full_env.encode("utf-8")).decode("ascii")
     expected_id = s1_ego.KNOWN_CHATS[0]
 
     js = f"""
     try {{
-      const fs = await import('node:fs');
-      const envelope = fs.readFileSync({json.dumps(env_file.as_posix())}, 'utf8');
+      const envelope = Buffer.from({json.dumps(b64_env)}, 'base64').toString('utf8');
       const token = {json.dumps(token)};
       const sleep = ms => new Promise(r => setTimeout(r, ms));
       function chatId(u) {{
@@ -47,7 +47,7 @@ def test_reply0_live(envelope_text, selftest=False):
         return;
       }}
       const tb = matches[0];
-      const page = tb.label ? task.page(tb.label) : await task.adopt(tb.page);
+      const page = task.userPage ? task.userPage() : (tb.label ? task.page(tb.label) : await task.adopt(tb.page));
 
       const pre = await page.evaluate((tok) => {{
         const tas = Array.from(document.querySelectorAll('textarea[name="query"], textarea'));
@@ -144,7 +144,7 @@ def test_reply0_live(envelope_text, selftest=False):
     try:
         return s1_ego.run_ego_js(js, timeout=30)
     finally:
-        env_file.unlink(missing_ok=True)
+        pass
 
 if __name__ == "__main__":
     import sys

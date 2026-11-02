@@ -82,9 +82,9 @@ def scan_space0_deep():
           process.stdout.write(JSON.stringify({ ok: false, error: 'NO_TABS' }));
           return;
         }
-        let page = await task.adopt(tabs[0].page, { as: 'p_bridge_inspect' }).catch(async () => {
+        let page = task.userPage ? task.userPage() : (await task.adopt(tabs[0].page, { as: 'p_bridge_inspect' }).catch(async () => {
           return task.page('p_bridge_inspect');
-        });
+        }));
 
         const data = await page.evaluate(() => {
           const items = Array.from(document.querySelectorAll('.message-content, .markdown, [class*="response"], [class*="message"]'));

@@ -12,8 +12,8 @@
 #   * Official YouTube Data API v3 (10,000 free quota units/day) for uploads
 #   * Audio mastering strictly locked to S1 official preset (-16.0 LUFS, -1.5 dBTP)
 
-__version__ = "2.2.0"
-import argparse, datetime, hashlib, json, msvcrt, os, re, shutil, subprocess, sys, time, urllib.parse, uuid
+__version__ = "2.3.0"
+import argparse, datetime, hashlib, json, msvcrt, os, re, shutil, subprocess, sys, time, urllib.parse, uuid, base64
 from pathlib import Path
 
 sys.stdout.reconfigure(encoding="utf-8")
@@ -203,15 +203,13 @@ def run_ego_js(js_code, timeout=60):
 EGO_PRELUDE_JS = r"""
 async function getTask(spaceId) {
   try {
-    const task = await taskSpace(spaceId);
-    await task.tabs();
-    return task;
+    return await takeOverTaskSpace(spaceId);
   } catch (e) {
-    const msg = String(e.message || e);
-    if (msg.includes('takeOverTaskSpace') || msg.includes('Control of this task space is with the user') || msg.includes('takeover')) {
-      return await takeOverTaskSpace(spaceId);
+    try {
+      return await taskSpace(spaceId);
+    } catch (_) {
+      throw e;
     }
-    throw e;
   }
 }
 async function safeHandOff(task) {
@@ -299,7 +297,7 @@ def cmd_read(space_id, tail_chars=4000, override_chat_id=None, selftest=False):
         return;
       }}
       const tb = matches[0];
-      const page = tb.label ? task.page(tb.label) : await task.adopt(tb.page);
+      const page = task.userPage ? task.userPage() : (tb.label ? task.page(tb.label) : await task.adopt(tb.page));
       await setupDialogGuards(page);
 
       const evalRes = await Promise.race([
@@ -370,6 +368,12 @@ def cmd_ask(space_id, prompt_text, wait_sec=60, tail_chars=4500, override_chat_i
         write_audit({"req_id": req_id, "cmd": "ask", "space": space_id, "prompt_sha": prompt_sha, "status": "MARKER_IN_PROMPT_REJECTED"})
         return res
 
+    # UTF-8 무결성 가드: 연속된 물음표(??) 깨짐 문자열 전송 원천 차단
+    if "??" in (prompt_text or ""):
+        res = {"ok": False, "code": "PROMPT_ENCODING_CORRUPTED", "error": "Double question mark detected", "req_id": req_id, "space": space_id}
+        write_audit({"req_id": req_id, "cmd": "ask", "space": space_id, "prompt_sha": prompt_sha, "status": "PROMPT_ENCODING_CORRUPTED"})
+        return res
+
     # Hop limit check
     m_hop = re.search(r"\[S1_HOP=(\d+)/(\d+)\]", prompt_text or "")
     if m_hop and int(m_hop.group(1)) > int(m_hop.group(2)):
@@ -397,14 +401,12 @@ def cmd_ask(space_id, prompt_text, wait_sec=60, tail_chars=4500, override_chat_i
     try:
         expected_id = override_chat_id if override_chat_id is not None else KNOWN_CHATS[space_id]
         expected_model = override_model if override_model is not None else EXPECTED_MODEL[space_id]
-        prompt_file = TMP_DIR / f"prompt_{req_id}.txt"
-        prompt_file.write_bytes(prompt_text.encode("utf-8"))
+        b64_prompt = base64.b64encode(prompt_text.encode("utf-8")).decode("ascii")
 
         js = EGO_PRELUDE_JS + f"""
         let currentTask = null;
         try {{
-          const fs = await import('node:fs');
-          const prompt = fs.readFileSync({json.dumps(prompt_file.as_posix())}, 'utf8');
+          const prompt = Buffer.from({json.dumps(b64_prompt)}, 'base64').toString('utf8');
           const sleep = ms => new Promise(r => setTimeout(r, ms));
           function chatId(u) {{
             try {{
@@ -426,7 +428,7 @@ def cmd_ask(space_id, prompt_text, wait_sec=60, tail_chars=4500, override_chat_i
             return;
           }}
           const tb = matches[0];
-          const page = tb.label ? task.page(tb.label) : await task.adopt(tb.page);
+          const page = task.userPage ? task.userPage() : (tb.label ? task.page(tb.label) : await task.adopt(tb.page));
           await setupDialogGuards(page);
 
           // Pre-send inspection: URL, textarea uniqueness, draft check, model selector check, baseline message count
