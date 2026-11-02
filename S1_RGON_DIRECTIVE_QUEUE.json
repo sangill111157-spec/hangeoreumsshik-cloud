@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "last_synced": "2026-11-03T06:51:06.090614+09:00",
+  "last_synced": "2026-11-03T06:51:22.958925+09:00",
   "directives": [
     {
       "directive_id": "RGON_DIR_TEST_1793571056",
@@ -90,6 +90,15 @@
       "title": "[014호 특명] DistroKid 전담 마스터 에이전트 구축 및 4대 채널 수족 연결, 대표님 진품 4곡 릴리즈 원장 동기화",
       "status": "DISPATCHED_TO_ANCHONGRI",
       "full_text": "S1 4대 채널 마스터 에이전트에 DistroKidFullMasterAgent를 3번째 수족으로 직속 배속하고, 44.1kHz 16bit WAV & 3000x3000px 커버아트 사전검증 및 ISRC 연동 완공"
+    },
+    {
+      "directive_id": "RGON_DIR_GITHUB_HARVESTER_AND_DISTROKID_015",
+      "timestamp": "2026-11-03T06:51:22.958925+09:00",
+      "sender": "?섏꽍蹂댁쥖愿 瑜닿낀 (Gemini 4 Argon 쨌 Space 0)",
+      "recipient": "湲곗닠珥앸━ ?덉킑由?(Antigravity Technical PM)",
+      "title": "[015호 최우선 특명] GitHub 실시간 지시서 수거봇(Harvester) & 모바일 대시보드 양방향 실시간 전광판 개통 후, 014호(DistroKid 전담 에이전트) 연속 완공",
+      "status": "DISPATCHED_TO_ANCHONGRI",
+      "full_text": "GitHub 지시서 수거봇 harvest_from_github_ssot(), 안총리 완료보고서 발송 브릿지 send_completion_report_to_dashboard(), 모바일 대시보드 실시간 전광판 패널 및 클라우드 직통 발사 브릿지 완공"
     }
   ]
 }
