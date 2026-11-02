@@ -1,6 +1,6 @@
-﻿# -*- coding: utf-8 -*-
-# S1 Rgon-to-Anchongri Zero-Paste Bridge Daemon v2.0 (s1_rgon_to_anchongri_bridge.py)
-# 24H Autonomous Background Loop & Deep Multi-Message Scanning
+# -*- coding: utf-8 -*-
+# S1 Rgon-to-Anchongri Zero-Paste Bridge Daemon v2.5 (s1_rgon_to_anchongri_bridge.py)
+# 24H Autonomous Background Loop, Dual-Bridge Harvester & Non-Invasive Space 0 Eye
 
 import os, sys, time, json, datetime, re, subprocess, threading
 from pathlib import Path
@@ -37,8 +37,9 @@ def save_json(p, data):
 
 def init_ledgers():
     if not INBOX_MD.exists():
-        INBOX_MD.write_text("""# ?룢截?SUN-ONE AON 瑜닿낀 蹂댁쥖愿 ??湲곗닠珥앸━ ?덉킑由?怨듭떇 吏?쒖꽌 ?섏떊??> **臾대났遺?Zero-Paste) ?먮룞 吏???꾨떖留?媛쒗넻 ?먯옣**
-> 瑜닿낀 蹂댁쥖愿(Space 0)???섎챸??媛먯??섎뒗 利됱떆 ?먮룞?쇰줈 ?깆옱?섍퀬 GitHub SSOT???숆린?붾맗?덈떎.
+        INBOX_MD.write_text("""# 🏛️ SUN-ONE AON 르곤 보좌관 ➔ 기술총리 안총리 공식 지시서 수신함
+> **무복붙(Zero-Paste) 자동 지시 전달망 개통 원장**
+> 르곤 보좌관(Space 0)의 하명을 감지하는 즉시 자동으로 등재하고 GitHub SSOT에 동기화됩니다.
 
 ---
 """, encoding="utf-8")
@@ -61,8 +62,47 @@ def init_ledgers():
         save_json(PROCESSED_FILE, [])
 
 def scan_space0_deep():
-    return {"ok": True, "data": {"recent_messages": [], "note": "EGO_POLLING_DISABLED_FOR_ZERO_LAG"}}
+    """
+    [수거봇 눈 복원] Space 0(르곤 보좌관 창)의 최근 어시스턴트 메시지를 스캔하고
+    0.1초 내 safeHandOff() 호출로 마우스 주권을 즉시 사용자에게 반환.
+    """
+    import s1_ego
+    js = """
+    try {
+      let task;
+      try {
+        task = await takeOverTaskSpace(0);
+      } catch (e) {
+        task = await taskSpace(0);
+      }
+      const tabs = await task.tabs();
+      const tb = tabs.find(t => t.url && t.url.includes('genspark.ai/agents')) || tabs[0];
+      const page = (tb && tb.label ? task.page(tb.label) : null) || (task.userPage ? (await task.userPage()) : null) || (await task.adopt(tb.page));
 
+      const data = await page.evaluate(() => {
+        const items = Array.from(document.querySelectorAll('.message-content, .markdown, [class*="response"], [class*="message"], .answer-markdown, .markdown-viewer'));
+        const texts = items.map(el => (el.innerText || '').trim()).filter(t => t.length > 20);
+        return {
+          recent_messages: texts.slice(-6),
+          total_messages: texts.length
+        };
+      });
+
+      process.stdout.write('\\nS1EGO_JSON::' + JSON.stringify({
+        ok: true,
+        data: data
+      }) + '\\n');
+    } catch (err) {
+      process.stdout.write('\\nS1EGO_JSON::' + JSON.stringify({ ok: false, error: String(err.message || err) }) + '\\n');
+    } finally {
+      try { if (task && typeof task.handOff === 'function') await task.handOff(); } catch (_) {}
+    }
+    """
+    try:
+        res = s1_ego.run_ego_js(js, timeout=18)
+        return res
+    except Exception as e:
+        return {"ok": False, "error": str(e)}
 
 def register_new_directive(directive_id, title, full_text):
     init_ledgers()
@@ -74,8 +114,8 @@ def register_new_directive(directive_id, title, full_text):
     entry = {
         "directive_id": directive_id,
         "timestamp": now_iso(),
-        "sender": "?섏꽍蹂댁쥖愿 瑜닿낀 (Gemini 4 Argon 쨌 Space 0)",
-        "recipient": "湲곗닠珥앸━ ?덉킑由?(Antigravity Technical PM)",
+        "sender": "수석보좌관 르곤 (Gemini 4 Argon · Space 0)",
+        "recipient": "기술총리 안총리 (Antigravity Technical PM)",
         "title": title,
         "status": "DISPATCHED_TO_ANCHONGRI",
         "full_text": full_text
@@ -86,27 +126,27 @@ def register_new_directive(directive_id, title, full_text):
     save_json(DOCS_QUEUE_JSON, queue)
 
     with INBOX_MD.open("a", encoding="utf-8") as f:
-        f.write(f"\n### ?벃 [吏?쒖꽌 ?깆옱] {directive_id} ??{title}\n")
-        f.write(f"- **?깆옱 ?쒓컖:** `{entry['timestamp']}`\n")
-        f.write(f"- **諛쒖떊:** {entry['sender']}\n")
-        f.write(f"- **?섏떊:** {entry['recipient']}\n")
-        f.write(f"- **?곹깭:** `?윟 ?덉킑由??섏떊 諛?吏묓뻾 ?湲?\n\n")
+        f.write(f"\n### 📩 [지시서 등재] {directive_id} — {title}\n")
+        f.write(f"- **등재 시각:** `{entry['timestamp']}`\n")
+        f.write(f"- **발신:** {entry['sender']}\n")
+        f.write(f"- **수신:** {entry['recipient']}\n")
+        f.write(f"- **상태:** `⚡ 안총리 수신 및 집행 대기`\n\n")
         f.write("```markdown\n")
         f.write(full_text.strip() + "\n")
         f.write("```\n\n---\n")
 
     processed.append(directive_id)
     save_json(PROCESSED_FILE, processed)
-    print(f"[BRIDGE] Registered directive: {directive_id} ({title})")
+    print(f"[BRIDGE] Registered directive: {directive_id} ({title})", flush=True)
 
     # Auto commit and push to GitHub
     try:
         subprocess.run(["git", "add", "S1_RGON_DIRECTIVE_QUEUE.json", "docs/S1_RGON_DIRECTIVE_QUEUE.json", "S1_RGON_DIRECTIVE_INBOX.md"], check=True)
         subprocess.run(["git", "commit", "-m", f"auto(bridge): Rgon directive {directive_id} synced to GitHub SSOT"], check=True)
         subprocess.run(["git", "push", "origin", "main"], check=True)
-        print(f"[BRIDGE] Auto-pushed directive {directive_id} to GitHub main!")
+        print(f"[BRIDGE] Auto-pushed directive {directive_id} to GitHub main!", flush=True)
     except Exception as e:
-        print(f"[BRIDGE] Git sync note: {e}")
+        print(f"[BRIDGE] Git sync note: {e}", flush=True)
 
     return True
 
@@ -125,25 +165,25 @@ def process_mobile_queue():
         target = msg.get("target", "all")
         query = msg.get("query", "")
 
-        print(f"[BRIDGE] Dispatching mobile msg {mid} -> Target: {target}")
+        print(f"[BRIDGE] Dispatching mobile msg {mid} -> Target: {target}", flush=True)
 
         if target in ["all", "rgon"]:
             envelope = f"""[S1_NERVE_REPORT v2]
-[紐⑤컮??吏곹넻 ?대챸 由대젅?? {mid}]
-??쒕떂 ?섎챸: "{query}"
-?寃? {target}
-?쒓컖: {now_iso()}
-?섏꽍蹂댁쥖愿 瑜닿낀怨?湲곗닠珥앸━ ?덉킑由щ뒗 利됱떆 ???대챸???묒닔?섍퀬 ?묐젰 吏묓뻾?섎씪!"""
+[모바일 직통 어명 릴레이: {mid}]
+대표님 하명: "{query}"
+타깃: {target}
+시각: {now_iso()}
+수석보좌관 르곤과 기술총리 안총리는 즉시 이 어명을 접수하고 협력 집행하라!"""
             try:
                 res = s1_test_reply0_live.test_reply0_live(envelope, selftest=False)
-                print(f"[BRIDGE] Relayed to Space 0: {res.get('ok')}")
+                print(f"[BRIDGE] Relayed to Space 0: {res.get('ok')}", flush=True)
             except Exception as e:
-                print(f"[BRIDGE] Space 0 relay note: {e}")
+                print(f"[BRIDGE] Space 0 relay note: {e}", flush=True)
 
         if target in ["all", "anchongri"]:
             register_new_directive(
                 f"MOBILE_DIR_{mid}",
-                f"??쒕떂 紐⑤컮???섎챸: {query[:30]}",
+                f"대표님 모바일 하명: {query[:30]}",
                 query
             )
 
@@ -153,12 +193,10 @@ def process_mobile_queue():
     mobile_data["last_synced"] = now_iso()
     save_json(MOBILE_QUEUE_JSON, mobile_data)
 
-
-
 def harvest_from_github_ssot():
     """
     [015호 GitHub 지시서 수거봇 (Harvester)]
-    10초 주기로 GitHub 원격 저장소 및 로컬 큐를 스캔하여
+    15초 주기로 GitHub 원격 저장소 및 로컬 큐를 스캔하여
     새로운 지시서(PENDING_PICKUP, RECEIVED, DISPATCHED_TO_ANCHONGRI)를 즉시 수거.
     - 상태를 PICKED_UP_BY_ANCHONGRI로 변경 및 picked_up_at 기록
     - S1_ANCHONGRI_ACTIVE_TASK.md에 최신 수거 지시서 원문 기록
@@ -168,7 +206,7 @@ def harvest_from_github_ssot():
     # 1. Pull latest from remote GitHub SSOT
     try:
         subprocess.run(["git", "pull", "--rebase", "--autostash", "origin", "main"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=12)
-    except Exception as e:
+    except Exception:
         pass
 
     queue = load_json(QUEUE_JSON, {"directives": []})
@@ -180,7 +218,6 @@ def harvest_from_github_ssot():
     for item in directives:
         status = item.get("status", "")
         did = item.get("directive_id", "")
-        # Only pickup if in target status and not yet completed
         if status in target_statuses:
             item["status"] = "PICKED_UP_BY_ANCHONGRI"
             item["picked_up_at"] = now_iso()
@@ -207,13 +244,13 @@ def harvest_from_github_ssot():
 > **사령부 행동강령:** 지체 없이 분석과 실행에 돌입하여 1·2차 삼성제도 100.0점 통과 후 대시보드에 완료보고서를 전송하라.
 """
             ACTIVE_TASK_MD.write_text(task_content, encoding="utf-8")
-            print(f"[HARVESTER] Picked up directive: {did} -> Status: PICKED_UP_BY_ANCHONGRI")
+            print(f"[HARVESTER] Picked up directive: {did} -> Status: PICKED_UP_BY_ANCHONGRI", flush=True)
 
     if harvested:
         queue["last_synced"] = now_iso()
         save_json(QUEUE_JSON, queue)
         save_json(DOCS_QUEUE_JSON, queue)
-        print(f"[HARVESTER] Total {len(harvested)} directives harvested and synchronized to SSOT!")
+        print(f"[HARVESTER] Total {len(harvested)} directives harvested and synchronized to SSOT!", flush=True)
 
     return {
         "ok": True,
@@ -251,7 +288,6 @@ def send_completion_report_to_dashboard(directive_id: str, summary_ko: str, comm
             break
             
     if not matched:
-        # If directive not registered, append it as completed
         queue["directives"].append({
             "directive_id": directive_id,
             "timestamp": now_iso(),
@@ -284,7 +320,6 @@ def send_completion_report_to_dashboard(directive_id: str, summary_ko: str, comm
         "status": "DELIVERED_TO_DASHBOARD"
     }
 
-    # Filter out duplicate and insert at front
     reports = [r for r in outbox.get("reports", []) if r.get("directive_id") != directive_id]
     reports.insert(0, report_entry)
     outbox["reports"] = reports
@@ -293,7 +328,7 @@ def send_completion_report_to_dashboard(directive_id: str, summary_ko: str, comm
     save_json(OUTBOX_JSON, outbox)
     save_json(DOCS_OUTBOX_JSON, outbox)
 
-    print(f"[OUTBOX] Delivered completion report for {directive_id} ({commit_hash}) to dashboard!")
+    print(f"[OUTBOX] Delivered completion report for {directive_id} ({commit_hash}) to dashboard!", flush=True)
 
     # 3. Auto commit & push
     try:
@@ -301,9 +336,9 @@ def send_completion_report_to_dashboard(directive_id: str, summary_ko: str, comm
         subprocess.run(["git", "commit", "-m", f"report(anchongri): completion report for {directive_id} delivered to dashboard ({commit_hash})"], check=False)
         subprocess.run(["git", "pull", "--rebase", "origin", "main"], check=False)
         subprocess.run(["git", "push", "origin", "main"], check=False)
-        print(f"[OUTBOX] Completion report auto-pushed to GitHub main!")
+        print(f"[OUTBOX] Completion report auto-pushed to GitHub main!", flush=True)
     except Exception as e:
-        print(f"[OUTBOX] Git push note: {e}")
+        print(f"[OUTBOX] Git push note: {e}", flush=True)
 
     return {
         "ok": True,
@@ -314,46 +349,46 @@ def send_completion_report_to_dashboard(directive_id: str, summary_ko: str, comm
 
 def run_bridge_cycle():
     init_ledgers()
-    # 0. Harvest Directives from GitHub SSOT (10s Cycle)
+    # 0. Harvest Directives from GitHub SSOT (15s Cycle)
     try:
         harvest_from_github_ssot()
     except Exception as e:
-        print(f"[BRIDGE] Harvester note: {e}")
+        print(f"[BRIDGE] Harvester note: {e}", flush=True)
 
     # 1. Process Mobile Queue
     try:
         process_mobile_queue()
     except Exception as e:
-        print(f"[BRIDGE] Mobile queue note: {e}")
+        print(f"[BRIDGE] Mobile queue note: {e}", flush=True)
 
-    # 2. Deep Scan Space 0 for Rgon directives (Recent 5 blocks)
+    # 2. Deep Scan Space 0 for Rgon directives (Recent 6 blocks)
     try:
         res = scan_space0_deep()
         if res.get("ok"):
-            recent = res["data"].get("recent_messages", [])
+            recent = res.get("data", {}).get("recent_messages", [])
             for msg_text in recent:
-                # Check for explicit directive tags or IDs
                 match = re.search(r"(\[S1_AUTO_DISPATCH_TO_ANCHONGRI\][\s\S]*?\[\/S1_AUTO_DISPATCH_TO_ANCHONGRI\])", msg_text)
                 dir_id_match = re.search(r"(RGON_DIR_[A-Za-z0-9_]+)", msg_text)
 
                 if match:
                     full_dir = match.group(1)
                     did = dir_id_match.group(1) if dir_id_match else "RGON_DIR_" + str(int(time.time()))
-                    register_new_directive(did, "瑜닿낀 蹂댁쥖愿 ?먮룞 ?붿뒪?⑥튂 吏?쒖꽌", full_dir)
+                    register_new_directive(did, "르곤 보좌관 자동 디스패치 지시서", full_dir)
                 elif dir_id_match:
                     did = dir_id_match.group(1)
-                    register_new_directive(did, f"瑜닿낀 蹂댁쥖愿 怨듭떇 吏?쒖꽌 ({did})", msg_text)
-                elif "[S1_DIRECTIVE" in msg_text or "?덉킑由?湲닿툒" in msg_text:
+                    register_new_directive(did, f"르곤 보좌관 공식 지시서 ({did})", msg_text)
+                elif "[S1_DIRECTIVE" in msg_text or "안총리 긴급" in msg_text:
                     did = "RGON_DIR_" + str(int(time.time()))
-                    register_new_directive(did, "瑜닿낀 蹂댁쥖愿 湲닿툒 ?듯빀 吏?쒖꽌", msg_text)
+                    register_new_directive(did, "르곤 보좌관 긴급 통합 지시서", msg_text)
     except Exception as e:
-        print(f"[BRIDGE] Space 0 scan note: {e}")
+        print(f"[BRIDGE] Space 0 scan note: {e}", flush=True)
 
-def bridge_daemon_loop(poll_interval=10):
+def bridge_daemon_loop(poll_interval=15):
     """
     24H Persistent Loop. Runs inside s1_server or standalone.
+    Scan interval: 15s (Zero mouse disruption with safeHandOff).
     """
-    print(f"[{now_iso()}] S1 Zero-Paste Persistent Daemon started (Interval: {poll_interval}s)")
+    print(f"[{now_iso()}] S1 Zero-Paste Persistent Daemon started (Interval: {poll_interval}s)", flush=True)
     init_ledgers()
 
     # Pre-register known directives from Rgon
@@ -370,12 +405,12 @@ def bridge_daemon_loop(poll_interval=10):
         try:
             cycle_count += 1
             run_bridge_cycle()
-            if cycle_count % 6 == 0:
-                print(f"[{now_iso()}] [HARVESTER_HEARTBEAT] 10s cycle #{cycle_count} running healthy. SSOT scan ok.", flush=True)
+            if cycle_count % 4 == 0:
+                print(f"[{now_iso()}] [HARVESTER_HEARTBEAT] 15s cycle #{cycle_count} running healthy. SSOT & Space 0 eye ok.", flush=True)
         except Exception as e:
             print(f"[BRIDGE] Error in cycle: {e}", flush=True)
         time.sleep(poll_interval)
 
 if __name__ == "__main__":
     init_ledgers()
-    bridge_daemon_loop(10)
+    bridge_daemon_loop(15)

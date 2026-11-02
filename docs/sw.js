@@ -1,5 +1,5 @@
-// S1 Service Worker v2026-zeropaste-v7 (SUN-ONE AON Zero-Paste & Dual Bridge)
-const CACHE = 's1-aon-v7-harvester-live';
+// S1 Service Worker v2026-stepagent-v8 (SUN-ONE AON Zero-Paste & Dual Bridge)
+const CACHE = 's1-aon-v8-step-agent-board';
 const ASSETS = [
   './',
   './index.html',
