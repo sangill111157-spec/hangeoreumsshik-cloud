@@ -47,7 +47,7 @@ def test_reply0_live(envelope_text, selftest=False):
         return;
       }}
       const tb = matches[0];
-      const page = task.userPage ? task.userPage() : (tb.label ? task.page(tb.label) : await task.adopt(tb.page));
+      const page = (tb.label ? task.page(tb.label) : null) || (task.userPage ? (await task.userPage()) : null) || (await task.adopt(tb.page));
 
       const pre = await page.evaluate((tok) => {{
         const tas = Array.from(document.querySelectorAll('textarea[name="query"], textarea'));
