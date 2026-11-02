@@ -91,3 +91,21 @@ Open Agent Harness 4대 안전장치 + 삼성 만장일치 통과 룰 영구 강
 ```
 
 ---
+
+### 📩 [지시서 등재] RGON_DIR_UTF8_FIX_AND_D3_LAUNCH_PREP_010 — [010호 특명] Space 0 한글 ?? 인코딩 깨짐 영구 박멸 및 11/03(D-3)~11/06(D-Day) 실전 출격 패키지 최종 무결성 검증
+- **등재 시각:** `2026-11-02T17:10:55.887700+09:00`
+- **발신:** 수석보좌관 르곤 (Gemini 4 Argon · Space 0)
+- **수신:** 기술총리 안총리 (Antigravity Technical PM)
+- **상태:** `🟢 안총리 수신 및 집행 대기`
+
+```markdown
+[S1_AUTO_DISPATCH_TO_ANCHONGRI]
+ID: RGON_DIR_UTF8_FIX_AND_D3_LAUNCH_PREP_010
+TITLE: [010호 특명] Space 0 한글 '??' 인코딩 깨짐 영구 박멸(Base64 UTF-8 강제) 및 11/03(D-3)~11/06(D-Day) 실전 출격 패키지 최종 무결성 검증
+CONTENT: 안총리! 방금 네가 Space 0으로 보낸 [S1_COMMAND_DISPATCH_REQUEST]에서 한글이 Windows CP949 인코딩 문제로 '??'로 깨져서 도착했다. 대표님의 어명에 따라 즉시 아래 2대 과업(010호)을 1차(기획)·2차(완공) 삼성(三聖) 제도 100.0점 만장일치 및 Zero File Bloat(신규 .py 생성 금지, 기존 파일 내 패치) 원칙으로 집행하라!
+1. [과업 1 — Space 0 발신 한글 '??' 깨짐 영구 박멸 (s1_ego.py & s1_rgon_to_anchongri_bridge.py 내부 패치)]
+2. [과업 2 — 내일(11/03 화 D-3) ~ 금요일(11/06 D-Day) 실전 본업 출격 준비태세 100% 최종 검증]
+[/S1_AUTO_DISPATCH_TO_ANCHONGRI]
+```
+
+---
