@@ -1,0 +1,55 @@
+{
+  "updated_at": "2026-11-02T22:00:13.500319",
+  "items": [
+    {
+      "id": "DELIV-AUDIO-01",
+      "dept": "🎵 음원·DistroKid부",
+      "title": "대표님 친작 Suno V6 #1: 희망의 등불 (Beacon of Hope)",
+      "type": "audio",
+      "url": "./01_BEACON_OF_HOPE_master_320kbps.mp3",
+      "desc": "-14.0 LUFS / 320kbps 마스터 음원 (ISRC: KR-S01-26-V601)",
+      "status": "PENDING",
+      "feedback": ""
+    },
+    {
+      "id": "DELIV-AUDIO-02",
+      "dept": "🎵 음원·DistroKid부",
+      "title": "대표님 친작 Suno V6 #2: 희망의 바다 (Ocean of Hope)",
+      "type": "audio",
+      "url": "./02_OCEAN_OF_HOPE_master_320kbps.mp3",
+      "desc": "-14.0 LUFS / 320kbps 마스터 음원 (ISRC: KR-S01-26-V602)",
+      "status": "PENDING",
+      "feedback": ""
+    },
+    {
+      "id": "DELIV-VIDEO-01",
+      "dept": "🎬 4대 채널·영상부",
+      "title": "정규 1집 『가을과 겨울 사이』 12곡 하이브리드 마스터 (41분 14초)",
+      "type": "link",
+      "url": "./S1_D3_LAUNCH_PREP_TRIUMVIRATE_PROOF.json",
+      "desc": "11월 6일 00:00 @한걸음씩-r4i & 전 세계 24개 플랫폼 동시 출격 대기본",
+      "status": "APPROVED_SCHEDULED",
+      "feedback": "11월 6일 스케줄 출격 대기"
+    },
+    {
+      "id": "DELIV-VIRAL-01",
+      "dept": "✍️ 3+1 바이럴 홍보부",
+      "title": "네이버 블로그 고체류 원고 & 스레드 120자+첫댓글 분리 7일 패키지",
+      "type": "text",
+      "url": "./S1_DAILY_RND_LATEST_REPORT.json",
+      "desc": "AI 상투어 32종 소거 + 스레드 120자 본문/첫댓글 분리 + MiroFish 가상청취자 예측 98.5점",
+      "status": "PENDING",
+      "feedback": ""
+    },
+    {
+      "id": "DELIV-LEGAL-01",
+      "dept": "⚖️ 저작권·R&D부",
+      "title": "황금 S1 3종 로고 국제 베른협약 SHA-256 디지털 공증 & 출원 패키지",
+      "type": "logo",
+      "url": "./s1_logo_3.png",
+      "desc": "s1_logo_1~3.png SHA-256 해시 박제 및 한국저작권위원회/특허청 출원 명세서",
+      "status": "APPROVED_SCHEDULED",
+      "feedback": "공증 완료"
+    }
+  ]
+}
