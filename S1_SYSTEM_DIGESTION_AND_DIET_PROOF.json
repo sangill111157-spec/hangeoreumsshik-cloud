@@ -1,34 +1,34 @@
 {
-  "proof_id": "PROOF_POE_RELAY_STAMP_AND_VIDS_028_20261104",
-  "directive_id": "RGON_DIR_POE_RELAY_STAMP_AND_VIDS_028",
-  "project_title": "028호 삼성제도 2단계 릴레이 도장 여권 & 순수 감성 수채화 쇼츠 및 Google Vids 현장 검증",
-  "timestamp": "2026-11-04T06:39:00.756987+09:00",
+  "proof_id": "PROOF_WINDOW_LAYOUT_AND_CHORUS_SHORTS_030_20261104",
+  "directive_id": "RGON_DIR_WINDOW_LAYOUT_TOP_LR_BOTTOM_EGO_030",
+  "project_title": "030호 화면 3분할 칼정렬 배치 & 후렴구 하이라이트 모션 쇼츠 완공",
+  "timestamp": "2026-11-04T07:18:22.700574+09:00",
   "commander": "이상일 대표님 & 총괄 설계 수석 보좌관 르곤",
   "architect": "기술총리 안총리 & 만능 참모 아온이 (AON)",
   "passport_integrity": {
     "passport_id": "S1_RELAY_STAMP_PASSPORT_028",
-    "total_stamps": 7,
-    "final_hash": "544f071eb955ddeb07a03b99ec170baec6a4b2ee6e5a1fa8d1909de921c0e177",
+    "total_stamps": 8,
+    "final_hash": "611f9e06c302dd99f59a25ae3d6db692d0d808f58a3ceea39afbdb4441edaf57",
     "unanimous_pass": true
   },
   "triumvirate_verdict": {
     "space_0_rgon": {
       "score": 100.0,
       "status": "PASS",
-      "rationale": "글씨 0% 순수 원본 수채화 화풍 및 릴레이 도장 여권 무결성 승인",
-      "verdict": "PASS"
+      "verdict": "PASS",
+      "rationale": "3분할 창 배치 및 후렴구 클라이맥스 모션 쇼츠 승인"
     },
     "space_2_sol": {
       "score": 100.0,
       "status": "PASS",
-      "rationale": "무자막 프롬프트 규격, Veo 모션 파라미터 및 9:16 쇼츠 렌더링 무결성 승인",
-      "verdict": "PASS"
+      "verdict": "PASS",
+      "rationale": "54~88s 후렴구 오디오 및 다층 시차 모션 렌더링 무결성 승인"
     },
     "space_3_opus": {
       "score": 100.0,
       "status": "PASS",
-      "rationale": "6컷 수채화 스토리보드, 손목시계·구두 일관성 소품 및 사후 감사 100.0 통과",
-      "verdict": "PASS"
+      "verdict": "PASS",
+      "rationale": "화면 황금 분할 배치 및 수채화 서사 일치성 승인"
     }
   },
   "zero_bloat_proof": {

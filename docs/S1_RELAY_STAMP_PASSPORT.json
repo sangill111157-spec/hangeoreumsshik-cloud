@@ -3,7 +3,7 @@
   "directive_id": "RGON_DIR_POE_RELAY_STAMP_AND_VIDS_028",
   "created_at": "2026-11-04T06:25:00+09:00",
   "genesis_hash": "0000000000000000000000000000000000000000000000000000000000000000",
-  "current_stamp_index": 7,
+  "current_stamp_index": 8,
   "stamps": [
     {
       "stamp_index": 1,
@@ -281,8 +281,28 @@
         "score": 100.0,
         "verdict": "TRIUMVIRATE_FIVE_GATES_UNANIMOUS_PASS"
       }
+    },
+    {
+      "stamp_index": 8,
+      "stamp_name": "STAMP_030_CHORUS_CLIMAX_MOTION_RENDER",
+      "prev_stamp_hash": "544f071eb955ddeb07a03b99ec170baec6a4b2ee6e5a1fa8d1909de921c0e177",
+      "timestamp": "2026-11-04T07:18:22.700574+09:00",
+      "status": "PASSED",
+      "payload": {
+        "directive_id": "RGON_DIR_WINDOW_LAYOUT_TOP_LR_BOTTOM_EGO_030",
+        "audio_section": "Chorus Climax Highlight (54.0s ~ 88.0s, 34.00s, 320k AAC)",
+        "lyrics_hook": "한 걸음씩, 한 걸음씩 넘어지던 내 손 잡아주던 그 큰 손이 이제는 내 손보다 작아졌네요",
+        "video_style": "Alive Parallax Watercolor Motion (steamy mirror, dawn light tilt, table pan, hands drift, crane pull back, fade to loop)",
+        "video_file": "audio/FATHER_AGE_MASTER_SHORTS_1080x1920.mp4",
+        "size_bytes": 11921532,
+        "sha256": "780b8ca51b9871ecb911635fbbe07dacd733ed31fbdcfa41895d7b1f3d598e4a",
+        "sw_version": "s1-aon-v16-chorus-climax-watercolor-shorts",
+        "layout_verified": "3-Split Golden Layout (Top-Left Rgon, Top-Right Anchongri, Bottom Ego-Lite)",
+        "verdict": "PASSED_030_CHORUS_CLIMAX_AND_LAYOUT_STANDBY"
+      },
+      "stamp_hash": "611f9e06c302dd99f59a25ae3d6db692d0d808f58a3ceea39afbdb4441edaf57"
     }
   ],
-  "last_stamp_hash": "544f071eb955ddeb07a03b99ec170baec6a4b2ee6e5a1fa8d1909de921c0e177",
-  "updated_at": "2026-11-04T06:39:00.761986+09:00"
+  "last_stamp_hash": "611f9e06c302dd99f59a25ae3d6db692d0d808f58a3ceea39afbdb4441edaf57",
+  "updated_at": "2026-11-04T07:18:22.700574+09:00"
 }
