@@ -122,5 +122,70 @@
       "status": "APPROVED_SCHEDULED",
       "feedback": "공증 완료"
     }
-  ]
+  ],
+  "deliverables": [
+    {
+      "id": "DELIV-SHORTS-023-FATHER-AGE",
+      "rank": 1,
+      "title": "🎬 [023호 대표님 승인 특명] 『아버지 나이가 됐어요』 4대 공정별 원탑 9:16 시네마틱 쇼츠 (34초)",
+      "category": "SHORTS_CINEMATIC_MASTERPIECE",
+      "artist": "한걸음씩 (@sangill111157)",
+      "status": "COMPLETED_100_PERCENT_PASS",
+      "specs": {
+        "resolution": "1080x1920 (9:16 Vertical Shorts)",
+        "fps": 30.0,
+        "duration": "34.0초 (정밀 1,020 프레임)",
+        "audio_sync": "-14.0 LUFS (320kbps AAC Stereo)",
+        "scene_count": 6,
+        "video_path": "docs/audio/FATHER_AGE_MASTER_SHORTS_1080x1920.mp4",
+        "scenes_dir": "docs/audio/father_age_shorts_scenes/",
+        "master_report": "S1_SHORTS_023_FATHER_AGE_MASTERPIECE.md"
+      },
+      "scenes": [
+        {
+          "num": 1,
+          "time": "0:00-0:05",
+          "title": "거울 속에서 아버지를 발견하다",
+          "lyric": "아버지 나이가 됐어요",
+          "file": "docs/audio/father_age_shorts_scenes/scene_01.png"
+        },
+        {
+          "num": 2,
+          "time": "0:05-0:11",
+          "title": "새벽 다섯 시, 낡은 구두",
+          "lyric": "새벽 다섯 시 현관문 소리 / 잠결에 듣던 그 낡은 구두",
+          "file": "docs/audio/father_age_shorts_scenes/scene_02.png"
+        },
+        {
+          "num": 3,
+          "time": "0:11-0:17",
+          "title": "월급날 통닭, 목뼈",
+          "lyric": "당신은 늘 목뼈만 드셨죠 / 좋아하는 줄만 알았어요",
+          "file": "docs/audio/father_age_shorts_scenes/scene_03.png"
+        },
+        {
+          "num": 4,
+          "time": "0:17-0:24",
+          "title": "그때는 컸고, 지금은 작아진 손",
+          "lyric": "넘어지던 내 손 잡아주던 그 큰 손이 / 이제는 내 손보다 작아졌네요",
+          "file": "docs/audio/father_age_shorts_scenes/scene_04.png"
+        },
+        {
+          "num": 5,
+          "time": "0:24-0:30",
+          "title": "이제 같은 속도로 걷는다",
+          "lyric": "당신이 걸어온 그 길 위에 / 이제 내가 서 있어요",
+          "file": "docs/audio/father_age_shorts_scenes/scene_05.png"
+        },
+        {
+          "num": 6,
+          "time": "0:30-0:34",
+          "title": "한걸음씩, 아버지에게",
+          "lyric": "…보고 싶어요 / 한걸음씩 · 아버지 나이가 됐어요",
+          "file": "docs/audio/father_age_shorts_scenes/scene_06.png"
+        }
+      ]
+    }
+  ],
+  "last_updated": "2026-11-03T20:01:58.520646+09:00"
 }
