@@ -15,17 +15,20 @@
     "space_0_rgon": {
       "score": 100.0,
       "status": "PASS",
-      "rationale": "글씨 0% 순수 원본 수채화 화풍 및 릴레이 도장 여권 무결성 승인"
+      "rationale": "글씨 0% 순수 원본 수채화 화풍 및 릴레이 도장 여권 무결성 승인",
+      "verdict": "PASS"
     },
     "space_2_sol": {
       "score": 100.0,
       "status": "PASS",
-      "rationale": "무자막 프롬프트 규격, Veo 모션 파라미터 및 9:16 쇼츠 렌더링 무결성 승인"
+      "rationale": "무자막 프롬프트 규격, Veo 모션 파라미터 및 9:16 쇼츠 렌더링 무결성 승인",
+      "verdict": "PASS"
     },
     "space_3_opus": {
       "score": 100.0,
       "status": "PASS",
-      "rationale": "6컷 수채화 스토리보드, 손목시계·구두 일관성 소품 및 사후 감사 100.0 통과"
+      "rationale": "6컷 수채화 스토리보드, 손목시계·구두 일관성 소품 및 사후 감사 100.0 통과",
+      "verdict": "PASS"
     }
   },
   "zero_bloat_proof": {
