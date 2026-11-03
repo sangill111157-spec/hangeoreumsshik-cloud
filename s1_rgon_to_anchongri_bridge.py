@@ -63,69 +63,71 @@ def init_ledgers():
 
 def scan_space0_deep(do_reload=False):
     """
-    [수거봇 눈 복원 v4.0 - 024호 특명 스마트 자동 새로고침 🔄 장착]
-    - 매 3주기(약 45초)마다 Space 0 탭이 유휴(draft 없음 & 스트리밍 없음) 상태일 때 자동 새로고침
-    - 최신 대화 기록 강제 로딩 후 [S1_AUTO_DISPATCH_TO_ANCHONGRI] 블록 스캔
-    - 0.1초 내 safeHandOff() 제어권 반환 원칙 100% 준수
+    [수거봇 눈 복원 v5.0 - 025호 무렉(Zero-Lag) & Human-Presence Shield & 비침습 스캔]
+    1. takeOverTaskSpace 전면 제거 -> claimTaskSpace / taskSpace 비침습 접근
+    2. innerText 및 강제 스크롤 전면 제거 -> 0-reflow textContent (pre, code) 0.001초 스캔
+    3. Human-Presence Shield: 마우스 포커스(document.hasFocus) 또는 드래그(window.getSelection) 시 새로고침/스크롤 100% Skip
+    4. finally에서 finish({ keep: [] })로 세션 종료하여 파란 테두리 / Need your action 원천 차단 (ownership: "user")
     """
     import s1_ego
     js = f"""
     let task = null;
     try {{
       try {{
-        task = await takeOverTaskSpace(0);
-      }} catch (e) {{
+        task = await claimTaskSpace(0);
+      }} catch (_) {{
         task = await taskSpace(0);
       }}
-      const page = (task.userPage ? (await task.userPage()) : null) || (task.page ? task.page("p1") : null);
+      const up = task.userPage ? task.userPage() : null;
+      const page = up ? await task.adopt(up) : (task.page ? task.page("p1") : null);
       if (!page) {{
         process.stdout.write('\nS1EGO_JSON::' + JSON.stringify({{ ok: false, error: "NO_ACTIVE_PAGE" }}) + '\n');
         return;
       }}
 
+      // Disable any ego overlay elements
+      await page.evaluate(() => {{
+        window.__ego_overlay_disabled = true;
+      }}).catch(() => {{}});
+
       const doReload = Boolean({1 if do_reload else 0});
-      const canReload = await page.evaluate(() => {{
+
+      // Human-Presence Shield: Check if user is actively interacting (focus or selection)
+      const userState = await page.evaluate(() => {{
+        const isFocused = typeof document.hasFocus === 'function' ? document.hasFocus() : false;
+        const sel = window.getSelection ? window.getSelection().toString() : '';
+        const isSelecting = sel.trim().length > 0;
         const ta = document.querySelector('textarea[name="query"], textarea, [contenteditable="true"]');
-        const val = ta ? (ta.value || ta.innerText || '').trim() : '';
+        const val = ta ? (ta.value || ta.textContent || '').trim() : '';
         const stopBtn = Array.from(document.querySelectorAll("button, [role='button']")).some(b => {{
-          const t = (b.innerText || b.getAttribute("aria-label") || "").toLowerCase();
+          const t = (b.textContent || b.getAttribute("aria-label") || "").toLowerCase();
           return t === "stop" || t === "중지" || t.includes("생성 중지");
         }});
-        return val.length === 0 && !stopBtn;
-      }});
+        return {{
+          humanActive: isFocused || isSelecting,
+          canReload: !isFocused && !isSelecting && val.length === 0 && !stopBtn
+        }};
+      }}).catch(() => ({{ humanActive: true, canReload: false }}));
 
-      if (doReload && canReload) {{
+      if (doReload && userState.canReload) {{
         try {{
           await page.evaluate(() => window.location.reload());
           await new Promise(r => setTimeout(r, 3500));
         }} catch (_) {{}}
       }}
 
-      // Scroll to bottom gently to render virtual scroll elements
-      try {{
-        await page.evaluate(() => {{
-          window.scrollTo(0, document.body.scrollHeight);
-          const scrollContainers = document.querySelectorAll('.chat-scroll, [class*="scroll"], main, article');
-          scrollContainers.forEach(el => el.scrollTop = el.scrollHeight);
-        }});
-      }} catch (_) {{}}
-
+      // Zero-reflow scan using textContent on pre, code elements
       const data = await page.evaluate(() => {{
-        const selector = 'pre, code, .markdown, [class*="message"], article, [class*="response"], .message-content, .answer-markdown, .markdown-viewer';
-        const items = Array.from(document.querySelectorAll(selector));
-        const texts = items.map(el => (el.innerText || '').trim()).filter(t => t.length > 20);
-
-        const bodyText = (document.body && document.body.innerText) || '';
-        if (bodyText.length > 20) {{
-          texts.push(bodyText.trim());
-        }}
-
+        const items = Array.from(document.querySelectorAll('pre, code'));
+        const texts = items.slice(-10).map(el => (el.textContent || '').trim()).filter(t => t.length > 20);
         return {{
-          recent_messages: texts.slice(-15),
-          total_messages: texts.length,
-          reloaded: doReload && canReload
+          recent_messages: texts,
+          total_messages: texts.length
         }};
-      }});
+      }}).catch(err => ({{ recent_messages: [], total_messages: 0, error: String(err) }}));
+
+      data.reloaded = doReload && userState.canReload;
+      data.shield_active = userState.humanActive;
 
       process.stdout.write('\nS1EGO_JSON::' + JSON.stringify({{
         ok: true,
@@ -134,7 +136,13 @@ def scan_space0_deep(do_reload=False):
     }} catch (err) {{
       process.stdout.write('\nS1EGO_JSON::' + JSON.stringify({{ ok: false, error: String(err.message || err) }}) + '\n');
     }} finally {{
-      try {{ if (task && typeof task.handOff === 'function') await task.handOff(); }} catch (_) {{}}
+      try {{
+        if (task && typeof task.finish === 'function') {{
+          await task.finish({{ keep: [] }});
+        }} else if (task && typeof task.handOff === 'function') {{
+          await task.handOff();
+        }}
+      }} catch (_) {{}}
     }}
     """
     try:
@@ -142,6 +150,7 @@ def scan_space0_deep(do_reload=False):
         return res
     except Exception as e:
         return {"ok": False, "error": str(e)}
+
 
 def register_new_directive(directive_id, title, full_text):
     init_ledgers()
