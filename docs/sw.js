@@ -1,5 +1,5 @@
 // S1 Service Worker v2026-stepagent-v8 (SUN-ONE AON Zero-Paste & Dual Bridge)
-const CACHE = 's1-aon-v9-father-mountain';
+const CACHE = 's1-aon-v10-father-remaster';
 const ASSETS = [
   './',
   './index.html',

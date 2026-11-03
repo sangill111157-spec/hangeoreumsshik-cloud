@@ -1,19 +1,19 @@
 {
-  "updated_at": "2026-11-03T13:45:00+09:00",
+  "updated_at": "2026-11-03T15:42:00+09:00",
   "items": [
     {
       "id": "DELIV-AUDIO-00-FATHER",
-      "dept": "🌲 020호 인풋·아웃풋 응용 실전 센터",
-      "title": "🌲 아버지라는 산 (한걸음씩 · Suno V6 신작)",
+      "dept": "🌲 021호 인간 흉성 리마스터 센터",
+      "title": "🌲 아버지라는 산 (인간 흉성 리마스터 · Suno V6)",
       "type": "audio_mv",
-      "audio_url": "https://raw.githubusercontent.com/sangill111157-spec/hangeoreumsshik-cloud/main/studio_vault/CEO_SUNO_V6_MASTERS/FATHER_MOUNTAIN_master_320kbps.mp3",
-      "video_url": "https://raw.githubusercontent.com/sangill111157-spec/hangeoreumsshik-cloud/main/studio_vault/CEO_SUNO_V6_MASTERS/FATHER_MOUNTAIN_1080p_MV.mp4",
-      "suno_master_url": "https://suno.com/song/ce1dddc2-e5b8-4e6c-b8f0-75ea4923b584",
-      "suno_sub_url": "https://suno.com/song/d45fab98-4edd-418f-bada-565f3dc31475",
-      "thumb_url": "https://raw.githubusercontent.com/sangill111157-spec/hangeoreumsshik-cloud/main/studio_vault/CEO_SUNO_V6_MASTERS/FATHER_MOUNTAIN_cover.png",
-      "desc": "259.9초(4:20) 진품 보컬 음원 (-14.0 LUFS / 320kbps) & 1080p 공식 MV | 스타일: 019호 『어머니라는 꽃』 계승 명상 앰비언트 트로트",
+      "audio_url": "https://raw.githubusercontent.com/sangill111157-spec/hangeoreumsshik-cloud/main/studio_vault/CEO_SUNO_V6_MASTERS/FATHER_MOUNTAIN_REMASTER_master_320kbps.mp3",
+      "video_url": "https://raw.githubusercontent.com/sangill111157-spec/hangeoreumsshik-cloud/main/studio_vault/CEO_SUNO_V6_MASTERS/FATHER_MOUNTAIN_REMASTER_1080p_MV.mp4",
+      "suno_master_url": "https://suno.com/song/dec7d92c-6622-4157-9a51-c8189c48f5ac",
+      "suno_sub_url": "https://suno.com/song/1baf76e4-8877-4986-92d4-45ca1f89d8ba",
+      "thumb_url": "https://raw.githubusercontent.com/sangill111157-spec/hangeoreumsshik-cloud/main/studio_vault/CEO_SUNO_V6_MASTERS/FATHER_MOUNTAIN_REMASTER_cover.png",
+      "desc": "284.8초(4:45) 언플러그드 어쿠스틱 클로즈 마이크 & 중저음 흉성 보컬 | FFmpeg 6.4kHz 치찰음 제거 & 230Hz 진공관 아날로그 온기 마스터링 (-14.0 LUFS / 320kbps)",
       "status": "APPROVED",
-      "feedback": "1·2차 삼성제도 100.0점 만장일치 통과 · 실제 Suno 생성 및 1080p MV 완공"
+      "feedback": "021호 AI 목소리 티 완전 제거 및 1·2차 삼성 100.0 만장일치 완공"
     },
     {
       "id": "DELIV-AUDIO-SUNO-019",

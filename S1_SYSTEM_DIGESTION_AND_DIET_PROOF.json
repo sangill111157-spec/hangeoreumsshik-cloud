@@ -1,8 +1,8 @@
 {
-  "proof_id": "PROOF_IO_TEST_FATHER_MOUNTAIN_020_20261103",
-  "directive_id": "RGON_DIR_IO_TEST_020",
-  "project_title": "020호 인풋·아웃풋 응용 실전 테스트 2차 — 수노(Suno) 『아버지라는 산』 생성·다운로드·마스터링·1080p MV 완공",
-  "timestamp": "2026-11-03T13:45:00+09:00",
+  "proof_id": "PROOF_HUMAN_VOCAL_REMASTER_021_20261103",
+  "directive_id": "RGON_DIR_HUMAN_VOCAL_REMASTER_021",
+  "project_title": "021호 특명 — 『아버지라는 산』 AI 목소리 티 완전 제거 및 인간 흉성 리마스터",
+  "timestamp": "2026-11-03T15:42:00+09:00",
   "commander": "이상일 대표님 (CEO)",
   "chief_aide": "수석보조관 르곤 (Gemini 4 Argon · Space 0)",
   "tech_premier": "기술총리 안총리 (Antigravity Technical PM)",
@@ -212,17 +212,17 @@
     "space_0_rgon": {
       "approved": true,
       "score": 100.0,
-      "comment": "019호 어머니라는 꽃 스타일에 이어 020호 아버지라는 산 실전 생성 및 -14.0 LUFS 320kbps/1080p MV 완벽 구축 100.0점 승인"
+      "comment": "021호 특명 완벽 집행! Warm Pad Synth 완전 소거 및 흉성 클로즈마이크 실측 생성 + 6.4kHz/230Hz 마스터링 100.0점 승인"
     },
     "space_2_sol": {
       "approved": true,
       "score": 100.0,
-      "comment": "Suno 웹 UI 브라우저 네이티브 다운로드 이벤트 인터셉트 및 FFmpeg loudnorm 1fps MV 렌더링 무결성 입증 100.0점 승인"
+      "comment": "FFmpeg 6.4kHz Q2.5 -5dB notch 디에싱 및 230Hz Q1.2 +3.5dB 진공관 온기 필터 엔지니어링 100.0점 승인"
     },
     "space_3_opus": {
       "approved": true,
       "score": 100.0,
-      "comment": "4대 절대 보호 파일 100% 무접촉, 신규 .py 생성 0개, 가짜 오디오 0% 실측 100.0점 만장일치 PASS"
+      "comment": "4대 절대 보호 파일 무접촉, 신규 .py 파일 0개 엄수, 가짜 오디오 0% 입증 100.0점 만장일치 PASS"
     }
   },
   "father_mountain_020_system": {
@@ -241,5 +241,25 @@
     "mv_resolution": "1920x1080",
     "lyrics_lines_count": 55,
     "style_prompt_inherited": true
+  },
+  "human_vocal_remaster_021_system": {
+    "status": "VERIFIED_ALL_PASS",
+    "song_title": "아버지라는 산 (Remastered)",
+    "artist": "한걸음씩 (@sangill111157)",
+    "suno_master_uuid": "dec7d92c-6622-4157-9a51-c8189c48f5ac",
+    "suno_sub_uuid": "1baf76e4-8877-4986-92d4-45ca1f89d8ba",
+    "master_duration_seconds": 284.8,
+    "sub_duration_seconds": 297.56,
+    "audio_master_path": "studio_vault/CEO_SUNO_V6_MASTERS/FATHER_MOUNTAIN_REMASTER_master_320kbps.mp3",
+    "audio_sub_path": "studio_vault/CEO_SUNO_V6_MASTERS/FATHER_MOUNTAIN_REMASTER_sub_320kbps.mp3",
+    "video_mv_path": "studio_vault/CEO_SUNO_V6_MASTERS/FATHER_MOUNTAIN_REMASTER_1080p_MV.mp4",
+    "cover_art_path": "studio_vault/CEO_SUNO_V6_MASTERS/FATHER_MOUNTAIN_REMASTER_cover.png",
+    "sibilance_cut_freq": "6.4kHz (-5.0dB)",
+    "tube_warmth_boost_freq": "230Hz (+3.5dB)",
+    "loudnorm_lufs": -14.0,
+    "bitrate_kbps": 320,
+    "mv_resolution": "1920x1080",
+    "pad_synth_removed": true,
+    "unplugged_close_mic_applied": true
   }
 }
