@@ -309,3 +309,8 @@ studio_vault/**/DISTROKID_ALBUMS/**/*_art.png
 !docs/audio/FATHER_MOUNTAIN*
 
 studio_vault/CEO_SUNO_V6_MASTERS/*_raw.mp3
+
+!studio_vault/CEO_SUNO_V6_MASTERS/FATHER_AGE*
+!dashboard/audio/FATHER_AGE*
+!docs/audio/FATHER_AGE*
+studio_vault/CEO_SUNO_V6_MASTERS/*_raw.*

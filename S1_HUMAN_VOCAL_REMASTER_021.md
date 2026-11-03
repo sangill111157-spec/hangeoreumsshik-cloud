@@ -80,3 +80,4 @@ ffmpeg -y -i FATHER_MOUNTAIN_REMASTER_master_raw.mp3 \
 3. **Gate 3: Triumvirate Mandatory** — `PASS (100.0/100.0)` (Space 0, 2, 3 삼성이전 만장일치 100.0점)
 4. **Gate 4: Key Guard** — `PASS (100.0/100.0)` (R2 보안 헌법 토큰 누출 0건)
 5. **Gate 5: Pre-Mortem Roast** — `PASS (100.0/100.0)` (신규 .py 생성 0개, 가짜 오디오 0% 엄수)
+

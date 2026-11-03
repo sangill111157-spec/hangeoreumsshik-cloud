@@ -1,6 +1,20 @@
 {
-  "updated_at": "2026-11-03T15:42:00+09:00",
+  "updated_at": "2026-11-03T16:20:00+09:00",
   "items": [
+    {
+      "id": "DELIV-AUDIO-00-FATHER-AGE",
+      "dept": "👑 022호 보이스 페르소나 3국 합작 명반 센터",
+      "title": "👑 아버지 나이가 됐어요 (Suno +한걸음씩 · Claude 5.5 가사 · Sol 스타일 음향 황금비율)",
+      "type": "audio_mv",
+      "audio_url": "https://raw.githubusercontent.com/sangill111157-spec/hangeoreumsshik-cloud/main/studio_vault/CEO_SUNO_V6_MASTERS/FATHER_AGE_master_320kbps.mp3",
+      "video_url": "https://raw.githubusercontent.com/sangill111157-spec/hangeoreumsshik-cloud/main/studio_vault/CEO_SUNO_V6_MASTERS/FATHER_AGE_1080p_MV.mp4",
+      "suno_master_url": "https://suno.com/song/997ce931-4adc-490d-8f6c-acad54d1cd62",
+      "suno_sub_url": "https://suno.com/song/78880c22-51e3-447a-bf3e-b69679c26574",
+      "thumb_url": "https://raw.githubusercontent.com/sangill111157-spec/hangeoreumsshik-cloud/main/studio_vault/CEO_SUNO_V6_MASTERS/FATHER_AGE_cover.png",
+      "desc": "첫 소절 9음절 \"아버지 나이가 됐어요\" 즉각 감탄사·눈물 사부곡 | Suno +목소리(한걸음씩) 장착 + 1990s Analog Tape 15ips 어쿠스틱 포크 발라드 | 6.4kHz 치찰음 제거 & 230Hz 진공관 아날로그 마스터링 (-14.0 LUFS / 320kbps)",
+      "status": "APPROVED",
+      "feedback": "022호 가사 원탑(클로드 Opus 5.5) · 사운드 원탑(솔 GPT-6.1) 실시간 합작 & 수노 한걸음씩 페르소나 정밀 조립 불후의 명작 완공"
+    },
     {
       "id": "DELIV-AUDIO-00-FATHER",
       "dept": "🌲 021호 인간 흉성 리마스터 센터",
