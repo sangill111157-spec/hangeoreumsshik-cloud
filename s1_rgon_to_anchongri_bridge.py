@@ -272,6 +272,13 @@ def harvest_from_github_ssot():
         save_json(QUEUE_JSON, queue)
         save_json(DOCS_QUEUE_JSON, queue)
         print(f"[HARVESTER] Total {len(harvested)} directives harvested and synchronized to SSOT!", flush=True)
+        try:
+            subprocess.run(["git", "add", "S1_RGON_DIRECTIVE_QUEUE.json", "docs/S1_RGON_DIRECTIVE_QUEUE.json", "S1_ANCHONGRI_ACTIVE_TASK.md"], check=False)
+            subprocess.run(["git", "commit", "-m", f"auto(harvester): picked up {len(harvested)} directives into active task"], check=False)
+            subprocess.run(["git", "pull", "--rebase", "origin", "main"], check=False)
+            subprocess.run(["git", "push", "origin", "main"], check=False)
+        except Exception as e:
+            print(f"[HARVESTER] Git sync note: {e}", flush=True)
 
     return {
         "ok": True,
@@ -393,16 +400,22 @@ def run_bridge_cycle():
                 for dm in dispatch_matches:
                     full_block = dm.group(1).strip()
                     id_match = re.search(r"(?:ID:\s*|DIRECTIVE_ID:\s*|#\s*)?(RGON_DIR_[A-Za-z0-9_]+)", full_block)
+                    if not id_match:
+                        continue
+                    did = id_match.group(1)
+                    # Ignore ephemeral timestamp patterns
+                    if re.match(r"^RGON_DIR_\d{10}$", did):
+                        continue
                     title_match = re.search(r"TITLE:\s*(.+)", full_block)
-                    did = id_match.group(1) if id_match else f"RGON_DIR_{int(time.time())}"
-                    title = title_match.group(1).strip() if title_match else f"르곤 보좌관 자동 디스패치 지시서 ({did})"
+                    title = title_match.group(1).strip() if title_match else f"르곤 보좌관 공식 지시서 ({did})"
                     register_new_directive(did, title, full_block)
 
-                # 2) finditer on any RGON_DIR_[A-Za-z0-9_]+ pattern in message
-                dir_matches = list(re.finditer(r"\b(RGON_DIR_[A-Za-z0-9_]+)\b", msg_text))
+                # 2) finditer on standalone RGON_DIR_[A-Za-z0-9_]+ (Only legitimate names, not pure timestamps)
+                dir_matches = list(re.finditer(r"\b(RGON_DIR_[A-Za-z][A-Za-z0-9_]+)\b", msg_text))
                 for dm in dir_matches:
                     did = dm.group(1)
-                    # Extract surrounding snippet for context
+                    if re.match(r"^RGON_DIR_\d{10}$", did):
+                        continue
                     start_pos = max(0, dm.start() - 100)
                     end_pos = min(len(msg_text), dm.end() + 2000)
                     context_snippet = msg_text[start_pos:end_pos].strip()
