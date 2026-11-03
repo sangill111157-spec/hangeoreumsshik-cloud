@@ -1,6 +1,20 @@
 {
-  "updated_at": "2026-11-03T13:19:49.655384+09:00",
+  "updated_at": "2026-11-03T13:45:00+09:00",
   "items": [
+    {
+      "id": "DELIV-AUDIO-00-FATHER",
+      "dept": "🌲 020호 인풋·아웃풋 응용 실전 센터",
+      "title": "🌲 아버지라는 산 (한걸음씩 · Suno V6 신작)",
+      "type": "audio_mv",
+      "audio_url": "https://raw.githubusercontent.com/sangill111157-spec/hangeoreumsshik-cloud/main/studio_vault/CEO_SUNO_V6_MASTERS/FATHER_MOUNTAIN_master_320kbps.mp3",
+      "video_url": "https://raw.githubusercontent.com/sangill111157-spec/hangeoreumsshik-cloud/main/studio_vault/CEO_SUNO_V6_MASTERS/FATHER_MOUNTAIN_1080p_MV.mp4",
+      "suno_master_url": "https://suno.com/song/ce1dddc2-e5b8-4e6c-b8f0-75ea4923b584",
+      "suno_sub_url": "https://suno.com/song/d45fab98-4edd-418f-bada-565f3dc31475",
+      "thumb_url": "https://raw.githubusercontent.com/sangill111157-spec/hangeoreumsshik-cloud/main/studio_vault/CEO_SUNO_V6_MASTERS/FATHER_MOUNTAIN_cover.png",
+      "desc": "259.9초(4:20) 진품 보컬 음원 (-14.0 LUFS / 320kbps) & 1080p 공식 MV | 스타일: 019호 『어머니라는 꽃』 계승 명상 앰비언트 트로트",
+      "status": "APPROVED",
+      "feedback": "1·2차 삼성제도 100.0점 만장일치 통과 · 실제 Suno 생성 및 1080p MV 완공"
+    },
     {
       "id": "DELIV-AUDIO-SUNO-019",
       "dept": "🏛️ 019호 인풋·아웃풋 실전 센터",
