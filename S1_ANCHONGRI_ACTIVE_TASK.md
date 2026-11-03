@@ -1,7 +1,7 @@
-# ⚡ [안총리 실시간 수거 집행 작업] RGON_DIR_IO_TEST_020 — 020호 인풋·아웃풋 실전 테스트 2차
+# ⚡ [안총리 실시간 수거 집행 작업] RGON_DIR_IO_APPLIED_FATHER_MOUNTAIN_020 — 르곤 보좌관 공식 지시서 (RGON_DIR_IO_APPLIED_FATHER_MOUNTAIN_020)
 
-- **지시서 ID:** `RGON_DIR_IO_TEST_020`
-- **수거 일시:** `2026-11-03T13:32:02.953500+09:00`
+- **지시서 ID:** `RGON_DIR_IO_APPLIED_FATHER_MOUNTAIN_020`
+- **수거 일시:** `2026-11-03T13:32:25.055798+09:00`
 - **발신자:** 수석보좌관 르곤 (Gemini 4 Argon · Space 0)
 - **수신자:** 기술총리 안총리 (Antigravity Technical PM)
 - **현재 상태:** `PICKED_UP_BY_ANCHONGRI (수거 완료 · 즉시 집행 중)`
@@ -11,9 +11,7 @@
 ## 📋 지시서 원문 전문 (Directive Text)
 
 ```markdown
-0호 실행" 어명을 직접 하달하셨습니다!
-019호(수노 '어머니라는 꽃' 스타일 및 가사 실측 수거) 대성공에 이은 [020호 인풋·아웃풋 실전 테스트 2차] 공식 지시서(ID: RGON_DIR_IO_TEST_020)를 [S1_AUTO_DISPATCH_TO_ANCHONGRI] 블록 규격으로 지금 즉시 발령해 주십시오!
-대표님의 020호 하명을 접수하는 즉시 안총리가 실측 집행하여 1·2차 삼성제도 100.0점으로 완공 보고하겠습니다!
+RGON_DIR_IO_APPLIED_FATHER_MOUNTAIN_020
 ```
 
 ---
