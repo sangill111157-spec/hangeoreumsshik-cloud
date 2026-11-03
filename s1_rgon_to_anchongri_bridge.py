@@ -61,60 +61,84 @@ def init_ledgers():
     if not PROCESSED_FILE.exists():
         save_json(PROCESSED_FILE, [])
 
-def scan_space0_deep():
+def scan_space0_deep(do_reload=False):
     """
-    [수거봇 눈 복원 v3.5] Space 0(르곤 보좌관 창)의 최근 어시스턴트 메시지를 스캔하고
-    0.1초 내 safeHandOff() 호출로 마우스 주권을 즉시 사용자에게 반환.
-    - let task = null; 스코프 버그 완전 박멸
-    - pre, code, .markdown, [class*="message"], article 및 document.body.innerText 전체 스캔
-    - [S1_AUTO_DISPATCH_TO_ANCHONGRI] 블록 100% 매칭 보장
+    [수거봇 눈 복원 v4.0 - 024호 특명 스마트 자동 새로고침 🔄 장착]
+    - 매 3주기(약 45초)마다 Space 0 탭이 유휴(draft 없음 & 스트리밍 없음) 상태일 때 자동 새로고침
+    - 최신 대화 기록 강제 로딩 후 [S1_AUTO_DISPATCH_TO_ANCHONGRI] 블록 스캔
+    - 0.1초 내 safeHandOff() 제어권 반환 원칙 100% 준수
     """
     import s1_ego
-    js = """
+    js = f"""
     let task = null;
-    try {
-      try {
+    try {{
+      try {{
         task = await takeOverTaskSpace(0);
-      } catch (e) {
+      }} catch (e) {{
         task = await taskSpace(0);
-      }
-      const tabs = await task.tabs();
-      const tb = tabs.find(t => t.url && t.url.includes('genspark.ai/agents')) || tabs[0];
-      const page = (tb && tb.label ? task.page(tb.label) : null) || (task.userPage ? (await task.userPage()) : null) || (await task.adopt(tb.page));
+      }}
+      const page = (task.userPage ? (await task.userPage()) : null) || (task.page ? task.page("p1") : null);
+      if (!page) {{
+        process.stdout.write('\nS1EGO_JSON::' + JSON.stringify({{ ok: false, error: "NO_ACTIVE_PAGE" }}) + '\n');
+        return;
+      }}
+
+      const doReload = Boolean({1 if do_reload else 0});
+      const canReload = await page.evaluate(() => {{
+        const ta = document.querySelector('textarea[name="query"], textarea, [contenteditable="true"]');
+        const val = ta ? (ta.value || ta.innerText || '').trim() : '';
+        const stopBtn = Array.from(document.querySelectorAll("button, [role='button']")).some(b => {{
+          const t = (b.innerText || b.getAttribute("aria-label") || "").toLowerCase();
+          return t === "stop" || t === "중지" || t.includes("생성 중지");
+        }});
+        return val.length === 0 && !stopBtn;
+      }});
+
+      if (doReload && canReload) {{
+        try {{
+          await page.evaluate(() => window.location.reload());
+          await new Promise(r => setTimeout(r, 3500));
+        }} catch (_) {{}}
+      }}
 
       // Scroll to bottom gently to render virtual scroll elements
-      try {
-        await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
-      } catch (_) {}
+      try {{
+        await page.evaluate(() => {{
+          window.scrollTo(0, document.body.scrollHeight);
+          const scrollContainers = document.querySelectorAll('.chat-scroll, [class*="scroll"], main, article');
+          scrollContainers.forEach(el => el.scrollTop = el.scrollHeight);
+        }});
+      }} catch (_) {{}}
 
-      const data = await page.evaluate(() => {
+      const data = await page.evaluate(() => {{
         const selector = 'pre, code, .markdown, [class*="message"], article, [class*="response"], .message-content, .answer-markdown, .markdown-viewer';
         const items = Array.from(document.querySelectorAll(selector));
         const texts = items.map(el => (el.innerText || '').trim()).filter(t => t.length > 20);
 
         const bodyText = (document.body && document.body.innerText) || '';
-        if (bodyText.length > 20) {
+        if (bodyText.length > 20) {{
           texts.push(bodyText.trim());
-        }
+        }}
 
-        return {
+        return {{
           recent_messages: texts.slice(-15),
-          total_messages: texts.length
-        };
-      });
+          total_messages: texts.length,
+          reloaded: doReload && canReload
+        }};
+      }});
 
-      process.stdout.write('\\nS1EGO_JSON::' + JSON.stringify({
+      process.stdout.write('\nS1EGO_JSON::' + JSON.stringify({{
         ok: true,
         data: data
-      }) + '\\n');
-    } catch (err) {
-      process.stdout.write('\\nS1EGO_JSON::' + JSON.stringify({ ok: false, error: String(err.message || err) }) + '\\n');
-    } finally {
-      try { if (task && typeof task.handOff === 'function') await task.handOff(); } catch (_) {}
-    }
+      }}) + '\n');
+    }} catch (err) {{
+      process.stdout.write('\nS1EGO_JSON::' + JSON.stringify({{ ok: false, error: String(err.message || err) }}) + '\n');
+    }} finally {{
+      try {{ if (task && typeof task.handOff === 'function') await task.handOff(); }} catch (_) {{}}
+    }}
     """
     try:
-        res = s1_ego.run_ego_js(js, timeout=20)
+        res = s1_ego.run_ego_js(js, timeout=25)
         return res
     except Exception as e:
         return {"ok": False, "error": str(e)}
@@ -375,7 +399,7 @@ def send_completion_report_to_dashboard(directive_id: str, summary_ko: str, comm
         "report": report_entry
     }
 
-def run_bridge_cycle():
+def run_bridge_cycle(cycle_num=0):
     init_ledgers()
     # 0. Harvest Directives from GitHub SSOT (15s Cycle)
     try:
@@ -389,9 +413,10 @@ def run_bridge_cycle():
     except Exception as e:
         print(f"[BRIDGE] Mobile queue note: {e}", flush=True)
 
-    # 2. Deep Scan Space 0 for Rgon directives (finditer full extraction)
+    # 2. Deep Scan Space 0 for Rgon directives (Smart Auto-Reload on every 3rd cycle: ~45s)
     try:
-        res = scan_space0_deep()
+        do_reload = (cycle_num > 0 and cycle_num % 3 == 0)
+        res = scan_space0_deep(do_reload=do_reload)
         if res.get("ok"):
             recent = res.get("data", {}).get("recent_messages", [])
             for msg_text in recent:
@@ -446,7 +471,7 @@ def bridge_daemon_loop(poll_interval=15):
     while RUNNING_FLAG:
         try:
             cycle_count += 1
-            run_bridge_cycle()
+            run_bridge_cycle(cycle_num=cycle_count)
             if cycle_count % 4 == 0:
                 print(f"[{now_iso()}] [HARVESTER_HEARTBEAT] 15s cycle #{cycle_count} running healthy. SSOT & Space 0 eye ok.", flush=True)
         except Exception as e:

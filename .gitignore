@@ -318,3 +318,9 @@ studio_vault/CEO_SUNO_V6_MASTERS/*_raw.*
 !docs/audio/father_age_shorts_scenes*
 !dashboard/audio/father_age_shorts_scenes*
 !studio_vault/CEO_SUNO_V6_MASTERS/shorts_scenes*
+
+!audio/
+!audio/**
+!audio/FATHER_AGE*
+!audio/FATHER_MOUNTAIN*
+!audio/father_age_shorts_scenes*

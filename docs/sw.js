@@ -1,5 +1,5 @@
 // S1 Service Worker v2026-stepagent-v8 (SUN-ONE AON Zero-Paste & Dual Bridge)
-const CACHE = 's1-aon-v11-voice-hand-masterpiece';
+const CACHE = 's1-aon-v13-zero-404-autoreload';
 const ASSETS = [
   './',
   './index.html',
