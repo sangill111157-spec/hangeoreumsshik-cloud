@@ -1,5 +1,5 @@
 // S1 Service Worker v2026-stepagent-v9 (SUN-ONE AON Zero-Paste & Dual Bridge)
-const CACHE = 's1-aon-v14-real-photo-shorts';
+const CACHE = 's1-aon-v15-clean-watercolor-shorts';
 const ASSETS = [
   './',
   './index.html',

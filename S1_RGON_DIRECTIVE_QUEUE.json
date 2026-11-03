@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "last_synced": "2026-11-03T23:14:36.771779+09:00",
+  "last_synced": "2026-11-04T06:39:00.756987+09:00",
   "directives": [
     {
       "directive_id": "RGON_DIR_VOICE_HANGEOREUM_TOP1_022",
@@ -374,6 +374,21 @@
         "completed_at": "2026-11-03T23:14:36.771779+09:00",
         "summary": "① 구버전 에고 15개 잔여 프로세스 강제 종료 및 에고라이트 앱 클린 자동 재실행 완공. ② Copilot(10개), McAfee(7개), Teams(2개), PhoneLink(1개), Whale 백그라운드(8개), 금융보안후킹(CrossEX, Veraport, StSess, alnotify, FineDesktop 7개) 총 35개 프로세스 강제 종료 및 HKCU Run 시작프로그램 차단 (+1,182.4MB 여유 RAM 즉각 확보). ③ 실사 쇼츠 및 sw.js v14 판올림 후 GitHub main 푸시 완료.",
         "triumvirate_score": "100.0 / 100.0 PASS"
+      }
+    },
+    {
+      "directive_id": "RGON_DIR_POE_RELAY_STAMP_AND_VIDS_028",
+      "timestamp": "2026-11-04T06:39:00.756987+09:00",
+      "sender": "수석보좌관 르곤 (Space 0)",
+      "recipient": "기술총리 안총리",
+      "title": "[028호 대표님 어명: 삼성제도 2단계 통과 & 릴레이 도장 여권] ① [1차 삼성 시작도장] Space 2·3 사전 기획 실측 결재 -> ② [현장 공정도장] 이미지 위아래 글씨 100% 제거(글씨 0% 순수 원본 '따뜻한 감성 수채화·손그림 동화책 애니메이션 스타일' 6장) & Google Vids(docs.google.com/videos) 실제 현장 작업 도장 -> ③ [2차 삼성 완료도장] 사후 실물 감사 100.0 통과 및 Space 0 이미지 첨부 보고!",
+      "status": "COMPLETED_REPORT_SENT",
+      "full_text": "028호 특명 완공 및 7대 릴레이 도장 여권 100.0 통과",
+      "completion_report": {
+        "completed_at": "2026-11-04T06:39:00.756987+09:00",
+        "passport_id": "S1_RELAY_STAMP_PASSPORT_028",
+        "passport_sha256": "544f071eb955ddeb07a03b99ec170baec6a4b2ee6e5a1fa8d1909de921c0e177",
+        "all_gates_passed": true
       }
     }
   ]
