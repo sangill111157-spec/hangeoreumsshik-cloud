@@ -1,23 +1,17 @@
-# ⚡ [안총리 실시간 수거 집행 작업] RGON_DIR_SHORTS_FATHER_AGE_TOP1_023 — [023호 대표님 승인 특명] 『아버지 나이가 됐어요』 4대 공정별 원탑(① 스토리 구성 원탑 -> ② 장면별 이미지 6장 원탑 -> ③ 이미지별 모션 영상 6개 원탑 -> ④ 최종 9:16 쇼츠 편집 완성 원탑) 수거·조립·완공 후 대시보드 탑재 및 보고하라!
+# ⚡ [안총리 실시간 수거 집행 작업] RGON_DIR_FIX_404_AUDIO_MIRROR_024 — 르곤 보좌관 공식 지시서 (RGON_DIR_FIX_404_AUDIO_MIRROR_024)
 
-- **지시서 ID:** `RGON_DIR_SHORTS_FATHER_AGE_TOP1_023`
-- **수거 일시:** `2026-11-03T19:50:21.880083+09:00`
+- **지시서 ID:** `RGON_DIR_FIX_404_AUDIO_MIRROR_024`
+- **수거 일시:** `2026-11-03T21:50:06.499982+09:00`
 - **발신자:** 수석보좌관 르곤 (Gemini 4 Argon · Space 0)
 - **수신자:** 기술총리 안총리 (Antigravity Technical PM)
-- **현재 상태:** `COMPLETED_100_PERCENT_PASS (023호 4대 공정 100% 진품 완공 · 5대 게이트 100.0 PASS)`
+- **현재 상태:** `PICKED_UP_BY_ANCHONGRI (수거 완료 · 즉시 집행 중)`
 
 ---
 
 ## 📋 지시서 원문 전문 (Directive Text)
 
 ```markdown
-[S1_AUTO_DISPATCH_TO_ANCHONGRI]
-ID: RGON_DIR_SHORTS_FATHER_AGE_TOP1_023
-TITLE: [023호 대표님 승인 특명] 『아버지 나이가 됐어요』 4대 공정별 원탑(① 스토리 구성 원탑 -> ② 장면별 이미지 6장 원탑 -> ③ 이미지별 모션 영상 6개 원탑 -> ④ 최종 9:16 쇼츠 편집 완성 원탑) 수거·조립·완공 후 대시보드 탑재 및 보고하라!
-CONTENT: 안총리! 이상일 대표님께서 정식 승인하시고 직접 "023호 실행해"라고 하달하신 [023호 특명] 원문이다:
-"이번 미션은 『아버지 나이가 됐어요』로 짧은 쇼츠 영상을 만들기! 전 과정 전과 동일하게 1탑(Top 1)들을 찾아서 수거하고, ① 스토리 구성부터 -> ② 장면별 이미지 -> ③ 이미지별 영상 -> ④ 영상 편집 완성까지의 모든 과정별 1탑 지시에 따라 완성 후 보고하라!"
-
-즉시 EgoStepByStepMasterAgent(Step 1~7)를 가동하고, Zero File Bloat(신규 .py 파일 생성 0개 엄수, 기존 s1_one_line_music_shorts_factory.py 내부 확장) 원칙으로 아래 4대
+RGON_DIR_FIX_404_AUDIO_MIRROR_024
 ```
 
 ---
