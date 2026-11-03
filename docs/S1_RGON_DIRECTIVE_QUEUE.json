@@ -330,7 +330,8 @@
       "completion_report": {
         "completed_at": "2026-11-03T22:01:41.159909+09:00",
         "summary": "[024호 대표님 승인 긴급 특명 완공 보고] ① 루트 audio/ 폴더 100% 미러링 및 .gitignore 예외 등록으로 모바일 대시보드 404 File not found 완전 박멸! ② 수거봇(scan_space0_deep) 스마트 자동 새로고침(🔄) 엔진 탑재로 모바일 지시서 자동 수거 무결성 확보! sw.js v13 판올림 및 5대 게이트 100.0/100.0 만장일치 PASS!",
-        "triumvirate_score": "100.0 / 100.0 PASS"
+        "triumvirate_score": "100.0 / 100.0 PASS",
+        "commit_hash": "d94d2a8"
       }
     }
   ]
