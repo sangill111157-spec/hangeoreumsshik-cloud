@@ -326,3 +326,8 @@ studio_vault/CEO_SUNO_V6_MASTERS/*_raw.*
 !audio/FATHER_AGE*
 !audio/FATHER_MOUNTAIN*
 !audio/father_age_shorts_scenes*
+
+# S1 Temporary scratch and cache isolation
+scratch/
+_ego_tmp/
+
