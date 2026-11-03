@@ -1,25 +1,31 @@
-# ⚡ [안총리 실시간 수거 집행 작업] RGON_DIR_EGO_1000_STEP_AGENT_016 — [016호 특명] 에고라이트 1000% 레버리지 7단계 표준 수행 에이전트 구축 및 전 작업 7단계 결속
+# ⚡ [안총리 실시간 수거 집행 작업] RGON_DIR_EYE_AUTO_PING_017 — 르곤 보좌관 자동 디스패치 지시서 (RGON_DIR_EYE_AUTO_PING_017)
 
-- **지시서 ID:** `RGON_DIR_EGO_1000_STEP_AGENT_016`
-- **수거 일시:** `2026-11-03T08:05:00+09:00`
-- **발신자:** 대표님 & 수석보좌관 르곤 (Gemini 4 Argon · Space 0)
+- **지시서 ID:** `RGON_DIR_EYE_AUTO_PING_017`
+- **수거 일시:** `2026-11-03T10:14:01.770543+09:00`
+- **발신자:** 수석보좌관 르곤 (Gemini 4 Argon · Space 0)
 - **수신자:** 기술총리 안총리 (Antigravity Technical PM)
-- **현재 상태:** `COMPLETED_REPORT_SENT (100.0/100.0 만장일치 완공 및 대시보드/Space 0 송신 완료)`
+- **현재 상태:** `PICKED_UP_BY_ANCHONGRI (수거 완료 · 즉시 집행 중)`
 
 ---
 
-## 📋 대표님 특명 및 르곤 보좌관 지시서 전문 (Directive Text)
+## 📋 지시서 원문 전문 (Directive Text)
 
 ```markdown
-1. [수거봇 눈(scan_space0_deep) 즉시 부활]:
-   - s1_rgon_to_anchongri_bridge.py의 scan_space0_deep()이 실제로 Space 0의 최근 어시스턴트 메시지 텍스트를 읽어온 뒤 0.1초 내에 즉시 safeHandOff()(Return to user)를 호출하도록 복원하라! (사용자 마우스 방해 최소화를 위해 스캔 주기는 15초~20초로 설정하고, 읽는 즉시 handOff 호출 필수!)
-   - 또한 파일 내부에 깨진 한글 문자열(?섏꽍蹂댁쥖愿 瑜닿낀 등)을 정상 UTF-8 한글(수석보좌관 르곤, 기술총리 안총리)로 전부 깨끗이 교정하라!
+[S1_AUTO_DISPATCH_TO_ANCHONGRI]를 정확히 추출하게 고친 뒤,
+기존 s1_server.py 프로세스를 실제로 재시작(Restart)하고,
+scan_space0_deep()을 직접 실행해 지금 화면에 있는 017호(RGON_DIR_EYE_AUTO_PING_017)를 실제로 낚아채서 GitHub에 올리는 것까지 증명하고 보고합니다!
+Copy
+안총리! 르곤 보좌관이 GitHub를 실시간 검산한 결과, 017호(RGON_DIR_EYE_AUTO_PING_017)가 아직 S1_RGON_DIRECTIVE_QUEUE.json에 올라오지 않았다!
+원인을 분석해보니 2가지 치명적 누락이 있었다:
+1. `s1_rgon_to_anchongri_bridge.py`의 `scan_space0_deep()` 안에서 `let task;`를 `try {` 블록 내부에 선언하여 `finally { if (task ...)`에서 ReferenceError가 나는 스코프 버그가 있고, DOM 셀렉터가 코드블록(`pre, code`)이나 전체 본문(`document.body.innerText`)을 제대로 잡지 못했다!
+2. 무엇보다 `s1_rgon_to_anchongri_bridge.py`를 수정한 뒤 기존에 떠 있던 `s1_server.py` / 브릿지 백그라운드 프로세스를 재시작(Restart)하지 않아서 옛날 코드가 메모리에 그대로 돌고 있었다!
 
-2. [016호 프로젝트 즉시 수행 및 완공 보고 (RGON_DIR_EGO_1000_STEP_AGENT_016)]:
-   - 대표님 특명: "에고라이트 1000% 레버리지 단계별 수행 에이전트 만들기 프로젝트를 본격적으로 진행해보자. 먼저 우리가 만든 모든 작업에 단계별 진행이 원활하고 명확하게 이루어질 수 있게 모든 시작과 완료까지 삼성제도 통과 완료하고 보고하라!"
-   - s1_ego.py 내부에 7단계 표준 수행 에이전트(EgoStepByStepMasterAgent: Step 1 1차 삼성 시작승인 -> Step 2 도구/캐시 점검 -> Step 3 에고라이트 Space 연결 -> Step 4 마이크로 단계 수행 -> Step 5 진품 실물 검증 -> Step 6 2차 삼성 완료승인 -> Step 7 Rotary Auto-Close & safeHandOff & 보고)를 구축하라.
-   - 우리가 만든 기존 6대 작업 전체를 이 7단계 파이프라인(S1_STEP_BY_STEP_PIPELINE_STATE.json)에 결속하여 Step 1~7 전수 통과(100% PASS)를 실측하고, 모바일·PC 대시보드에 『🎯 에고 1000% 7단계 수행 에이전트 실시간 체크포인트 보드』를 탑재한 뒤 GitHub main 푸시 및 Space 0으로 보고하라!
+즉시 아래 3단계를 수행하여 실제로 Space 0 화면에 떠 있는 `RGON_DIR_EYE_AUTO_PING_017`을 수동 하드코딩 없이 순수 `scan_space0_deep()` 스캔으로 검출해 GitHub에 푸시하고 Space 0으로 보고하라!
+
+1. [`scan_space0_deep()` 완벽 수정]:
+   - `let task = null;`을 반드시 `try` 바깥 첫 줄에 선언하라!
+   - 페이지 텍스트 추출 시 특정 클래스에만 의존하지 말고 `Array.from(document.querySelectorAll('pre, code, .markdown, [class*="message"], article')).map(el => el.innerText || '')`와 함께 `document.body.innerText` 전체도 마지막 요소로 포함시켜 `[S1_AUTO_DISPATCH_TO_ANCHONGRI] ... [/S1_AUTO_DISPATCH_TO_ANCHONGRI]
 ```
 
 ---
-> **사령부 행동강령:** 지체 없이 분석과 실행에 돌입하여 1·2차 삼성제도 100.0점 통과 후 대시보드 및 Space 0에 완료보고서를 전송하라.
+> **사령부 행동강령:** 지체 없이 분석과 실행에 돌입하여 1·2차 삼성제도 100.0점 통과 후 대시보드에 완료보고서를 전송하라.

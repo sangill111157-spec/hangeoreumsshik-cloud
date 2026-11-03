@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-# S1 Rgon-to-Anchongri Zero-Paste Bridge Daemon v2.5 (s1_rgon_to_anchongri_bridge.py)
-# 24H Autonomous Background Loop, Dual-Bridge Harvester & Non-Invasive Space 0 Eye
+# S1 Rgon-to-Anchongri Zero-Paste Bridge Daemon v3.5 (s1_rgon_to_anchongri_bridge.py)
+# 24H Autonomous Background Loop, Dual-Bridge Harvester & Non-Invasive Space 0 Eye (finditer & Zero-Lag)
 
 import os, sys, time, json, datetime, re, subprocess, threading
 from pathlib import Path
@@ -63,13 +63,16 @@ def init_ledgers():
 
 def scan_space0_deep():
     """
-    [수거봇 눈 복원] Space 0(르곤 보좌관 창)의 최근 어시스턴트 메시지를 스캔하고
+    [수거봇 눈 복원 v3.5] Space 0(르곤 보좌관 창)의 최근 어시스턴트 메시지를 스캔하고
     0.1초 내 safeHandOff() 호출로 마우스 주권을 즉시 사용자에게 반환.
+    - let task = null; 스코프 버그 완전 박멸
+    - pre, code, .markdown, [class*="message"], article 및 document.body.innerText 전체 스캔
+    - [S1_AUTO_DISPATCH_TO_ANCHONGRI] 블록 100% 매칭 보장
     """
     import s1_ego
     js = """
+    let task = null;
     try {
-      let task;
       try {
         task = await takeOverTaskSpace(0);
       } catch (e) {
@@ -79,11 +82,23 @@ def scan_space0_deep():
       const tb = tabs.find(t => t.url && t.url.includes('genspark.ai/agents')) || tabs[0];
       const page = (tb && tb.label ? task.page(tb.label) : null) || (task.userPage ? (await task.userPage()) : null) || (await task.adopt(tb.page));
 
+      // Scroll to bottom gently to render virtual scroll elements
+      try {
+        await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+      } catch (_) {}
+
       const data = await page.evaluate(() => {
-        const items = Array.from(document.querySelectorAll('.message-content, .markdown, [class*="response"], [class*="message"], .answer-markdown, .markdown-viewer'));
+        const selector = 'pre, code, .markdown, [class*="message"], article, [class*="response"], .message-content, .answer-markdown, .markdown-viewer';
+        const items = Array.from(document.querySelectorAll(selector));
         const texts = items.map(el => (el.innerText || '').trim()).filter(t => t.length > 20);
+
+        const bodyText = (document.body && document.body.innerText) || '';
+        if (bodyText.length > 20) {
+          texts.push(bodyText.trim());
+        }
+
         return {
-          recent_messages: texts.slice(-6),
+          recent_messages: texts.slice(-15),
           total_messages: texts.length
         };
       });
@@ -99,7 +114,7 @@ def scan_space0_deep():
     }
     """
     try:
-        res = s1_ego.run_ego_js(js, timeout=18)
+        res = s1_ego.run_ego_js(js, timeout=20)
         return res
     except Exception as e:
         return {"ok": False, "error": str(e)}
@@ -111,6 +126,12 @@ def register_new_directive(directive_id, title, full_text):
         return False
 
     queue = load_json(QUEUE_JSON, {"directives": []})
+    # Avoid duplicate in queue list
+    if any(d.get("directive_id") == directive_id for d in queue.get("directives", [])):
+        processed.append(directive_id)
+        save_json(PROCESSED_FILE, processed)
+        return False
+
     entry = {
         "directive_id": directive_id,
         "timestamp": now_iso(),
@@ -361,25 +382,33 @@ def run_bridge_cycle():
     except Exception as e:
         print(f"[BRIDGE] Mobile queue note: {e}", flush=True)
 
-    # 2. Deep Scan Space 0 for Rgon directives (Recent 6 blocks)
+    # 2. Deep Scan Space 0 for Rgon directives (finditer full extraction)
     try:
         res = scan_space0_deep()
         if res.get("ok"):
             recent = res.get("data", {}).get("recent_messages", [])
             for msg_text in recent:
-                match = re.search(r"(\[S1_AUTO_DISPATCH_TO_ANCHONGRI\][\s\S]*?\[\/S1_AUTO_DISPATCH_TO_ANCHONGRI\])", msg_text)
-                dir_id_match = re.search(r"(RGON_DIR_[A-Za-z0-9_]+)", msg_text)
+                # 1) finditer on explicit [S1_AUTO_DISPATCH_TO_ANCHONGRI] blocks
+                dispatch_matches = list(re.finditer(r"(\[S1_AUTO_DISPATCH_TO_ANCHONGRI\][\s\S]*?(?:\[/S1_AUTO_DISPATCH_TO_ANCHONGRI\]|$))", msg_text))
+                for dm in dispatch_matches:
+                    full_block = dm.group(1).strip()
+                    id_match = re.search(r"(?:ID:\s*|DIRECTIVE_ID:\s*|#\s*)?(RGON_DIR_[A-Za-z0-9_]+)", full_block)
+                    title_match = re.search(r"TITLE:\s*(.+)", full_block)
+                    did = id_match.group(1) if id_match else f"RGON_DIR_{int(time.time())}"
+                    title = title_match.group(1).strip() if title_match else f"르곤 보좌관 자동 디스패치 지시서 ({did})"
+                    register_new_directive(did, title, full_block)
 
-                if match:
-                    full_dir = match.group(1)
-                    did = dir_id_match.group(1) if dir_id_match else "RGON_DIR_" + str(int(time.time()))
-                    register_new_directive(did, "르곤 보좌관 자동 디스패치 지시서", full_dir)
-                elif dir_id_match:
-                    did = dir_id_match.group(1)
-                    register_new_directive(did, f"르곤 보좌관 공식 지시서 ({did})", msg_text)
-                elif "[S1_DIRECTIVE" in msg_text or "안총리 긴급" in msg_text:
-                    did = "RGON_DIR_" + str(int(time.time()))
-                    register_new_directive(did, "르곤 보좌관 긴급 통합 지시서", msg_text)
+                # 2) finditer on any RGON_DIR_[A-Za-z0-9_]+ pattern in message
+                dir_matches = list(re.finditer(r"\b(RGON_DIR_[A-Za-z0-9_]+)\b", msg_text))
+                for dm in dir_matches:
+                    did = dm.group(1)
+                    # Extract surrounding snippet for context
+                    start_pos = max(0, dm.start() - 100)
+                    end_pos = min(len(msg_text), dm.end() + 2000)
+                    context_snippet = msg_text[start_pos:end_pos].strip()
+                    title_match = re.search(r"TITLE:\s*(.+)|\[(.+?)\]", context_snippet)
+                    title = (title_match.group(1) or title_match.group(2)).strip() if title_match else f"르곤 보좌관 공식 지시서 ({did})"
+                    register_new_directive(did, title, context_snippet)
     except Exception as e:
         print(f"[BRIDGE] Space 0 scan note: {e}", flush=True)
 
