@@ -314,7 +314,8 @@
         "completed_at": "2026-11-03T20:01:58.520646+09:00",
         "summary": "[023호 대표님 승인 특명 완공 보고] 『아버지 나이가 됐어요』 4대 공정별 원탑(Space 3 클로드 6컷 스토리보드 + Space 2 솔 6컷 비주얼/FFmpeg 공식 + 1080x1920 6장 장면 이미지 + 34초 9:16 시네마틱 쇼츠 FATHER_AGE_MASTER_SHORTS_1080x1920.mp4) 수거·조립·완공! 대시보드 1위 탑재(sw.js v12) 및 5대 게이트 100.0/100.0 만장일치 PASS!",
         "triumvirate_score": "100.0 / 100.0 PASS",
-        "video_path": "docs/audio/FATHER_AGE_MASTER_SHORTS_1080x1920.mp4"
+        "video_path": "docs/audio/FATHER_AGE_MASTER_SHORTS_1080x1920.mp4",
+        "commit_hash": "694d898"
       }
     }
   ]
