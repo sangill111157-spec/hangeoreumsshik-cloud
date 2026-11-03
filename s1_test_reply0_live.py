@@ -34,9 +34,13 @@ def test_reply0_live(envelope_text, selftest=False):
       const expected = {json.dumps(expected_id)};
       let task;
       try {{
-        task = await takeOverTaskSpace(0);
-      }} catch (e) {{
-        task = await taskSpace(0);
+        task = await claimTaskSpace(0);
+      }} catch (_) {{
+        try {{
+          task = await takeOverTaskSpace(0);
+        }} catch (e) {{
+          task = await taskSpace(0);
+        }}
       }}
       const tabs = await task.tabs();
       const matches = tabs.filter(t => chatId(t.url) === expected);
@@ -47,7 +51,7 @@ def test_reply0_live(envelope_text, selftest=False):
         return;
       }}
       const tb = matches[0];
-      const page = (tb.label ? task.page(tb.label) : null) || (task.userPage ? (await task.userPage()) : null) || (await task.adopt(tb.page));
+      const page = (tb.label ? task.page(tb.label) : null) || (tb.page ? await task.adopt(tb.page) : null) || (task.userPage ? await task.adopt(task.userPage()) : null);
 
       const pre = await page.evaluate((tok) => {{
         const tas = Array.from(document.querySelectorAll('textarea[name="query"], textarea'));
@@ -138,7 +142,13 @@ def test_reply0_live(envelope_text, selftest=False):
     }} catch (err) {{
       process.stdout.write("\\nS1EGO_JSON::" + JSON.stringify({{ ok: false, code: "JS_EXCEPTION", message: String(err.message || err) }}) + "\\n");
     }} finally {{
-      try {{ if (task && typeof task.handOff === 'function') await task.handOff(); }} catch (_) {{}}
+      try {{
+        if (task && typeof task.finish === 'function') {{
+          await task.finish({{ keep: [] }});
+        }} else if (task && typeof task.handOff === 'function') {{
+          await task.handOff();
+        }}
+      }} catch (_) {{}}
     }}
     """
     try:
