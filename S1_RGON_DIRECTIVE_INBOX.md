@@ -419,3 +419,15 @@ CONTENT: 안총리! 이상일 대표님께서 인풋·아웃풋(Input/Output) �
 ```
 
 ---
+
+### 📩 [지시서 등재] RGON_DIR_IO_APPLIED_FATHER_MOUNTAIN_020 — 르곤 보좌관 공식 지시서 (RGON_DIR_IO_APPLIED_FATHER_MOUNTAIN_020)
+- **등재 시각:** `2026-11-03T13:32:10.664416+09:00`
+- **발신:** 수석보좌관 르곤 (Gemini 4 Argon · Space 0)
+- **수신:** 기술총리 안총리 (Antigravity Technical PM)
+- **상태:** `⚡ 안총리 수신 및 집행 대기`
+
+```markdown
+RGON_DIR_IO_APPLIED_FATHER_MOUNTAIN_020
+```
+
+---
