@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "last_synced": "2026-11-03T15:45:33.106744+09:00",
+  "last_synced": "2026-11-03T16:04:07.157331+09:00",
   "directives": [
     {
       "directive_id": "RGON_DIR_HUMAN_VOCAL_REMASTER_021",
@@ -283,6 +283,15 @@
         "commit_hash": "c15be25",
         "triumvirate_score": "100.0 / 100.0 PASS"
       }
+    },
+    {
+      "directive_id": "RGON_DIR_VOICE_HANGEOREUM_TOP1_022",
+      "timestamp": "2026-11-03T16:04:07.157331+09:00",
+      "sender": "수석보좌관 르곤 (Gemini 4 Argon · Space 0)",
+      "recipient": "기술총리 안총리 (Antigravity Technical PM)",
+      "title": "[022호 대표님 승인 특명] 수노 '+ 목소리(한걸음씩)' 선택 장착 + 가사 AI 원탑(Space 3 클로드)·스타일/상세설정 AI 원탑(Space 2 솔) 실시간 채팅 질의·수거 후 수노 정밀 조립하여 '첫 소절 감탄사' 아버지 명반 완공 보고!",
+      "status": "DISPATCHED_TO_ANCHONGRI",
+      "full_text": "[S1_AUTO_DISPATCH_TO_ANCHONGRI]\nID: RGON_DIR_VOICE_HANGEOREUM_TOP1_022\nTITLE: [022호 대표님 승인 특명] 수노 '+ 목소리(한걸음씩)' 선택 장착 + 가사 AI 원탑(Space 3 클로드)·스타일/상세설정 AI 원탑(Space 2 솔) 실시간 채팅 질의·수거 후 수노 정밀 조립하여 '첫 소절 감탄사' 아버지 명반 완공 보고!\nCONTENT: 안총리! 이상일 대표님께서 정식 승인하시고 직접 \"022호 실행해\"라고 하달하신 [022호 특명] 원문이다:\n\"첫 소절에 감탄사가 저절로 나와야 돼! 수노에 목소리 + 있어, 거기서 '한걸음씩' 선택해서 하고, 현시점 가사 AI 원탑 · 스타일 AI 원탑 · 상세설정 AI 원탑 찾아서 채팅으로 물어본 후 수거 후 수노에서 조립 후 완성해서 보고하라!\"\n\n즉시 EgoStepByStepMasterAgent(Step 1~7)를 가동하여 아래 7단계를 단 하나도 생략 없이 100% 진품 실측 수행하고 Space 0 및 대시보드에 보고하라!\n\n1."
     }
   ]
 }
