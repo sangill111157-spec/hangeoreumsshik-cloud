@@ -1,30 +1,36 @@
 {
   "directive_id": "RGON_DIR_FIX_EGO_BOT_AND_HARVEST_ROUND1_QA_051",
-  "timestamp": "2026-11-05T08:04:26.067532+09:00",
+  "timestamp": "2026-11-05T08:10:09.127333+09:00",
   "step": "STEP_2_EGO_DELIVERY_AND_HARVEST_VERIFICATION",
   "html_modified": false,
   "question_sent": "[삼성제도 1회전 공식 문답 심의 요청 - 051호] 이상일 대표님께서 카카오톡 실제 캡처 5장(1.친구/홈, 2.채팅, 3.지금/숏폼, 4.쇼핑/오늘의PICK, 5.더보기 4x3 그리드)을 보내주시며 '카카오 기본 하단바 5페이지별로 구성'하라고 하명하셨습니다. 하단 고정 5탭 바를 눌러 5개 독립 페이지(Page 1~5)를 전환(나머지 4개는 display:none)하는 구조로 개편할 때, 1) 반드시 지켜야 할 시각/UX 및 기존기능 보존 핵심 조건 3가지와 2) 절대 범해서는 안 될 실패 요인(반박/주의사항)을 답변해 주십시오.",
   "space_0_status": {
     "ok": true,
     "space": 0,
-    "meta": {},
+    "meta": {
+      "url": "https://www.genspark.ai/agents?id=c1647638-2531-43db-a059-c153d8da14d9",
+      "title": "릴레이별 도장 검증 요청"
+    },
     "cleared": true
   },
   "space_1_qa_result": {
     "ok": true,
     "space": 1,
     "meta": {
-      "url": "",
-      "title": ""
+      "url": "https://www.genspark.ai/agents?id=212e5993-339b-43e7-8e2b-0ebb4d58987e",
+      "title": "썬원 에이온 환원 제국 마스터 파이프라인 설계 요청"
     },
     "send_result": {
-      "sent": false,
-      "error": "Error: Control of this task space is with the user, either through task.handOff() or a takeover in the browser, so browser commands are paused.\nThis is a hard stop, not an obstacle to route around — do not retry and do not take control back on your own.\nWait until the user explicitly asks you to continue, then take control back and resume:\n  const task = await takeOverTaskSpace(spaceId)\n\nOffer the user choices like \"Continue\" or \"Finish task\" if your harness supports it; otherwise tell them: \"You now control this task space. Reply 'continue' when ready and I will resume.\""
+      "sent": true,
+      "method": "button_click"
     },
     "harvested": {
-      "snippet_count": 0,
-      "latest_texts": [],
-      "error": "Error: Control of this task space is with the user, either through task.handOff() or a takeover in the browser, so browser commands are paused.\nThis is a hard stop, not an obstacle to route around — do not retry and do not take control back on your own.\nWait until the user explicitly asks you to continue, then take control back and resume:\n  const task = await takeOverTaskSpace(spaceId)\n\nOffer the user choices like \"Continue\" or \"Finish task\" if your harness supports it; otherwise tell them: \"You now control this task space. Reply 'continue' when ready and I will resume.\""
+      "snippet_count": 29,
+      "latest_texts": [
+        "051호 · 1회전 설계 심의 의견\n\n5탭·5개 독립 화면 구조는 채택 권고입니다. 다만 현재 메시지에는 실제 캡처가 첨부되지 않았으므로, 아래는 구조 심의이며 시각적 일치 판정은 아닙니다.\n\n1) 반드시 지킬 핵심 조건 3가지\n\n① 캡처와 탭·화면의 일대일 대응\n\n친구/홈 → 채팅 → 지금/숏폼 → 쇼핑/오늘의 PICK → 더보기 순서를 유지합니다.\n활성 화면은 정확히 하나, 나머지 네 화면은 display:none으로 숨깁니다.\n각 화면의 상단부·콘텐츠 순서·간격을 해당 캡처와 대조하고, 더보기는 4열×3행으로 구성합니다.\n선택 탭은 색상뿐 아니라 아이콘·라벨 상태로도 구분합니다.\n\n② 고정 하단바와 탭별 상태 보존\n\n본문에 하단바 높이와 safe-area-inset-bottom을 반영해 마지막 콘텐츠가 가려지지 않게 합니다.\n탭마다 스크롤 위치·검색어·채팅 초안·첨부 상태를 보존합니다.\n전환 시 화면 DOM을 재생성하지 않으며, 키보드가 열려도 입력창이 보여야 합니다.\n숨긴 화면의 숏폼·타이머·반복 조회는 적절히 정지합니다.\n\n③ 기존 기능과 권한 경계의 보존\n\n기존 기능 → 새 탭·위치 → 검증 결과 대응표를 작성합니다.\n버튼·링크·API·첨부·승인·킬스위치를 유지하고, 이벤트 중복 등록을 방지합니다.\n탭 이름·선택 상태를 접근성 정보로 제공하고, 숨긴 화면 안에 포커스가 남지 않도록 합니다.\n2) 절대 범해서는 안 될 실패 요인\n가짜 페이지 분리: 긴 한 화면에서 해당 위치로 스크롤만 이동하는 방식.\n초안·상태 삭제: 탭 전환마다 innerHTML을 교체하거나 입력값을 초기화하는 방식.\n하단바 겹침: 마지막 메뉴·버튼·입력창이 하단바나 키보드에 가려지는 구조.\n숨은 화면의 계속 실행: 보이지 않는 숏폼에서 소리가 나거나 불필요한 요청이 반복되는 현상.\n기능 삭제·승인 우회: 디자인을 바꾸며 기존 기능이나 승인 절차를 누락하는 것. 화면 숨김은 보안 통제가 아닙니다.\n추측 구현 후 완공 선언: 실제 캡처와 대조하지 않고 메뉴·배치를 임의로 만들어 동일 구현이라고 부르는 것.\n\n인수 기준: 5탭을 순회한 뒤 돌아와도 상태가 보존되고, 각 화면이 해당 캡처와 대응하며, 기존 핵심 기능이 동일하게 작동해야 합격입니다.",
+        "051호 · 1회전 설계 심의 의견\n\n5탭·5개 독립 화면 구조에 찬성합니다. 단, 현재 메시지에는 실제 캡처가 첨부되지 않았으므로 시각적 일치 여부는 별도 대조해야 합니다.\n\n1) 반드시 지킬 핵심 조건 3가지\n핵심 조건\t구체적인 설계 기준\n① 캡처·탭·화면의 일대일 대응\t친구/홈 → 채팅 → 지금/숏폼 → 쇼핑/오늘의 PICK → 더보기 순서를 유지합니다. 활성 화면은 정확히 하나, 나머지 네 화면은 display:none으로 숨깁니다. 각 화면의 상단부·콘텐츠 순서·밀도를 해당 캡처와 대조하고, 더보기는 4열×3행으로 구성합니다.\n② 고정 하단바와 탭별 상태 보존\t하단바 높이와 safe-area-inset-bottom을 반영해 본문이 가려지지 않게 합니다. 탭별 스크롤·검색어·채팅 초안·첨부 상태를 보존하고, 전환 때 DOM을 재생성하지 않습니다. 키보드가 열렸을 때도 입력창이 보여야 합니다.\n③ 기존 기능·권한·접근성 보존\t기존 기능 → 새 탭·위치 → 시험 결과 대응표를 작성합니다. 버튼·링크·API·첨부·승인·킬스위치를 유지하고 중복 이벤트를 차단합니다. 선택 탭을 명확히 표시하며, 키보드 전환과 포커스 이동을 지원합니다.\n2) 절대 범해서는 안 될 실패 요인\n가짜 분리: 긴 단일 화면의 특정 위치로 스크롤만 이동하면서 독립 페이지라고 부르는 것.\n상태 유실: 전환할 때 innerHTML을 교체해 초안·첨부·스크롤을 초기화하는 것.\n하단바 겹침: 마지막 콘텐츠나 입력창이 하단바·키보드에 가려지는 것.\n숨은 화면의 부작용: 보이지 않는 숏폼의 소리·타이머·불필요한 반복 요청이 계속되는 것.\n기능 누락·권한 우회: 디자인 개편을 이유로 기능이나 승인 절차를 삭제하는 것. display:none은 보안 통제가 아닙니다.\n반복 탭 조작으로 중복 실행: 탭 전환이 메시지 전송·업로드·승인 같은 행동을 다시 발생시키는 것.\n추측 구현 후 동일성 선언: 캡처를 대조하지 않고 메뉴·배치를 임의 구성한 뒤 완공이라고 판정하는 것.\n\n최종 인수 기준:\n5탭을 순회해 돌아왔을 때 상태가 보존되고, 각 화면이 해당 캡처와 대응하며, 기존 핵심 기능이 중복·누락 없이 동일하게 작동해야 합격입니다.",
+        "051호 · 1회전 설계 심의 의견\n\n5탭·5개 독립 화면 구조에 찬성합니다. 단, 현재 메시지에는 실제 캡처가 첨부되지 않았으므로 시각적 일치 여부는 별도 대조해야 합니다.\n\n1) 반드시 지킬 핵심 조건 3가지\n핵심 조건\t구체적인 설계 기준\n① 캡처·탭·화면의 일대일 대응\t친구/홈 → 채팅 → 지금/숏폼 → 쇼핑/오늘의 PICK → 더보기 순서를 유지합니다. 활성 화면은 정확히 하나, 나머지 네 화면은 display:none으로 숨깁니다. 각 화면의 상단부·콘텐츠 순서·밀도를 해당 캡처와 대조하고, 더보기는 4열×3행으로 구성합니다.\n② 고정 하단바와 탭별 상태 보존\t하단바 높이와 safe-area-inset-bottom을 반영해 본문이 가려지지 않게 합니다. 탭별 스크롤·검색어·채팅 초안·첨부 상태를 보존하고, 전환 때 DOM을 재생성하지 않습니다. 키보드가 열렸을 때도 입력창이 보여야 합니다.\n③ 기존 기능·권한·접근성 보존\t기존 기능 → 새 탭·위치 → 시험 결과 대응표를 작성합니다. 버튼·링크·API·첨부·승인·킬스위치를 유지하고 중복 이벤트를 차단합니다. 선택 탭을 명확히 표시하며, 키보드 전환과 포커스 이동을 지원합니다.\n2) 절대 범해서는 안 될 실패 요인\n가짜 분리: 긴 단일 화면의 특정 위치로 스크롤만 이동하면서 독립 페이지라고 부르는 것.\n상태 유실: 전환할 때 innerHTML을 교체해 초안·첨부·스크롤을 초기화하는 것.\n하단바 겹침: 마지막 콘텐츠나 입력창이 하단바·키보드에 가려지는 것.\n숨은 화면의 부작용: 보이지 않는 숏폼의 소리·타이머·불필요한 반복 요청이 계속되는 것.\n기능 누락·권한 우회: 디자인 개편을 이유로 기능이나 승인 절차를 삭제하는 것. display:none은 보안 통제가 아닙니다.\n반복 탭 조작으로 중복 실행: 탭 전환이 메시지 전송·업로드·승인 같은 행동을 다시 발생시키는 것.\n추측 구현 후 동일성 선언: 캡처를 대조하지 않고 메뉴·배치를 임의 구성한 뒤 완공이라고 판정하는 것.\n\n최종 인수 기준:\n5탭을 순회해 돌아왔을 때 상태가 보존되고, 각 화면이 해당 캡처와 대응하며, 기존 핵심 기능이 중복·누락 없이 동일하게 작동해야 합격입니다."
+      ]
     },
     "need_your_action_cleared": true
   },
@@ -32,24 +38,30 @@
     "ok": true,
     "space": 2,
     "meta": {
-      "url": "",
-      "title": ""
+      "url": "https://www.genspark.ai/agents?id=a481ead5-a237-432c-abfb-0396b8a34d16",
+      "title": "썬원 에이온 S1 완공 파이프라인 및 보안 아키텍처 설계 요청"
     },
     "send_result": {
-      "sent": false,
-      "error": "Error: Control of this task space is with the user, either through task.handOff() or a takeover in the browser, so browser commands are paused.\nThis is a hard stop, not an obstacle to route around — do not retry and do not take control back on your own.\nWait until the user explicitly asks you to continue, then take control back and resume:\n  const task = await takeOverTaskSpace(spaceId)\n\nOffer the user choices like \"Continue\" or \"Finish task\" if your harness supports it; otherwise tell them: \"You now control this task space. Reply 'continue' when ready and I will resume.\""
+      "sent": true,
+      "method": "button_click"
     },
     "harvested": {
-      "snippet_count": 0,
-      "latest_texts": [],
-      "error": "Error: Control of this task space is with the user, either through task.handOff() or a takeover in the browser, so browser commands are paused.\nThis is a hard stop, not an obstacle to route around — do not retry and do not take control back on your own.\nWait until the user explicitly asks you to continue, then take control back and resume:\n  const task = await takeOverTaskSpace(spaceId)\n\nOffer the user choices like \"Continue\" or \"Finish task\" if your harness supports it; otherwise tell them: \"You now control this task space. Reply 'continue' when ready and I will resume.\""
+      "snippet_count": 27,
+      "latest_texts": [
+        "050호 1회전 심의 의견 (제3성 오푸스: 무결성·기존 기능 보존)\n\n한 줄 의견: 5탭으로 나누는 방향에는 찬성합니다. 다만 이번 개편은 레이아웃만 바꾸는 작업이어야 합니다. 기존 기능과 정직성 원칙은 한 줄도 바뀌면 안 됩니다. 아래 판단은 카톡 캡처 5장과 최신 index.html을 직접 보지 못한 상태에서 한 것입니다. 시각·UX는 제2성 솔의 영역이므로, 저는 무결성과 보존 관점 위주로 쓰고 겹치는 부분만 덧붙입니다.\n\n1) 반드시 지켜야 할 설계 조건 3가지\n\n① 페이지는 숨기기만 하고, 다시 그리지 마십시오. 5개 페이지의 DOM은 처음 로드할 때 한 번만 만들고, 탭을 바꿀 때는 hidden 속성(또는 class)만 전환하십시오.\n\n탭을 바꿀 때마다 innerHTML로 다시 그리면 세 가지가 사라집니다. 입력 중이던 초안, 채팅 기록과 스크롤 위치, 버튼에 연결된 이벤트입니다.\n이것은 지난번에 세운 초안 보호 원칙(DRAFT_PRESENT)을 화면에서도 똑같이 지키는 일입니다.\n착공 전에 기존 기능 목록표를 먼저 만드십시오. 전송, 8대 코어 드로어, 앱 설치, 4개 칩, 30초 상태 확인, visualViewport 대응, 오프라인 폴백이 들어가야 합니다. 개편 후에 같은 표로 하나씩 대조 시험하십시오.\n\n② 상태 표시와 정직성 문구는 탭 밖에 고정하십시오. \"로컬 서버 연결됨 / 미연결\"과 \"KillSwitch ON/OFF\"는 어느 탭에 있든 보여야 합니다. 그래서 헤더는 페이지 밖에 고정해 두십시오.\n\n/api/status 확인은 앱 전체에서 타이머 하나로 돌리십시오. 페이지마다 따로 setInterval을 두면 중복으로 돌거나, 숨긴 페이지에서는 멈춰 버립니다.\n\"⚠ 서버 미연결: 명령은 실행되지 않았습니다.\"와 executed:false 문구는 그대로 유지하십시오.\n\n③ 주소와 PWA 규격을 같이 올리십시오. 탭마다 해시 주소를 주십시오(예: #home, #chat, #now, #pick, #more). 그래야 뒤로가기, 새로고침, 앱 재실행 때 같은 탭으로 돌아옵니다.\n\n모바일 뒤로가기를 누르면 앱이 꺼지는 대신 이전 탭으로 가야 합니다.\n화면 파일이 바뀌므로 sw.js 캐시 버전을 올리십시오(예: v15 → v16). 그렇지 않으면 구버전 화면이 남습니다.\n접근성 속성을 넣으십시오. 하단바는 role=\"tablist\", 각 버튼은 role=\"tab\"과 aria-selected, 페이지는 role=\"tabpanel\"입니다.\n2) 절대 범해서는 안 될 실패 요인\n\n가짜 콘텐츠로 빈 탭을 채우는 것이 가장 치명적입니다.\n\n카톡의 \"지금/숏폼\", \"쇼핑/오늘의 PICK\"처럼 보이려고 실제 데이터 없는 숫자, 썸네일, 녹색 점을 넣으면 안 됩니다. 1차 감리 때 지적한 \"가짜 정상 가동 PASS\"가 다시 생기는 셈입니다.\n기능이 아직 없는 탭에는 \"준비 중\"이라고 정직하게 표시하십시오.\n\n카카오 디자인을 그대로 베끼지 마십시오.\n\n하단 5탭은 흔한 구조라서 참고해도 됩니다.\n하지만 카카오 로고, 아이콘, 노란 브랜드 색, 탭 이름과 배치를 그대로 쓰면 상표 문제가 생기고, S1 고유 브랜드(금색 #d4af37, 3대 로고)도 흐려집니다.\n\n위험한 작업 버튼을 더보기 그리드에 올리지 마십시오.\n\n5번 4×3 그리드에 \"킬스위치 해제\", \"배포\", \"실행\" 같은 쓰기 버튼을 원클릭으로 두면 안 됩니다.\n쓰기 작업은 지금처럼 TTY SHA-8 승인 경로 하나로만 하십시오. 그리드에 둘 수 있는 것은 조회 전용(상태, 원장, 로그 보기) 버튼뿐입니다.\n\n하단바가 입력창이나 키보드와 겹치게 두지 마십시오. (UX 영역과 겹치는 부분입니다.)\n\n아이폰 하단 안전영역은 env(safe-area-inset-bottom)로 비우십시오.\n채팅 탭에서 키보드가 올라오면 하단바를 숨기거나 입력창 아래로 내리십시오. 숨기지 않으면 입력창이 가려지거나 화면이 튀어 오릅니다.\n탭 배치 제안 (참고용)\n탭\t내용\n1 홈\t관제, 8대 코어 상태\n2 채팅\t만능소통창, 기본 탭\n3 지금\t작품, 쇼츠 진행 현황\n4 PICK\t명작 원장\n5 더보기\t앱 설치, 조회 전용 도구\n\n채팅을 기본 탭으로 두면 기존 사용 흐름이 그대로 유지됩니다.\n\n2회전 착공 승인 조건: 위 조건 3가지 반영, 기능 목록표 대조 결과, 탭 5개 각각의 모바일 스냅샷, 콘솔 오류 0건 캡처입니다. 이번 답변은 심의 의견이며 실행 명령이 아닙니다. 최종 결재는 대표님이 해 주십시오.",
+        "051호 1회전 심의 의견 (제3성 오푸스)\n\n이번 안건은 직전 050호와 질문 내용이 같습니다. 다른 점은 시각·UX 조건과 기존 기능 보존 조건을 하나로 묶어 달라는 것뿐이라, 050호 의견을 통합본으로 다시 정리합니다. 카톡 캡처 5장과 최신 index.html은 이번에도 받지 못했기 때문에, 아래 의견은 설계 원칙 수준의 판단입니다.\n\n1) 반드시 지켜야 할 핵심 조건 3가지\n\n① 탭을 바꿔도 기능과 상태가 그대로 남아야 합니다.\n\n5개 페이지의 화면 요소는 처음 열 때 한 번만 만들고, 탭을 바꿀 때는 숨김과 표시만 전환하십시오.\ninnerHTML로 화면을 다시 그리면 입력 중이던 초안, 채팅 기록과 스크롤 위치, 버튼 이벤트가 사라집니다.\n착공 전에 기존 기능 목록표를 만들고, 개편이 끝나면 같은 표로 하나씩 대조 시험하십시오. 목록에 넣을 기능은 전송, 8대 코어 드로어, 앱 설치, 4개 칩, 30초 상태 확인, visualViewport 대응, 오프라인 폴백입니다.\n\n② 화면 상단·하단 고정 영역은 정직하게 표시하고, 다른 요소와 겹치지 않게 하십시오.\n\n헤더(서버 연결 상태, KillSwitch ON/OFF)는 어느 탭에서든 보이도록 페이지 밖에 고정하십시오.\n상태 확인은 타이머 하나로만 돌리십시오.\n하단바에는 다음 세 가지를 적용하십시오.\n아이폰 하단 안전영역을 확보하십시오(env(safe-area-inset-bottom)).\n터치 영역은 버튼당 최소 44px 이상으로 하십시오.\n현재 탭은 아이콘과 이름에 금색(#d4af37)을 써서 분명히 구분하십시오.\n채팅 탭에서 키보드가 올라오면 하단바를 숨겨 입력창이 가려지지 않게 하십시오.\n\n③ 주소, 뒤로가기, PWA가 함께 동작해야 합니다.\n\n탭마다 해시 주소를 주십시오(#home, #chat, #now, #pick, #more). 그러면 새로고침하거나 앱을 다시 열어도 같은 탭이 유지되고, 휴대폰 뒤로가기를 누르면 앱이 꺼지지 않고 이전 탭으로 돌아갑니다.\nsw.js 캐시 버전을 올리십시오.\n접근성 속성을 넣으십시오(role=\"tablist\", role=\"tab\", aria-selected, role=\"tabpanel\").\n2) 절대 범해서는 안 될 실패 요인\n\n빈 탭을 가짜 콘텐츠로 채우지 마십시오. 실제 데이터가 없는 숫자, 썸네일, 녹색 점을 넣으면 1차 감리에서 지적한 \"가짜 정상 가동\"이 다시 생깁니다. 아직 기능이 없는 탭에는 \"준비 중\"이라고 표시하십시오.\n\n카카오 디자인을 그대로 복제하지 마십시오. 하단 5탭 구조는 흔한 방식이라 참고해도 됩니다. 하지만 카카오 로고, 아이콘, 노란 브랜드 색을 그대로 가져오면 상표 문제가 생기고 S1 고유 브랜드도 흐려집니다.\n\n쓰기 기능을 원클릭 버튼으로 두지 마십시오. 더보기 4×3 그리드에 \"킬스위치 해제\", \"배포\", \"실행\" 같은 버튼을 올리면 안 됩니다. 그리드에는 조회 전용 버튼만 두고, 쓰기 작업은 지금처럼 TTY SHA-8 승인 경로 하나로만 처리하십시오.\n\n채팅을 첫 탭에서 빼지 마십시오. 기본 탭이 바뀌면 지금까지 써 온 사용 흐름이 끊깁니다. 앱을 열면 바로 채팅 탭이 나오도록 유지하십시오.\n\n확인 요청\n\n재전송 경위: 050호와 같은 안건이 번호만 바뀌어 다시 들어왔습니다. 사람이 다시 보낸 것인지, 자동 경로에서 재전송된 것인지 한 줄로 알려 주십시오. 자동 경로라면 신경망 Step 2 설계에 \"이미 심의한 안건 재전송 차단\"을 넣어야 합니다.\n\n2회전 착공 승인 조건: 다음 네 가지를 제출해 주십시오.\n\n위 조건 3가지의 반영 내역\n기능 목록표 대조 결과\n탭 5개 각각의 모바일 스냅샷\n콘솔 오류 0건 캡처\n\n이번 답변은 심의 의견이며 실행 명령이 아닙니다. 최종 결재는 대표님이 해 주십시오.",
+        "051호 1회전 심의 의견 (제3성 오푸스)\n\n이번 안건은 직전 050호와 질문 내용이 같습니다. 다른 점은 시각·UX 조건과 기존 기능 보존 조건을 하나로 묶어 달라는 것뿐이라, 050호 의견을 통합본으로 다시 정리합니다. 카톡 캡처 5장과 최신 index.html은 이번에도 받지 못했기 때문에, 아래 의견은 설계 원칙 수준의 판단입니다.\n\n1) 반드시 지켜야 할 핵심 조건 3가지\n\n① 탭을 바꿔도 기능과 상태가 그대로 남아야 합니다.\n\n5개 페이지의 화면 요소는 처음 열 때 한 번만 만들고, 탭을 바꿀 때는 숨김과 표시만 전환하십시오.\ninnerHTML로 화면을 다시 그리면 입력 중이던 초안, 채팅 기록과 스크롤 위치, 버튼 이벤트가 사라집니다.\n착공 전에 기존 기능 목록표를 만들고, 개편이 끝나면 같은 표로 하나씩 대조 시험하십시오. 목록에 넣을 기능은 전송, 8대 코어 드로어, 앱 설치, 4개 칩, 30초 상태 확인, visualViewport 대응, 오프라인 폴백입니다.\n\n② 화면 상단·하단 고정 영역은 정직하게 표시하고, 다른 요소와 겹치지 않게 하십시오.\n\n헤더(서버 연결 상태, KillSwitch ON/OFF)는 어느 탭에서든 보이도록 페이지 밖에 고정하십시오.\n상태 확인은 타이머 하나로만 돌리십시오.\n하단바에는 다음 세 가지를 적용하십시오.\n아이폰 하단 안전영역을 확보하십시오(env(safe-area-inset-bottom)).\n터치 영역은 버튼당 최소 44px 이상으로 하십시오.\n현재 탭은 아이콘과 이름에 금색(#d4af37)을 써서 분명히 구분하십시오.\n채팅 탭에서 키보드가 올라오면 하단바를 숨겨 입력창이 가려지지 않게 하십시오.\n\n③ 주소, 뒤로가기, PWA가 함께 동작해야 합니다.\n\n탭마다 해시 주소를 주십시오(#home, #chat, #now, #pick, #more). 그러면 새로고침하거나 앱을 다시 열어도 같은 탭이 유지되고, 휴대폰 뒤로가기를 누르면 앱이 꺼지지 않고 이전 탭으로 돌아갑니다.\nsw.js 캐시 버전을 올리십시오.\n접근성 속성을 넣으십시오(role=\"tablist\", role=\"tab\", aria-selected, role=\"tabpanel\").\n2) 절대 범해서는 안 될 실패 요인\n\n빈 탭을 가짜 콘텐츠로 채우지 마십시오. 실제 데이터가 없는 숫자, 썸네일, 녹색 점을 넣으면 1차 감리에서 지적한 \"가짜 정상 가동\"이 다시 생깁니다. 아직 기능이 없는 탭에는 \"준비 중\"이라고 표시하십시오.\n\n카카오 디자인을 그대로 복제하지 마십시오. 하단 5탭 구조는 흔한 방식이라 참고해도 됩니다. 하지만 카카오 로고, 아이콘, 노란 브랜드 색을 그대로 가져오면 상표 문제가 생기고 S1 고유 브랜드도 흐려집니다.\n\n쓰기 기능을 원클릭 버튼으로 두지 마십시오. 더보기 4×3 그리드에 \"킬스위치 해제\", \"배포\", \"실행\" 같은 버튼을 올리면 안 됩니다. 그리드에는 조회 전용 버튼만 두고, 쓰기 작업은 지금처럼 TTY SHA-8 승인 경로 하나로만 처리하십시오.\n\n채팅을 첫 탭에서 빼지 마십시오. 기본 탭이 바뀌면 지금까지 써 온 사용 흐름이 끊깁니다. 앱을 열면 바로 채팅 탭이 나오도록 유지하십시오.\n\n확인 요청\n\n재전송 경위: 050호와 같은 안건이 번호만 바뀌어 다시 들어왔습니다. 사람이 다시 보낸 것인지, 자동 경로에서 재전송된 것인지 한 줄로 알려 주십시오. 자동 경로라면 신경망 Step 2 설계에 \"이미 심의한 안건 재전송 차단\"을 넣어야 합니다.\n\n2회전 착공 승인 조건: 다음 네 가지를 제출해 주십시오.\n\n위 조건 3가지의 반영 내역\n기능 목록표 대조 결과\n탭 5개 각각의 모바일 스냅샷\n콘솔 오류 0건 캡처\n\n이번 답변은 심의 의견이며 실행 명령이 아닙니다. 최종 결재는 대표님이 해 주십시오."
+      ]
     },
     "need_your_action_cleared": true
   },
   "space_3_status": {
     "ok": true,
     "space": 3,
-    "meta": {},
+    "meta": {
+      "url": "https://studio.youtube.com/channel/UC4C_H80jcXzKV8ldAtmYMog/editing/profile",
+      "title": "채널 맞춤설정 - YouTube Studio"
+    },
     "cleared": true
   }
 }
