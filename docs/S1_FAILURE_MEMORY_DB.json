@@ -1,7 +1,7 @@
 {
-  "version": "1.5.0",
-  "directive_id": "RGON_DIR_FIRST_SCREEN_UI_AND_SHOWCASE_FIX_045",
-  "updated_at": "2026-11-04T20:50:00+09:00",
+  "version": "1.6.0",
+  "directive_id": "RGON_DIR_CONNECT_COMMUNICATE_OMNIPOTENT_046",
+  "updated_at": "2026-11-04T23:15:00+09:00",
   "policy": {
     "principle": "encode-lessons-in-structure & verification-before-completion",
     "enforcement_script": "s1_qm_structure_linter.py",
@@ -128,6 +128,16 @@
       "target_glob": "index.html,docs/index.html,sw.js,docs/sw.js",
       "guard_function": "check_fm012_first_screen_ui_showcase_and_freshness",
       "remediation_qm_sp_18": "최상단 #banner-father-mountain 045호 100점 배지 교체, id=\"s1-autumn-winter-12tracks-showcase\" 실제 DOM 삽입, '53곡 원장 & 11/6 신보(12곡)' 전수 교체 및 sw.js v24 강제 캐시 퍼지"
+    },
+    {
+      "id": "FM-013",
+      "title": "5대 공정 삼성 2단계 통과 원칙 누락, 연결·소통·만능 전달봇 단절(pre, code 한정 스캔 및 auto_execute_directive_trigger 누락), cli-anything-hub 미설치, 비디오 종횡비(SAR 1:1/DAR 9:16) 왜곡 및 20MB 초과 미최적화 스트리밍 방치 금지",
+      "incident_directive": "046호 대표님 어명",
+      "root_cause": "전달봇의 DOM 스캔 범위 협소로 인한 지시서 유실 위험, 자동 집행 연동 부재, 그리고 쇼츠 용량 비대화(43.6MB)로 인한 모바일 로딩 지연 방지",
+      "forbidden_pattern": "restricted_dom_scan_or_missing_auto_trigger_or_bloated_shorts",
+      "target_glob": "s1_rgon_to_anchongri_bridge.py,audio/FATHER_AGE_MASTER_SHORTS_1080x1920.mp4,S1_RELAY_STAMP_PASSPORT.json",
+      "guard_function": "check_fm013_connect_communicate_omnipotent_and_streaming_diet",
+      "remediation_qm_sp_18": "전체 DOM 스캔 및 auto_execute_directive_trigger 장착, cli-anything-hub 설치, 마스터 쇼츠 12.06MB 경량화(SAR 1:1, DAR 9:16), 5대 공정 삼성 2단계 통과 기록 필수"
     }
   ]
 }

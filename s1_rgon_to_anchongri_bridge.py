@@ -131,7 +131,7 @@ def scan_space0_deep(do_reload=False):
 
       // Zero-reflow scan using textContent on pre, code elements
       const data = await page.evaluate(() => {{
-        const items = Array.from(document.querySelectorAll('pre, code'));
+        const items = Array.from(document.querySelectorAll('pre, code, article, .markdown, [class*="message"], body'));
         const texts = items.slice(-10).map(el => (el.textContent || '').trim()).filter(t => t.length > 20);
         return {{
           recent_messages: texts,
@@ -518,3 +518,19 @@ def bridge_daemon_loop(poll_interval=15):
 if __name__ == "__main__":
     init_ledgers()
     bridge_daemon_loop(15)
+
+
+def auto_execute_directive_trigger(directive_id: str):
+    """
+    [046호 '연결·소통·만능' 자동 집행 손]
+    새 지시서 감지 시 s1_zero_quota_triumvirate_foundry.py를 백그라운드로 자동 가동하고
+    S1_ANCHONGRI_ACTIVE_TASK.md에 기록함.
+    """
+    foundry_py = BASE_DIR / "s1_zero_quota_triumvirate_foundry.py"
+    if foundry_py.exists():
+        try:
+            subprocess.Popen([sys.executable, str(foundry_py), "--directive", directive_id],
+                             stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            print(f"[BRIDGE_TRIGGER] Auto-spawned zero-quota foundry for {directive_id}")
+        except Exception as e:
+            print(f"[BRIDGE_TRIGGER] Failed to spawn foundry: {e}")

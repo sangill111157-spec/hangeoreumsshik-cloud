@@ -528,6 +528,12 @@
       "title": "[045호] 모바일 첫 화면 최상단 배지 및 53곡 쇼케이스 카드 실제 삽입 완공",
       "status": "COMPLETED_IN_MAIN",
       "timestamp": "2026-11-04T11:54:17.378017+00:00"
+    },
+    {
+      "directive_id": "RGON_DIR_CONNECT_COMMUNICATE_OMNIPOTENT_046",
+      "title": "[046호] '연결·소통·만능' 전달봇 수술 & CLI-Anything 초고속 스트리밍 다이어트 완공",
+      "status": "COMPLETED_IN_MAIN",
+      "timestamp": "2026-11-04T14:12:15.402799+00:00"
     }
   ]
 }

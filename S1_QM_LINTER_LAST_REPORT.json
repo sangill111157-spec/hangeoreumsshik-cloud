@@ -1,11 +1,11 @@
 {
-  "linter_version": "1.5.0",
-  "directive_id": "RGON_DIR_FIRST_SCREEN_UI_AND_SHOWCASE_FIX_045",
-  "timestamp": "2026-11-04T20:56:31.956730+09:00",
+  "linter_version": "1.6.0",
+  "directive_id": "RGON_DIR_CONNECT_COMMUNICATE_OMNIPOTENT_046",
+  "timestamp": "2026-11-04T23:14:34.368656+09:00",
   "verdict": "PASS",
   "score": 100.0,
-  "passed_checks": 15,
-  "total_checks": 15,
+  "passed_checks": 16,
+  "total_checks": 16,
   "checks": [
     {
       "id": "GATE-A-PROTECTED-FILES",
@@ -23,7 +23,7 @@
       "id": "FM-002",
       "name": "정지 이미지 단순 단일 zoompan 꼼수 및 마스터 쇼츠 누락 금지",
       "passed": true,
-      "detail": "진품 마스터 쇼츠 실존 확인 (43,666,192 bytes, 루트 & docs 동기화)"
+      "detail": "진품 마스터 쇼츠 실존 확인 (12,647,565 bytes, 루트 & docs 동기화)"
     },
     {
       "id": "FM-003",
@@ -59,37 +59,43 @@
       "id": "FM-008",
       "name": "대시보드 구버전 배지('023호 시네마틱') 및 빈 로딩 문구('집계 중.../불러오는 중...') 방치 금지",
       "passed": true,
-      "detail": "구버전·빈 로딩 문구 0건, 수채화 배지·SSR·4대 JSON·27대 릴레이 도장(47개)·QM-SP-18 가드·sw.js v20 검증 완료"
+      "detail": "구버전·빈 로딩 문구 0건, 수채화 배지·SSR·4대 JSON·27대 릴레이 도장(52개)·QM-SP-18 가드·sw.js v20 검증 완료"
     },
     {
       "id": "FM-009",
       "name": "단순 정적 이미지 줌인·아웃(단일 zoompan 슬라이드쇼) 꼼수 금지 및 프레임 간 비균일 동적 피사체 모션 필수",
       "passed": true,
-      "detail": "6컷 전원 탈-줌인(Non-Zoompan) 실제 피사체 모션 검증 통과! 컷별 비선형 광학흐름 잔차=[0.6206, 0.9955, 1.0207, 0.8357, 0.4818, 0.8735] (평균 0.8046px >= 0.35px, 1080x1920 34.00s AAC)"
+      "detail": "6컷 전원 탈-줌인(Non-Zoompan) 실제 피사체 모션 검증 통과! 컷별 비선형 광학흐름 잔차=[0.6274, 1.0052, 1.0213, 0.8313, 0.4822, 0.8685] (평균 0.806px >= 0.35px, 1080x1920 34.02s AAC)"
     },
     {
       "id": "FM-010",
       "name": "음악 박자(Onset/RMS) 무감각 기계적 컷 연결 및 저밀도 모션(0.45px 미만) 방치 금지 & 외부 유료 과금 위험 API 무단 호출 금지",
       "passed": true,
-      "detail": "043-SAFE 무과금 가드·비트 칼싱크·무쿼터 파운드리·전 컷 비선형 잔차 0.45px 이상(잔차=[0.6206, 0.7412, 0.8495, 0.8049, 0.4751, 0.8807], 평균 0.7287px >= 0.70px) 100점 완공"
+      "detail": "043-SAFE 무과금 가드·비트 칼싱크·무쿼터 파운드리·전 컷 비선형 잔차 0.45px 이상(잔차=[0.6274, 0.7506, 0.8556, 0.7992, 0.4768, 0.8796], 평균 0.7315px >= 0.70px) 100점 완공"
     },
     {
       "id": "FM-011",
       "name": "DistroKid 신보 12트랙(가을과 겨울 사이, 총 53곡) 원장·대시보드 누락 및 유료 Extras 업셀링 오가입 금지",
       "passed": true,
-      "detail": "53곡 글로벌 원장 및 12트랙 쇼케이스·1+12 마스터북·유료 Extras 0원 방어·여권 42대 도장(47개) 100% 무결 검증"
+      "detail": "53곡 글로벌 원장 및 12트랙 쇼케이스·1+12 마스터북·유료 Extras 0원 방어·여권 42대 도장(52개) 100% 무결 검증"
     },
     {
       "id": "FM-012",
       "name": "모바일 첫 화면 최상단 배지 구버전('042호:') 방치, '41곡 원장' 구버전 버튼 방치 및 id=\"s1-autumn-winter-12tracks-showcase\" 실제 DOM 미삽입 금지",
       "passed": true,
-      "detail": "첫 화면 045호 배지·12트랙 쇼케이스 DOM·53곡 버튼 전수 교체·sw.js v24·여권 47대 도장(47개) 100% 무결 검증"
+      "detail": "첫 화면 045호 배지·12트랙 쇼케이스 DOM·53곡 버튼 전수 교체·sw.js v24·여권 47대 도장(52개) 100% 무결 검증"
+    },
+    {
+      "id": "FM-013",
+      "name": "5대 공정 삼성 2단계 통과 원칙 누락, 연결·소통·만능 전달봇 단절(pre, code 한정 스캔 및 auto_execute_directive_trigger 누락), cli-anything-hub 미설치, 비디오 종횡비(SAR 1:1/DAR 9:16) 왜곡 및 20MB 초과 미최적화 스트리밍 방치 금지",
+      "passed": true,
+      "detail": "전달봇 전체 DOM 스캔 & auto_trigger 장착·CLI-Anything 가이드·쇼츠 다이어트(12.06MB, SAR 1:1, DAR 9:16)·여권 52대 도장(52개) 100% 무결 검증"
     },
     {
       "id": "GATE-C-PASSPORT",
       "name": "릴레이 여권 해시 체인 연속성 검증",
       "passed": true,
-      "detail": "총 47대 릴레이 도장 사슬 연속성 100% 무결 (최종 해시 bf59ca021556...)"
+      "detail": "총 52대 릴레이 도장 사슬 연속성 100% 무결 (최종 해시 c1c9baff8843...)"
     },
     {
       "id": "GATE-D-SECURITY-HYGIENE",

@@ -34,6 +34,7 @@ jobs:
 
       - name: Verify Foundry Engine & Integrity Linter
         run: |
+          pip install cli-anything-hub
           python s1_zero_quota_triumvirate_foundry.py
           python s1_qm_structure_linter.py
 

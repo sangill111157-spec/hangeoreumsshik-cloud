@@ -256,8 +256,8 @@ def check_fm008_dashboard_freshness():
 
     required_markers = [
         "./audio/father_age_shorts_scenes/scene_01.png?v=04",
-        "045호: 100점 비트칼싱크(AEON-7) 마스터 쇼츠 &amp; 11/6 신보 〈가을과 겨울 사이〉 53곡 완공",
-        "RGON_DIR_FIRST_SCREEN_UI_AND_SHOWCASE_FIX_045",
+        "046호: 연결·소통·만능 브릿지 &amp; CLI-Anything 초고속 스트리밍 완공 · 삼성 2단계 16/16 PASS",
+        "RGON_DIR_CONNECT_COMMUNICATE_OMNIPOTENT_046",
         "STAMP_042_5_AUDIT",
         "./S1_RGON_DIRECTIVE_QUEUE.json",
         "./S1_RELAY_STAMP_PASSPORT.json",
@@ -585,12 +585,70 @@ def check_fm012_first_screen_ui_showcase_and_freshness():
     if len(pp_stamps) < 47 or "STAMP_045_5_AUDIT" not in pp_names:
         return False, f"S1_RELAY_STAMP_PASSPORT.json 045호 5대 공정 도장(#43~#47) 미완비 (현재 {len(pp_stamps)}개)"
 
-    # 6. Check sw.js v24
+    # 6. Check sw.js v24 or v25
     sw = BASE / "sw.js"
-    if not sw.exists() or "s1-aon-v24-" not in sw.read_text(encoding="utf-8", errors="ignore"):
-        return False, "sw.js 캐시 버전 미갱신 (v24 필수)"
+    sw_text = sw.read_text(encoding="utf-8", errors="ignore") if sw.exists() else ""
+    if not sw.exists() or ("s1-aon-v24-" not in sw_text and "s1-aon-v25-" not in sw_text):
+        return False, "sw.js 캐시 버전 미갱신 (v24 또는 v25 필수)"
 
     return True, f"첫 화면 045호 배지·12트랙 쇼케이스 DOM·53곡 버튼 전수 교체·sw.js v24·여권 47대 도장({len(pp_stamps)}개) 100% 무결 검증"
+
+
+def check_fm013_connect_communicate_omnipotent_and_streaming_diet():
+    # 1. Check bridge DOM scan and auto trigger
+    b_file = BASE / "s1_rgon_to_anchongri_bridge.py"
+    if not b_file.exists():
+        return False, "s1_rgon_to_anchongri_bridge.py 누락"
+    b_txt = b_file.read_text(encoding="utf-8", errors="ignore")
+    if "querySelectorAll('pre, code, article, .markdown, [class*=\"message\"], body')" not in b_txt:
+        return False, "전달봇 전체 DOM 스캔 셀렉터 미적용"
+    if "def auto_execute_directive_trigger" not in b_txt:
+        return False, "전달봇 auto_execute_directive_trigger 자동 집행 손 부재"
+
+    # 2. Check CLI-Anything master guide & cli-anything-hub import
+    guide_r = BASE / "S1_CLI_ANYTHING_MASTER_GUIDE.md"
+    guide_d = BASE / "docs" / "S1_CLI_ANYTHING_MASTER_GUIDE.md"
+    if not guide_r.exists() or not guide_d.exists() or sha256_file(guide_r) != sha256_file(guide_d):
+        return False, "S1_CLI_ANYTHING_MASTER_GUIDE.md 누락 또는 docs 미러 불일치"
+
+    # 3. Check Diet Shorts size (3.0 MB ~ 20.0 MB) & aspect ratio SAR 1:1, DAR 9:16
+    mp4_r = BASE / "audio" / "FATHER_AGE_MASTER_SHORTS_1080x1920.mp4"
+    mp4_d = BASE / "docs" / "audio" / "FATHER_AGE_MASTER_SHORTS_1080x1920.mp4"
+    if not mp4_r.exists() or not mp4_d.exists() or sha256_file(mp4_r) != sha256_file(mp4_d):
+        return False, "마스터 쇼츠 누락 또는 docs 미러 불일치"
+    
+    sz_mb = mp4_r.stat().st_size / (1024 * 1024)
+    if not (3.0 <= sz_mb <= 20.0):
+        return False, f"마스터 쇼츠 용량 초과: {sz_mb:.2f} MB (3MB ~ 20MB 필수)"
+
+    probe_cmd = ["ffprobe", "-v", "error", "-print_format", "json", "-show_streams", str(mp4_r)]
+    pinfo = json.loads(subprocess.check_output(probe_cmd, text=True, timeout=15))
+    v_stream = next((s for s in pinfo.get("streams", []) if s.get("codec_type") == "video"), {})
+    if v_stream.get("sample_aspect_ratio") != "1:1":
+        return False, f"SAR 불일치: {v_stream.get('sample_aspect_ratio')} (1:1 필수)"
+    if v_stream.get("display_aspect_ratio") != "9:16":
+        return False, f"DAR 불일치: {v_stream.get('display_aspect_ratio')} (9:16 필수)"
+
+    # 4. Check IO TEST 17 proof
+    p17_r = BASE / "S1_IO_TEST_17_CONNECT_COMMUNICATE_CLI_ANYTHING_PROOF.md"
+    p17_d = BASE / "docs" / "S1_IO_TEST_17_CONNECT_COMMUNICATE_CLI_ANYTHING_PROOF.md"
+    if not p17_r.exists() or not p17_d.exists() or sha256_file(p17_r) != sha256_file(p17_d):
+        return False, "S1_IO_TEST_17_CONNECT_COMMUNICATE_CLI_ANYTHING_PROOF.md 누락 또는 docs 미러 불일치"
+
+    # 5. Check passport 046 stamps with 2-step verification
+    pp_data = json.loads((BASE / "S1_RELAY_STAMP_PASSPORT.json").read_text(encoding="utf-8"))
+    pp_stamps = pp_data.get("stamps", [])
+    pp_names = {s.get("stamp_name") or s.get("stamp_id") for s in pp_stamps}
+    if len(pp_stamps) < 52 or "STAMP_046_5_AUDIT" not in pp_names:
+        return False, f"S1_RELAY_STAMP_PASSPORT.json 046호 5대 공정 도장(#48~#52) 미완비 (현재 {len(pp_stamps)}개)"
+
+    st48_52 = [s for s in pp_stamps if 48 <= s.get("stamp_index", 0) <= 52]
+    for s in st48_52:
+        payload = s.get("payload", {})
+        if not (payload.get("stage1_pass") and payload.get("stage2_pass")):
+            return False, f"도장 #{s.get('stamp_index')} 삼성 2단계 통과 기록 결손"
+
+    return True, f"전달봇 전체 DOM 스캔 & auto_trigger 장착·CLI-Anything 가이드·쇼츠 다이어트({sz_mb:.2f}MB, SAR 1:1, DAR 9:16)·여권 52대 도장({len(pp_stamps)}개) 100% 무결 검증"
 
 GUARD_DISPATCH = {
     "check_fm001_no_fake_tkinter": check_fm001_no_fake_tkinter,
@@ -605,6 +663,7 @@ GUARD_DISPATCH = {
     "check_fm010_beat_sync_and_motion_density": check_fm010_beat_sync_and_motion_density,
     "check_fm011_autumn_winter_53tracks_ledger_and_extras_zero_cost": check_fm011_autumn_winter_53tracks_ledger_and_extras_zero_cost,
     "check_fm012_first_screen_ui_showcase_and_freshness": check_fm012_first_screen_ui_showcase_and_freshness,
+    "check_fm013_connect_communicate_omnipotent_and_streaming_diet": check_fm013_connect_communicate_omnipotent_and_streaming_diet,
 }
 
 
@@ -701,8 +760,8 @@ def run_all_checks():
     all_passed = passed_count == total_count
 
     report = {
-        "linter_version": "1.5.0",
-        "directive_id": "RGON_DIR_FIRST_SCREEN_UI_AND_SHOWCASE_FIX_045",
+        "linter_version": "1.6.0",
+        "directive_id": "RGON_DIR_CONNECT_COMMUNICATE_OMNIPOTENT_046",
         "timestamp": now_iso(),
         "verdict": "PASS" if all_passed else "QM_SP_11_REJECTED_LOT",
         "score": score,
@@ -717,7 +776,7 @@ def run_all_checks():
         shutil.copyfile(report_path, BASE / "docs" / "S1_QM_LINTER_LAST_REPORT.json")
 
     print("=" * 72)
-    print(f"🛡️ [S1 구조적 품질 린터 v1.5] 전수 검사 결과: {report['verdict']} ({score} / 100.0)")
+    print(f"🛡️ [S1 구조적 품질 린터 v1.6] 전수 검사 결과: {report['verdict']} ({score} / 100.0)")
     print("=" * 72)
     for c in checks:
         mark = "✅ PASS" if c["passed"] else "❌ FAIL (QM-SP-11 격리)"

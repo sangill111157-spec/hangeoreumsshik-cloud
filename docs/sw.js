@@ -1,5 +1,5 @@
 // S1 Service Worker v2026-stepagent-v9 (SUN-ONE AON Zero-Paste & Dual Bridge)
-const CACHE = 's1-aon-v24-first-screen-53tracks-045';
+const CACHE = 's1-aon-v25-connect-cli-anything-046';
 const ASSETS = [
   './',
   './index.html',
