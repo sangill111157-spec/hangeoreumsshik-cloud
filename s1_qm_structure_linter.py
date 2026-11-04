@@ -770,6 +770,17 @@ def check_fm014_real_bridge_ast_and_ego_v22_skill():
     if not idx_f.exists():
         return False, "index.html 누락"
     idx_content = idx_f.read_text(encoding="utf-8", errors="ignore")
+    
+    # [거짓 방지 하드 가드] 1) 가짜 날조 곡명 절대 금지, 2) 랭킹차트 2중 중복 삽입 절대 금지
+    fake_titles = ["가을의 마지막 잎새", "첫눈 오는 날의 온기"]
+    for ft in fake_titles:
+        if ft in idx_content:
+            return False, f"날조된 가짜 곡명 감지! '{ft}' 즉시 퇴출 필수 (QM-SP-11 격리)"
+
+    chart_count = idx_content.count('id="s1-kakaopage-ranking-chart"')
+    if chart_count != 1:
+        return False, f"카카오페이지 랭킹차트 중복/누락 결손: {chart_count}개 발견 (정확히 단 1개 필수)"
+
     required_kp_ids = [
         "s1-kakaopage-gnb-tabs",
         "s1-kakaopage-hero-banner",
