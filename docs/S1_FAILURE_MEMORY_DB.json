@@ -1,7 +1,7 @@
 {
-  "version": "1.3.0",
-  "directive_id": "RGON_DIR_ZERO_QUOTA_TRIUMVIRATE_FOUNDRY_AND_100PT_SHORTS_043",
-  "updated_at": "2026-11-04T19:33:00+09:00",
+  "version": "1.4.0",
+  "directive_id": "RGON_DIR_AUTUMN_WINTER_12TRACKS_MASTER_LAUNCH_044",
+  "updated_at": "2026-11-04T20:30:00+09:00",
   "policy": {
     "principle": "encode-lessons-in-structure & verification-before-completion",
     "enforcement_script": "s1_qm_structure_linter.py",
@@ -108,6 +108,16 @@
       "target_glob": "audio/FATHER_AGE_MASTER_SHORTS_1080x1920.mp4,s1_zero_quota_triumvirate_foundry.py",
       "guard_function": "check_fm010_beat_sync_and_motion_density",
       "remediation_qm_sp_18": "ZERO_COST_SAFETY_LOCK = True 하드 가드로 외부 유료 과금 API 호출을 0토큰 소모로 원천 차단하고, 10ms 단위 Onset/RMS 비트 칼싱크 및 전 컷 비선형 잔차 0.45px 이상(평균 0.70px 이상) xfade 소프트 필름 디졸브 합성 필수"
+    },
+    {
+      "id": "FM-011",
+      "title": "DistroKid 신보 12트랙(가을과 겨울 사이, 총 53곡) 원장·대시보드 누락 및 유료 Extras 업셀링 오가입 금지",
+      "incident_directive": "044호 마스터 특명 집행",
+      "root_cause": "신보 12트랙 발매 시 기존 41곡 원장과의 분절로 53곡 카탈로그 무결성이 훼손되거나, 배급 과정에서 DistroKid 유료 부가서비스(Extras 4종) 자동 가입으로 추가 과금이 발생하는 사고를 방지함",
+      "forbidden_pattern": "missing_53tracks_ledger_or_unauthorized_distrokid_extras",
+      "target_glob": "S1_DISTROKID_53_TRACKS_MASTER_LEDGER.json,index.html",
+      "guard_function": "check_fm011_autumn_winter_53tracks_ledger_and_extras_zero_cost",
+      "remediation_qm_sp_18": "S1_DISTROKID_53_TRACKS_MASTER_LEDGER.json 총 53곡 전수 등재, DistroKid 유료 Extras 4종 전면 배제(0원 방어), 대시보드 12트랙 쇼케이스 실시간 탑재"
     }
   ]
 }

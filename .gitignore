@@ -38,6 +38,8 @@
 !aon_15shorts_super_senior_manifest.json
 !dashboard/aon_15shorts_super_senior_manifest.json
 !docs/aon_15shorts_super_senior_manifest.json
+!S1_DISTROKID_53_TRACKS_MASTER_LEDGER.json
+!docs/S1_DISTROKID_53_TRACKS_MASTER_LEDGER.json
 *_secret*.json
 *_token*.json
 client_secret*.json

@@ -256,8 +256,8 @@ def check_fm008_dashboard_freshness():
 
     required_markers = [
         "./audio/father_age_shorts_scenes/scene_01.png?v=04",
-        "043호: 무과금(0원) 자율 삼성 파운드리 & AEON-7 오디오 비트 칼싱크 100점 마스터 쇼츠 완공",
-        "RGON_DIR_ZERO_QUOTA_TRIUMVIRATE_FOUNDRY_AND_100PT_SHORTS_043",
+        "044호: 아티스트 '한걸음씩' 정규 신보 〈가을과 겨울 사이〉 12트랙 & 53곡 원장 통합 및 폭포수 퍼널 완공",
+        "RGON_DIR_AUTUMN_WINTER_12TRACKS_MASTER_LAUNCH_044",
         "STAMP_042_5_AUDIT",
         "./S1_RGON_DIRECTIVE_QUEUE.json",
         "./S1_RELAY_STAMP_PASSPORT.json",
@@ -509,6 +509,46 @@ def check_fm010_beat_sync_and_motion_density():
     )
 
 
+
+def check_fm011_autumn_winter_53tracks_ledger_and_extras_zero_cost():
+    m_root = BASE / "S1_DISTROKID_53_TRACKS_MASTER_LEDGER.json"
+    m_docs = BASE / "docs" / "S1_DISTROKID_53_TRACKS_MASTER_LEDGER.json"
+    if not m_root.exists() or not m_docs.exists():
+        return False, "S1_DISTROKID_53_TRACKS_MASTER_LEDGER.json (루트 또는 docs/) 누락"
+    if sha256_file(m_root) != sha256_file(m_docs):
+        return False, "S1_DISTROKID_53_TRACKS_MASTER_LEDGER.json 루트 <-> docs 해시 불일치"
+
+    data = json.loads(m_root.read_text(encoding="utf-8"))
+    tracks = data.get("tracks", [])
+    if len(tracks) != 53:
+        return False, f"마스터 원장 총 트랙 수 불일치: {len(tracks)}곡 (53곡 필수)"
+
+    # Check 0 KRW extras policy
+    extras = data.get("distrokid_extras_zero_cost_policy", {})
+    if "ZERO_COST_PROTECTION_ENFORCED" not in extras.get("policy_status", ""):
+        return False, "DistroKid Extras 0원 무과금 수호 정책 미명시"
+
+    # Check masterbook
+    mb_root = BASE / "S1_AUTUMN_WINTER_12TRACKS_LAUNCH_MASTERBOOK.md"
+    mb_docs = BASE / "docs" / "S1_AUTUMN_WINTER_12TRACKS_LAUNCH_MASTERBOOK.md"
+    if not mb_root.exists() or not mb_docs.exists() or sha256_file(mb_root) != sha256_file(mb_docs):
+        return False, "S1_AUTUMN_WINTER_12TRACKS_LAUNCH_MASTERBOOK.md 누락 또는 docs 미러 불일치"
+
+    # Check IO TEST 15
+    p15_root = BASE / "S1_IO_TEST_15_AUTUMN_WINTER_53TRACKS_LAUNCH_PROOF.md"
+    p15_docs = BASE / "docs" / "S1_IO_TEST_15_AUTUMN_WINTER_53TRACKS_LAUNCH_PROOF.md"
+    if not p15_root.exists() or not p15_docs.exists() or sha256_file(p15_root) != sha256_file(p15_docs):
+        return False, "S1_IO_TEST_15_AUTUMN_WINTER_53TRACKS_LAUNCH_PROOF.md 누락 또는 docs 미러 불일치"
+
+    # Check passport 044 stamps
+    pp_data = json.loads((BASE / "S1_RELAY_STAMP_PASSPORT.json").read_text(encoding="utf-8"))
+    pp_stamps = pp_data.get("stamps", [])
+    pp_names = {s.get("stamp_name") or s.get("stamp_id") for s in pp_stamps}
+    if len(pp_stamps) < 42 or "STAMP_044_5_AUDIT" not in pp_names:
+        return False, f"S1_RELAY_STAMP_PASSPORT.json 044호 5대 공정 도장(#38~#42) 미완비 (현재 {len(pp_stamps)}개)"
+
+    return True, f"53곡 글로벌 원장 및 12트랙 쇼케이스·1+12 마스터북·유료 Extras 0원 방어·여권 42대 도장({len(pp_stamps)}개) 100% 무결 검증"
+
 GUARD_DISPATCH = {
     "check_fm001_no_fake_tkinter": check_fm001_no_fake_tkinter,
     "check_fm002_authentic_motion_shorts": check_fm002_authentic_motion_shorts,
@@ -520,6 +560,7 @@ GUARD_DISPATCH = {
     "check_fm008_dashboard_freshness": check_fm008_dashboard_freshness,
     "check_fm009_non_zoompan_dynamic_motion": check_fm009_non_zoompan_dynamic_motion,
     "check_fm010_beat_sync_and_motion_density": check_fm010_beat_sync_and_motion_density,
+    "check_fm011_autumn_winter_53tracks_ledger_and_extras_zero_cost": check_fm011_autumn_winter_53tracks_ledger_and_extras_zero_cost,
 }
 
 
@@ -616,8 +657,8 @@ def run_all_checks():
     all_passed = passed_count == total_count
 
     report = {
-        "linter_version": "1.3.0",
-        "directive_id": "RGON_DIR_ZERO_QUOTA_TRIUMVIRATE_FOUNDRY_AND_100PT_SHORTS_043",
+        "linter_version": "1.4.0",
+        "directive_id": "RGON_DIR_AUTUMN_WINTER_12TRACKS_MASTER_LAUNCH_044",
         "timestamp": now_iso(),
         "verdict": "PASS" if all_passed else "QM_SP_11_REJECTED_LOT",
         "score": score,
@@ -632,7 +673,7 @@ def run_all_checks():
         shutil.copyfile(report_path, BASE / "docs" / "S1_QM_LINTER_LAST_REPORT.json")
 
     print("=" * 72)
-    print(f"🛡️ [S1 구조적 품질 린터 v1.3] 전수 검사 결과: {report['verdict']} ({score} / 100.0)")
+    print(f"🛡️ [S1 구조적 품질 린터 v1.4] 전수 검사 결과: {report['verdict']} ({score} / 100.0)")
     print("=" * 72)
     for c in checks:
         mark = "✅ PASS" if c["passed"] else "❌ FAIL (QM-SP-11 격리)"

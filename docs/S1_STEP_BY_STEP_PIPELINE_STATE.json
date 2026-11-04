@@ -1576,6 +1576,12 @@
       "progress": 100.0,
       "current_stage": "STAGE_5_AUDIT",
       "updated_at": "2026-11-04T10:36:38.222158+00:00"
+    },
+    "RGON_DIR_AUTUMN_WINTER_12TRACKS_MASTER_LAUNCH_044": {
+      "status": "COMPLETED",
+      "progress": 100.0,
+      "current_stage": "STAGE_5_AUDIT",
+      "updated_at": "2026-11-04T11:35:38.504134+00:00"
     }
   },
   "pipeline_progress": {
