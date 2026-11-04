@@ -1,19 +1,17 @@
-# ⚡ [안총리 실시간 수거 집행 작업] RGON_DIR_HOST_BRIDGE_AND_038_COMPLETE_039 — 르곤 보좌관 공식 지시서 (038·039호 통합)
+# ⚡ [안총리 실시간 수거 집행 작업] RGON_DIR_5WEAPONS_WEAKNESS_COMPENSATION_040 — 르곤 보좌관 공식 지시서 (040호)
 
-- **지시서 ID:** `RGON_DIR_HOST_BRIDGE_AND_038_COMPLETE_039` (038호 연계)
-- **수거 일시:** `2026-11-04T15:38:22+09:00`
+- **지시서 ID:** `RGON_DIR_5WEAPONS_WEAKNESS_COMPENSATION_040`
+- **수거 일시:** `2026-11-04T16:22:46+09:00`
 - **발신자:** 수석보좌관 르곤 (Gemini 4 Argon · Space 0)
 - **수신자:** 기술총리 안총리 (Antigravity Technical PM)
-- **현재 상태:** `STEP 1~3 생성·선행 푸시 완료 / 바탕화면 S1_호스트_마스터_기동.bat 원클릭 대기`
+- **현재 상태:** `COMPLETED_100_PERCENT_PASS (040호 5대 단점 보완 무기 장착 · s1_qm_structure_linter 100.0 PASS)`
 
 ---
 
-## 📋 핵심 실행 내역 (038·039호 통합)
+## 📋 040호 핵심 구축 산출물 (5대 공정 완수)
 
-1. **STEP 1 (038호 설계서·프로세스 맵·대시보드 GitHub `main` 선행 푸시)**:
-   - `S1_EGO_NANO_ARCHITECTURE_SPEC.md`, `S1_QM_PROCESS_MAP_AND_ORG_CHART.md`, `index.html`, `sw.js` (및 `docs/` 미러본) GitHub `main` 반영 (4대 보호 파일 100% 무접촉).
-2. **STEP 2 (`s1_host_desktop_agent.py` 호스트 물리 화면 전용 원클릭 실행기)**:
-   - 대표님 직접 실행 시 실제 물리 모니터 해상도 측정 -> 진짜 `ego.exe` 하단 100% 배치 -> 좌상단 Space 0 배율·최하단 스크롤 -> 우상단 IDE 에디터/터미널 닫기 -> `PIL.ImageGrab.grab(all_screens=True)` 실물 캡처 & QM-SP-11 검사 -> 여권 날인, GitHub 푸시 및 Space 0 사진 자동 업로드 수행.
-   - 보안 헌법 준수: 샌드박스 경계를 우회하는 백그라운드 명령 큐(`_host_cmd_queue.json`), 레지스트리 시작프로그램 등록, `explorer.exe` 우회 호출은 배제하고 투명한 사용자 직접 단발 실행 구조로 구현.
-3. **STEP 3 (`S1_호스트_마스터_기동.bat` 바탕화면 배치)**:
-   - `C:\Users\sangi\Desktop\S1_호스트_마스터_기동.bat` 및 프로젝트 루트 동시 생성 완료.
+1. **`S1_GLOSSARY.md` (`docs/` 동기화)**: Matt Pocock Ubiquitous Language 표준 공통 용어사전 (20단어 -> 1단어 압축).
+2. **`S1_FAILURE_MEMORY_DB.json` (`docs/` 동기화)**: 과거 7대 부적합 사례(`FM-001` 가짜 tkinter ~ `FM-007` 오디오 404/미러 불일치) 불변 오답노트 로컬 DB.
+3. **`s1_qm_structure_linter.py` (`S1_QM_LINTER_LAST_REPORT.json`)**: SpaceX `pstack` (`encode-lessons-in-structure`) & `Superpowers` (`verification-before-completion`) 실물 구조적 린터 — `100.0 / 100.0 PASS` (EXIT CODE 0).
+4. **`S1_YOUTUBE_11_SKILLS_GUIDE.md` (`docs/` 동기화)**: 클로드 영상편집 5툴 표준 폴더 파이프라인 & 유튜브 11대 바이럴 스킬북(`YT-SKILL-01~11`).
+5. **대시보드 등재 (`index.html` `#s1-5weapons-compensation-040`, `sw.js` `v19`) 및 릴레이 여권(`STAMP_040_1_PLAN` ~ `STAMP_040_5_AUDIT`) 날인 완료**.

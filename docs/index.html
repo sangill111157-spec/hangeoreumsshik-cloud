@@ -947,6 +947,52 @@
       </details>
     </div>
 
+    <!-- ============================================================================== -->
+    <!-- [040호 정식 승인] 3자 단점 100% 보완 5대 세계 최고 무기 & 실패 오답노트 DB & 구조적 린터 -->
+    <!-- ============================================================================== -->
+    <div class="anatomy-panel" id="s1-5weapons-compensation-040" style="border:1.5px solid #10b981;margin-bottom:12px;background:linear-gradient(145deg,rgba(6,24,20,0.96),rgba(4,7,16,0.98));box-shadow:0 0 20px rgba(16,185,129,0.25);">
+      <div class="anatomy-header" style="border-bottom:1px solid rgba(16,185,129,0.3);padding-bottom:8px;margin-bottom:10px;flex-wrap:wrap;gap:6px;">
+        <div class="anatomy-title" style="color:#34d399;font-size:13px;font-weight:900;display:flex;align-items:center;gap:6px;">
+          <span>🛡️ [040호 장착 완료] 3자 단점 100% 보완 5대 오픈소스 무기 · 실패 오답노트 DB · 구조적 린터</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <span class="badge badge-green">s1_qm_structure_linter 100.0 PASS</span>
+          <span class="badge badge-cyan">오답노트 7종 잠금</span>
+          <span class="badge badge-gold">유튜브 11스킬 장착</span>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(195px,1fr));gap:8px;margin-bottom:10px;">
+        <div style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.35);border-radius:8px;padding:8px;">
+          <div style="font-size:11px;font-weight:900;color:#6ee7b7;">① 선검증 완료보고 (Superpowers)</div>
+          <div style="font-size:10px;color:#cbd5e1;margin-top:3px;line-height:1.4;"><code>verification-before-completion</code> 적용 — 실물 해시·린터 통과 전 허위 완료 보고 원천 차단</div>
+        </div>
+        <div style="background:rgba(6,182,212,0.08);border:1px solid rgba(6,182,212,0.35);border-radius:8px;padding:8px;">
+          <div style="font-size:11px;font-weight:900;color:#67e8f9;">② 구조적 박제 린터 (SpaceX pstack)</div>
+          <div style="font-size:10px;color:#cbd5e1;margin-top:3px;line-height:1.4;"><code>s1_qm_structure_linter.py</code> — 같은 말을 두 번 쓰지 않고 자동 코드 규칙(EXIT 1 격리)으로 강제</div>
+        </div>
+        <div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.35);border-radius:8px;padding:8px;">
+          <div style="font-size:11px;font-weight:900;color:#fde047;">③ 공통 용어사전 (Matt Pocock)</div>
+          <div style="font-size:10px;color:#cbd5e1;margin-top:3px;line-height:1.4;"><code>S1_GLOSSARY.md</code> &amp; <code>/grill-me</code> — 20단어 장황한 설명을 1단어로 압축, 승인 전 성급한 시공 금지</div>
+        </div>
+        <div style="background:rgba(236,72,153,0.08);border:1px solid rgba(236,72,153,0.35);border-radius:8px;padding:8px;">
+          <div style="font-size:11px;font-weight:900;color:#f9a8d4;">④ 실패 오답노트 DB (FM-001~007)</div>
+          <div style="font-size:10px;color:#cbd5e1;margin-top:3px;line-height:1.4;"><code>S1_FAILURE_MEMORY_DB.json</code> — 가짜 tkinter·lockfile 선점·864px 고정·404 등 7대 실수 재발 영구 차단</div>
+        </div>
+        <div style="background:rgba(168,85,247,0.08);border:1px solid rgba(168,85,247,0.35);border-radius:8px;padding:8px;">
+          <div style="font-size:11px;font-weight:900;color:#d8b4fe;">⑤ 영상편집 5툴 &amp; 유튜브 11스킬</div>
+          <div style="font-size:10px;color:#cbd5e1;margin-top:3px;line-height:1.4;"><code>S1_YOUTUBE_11_SKILLS_GUIDE.md</code> — 21종 훅 채점·제목/썸네일 쌍·6컷 스토리보드·루프 브릿지 표준화</div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <a href="./S1_GLOSSARY.md" target="_blank" rel="noopener noreferrer" style="background:rgba(245,158,11,0.16);border:1px solid rgba(245,158,11,0.45);color:#fde68a;padding:5px 10px;border-radius:6px;font-size:10.5px;font-weight:800;text-decoration:none;">📖 S1 용어사전 열람</a>
+        <a href="./S1_FAILURE_MEMORY_DB.json" target="_blank" rel="noopener noreferrer" style="background:rgba(236,72,153,0.16);border:1px solid rgba(236,72,153,0.45);color:#fbcfe8;padding:5px 10px;border-radius:6px;font-size:10.5px;font-weight:800;text-decoration:none;">🚨 실패 오답노트 DB (7종)</a>
+        <a href="./S1_YOUTUBE_11_SKILLS_GUIDE.md" target="_blank" rel="noopener noreferrer" style="background:rgba(168,85,247,0.16);border:1px solid rgba(168,85,247,0.45);color:#e9d5ff;padding:5px 10px;border-radius:6px;font-size:10.5px;font-weight:800;text-decoration:none;">🎬 유튜브 11대 스킬북</a>
+        <a href="./S1_QM_LINTER_LAST_REPORT.json" target="_blank" rel="noopener noreferrer" style="background:rgba(16,185,129,0.16);border:1px solid rgba(16,185,129,0.45);color:#a7f3d0;padding:5px 10px;border-radius:6px;font-size:10.5px;font-weight:800;text-decoration:none;">✅ 구조적 린터 실측 리포트</a>
+      </div>
+    </div>
+
     <!-- [S1-HARVESTER-FEED-START] -->
 <div class="anatomy-panel" id="s1-harvester-live-panel" style="border-color:#06b6d4;margin-bottom:12px;background:rgba(8,15,30,0.94);box-shadow:0 0 15px rgba(6,182,212,0.25);">
   <div class="anatomy-header" style="border-bottom:1px solid rgba(6,182,212,0.25);padding-bottom:8px;margin-bottom:8px;">
