@@ -61,6 +61,17 @@ def init_ledgers():
     if not PROCESSED_FILE.exists():
         save_json(PROCESSED_FILE, [])
 
+def is_ego_running():
+    """대표님께서 직접 여신 ego.exe가 실행 중일 때만 스캔하여, 샌드박스 백그라운드 데몬이 프로필 lockfile을 선점하는 현상을 원천 방지."""
+    try:
+        out = subprocess.check_output(
+            ["tasklist", "/FI", "IMAGENAME eq ego.exe", "/NH"],
+            text=True, encoding="utf-8", errors="ignore", timeout=3
+        )
+        return "ego.exe" in out.lower()
+    except Exception:
+        return False
+
 def scan_space0_deep(do_reload=False):
     """
     [수거봇 눈 복원 v5.0 - 025호 무렉(Zero-Lag) & Human-Presence Shield & 비침습 스캔]
@@ -69,6 +80,8 @@ def scan_space0_deep(do_reload=False):
     3. Human-Presence Shield: 마우스 포커스(document.hasFocus) 또는 드래그(window.getSelection) 시 새로고침/스크롤 100% Skip
     4. finally에서 finish({ keep: [] })로 세션 종료하여 파란 테두리 / Need your action 원천 차단 (ownership: "user")
     """
+    if not is_ego_running():
+        return {"ok": False, "skipped": "EGO_NOT_RUNNING"}
     import s1_ego
     js = f"""
     let task = null;

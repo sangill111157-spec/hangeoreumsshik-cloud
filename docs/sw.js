@@ -1,5 +1,5 @@
 // S1 Service Worker v2026-stepagent-v9 (SUN-ONE AON Zero-Paste & Dual Bridge)
-const CACHE = 's1-aon-v16-chorus-climax-watercolor-shorts';
+const CACHE = 's1-aon-v18-5stage-triumvirate-038';
 const ASSETS = [
   './',
   './index.html',

@@ -66,3 +66,4 @@ agent-desktop move-window <window_id> --x 0 --y 0 --width 768 --height 432
    - `Ctrl+B`를 통해 좌측 파일 트리 사이드바를 접고 안총리 대화창 100% 전면 노출.
 4. **결함 ④ (임시 파일 청소):**
    - 91개 임시 스크립트 정리.
+
