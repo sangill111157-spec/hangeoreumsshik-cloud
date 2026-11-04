@@ -772,6 +772,18 @@ def check_fm014_real_bridge_ast_and_ego_v22_skill():
     idx_content = idx_f.read_text(encoding="utf-8", errors="ignore")
     
     # [거짓 방지 하드 가드] 1) 가짜 날조 곡명 절대 금지, 2) 랭킹차트 2중 중복 삽입 절대 금지
+    # [047B호 레이아웃 및 잔류 찌꺼기 하드 가드]
+    # 1) 잔류 찌꺼기 감지 시 즉시 EXIT 1 격리
+    forbidden_residues = ["Track 02 · Acoustic", "Track 03 · Warm Pad", "가을의 마지막 잎새", "첫눈 오는 날의 온기"]
+    for fr in forbidden_residues:
+        if fr in idx_content:
+            return False, f"레이아웃 결함 잔류 찌꺼기 감지! '{fr}' 즉시 퇴출 필수 (QM-SP-11 격리)"
+
+    # 2) s1-kakaopage-gnb-tabs 가 <main class="mn"> 내부에 위치하는지 엄격 검증
+    mn_pos = idx_content.find('<main class="mn"')
+    gnb_pos = idx_content.find('id="s1-kakaopage-gnb-tabs"')
+    if mn_pos == -1 or gnb_pos == -1 or gnb_pos < mn_pos:
+        return False, f"카카오페이지 GNB 탭바가 <main class='mn'> 바깥에 위치하여 스크롤 먹통 결함 유발 (gnb_pos={gnb_pos}, mn_pos={mn_pos})"
     fake_titles = ["가을의 마지막 잎새", "첫눈 오는 날의 온기"]
     for ft in fake_titles:
         if ft in idx_content:

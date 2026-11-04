@@ -765,44 +765,161 @@
 </head>
 <body>
 
-  <!-- ============================================================== -->
-  <!-- 📱 [047호 정직한 카카오페이지 Dynamic Snapview 단일 블록] -->
-  <!-- ============================================================== -->
-  
-  <!-- ① [s1-kakaopage-gnb-tabs] 실작동 스크롤 GNB 탭바 -->
-  <nav id="s1-kakaopage-gnb-tabs" style="position: sticky; top: 0; z-index: 9999; background: rgba(18, 18, 24, 0.96); backdrop-filter: blur(16px); border-bottom: 2px solid #ffcd00; padding: 10px 16px; display: flex; gap: 8px; overflow-x: auto;">
-    <button onclick="document.getElementById('banner-father-mountain').scrollIntoView({behavior:'smooth'})" style="background: #ffcd00; color: #111; font-weight: 800; border: none; border-radius: 20px; padding: 8px 16px; cursor: pointer; white-space: nowrap;">🔥 홈·신보</button>
-    <button onclick="document.getElementById('s1-kakaopage-ranking-chart').scrollIntoView({behavior:'smooth'})" style="background: #2a2a38; color: #eee; font-weight: 600; border: none; border-radius: 20px; padding: 8px 16px; cursor: pointer; white-space: nowrap;">🏆 실시간 12곡 차트</button>
-    <button onclick="document.getElementById('s1-autumn-winter-12tracks-showcase').scrollIntoView({behavior:'smooth'})" style="background: #2a2a38; color: #eee; font-weight: 600; border: none; border-radius: 20px; padding: 8px 16px; cursor: pointer; white-space: nowrap;">💿 12트랙 쇼케이스</button>
-    <button onclick="document.getElementById('s1-qm-process-map-038').scrollIntoView({behavior:'smooth'})" style="background: #2a2a38; color: #eee; font-weight: 600; border: none; border-radius: 20px; padding: 8px 16px; cursor: pointer; white-space: nowrap;">⚖️ 삼성품질·린터</button>
-    <button onclick="document.getElementById('s1-passport-chain-board').scrollIntoView({behavior:'smooth'})" style="background: #2a2a38; color: #eee; font-weight: 600; border: none; border-radius: 20px; padding: 8px 16px; cursor: pointer; white-space: nowrap;">📡 릴레이 여권원장</button>
-  </nav>
-
-  <!-- ② [s1-kakaopage-hero-banner] 기다무 빅배너 & D-2 타이머 -->
-  <section id="s1-kakaopage-hero-banner" style="margin: 16px 0; background: linear-gradient(135deg, #1f1b2e 0%, #111118 100%); border-radius: 16px; padding: 20px; border: 1px solid rgba(255, 205, 0, 0.3); box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-      <span style="background: #e60023; color: white; font-weight: 900; font-size: 12px; padding: 4px 10px; border-radius: 6px;">[UP] [정품 12곡 신보]</span>
-      <span style="background: #ffcd00; color: #111; font-weight: 800; font-size: 13px; padding: 4px 12px; border-radius: 12px;">⏰ 11/6 발매 D-2 (기다무 타이머)</span>
+  <!-- Top Cyber Header -->
+  <header class="hd">
+    <div class="br">
+      <div class="brand-logo-frame">
+        <img src="./icon-192.png?v=2026anatomy_v8" alt="SUN-ONE AON">
+      </div>
+      <div class="brand-text">
+        <span class="bt">SUN-ONE AON</span>
+        <span class="bs" id="hdr-status">🟢 SUN-ONE AON 무복붙 사령부 가동 중 (Auto-Sync)</span>
+      </div>
     </div>
-    <h2 style="color: #fff; margin: 8px 0; font-size: 20px; font-weight: 800;">〈가을과 겨울 사이〉 신보 12트랙 &amp; 아버지라는 산 쇼츠</h2>
-    <p style="color: #aaa; margin: 4px 0 14px 0; font-size: 14px;">카카오페이지 독점 연재: 12곡 전곡 가사·원장 정합 &amp; 320k 스트리밍</p>
+    <div class="ac">
+      <button type="button" class="btn" id="b-core" aria-expanded="false">8대코어</button>
+      <button type="button" class="btn pri" id="b-pwa">+ 앱 설치</button>
+    </div>
+  </header>
+
+  <!-- 👑 [042호 정식 승인] 한걸음씩 — 아버지 나이가 됐어요 (친근한 디즈니·픽사 감성 3D 실사화 & 탈줌인 모션 쇼츠) -->
+  <aside class="top-player-banner" id="banner-father-mountain" style="background: linear-gradient(135deg, rgba(17, 24, 39, 0.98), rgba(15, 23, 42, 0.98)); border-bottom: 2px solid #ec4899; padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; z-index: 9999; position: sticky; top: 0; box-shadow: 0 4px 20px rgba(236, 72, 153, 0.25); flex-wrap: wrap;">
+    <div style="display:flex; align-items:center; gap:12px; min-width:280px;">
+      <img src="./audio/father_age_shorts_scenes/scene_01.png?v=042" alt="아버지 나이가 됐어요 (친근한 디즈니·픽사 감성 3D 1컷)" style="width:48px; height:48px; border-radius:8px; border:1px solid #ec4899; object-fit:cover; flex-shrink:0;">
+      <div>
+        <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
+          <span style="background:#be185d; color:#fff; font-size:10px; font-weight:800; padding:2px 6px; border-radius:4px;">🎬 047호: 카카오페이지 에디션 UI &amp; 하단 에고라이트 실물관제 &amp; 실질 삼성제도 완공 (17/17 PASS)</span>
+          <span style="font-size:11px; color:#f472b6; font-weight:700;">한걸음씩 (@sangill111157)</span>
+        </div>
+        <div style="font-size:14px; font-weight:800; color:#fff; margin-top:2px;">아버지 나이가 됐어요 <span style="font-size:11px; color:#9ca3af; font-weight:400;">(34s 후렴구 비트칼싱크 · 디즈니 3D 아버지 미소 · FM-012 15/15 PASS)</span></div>
+      </div>
+    </div>
+    <div style="display:flex; align-items:center; gap:8px; flex-grow:1; max-width:680px; justify-content:flex-end; flex-wrap:wrap;">
+      <a href="./audio/FATHER_AGE_MASTER_SHORTS_1080x1920.mp4?v=042" target="_blank" rel="noopener noreferrer" style="background:#ec4899; color:#fff; text-decoration:none; padding:7px 12px; border-radius:6px; font-size:11px; font-weight:800; display:inline-flex; align-items:center; gap:4px; white-space:nowrap; border:1px solid #f472b6; box-shadow:0 0 10px rgba(236,72,153,0.4);">
+        📱 9:16 쇼츠 재생
+      </a>
+      <audio controls preload="metadata" style="height:34px; max-width:240px; width:100%; border-radius:18px;">
+        <source src="https://raw.githubusercontent.com/sangill111157-spec/hangeoreumsshik-cloud/main/studio_vault/CEO_SUNO_V6_MASTERS/FATHER_AGE_master_320kbps.mp3" type="audio/mpeg">
+        <source src="./audio/FATHER_AGE_master_320kbps.mp3" type="audio/mpeg">
+      </audio>
+      <a href="./audio/FATHER_AGE_1080p_MV.mp4" target="_blank" rel="noopener noreferrer" style="background:#be185d; color:#fff; text-decoration:none; padding:7px 10px; border-radius:6px; font-size:11px; font-weight:700; display:inline-flex; align-items:center; gap:4px; white-space:nowrap; border:1px solid #ec4899;">
+        🎬 풀MV
+      </a>
+      <a href="https://suno.com/song/997ce931-4adc-490d-8f6c-acad54d1cd62" target="_blank" rel="noopener noreferrer" style="background:rgba(255,255,255,0.08); color:#f472b6; text-decoration:none; padding:7px 10px; border-radius:6px; font-size:11px; font-weight:700; white-space:nowrap; border:1px solid rgba(244,114,182,0.3);">
+        🎵 Suno 원본
+      </a>
+    </div>
+  </aside>
+
+  <!-- 045호 신보 가을과 겨울 사이 12트랙 쇼케이스 카드 (id="s1-autumn-winter-12tracks-showcase") -->
+  <section id="s1-autumn-winter-12tracks-showcase" style="max-width:1200px; margin: 12px auto; padding: 14px 18px; border: 1.5px solid #d97706; background: linear-gradient(135deg, rgba(30, 41, 59, 0.98), rgba(15, 23, 42, 0.98)); border-radius: 10px; box-shadow: 0 4px 20px rgba(217, 119, 6, 0.2);">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 8px; flex-wrap:wrap; gap:8px;">
+      <div style="display:flex; align-items:center; gap:8px;">
+        <span style="font-size:18px;">🍂</span>
+        <span style="font-weight:800; color:#fbbf24; font-size:14px;">[2026.11.06 글로벌 발매] 한걸음씩 정규 신보 〈가을과 겨울 사이〉 12트랙 전곡 라인업</span>
+        <span style="background:#be185d; color:#fff; font-size:10px; font-weight:700; padding:2px 6px; border-radius:4px;">총 53곡 달성 · 24개 스토어 배급 · 유료 Extras 0원 방어</span>
+      </div>
+      <span style="background:#059669; color:#fff; font-size:11px; font-weight:800; padding:3px 8px; border-radius:4px;">D-2 전세계 동시공개</span>
+    </div>
+    <p style="font-size:12px; color:#94a3b8; margin:0 0 10px 0; line-height:1.5;">
+      기존 41곡 카탈로그에 신보 12곡을 더해 <b>총 53곡 글로벌 원장</b> 체제를 구축했습니다. DistroKid 24개 글로벌 플랫폼에 정규 발매되며, 유료 Extras 4종을 전면 배제(0원 무과금 방어)하여 33% 글로벌 환원 철학을 온전히 수호합니다.
+    </p>
+    <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 6px; font-size:11px; margin-bottom: 10px;">
+      <div style="background:rgba(255,255,255,0.05); padding:5px 8px; border-radius:4px; color:#e2e8f0;">01. 막차 (Opening)</div>
+      <div style="background:rgba(255,255,255,0.05); padding:5px 8px; border-radius:4px; color:#e2e8f0;">02. 창을 닫지 마</div>
+      <div style="background:rgba(255,255,255,0.05); padding:5px 8px; border-radius:4px; color:#e2e8f0;">03. 첫 입김</div>
+      <div style="background:rgba(217,119,6,0.2); padding:5px 8px; border-radius:4px; border-left:3px solid #f59e0b; color:#fbbf24; font-weight:700;">04. 오늘은 여기까지 ★</div>
+      <div style="background:rgba(217,119,6,0.2); padding:5px 8px; border-radius:4px; border-left:3px solid #f59e0b; color:#fbbf24; font-weight:700;">05. 밥은 먹었니 ★</div>
+      <div style="background:rgba(255,255,255,0.05); padding:5px 8px; border-radius:4px; color:#e2e8f0;">06. 식어 가는 차</div>
+      <div style="background:rgba(255,255,255,0.05); padding:5px 8px; border-radius:4px; color:#e2e8f0;">07. 가로등 아래서</div>
+      <div style="background:rgba(255,255,255,0.05); padding:5px 8px; border-radius:4px; color:#e2e8f0;">08. 남겨 둔 자리</div>
+      <div style="background:rgba(255,255,255,0.05); padding:5px 8px; border-radius:4px; color:#e2e8f0;">09. 보내지 않은 말</div>
+      <div style="background:rgba(217,119,6,0.2); padding:5px 8px; border-radius:4px; border-left:3px solid #f59e0b; color:#fbbf24; font-weight:700;">10. 불은 꺼지지 않아 ★</div>
+      <div style="background:rgba(255,255,255,0.05); padding:5px 8px; border-radius:4px; color:#e2e8f0;">11. 난로 옆에서</div>
+      <div style="background:rgba(217,119,6,0.2); padding:5px 8px; border-radius:4px; border-left:3px solid #f59e0b; color:#fbbf24; font-weight:700;">12. 내일의 아침 ★</div>
+    </div>
+    <div style="display:flex; gap:8px; flex-wrap:wrap;">
+      <a href="./S1_DISTROKID_53_TRACKS_MASTER_LEDGER.json" target="_blank" style="background:#2563eb; color:#fff; text-decoration:none; padding:5px 10px; border-radius:4px; font-size:11px; font-weight:700;">💿 53곡 마스터 원장 JSON</a>
+      <a href="./S1_AUTUMN_WINTER_12TRACKS_LAUNCH_MASTERBOOK.md" target="_blank" style="background:#7c3aed; color:#fff; text-decoration:none; padding:5px 10px; border-radius:4px; font-size:11px; font-weight:700;">📖 1+12 폭포수 퍼널 마스터북</a>
+    </div>
   </section>
 
-  <!-- ③ [s1-kakaopage-keytalk] 키토크 태그바 -->
-  <div id="s1-kakaopage-keytalk" style="display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 20px 0;">
-    <span style="background: #242436; color: #ffcd00; border: 1px solid rgba(255,205,0,0.4); border-radius: 16px; padding: 6px 14px; font-size: 13px; font-weight: 700;">#오늘은여기까지</span>
-    <span style="background: #242436; color: #ffcd00; border: 1px solid rgba(255,205,0,0.4); border-radius: 16px; padding: 6px 14px; font-size: 13px; font-weight: 700;">#밥은먹었니</span>
-    <span style="background: #242436; color: #ffcd00; border: 1px solid rgba(255,205,0,0.4); border-radius: 16px; padding: 6px 14px; font-size: 13px; font-weight: 700;">#불은꺼지지않아</span>
-    <span style="background: #242436; color: #ffcd00; border: 1px solid rgba(255,205,0,0.4); border-radius: 16px; padding: 6px 14px; font-size: 13px; font-weight: 700;">#내일의아침</span>
-    <span style="background: #242436; color: #ffcd00; border: 1px solid rgba(255,205,0,0.4); border-radius: 16px; padding: 6px 14px; font-size: 13px; font-weight: 700;">#상선약수33%환원</span>
+
+
+  <!-- 7-Operations Horizontal Touch Bar (Mobile Friendly) -->
+  <nav class="ops-bar">
+    <button type="button" class="op-btn cyan" id="btn-daily-rnd">🔬 일일 R&D 본부</button>
+    <button type="button" class="op-btn gold" id="btn-reflection-purge">🧹 자아성찰·폐기물 정화</button>
+    <button type="button" class="op-btn gold" id="btn-pipeline">🚀 3+1 신규 파이프라인</button>
+    <button type="button" class="op-btn cyan" id="btn-master-ledger">💿 11/6 신보(12곡) & 53곡 원장</button>
+    <button type="button" class="op-btn gold" id="btn-directive-ledger">📡 르곤⇄안총리 지시원장</button>
+    <button type="button" class="op-btn" id="btn-channels">📺 4대 공식 유튜브</button>
+    <button type="button" class="op-btn" id="btn-calendar">📅 11월 출격 캘린더</button>
+    <button type="button" class="op-btn" id="btn-cores-audit">🛡️ 8대코어·삼성감리</button>
+    <button type="button" class="op-btn" id="btn-pwa-install">📲 홈 화면 앱 설치</button>
+  </nav>
+
+  <!-- Target Dispatcher Bar -->
+  <div class="target-bar" id="target-selector">
+    <span style="font-size:11px;color:var(--muted);font-weight:700;">수신처:</span>
+    <button type="button" class="target-chip active" data-target="all">🎯 르곤+안총리 동시</button>
+    <button type="button" class="target-chip" data-target="rgon">👑 르곤 보좌관 직통</button>
+    <button type="button" class="target-chip" data-target="anchongri">⚙️ 안총리 직통</button>
   </div>
 
-  <!-- ④ [s1-kakaopage-ranking-chart] 진짜 신보 12곡 전체 실시간 랭킹 차트 -->
-  <section id="s1-kakaopage-ranking-chart" style="margin: 20px 0; background: #181822; border-radius: 16px; padding: 18px; border: 1px solid #33334d;">
-    <h3 style="color: #ffcd00; margin-top: 0; font-size: 16px; font-weight: 800; display: flex; align-items: center; gap: 8px;">
-      <span>🏆</span> 신보 〈가을과 겨울 사이〉 정품 12트랙 실시간 랭킹 차트
-    </h3>
-    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 10px; margin-top: 12px;">
+  <!-- 8-Core Diagnostics Drawer -->
+  <section class="dr" id="dr-core">
+    <div class="cc" data-q="Core 1 킬스위치 실측 상태 점검"><span>Core 1 킬스위치 (정상)</span><span class="dot"></span></div>
+    <div class="cc" data-q="Core 2 UUID원장 실측 상태 점검"><span>Core 2 UUID원장 (정상)</span><span class="dot"></span></div>
+    <div class="cc" data-q="Core 3 48kHz마스터 실측 상태 점검"><span>Core 3 48kHz마스터 (정상)</span><span class="dot"></span></div>
+    <div class="cc" data-q="Core 4 시네마틱루프 실측 상태 점검"><span>Core 4 시네마틱루프 (정상)</span><span class="dot"></span></div>
+    <div class="cc" data-q="Core 5 SHA256감사 실측 상태 점검"><span>Core 5 SHA256감사 (정상)</span><span class="dot"></span></div>
+    <div class="cc" data-q="Core 6 옴니채널배급 실측 상태 점검"><span>Core 6 옴니채널배급 (정상)</span><span class="dot"></span></div>
+    <div class="cc" data-q="Core 7 성과·IP확장 실측 상태 점검"><span>Core 7 성과·IP확장 (정상)</span><span class="dot"></span></div>
+    <div class="cc" data-q="Core 8 퀀트·환원 실측 상태 점검"><span>Core 8 퀀트·환원 (정상)</span><span class="dot"></span></div>
+  </section>
+
+  <!-- Main Scrollable Body Area -->
+  <main class="mn" id="st" role="log" aria-live="polite">
+
+    <!-- ============================================================== -->
+    <!-- 📱 [047B호 정품 카카오페이지 Dynamic Snapview <main class="mn"> 내부 탑재] -->
+    <!-- ============================================================== -->
+    
+    <!-- ① [s1-kakaopage-gnb-tabs] <main class="mn"> 내부 스티키 GNB 탭바 -->
+    <nav id="s1-kakaopage-gnb-tabs" style="position: sticky; top: 0; z-index: 999; background: rgba(18, 18, 24, 0.96); backdrop-filter: blur(16px); border-bottom: 2px solid #ffcd00; padding: 10px 16px; display: flex; gap: 8px; overflow-x: auto; margin: -12px -12px 16px -12px;">
+      <button onclick="document.getElementById('banner-father-mountain').scrollIntoView({behavior:'smooth'})" style="background: #ffcd00; color: #111; font-weight: 800; border: none; border-radius: 20px; padding: 8px 16px; cursor: pointer; white-space: nowrap;">🔥 홈·신보</button>
+      <button onclick="document.getElementById('s1-kakaopage-ranking-chart').scrollIntoView({behavior:'smooth'})" style="background: #2a2a38; color: #eee; font-weight: 600; border: none; border-radius: 20px; padding: 8px 16px; cursor: pointer; white-space: nowrap;">🏆 실시간 12곡 차트</button>
+      <button onclick="document.getElementById('s1-autumn-winter-12tracks-showcase').scrollIntoView({behavior:'smooth'})" style="background: #2a2a38; color: #eee; font-weight: 600; border: none; border-radius: 20px; padding: 8px 16px; cursor: pointer; white-space: nowrap;">💿 12트랙 쇼케이스</button>
+      <button onclick="document.getElementById('s1-qm-process-map-038').scrollIntoView({behavior:'smooth'})" style="background: #2a2a38; color: #eee; font-weight: 600; border: none; border-radius: 20px; padding: 8px 16px; cursor: pointer; white-space: nowrap;">⚖️ 삼성품질·린터</button>
+      <button onclick="document.getElementById('s1-passport-chain-board').scrollIntoView({behavior:'smooth'})" style="background: #2a2a38; color: #eee; font-weight: 600; border: none; border-radius: 20px; padding: 8px 16px; cursor: pointer; white-space: nowrap;">📡 릴레이 여권원장</button>
+    </nav>
+
+    <!-- ② [s1-kakaopage-hero-banner] 기다무 빅배너 & D-2 타이머 -->
+    <section id="s1-kakaopage-hero-banner" style="margin: 16px 0; background: linear-gradient(135deg, #1f1b2e 0%, #111118 100%); border-radius: 16px; padding: 20px; border: 1px solid rgba(255, 205, 0, 0.3); box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+        <span style="background: #e60023; color: white; font-weight: 900; font-size: 12px; padding: 4px 10px; border-radius: 6px;">[UP] [정품 12곡 신보]</span>
+        <span style="background: #ffcd00; color: #111; font-weight: 800; font-size: 13px; padding: 4px 12px; border-radius: 12px;">⏰ 11/6 발매 D-2 (기다무 타이머)</span>
+      </div>
+      <h2 style="color: #fff; margin: 8px 0; font-size: 20px; font-weight: 800;">〈가을과 겨울 사이〉 신보 12트랙 &amp; 아버지라는 산 쇼츠</h2>
+      <p style="color: #aaa; margin: 4px 0 14px 0; font-size: 14px;">카카오페이지 독점 연재: 12곡 전곡 가사·원장 정합 &amp; 320k 스트리밍</p>
+    </section>
+
+    <!-- ③ [s1-kakaopage-keytalk] 키토크 태그바 -->
+    <div id="s1-kakaopage-keytalk" style="display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 20px 0;">
+      <span style="background: #242436; color: #ffcd00; border: 1px solid rgba(255,205,0,0.4); border-radius: 16px; padding: 6px 14px; font-size: 13px; font-weight: 700;">#오늘은여기까지</span>
+      <span style="background: #242436; color: #ffcd00; border: 1px solid rgba(255,205,0,0.4); border-radius: 16px; padding: 6px 14px; font-size: 13px; font-weight: 700;">#밥은먹었니</span>
+      <span style="background: #242436; color: #ffcd00; border: 1px solid rgba(255,205,0,0.4); border-radius: 16px; padding: 6px 14px; font-size: 13px; font-weight: 700;">#불은꺼지지않아</span>
+      <span style="background: #242436; color: #ffcd00; border: 1px solid rgba(255,205,0,0.4); border-radius: 16px; padding: 6px 14px; font-size: 13px; font-weight: 700;">#내일의아침</span>
+      <span style="background: #242436; color: #ffcd00; border: 1px solid rgba(255,205,0,0.4); border-radius: 16px; padding: 6px 14px; font-size: 13px; font-weight: 700;">#상선약수33%환원</span>
+    </div>
+
+    <!-- ④ [s1-kakaopage-ranking-chart] 진짜 신보 12곡 실시간 랭킹 차트 -->
+    <section id="s1-kakaopage-ranking-chart" style="margin: 20px 0; background: #181822; border-radius: 16px; padding: 18px; border: 1px solid #33334d;">
+      <h3 style="color: #ffcd00; margin-top: 0; font-size: 16px; font-weight: 800; display: flex; align-items: center; gap: 8px;">
+        <span>🏆</span> 신보 〈가을과 겨울 사이〉 정품 12트랙 실시간 랭킹 차트
+      </h3>
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 10px; margin-top: 12px;">
       <div style="display: flex; align-items: center; gap: 12px; background: #222232; padding: 10px 14px; border-radius: 10px; border-left: 4px solid #555;">
         <span style="font-size: 16px; font-weight: 900; color: #ffcd00; width: 26px;">01</span>
         <div style="flex: 1;">
@@ -923,163 +1040,9 @@
         </div>
         <span style="color: #ff4d4f; font-size: 11px; font-weight: 800;">HOT</span>
       </div>
-    </div>
-  </section>
-
-
-  <!-- Top Cyber Header -->
-  <header class="hd">
-    <div class="br">
-      <div class="brand-logo-frame">
-        <img src="./icon-192.png?v=2026anatomy_v8" alt="SUN-ONE AON">
       </div>
-      <div class="brand-text">
-        <span class="bt">SUN-ONE AON</span>
-        <span class="bs" id="hdr-status">🟢 SUN-ONE AON 무복붙 사령부 가동 중 (Auto-Sync)</span>
-      </div>
-    </div>
-    <div class="ac">
-      <button type="button" class="btn" id="b-core" aria-expanded="false">8대코어</button>
-      <button type="button" class="btn pri" id="b-pwa">+ 앱 설치</button>
-    </div>
-  </header>
+    </section>
 
-  <!-- 👑 [042호 정식 승인] 한걸음씩 — 아버지 나이가 됐어요 (친근한 디즈니·픽사 감성 3D 실사화 & 탈줌인 모션 쇼츠) -->
-  <aside class="top-player-banner" id="banner-father-mountain" style="background: linear-gradient(135deg, rgba(17, 24, 39, 0.98), rgba(15, 23, 42, 0.98)); border-bottom: 2px solid #ec4899; padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; z-index: 9999; position: sticky; top: 0; box-shadow: 0 4px 20px rgba(236, 72, 153, 0.25); flex-wrap: wrap;">
-    <div style="display:flex; align-items:center; gap:12px; min-width:280px;">
-      <img src="./audio/father_age_shorts_scenes/scene_01.png?v=042" alt="아버지 나이가 됐어요 (친근한 디즈니·픽사 감성 3D 1컷)" style="width:48px; height:48px; border-radius:8px; border:1px solid #ec4899; object-fit:cover; flex-shrink:0;">
-      <div>
-        <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
-          <span style="background:#be185d; color:#fff; font-size:10px; font-weight:800; padding:2px 6px; border-radius:4px;">🎬 047호: 카카오페이지 에디션 UI &amp; 하단 에고라이트 실물관제 &amp; 실질 삼성제도 완공 (17/17 PASS)</span>
-          <span style="font-size:11px; color:#f472b6; font-weight:700;">한걸음씩 (@sangill111157)</span>
-        </div>
-        <div style="font-size:14px; font-weight:800; color:#fff; margin-top:2px;">아버지 나이가 됐어요 <span style="font-size:11px; color:#9ca3af; font-weight:400;">(34s 후렴구 비트칼싱크 · 12.06MB 초고속 스트리밍 · SAR 1:1 · FM-013 16/16 PASS)</span></div>
-      </div>
-    </div>
-    <div style="display:flex; align-items:center; gap:8px; flex-grow:1; max-width:680px; justify-content:flex-end; flex-wrap:wrap;">
-      <a href="./audio/FATHER_AGE_MASTER_SHORTS_1080x1920.mp4?v=042" target="_blank" rel="noopener noreferrer" style="background:#ec4899; color:#fff; text-decoration:none; padding:7px 12px; border-radius:6px; font-size:11px; font-weight:800; display:inline-flex; align-items:center; gap:4px; white-space:nowrap; border:1px solid #f472b6; box-shadow:0 0 10px rgba(236,72,153,0.4);">
-        📱 9:16 쇼츠 재생
-      </a>
-      <audio controls preload="metadata" style="height:34px; max-width:240px; width:100%; border-radius:18px;">
-        <source src="https://raw.githubusercontent.com/sangill111157-spec/hangeoreumsshik-cloud/main/studio_vault/CEO_SUNO_V6_MASTERS/FATHER_AGE_master_320kbps.mp3" type="audio/mpeg">
-        <source src="./audio/FATHER_AGE_master_320kbps.mp3" type="audio/mpeg">
-      </audio>
-      <a href="./audio/FATHER_AGE_1080p_MV.mp4" target="_blank" rel="noopener noreferrer" style="background:#be185d; color:#fff; text-decoration:none; padding:7px 10px; border-radius:6px; font-size:11px; font-weight:700; display:inline-flex; align-items:center; gap:4px; white-space:nowrap; border:1px solid #ec4899;">
-        🎬 풀MV
-      </a>
-      <a href="https://suno.com/song/997ce931-4adc-490d-8f6c-acad54d1cd62" target="_blank" rel="noopener noreferrer" style="background:rgba(255,255,255,0.08); color:#f472b6; text-decoration:none; padding:7px 10px; border-radius:6px; font-size:11px; font-weight:700; white-space:nowrap; border:1px solid rgba(244,114,182,0.3);">
-        🎵 Suno 원본
-      </a>
-    </div>
-  </aside>
-
-  <!-- 045호 신보 가을과 겨울 사이 12트랙 쇼케이스 카드 (id="s1-autumn-winter-12tracks-showcase") -->
-  <!-- ============================================================== -->
-  <!-- ③ [s1-kakaopage-keytalk] 키토크 태그바 -->
-  <!-- ④ [s1-kakaopage-ranking-chart] 1위~12위 실시간 랭킹 차트 그리드 -->
-  <div style="color: #888; font-size: 11px;">안총리 x 르곤 · 34.02s 3D</div></div>
-        <span style="color: #ff4d4f; font-size: 11px; font-weight: 800;">HOT</span>
-      </div>
-      <div style="display: flex; align-items: center; gap: 12px; background: #222232; padding: 8px 12px; border-radius: 10px; border-left: 4px solid #888;">
-        <span style="font-size: 16px; font-weight: 900; color: #eee; width: 24px;">2</span>
-        <div style="flex: 1;"><div style="color: #fff; font-weight: 700; font-size: 13px;"></div><div style="color: #888; font-size: 11px;">Track 02 · Acoustic</div></div>
-        <span style="color: #52c41a; font-size: 11px; font-weight: 800;">▲ 1</span>
-      </div>
-      <div style="display: flex; align-items: center; gap: 12px; background: #222232; padding: 8px 12px; border-radius: 10px; border-left: 4px solid #888;">
-        <span style="font-size: 16px; font-weight: 900; color: #eee; width: 24px;">3</span>
-        <div style="flex: 1;"><div style="color: #fff; font-weight: 700; font-size: 13px;"></div><div style="color: #888; font-size: 11px;">Track 03 · Warm Pad</div></div>
-        <span style="color: #52c41a; font-size: 11px; font-weight: 800;">NEW</span>
-      </div>
-    </div>
-  </section>
-
-<!-- ③ [s1-kakaopage-keytalk] 키토크 태그바 -->
-  <!-- ④ [s1-kakaopage-ranking-chart] 1위~12위 실시간 랭킹 차트 그리드 -->
-  <div style="color: #888; font-size: 11px;">안총리 x 르곤 · 34.02s 3D</div></div>
-        <span style="color: #ff4d4f; font-size: 11px; font-weight: 800;">HOT</span>
-      </div>
-      <div style="display: flex; align-items: center; gap: 12px; background: #222232; padding: 8px 12px; border-radius: 10px; border-left: 4px solid #888;">
-        <span style="font-size: 16px; font-weight: 900; color: #eee; width: 24px;">2</span>
-        <div style="flex: 1;"><div style="color: #fff; font-weight: 700; font-size: 13px;"></div><div style="color: #888; font-size: 11px;">Track 02 · Acoustic</div></div>
-        <span style="color: #52c41a; font-size: 11px; font-weight: 800;">▲ 1</span>
-      </div>
-      <div style="display: flex; align-items: center; gap: 12px; background: #222232; padding: 8px 12px; border-radius: 10px; border-left: 4px solid #888;">
-        <span style="font-size: 16px; font-weight: 900; color: #eee; width: 24px;">3</span>
-        <div style="flex: 1;"><div style="color: #fff; font-weight: 700; font-size: 13px;"></div><div style="color: #888; font-size: 11px;">Track 03 · Warm Pad</div></div>
-        <span style="color: #52c41a; font-size: 11px; font-weight: 800;">NEW</span>
-      </div>
-    </div>
-  </section>
-
-  <section id="s1-autumn-winter-12tracks-showcase" style="max-width:1200px; margin: 12px auto; padding: 14px 18px; border: 1.5px solid #d97706; background: linear-gradient(135deg, rgba(30, 41, 59, 0.98), rgba(15, 23, 42, 0.98)); border-radius: 10px; box-shadow: 0 4px 20px rgba(217, 119, 6, 0.2);">
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 8px; flex-wrap:wrap; gap:8px;">
-      <div style="display:flex; align-items:center; gap:8px;">
-        <span style="font-size:18px;">🍂</span>
-        <span style="font-weight:800; color:#fbbf24; font-size:14px;">[2026.11.06 글로벌 발매] 한걸음씩 정규 신보 〈가을과 겨울 사이〉 12트랙 전곡 라인업</span>
-        <span style="background:#be185d; color:#fff; font-size:10px; font-weight:700; padding:2px 6px; border-radius:4px;">총 53곡 달성 · 24개 스토어 배급 · 유료 Extras 0원 방어</span>
-      </div>
-      <span style="background:#059669; color:#fff; font-size:11px; font-weight:800; padding:3px 8px; border-radius:4px;">D-2 전세계 동시공개</span>
-    </div>
-    <p style="font-size:12px; color:#94a3b8; margin:0 0 10px 0; line-height:1.5;">
-      기존 41곡 카탈로그에 신보 12곡을 더해 <b>총 53곡 글로벌 원장</b> 체제를 구축했습니다. DistroKid 24개 글로벌 플랫폼에 정규 발매되며, 유료 Extras 4종을 전면 배제(0원 무과금 방어)하여 33% 글로벌 환원 철학을 온전히 수호합니다.
-    </p>
-    <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 6px; font-size:11px; margin-bottom: 10px;">
-      <div style="background:rgba(255,255,255,0.05); padding:5px 8px; border-radius:4px; color:#e2e8f0;">01. 막차 (Opening)</div>
-      <div style="background:rgba(255,255,255,0.05); padding:5px 8px; border-radius:4px; color:#e2e8f0;">02. 창을 닫지 마</div>
-      <div style="background:rgba(255,255,255,0.05); padding:5px 8px; border-radius:4px; color:#e2e8f0;">03. 첫 입김</div>
-      <div style="background:rgba(217,119,6,0.2); padding:5px 8px; border-radius:4px; border-left:3px solid #f59e0b; color:#fbbf24; font-weight:700;">04. 오늘은 여기까지 ★</div>
-      <div style="background:rgba(217,119,6,0.2); padding:5px 8px; border-radius:4px; border-left:3px solid #f59e0b; color:#fbbf24; font-weight:700;">05. 밥은 먹었니 ★</div>
-      <div style="background:rgba(255,255,255,0.05); padding:5px 8px; border-radius:4px; color:#e2e8f0;">06. 식어 가는 차</div>
-      <div style="background:rgba(255,255,255,0.05); padding:5px 8px; border-radius:4px; color:#e2e8f0;">07. 가로등 아래서</div>
-      <div style="background:rgba(255,255,255,0.05); padding:5px 8px; border-radius:4px; color:#e2e8f0;">08. 남겨 둔 자리</div>
-      <div style="background:rgba(255,255,255,0.05); padding:5px 8px; border-radius:4px; color:#e2e8f0;">09. 보내지 않은 말</div>
-      <div style="background:rgba(217,119,6,0.2); padding:5px 8px; border-radius:4px; border-left:3px solid #f59e0b; color:#fbbf24; font-weight:700;">10. 불은 꺼지지 않아 ★</div>
-      <div style="background:rgba(255,255,255,0.05); padding:5px 8px; border-radius:4px; color:#e2e8f0;">11. 난로 옆에서</div>
-      <div style="background:rgba(217,119,6,0.2); padding:5px 8px; border-radius:4px; border-left:3px solid #f59e0b; color:#fbbf24; font-weight:700;">12. 내일의 아침 ★</div>
-    </div>
-    <div style="display:flex; gap:8px; flex-wrap:wrap;">
-      <a href="./S1_DISTROKID_53_TRACKS_MASTER_LEDGER.json" target="_blank" style="background:#2563eb; color:#fff; text-decoration:none; padding:5px 10px; border-radius:4px; font-size:11px; font-weight:700;">💿 53곡 마스터 원장 JSON</a>
-      <a href="./S1_AUTUMN_WINTER_12TRACKS_LAUNCH_MASTERBOOK.md" target="_blank" style="background:#7c3aed; color:#fff; text-decoration:none; padding:5px 10px; border-radius:4px; font-size:11px; font-weight:700;">📖 1+12 폭포수 퍼널 마스터북</a>
-    </div>
-  </section>
-
-
-
-  <!-- 7-Operations Horizontal Touch Bar (Mobile Friendly) -->
-  <nav class="ops-bar">
-    <button type="button" class="op-btn cyan" id="btn-daily-rnd">🔬 일일 R&D 본부</button>
-    <button type="button" class="op-btn gold" id="btn-reflection-purge">🧹 자아성찰·폐기물 정화</button>
-    <button type="button" class="op-btn gold" id="btn-pipeline">🚀 3+1 신규 파이프라인</button>
-    <button type="button" class="op-btn cyan" id="btn-master-ledger">💿 11/6 신보(12곡) & 53곡 원장</button>
-    <button type="button" class="op-btn gold" id="btn-directive-ledger">📡 르곤⇄안총리 지시원장</button>
-    <button type="button" class="op-btn" id="btn-channels">📺 4대 공식 유튜브</button>
-    <button type="button" class="op-btn" id="btn-calendar">📅 11월 출격 캘린더</button>
-    <button type="button" class="op-btn" id="btn-cores-audit">🛡️ 8대코어·삼성감리</button>
-    <button type="button" class="op-btn" id="btn-pwa-install">📲 홈 화면 앱 설치</button>
-  </nav>
-
-  <!-- Target Dispatcher Bar -->
-  <div class="target-bar" id="target-selector">
-    <span style="font-size:11px;color:var(--muted);font-weight:700;">수신처:</span>
-    <button type="button" class="target-chip active" data-target="all">🎯 르곤+안총리 동시</button>
-    <button type="button" class="target-chip" data-target="rgon">👑 르곤 보좌관 직통</button>
-    <button type="button" class="target-chip" data-target="anchongri">⚙️ 안총리 직통</button>
-  </div>
-
-  <!-- 8-Core Diagnostics Drawer -->
-  <section class="dr" id="dr-core">
-    <div class="cc" data-q="Core 1 킬스위치 실측 상태 점검"><span>Core 1 킬스위치 (정상)</span><span class="dot"></span></div>
-    <div class="cc" data-q="Core 2 UUID원장 실측 상태 점검"><span>Core 2 UUID원장 (정상)</span><span class="dot"></span></div>
-    <div class="cc" data-q="Core 3 48kHz마스터 실측 상태 점검"><span>Core 3 48kHz마스터 (정상)</span><span class="dot"></span></div>
-    <div class="cc" data-q="Core 4 시네마틱루프 실측 상태 점검"><span>Core 4 시네마틱루프 (정상)</span><span class="dot"></span></div>
-    <div class="cc" data-q="Core 5 SHA256감사 실측 상태 점검"><span>Core 5 SHA256감사 (정상)</span><span class="dot"></span></div>
-    <div class="cc" data-q="Core 6 옴니채널배급 실측 상태 점검"><span>Core 6 옴니채널배급 (정상)</span><span class="dot"></span></div>
-    <div class="cc" data-q="Core 7 성과·IP확장 실측 상태 점검"><span>Core 7 성과·IP확장 (정상)</span><span class="dot"></span></div>
-    <div class="cc" data-q="Core 8 퀀트·환원 실측 상태 점검"><span>Core 8 퀀트·환원 (정상)</span><span class="dot"></span></div>
-  </section>
-
-  <!-- Main Scrollable Body Area -->
-  <main class="mn" id="st" role="log" aria-live="polite">
     <div class="cps" id="cps-bar">
       <button class="cp" data-q="25노드 지식그래프 지도 브리핑해줘">🗺️ 25노드 지식그래프</button>
       <button class="cp" data-q="3+1 신규 파이프라인 실물 스펙 브리핑해줘">🚀 3+1 신규 파이프라인</button>
@@ -1254,7 +1217,7 @@
     <div id="s1-harvester-directives-list" style="display:flex;flex-direction:column;gap:5px;max-height:160px;overflow-y:auto;">
       <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(236,72,153,0.45);border-radius:6px;padding:6px 8px;display:flex;justify-content:space-between;align-items:center;gap:6px;">
         <div style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11px;color:#f8fafc;max-width:74%;">
-          <span style="color:#f472b6;font-weight:800;margin-right:4px;">[RGON_DIR_LOWER_MONITOR_EGO_LIVE_AND_KAKAOPAGE_UI_047]</span>045호: 아티스트 '한걸음씩' 정규 신보 〈가을과 겨울 사이〉 12트랙 & 53곡 원장 통합 및 폭포수 퍼널 완공 (FM-009 12/12 PASS)
+          <span style="color:#f472b6;font-weight:800;margin-right:4px;">[RGON_DIR_FIRST_SCREEN_UI_AND_SHOWCASE_FIX_045]</span>045호: 아티스트 '한걸음씩' 정규 신보 〈가을과 겨울 사이〉 12트랙 & 53곡 원장 통합 및 폭포수 퍼널 완공 (FM-009 12/12 PASS)
         </div>
         <div><span style="background:#059669;color:#fff;padding:2px 6px;border-radius:4px;font-size:9.5px;font-weight:800;">🟢 임무완료</span></div>
       </div>
@@ -1297,7 +1260,7 @@
       </button>
     </div>
     <div id="s1-latest-report-text" style="font-size:11px;line-height:1.5;color:#e2e8f0;background:#090d16;padding:8px;border-radius:6px;max-height:110px;overflow-y:auto;white-space:pre-wrap;word-break:break-word;border:1px solid #334155;">[S1_COMPLETION_REPORT]
-지시서: RGON_DIR_LOWER_MONITOR_EGO_LIVE_AND_KAKAOPAGE_UI_047
+지시서: RGON_DIR_FIRST_SCREEN_UI_AND_SHOWCASE_FIX_045
 삼성제도: 100.0 / 100.0 PASS (릴레이 여권 STAMP #1 ~ #32 해시체인 무결 · 린터 v1.2 12/12 PASS)
 
 [042호 완공 보고] 045호: 아티스트 '한걸음씩' 정규 신보 〈가을과 겨울 사이〉 12트랙 & 53곡 원장 통합 및 폭포수 퍼널 완공! ① 글씨·숫자 0.0% 순수 디즈니·픽사 감성 3D 애니메이션 6컷 및 합본 시트 완성! ② 단순 이미지 줌인·아웃(zoompan) 영구 금지(FM-009) 및 실전 AI Image-to-Video(Seedance Pro 1080p 9:16) 6개 실제 모션 클립 + 54~88초 후렴구 하이라이트(34.00s, 320k AAC) 결합 완공! ③ 광학흐름 비선형 잔차 검증 s1_qm_structure_linter.py v1.2 12/12 PASS (sw.js v21)!</div>
