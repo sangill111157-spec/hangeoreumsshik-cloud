@@ -270,7 +270,7 @@ def check_fm008_dashboard_freshness():
     badge_valid = (
         "046호: 연결·소통·만능" in html or
         "047호: 연결·소통·만능" in html or
-        "047호: 카카오페이지" in html or "048호: 카카오페이지" in html
+        "047호: 카카오페이지" in html or "048호: 카카오페이지" in html or "049호: 시원한" in html or "049호: 클린" in html
     )
     if not badge_valid:
         return False, "대시보드 최신 배지(046호/047호) 부재"
@@ -595,7 +595,7 @@ def check_fm012_first_screen_ui_showcase_and_freshness():
     # 6. Check sw.js v24 or v25
     sw = BASE / "sw.js"
     sw_text = sw.read_text(encoding="utf-8", errors="ignore") if sw.exists() else ""
-    if not sw.exists() or ("s1-aon-v24-" not in sw_text and "s1-aon-v25-" not in sw_text and "s1-aon-v048-" not in sw_text and "s1-aon-v26-" not in sw_text and "s1-aon-v26-" not in sw_text):
+    if not sw.exists() or ("s1-aon-v24-" not in sw_text and "s1-aon-v25-" not in sw_text and "s1-aon-v048-" not in sw_text and "s1-aon-v049-" not in sw_text and "s1-aon-v26-" not in sw_text and "s1-aon-v26-" not in sw_text):
         return False, "sw.js 캐시 버전 미갱신 (v24 또는 v25 필수)"
 
     return True, f"첫 화면 045호 배지·12트랙 쇼케이스 DOM·53곡 버튼 전수 교체·sw.js v24·여권 47대 도장({len(pp_stamps)}개) 100% 무결 검증"
@@ -765,16 +765,13 @@ def check_fm014_real_bridge_ast_and_ego_v22_skill():
             return False, f"도장 #{s.get('stamp_index')} 삼성 2단계 통과 기록 결손"
 
     
-    # 6. 카카오페이지 4대 DOM ID 검증 (047호)
+    # 6. [049호 클린 단일 스크롤 레이아웃 & 4대 HTML 1:1 동기화 검증]
     idx_f = BASE / "index.html"
     if not idx_f.exists():
         return False, "index.html 누락"
     idx_content = idx_f.read_text(encoding="utf-8", errors="ignore")
-    
-    # [거짓 방지 하드 가드] 1) 가짜 날조 곡명 절대 금지, 2) 랭킹차트 2중 중복 삽입 절대 금지
-    # [047B호 레이아웃 및 잔류 찌꺼기 하드 가드]
-    # 1) 잔류 찌꺼기 감지 시 즉시 EXIT 1 격리
-    # [048호 독대실 rgon_alpha_chat.html 1:1 동기화 검증]
+
+    # [049호 4대 HTML 1:1 동기화 검증]
     html_files = [
         BASE / "index.html",
         BASE / "docs" / "index.html",
@@ -789,42 +786,67 @@ def check_fm014_real_bridge_ast_and_ego_v22_skill():
         if sha256_file(hf) != base_hash:
             return False, f"4대 HTML 1:1 동기화 불일치: {hf.relative_to(BASE)} != index.html"
 
-    # [048호 sw.js 캐시 버전 검증]
+    # [049호 sw.js 캐시 버전 검증]
     sw_f = BASE / "sw.js"
-    if "s1-aon-v048-kakaopage-live" not in sw_f.read_text(encoding="utf-8"):
-        return False, "sw.js 캐시 버전 미갱신 (s1-aon-v048-kakaopage-live 필수)"
+    docs_sw_f = BASE / "docs" / "sw.js"
+    if "s1-aon-v049-clean-layout" not in sw_f.read_text(encoding="utf-8"):
+        return False, "sw.js 캐시 버전 미갱신 (s1-aon-v049-clean-layout 필수)"
+    if not docs_sw_f.exists() or sha256_file(sw_f) != sha256_file(docs_sw_f):
+        return False, "sw.js <-> docs/sw.js 해시 불일치"
 
-    # [048호 '41곡 원장' 잔존 0건 검증]
-    if "41곡 원장" in idx_content:
-        return False, "index.html 내 구버전 '41곡 원장' 텍스트 잔존"
+    # [049호 <main class="mn"> 바깥 상단 고정 영역 다이어트 검증]
+    mn_pos = idx_content.find('<main class="mn"')
+    if mn_pos == -1:
+        return False, "<main class='mn'> 스크롤 컨테이너 부재"
+
+    banner_pos = idx_content.find('id="banner-father-mountain"')
+    showcase_pos = idx_content.find('id="s1-autumn-winter-12tracks-showcase"')
+    if banner_pos == -1:
+        return False, "#banner-father-mountain 부재"
+    if showcase_pos == -1:
+        return False, "#s1-autumn-winter-12tracks-showcase 부재"
+    if banner_pos < mn_pos:
+        return False, f"#banner-father-mountain이 <main class='mn'> 바깥(상단 고정 영역)에 위치하여 화면 짓누름 결함 유발 (banner_pos={banner_pos} < mn_pos={mn_pos})"
+    if showcase_pos < mn_pos:
+        return False, f"#s1-autumn-winter-12tracks-showcase가 <main class='mn'> 바깥(상단 고정 영역)에 위치하여 화면 짓누름 결함 유발 (showcase_pos={showcase_pos} < mn_pos={mn_pos})"
+
+    # <main class="mn"> 바깥에 거대 섹션 존재 금지
+    pre_mn_text = idx_content[:mn_pos]
+    if 'id="s1-autumn-winter-12tracks-showcase"' in pre_mn_text:
+        return False, "<main class='mn'> 바깥 상단 고정 영역에 거대 쇼케이스 박스 잔존 결함"
+    if 'id="banner-father-mountain"' in pre_mn_text:
+        return False, "<main class='mn'> 바깥 상단 고정 영역에 상단 배너 잔존 결함"
+
+    # [049호 12곡 단일 통합 & 문구 정합 검증]
+    showcase_count = idx_content.count('id="s1-autumn-winter-12tracks-showcase"')
+    if showcase_count != 1:
+        return False, f"신보 12트랙 쇼케이스 카드 중복/누락 결손: {showcase_count}개 발견 (정확히 단 1개 필수)"
+
+    if 'id="s1-kakaopage-ranking-chart"' in idx_content:
+        return False, "2중 중복 12곡 랭킹차트(#s1-kakaopage-ranking-chart) 미제거 잔존 결함"
+
+    if "기존 53곡 카탈로그에 신보 12곡을 더해" in idx_content:
+        return False, "왜곡된 문구 '기존 53곡 카탈로그에 신보 12곡을 더해' 잔존 (41+12=53 수정 필요)"
+    if "기존 41곡 카탈로그에 신보 12곡을 더해" not in idx_content:
+        return False, "필수 문구 '기존 41곡 카탈로그에 신보 12곡을 더해' 누락"
+    if "총 53곡 글로벌 원장" not in idx_content:
+        return False, "필수 문구 '총 53곡 글로벌 원장' 누락"
+
+    # 12곡 정품 타이틀 전수 검증
+    twelve_tracks = [
+        "01. 막차", "02. 창을 닫지 마", "03. 첫 입김", "04. 오늘은 여기까지",
+        "05. 밥은 먹었니", "06. 식어 가는 차", "07. 가로등 아래서", "08. 남겨 둔 자리",
+        "09. 보내지 않은 말", "10. 불은 꺼지지 않아", "11. 난로 옆에서", "12. 내일의 아침"
+    ]
+    for trk in twelve_tracks:
+        if trk not in idx_content:
+            return False, f"12트랙 정품 곡명 누락: '{trk}'"
+
+    # 잔류 찌꺼기 0건 검증
     forbidden_residues = ["Track 02 · Acoustic", "Track 03 · Warm Pad", "가을의 마지막 잎새", "첫눈 오는 날의 온기"]
     for fr in forbidden_residues:
         if fr in idx_content:
             return False, f"레이아웃 결함 잔류 찌꺼기 감지! '{fr}' 즉시 퇴출 필수 (QM-SP-11 격리)"
-
-    # 2) s1-kakaopage-gnb-tabs 가 <main class="mn"> 내부에 위치하는지 엄격 검증
-    mn_pos = idx_content.find('<main class="mn"')
-    gnb_pos = idx_content.find('id="s1-kakaopage-gnb-tabs"')
-    if mn_pos == -1 or gnb_pos == -1 or gnb_pos < mn_pos:
-        return False, f"카카오페이지 GNB 탭바가 <main class='mn'> 바깥에 위치하여 스크롤 먹통 결함 유발 (gnb_pos={gnb_pos}, mn_pos={mn_pos})"
-    fake_titles = ["가을의 마지막 잎새", "첫눈 오는 날의 온기"]
-    for ft in fake_titles:
-        if ft in idx_content:
-            return False, f"날조된 가짜 곡명 감지! '{ft}' 즉시 퇴출 필수 (QM-SP-11 격리)"
-
-    chart_count = idx_content.count('id="s1-kakaopage-ranking-chart"')
-    if chart_count != 1:
-        return False, f"카카오페이지 랭킹차트 중복/누락 결손: {chart_count}개 발견 (정확히 단 1개 필수)"
-
-    required_kp_ids = [
-        "s1-kakaopage-gnb-tabs",
-        "s1-kakaopage-hero-banner",
-        "s1-kakaopage-keytalk",
-        "s1-kakaopage-ranking-chart"
-    ]
-    missing_kp = [kid for kid in required_kp_ids if f'id="{kid}"' not in idx_content]
-    if missing_kp:
-        return False, f"카카오페이지 4대 UI 컴포넌트 실제 DOM 미삽입 결손: {missing_kp}"
 
     return True, f"전달봇 AST 정적 검증(L{func_lineno} < L{main_lineno}, 2대 ast.Call)·런타임 실측 성공·ego-browser v2.2.0·여권 57대 도장({len(pp_stamps)}개) 100% 무결 검증"
 

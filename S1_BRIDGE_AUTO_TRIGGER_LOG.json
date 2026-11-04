@@ -105,6 +105,38 @@
       "mode": "STANDARD_FOUNDRY_SPAWN",
       "status": "TRIGGERED",
       "ok": true
+    },
+    {
+      "directive_id": "LINTER_VERIFY_047",
+      "timestamp": "2026-11-05T05:46:10.791516+09:00",
+      "pid": 57248,
+      "mode": "STANDARD_FOUNDRY_SPAWN",
+      "status": "TRIGGERED",
+      "ok": true
+    },
+    {
+      "directive_id": "LINTER_VERIFY_047",
+      "timestamp": "2026-11-05T05:49:58.944088+09:00",
+      "pid": 28188,
+      "mode": "STANDARD_FOUNDRY_SPAWN",
+      "status": "TRIGGERED",
+      "ok": true
+    },
+    {
+      "directive_id": "LINTER_VERIFY_047",
+      "timestamp": "2026-11-05T05:51:41.258179+09:00",
+      "pid": 50908,
+      "mode": "STANDARD_FOUNDRY_SPAWN",
+      "status": "TRIGGERED",
+      "ok": true
+    },
+    {
+      "directive_id": "LINTER_VERIFY_047",
+      "timestamp": "2026-11-05T05:52:58.365000+09:00",
+      "pid": 19252,
+      "mode": "STANDARD_FOUNDRY_SPAWN",
+      "status": "TRIGGERED",
+      "ok": true
     }
   ]
 }

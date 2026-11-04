@@ -147,6 +147,13 @@
       "status": "SUCCESS",
       "summary": "045호 모바일 첫 화면 최상단 배지(045호)·알약 버튼(53곡 원장)·신보 쇼케이스 카드 실제 삽입 완공 (15/15 PASS)",
       "timestamp": "2026-11-04T11:54:17.385017+00:00"
+    },
+    {
+      "report_id": "OUTBOX_049_CLEANUP_MESSY_DASHBOARD",
+      "directive_id": "RGON_DIR_CLEANUP_MESSY_DASHBOARD_049",
+      "status": "SUCCESS",
+      "timestamp": "2026-11-04T20:52:13.709185+00:00",
+      "summary": "049호 상단 중복 거대 블록 철거 및 main 내부 이동, 2중 12곡 목록 단일화(41+12=53 수식 복원), 카카오페이지 덧대기 전면 철거 및 시원한 단일 스크롤 레이아웃 복원, sw.js v049-clean-layout 캐시 갱신, 4대 HTML 1:1 동기화 완료 (17/17 PASS)"
     }
   ],
   "last_updated": "2026-11-04T18:15:42.629739+09:00"

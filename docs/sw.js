@@ -1,5 +1,5 @@
-// S1 Service Worker v2026-v048 (SUN-ONE AON Zero-Paste & Network-First HTML)
-const CACHE = 's1-aon-v048-kakaopage-live';
+// S1 Service Worker v2026-v049 (SUN-ONE AON Zero-Paste & Network-First HTML)
+const CACHE = 's1-aon-v049-clean-layout';
 const ASSETS = [
   './',
   './index.html',
