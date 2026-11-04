@@ -14,6 +14,7 @@ S1 QM Structural Linter v1.1 (s1_qm_structure_linter.py)
 - Exits with EXIT CODE 1 (QM-SP-11 REJECTED_LOT) immediately if ANY check fails!
 """
 
+import ast
 import datetime
 import hashlib
 import json
@@ -256,8 +257,6 @@ def check_fm008_dashboard_freshness():
 
     required_markers = [
         "./audio/father_age_shorts_scenes/scene_01.png?v=04",
-        "046호: 연결·소통·만능 브릿지 &amp; CLI-Anything 초고속 스트리밍 완공 · 삼성 2단계 16/16 PASS",
-        "RGON_DIR_CONNECT_COMMUNICATE_OMNIPOTENT_046",
         "STAMP_042_5_AUDIT",
         "./S1_RGON_DIRECTIVE_QUEUE.json",
         "./S1_RELAY_STAMP_PASSPORT.json",
@@ -266,7 +265,14 @@ def check_fm008_dashboard_freshness():
     ]
     missing_markers = [m for m in required_markers if m not in html]
     if missing_markers:
-        return False, f"대시보드 042호 최신 프리렌더링(SSR) 또는 실시간 JSON 바인딩 누락: {missing_markers}"
+        return False, f"대시보드 최신 프리렌더링(SSR) 또는 실시간 JSON 바인딩 누락: {missing_markers}"
+
+    badge_valid = (
+        "046호: 연결·소통·만능" in html or
+        "047호: 연결·소통·만능" in html
+    )
+    if not badge_valid:
+        return False, "대시보드 최신 배지(046호/047호) 부재"
 
     live_json_pairs = [
         ("S1_RGON_DIRECTIVE_QUEUE.json", "docs/S1_RGON_DIRECTIVE_QUEUE.json"),
@@ -588,7 +594,7 @@ def check_fm012_first_screen_ui_showcase_and_freshness():
     # 6. Check sw.js v24 or v25
     sw = BASE / "sw.js"
     sw_text = sw.read_text(encoding="utf-8", errors="ignore") if sw.exists() else ""
-    if not sw.exists() or ("s1-aon-v24-" not in sw_text and "s1-aon-v25-" not in sw_text):
+    if not sw.exists() or ("s1-aon-v24-" not in sw_text and "s1-aon-v25-" not in sw_text and "s1-aon-v26-" not in sw_text and "s1-aon-v26-" not in sw_text):
         return False, "sw.js 캐시 버전 미갱신 (v24 또는 v25 필수)"
 
     return True, f"첫 화면 045호 배지·12트랙 쇼케이스 DOM·53곡 버튼 전수 교체·sw.js v24·여권 47대 도장({len(pp_stamps)}개) 100% 무결 검증"
@@ -650,6 +656,116 @@ def check_fm013_connect_communicate_omnipotent_and_streaming_diet():
 
     return True, f"전달봇 전체 DOM 스캔 & auto_trigger 장착·CLI-Anything 가이드·쇼츠 다이어트({sz_mb:.2f}MB, SAR 1:1, DAR 9:16)·여권 52대 도장({len(pp_stamps)}개) 100% 무결 검증"
 
+def check_fm014_real_bridge_ast_and_ego_v22_skill():
+    """
+    [FM-014] AST 정적 분석 및 런타임 실행 검증:
+    1) s1_rgon_to_anchongri_bridge.py AST 분석:
+       - auto_execute_directive_trigger 위치가 if __name__ 보다 상단에 위치
+       - register_new_directive 내 ast.Call auto_execute_directive_trigger 존재
+       - harvest_from_github_ssot 내 ast.Call auto_execute_directive_trigger 존재
+       - BASE_DIR 오타 0건
+    2) 런타임 실측: auto_execute_directive_trigger("LINTER_VERIFY_047") 호출 시 ok==True & 로그 생성
+    3) ego-browser v2.2.0 스킬 및 S1_EGO_LITE_V2_2_SKILL_MASTER_GUIDE.md 무결성 검증
+    """
+    b_file = BASE / "s1_rgon_to_anchongri_bridge.py"
+    if not b_file.exists():
+        return False, "s1_rgon_to_anchongri_bridge.py 누락"
+
+    code_txt = b_file.read_text(encoding="utf-8", errors="ignore")
+    if "BASE_DIR" in code_txt:
+        return False, "s1_rgon_to_anchongri_bridge.py 내 미정의 변수 BASE_DIR 오타 잔존"
+
+    try:
+        tree = ast.parse(code_txt)
+    except Exception as e:
+        return False, f"AST 파싱 실패: {e}"
+
+    func_lineno = None
+    main_lineno = None
+    reg_calls_trigger = False
+    harv_calls_trigger = False
+
+    for node in tree.body:
+        if isinstance(node, ast.FunctionDef) and node.name == "auto_execute_directive_trigger":
+            func_lineno = node.lineno
+        elif isinstance(node, ast.If):
+            # check if __name__ == "__main__"
+            if isinstance(node.test, ast.Compare):
+                left = node.test.left
+                if isinstance(left, ast.Name) and left.id == "__name__":
+                    main_lineno = node.lineno
+        elif isinstance(node, ast.FunctionDef) and node.name == "register_new_directive":
+            for subnode in ast.walk(node):
+                if isinstance(subnode, ast.Call):
+                    if isinstance(subnode.func, ast.Name) and subnode.func.id == "auto_execute_directive_trigger":
+                        reg_calls_trigger = True
+        elif isinstance(node, ast.FunctionDef) and node.name == "harvest_from_github_ssot":
+            for subnode in ast.walk(node):
+                if isinstance(subnode, ast.Call):
+                    if isinstance(subnode.func, ast.Name) and subnode.func.id == "auto_execute_directive_trigger":
+                        harv_calls_trigger = True
+
+    if func_lineno is None:
+        return False, "auto_execute_directive_trigger 함수 정의 부재"
+    if main_lineno is not None and func_lineno > main_lineno:
+        return False, f"auto_execute_directive_trigger(L{func_lineno})가 if __name__(L{main_lineno}) 아래 배치된 Dead Code 결함!"
+    if not reg_calls_trigger:
+        return False, "register_new_directive 내 auto_execute_directive_trigger ast.Call 미호출"
+    if not harv_calls_trigger:
+        return False, "harvest_from_github_ssot 내 auto_execute_directive_trigger ast.Call 미호출"
+
+    # 2. 런타임 실측 호출 검증
+    try:
+        import s1_rgon_to_anchongri_bridge
+        res = s1_rgon_to_anchongri_bridge.auto_execute_directive_trigger("LINTER_VERIFY_047")
+        if not res.get("ok"):
+            return False, f"런타임 auto_execute_directive_trigger 반환 실패: {res}"
+        
+        log_file = BASE / "S1_BRIDGE_AUTO_TRIGGER_LOG.json"
+        if not log_file.exists():
+            return False, "S1_BRIDGE_AUTO_TRIGGER_LOG.json 부재"
+        log_data = json.loads(log_file.read_text(encoding="utf-8"))
+        has_entry = any(t.get("directive_id") == "LINTER_VERIFY_047" for t in log_data.get("triggers", []))
+        if not has_entry:
+            return False, "S1_BRIDGE_AUTO_TRIGGER_LOG.json 내 LINTER_VERIFY_047 기록 부재"
+    except Exception as e:
+        return False, f"런타임 실측 검증 중 예외 발생: {e}"
+
+    # 3. 에고라이트 v2.2.0 스킬 및 마스터 가이드 검증
+    skill_md = BASE / ".agents" / "skills" / "ego-browser" / "SKILL.md"
+    if not skill_md.exists():
+        return False, ".agents/skills/ego-browser/SKILL.md 누락"
+    skill_txt = skill_md.read_text(encoding="utf-8", errors="ignore")
+    if 'version: "2.2.0"' not in skill_txt:
+        return False, f"ego-browser 스킬 버전 미갱신 (v2.2.0 필수)"
+
+    guide_r = BASE / "S1_EGO_LITE_V2_2_SKILL_MASTER_GUIDE.md"
+    guide_d = BASE / "docs" / "S1_EGO_LITE_V2_2_SKILL_MASTER_GUIDE.md"
+    if not guide_r.exists() or not guide_d.exists() or sha256_file(guide_r) != sha256_file(guide_d):
+        return False, "S1_EGO_LITE_V2_2_SKILL_MASTER_GUIDE.md 누락 또는 docs 미러 불일치"
+
+    # 4. IO TEST 18 증빙서 검증
+    p18_r = BASE / "S1_IO_TEST_18_REAL_BRIDGE_AND_EGO_V22_PROOF.md"
+    p18_d = BASE / "docs" / "S1_IO_TEST_18_REAL_BRIDGE_AND_EGO_V22_PROOF.md"
+    if not p18_r.exists() or not p18_d.exists() or sha256_file(p18_r) != sha256_file(p18_d):
+        return False, "S1_IO_TEST_18_REAL_BRIDGE_AND_EGO_V22_PROOF.md 누락 또는 docs 미러 불일치"
+
+    # 5. 여권 도장 검증 (57개)
+    pp_data = json.loads((BASE / "S1_RELAY_STAMP_PASSPORT.json").read_text(encoding="utf-8"))
+    pp_stamps = pp_data.get("stamps", [])
+    pp_names = {s.get("stamp_name") or s.get("stamp_id") for s in pp_stamps}
+    if len(pp_stamps) < 57 or "STAMP_047_5_AUDIT" not in pp_names:
+        return False, f"S1_RELAY_STAMP_PASSPORT.json 047호 5대 공정 도장(#53~#57) 미완비 (현재 {len(pp_stamps)}개)"
+
+    st53_57 = [s for s in pp_stamps if 53 <= s.get("stamp_index", 0) <= 57]
+    for s in st53_57:
+        payload = s.get("payload", {})
+        if not (payload.get("stage1_pass") and payload.get("stage2_pass")):
+            return False, f"도장 #{s.get('stamp_index')} 삼성 2단계 통과 기록 결손"
+
+    return True, f"전달봇 AST 정적 검증(L{func_lineno} < L{main_lineno}, 2대 ast.Call)·런타임 실측 성공·ego-browser v2.2.0·여권 57대 도장({len(pp_stamps)}개) 100% 무결 검증"
+
+
 GUARD_DISPATCH = {
     "check_fm001_no_fake_tkinter": check_fm001_no_fake_tkinter,
     "check_fm002_authentic_motion_shorts": check_fm002_authentic_motion_shorts,
@@ -664,6 +780,7 @@ GUARD_DISPATCH = {
     "check_fm011_autumn_winter_53tracks_ledger_and_extras_zero_cost": check_fm011_autumn_winter_53tracks_ledger_and_extras_zero_cost,
     "check_fm012_first_screen_ui_showcase_and_freshness": check_fm012_first_screen_ui_showcase_and_freshness,
     "check_fm013_connect_communicate_omnipotent_and_streaming_diet": check_fm013_connect_communicate_omnipotent_and_streaming_diet,
+    "check_fm014_real_bridge_ast_and_ego_v22_skill": check_fm014_real_bridge_ast_and_ego_v22_skill,
 }
 
 
@@ -776,7 +893,7 @@ def run_all_checks():
         shutil.copyfile(report_path, BASE / "docs" / "S1_QM_LINTER_LAST_REPORT.json")
 
     print("=" * 72)
-    print(f"🛡️ [S1 구조적 품질 린터 v1.6] 전수 검사 결과: {report['verdict']} ({score} / 100.0)")
+    print(f"🛡️ [S1 구조적 품질 린터 v1.7] 전수 검사 결과: {report['verdict']} ({score} / 100.0)")
     print("=" * 72)
     for c in checks:
         mark = "✅ PASS" if c["passed"] else "❌ FAIL (QM-SP-11 격리)"

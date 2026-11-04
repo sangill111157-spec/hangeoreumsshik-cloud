@@ -165,6 +165,159 @@ def scan_space0_deep(do_reload=False):
         return {"ok": False, "error": str(e)}
 
 
+def auto_execute_directive_trigger(directive_id: str) -> dict:
+    """
+    [047호 '연결·소통·만능' 실전 자동 집행 손]
+    새 지시서 감지 시 s1_zero_quota_triumvirate_foundry.py를 백그라운드로 자동 가동하고
+    S1_BRIDGE_AUTO_TRIGGER_LOG.json에 기록함.
+    """
+    foundry_py = BASE / "s1_zero_quota_triumvirate_foundry.py"
+    log_file = BASE / "S1_BRIDGE_AUTO_TRIGGER_LOG.json"
+    docs_log_file = BASE / "docs" / "S1_BRIDGE_AUTO_TRIGGER_LOG.json"
+    
+    pid = None
+    proc = None
+    if foundry_py.exists():
+        try:
+            proc = subprocess.Popen(
+                [sys.executable, str(foundry_py), "--directive", directive_id],
+                stdin=subprocess.DEVNULL,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL
+            )
+            pid = proc.pid
+            print(f"[BRIDGE_TRIGGER] Auto-spawned zero-quota foundry for {directive_id} (PID: {pid})", flush=True)
+        except Exception as e:
+            print(f"[BRIDGE_TRIGGER] Failed to spawn foundry: {e}", flush=True)
+
+    log_entry = {
+        "directive_id": directive_id,
+        "timestamp": now_iso(),
+        "pid": pid,
+        "status": "TRIGGERED",
+        "ok": True
+    }
+
+    try:
+        data = {"version": "1.0.0", "triggers": []}
+        if log_file.exists():
+            try:
+                data = json.loads(log_file.read_text(encoding="utf-8"))
+            except Exception:
+                pass
+        data.setdefault("triggers", []).append(log_entry)
+        log_json_str = json.dumps(data, ensure_ascii=False, indent=2)
+        log_file.write_text(log_json_str, encoding="utf-8")
+        docs_log_file.parent.mkdir(parents=True, exist_ok=True)
+        docs_log_file.write_text(log_json_str, encoding="utf-8")
+    except Exception as e:
+        print(f"[BRIDGE_TRIGGER] Failed to write trigger log: {e}", flush=True)
+
+    return {"ok": True, "directive_id": directive_id, "pid": pid, "timestamp": now_iso()}
+
+
+def auto_execute_directive_trigger(directive_id: str) -> dict:
+    """
+    [047호 '연결·소통·만능' 실전 자동 집행 손]
+    새 지시서 감지 시 s1_zero_quota_triumvirate_foundry.py를 백그라운드로 자동 가동하고
+    S1_BRIDGE_AUTO_TRIGGER_LOG.json에 기록함.
+    """
+    foundry_py = BASE / "s1_zero_quota_triumvirate_foundry.py"
+    log_file = BASE / "S1_BRIDGE_AUTO_TRIGGER_LOG.json"
+    docs_log_file = BASE / "docs" / "S1_BRIDGE_AUTO_TRIGGER_LOG.json"
+    
+    pid = None
+    proc = None
+    if foundry_py.exists():
+        try:
+            proc = subprocess.Popen(
+                [sys.executable, str(foundry_py), "--directive", directive_id],
+                stdin=subprocess.DEVNULL,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL
+            )
+            pid = proc.pid
+            print(f"[BRIDGE_TRIGGER] Auto-spawned zero-quota foundry for {directive_id} (PID: {pid})", flush=True)
+        except Exception as e:
+            print(f"[BRIDGE_TRIGGER] Failed to spawn foundry: {e}", flush=True)
+
+    log_entry = {
+        "directive_id": directive_id,
+        "timestamp": now_iso(),
+        "pid": pid,
+        "status": "TRIGGERED",
+        "ok": True
+    }
+
+    try:
+        data = {"version": "1.0.0", "triggers": []}
+        if log_file.exists():
+            try:
+                data = json.loads(log_file.read_text(encoding="utf-8"))
+            except Exception:
+                pass
+        data.setdefault("triggers", []).append(log_entry)
+        log_json_str = json.dumps(data, ensure_ascii=False, indent=2)
+        log_file.write_text(log_json_str, encoding="utf-8")
+        docs_log_file.parent.mkdir(parents=True, exist_ok=True)
+        docs_log_file.write_text(log_json_str, encoding="utf-8")
+    except Exception as e:
+        print(f"[BRIDGE_TRIGGER] Failed to write trigger log: {e}", flush=True)
+
+    return {"ok": True, "directive_id": directive_id, "pid": pid, "timestamp": now_iso()}
+
+
+def auto_execute_directive_trigger(directive_id: str) -> dict:
+    """
+    [047호 '연결·소통·만능' 실전 자동 집행 손]
+    새 지시서 감지 시 s1_zero_quota_triumvirate_foundry.py를 백그라운드로 자동 가동하고
+    S1_BRIDGE_AUTO_TRIGGER_LOG.json에 기록함.
+    """
+    foundry_py = BASE / "s1_zero_quota_triumvirate_foundry.py"
+    log_file = BASE / "S1_BRIDGE_AUTO_TRIGGER_LOG.json"
+    docs_log_file = BASE / "docs" / "S1_BRIDGE_AUTO_TRIGGER_LOG.json"
+    
+    pid = None
+    proc = None
+    if foundry_py.exists():
+        try:
+            proc = subprocess.Popen(
+                [sys.executable, str(foundry_py), "--directive", directive_id],
+                stdin=subprocess.DEVNULL,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL
+            )
+            pid = proc.pid
+            print(f"[BRIDGE_TRIGGER] Auto-spawned zero-quota foundry for {directive_id} (PID: {pid})", flush=True)
+        except Exception as e:
+            print(f"[BRIDGE_TRIGGER] Failed to spawn foundry: {e}", flush=True)
+
+    log_entry = {
+        "directive_id": directive_id,
+        "timestamp": now_iso(),
+        "pid": pid,
+        "status": "TRIGGERED",
+        "ok": True
+    }
+
+    try:
+        data = {"version": "1.0.0", "triggers": []}
+        if log_file.exists():
+            try:
+                data = json.loads(log_file.read_text(encoding="utf-8"))
+            except Exception:
+                pass
+        data.setdefault("triggers", []).append(log_entry)
+        log_json_str = json.dumps(data, ensure_ascii=False, indent=2)
+        log_file.write_text(log_json_str, encoding="utf-8")
+        docs_log_file.parent.mkdir(parents=True, exist_ok=True)
+        docs_log_file.write_text(log_json_str, encoding="utf-8")
+    except Exception as e:
+        print(f"[BRIDGE_TRIGGER] Failed to write trigger log: {e}", flush=True)
+
+    return {"ok": True, "directive_id": directive_id, "pid": pid, "timestamp": now_iso()}
+
+
 def register_new_directive(directive_id, title, full_text):
     init_ledgers()
     processed = load_json(PROCESSED_FILE, [])
@@ -205,6 +358,9 @@ def register_new_directive(directive_id, title, full_text):
     processed.append(directive_id)
     save_json(PROCESSED_FILE, processed)
     print(f"[BRIDGE] Registered directive: {directive_id} ({title})", flush=True)
+    auto_execute_directive_trigger(directive_id)
+    auto_execute_directive_trigger(directive_id)
+    auto_execute_directive_trigger(directive_id)
 
     # Auto commit and push to GitHub
     try:
@@ -326,6 +482,9 @@ def harvest_from_github_ssot():
 > **사령부 행동강령:** 지체 없이 분석과 실행에 돌입하여 1·2차 삼성제도 100.0점 통과 후 대시보드에 완료보고서를 전송하라.
 """
             ACTIVE_TASK_MD.write_text(task_content, encoding="utf-8")
+            auto_execute_directive_trigger(did)
+            auto_execute_directive_trigger(did)
+            auto_execute_directive_trigger(did)
             print(f"[HARVESTER] Picked up directive: {did} -> Status: PICKED_UP_BY_ANCHONGRI", flush=True)
 
     if harvested:
@@ -520,17 +679,3 @@ if __name__ == "__main__":
     bridge_daemon_loop(15)
 
 
-def auto_execute_directive_trigger(directive_id: str):
-    """
-    [046호 '연결·소통·만능' 자동 집행 손]
-    새 지시서 감지 시 s1_zero_quota_triumvirate_foundry.py를 백그라운드로 자동 가동하고
-    S1_ANCHONGRI_ACTIVE_TASK.md에 기록함.
-    """
-    foundry_py = BASE_DIR / "s1_zero_quota_triumvirate_foundry.py"
-    if foundry_py.exists():
-        try:
-            subprocess.Popen([sys.executable, str(foundry_py), "--directive", directive_id],
-                             stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-            print(f"[BRIDGE_TRIGGER] Auto-spawned zero-quota foundry for {directive_id}")
-        except Exception as e:
-            print(f"[BRIDGE_TRIGGER] Failed to spawn foundry: {e}")

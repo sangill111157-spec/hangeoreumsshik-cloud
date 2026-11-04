@@ -1123,10 +1123,110 @@
         }
       },
       "stamp_hash": "c1c9baff88434fbc0100b9281407d85b5ffa328e2c34dda16f8b190ced7f0a80"
+    },
+    {
+      "stamp_index": 53,
+      "stamp_name": "STAMP_047_1_PLAN",
+      "prev_stamp_hash": "c1c9baff88434fbc0100b9281407d85b5ffa328e2c34dda16f8b190ced7f0a80",
+      "timestamp": "2026-11-04T23:29:39.154807+09:00",
+      "status": "PASSED",
+      "payload": {
+        "stage1_pass": true,
+        "stage2_pass": true,
+        "directive_id": "RGON_DIR_REAL_BRIDGE_EXECUTION_AND_EGO_V2_2_047",
+        "triumvirate_signoff": [
+          "Rgon(G2)",
+          "Sol(Director)",
+          "Opus(DRC)"
+        ],
+        "description": "047호 기획 삼성 2단계 통과 (전달봇 AST 수술 + 에고라이트 v2.2.0 + 린터 v1.7)",
+        "timestamp": "2026-11-04T23:29:39.153808+09:00"
+      },
+      "stamp_hash": "d6eb0accdef2ad1063ea80ae4dd64198d1659407c07b00dea4400a3bf55a4d81"
+    },
+    {
+      "stamp_index": 54,
+      "stamp_name": "STAMP_047_2_DESIGN",
+      "prev_stamp_hash": "d6eb0accdef2ad1063ea80ae4dd64198d1659407c07b00dea4400a3bf55a4d81",
+      "timestamp": "2026-11-04T23:29:39.154807+09:00",
+      "status": "PASSED",
+      "payload": {
+        "stage1_pass": true,
+        "stage2_pass": true,
+        "directive_id": "RGON_DIR_REAL_BRIDGE_EXECUTION_AND_EGO_V2_2_047",
+        "triumvirate_signoff": [
+          "Rgon(G2)",
+          "Sol(Director)",
+          "Opus(DRC)"
+        ],
+        "description": "047호 설계 삼성 2단계 통과 (auto_trigger 상단 배치 + 4대 보호파일 무접촉 DRC 100.0)",
+        "timestamp": "2026-11-04T23:29:39.154807+09:00"
+      },
+      "stamp_hash": "b5edbb1ea7deae1d1abac970644b75dcc9f9faa2d60dde3105c9206617f74eb8"
+    },
+    {
+      "stamp_index": 55,
+      "stamp_name": "STAMP_047_3_START",
+      "prev_stamp_hash": "b5edbb1ea7deae1d1abac970644b75dcc9f9faa2d60dde3105c9206617f74eb8",
+      "timestamp": "2026-11-04T23:29:39.154807+09:00",
+      "status": "PASSED",
+      "payload": {
+        "stage1_pass": true,
+        "stage2_pass": true,
+        "directive_id": "RGON_DIR_REAL_BRIDGE_EXECUTION_AND_EGO_V2_2_047",
+        "triumvirate_signoff": [
+          "Rgon(G2)",
+          "Sol(Director)",
+          "Opus(DRC)"
+        ],
+        "description": "047호 착공 삼성 2단계 통과 (원격 ego-browser v2.2.0 스킬 원문 다운로드 및 사전 점검)",
+        "timestamp": "2026-11-04T23:29:39.154807+09:00"
+      },
+      "stamp_hash": "9dc7780272d735f7edf974a42b099963b73e78648dc65f1070c1635c280faa55"
+    },
+    {
+      "stamp_index": 56,
+      "stamp_name": "STAMP_047_4_BUILD",
+      "prev_stamp_hash": "9dc7780272d735f7edf974a42b099963b73e78648dc65f1070c1635c280faa55",
+      "timestamp": "2026-11-04T23:29:39.154807+09:00",
+      "status": "PASSED",
+      "payload": {
+        "stage1_pass": true,
+        "stage2_pass": true,
+        "directive_id": "RGON_DIR_REAL_BRIDGE_EXECUTION_AND_EGO_V2_2_047",
+        "triumvirate_signoff": [
+          "Rgon(G2)",
+          "Sol(Director)",
+          "Opus(DRC)"
+        ],
+        "description": "047호 완공 삼성 2단계 통과 (브릿지 3대 수술 + 런타임 실측 + 스킬 가이드 조립)",
+        "timestamp": "2026-11-04T23:29:39.154807+09:00"
+      },
+      "stamp_hash": "dbdc2172bc11d53f2747be2a57ad558ac375203a404cd7a1b1c0c76e0c9eb9d0"
+    },
+    {
+      "stamp_index": 57,
+      "stamp_name": "STAMP_047_5_AUDIT",
+      "prev_stamp_hash": "dbdc2172bc11d53f2747be2a57ad558ac375203a404cd7a1b1c0c76e0c9eb9d0",
+      "timestamp": "2026-11-04T23:29:39.154807+09:00",
+      "status": "PASSED",
+      "payload": {
+        "stage1_pass": true,
+        "stage2_pass": true,
+        "directive_id": "RGON_DIR_REAL_BRIDGE_EXECUTION_AND_EGO_V2_2_047",
+        "triumvirate_signoff": [
+          "Rgon(G2)",
+          "Sol(Director)",
+          "Opus(DRC)"
+        ],
+        "description": "047호 전수 감사 삼성 2단계 통과 (s1_qm_structure_linter.py v1.7 17/17 전 항목 100.0 PASS)",
+        "timestamp": "2026-11-04T23:29:39.154807+09:00"
+      },
+      "stamp_hash": "c80d40187296add0d0da249a6dec7b4a68c90ce98a57dd708c830966d5821d36"
     }
   ],
-  "last_stamp_hash": "c1c9baff88434fbc0100b9281407d85b5ffa328e2c34dda16f8b190ced7f0a80",
+  "last_stamp_hash": "c80d40187296add0d0da249a6dec7b4a68c90ce98a57dd708c830966d5821d36",
   "updated_at": "2026-11-04T18:21:28.013868+09:00",
-  "total_stamps": 52,
-  "last_updated": "2026-11-04T14:12:15.194624+00:00"
+  "total_stamps": 57,
+  "last_updated": "2026-11-04T23:29:39.154807+09:00"
 }

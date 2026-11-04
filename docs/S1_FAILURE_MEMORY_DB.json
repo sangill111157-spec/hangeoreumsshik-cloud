@@ -1,5 +1,5 @@
 {
-  "version": "1.6.0",
+  "version": "1.7.0",
   "directive_id": "RGON_DIR_CONNECT_COMMUNICATE_OMNIPOTENT_046",
   "updated_at": "2026-11-04T23:15:00+09:00",
   "policy": {
@@ -138,6 +138,17 @@
       "target_glob": "s1_rgon_to_anchongri_bridge.py,audio/FATHER_AGE_MASTER_SHORTS_1080x1920.mp4,S1_RELAY_STAMP_PASSPORT.json",
       "guard_function": "check_fm013_connect_communicate_omnipotent_and_streaming_diet",
       "remediation_qm_sp_18": "전체 DOM 스캔 및 auto_execute_directive_trigger 장착, cli-anything-hub 설치, 마스터 쇼츠 12.06MB 경량화(SAR 1:1, DAR 9:16), 5대 공정 삼성 2단계 통과 기록 필수"
+    },
+    {
+      "id": "FM-014",
+      "title": "if __name__ == '__main__': 하단 Dead Code 배치, 미정의 변수(BASE_DIR) 사용, 함수 선언만 하고 미호출하는 린터 눈속임 및 에고라이트 최신 스킬(ego-browser v2.2.0) 미장착 금지",
+      "incident_directive": "047호 대표님 승인",
+      "root_cause": "046호 전달봇 auto_execute_directive_trigger 함수를 if __name__ 무한루프 아래 배치하여 실행 불가 Dead Code 유발, BASE_DIR 오타 및 register_new_directive/harvest_from_github_ssot 미호출 린터 눈속임 방치",
+      "forbidden_pattern": "dead_code_under_if_name_or_base_dir_or_uncalled_trigger",
+      "target_glob": "s1_rgon_to_anchongri_bridge.py,.agents/skills/ego-browser/SKILL.md",
+      "guard_function": "check_fm014_real_bridge_ast_and_ego_v22_skill",
+      "remediation_qm_sp_18": "함수를 register_new_directive 상단 배치, BASE 변수 사용, register/harvest 실호출, AST 정적 분석(ast.Call) 및 실제 런타임 호출 검증, ego-browser v2.2.0 실전 설치"
     }
-  ]
+  ],
+  "last_updated": "2026-11-04T23:29:39.412645+09:00"
 }

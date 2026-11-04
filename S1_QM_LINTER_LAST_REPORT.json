@@ -1,11 +1,11 @@
 {
   "linter_version": "1.6.0",
   "directive_id": "RGON_DIR_CONNECT_COMMUNICATE_OMNIPOTENT_046",
-  "timestamp": "2026-11-04T23:16:33.504614+09:00",
+  "timestamp": "2026-11-04T23:32:53.234151+09:00",
   "verdict": "PASS",
   "score": 100.0,
-  "passed_checks": 16,
-  "total_checks": 16,
+  "passed_checks": 17,
+  "total_checks": 17,
   "checks": [
     {
       "id": "GATE-A-PROTECTED-FILES",
@@ -59,7 +59,7 @@
       "id": "FM-008",
       "name": "대시보드 구버전 배지('023호 시네마틱') 및 빈 로딩 문구('집계 중.../불러오는 중...') 방치 금지",
       "passed": true,
-      "detail": "구버전·빈 로딩 문구 0건, 수채화 배지·SSR·4대 JSON·27대 릴레이 도장(52개)·QM-SP-18 가드·sw.js v20 검증 완료"
+      "detail": "구버전·빈 로딩 문구 0건, 수채화 배지·SSR·4대 JSON·27대 릴레이 도장(57개)·QM-SP-18 가드·sw.js v20 검증 완료"
     },
     {
       "id": "FM-009",
@@ -77,25 +77,31 @@
       "id": "FM-011",
       "name": "DistroKid 신보 12트랙(가을과 겨울 사이, 총 53곡) 원장·대시보드 누락 및 유료 Extras 업셀링 오가입 금지",
       "passed": true,
-      "detail": "53곡 글로벌 원장 및 12트랙 쇼케이스·1+12 마스터북·유료 Extras 0원 방어·여권 42대 도장(52개) 100% 무결 검증"
+      "detail": "53곡 글로벌 원장 및 12트랙 쇼케이스·1+12 마스터북·유료 Extras 0원 방어·여권 42대 도장(57개) 100% 무결 검증"
     },
     {
       "id": "FM-012",
       "name": "모바일 첫 화면 최상단 배지 구버전('042호:') 방치, '41곡 원장' 구버전 버튼 방치 및 id=\"s1-autumn-winter-12tracks-showcase\" 실제 DOM 미삽입 금지",
       "passed": true,
-      "detail": "첫 화면 045호 배지·12트랙 쇼케이스 DOM·53곡 버튼 전수 교체·sw.js v24·여권 47대 도장(52개) 100% 무결 검증"
+      "detail": "첫 화면 045호 배지·12트랙 쇼케이스 DOM·53곡 버튼 전수 교체·sw.js v24·여권 47대 도장(57개) 100% 무결 검증"
     },
     {
       "id": "FM-013",
       "name": "5대 공정 삼성 2단계 통과 원칙 누락, 연결·소통·만능 전달봇 단절(pre, code 한정 스캔 및 auto_execute_directive_trigger 누락), cli-anything-hub 미설치, 비디오 종횡비(SAR 1:1/DAR 9:16) 왜곡 및 20MB 초과 미최적화 스트리밍 방치 금지",
       "passed": true,
-      "detail": "전달봇 전체 DOM 스캔 & auto_trigger 장착·CLI-Anything 가이드·쇼츠 다이어트(12.06MB, SAR 1:1, DAR 9:16)·여권 52대 도장(52개) 100% 무결 검증"
+      "detail": "전달봇 전체 DOM 스캔 & auto_trigger 장착·CLI-Anything 가이드·쇼츠 다이어트(12.06MB, SAR 1:1, DAR 9:16)·여권 52대 도장(57개) 100% 무결 검증"
+    },
+    {
+      "id": "FM-014",
+      "name": "if __name__ == '__main__': 하단 Dead Code 배치, 미정의 변수(BASE_DIR) 사용, 함수 선언만 하고 미호출하는 린터 눈속임 및 에고라이트 최신 스킬(ego-browser v2.2.0) 미장착 금지",
+      "passed": true,
+      "detail": "전달봇 AST 정적 검증(L270 < L677, 2대 ast.Call)·런타임 실측 성공·ego-browser v2.2.0·여권 57대 도장(57개) 100% 무결 검증"
     },
     {
       "id": "GATE-C-PASSPORT",
       "name": "릴레이 여권 해시 체인 연속성 검증",
       "passed": true,
-      "detail": "총 52대 릴레이 도장 사슬 연속성 100% 무결 (최종 해시 c1c9baff8843...)"
+      "detail": "총 57대 릴레이 도장 사슬 연속성 100% 무결 (최종 해시 c80d40187296...)"
     },
     {
       "id": "GATE-D-SECURITY-HYGIENE",
