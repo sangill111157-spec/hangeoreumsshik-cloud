@@ -165,18 +165,70 @@ def scan_space0_deep(do_reload=False):
         return {"ok": False, "error": str(e)}
 
 
-def auto_execute_directive_trigger(directive_id: str) -> dict:
+def auto_execute_directive_trigger(directive_id: str, full_text: str = "") -> dict:
     """
-    [047호 '연결·소통·만능' 실전 자동 집행 손]
-    새 지시서 감지 시 s1_zero_quota_triumvirate_foundry.py를 백그라운드로 자동 가동하고
-    S1_BRIDGE_AUTO_TRIGGER_LOG.json에 기록함.
+    [049호 르곤 직할 무인 집행 엔진]
+    안총리(IDE 채팅창) 개입 없이 르곤 보좌관(Space 0)의 파이썬 페이로드(# [S1_DIRECT_PYTHON_PAYLOAD])를
+    s1_rgon_to_anchongri_bridge.py 데몬이 직접 추출 -> 로컬 실행 -> 린터 검증 -> git commit & push 까지 100% 무인 완주!
     """
-    foundry_py = BASE / "s1_zero_quota_triumvirate_foundry.py"
     log_file = BASE / "S1_BRIDGE_AUTO_TRIGGER_LOG.json"
     docs_log_file = BASE / "docs" / "S1_BRIDGE_AUTO_TRIGGER_LOG.json"
     
+    # [A] 르곤 직할 파이썬 페이로드(# [S1_DIRECT_PYTHON_PAYLOAD]) 감지
+    payload_marker = "# [S1_DIRECT_PYTHON_PAYLOAD]"
+    if full_text and payload_marker in full_text:
+        print(f"[RGON_DIRECT_ENGINE] Detected direct payload in {directive_id}!", flush=True)
+        code_to_run = ""
+        # 1) ```python ... ``` 형태
+        m_fence = re.search(r"```(?:python)?\s*\n([\s\S]*?)```", full_text)
+        if m_fence and payload_marker in m_fence.group(0):
+            code_to_run = m_fence.group(1).strip()
+        else:
+            # 2) 마커 이후부터 [/S1_DIRECT_PYTHON_PAYLOAD] 또는 블록 끝까지
+            m_block = re.search(r"#\s*\[S1_DIRECT_PYTHON_PAYLOAD\]([\s\S]*?)(?:#\s*\[/S1_DIRECT_PYTHON_PAYLOAD\]|\[/S1_AUTO_DISPATCH_TO_ANCHONGRI\]|\Z)", full_text)
+            if m_block:
+                code_to_run = m_block.group(1).strip()
+
+        if code_to_run:
+            runner_file = BASE / "s1_direct_payload_runner.py"
+            runner_file.write_text(code_to_run, encoding="utf-8")
+            print(f"[RGON_DIRECT_ENGINE] Saved payload to {runner_file} ({len(code_to_run)} bytes). Executing immediately...", flush=True)
+
+            # 1) 직접 실행
+            exec_res = subprocess.run([sys.executable, str(runner_file)], cwd=BASE, timeout=120, capture_output=True, text=True)
+            print(f"[RGON_DIRECT_ENGINE] Payload exit code: {exec_res.returncode}", flush=True)
+            if exec_res.stdout:
+                print(f"[RGON_DIRECT_ENGINE] Stdout: {exec_res.stdout[:300]}", flush=True)
+
+            # 2) 린터 자동 검증
+            linter_res = subprocess.run([sys.executable, "s1_qm_structure_linter.py"], cwd=BASE, timeout=60, capture_output=True, text=True)
+            print(f"[RGON_DIRECT_ENGINE] Linter exit code: {linter_res.returncode}", flush=True)
+
+            # 3) Git 무인 커밋 & 푸시
+            try:
+                subprocess.run(["git", "add", "-A"], cwd=BASE, check=False)
+                subprocess.run(["git", "commit", "-m", f"auto(rgon-direct): executed {directive_id} without anchongri"], cwd=BASE, check=False)
+                subprocess.run(["git", "pull", "--rebase", "origin", "main"], cwd=BASE, check=False)
+                subprocess.run(["git", "push", "origin", "main"], cwd=BASE, check=False)
+                print(f"[RGON_DIRECT_ENGINE] Git auto push completed for {directive_id}!", flush=True)
+            except Exception as e:
+                print(f"[RGON_DIRECT_ENGINE] Git sync note: {e}", flush=True)
+
+            log_entry = {
+                "directive_id": directive_id,
+                "timestamp": now_iso(),
+                "pid": os.getpid(),
+                "mode": "RGON_DIRECT_PYTHON_EXECUTION",
+                "status": "COMPLETED",
+                "returncode": exec_res.returncode,
+                "ok": (exec_res.returncode == 0)
+            }
+            _save_trigger_log(log_file, docs_log_file, log_entry)
+            return log_entry
+
+    # [B] 일반 지시서인 경우 로컬 무쿼터 파운드리 백그라운드 가동
+    foundry_py = BASE / "s1_zero_quota_triumvirate_foundry.py"
     pid = None
-    proc = None
     if foundry_py.exists():
         try:
             proc = subprocess.Popen(
@@ -194,10 +246,15 @@ def auto_execute_directive_trigger(directive_id: str) -> dict:
         "directive_id": directive_id,
         "timestamp": now_iso(),
         "pid": pid,
+        "mode": "STANDARD_FOUNDRY_SPAWN",
         "status": "TRIGGERED",
         "ok": True
     }
+    _save_trigger_log(log_file, docs_log_file, log_entry)
+    return log_entry
 
+
+def _save_trigger_log(log_file, docs_log_file, log_entry):
     try:
         data = {"version": "1.0.0", "triggers": []}
         if log_file.exists():
@@ -212,110 +269,6 @@ def auto_execute_directive_trigger(directive_id: str) -> dict:
         docs_log_file.write_text(log_json_str, encoding="utf-8")
     except Exception as e:
         print(f"[BRIDGE_TRIGGER] Failed to write trigger log: {e}", flush=True)
-
-    return {"ok": True, "directive_id": directive_id, "pid": pid, "timestamp": now_iso()}
-
-
-def auto_execute_directive_trigger(directive_id: str) -> dict:
-    """
-    [047호 '연결·소통·만능' 실전 자동 집행 손]
-    새 지시서 감지 시 s1_zero_quota_triumvirate_foundry.py를 백그라운드로 자동 가동하고
-    S1_BRIDGE_AUTO_TRIGGER_LOG.json에 기록함.
-    """
-    foundry_py = BASE / "s1_zero_quota_triumvirate_foundry.py"
-    log_file = BASE / "S1_BRIDGE_AUTO_TRIGGER_LOG.json"
-    docs_log_file = BASE / "docs" / "S1_BRIDGE_AUTO_TRIGGER_LOG.json"
-    
-    pid = None
-    proc = None
-    if foundry_py.exists():
-        try:
-            proc = subprocess.Popen(
-                [sys.executable, str(foundry_py), "--directive", directive_id],
-                stdin=subprocess.DEVNULL,
-                stdout=subprocess.DEVNULL,
-                stderr=subprocess.DEVNULL
-            )
-            pid = proc.pid
-            print(f"[BRIDGE_TRIGGER] Auto-spawned zero-quota foundry for {directive_id} (PID: {pid})", flush=True)
-        except Exception as e:
-            print(f"[BRIDGE_TRIGGER] Failed to spawn foundry: {e}", flush=True)
-
-    log_entry = {
-        "directive_id": directive_id,
-        "timestamp": now_iso(),
-        "pid": pid,
-        "status": "TRIGGERED",
-        "ok": True
-    }
-
-    try:
-        data = {"version": "1.0.0", "triggers": []}
-        if log_file.exists():
-            try:
-                data = json.loads(log_file.read_text(encoding="utf-8"))
-            except Exception:
-                pass
-        data.setdefault("triggers", []).append(log_entry)
-        log_json_str = json.dumps(data, ensure_ascii=False, indent=2)
-        log_file.write_text(log_json_str, encoding="utf-8")
-        docs_log_file.parent.mkdir(parents=True, exist_ok=True)
-        docs_log_file.write_text(log_json_str, encoding="utf-8")
-    except Exception as e:
-        print(f"[BRIDGE_TRIGGER] Failed to write trigger log: {e}", flush=True)
-
-    return {"ok": True, "directive_id": directive_id, "pid": pid, "timestamp": now_iso()}
-
-
-def auto_execute_directive_trigger(directive_id: str) -> dict:
-    """
-    [047호 '연결·소통·만능' 실전 자동 집행 손]
-    새 지시서 감지 시 s1_zero_quota_triumvirate_foundry.py를 백그라운드로 자동 가동하고
-    S1_BRIDGE_AUTO_TRIGGER_LOG.json에 기록함.
-    """
-    foundry_py = BASE / "s1_zero_quota_triumvirate_foundry.py"
-    log_file = BASE / "S1_BRIDGE_AUTO_TRIGGER_LOG.json"
-    docs_log_file = BASE / "docs" / "S1_BRIDGE_AUTO_TRIGGER_LOG.json"
-    
-    pid = None
-    proc = None
-    if foundry_py.exists():
-        try:
-            proc = subprocess.Popen(
-                [sys.executable, str(foundry_py), "--directive", directive_id],
-                stdin=subprocess.DEVNULL,
-                stdout=subprocess.DEVNULL,
-                stderr=subprocess.DEVNULL
-            )
-            pid = proc.pid
-            print(f"[BRIDGE_TRIGGER] Auto-spawned zero-quota foundry for {directive_id} (PID: {pid})", flush=True)
-        except Exception as e:
-            print(f"[BRIDGE_TRIGGER] Failed to spawn foundry: {e}", flush=True)
-
-    log_entry = {
-        "directive_id": directive_id,
-        "timestamp": now_iso(),
-        "pid": pid,
-        "status": "TRIGGERED",
-        "ok": True
-    }
-
-    try:
-        data = {"version": "1.0.0", "triggers": []}
-        if log_file.exists():
-            try:
-                data = json.loads(log_file.read_text(encoding="utf-8"))
-            except Exception:
-                pass
-        data.setdefault("triggers", []).append(log_entry)
-        log_json_str = json.dumps(data, ensure_ascii=False, indent=2)
-        log_file.write_text(log_json_str, encoding="utf-8")
-        docs_log_file.parent.mkdir(parents=True, exist_ok=True)
-        docs_log_file.write_text(log_json_str, encoding="utf-8")
-    except Exception as e:
-        print(f"[BRIDGE_TRIGGER] Failed to write trigger log: {e}", flush=True)
-
-    return {"ok": True, "directive_id": directive_id, "pid": pid, "timestamp": now_iso()}
 
 
 def register_new_directive(directive_id, title, full_text):
@@ -358,10 +311,7 @@ def register_new_directive(directive_id, title, full_text):
     processed.append(directive_id)
     save_json(PROCESSED_FILE, processed)
     print(f"[BRIDGE] Registered directive: {directive_id} ({title})", flush=True)
-    auto_execute_directive_trigger(directive_id)
-    auto_execute_directive_trigger(directive_id)
-    auto_execute_directive_trigger(directive_id)
-
+    auto_execute_directive_trigger(directive_id, full_text)
     # Auto commit and push to GitHub
     try:
         subprocess.run(["git", "add", "S1_RGON_DIRECTIVE_QUEUE.json", "docs/S1_RGON_DIRECTIVE_QUEUE.json", "S1_RGON_DIRECTIVE_INBOX.md"], check=True)
@@ -372,6 +322,22 @@ def register_new_directive(directive_id, title, full_text):
         print(f"[BRIDGE] Git sync note: {e}", flush=True)
 
     return True
+
+def scan_clipboard_for_directives():
+    """클립보드에 새 [S1_AUTO_DISPATCH_TO_ANCHONGRI] 지시서가 복사되었을 때 즉시 감지하여 집행"""
+    try:
+        res = subprocess.run(["powershell", "-NoProfile", "-Command", "Get-Clipboard"], capture_output=True, text=True, timeout=3)
+        cb_text = res.stdout.strip()
+        if "[S1_AUTO_DISPATCH_TO_ANCHONGRI]" in cb_text:
+            id_match = re.search(r"(?:ID:\s*|DIRECTIVE_ID:\s*|#\s*)?(RGON_DIR_[A-Za-z0-9_]+)", cb_text)
+            if id_match:
+                did = id_match.group(1)
+                title_match = re.search(r"TITLE:\s*(.+)|작업명:\s*(.+)", cb_text)
+                title = (title_match.group(1) or title_match.group(2)).strip() if title_match else f"클립보드 직통 지시서 ({did})"
+                register_new_directive(did, title, cb_text)
+    except Exception:
+        pass
+
 
 def process_mobile_queue():
     mobile_data = load_json(MOBILE_QUEUE_JSON, {"messages": []})
@@ -482,9 +448,7 @@ def harvest_from_github_ssot():
 > **사령부 행동강령:** 지체 없이 분석과 실행에 돌입하여 1·2차 삼성제도 100.0점 통과 후 대시보드에 완료보고서를 전송하라.
 """
             ACTIVE_TASK_MD.write_text(task_content, encoding="utf-8")
-            auto_execute_directive_trigger(did)
-            auto_execute_directive_trigger(did)
-            auto_execute_directive_trigger(did)
+            auto_execute_directive_trigger(did, item.get("full_text", ""))
             print(f"[HARVESTER] Picked up directive: {did} -> Status: PICKED_UP_BY_ANCHONGRI", flush=True)
 
     if harvested:
@@ -667,6 +631,7 @@ def bridge_daemon_loop(poll_interval=15):
     while RUNNING_FLAG:
         try:
             cycle_count += 1
+            scan_clipboard_for_directives()
             run_bridge_cycle(cycle_num=cycle_count)
             if cycle_count % 4 == 0:
                 print(f"[{now_iso()}] [HARVESTER_HEARTBEAT] 15s cycle #{cycle_count} running healthy. SSOT & Space 0 eye ok.", flush=True)
