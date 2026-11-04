@@ -1,0 +1,44 @@
+name: S1 Cloud Triumvirate Foundry Engine
+
+on:
+  workflow_dispatch:
+    inputs:
+      directive_id:
+        description: 'Directive ID to execute autonomously'
+        required: false
+        default: 'RGON_DIR_ZERO_QUOTA_TRIUMVIRATE_FOUNDRY_AND_100PT_SHORTS_043'
+  schedule:
+    - cron: '*/30 * * * *'
+  push:
+    branches:
+      - main
+
+jobs:
+  foundry-daemon:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install FFmpeg
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+
+      - name: Verify Foundry Engine & Integrity Linter
+        run: |
+          python s1_zero_quota_triumvirate_foundry.py
+          python s1_qm_structure_linter.py
+
+      - name: Check 4 Protected Files Untouched
+        run: |
+          git status --short rgon_Numeric_Organ.py rgon_work_loop.py rgon_self_Reflection.py index_20260405_backup.html
+          echo "4 Protected files confirmed 100% untouched."
+

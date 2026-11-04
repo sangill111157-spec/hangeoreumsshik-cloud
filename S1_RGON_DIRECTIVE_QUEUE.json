@@ -510,6 +510,12 @@
         "commit_hash": "v21-042-3DMOTION",
         "triumvirate_score": "100.0 / 100.0 PASS"
       }
+    },
+    {
+      "directive_id": "RGON_DIR_ZERO_QUOTA_TRIUMVIRATE_FOUNDRY_AND_100PT_SHORTS_043",
+      "title": "[043호] 안총리 IDE 쿼터 소모 0% 자율 삼성 파운드리 엔진 구축 & 100점 쇼츠 비트 칼싱크 완공",
+      "status": "COMPLETED_IN_MAIN",
+      "timestamp": "2026-11-04T10:36:38.209158+00:00"
     }
   ]
 }

@@ -821,8 +821,87 @@
         "verdict": "PASSED_042_STAGE5_FULL_AUDIT_100"
       },
       "stamp_hash": "db131bcfe7340895261e880a82b224863889a213d9a93297973461db5dd00aaa"
+    },
+    {
+      "stamp_index": 33,
+      "stamp_name": "STAMP_043_1_PLAN",
+      "prev_stamp_hash": "db131bcfe7340895261e880a82b224863889a213d9a93297973461db5dd00aaa",
+      "timestamp": "2026-11-04T10:36:37.984636+00:00",
+      "status": "PASSED",
+      "payload": {
+        "focus": "Zero-Quota Triumvirate Foundry + 100pt Shorts",
+        "zero_cost_lock": true
+      },
+      "stamp_hash": "4e7e4fe0ca4701e8c9306c36723a03622669753c18f79c858d76243e4abcd466"
+    },
+    {
+      "stamp_index": 34,
+      "stamp_name": "STAMP_043_2_DESIGN",
+      "prev_stamp_hash": "4e7e4fe0ca4701e8c9306c36723a03622669753c18f79c858d76243e4abcd466",
+      "timestamp": "2026-11-04T10:36:37.984636+00:00",
+      "status": "PASSED",
+      "payload": {
+        "beat_sync_timestamps": [
+          6.23,
+          11.61,
+          16.19,
+          22.35,
+          28.62
+        ],
+        "transition": "xfade fade 0.35s"
+      },
+      "stamp_hash": "6a8ae7b711701008bb9c4caaa905011aceaf2de69c6ffdcbde97c79f01f0c562"
+    },
+    {
+      "stamp_index": 35,
+      "stamp_name": "STAMP_043_3_START",
+      "prev_stamp_hash": "6a8ae7b711701008bb9c4caaa905011aceaf2de69c6ffdcbde97c79f01f0c562",
+      "timestamp": "2026-11-04T10:36:37.984636+00:00",
+      "status": "PASSED",
+      "payload": {
+        "reused_clips_count": 6,
+        "reused_size_mb": 60.2,
+        "cost": "0 KRW"
+      },
+      "stamp_hash": "1856f13f8a0756e7522f93b9ad4bf962f4a30a84d5f1076db0461ddbdb4a7b51"
+    },
+    {
+      "stamp_index": 36,
+      "stamp_name": "STAMP_043_4_BUILD",
+      "prev_stamp_hash": "1856f13f8a0756e7522f93b9ad4bf962f4a30a84d5f1076db0461ddbdb4a7b51",
+      "timestamp": "2026-11-04T10:36:37.984636+00:00",
+      "status": "PASSED",
+      "payload": {
+        "duration": 34.0,
+        "scores": [
+          0.6206,
+          0.7412,
+          0.8495,
+          0.8049,
+          0.4751,
+          0.8807
+        ],
+        "avg_score": 0.7287
+      },
+      "stamp_hash": "36e724df9680602a886871ab90a15807c406a0100928f90db14569c02ae5c324"
+    },
+    {
+      "stamp_index": 37,
+      "stamp_name": "STAMP_043_5_AUDIT",
+      "prev_stamp_hash": "36e724df9680602a886871ab90a15807c406a0100928f90db14569c02ae5c324",
+      "timestamp": "2026-11-04T10:36:37.984636+00:00",
+      "status": "PASSED",
+      "payload": {
+        "linter_version": "1.3.0",
+        "checks_total": 13,
+        "checks_passed": 13,
+        "verdict": "PASSED_043_100"
+      },
+      "stamp_hash": "454c9fd552f4b32b5b4996c5a80932efb9b241a4d21d4ac77943800b7ec8fdde"
     }
   ],
-  "last_stamp_hash": "db131bcfe7340895261e880a82b224863889a213d9a93297973461db5dd00aaa",
-  "updated_at": "2026-11-04T18:21:28.013868+09:00"
+  "last_stamp_hash": "454c9fd552f4b32b5b4996c5a80932efb9b241a4d21d4ac77943800b7ec8fdde",
+  "updated_at": "2026-11-04T18:21:28.013868+09:00",
+  "total_stamps": 37,
+  "last_updated": "2026-11-04T10:36:37.984636+00:00"
 }

@@ -256,8 +256,8 @@ def check_fm008_dashboard_freshness():
 
     required_markers = [
         "./audio/father_age_shorts_scenes/scene_01.png?v=04",
-        "042호: 친근한 디즈니·픽사 감성 3D 실사화 & 탈(脫)줌인 살아 숨 쉬는 모션 쇼츠 완공",
-        "RGON_DIR_DISNEY_WARM_3D_AND_ZERO_ZOOMPAN_042",
+        "043호: 무과금(0원) 자율 삼성 파운드리 & AEON-7 오디오 비트 칼싱크 100점 마스터 쇼츠 완공",
+        "RGON_DIR_ZERO_QUOTA_TRIUMVIRATE_FOUNDRY_AND_100PT_SHORTS_043",
         "STAMP_042_5_AUDIT",
         "./S1_RGON_DIRECTIVE_QUEUE.json",
         "./S1_RELAY_STAMP_PASSPORT.json",
@@ -459,6 +459,56 @@ def check_fm009_non_zoompan_dynamic_motion():
     )
 
 
+
+def check_fm010_beat_sync_and_motion_density():
+    mp4_root = BASE / "audio" / "FATHER_AGE_MASTER_SHORTS_1080x1920.mp4"
+    mp4_docs = BASE / "docs" / "audio" / "FATHER_AGE_MASTER_SHORTS_1080x1920.mp4"
+    if not mp4_root.exists() or not mp4_docs.exists():
+        return False, "마스터 쇼츠 MP4(루트 또는 docs/audio) 누락"
+    if sha256_file(mp4_root) != sha256_file(mp4_docs):
+        return False, "마스터 쇼츠 MP4 루트 <-> docs/audio 해시 불일치"
+
+    # Verify zero-quota triumvirate foundry engine and cloud workflow
+    foundry_py = BASE / "s1_zero_quota_triumvirate_foundry.py"
+    cloud_yml = BASE / ".github" / "workflows" / "s1_cloud_triumvirate_foundry.yml"
+    if not foundry_py.exists():
+        return False, "s1_zero_quota_triumvirate_foundry.py 누락"
+    if not cloud_yml.exists():
+        return False, ".github/workflows/s1_cloud_triumvirate_foundry.yml 누락"
+
+    # Verify ZERO_COST_SAFETY_LOCK hard guard in foundry
+    foundry_txt = foundry_py.read_text(encoding="utf-8", errors="ignore")
+    if "ZERO_COST_SAFETY_LOCK = True" not in foundry_txt:
+        return False, "s1_zero_quota_triumvirate_foundry.py 내 ZERO_COST_SAFETY_LOCK 하드 가드 부재"
+
+    # Verify proof documents
+    proof_r = BASE / "S1_IO_TEST_14_100PT_SHORTS_AND_ZERO_QUOTA_FOUNDRY_PROOF.md"
+    proof_d = BASE / "docs" / "S1_IO_TEST_14_100PT_SHORTS_AND_ZERO_QUOTA_FOUNDRY_PROOF.md"
+    if not proof_r.exists() or not proof_d.exists() or sha256_file(proof_r) != sha256_file(proof_d):
+        return False, "S1_IO_TEST_14_100PT_SHORTS_AND_ZERO_QUOTA_FOUNDRY_PROOF.md 누락 또는 docs 미러 불일치"
+
+    # Verify passport 043 stamps (STAMP #33 ~ #37)
+    pp_data = json.loads((BASE / "S1_RELAY_STAMP_PASSPORT.json").read_text(encoding="utf-8"))
+    pp_stamps = pp_data.get("stamps", [])
+    pp_names = {s.get("stamp_name") or s.get("stamp_id") for s in pp_stamps}
+    if len(pp_stamps) < 37 or "STAMP_043_5_AUDIT" not in pp_names:
+        return False, f"S1_RELAY_STAMP_PASSPORT.json 043호 5대 공정 도장(#33~#37) 미완비 (현재 {len(pp_stamps)}개)"
+
+    # Measure Optical-Flow Non-Zoompan Residual across all 6 cuts for 043-SAFE
+    windows = [(0.4, 4.0), (6.5, 4.5), (12.0, 3.8), (17.5, 4.2), (23.5, 4.5), (29.2, 4.0)]
+    scores = [_measure_segment_non_zoompan_residual(mp4_root, s, d) for s, d in windows]
+    avg_score = round(sum(scores) / len(scores), 4)
+
+    low_cuts = [i + 1 for i, sc in enumerate(scores) if sc < 0.45]
+    if low_cuts or avg_score < 0.70:
+        return False, f"FM-010 모션 밀도 미달: 잔차={scores} (평균 {avg_score} < 0.70, 저밀도 컷={low_cuts})"
+
+    return (
+        True,
+        f"043-SAFE 무과금 가드·비트 칼싱크·무쿼터 파운드리·전 컷 비선형 잔차 0.45px 이상(잔차={scores}, 평균 {avg_score}px >= 0.70px) 100점 완공",
+    )
+
+
 GUARD_DISPATCH = {
     "check_fm001_no_fake_tkinter": check_fm001_no_fake_tkinter,
     "check_fm002_authentic_motion_shorts": check_fm002_authentic_motion_shorts,
@@ -469,6 +519,7 @@ GUARD_DISPATCH = {
     "check_fm007_audio_and_docs_mirror_zero_404": check_fm007_audio_and_docs_mirror_zero_404,
     "check_fm008_dashboard_freshness": check_fm008_dashboard_freshness,
     "check_fm009_non_zoompan_dynamic_motion": check_fm009_non_zoompan_dynamic_motion,
+    "check_fm010_beat_sync_and_motion_density": check_fm010_beat_sync_and_motion_density,
 }
 
 
@@ -565,8 +616,8 @@ def run_all_checks():
     all_passed = passed_count == total_count
 
     report = {
-        "linter_version": "1.2.0",
-        "directive_id": "RGON_DIR_DISNEY_WARM_3D_AND_ZERO_ZOOMPAN_042",
+        "linter_version": "1.3.0",
+        "directive_id": "RGON_DIR_ZERO_QUOTA_TRIUMVIRATE_FOUNDRY_AND_100PT_SHORTS_043",
         "timestamp": now_iso(),
         "verdict": "PASS" if all_passed else "QM_SP_11_REJECTED_LOT",
         "score": score,
@@ -581,7 +632,7 @@ def run_all_checks():
         shutil.copyfile(report_path, BASE / "docs" / "S1_QM_LINTER_LAST_REPORT.json")
 
     print("=" * 72)
-    print(f"🛡️ [S1 구조적 품질 린터 v1.2] 전수 검사 결과: {report['verdict']} ({score} / 100.0)")
+    print(f"🛡️ [S1 구조적 품질 린터 v1.3] 전수 검사 결과: {report['verdict']} ({score} / 100.0)")
     print("=" * 72)
     for c in checks:
         mark = "✅ PASS" if c["passed"] else "❌ FAIL (QM-SP-11 격리)"

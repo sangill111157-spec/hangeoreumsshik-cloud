@@ -1,5 +1,5 @@
 // S1 Service Worker v2026-stepagent-v9 (SUN-ONE AON Zero-Paste & Dual Bridge)
-const CACHE = 's1-aon-v21-disney-warm-3d-motion-042';
+const CACHE = 's1-aon-v22-zero-quota-foundry-043';
 const ASSETS = [
   './',
   './index.html',

@@ -1,7 +1,7 @@
 {
-  "version": "1.2.0",
-  "directive_id": "RGON_DIR_DISNEY_WARM_3D_AND_ZERO_ZOOMPAN_042",
-  "updated_at": "2026-11-04T18:06:17.468099+09:00",
+  "version": "1.3.0",
+  "directive_id": "RGON_DIR_ZERO_QUOTA_TRIUMVIRATE_FOUNDRY_AND_100PT_SHORTS_043",
+  "updated_at": "2026-11-04T19:33:00+09:00",
   "policy": {
     "principle": "encode-lessons-in-structure & verification-before-completion",
     "enforcement_script": "s1_qm_structure_linter.py",
@@ -98,6 +98,16 @@
       "target_glob": "audio/FATHER_AGE_MASTER_SHORTS_1080x1920.mp4",
       "guard_function": "check_fm009_non_zoompan_dynamic_motion",
       "remediation_qm_sp_18": "친근한 디즈니·픽사 감성 3D 실사화(글씨 0%) 6컷을 실전 AI Image-to-Video 엔진(Seedance Pro / Gemini Omni / Kling)으로 구동하여 피사체별 독립 모션 클립 6개를 생성하고, 6x8 로컬 그리드 비균일 모션 분산 실측 통과 필수"
+    },
+    {
+      "id": "FM-010",
+      "title": "음악 박자(Onset/RMS) 무감각 기계적 컷 연결 및 저밀도 모션(0.45px 미만) 방치 금지 & 외부 유료 과금 위험 API 무단 호출 금지",
+      "incident_directive": "042호 88점 한계 -> 043호 긴급 무과금 안전 패치(043-SAFE) 교정",
+      "root_cause": "음악의 실제 비트 드롭(Onset/RMS) 지점을 무시한 기계적 등간격 연결과 특정 컷의 모션 저밀도 방치, 그리고 외부 유료 API 무료 잔량 소진 시 추가 과금 위험 노출",
+      "forbidden_pattern": "uniform_stale_cut_without_beat_sync_or_unauthorized_billing_api",
+      "target_glob": "audio/FATHER_AGE_MASTER_SHORTS_1080x1920.mp4,s1_zero_quota_triumvirate_foundry.py",
+      "guard_function": "check_fm010_beat_sync_and_motion_density",
+      "remediation_qm_sp_18": "ZERO_COST_SAFETY_LOCK = True 하드 가드로 외부 유료 과금 API 호출을 0토큰 소모로 원천 차단하고, 10ms 단위 Onset/RMS 비트 칼싱크 및 전 컷 비선형 잔차 0.45px 이상(평균 0.70px 이상) xfade 소프트 필름 디졸브 합성 필수"
     }
   ]
 }

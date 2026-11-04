@@ -1570,6 +1570,12 @@
           "timestamp": "2026-11-04T18:17:39.947128+09:00"
         }
       }
+    },
+    "RGON_DIR_ZERO_QUOTA_TRIUMVIRATE_FOUNDRY_AND_100PT_SHORTS_043": {
+      "status": "COMPLETED",
+      "progress": 100.0,
+      "current_stage": "STAGE_5_AUDIT",
+      "updated_at": "2026-11-04T10:36:38.222158+00:00"
     }
   },
   "pipeline_progress": {
