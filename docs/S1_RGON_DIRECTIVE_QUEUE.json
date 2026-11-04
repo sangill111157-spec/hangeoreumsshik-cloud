@@ -522,6 +522,12 @@
       "title": "[044호] 아티스트 '한걸음씩' 정규 신보 〈가을과 겨울 사이〉 12트랙 & 53곡 원장 통합 및 폭포수 퍼널 완공",
       "status": "COMPLETED_IN_MAIN",
       "timestamp": "2026-11-04T11:35:38.493133+00:00"
+    },
+    {
+      "directive_id": "RGON_DIR_FIRST_SCREEN_UI_AND_SHOWCASE_FIX_045",
+      "title": "[045호] 모바일 첫 화면 최상단 배지 및 53곡 쇼케이스 카드 실제 삽입 완공",
+      "status": "COMPLETED_IN_MAIN",
+      "timestamp": "2026-11-04T11:54:17.378017+00:00"
     }
   ]
 }

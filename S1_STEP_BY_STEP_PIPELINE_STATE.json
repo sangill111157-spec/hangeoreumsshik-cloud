@@ -1582,6 +1582,12 @@
       "progress": 100.0,
       "current_stage": "STAGE_5_AUDIT",
       "updated_at": "2026-11-04T11:35:38.504134+00:00"
+    },
+    "RGON_DIR_FIRST_SCREEN_UI_AND_SHOWCASE_FIX_045": {
+      "status": "COMPLETED",
+      "progress": 100.0,
+      "current_stage": "STAGE_5_AUDIT",
+      "updated_at": "2026-11-04T11:54:17.391019+00:00"
     }
   },
   "pipeline_progress": {

@@ -962,10 +962,73 @@
         "verdict": "PASSED_044_100"
       },
       "stamp_hash": "f2136a452134143cdc7a10535bce4d7a484430e27d65f68b78b26ce41af65949"
+    },
+    {
+      "stamp_index": 43,
+      "stamp_name": "STAMP_045_1_PLAN",
+      "prev_stamp_hash": "f2136a452134143cdc7a10535bce4d7a484430e27d65f68b78b26ce41af65949",
+      "timestamp": "2026-11-04T11:54:17.370017+00:00",
+      "status": "PASSED",
+      "payload": {
+        "focus": "Above-the-Fold Top Badge & Showcase Insertion",
+        "zero_cost": true
+      },
+      "stamp_hash": "35f24c7e40c6a9e3d6f04a36c4fb4fdb6d8d9995e884dd228d5fa74c6c339d45"
+    },
+    {
+      "stamp_index": 44,
+      "stamp_name": "STAMP_045_2_DESIGN",
+      "prev_stamp_hash": "35f24c7e40c6a9e3d6f04a36c4fb4fdb6d8d9995e884dd228d5fa74c6c339d45",
+      "timestamp": "2026-11-04T11:54:17.370017+00:00",
+      "status": "PASSED",
+      "payload": {
+        "section_id": "s1-autumn-winter-12tracks-showcase",
+        "target_banner": "banner-father-mountain"
+      },
+      "stamp_hash": "6fcf9b726fa8a392812f336cfd5bf76d89e4ea7a7e3a87e67760878bd3d1760d"
+    },
+    {
+      "stamp_index": 45,
+      "stamp_name": "STAMP_045_3_START",
+      "prev_stamp_hash": "6fcf9b726fa8a392812f336cfd5bf76d89e4ea7a7e3a87e67760878bd3d1760d",
+      "timestamp": "2026-11-04T11:54:17.370017+00:00",
+      "status": "PASSED",
+      "payload": {
+        "sw_version": "v24",
+        "button_label": "53곡 원장 & 11/6 신보(12곡)"
+      },
+      "stamp_hash": "2788296b5ccde4325f4b6608d1f45442da673c4c27a7a120ce1aae154d2516e0"
+    },
+    {
+      "stamp_index": 46,
+      "stamp_name": "STAMP_045_4_BUILD",
+      "prev_stamp_hash": "2788296b5ccde4325f4b6608d1f45442da673c4c27a7a120ce1aae154d2516e0",
+      "timestamp": "2026-11-04T11:54:17.370017+00:00",
+      "status": "PASSED",
+      "payload": {
+        "showcase_inserted": true,
+        "stale_41_removed": true,
+        "stale_042_removed": true
+      },
+      "stamp_hash": "a4faed81554974d2443884cdc5ab9bde25d9c1c290a7d7a4c4518d4d05bb2688"
+    },
+    {
+      "stamp_index": 47,
+      "stamp_name": "STAMP_045_5_AUDIT",
+      "prev_stamp_hash": "a4faed81554974d2443884cdc5ab9bde25d9c1c290a7d7a4c4518d4d05bb2688",
+      "timestamp": "2026-11-04T11:54:17.370017+00:00",
+      "status": "PASSED",
+      "payload": {
+        "linter_version": "1.5.0",
+        "checks_total": 15,
+        "checks_passed": 15,
+        "verdict": "PASSED_045_100"
+      },
+      "stamp_hash": "bf59ca021556be2a5e2b508347a75826137cac3506fdfa5c5826a7753ee17a0f"
     }
   ],
-  "last_stamp_hash": "f2136a452134143cdc7a10535bce4d7a484430e27d65f68b78b26ce41af65949",
+  "last_stamp_hash": "bf59ca021556be2a5e2b508347a75826137cac3506fdfa5c5826a7753ee17a0f",
   "updated_at": "2026-11-04T18:21:28.013868+09:00",
-  "total_stamps": 42,
-  "last_updated": "2026-11-04T11:35:38.485131+00:00"
+  "total_stamps": 47,
+  "last_updated": "2026-11-04T11:54:17.370017+00:00"
 }

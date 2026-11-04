@@ -256,8 +256,8 @@ def check_fm008_dashboard_freshness():
 
     required_markers = [
         "./audio/father_age_shorts_scenes/scene_01.png?v=04",
-        "044호: 아티스트 '한걸음씩' 정규 신보 〈가을과 겨울 사이〉 12트랙 & 53곡 원장 통합 및 폭포수 퍼널 완공",
-        "RGON_DIR_AUTUMN_WINTER_12TRACKS_MASTER_LAUNCH_044",
+        "045호: 100점 비트칼싱크(AEON-7) 마스터 쇼츠 &amp; 11/6 신보 〈가을과 겨울 사이〉 53곡 완공",
+        "RGON_DIR_FIRST_SCREEN_UI_AND_SHOWCASE_FIX_045",
         "STAMP_042_5_AUDIT",
         "./S1_RGON_DIRECTIVE_QUEUE.json",
         "./S1_RELAY_STAMP_PASSPORT.json",
@@ -549,6 +549,49 @@ def check_fm011_autumn_winter_53tracks_ledger_and_extras_zero_cost():
 
     return True, f"53곡 글로벌 원장 및 12트랙 쇼케이스·1+12 마스터북·유료 Extras 0원 방어·여권 42대 도장({len(pp_stamps)}개) 100% 무결 검증"
 
+
+def check_fm012_first_screen_ui_showcase_and_freshness():
+    idx = BASE / "index.html"
+    docs_idx = BASE / "docs" / "index.html"
+    if not idx.exists() or not docs_idx.exists():
+        return False, "index.html 또는 docs/index.html 누락"
+    if sha256_file(idx) != sha256_file(docs_idx):
+        return False, "index.html 루트 <-> docs 해시 불일치"
+
+    html = idx.read_text(encoding="utf-8", errors="ignore")
+
+    # 1. Check showcase card exists in DOM
+    if 'id="s1-autumn-winter-12tracks-showcase"' not in html:
+        return False, '신보 12트랙 쇼케이스 카드 id=s1-autumn-winter-12tracks-showcase 실제 DOM 미삽입'
+
+    # 2. Check top banner does not have stale 042호
+    if "042호:" in html:
+        return False, "최상단 #banner-father-mountain 등에 구버전 '042호:' 잔존"
+
+    # 3. Check no stale '41곡 원장 & 11/6 발매'
+    if "41곡 원장 & 11/6 발매" in html or "💿 41곡 원장" in html:
+        return False, "구버전 '41곡 원장' 알약 버튼 텍스트 잔존"
+
+    # 4. Check IO TEST 16 proof
+    p16_root = BASE / "S1_IO_TEST_16_FIRST_SCREEN_UI_53TRACKS_PROOF.md"
+    p16_docs = BASE / "docs" / "S1_IO_TEST_16_FIRST_SCREEN_UI_53TRACKS_PROOF.md"
+    if not p16_root.exists() or not p16_docs.exists() or sha256_file(p16_root) != sha256_file(p16_docs):
+        return False, "S1_IO_TEST_16_FIRST_SCREEN_UI_53TRACKS_PROOF.md 누락 또는 docs 미러 불일치"
+
+    # 5. Check passport 045 stamps
+    pp_data = json.loads((BASE / "S1_RELAY_STAMP_PASSPORT.json").read_text(encoding="utf-8"))
+    pp_stamps = pp_data.get("stamps", [])
+    pp_names = {s.get("stamp_name") or s.get("stamp_id") for s in pp_stamps}
+    if len(pp_stamps) < 47 or "STAMP_045_5_AUDIT" not in pp_names:
+        return False, f"S1_RELAY_STAMP_PASSPORT.json 045호 5대 공정 도장(#43~#47) 미완비 (현재 {len(pp_stamps)}개)"
+
+    # 6. Check sw.js v24
+    sw = BASE / "sw.js"
+    if not sw.exists() or "s1-aon-v24-" not in sw.read_text(encoding="utf-8", errors="ignore"):
+        return False, "sw.js 캐시 버전 미갱신 (v24 필수)"
+
+    return True, f"첫 화면 045호 배지·12트랙 쇼케이스 DOM·53곡 버튼 전수 교체·sw.js v24·여권 47대 도장({len(pp_stamps)}개) 100% 무결 검증"
+
 GUARD_DISPATCH = {
     "check_fm001_no_fake_tkinter": check_fm001_no_fake_tkinter,
     "check_fm002_authentic_motion_shorts": check_fm002_authentic_motion_shorts,
@@ -561,6 +604,7 @@ GUARD_DISPATCH = {
     "check_fm009_non_zoompan_dynamic_motion": check_fm009_non_zoompan_dynamic_motion,
     "check_fm010_beat_sync_and_motion_density": check_fm010_beat_sync_and_motion_density,
     "check_fm011_autumn_winter_53tracks_ledger_and_extras_zero_cost": check_fm011_autumn_winter_53tracks_ledger_and_extras_zero_cost,
+    "check_fm012_first_screen_ui_showcase_and_freshness": check_fm012_first_screen_ui_showcase_and_freshness,
 }
 
 
@@ -657,8 +701,8 @@ def run_all_checks():
     all_passed = passed_count == total_count
 
     report = {
-        "linter_version": "1.4.0",
-        "directive_id": "RGON_DIR_AUTUMN_WINTER_12TRACKS_MASTER_LAUNCH_044",
+        "linter_version": "1.5.0",
+        "directive_id": "RGON_DIR_FIRST_SCREEN_UI_AND_SHOWCASE_FIX_045",
         "timestamp": now_iso(),
         "verdict": "PASS" if all_passed else "QM_SP_11_REJECTED_LOT",
         "score": score,
@@ -673,7 +717,7 @@ def run_all_checks():
         shutil.copyfile(report_path, BASE / "docs" / "S1_QM_LINTER_LAST_REPORT.json")
 
     print("=" * 72)
-    print(f"🛡️ [S1 구조적 품질 린터 v1.4] 전수 검사 결과: {report['verdict']} ({score} / 100.0)")
+    print(f"🛡️ [S1 구조적 품질 린터 v1.5] 전수 검사 결과: {report['verdict']} ({score} / 100.0)")
     print("=" * 72)
     for c in checks:
         mark = "✅ PASS" if c["passed"] else "❌ FAIL (QM-SP-11 격리)"

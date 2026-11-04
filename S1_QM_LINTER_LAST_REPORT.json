@@ -1,11 +1,11 @@
 {
-  "linter_version": "1.4.0",
-  "directive_id": "RGON_DIR_AUTUMN_WINTER_12TRACKS_MASTER_LAUNCH_044",
-  "timestamp": "2026-11-04T20:37:26.249658+09:00",
+  "linter_version": "1.5.0",
+  "directive_id": "RGON_DIR_FIRST_SCREEN_UI_AND_SHOWCASE_FIX_045",
+  "timestamp": "2026-11-04T20:56:31.956730+09:00",
   "verdict": "PASS",
   "score": 100.0,
-  "passed_checks": 14,
-  "total_checks": 14,
+  "passed_checks": 15,
+  "total_checks": 15,
   "checks": [
     {
       "id": "GATE-A-PROTECTED-FILES",
@@ -59,7 +59,7 @@
       "id": "FM-008",
       "name": "대시보드 구버전 배지('023호 시네마틱') 및 빈 로딩 문구('집계 중.../불러오는 중...') 방치 금지",
       "passed": true,
-      "detail": "구버전·빈 로딩 문구 0건, 수채화 배지·SSR·4대 JSON·27대 릴레이 도장(42개)·QM-SP-18 가드·sw.js v20 검증 완료"
+      "detail": "구버전·빈 로딩 문구 0건, 수채화 배지·SSR·4대 JSON·27대 릴레이 도장(47개)·QM-SP-18 가드·sw.js v20 검증 완료"
     },
     {
       "id": "FM-009",
@@ -77,13 +77,19 @@
       "id": "FM-011",
       "name": "DistroKid 신보 12트랙(가을과 겨울 사이, 총 53곡) 원장·대시보드 누락 및 유료 Extras 업셀링 오가입 금지",
       "passed": true,
-      "detail": "53곡 글로벌 원장 및 12트랙 쇼케이스·1+12 마스터북·유료 Extras 0원 방어·여권 42대 도장(42개) 100% 무결 검증"
+      "detail": "53곡 글로벌 원장 및 12트랙 쇼케이스·1+12 마스터북·유료 Extras 0원 방어·여권 42대 도장(47개) 100% 무결 검증"
+    },
+    {
+      "id": "FM-012",
+      "name": "모바일 첫 화면 최상단 배지 구버전('042호:') 방치, '41곡 원장' 구버전 버튼 방치 및 id=\"s1-autumn-winter-12tracks-showcase\" 실제 DOM 미삽입 금지",
+      "passed": true,
+      "detail": "첫 화면 045호 배지·12트랙 쇼케이스 DOM·53곡 버튼 전수 교체·sw.js v24·여권 47대 도장(47개) 100% 무결 검증"
     },
     {
       "id": "GATE-C-PASSPORT",
       "name": "릴레이 여권 해시 체인 연속성 검증",
       "passed": true,
-      "detail": "총 42대 릴레이 도장 사슬 연속성 100% 무결 (최종 해시 f2136a452134...)"
+      "detail": "총 47대 릴레이 도장 사슬 연속성 100% 무결 (최종 해시 bf59ca021556...)"
     },
     {
       "id": "GATE-D-SECURITY-HYGIENE",

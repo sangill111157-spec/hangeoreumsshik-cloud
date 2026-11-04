@@ -1,7 +1,7 @@
 {
-  "version": "1.4.0",
-  "directive_id": "RGON_DIR_AUTUMN_WINTER_12TRACKS_MASTER_LAUNCH_044",
-  "updated_at": "2026-11-04T20:30:00+09:00",
+  "version": "1.5.0",
+  "directive_id": "RGON_DIR_FIRST_SCREEN_UI_AND_SHOWCASE_FIX_045",
+  "updated_at": "2026-11-04T20:50:00+09:00",
   "policy": {
     "principle": "encode-lessons-in-structure & verification-before-completion",
     "enforcement_script": "s1_qm_structure_linter.py",
@@ -118,6 +118,16 @@
       "target_glob": "S1_DISTROKID_53_TRACKS_MASTER_LEDGER.json,index.html",
       "guard_function": "check_fm011_autumn_winter_53tracks_ledger_and_extras_zero_cost",
       "remediation_qm_sp_18": "S1_DISTROKID_53_TRACKS_MASTER_LEDGER.json 총 53곡 전수 등재, DistroKid 유료 Extras 4종 전면 배제(0원 방어), 대시보드 12트랙 쇼케이스 실시간 탑재"
+    },
+    {
+      "id": "FM-012",
+      "title": "모바일 첫 화면 최상단 배지 구버전('042호:') 방치, '41곡 원장' 구버전 버튼 방치 및 id=\"s1-autumn-winter-12tracks-showcase\" 실제 DOM 미삽입 금지",
+      "incident_directive": "045호 대표님 승인 긴급 교정",
+      "root_cause": "모바일 첫 화면(Above-the-Fold)에서 최상단 배지 텍스트와 버튼이 구버전으로 남아있고, DOM 구조 차이로 쇼케이스 카드가 누락되는 UI 불일치를 방지함",
+      "forbidden_pattern": "042호:.*모션 쇼츠 완공|41곡 원장 & 11/6 발매|missing_showcase_section",
+      "target_glob": "index.html,docs/index.html,sw.js,docs/sw.js",
+      "guard_function": "check_fm012_first_screen_ui_showcase_and_freshness",
+      "remediation_qm_sp_18": "최상단 #banner-father-mountain 045호 100점 배지 교체, id=\"s1-autumn-winter-12tracks-showcase\" 실제 DOM 삽입, '53곡 원장 & 11/6 신보(12곡)' 전수 교체 및 sw.js v24 강제 캐시 퍼지"
     }
   ]
 }
