@@ -195,13 +195,13 @@ def auto_execute_directive_trigger(directive_id: str, full_text: str = "") -> di
             print(f"[RGON_DIRECT_ENGINE] Saved payload to {runner_file} ({len(code_to_run)} bytes). Executing immediately...", flush=True)
 
             # 1) 직접 실행
-            exec_res = subprocess.run([sys.executable, str(runner_file)], cwd=BASE, timeout=120, capture_output=True, text=True)
+            exec_res = subprocess.run([sys.executable, str(runner_file)], cwd=BASE, timeout=120, capture_output=True, text=True, encoding="utf-8", errors="ignore")
             print(f"[RGON_DIRECT_ENGINE] Payload exit code: {exec_res.returncode}", flush=True)
             if exec_res.stdout:
                 print(f"[RGON_DIRECT_ENGINE] Stdout: {exec_res.stdout[:300]}", flush=True)
 
             # 2) 린터 자동 검증
-            linter_res = subprocess.run([sys.executable, "s1_qm_structure_linter.py"], cwd=BASE, timeout=60, capture_output=True, text=True)
+            linter_res = subprocess.run([sys.executable, "s1_qm_structure_linter.py"], cwd=BASE, timeout=60, capture_output=True, text=True, encoding="utf-8", errors="ignore")
             print(f"[RGON_DIRECT_ENGINE] Linter exit code: {linter_res.returncode}", flush=True)
 
             # 3) Git 무인 커밋 & 푸시

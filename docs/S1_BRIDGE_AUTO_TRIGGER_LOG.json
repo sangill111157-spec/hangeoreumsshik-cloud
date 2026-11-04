@@ -72,6 +72,39 @@
       "mode": "STANDARD_FOUNDRY_SPAWN",
       "status": "TRIGGERED",
       "ok": true
+    },
+    {
+      "directive_id": "RGON_DIR_DIRECT_TEST_049",
+      "timestamp": "2026-11-05T05:31:52.594152+09:00",
+      "pid": 8692,
+      "mode": "RGON_DIRECT_PYTHON_EXECUTION",
+      "status": "COMPLETED",
+      "returncode": 0,
+      "ok": true
+    },
+    {
+      "directive_id": "RGON_DIR_CLEANUP_MESSY_DASHBOARD_049",
+      "timestamp": "2026-11-05T05:33:08.039276+09:00",
+      "pid": 16748,
+      "mode": "STANDARD_FOUNDRY_SPAWN",
+      "status": "TRIGGERED",
+      "ok": true
+    },
+    {
+      "directive_id": "RGON_DIR_CLEANUP_MESSY_DASHBOARD_049",
+      "timestamp": "2026-11-05T05:33:12.509072+09:00",
+      "pid": 22512,
+      "mode": "STANDARD_FOUNDRY_SPAWN",
+      "status": "TRIGGERED",
+      "ok": true
+    },
+    {
+      "directive_id": "LINTER_VERIFY_047",
+      "timestamp": "2026-11-05T05:33:44.808480+09:00",
+      "pid": 65264,
+      "mode": "STANDARD_FOUNDRY_SPAWN",
+      "status": "TRIGGERED",
+      "ok": true
     }
   ]
 }
