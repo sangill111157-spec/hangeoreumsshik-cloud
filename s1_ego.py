@@ -79,11 +79,13 @@ EGO_BIN = os.environ.get("EGO_REAL", "") or shutil.which("ego-browser") or r"C:\
 
 KNOWN_CHATS = {
     0: "c1647638-2531-43db-a059-c153d8da14d9", # Space 0: Gemini 4 Argon (수석 보좌관)
-    2: "212e5993-339b-43e7-8e2b-0ebb4d58987e", # Space 2: GPT-6.1 Sol (제2성)
-    3: "a481ead5-a237-432c-abfb-0396b8a34d16", # Space 3: Claude Opus 5.5 (제3성)
+    1: "212e5993-339b-43e7-8e2b-0ebb4d58987e", # Space 1: GPT-6.1 Sol (제2성)
+    2: "212e5993-339b-43e7-8e2b-0ebb4d58987e", # Space 2 (Target Sol in 050)
+    3: "a481ead5-a237-432c-abfb-0396b8a34d16", # Space 3 (Target Opus in 050)
 }
 
 EXPECTED_MODEL = {
+    1: "GPT",
     2: "GPT",
     3: "Claude",
 }
@@ -206,6 +208,11 @@ async function getTask(spaceId) {
     return await takeOverTaskSpace(spaceId);
   } catch (e) {
     try {
+      if (typeof claimTaskSpace === "function") {
+        return await claimTaskSpace(spaceId);
+      }
+    } catch (_) {}
+    try {
       return await taskSpace(spaceId);
     } catch (_) {
       throw e;
@@ -282,7 +289,21 @@ def cmd_read(space_id, tail_chars=4000, override_chat_id=None, selftest=False):
         }} catch (e) {{ return null; }}
       }}
       const expected = {json.dumps(expected_id)};
-      const task = await getTask({space_id});
+      let targetSpace = {space_id};
+      const allSpaces = await listTaskSpaces();
+      for (const sp of allSpaces) {{
+        try {{
+          const t = await getTask(sp.id);
+          const tbs = await t.tabs();
+          if (tbs.some(tab => chatId(tab.url) === expected)) {{
+            targetSpace = sp.id;
+            await safeHandOff(t);
+            break;
+          }}
+          await safeHandOff(t);
+        }} catch (_) {{}}
+      }}
+      const task = await getTask(targetSpace);
       currentTask = task;
       const tabs = await task.tabs();
       const matches = tabs.filter(t => chatId(t.url) === expected);
@@ -297,7 +318,7 @@ def cmd_read(space_id, tail_chars=4000, override_chat_id=None, selftest=False):
         return;
       }}
       const tb = matches[0];
-      const page = task.userPage ? task.userPage() : (tb.label ? task.page(tb.label) : await task.adopt(tb.page));
+      const page = task.userPage ? task.userPage() : (tb.label ? task.page(tb.label) : (await task.pages())[0]);
       await setupDialogGuards(page);
 
       const evalRes = await Promise.race([
@@ -417,7 +438,21 @@ def cmd_ask(space_id, prompt_text, wait_sec=60, tail_chars=4500, override_chat_i
           }}
           const expected = {json.dumps(expected_id)};
           const expectedModel = {json.dumps(expected_model)};
-          const task = await getTask({space_id});
+          let targetSpace = {space_id};
+          const allSpaces = await listTaskSpaces();
+          for (const sp of allSpaces) {{
+            try {{
+              const t = await getTask(sp.id);
+              const tbs = await t.tabs();
+              if (tbs.some(tab => chatId(tab.url) === expected)) {{
+                targetSpace = sp.id;
+                await safeHandOff(t);
+                break;
+              }}
+              await safeHandOff(t);
+            }} catch (_) {{}}
+          }}
+          const task = await getTask(targetSpace);
           currentTask = task;
           const tabs = await task.tabs();
           const matches = tabs.filter(t => chatId(t.url) === expected);
@@ -428,7 +463,7 @@ def cmd_ask(space_id, prompt_text, wait_sec=60, tail_chars=4500, override_chat_i
             return;
           }}
           const tb = matches[0];
-          const page = task.userPage ? task.userPage() : (tb.label ? task.page(tb.label) : await task.adopt(tb.page));
+          const page = task.userPage ? task.userPage() : (tb.label ? task.page(tb.label) : (await task.pages())[0]);
           await setupDialogGuards(page);
 
           // Pre-send inspection: URL, textarea uniqueness, draft check, model selector check, baseline message count
