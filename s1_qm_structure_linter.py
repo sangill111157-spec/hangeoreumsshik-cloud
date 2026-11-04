@@ -269,7 +269,8 @@ def check_fm008_dashboard_freshness():
 
     badge_valid = (
         "046호: 연결·소통·만능" in html or
-        "047호: 연결·소통·만능" in html
+        "047호: 연결·소통·만능" in html or
+        "047호: 카카오페이지" in html
     )
     if not badge_valid:
         return False, "대시보드 최신 배지(046호/047호) 부재"
@@ -762,6 +763,22 @@ def check_fm014_real_bridge_ast_and_ego_v22_skill():
         payload = s.get("payload", {})
         if not (payload.get("stage1_pass") and payload.get("stage2_pass")):
             return False, f"도장 #{s.get('stamp_index')} 삼성 2단계 통과 기록 결손"
+
+    
+    # 6. 카카오페이지 4대 DOM ID 검증 (047호)
+    idx_f = BASE / "index.html"
+    if not idx_f.exists():
+        return False, "index.html 누락"
+    idx_content = idx_f.read_text(encoding="utf-8", errors="ignore")
+    required_kp_ids = [
+        "s1-kakaopage-gnb-tabs",
+        "s1-kakaopage-hero-banner",
+        "s1-kakaopage-keytalk",
+        "s1-kakaopage-ranking-chart"
+    ]
+    missing_kp = [kid for kid in required_kp_ids if f'id="{kid}"' not in idx_content]
+    if missing_kp:
+        return False, f"카카오페이지 4대 UI 컴포넌트 실제 DOM 미삽입 결손: {missing_kp}"
 
     return True, f"전달봇 AST 정적 검증(L{func_lineno} < L{main_lineno}, 2대 ast.Call)·런타임 실측 성공·ego-browser v2.2.0·여권 57대 도장({len(pp_stamps)}개) 100% 무결 검증"
 

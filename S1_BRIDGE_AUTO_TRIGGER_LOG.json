@@ -15,6 +15,34 @@
       "pid": 61544,
       "status": "TRIGGERED",
       "ok": true
+    },
+    {
+      "directive_id": "LINTER_VERIFY_047",
+      "timestamp": "2026-11-04T23:43:23.286717+09:00",
+      "pid": 10108,
+      "status": "TRIGGERED",
+      "ok": true
+    },
+    {
+      "directive_id": "LINTER_VERIFY_047",
+      "timestamp": "2026-11-04T23:44:41.952319+09:00",
+      "pid": 29720,
+      "status": "TRIGGERED",
+      "ok": true
+    },
+    {
+      "directive_id": "LINTER_VERIFY_047",
+      "timestamp": "2026-11-04T23:45:10.334978+09:00",
+      "pid": 28016,
+      "status": "TRIGGERED",
+      "ok": true
+    },
+    {
+      "directive_id": "LINTER_VERIFY_047",
+      "timestamp": "2026-11-04T23:46:06.401579+09:00",
+      "pid": 33340,
+      "status": "TRIGGERED",
+      "ok": true
     }
   ]
 }

@@ -1,7 +1,7 @@
 {
   "linter_version": "1.6.0",
   "directive_id": "RGON_DIR_CONNECT_COMMUNICATE_OMNIPOTENT_046",
-  "timestamp": "2026-11-04T23:32:53.234151+09:00",
+  "timestamp": "2026-11-04T23:46:07.273031+09:00",
   "verdict": "PASS",
   "score": 100.0,
   "passed_checks": 17,
@@ -101,7 +101,7 @@
       "id": "GATE-C-PASSPORT",
       "name": "릴레이 여권 해시 체인 연속성 검증",
       "passed": true,
-      "detail": "총 57대 릴레이 도장 사슬 연속성 100% 무결 (최종 해시 c80d40187296...)"
+      "detail": "총 57대 릴레이 도장 사슬 연속성 100% 무결 (최종 해시 7e7b22e57e07...)"
     },
     {
       "id": "GATE-D-SECURITY-HYGIENE",
