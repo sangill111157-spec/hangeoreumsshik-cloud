@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-S1 QM Structural Linter v1.0 (s1_qm_structure_linter.py)
-- Directive: RGON_DIR_5WEAPONS_WEAKNESS_COMPENSATION_040
+S1 QM Structural Linter v1.1 (s1_qm_structure_linter.py)
+- Directive: RGON_DIR_DASHBOARD_ZERO_STALE_AND_FM008_041
 - Inspired by:
   1) SpaceX Lauren Tan `cursor/plugins/pstack` (`encode-lessons-in-structure`)
   2) `obra/superpowers` (`verification-before-completion`)
 - Enforces automated structural checks BEFORE any completion report can be sent:
   [A] 4 Absolute Protected Files 0% Touch Integrity
-  [B] S1_FAILURE_MEMORY_DB.json 7 Failure-Mode Regression Guards (FM-001 ~ FM-007)
+  [B] S1_FAILURE_MEMORY_DB.json 8 Failure-Mode Regression Guards (FM-001 ~ FM-008)
   [C] S1_RELAY_STAMP_PASSPORT.json Cryptographic Hash-Chain Continuity
   [D] R2 Zero Secret Leak & Root Hygiene (.gitignore isolation & docs/ 1:1 Mirror Sync)
 - Exits with EXIT CODE 1 (QM-SP-11 REJECTED_LOT) immediately if ANY check fails!
@@ -229,6 +229,98 @@ def check_fm007_audio_and_docs_mirror_zero_404():
     return True, f"오디오/쇼츠 참조 {len(audio_refs)}종 무결성, 5대 핵심 문서 루트<->docs 해시 100% 일치 및 .gitignore 허용 확인"
 
 
+def check_fm008_dashboard_freshness():
+    idx = BASE / "index.html"
+    docs_idx = BASE / "docs" / "index.html"
+    sw = BASE / "sw.js"
+    docs_sw = BASE / "docs" / "sw.js"
+    if not idx.exists() or not docs_idx.exists():
+        return False, "index.html 또는 docs/index.html 누락"
+    if not sw.exists() or not docs_sw.exists():
+        return False, "sw.js 또는 docs/sw.js 누락"
+
+    html = idx.read_text(encoding="utf-8", errors="ignore")
+
+    stale_patterns = [
+        "023호 9:16 시네마틱 쇼츠",
+        "클로드 스토리 · 솔 6컷 비주얼",
+        "집계 중...",
+        "불러오는 중...",
+        "불러오는 중입니다...",
+        "수신 대기 중입니다...",
+    ]
+    found_stale = [s for s in stale_patterns if s in html]
+    if found_stale:
+        return False, f"대시보드 구버전 배지 또는 빈 로딩 문구 잔존: {found_stale}"
+
+    required_markers = [
+        "무자막 감성 수채화",
+        "후렴구 하이라이트(54~88초) 마스터 쇼츠",
+        "./audio/father_age_shorts_scenes/scene_01.png?v=041",
+        "34s 후렴구 클라이맥스 · 글씨 0% 순수 수채화 6컷 · 삼성 2단계 완공",
+        "RGON_DIR_DASHBOARD_ZERO_STALE_AND_FM008_041",
+        "STAMP_041_5_AUDIT",
+        "./S1_RGON_DIRECTIVE_QUEUE.json",
+        "./S1_RELAY_STAMP_PASSPORT.json",
+        "./S1_ANCHONGRI_TO_RGON_OUTBOX.json",
+        "./S1_STEP_BY_STEP_PIPELINE_STATE.json",
+    ]
+    missing_markers = [m for m in required_markers if m not in html]
+    if missing_markers:
+        return False, f"대시보드 최신 프리렌더링(SSR) 또는 실시간 JSON 바인딩 누락: {missing_markers}"
+
+    live_json_pairs = [
+        ("S1_RGON_DIRECTIVE_QUEUE.json", "docs/S1_RGON_DIRECTIVE_QUEUE.json"),
+        ("S1_ANCHONGRI_TO_RGON_OUTBOX.json", "docs/S1_ANCHONGRI_TO_RGON_OUTBOX.json"),
+        ("S1_STEP_BY_STEP_PIPELINE_STATE.json", "docs/S1_STEP_BY_STEP_PIPELINE_STATE.json"),
+        ("S1_RELAY_STAMP_PASSPORT.json", "docs/S1_RELAY_STAMP_PASSPORT.json"),
+    ]
+    json_desync = []
+    check_ignore_targets = []
+    for a, b in live_json_pairs:
+        check_ignore_targets.extend([a, b])
+        pa, pb = BASE / a, BASE / b
+        if not pa.exists() or not pb.exists():
+            json_desync.append(f"missing:{a}<->{b}")
+        elif sha256_file(pa) != sha256_file(pb):
+            json_desync.append(f"hash_mismatch:{a}<->{b}")
+    if json_desync:
+        return False, f"대시보드 연동 JSON 루트 <-> docs/ 불일치: {json_desync}"
+
+    ig = subprocess.run(
+        ["git", "check-ignore", *check_ignore_targets],
+        cwd=BASE,
+        capture_output=True,
+        text=True,
+    )
+    if ig.stdout.strip():
+        return False, f".gitignore 차단으로 클라우드 JSON 404 위험 감지: {ig.stdout.strip().splitlines()}"
+
+    pp_data = json.loads((BASE / "S1_RELAY_STAMP_PASSPORT.json").read_text(encoding="utf-8"))
+    pp_stamps = pp_data.get("stamps", [])
+    pp_names = {s.get("stamp_name") for s in pp_stamps}
+    if len(pp_stamps) < 27 or "STAMP_041_5_AUDIT" not in pp_names:
+        return False, f"S1_RELAY_STAMP_PASSPORT.json 041호 5대 공정 도장(#23~#27) 미완비 (현재 {len(pp_stamps)}개)"
+
+    bridge_file = BASE / "s1_rgon_to_anchongri_bridge.py"
+    if bridge_file.exists() and "--autostash" in bridge_file.read_text(encoding="utf-8", errors="ignore"):
+        return False, "s1_rgon_to_anchongri_bridge.py 내 --autostash 레이스 컨디션 유발 플래그 잔존 (QM-SP-18 위반)"
+
+    proof_root = BASE / "S1_IO_TEST_12_DASHBOARD_ZERO_STALE_PROOF.md"
+    proof_docs = BASE / "docs" / "S1_IO_TEST_12_DASHBOARD_ZERO_STALE_PROOF.md"
+    if not proof_root.exists() or not proof_docs.exists() or sha256_file(proof_root) != sha256_file(proof_docs):
+        return False, "S1_IO_TEST_12_DASHBOARD_ZERO_STALE_PROOF.md 루트 <-> docs/ 증빙 문서 누락 또는 해시 불일치"
+
+    sw_txt = sw.read_text(encoding="utf-8", errors="ignore")
+    if not re.search(r"s1-aon-v(?:[2-9]\d|\d{3,})-", sw_txt):
+        return False, "sw.js 캐시 버전 미갱신 (v20 이상, 현재 기준 s1-aon-v20-zero-stale-dashboard-041 필요)"
+
+    return (
+        True,
+        f"구버전·빈 로딩 문구 0건, 수채화 배지·SSR·4대 JSON·27대 릴레이 도장({len(pp_stamps)}개)·QM-SP-18 가드·sw.js v20 검증 완료",
+    )
+
+
 GUARD_DISPATCH = {
     "check_fm001_no_fake_tkinter": check_fm001_no_fake_tkinter,
     "check_fm002_authentic_motion_shorts": check_fm002_authentic_motion_shorts,
@@ -237,6 +329,7 @@ GUARD_DISPATCH = {
     "check_fm005_space0_bottom_scroll": check_fm005_space0_bottom_scroll,
     "check_fm006_ide_chat_only_exposure": check_fm006_ide_chat_only_exposure,
     "check_fm007_audio_and_docs_mirror_zero_404": check_fm007_audio_and_docs_mirror_zero_404,
+    "check_fm008_dashboard_freshness": check_fm008_dashboard_freshness,
 }
 
 
@@ -333,8 +426,8 @@ def run_all_checks():
     all_passed = passed_count == total_count
 
     report = {
-        "linter_version": "1.0.0",
-        "directive_id": "RGON_DIR_5WEAPONS_WEAKNESS_COMPENSATION_040",
+        "linter_version": "1.1.0",
+        "directive_id": "RGON_DIR_DASHBOARD_ZERO_STALE_AND_FM008_041",
         "timestamp": now_iso(),
         "verdict": "PASS" if all_passed else "QM_SP_11_REJECTED_LOT",
         "score": score,
@@ -346,10 +439,10 @@ def run_all_checks():
     report_path = BASE / "S1_QM_LINTER_LAST_REPORT.json"
     report_path.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
     if (BASE / "docs").exists():
-        shutil.copy2(report_path, BASE / "docs" / "S1_QM_LINTER_LAST_REPORT.json")
+        shutil.copyfile(report_path, BASE / "docs" / "S1_QM_LINTER_LAST_REPORT.json")
 
     print("=" * 72)
-    print(f"🛡️ [S1 구조적 품질 린터 v1.0] 전수 검사 결과: {report['verdict']} ({score} / 100.0)")
+    print(f"🛡️ [S1 구조적 품질 린터 v1.1] 전수 검사 결과: {report['verdict']} ({score} / 100.0)")
     print("=" * 72)
     for c in checks:
         mark = "✅ PASS" if c["passed"] else "❌ FAIL (QM-SP-11 격리)"

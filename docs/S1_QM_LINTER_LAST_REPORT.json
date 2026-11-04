@@ -1,11 +1,11 @@
 {
-  "linter_version": "1.0.0",
-  "directive_id": "RGON_DIR_5WEAPONS_WEAKNESS_COMPENSATION_040",
-  "timestamp": "2026-11-04T16:35:25.692702+09:00",
+  "linter_version": "1.1.0",
+  "directive_id": "RGON_DIR_DASHBOARD_ZERO_STALE_AND_FM008_041",
+  "timestamp": "2026-11-04T17:09:53.866202+09:00",
   "verdict": "PASS",
   "score": 100.0,
-  "passed_checks": 10,
-  "total_checks": 10,
+  "passed_checks": 11,
+  "total_checks": 11,
   "checks": [
     {
       "id": "GATE-A-PROTECTED-FILES",
@@ -53,13 +53,19 @@
       "id": "FM-007",
       "name": "대시보드 루트 audio/ 경로 누락 404 에러 및 docs/ 미러 불일치 금지",
       "passed": true,
-      "detail": "오디오/쇼츠 참조 3종 무결성, 5대 핵심 문서 루트<->docs 해시 100% 일치 및 .gitignore 허용 확인"
+      "detail": "오디오/쇼츠 참조 4종 무결성, 5대 핵심 문서 루트<->docs 해시 100% 일치 및 .gitignore 허용 확인"
+    },
+    {
+      "id": "FM-008",
+      "name": "대시보드 구버전 배지('023호 시네마틱') 및 빈 로딩 문구('집계 중.../불러오는 중...') 방치 금지",
+      "passed": true,
+      "detail": "구버전·빈 로딩 문구 0건, 수채화 배지·SSR·4대 JSON·27대 릴레이 도장(27개)·QM-SP-18 가드·sw.js v20 검증 완료"
     },
     {
       "id": "GATE-C-PASSPORT",
       "name": "릴레이 여권 해시 체인 연속성 검증",
       "passed": true,
-      "detail": "총 22대 릴레이 도장 사슬 연속성 100% 무결 (최종 해시 681fca08c8b4...)"
+      "detail": "총 27대 릴레이 도장 사슬 연속성 100% 무결 (최종 해시 227b8a0b5d99...)"
     },
     {
       "id": "GATE-D-SECURITY-HYGIENE",

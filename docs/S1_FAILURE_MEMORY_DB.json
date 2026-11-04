@@ -1,7 +1,7 @@
 {
-  "version": "1.0.0",
-  "directive_id": "RGON_DIR_5WEAPONS_WEAKNESS_COMPENSATION_040",
-  "updated_at": "2026-11-04T16:26:00+09:00",
+  "version": "1.1.0",
+  "directive_id": "RGON_DIR_DASHBOARD_ZERO_STALE_AND_FM008_041",
+  "updated_at": "2026-11-04T16:51:00+09:00",
   "policy": {
     "principle": "encode-lessons-in-structure & verification-before-completion",
     "enforcement_script": "s1_qm_structure_linter.py",
@@ -78,6 +78,16 @@
       "target_glob": "index.html,docs/index.html,sw.js,docs/sw.js",
       "guard_function": "check_fm007_audio_and_docs_mirror_zero_404",
       "remediation_qm_sp_18": "index.html 내 모든 ./audio/* 참조 파일이 루트 audio/ 및 docs/audio/ 양쪽에 100% 실존하고 루트와 docs/ 파일 해시가 일치하는지 자동 검증"
+    },
+    {
+      "id": "FM-008",
+      "title": "대시보드 구버전 배지('023호 시네마틱') 및 빈 로딩 문구('집계 중.../불러오는 중...') 방치 금지",
+      "incident_directive": "040호 라이브 감식 -> 041호 교정",
+      "root_cause": "상단 미니 플레이어에 옛날 '023호 9:16 시네마틱 쇼츠' 배지와 구형 실사 썸네일이 잔존하고, 동적 영역에 정적 프리렌더링(SSR) 없이 '집계 중.../불러오는 중.../수신 대기 중입니다...' 빈 로딩 플레이스홀더를 방치함",
+      "forbidden_pattern": "023호 9:16 시네마틱 쇼츠|클로드 스토리 · 솔 6컷 비주얼|집계 중...|불러오는 중...|수신 대기 중입니다...",
+      "target_glob": "index.html,docs/index.html,sw.js,docs/sw.js",
+      "guard_function": "check_fm008_dashboard_freshness",
+      "remediation_qm_sp_18": "상단 플레이어를 무자막 감성 수채화 & 후렴구 하이라이트(54~88초) 마스터 쇼츠 및 scene_01.png로 최신화하고, 3대 동적 영역에 정적 프리렌더링(SSR) + 실시간 JSON(Queue/Outbox/Passport/Pipeline) 바인딩 및 루트<->docs/.gitignore 무결성을 자동 검증"
     }
   ]
 }

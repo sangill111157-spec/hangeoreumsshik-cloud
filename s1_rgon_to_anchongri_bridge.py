@@ -270,9 +270,24 @@ def harvest_from_github_ssot():
     """
     init_ledgers()
     
-    # 1. Pull latest from remote GitHub SSOT
+    # 1. Pull latest from remote GitHub SSOT (QM-SP-18: skip pull when tracked working tree is dirty to prevent autostash race/rollback)
     try:
-        subprocess.run(["git", "pull", "--rebase", "--autostash", "origin", "main"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=12)
+        st = subprocess.run(
+            ["git", "status", "--porcelain", "-uno"],
+            cwd=BASE,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            timeout=5,
+        )
+        if st.returncode == 0 and not st.stdout.strip():
+            subprocess.run(
+                ["git", "pull", "--rebase", "origin", "main"],
+                cwd=BASE,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                timeout=12,
+            )
     except Exception:
         pass
 

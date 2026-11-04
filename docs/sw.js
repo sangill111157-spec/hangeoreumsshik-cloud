@@ -1,5 +1,5 @@
 // S1 Service Worker v2026-stepagent-v9 (SUN-ONE AON Zero-Paste & Dual Bridge)
-const CACHE = 's1-aon-v19-5weapons-compensation-040';
+const CACHE = 's1-aon-v20-zero-stale-dashboard-041';
 const ASSETS = [
   './',
   './index.html',

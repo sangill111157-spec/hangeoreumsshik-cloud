@@ -3,7 +3,7 @@
   "directive_id": "RGON_DIR_POE_RELAY_STAMP_AND_VIDS_028",
   "created_at": "2026-11-04T06:25:00+09:00",
   "genesis_hash": "0000000000000000000000000000000000000000000000000000000000000000",
-  "current_stamp_index": 17,
+  "current_stamp_index": 27,
   "stamps": [
     {
       "stamp_index": 1,
@@ -564,8 +564,125 @@
         "verdict": "PASSED_040_STAGE5_FULL_AUDIT_100"
       },
       "stamp_hash": "681fca08c8b46b1f7be142fb853e7e7a213272b40f518953cce77d67fd66ab49"
+    },
+    {
+      "stamp_index": 23,
+      "stamp_name": "STAMP_041_1_PLAN",
+      "prev_stamp_hash": "681fca08c8b46b1f7be142fb853e7e7a213272b40f518953cce77d67fd66ab49",
+      "timestamp": "2026-11-04T17:07:35.345399+09:00",
+      "status": "PASSED",
+      "payload": {
+        "prev_stamp_hash": "681fca08c8b46b1f7be142fb853e7e7a213272b40f518953cce77d67fd66ab49",
+        "directive_id": "RGON_DIR_DASHBOARD_ZERO_STALE_AND_FM008_041",
+        "stage": "1_PLAN",
+        "objectives": [
+          "Replace legacy 023 cinematic banner & dark thumbnail with pure watercolor chorus highlight (54~88s) badge & scene_01.png?v=041",
+          "Eliminate 100% of loading placeholders (집계 중..., 불러오는 중..., 수신 대기 중입니다...) via SSR pre-rendering + 4 live JSON fetches",
+          "Register FM-008 in S1_FAILURE_MEMORY_DB.json and check_fm008_dashboard_freshness() in s1_qm_structure_linter.py (11/11 checks)"
+        ],
+        "ego_lock_guard": "is_ego_running() == False -> Lock-Free Protection Active",
+        "verdict": "PASSED_041_STAGE1_PLAN"
+      },
+      "stamp_hash": "3c2747ac33daf94ca98aead2ed346c0d40aa6b2500a76a7a451cf2cfc3e7cf25"
+    },
+    {
+      "stamp_index": 24,
+      "stamp_name": "STAMP_041_2_DESIGN",
+      "prev_stamp_hash": "3c2747ac33daf94ca98aead2ed346c0d40aa6b2500a76a7a451cf2cfc3e7cf25",
+      "timestamp": "2026-11-04T17:07:35.345399+09:00",
+      "status": "PASSED",
+      "payload": {
+        "prev_stamp_hash": "3c2747ac33daf94ca98aead2ed346c0d40aa6b2500a76a7a451cf2cfc3e7cf25",
+        "directive_id": "RGON_DIR_DASHBOARD_ZERO_STALE_AND_FM008_041",
+        "stage": "2_DESIGN",
+        "architecture": "Static Pre-Render (SSR) + Live Cloud/Local JSON Fetch Hybrid + Service Worker v20 + QM-SP-11/18 Linter Gate",
+        "live_json_endpoints": [
+          "./S1_RGON_DIRECTIVE_QUEUE.json",
+          "./S1_ANCHONGRI_TO_RGON_OUTBOX.json",
+          "./S1_RELAY_STAMP_PASSPORT.json",
+          "./S1_STEP_BY_STEP_PIPELINE_STATE.json"
+        ],
+        "drc_checks": [
+          "4 Protected Files 0% touch lock",
+          "1:1 root <-> docs/ SHA-256 mirror identity",
+          ".gitignore allowlist verification via git check-ignore",
+          "Port 8504 local HTTP 200 verification across all 9 static/JSON/image assets"
+        ],
+        "verdict": "PASSED_041_STAGE2_DESIGN"
+      },
+      "stamp_hash": "e3deb0e189c7e8d067cb2b66a6784254863acf651d8813cd2e02c4d698cfc6a8"
+    },
+    {
+      "stamp_index": 25,
+      "stamp_name": "STAMP_041_3_START",
+      "prev_stamp_hash": "e3deb0e189c7e8d067cb2b66a6784254863acf651d8813cd2e02c4d698cfc6a8",
+      "timestamp": "2026-11-04T17:07:35.345399+09:00",
+      "status": "PASSED",
+      "payload": {
+        "prev_stamp_hash": "e3deb0e189c7e8d067cb2b66a6784254863acf651d8813cd2e02c4d698cfc6a8",
+        "directive_id": "RGON_DIR_DASHBOARD_ZERO_STALE_AND_FM008_041",
+        "stage": "3_START",
+        "protected_files_untouched": true,
+        "ghost_ego_processes": 0,
+        "tdd_red_gate_verified": "QM_SP_11_REJECTED_LOT (90.9 / 100.0, EXIT CODE 1) caught stale 023 badge & loading placeholders prior to HTML build",
+        "verdict": "PASSED_041_STAGE3_PRECHECK_START"
+      },
+      "stamp_hash": "fde5e164dde6900d45868e4405795b09029c3e0a22399271fac5b2fb48acc938"
+    },
+    {
+      "stamp_index": 26,
+      "stamp_name": "STAMP_041_4_BUILD",
+      "prev_stamp_hash": "fde5e164dde6900d45868e4405795b09029c3e0a22399271fac5b2fb48acc938",
+      "timestamp": "2026-11-04T17:07:35.345399+09:00",
+      "status": "PASSED",
+      "payload": {
+        "prev_stamp_hash": "fde5e164dde6900d45868e4405795b09029c3e0a22399271fac5b2fb48acc938",
+        "directive_id": "RGON_DIR_DASHBOARD_ZERO_STALE_AND_FM008_041",
+        "stage": "4_BUILD",
+        "artifact_sha256": {
+          "index.html": "fa3595c6c1103a2c4de6f54ee15d9b3df761a2160811a8932cb9aa683a6ab6e4",
+          "sw.js": "d1f382bdd4c0ac18b271e5e86cc344ef3945cde0e38b005914f1a559986c9714",
+          "S1_FAILURE_MEMORY_DB.json": "5dbc18b61042c0b7735fccb9a69db045b0a4c0e22f81512be29bb015f58f52c3",
+          "s1_qm_structure_linter.py": "464921d799b33d32c5377d689bed5ac215603812ce6dea53d56d00ed3e54cadf",
+          "s1_rgon_to_anchongri_bridge.py": "970eac5624474a5e8bf96a909c841b4b2ee4d76e8c25fce281ea52e0ad264e79",
+          "s1_server.py": "09e7472bfb256e9922918d871194dfdc0b89e29e8060196e6e9d7864723d8c73",
+          "S1_RGON_DIRECTIVE_QUEUE.json": "6229be127264ca3d69948c1f41cced3b92b72e2c67d3c60c33ad2efa660bb08c",
+          "S1_ANCHONGRI_TO_RGON_OUTBOX.json": "ff395105e75f000bac7cf9fa48336590b944025170ebe0da892d8f9064ec67d1",
+          "S1_STEP_BY_STEP_PIPELINE_STATE.json": "d8e2ebf035ae2eb7721aa0d108b73b5e6bd9457f401bb848fc18f571faa07932"
+        },
+        "sw_cache_version": "s1-aon-v20-zero-stale-dashboard-041",
+        "thumbnail_asset": "./audio/father_age_shorts_scenes/scene_01.png?v=041",
+        "ssr_directives_rendered": [
+          "038",
+          "039",
+          "040",
+          "041"
+        ],
+        "verdict": "PASSED_041_STAGE4_BUILD"
+      },
+      "stamp_hash": "3fe703150a1f8a0b26610e1dcbd97d2127e652795422117fe6cc95d30f3bcc00"
+    },
+    {
+      "stamp_index": 27,
+      "stamp_name": "STAMP_041_5_AUDIT",
+      "prev_stamp_hash": "3fe703150a1f8a0b26610e1dcbd97d2127e652795422117fe6cc95d30f3bcc00",
+      "timestamp": "2026-11-04T17:07:35.345399+09:00",
+      "status": "PASSED",
+      "payload": {
+        "prev_stamp_hash": "3fe703150a1f8a0b26610e1dcbd97d2127e652795422117fe6cc95d30f3bcc00",
+        "directive_id": "RGON_DIR_DASHBOARD_ZERO_STALE_AND_FM008_041",
+        "stage": "5_FULL_AUDIT_QM_SP_11_18",
+        "linter_command": "python s1_qm_structure_linter.py",
+        "linter_checks_total": 11,
+        "linter_exit_code": 0,
+        "linter_score": 100.0,
+        "qm_sp_11_finding": "Independent audit subagent (8bd1688b-6350-491c-bef1-94559ee33f1c) caught background git pull --rebase --autostash race rollback on uncommitted root index.html + missing stamps #23~#27",
+        "qm_sp_18_remediation": "Removed --autostash and added git status --porcelain -uno clean-tree guard in s1_rgon_to_anchongri_bridge.py + encoded --autostash ban & 27-stamp check in s1_qm_structure_linter.py",
+        "verdict": "PASSED_041_STAGE5_FULL_AUDIT_100"
+      },
+      "stamp_hash": "227b8a0b5d99548c9752607831545547a8c51ba240067618214c007c28f590c3"
     }
   ],
-  "last_stamp_hash": "681fca08c8b46b1f7be142fb853e7e7a213272b40f518953cce77d67fd66ab49",
-  "updated_at": "2026-11-04T16:31:42.156450+09:00"
+  "last_stamp_hash": "227b8a0b5d99548c9752607831545547a8c51ba240067618214c007c28f590c3",
+  "updated_at": "2026-11-04T17:07:35.345399+09:00"
 }

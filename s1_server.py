@@ -326,16 +326,23 @@ class S1Handler(http.server.BaseHTTPRequestHandler):
                 if os.path.isfile(fpath):
                     with open(fpath, "rb") as f:
                         return self._send(200, f.read(), ctype)
-            # Safe static fallback for assets and studio_vault
+            # Safe static fallback for assets, studio_vault, audio, and public S1_* ledgers/docs
             clean_rel = path.lstrip("/").replace("\\", "/")
-            if (clean_rel.startswith("assets/") or clean_rel.startswith("studio_vault/")) and ".." not in clean_rel:
+            is_public_s1_doc = (
+                "/" not in clean_rel
+                and clean_rel.startswith("S1_")
+                and clean_rel.endswith((".json", ".md"))
+                and not any(x in clean_rel.lower() for x in ("secret", "token", "cred"))
+            )
+            if (clean_rel.startswith(("assets/", "studio_vault/", "audio/")) or is_public_s1_doc) and ".." not in clean_rel:
                 cand = os.path.join(ROOT, clean_rel)
                 if os.path.isfile(cand):
                     ext = os.path.splitext(cand)[1].lower()
                     mime_map = {
                         ".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg",
                         ".mp3": "audio/mpeg", ".wav": "audio/wav", ".mp4": "video/mp4",
-                        ".json": "application/json; charset=utf-8", ".html": "text/html; charset=utf-8"
+                        ".json": "application/json; charset=utf-8", ".html": "text/html; charset=utf-8",
+                        ".md": "text/markdown; charset=utf-8"
                     }
                     ctype = mime_map.get(ext, "application/octet-stream")
                     with open(cand, "rb") as f:
