@@ -1,0 +1,71 @@
+{
+  "linter_version": "1.0.0",
+  "directive_id": "RGON_DIR_5WEAPONS_WEAKNESS_COMPENSATION_040",
+  "timestamp": "2026-11-04T16:35:25.692702+09:00",
+  "verdict": "PASS",
+  "score": 100.0,
+  "passed_checks": 10,
+  "total_checks": 10,
+  "checks": [
+    {
+      "id": "GATE-A-PROTECTED-FILES",
+      "name": "4대 절대 보호 파일 무접촉 헌법 검증",
+      "passed": true,
+      "detail": "4대 보호 파일 수정·접촉 0건 완벽 수호"
+    },
+    {
+      "id": "FM-001",
+      "name": "가짜 tkinter 모니터 창 생성 꼼수 금지",
+      "passed": true,
+      "detail": "s1_*.py 내 가짜 tkinter 창 모사 코드 0건"
+    },
+    {
+      "id": "FM-002",
+      "name": "정지 이미지 단순 단일 zoompan 꼼수 및 마스터 쇼츠 누락 금지",
+      "passed": true,
+      "detail": "진품 마스터 쇼츠 실존 확인 (11,921,532 bytes, 루트 & docs 동기화)"
+    },
+    {
+      "id": "FM-003",
+      "name": "ego.exe 샌드박스 백그라운드 lockfile 선점 충돌 금지",
+      "passed": true,
+      "detail": "is_ego_running() 무잠금 가드 정의 및 호출 정상 작동"
+    },
+    {
+      "id": "FM-004",
+      "name": "864px 고정 높이 하드코딩으로 인한 하단 산·호수 바탕화면 노출 금지",
+      "passed": true,
+      "detail": "EnumDisplayMonitors 동적 해상도 측정 적용 및 864px 하드코딩 0건"
+    },
+    {
+      "id": "FM-005",
+      "name": "좌상단 Space 0 Chrome 창 미스크롤('이전 메시지 불러오기' 방치) 금지",
+      "passed": true,
+      "detail": "좌상단 Space 0 가독성 배율 및 최하단 휠/End 스크롤 로직 탑재 확인"
+    },
+    {
+      "id": "FM-006",
+      "name": "우상단 Antigravity IDE 코드 에디터 탭·하단 터미널 가림 방치 금지",
+      "passed": true,
+      "detail": "우상단 IDE 에디터 탭(Ctrl+K Ctrl+W)·터미널·사이드바 멱등 닫기 로직 탑재 확인"
+    },
+    {
+      "id": "FM-007",
+      "name": "대시보드 루트 audio/ 경로 누락 404 에러 및 docs/ 미러 불일치 금지",
+      "passed": true,
+      "detail": "오디오/쇼츠 참조 3종 무결성, 5대 핵심 문서 루트<->docs 해시 100% 일치 및 .gitignore 허용 확인"
+    },
+    {
+      "id": "GATE-C-PASSPORT",
+      "name": "릴레이 여권 해시 체인 연속성 검증",
+      "passed": true,
+      "detail": "총 22대 릴레이 도장 사슬 연속성 100% 무결 (최종 해시 681fca08c8b4...)"
+    },
+    {
+      "id": "GATE-D-SECURITY-HYGIENE",
+      "name": "R2 시크릿 노출 0% & 루트 위생(.gitignore 격리) 검증",
+      "passed": true,
+      "detail": "API 키/시크릿 노출 0건 및 scratch/ · _ego_tmp/ 격리 정상"
+    }
+  ]
+}

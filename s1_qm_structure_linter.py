@@ -208,7 +208,25 @@ def check_fm007_audio_and_docs_mirror_zero_404():
             desync.append(f"hash_mismatch:{a}<->{b}")
     if desync:
         return False, f"루트 <-> docs/ 미러 불일치: {desync}"
-    return True, f"오디오/쇼츠 참조 {len(audio_refs)}종 무결성 및 5대 핵심 문서 루트<->docs 해시 100% 일치"
+
+    # Ensure dashboard-linked JSON files are not blocked by .gitignore (*.json wildcard)
+    ignored_chk = subprocess.run(
+        [
+            "git",
+            "check-ignore",
+            "S1_FAILURE_MEMORY_DB.json",
+            "docs/S1_FAILURE_MEMORY_DB.json",
+            "S1_QM_LINTER_LAST_REPORT.json",
+            "docs/S1_QM_LINTER_LAST_REPORT.json",
+        ],
+        cwd=BASE,
+        capture_output=True,
+        text=True,
+    )
+    if ignored_chk.stdout.strip():
+        return False, f".gitignore 차단으로 클라우드 404 유발 파일 감지: {ignored_chk.stdout.strip().splitlines()}"
+
+    return True, f"오디오/쇼츠 참조 {len(audio_refs)}종 무결성, 5대 핵심 문서 루트<->docs 해시 100% 일치 및 .gitignore 허용 확인"
 
 
 GUARD_DISPATCH = {

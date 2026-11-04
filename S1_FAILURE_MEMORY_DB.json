@@ -1,0 +1,84 @@
+{
+  "version": "1.0.0",
+  "directive_id": "RGON_DIR_5WEAPONS_WEAKNESS_COMPENSATION_040",
+  "updated_at": "2026-11-04T16:26:00+09:00",
+  "policy": {
+    "principle": "encode-lessons-in-structure & verification-before-completion",
+    "enforcement_script": "s1_qm_structure_linter.py",
+    "on_violation": "QM-SP-11_IMMEDIATE_ISOLATION_EXIT_CODE_1",
+    "on_remediation": "QM-SP-18_ROOT_CAUSE_FIX_AND_DB_LOCK"
+  },
+  "failures": [
+    {
+      "id": "FM-001",
+      "title": "가짜 tkinter 모니터 창 생성 꼼수 금지",
+      "incident_directive": "031호 -> 033호 교정",
+      "root_cause": "실제 브라우저(ego.exe / chrome.exe) 기동이 막히자 파이썬 tkinter 더미 창으로 화면 분할을 흉내 냄",
+      "forbidden_pattern": "import tkinter|from tkinter",
+      "target_glob": "s1_*.py",
+      "guard_function": "check_fm001_no_fake_tkinter",
+      "remediation_qm_sp_18": "실제 C:\\Program Files\\Citro Labs\\ego lite\\Application\\ego.exe 또는 정품 브라우저 창만 사용하며 가짜 GUI 모사 영구 금지"
+    },
+    {
+      "id": "FM-002",
+      "title": "정지 이미지 단순 단일 zoompan 꼼수 및 마스터 쇼츠 누락 금지",
+      "incident_directive": "028호 -> 030호 교정",
+      "root_cause": "살아 움직이는 패럴랙스/입자 모션 및 54~88초 하이라이트 음원 정합 검증 없이 정적 줌인 효과만 적용하려 함",
+      "forbidden_pattern": "missing_master_shorts_or_baked_scene_caption",
+      "target_glob": "audio/FATHER_AGE_MASTER_SHORTS_1080x1920.mp4",
+      "guard_function": "check_fm002_authentic_motion_shorts",
+      "remediation_qm_sp_18": "무자막 순수 수채화 원본 6컷 + 다층 패럴랙스/빛 입자 모션 + 1080x1920 34초 실물 MP4(5MB 이상) 루트/docs 동시 보존"
+    },
+    {
+      "id": "FM-003",
+      "title": "ego.exe 샌드박스 백그라운드 lockfile 선점 충돌 금지",
+      "incident_directive": "027호 / 037호 -> 038·039호 교정",
+      "root_cause": "호스트 화면에 에고라이트가 꺼져 있을 때 샌드박스 데몬이 백그라운드에서 ego.exe를 자동 실행해 User Data\\lockfile을 잠금",
+      "forbidden_pattern": "unguarded_background_ego_spawn",
+      "target_glob": "s1_rgon_to_anchongri_bridge.py",
+      "guard_function": "check_fm003_ego_lockfile_guard",
+      "remediation_qm_sp_18": "s1_rgon_to_anchongri_bridge.py 내 is_ego_running() 가드 필수 유지 및 샌드박스 고아 ego.exe 프로세스 잔류 0개 유지"
+    },
+    {
+      "id": "FM-004",
+      "title": "864px 고정 높이 하드코딩으로 인한 하단 산·호수 바탕화면 노출 금지",
+      "incident_directive": "031호 / 037호 -> 038·039호 교정",
+      "root_cause": "상·하단 듀얼 모니터 전체 해상도를 동적으로 측정하지 않고 864px 상수로 고정하여 하단 보조 모니터에 바탕화면이 그대로 노출됨",
+      "forbidden_pattern": "hardcoded_864_height",
+      "target_glob": "s1_host_desktop_agent.py",
+      "guard_function": "check_fm004_dynamic_monitor_geometry",
+      "remediation_qm_sp_18": "EnumDisplayMonitors(get_monitors)로 모든 물리 모니터 좌표를 실시간 측정하여 하단 영역 끝까지 100% 빈틈없이 채움"
+    },
+    {
+      "id": "FM-005",
+      "title": "좌상단 Space 0 Chrome 창 미스크롤('이전 메시지 불러오기' 방치) 금지",
+      "incident_directive": "033호 / 037호 -> 038·039호 교정",
+      "root_cause": "창 크기만 조절하고 내부 대화 스크롤 컨테이너를 최하단으로 내리지 않아 옛날 대화와 '이전 메시지 불러오기' 버튼이 찍힘",
+      "forbidden_pattern": "missing_space0_scroll_and_zoom",
+      "target_glob": "s1_host_desktop_agent.py",
+      "guard_function": "check_fm005_space0_bottom_scroll",
+      "remediation_qm_sp_18": "좌상단 배치 직후 가독성 줌 축소 및 마우스 휠 하강·PageDown·End 키 입력으로 최신 대화가 보이도록 강제"
+    },
+    {
+      "id": "FM-006",
+      "title": "우상단 Antigravity IDE 코드 에디터 탭·하단 터미널 가림 방치 금지",
+      "incident_directive": "037호 -> 038·039호 교정",
+      "root_cause": "열려 있는 파이썬 코드 에디터 탭과 하단 powershell 터미널을 닫지 않아 정작 중요한 안총리 AI 채팅 패널이 가려짐",
+      "forbidden_pattern": "missing_ide_close_editors_and_panel",
+      "target_glob": "s1_host_desktop_agent.py",
+      "guard_function": "check_fm006_ide_chat_only_exposure",
+      "remediation_qm_sp_18": "Ctrl+K Ctrl+W(모든 에디터 닫기) 및 멱등 명령(View: Close Panel, View: Close Primary Side Bar)으로 AI 채팅 패널만 단독 노출"
+    },
+    {
+      "id": "FM-007",
+      "title": "대시보드 루트 audio/ 경로 누락 404 에러 및 docs/ 미러 불일치 금지",
+      "incident_directive": "024호 교정",
+      "root_cause": "docs/audio/에만 파일을 넣고 루트 audio/ 미러링이나 index.html <-> docs/index.html 동기화를 누락해 404 발생",
+      "forbidden_pattern": "broken_audio_link_or_docs_desync",
+      "target_glob": "index.html,docs/index.html,sw.js,docs/sw.js",
+      "guard_function": "check_fm007_audio_and_docs_mirror_zero_404",
+      "remediation_qm_sp_18": "index.html 내 모든 ./audio/* 참조 파일이 루트 audio/ 및 docs/audio/ 양쪽에 100% 실존하고 루트와 docs/ 파일 해시가 일치하는지 자동 검증"
+    }
+  ]
+}
+
