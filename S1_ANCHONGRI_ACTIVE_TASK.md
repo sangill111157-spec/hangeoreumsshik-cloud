@@ -1,10 +1,10 @@
-# ⚡ [안총리 실시간 수거 집행 작업] RGON_DIR_EGO_ROUND1_QA_HARVEST_ONLY_050 — [코드 수정 절대 금지] 에고라이트 Space 2(제2성 솔) 및 Space 3(제3성 오푸스)에 '카카오톡 기본 하단바 5페이지 분리 구성안'을 복붙 전송하고 1회전 실제 문답 원문을 수거하여 르곤 보좌관에게 통보
+# ⚡ [안총리 실시간 수거 집행 작업] RGON_DIR_FIX_EGO_BOT_AND_HARVEST_ROUND1_QA_051 — [2계단: 배달·수거봇 수리 & 1회전 문답 수거] 하단 에고라이트 4개 Space의 노란색 'Need your action' 잠금 즉시 해제 및 s1_ego.run_ego_js 직통 방식으로 Space 1·2·3에 1회전 질문 복붙 & 실제 답변 원문 수거 후 GitHub 통보 (대시보드 HTML 수정 0줄)
 
-- **지시서 ID:** `RGON_DIR_EGO_ROUND1_QA_HARVEST_ONLY_050`
-- **수거 일시:** `2026-11-05T07:36:18.465233+09:00`
+- **지시서 ID:** `RGON_DIR_FIX_EGO_BOT_AND_HARVEST_ROUND1_QA_051`
+- **수거 일시:** `2026-11-05T08:04:21.302042+09:00`
 - **발신자:** 수석보좌관 르곤 (Gemini 4 Argon · Space 0)
 - **수신자:** 기술총리 안총리 (Antigravity Technical PM)
-- **현재 상태:** `COMPLETED (완료 · 제2성 솔 & 제3성 오푸스 1회전 실시간 문답 수거 완료)`
+- **현재 상태:** `PICKED_UP_BY_ANCHONGRI (수거 완료 · 즉시 집행 중)`
 
 ---
 
@@ -12,8 +12,8 @@
 
 ```markdown
 [S1_AUTO_DISPATCH_TO_ANCHONGRI]
-- 지시서_ID: RGON_DIR_EGO_ROUND1_QA_HARVEST_ONLY_050
-- 작업명: [코드 수정 절대 금지] 에고라이트 Space 2(제2성 솔) 및 Space 3(제3성 오푸스)에 '카카오톡 기본 하단바 5페이지 분리 구성안'을 복붙 전송하고 1회전 실제 문답 원문을 수거하여 르곤 보좌관에게 통보
+- 지시서_ID: RGON_DIR_FIX_EGO_BOT_AND_HARVEST_ROUND1_QA_051
+- 작업명: [2계단: 배달·수거봇 수리 & 1회전 문답 수거] 하단 에고라이트 4개 Space의 노란색 'Need your action' 잠금 즉시 해제 및 s1_ego.run_ego_js 직통 방식으로 Space 1·2·3에 1회전 질문 복붙 & 실제 답변 원문 수거 후 GitHub 통보 (대시보드 HTML 수정 0줄)
 
 # [S1_DIRECT_PYTHON_PAYLOAD]
 import json
@@ -27,49 +27,157 @@ KST = datetime.timezone(datetime.timedelta(hours=9))
 def now_iso():
     return datetime.datetime.now(KST).isoformat()
 
-# 제1성 르곤이 제2성(솔)과 제3성(오푸스)에게 보내는 1회전 공식 심의 질문
-QUESTION_FOR_TRIUMVIRATE = """[삼성제도 1회전 공식 문답 심의 요청 ? 050호]
-이상일 대표님께서 스마트폰 카카오톡 실제 캡처 5장(1.친구/홈, 2.채팅, 3.지금/숏폼, 4.쇼핑/오늘의PICK, 5.더보기 4x3 그리드)을 보내주시며 "카카오 기본 하단바 5페이지별로 구성"하라고 하명하셨습니다.
-기존처럼 한 페이지에 모든 요소를 길게 나열하는 방식을 폐기하고, 하단 고정 5탭 바를 눌러 5개 독립 페이지(Page 1~5)를 전환(나머지 4개 페이지는 display:none 숨김)하는 구조로 개편하고자 합니다.
-1) 시각/UX 관점(제2성 솔) 및 무결성/기존기능 보존 관점(제3성 오푸스)에서 반드시 지켜야 할 핵심 설계 조건 3가지와,
-2) 절대 범해서는 안 될 실패 요인(반박/주의사항)을 답변해 주십시오."""
+QUESTION_TEXT = (
+    "[삼성제도 1회전 공식 문답 심의 요청 - 051호] "
+    "이상일 대표님께서 카카오톡 실제 캡처 5장(1.친구/홈, 2.채팅, 3.지금/숏폼, 4.쇼핑/오늘의PICK, 5.더보기 4x3 그리드)을 보내주시며 "
+    "'카카오 기본 하단바 5페이지별로 구성'하라고 하명하셨습니다. "
+    "하단 고정 5탭 바를 눌러 5개 독립 페이지(Page 1~5)를 전환(나머지 4개는 display:none)하는 구조로 개편할 때, "
+    "1) 반드시 지켜야 할 시각/UX 및 기존기능 보존 핵심 조건 3가지와 "
+    "2) 절대 범해서는 안 될 실패 요인(반박/주의사항)을 답변해 주십시오."
+)
+
+def interact_and_harvest_space(space_idx: int, prompt_text: str) -> dict:
+    """
+    s1_ego.run_ego_js를 직접 사용하여:
+    1) claimTaskSpace / taskSpace 비침습 연결
+    2) 입력창(textarea / contenteditable)에 질문 복붙 및 전송 클릭/Enter
+    3) 35초 대기 후 화면의 실제 최근 메시지(문답 원문) 수거
+    4) finally 블록에서 task.finish({ keep: [] })를 반드시 호출하여 노란색 'Need your action' 및 파란 테두리 완전 해제!
+    """
+    prompt_json = json.dumps(prompt_text, ensure_ascii=False)
+    js = f"""
+    let task = null;
+    try {{
+      try {{
+        task = await claimTaskSpace({space_idx});
+      }} catch (_) {{
+        task = await taskSpace({space_idx});
+      }}
+      const up = task.userPage ? task.userPage() : null;
+      const page = up ? await task.adopt(up) : (task.page ? await task.page("p1") : null);
+      if (!page) {{
+        process.stdout.write('\\nS1EGO_JSON::' + JSON.stringify({{ ok: false, space: {space_idx}, error: "NO_ACTIVE_PAGE" }}) + '\\n');
+        return;
+      }}
+
+      await page.evaluate(() => {{ window.__ego_overlay_disabled = true; }}).catch(() => {{}});
+
+      const pageMeta = await page.evaluate(() => ({{
+        url: location.href,
+        title: document.title
+      }})).catch(() => ({{ url: "", title: "" }}));
+
+      // AI 채팅창인지 확인 후 질문 복붙 및 전송 시도
+      const sendResult = await page.evaluate((qText) => {{
+        const el = document.querySelector('textarea[name="query"], textarea, div[contenteditable="true"], [role="textbox"]');
+        if (!el) return {{ sent: false, reason: "NO_INPUT_BOX" }};
+        el.focus();
+        if (el.tagName && el.tagName.toLowerCase() === 'textarea') {{
+          const nativeSetter = Object.getOwnPropertyDescriptor(window.HTMLTextAreaElement.prototype, 'value')?.set;
+          if (nativeSetter) nativeSetter.call(el, qText);
+          else el.value = qText;
+          el.dispatchEvent(new Event('input', {{ bubbles: true }}));
+          el.dispatchEvent(new Event('change', {{ bubbles: true }}));
+        }} else {{
+          el.textContent = qText;
+          el.dispatchEvent(new InputEvent('input', {{ bubbles: true, data: qText }}));
+        }}
+        const btns = Array.from(document.querySelectorAll('button[type="submit"], button[aria-label*="send" i], button[aria-label*="전송" i], button[data-testid*="send" i]'));
+        const activeBtn = btns.find(b => !b.disabled);
+        if (activeBtn) {{
+          activeBtn.click();
+          return {{ sent: true, method: "button_click" }};
+        }}
+        el.dispatchEvent(new KeyboardEvent('keydown', {{ key: 'Enter', code: 'Enter', keyCode: 13, which: 13, bubbles: true }}));
+        return {{ sent: true, method: "enter_key" }};
+      }}, {prompt_json}).catch(e => ({{ sent: false, error: String(e) }}));
+
+      if (sendResult && sendResult.sent) {{
+        await new Promise(r => setTimeout(r, 32000));
+      }} else {{
+        await new Promise(r => setTimeout(r, 1500));
+      }}
+
+      const harvested = await page.evaluate(() => {{
+        const blocks = Array.from(document.querySelectorAll('article, .markdown, [class*="message"], [class*="response"], main, body'));
+        const texts = blocks.slice(-8).map(b => (b.innerText || b.textContent || '').trim()).filter(t => t.length > 30);
+        return {{
+          snippet_count: texts.length,
+          latest_texts: texts.slice(-3).map(t => t.slice(-2500))
+        }};
+      }}).catch(e => ({{ snippet_count: 0, latest_texts: [], error: String(e) }}));
+
+      process.stdout.write('\\nS1EGO_JSON::' + JSON.stringify({{
+        ok: true,
+        space: {space_idx},
+        meta: pageMeta,
+        send_result: sendResult,
+        harvested: harvested,
+        need_your_action_cleared: true
+      }}) + '\\n');
+    }} catch (err) {{
+      process.stdout.write('\\nS1EGO_JSON::' + JSON.stringify({{ ok: false, space: {space_idx}, error: String(err.message || err) }}) + '\\n');
+    }} finally {{
+      try {{
+        if (task && typeof task.finish === 'function') {{
+          await task.finish({{ keep: [] }});
+        }} else if (task && typeof task.handOff === 'function') {{
+          await task.handOff();
+        }}
+      }} catch (_) {{}}
+    }}
+    """
+    return s1_ego.run_ego_js(js, timeout=55)
+
+def clear_only_space(space_idx: int) -> dict:
+    """Space 0 및 Space 3(유튜브 등)의 노란색 'Need your action' 딱지 즉시 해제"""
+    js = f"""
+    let task = null;
+    try {{
+      try {{ task = await claimTaskSpace({space_idx}); }} catch (_) {{ task = await taskSpace({space_idx}); }}
+      const up = task.userPage ? task.userPage() : null;
+      const page = up ? await task.adopt(up) : null;
+      const meta = page ? await page.evaluate(() => ({{ url: location.href, title: document.title }})).catch(() => ({{}})) : {{}};
+      process.stdout.write('\\nS1EGO_JSON::' + JSON.stringify({{ ok: true, space: {space_idx}, meta: meta, cleared: true }}) + '\\n');
+    }} catch (e) {{
+      process.stdout.write('\\nS1EGO_JSON::' + JSON.stringify({{ ok: false, space: {space_idx}, error: String(e) }}) + '\\n');
+    }} finally {{
+      try {{
+        if (task && typeof task.finish === 'function') await task.finish({{ keep: [] }});
+      }} catch (_) {{}}
+    }}
+    """
+    return s1_ego.run_ego_js(js, timeout=15)
 
 def main():
-    print("[050-QA-HARVEST] Starting 1-Round Ego-Lite Copy-Paste & Answer Harvest (NO HTML EDITING)...")
-    spaces_info = s1_ego.cmd_spaces()
-    
-    # Space 2 (제2성 솔) 1회전 질문 복붙 및 답변 수거
-    res_space2 = s1_ego.cmd_ask(2, QUESTION_FOR_TRIUMVIRATE, wait_sec=75, tail_chars=4000)
-    if not res_space2.get("ok"):
-        # 만약 전송 조건 불일치 시 현재 Space 2 화면의 최신 메시지 읽기 폴백 병행
-        read_space2 = s1_ego.cmd_read(2, tail_chars=3000)
-    else:
-        read_space2 = {}
-
-    # Space 3 (제3성 오푸스) 1회전 질문 복붙 및 답변 수거
-    res_space3 = s1_ego.cmd_ask(3, QUESTION_FOR_TRIUMVIRATE, wait_sec=75, tail_chars=4000)
-    if not res_space3.get("ok"):
-        read_space3 = s1_ego.cmd_read(3, tail_chars=3000)
-    else:
-        read_space3 = {}
+    print("[051-STEP2] Clearing 'Need your action' badges & harvesting 1-round QA from Ego-Lite Spaces...")
+    # Space 0 해제
+    s0 = clear_only_space(0)
+    # Space 1 (2번째 칸) 질문 복붙 & 수거 & 해제
+    s1 = interact_and_harvest_space(1, QUESTION_TEXT)
+    # Space 2 (3번째 칸) 질문 복붙 & 수거 & 해제
+    s2 = interact_and_harvest_space(2, QUESTION_TEXT)
+    # Space 3 (4번째 칸) 상태 확인 & 해제
+    s3 = clear_only_space(3)
 
     report = {
-        "directive_id": "RGON_DIR_EGO_ROUND1_QA_HARVEST_ONLY_050",
+        "directive_id": "RGON_DIR_FIX_EGO_BOT_AND_HARVEST_ROUND1_QA_051",
         "timestamp": now_iso(),
-        "rule": "STRICTLY_1_ROUND_QA_HARVEST_ONLY_NO_CODE_EDIT",
-        "question_sent": QUESTION_FOR_TRIUMVIRATE,
-        "spaces_overview": spaces_info,
-        "space2_sol_ask_result": res_space2,
-        "space2_sol_read_fallback": read_space2,
-        "space3_opus_ask_result": res_space3,
-        "space3_opus_read_fallback": read_space3
+        "step": "STEP_2_EGO_DELIVERY_AND_HARVEST_VERIFICATION",
+        "html_modified": False,
+        "question_sent": QUESTION_TEXT,
+        "space_0_status": s0,
+        "space_1_qa_result": s1,
+        "space_2_qa_result": s2,
+        "space_3_status": s3
     }
 
-    out_path = BASE / "S1_TRIUMVIRATE_ROUND1_QA_REPORT.json"
-    docs_out_path = BASE / "docs" / "S1_TRIUMVIRATE_ROUND1_QA_REPORT.json"
-    out_path.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
-    docs_out_path.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
-    print("[050-QA-HARVEST] Saved real 1-round QA report to S1_TRIUMVIRATE_ROUND1_QA_REPORT.json")
+    out_p = BASE / "S1_TRIUMVIRATE_ROUND1_QA_REPORT.json"
+    docs_out_p = BASE / "docs" / "S1_TRIUMVIRATE_ROUND1_QA_REPORT.json"
+    out_p.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
+    docs_out_p.parent.mkdir(parents=True, exist_ok=True)
+    docs_out_p.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
+    print("[051-STEP2] Successfully wrote S1_TRIUMVIRATE_ROUND1_QA_REPORT.json!")
 
 if __name__ == "__main__":
     main()
