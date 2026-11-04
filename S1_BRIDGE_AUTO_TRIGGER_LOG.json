@@ -57,6 +57,13 @@
       "pid": 40760,
       "status": "TRIGGERED",
       "ok": true
+    },
+    {
+      "directive_id": "LINTER_VERIFY_047",
+      "timestamp": "2026-11-05T00:19:22.521513+09:00",
+      "pid": 41072,
+      "status": "TRIGGERED",
+      "ok": true
     }
   ]
 }

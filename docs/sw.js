@@ -1,5 +1,5 @@
-// S1 Service Worker v2026-stepagent-v9 (SUN-ONE AON Zero-Paste & Dual Bridge)
-const CACHE = 's1-aon-v26-real-bridge-ego-v22-047';
+// S1 Service Worker v2026-v048 (SUN-ONE AON Zero-Paste & Network-First HTML)
+const CACHE = 's1-aon-v048-kakaopage-live';
 const ASSETS = [
   './',
   './index.html',
@@ -31,7 +31,7 @@ self.addEventListener('activate', e => {
     caches.keys().then(keys => {
       return Promise.all(
         keys.filter(k => k !== CACHE).map(k => {
-          console.log('[SW] Deleting old cache:', k);
+          console.log('[SW-048] Nuking old cache:', k);
           return caches.delete(k);
         })
       );
@@ -43,15 +43,28 @@ self.addEventListener('fetch', e => {
   if (e.request.method !== 'GET') return;
   const u = new URL(e.request.url);
 
-  // Network-first for dynamic API / live JSON
-  if (u.pathname.startsWith('/api/') || u.pathname.endsWith('.json') || u.pathname.endsWith('.mp4')) {
+  // 1) HTML 페이지 및 내비게이션 요청: 무조건 Network-First (구버전 캐시 즉시 차단!)
+  const isHtml = e.request.mode === 'navigate' ||
+                 u.pathname.endsWith('.html') ||
+                 u.pathname.endsWith('/') ||
+                 u.pathname === '';
+
+  if (isHtml || u.pathname.startsWith('/api/') || u.pathname.endsWith('.json') || u.pathname.endsWith('.mp4')) {
     e.respondWith(
-      fetch(e.request, { cache: 'no-store' }).catch(() => caches.match(e.request))
+      fetch(e.request, { cache: 'no-store' })
+        .then(response => {
+          if (response && response.status === 200 && isHtml) {
+            const clone = response.clone();
+            caches.open(CACHE).then(cache => cache.put(e.request, clone));
+          }
+          return response;
+        })
+        .catch(() => caches.match(e.request))
     );
     return;
   }
 
-  // Stale-while-revalidate for html and assets
+  // 2) 정적 이미지 / 아이콘 등 정적 자산: Stale-while-revalidate
   e.respondWith(
     caches.match(e.request).then(cached => {
       const networked = fetch(e.request).then(response => {
@@ -61,7 +74,6 @@ self.addEventListener('fetch', e => {
         }
         return response;
       }).catch(() => cached);
-
       return cached || networked;
     })
   );

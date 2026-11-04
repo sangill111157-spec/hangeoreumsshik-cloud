@@ -270,7 +270,7 @@ def check_fm008_dashboard_freshness():
     badge_valid = (
         "046호: 연결·소통·만능" in html or
         "047호: 연결·소통·만능" in html or
-        "047호: 카카오페이지" in html
+        "047호: 카카오페이지" in html or "048호: 카카오페이지" in html
     )
     if not badge_valid:
         return False, "대시보드 최신 배지(046호/047호) 부재"
@@ -595,7 +595,7 @@ def check_fm012_first_screen_ui_showcase_and_freshness():
     # 6. Check sw.js v24 or v25
     sw = BASE / "sw.js"
     sw_text = sw.read_text(encoding="utf-8", errors="ignore") if sw.exists() else ""
-    if not sw.exists() or ("s1-aon-v24-" not in sw_text and "s1-aon-v25-" not in sw_text and "s1-aon-v26-" not in sw_text and "s1-aon-v26-" not in sw_text):
+    if not sw.exists() or ("s1-aon-v24-" not in sw_text and "s1-aon-v25-" not in sw_text and "s1-aon-v048-" not in sw_text and "s1-aon-v26-" not in sw_text and "s1-aon-v26-" not in sw_text):
         return False, "sw.js 캐시 버전 미갱신 (v24 또는 v25 필수)"
 
     return True, f"첫 화면 045호 배지·12트랙 쇼케이스 DOM·53곡 버튼 전수 교체·sw.js v24·여권 47대 도장({len(pp_stamps)}개) 100% 무결 검증"
@@ -774,6 +774,29 @@ def check_fm014_real_bridge_ast_and_ego_v22_skill():
     # [거짓 방지 하드 가드] 1) 가짜 날조 곡명 절대 금지, 2) 랭킹차트 2중 중복 삽입 절대 금지
     # [047B호 레이아웃 및 잔류 찌꺼기 하드 가드]
     # 1) 잔류 찌꺼기 감지 시 즉시 EXIT 1 격리
+    # [048호 독대실 rgon_alpha_chat.html 1:1 동기화 검증]
+    html_files = [
+        BASE / "index.html",
+        BASE / "docs" / "index.html",
+        BASE / "rgon_alpha_chat.html",
+        BASE / "docs" / "rgon_alpha_chat.html"
+    ]
+    for hf in html_files:
+        if not hf.exists():
+            return False, f"필수 HTML 파일 부재: {hf.name}"
+    base_hash = sha256_file(html_files[0])
+    for hf in html_files[1:]:
+        if sha256_file(hf) != base_hash:
+            return False, f"4대 HTML 1:1 동기화 불일치: {hf.relative_to(BASE)} != index.html"
+
+    # [048호 sw.js 캐시 버전 검증]
+    sw_f = BASE / "sw.js"
+    if "s1-aon-v048-kakaopage-live" not in sw_f.read_text(encoding="utf-8"):
+        return False, "sw.js 캐시 버전 미갱신 (s1-aon-v048-kakaopage-live 필수)"
+
+    # [048호 '41곡 원장' 잔존 0건 검증]
+    if "41곡 원장" in idx_content:
+        return False, "index.html 내 구버전 '41곡 원장' 텍스트 잔존"
     forbidden_residues = ["Track 02 · Acoustic", "Track 03 · Warm Pad", "가을의 마지막 잎새", "첫눈 오는 날의 온기"]
     for fr in forbidden_residues:
         if fr in idx_content:
