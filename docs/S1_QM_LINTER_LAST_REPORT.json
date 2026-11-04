@@ -1,11 +1,11 @@
 {
-  "linter_version": "1.1.0",
-  "directive_id": "RGON_DIR_DASHBOARD_ZERO_STALE_AND_FM008_041",
-  "timestamp": "2026-11-04T17:09:53.866202+09:00",
+  "linter_version": "1.2.0",
+  "directive_id": "RGON_DIR_DISNEY_WARM_3D_AND_ZERO_ZOOMPAN_042",
+  "timestamp": "2026-11-04T18:21:42.930008+09:00",
   "verdict": "PASS",
   "score": 100.0,
-  "passed_checks": 11,
-  "total_checks": 11,
+  "passed_checks": 12,
+  "total_checks": 12,
   "checks": [
     {
       "id": "GATE-A-PROTECTED-FILES",
@@ -23,7 +23,7 @@
       "id": "FM-002",
       "name": "정지 이미지 단순 단일 zoompan 꼼수 및 마스터 쇼츠 누락 금지",
       "passed": true,
-      "detail": "진품 마스터 쇼츠 실존 확인 (11,921,532 bytes, 루트 & docs 동기화)"
+      "detail": "진품 마스터 쇼츠 실존 확인 (31,425,134 bytes, 루트 & docs 동기화)"
     },
     {
       "id": "FM-003",
@@ -59,13 +59,19 @@
       "id": "FM-008",
       "name": "대시보드 구버전 배지('023호 시네마틱') 및 빈 로딩 문구('집계 중.../불러오는 중...') 방치 금지",
       "passed": true,
-      "detail": "구버전·빈 로딩 문구 0건, 수채화 배지·SSR·4대 JSON·27대 릴레이 도장(27개)·QM-SP-18 가드·sw.js v20 검증 완료"
+      "detail": "구버전·빈 로딩 문구 0건, 수채화 배지·SSR·4대 JSON·27대 릴레이 도장(32개)·QM-SP-18 가드·sw.js v20 검증 완료"
+    },
+    {
+      "id": "FM-009",
+      "name": "단순 정적 이미지 줌인·아웃(단일 zoompan 슬라이드쇼) 꼼수 금지 및 프레임 간 비균일 동적 피사체 모션 필수",
+      "passed": true,
+      "detail": "6컷 전원 탈-줌인(Non-Zoompan) 실제 피사체 모션 검증 통과! 컷별 비선형 광학흐름 잔차=[0.79, 0.369, 0.7214, 0.9518, 0.3449, 0.863] (평균 0.6734px >= 0.35px, 1080x1920 34.00s AAC)"
     },
     {
       "id": "GATE-C-PASSPORT",
       "name": "릴레이 여권 해시 체인 연속성 검증",
       "passed": true,
-      "detail": "총 27대 릴레이 도장 사슬 연속성 100% 무결 (최종 해시 227b8a0b5d99...)"
+      "detail": "총 32대 릴레이 도장 사슬 연속성 100% 무결 (최종 해시 db131bcfe734...)"
     },
     {
       "id": "GATE-D-SECURITY-HYGIENE",

@@ -1,7 +1,7 @@
 {
-  "version": "1.1.0",
-  "directive_id": "RGON_DIR_DASHBOARD_ZERO_STALE_AND_FM008_041",
-  "updated_at": "2026-11-04T16:51:00+09:00",
+  "version": "1.2.0",
+  "directive_id": "RGON_DIR_DISNEY_WARM_3D_AND_ZERO_ZOOMPAN_042",
+  "updated_at": "2026-11-04T18:06:17.468099+09:00",
   "policy": {
     "principle": "encode-lessons-in-structure & verification-before-completion",
     "enforcement_script": "s1_qm_structure_linter.py",
@@ -88,7 +88,16 @@
       "target_glob": "index.html,docs/index.html,sw.js,docs/sw.js",
       "guard_function": "check_fm008_dashboard_freshness",
       "remediation_qm_sp_18": "상단 플레이어를 무자막 감성 수채화 & 후렴구 하이라이트(54~88초) 마스터 쇼츠 및 scene_01.png로 최신화하고, 3대 동적 영역에 정적 프리렌더링(SSR) + 실시간 JSON(Queue/Outbox/Passport/Pipeline) 바인딩 및 루트<->docs/.gitignore 무결성을 자동 검증"
+    },
+    {
+      "id": "FM-009",
+      "title": "단순 정적 이미지 줌인·아웃(단일 zoompan 슬라이드쇼) 꼼수 금지 및 프레임 간 비균일 동적 피사체 모션 필수",
+      "incident_directive": "030호 수채화 줌인 한계 -> 042호 마스터 특명 교정",
+      "root_cause": "최신 AI Image-to-Video 모델을 마스터하지 않고 정지 이미지를 FFmpeg zoompan으로 단순 확대·축소해 가짜 모션 슬라이드쇼를 만듦",
+      "forbidden_pattern": "uniform_zoompan_slideshow_without_independent_subject_motion",
+      "target_glob": "audio/FATHER_AGE_MASTER_SHORTS_1080x1920.mp4",
+      "guard_function": "check_fm009_non_zoompan_dynamic_motion",
+      "remediation_qm_sp_18": "친근한 디즈니·픽사 감성 3D 실사화(글씨 0%) 6컷을 실전 AI Image-to-Video 엔진(Seedance Pro / Gemini Omni / Kling)으로 구동하여 피사체별 독립 모션 클립 6개를 생성하고, 6x8 로컬 그리드 비균일 모션 분산 실측 통과 필수"
     }
   ]
 }
-

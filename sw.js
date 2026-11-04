@@ -1,5 +1,5 @@
 // S1 Service Worker v2026-stepagent-v9 (SUN-ONE AON Zero-Paste & Dual Bridge)
-const CACHE = 's1-aon-v20-zero-stale-dashboard-041';
+const CACHE = 's1-aon-v21-disney-warm-3d-motion-042';
 const ASSETS = [
   './',
   './index.html',
@@ -44,7 +44,7 @@ self.addEventListener('fetch', e => {
   const u = new URL(e.request.url);
 
   // Network-first for dynamic API / live JSON
-  if (u.pathname.startsWith('/api/') || u.pathname.endsWith('.json')) {
+  if (u.pathname.startsWith('/api/') || u.pathname.endsWith('.json') || u.pathname.endsWith('.mp4')) {
     e.respondWith(
       fetch(e.request, { cache: 'no-store' }).catch(() => caches.match(e.request))
     );

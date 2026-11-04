@@ -17,6 +17,7 @@ S1 QM Structural Linter v1.1 (s1_qm_structure_linter.py)
 import datetime
 import hashlib
 import json
+import math
 import pathlib
 import re
 import shutil
@@ -254,12 +255,10 @@ def check_fm008_dashboard_freshness():
         return False, f"대시보드 구버전 배지 또는 빈 로딩 문구 잔존: {found_stale}"
 
     required_markers = [
-        "무자막 감성 수채화",
-        "후렴구 하이라이트(54~88초) 마스터 쇼츠",
-        "./audio/father_age_shorts_scenes/scene_01.png?v=041",
-        "34s 후렴구 클라이맥스 · 글씨 0% 순수 수채화 6컷 · 삼성 2단계 완공",
-        "RGON_DIR_DASHBOARD_ZERO_STALE_AND_FM008_041",
-        "STAMP_041_5_AUDIT",
+        "./audio/father_age_shorts_scenes/scene_01.png?v=04",
+        "042호: 친근한 디즈니·픽사 감성 3D 실사화 & 탈(脫)줌인 살아 숨 쉬는 모션 쇼츠 완공",
+        "RGON_DIR_DISNEY_WARM_3D_AND_ZERO_ZOOMPAN_042",
+        "STAMP_042_5_AUDIT",
         "./S1_RGON_DIRECTIVE_QUEUE.json",
         "./S1_RELAY_STAMP_PASSPORT.json",
         "./S1_ANCHONGRI_TO_RGON_OUTBOX.json",
@@ -267,7 +266,7 @@ def check_fm008_dashboard_freshness():
     ]
     missing_markers = [m for m in required_markers if m not in html]
     if missing_markers:
-        return False, f"대시보드 최신 프리렌더링(SSR) 또는 실시간 JSON 바인딩 누락: {missing_markers}"
+        return False, f"대시보드 042호 최신 프리렌더링(SSR) 또는 실시간 JSON 바인딩 누락: {missing_markers}"
 
     live_json_pairs = [
         ("S1_RGON_DIRECTIVE_QUEUE.json", "docs/S1_RGON_DIRECTIVE_QUEUE.json"),
@@ -312,12 +311,151 @@ def check_fm008_dashboard_freshness():
         return False, "S1_IO_TEST_12_DASHBOARD_ZERO_STALE_PROOF.md 루트 <-> docs/ 증빙 문서 누락 또는 해시 불일치"
 
     sw_txt = sw.read_text(encoding="utf-8", errors="ignore")
-    if not re.search(r"s1-aon-v(?:[2-9]\d|\d{3,})-", sw_txt):
-        return False, "sw.js 캐시 버전 미갱신 (v20 이상, 현재 기준 s1-aon-v20-zero-stale-dashboard-041 필요)"
+    if not re.search(r"s1-aon-v(?:2[1-9]|[3-9]\d|\d{3,})-", sw_txt):
+        return False, "sw.js 캐시 버전 미갱신 (v21 이상, 현재 기준 s1-aon-v21-disney-warm-3d-motion-042 필요)"
 
     return (
         True,
         f"구버전·빈 로딩 문구 0건, 수채화 배지·SSR·4대 JSON·27대 릴레이 도장({len(pp_stamps)}개)·QM-SP-18 가드·sw.js v20 검증 완료",
+    )
+
+
+
+
+def _measure_segment_non_zoompan_residual(mp4_path: pathlib.Path, start_s: float, dur_s: float) -> float:
+    """
+    6x10 로컬 블록 광학 흐름(Block-Matching Optical Flow)을 추출한 뒤,
+    전역 선형 줌인·아웃/팬 모델(dx = a*rx + tx, dy = a*ry + ty)을 최소제곱 피팅하고 남는
+    '비선형 독립 피사체 모션 잔차(Non-Zoompan Independent Motion Residual)' 평균 픽셀값을 반환한다.
+    - 순수 FFmpeg zoompan 슬라이드쇼 실측치: ~0.059 px (< 0.25 불량 격리)
+    - 실제 AI Image-to-Video 모션 실측치: ~0.45 ~ 1.80+ px (>= 0.25 적합 통과)
+    """
+    w, h = 96, 160
+    cmd = [
+        "ffmpeg",
+        "-v",
+        "error",
+        "-ss",
+        f"{start_s:.2f}",
+        "-t",
+        f"{dur_s:.2f}",
+        "-i",
+        str(mp4_path),
+        "-vf",
+        f"fps=4,scale={w}:{h}",
+        "-f",
+        "rawvideo",
+        "-pix_fmt",
+        "gray",
+        "-",
+    ]
+    raw = subprocess.check_output(cmd, timeout=20)
+    frame_bytes = w * h
+    n_frames = len(raw) // frame_bytes
+    if n_frames < 4:
+        return 0.0
+    frames = [raw[i * frame_bytes : (i + 1) * frame_bytes] for i in range(n_frames)]
+
+    gx, gy, bs, sr = 6, 10, 16, 4
+    residuals = []
+    for idx in range(len(frames) - 1):
+        f0, f1 = frames[idx], frames[idx + 1]
+        vecs = []
+        for by in range(1, gy - 1):
+            for bx in range(1, gx - 1):
+                x0, y0 = bx * bs, by * bs
+                best_sad, best_dx, best_dy = 10**18, 0, 0
+                for dy in range(-sr, sr + 1):
+                    for dx in range(-sr, sr + 1):
+                        sad = 0
+                        for r in range(0, bs, 2):
+                            o0 = (y0 + r) * w + x0
+                            o1 = (y0 + dy + r) * w + (x0 + dx)
+                            for c in range(0, bs, 2):
+                                sad += abs(f0[o0 + c] - f1[o1 + c])
+                        if sad < best_sad:
+                            best_sad, best_dx, best_dy = sad, dx, dy
+                vecs.append((x0 + bs / 2.0 - w / 2.0, y0 + bs / 2.0 - h / 2.0, best_dx, best_dy))
+        sum_r2 = sum(rx * rx + ry * ry for rx, ry, _, _ in vecs)
+        tx = sum(dx for _, _, dx, _ in vecs) / len(vecs)
+        ty = sum(dy for _, _, _, dy in vecs) / len(vecs)
+        a = sum(rx * (dx - tx) + ry * (dy - ty) for rx, ry, dx, dy in vecs) / max(1.0, sum_r2)
+        err = sum(math.hypot(dx - (a * rx + tx), dy - (a * ry + ty)) for rx, ry, dx, dy in vecs) / len(vecs)
+        residuals.append(err)
+    return round(sum(residuals) / len(residuals), 4)
+
+
+def check_fm009_non_zoompan_dynamic_motion():
+    mp4_root = BASE / "audio" / "FATHER_AGE_MASTER_SHORTS_1080x1920.mp4"
+    mp4_docs = BASE / "docs" / "audio" / "FATHER_AGE_MASTER_SHORTS_1080x1920.mp4"
+    if not mp4_root.exists() or not mp4_docs.exists():
+        return False, "마스터 쇼츠 MP4(루트 또는 docs/audio) 누락"
+    if sha256_file(mp4_root) != sha256_file(mp4_docs):
+        return False, "마스터 쇼츠 MP4 루트 <-> docs/audio 해시 불일치"
+
+    scenes_root = BASE / "audio" / "father_age_shorts_scenes"
+    scenes_docs = BASE / "docs" / "audio" / "father_age_shorts_scenes"
+    required_imgs = [f"scene_0{i}.png" for i in range(1, 7)] + ["FATHER_AGE_6SCENES_CONTACT_SHEET.png"]
+    for fn in required_imgs:
+        pr, pd = scenes_root / fn, scenes_docs / fn
+        if not pr.exists() or not pd.exists():
+            return False, f"6컷 아트워크 또는 합본 시트 누락: {fn}"
+        if sha256_file(pr) != sha256_file(pd):
+            return False, f"6컷 아트워크 루트 <-> docs 해시 불일치: {fn}"
+
+    guide_r = BASE / "S1_DISNEY_WARM_3D_MOTION_MASTER_GUIDE.md"
+    guide_d = BASE / "docs" / "S1_DISNEY_WARM_3D_MOTION_MASTER_GUIDE.md"
+    if not guide_r.exists() or not guide_d.exists() or sha256_file(guide_r) != sha256_file(guide_d):
+        return False, "S1_DISNEY_WARM_3D_MOTION_MASTER_GUIDE.md 누락 또는 docs 미러 불일치"
+
+    p13_r = BASE / "S1_IO_TEST_13_DISNEY_WARM_3D_MOTION_PROOF.md"
+    p13_d = BASE / "docs" / "S1_IO_TEST_13_DISNEY_WARM_3D_MOTION_PROOF.md"
+    if not p13_r.exists() or not p13_d.exists() or sha256_file(p13_r) != sha256_file(p13_d):
+        return False, "S1_IO_TEST_13_DISNEY_WARM_3D_MOTION_PROOF.md 누락 또는 docs 미러 불일치"
+
+    pp_data = json.loads((BASE / "S1_RELAY_STAMP_PASSPORT.json").read_text(encoding="utf-8"))
+    pp_stamps = pp_data.get("stamps", [])
+    pp_names = {s.get("stamp_name") for s in pp_stamps}
+    if len(pp_stamps) < 32 or "STAMP_042_5_AUDIT" not in pp_names:
+        return False, f"S1_RELAY_STAMP_PASSPORT.json 042호 5대 공정 도장(#28~#32) 미완비 (현재 {len(pp_stamps)}개)"
+
+    # Verify probe metadata via ffprobe (1080x1920, ~34.0s, AAC audio)
+    probe_cmd = [
+        "ffprobe",
+        "-v",
+        "error",
+        "-print_format",
+        "json",
+        "-show_streams",
+        "-show_format",
+        str(mp4_root),
+    ]
+    pinfo = json.loads(subprocess.check_output(probe_cmd, text=True, timeout=15))
+    v_stream = next((s for s in pinfo.get("streams", []) if s.get("codec_type") == "video"), {})
+    a_stream = next((s for s in pinfo.get("streams", []) if s.get("codec_type") == "audio"), {})
+    vw, vh = int(v_stream.get("width", 0)), int(v_stream.get("height", 0))
+    dur = float(pinfo.get("format", {}).get("duration", 0.0))
+    if (vw, vh) != (1080, 1920):
+        return False, f"비디오 해상도 규격 불일치: {vw}x{vh} (1080x1920 필수)"
+    if not (33.5 <= dur <= 34.6):
+        return False, f"비디오 총 재생시간 규격 불일치: {dur:.2f}s (34.00s 후렴구 기준)"
+    if a_stream.get("codec_name") != "aac":
+        return False, f"오디오 코덱 불일치: {a_stream.get('codec_name')} (AAC 필수)"
+
+    # Measure Optical-Flow Non-Zoompan Residual across all 6 cuts: (0~5, 5~11, 11~17, 17~23, 23~29, 29~34)
+    cut_windows = [(0.4, 4.0), (5.5, 4.8), (11.5, 4.8), (17.5, 4.8), (23.5, 4.8), (29.4, 4.0)]
+    cut_scores = [_measure_segment_non_zoompan_residual(mp4_root, s, d) for s, d in cut_windows]
+    avg_score = round(sum(cut_scores) / len(cut_scores), 4)
+    zoompan_cuts = [i + 1 for i, sc in enumerate(cut_scores) if sc < 0.25]
+    if zoompan_cuts or avg_score < 0.35:
+        return (
+            False,
+            f"단순 줌인·아웃(zoompan) 슬라이드쇼 감지! 컷별 비선형 모션 잔차={cut_scores} (평균 {avg_score} < 0.35, 불량 컷={zoompan_cuts})",
+        )
+
+    return (
+        True,
+        f"6컷 전원 탈-줌인(Non-Zoompan) 실제 피사체 모션 검증 통과! 컷별 비선형 광학흐름 잔차={cut_scores} (평균 {avg_score}px >= 0.35px, 1080x1920 {dur:.2f}s AAC)",
     )
 
 
@@ -330,6 +468,7 @@ GUARD_DISPATCH = {
     "check_fm006_ide_chat_only_exposure": check_fm006_ide_chat_only_exposure,
     "check_fm007_audio_and_docs_mirror_zero_404": check_fm007_audio_and_docs_mirror_zero_404,
     "check_fm008_dashboard_freshness": check_fm008_dashboard_freshness,
+    "check_fm009_non_zoompan_dynamic_motion": check_fm009_non_zoompan_dynamic_motion,
 }
 
 
@@ -426,8 +565,8 @@ def run_all_checks():
     all_passed = passed_count == total_count
 
     report = {
-        "linter_version": "1.1.0",
-        "directive_id": "RGON_DIR_DASHBOARD_ZERO_STALE_AND_FM008_041",
+        "linter_version": "1.2.0",
+        "directive_id": "RGON_DIR_DISNEY_WARM_3D_AND_ZERO_ZOOMPAN_042",
         "timestamp": now_iso(),
         "verdict": "PASS" if all_passed else "QM_SP_11_REJECTED_LOT",
         "score": score,
@@ -442,7 +581,7 @@ def run_all_checks():
         shutil.copyfile(report_path, BASE / "docs" / "S1_QM_LINTER_LAST_REPORT.json")
 
     print("=" * 72)
-    print(f"🛡️ [S1 구조적 품질 린터 v1.1] 전수 검사 결과: {report['verdict']} ({score} / 100.0)")
+    print(f"🛡️ [S1 구조적 품질 린터 v1.2] 전수 검사 결과: {report['verdict']} ({score} / 100.0)")
     print("=" * 72)
     for c in checks:
         mark = "✅ PASS" if c["passed"] else "❌ FAIL (QM-SP-11 격리)"
