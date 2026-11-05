@@ -1,5 +1,5 @@
 // S1 Service Worker v2026-v049 (SUN-ONE AON Zero-Paste & Network-First HTML)
-const CACHE = 's1-aon-v049-clean-layout';
+const CACHE = 's1-aon-v052-kakao-5tabs';
 const ASSETS = [
   './',
   './index.html',

@@ -595,7 +595,7 @@ def check_fm012_first_screen_ui_showcase_and_freshness():
     # 6. Check sw.js v24 or v25
     sw = BASE / "sw.js"
     sw_text = sw.read_text(encoding="utf-8", errors="ignore") if sw.exists() else ""
-    if not sw.exists() or ("s1-aon-v24-" not in sw_text and "s1-aon-v25-" not in sw_text and "s1-aon-v048-" not in sw_text and "s1-aon-v049-" not in sw_text and "s1-aon-v26-" not in sw_text and "s1-aon-v26-" not in sw_text):
+    if not sw.exists() or ("s1-aon-v24-" not in sw_text and "s1-aon-v25-" not in sw_text and "s1-aon-v048-" not in sw_text and "s1-aon-v049-" not in sw_text and "s1-aon-v052-" not in sw_text and "s1-aon-v26-" not in sw_text and "s1-aon-v26-" not in sw_text):
         return False, "sw.js 캐시 버전 미갱신 (v24 또는 v25 필수)"
 
     return True, f"첫 화면 045호 배지·12트랙 쇼케이스 DOM·53곡 버튼 전수 교체·sw.js v24·여권 47대 도장({len(pp_stamps)}개) 100% 무결 검증"
@@ -789,7 +789,7 @@ def check_fm014_real_bridge_ast_and_ego_v22_skill():
     # [049호 sw.js 캐시 버전 검증]
     sw_f = BASE / "sw.js"
     docs_sw_f = BASE / "docs" / "sw.js"
-    if "s1-aon-v049-clean-layout" not in sw_f.read_text(encoding="utf-8"):
+    if ("s1-aon-v049-clean-layout" not in sw_f.read_text(encoding="utf-8") and "s1-aon-v052-kakao-5tabs" not in sw_f.read_text(encoding="utf-8")):
         return False, "sw.js 캐시 버전 미갱신 (s1-aon-v049-clean-layout 필수)"
     if not docs_sw_f.exists() or sha256_file(sw_f) != sha256_file(docs_sw_f):
         return False, "sw.js <-> docs/sw.js 해시 불일치"

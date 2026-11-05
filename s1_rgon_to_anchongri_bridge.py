@@ -72,7 +72,7 @@ def is_ego_running():
     except Exception:
         return False
 
-def scan_space0_deep(do_reload=False):
+def scan_space0_deep(do_reload=(cycle_num % 4 == 0)):
     """
     [수거봇 눈 복원 v5.0 - 025호 무렉(Zero-Lag) & Human-Presence Shield & 비침습 스캔]
     1. takeOverTaskSpace 전면 제거 -> claimTaskSpace / taskSpace 비침습 접근
