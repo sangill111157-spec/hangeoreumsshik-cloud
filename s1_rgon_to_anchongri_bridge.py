@@ -157,6 +157,51 @@ def scan_space0_deep(do_reload=False):
         return {"ok": False, "error": str(e)}
 
 
+
+def send_auto_confirm_to_space0(directive_id: str):
+    """임무 완료 및 GitHub 푸시 직후 에고라이트 Space 0에 자동으로 '확인' 메시지를 타이핑·전송"""
+    try:
+        import s1_ego
+        head_sha = subprocess.check_output(["git", "rev-parse", "--short", "HEAD"], cwd=BASE, text=True).strip()
+        msg = f"확인 (자동수거·임무완료: {directive_id} · 커밋 {head_sha})"
+        msg_json = json.dumps(msg, ensure_ascii=False)
+        js = f"""
+        let task = null;
+        try {{
+          try {{ task = await takeOverTaskSpace(0); }} catch (_) {{ try {{ task = await claimTaskSpace(0); }} catch (__) {{ task = await taskSpace(0); }} }}
+          const up = task.userPage ? task.userPage() : null;
+          let page = up ? await task.adopt(up).catch(() => up) : null;
+          if (!page && task.pages) {{ const ps = await task.pages(); if (ps && ps.length) page = ps[0]; }}
+          if (!page) return;
+          const qText = {msg_json};
+          await page.evaluate((t) => {{
+            const el = document.querySelector('textarea[name="query"], textarea, div[contenteditable="true"], [role="textbox"]');
+            if (!el) return;
+            el.focus();
+            if (el.tagName && el.tagName.toLowerCase() === 'textarea') {{
+              const ns = Object.getOwnPropertyDescriptor(window.HTMLTextAreaElement.prototype, 'value')?.set;
+              if (ns) ns.call(el, t); else el.value = t;
+              el.dispatchEvent(new Event('input', {{ bubbles: true }}));
+              el.dispatchEvent(new Event('change', {{ bubbles: true }}));
+            }} else {{
+              el.textContent = t;
+              el.dispatchEvent(new InputEvent('input', {{ bubbles: true, data: t }}));
+            }}
+            const btns = Array.from(document.querySelectorAll('button[type="submit"], button[aria-label*="send" i], button[aria-label*="전송" i], .enter-icon-wrapper'));
+            const ab = btns.find(b => !b.disabled);
+            if (ab) ab.click();
+            else el.dispatchEvent(new KeyboardEvent('keydown', {{ key: 'Enter', code: 'Enter', keyCode: 13, which: 13, bubbles: true }}));
+          }}, qText);
+          await new Promise(r => setTimeout(r, 500));
+        }} catch (_) {{}} finally {{
+          try {{ if (task && typeof task.finish === 'function') await task.finish({{ keep: [] }}); }} catch (_) {{}}
+        }}
+        """
+        s1_ego.run_ego_js(js, timeout=30)
+        print(f"[AUTO-CONFIRM] Sent automatic '확인' to Space 0 for {directive_id}", flush=True)
+    except Exception as e:
+        print(f"[AUTO-CONFIRM] Error: {e}", flush=True)
+
 def auto_execute_directive_trigger(directive_id: str, full_text: str = "") -> dict:
     """
     [049호 르곤 직할 무인 집행 엔진]
@@ -211,6 +256,7 @@ def auto_execute_directive_trigger(directive_id: str, full_text: str = "") -> di
                 subprocess.run(["git", "commit", "-m", f"auto(rgon-direct): executed {directive_id} without anchongri"], cwd=BASE, check=False)
                 subprocess.run(["git", "pull", "--rebase", "origin", "main"], cwd=BASE, check=False)
                 subprocess.run(["git", "push", "origin", "main"], cwd=BASE, check=False)
+                send_auto_confirm_to_space0(directive_id)
                 try:
                     h_sha = subprocess.check_output(["git", "rev-parse", "--short", "HEAD"], cwd=BASE, text=True).strip()
                     msg0 = f"[자동수거·임무완료 보고] 지시서 {directive_id} 자동 실행 및 GitHub 푸시 완료! (커밋: {h_sha})"
