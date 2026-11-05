@@ -72,7 +72,7 @@ def is_ego_running():
     except Exception:
         return False
 
-def scan_space0_deep(do_reload=(cycle_num % 4 == 0)):
+def scan_space0_deep(do_reload=False):
     """
     [수거봇 눈 복원 v5.0 - 025호 무렉(Zero-Lag) & Human-Presence Shield & 비침습 스캔]
     1. takeOverTaskSpace 전면 제거 -> claimTaskSpace / taskSpace 비침습 접근
@@ -575,7 +575,7 @@ def run_bridge_cycle(cycle_num=0):
 
     # 2. Deep Scan Space 0 for Rgon directives (Smart Auto-Reload on every 3rd cycle: ~45s)
     try:
-        do_reload = (cycle_num > 0 and cycle_num % 3 == 0)
+        do_reload = (cycle_num > 0 and cycle_num % 4 == 0)
         res = scan_space0_deep(do_reload=do_reload)
         if res.get("ok"):
             recent = res.get("data", {}).get("recent_messages", [])

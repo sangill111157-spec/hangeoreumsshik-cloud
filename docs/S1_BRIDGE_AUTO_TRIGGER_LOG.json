@@ -187,6 +187,23 @@
       "mode": "STANDARD_FOUNDRY_SPAWN",
       "status": "TRIGGERED",
       "ok": true
+    },
+    {
+      "directive_id": "RGON_DIR_KAKAO_5TABS_AND_MOBILE_AUTO_RELOAD_052",
+      "timestamp": "2026-11-05T09:02:55.780636+09:00",
+      "pid": 52884,
+      "mode": "RGON_DIRECT_PYTHON_EXECUTION",
+      "status": "COMPLETED",
+      "returncode": 0,
+      "ok": true
+    },
+    {
+      "directive_id": "LINTER_VERIFY_047",
+      "timestamp": "2026-11-05T09:06:02.250715+09:00",
+      "pid": 66148,
+      "mode": "STANDARD_FOUNDRY_SPAWN",
+      "status": "TRIGGERED",
+      "ok": true
     }
   ]
 }
