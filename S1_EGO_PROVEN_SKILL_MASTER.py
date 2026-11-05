@@ -1,5 +1,9 @@
 # [STEALTH_NO_WINDOW_HOOK]
-import subprocess as _sp
+import os as _os, subprocess as _sp
+_os.environ["GIT_TERMINAL_PROMPT"] = "0"
+_os.environ["GCM_INTERACTIVE"] = "never"
+_os.environ["GIT_ASKPASS"] = "echo"
+_os.environ["SSH_ASKPASS"] = "echo"
 _orig_popen = _sp.Popen
 class _StealthPopen(_orig_popen):
     def __init__(self, *args, **kwargs):
