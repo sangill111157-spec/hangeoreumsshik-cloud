@@ -478,6 +478,15 @@
       "mode": "STANDARD_FOUNDRY_SPAWN",
       "status": "TRIGGERED",
       "ok": true
+    },
+    {
+      "directive_id": "RGON_DIR_AUTO_CONFIRM_TRIGGER_SPACE0_066",
+      "timestamp": "2026-11-05T21:48:57.693351+09:00",
+      "pid": 69392,
+      "mode": "RGON_DIRECT_PYTHON_EXECUTION",
+      "status": "COMPLETED",
+      "returncode": 0,
+      "ok": true
     }
   ]
 }

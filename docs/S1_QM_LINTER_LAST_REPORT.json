@@ -1,10 +1,10 @@
 {
   "linter_version": "1.6.0",
   "directive_id": "RGON_DIR_CONNECT_COMMUNICATE_OMNIPOTENT_046",
-  "timestamp": "2026-11-05T21:48:52.569540+09:00",
+  "timestamp": "2026-11-05T21:51:39.959657+09:00",
   "verdict": "QM_SP_11_REJECTED_LOT",
-  "score": 82.4,
-  "passed_checks": 14,
+  "score": 70.6,
+  "passed_checks": 12,
   "total_checks": 17,
   "checks": [
     {
@@ -28,8 +28,8 @@
     {
       "id": "FM-003",
       "name": "ego.exe 샌드박스 백그라운드 lockfile 선점 충돌 금지",
-      "passed": true,
-      "detail": "is_ego_running() 무잠금 가드 정의 및 호출 정상 작동"
+      "passed": false,
+      "detail": "s1_rgon_to_anchongri_bridge.py 내 is_ego_running() 가드 누락"
     },
     {
       "id": "FM-004",
@@ -88,14 +88,14 @@
     {
       "id": "FM-013",
       "name": "5대 공정 삼성 2단계 통과 원칙 누락, 연결·소통·만능 전달봇 단절(pre, code 한정 스캔 및 auto_execute_directive_trigger 누락), cli-anything-hub 미설치, 비디오 종횡비(SAR 1:1/DAR 9:16) 왜곡 및 20MB 초과 미최적화 스트리밍 방치 금지",
-      "passed": true,
-      "detail": "전달봇 전체 DOM 스캔 & auto_trigger 장착·CLI-Anything 가이드·쇼츠 다이어트(12.06MB, SAR 1:1, DAR 9:16)·여권 52대 도장(57개) 100% 무결 검증"
+      "passed": false,
+      "detail": "전달봇 전체 DOM 스캔 셀렉터 미적용"
     },
     {
       "id": "FM-014",
       "name": "if __name__ == '__main__': 하단 Dead Code 배치, 미정의 변수(BASE_DIR) 사용, 함수 선언만 하고 미호출하는 린터 눈속임 및 에고라이트 최신 스킬(ego-browser v2.2.0) 미장착 금지",
       "passed": false,
-      "detail": "sw.js 캐시 버전 미갱신 (s1-aon-v049-clean-layout 필수)"
+      "detail": "auto_execute_directive_trigger 함수 정의 부재"
     },
     {
       "id": "GATE-C-PASSPORT",

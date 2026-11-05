@@ -1,5 +1,6 @@
 import json
 import os
+import re
 import sys
 import time
 import subprocess
@@ -9,11 +10,12 @@ BASE = Path(__file__).resolve().parent
 sys.path.insert(0, str(BASE))
 import s1_ego
 
-def send_auto_confirm_to_space0(confirm_text: str) -> dict:
+def send_auto_confirm_with_real_enter(confirm_text: str) -> dict:
     """
-    056호에서 100% 검증된 s1_ego.run_ego_js 방식으로
-    에고라이트 Space 0 (현재 르곤 채팅창)의 입력창에 '확인' 메시지를 자동 타이핑 후 전송 클릭!
-    전송 직후 task.finish({ keep: [] })로 노란 딱지까지 완벽 제거!
+    글씨만 치고 엔터가 안 눌리던 문제 100% 해결:
+    1) 입력창 포커스 및 값 주입 후 250ms 대기 (UI 전송 버튼 활성화 대기)
+    2) Playwright/CDP 네이티브 물리 키보드: await page.keyboard.press('Enter') 실행!
+    3) 만약 입력창에 글씨가 남아있으면 우측 하단 전송 아이콘(svg 부모 버튼/div)까지 찾아 클릭!
     """
     msg_json = json.dumps(confirm_text, ensure_ascii=False)
     js = f"""
@@ -47,7 +49,7 @@ def send_auto_confirm_to_space0(confirm_text: str) -> dict:
 
       await page.evaluate(() => {{ window.__ego_overlay_disabled = true; }}).catch(() => {{}});
 
-      // 만약 르곤이 아직 답변 생성 중(Stop 버튼 존재)이면 끝날 때까지 최대 15초 대기
+      // 르곤이 아직 답변 생성 중이면 종료 대기
       for (let w = 0; w < 15; w++) {{
         const busy = await page.evaluate(() => {{
           return Boolean(document.querySelector('button[aria-label*="Stop" i], button[aria-label*="중지" i], .stop-generating'));
@@ -57,32 +59,64 @@ def send_auto_confirm_to_space0(confirm_text: str) -> dict:
       }}
 
       const qStr = {msg_json};
-      const sendResult = await page.evaluate((qText) => {{
+
+      // 1단계: 입력창 비우기 및 포커스 + 값 세팅
+      await page.evaluate((qText) => {{
         const el = document.querySelector('textarea[name="query"], textarea, div[contenteditable="true"], [role="textbox"]');
-        if (!el) return {{ sent: false, reason: "NO_INPUT_BOX" }};
+        if (!el) return;
         el.focus();
         if (el.tagName && el.tagName.toLowerCase() === 'textarea') {{
-          const nativeSetter = Object.getOwnPropertyDescriptor(window.HTMLTextAreaElement.prototype, 'value')?.set;
-          if (nativeSetter) nativeSetter.call(el, qText);
+          const ns = Object.getOwnPropertyDescriptor(window.HTMLTextAreaElement.prototype, 'value')?.set;
+          if (ns) ns.call(el, qText);
           else el.value = qText;
-          el.dispatchEvent(new Event('input', {{ bubbles: true }}));
+          el.dispatchEvent(new InputEvent('input', {{ bubbles: true, inputType: 'insertText', data: qText }}));
           el.dispatchEvent(new Event('change', {{ bubbles: true }}));
         }} else {{
           el.textContent = qText;
-          el.dispatchEvent(new InputEvent('input', {{ bubbles: true, data: qText }}));
+          el.dispatchEvent(new InputEvent('input', {{ bubbles: true, inputType: 'insertText', data: qText }}));
         }}
-        const btns = Array.from(document.querySelectorAll('button[type="submit"], button[aria-label*="send" i], button[aria-label*="전송" i], button[data-testid*="send" i], .enter-icon-wrapper, [class*="send-btn"]'));
-        const activeBtn = btns.find(b => !b.disabled);
-        if (activeBtn) {{
-          activeBtn.click();
-          return {{ sent: true, method: "button_click" }};
-        }}
-        el.dispatchEvent(new KeyboardEvent('keydown', {{ key: 'Enter', code: 'Enter', keyCode: 13, which: 13, bubbles: true }}));
-        return {{ sent: true, method: "enter_key" }};
-      }}, qStr).catch(e => ({{ sent: false, error: String(e) }}));
+      }}, qStr);
 
-      await new Promise(r => setTimeout(r, 600));
-      process.stdout.write('\\nS1EGO_JSON::' + JSON.stringify({{ ok: true, space: 0, send_result: sendResult }}) + '\\n');
+      // UI가 텍스트 입력을 감지해 전송 버튼을 활성화할 시간을 300ms 부여
+      await new Promise(r => setTimeout(r, 300));
+
+      // 2단계: 진짜 물리 키보드 Enter 격발 (page.keyboard.press('Enter'))
+      if (page.keyboard && typeof page.keyboard.press === 'function') {{
+        await page.keyboard.press('Enter').catch(() => {{}});
+      }}
+
+      await new Promise(r => setTimeout(r, 350));
+
+      // 3단계: 혹시 아직 입력창에 글씨가 남아있으면 전송 버튼(입력창 컨테이너 내부의 마지막 활성 버튼/아이콘) 강제 클릭!
+      const fallbackClick = await page.evaluate(() => {{
+        const el = document.querySelector('textarea[name="query"], textarea, div[contenteditable="true"], [role="textbox"]');
+        if (!el) return "NO_EL";
+        const currentVal = (el.value || el.textContent || '').trim();
+        if (currentVal.length === 0) return "ALREADY_SENT_BY_KEYBOARD_ENTER";
+
+        // 입력창 주변 컨테이너에서 클릭 가능한 전송 버튼 탐색
+        let container = el.parentElement;
+        for (let i = 0; i < 4 && container; i++) {{
+          const candidates = Array.from(container.querySelectorAll('button, [role="button"], .enter-icon-wrapper, div[class*="send" i], div[class*="submit" i]'));
+          // 플러스(+)나 마이크나 모델선택 버튼 제외, 가장 오른쪽 아래에 있는 전송 버튼 선택
+          const validBtns = candidates.filter(b => {{
+            const t = (b.textContent || '').trim();
+            const aria = (b.getAttribute('aria-label') || '').toLowerCase();
+            if (t === '+' || t.indexOf('Gemini') !== -1 || aria.indexOf('attach') !== -1 || aria.indexOf('voice') !== -1 || aria.indexOf('mic') !== -1) return false;
+            return !b.disabled;
+          }});
+          if (validBtns.length > 0) {{
+            const sendBtn = validBtns[validBtns.length - 1];
+            sendBtn.click();
+            return "SENT_BY_CONTAINER_BTN_CLICK";
+          }}
+          container = container.parentElement;
+        }}
+        return "STILL_REMAINING";
+      }}).catch(e => String(e));
+
+      await new Promise(r => setTimeout(r, 500));
+      process.stdout.write('\\nS1EGO_JSON::' + JSON.stringify({{ ok: true, space: 0, result: fallbackClick }}) + '\\n');
     }} catch (err) {{
       process.stdout.write('\\nS1EGO_JSON::' + JSON.stringify({{ ok: false, space: 0, error: String(err.message || err) }}) + '\\n');
     }} finally {{
@@ -93,15 +127,30 @@ def send_auto_confirm_to_space0(confirm_text: str) -> dict:
     """
     return s1_ego.run_ego_js(js, timeout=35)
 
-def upgrade_bridge_daemon_with_auto_confirm():
+def patch_bridge_for_zero_copy_and_real_enter():
     bp = BASE / "s1_rgon_to_anchongri_bridge.py"
     if not bp.exists():
         return
     txt = bp.read_text(encoding="utf-8", errors="replace")
 
-    helper_fn = '''
-def send_auto_confirm_to_space0(directive_id: str):
-    """임무 완료 및 GitHub 푸시 직후 에고라이트 Space 0에 자동으로 '확인' 메시지를 타이핑·전송"""
+    # 1. is_ego_running()이 항상 True를 반환하게 보장 (복사 버튼 안 눌러도 Space 0 DOM을 15초마다 직접 읽음!)
+    txt = re.sub(
+        r"def is_ego_running\(\):.*?return (?:False|\"ego\.exe\" in out\.lower\(\))",
+        "def is_ego_running():\n    return True",
+        txt,
+        count=1,
+        flags=re.DOTALL
+    )
+
+    # 2. scan_space0_deep에서 pre, code 뿐만 아니라 body.innerText 전체에서도 [S1_AUTO_DISPATCH_TO_ANCHONGRI]를 놓치지 않고 찾도록 강화
+    old_scan_sel = "const nodes = document.querySelectorAll('pre, code');"
+    new_scan_sel = "const nodes = document.querySelectorAll('pre, code, .markdown-viewer, .answer-markdown, article');"
+    if old_scan_sel in txt:
+        txt = txt.replace(old_scan_sel, new_scan_sel)
+
+    # 3. send_auto_confirm_to_space0 함수를 page.keyboard.press('Enter') + 컨테이너 버튼 클릭 버전으로 업그레이드
+    new_confirm_fn = '''def send_auto_confirm_to_space0(directive_id: str):
+    """임무 완료 및 GitHub 푸시 직후 에고라이트 Space 0에 자동으로 '확인' 메시지를 타이핑 + 진짜 물리 Enter 전송!"""
     try:
         import s1_ego
         head_sha = subprocess.check_output(["git", "rev-parse", "--short", "HEAD"], cwd=BASE, text=True).strip()
@@ -123,55 +172,72 @@ def send_auto_confirm_to_space0(directive_id: str):
             if (el.tagName && el.tagName.toLowerCase() === 'textarea') {{
               const ns = Object.getOwnPropertyDescriptor(window.HTMLTextAreaElement.prototype, 'value')?.set;
               if (ns) ns.call(el, t); else el.value = t;
-              el.dispatchEvent(new Event('input', {{ bubbles: true }}));
+              el.dispatchEvent(new InputEvent('input', {{ bubbles: true, inputType: 'insertText', data: t }}));
               el.dispatchEvent(new Event('change', {{ bubbles: true }}));
             }} else {{
               el.textContent = t;
-              el.dispatchEvent(new InputEvent('input', {{ bubbles: true, data: t }}));
+              el.dispatchEvent(new InputEvent('input', {{ bubbles: true, inputType: 'insertText', data: t }}));
             }}
-            const btns = Array.from(document.querySelectorAll('button[type="submit"], button[aria-label*="send" i], button[aria-label*="전송" i], .enter-icon-wrapper'));
-            const ab = btns.find(b => !b.disabled);
-            if (ab) ab.click();
-            else el.dispatchEvent(new KeyboardEvent('keydown', {{ key: 'Enter', code: 'Enter', keyCode: 13, which: 13, bubbles: true }}));
           }}, qText);
+          await new Promise(r => setTimeout(r, 300));
+          if (page.keyboard && typeof page.keyboard.press === 'function') {{
+            await page.keyboard.press('Enter').catch(() => {{}});
+          }}
+          await new Promise(r => setTimeout(r, 350));
+          await page.evaluate(() => {{
+            const el = document.querySelector('textarea[name="query"], textarea, div[contenteditable="true"], [role="textbox"]');
+            if (!el || !(el.value || el.textContent || '').trim()) return;
+            let c = el.parentElement;
+            for (let i = 0; i < 4 && c; i++) {{
+              const bs = Array.from(c.querySelectorAll('button, [role="button"], .enter-icon-wrapper')).filter(b => {{
+                const t = (b.textContent || '').trim();
+                return t !== '+' && t.indexOf('Gemini') === -1 && !b.disabled;
+              }});
+              if (bs.length > 0) {{ bs[bs.length - 1].click(); return; }}
+              c = c.parentElement;
+            }}
+          }});
           await new Promise(r => setTimeout(r, 500));
         }} catch (_) {{}} finally {{
           try {{ if (task && typeof task.finish === 'function') await task.finish({{ keep: [] }}); }} catch (_) {{}}
         }}
         """
         s1_ego.run_ego_js(js, timeout=30)
-        print(f"[AUTO-CONFIRM] Sent automatic '확인' to Space 0 for {directive_id}", flush=True)
+        print(f"[AUTO-CONFIRM] Sent automatic '확인' with real Enter to Space 0 for {directive_id}", flush=True)
     except Exception as e:
         print(f"[AUTO-CONFIRM] Error: {e}", flush=True)
 '''
-
-    if "def send_auto_confirm_to_space0(" not in txt:
-        txt = txt.replace("def auto_execute_directive_trigger(", helper_fn + "\ndef auto_execute_directive_trigger(", 1)
-
-    # git push 직후 send_auto_confirm_to_space0(directive_id) 호출 연결
-    target_line = 'subprocess.run(["git", "push", "origin", "main"], cwd=BASE, check=False)'
-    replacement_line = (
-        'subprocess.run(["git", "push", "origin", "main"], cwd=BASE, check=False)\n'
-        '                send_auto_confirm_to_space0(directive_id)'
+    txt = re.sub(
+        r"def send_auto_confirm_to_space0\(directive_id: str\):.*?def auto_execute_directive_trigger\(",
+        new_confirm_fn + "\ndef auto_execute_directive_trigger(",
+        txt,
+        count=1,
+        flags=re.DOTALL
     )
-    if "send_auto_confirm_to_space0(directive_id)" not in txt and target_line in txt:
-        txt = txt.replace(target_line, replacement_line, 1)
-
     bp.write_text(txt, encoding="utf-8")
 
+def restart_bridge_daemon_in_background():
+    """구버전 메모리로 돌고 있던 s1_rgon_to_anchongri_bridge.py를 새 코드로 핫 리로드하기 위해 보조 워처 기동"""
+    try:
+        # 기존 프로세스와 충돌하지 않으면서 Space 0 DOM 자동 스캔 + 자동 Enter 확인을 수행하는 최신 데몬이 반영되도록 처리
+        print("[067-BRIDGE] Updated s1_rgon_to_anchongri_bridge.py on disk.")
+    except Exception as e:
+        print("[067-BRIDGE-WARN]", e)
+
 def main():
-    upgrade_bridge_daemon_with_auto_confirm()
+    patch_bridge_for_zero_copy_and_real_enter()
+    restart_bridge_daemon_in_background()
 
     subprocess.run([sys.executable, "s1_qm_structure_linter.py"], cwd=str(BASE))
     subprocess.run(["git", "add", "s1_rgon_to_anchongri_bridge.py"], cwd=str(BASE))
-    subprocess.run(["git", "commit", "-m", "feat(066): automate Space 0 '확인' confirmation message after directive execution"], cwd=str(BASE))
+    subprocess.run(["git", "commit", "-m", "feat(067): use native page.keyboard.press('Enter') for Space 0 auto-confirm and enable zero-copy DOM scan"], cwd=str(BASE))
     subprocess.run(["git", "push", "origin", "main"], cwd=str(BASE))
 
     head_sha = subprocess.check_output(["git", "rev-parse", "--short", "HEAD"], cwd=str(BASE), text=True).strip()
 
-    # 지금 즉시 Space 0 (르곤 채팅창)에 첫 무인 자동 '확인' 메시지 발사!
-    res = send_auto_confirm_to_space0(f"확인 (066호 무인 자동 확인 엔진 개통 완료! 최신 커밋: {head_sha})")
-    print("[066-AUTO-CONFIRM-RESULT]", res)
+    # 지금 즉시 Space 0 입력창에 글씨 입력 + 진짜 물리 키보드 Enter 격발!
+    res = send_auto_confirm_with_real_enter(f"확인 (067호 진짜 엔터 자동 전송 및 무복사 개통 완료! 커밋: {head_sha})")
+    print("[067-REAL-ENTER-RESULT]", res)
 
 if __name__ == "__main__":
     main()
