@@ -5,8 +5,14 @@
 import os, sys, time, json, datetime, re, subprocess, threading
 from pathlib import Path
 
-sys.stdout.reconfigure(encoding="utf-8", errors="replace")
-sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+if sys.stdout is not None:
+    try:
+        sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+    except Exception: pass
+if sys.stderr is not None:
+    try:
+        sys.stderr.reconfigure(encoding='utf-8', errors='replace')
+    except Exception: pass
 
 BASE = Path(__file__).resolve().parent
 INBOX_MD = BASE / "S1_RGON_DIRECTIVE_INBOX.md"
