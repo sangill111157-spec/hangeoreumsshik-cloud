@@ -1,0 +1,157 @@
+{
+  "directive_id": "RGON_DIR_APPLY_SOL_OPUS_064_AND_REAUDIT_065",
+  "timestamp": "2026-11-05T21:44:21.949238+09:00",
+  "sw_cache_version": "s1-aon-v065-triumvirate-18buttons-live",
+  "console_type_errors": 0,
+  " newly_activated_18_elements": {
+    "home_6_anatomy_nodes": [
+      {
+        "node_id": "1",
+        "onclick_bound": true,
+        "opens_readonly_dialog": true,
+        "status": "WORKING_CLICK"
+      },
+      {
+        "node_id": "2",
+        "onclick_bound": true,
+        "opens_readonly_dialog": true,
+        "status": "WORKING_CLICK"
+      },
+      {
+        "node_id": "3",
+        "onclick_bound": true,
+        "opens_readonly_dialog": true,
+        "status": "WORKING_CLICK"
+      },
+      {
+        "node_id": "4",
+        "onclick_bound": true,
+        "opens_readonly_dialog": true,
+        "status": "WORKING_CLICK"
+      },
+      {
+        "node_id": "5",
+        "onclick_bound": true,
+        "opens_readonly_dialog": true,
+        "status": "WORKING_CLICK"
+      },
+      {
+        "node_id": "6",
+        "onclick_bound": true,
+        "opens_readonly_dialog": true,
+        "status": "WORKING_CLICK"
+      }
+    ],
+    "now_12_album_tracks": [
+      {
+        "track_id": "01",
+        "data_track_bound": true,
+        "updates_single_player_and_detail": true,
+        "pre_release_leak_guard": true,
+        "status": "WORKING_CLICK"
+      },
+      {
+        "track_id": "02",
+        "data_track_bound": true,
+        "updates_single_player_and_detail": true,
+        "pre_release_leak_guard": true,
+        "status": "WORKING_CLICK"
+      },
+      {
+        "track_id": "03",
+        "data_track_bound": true,
+        "updates_single_player_and_detail": true,
+        "pre_release_leak_guard": true,
+        "status": "WORKING_CLICK"
+      },
+      {
+        "track_id": "04",
+        "data_track_bound": true,
+        "updates_single_player_and_detail": true,
+        "pre_release_leak_guard": true,
+        "status": "WORKING_CLICK"
+      },
+      {
+        "track_id": "05",
+        "data_track_bound": true,
+        "updates_single_player_and_detail": true,
+        "pre_release_leak_guard": true,
+        "status": "WORKING_CLICK"
+      },
+      {
+        "track_id": "06",
+        "data_track_bound": true,
+        "updates_single_player_and_detail": true,
+        "pre_release_leak_guard": true,
+        "status": "WORKING_CLICK"
+      },
+      {
+        "track_id": "07",
+        "data_track_bound": true,
+        "updates_single_player_and_detail": true,
+        "pre_release_leak_guard": true,
+        "status": "WORKING_CLICK"
+      },
+      {
+        "track_id": "08",
+        "data_track_bound": true,
+        "updates_single_player_and_detail": true,
+        "pre_release_leak_guard": true,
+        "status": "WORKING_CLICK"
+      },
+      {
+        "track_id": "09",
+        "data_track_bound": true,
+        "updates_single_player_and_detail": true,
+        "pre_release_leak_guard": true,
+        "status": "WORKING_CLICK"
+      },
+      {
+        "track_id": "10",
+        "data_track_bound": true,
+        "updates_single_player_and_detail": true,
+        "pre_release_leak_guard": true,
+        "status": "WORKING_CLICK"
+      },
+      {
+        "track_id": "11",
+        "data_track_bound": true,
+        "updates_single_player_and_detail": true,
+        "pre_release_leak_guard": true,
+        "status": "WORKING_CLICK"
+      },
+      {
+        "track_id": "12",
+        "data_track_bound": true,
+        "updates_single_player_and_detail": true,
+        "pre_release_leak_guard": true,
+        "status": "WORKING_CLICK"
+      }
+    ],
+    "dead_count_after_065": 0
+  },
+  "more_12_tools_binding": {
+    "total_tools": 12,
+    "auto_opens_details_accordion": true,
+    "focus_restore_on_dialog_close": true,
+    "status": "12/12 WORKING_CLICK"
+  },
+  "hidden_sub_pills_migration_mapping": [
+    {
+      "hidden_pill_bar": "1번 홈 (.s1-kakao-sub-pills: 전체조직/신보소식/완성품결재)",
+      "migrated_to": "하단 고정 5대 탭바 (#home, #now, #pick) 및 6대 신경망 카드로 100% 기능 보존"
+    },
+    {
+      "hidden_pill_bar": "3번 지금 (.s1-kakao-sub-pills: 12곡/쇼츠/53곡원장)",
+      "migrated_to": "3번 탭 단일 스크롤 뷰(상단 쇼츠 + 하단 12트랙 인터랙티브 리스트) 및 5번 더보기 '53곡 음원원장' 도구로 보존"
+    },
+    {
+      "hidden_pill_bar": "4번 결재 (.s1-kakao-sub-pills: 전체완성품/3+1패키지/11월캘린더)",
+      "migrated_to": "4번 탭 완성품 결재 리스트 및 5번 더보기 '3+1 파이프라인'·'11월 출격캘린더' 도구로 보존"
+    },
+    {
+      "hidden_pill_bar": "5번 더보기 (.s1-kakao-sub-pills: 12대도구/무과금감사/R&D무기창고)",
+      "migrated_to": "5번 탭 상단 무과금 헌법 배너 + 4x3 만능 도구함(일일 R&D 본부 등)으로 100% 보존"
+    }
+  ]
+}
