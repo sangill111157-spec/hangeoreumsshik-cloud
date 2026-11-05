@@ -16,8 +16,14 @@ __version__ = "2.3.0"
 import argparse, datetime, hashlib, json, msvcrt, os, re, shutil, subprocess, sys, time, urllib.parse, uuid, base64
 from pathlib import Path
 
-sys.stdout.reconfigure(encoding="utf-8", errors="replace")
-sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+if sys.stdout is not None:
+    try:
+        sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+    except Exception: pass
+if sys.stderr is not None:
+    try:
+        sys.stderr.reconfigure(encoding='utf-8', errors='replace')
+    except Exception: pass
 
 BASE = Path(__file__).resolve().parent
 TMP_DIR = BASE / "_ego_tmp"
@@ -184,6 +190,7 @@ def run_ego_js(js_code, timeout=60):
             encoding="utf-8",
             errors="replace",
             timeout=timeout,
+            creationflags=getattr(subprocess, 'CREATE_NO_WINDOW', 0x08000000),
         )
         for line in reversed((r.stdout or "").splitlines()):
             if line.startswith("S1EGO_JSON::"):
