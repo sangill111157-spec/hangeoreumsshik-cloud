@@ -1,10 +1,10 @@
 {
   "linter_version": "1.6.0",
   "directive_id": "RGON_DIR_CONNECT_COMMUNICATE_OMNIPOTENT_046",
-  "timestamp": "2026-11-05T21:06:31.721550+09:00",
+  "timestamp": "2026-11-05T21:30:37.041228+09:00",
   "verdict": "QM_SP_11_REJECTED_LOT",
-  "score": 88.2,
-  "passed_checks": 15,
+  "score": 82.4,
+  "passed_checks": 14,
   "total_checks": 17,
   "checks": [
     {
@@ -53,13 +53,13 @@
       "id": "FM-007",
       "name": "대시보드 루트 audio/ 경로 누락 404 에러 및 docs/ 미러 불일치 금지",
       "passed": true,
-      "detail": "오디오/쇼츠 참조 4종 무결성, 5대 핵심 문서 루트<->docs 해시 100% 일치 및 .gitignore 허용 확인"
+      "detail": "오디오/쇼츠 참조 0종 무결성, 5대 핵심 문서 루트<->docs 해시 100% 일치 및 .gitignore 허용 확인"
     },
     {
       "id": "FM-008",
       "name": "대시보드 구버전 배지('023호 시네마틱') 및 빈 로딩 문구('집계 중.../불러오는 중...') 방치 금지",
-      "passed": true,
-      "detail": "구버전·빈 로딩 문구 0건, 수채화 배지·SSR·4대 JSON·27대 릴레이 도장(57개)·QM-SP-18 가드·sw.js v20 검증 완료"
+      "passed": false,
+      "detail": "대시보드 최신 프리렌더링(SSR) 또는 실시간 JSON 바인딩 누락: ['./audio/father_age_shorts_scenes/scene_01.png?v=04', 'STAMP_042_5_AUDIT', './S1_RGON_DIRECTIVE_QUEUE.json', './S1_RELAY_STAMP_PASSPORT.json', './S1_ANCHONGRI_TO_RGON_OUTBOX.json', './S1_STEP_BY_STEP_PIPELINE_STATE.json']"
     },
     {
       "id": "FM-009",
@@ -83,7 +83,7 @@
       "id": "FM-012",
       "name": "모바일 첫 화면 최상단 배지 구버전('042호:') 방치, '41곡 원장' 구버전 버튼 방치 및 id=\"s1-autumn-winter-12tracks-showcase\" 실제 DOM 미삽입 금지",
       "passed": false,
-      "detail": "sw.js 캐시 버전 미갱신 (v24 또는 v25 필수)"
+      "detail": "신보 12트랙 쇼케이스 카드 id=s1-autumn-winter-12tracks-showcase 실제 DOM 미삽입"
     },
     {
       "id": "FM-013",
