@@ -1,7 +1,7 @@
 {
   "linter_version": "1.6.0",
   "directive_id": "RGON_DIR_CONNECT_COMMUNICATE_OMNIPOTENT_046",
-  "timestamp": "2026-11-05T21:35:18.565503+09:00",
+  "timestamp": "2026-11-05T21:44:59.884779+09:00",
   "verdict": "QM_SP_11_REJECTED_LOT",
   "score": 82.4,
   "passed_checks": 14,
