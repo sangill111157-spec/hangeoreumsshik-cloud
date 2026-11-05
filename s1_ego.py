@@ -16,8 +16,8 @@ __version__ = "2.3.0"
 import argparse, datetime, hashlib, json, msvcrt, os, re, shutil, subprocess, sys, time, urllib.parse, uuid, base64
 from pathlib import Path
 
-sys.stdout.reconfigure(encoding="utf-8")
-sys.stderr.reconfigure(encoding="utf-8")
+sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+sys.stderr.reconfigure(encoding="utf-8", errors="replace")
 
 BASE = Path(__file__).resolve().parent
 TMP_DIR = BASE / "_ego_tmp"
@@ -39,7 +39,7 @@ class ZeroTokenReplayCache:
         if cls.CACHE_PATH.exists():
             try:
                 import json
-                return json.loads(cls.CACHE_PATH.read_text(encoding="utf-8"))
+                return json.loads(cls.CACHE_PATH.read_text(encoding="utf-8", errors="replace"))
             except Exception:
                 return {}
         return {
@@ -56,7 +56,7 @@ class ZeroTokenReplayCache:
     def save(cls, data):
         try:
             import json
-            cls.CACHE_PATH.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+            cls.CACHE_PATH.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8", errors="replace")
         except Exception:
             pass
 
@@ -110,7 +110,7 @@ def verify_tool_mastery_before_start(tool_name: str = "ego-browser", skill_book_
     p = Path(skill_book_path)
     if not p.is_file():
         raise PermissionError(f"[헌법 위반] 도구 {tool_name}의 스킬북({skill_book_path})이 존재하지 않아 작업을 착수할 수 없습니다.")
-    content = p.read_text(encoding="utf-8")
+    content = p.read_text(encoding="utf-8", errors="replace")
     for kw in ["dom", "api", "download", "verification"]:
         if kw not in content.lower():
             raise ValueError(f"[헌법 위반] 스킬북({skill_book_path})에 필수 실측 항목 '{kw}'이 결여되었습니다.")
@@ -129,27 +129,27 @@ def sanitize_url(u):
 
 def write_audit(rec):
     rec["time"] = now_iso()
-    with AUDIT_FILE.open("a", encoding="utf-8") as f:
+    with AUDIT_FILE.open("a", encoding="utf-8", errors="replace") as f:
         f.write(json.dumps(rec, ensure_ascii=False) + "\n")
 
 def record_timeout(is_timeout):
     data = {"consecutive_timeouts": 0}
     if HEALTH_FILE.exists():
         try:
-            data = json.loads(HEALTH_FILE.read_text(encoding="utf-8"))
+            data = json.loads(HEALTH_FILE.read_text(encoding="utf-8", errors="replace"))
         except Exception:
             pass
     if is_timeout:
         data["consecutive_timeouts"] = data.get("consecutive_timeouts", 0) + 1
     else:
         data["consecutive_timeouts"] = 0
-    HEALTH_FILE.write_text(json.dumps(data), encoding="utf-8")
+    HEALTH_FILE.write_text(json.dumps(data), encoding="utf-8", errors="replace")
     return data["consecutive_timeouts"]
 
 def check_health():
     if HEALTH_FILE.exists():
         try:
-            data = json.loads(HEALTH_FILE.read_text(encoding="utf-8"))
+            data = json.loads(HEALTH_FILE.read_text(encoding="utf-8", errors="replace"))
             if data.get("consecutive_timeouts", 0) >= 3:
                 return False
         except Exception:
@@ -405,7 +405,7 @@ def cmd_ask(space_id, prompt_text, wait_sec=60, tail_chars=4500, override_chat_i
         prompt_text = "[S1_HOP=1/2]\n" + (prompt_text or "")
         prompt_sha = sha256_hex(prompt_text)
 
-    lock_fh = open(ASK_LOCK_FILE, "w", encoding="utf-8")
+    lock_fh = open(ASK_LOCK_FILE, "w", encoding="utf-8", errors="replace")
     if (override_chat_id is not None or override_model is not None) and not selftest:
         lock_fh.close()
         return {"ok": False, "code": "OVERRIDE_REQUIRES_SELFTEST", "req_id": req_id, "space": space_id}
@@ -680,7 +680,7 @@ def cmd_ask(space_id, prompt_text, wait_sec=60, tail_chars=4500, override_chat_i
                 "stable_n": pl.get("stable_n"),
                 "toast_rate_limit": pl.get("toast_rate_limit", False),
             }
-            with POLL_FILE.open("a", encoding="utf-8") as pf:
+            with POLL_FILE.open("a", encoding="utf-8", errors="replace") as pf:
                 pf.write(json.dumps(pl_rec, ensure_ascii=False) + "\n")
         if "last_message" in res:
             res["last_message"] = defang(res["last_message"])
@@ -828,15 +828,15 @@ class EgoStepByStepMasterAgent:
         state["all_passed_count"] = sum(1 for t in tasks.values() if t.get("overall_status") == "COMPLETED_100_PERCENT_PASS")
         
         self.PIPELINE_FILE.parent.mkdir(parents=True, exist_ok=True)
-        self.PIPELINE_FILE.write_text(json.dumps(state, indent=2, ensure_ascii=False), encoding="utf-8")
+        self.PIPELINE_FILE.write_text(json.dumps(state, indent=2, ensure_ascii=False), encoding="utf-8", errors="replace")
         self.DOCS_PIPELINE_FILE.parent.mkdir(parents=True, exist_ok=True)
-        self.DOCS_PIPELINE_FILE.write_text(json.dumps(state, indent=2, ensure_ascii=False), encoding="utf-8")
+        self.DOCS_PIPELINE_FILE.write_text(json.dumps(state, indent=2, ensure_ascii=False), encoding="utf-8", errors="replace")
 
     @classmethod
     def load_all_pipelines(cls):
         if cls.PIPELINE_FILE.exists():
             try:
-                return json.loads(cls.PIPELINE_FILE.read_text(encoding="utf-8"))
+                return json.loads(cls.PIPELINE_FILE.read_text(encoding="utf-8", errors="replace"))
             except Exception:
                 pass
         return {
@@ -915,7 +915,7 @@ def main():
     elif args.cmd == "read":
         res = cmd_read(args.space, args.tail, override_chat_id=args.expect_id, selftest=args.selftest)
     elif args.cmd == "ask":
-        txt = Path(args.prompt_file).read_text(encoding="utf-8") if args.prompt_file else args.prompt
+        txt = Path(args.prompt_file).read_text(encoding="utf-8", errors="replace") if args.prompt_file else args.prompt
         res = cmd_ask(args.space, txt, wait_sec=args.wait, override_chat_id=args.expect_id, override_model=args.expect_model, selftest=args.selftest)
     print(json.dumps(res, ensure_ascii=False, indent=2))
     if not res.get("ok"):

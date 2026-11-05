@@ -5,8 +5,8 @@
 import os, sys, time, json, datetime, re, subprocess, threading
 from pathlib import Path
 
-sys.stdout.reconfigure(encoding="utf-8")
-sys.stderr.reconfigure(encoding="utf-8")
+sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+sys.stderr.reconfigure(encoding="utf-8", errors="replace")
 
 BASE = Path(__file__).resolve().parent
 INBOX_MD = BASE / "S1_RGON_DIRECTIVE_INBOX.md"
@@ -26,14 +26,14 @@ def now_iso():
 def load_json(p, default):
     if p.exists():
         try:
-            return json.loads(p.read_text(encoding="utf-8"))
+            return json.loads(p.read_text(encoding="utf-8", errors="replace"))
         except Exception:
             return default
     return default
 
 def save_json(p, data):
     p.parent.mkdir(parents=True, exist_ok=True)
-    p.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+    p.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8", errors="replace")
 
 def init_ledgers():
     if not INBOX_MD.exists():
@@ -42,7 +42,7 @@ def init_ledgers():
 > 르곤 보좌관(Space 0)의 하명을 감지하는 즉시 자동으로 등재하고 GitHub SSOT에 동기화됩니다.
 
 ---
-""", encoding="utf-8")
+""", encoding="utf-8", errors="replace")
 
     if not QUEUE_JSON.exists():
         save_json(QUEUE_JSON, {
@@ -226,7 +226,7 @@ def auto_execute_directive_trigger(directive_id: str, full_text: str = "") -> di
     # [055호 오푸스 조건: 이미 COMPLETED 된 directive_id 중복 재실행 원천 차단]
     if log_file.exists():
         try:
-            prev_logs = json.loads(log_file.read_text(encoding="utf-8")).get("triggers", [])
+            prev_logs = json.loads(log_file.read_text(encoding="utf-8", errors="replace")).get("triggers", [])
             if any(x.get("directive_id") == directive_id and x.get("status") == "COMPLETED" for x in prev_logs):
                 return {"ok": True, "skipped": "ALREADY_COMPLETED_ONCE"}
         except Exception:
@@ -250,7 +250,7 @@ def auto_execute_directive_trigger(directive_id: str, full_text: str = "") -> di
 
         if code_to_run:
             runner_file = BASE / "s1_direct_payload_runner.py"
-            runner_file.write_text(code_to_run, encoding="utf-8")
+            runner_file.write_text(code_to_run, encoding="utf-8", errors="replace")
             print(f"[RGON_DIRECT_ENGINE] Saved payload to {runner_file} ({len(code_to_run)} bytes). Executing immediately...", flush=True)
 
             # 1) 직접 실행
@@ -331,14 +331,14 @@ def _save_trigger_log(log_file, docs_log_file, log_entry):
         data = {"version": "1.0.0", "triggers": []}
         if log_file.exists():
             try:
-                data = json.loads(log_file.read_text(encoding="utf-8"))
+                data = json.loads(log_file.read_text(encoding="utf-8", errors="replace"))
             except Exception:
                 pass
         data.setdefault("triggers", []).append(log_entry)
         log_json_str = json.dumps(data, ensure_ascii=False, indent=2)
-        log_file.write_text(log_json_str, encoding="utf-8")
+        log_file.write_text(log_json_str, encoding="utf-8", errors="replace")
         docs_log_file.parent.mkdir(parents=True, exist_ok=True)
-        docs_log_file.write_text(log_json_str, encoding="utf-8")
+        docs_log_file.write_text(log_json_str, encoding="utf-8", errors="replace")
     except Exception as e:
         print(f"[BRIDGE_TRIGGER] Failed to write trigger log: {e}", flush=True)
 
@@ -370,7 +370,7 @@ def register_new_directive(directive_id, title, full_text):
     save_json(QUEUE_JSON, queue)
     save_json(DOCS_QUEUE_JSON, queue)
 
-    with INBOX_MD.open("a", encoding="utf-8") as f:
+    with INBOX_MD.open("a", encoding="utf-8", errors="replace") as f:
         f.write(f"\n### 📩 [지시서 등재] {directive_id} — {title}\n")
         f.write(f"- **등재 시각:** `{entry['timestamp']}`\n")
         f.write(f"- **발신:** {entry['sender']}\n")
@@ -519,7 +519,7 @@ def harvest_from_github_ssot():
 ---
 > **사령부 행동강령:** 지체 없이 분석과 실행에 돌입하여 1·2차 삼성제도 100.0점 통과 후 대시보드에 완료보고서를 전송하라.
 """
-            ACTIVE_TASK_MD.write_text(task_content, encoding="utf-8")
+            ACTIVE_TASK_MD.write_text(task_content, encoding="utf-8", errors="replace")
             auto_execute_directive_trigger(did, item.get("full_text", ""))
             print(f"[HARVESTER] Picked up directive: {did} -> Status: PICKED_UP_BY_ANCHONGRI", flush=True)
 
