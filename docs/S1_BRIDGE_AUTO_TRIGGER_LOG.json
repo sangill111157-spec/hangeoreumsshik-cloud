@@ -237,6 +237,23 @@
       "mode": "STANDARD_FOUNDRY_SPAWN",
       "status": "TRIGGERED",
       "ok": true
+    },
+    {
+      "directive_id": "RGON_DIR_EGO_ROUND1_QA_CHATROOMS_054",
+      "timestamp": "2026-11-05T10:45:37.268887+09:00",
+      "pid": 69392,
+      "mode": "RGON_DIRECT_PYTHON_EXECUTION",
+      "status": "COMPLETED",
+      "returncode": 0,
+      "ok": true
+    },
+    {
+      "directive_id": "LINTER_VERIFY_047",
+      "timestamp": "2026-11-05T10:48:12.897055+09:00",
+      "pid": 68544,
+      "mode": "STANDARD_FOUNDRY_SPAWN",
+      "status": "TRIGGERED",
+      "ok": true
     }
   ]
 }
