@@ -262,6 +262,31 @@
       "mode": "STANDARD_FOUNDRY_SPAWN",
       "status": "TRIGGERED",
       "ok": true
+    },
+    {
+      "directive_id": "RGON_DIR_KAKAO_2STEP_CHATROOMS_AND_MORE_ACCORDION_055",
+      "timestamp": "2026-11-05T11:02:07.945149+09:00",
+      "pid": 69392,
+      "mode": "RGON_DIRECT_PYTHON_EXECUTION",
+      "status": "COMPLETED",
+      "returncode": 0,
+      "ok": true
+    },
+    {
+      "directive_id": "LINTER_VERIFY_047",
+      "timestamp": "2026-11-05T11:04:33.906544+09:00",
+      "pid": 66640,
+      "mode": "STANDARD_FOUNDRY_SPAWN",
+      "status": "TRIGGERED",
+      "ok": true
+    },
+    {
+      "directive_id": "LINTER_VERIFY_047",
+      "timestamp": "2026-11-05T11:06:06.206312+09:00",
+      "pid": 30228,
+      "mode": "STANDARD_FOUNDRY_SPAWN",
+      "status": "TRIGGERED",
+      "ok": true
     }
   ]
 }
