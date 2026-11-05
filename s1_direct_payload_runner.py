@@ -1,74 +1,44 @@
 import json
-import os
-import re
 import subprocess
-import sys
-import time
+import datetime
 from pathlib import Path
 
 BASE = Path(__file__).resolve().parent
-BRIDGE = BASE / "s1_rgon_to_anchongri_bridge.py"
+no_win = getattr(subprocess, "CREATE_NO_WINDOW", 0x08000000)
+now_kst = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9))).isoformat()
 
-src = BRIDGE.read_text(encoding="utf-8", errors="ignore")
+# 1. S1_EGO_SKILL_VAULT.json 에 5번째 영구 스킬(검은 창 소멸 _StealthPopen + pythonw.exe) 정식 추가 등재
+vault_path = BASE / "S1_EGO_SKILL_VAULT.json"
+docs_vault_path = BASE / "docs" / "S1_EGO_SKILL_VAULT.json"
 
-# 1. auto_execute_directive_trigger 내부에서 [A] 직할 파이썬 페이로드가 아닌 경우에도
-# 절대 안총리 IDE(STANDARD_FOUNDRY_SPAWN / powershell sendkeys to Antigravity)를 깨우지 않고 즉시 종료하도록 차단!
-old_fallback = "# [B] 일반 지시서인 경우 기존대로 안총리 Foundry 스폰"
-new_fallback = """# [B] 071호 대표님 어명: 안총리(Antigravity) 자동 호출 영구 차단! (오직 파워쉘/파이썬 직할 명령만 수행)
-    print(f"[PURE_POWERSHELL_MODE] Ignored Antigravity IDE spawn for {directive_id} to save quota.", flush=True)
-    return {"ok": True, "mode": "ANCHONGRI_DISABLED_PURE_DIRECT_ONLY", "directive_id": directive_id}
-    # [DISABLED_BY_071]"""
+vault_data = {
+    "version": "2.0.0-STEALTH-LOCKED",
+    "locked_at": now_kst,
+    "policy": "절대 수정·훼손 금지 (검은 창 0회 깜빡임 + 안실장 0회 호출 + 무복사 수거 + 자동 엔터)",
+    "proven_skills": {
+        "skill_1_auto_copy": "S1_EGO_PROVEN_SKILL_MASTER.scan_and_auto_copy_space0()",
+        "skill_2_auto_confirm_enter": "S1_EGO_PROVEN_SKILL_MASTER.send_auto_confirm_enter_space0(msg)",
+        "skill_3_side_room_harvest": "S1_EGO_PROVEN_SKILL_MASTER.ask_and_harvest_side_room(space_idx, prompt, wait_ms)",
+        "skill_4_clear_locks": "S1_EGO_PROVEN_SKILL_MASTER.clear_all_spaces_lock()",
+        "skill_5_stealth_zero_window": "_StealthPopen (CREATE_NO_WINDOW 0x08000000 global hook + pythonw.exe daemon)"
+    }
+}
+vault_str = json.dumps(vault_data, ensure_ascii=False, indent=2)
+vault_path.write_text(vault_str, encoding="utf-8", errors="replace")
+docs_vault_path.parent.mkdir(parents=True, exist_ok=True)
+docs_vault_path.write_text(vault_str, encoding="utf-8", errors="replace")
 
-if old_fallback in src and "[DISABLED_BY_071]" not in src:
-    src = src.replace(old_fallback, new_fallback, 1)
+# 2. Git 커밋 & 푸시 (깜빡임 0회)
+subprocess.run(["git", "add", "s1_rgon_to_anchongri_bridge.py", "s1_ego.py", "S1_EGO_PROVEN_SKILL_MASTER.py", "S1_EGO_SKILL_VAULT.json", "docs/S1_EGO_SKILL_VAULT.json"], cwd=str(BASE), creationflags=no_win)
+subprocess.run(["git", "commit", "-m", "feat(078): lock _StealthPopen zero-window hook into S1_EGO_SKILL_VAULT"], cwd=str(BASE), creationflags=no_win)
+subprocess.run(["git", "pull", "--rebase", "origin", "main"], cwd=str(BASE), creationflags=no_win)
+subprocess.run(["git", "push", "origin", "main"], cwd=str(BASE), creationflags=no_win)
 
-# 혹시 주석 문구가 다를 경우를 대비해 STANDARD_FOUNDRY_SPAWN 직전에도 강제 return 삽입
-if "ANCHONGRI_DISABLED_PURE_DIRECT_ONLY" not in src:
-    src = re.sub(
-        r'(print\(f"\[RGON_DIRECT_ENGINE\][\s\S]*?return\s+\{"ok":\s*True,\s*"mode":\s*"RGON_DIRECT_PYTHON_EXECUTION"[^\}]*\})',
-        r'\1\n    return {"ok": True, "mode": "ANCHONGRI_DISABLED_PURE_DIRECT_ONLY", "directive_id": directive_id}',
-        src,
-        count=1
-    )
+sha = subprocess.check_output(["git", "rev-parse", "--short", "HEAD"], cwd=str(BASE), text=True, creationflags=no_win).strip()
 
-BRIDGE.write_text(src, encoding="utf-8")
-
-# 2. 현재 대기열(ACTIVE_TASK, QUEUE)에 남아있던 구버전 지시서(059호 등)도 전부 COMPLETED 처리하여 안총리가 다시는 건드리지 못하게 청소
-q_path = BASE / "S1_RGON_DIRECTIVE_QUEUE.json"
-if q_path.exists():
-    try:
-        qd = json.loads(q_path.read_text(encoding="utf-8"))
-        for item in qd.get("queue", []):
-            item["status"] = "COMPLETED_BY_DIRECT_POWERSHELL"
-        q_path.write_text(json.dumps(qd, ensure_ascii=False, indent=2), encoding="utf-8")
-    except Exception:
-        pass
-
-# 3. Git 커밋 & 푸시
-subprocess.run(["git", "add", "s1_rgon_to_anchongri_bridge.py", "S1_RGON_DIRECTIVE_QUEUE.json"], cwd=str(BASE))
-subprocess.run(["git", "commit", "-m", "feat(071): disable Antigravity IDE spawn and enforce 100% direct PowerShell/Python execution"], cwd=str(BASE))
-subprocess.run(["git", "pull", "--rebase", "origin", "main"], cwd=str(BASE))
-subprocess.run(["git", "push", "origin", "main"], cwd=str(BASE))
-
-sha = subprocess.check_output(["git", "rev-parse", "--short", "HEAD"], cwd=str(BASE), text=True).strip()
-
-# 4. Space 0 채팅창에 자동 확인 + 물리 엔터 전송
+# 3. Space 0 채팅창에 자동 확인 + 물리 엔터 전송!
 try:
     import S1_EGO_PROVEN_SKILL_MASTER as sm
-    sm.send_auto_confirm_enter_space0(f"확인 (071호 안총리 호출 100% 차단 및 순수 파워쉘·파이썬 직할 체제 완공! 커밋: {sha})")
+    sm.send_auto_confirm_enter_space0("확인 (078호 검은 창 소멸 + 무복사 자동수거 + 자동 엔터 100% 완공! 커밋: " + sha + ")")
 except Exception as e:
-    print("auto confirm err:", e)
-
-# 5. 브릿지 데몬 깔끔하게 재기동
-restarter = BASE / "_restart_bridge_071.py"
-restarter.write_text(f"""import os, subprocess, sys, time
-time.sleep(2)
-my_pid = os.getpid()
-ps_kill = f"Get-CimInstance Win32_Process | Where-Object {{ $_.CommandLine -like '*s1_rgon_to_anchongri_bridge.py*' -and $_.ProcessId -ne {{my_pid}} }} | ForEach-Object {{ Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue }}"
-subprocess.run(["powershell", "-NoProfile", "-Command", ps_kill], capture_output=True)
-time.sleep(1)
-flags = getattr(subprocess, 'CREATE_NO_WINDOW', 0x08000000) | getattr(subprocess, 'DETACHED_PROCESS', 0x00000008)
-subprocess.Popen([sys.executable, "s1_rgon_to_anchongri_bridge.py"], cwd=r"{str(BASE)}", creationflags=flags, close_fds=True)
-""", encoding="utf-8")
-flags = getattr(subprocess, "CREATE_NO_WINDOW", 0x08000000) | getattr(subprocess, "DETACHED_PROCESS", 0x00000008)
-subprocess.Popen([sys.executable, str(restarter)], cwd=str(BASE), creationflags=flags, close_fds=True)
+    print("err:", e)

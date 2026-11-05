@@ -545,6 +545,22 @@
       "mode": "STANDARD_FOUNDRY_SPAWN",
       "status": "TRIGGERED",
       "ok": true
+    },
+    {
+      "directive_id": "LINTER_VERIFY_047",
+      "timestamp": "2026-11-05T23:20:12.707179+09:00",
+      "pid": 49060,
+      "mode": "STANDARD_FOUNDRY_SPAWN",
+      "status": "TRIGGERED",
+      "ok": true
+    },
+    {
+      "directive_id": "LINTER_VERIFY_047",
+      "timestamp": "2026-11-05T23:46:37.349153+09:00",
+      "pid": 37768,
+      "mode": "STANDARD_FOUNDRY_SPAWN",
+      "status": "TRIGGERED",
+      "ok": true
     }
   ]
 }
