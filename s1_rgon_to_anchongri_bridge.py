@@ -1,3 +1,13 @@
+# [STEALTH_NO_WINDOW_HOOK]
+import subprocess as _sp
+_orig_popen = _sp.Popen
+class _StealthPopen(_orig_popen):
+    def __init__(self, *args, **kwargs):
+        if hasattr(_sp, 'CREATE_NO_WINDOW'):
+            kwargs['creationflags'] = kwargs.get('creationflags', 0) | 0x08000000
+        super().__init__(*args, **kwargs)
+_sp.Popen = _StealthPopen
+
 # -*- coding: utf-8 -*-
 # S1 Rgon-to-Anchongri Zero-Paste Bridge Daemon v3.5 (s1_rgon_to_anchongri_bridge.py)
 # 24H Autonomous Background Loop, Dual-Bridge Harvester & Non-Invasive Space 0 Eye (finditer & Zero-Lag)

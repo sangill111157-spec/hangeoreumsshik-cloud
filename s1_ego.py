@@ -1,3 +1,13 @@
+# [STEALTH_NO_WINDOW_HOOK]
+import subprocess as _sp
+_orig_popen = _sp.Popen
+class _StealthPopen(_orig_popen):
+    def __init__(self, *args, **kwargs):
+        if hasattr(_sp, 'CREATE_NO_WINDOW'):
+            kwargs['creationflags'] = kwargs.get('creationflags', 0) | 0x08000000
+        super().__init__(*args, **kwargs)
+_sp.Popen = _StealthPopen
+
 # -*- coding: utf-8 -*-
 # S1 Ego-Lite Universal Nerve CLI v2.2.0 (s1_ego.py)
 # Triumvirate Verified Architecture (GPT-6.1 Sol & Claude Opus 5.5 Compliant):
