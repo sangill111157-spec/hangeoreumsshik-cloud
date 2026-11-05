@@ -354,6 +354,39 @@
       "mode": "STANDARD_FOUNDRY_SPAWN",
       "status": "TRIGGERED",
       "ok": true
+    },
+    {
+      "directive_id": "RGON_DIR_MOUNT_CEO_2S1_GOLDEN_SEAL_059",
+      "timestamp": "2026-11-05T17:33:24.315828+09:00",
+      "pid": 69392,
+      "mode": "RGON_DIRECT_PYTHON_EXECUTION",
+      "status": "COMPLETED",
+      "returncode": 0,
+      "ok": true
+    },
+    {
+      "directive_id": "LINTER_VERIFY_047",
+      "timestamp": "2026-11-05T17:36:45.895651+09:00",
+      "pid": 72140,
+      "mode": "STANDARD_FOUNDRY_SPAWN",
+      "status": "TRIGGERED",
+      "ok": true
+    },
+    {
+      "directive_id": "LINTER_VERIFY_047",
+      "timestamp": "2026-11-05T17:39:04.701933+09:00",
+      "pid": 20492,
+      "mode": "STANDARD_FOUNDRY_SPAWN",
+      "status": "TRIGGERED",
+      "ok": true
+    },
+    {
+      "directive_id": "LINTER_VERIFY_047",
+      "timestamp": "2026-11-05T17:40:17.066322+09:00",
+      "pid": 73260,
+      "mode": "STANDARD_FOUNDRY_SPAWN",
+      "status": "TRIGGERED",
+      "ok": true
     }
   ]
 }

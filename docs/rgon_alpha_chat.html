@@ -763,6 +763,8 @@
     }
   
     /* [059호] 대표님 친작 2S1 황금 시그니처 직인 장착 & 홈 중앙 중복 로고 통합 & 채팅방 순수 몰입 모드 */
+    body[data-active-tab="home"] #hr,
+    body[data-active-tab="home"] .hr,
     body[data-active-tab="home"] .emblem-stage,
     body[data-active-tab="home"] .hero-emblem-wrap,
     body[data-active-tab="home"] img[alt="SUN-ONE AON S1 Emblem"] {
@@ -1352,8 +1354,14 @@
     <div id="s1-kakao-dynamic-header" class="s1-kakao-page-header">
       <!-- 1번 탭: 홈·조직 (#home) -->
       <div data-s1-page="home">
-        <div class="s1-kakao-title-row">
-          <div class="s1-kakao-big-title">👑 이상일 <span style="font-size:12px;color:#10b981;font-weight:700;">SUN-ONE AON 대표사령관</span></div>
+                <div class="s1-kakao-title-row">
+          <div class="s1-kakao-big-title" style="display:inline-flex;align-items:center;gap:10px;">
+            <img src="assets/2s1_master_signature.png" alt="2S1 Master Signature Seal" onerror="this.onerror=null;this.src='https://www.genspark.ai/api/files/s/Sr7DZIdv';" style="width:48px;height:48px;border-radius:12px;object-fit:cover;border:1.5px solid #f59e0b;box-shadow:0 0 14px rgba(245,158,11,0.45);flex-shrink:0;">
+            <span style="display:flex;flex-direction:column;line-height:1.15;">
+              <span style="font-size:19px;font-weight:900;letter-spacing:1.5px;background:linear-gradient(90deg,#fef08a,#f59e0b,#fbbf24);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">2S1</span>
+              <span style="font-size:10.5px;font-weight:700;color:#94a3b8;letter-spacing:0.3px;">어전 친필 직인 · 한걸음씩</span>
+            </span>
+          </div>
           <span style="font-size:11px;color:#fbbf24;font-weight:800;">삼성제도 3성 가동중</span>
         </div>
         <div class="s1-kakao-sub-pills">
@@ -1363,7 +1371,7 @@
         </div>
         <div style="margin-top:10px;background:rgba(15,23,42,0.92);border:1px solid rgba(245,158,11,0.3);border-radius:12px;padding:12px;display:flex;align-items:center;justify-content:space-between;gap:10px;">
           <div style="display:flex;align-items:center;gap:10px;">
-            <div style="width:42px;height:42px;border-radius:14px;background:linear-gradient(135deg,#f59e0b,#ec4899);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900;color:#fff;">AI</div>
+            <div class="s1-ai-badge" style="background:transparent !important;padding:0 !important;width:48px;height:48px;border-radius:14px;overflow:hidden;flex-shrink:0;box-shadow:0 4px 14px rgba(245,158,11,0.4);"><img src="assets/2s1_master_signature.png" alt="2S1 Emblem" onerror="this.onerror=null;this.src='https://www.genspark.ai/api/files/s/Sr7DZIdv';" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
             <div>
               <div style="font-size:13.5px;font-weight:900;color:#f8fafc;">삼성(三聖) AI 수석비서단 (르곤 · 솔 · 오푸스)</div>
               <div style="font-size:11px;color:#94a3b8;">나를 먼저 챙겨주는 1회전 실물 문답 · 무복붙 사령부</div>
@@ -3352,7 +3360,7 @@ ${smartContent}`;
           messages: [
             { side: 'right', text: '[054호 1회전 심의 요청] 카카오톡 2단 그룹별 채팅방(목록 -> 방 입장 말풍선) 및 더보기 아코디언 정리안 핵심 조건과 주의사항을 답변해 주십시오.', time: '10:45', status: '전송됨' },
             { side: 'divider', text: '여기까지 읽으셨습니다.' },
-            { side: 'left', sender: '제2성 솔 (GPT-6.1 · Space 1)', avatar: '???', text: '[054호 1회전 심의 ✅ 조건부 찬성]\n1. 목록 <-> 방 내부의 명확한 2단 탐색 및 뒤로가기 스크롤 복원\n2. 방별 초안·스크롤 보존 및 응답 오배송 차단\n3. 더보기 하단 옛 스탬프 영역은 데이터 삭제 없이 아코디언으로 접기', time: '10:46' },
+            { side: 'left', sender: '제2성 솔 (GPT-6.1 · Space 1)', avatar: '⚖️', text: '[054호 1회전 심의 ✅ 조건부 찬성]\n1. 목록 <-> 방 내부의 명확한 2단 탐색 및 뒤로가기 스크롤 복원\n2. 방별 초안·스크롤 보존 및 응답 오배송 차단\n3. 더보기 하단 옛 스탬프 영역은 데이터 삭제 없이 아코디언으로 접기', time: '10:46' },
             { side: 'left', sender: '제3성 오푸스 (Claude Opus 5.5 · Space 2)', avatar: '🛡️', text: '[054호 1회전 심의 ✅ 찬성]\n1. 방 내부 진입 시 하단 5탭 바를 숨겨 키보드·입력창 충돌 차단\n2. URL 해시(#chat/rgon 등) 연동으로 휴대폰 뒤로가기 시 앱 종료 없이 목록 복귀\n3. 텍스트는 textContent로 안전 렌더링(XSS 차단)', time: '10:46' }
           ]
         },
@@ -3469,7 +3477,7 @@ ${smartContent}`;
             row.className = 's1-msg-left';
             const av = document.createElement('div');
             av.className = 's1-msg-avatar';
-            av.textContent = m.avatar || '??';
+            av.textContent = m.avatar || '💬';
             const content = document.createElement('div');
             content.className = 's1-msg-left-content';
             const sender = document.createElement('div');
