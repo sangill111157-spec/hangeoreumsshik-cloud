@@ -1,10 +1,10 @@
 {
   "linter_version": "1.6.0",
   "directive_id": "RGON_DIR_CONNECT_COMMUNICATE_OMNIPOTENT_046",
-  "timestamp": "2026-11-05T15:10:44.944713+09:00",
-  "verdict": "PASS",
-  "score": 100.0,
-  "passed_checks": 17,
+  "timestamp": "2026-11-05T17:33:18.357310+09:00",
+  "verdict": "QM_SP_11_REJECTED_LOT",
+  "score": 88.2,
+  "passed_checks": 15,
   "total_checks": 17,
   "checks": [
     {
@@ -82,8 +82,8 @@
     {
       "id": "FM-012",
       "name": "모바일 첫 화면 최상단 배지 구버전('042호:') 방치, '41곡 원장' 구버전 버튼 방치 및 id=\"s1-autumn-winter-12tracks-showcase\" 실제 DOM 미삽입 금지",
-      "passed": true,
-      "detail": "첫 화면 045호 배지·12트랙 쇼케이스 DOM·53곡 버튼 전수 교체·sw.js v24·여권 47대 도장(57개) 100% 무결 검증"
+      "passed": false,
+      "detail": "sw.js 캐시 버전 미갱신 (v24 또는 v25 필수)"
     },
     {
       "id": "FM-013",
@@ -94,8 +94,8 @@
     {
       "id": "FM-014",
       "name": "if __name__ == '__main__': 하단 Dead Code 배치, 미정의 변수(BASE_DIR) 사용, 함수 선언만 하고 미호출하는 린터 눈속임 및 에고라이트 최신 스킬(ego-browser v2.2.0) 미장착 금지",
-      "passed": true,
-      "detail": "전달봇 AST 정적 검증(L168 < L651, 2대 ast.Call)·런타임 실측 성공·ego-browser v2.2.0·여권 57대 도장(57개) 100% 무결 검증"
+      "passed": false,
+      "detail": "sw.js 캐시 버전 미갱신 (s1-aon-v049-clean-layout 필수)"
     },
     {
       "id": "GATE-C-PASSPORT",
