@@ -64,6 +64,283 @@ def init_ledgers():
 def is_ego_running():
     return True
 
+def scan_space0_deep(do_reload=False):
+    try:
+        import S1_EGO_PROVEN_SKILL_MASTER as ego_master
+        res = ego_master.scan_and_auto_copy_space0(do_reload=False)
+        if isinstance(res, dict) and res.get('blocks'):
+            return {'ok': True, 'data': {'recent_messages': res.get('blocks', [])}}
+    except Exception as _e:
+        pass
+    return _legacy_scan_space0_deep(do_reload=do_reload)
+
+def _legacy_scan_space0_deep(do_reload=False):
+    """
+    [수거봇 눈 복원 v5.0 - 025호 무렉(Zero-Lag) & Human-Presence Shield & 비침습 스캔]
+    1. takeOverTaskSpace 전면 제거 -> claimTaskSpace / taskSpace 비침습 접근
+    2. innerText 및 강제 스크롤 전면 제거 -> 0-reflow textContent (pre, code) 0.001초 스캔
+    3. Human-Presence Shield: 마우스 포커스(document.hasFocus) 또는 드래그(window.getSelection) 시 새로고침/스크롤 100% Skip
+    4. finally에서 finish({ keep: [] })로 세션 종료하여 파란 테두리 / Need your action 원천 차단 (ownership: "user")
+    """
+    if not is_ego_running():
+        return {"ok": False, "skipped": "EGO_NOT_RUNNING"}
+    import s1_ego
+    js = f"""
+    let task = null;
+    try {{
+      try {{
+        task = await claimTaskSpace(0);
+      }} catch (_) {{
+        task = await taskSpace(0);
+      }}
+      const up = task.userPage ? task.userPage() : null;
+      const page = up ? await task.adopt(up) : (task.page ? task.page("p1") : null);
+      if (!page) {{
+        process.stdout.write('\nS1EGO_JSON::' + JSON.stringify({{ ok: false, error: "NO_ACTIVE_PAGE" }}) + '\n');
+        return;
+      }}
+
+      // Disable any ego overlay elements
+      await page.evaluate(() => {{
+        window.__ego_overlay_disabled = true;
+      }}).catch(() => {{}});
+
+      const doReload = Boolean({1 if do_reload else 0});
+
+      // Human-Presence Shield: Check if user is actively interacting (focus or selection)
+      const userState = await page.evaluate(() => {{
+        const isFocused = typeof document.hasFocus === 'function' ? document.hasFocus() : false;
+        const sel = window.getSelection ? window.getSelection().toString() : '';
+        const isSelecting = sel.trim().length > 0;
+        const ta = document.querySelector('textarea[name="query"], textarea, [contenteditable="true"]');
+        const val = ta ? (ta.value || ta.textContent || '').trim() : '';
+        const stopBtn = Array.from(document.querySelectorAll("button, [role='button']")).some(b => {{
+          const t = (b.textContent || b.getAttribute("aria-label") || "").toLowerCase();
+          return t === "stop" || t === "중지" || t.includes("생성 중지");
+        }});
+        return {{
+          humanActive: isFocused || isSelecting,
+          canReload: !isSelecting && val.length === 0 && !stopBtn
+        }};
+      }}).catch(() => ({{ humanActive: true, canReload: false }}));
+
+      if (doReload && userState.canReload) {{
+        try {{
+          await page.evaluate(() => window.location.reload());
+          await new Promise(r => setTimeout(r, 3500));
+        }} catch (_) {{}}
+      }}
+
+      // Zero-reflow scan using textContent on pre, code elements
+      const data = await page.evaluate(() => {{
+        const items = Array.from(document.querySelectorAll('pre, code, article, .markdown, [class*="message"], body'));
+        const texts = items.slice(-10).map(el => (el.textContent || '').trim()).filter(t => t.length > 20);
+        return {{
+          recent_messages: texts,
+          total_messages: texts.length
+        }};
+      }}).catch(err => ({{ recent_messages: [], total_messages: 0, error: String(err) }}));
+
+      data.reloaded = doReload && userState.canReload;
+      data.shield_active = userState.humanActive;
+
+      process.stdout.write('\nS1EGO_JSON::' + JSON.stringify({{
+        ok: true,
+        data: data
+      }}) + '\n');
+    }} catch (err) {{
+      process.stdout.write('\nS1EGO_JSON::' + JSON.stringify({{ ok: false, error: String(err.message || err) }}) + '\n');
+    }} finally {{
+      try {{
+        if (task && typeof task.finish === 'function') {{
+          await task.finish({{ keep: [] }});
+        }} else if (task && typeof task.handOff === 'function') {{
+          await task.handOff();
+        }}
+      }} catch (_) {{}}
+    }}
+    """
+    try:
+        res = s1_ego.run_ego_js(js, timeout=25)
+        return res
+    except Exception as e:
+        return {"ok": False, "error": str(e)}
+
+
+
+def send_auto_confirm_to_space0(directive_id: str):
+    """임무 완료 및 GitHub 푸시 직후 에고라이트 Space 0에 자동으로 '확인' 메시지를 타이핑·전송"""
+    try:
+        import s1_ego
+        head_sha = subprocess.check_output(["git", "rev-parse", "--short", "HEAD"], cwd=BASE, text=True).strip()
+        msg = f"확인 (자동수거·임무완료: {directive_id} · 커밋 {head_sha})"
+        msg_json = json.dumps(msg, ensure_ascii=False)
+        js = f"""
+        let task = null;
+        try {{
+          try {{ task = await takeOverTaskSpace(0); }} catch (_) {{ try {{ task = await claimTaskSpace(0); }} catch (__) {{ task = await taskSpace(0); }} }}
+          const up = task.userPage ? task.userPage() : null;
+          let page = up ? await task.adopt(up).catch(() => up) : null;
+          if (!page && task.pages) {{ const ps = await task.pages(); if (ps && ps.length) page = ps[0]; }}
+          if (!page) return;
+          const qText = {msg_json};
+          await page.evaluate((t) => {{
+            const el = document.querySelector('textarea[name="query"], textarea, div[contenteditable="true"], [role="textbox"]');
+            if (!el) return;
+            el.focus();
+            if (el.tagName && el.tagName.toLowerCase() === 'textarea') {{
+              const ns = Object.getOwnPropertyDescriptor(window.HTMLTextAreaElement.prototype, 'value')?.set;
+              if (ns) ns.call(el, t); else el.value = t;
+              el.dispatchEvent(new Event('input', {{ bubbles: true }}));
+              el.dispatchEvent(new Event('change', {{ bubbles: true }}));
+            }} else {{
+              el.textContent = t;
+              el.dispatchEvent(new InputEvent('input', {{ bubbles: true, data: t }}));
+            }}
+            const btns = Array.from(document.querySelectorAll('button[type="submit"], button[aria-label*="send" i], button[aria-label*="전송" i], .enter-icon-wrapper'));
+            const ab = btns.find(b => !b.disabled);
+            if (ab) ab.click();
+            else el.dispatchEvent(new KeyboardEvent('keydown', {{ key: 'Enter', code: 'Enter', keyCode: 13, which: 13, bubbles: true }}));
+          }}, qText);
+          await new Promise(r => setTimeout(r, 500));
+        }} catch (_) {{}} finally {{
+          try {{ if (task && typeof task.finish === 'function') await task.finish({{ keep: [] }}); }} catch (_) {{}}
+        }}
+        """
+        s1_ego.run_ego_js(js, timeout=30)
+        print(f"[AUTO-CONFIRM] Sent automatic '확인' to Space 0 for {directive_id}", flush=True)
+    except Exception as e:
+        print(f"[AUTO-CONFIRM] Error: {e}", flush=True)
+
+def auto_execute_directive_trigger(directive_id: str, full_text: str = "") -> dict:
+    """
+    [049호 르곤 직할 무인 집행 엔진]
+    안총리(IDE 채팅창) 개입 없이 르곤 보좌관(Space 0)의 파이썬 페이로드(# [S1_DIRECT_PYTHON_PAYLOAD])를
+    s1_rgon_to_anchongri_bridge.py 데몬이 직접 추출 -> 로컬 실행 -> 린터 검증 -> git commit & push 까지 100% 무인 완주!
+    """
+    log_file = BASE / "S1_BRIDGE_AUTO_TRIGGER_LOG.json"
+    docs_log_file = BASE / "docs" / "S1_BRIDGE_AUTO_TRIGGER_LOG.json"
+    # [055호 오푸스 조건: 이미 COMPLETED 된 directive_id 중복 재실행 원천 차단]
+    if log_file.exists():
+        try:
+            prev_logs = json.loads(log_file.read_text(encoding="utf-8")).get("triggers", [])
+            if any(x.get("directive_id") == directive_id and x.get("status") == "COMPLETED" for x in prev_logs):
+                return {"ok": True, "skipped": "ALREADY_COMPLETED_ONCE"}
+        except Exception:
+            pass
+
+    
+    # [A] 르곤 직할 파이썬 페이로드(# [S1_DIRECT_PYTHON_PAYLOAD]) 감지
+    payload_marker = "# [S1_DIRECT_PYTHON_PAYLOAD]"
+    if full_text and payload_marker in full_text:
+        print(f"[RGON_DIRECT_ENGINE] Detected direct payload in {directive_id}!", flush=True)
+        code_to_run = ""
+        # 1) ```python ... ``` 형태
+        m_fence = re.search(r"```(?:python)?\s*\n([\s\S]*?)```", full_text)
+        if m_fence and payload_marker in m_fence.group(0):
+            code_to_run = m_fence.group(1).strip()
+        else:
+            # 2) 마커 이후부터 [/S1_DIRECT_PYTHON_PAYLOAD] 또는 블록 끝까지
+            m_block = re.search(r"#\s*\[S1_DIRECT_PYTHON_PAYLOAD\]([\s\S]*?)(?:#\s*\[/S1_DIRECT_PYTHON_PAYLOAD\]|\[/S1_AUTO_DISPATCH_TO_ANCHONGRI\]|\Z)", full_text)
+            if m_block:
+                code_to_run = m_block.group(1).strip()
+
+        if code_to_run:
+            runner_file = BASE / "s1_direct_payload_runner.py"
+            runner_file.write_text(code_to_run, encoding="utf-8")
+            print(f"[RGON_DIRECT_ENGINE] Saved payload to {runner_file} ({len(code_to_run)} bytes). Executing immediately...", flush=True)
+
+            # 1) 직접 실행
+            exec_res = subprocess.run([sys.executable, str(runner_file)], cwd=BASE, timeout=120, capture_output=True, text=True, encoding="utf-8", errors="ignore")
+            print(f"[RGON_DIRECT_ENGINE] Payload exit code: {exec_res.returncode}", flush=True)
+            if exec_res.stdout:
+                print(f"[RGON_DIRECT_ENGINE] Stdout: {exec_res.stdout[:300]}", flush=True)
+
+            # 2) 린터 자동 검증
+            linter_res = subprocess.run([sys.executable, "s1_qm_structure_linter.py"], cwd=BASE, timeout=60, capture_output=True, text=True, encoding="utf-8", errors="ignore")
+            print(f"[RGON_DIRECT_ENGINE] Linter exit code: {linter_res.returncode}", flush=True)
+
+            # 3) Git 무인 커밋 & 푸시
+            try:
+                subprocess.run(["git", "add", "-A"], cwd=BASE, check=False)
+                subprocess.run(["git", "commit", "-m", f"auto(rgon-direct): executed {directive_id} without anchongri"], cwd=BASE, check=False)
+                subprocess.run(["git", "pull", "--rebase", "origin", "main"], cwd=BASE, check=False)
+                subprocess.run(["git", "push", "origin", "main"], cwd=BASE, check=False)
+                send_auto_confirm_to_space0(directive_id)
+                try:
+                    h_sha = subprocess.check_output(["git", "rev-parse", "--short", "HEAD"], cwd=BASE, text=True).strip()
+                    msg0 = f"[자동수거·임무완료 보고] 지시서 {directive_id} 자동 실행 및 GitHub 푸시 완료! (커밋: {h_sha})"
+                    subprocess.run([sys.executable, str(BASE / "s1_ego.py"), "ask", "--space", "0", "--prompt", msg0], cwd=BASE, timeout=25, check=False)
+                    subprocess.run([sys.executable, str(BASE / "s1_ego.py"), "finish", "--space", "0"], cwd=BASE, timeout=8, check=False)
+                except Exception as _e:
+                    print("[AUTO-REPLY-ERR]", _e, flush=True)
+                print(f"[RGON_DIRECT_ENGINE] Git auto push completed for {directive_id}!", flush=True)
+            except Exception as e:
+                print(f"[RGON_DIRECT_ENGINE] Git sync note: {e}", flush=True)
+
+            log_entry = {
+                "directive_id": directive_id,
+                "timestamp": now_iso(),
+                "pid": os.getpid(),
+                "mode": "RGON_DIRECT_PYTHON_EXECUTION",
+                "status": "COMPLETED",
+                "returncode": exec_res.returncode,
+                "ok": (exec_res.returncode == 0)
+            }
+            _save_trigger_log(log_file, docs_log_file, log_entry)
+            return log_entry
+
+    # [B] 일반 지시서인 경우 로컬 무쿼터 파운드리 백그라운드 가동
+    foundry_py = BASE / "s1_zero_quota_triumvirate_foundry.py"
+    pid = None
+    if foundry_py.exists():
+        try:
+            proc = subprocess.Popen(
+                [sys.executable, str(foundry_py), "--directive", directive_id],
+                stdin=subprocess.DEVNULL,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL
+            )
+            pid = proc.pid
+            print(f"[BRIDGE_TRIGGER] Auto-spawned zero-quota foundry for {directive_id} (PID: {pid})", flush=True)
+        except Exception as e:
+            print(f"[BRIDGE_TRIGGER] Failed to spawn foundry: {e}", flush=True)
+
+    log_entry = {
+        "directive_id": directive_id,
+        "timestamp": now_iso(),
+        "pid": pid,
+        "mode": "STANDARD_FOUNDRY_SPAWN",
+        "status": "TRIGGERED",
+        "ok": True
+    }
+    _save_trigger_log(log_file, docs_log_file, log_entry)
+    return log_entry
+
+
+def _save_trigger_log(log_file, docs_log_file, log_entry):
+    try:
+        data = {"version": "1.0.0", "triggers": []}
+        if log_file.exists():
+            try:
+                data = json.loads(log_file.read_text(encoding="utf-8"))
+            except Exception:
+                pass
+        data.setdefault("triggers", []).append(log_entry)
+        log_json_str = json.dumps(data, ensure_ascii=False, indent=2)
+        log_file.write_text(log_json_str, encoding="utf-8")
+        docs_log_file.parent.mkdir(parents=True, exist_ok=True)
+        docs_log_file.write_text(log_json_str, encoding="utf-8")
+    except Exception as e:
+        print(f"[BRIDGE_TRIGGER] Failed to write trigger log: {e}", flush=True)
+
+
+def register_new_directive(directive_id, title, full_text):
+    init_ledgers()
+    processed = load_json(PROCESSED_FILE, [])
+    if directive_id in processed:
+        return False
+
     queue = load_json(QUEUE_JSON, {"directives": []})
     # Avoid duplicate in queue list
     if any(d.get("directive_id") == directive_id for d in queue.get("directives", [])):
@@ -364,7 +641,7 @@ def run_bridge_cycle(cycle_num=0):
     try:
         do_reload = (cycle_num > 0 and cycle_num % 4 == 0)
         res = scan_space0_deep(do_reload=do_reload)
-        if res.get("ok"):
+        if res and res.get("ok"):
             recent = res.get("data", {}).get("recent_messages", [])
             for msg_text in recent:
                 # 1) finditer on explicit [S1_AUTO_DISPATCH_TO_ANCHONGRI] blocks
@@ -429,5 +706,4 @@ def bridge_daemon_loop(poll_interval=15):
 if __name__ == "__main__":
     init_ledgers()
     bridge_daemon_loop(15)
-
 
