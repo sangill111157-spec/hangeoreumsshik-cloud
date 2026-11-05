@@ -67,11 +67,14 @@ def is_ego_running():
 def scan_space0_deep(do_reload=False):
     try:
         import S1_EGO_PROVEN_SKILL_MASTER as ego_master
-        res = ego_master.scan_and_auto_copy_space0(do_reload=False)
-        if isinstance(res, dict) and res.get('blocks'):
-            return {'ok': True, 'data': {'recent_messages': res.get('blocks', [])}}
+        res = ego_master.scan_and_auto_copy_space0(do_reload=do_reload)
+        if isinstance(res, dict):
+            inner = res.get('data') if isinstance(res.get('data'), dict) else res
+            blocks = inner.get('blocks') if isinstance(inner, dict) else None
+            if blocks:
+                return {'ok': True, 'data': {'recent_messages': blocks}}
     except Exception as _e:
-        pass
+        print('[SCAN_SPACE0_MASTER_ERR]', _e, flush=True)
     return _legacy_scan_space0_deep(do_reload=do_reload)
 
 def _legacy_scan_space0_deep(do_reload=False):
@@ -231,7 +234,7 @@ def auto_execute_directive_trigger(directive_id: str, full_text: str = "") -> di
 
     
     # [A] 르곤 직할 파이썬 페이로드(# [S1_DIRECT_PYTHON_PAYLOAD]) 감지
-    payload_marker = "# [S1_DIRECT_PYTHON_PAYLOAD]"
+    payload_marker = "[S1_DIRECT_PYTHON_PAYLOAD]"
     if full_text and payload_marker in full_text:
         print(f"[RGON_DIRECT_ENGINE] Detected direct payload in {directive_id}!", flush=True)
         code_to_run = ""
@@ -241,7 +244,7 @@ def auto_execute_directive_trigger(directive_id: str, full_text: str = "") -> di
             code_to_run = m_fence.group(1).strip()
         else:
             # 2) 마커 이후부터 [/S1_DIRECT_PYTHON_PAYLOAD] 또는 블록 끝까지
-            m_block = re.search(r"#\s*\[S1_DIRECT_PYTHON_PAYLOAD\]([\s\S]*?)(?:#\s*\[/S1_DIRECT_PYTHON_PAYLOAD\]|\[/S1_AUTO_DISPATCH_TO_ANCHONGRI\]|\Z)", full_text)
+            m_block = re.search(r"(?:#\s*)?\[S1_DIRECT_PYTHON_PAYLOAD\]([\s\S]*?)(?:(?:#\s*)?\[/S1_DIRECT_PYTHON_PAYLOAD\]|(?:#\s*)?\[/S1_AUTO_DISPATCH_TO_ANCHONGRI\]|\Z)", full_text)
             if m_block:
                 code_to_run = m_block.group(1).strip()
 
@@ -266,7 +269,12 @@ def auto_execute_directive_trigger(directive_id: str, full_text: str = "") -> di
                 subprocess.run(["git", "commit", "-m", f"auto(rgon-direct): executed {directive_id} without anchongri"], cwd=BASE, check=False)
                 subprocess.run(["git", "pull", "--rebase", "origin", "main"], cwd=BASE, check=False)
                 subprocess.run(["git", "push", "origin", "main"], cwd=BASE, check=False)
-                send_auto_confirm_to_space0(directive_id)
+                try:
+                    import S1_EGO_PROVEN_SKILL_MASTER as _sm
+                    _sha = subprocess.check_output(["git", "rev-parse", "--short", "HEAD"], cwd=BASE, text=True).strip()
+                    _sm.send_auto_confirm_enter_space0(f"확인 (무복사 자동수거·실행 완료: {directive_id} · 커밋 {_sha})")
+                except Exception:
+                    send_auto_confirm_to_space0(directive_id)
                 try:
                     h_sha = subprocess.check_output(["git", "rev-parse", "--short", "HEAD"], cwd=BASE, text=True).strip()
                     msg0 = f"[자동수거·임무완료 보고] 지시서 {directive_id} 자동 실행 및 GitHub 푸시 완료! (커밋: {h_sha})"

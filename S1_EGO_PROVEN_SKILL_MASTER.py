@@ -56,7 +56,7 @@ def scan_and_auto_copy_space0(do_reload: bool = False) -> dict:
         const blocks = [];
         for (const n of nodes) {{
           const t = (n.textContent || '').trim();
-          if (t.indexOf('[S1_AUTO_DISPATCH_TO_ANCHONGRI]') !== -1 && t.indexOf('[S1_DIRECT_PYTHON_PAYLOAD]') !== -1) {{
+          if (t.indexOf('[S1_AUTO_DISPATCH_TO_ANCHONGRI]') !== -1) {{
             blocks.push(t);
           }}
         }}
