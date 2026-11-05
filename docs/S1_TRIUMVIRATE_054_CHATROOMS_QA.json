@@ -1,0 +1,33 @@
+{
+  "directive_id": "RGON_DIR_EGO_ROUND1_QA_CHATROOMS_054",
+  "timestamp": "2026-11-05T10:44:48.571852+09:00",
+  "step": "ROUND1_QA_HARVEST_ONLY_NO_HTML_EDIT",
+  "html_modified": false,
+  "question_sent": "[삼성제도 1회전 공식 문답 심의 요청 - 054호] 이상일 대표님께서 실제 카카오톡 캡처 2장(1. 채팅방 목록 화면, 2. '가공2반 알림방' 내부로 들어간 노란색/흰색 말풍선 대화 화면)을 보내주시며 '우리 채팅창도 각 그룹별로 들어가서 카카오톡처럼 채팅'하라고 하명하셨습니다. 이에 2번(채팅) 탭을 [1단: 그룹별 채팅방 목록(전체 합동방 / 르곤 독대방 / 삼성 3성 심의방 / 직할 데몬 실행방 / 53곡 음원·유튜브 알림방)]과 [2단: 방 터치 시 진입하는 카카오톡 말풍선 대화창(좌상단 '<- 뒤로가기' 헤더, 대표님 우측 노란 말풍선 #FEE500, AI/데몬 좌측 프로필+말풍선, '여기까지 읽으셨습니다' 배지, 우측 하단 위/아래 스크롤 버튼, 하단 '+ / 메시지 입력 / 전송' 바)]의 2단 구조로 개편하고, 아울러 5번(더보기) 탭의 4x3 그리드 아래에 길게 늘어져 있던 옛날 중복 스탬프 박스를 접기(아코디언)로 정리하고자 합니다. 1) 시각/UX 관점(제2성 솔)과 무결성/기존 전송·수거 기능 보존 관점(제3성 오푸스)에서 반드시 지켜야 할 핵심 설계 조건 3가지와, 2) 절대 범해서는 안 될 실패 요인(반박/주의사항)을 답변해 주십시오.",
+  "space_1_sol_qa": {
+    "ok": true,
+    "space": 1,
+    "send_result": {
+      "sent": true,
+      "method": "button_click"
+    },
+    "harvested": {
+      "snippet_count": 0,
+      "latest_texts": []
+    },
+    "need_your_action_cleared": true
+  },
+  "space_2_opus_qa": {
+    "ok": true,
+    "space": 2,
+    "send_result": {
+      "sent": true,
+      "method": "button_click"
+    },
+    "harvested": {
+      "snippet_count": 0,
+      "latest_texts": []
+    },
+    "need_your_action_cleared": true
+  }
+}
