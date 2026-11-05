@@ -118,7 +118,7 @@ def scan_space0_deep(do_reload=False):
         }});
         return {{
           humanActive: isFocused || isSelecting,
-          canReload: !isFocused && !isSelecting && val.length === 0 && !stopBtn
+          canReload: !isSelecting && val.length === 0 && !stopBtn
         }};
       }}).catch(() => ({{ humanActive: true, canReload: false }}));
 

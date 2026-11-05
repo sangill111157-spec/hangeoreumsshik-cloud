@@ -329,6 +329,23 @@
       "mode": "STANDARD_FOUNDRY_SPAWN",
       "status": "TRIGGERED",
       "ok": true
+    },
+    {
+      "directive_id": "RGON_DIR_REAL_2S1_IMAGE_SEAL_AND_CLEAN_CHAT_058",
+      "timestamp": "2026-11-05T15:10:50.407001+09:00",
+      "pid": 69392,
+      "mode": "RGON_DIRECT_PYTHON_EXECUTION",
+      "status": "COMPLETED",
+      "returncode": 1,
+      "ok": false
+    },
+    {
+      "directive_id": "LINTER_VERIFY_047",
+      "timestamp": "2026-11-05T17:32:09.821812+09:00",
+      "pid": 43120,
+      "mode": "STANDARD_FOUNDRY_SPAWN",
+      "status": "TRIGGERED",
+      "ok": true
     }
   ]
 }

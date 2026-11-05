@@ -1,5 +1,5 @@
 // S1 Service Worker v2026-v049 (SUN-ONE AON Zero-Paste & Network-First HTML)
-const CACHE = 's1-aon-v055-kakao-chatrooms';
+const CACHE = 's1-aon-v059-real-2s1-seal';
 const ASSETS = [
   './',
   './index.html',

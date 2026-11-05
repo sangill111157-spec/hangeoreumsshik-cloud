@@ -761,7 +761,27 @@
       .bt { font-size: 13px; }
       .bs { font-size: 9.5px; }
     }
-  </style>
+  
+    /* [059호] 대표님 친작 2S1 황금 시그니처 직인 장착 & 홈 중앙 중복 로고 통합 & 채팅방 순수 몰입 모드 */
+    body[data-active-tab="home"] .emblem-stage,
+    body[data-active-tab="home"] .hero-emblem-wrap,
+    body[data-active-tab="home"] img[alt="SUN-ONE AON S1 Emblem"] {
+      display: none !important;
+    }
+    body[data-active-tab="chat"] #s1-omnipotent-comm-hub > *:not(#s1-kakao-chat-v055) {
+      display: none !important;
+    }
+    body[data-active-tab="chat"].s1-in-chatroom #s1-omnipotent-comm-hub {
+      padding: 0 !important;
+      margin: 0 !important;
+      border: none !important;
+      background: transparent !important;
+    }
+    body[data-active-tab="chat"].s1-in-chatroom .s1-chatroom-view {
+      min-height: calc(100vh - 115px) !important;
+    }
+    
+</style>
 
   
   
@@ -1360,7 +1380,7 @@
           <div class="s1-kakao-title-row">
             <div class="s1-kakao-big-title">채팅</div>
             <div style="display:flex;gap:10px;align-items:center;">
-              <button type="button" class="btn" onclick="s1OpenGithubTokenModal()">?? 5G 토큰</button>
+              <button type="button" class="btn" onclick="s1OpenGithubTokenModal()">🔑 5G 토큰</button>
               <button type="button" class="btn" onclick="document.getElementById('btn-directive-ledger')?.click()">📡 원장</button>
             </div>
           </div>
@@ -1463,7 +1483,7 @@
               </div>
             </div>
             <div style="display:flex;gap:6px;">
-              <button type="button" class="btn" onclick="s1RefreshHarvesterFeed()" title="새로고침">??</button>
+              <button type="button" class="btn" onclick="s1RefreshHarvesterFeed()" title="새로고침">🔍</button>
               <button type="button" class="btn" onclick="document.getElementById('s1-room-legacy-toggle')?.click()" title="원장 전광판 열기">☰</button>
             </div>
           </div>
@@ -3306,7 +3326,7 @@ ${smartContent}`;
       const ROOM_CONFIGS = {
         all: {
           title: '사령부 전체 합동방 5',
-          sub: '수신 대상: ?? 르곤(Space 0) + ? 직할 데몬 동시 수신',
+          sub: '수신 대상: 👑 르곤(Space 0) + ? 직할 데몬 동시 수신',
           targetBtn: 'both',
           messages: [
             { side: 'right', text: '우리 채팅창도 각 그룹별로 들어가서 카카오톡처럼 채팅하자.', time: '오전 9:39', status: '읽음' },
@@ -3317,7 +3337,7 @@ ${smartContent}`;
         },
         rgon: {
           title: '제1성 르곤 수석보좌관 독대방 2',
-          sub: '수신 대상: ?? 르곤 보좌관(Space 0) 직통',
+          sub: '수신 대상: 👑 르곤 보좌관(Space 0) 직통',
           targetBtn: 'rgon',
           messages: [
             { side: 'right', text: '지시서 남발 금지와 삼성제도 모든 작업에 똑같이 항시 적용이 돼야 돼. 계단식으로 하나씩 확인하면서 가자.', time: '오전 8:02', status: '읽음' },
@@ -3332,8 +3352,8 @@ ${smartContent}`;
           messages: [
             { side: 'right', text: '[054호 1회전 심의 요청] 카카오톡 2단 그룹별 채팅방(목록 -> 방 입장 말풍선) 및 더보기 아코디언 정리안 핵심 조건과 주의사항을 답변해 주십시오.', time: '10:45', status: '전송됨' },
             { side: 'divider', text: '여기까지 읽으셨습니다.' },
-            { side: 'left', sender: '제2성 솔 (GPT-6.1 · Space 1)', avatar: '???', text: '[054호 1회전 심의 ? 조건부 찬성]\n1. 목록 <-> 방 내부의 명확한 2단 탐색 및 뒤로가기 스크롤 복원\n2. 방별 초안·스크롤 보존 및 응답 오배송 차단\n3. 더보기 하단 옛 스탬프 영역은 데이터 삭제 없이 아코디언으로 접기', time: '10:46' },
-            { side: 'left', sender: '제3성 오푸스 (Claude Opus 5.5 · Space 2)', avatar: '🛡️', text: '[054호 1회전 심의 ? 찬성]\n1. 방 내부 진입 시 하단 5탭 바를 숨겨 키보드·입력창 충돌 차단\n2. URL 해시(#chat/rgon 등) 연동으로 휴대폰 뒤로가기 시 앱 종료 없이 목록 복귀\n3. 텍스트는 textContent로 안전 렌더링(XSS 차단)', time: '10:46' }
+            { side: 'left', sender: '제2성 솔 (GPT-6.1 · Space 1)', avatar: '???', text: '[054호 1회전 심의 ✅ 조건부 찬성]\n1. 목록 <-> 방 내부의 명확한 2단 탐색 및 뒤로가기 스크롤 복원\n2. 방별 초안·스크롤 보존 및 응답 오배송 차단\n3. 더보기 하단 옛 스탬프 영역은 데이터 삭제 없이 아코디언으로 접기', time: '10:46' },
+            { side: 'left', sender: '제3성 오푸스 (Claude Opus 5.5 · Space 2)', avatar: '🛡️', text: '[054호 1회전 심의 ✅ 찬성]\n1. 방 내부 진입 시 하단 5탭 바를 숨겨 키보드·입력창 충돌 차단\n2. URL 해시(#chat/rgon 등) 연동으로 휴대폰 뒤로가기 시 앱 종료 없이 목록 복귀\n3. 텍스트는 textContent로 안전 렌더링(XSS 차단)', time: '10:46' }
           ]
         },
         daemon: {
@@ -3341,7 +3361,7 @@ ${smartContent}`;
           sub: '조회 및 직할 상태 점검 (60초 Space 0 자동 새로고침 가동 중)',
           targetBtn: 'anchongri',
           messages: [
-            { side: 'left', sender: 'S1 브릿지 데몬 (v3.6)', avatar: '⚡', text: '[무인 직할 엔진 상태 보고]\n? 051호 에고라이트 1회전 문답 수거: COMPLETED\n? 052/053호 카카오톡 5탭 & 모달 제거: COMPLETED\n? 054호 채팅방 심의 수거(eec1245): COMPLETED\n? 외출 중 60초 주기 Space 0 자동 새로고침: ON', time: '실시간' }
+            { side: 'left', sender: 'S1 브릿지 데몬 (v3.6)', avatar: '⚡', text: '[무인 직할 엔진 상태 보고]\n✅ 051호 에고라이트 1회전 문답 수거: COMPLETED\n✅ 052/053호 카카오톡 5탭 & 모달 제거: COMPLETED\n✅ 054호 채팅방 심의 수거(eec1245): COMPLETED\n✅ 외출 중 60초 주기 Space 0 자동 새로고침: ON', time: '실시간' }
           ]
         },
         music: {
@@ -3349,7 +3369,7 @@ ${smartContent}`;
           sub: 'DistroKid 24개 글로벌 플랫폼 & 4대 유튜브 채널 배급망',
           targetBtn: 'both',
           messages: [
-            { side: 'left', sender: '음원·배급 마에스트로', avatar: '💿', text: '[D-1 글로벌 발매 준비 완료]\n? 앨범명: 정규 신보 〈가을과 겨울 사이〉 (12트랙)\n? 발매일: 2026.11.06 (금) 00:00 / 12:00 KST\n? 누적 원장: 기존 41곡 + 신보 12곡 = 총 53곡 (유료 Extras 0원 무과금 방어)\n? 타이틀곡: 04. 오늘은 여기까지 ★ / 05. 밥은 먹었니 ★ / 10. 불은 꺼지지 않아 ★ / 12. 내일의 아침 ★', time: 'D-1' }
+            { side: 'left', sender: '음원·배급 마에스트로', avatar: '💿', text: '[D-1 글로벌 발매 준비 완료]\n💿 앨범명: 정규 신보 〈가을과 겨울 사이〉 (12트랙)\n? 발매일: 2026.11.06 (금) 00:00 / 12:00 KST\n📊 누적 원장: 기존 41곡 + 신보 12곡 = 총 53곡 (유료 Extras 0원 무과금 방어)\n⭐ 타이틀곡: 04. 오늘은 여기까지 ★ / 05. 밥은 먹었니 ★ / 10. 불은 꺼지지 않아 ★ / 12. 내일의 아침 ★', time: 'D-1' }
           ]
         }
       };
@@ -3616,5 +3636,51 @@ ${smartContent}`;
     })();
   </script>
 
+<script>
+    (function apply059Real2S1SealAndCleanChat() {
+      function run059() {
+        try {
+          document.querySelectorAll('img[alt="SUN-ONE AON S1 Emblem"]').forEach(function(img) {
+            img.hidden = true;
+            img.style.display = 'none';
+            var p = img.parentElement;
+            if (p && p.children.length <= 4 && p.id !== 'home') {
+              p.hidden = true;
+              p.style.display = 'none';
+            }
+          });
+          var hub = document.getElementById('s1-omnipotent-comm-hub');
+          var v055 = document.getElementById('s1-kakao-chat-v055');
+          if (hub && v055) {
+            Array.prototype.forEach.call(hub.children, function(ch) {
+              if (ch !== v055 && !ch.contains(v055)) {
+                ch.hidden = true;
+                ch.style.display = 'none';
+                ch.setAttribute('data-archived-by-059', 'true');
+              }
+            });
+          }
+          var iconKey = String.fromCodePoint(0x1F511) + ' 5G';
+          var iconSearch = String.fromCodePoint(0x1F50D);
+          var iconScale = String.fromCodePoint(0x2696, 0xFE0F);
+          document.querySelectorAll('button, span, div, p').forEach(function(el) {
+            if (el.children.length === 0 && el.textContent) {
+              if (el.textContent.indexOf('?? 5G') !== -1) el.textContent = el.textContent.replace('?? 5G', iconKey);
+              if (el.textContent.trim() === '??') el.textContent = iconSearch;
+              if (el.textContent.trim() === '???') el.textContent = iconScale;
+            }
+          });
+        } catch (err) {
+          console.warn('[059-SAFE-GUARD]', err);
+        }
+      }
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', run059);
+      } else {
+        run059();
+      }
+      setTimeout(run059, 400);
+    })();
+    </script>
 </body>
 </html>
