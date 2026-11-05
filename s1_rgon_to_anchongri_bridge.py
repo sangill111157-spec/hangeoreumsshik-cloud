@@ -173,6 +173,15 @@ def auto_execute_directive_trigger(directive_id: str, full_text: str = "") -> di
     """
     log_file = BASE / "S1_BRIDGE_AUTO_TRIGGER_LOG.json"
     docs_log_file = BASE / "docs" / "S1_BRIDGE_AUTO_TRIGGER_LOG.json"
+    # [055호 오푸스 조건: 이미 COMPLETED 된 directive_id 중복 재실행 원천 차단]
+    if log_file.exists():
+        try:
+            prev_logs = json.loads(log_file.read_text(encoding="utf-8")).get("triggers", [])
+            if any(x.get("directive_id") == directive_id and x.get("status") == "COMPLETED" for x in prev_logs):
+                return {"ok": True, "skipped": "ALREADY_COMPLETED_ONCE"}
+        except Exception:
+            pass
+
     
     # [A] 르곤 직할 파이썬 페이로드(# [S1_DIRECT_PYTHON_PAYLOAD]) 감지
     payload_marker = "# [S1_DIRECT_PYTHON_PAYLOAD]"
