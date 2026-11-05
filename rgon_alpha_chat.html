@@ -783,6 +783,16 @@
       min-height: calc(100vh - 115px) !important;
     }
     
+
+/* [061-STEP1-CLEANUP] */
+#s1-kakao-header-home .s1-sub-pills,
+#s1-kakao-header-now .s1-sub-pills,
+#s1-kakao-header-pick .s1-sub-pills,
+#s1-kakao-header-more .s1-sub-pills,
+.s1-chatroom-header .s1-chatroom-actions button {
+  display: none !important;
+}
+
 </style>
 
   
@@ -3690,5 +3700,45 @@ ${smartContent}`;
       setTimeout(run059, 400);
     })();
     </script>
+
+<script>
+(function(){
+  function cl061(){
+    try {
+      ['home','now','pick','more'].forEach(function(k){
+        var e = document.getElementById('s1-kakao-header-' + k);
+        if (e) {
+          e.querySelectorAll('.s1-sub-pills').forEach(function(x){
+            x.hidden = true;
+            x.style.display = 'none';
+          });
+        }
+      });
+      document.querySelectorAll('div, section, nav').forEach(function(el){
+        var s = (el.textContent || '').trim();
+        if (s.indexOf('수신처:') !== -1 && s.indexOf('르곤+안총리 동시') !== -1 && el.children.length <= 6 && !el.querySelector('#s1-kakao-chat-v055')) {
+          el.hidden = true;
+          el.style.display = 'none';
+        }
+      });
+      document.querySelectorAll('a, button').forEach(function(b){
+        var s = (b.textContent || '').trim();
+        if ((s.indexOf('53곡 마스터 원장 JSON') !== -1 || s.indexOf('1+12 폭포수 퍼널 마스터북') !== -1) && !b.classList.contains('s1-more-grid-item')) {
+          b.hidden = true;
+          b.style.display = 'none';
+        }
+        if (s.indexOf('원장') !== -1 && b.closest('#s1-kakao-header-chat, .s1-chat-list-header, .s1-kakao-top-header')) {
+          b.hidden = true;
+          b.style.display = 'none';
+        }
+      });
+    } catch(e) {}
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', cl061);
+  else cl061();
+  setTimeout(cl061, 300);
+})();
+</script>
+
 </body>
 </html>
