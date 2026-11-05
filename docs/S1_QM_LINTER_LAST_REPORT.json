@@ -1,7 +1,7 @@
 {
   "linter_version": "1.6.0",
   "directive_id": "RGON_DIR_CONNECT_COMMUNICATE_OMNIPOTENT_046",
-  "timestamp": "2026-11-05T22:00:02.141345+09:00",
+  "timestamp": "2026-11-05T22:14:13.928887+09:00",
   "verdict": "PASS",
   "score": 100.0,
   "passed_checks": 17,
@@ -95,7 +95,7 @@
       "id": "FM-014",
       "name": "if __name__ == '__main__': 하단 Dead Code 배치, 미정의 변수(BASE_DIR) 사용, 함수 선언만 하고 미호출하는 린터 눈속임 및 에고라이트 최신 스킬(ego-browser v2.2.0) 미장착 금지",
       "passed": true,
-      "detail": "전달봇 AST 정적 검증(L214 < L705, 2대 ast.Call)·런타임 실측 성공·ego-browser v2.2.0·여권 57대 도장(57개) 100% 무결 검증"
+      "detail": "전달봇 AST 정적 검증(L218 < L714, 2대 ast.Call)·런타임 실측 성공·ego-browser v2.2.0·여권 57대 도장(57개) 100% 무결 검증"
     },
     {
       "id": "GATE-C-PASSPORT",
