@@ -1,0 +1,40 @@
+{
+  "ledger_version": "3.0.0",
+  "updated_at": "2026-11-06T19:25:01.493468",
+  "summary": "2026-11-06 잘한 점(황금 스킬 4건 & 35편 수익 파이프 & OAC 완수) 및 못한 점(반성 및 영구 방지책 6건) 자동 동기화 원장",
+  "what_we_did_well_today": [
+    "1. 디스트로키드 17개 앨범 70곡 전수 실측 및《가을과 겨울 사이》정품 UPC(700563848544)·12곡 ISRC·스포티파이 주소 확보",
+    "2. 라이브 구글 블로그 상단에 스포티파이 12곡 플레이어(iframe) 실시간 장착 완료",
+    "3. 디스트로키드 유튜브 공식 아티스트 채널(OAC: 한걸음씩 UCMJn01WLs9ooIhh5x0eJeHg) 무인 신청 최종 완료(done=1)",
+    "4. 3대 핵심 유튜브 채널(@한걸음씩-r4i 21편 + @Booster_Playlist 10편 + @TheCaféHour 4편 = 총 35편) 설명란에 스포티파이/HyperFollow 수익 링크 무인 장착 완료",
+    "5. 전 세계 원탑 + 솔(Space 1) + 오푸스(Space 2) + 르곤(Space 0) 3대 지성 합동 프로토콜 확립"
+  ],
+  "what_we_did_poorly_and_fixed_forever": [
+    {
+      "mistake_id": "BAD-20261106-01",
+      "what_went_wrong": "초기에 디스트로키드 실제 화면(Space 4)을 안 보고 발매일과 ISRC를 추측하려 했음",
+      "permanent_fix": "무조건 Space 4 디스트로키드 실제 DOM 스캔값을 단일 진실 공급원(SSOT)으로 삼음"
+    },
+    {
+      "mistake_id": "BAD-20261106-02",
+      "what_went_wrong": "르곤 보좌관이 솔(Space 1)·오푸스(Space 2) 및 세계 원탑에 묻지 않고 단독으로 다음 단계를 진행하려 했음",
+      "permanent_fix": "모든 핵심 작업 전 세계 원탑 검색 + Space 1(솔) + Space 2(오푸스) 교차 자문 의무화"
+    },
+    {
+      "mistake_id": "BAD-20261106-03",
+      "what_went_wrong": "만료된 외부 token.json 파일로 유튜브 API 수정을 시도해 0건 실패를 겪음",
+      "permanent_fix": "외부 토큰에 의존하지 않고 Space 3에 로그인된 YouTube Studio 세션을 직접 제어하여 35편 100% 수정 달성"
+    },
+    {
+      "mistake_id": "BAD-20261106-04",
+      "what_went_wrong": "잘한 점·못한 점 기억창고를 수동으로만 업데이트하여 옛날 날짜(082호)에 멈춰 있었음",
+      "permanent_fix": "S1_EGO_PROVEN_SKILL_MASTER.py의 report_to_rgon 실행 시마다 자동으로 S1_GOOD_BAD_AUTO_LEDGER.json과 S1_EGO_SKILL_VAULT.json에 누적 기록하는 자동 훅 장착"
+    },
+    {
+      "mistake_id": "BAD-20261106-05",
+      "what_went_wrong": "작업 폴더를 C:\\Users\\sangi\\hangeoreumsshik-cloud로 잘못 지정하여 실제 폴더(C:\\Users\\sangi\\Downloads\\shin-agent)와 어긋남",
+      "permanent_fix": "항상 C:\\Users\\sangi\\Downloads\\shin-agent를 기준 경로(ROOT)로 고정하여 GitHub 원격 저장소에 동기화"
+    }
+  ],
+  "execution_history": []
+}

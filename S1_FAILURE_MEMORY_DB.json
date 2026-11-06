@@ -1,7 +1,7 @@
 {
-  "version": "1.8.0-AUTO-ACTIVE",
+  "version": "2.0.0-AUTO-HOOKED",
   "directive_id": "RGON_DIR_CONNECT_COMMUNICATE_OMNIPOTENT_046",
-  "updated_at": "2026-11-05T23:53:49.485892+09:00",
+  "updated_at": "2026-11-06T19:14:56.549634",
   "policy": {
     "principle": "encode-lessons-in-structure & verification-before-completion",
     "enforcement_script": "s1_qm_structure_linter.py",

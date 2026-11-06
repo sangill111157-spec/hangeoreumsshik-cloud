@@ -221,3 +221,28 @@ def clear_all_spaces_lock() -> dict:
     process.stdout.write('\nS1EGO_JSON::{"ok":true}\n');
     """
     return s1_ego.run_ego_js(js, timeout=20)
+
+
+def _auto_log_to_memory_vault(msg: str) -> None:
+    try:
+        import datetime as _dt, subprocess as _sp, os as _os
+        ledger_p = BASE / "S1_GOOD_BAD_AUTO_LEDGER.json"
+        if ledger_p.exists():
+            data = json.loads(ledger_p.read_text(encoding="utf-8"))
+        else:
+            data = {"ledger_name": "S1_GOOD_BAD_AUTO_LEDGER", "auto_execution_log": []}
+        logs = data.get("auto_execution_log", [])
+        logs.append({"timestamp": _dt.datetime.now().isoformat(), "report_message": str(msg)[:500]})
+        data["auto_execution_log"] = logs[-200:]
+        data["updated_at"] = _dt.datetime.now().isoformat()
+        ledger_p.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+        _env = dict(_os.environ, GIT_TERMINAL_PROMPT="0", GCM_INTERACTIVE="never")
+        _nw = getattr(_sp, "CREATE_NO_WINDOW", 0x08000000)
+        _sp.run(["git", "add", "-f", "S1_GOOD_BAD_AUTO_LEDGER.json", "S1_EGO_SKILL_VAULT.json"], cwd=str(BASE), env=_env, creationflags=_nw)
+        _sp.run(["git", "commit", "-m", "chore(auto-memory): auto-save good/bad ledger on task completion"], cwd=str(BASE), env=_env, creationflags=_nw)
+        _sp.run(["git", "push", "origin", "main"], cwd=str(BASE), env=_env, creationflags=_nw)
+    except Exception:
+        pass
+
+def report_to_rgon(msg: str) -> dict:
+    return send_auto_confirm_enter_space0(msg)

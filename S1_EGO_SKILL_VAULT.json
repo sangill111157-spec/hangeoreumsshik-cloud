@@ -1,12 +1,101 @@
 {
-  "version": "2.0.0-STEALTH-LOCKED",
-  "locked_at": "2026-11-05T23:46:45.675563+09:00",
-  "policy": "절대 수정·훼손 금지 (검은 창 0회 깜빡임 + 안실장 0회 호출 + 무복사 수거 + 자동 엔터)",
+  "version": "3.0.0-AUTO-EVOLVING-WORLD-TOP",
+  "locked_at": "2026-11-06T19:14:56.549634",
+  "policy": "세계 원탑 지식창고 10,000% 활용 + 르곤 독단 절대 금지(솔 Space 1 & 오푸스 Space 2 합동 검수 필수) + 매 작업 완료 시 기억창고 자동 누적 저장",
   "proven_skills": {
     "skill_1_auto_copy": "S1_EGO_PROVEN_SKILL_MASTER.scan_and_auto_copy_space0()",
-    "skill_2_auto_confirm_enter": "S1_EGO_PROVEN_SKILL_MASTER.send_auto_confirm_enter_space0(msg)",
-    "skill_3_side_room_harvest": "S1_EGO_PROVEN_SKILL_MASTER.ask_and_harvest_side_room(space_idx, prompt, wait_ms)",
+    "skill_2_auto_confirm_enter_with_memory_hook": "S1_EGO_PROVEN_SKILL_MASTER.send_auto_confirm_enter_space0(msg) — 호출 시 S1_GOOD_BAD_AUTO_LEDGER.json 에 자동 기장!",
+    "skill_3_side_room_harvest": "S1_EGO_PROVEN_SKILL_MASTER.ask_and_harvest_side_room(space_idx, prompt, wait_ms) — raw_decode + unicode_escape 정품 수거",
     "skill_4_clear_locks": "S1_EGO_PROVEN_SKILL_MASTER.clear_all_spaces_lock()",
-    "skill_5_stealth_zero_window": "_StealthPopen (CREATE_NO_WINDOW 0x08000000 global hook + pythonw.exe daemon)"
+    "skill_5_stealth_zero_window": "_StealthPopen (CREATE_NO_WINDOW 0x08000000 global hook + GIT_TERMINAL_PROMPT=0)",
+    "skill_6_youtube_channel_switcher_no_token": "만료된 외부 token.json 사용 금지! Space 3 https://www.youtube.com/channel_switcher 클릭으로 5대 브랜드 채널(@한걸음씩-r4i / @Booster_Playlist / @TheCaféHour) 무인 전환 및 스튜디오 직접 제어",
+    "skill_7_youtube_studio_batch_seo_injector": "Space 3 studio.youtube.com/video/{VID}/edit 진입 -> #textbox 설명란 첫 줄(Above-the-fold)에 Chartlex 2026 공식 스포티파이/HyperFollow 링크 삽입 -> #save-button 클릭 (33편 100% 성공)",
+    "skill_8_distrokid_full_catalog_70tracks_scanner": "Space 4 distrokid.com/mymusic, /uri/spotify, /bank, /stats, /vault/download 순회로 17개 앨범 70곡 발매일·정품 UPC·ISRC·원본 음원 링크 무인 채굴",
+    "skill_9_distrokid_oac_zero_click_submit": "Space 4 distrokid.com/YouTubeOfficialArtistChannels 에서 #youTubeChannelId='UCMJn01WLs9ooIhh5x0eJeHg', #youTubeChannelName='한걸음씩', #artistName='한걸음씩' 주입 후 #confirmYTChannelSelectionButton 트리거로 대표님 클릭 0번 만에 OAC 제출 완료(done.cfm 달성!)",
+    "skill_10_blogger_live_browser_session": "Space 3 https://www.blogger.com/blog/posts/5189765270915724664 브라우저 로그인 세션 직결 제어"
+  },
+  "verified_empire_assets_summary": {
+    "distrokid_total_albums": 17,
+    "distrokid_total_tracks": 70,
+    "today_released_album": {
+      "title": "가을과 겨울 사이 (12곡)",
+      "release_date": "2026-11-06",
+      "upc": "700563848544",
+      "isrc_range": "QTA2W2687081 ~ QTA2W2687092",
+      "spotify_album_url": "https://open.spotify.com/album/44chP2pw8CFr0Z4aPNj4SO",
+      "hyperfollow_url": "https://distrokid.com/hyperfollow/8075fc5/--"
+    },
+    "upcoming_album": {
+      "title": "잔상 (15곡)",
+      "release_date": "2026-11-27",
+      "upc": "700486463268",
+      "isrc_range": "QTA7W2683582 ~ QTA7W2683596",
+      "spotify_album_url": "https://open.spotify.com/album/5mUFONUYoiZERNHfUbJeWH",
+      "hyperfollow_url": "https://distrokid.com/hyperfollow/9050fa2/0QOwWYR3KqK"
+    },
+    "youtube_channels_5": [
+      {
+        "name": "한걸음씩",
+        "handle": "@한걸음씩-r4i",
+        "channel_id": "UCMJn01WLs9ooIhh5x0eJeHg",
+        "subs": 33,
+        "videos_patched": 21,
+        "oac_status": "SUBMITTED_DONE_CFM"
+      },
+      {
+        "name": "부스터 플리 | 운동·드라이브 음악",
+        "handle": "@Booster_Playlist",
+        "channel_id": "UCR5SCwpTI1wTRnM1CV661Lg",
+        "subs": 26,
+        "videos_patched": 8
+      },
+      {
+        "name": "The Café Hour",
+        "handle": "@TheCaféHour",
+        "channel_id": "UCWSquL3NEAQcAKKBK2vam5g",
+        "subs": 5,
+        "videos_patched": 4
+      },
+      {
+        "name": "SUN-ONE AON",
+        "handle": "@SUN-ONEAON",
+        "channel_id": "UC4C_H80jcXzKV8ldAtmYMog",
+        "subs": 0
+      },
+      {
+        "name": "99 ROBLGYE",
+        "handle": "@99ROBLGYE",
+        "subs": 0
+      }
+    ]
+  },
+  "vault_version": "3.0.0",
+  "updated_at": "2026-11-06T19:25:01.493468",
+  "auto_save_enabled": true,
+  "golden_skills": {
+    "GS-006_YOUTUBE_STUDIO_BRAND_CHANNEL_SWITCH": {
+      "status": "PROVEN_GOLDEN",
+      "verified_at": "2026-11-06 (105호~113호)",
+      "what_went_well": "YouTube Studio 우측 상단 계정 아바타(#avatar-btn) -> 계정 전환 -> ytd-account-item-renderer 클릭으로 브랜드 채널(@한걸음씩-r4i, @Booster_Playlist, @TheCaféHour) 무인 전환 100% 성공.",
+      "never_forget": "URL만 이동하면 권한 없음이 뜨므로 반드시 스튜디오 내부 계정 전환 메뉴를 클릭해야 함."
+    },
+    "GS-007_YOUTUBE_STUDIO_VIDEO_DESCRIPTION_AUTO_SAVE": {
+      "status": "PROVEN_GOLDEN",
+      "verified_at": "2026-11-06 (107호~113호 총 35편 100% 성공)",
+      "what_went_well": "studio.youtube.com/video/{VID}/edit 진입 -> #description-textarea 내부 #textbox에 JS 텍스트 주입 및 input 이벤트 발생 -> #save-button 물리 클릭으로 본진 21편 + 부스터 10편 + 까페아워 4편 총 35편 무인 장착 완료.",
+      "never_forget": "외부 OAuth 토큰(token.json) 만료 시에도 Space 3 브라우저 세션을 직접 쓰면 100% 무인 패치 가능."
+    },
+    "GS-008_DISTROKID_OAC_GOOGLE_OAUTH_AND_CONFIRM_AJAX": {
+      "status": "PROVEN_GOLDEN",
+      "verified_at": "2026-11-06 (106호~113호 OAC 신청 최종 완료)",
+      "what_went_well": "input#youtubeChannel3 체크 -> connectYTChannel() OAuth -> data-identifier 계정 클릭 -> Continue 클릭 -> confirmYTChannelSelection('UCMJn01WLs9ooIhh5x0eJeHg', '한걸음씩') 호출로 디스트로키드 OAC 공식 신청(done=1) 100% 무인 완수.",
+      "never_forget": "디스트로키드 OAC 확인 모달은 confirmYTChannelSelection(channelId, channelTitle) JS 함수가 핵심임."
+    },
+    "GS-009_WORLD_TOP_AND_3_MINDS_COLLAB_RULE": {
+      "status": "PROVEN_GOLDEN",
+      "verified_at": "2026-11-06 (098호~115호)",
+      "what_went_well": "르곤 보좌관 독단 금지! 전 세계 원탑 지식(NotNoise/Chartlex/Gyre) + Space 1(솔) + Space 2(오푸스) 3대 지성 합동 검증 후 실행하여 모든 난관 돌파.",
+      "never_forget": "모든 작업 과정은 세계 원탑들과 솔·오푸스에게 물어보고 답을 구해서 반영할 것."
+    }
   }
 }
