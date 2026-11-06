@@ -1,0 +1,31 @@
+{
+  "directive_id": "RGON_DIR_NEW_FOUNDATION_156",
+  "executed_at": "2026-11-07T01:13:57.829200",
+  "result": {
+    "ok": true,
+    "create_btn": {
+      "found": true,
+      "x": 1787,
+      "y": 32
+    },
+    "upload_menu": {
+      "found": true,
+      "x": 1720,
+      "y": 78,
+      "text": "동영상 업로드"
+    },
+    "inject": {
+      "ok": true,
+      "size_bytes": 5457925
+    },
+    "meta": {
+      "boxes_count": 2,
+      "not_kids": true,
+      "video_url": "https://youtube.com/shorts/tSpM3kI-MHI"
+    },
+    "save": {
+      "private_set": true,
+      "done_clicked": true
+    }
+  }
+}
