@@ -1,0 +1,86 @@
+{
+  "directive_id": "RGON_DIR_NEW_FOUNDATION_128",
+  "updated_at": "2026-11-06T20:34:02.072766",
+  "anti_amnesia_protocol": {
+    "rule_1_dispatch_format": "반드시 PowerShell @' ... # [S1_AUTO_DISPATCH_TO_ANCHONGRI] ... '@ | Set-Content -Path run_XXX.py -Encoding UTF8; python run_XXX.py 형식만 사용",
+    "rule_2_base_dir": "C:\\Users\\sangi\\Downloads\\shin-agent",
+    "rule_3_no_unapproved_code": "대표님과 먼저 깊이 사고하고 대화한 뒤 '승인' 명령이 떨어질 때만 지시서 출력 (지시서 남발 절대 금지)",
+    "rule_4_three_minds_mandatory": "세계 원탑 검색 + 솔(Space 1) + 오푸스(Space 2) 합동 검증 필수 (르곤 독단 절대 금지)",
+    "rule_5_echo_beacon": "send_auto_confirm_enter_space0 호출 시 [MEM_ANCHOR] 태그가 항상 함께 찍혀 컨텍스트 압축 후에도 100% 기억 유지"
+  },
+  "capcut_space4_live_audit": {
+    "ok": true,
+    "ai_gen": {
+      "url": "https://www.capcut.com/tools/ai-video-generator",
+      "title": "AI Video Generator with Seedance 2.5：Make AI Videos Online | CapCut",
+      "text": "Products Features AI models Integrations Solutions Discover Pricing Try online Seedance 2.5 Download Home AI Tools Free AI Video Generator Free AI Video Generator & AI Video Maker Powered by Seedance 2.5 Create AI-generated videos online with CapCut's free AI video generator, powered by Seedance 2.5. Begin with a script or reference image, configure your settings, preview the generated output, and edit your video before export. Upload image Video Generate AI Video 🏃‍♂️ dynamic fitness app promo video ✈️ japan travel memory video Key features of CapCut's Seedance 2.5 AI video generator Create AI videos with Seedance 2.5 digital avatars CapCut's Seedance 2.5 AI video generator comes with digital avatar options for your video projects. You may explore varied character styles powered by Seedance 2.5 and other AI character styles to build expressive avatars suited to different scenarios. Use these digital avatars to create a video from a script. Review the avatar and voiceover choices in your workflow, then edit the generated result before export. Try Online Download Now Build AI videos starting from Seedance 2.5 AI video templates Seedance 2.5 AI templates help you set up your video s",
+      "buttons": [
+        "Products",
+        "Features",
+        "AI models",
+        "Integrations",
+        "Solutions",
+        "Discover",
+        "Pricing",
+        "Try online",
+        "Download",
+        "Home",
+        "AI Tools",
+        "AI video generator",
+        "Upload image",
+        "Video",
+        "Generate AI Video",
+        "🏃‍♂️ dynamic fitness app promo video",
+        "✈️ japan travel memory video",
+        "Try Online",
+        "Download Now",
+        "Dreamina Seedance 2.5",
+        "AI anime generator",
+        "Image Inpainting.",
+        "Monthly up to 70% off",
+        "Yearly up to 29% off",
+        "Get started"
+      ]
+    },
+    "my_edit": {
+      "url": "https://www.capcut.com/my-edit?start_tab=video",
+      "is_logged_in": true,
+      "badges": [
+        "8 8 5 5 0 0 Renew",
+        "8 8 5 5 0 0",
+        "8 8",
+        "8",
+        "5 5",
+        "5",
+        "0 0",
+        "0",
+        "Director"
+      ],
+      "text": "Create new Home Create with AI Design Studio Video Studio Video Editor Voice Studio All tools Templates & projects Templates Smart Insights Library Share and schedule Spaces U user2810074079957’s space Default space Invite members Create new space New Feature One New features 1 8 8 5 5 0 0 Renew Free credits New 1 Powered by CapCut AI Credit discount on Seedance 2.0 Mini Video Design Auto Skills Agent mode Choose between Standard and Director modes to create videos of different purposes and genres. Got it Director Popular features View all Video Editor Timeline-based editing Try it Video Studio Seedance 2.5 Try it Design Studio AI-powered design agent Try it Text to speech 100+ realistic voices Try it Generate captions Supports 20+ languages Try it Remove background Auto BG removal Try it Long video to shorts Get highlights as shorts Try it Inspiration Social media Free effects Matchday ⚽ Product effects Portrait effects Effects Posters Branding Photos Ramadan Cinematography ai-effect Funny flying ai-effect Miniature Crew ai-effect Talking Object ai-effect Miniature Film ai-effect Product Hero 360 ai-effect Sea Beast Ride ai-effect Fresco Bloom ai-effect Arena Reveal ai-effect Mythic Bottle ai-effect Lovebirds Selfie What’s new Animate your designs Bring your logos, posters, and ads to life Make your static design move in just one click and make more precise edits in Video Editor. Try now"
+    }
+  },
+  "sol_space1_advice": {
+    "ok": true,
+    "space": 1,
+    "harvested": {
+      "snippet_count": 52,
+      "latest_texts": [
+        "{ \"판정\": \"실측 데이터 부족으로 현재 캡컷 계정의 이용 가능 기능을 확정할 수 없습니다.\", \"증빙_해석\": { \"ok\": true, \"capcut_audit\": [], \"의미\": \"성공 표시만 있고 감사 항목이 비어 있습니다. 로그인·유료 구독·기능 활성화·제작 성공을 입증하지 않습니다.\" }, \"현재_상태\": { \"로그인\": \"미확인\", \"요금제\": \"미확인\", \"Seedance_2_0_이용_가능_여부\": \"미확인\", \"크레딧_잔액_및_만료일\": \"미확인\", \"생성_비용_및_한도\": \"미확인\", \"해상도_워터마크_내보내기_제한\": \"미확인\", \"소재별_상업적_이용_조건\": \"미확인\" }, \"고부가가치_작업_후보\": [ { \"작업\": \"기존 MV의 세로 쇼츠 재편집\", \"활용\": \"타이틀곡 ‘오늘은 여기까지’의 후렴·핵심 가사 중심으로 서로 다른 도입부의 쇼츠 제작\", \"필요_확인\": \"세로 편집·자막·내보내기 가능 여부\", \"우선순위\": 1 }, { \"작업\": \"가사 비디오\", \"활용\": \"정식 음원과 검수된 가사를 동기화해 전곡 감상용 영상 제작\", \"필요_확인\": \"텍스트 타이밍·사용 글꼴 및 효과의 이용 조건\", \"우선순위\": 2 }, { \"작업\": \"롱폼 MV 고도화\", \"활용\": \"기존 영상의 장면 전환·색감·가사 가독성을 개선하고 음원과 영상 동기화 점검\", \"필요_확인\": \"프로젝트 편집·원본 해상도·내보내기 제한\", \"우선순위\": 3 }, { \"작업\": \"한국어·영어 자막 버전\", \"활용\": \"가사 번역을 검수해 해외 시청자용 쇼츠와 MV 제작\", \"필요_확인\": \"자막 편집·번역 기능 제공 여부 및 추가 비용\", \"우선순위\": 4 }, { \"작업\": \"정규 2집 ‘잔상’ 예고편\", \"활용\": \"발매 예고·사전 저장 안내·곡별 티저 제작\", \"필요_확인\": \"공개 가능한 음원·영상 소재와 확정된 발매 정보\", \"우선순위\": 5 }, { \"작업\": \"생성형 영상으로 MV 부족 장면 보강\", \"활용\": \"곡 분위기에 맞는 짧은 연결 장면만 선별 생성\", \"필요_확인\": \"Seedance 2.0 실제 제공 여부·크레딧·생성 단가·출력 제한·상업적 이용 조건\", \"우선순위\": 6 } ], \"최우선_활용법\": \"이미 제작한 MV와 40초 쇼츠를 우선 검수하십시오. 앞서 표시된 NoneMB는 파일 크기 증빙이 아니므로 실제 파일 존재·용량·해상도·영상 길이·음성 재생부터 확인하고, 기존 소재 재편집이 가능한지 짧은 시험 내보내기로 검증한 뒤 쇼츠 파생 제작을 진행하십시오.\", \"추가_실측_항목\": [ \"계정 화면의 로그인 상태와 요금제명\", \"크레딧 잔액·만료일\", \"AI 영상 생성 화면의 실제 모델 목록\", \"생성 직전 표시되는 크레딧 차감량\", \"내보내기 화면의 해상도·워터마크·유료 요소 경고\", \"사용할 음원·글꼴·템플릿·생성 영상의 상업적 이용 조건\" ], \"실행_원칙\": \"확인 전에는 유료 기능 사용 가능이나 무제한 생성을 전제하지 않으며, 결제·구독 변경·크레딧 소모 작업은 대표님 승인 후 진행합니다.\" }",
+        "{ \"CapCut_판정\": \"Space 4에서 Seedance 2.5 AI 영상 생성 안내 페이지 접근은 확인됐지만, 제출 내용이 잘려 있어 계정별 사용 권한이나 전체 기능을 확정할 수 없습니다.\", \"페이지에_안내된_기능\": [ \"스크립트 또는 참조 이미지 기반 AI 영상 생성\", \"생성 설정 구성\", \"생성 결과 미리보기\", \"생성 영상 편집 및 내보내기\", \"디지털 아바타 기반 영상 제작\", \"아바타·음성 해설 선택\", \"AI 영상 템플릿 활용\" ], \"계정별_미확인\": [ \"로그인 여부와 구독 요금제\", \"Seedance 2.5 실제 생성 권한\", \"크레딧 잔액·차감량·무료 한도\", \"출력 길이·해상도·워터마크\", \"소재별 상업적 이용 조건\" ], \"최우선_활용\": \"기존 MV·쇼츠 편집과 가사 영상 제작에 필요한 편집기 기능부터 확인하고, AI 생성은 사용 권한·비용·이용 조건 확인 후 대표님 승인하에 짧은 장면으로 시험하십시오.\", \"기억상실_방지_핵심수칙\": \"대화 기억에만 의존하지 말고 단일 기준 원장에 목표·확정 결정·작업 상태·증빙 경로·파일 해시·다음 행동을 즉시 저장하며, 작업 시작·대화 전환 때 최신 원장을 다시 읽고 근거가 없으면 미확인으로 처리하십시오.\" }",
+        "{ \"CapCut_판정\": \"Space 4에서 Seedance 2.5 AI 영상 생성 안내 페이지 접근은 확인됐지만, 제출 내용이 잘려 있어 계정별 사용 권한이나 전체 기능을 확정할 수 없습니다.\", \"페이지에_안내된_기능\": [ \"스크립트 또는 참조 이미지 기반 AI 영상 생성\", \"생성 설정 구성\", \"생성 결과 미리보기\", \"생성 영상 편집 및 내보내기\", \"디지털 아바타 기반 영상 제작\", \"아바타·음성 해설 선택\", \"AI 영상 템플릿 활용\" ], \"계정별_미확인\": [ \"로그인 여부와 구독 요금제\", \"Seedance 2.5 실제 생성 권한\", \"크레딧 잔액·차감량·무료 한도\", \"출력 길이·해상도·워터마크\", \"소재별 상업적 이용 조건\" ], \"최우선_활용\": \"기존 MV·쇼츠 편집과 가사 영상 제작에 필요한 편집기 기능부터 확인하고, AI 생성은 사용 권한·비용·이용 조건 확인 후 대표님 승인하에 짧은 장면으로 시험하십시오.\", \"기억상실_방지_핵심수칙\": \"대화 기억에만 의존하지 말고 단일 기준 원장에 목표·확정 결정·작업 상태·증빙 경로·파일 해시·다음 행동을 즉시 저장하며, 작업 시작·대화 전환 때 최신 원장을 다시 읽고 근거가 없으면 미확인으로 처리하십시오.\" }"
+      ]
+    }
+  },
+  "opus_space2_audit": {
+    "ok": true,
+    "space": 2,
+    "harvested": {
+      "snippet_count": 50,
+      "latest_texts": [
+        "Copy\n{\n  \"audit_status\": \"판정 불가: 실측 결과가 비어 있습니다(capcut_audit: []). ok:true인데 항목이 0건이라는 것은 측정 스크립트가 아무것도 수거하지 못했다는 뜻이며, '문제 없음'으로 볼 수 없습니다. 대표님의 실제 요금제(Free/Standard/Pro), 체험판 여부, 자동결제 등록 여부를 확인하지 못했습니다. 그래서 아래 내용은 모두 'Free 계정이라고 가정한' 안전 범위입니다.\",\n  \"safe_scope_without_charge\": \"① 컷 편집, 자르기, 순서 배치, 기본 전환 효과, 직접 입력한 자막처럼 'Pro' 표시가 없는 기능만 씁니다. 무료 플랜은 프로젝트에 무료 소재만 들어 있으면 1080p로 워터마크 없이 내보낼 수 있습니다. Pro 표시가 붙은 템플릿, 효과, 사운드가 하나라도 들어가면 결제 화면이 뜨거나 워터마크가 붙습니다(출처: https://pixflow.net/blog/capcut-pro-price-worth-it/). ② 음원은 CapCut 라이브러리를 쓰지 않고, 126호에서 검증한 대표님의 정품 마스터(AAC 320k/48kHz)만 넣습니다. ③ 내보내기 직전에 타임라인에 'Pro' 배지가 0개인지 대표님이 눈으로 확인합니다. ④ 'Pro 무료 체험'이나 '무료로 시작' 버튼은 누르지 않습니다. 체험이 끝나면 자동결제로 넘어갈 수 있기 때문입니다.\",\n  \"watermark_check\": \"내보낸 MP4에서 ffmpeg로 첫 프레임, 마지막 프레임, 1초당 1프레임을 추출해 워터마크(로고, 'CapCut' 글씨)와 끝부분 CapCut 엔딩 클립이 없는지 검수합니다. 엔딩 클립은 타임라인 끝에 자동으로 붙는 경우가 있으므로 편집 단계에서 삭제했는지도 확인합니다. 화면 속 글씨 0% 검수와 같은 절차에 묶어서 진행합니다.\",\n  \"commercial_rights_ypp_check\": \"① CapCut 음악과 효과음은 'CapCut 소재 라이선스'가 적용됩니다(출처: https://www.capcut.com/clause/material-license-agreement). 그런데 '상업적 이용 가능'이라는 표시가 TikTok과 CapCut 안에서만 유효하고 YouTube에서는 클레임이 걸린다는 지적이 있습니다(출처: https://www.foximusic.com/royalty-free-music-licensing-for-capcut-videos/). 실제로 CapCut 음악 때문에 YouTube 저작권 클레임을 받은 사례도 보고되어 있습니다(출처: https://www.reddit.com/r/CapCut/comments/1kzcjga/im_getting_copyright_claimed_from_using_music/). 따라서 YPP를 목표로 하는 영상에는 CapCut 음원과 효과음을 0개 사용합니다. ② CapCut 이용약관상 업로드한 사용자 콘텐츠에 대해 CapCut에 이용 라이선스가 부여됩니다(출처: https://www.capcut.com/clause/terms-of-service). 발매 전 음원(11/27 <잔상>)은 CapCut 클라우드에 올리지 않고 로컬 편집만 합니다. ③ CapCut AI 기능(자동 영상, AI 캐릭터 등)으로 만든 사실적인 장면이 있으면 YouTube에서 합성 콘텐츠 공개를 '예'로 설정합니다. ④ 업로드는 비공개로 먼저 올리고, Studio의 저작권 확인 결과가 '문제 없음'일 때만 공개합니다. DistroKid Content ID 허용 목록에 @한걸음씩-r4i가 등록되어 있는지 선행 확인합니다.\",\n  \"required_resubmission\": \"대표님이 CapCut 계정 화면에서 직접 다음을 확인해 1줄씩 제출해 주십시오. 요금제 이름, 체험판 또는 자동결제 등록 여부, 결제 수단 등록 여부입니다. 그리고 감사 스크립트가 빈 배열을 반환한 원인(로그인 안 됨, 셀렉터 불일치, 페이지 미로드 중 무엇인지)을 1줄로 보고해 주십시오. 결제 화면은 에고라이트로 자동 조작하지 않습니다.\",\n  \"verdict\": \"CONDITIONAL: Free 소재만 쓰고, CapCut 음원 0개, 워터마크·엔딩 클립 검수를 통과하는 조건에서 편집 사용을 승인합니다. 요금제 실측값이 제출될 때까지 결제나 체험 관련 동작은 전면 금지합니다. 이 의견은 법률 자문이 아니며 실행 명령도 아닙니다. 최종 결재는 대표님 권한입니다.\"\n}",
+        "Copy\n{\n  \"capcut_diagnosis\": {\n    \"verdict\": \"요금제와 로그인 상태 모두 판정할 수 없습니다.\",\n    \"reason\": \"이번에 측정한 페이지(https://www.capcut.com/tools/ai-video-generator)는 계정 화면이 아니라 누구나 볼 수 있는 Seedance 2.5 홍보 페이지입니다. 수집된 글자는 상단 메뉴('Products', 'Pricing', 'Try online', 'Download')와 광고 문구가 전부이고, 계정 이름, 요금제, 크레딧 잔량, 결제 상태는 하나도 없습니다. 오히려 'Try online'과 'Download' 같은 비로그인용 안내가 보이는 것으로 보아, Space 4가 로그인하지 않은 상태로 열렸을 가능성이 있습니다. ego Space는 서로 분리된 브라우저 환경이라, 대표님이 평소 쓰시는 크롬의 로그인 상태가 그대로 넘어간다는 보장이 없습니다. 또 수집한 글자가 중간('AI templates help you set up your video s')에서 잘려 있으니, 다음 보고에는 잘렸다는 표시(truncated)도 남겨야 합니다.\",\n    \"next_step\": \"결제나 요금제",
+        "Copy\n{\n  \"capcut_diagnosis\": {\n    \"verdict\": \"요금제와 로그인 상태 모두 판정할 수 없습니다.\",\n    \"reason\": \"이번에 측정한 페이지(https://www.capcut.com/tools/ai-video-generator)는 계정 화면이 아니라 누구나 볼 수 있는 Seedance 2.5 홍보 페이지입니다. 수집된 글자는 상단 메뉴('Products', 'Pricing', 'Try online', 'Download')와 광고 문구가 전부이고, 계정 이름, 요금제, 크레딧 잔량, 결제 상태는 하나도 없습니다. 오히려 'Try online'과 'Download' 같은 비로그인용 안내가 보이는 것으로 보아, Space 4가 로그인하지 않은 상태로 열렸을 가능성이 있습니다. ego Space는 서로 분리된 브라우저 환경이라, 대표님이 평소 쓰시는 크롬의 로그인 상태가 그대로 넘어간다는 보장이 없습니다. 또 수집한 글자가 중간('AI templates help you set up your video s')에서 잘려 있으니, 다음 보고에는 잘렸다는 표시(truncated)도 남겨야 합니다.\",\n    \"next_step\": \"결제나 요금제"
+      ]
+    }
+  }
+}

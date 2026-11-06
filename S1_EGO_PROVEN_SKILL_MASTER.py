@@ -87,6 +87,8 @@ def scan_and_auto_copy_space0(do_reload: bool = False) -> dict:
     return s1_ego.run_ego_js(js, timeout=25)
 
 def send_auto_confirm_enter_space0(confirm_text: str) -> dict:
+    if 'MEM_ANCHOR::' not in str(confirm_text):
+        confirm_text = str(confirm_text) + ' [MEM_ANCHOR::포맷=@\'..\'@ Set-Content run_XXX.py|BASE=Downloads\\shin-agent|3대지성합동필수|승인전코드금지]'
     """
     [스킬 2: 60초/즉시 자동 '확인' 타이핑 + 진짜 물리 Enter 전송]
     """
