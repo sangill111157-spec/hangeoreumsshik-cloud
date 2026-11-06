@@ -70,7 +70,7 @@
     ]
   },
   "vault_version": "3.0.0",
-  "updated_at": "2026-11-06T19:25:01.493468",
+  "updated_at": "2026-11-07T00:39:09.656111",
   "auto_save_enabled": true,
   "golden_skills": {
     "GS-006_YOUTUBE_STUDIO_BRAND_CHANNEL_SWITCH": {
@@ -105,5 +105,6 @@
     "Space_3": "YouTube Studio & Blogger (5대 채널 전환)",
     "Space_4": "DistroKid 전용 (절대 타 사이트로 덮어쓰기 금지!)",
     "Space_5": "CapCut 전용 (대표님 로그인 완료 · Seedance 2.0 Mini / 850 크레딧)"
-  }
+  },
+  "IMMUTABLE_RULE_00_MANUAL_FIRST": "지금부터 사용하는 모든 작업에 항시 선(先) 사용방법(현시점 공식 사용설명서 및 최신 스킬) 마스터 후 도구 사용을 실시한다. 짐작·추측 조작 절대 금지!"
 }

@@ -1,6 +1,6 @@
 {
   "directive_id": "RGON_DIR_NEW_FOUNDATION_128",
-  "updated_at": "2026-11-06T20:34:02.072766",
+  "updated_at": "2026-11-07T00:39:09.661954",
   "anti_amnesia_protocol": {
     "rule_1_dispatch_format": "반드시 PowerShell @' ... # [S1_AUTO_DISPATCH_TO_ANCHONGRI] ... '@ | Set-Content -Path run_XXX.py -Encoding UTF8; python run_XXX.py 형식만 사용",
     "rule_2_base_dir": "C:\\Users\\sangi\\Downloads\\shin-agent",
@@ -82,5 +82,6 @@
         "Copy\n{\n  \"capcut_diagnosis\": {\n    \"verdict\": \"요금제와 로그인 상태 모두 판정할 수 없습니다.\",\n    \"reason\": \"이번에 측정한 페이지(https://www.capcut.com/tools/ai-video-generator)는 계정 화면이 아니라 누구나 볼 수 있는 Seedance 2.5 홍보 페이지입니다. 수집된 글자는 상단 메뉴('Products', 'Pricing', 'Try online', 'Download')와 광고 문구가 전부이고, 계정 이름, 요금제, 크레딧 잔량, 결제 상태는 하나도 없습니다. 오히려 'Try online'과 'Download' 같은 비로그인용 안내가 보이는 것으로 보아, Space 4가 로그인하지 않은 상태로 열렸을 가능성이 있습니다. ego Space는 서로 분리된 브라우저 환경이라, 대표님이 평소 쓰시는 크롬의 로그인 상태가 그대로 넘어간다는 보장이 없습니다. 또 수집한 글자가 중간('AI templates help you set up your video s')에서 잘려 있으니, 다음 보고에는 잘렸다는 표시(truncated)도 남겨야 합니다.\",\n    \"next_step\": \"결제나 요금제"
       ]
     }
-  }
+  },
+  "IMMUTABLE_RULE_00_MANUAL_FIRST": "지금부터 사용하는 모든 작업에 항시 선(先) 사용방법(현시점 공식 사용설명서 및 최신 스킬) 마스터 후 도구 사용을 실시한다. 짐작·추측 조작 절대 금지!"
 }
