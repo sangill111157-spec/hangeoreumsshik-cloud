@@ -209,3 +209,15 @@ def ask_and_harvest_side_room(space_idx: int, prompt_text: str = "", wait_ms: in
     }}
     """
     return s1_ego.run_ego_js(js, timeout=55)
+
+def clear_all_spaces_lock() -> dict:
+    js = """
+    for (const idx of [0, 1, 2, 3]) {
+      try {
+        const t = await claimTaskSpace(idx).catch(() => null);
+        if (t && typeof t.finish === 'function') await t.finish({ keep: [] });
+      } catch (_) {}
+    }
+    process.stdout.write('\nS1EGO_JSON::{"ok":true}\n');
+    """
+    return s1_ego.run_ego_js(js, timeout=20)
