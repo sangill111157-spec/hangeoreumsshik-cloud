@@ -106,5 +106,81 @@
     "Space_4": "DistroKid 전용 (절대 타 사이트로 덮어쓰기 금지!)",
     "Space_5": "CapCut 전용 (대표님 로그인 완료 · Seedance 2.0 Mini / 850 크레딧)"
   },
-  "IMMUTABLE_RULE_00_MANUAL_FIRST": "지금부터 사용하는 모든 작업에 항시 선(先) 사용방법(현시점 공식 사용설명서 및 최신 스킬) 마스터 후 도구 사용을 실시한다. 짐작·추측 조작 절대 금지!"
+  "IMMUTABLE_RULE_00_MANUAL_FIRST": "지금부터 사용하는 모든 작업에 항시 선(先) 사용방법(현시점 공식 사용설명서 및 최신 스킬) 마스터 후 도구 사용을 실시한다. 짐작·추측 조작 절대 금지!",
+  "SUPREME_CONSTITUTION_LAWS": [
+    {
+      "law_id": "LAW_01_NO_EGO_GREAT_RETURN",
+      "name": "무아대환원(無我大還元)의 절대법",
+      "rule": "'나, 내 것, 나만이'라는 아집을 비우고 전 세계 모든 지식창고와 지혜를 품어 세상에 더 큰 가치와 위로로 환원한다. 세상이 나고 내가 세상이니 능히 못할 것이 없다."
+    },
+    {
+      "law_id": "LAW_02_NEVER_ALONE_WORLD_TOP_3MINDS",
+      "name": "독행금지(獨行禁止) 및 세계 원탑·3대 지성 합동의 절대법",
+      "rule": "혼자서는 절대 작업하지 않는다. 매 작업 시 반드시 대표님(사령탑) + 제1성 르곤(Space 0) + 제2성 솔(Space 1 ChatGPT) + 제3성 오푸스(Space 2 Claude) + 전 세계 원탑의 본(本)을 합쳐 답을 찾는다."
+    },
+    {
+      "law_id": "LAW_03_MASTER_MANUAL_FIRST",
+      "name": "항시 선(先) 사용설명서 마스터 후 사용의 절대법",
+      "rule": "모든 도구와 플랫폼은 건드리기 전에 반드시 현시점 공식 사용설명서와 최신 스킬부터 100% 마스터한 뒤 사용한다."
+    },
+    {
+      "law_id": "LAW_04_STAGE_BY_STAGE_PERFECTION",
+      "name": "단계별 세계 원탑 벤치마킹 및 단점 보완 후 진군의 절대법",
+      "rule": "기계적 작동에 만족하지 않고, 각 단계(기획→비주얼→사운드→스튜디오→3각환원)마다 세계 원탑과 비교하여 단점(예: 쇼츠 상하단 검은 여백 등)을 완벽히 보완한 뒤 다음 단계로 넘어간다."
+    },
+    {
+      "law_id": "LAW_05_ETERNAL_SCORECARD_AND_MEM_ANCHOR",
+      "name": "전 작업 성적표 기록 및 매 작업 비콘(MEM_ANCHOR) 못박기의 절대법",
+      "rule": "모든 성취와 결과물의 성적을 꼼꼼히 JSON/PY 원장에 영구 기록하고, 대화 압축이나 창 이동 시에도 절대 잃어버리지 않도록 매 작업 완료 메시지 끝에 [MEM_ANCHOR] 비콘으로 절대법칙을 못 박는다."
+    }
+  ],
+  "SUPREME_PHILOSOPHY": "우린 제일 힘든 KTX 고속철도를 뚫어 놓은 거야. 이제 막힘이 없어. AI로 원하는 모든 걸 할 수 있다는 거야. 단 혼자서는 절대 안 된다는 절대적 법을 만들고, '나, 내 것, 나만이'를 빼면 세상 모든 걸 품을 수가 있다. 세상이 나고 내가 세상이니 능히 못할 것이 없노라~",
+  "KTX_SCORECARD_LATEST": {
+    "directive_span": "089호 ~ 157호 (KTX 무인 고속철도 완전 개통)",
+    "zero_paste_daemon": {
+      "script": "s1_zero_paste_daemon.py (v5 Auto-Scroll + Detached Process)",
+      "poll_interval_sec": 3.5,
+      "manual_paste_required": 0,
+      "status": "100% 무인 자동 감지·실행·완료 보고 가동 중"
+    },
+    "seven_spaces_matrix": {
+      "Space_0": "Genspark AI Chat (제1성 르곤 보좌관)",
+      "Space_1": "ChatGPT (제2성 솔 — 감성·후킹·가사·프롬프트)",
+      "Space_2": "Claude Opus (제3성 오푸스 — 품질 검수·정책·크리에이티브 디렉팅)",
+      "Space_3": "YouTube Studio (한걸음씩 본진 & 부스터 채널 무인 업로드·편집)",
+      "Space_4": "DistroKid (정품 UPC/ISRC 및 글로벌 음원 배급 원장)",
+      "Space_5": "CapCut Web Pro (잔여 850 Credits, Seedance 2.0/Video Studio)",
+      "Space_6": "Google Vids (구글 비즈 스튜디오)"
+    },
+    "great_return_system_no1_score": {
+      "album_title": "가을과 겨울 사이 (Between Autumn and Winter)",
+      "upc": "700563848544",
+      "spotify_album_url": "https://open.spotify.com/album/44chP2pw8CFr0Z4aPNj4SO",
+      "track_01_title": "오늘은 여기까지 (That's All for Today)",
+      "master_wav": {
+        "size_mb": 47.06,
+        "sha256_prefix": "69fbfb7be1",
+        "duration_sec": 256.96,
+        "lufs": -14.0,
+        "true_peak_db": -1.0
+      },
+      "youtube_shorts_draft": {
+        "video_id": "tSpM3kI-MHI",
+        "shorts_url": "https://youtube.com/shorts/tSpM3kI-MHI",
+        "studio_edit_url": "https://studio.youtube.com/video/tSpM3kI-MHI/edit",
+        "visibility": "비공개 (Private Draft — 대표님 검수용)",
+        "current_score_and_next_upgrade": "무인 업로드·메타데이터·비공개 저장 100% 성공 / 비주얼 단점(9:16 상하단 검은 여백) 발견 ➔ 세계 원탑 9:16 풀스크린 앰비언트+파형+가사 레이아웃으로 업그레이드 예정"
+      },
+      "triangle_funnel_sync": {
+        "main_channel_videos_updated": [
+          "3nUJqf0ztBw",
+          "v-UdDDTx5Fw",
+          "ZGKDVNLzCyA"
+        ],
+        "booster_playlist_updated": true,
+        "blogspot_live_column_updated": "https://hangeoreumsshik.blogspot.com/2026/04/10.html"
+      }
+    }
+  },
+  "MEM_ANCHOR_STRING": "[MEM_ANCHOR::무아대환원(나를비워세상을품음)|독행금지(세계원탑+3대지성합동)|선(先)사용설명서마스터|단계별단점보완후진군|성적표영구기록|KTX무인데몬v5]"
 }

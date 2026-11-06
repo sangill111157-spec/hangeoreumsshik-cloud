@@ -248,3 +248,7 @@ def _auto_log_to_memory_vault(msg: str) -> None:
 
 def report_to_rgon(msg: str) -> dict:
     return send_auto_confirm_enter_space0(msg)
+
+
+def get_memory_beacon():
+    return "[MEM_ANCHOR::무아대환원(나를비워세상을품음)|독행금지(세계원탑+3대지성합동)|선(先)사용설명서마스터|단계별단점보완후진군|성적표영구기록|KTX무인데몬v5]"

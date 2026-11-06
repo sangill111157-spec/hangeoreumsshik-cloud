@@ -1,4 +1,4 @@
-﻿import re, subprocess, sys
+import re, subprocess, sys
 from pathlib import Path
 
 BASE = Path.cwd()
