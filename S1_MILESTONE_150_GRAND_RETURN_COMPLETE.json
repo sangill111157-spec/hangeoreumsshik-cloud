@@ -1,0 +1,10 @@
+{
+  "directive_id": "RGON_DIR_NEW_FOUNDATION_150",
+  "completed_at": "2026-11-07T01:05:39.329098",
+  "youtube_studio_upload_result": {
+    "ok": false,
+    "error": "TypeError: page.url(...).includes is not a function"
+  },
+  "mv_ready_path": "C:\\Users\\sangi\\Downloads\\shin-agent\\distrokid_vault_assets\\NEW_MV_01_Oneureun_Yeogikkaji_1080p.mp4",
+  "short_uploaded_path": "C:\\Users\\sangi\\Downloads\\shin-agent\\distrokid_vault_assets\\NEW_SHORT_01_Oneureun_Yeogikkaji_40s.mp4"
+}
