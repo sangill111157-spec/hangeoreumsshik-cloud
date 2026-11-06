@@ -1,0 +1,49 @@
+{
+  "directive_id": "RGON_DIR_NEW_FOUNDATION_107",
+  "executed_at": "2026-11-06T17:20:09.386683",
+  "oac_oauth_finish": {
+    "ok": true,
+    "step1": {
+      "clicked_account": true,
+      "text": "이상일 sangill111157@gmail.com"
+    },
+    "step2": {
+      "clicked_allow": false
+    },
+    "step3": {
+      "url": "https://accounts.google.com/signin/oauth/delegation?authuser=0&part=AJi8hANwNfo2wKyUNeRctGjylef3_bfw4VaLPHi4guU55OTTiLEq9ZDw2wNG_1GvrIaYKfvhUJW4HcJYV3npmoRPTNfpGvjgSjYNnTQxYVw1-ePmMbJqZpNiCn7OM242uRkuknTcJckikYvcQKzUcLUTrcKka-7Q_5wJ3Gni-1s39iRe9DVFeadbo5T_8K33TOTtupytL-UkwzqfQ_6T52N_tClhGQ8g2IUhB-Z2dgQPc11lcr6K9TktMOWsa6zyNkGdaT5FNFSfNN0D6HSG3u7_d6rrBPKVgwq9YAjGdfHg2sZuzYcCZJMlhGS4fgsFkh7B88OBZJaapI9CMyr1yskn_VRbrRyjhk_ScV0hZoumPooTlxyvWSLPeVSTn5gEjIwEVDxWemWe4UIzURBPGQXeOvvJ0YzaTabE1NW-ILGkHZLVv0aGVrGNO7cQ6giXJQnn8qWLH3MH&flowName=GeneralOAuthFlow&as=S-282745518%3A1793953021337546&client_id=529220226422-kiqojbo7f6ku20q3jk8h9tha51m0gu6v.apps.googleusercontent.com&allowAddAccount=1&access_type=offline&include_granted_scopes=true&prompt=consent&redirect_uri=https%3A%2F%2Fdistrokid.com%2Fapi%2Fgoogleoauth%2F&response_type=code&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fyoutube.readonly&state=AB035990-561F-4E83-8DCDDDFFB75FDC3E&o2v=2&opparams=%253Fauthuser%253D0%2526part%253DAJi8hANwNfo2wKyUNeRctGjylef3_bfw4VaLPHi4guU55OTTiLEq9ZDw2wNG_1GvrIaYKfvhUJW4HcJYV3npmoRPTNfpGvjgSjYNnTQxYVw1-ePmMbJqZpNiCn7OM242uRkuknTcJckikYvcQKzUcLUTrcKka-7Q_5wJ3Gni-1s39iRe9DVFeadbo5T_8K33TOTtupytL-UkwzqfQ_6T52N_tClhGQ8g2IUhB-Z2dgQPc11lcr6K9TktMOWsa6zyNkGdaT5FNFSfNN0D6HSG3u7_d6rrBPKVgwq9YAjGdfHg2sZuzYcCZJMlhGS4fgsFkh7B88OBZJaapI9CMyr1yskn_VRbrRyjhk_ScV0hZoumPooTlxyvWSLPeVSTn5gEjIwEVDxWemWe4UIzURBPGQXeOvvJ0YzaTabE1NW-ILGkHZLVv0aGVrGNO7cQ6giXJQnn8qWLH3MH%2526allowAddAccount%253D1&pli=1&rapt=AEjHL4OLvvPhMnrS_gGGGkR1tJV9juk7M89PsGIt-N3KO73aK6xTxU96RFQahsnu6L0qTFd_nUuzYDspqYf6nl1BvZKdThCXsk30WNeU7zNlsCLZrEv61Dg",
+      "title": "계정 또는 브랜드 계정 선택 DistroKid(으)로 이동",
+      "text": "Google 계정으로 로그인 계정 또는 브랜드 계정 선택 DistroKid(으)로 이동 이상일 sangill111157@gmail.com 99 ROBLGYE YouTube SUN-ONE AON YouTube The Café Hour YouTube 부스터 플리 | 운동·드라이브 음악 YouTube 다른 계정 사용 ‪한국어‬ 도움말 개인정보처리방침 약관 계정 또는 브랜드 계정 선택 DistroKid(으)로 이동"
+    }
+  },
+  "youtube_5_videos_batch_update": {
+    "ok": true,
+    "batch_results": [
+      {
+        "video_id": "3nUJqf0ztBw",
+        "edit": "INSERTED",
+        "saved": true
+      },
+      {
+        "video_id": "v-UdDDTx5Fw",
+        "edit": "INSERTED",
+        "saved": true
+      },
+      {
+        "video_id": "ZGKDVNLzCyA",
+        "edit": "INSERTED",
+        "saved": true
+      },
+      {
+        "video_id": "pmiytSqutsQ",
+        "edit": "INSERTED",
+        "saved": true
+      },
+      {
+        "video_id": "hlIFjM_AGYc",
+        "edit": "INSERTED",
+        "saved": true
+      }
+    ]
+  }
+}
