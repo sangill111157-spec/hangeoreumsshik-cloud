@@ -1,0 +1,60 @@
+{
+  "directive_id": "RGON_DIR_NEW_FOUNDATION_103",
+  "executed_at": "2026-11-06T17:10:41.960360",
+  "distrokid_oac_button_inspection": {
+    "ok": true,
+    "btn_matches": [
+      {
+        "tag": "DIV",
+        "id": "youtubeChannel3Wrapper",
+        "cls": "",
+        "href": "",
+        "onclick": "",
+        "outer": "<div id=\"youtubeChannel3Wrapper\">\n<div id=\"gSignInWrapper\" style=\"margin-top: 5px; display: block;\" class=\"finePrint youtubeChannel_fineprint\">\n<div style=\"margin-top: 13px;\">\n<span style=\"box-sizing: border-box;\" id=\"customGoogleSignInButton\" class=\"buttonSmall\">YouTube 채널 연결</span>\n</div>\n</div>\n<div id=\"gConnectedToWrapper\" style=\"margin-top: 5px;display: none;\" class=\"finePrint youtubeChannel_fineprint\">\n<div style=\"margin-top: 13px;\"> 다음 YouTube 계정에 연결됨: <span class=\"gConnectedToName\"></span> (<span id=\"tryAgainLink\" class=\"linklike tryAgainLink\" style=\"cursor: pointer;\" onclick=\"resetGoogleAccount();\">다른 계정 선택</span>) <div style=\"margin-top: 5px; margin-bottom:10px;\" id=\"gChannelSelectWrapper\"></div>\n<input id=\"confirmYTChannelSelectionButton\" type=\"button\" class=\"buttonSmall channelSelectionFinishButton\" value=\"채널 선택\">\n</div>\n</div>\n</div>"
+      },
+      {
+        "tag": "DIV",
+        "id": "gSignInWrapper",
+        "cls": "finePrint youtubeChannel_fineprint",
+        "href": "",
+        "onclick": "",
+        "outer": "<div id=\"gSignInWrapper\" style=\"margin-top: 5px; display: block;\" class=\"finePrint youtubeChannel_fineprint\">\n<div style=\"margin-top: 13px;\">\n<span style=\"box-sizing: border-box;\" id=\"customGoogleSignInButton\" class=\"buttonSmall\">YouTube 채널 연결</span>\n</div>\n</div>"
+      },
+      {
+        "tag": "DIV",
+        "id": "",
+        "cls": "",
+        "href": "",
+        "onclick": "",
+        "outer": "<div style=\"margin-top: 13px;\">\n<span style=\"box-sizing: border-box;\" id=\"customGoogleSignInButton\" class=\"buttonSmall\">YouTube 채널 연결</span>\n</div>"
+      },
+      {
+        "tag": "SPAN",
+        "id": "customGoogleSignInButton",
+        "cls": "buttonSmall",
+        "href": "",
+        "onclick": "",
+        "outer": "<span style=\"box-sizing: border-box;\" id=\"customGoogleSignInButton\" class=\"buttonSmall\">YouTube 채널 연결</span>"
+      }
+    ],
+    "box": {
+      "x": 1042.6953125,
+      "y": 792.25,
+      "w": 130.390625,
+      "h": 28
+    },
+    "after_mouse": {
+      "url": "https://distrokid.com/YouTubeOfficialArtistChannels/",
+      "title": "YouTube Music에 음악 배포하기 | DistroKid",
+      "text": "업로드 내 음악 통계 Splits 퍼블리싱 신규 업그레이드 Bank YOUTUBE 공식 아티스트 채널 공식 아티스트 채널은 아티스트와 팀이 YouTube를 최대한 활용할 수 있도록 설계되었습니다. 지금 채널을 업그레이드하고 수백만의 팬과 소통 및 플랫폼 내 입지를 다지기 위한 분석 자료와 도구를 손에 넣으세요. 필수 준비사항: 본인이 직접 관리하는 YouTube 채널 DistroKid에서 사용하는 이메일과 같을 필요는 없습니다. 본인이 직접 관리하는 YouTube 계정이면 충분합니다. 해당 아티스트의 음악을 주로 다루는 YouTube 채널 음반사나 특정 음악 장르에 특화된 채널을 선택하지 마세요. 공식 아티스트 채널 예시 nobigdyl. Twin Tribes Megan Davies YouTube 공식 아티스트 채널에 대해 알아보기 아티스트 선택... 한걸음씩 SUN-ONE AON 아니요, YouTube 채널이 없습니다 한걸음씩 및 다른 아티스트의 콘텐츠를 다루는 YouTube 채널을 운영하고 있습니다 네, 다음 아티스트 전용 YouTube 채널을 운영하고 있습니다: 한걸음씩 YOUTUBE 채널 연결 © DistroKid 2026 日本語 한국어 Bahasa Indonesia Bahasa Melayu Čeština Dansk Deutsch English English (UK) Español Español (España) Français Français (Canada) Italiano Kiswahili Magyar Nederlands Norsk Bokmål Polski Português (Brasil) Português (Portugal) Românã Suomi Svenska Tiếng Việt Türkçe ελληνικά українська עברית العربية‬‎ हिन्दी ภาษาไทย 도움말 고객센터 회사 DistroKid 블로그 손톱깎이 & 굿즈 Artists For Change 커리어 인플루언서 & 제휴 프로그램 상품 요금제 Bandzoogle Instant Share Mixea DistroVid HyperFollow Direct 퍼블리싱 모바일 앱 iPhone용 DistroKid Android용 DistroKid 개인 정보 보호 정책 쿠키 정책 쿠키 설정 이용약관 사이트맵 유통 계약서"
+    }
+  },
+  "space3_blogger_session": {
+    "ok": true,
+    "blogger_state": {
+      "url": "https://www.blogger.com/blog/posts/5189765270915724664?bpli=1&pli=1",
+      "title": "Blogger: 글",
+      "text": "  전체 공개  내 블로그 불규칙한 삶 속 건강 챙기기 새 블로그...  새 글 article 글  통계  댓글  수익  페이지 wysiwyg 레이아웃  테마  설정  읽기 목록  블로그 보기 서비스 약관·개인정보 보호·콘텐츠 정책  공지사항(2)  Blogger 콘텐츠 정책 업데이트 2026년 12월 16일부터 정책이 일부 변경됩니다. 이번 변경사항이 미치는 영향에 관해 자세히 알아보려면 Blogger 콘텐츠 정책을 참고하세요.  **새로운 베타 기능 사용해 보기**: Google을 활용하여 블로그를 읽을 때 더욱 몰입할 수 있는 환경을 조성하세요 Google 지도 위젯: 상호작용형 장소 세부정보(예: 위치, 영업시간, 사진, 리뷰 등)를 손쉽게 게시물에 바로 삽입하여 블로그 콘텐츠를 풍성하게 만드세요. 시작하려면 ‘새 글 작성 보기’에서 툴바의 ‘지도’ 아이콘을 찾으세요.  전체(21개) 게시됨(19개) 임시보관(2개) 게시 예정(0개) 휴지통(0개)  관리 3조 2교대 야간근무, 식사와 생활 습관을 바꾸며 느낀 변화 3교대 직장인 길잡이 게시됨 • 10월 13일  0  1  [ [검수용·발행금지] 3교대 제조 현장의 야간·휴일 근로수당 계산 실전 가이드 3교대 직장인 길잡이 임시보관 • 10월 2일 검수용 직장생활·교대근무 0  0  3교대 야간근무 식사 타이밍 — 출근 전·근무 중·퇴근 후 3단계 루틴 3교대 직장인 길잡이 게시됨 • 8월 27일 식습관  0  2  교 교대근무자 특수건강진단 실전 이용기 3교대 직장인 길잡이 게시됨 • 8월 18일 직장생활·교대근무  0  3  3 3교대 제조 현장의 야간·휴일 근로수당 계산 실전 가이드 3교대 직장인 길잡이 게시됨 • 8월 16일 직장생활·교대근무  0  6  물 많이 마시기, 나만의 루틴 만들기 3교대 직장인 길잡이 게시됨 • 8월 4일 건강  0  16  걷기를 습관으로 만든 방법과 3교대 속 실천 팁 3교대 직장인 길잡이 게시됨 • 8월 3일 건강  0  18  초 초보 때 저지른 실수와 거기서 배운 것 3교대 직장인 길잡이 게시됨 • 8월 2일 재테크  0  3  불 불규칙한 생활 속 스트레스 관리법 3교대 직장인 길잡이 게시됨 • 8월 1일 건강  0  4  3 3교대 하면서 병원·건강검진 챙기는 현실적인 방법 3교대 직장인 길잡이 게시됨 • 7월 31일 건강  0  4  매 매일 시세를 못 보는 직장인의 장기 투자 관리 방법 3교대 직장인 길잡이 게시됨 • 7월 30일 재테크  0  4  교대근무자가 챙겨 먹기 좋은 간단한 도시락·간식 3교대 직장인 길잡이 게시됨 • 7월 29일 식습관  0  8  에 에너지드링크·믹스커피를 줄인 경험과 그 후 변화 3교대 직장인 길잡이 게시됨 • 7월 28일 건강  0  4  3 3교대 직장인이 주식(장기 투자)을 시작한 이유와 첫 몇 개월 3교대 직장인 길잡이 게시됨 • 7월 27일 재테크  0  5  교 교대근무자의 수면 관리 — 야간 근무 후 잘 자는 법 3교대 직장인 길잡이 게시됨 • 7월 26일 건강  0  4  피 피부 트러블·비염·발뒤꿈치 각질까지 — 몸이 보낸 신호와 생활습관 3교대 직장인 길잡이 게시됨 • 7월 25일 건강  0  5  교 교대근무자의 무너진 식사 리듬, 규칙적으로 되돌린 방법 3교대 직장인 길잡이 게시됨 • 7월 24일 식습관  0  3  변 변비·속쓰림·더부룩함·가스참, 식습관 개선으로 달라진 소화 이야기 3교대 직장인 길잡이 게시됨 • 7월 23일 건강  0  3  허 허리둘레 36에서 32로, 몸무게 75에서 68kg — 무엇을 바꿨나 3교대 직장인 길잡이 게시됨 • 7월 22일 건강  0  4  만성피로와 뱃살에 시달리던 3교대 직장인이 식습관을 바꾼 3개월 기록 3교대 직장인 길잡이 게시됨 • 7월 21일 건강  0  27  A AI 자동화로 1인 기업 블로그 파이프라인 구축 3교대 직장인 길잡이 임시보관 • 7월 21일 0  0 "
+    }
+  }
+}
