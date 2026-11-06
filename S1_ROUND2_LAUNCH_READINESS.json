@@ -1,0 +1,30 @@
+{
+  "stage": "ROUND2_PRE_AUDIT_CHANNEL_LAUNCH_READINESS",
+  "audio_dir_count": 15,
+  "audio_samples": [
+    "FATHER_AGE_1080p_MV.mp4",
+    "FATHER_AGE_6SCENES_CONTACT_SHEET.png",
+    "FATHER_AGE_cover.png",
+    "FATHER_AGE_master_320kbps.mp3",
+    "FATHER_AGE_MASTER_SHORTS_1080x1920.mp4",
+    "father_age_shorts_scenes",
+    "FATHER_AGE_sub_320kbps.mp3",
+    "FATHER_MOUNTAIN_1080p_MV.mp4",
+    "FATHER_MOUNTAIN_cover.png",
+    "FATHER_MOUNTAIN_master_320kbps.mp3"
+  ],
+  "studio_mp3_count": 41,
+  "publisher_scripts": [
+    "publish_post_17.py",
+    "rgon_youtube_skill_scout.py",
+    "s1_deploy_youtube_branding.py",
+    "s1_naver_blog_2026_publisher.py",
+    "s1_publish_clean.py",
+    "s1_youtube_dispatch_gate.py",
+    "sync_blog_to_sheet.py",
+    "test_blogger_api.py",
+    "youtube_auto_uploader.py"
+  ],
+  "blog_post_001_ready": true,
+  "monetization_pkg_001_ready": true
+}
