@@ -1,0 +1,99 @@
+{
+  "package_id": "S1_MONETIZATION_PACKAGE_001",
+  "created_at": "2026-11-06T12:03:40.625397+09:00",
+  "stage_status": "STAGE_3_PRE_AUDIT_PASSED_AND_STAGE_4_CONSTRUCTED",
+  "global_knowledge_basis": {
+    "chartlex_2026_rpm_formula": "Shorts 단독($0.03~$0.06 RPM) 대신 [Shorts 미끼 -> Long-form($1.50~$5.00 RPM) + YouTube Music Art Track($5.28/1k streams) + Content ID($1.57/1k views)] 결합 시 수익 8~20배 증폭",
+    "air_3000_audits_formula": "쇼츠 제목 첫 5단어를 롱폼 본진과 일치 + 쇼츠 마지막 3초 Open Loop + 에고라이트 YouTube Studio [Related Video(관련 동영상)] 자동 연결로 전환율 0.04% -> 1.0%(25배) 극대화",
+    "us_uk_tier1_targeting": "영미권(US/UK/CA/AU) 시청자 타깃 영문 병기 메타데이터로 동일 조회수 대비 광고/스트리밍 단가 4~6배 확보"
+  },
+  "target_assets": {
+    "artist": "한걸음씩 (Hangeoreumsshik)",
+    "album": "가을과 겨울 사이 (Between Autumn and Winter)",
+    "release_date": "2026-11-06",
+    "upc": "840426110653",
+    "total_catalogue_tracks": 53
+  },
+  "funnel_1_longform_hub": {
+    "channel_1_kr_main": {
+      "channel": "@한걸음씩-r4i",
+      "title": "[가을과 겨울 사이] 오늘은 여기까지, 밥은 먹었니 외 12곡 전곡 연속듣기 | 한걸음씩 정규 1집 (Between Autumn and Winter Full Album)",
+      "isrc_list": [
+        "KR-S01-26-AW01",
+        "KR-S01-26-AW02",
+        "KR-S01-26-AW03",
+        "KR-S01-26-AW04",
+        "KR-S01-26-AW05",
+        "KR-S01-26-AW06",
+        "KR-S01-26-AW07",
+        "KR-S01-26-AW08",
+        "KR-S01-26-AW09",
+        "KR-S01-26-AW10",
+        "KR-S01-26-AW11",
+        "KR-S01-26-AW12"
+      ]
+    },
+    "channel_2_global_cafe": {
+      "channel": "@TheCafeHour",
+      "title": "Between Autumn and Winter | 1 Hour Cozy Korean Acoustic Folk & Warm Cafe Playlist for Quiet Nights",
+      "target_tier": "US / UK / CA / AU (Tier-1 High RPM Dollar Pool)"
+    },
+    "channel_3_global_booster": {
+      "channel": "@Booster_Playlist",
+      "title": "Late Night Shift & Drive Mix | 1 Hour Deep Focus Energy Sound (Hangeoreumsshik Official Catalogue)",
+      "target_tier": "Global Night Shift Workers & Drivers"
+    }
+  },
+  "funnel_2_open_loop_shorts": [
+    {
+      "short_id": "SHORT-AW04",
+      "parent_prefix_5words": "[가을과 겨울 사이] 오늘은 여기까지,",
+      "title": "[가을과 겨울 사이] 오늘은 여기까지, 퇴근길 버스 창가에 기대어 울컥한 이유 #한걸음씩 #가을과겨울사이",
+      "track": "Track 04 - 오늘은 여기까지 (ISRC: KR-S01-26-AW04)",
+      "hook_first_3s": "오늘도 아무 일 없던 척 웃으며 하루를 버텨낸 당신에게...",
+      "open_loop_last_3s": "가슴을 적시는 뒷소절과 12곡 전체 듣기는 바로 아래 [▶ 연결된 동영상]을 터치하세요.",
+      "ego_studio_action": "YouTube Studio -> Shorts -> Related Video(관련 동영상)에 본진 롱폼 자동 매핑"
+    },
+    {
+      "short_id": "SHORT-AW05",
+      "parent_prefix_5words": "[가을과 겨울 사이] 오늘은 여기까지,",
+      "title": "[가을과 겨울 사이] 오늘은 여기까지, 새벽 퇴근길 엄마의 한마디 '밥은 먹었니' #한걸음씩 #사부곡",
+      "track": "Track 05 - 밥은 먹었니 (ISRC: KR-S01-26-AW05)",
+      "hook_first_3s": "바쁘다는 핑계로 끊어버린 전화 뒤에 남은 한마디, '밥은 먹었니...'",
+      "open_loop_last_3s": "눈물 나는 후렴구 풀버전은 바로 아래 [▶ 연결된 동영상]에서 이어집니다.",
+      "ego_studio_action": "YouTube Studio -> Shorts -> Related Video(관련 동영상)에 본진 롱폼 자동 매핑"
+    },
+    {
+      "short_id": "SHORT-FATHER",
+      "parent_prefix_5words": "[가을과 겨울 사이] 오늘은 여기까지,",
+      "title": "[가을과 겨울 사이] 오늘은 여기까지, 거울 속 내 얼굴에서 아버지 나이가 보일 때 #아버지나이가됐어요",
+      "track": "Special Master - 아버지 나이가 됐어요 (Suno V6 +목소리:한걸음씩)",
+      "hook_first_3s": "새벽 욕실 김 서린 거울 속에, 어느새 아버지의 낡은 시계를 찬 내가 서 있습니다.",
+      "open_loop_last_3s": "풀버전 뮤직비디오와 전곡 듣기는 아래 [▶ 연결된 동영상]을 눌러주세요.",
+      "ego_studio_action": "YouTube Studio -> Shorts -> Related Video(관련 동영상)에 본진 롱폼 자동 매핑"
+    }
+  ],
+  "funnel_3_pinned_comment_and_blog_affiliate": {
+    "pinned_comment_template": "?? 오늘 정식 발매된 '한걸음씩' 정규 1집 〈가을과 겨울 사이〉 12곡 전곡 풀버전 듣기 ?? [본진 롱폼 링크]\n?? 12시간 야간 교대근무와 통증을 버티게 해준 나의 실제 건강·수면·하루 1.5L 수분 섭취 루틴 & 필수템 정리 ?? https://connect-ai-shin.blogspot.com/",
+    "blogger_article_title": "[실전 루틴] 12시간 야간 교대근무 퇴근길, 체온과 건강을 지키는 3단계 식사·수분 루틴 (feat. 정규 1집 '가을과 겨울 사이' 발매)",
+    "revenue_streams_combined": [
+      "Stream 1: YouTube Content ID & Art Track Royalties (DistroKid 달러 정산)",
+      "Stream 2: YouTube Long-form Watch Page Ad Revenue (US/UK 고단가 RPM)",
+      "Stream 3: Pinned Comment -> Blog / Affiliate 실생활 건강·교대근무 아이템 제휴 수익"
+    ]
+  },
+  "triumvirate_harvest_raw": {
+    "sol_space1": {
+      "ok": false,
+      "code": "NO_STRUCTURED_OUTPUT",
+      "rc": 1,
+      "stderr": "SyntaxError: Invalid or unexpected token\n    at new AsyncFunction (<anonymous>)\n    at file:///C:/Program%20Files/Citro%20Labs/ego%20lite/Application/0.6.2.7/[eval2]:1:226\n\nego's nodejs process exited with code 1.\n"
+    },
+    "opus_space2": {
+      "ok": false,
+      "code": "NO_STRUCTURED_OUTPUT",
+      "rc": 1,
+      "stderr": "SyntaxError: Invalid or unexpected token\n    at new AsyncFunction (<anonymous>)\n    at file:///C:/Program%20Files/Citro%20Labs/ego%20lite/Application/0.6.2.7/[eval2]:1:226\n\nego's nodejs process exited with code 1.\n"
+    }
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "version": "2.0.0-LIVE-AUTO-EVOLVING",
+  "updated_at": "2026-11-06T12:03:40.625397+09:00",
+  "status": "ACTIVE_AUTO_HOOKED_IN_BRIDGE_DAEMON",
+  "good_points_proven": [
+    {
+      "id": "GOOD-001",
+      "date": "2026-11-05",
+      "title": "대표님 친작 2S1 황금 메탈 직인(Sr7DZIdv) 원본 무손실 장착 및 공증"
+    },
+    {
+      "id": "GOOD-002",
+      "date": "2026-11-05",
+      "title": "카카오톡 5탭 UI 개편 및 죽은 유령 버튼 0건(31개 전수 작동) 달성"
+    },
+    {
+      "id": "GOOD-003",
+      "date": "2026-11-05",
+      "title": "S1_EGO_PROVEN_SKILL_MASTER.py 4대 에고라이트 정상작동 스킬 영구 금고 잠금"
+    },
+    {
+      "id": "GOOD-004",
+      "date": "2026-11-05",
+      "title": "안실장(Antigravity) 강제 호출 영구 차단(토큰 소모 0%) 및 순수 파워쉘·파이썬 직할 체제 완공"
+    },
+    {
+      "id": "GOOD-005",
+      "date": "2026-11-05",
+      "title": "_StealthPopen(CREATE_NO_WINDOW 0x08000000 글로벌 후킹)으로 검은 창 깜빡임 100% 소멸"
+    },
+    {
+      "id": "GOOD-006-MONETIZATION-V1",
+      "date": "2026-11-06",
+      "title": "전 세계 1등 수익 데이터(Chartlex 2026 / AIR 3,000 Audits) + 에고라이트 10,000% 레버리지 결합 제1호 무인 수익 패키지(S1_MONETIZATION_PACKAGE_001.json) 완공"
+    }
+  ],
+  "bad_points_never_repeat": [
+    {
+      "id": "BAD-001 (FM-015)",
+      "date": "2026-11-05",
+      "mistake": "파이썬 페이로드 내부 중첩 f-string 중괄호({ })로 인한 SyntaxError",
+      "rule": "페이로드 내부에서 중첩 f-string 사용 금지, 일반 문자열 연결(+) 사용"
+    },
+    {
+      "id": "BAD-002 (FM-016)",
+      "date": "2026-11-05",
+      "mistake": "Space 0 이모지 스캔 시 utf-8 surrogates not allowed 인코딩 에러",
+      "rule": "모든 read_text/write_text/reconfigure에 errors='replace' 필수 강제"
+    },
+    {
+      "id": "BAD-003 (FM-017)",
+      "date": "2026-11-05",
+      "mistake": "린터(LINTER_VERIFY_047)가 안실장 IDE(STANDARD_FOUNDRY_SPAWN)를 강제로 깨워 토큰 낭비",
+      "rule": "STANDARD_FOUNDRY_SPAWN 실제 프로세스 스폰 영구 제거 및 더미 로그로 대체"
+    },
+    {
+      "id": "BAD-004 (FM-018)",
+      "date": "2026-11-05",
+      "mistake": "subprocess 호출 시 CREATE_NO_WINDOW 누락으로 15초마다 검은 콘솔 창 2번 깜빡임",
+      "rule": "최상단 _StealthPopen 후킹으로 모든 하위 프로세스 창 생성 원천 차단"
+    },
+    {
+      "id": "BAD-005 (FM-019)",
+      "date": "2026-11-05",
+      "mistake": "VS Code 터미널 내부 환경변수(VSCODE_GIT_IPC_HANDLE)로 인해 Git 로그인 팝업이 뜨며 데몬 멈춤",
+      "rule": "GIT_TERMINAL_PROMPT=0 및 VSCODE_GIT_* 환경변수 제거 상태로 데몬 기동"
+    }
+  ],
+  "auto_runtime_logs": []
+}
