@@ -1,5 +1,5 @@
 // S1 Service Worker v2026-v049 (SUN-ONE AON Zero-Paste & Network-First HTML)
-const CACHE = 's1-aon-v065-triumvirate-18buttons-live';
+const CACHE = 's1-aon-v088-omni-revenue-matrix';
 const ASSETS = [
   './',
   './index.html',
