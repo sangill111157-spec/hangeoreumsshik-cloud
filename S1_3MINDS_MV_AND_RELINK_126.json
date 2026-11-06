@@ -1,0 +1,107 @@
+{
+  "directive_id": "RGON_DIR_NEW_FOUNDATION_126",
+  "executed_at": "2026-11-06T20:19:31.351661",
+  "render_report": {
+    "wav_exists": true,
+    "sha256": "69fbfb7be180e8827ca8fd36db8607baf1b34ee787a89d639e7b231c52196d4b",
+    "size_mb": 47.06,
+    "ffprobe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "sample_rate": "48000",
+          "channels": 2
+        }
+      ],
+      "format": {
+        "duration": "256.960000"
+      }
+    }
+  },
+  "relink_res": {
+    "ok": true,
+    "hangeoreum": [
+      {
+        "short_id": "vSTcyW-K_9Q",
+        "kw": "빛의 아침",
+        "picked": "NONE",
+        "saved": false
+      },
+      {
+        "short_id": "_9TaYaBFmkQ",
+        "kw": "사냥꾼의 새벽",
+        "picked": "사냥꾼의 새벽 (Hunter's Dawn) - Official AI Music Video | 어쿠스틱 포크팝",
+        "saved": true
+      },
+      {
+        "short_id": "I00rUemzODo",
+        "kw": "빛의 아침",
+        "picked": "빛의 아침 (Morning Light)당신이 오늘 버틴 건 기적입니다 🌿 (위로와 용기의 메시지) #부자의",
+        "saved": true
+      }
+    ],
+    "booster": [
+      {
+        "short_id": "HP__cDXOGhg",
+        "kw": "응원",
+        "picked": "NONE",
+        "saved": false
+      },
+      {
+        "short_id": "GXA1ySZ9VaM",
+        "kw": "Reset",
+        "picked": "NONE",
+        "saved": false
+      },
+      {
+        "short_id": "hDRjZkMLNz8",
+        "kw": "Phonk",
+        "picked": "NONE",
+        "saved": false
+      },
+      {
+        "short_id": "IehW9iW-2gE",
+        "kw": "출근",
+        "picked": "NONE",
+        "saved": false
+      },
+      {
+        "short_id": "2YIs02D9i0M",
+        "kw": "운동",
+        "picked": "NONE",
+        "saved": false
+      },
+      {
+        "short_id": "pLIf1o_nN6E",
+        "kw": "드라이브",
+        "picked": "NONE",
+        "saved": false
+      }
+    ]
+  },
+  "sol_space1_feedback": {
+    "ok": true,
+    "space": 1,
+    "harvested": {
+      "snippet_count": 48,
+      "latest_texts": [
+        "{ \"hangeoreum_match_rule\": \"조회수보다 메시지·음악 분위기 일치를 우선: ‘부자들의 아침 첫 마디’→‘빛의 아침’, ‘남들이 쉴 때 한 걸음만 더’→‘사냥꾼의 새벽’, ‘포기하고 싶을 때가’→위로 중심이면 ‘빛의 아침’, 도전 중심이면 ‘사냥꾼의 새벽’. ‘어머니는 꽃이다’는 가족·감사·그리움 쇼츠에 연결. 제목 기준 가설이며, 연결한 곡의 Spotify 직결 링크를 롱폼 설명 상단에 배치하고 실제 유입·링크 클릭으로 검증.\" , \"booster_match_rule\": \"1시간 롱폼 4편의 제목·수록곡이 없어 개별 확정은 불가. 월드컵 응원가→동일 응원곡 수록·경기 분위기 롱폼, Hard Reset→동일 곡 수록 롱폼 우선·없으면 비트와 에너지 유사 롱폼, Brazilian Phonk→브라질리언 펑크 중심 롱폼. 공통 우선순위는 동일 곡 수록→장르·사용 상황 일치→음악 에너지 일치이며, 조회수만 높은 무관한 영상으로 몰아주지 않기.\" }",
+        "{\"pinned_comment\":\"오늘도 애쓰셨어요. ‘오늘은 여기까지’가 마음에 남았다면 🎧 전곡 듣기 → https://open.spotify.com/album/44chP2pw8CFr0Z4aPNj4SO 🍂 이 노래를 들려주고 싶은 사람은 누구인가요?\"}",
+        "{\"pinned_comment\":\"오늘도 애쓰셨어요. ‘오늘은 여기까지’가 마음에 남았다면 🎧 전곡 듣기 → https://open.spotify.com/album/44chP2pw8CFr0Z4aPNj4SO 🍂 이 노래를 들려주고 싶은 사람은 누구인가요?\"}"
+      ]
+    }
+  },
+  "opus_space2_feedback": {
+    "ok": true,
+    "space": 2,
+    "harvested": {
+      "snippet_count": 46,
+      "latest_texts": [
+        "Copy\n{\n  \"best_method\": \"방법 B를 주 경로로 씁니다. B에서 원본이 확인되지 않을 때만, 자동화 대신 대표님이 Vault 다운로드 버튼을 직접 1회 누르는 방식으로 보완합니다. 방법 A(에고라이트 자동 클릭)는 권고하지 않습니다.\",\n  \"reason\": \"B가 가장 빠르고 결함 요인도 가장 적습니다. 로그인, 다운로드 경로, 미완성 파일 문제가 아예 없습니다. 다만 '파일이 있다'는 것만으로는 부족하고, 정식 발매본과 같은 파일이라는 증명이 필요합니다. 순서는 다음과 같습니다. ① 123개 파일 중 곡명이 일치하는 후보를 고릅니다. ② `ffprobe`로 재생 길이, 샘플레이트, 채널을 확인하고 DistroKid 앨범 페이지의 트랙 길이와 ±1초 이내로 맞는지 대조합니다. ③ 파일 수정 시각이 DistroKid 업로드일보다 이전인지 확인합니다. 이후에 만든 파일이면 재편집본일 수 있습니다. ④ 확인된 파일은 원본을 건드리지 않고 작업 폴더로 복사만 합니다. 원장에 SHA-256 64자리와 대조 결과를 기록합니다. ⑤ 같은 곡의 후보가 여러 개이거나 길이가 맞지 않으면 추측으로 고르지 않고 Vault 경로로 넘어갑니다. A를 권고하지 않는 이유는 4가지입니다. 첫째, 'require is not defined'는 버그가 아닙니다. page.evaluate가 Node가 아닌 웹페이지 안에서 실행되기 때문에 생기는 정상 동작이라, 클릭으로 우회해도 근본적으로 같은 제약이 남습니다. 둘째, ego Space는 격리된 BrowserContext라서 다운로드 폴더가 C:/Users/sangi/Downloads라는 보장이 없습니다. 셋째, `.crdownload` 미완성 파일, 저장 대화상자, 파일명 변경 때문에 Python이 반쯤 받은 파일을 집어갈 위험이 있습니다. 넷째, 대표님의 로그인 세션을 쓰는 자동 다운로드는 감사 원칙상 승인 게이트 대상입니다. 대표님이 직접 누르면 10초면 끝나고 위 위험이 모두 사라집니다. 직접 받은 경우에도 같은 SHA-256과 ffprobe 대조를 거칩니다.\",\n  \"studio_upload_tip\": \"① 업로드 전에 DistroKid의 YouTube Content ID 허용 목록에 @한걸음씩-r4i가 들어 있는지 먼저 확인합니다. 빠져 있으면 대표님 영상에 대표님 음원으로 저작권 클레임이 걸립니다. ② 처음에는 '비공개'로 올리고 Studio의 '확인(저작권·광고 적합성)' 결과가 '문제 없음'인 것을 본 뒤에 공개로 전환합니다. ③ 영상 파일의 음성은 마스터를 다시 처리하지 말고 AAC 320k/48kHz로만 인코딩합니다. 의결 표준인 −16 LUFS / −1.5 dBTP를 넘지 않는지 `ebur128` 측정값을 원장에 남깁니다. ④ 사실적인 AI 영상이 들어가면 '변경되거나 합성된 콘텐츠'를 '예'로 설정합니다. 화면 속 글씨 0% 검수도 합니다. ⑤ 풀MV, 40초 쇼츠, 풀앨범 롱폼 3편은 제목, 설명, 썸네일을 서로 다르게 만듭니다. 쇼츠의 관련 동영상에는 같은 곡의 MV를 연결합니다. 설명란에는 정식 Spotify 링크를 넣습니다. ⑥ 업로드와 공개 버튼은 브라우저 자동화 없이 대표님이 직접 누릅니다. 에고라이트는 업로드 후 결과 화면을 읽는 조회 용도로만 씁니다. ※ 이 의견은 심의 의견이며 실행 명령이 아닙니다. 최종 결재는 대표님 권한입니다.\"\n}",
+        "Copy\n{\"verdict\": \"HOLD: 렌더링 완료는 아직 확인되지 않았습니다. MV와 쇼츠 크기가 'NoneMB'로 나와 출력 파일이 없거나 크기 측정 단계에서 실패한 것으로 보입니다. 두 MP4 각각의 ffprobe JSON 원문(길이, 1080x1920/1920x1080, AAC 320k/48kHz), ebur128 측정값(−16 LUFS / −1.5 dBTP 이내), SHA-256 64자리를 제출해 주십시오. 함께 '4..wav' 파일명의 마침표 2개 경위와 DistroKid 트랙 길이(±1초) 대조 결과를 내 주시면 즉시 재판정하겠습니다. 업로드는 보류해 주십시오. 이 판정은 심의 의견이며 최종 결재는 대표님 권한입니다.\"}",
+        "Copy\n{\"verdict\": \"HOLD: 렌더링 완료는 아직 확인되지 않았습니다. MV와 쇼츠 크기가 'NoneMB'로 나와 출력 파일이 없거나 크기 측정 단계에서 실패한 것으로 보입니다. 두 MP4 각각의 ffprobe JSON 원문(길이, 1080x1920/1920x1080, AAC 320k/48kHz), ebur128 측정값(−16 LUFS / −1.5 dBTP 이내), SHA-256 64자리를 제출해 주십시오. 함께 '4..wav' 파일명의 마침표 2개 경위와 DistroKid 트랙 길이(±1초) 대조 결과를 내 주시면 즉시 재판정하겠습니다. 업로드는 보류해 주십시오. 이 판정은 심의 의견이며 최종 결재는 대표님 권한입니다.\"}"
+      ]
+    }
+  }
+}
