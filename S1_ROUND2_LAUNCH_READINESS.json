@@ -26,5 +26,9 @@
     "youtube_auto_uploader.py"
   ],
   "blog_post_001_ready": true,
-  "monetization_pkg_001_ready": true
+  "monetization_pkg_001_ready": true,
+  "updated_at": "2026-11-06T15:30:28.693828+09:00",
+  "naver_blog_package_generated": true,
+  "google_blogger_post_generated": true,
+  "status": "ROUND2_COMPLETED_AND_SYNCED_TO_GITHUB"
 }
