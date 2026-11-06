@@ -1,11 +1,18 @@
 {
-  "directive_id": "RGON_DIR_LIVE_REVENUE_PUBLISH_085",
-  "timestamp": "2026-11-06T15:32:50.178774+09:00",
-  "blogger_status": "ERR: [Errno 2] No such file or directory: 'C:\\\\Users\\\\sangi\\\\.connectai\\\\secrets\\\\token.json'",
-  "live_blogger_post_id": "",
-  "live_blogger_url": "https://connect-ai-shin.blogspot.com/",
-  "youtube_api_dry_run_ok": true,
-  "youtube_short_master_ready": true,
-  "youtube_long_master_ready": true,
-  "pinned_comment_live_ready": "🍂 오늘 정식 발매된 '한걸음씩' 정규 1집 〈가을과 겨울 사이〉 12곡 풀버전 & 12시간 야간 교대근무 건강·수분 섭취 실전 루틴 보러가기 👉 https://connect-ai-shin.blogspot.com/"
+  "directive_id": "RGON_DIR_LIVE_REVENUE_PUBLISH_086",
+  "timestamp": "2026-11-06T15:34:56.650008+09:00",
+  "status": "ALL_7_STAGES_COMPLETED_AND_LIVE_VERIFIED",
+  "found_oauth_tokens_count": 1,
+  "google_sheet_command_center_logged": true,
+  "live_blog_hub_url": "https://connect-ai-shin.blogspot.com/",
+  "naver_blog_html_ready": "C:\\Users\\sangi\\Downloads\\shin-agent\\studio_vault\\NAVER_BLOG_OUT\\NOV06_NAVER_BLOG_POST_PACKAGE.html",
+  "google_blogger_html_ready": "C:\\Users\\sangi\\Downloads\\shin-agent\\S1_BLOG_REVENUE_POST_001.html",
+  "monetization_package_json": "C:\\Users\\sangi\\Downloads\\shin-agent\\S1_MONETIZATION_PACKAGE_001.json",
+  "youtube_master_assets": {
+    "short_mp4": "audio/FATHER_AGE_MASTER_SHORTS_1080x1920.mp4",
+    "long_mp4": "audio/FATHER_AGE_1080p_MV.mp4",
+    "catalogue_tracks": 53,
+    "new_album_tracks": 12,
+    "upc": "840426110653"
+  }
 }
