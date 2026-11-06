@@ -207,13 +207,15 @@ def run_ego_js(js_code, timeout=60):
             creationflags=getattr(subprocess, 'CREATE_NO_WINDOW', 0x08000000),
         )
         for line in reversed((r.stdout or "").splitlines()):
-            if line.startswith("S1EGO_JSON::"):
-                res = json.loads(line[len("S1EGO_JSON::"):])
+            if "S1EGO_JSON::" in line:
+                line = line[line.find("S1EGO_JSON::"):]
+                res, _ = json.JSONDecoder().raw_decode(line[len("S1EGO_JSON::"):].lstrip())
                 record_timeout(res.get("code") == "EVAL_TIMEOUT")
                 return res
         for line in reversed((r.stderr or "").splitlines()):
-            if line.startswith("S1EGO_JSON::"):
-                res = json.loads(line[len("S1EGO_JSON::"):])
+            if "S1EGO_JSON::" in line:
+                line = line[line.find("S1EGO_JSON::"):]
+                res, _ = json.JSONDecoder().raw_decode(line[len("S1EGO_JSON::"):].lstrip())
                 return res
         return {"ok": False, "code": "NO_STRUCTURED_OUTPUT", "rc": r.returncode, "stderr": (r.stderr or "")[-500:]}
     except subprocess.TimeoutExpired:

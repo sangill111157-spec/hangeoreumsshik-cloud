@@ -50,7 +50,7 @@ def scan_and_auto_copy_space0(do_reload: bool = False) -> dict:
       if (!page && task.pages) {{ const ps = await task.pages(); if (ps && ps.length) page = ps[0]; }}
       if (!page && task.page) {{ try {{ page = await task.page("p1"); }} catch (_) {{}} }}
       if (!page) {{
-        process.stdout.write('\nS1EGO_JSON::' + JSON.stringify({{ ok: false, error: "NO_SPACE0_PAGE" }}) + '\n');
+        process.stdout.write('S1EGO_JSON::' + JSON.stringify({{ ok: false, error: "NO_SPACE0_PAGE" }}) );
         return;
       }}
       await page.evaluate(() => {{ window.__ego_overlay_disabled = true; }}).catch(() => {{}});
@@ -61,7 +61,7 @@ def scan_and_auto_copy_space0(do_reload: bool = False) -> dict:
       }}).catch(() => false);
 
       if (isGenerating) {{
-        process.stdout.write('\nS1EGO_JSON::' + JSON.stringify({{ ok: true, generating: true, blocks: [] }}) + '\n');
+        process.stdout.write('S1EGO_JSON::' + JSON.stringify({{ ok: true, generating: true, blocks: [] }}) );
         return;
       }}
 
@@ -77,9 +77,9 @@ def scan_and_auto_copy_space0(do_reload: bool = False) -> dict:
         return {{ ok: true, generating: false, count: blocks.length, blocks: blocks.slice(-4) }};
       }}).catch(e => ({{ ok: false, error: String(e), blocks: [] }}));
 
-      process.stdout.write('\nS1EGO_JSON::' + JSON.stringify(data) + '\n');
+      process.stdout.write('S1EGO_JSON::' + JSON.stringify(data) );
     }} catch (err) {{
-      process.stdout.write('\nS1EGO_JSON::' + JSON.stringify({{ ok: false, error: String(err.message || err), blocks: [] }}) + '\n');
+      process.stdout.write('S1EGO_JSON::' + JSON.stringify({{ ok: false, error: String(err.message || err), blocks: [] }}) );
     }} finally {{
       try {{ if (task && typeof task.finish === 'function') await task.finish({{ keep: [] }}); }} catch (_) {{}}
     }}
@@ -99,7 +99,7 @@ def send_auto_confirm_enter_space0(confirm_text: str) -> dict:
       let page = up ? await task.adopt(up).catch(() => up) : null;
       if (!page && task.pages) {{ const ps = await task.pages(); if (ps && ps.length) page = ps[0]; }}
       if (!page) {{
-        process.stdout.write('\nS1EGO_JSON::' + JSON.stringify({{ ok: false, error: "NO_SPACE0_PAGE" }}) + '\n');
+        process.stdout.write('S1EGO_JSON::' + JSON.stringify({{ ok: false, error: "NO_SPACE0_PAGE" }}) );
         return;
       }}
       await page.evaluate(() => {{ window.__ego_overlay_disabled = true; }}).catch(() => {{}});
@@ -148,9 +148,9 @@ def send_auto_confirm_enter_space0(confirm_text: str) -> dict:
       }}).catch(e => String(e));
 
       await new Promise(r => setTimeout(r, 500));
-      process.stdout.write('\nS1EGO_JSON::' + JSON.stringify({{ ok: true, space: 0, method: fallback }}) + '\n');
+      process.stdout.write('S1EGO_JSON::' + JSON.stringify({{ ok: true, space: 0, method: fallback }}) );
     }} catch (err) {{
-      process.stdout.write('\nS1EGO_JSON::' + JSON.stringify({{ ok: false, space: 0, error: String(err.message || err) }}) + '\n');
+      process.stdout.write('S1EGO_JSON::' + JSON.stringify({{ ok: false, space: 0, error: String(err.message || err) }}) );
     }} finally {{
       try {{ if (task && typeof task.finish === 'function') await task.finish({{ keep: [] }}); }} catch (_) {{}}
     }}
@@ -170,7 +170,7 @@ def ask_and_harvest_side_room(space_idx: int, prompt_text: str = "", wait_ms: in
       let page = up ? await task.adopt(up).catch(() => up) : null;
       if (!page && task.pages) {{ const ps = await task.pages(); if (ps && ps.length) page = ps[0]; }}
       if (!page) {{
-        process.stdout.write('\nS1EGO_JSON::' + JSON.stringify({{ ok: false, space: {space_idx}, error: "NO_ACTIVE_PAGE" }}) + '\n');
+        process.stdout.write('S1EGO_JSON::' + JSON.stringify({{ ok: false, space: {space_idx}, error: "NO_ACTIVE_PAGE" }}) );
         return;
       }}
       await page.evaluate(() => {{ window.__ego_overlay_disabled = true; }}).catch(() => {{}});
@@ -201,9 +201,9 @@ def ask_and_harvest_side_room(space_idx: int, prompt_text: str = "", wait_ms: in
         const texts = blocks.map(b => (b.innerText || b.textContent || '').trim()).filter(t => t.length > 30);
         return {{ snippet_count: texts.length, latest_texts: texts.slice(-3).map(t => t.slice(-3500)) }};
       }}).catch(e => ({{ snippet_count: 0, latest_texts: [], error: String(e) }}));
-      process.stdout.write('\nS1EGO_JSON::' + JSON.stringify({{ ok: true, space: {space_idx}, harvested: harvested }}) + '\n');
+      process.stdout.write('S1EGO_JSON::' + JSON.stringify({{ ok: true, space: {space_idx}, harvested: harvested }}) );
     }} catch (err) {{
-      process.stdout.write('\nS1EGO_JSON::' + JSON.stringify({{ ok: false, space: {space_idx}, error: String(err.message || err) }}) + '\n');
+      process.stdout.write('S1EGO_JSON::' + JSON.stringify({{ ok: false, space: {space_idx}, error: String(err.message || err) }}) );
     }} finally {{
       try {{ if (task && typeof task.finish === 'function') await task.finish({{ keep: [] }}); }} catch (_) {{}}
     }}
