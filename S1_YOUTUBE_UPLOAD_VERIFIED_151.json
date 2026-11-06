@@ -1,0 +1,8 @@
+{
+  "directive_id": "RGON_DIR_NEW_FOUNDATION_151",
+  "executed_at": "2026-11-07T01:06:56.390091",
+  "upload_result": {
+    "ok": false,
+    "error": "TypeError: page.$ is not a function"
+  }
+}
