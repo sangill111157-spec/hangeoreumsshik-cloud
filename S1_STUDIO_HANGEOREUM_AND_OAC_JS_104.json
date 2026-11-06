@@ -1,0 +1,22 @@
+{
+  "directive_id": "RGON_DIR_NEW_FOUNDATION_104",
+  "executed_at": "2026-11-06T17:12:53.856940",
+  "studio_hangeoreum_result": {
+    "ok": true,
+    "studio_hangeoreum": {
+      "url": "https://studio.youtube.com/channel/UCMJn01WLs9ooIhh5x0eJeHg/videos/upload",
+      "title": "죄송합니다.",
+      "row_count": 0,
+      "rows": [],
+      "text_preview": "이 페이지를 볼 권한이 없습니다. 액세스 권한이 있는 계정에 로그인해야 합니다. 권한을 보유한 계정으로 전환하거나 로그인해 보세요. 계정 전환 스튜디오로 돌아가기"
+    }
+  },
+  "distrokid_oac_script_info": {
+    "ok": true,
+    "script_info": {
+      "matching_scripts": [
+        "\n/**\n* Removes the change event handler (actually ALL handlers) from the selectTheArtist element\n*/\n$j( document ).ready(function() {\nvar oacartists = $j(\"#oacartists\"),\nhasNoYTRequest\t= $j('#hasNoYTRequest'),\nhasYTRequest\t= $j('#hasYTRequest'),\nyoutubeChannel0 = $j('#youtubeChannel0'),\nyoutubeChannel3 = $j('#youtubeChannel3'),\nconfirmYTChannelSelectionButton\t= $j('#confirmYTChannelSelectionButton'),\nselectADifferentChannelButton\t= $j('#selectADifferentChannelButton'),\ndoesArtistHaveChannel\t= $j('.doesArtistHaveChannel'),\nyouTubeAccessToken\t= $j('#youTubeAccessToken'),\nyouTubeRefreshToken\t= $j('#youTubeRefreshToken'),\nmyBandName\t= $j('.myBandName');\n$j( '#gSignInWrapper' ).show();\n$j( '#gConnectedToWrapper' ).hide();\n$( '#customGoogleSignInButton' ).click( function(){\nwindow.open( '/api/googleoauth', '_blank', 'width=500,height=600' );\n} );\nfunction changedArtist(){\n$j( '#YTArtistWrapper' ).show();\n$j( '#YTChannelSpinner' ).show();\nvar selectedArtistName = $j( '.selectTheArtist option:selected' ).val();\n$j( '#artistName' ).val( selectedArtistName );\n// Force hiding the Google OAuth UI elements\n$j( '#gSignInWrapper' ).hide();\n$j( '#gConnectedToWrapper' ).hide();\n$j ('#qChannelWrapper' ).hide();\n$j( '#youTubeChannelId' ).val( '' ); // clear it out\n$j( '#youTubeChannelName' ).val( '' ); // clear it out\n$j( '#youTubeChannelURL' ).val( '' ); // clear it out\nif (selectedArtistName != '') {\n$j.ajax( {\nurl: '/api/checkYTArtistChannel/',\ntype: 'get',\ndata: {\nartistName: selectedArtistName\n},\nsuccess: function( response ){\ndoesArtistHaveChannel.show();\nvar responseData = $j.parseJSON( response );\nif( responseData.hasYTRequest ){\nhasYTRequest.show();\nhasNoYTRequest.hide();\n} else {\nhasNoYTRequest.show();\nhasYTRequest.hide();\n}\nif( !responseData.hasYTChannelData ){\n$j( '.noYTChannelData' ).hide();\n} else {\n$j( '.noYTChannelData' ).show();\n}\n$j( '#YTChannelSpinner' ).hide();\nmyBandName.text(selectedArtistName);\n$j( '#qChannelWrapper' ).show();\n}\n} );\t\n} else {\ninitArtist();\n}\n} \nfunction initArtist(){\n$j( '.selectTheArtist' ).val('');\noacartists.on('change', function(){ changedArtist()});\nhasNoYTRequest.hide();\nyoutubeChannel0.prop('checked', true);\ndoesArtistHaveChannel.show();\nyouTubeAccessToken.val('');\nyouTubeRefreshToken.val('');\n}\nselectADifferentChannelButton.click(function(){\nhasYTRequest.hide();\nhasNoYTRequest.show();\ndoesArtistHaveChannel.hide();\nyoutubeChannel3.prop('checked', true);\n// youtubeChannelSelector();\n});\n/**\n* Removes all UI elements for the YT Channel Selection\n*/\nfunction hideGoogleConnectUI(){\n$j( '#YTArtistWrapper' ).hide();\n$j( '#gSignInWrapper' ).hide();\n$j( '#gConnectedToWrapper' ).hide();\n$j( '#qChannelWrapper' ).hide();\n$j( '#hasNoYTRequest' ).hide();\n$j( '#hasYTRequest' ).hide();\n$j( '#qChannelWrapper' ).hide();\n$j( '.channelSelectButton' ).hide();\n}\n/**\n* Performs the save process for YT Channel Updates\n*/\nfunction confirmYTChannelSelection(){\t\nvar youtubeChannelName = $j( '#youTubeChannelName' ).val();\nvar artistName = $j( '"
+      ]
+    }
+  }
+}
