@@ -586,6 +586,15 @@
       "mode": "STANDARD_FOUNDRY_SPAWN",
       "status": "TRIGGERED",
       "ok": true
+    },
+    {
+      "directive_id": "RGON_DIR_STAGE3_4_AUTO_MONETIZATION_ENGINE_081",
+      "timestamp": "2026-11-06T12:04:10.616505+09:00",
+      "pid": 65648,
+      "mode": "RGON_DIRECT_PYTHON_EXECUTION",
+      "status": "COMPLETED",
+      "returncode": 0,
+      "ok": true
     }
   ]
 }
