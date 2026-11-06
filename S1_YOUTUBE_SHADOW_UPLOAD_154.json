@@ -1,0 +1,26 @@
+{
+  "directive_id": "RGON_DIR_NEW_FOUNDATION_154",
+  "executed_at": "2026-11-07T01:10:40.116967",
+  "result": {
+    "ok": true,
+    "btn_coords": {
+      "mode": "direct_upload_btn",
+      "x": 1740,
+      "y": 78
+    },
+    "inject": {
+      "ok": false,
+      "reason": "NO_INPUT_OR_DROPZONE",
+      "body": "채널 콘텐츠\n탐색 건너뛰기\nYouTube 스튜디오에 물어보기\n만들기\n내 채널\n한걸음씩\n대시보드\n콘텐츠\n분석\n커뮤니티\n언어\n콘텐츠 감지\n수익 창출\n맞춤설정\n오디오 보관함\n설정\n의견 보내기\n채널 콘텐츠\n동영상\nShorts\n라이브\n게시물\n재생목록\n팟캐스트\n강의\n프로모션\n컬래버레이션\n아이디어\n\n오류가 발생했습니다.\n\n재시도"
+    },
+    "meta": {
+      "boxes_count": 0,
+      "not_kids": false,
+      "video_url": ""
+    },
+    "save": {
+      "private_set": false,
+      "done_clicked": false
+    }
+  }
+}
