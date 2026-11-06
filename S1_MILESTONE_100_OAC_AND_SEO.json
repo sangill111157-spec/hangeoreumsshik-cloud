@@ -1,0 +1,292 @@
+{
+  "directive_id": "RGON_DIR_NEW_FOUNDATION_100",
+  "executed_at": "2026-11-06T17:00:38.122446",
+  "oac_radio_inspection": {
+    "ok": true,
+    "radio_details": {
+      "radio_count": 3,
+      "radios_info": [
+        {
+          "name": "youtubeChannel",
+          "id": "youtubeChannel0",
+          "val": "0",
+          "checked": false,
+          "onclick": ""
+        },
+        {
+          "name": "youtubeChannel",
+          "id": "youtubeChannel1",
+          "val": "1",
+          "checked": false,
+          "onclick": ""
+        },
+        {
+          "name": "youtubeChannel",
+          "id": "youtubeChannel3",
+          "val": "3",
+          "checked": true,
+          "onclick": ""
+        }
+      ],
+      "form_snippet": "<div data-nosnippet=\"\" class=\"osano-cm-window\" dir=\"ltr\"><!----> <!--?lit$8306925604$--><div hidden=\"\" class=\"osano-visually-hidden\"> <span id=\"osano-cm-aria.newWindow\"><!--?lit$8306925604$-->새 창에서 열림</span> <span id=\"osano-cm-aria.external\"><!--?lit$8306925604$-->외부 웹사이트를 엽니다.</span> <span id=\"osano-cm-aria.externalNewWindow\"><!--?lit$8306925604$-->새 창에서 외부 웹사이트를 엽니다.</span> </div> <!--?lit$8306925604$--> <div role=\"dialog\" id=\"c4afd7f4-88bb-4494-8161-823ef7d20494\" aria-label=\"쿠키 동의 배너\" aria-describedby=\"c4afd7f4-88bb-4494-8161-823ef7d20494__label\" class=\" osano-cm-window__dialog osano-cm-dialog osano-cm-dialog--hidden osano-cm-dialog--position_bottom osano-cm-dialog--type_bar \"> <!--?lit$8306925604$--> <button class=\" osano-cm-dialog__close osano-cm-close \"> <!--?lit$8306925604$--><svg width=\"20px\" height=\"20px\" viewBox=\"0 0 20 20\" role=\"img\" aria-labelledby=\"693763f7-0c42-4043-bc9c-9ae7feeae64e\"> <title id=\"693763f7-0c42-4043-bc9c-9ae7feeae64e\"><!---->이 대화 상자 닫기<!----></title> <line role=\"presentation\" x1=\"2\" y1=\"2\" x2=\"18\" y2=\"18\"></line> <line role=\"presentation\" x1=\"2\" y1=\"18\" x2=\"18\" y2=\"2\"></line> </svg> </button>  <div class=\" osano-cm-dialog__content osano-cm-content \"> <!--?lit$8306925604$--> <span id=\"c4afd7f4-88bb-4494-8161-823ef7d20494__label\" class=\" osano-cm-content__message osano-cm-message \"> <!--?lit$8306925604$-->이 웹사이트는 쿠키와 같은 기술을 사용하여 필수 사이트 기능을 활성화하고 분석, 개인화 및 대상 광고 목적을 위해 사용합니다. <!--?lit$8306925604$-->언제든지 설정을 변경하거나 기본 설정을 그대로 사용할 수 있습니다. <!--?lit$8306925604$-->필수 쿠키만 계속 사용하려면 이 배너를 닫을 수 있습니다. </span>  <!--?lit$8306925604$--> <!--?lit$8306925604$--><!--?lit$8306925604$--><a rel=\"noopener\" tabindex=\"0\" href=\"distrokid.com/privacy/\" target=\"_blank\" class=\" osano-cm-storage-policy osano-cm-content__link osano-cm-link \" aria-describedby=\"osano-cm-aria.newWindow\"><!--?lit$8306925604$-->개인정보 보호정책</a><!--?--><!--?lit$8306925604$--> <!--?lit$8306925604$--> <p class=\" osano-cm-content__drawer-links osano-cm-drawer-links \"> <!--?lit$8306925604$--><a rel=\"noopener\" tabindex=\"0\" href=\"#47a3d8e2-06a7-4b01-aadd-6fcadc80565a\" class=\" osano-cm-drawer-links__link osano-cm-link osano-cm-link--type_manage \"><!--?lit$8306925604$-->저장 환경 설정</a> <!--?lit$8306925604$--> </p>  <!--?lit$8306925604$--><ul class=\"osano-cm-dialog__list osano-cm-list\" role=\"group\"> <!--?lit$8306925604$--><!----><li class=\" osano-cm-list__list-item osano-cm-list-item \"> <!--?lit$8306925604$--><label class=\" osano-cm-list-item__toggle osano-cm-toggle \" for=\"osano-cm-dialog-toggle--category_MARKETING\"><input type=\"checkbox\" role=\"switch\" class=\" osano-cm-toggle__input osano-cm-input \" id=\"osano-cm-dialog-toggle--category_MARKETING\" data-category=\"MARKETING\" tabindex=\"-1\"><span class=\" osano-cm-toggle__switch osano-cm-switch \"></span><span class=\" osano-cm-toggle__label osano-cm-label \"><!--?lit$8306925604$-->표적 광고</span></label> </li><!----><!----><li class=\" osano-cm-list__list-item osano-cm-list-item \"> <!--?lit$8306925604$--><label class=\" osano-cm-list-item__toggle osano-cm-toggle \" for=\"osano-cm-dialog-toggle--category_PERSONALIZATION\"><input type=\"checkbox\" role=\"switch\" class=\" osano-cm-toggle__input osano-cm-input \" id=\"osano-cm-dialog-toggle--category_PERSONALIZATION\" data-category=\"PERSONALIZATION\" tabindex=\"-1\"><span class=\" osano-cm-toggle__switch osano-cm-switch \"></span><span class=\" osano-cm-toggle__label osano-cm-label \"><!--?lit$8306925604$-->개인화</span></label> </li><!----><!----><li class=\" osano-cm-list__list-item osano-cm-list-item \"> <!--?lit$8306925604$--><label class=\" osano-cm-list-item__toggle osano-cm-toggle \" for=\"osano-cm-dialog-toggle--category_ANALYTICS\"><input type=\"checkbox\" role=\"switch\" class=\" osano-cm-toggle__input osano-cm-input \" id=\"osano-cm-dialog-toggle--category_ANALYTICS\" data-category=\"ANALYTICS\" tabindex=\"-1\"><span class=\" osano-cm-toggle__switch osano-cm-switch \"></span><span class=\" osano-cm-toggle__label osano-cm-label \"><!--?lit$8306925604$-->분석</span></label> </li><!----> </ul> </div> <!--?lit$8306925604$--> <div class=\" osano-cm-dialog__buttons osano-cm-buttons osano-cm-buttons--disabled \"> <!--?lit$8306925604$--><!--?lit$8306925604$--><!--?lit$8306925604$--><button class=\" osano-cm-save osano-cm-buttons__button osano-cm-button osano-cm-button--type_save \" tabindex=\"0\"> <!--?lit$8306925604$-->저장 </button><!--?--><!--?--> <!--?lit$8306925604$--><!--?lit$8306925604$--><button class=\" osano-cm-accept-all osano-cm-buttons__button osano-cm-button osano-cm-button--type_accept \" tabindex=\"0\"> <!--?lit$8306925604$-->모두 동의 </button><!--?--> <!--?lit$8306925604$--><!--?lit$8306925604$--><!--?lit$8306925604$--><button class=\" osano-cm-denyAll osano-cm-buttons__button osano-cm-button osano-cm-button--type_denyAll \" tabindex=\"0\"> <!--?lit$8306925604$-->모두 거부 </button><!--?--><!--?--> </div>  </div>  <!--?lit$8306925604$--> <button id=\"6f23326c-bf4e-44e0-bc2e-daa492129f9d\" class=\"osano-cm-window__widget osano-cm-widget osano-cm-widget--position_right\" title=\"쿠키 환경 설정\" aria-label=\"쿠키 환경 설정\"> <svg role=\"img\" width=\"40\" height=\"40\" viewBox=\"0 0 71.85 72.23\" xmlns=\"http://www.w3.org/2000/svg\" aria-labelledby=\"6f23326c-bf4e-44e0-bc2e-daa492129f9d\"> <path d=\"m67.6 36.73a6.26 6.26 0 0 1 -3.2-2.8 5.86 5.86 0 0 0 -5.2-3.1h-.3a11 11 0 0 1 -11.4-9.5 6 6 0 0 1 -.1-1.4 9.2 9.2 0 0 1 .4-2.9 8.65 8.65 0 0 0 .2-1.6 5.38 5.38 0 0 0 -1.9-4.3 7.3 7.3 0 0 1 -2.5-5.5 3.91 3.91 0 0 0 -3.5-3.9 36.46 36.46 0 0 0 -15 1.5 33.14 33.14 0 0 0 -22.1 22.7 35.62 35.62 0 0 0 -1.5 10.2 34.07 34.07 0 0 0 4.8 17.6.75.75 0 0 0 .07.12c.11.17 1.22 1.39 2.68 3-.36.47 5.18 6.16 5.65 6.52a34.62 34.62 0 0 0 55.6-21.9 4.38 4.38 0 0 0 -2.7-4.74z\" stroke-width=\"3\" class=\" osano-cm-widget__outline osano-cm-outline \"></path> <path d=\"m68 41.13a32.37 32.37 0 0 1 -52 20.5l-2-1.56c-2.5-3.28-5.62-7.15-5.81-7.44a32 32 0 0 1 -4.5-16.5 34.3 34.3 0 0 1 1.4-9.6 30.56 30.56 0 0 1 20.61-21.13 33.51 33.51 0 0 1 14.1-1.4 1.83 1.83 0 0 1 1.6 1.8 9.38 9.38 0 0 0 3.3 7.1 3.36 3.36 0 0 1 1.2 2.6 3.37 3.37 0 0 1 -.1 1 12.66 12.66 0 0 0 -.5 "
+    },
+    "after_radio": {
+      "url": "https://distrokid.com/YouTubeOfficialArtistChannels/",
+      "text": "업로드 내 음악 통계 Splits 퍼블리싱 신규 업그레이드 Bank YOUTUBE 공식 아티스트 채널 공식 아티스트 채널은 아티스트와 팀이 YouTube를 최대한 활용할 수 있도록 설계되었습니다. 지금 채널을 업그레이드하고 수백만의 팬과 소통 및 플랫폼 내 입지를 다지기 위한 분석 자료와 도구를 손에 넣으세요. 필수 준비사항: 본인이 직접 관리하는 YouTube 채널 DistroKid에서 사용하는 이메일과 같을 필요는 없습니다. 본인이 직접 관리하는 YouTube 계정이면 충분합니다. 해당 아티스트의 음악을 주로 다루는 YouTube 채널 음반사나 특정 음악 장르에 특화된 채널을 선택하지 마세요. 공식 아티스트 채널 예시 nobigdyl. Twin Tribes Megan Davies YouTube 공식 아티스트 채널에 대해 알아보기 아티스트 선택... 한걸음씩 SUN-ONE AON 아니요, YouTube 채널이 없습니다 한걸음씩 및 다른 아티스트의 콘텐츠를 다루는 YouTube 채널을 운영하고 있습니다 네, 다음 아티스트 전용 YouTube 채널을 운영하고 있습니다: 한걸음씩 YOUTUBE 채널 연결 © DistroKid 2026 日本語 한국어 Bahasa Indonesia Bahasa Melayu Čeština Dansk Deutsch English English (UK) Español Español (España) Français Français (Canada) Italiano Kiswahili Magyar Nederlands Norsk Bokmål Polski Português (Brasil) Português (Portugal) Românã Suomi Svenska Tiếng Việt Türkçe ελληνικά українська עברית العربية‬‎ हिन्दी ภาษาไทย 도움말 고객센터 회사 DistroKid 블로그 손톱깎이 & 굿즈 Artists For Change 커리어 인플루언서 & 제휴 프로그램 상품 요금제 Bandzoogle Instant Share Mixea DistroVid HyperFollow Direct 퍼블리싱 모바일 앱 iPhone용 DistroKid Android용 DistroKid 개인 정보 보호 정책 쿠키 정책 쿠키 설정 이용약관 사이트맵 유통 계약서",
+      "visible_elements": [
+        {
+          "tag": "A",
+          "text": "내 음악",
+          "href": "https://distrokid.com/mymusic/",
+          "id": "",
+          "cls": "nav-href"
+        },
+        {
+          "tag": "A",
+          "text": "통계",
+          "href": "https://distrokid.com/stats/",
+          "id": "",
+          "cls": "nav-href"
+        },
+        {
+          "tag": "A",
+          "text": "Splits",
+          "href": "https://distrokid.com/teams",
+          "id": "js-nav-splits-link",
+          "cls": "nav-href"
+        },
+        {
+          "tag": "A",
+          "text": "퍼블리싱 신규",
+          "href": "https://distrokid.com/publishing/",
+          "id": "",
+          "cls": "nav-href"
+        },
+        {
+          "tag": "A",
+          "text": "업그레이드",
+          "href": "https://distrokid.com/plan/?upgrade=1",
+          "id": "nav-upgrade-link",
+          "cls": "nav-href experiment-event-log"
+        },
+        {
+          "tag": "A",
+          "text": "Bank",
+          "href": "https://distrokid.com/bank",
+          "id": "linkNavBank",
+          "cls": "nav-href"
+        },
+        {
+          "tag": "A",
+          "text": "nobigdyl.",
+          "href": "https://www.youtube.com/channel/UCwYbNtKwOanR1pbw6D5NbAA",
+          "id": "",
+          "cls": ""
+        },
+        {
+          "tag": "A",
+          "text": "Twin Tribes",
+          "href": "https://www.youtube.com/@TwinTribes",
+          "id": "",
+          "cls": ""
+        },
+        {
+          "tag": "A",
+          "text": "Megan Davies",
+          "href": "https://www.youtube.com/user/megandavies711",
+          "id": "",
+          "cls": ""
+        },
+        {
+          "tag": "A",
+          "text": "YouTube 공식 아티스트 채널에 대해 알아보기",
+          "href": "https://artists.youtube/resources/?utm_source=Distrokid+(LR)&utm_medium=pa&utm_campaign=q2",
+          "id": "",
+          "cls": ""
+        },
+        {
+          "tag": "A",
+          "text": "고객센터",
+          "href": "https://distrokid.com/help/",
+          "id": "footer-support-link",
+          "cls": "footer-new-link"
+        },
+        {
+          "tag": "A",
+          "text": "DistroKid 블로그",
+          "href": "https://distrokid.com/resources/blog",
+          "id": "footer-news-link",
+          "cls": "footer-new-link"
+        },
+        {
+          "tag": "A",
+          "text": "손톱깎이 & 굿즈",
+          "href": "https://store.distrokid.com/",
+          "id": "footer-store-link",
+          "cls": "footer-new-link"
+        },
+        {
+          "tag": "A",
+          "text": "Artists For Change",
+          "href": "https://distrokid.com/artistsforchange/",
+          "id": "footer-artists-for-change-link",
+          "cls": "footer-new-link"
+        },
+        {
+          "tag": "A",
+          "text": "커리어",
+          "href": "https://boards.greenhouse.io/distrokid",
+          "id": "footer-careers",
+          "cls": "footer-new-link"
+        },
+        {
+          "tag": "A",
+          "text": "인플루언서 & 제휴 프로그램",
+          "href": "https://distrokid.com/product/partners",
+          "id": "",
+          "cls": "footer-new-link"
+        },
+        {
+          "tag": "A",
+          "text": "요금제",
+          "href": "https://distrokid.com/pricing/",
+          "id": "footer-pricing",
+          "cls": "footer-new-link"
+        },
+        {
+          "tag": "A",
+          "text": "Bandzoogle",
+          "href": "https://bandzoogle.com/?pc=DK14&utm_source=distrokid&utm_medium=website&utm_campaign=footer",
+          "id": "footer-bandzoogle-link",
+          "cls": "footer-new-link"
+        },
+        {
+          "tag": "A",
+          "text": "Instant Share",
+          "href": "https://distrokid.com/instantshare/",
+          "id": "footer-instantshare-link",
+          "cls": "footer-new-link"
+        },
+        {
+          "tag": "A",
+          "text": "Mixea",
+          "href": "https://distrokid.com/mixea/",
+          "id": "footer-mixea-link",
+          "cls": "footer-new-link"
+        },
+        {
+          "tag": "A",
+          "text": "DistroVid",
+          "href": "https://distrovid.com/",
+          "id": "footer-distrovid-link",
+          "cls": "footer-new-link"
+        },
+        {
+          "tag": "A",
+          "text": "HyperFollow",
+          "href": "https://hyperfollow.com/",
+          "id": "footer-hyperfollow-link",
+          "cls": "footer-new-link"
+        },
+        {
+          "tag": "A",
+          "text": "Direct",
+          "href": "https://distrokid.com/direct/?ref=footer",
+          "id": "footer-direct-link",
+          "cls": "footer-new-link"
+        },
+        {
+          "tag": "A",
+          "text": "퍼블리싱",
+          "href": "https://distrokid.com/publishing/",
+          "id": "",
+          "cls": "footer-new-link"
+        },
+        {
+          "tag": "A",
+          "text": "iPhone용 DistroKid",
+          "href": "https://distrokid.com/app/",
+          "id": "footer-ios-link",
+          "cls": "footer-new-link"
+        },
+        {
+          "tag": "A",
+          "text": "Android용 DistroKid",
+          "href": "https://distrokid.com/app/",
+          "id": "footer-android-link",
+          "cls": "footer-new-link"
+        },
+        {
+          "tag": "A",
+          "text": "개인 정보 보호 정책",
+          "href": "https://distrokid.com/privacy/",
+          "id": "footer-privacy-link",
+          "cls": "footer-new-link"
+        },
+        {
+          "tag": "A",
+          "text": "쿠키 정책",
+          "href": "https://distrokid.com/privacy/",
+          "id": "footer-cookie-policy-link",
+          "cls": "footer-new-link"
+        },
+        {
+          "tag": "A",
+          "text": "쿠키 설정",
+          "href": "javascript:void(0)",
+          "id": "footer-cookie-settings-link",
+          "cls": "footer-new-link"
+        },
+        {
+          "tag": "A",
+          "text": "이용약관",
+          "href": "https://distrokid.com/terms/",
+          "id": "footer-terms-link",
+          "cls": "footer-new-link"
+        },
+        {
+          "tag": "A",
+          "text": "사이트맵",
+          "href": "https://distrokid.com/sitemap/",
+          "id": "",
+          "cls": "footer-new-link"
+        },
+        {
+          "tag": "A",
+          "text": "유통 계약서",
+          "href": "https://distrokid.com/agreement/",
+          "id": "footer-agreement-link",
+          "cls": "footer-new-link"
+        }
+      ]
+    }
+  },
+  "target_6_music_videos": [
+    {
+      "video_id": "3nUJqf0ztBw",
+      "title": "빛의 아침 (Morning Light) - Original Song (한걸음씩)"
+    },
+    {
+      "video_id": "v-UdDDTx5Fw",
+      "title": "🌸 어머니는 꽃이다 (Mother is a Flower)"
+    },
+    {
+      "video_id": "ZGKDVNLzCyA",
+      "title": "🕊️ A Morning of Light | Hope in the Midst of War"
+    },
+    {
+      "video_id": "pmiytSqutsQ",
+      "title": "다시 피어날 나 (Reborn in Light) - 한 걸음씩 | Official MV"
+    },
+    {
+      "video_id": "hlIFjM_AGYc",
+      "title": "한걸음씩 - 원인과 결과, 결국 사랑 (Cause & Effect) | Official MV"
+    },
+    {
+      "video_id": "P90h3HLw9Qk",
+      "title": "사냥꾼의 새벽 (Hunter's Dawn) - Official AI Music Video"
+    }
+  ],
+  "updated_videos": [],
+  "api_errors": []
+}
