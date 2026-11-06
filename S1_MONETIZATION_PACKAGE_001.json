@@ -1,7 +1,7 @@
 {
   "package_id": "S1_MONETIZATION_PACKAGE_001",
   "version": "1.0.0-GLOBAL-TOP1-VERIFIED",
-  "created_at": "2026-11-06T13:44:01.605808+09:00",
+  "created_at": "2026-11-06T13:47:36.818354+09:00",
   "stage_status": "STAGE_5_COMPLETED_AND_STAGE_6_VERIFIED",
   "global_top1_formulas_applied": {
     "formula_1_rpm_multiplier": "Chartlex 2026 Data: Shorts($0.03~$0.06 RPM) 단독 대신 [Shorts 미끼 -> Long-form($1.50~$5.00 RPM) + Art Track($5.28/1k streams) + Content ID($1.57/1k views)] 결합으로 수익 8~20배 극대화",
