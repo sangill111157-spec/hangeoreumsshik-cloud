@@ -569,6 +569,23 @@
       "mode": "STANDARD_FOUNDRY_SPAWN",
       "status": "TRIGGERED",
       "ok": true
+    },
+    {
+      "directive_id": "RGON_DIR_LOCK_STEALTH_HOOK_AND_VERIFY_078",
+      "timestamp": "2026-11-05T23:47:10.818033+09:00",
+      "pid": 65648,
+      "mode": "RGON_DIRECT_PYTHON_EXECUTION",
+      "status": "COMPLETED",
+      "returncode": 0,
+      "ok": true
+    },
+    {
+      "directive_id": "LINTER_VERIFY_047",
+      "timestamp": "2026-11-06T12:04:04.466270+09:00",
+      "pid": 74464,
+      "mode": "STANDARD_FOUNDRY_SPAWN",
+      "status": "TRIGGERED",
+      "ok": true
     }
   ]
 }

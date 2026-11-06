@@ -1,11 +1,11 @@
 {
   "linter_version": "1.6.0",
   "directive_id": "RGON_DIR_CONNECT_COMMUNICATE_OMNIPOTENT_046",
-  "timestamp": "2026-11-05T23:47:05.959840+09:00",
-  "verdict": "PASS",
-  "score": 100.0,
+  "timestamp": "2026-11-06T12:04:05.609010+09:00",
+  "verdict": "QM_SP_11_REJECTED_LOT",
+  "score": 77.3,
   "passed_checks": 17,
-  "total_checks": 17,
+  "total_checks": 22,
   "checks": [
     {
       "id": "GATE-A-PROTECTED-FILES",
@@ -95,7 +95,37 @@
       "id": "FM-014",
       "name": "if __name__ == '__main__': 하단 Dead Code 배치, 미정의 변수(BASE_DIR) 사용, 함수 선언만 하고 미호출하는 린터 눈속임 및 에고라이트 최신 스킬(ego-browser v2.2.0) 미장착 금지",
       "passed": true,
-      "detail": "전달봇 AST 정적 검증(L238 < L734, 2대 ast.Call)·런타임 실측 성공·ego-browser v2.2.0·여권 57대 도장(57개) 100% 무결 검증"
+      "detail": "전달봇 AST 정적 검증(L238 < L755, 2대 ast.Call)·런타임 실측 성공·ego-browser v2.2.0·여권 57대 도장(57개) 100% 무결 검증"
+    },
+    {
+      "id": "BAD-001",
+      "name": "파이썬 페이로드 내부 중첩 f-string 중괄호({ })로 인한 SyntaxError",
+      "passed": false,
+      "detail": "미등록 가드 함수: "
+    },
+    {
+      "id": "BAD-002",
+      "name": "Space 0 이모지 스캔 시 utf-8 surrogates not allowed 인코딩 에러",
+      "passed": false,
+      "detail": "미등록 가드 함수: "
+    },
+    {
+      "id": "BAD-003",
+      "name": "린터(LINTER_VERIFY_047)가 안실장 IDE(STANDARD_FOUNDRY_SPAWN)를 강제로 깨워 토큰 낭비",
+      "passed": false,
+      "detail": "미등록 가드 함수: "
+    },
+    {
+      "id": "BAD-004",
+      "name": "subprocess 호출 시 CREATE_NO_WINDOW 누락으로 15초마다 검은 콘솔 창 2번 깜빡임",
+      "passed": false,
+      "detail": "미등록 가드 함수: "
+    },
+    {
+      "id": "BAD-005",
+      "name": "VS Code 터미널 내부 환경변수(VSCODE_GIT_IPC_HANDLE)로 인해 Git 로그인 팝업이 뜨며 데몬 멈춤",
+      "passed": false,
+      "detail": "미등록 가드 함수: "
     },
     {
       "id": "GATE-C-PASSPORT",

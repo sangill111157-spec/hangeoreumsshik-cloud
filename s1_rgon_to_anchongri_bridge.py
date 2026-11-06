@@ -276,6 +276,27 @@ def auto_execute_directive_trigger(directive_id: str, full_text: str = "") -> di
             # 1) 직접 실행
             exec_res = subprocess.run([sys.executable, str(runner_file)], cwd=BASE, timeout=120, capture_output=True, text=True, encoding="utf-8", errors="ignore")
             print(f"[RGON_DIRECT_ENGINE] Payload exit code: {exec_res.returncode}", flush=True)
+
+            # [S1_AUTO_MEMORY_VAULT_HOOK: 실행 결과에 따라 잘한 점(Good) / 못한 점(Bad) 자동 기록]
+            try:
+                _mv_path = BASE / "S1_MEMORY_VAULT_GOOD_BAD.json"
+                if _mv_path.exists():
+                    _mv = json.loads(_mv_path.read_text(encoding="utf-8", errors="replace"))
+                    _mv["updated_at"] = now_iso()
+                    _mv.setdefault("auto_runtime_logs", []).append({
+                        "directive_id": directive_id,
+                        "timestamp": now_iso(),
+                        "type": "GOOD_SUCCESS" if exec_res.returncode == 0 else "BAD_FAILURE",
+                        "returncode": exec_res.returncode,
+                        "note": (exec_res.stdout[:120] if exec_res.returncode == 0 else exec_res.stderr[:200]).strip()
+                    })
+                    _mv["auto_runtime_logs"] = _mv["auto_runtime_logs"][-100:]
+                    _mv_str = json.dumps(_mv, ensure_ascii=False, indent=2)
+                    _mv_path.write_text(_mv_str, encoding="utf-8", errors="replace")
+                    (BASE / "docs" / "S1_MEMORY_VAULT_GOOD_BAD.json").write_text(_mv_str, encoding="utf-8", errors="replace")
+            except Exception as _me:
+                print("[MEMORY_VAULT_ERR]", _me, flush=True)
+
             if exec_res.stdout:
                 print(f"[RGON_DIRECT_ENGINE] Stdout: {exec_res.stdout[:300]}", flush=True)
 
