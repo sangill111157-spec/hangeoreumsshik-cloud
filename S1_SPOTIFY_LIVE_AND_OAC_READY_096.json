@@ -1,0 +1,272 @@
+{
+  "directive_id": "RGON_DIR_NEW_FOUNDATION_096",
+  "executed_at": "2026-11-06T16:44:16.917172",
+  "live_blog_spotify_embed_patched": "https://connect-ai-shin.blogspot.com/2026/11/1-12-20-15.html",
+  "distrokid_assets_and_oac": {
+    "ok": true,
+    "album_assets": {
+      "cover_images": [
+        {
+          "src": "https://distrokid.com/images/small-trans.png",
+          "alt": "",
+          "w": 29
+        },
+        {
+          "src": "https://distrokid.com/images/header/house-solid.svg",
+          "alt": "",
+          "w": 169
+        },
+        {
+          "src": "https://distrokid.com/images/header/square-sliders-solid.svg",
+          "alt": "",
+          "w": 131
+        },
+        {
+          "src": "https://distrokid.com/images/header/video-solid.svg",
+          "alt": "",
+          "w": 169
+        },
+        {
+          "src": "https://distrokid.com/images/header/globe-pointer-solid.svg",
+          "alt": "",
+          "w": 150
+        },
+        {
+          "src": "https://distrokid.com/images/header/direct-solid.svg",
+          "alt": "",
+          "w": 20
+        },
+        {
+          "src": "https://distrokid.com/images/promos/holiday-cover-songs-snowman_152x148.webp",
+          "alt": "",
+          "w": 0
+        },
+        {
+          "src": "https://distrokid.com/images/logos/logo-spotify.svg",
+          "alt": "Spotify 로고",
+          "w": 15
+        },
+        {
+          "src": "https://distrokid.com/images/logos/logo-apple-music.svg",
+          "alt": "Apple Music 로고",
+          "w": 15
+        },
+        {
+          "src": "https://distrokid.com/images/icons/tidal.png",
+          "alt": "Tidal Artist 로고",
+          "w": 175
+        }
+      ],
+      "download_links": [
+        {
+          "text": "커버 곡 라이선스\n커버 곡 라이선스 확인서 다운로드하기",
+          "href": "https://distrokid.com/licenses"
+        },
+        {
+          "text": "다운로드",
+          "href": "https://distrokid.com/vault/download/?id=ihIUt"
+        },
+        {
+          "text": "다운로드",
+          "href": "https://distrokid.com/vault/download/?id=ihIUu"
+        },
+        {
+          "text": "다운로드",
+          "href": "https://distrokid.com/vault/download/?id=ihIUv"
+        },
+        {
+          "text": "다운로드",
+          "href": "https://distrokid.com/vault/download/?id=ihIUw"
+        },
+        {
+          "text": "다운로드",
+          "href": "https://distrokid.com/vault/download/?id=ihIUx"
+        },
+        {
+          "text": "다운로드",
+          "href": "https://distrokid.com/vault/download/?id=ihIUy"
+        },
+        {
+          "text": "다운로드",
+          "href": "https://distrokid.com/vault/download/?id=ihIUz"
+        },
+        {
+          "text": "다운로드",
+          "href": "https://distrokid.com/vault/download/?id=ihIUA"
+        },
+        {
+          "text": "다운로드",
+          "href": "https://distrokid.com/vault/download/?id=ihIUB"
+        },
+        {
+          "text": "다운로드",
+          "href": "https://distrokid.com/vault/download/?id=ihIUC"
+        },
+        {
+          "text": "다운로드",
+          "href": "https://distrokid.com/vault/download/?id=ihIUD"
+        },
+        {
+          "text": "다운로드",
+          "href": "https://distrokid.com/vault/download/?id=ihIUE"
+        }
+      ]
+    },
+    "oac_form": {
+      "url": "https://distrokid.com/YouTubeOfficialArtistChannels/",
+      "selects": [
+        {
+          "name": "oacartists",
+          "options": [
+            {
+              "text": "아티스트 선택...",
+              "value": ""
+            },
+            {
+              "text": "한걸음씩",
+              "value": "한걸음씩"
+            },
+            {
+              "text": "SUN-ONE AON",
+              "value": "SUN-ONE AON"
+            }
+          ]
+        },
+        {
+          "name": "sitetran_select",
+          "options": [
+            {
+              "text": "日本語",
+              "value": "ja"
+            },
+            {
+              "text": "한국어",
+              "value": "ko"
+            },
+            {
+              "text": "Bahasa Indonesia",
+              "value": "id"
+            },
+            {
+              "text": "Bahasa Melayu",
+              "value": "ms"
+            },
+            {
+              "text": "Čeština",
+              "value": "cs"
+            },
+            {
+              "text": "Dansk",
+              "value": "da"
+            },
+            {
+              "text": "Deutsch",
+              "value": "de"
+            },
+            {
+              "text": "English",
+              "value": "en"
+            },
+            {
+              "text": "English (UK)",
+              "value": "en-GB"
+            },
+            {
+              "text": "Español",
+              "value": "es"
+            },
+            {
+              "text": "Español (España)",
+              "value": "es-ES"
+            },
+            {
+              "text": "Français",
+              "value": "fr"
+            },
+            {
+              "text": "Français (Canada)",
+              "value": "fr-CA"
+            },
+            {
+              "text": "Italiano",
+              "value": "it"
+            },
+            {
+              "text": "Kiswahili",
+              "value": "sw"
+            },
+            {
+              "text": "Magyar",
+              "value": "hu"
+            },
+            {
+              "text": "Nederlands",
+              "value": "nl"
+            },
+            {
+              "text": "Norsk Bokmål",
+              "value": "nb"
+            },
+            {
+              "text": "Polski",
+              "value": "pl"
+            },
+            {
+              "text": "Português (Brasil)",
+              "value": "pt-BR"
+            },
+            {
+              "text": "Português (Portugal)",
+              "value": "pt-PT"
+            },
+            {
+              "text": "Românã",
+              "value": "ro"
+            },
+            {
+              "text": "Suomi",
+              "value": "fi"
+            },
+            {
+              "text": "Svenska",
+              "value": "sv"
+            },
+            {
+              "text": "Tiếng Việt",
+              "value": "vi"
+            },
+            {
+              "text": "Türkçe",
+              "value": "tr"
+            },
+            {
+              "text": "ελληνικά",
+              "value": "el"
+            },
+            {
+              "text": "українська",
+              "value": "uk"
+            },
+            {
+              "text": "עברית",
+              "value": "he"
+            },
+            {
+              "text": "العربية‬‎",
+              "value": "ar"
+            },
+            {
+              "text": "हिन्दी",
+              "value": "hi"
+            },
+            {
+              "text": "ภาษาไทย",
+              "value": "th"
+            }
+          ]
+        }
+      ]
+    },
+    "spotify_uris_full": "업로드 \n내 음악\n통계\nSplits\n퍼블리싱 신규\n업그레이드\nBank\nSpotify URI 검색 도구\nSpotify URI를 찾고 계신가요?\n\n발매작이 보이지 않나요? 아직 Spotify에 작품이 전달되지 않았을 수 있으니, 내일 다시 확인해주세요.\n잔상 (upc 700486463268)\n빛의 아침 (upc 825642211641)\n깨어나는 계절 (Rebirth of Light) (upc 825628838190)\n다시 피어날 나 (Reborn in Light) (upc 825628826685)\n사냥꾼의 새벽 (Hunter's Dawn) (upc 825628742374)\n사랑이 머무는 아침 (Morning Where Love Stays) (upc 825628733297)\n원인과 결과, 결국 사랑 (Cause & Effect) (upc 825628726640)\n어머니는 꽃이다 (upc 825500598419)\nThe Weight of a Soul (upc 825393009030)\nMorning Café (upc 825326278502)\nAfternoon Café (upc 825326275679)\nEvening Café (upc 825326269340)\nBooster Playlist (EP3) (upc 882000444233)\nBooster Playlist (EP1) (upc 882000421265)\nBooster Playlist (EP2) (upc 882000417961)\n모두의 응원가(EVERYONE'S ANTHEM) (upc 883071294062)\n가을과 겨울 사이 (upc 700563848544)\n\n\n잔상\nUPC: 700486463268\n\t\n앨범\nURI: spotify:album:5mUFONUYoiZERNHfUbJeWH\n링크: https://open.spotify.com/album/5mUFONUYoiZERNHfUbJeWH\n\n\n트랙:\n답장은 천천히\nURI: spotify:track:7hJ5u5ktrZ1OqzMfYzvYOr\n링크: https://open.spotify.com/track/7hJ5u5ktrZ1OqzMfYzvYOr\n\n\n한 칸 사이\nURI: spotify:track:6G8gOAqtt49DXPIjbGhvPJ\n링크: https://open.spotify.com/track/6G8gOAqtt49DXPIjbGhvPJ\n\n\n먼저 끊지 마\nURI: spotify:track:2ZW7R81P4AdfpJ4v4QxAFH\n링크: https://open.spotify.com/track/2ZW7R81P4AdfpJ4v4QxAFH\n\n\n읽고도 모른 척\nURI: spotify:track:0gkTRuZiS7DD8CDNqyt6m3\n링크: https://open.spotify.com/track/0gkTRuZiS7DD8CDNqyt6m3\n\n\n우리 아닌 우리\nURI: spotify:track:5ifXC3Av7icLurrSDKjFJH\n링크: https://open.spotify.com/track/5ifXC3Av7icLurrSDKjFJH\n\n\n반 박자 늦게\nURI: spotify:track:1AxkHLC4WwHzXzwItdNRUt\n링크: https://open.spotify.com/track/1AxkHLC4WwHzXzwItdNRUt\n\n\n새벽의 온도\nURI: spotify:track:6Ny1g7fUWPeChIx9hyIk4K\n링크: https://open.spotify.com/track/6Ny1g7fUWPeChIx9hyIk4K\n\n\n잔상\nURI: spotify:track:1McAIQNd5cxs2sSoPlDI4E\n링크: https://open.spotify.com/track/1McAIQNd5cxs2sSoPlDI4E\n\n\n취소한 문장\nURI: spotify:track:48VFz4gwd2lHq6p7ngYjkf\n링크: https://open.spotify.com/track/48VFz4gwd2lHq6p7ngYjkf\n\n\n괜찮은 척의 속도\nURI: spotify:track:5XolTzMk7ibeFhbjVGRmHW\n링크: https://open.spotify.com/track/5XolTzMk7ibeFhbjVGRmHW\n\n\n우회전\nURI: spotify:track:1c6Mlqkkm4sRzLFYgWBWUg\n링크: https://open.spotify.com/track/1c6Mlqkkm4sRzLFYgWBWUg\n\n\n조금 덜 선명해\nURI: spotify:track:37bsNvXJ82J4GzAk2TjmLc\n링크: https://open.spotify.com/track/37bsNvXJ82J4GzAk2TjmLc\n\n\n내 쪽으로\nURI: spotify:track:1vapyP4sGcCw4OmUpTSVyW\n링크: https://open.spotify.com/track/1vapyP4sGcCw4OmUpTSVyW\n\n\n다음 계절의 나\nURI: spotify:track:09xAIpVXKUIyw8En050iir\n링크: https://open.spotify.com/track/09xAIpVXKUIyw8En050iir\n\n\n아침의 편\nURI: spotify:track:0duwee7HkS4fAm7a8zZ8Ec\n링크: https://open.spotify.com/track/0duwee7HkS4fAm7a8zZ8Ec\n\n\n아티스트:\n한 걸음씩\nURI: spotify:artist:37RTCSbpIAxl5wbMIBgZOb\n링크: https://open.spotify.com/artist/37RTCSbpIAxl5wbMIBgZOb\n\n\n\n가을과 겨울 사이\nUPC: 700563848544\n\t\n앨범\nURI: spotify:album:44chP2pw8CFr0Z4aPNj4SO\n링크: https://open.spotify.com/album/44chP2pw8CFr0Z4aPNj4SO\n\n\n트랙:\n막차\nURI: spotify:track:3b4686P1Ib4tlfulh2koSm\n링크: https://open.spotify.com/track/3b4686P1Ib4tlfulh2koSm\n\n\n창을 닫지 마\nURI: spotify:track:3b96iWN1tGwWHBm3MZei6r\n링크: https://open.spotify.com/track/3b96iWN1tGwWHBm3MZei6r\n\n\n첫 입김\nURI: spotify:track:2lzvUcq5hKuuoF3JIDlU2U\n링크: https://open.spotify.com/track/2lzvUcq5hKuuoF3JIDlU2U\n\n\n오늘은 여기까지\nURI: spotify:track:5UQoMokhrfaEzo1STkbG7D\n링크: https://open.spotify.com/track/5UQoMokhrfaEzo1STkbG7D\n\n\n밥은 먹었니\nURI: spotify:track:3yqI15mkEG8VqPy8wc0D7p\n링크: https://open.spotify.com/track/3yqI15mkEG8VqPy8wc0D7p\n\n\n식어 가는 차\nURI: spotify:track:4aT0zIUPCNFuAObNJgSxtn\n링크: https://open.spotify.com/track/4aT0zIUPCNFuAObNJgSxtn\n\n\n가로등 아래서\nURI: spotify:track:22PkPxZ3eY2Kn4wYjeCtrp\n링크: https://open.spotify.com/track/22PkPxZ3eY2Kn4wYjeCtrp\n\n\n남겨 둔 자리\nURI: spotify:track:1kvvO5wPcOrnxI331tqONb\n링크: https://open.spotify.com/track/1kvvO5wPcOrnxI331tqONb\n\n\n보내지 않은 말\nURI: spotify:track:4dDLvxGdP5tCkLQKneMqdE\n링크: https://open.spotify.com/track/4dDLvxGdP5tCkLQKneMqdE\n\n\n불은 꺼지지 않아\nURI: spotify:track:4AkkG0JVD4cCt3SSCvetP7\n링크: https://open.spotify.com/track/4AkkG0JVD4cCt3SSCvetP7\n\n\n난로 옆에서\nURI: spotify:track:33dZHWKfkKERk1hZPPtHYd\n링크: https://open.spotify.com/track/33dZHWKfkKERk1hZPPtHYd\n\n\n내일의 아침\nURI: spotify:track:30k8n0UAMBIDjTpN9GBbR6\n링크: https://open.spotify.com/track/30k8n0UAMBIDjTpN9GBbR6\n\n\n아티스트:\n한 걸음씩\nURI: spotify:artist:37RTCSbpIAxl5wbMIBgZOb\n링크: https://open.spotify.com/artist/37RTCSbpIAxl5wbMIBgZOb\n\n\n© DistroKid 2026\n日本語\n한국어\nBahasa Indonesia\nBahasa Melayu\nČeština\nDansk\nDeutsch\nEnglish\nEnglish (UK)\nEspañol\nEspañol (España)\nFrançais\nFrançais (Canada)\nItaliano\nKiswahili\nMagyar\nNederlands\nNorsk Bokmål\nPolski\nPortuguês (Brasil)\nPortuguês (Portugal)\nRomânã\nSuomi\nSvenska\nTiếng Việt\nTürkçe\nελληνικά\nукраїнська\nעברית\nالعربية‬‎\nहिन्दी\nภาษาไทย\n도움말\n고객센터\n회사\nDistroKid 블로그\n손톱깎이 & 굿즈\nArtists For Change\n커리어\n인플루언서 & 제휴 프로그램\n상품\n요금제\nBandzoogle\nInstant Share\nMixea\nDistroVid\nHyperFollow\nDirect\n퍼블리싱\n모바일 앱\niPhone용 DistroKid\nAndroid용 DistroKid\n개인 정보 보호 정책\n쿠키 정책\n쿠키 설정\n이용약관\n사이트맵\n유통 계약서"
+  }
+}
