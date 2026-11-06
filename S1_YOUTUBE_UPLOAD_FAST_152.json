@@ -1,0 +1,8 @@
+{
+  "directive_id": "RGON_DIR_NEW_FOUNDATION_152",
+  "prev_151_diag": "{'ok': False, 'error': 'TypeError: page.$ is not a function'}",
+  "result_152": {
+    "ok": false,
+    "error": "TypeError: page.$ is not a function"
+  }
+}
