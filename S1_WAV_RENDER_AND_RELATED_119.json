@@ -1,0 +1,100 @@
+{
+  "directive_id": "RGON_DIR_NEW_FOUNDATION_119",
+  "executed_at": "2026-11-06T19:42:02.845501",
+  "downloaded_wav_masters": [],
+  "rendered_mp4_videos": {},
+  "spotify_for_artists_verify": null,
+  "related_video_modal_pick": {
+    "ok": true,
+    "modal_cards": [
+      {
+        "tag": "YTCP-ENTITY-CARD",
+        "cls": "card style-scope ytcp-video-pick-dialog-contents",
+        "text": "사냥꾼의 새벽 (Hunter's Dawn) - Official AI Music Video | 어쿠스틱 포크팝",
+        "x": 590,
+        "y": 262
+      },
+      {
+        "tag": "DIV",
+        "cls": "style-scope ytcp-entity-card",
+        "text": "사냥꾼의 새벽 (Hunter's Dawn) - Official AI Music Video | 어쿠스틱 포크팝",
+        "x": 590,
+        "y": 253
+      },
+      {
+        "tag": "YTCP-ENTITY-CARD",
+        "cls": "card style-scope ytcp-video-pick-dialog-contents",
+        "text": "한걸음씩 - 원인과 결과, 결국 사랑 (Cause & Effect) | Official MV",
+        "x": 758,
+        "y": 262
+      },
+      {
+        "tag": "DIV",
+        "cls": "style-scope ytcp-entity-card",
+        "text": "한걸음씩 - 원인과 결과, 결국 사랑 (Cause & Effect) | Official MV",
+        "x": 758,
+        "y": 253
+      },
+      {
+        "tag": "YTCP-ENTITY-CARD",
+        "cls": "card style-scope ytcp-video-pick-dialog-contents",
+        "text": "🌸 어머니는 꽃이다 (Mother is a Flower)",
+        "x": 926,
+        "y": 262
+      },
+      {
+        "tag": "DIV",
+        "cls": "style-scope ytcp-entity-card",
+        "text": "🌸 어머니는 꽃이다 (Mother is a Flower)",
+        "x": 926,
+        "y": 253
+      },
+      {
+        "tag": "YTCP-ENTITY-CARD",
+        "cls": "card style-scope ytcp-video-pick-dialog-contents",
+        "text": "며느리를 모질게 대하던 순이, 며느리가 매일 신던 닳은 작업화의 정체를 알고 오열했습니다 (순이 이야기 2화) | 노박 할아버지 사연극장",
+        "x": 1094,
+        "y": 262
+      },
+      {
+        "tag": "DIV",
+        "cls": "style-scope ytcp-entity-card",
+        "text": "며느리를 모질게 대하던 순이, 며느리가 매일 신던 닳은 작업화의 정체를 알고 오열했습니다 (순이 이야기 2화) | 노박 할아버지 사연극장",
+        "x": 1094,
+        "y": 253
+      },
+      {
+        "tag": "YTCP-ENTITY-CARD",
+        "cls": "card style-scope ytcp-video-pick-dialog-contents",
+        "text": "날 미워하는 줄만 알았던 며느리가… | 노박 할아버지 사연극장",
+        "x": 1262,
+        "y": 262
+      },
+      {
+        "tag": "DIV",
+        "cls": "style-scope ytcp-entity-card",
+        "text": "날 미워하는 줄만 알았던 며느리가… | 노박 할아버지 사연극장",
+        "x": 1262,
+        "y": 253
+      },
+      {
+        "tag": "YTCP-ENTITY-CARD",
+        "cls": "card style-scope ytcp-video-pick-dialog-contents",
+        "text": "고졸이라며 사돈을 무시한 사장님, 상견례 자리에서 사돈의 정체를 알고 고개를 들지 못했습니다 | 노박 할아버지 사연극장",
+        "x": 590,
+        "y": 446
+      },
+      {
+        "tag": "DIV",
+        "cls": "style-scope ytcp-entity-card",
+        "text": "고졸이라며 사돈을 무시한 사장님, 상견례 자리에서 사돈의 정체를 알고 고개를 들지 못했습니다 | 노박 할아버지 사연극장",
+        "x": 590,
+        "y": 437
+      }
+    ],
+    "after_pick": {
+      "rel_text": "관련 동영상 🌸 어머니는 꽃이다 (Mother is a Flower)",
+      "saved": true
+    }
+  }
+}
