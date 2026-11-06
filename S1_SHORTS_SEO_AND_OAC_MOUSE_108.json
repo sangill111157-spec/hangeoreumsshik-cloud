@@ -1,0 +1,59 @@
+{
+  "directive_id": "RGON_DIR_NEW_FOUNDATION_108",
+  "executed_at": "2026-11-06T17:23:30.405359",
+  "oac_mouse_oauth": {
+    "ok": true,
+    "acc_box": {
+      "x": 1200.5,
+      "y": 190,
+      "w": 492,
+      "h": 68
+    },
+    "allow_box": {
+      "x": 1318.5,
+      "y": 597.84375,
+      "text": "계속"
+    },
+    "final_state": {
+      "url": "https://accounts.google.com/signin/oauth/v3/consent?authuser=0&part=AJi8hAMX4yyt-P7Z3-BNMbvGe9RoHQGeOhocrjo2r90fe8yfxY_vEDC2Jc6xfbrk8UvgKLABX0AEv6GjUIjDlkEz_OlnYHCjbb8w0OL4C3x07j2nMrLvYgg_QSQsMVn180_U51Ec1dSvhkYXfPf5WkQ_-3g_O5JzMGP2sSJIrMIz1WMgoKwGxBv_fG4mLQ5PGNfwTVP1xjBrgFnv_pSXd51DGlwYfHeGisduLc6UPKrGt0Snticfv82CaKldeYB9Zzm1g5COlJtW2qM2qWzWVJXcL8LhFTHph687thHWt5j5MHdsDPPhohtPQpAXNBs1LIkETw0r-Hp8pOwXn27BN0IMniSJUXe-7hlJRkqgOfDCIqMcrH4XoZx5vktlDJ5c1EjrtHNvPXSmC1hN6cWeWsOHSivUQs0ok9HRgy43imocMLXkGcM36cTWaUfGkmFtwoS0GgI1juZy02ku3JZHLpDNTr4df4NRWw&flowName=GeneralOAuthFlow&hl=ko&as=S-282745518%3A1793953021337546&client_id=529220226422-kiqojbo7f6ku20q3jk8h9tha51m0gu6v.apps.googleusercontent.com&rapt=AEjHL4OLvvPhMnrS_gGGGkR1tJV9juk7M89PsGIt-N3KO73aK6xTxU96RFQahsnu6L0qTFd_nUuzYDspqYf6nl1BvZKdThCXsk30WNeU7zNlsCLZrEv61Dg&requestPath=%2Fsignin%2Foauth%2Fv3%2Fconsent&pageId=none#",
+      "title": "로그인 - Google 계정",
+      "clicked_confirm": false,
+      "text": "로드 중 Google 계정으로 로그인 DistroKid에서 Google 계정에 대한 액세스를 요청합니다. sangill111157@gmail.com 이 액세스를 허용하면 DistroKid 앱에서 다음 작업을 할 수 있습니다. YouTube 계정 보기. 액세스 세부정보 보기 DistroKid 앱을 신뢰할 수 있는지 확인 DistroKid의 개인정보처리방침 또는 서비스 약관 링크가 표시되지 않는 이유 알아보기 DistroKid의 개인정보처리방침 및 서비스 약관을 검토하여 DistroKid에서 내 데이터를 처리하고 보호하는 방법을 알아보세요. Google 계정에서 언제든지 변경할 수 있습니다. Google이 데이터를 안전하게 공유하는 방법을 알아보세요. 취소 계속 한국어 도움말 개인정보처리방침 약관"
+    }
+  },
+  "shorts_6_batch_update": {
+    "ok": true,
+    "shorts_results": [
+      {
+        "short_id": "vSTcyW-K_9Q",
+        "edit": "INSERTED",
+        "saved": true
+      },
+      {
+        "short_id": "_9TaYaBFmkQ",
+        "edit": "INSERTED",
+        "saved": true
+      },
+      {
+        "short_id": "I00rUemzODo",
+        "edit": "INSERTED",
+        "saved": true
+      },
+      {
+        "short_id": "FXnTfmWRv_s",
+        "edit": "INSERTED",
+        "saved": true
+      },
+      {
+        "short_id": "7Kk-c6ljjHg",
+        "edit": "INSERTED",
+        "saved": true
+      },
+      {
+        "short_id": "D7pfGWuhXjU",
+        "edit": "INSERTED",
+        "saved": true
+      }
+    ]
+  }
+}
