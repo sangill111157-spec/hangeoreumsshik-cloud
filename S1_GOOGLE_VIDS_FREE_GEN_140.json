@@ -1,0 +1,8 @@
+{
+  "directive_id": "RGON_DIR_NEW_FOUNDATION_140",
+  "executed_at": "2026-11-07T00:30:34.896921",
+  "space6_google_vids_result": {
+    "ok": false,
+    "error": "Error: JavaScript evaluation failed at line 0, column 0: TypeError: Illegal invocation\n    at <anonymous>:25:28\n    at async __egoPageEvaluate (<anonymous>:2:16); expression: async (pText) => {\\n    // 1. 초기 모달('AI 동영상 만들기' / 닫기 X 버튼)이나 우측 'AI 생성 동영상' 버튼 탐색\\n    const allEls = Array.from(document.querySelectorAll('button, [role=\"b..."
+  }
+}
