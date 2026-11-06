@@ -1,0 +1,28 @@
+{
+  "directive_id": "RGON_DIR_NEW_FOUNDATION_106",
+  "executed_at": "2026-11-06T17:17:08.256119",
+  "space3_earn_and_video_edit": {
+    "ok": true,
+    "earn_tab": {
+      "url": "https://studio.youtube.com/channel/UCMJn01WLs9ooIhh5x0eJeHg/monetization",
+      "text": "YouTube에서의 수익 창출 탐색 건너뛰기 YouTube 스튜디오에 물어보기 만들기 내 채널 한걸음씩 대시보드 콘텐츠 분석 커뮤니티 언어 콘텐츠 감지 수익 창출 맞춤설정 오디오 보관함 설정 의견 보내기 YouTube에서의 수익 창출 다음 목표 수익 창출 시작하기 팬과 소통하며 수익을 창출하고 지원 포럼과 크리에이터 도구의 이용 권한을 얻으세요. 멤버십 커뮤니티를 키우고 매달 수익을 창출하세요 월간 유료 회원을 위한 회원 전용 혜택을 제공하여 시청자의 관심을 유도하세요. 시청자가 내 채널과 동영상 페이지에서 가입할 수 있게 됩니다. 크리에이터에게는 순수익의 70%가 지급됩니다. Supers Shopping 일부 혜택에는 추가 자격 기준이 적용될 수 있습니다. 자격요건 2026. 11. 1. 기준의 데이터입니다. 구독자 33명 500 동영상 업로드 0개 지난 90일 3 그리고 다음 중 하나를 충족해야 함 유효 시청 시간 40시간 최근 365일 3,000 유효 Shorts 조회수 6회 지난 90일 300만 자격요건을 충족하면 알려드립니다. 지금 신청하기 성장 목표 지속적인 성장 동영상에 광고를 게재하는 옵션을 비롯해 더 많은 수익 창출 방법을 활용하세요. 보기 페이지 광고 보기 페이지에서 광고와 YouTube Premium으로 수익을 창출하세요. 보기 페이지에서는 동영상 앞뒤 또는 동영상 내에 표시되는 광고, 그리고 동영상을 시청하는 YouTube Premium 구독자로부터 수익을 창출할 수 있습니다. Shorts 피드 광고 자격요건 2026. 11. 1. 기준의 데이터입니다. 구독자 33명 1,000 그리고 다음 중 하나를 충족해야 함 유효 시청 시간 40시간 최근 365일 4,000 유효 Shorts 조회수 6회 지난 90일 1000만 크리에이터 리소스 및 도구 YouTube 크리에이터 지원팀 Copyright Match Tool 동영상 엔딩 화면 신청 후 채널이 YouTube 수익 창출 정책 을 준수하는지 확인합니다. 문제가 없는 것으로 확인되면 가입이 승인됩니다. 자세히 알아보기"
+    },
+    "edit_res": {
+      "found": true,
+      "status": "INSERTED",
+      "preview": "🎧 오늘은 여기까지, 충분히 잘했어요. 한걸음씩 정규 1집 《가을과 겨울 사이》 전곡 듣기 → https://open.spotify.com/album/44chP2pw8CFr0Z4aPNj4SO🍂 11/27 발매 정규 2집 《잔상》 미리 저장하기 → https://distrokid.com/hyperfollow/9050fa2/0QOwWYR3KqK🌿 음악과 함께하는 건강 루틴 → https://connect-ai-shin.blogspot.com/"
+    },
+    "save_res": {
+      "clicked_save": true,
+      "via": "text_match"
+    }
+  },
+  "space4_dk_googleoauth": {
+    "ok": true,
+    "oauth_screen": {
+      "url": "https://accounts.google.com/signin/oauth/delegation?authuser=0&part=AJi8hANwNfo2wKyUNeRctGjylef3_bfw4VaLPHi4guU55OTTiLEq9ZDw2wNG_1GvrIaYKfvhUJW4HcJYV3npmoRPTNfpGvjgSjYNnTQxYVw1-ePmMbJqZpNiCn7OM242uRkuknTcJckikYvcQKzUcLUTrcKka-7Q_5wJ3Gni-1s39iRe9DVFeadbo5T_8K33TOTtupytL-UkwzqfQ_6T52N_tClhGQ8g2IUhB-Z2dgQPc11lcr6K9TktMOWsa6zyNkGdaT5FNFSfNN0D6HSG3u7_d6rrBPKVgwq9YAjGdfHg2sZuzYcCZJMlhGS4fgsFkh7B88OBZJaapI9CMyr1yskn_VRbrRyjhk_ScV0hZoumPooTlxyvWSLPeVSTn5gEjIwEVDxWemWe4UIzURBPGQXeOvvJ0YzaTabE1NW-ILGkHZLVv0aGVrGNO7cQ6giXJQnn8qWLH3MH&flowName=GeneralOAuthFlow&as=S-282745518%3A1793953021337546&client_id=529220226422-kiqojbo7f6ku20q3jk8h9tha51m0gu6v.apps.googleusercontent.com&allowAddAccount=1&access_type=offline&include_granted_scopes=true&prompt=consent&redirect_uri=https%3A%2F%2Fdistrokid.com%2Fapi%2Fgoogleoauth%2F&response_type=code&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fyoutube.readonly&state=AB035990-561F-4E83-8DCDDDFFB75FDC3E&o2v=2&opparams=%253Fauthuser%253D0%2526part%253DAJi8hANwNfo2wKyUNeRctGjylef3_bfw4VaLPHi4guU55OTTiLEq9ZDw2wNG_1GvrIaYKfvhUJW4HcJYV3npmoRPTNfpGvjgSjYNnTQxYVw1-ePmMbJqZpNiCn7OM242uRkuknTcJckikYvcQKzUcLUTrcKka-7Q_5wJ3Gni-1s39iRe9DVFeadbo5T_8K33TOTtupytL-UkwzqfQ_6T52N_tClhGQ8g2IUhB-Z2dgQPc11lcr6K9TktMOWsa6zyNkGdaT5FNFSfNN0D6HSG3u7_d6rrBPKVgwq9YAjGdfHg2sZuzYcCZJMlhGS4fgsFkh7B88OBZJaapI9CMyr1yskn_VRbrRyjhk_ScV0hZoumPooTlxyvWSLPeVSTn5gEjIwEVDxWemWe4UIzURBPGQXeOvvJ0YzaTabE1NW-ILGkHZLVv0aGVrGNO7cQ6giXJQnn8qWLH3MH%2526allowAddAccount%253D1&pli=1&rapt=AEjHL4OLvvPhMnrS_gGGGkR1tJV9juk7M89PsGIt-N3KO73aK6xTxU96RFQahsnu6L0qTFd_nUuzYDspqYf6nl1BvZKdThCXsk30WNeU7zNlsCLZrEv61Dg",
+      "title": "계정 또는 브랜드 계정 선택 DistroKid(으)로 이동",
+      "text": "Google 계정으로 로그인 계정 또는 브랜드 계정 선택 DistroKid(으)로 이동 이상일 sangill111157@gmail.com 99 ROBLGYE YouTube SUN-ONE AON YouTube The Café Hour YouTube 부스터 플리 | 운동·드라이브 음악 YouTube 다른 계정 사용 ‪한국어‬ 도움말 개인정보처리방침 약관 계정 또는 브랜드 계정 선택 DistroKid(으)로 이동"
+    }
+  }
+}
