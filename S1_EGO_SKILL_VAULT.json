@@ -97,5 +97,13 @@
       "what_went_well": "르곤 보좌관 독단 금지! 전 세계 원탑 지식(NotNoise/Chartlex/Gyre) + Space 1(솔) + Space 2(오푸스) 3대 지성 합동 검증 후 실행하여 모든 난관 돌파.",
       "never_forget": "모든 작업 과정은 세계 원탑들과 솔·오푸스에게 물어보고 답을 구해서 반영할 것."
     }
+  },
+  "space_layout_6_immutable": {
+    "Space_0": "르곤 보좌관 (Gemini 4 Argon)",
+    "Space_1": "제2성 솔 (GPT-5.4 Pro)",
+    "Space_2": "제3성 오푸스 (Claude Opus 4.6)",
+    "Space_3": "YouTube Studio & Blogger (5대 채널 전환)",
+    "Space_4": "DistroKid 전용 (절대 타 사이트로 덮어쓰기 금지!)",
+    "Space_5": "CapCut 전용 (대표님 로그인 완료 · Seedance 2.0 Mini / 850 크레딧)"
   }
 }

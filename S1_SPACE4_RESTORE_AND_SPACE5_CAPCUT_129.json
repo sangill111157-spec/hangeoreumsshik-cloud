@@ -1,0 +1,81 @@
+{
+  "directive_id": "RGON_DIR_NEW_FOUNDATION_129",
+  "executed_at": "2026-11-06T20:39:17.017722",
+  "space4_distrokid_restored": {
+    "ok": true,
+    "space4_url": {},
+    "title": "DistroKid"
+  },
+  "space5_capcut_scan": {
+    "ok": true,
+    "space5_capcut": {
+      "url": "https://www.capcut.com/my-edit?from_page=landing_page&start_tab=video",
+      "title": "（1）My projects | All-in-one video editor｜CapCut",
+      "header_badges": [
+        "8 8 5 5 0 0 Renew Free credits New 1",
+        "8 8 5 5 0 0 Renew",
+        "8 8 5 5 0 0",
+        "8 8",
+        "8",
+        "5 5",
+        "5",
+        "0 0",
+        "0",
+        "Renew",
+        "Free credits New",
+        "Free credits",
+        "New",
+        "1",
+        "Popular features",
+        "View all",
+        "Inspiration"
+      ],
+      "cards_and_buttons": [
+        "Invite members",
+        "8 8 5 5 0 0 Renew",
+        "Free credits New",
+        "Skills",
+        "Got it",
+        "Director",
+        "View all",
+        "Video Editor Timeline-based editing Try it",
+        "Video Studio Seedance 2.5 Try it",
+        "Design Studio AI-powered design agent Try it",
+        "Text to speech 100+ realistic voices Try it",
+        "Generate captions Supports 20+ languages Try it",
+        "Remove background Auto BG removal Try it",
+        "Long video to shorts Get highlights as shorts Try it",
+        "ai-effect Funny flying",
+        "ai-effect Miniature Crew",
+        "ai-effect Talking Object",
+        "ai-effect Miniature Film",
+        "ai-effect Product Hero 360"
+      ],
+      "body_text": "Make Black Friday videos for less with Seedance 2.5 Draft. Try it in Video Studio Create new Home Create with AI Design Studio Video Studio Video Editor Voice Studio All tools Templates & projects Templates Smart Insights Library Share and schedule Spaces U user2810074079957’s space Default space Invite members Create new space What’s new 8 8 5 5 0 0 Renew Free credits New 1 Powered by CapCut AI Credit discount on Seedance 2.0 Mini Video Design Auto Skills Agent mode Choose between Standard and Director modes to create videos of different purposes and genres. Got it Director Popular features View all Video Editor Timeline-based editing Try it Video Studio Seedance 2.5 Try it Design Studio AI-powered design agent Try it Text to speech 100+ realistic voices Try it Generate captions Supports 20+ languages Try it Remove background Auto BG removal Try it Long video to shorts Get highlights as shorts Try it Inspiration Social media Free effects Matchday ⚽ Product effects Portrait effects Effects Posters Branding Photos Ramadan Cinematography ai-effect Funny flying ai-effect Miniature Crew ai-effect Talking Object ai-effect Miniature Film ai-effect Product Hero 360"
+    }
+  },
+  "sol_space1_analysis": {
+    "ok": true,
+    "space": 1,
+    "harvested": {
+      "snippet_count": 54,
+      "latest_texts": [
+        "{ \"CapCut_판정\": \"Space 4에서 Seedance 2.5 AI 영상 생성 안내 페이지 접근은 확인됐지만, 제출 내용이 잘려 있어 계정별 사용 권한이나 전체 기능을 확정할 수 없습니다.\", \"페이지에_안내된_기능\": [ \"스크립트 또는 참조 이미지 기반 AI 영상 생성\", \"생성 설정 구성\", \"생성 결과 미리보기\", \"생성 영상 편집 및 내보내기\", \"디지털 아바타 기반 영상 제작\", \"아바타·음성 해설 선택\", \"AI 영상 템플릿 활용\" ], \"계정별_미확인\": [ \"로그인 여부와 구독 요금제\", \"Seedance 2.5 실제 생성 권한\", \"크레딧 잔액·차감량·무료 한도\", \"출력 길이·해상도·워터마크\", \"소재별 상업적 이용 조건\" ], \"최우선_활용\": \"기존 MV·쇼츠 편집과 가사 영상 제작에 필요한 편집기 기능부터 확인하고, AI 생성은 사용 권한·비용·이용 조건 확인 후 대표님 승인하에 짧은 장면으로 시험하십시오.\", \"기억상실_방지_핵심수칙\": \"대화 기억에만 의존하지 말고 단일 기준 원장에 목표·확정 결정·작업 상태·증빙 경로·파일 해시·다음 행동을 즉시 저장하며, 작업 시작·대화 전환 때 최신 원장을 다시 읽고 근거가 없으면 미확인으로 처리하십시오.\" }",
+        "{ \"실측_판정\": { \"확인\": \"Space 5의 계정 작업공간과 편집·AI 도구 메뉴 노출이 확인됩니다.\", \"요금제\": \"미확인. Renew 표시만으로 구독 등급이나 유효기간을 확정할 수 없습니다.\", \"보유_크레딧\": \"미확인. 반복 추출된 '8 8 5 5 0 0'을 8500 등 특정 잔액으로 해석하면 안 됩니다.\", \"할인\": \"'Credit discount on Seedance 2.0 Mini' 문구는 확인되지만 할인율·적용 기간·대표님 계정의 실제 생성 단가는 미확인입니다.\", \"모델\": \"Seedance 2.5·2.5 Draft·2.0 Mini 관련 안내가 노출됩니다. 실제 선택 가능 여부와 비용은 생성 설정 화면에서 확인해야 합니다.\" }, \"화면에_노출된_기능\": [ \"Video Editor: 타임라인 기반 영상 편집\", \"Video Studio: AI 영상 제작\", \"Standard·Director 모드 선택 안내\", \"Design Studio: AI 디자인\", \"Text to speech: 음성 합성\", \"Generate captions: 자막 생성\", \"Remove background: 배경 제거\", \"Long video to shorts: 긴 영상의 하이라이트 추출\", \"템플릿·프로젝트·라이브러리 관리\", \"공유·예약 게시 메뉴\" ], \"이용_범위_주의\": \"메뉴 노출은 무료·무제한 사용 권한을 의미하지 않습니다. 기능별 유료 표시, 크레딧 차감, 내보내기 제한 및 상업적 이용 조건을 별도로 확인해야 합니다.\", \"오늘은_여기까지_최소소모_제작안\": { \"1_원본_확인\": \"47.06MB라는 용량으로 곡 길이를 추정하지 말고 WAV의 실제 재생시간·음질·정상 재생을 확인합니다.\", \"2_기존소재_우선\": \"기존 1080p MV와 40초 쇼츠 파일이 정상이라면 재사용합니다. 보유 영상·사진과 WAV를 타임라인에서 편집하고 생성형 기능은 필요한 장면에만 사용합니다.\", \"3_뮤직비디오\": \"가사·장면 구성표를 먼저 확정한 뒤 기존 소재의 컷 편집·크롭·완만한 확대·색감 조정으로 구성합니다. 기능별 과금 여부는 적용 전에 확인합니다.\", \"4_AI_보강\": \"부족한 연결 장면만 생성합니다. 2.0 Mini와 2.5 Draft의 동일 길이·해상도 기준 예상 차감량을 비교하고, 목적에 맞는 최저 비용 설정으로 한 장면만 시험한 뒤 확대합니다.\", \"5_쇼츠\": \"완성 MV에서 후렴·핵심 가사 구간을 잘라 9:16으로 재편집합니다. 쇼츠마다 AI 영상을 새로 생성하지 않고 도입부 문구·구간·크롭을 달리합니다.\", \"6_가사\": \"공식 가사 원문을 직접 입력해 타이밍을 조정하는 방식을 우선 검토합니다. 자동 자막을 사용하면 노래 인식 오류를 전수 검수합니다.\", \"7_불필요한_소모_방지\": \"원곡에 불필요한 음성 합성·아바타·배경 제거·Agent mode 일괄 생성을 추가하지 않습니다. 자동 하이라이트 추출도 비용 확인 후 수동 편집과 비교합니다.\", \"8_내보내기\": \"짧은 시험 구간으로 워터마크·유료 소재 경고·해상도·음량을 확인한 뒤 최종 출력해 재작업을 줄입니다.\" }, \"크레딧_통제\": \"생성 직전 예상 차감량과 생성 전후 잔액을 기록하고, 대표님이 승인한 총예산 안에서만 진행합니다. 무료 크레딧의 지급 조건·만료일과 실패·재생성 시 차감 여부도 확인합니다.\", \"최우선_실행\": \"잔액 숫자와 요금제 상세를 먼저 확인하고",
+        "{ \"실측_판정\": { \"확인\": \"Space 5의 계정 작업공간과 편집·AI 도구 메뉴 노출이 확인됩니다.\", \"요금제\": \"미확인. Renew 표시만으로 구독 등급이나 유효기간을 확정할 수 없습니다.\", \"보유_크레딧\": \"미확인. 반복 추출된 '8 8 5 5 0 0'을 8500 등 특정 잔액으로 해석하면 안 됩니다.\", \"할인\": \"'Credit discount on Seedance 2.0 Mini' 문구는 확인되지만 할인율·적용 기간·대표님 계정의 실제 생성 단가는 미확인입니다.\", \"모델\": \"Seedance 2.5·2.5 Draft·2.0 Mini 관련 안내가 노출됩니다. 실제 선택 가능 여부와 비용은 생성 설정 화면에서 확인해야 합니다.\" }, \"화면에_노출된_기능\": [ \"Video Editor: 타임라인 기반 영상 편집\", \"Video Studio: AI 영상 제작\", \"Standard·Director 모드 선택 안내\", \"Design Studio: AI 디자인\", \"Text to speech: 음성 합성\", \"Generate captions: 자막 생성\", \"Remove background: 배경 제거\", \"Long video to shorts: 긴 영상의 하이라이트 추출\", \"템플릿·프로젝트·라이브러리 관리\", \"공유·예약 게시 메뉴\" ], \"이용_범위_주의\": \"메뉴 노출은 무료·무제한 사용 권한을 의미하지 않습니다. 기능별 유료 표시, 크레딧 차감, 내보내기 제한 및 상업적 이용 조건을 별도로 확인해야 합니다.\", \"오늘은_여기까지_최소소모_제작안\": { \"1_원본_확인\": \"47.06MB라는 용량으로 곡 길이를 추정하지 말고 WAV의 실제 재생시간·음질·정상 재생을 확인합니다.\", \"2_기존소재_우선\": \"기존 1080p MV와 40초 쇼츠 파일이 정상이라면 재사용합니다. 보유 영상·사진과 WAV를 타임라인에서 편집하고 생성형 기능은 필요한 장면에만 사용합니다.\", \"3_뮤직비디오\": \"가사·장면 구성표를 먼저 확정한 뒤 기존 소재의 컷 편집·크롭·완만한 확대·색감 조정으로 구성합니다. 기능별 과금 여부는 적용 전에 확인합니다.\", \"4_AI_보강\": \"부족한 연결 장면만 생성합니다. 2.0 Mini와 2.5 Draft의 동일 길이·해상도 기준 예상 차감량을 비교하고, 목적에 맞는 최저 비용 설정으로 한 장면만 시험한 뒤 확대합니다.\", \"5_쇼츠\": \"완성 MV에서 후렴·핵심 가사 구간을 잘라 9:16으로 재편집합니다. 쇼츠마다 AI 영상을 새로 생성하지 않고 도입부 문구·구간·크롭을 달리합니다.\", \"6_가사\": \"공식 가사 원문을 직접 입력해 타이밍을 조정하는 방식을 우선 검토합니다. 자동 자막을 사용하면 노래 인식 오류를 전수 검수합니다.\", \"7_불필요한_소모_방지\": \"원곡에 불필요한 음성 합성·아바타·배경 제거·Agent mode 일괄 생성을 추가하지 않습니다. 자동 하이라이트 추출도 비용 확인 후 수동 편집과 비교합니다.\", \"8_내보내기\": \"짧은 시험 구간으로 워터마크·유료 소재 경고·해상도·음량을 확인한 뒤 최종 출력해 재작업을 줄입니다.\" }, \"크레딧_통제\": \"생성 직전 예상 차감량과 생성 전후 잔액을 기록하고, 대표님이 승인한 총예산 안에서만 진행합니다. 무료 크레딧의 지급 조건·만료일과 실패·재생성 시 차감 여부도 확인합니다.\", \"최우선_실행\": \"잔액 숫자와 요금제 상세를 먼저 확인하고"
+      ]
+    }
+  },
+  "opus_space2_audit": {
+    "ok": true,
+    "space": 2,
+    "harvested": {
+      "snippet_count": 52,
+      "latest_texts": [
+        "Copy\n{\n  \"capcut_diagnosis\": {\n    \"verdict\": \"요금제와 로그인 상태 모두 판정할 수 없습니다.\",\n    \"reason\": \"이번에 측정한 페이지(https://www.capcut.com/tools/ai-video-generator)는 계정 화면이 아니라 누구나 볼 수 있는 Seedance 2.5 홍보 페이지입니다. 수집된 글자는 상단 메뉴('Products', 'Pricing', 'Try online', 'Download')와 광고 문구가 전부이고, 계정 이름, 요금제, 크레딧 잔량, 결제 상태는 하나도 없습니다. 오히려 'Try online'과 'Download' 같은 비로그인용 안내가 보이는 것으로 보아, Space 4가 로그인하지 않은 상태로 열렸을 가능성이 있습니다. ego Space는 서로 분리된 브라우저 환경이라, 대표님이 평소 쓰시는 크롬의 로그인 상태가 그대로 넘어간다는 보장이 없습니다. 또 수집한 글자가 중간('AI templates help you set up your video s')에서 잘려 있으니, 다음 보고에는 잘렸다는 표시(truncated)도 남겨야 합니다.\",\n    \"next_step\": \"결제나 요금제 화면은 자동 조작 대상이 아닙니다. 대표님이 CapCut에 로그인한 상태로 프로필 > 구독 화면을 직접 열어 보시고, 다음 세 가지를 1줄씩 알려 주십시오: 요금제 이름(Free/Standard/Pro), 체험판 또는 자동결제 등록 여부, 결제 수단 등록 여부. 에고라이트는 대표님이 열어 둔 그 화면을 읽기만 하는 조회 용도로 쓸 수 있습니다.\"\n  },\n  \"seedance_ai_generator_check\": \"① Seedance 2.5 생성기는 '무료'라고 광고하지만, 보통 무료 크레딧에 한도가 있고 고화질이나 긴 영상은 유료 크레딧을 씁니다. 요금제를 확인하기 전까지는 'Generate' 버튼을 누르지 마십시오. ② 생성기 이름이 같아도, CapCut 안에서 만드는 것과 대표님이 보유한 BytePlus ModelArk 키로 만드는 것은 과금 경로가 다릅니다. 둘이 섞이지 않도록 원장에 어느 경로로 만들었는지 기록하십시오. ③ AI 영상이 들어간 MV나 쇼츠는 YouTube에서 합성 콘텐츠 공개를 '예'로 설정하고, 화면 속 글씨 0% 검수를 거쳐야 합니다. ④ 11/27 발매 예정인 <잔상> 음원이나 커버를 CapCut 클라우드에 올리지 마십시오. 127호 의견과 같은 이유입니다.\",\n  \"memory_anchor_audit\": {\n    \"verdict\": \"방향은 승인하지만 원장 원문을 받지 못해 조건부입니다. S1_RGON_ANTI_AMNESIA_ANCHOR.json 원문과 [MEM_ANCHOR] 예시를 제출해 주십시오.\",\n    \"required_conditions\": [\n      \"기억의 기준은 파일입니다. [MEM_ANCHOR]는 르곤이 자기 기억으로 새로 써 넣으면 안 되고, 원장 파일을 읽어서 그대로 붙여야 합니다. 대화 내용과 원장이 다르면 원장을 따르고, 둘이 다르다는 사실을 보고합니다. AI가 기억으로 다시 쓰면 압축 과정에서 잘못된 내용이 확정 사실로 굳어집니다.\",\n      \"검증된 사실만 기록합니다. 항목마다 증거(파일 경로, SHA-256, 로그 줄, 측정 시각)를 붙이고, 증거가 없는 항목은 status:'UNVERIFIED'로 표시합니다. 예를 들어 126호 렌더링은 'NoneMB'였으므로 'HOLD'로 남아야 합니다.\",\n      \"의결 사항은 따로 고정합니다. −16 LUFS / −1.5 dBTP, 업로드와 공개는 대표님이 직접, Content ID 허용 목록 선행 등록, 결제 화면 자동 조작 금지, KNOWN_CHATS(0·2·3), Pond5·Bandcamp 업로드 금지 같은 사항은 decisions 구역에 두고, 대표님 결재 없이는 수정할 수 없게 합니다.\",\n      \"원장은 덧붙이기만 합니다. 이전 내용을 덮어쓰지 말고 새 버전을 추가하며, 각 버전에 이전 버전의 해시를 넣어 해시 체인을 만듭니다. 저장은 임시 파일에 쓴 뒤 os.replace로 교체하고, UTF-8 strict로 읽고 씁니다.\",\n      \"보안을 지킵니다. API 키, 토큰, 쿠키, 계정 이메일, 금고 경로는 넣지 않습니다. 헤더는 다른 Space(솔, 오푸스)에도 전달되므로, S1_AUTO·s1-sense·S1_HOP 마커는 무력화(defang)해서 명령이 아닌 데이터로만 다룹니다.\",\n      \"크기를 제한합니다. 헤더는 1,000자 이내로 하고 미결 과제는 최대 5개만 넣습니다. 나머지는 원장 경로로만 가리킵니다. 헤더가 커지면 헤더 때문에 오히려 압축이 더 빨리 일어납니다.\"\n    ]\n  },\n  \"open_items_for_anchor\": \"원장에 넣어 두어야 할 미결 과제는 다음 다섯 가지입니다. ① 126호 MV·쇼츠 렌더링 HOLD: 'NoneMB' 원인, ffprobe와 ebur128 결과, SHA-256 미제출. ② CapCut 요금제 미확인. ③ DistroKid Content ID 허용 목록 등록 확인. ④ <잔상> Spotify 피칭 마감 11/20, DistroKid 업로드를 이번 주 안에 완료. ⑤ 1순위 PASS 당시 필수 수정 2건의 diff 보고(승인 하네스를 SHA 앞 8자리 직접 입력 방식으로 변경 등).\",\n  \"verdict\": \"CONDITIONAL: CapCut은 요금제를 확인할 때까지 AI 생성과 결제 관련 동작을 보류합니다. 기억 원장은 위 조건을 반영하고 원문을 제출하면 판정하겠습니다. 이 의견은 심의 의견이며 실행 명령이 아닙니다. 최종 결재는 대표님 권한입니다.\"\n}",
+        "Copy\n{\n  \"credit_plan_diagnosis\": {\n    \"login\": \"로그인된 것으로 보입니다. 화면에 개인 작업 공간('user2810074079957's space'), 'Default space', 'Invite members'가 보이기 때문입니다. 128호에서 비로그인 홍보 페이지만 보였던 문제는 해결된 것으로 판단합니다.\",\n    \"credits\": \"약 850 크레딧으로 추정하지만, 아직 확정할 수는 없습니다. 상단 배지 '8 8 5 5 0 0'은 숫자가 굴러가는 애니메이션 때문에 자릿수마다 글자가 두 번씩 잡힌 것으로 보이고, 그렇게 읽으면 '850'입니다. 다만 이 숫자가 유료 크레딧인지 무료 크레딧인지, 언제 소멸되는지는 데이터에 없습니다. 'Free credits New 1'은 무료 크레딧 알림이 1건 있다는 표시로 보입니다.\",\n    \"plan\": \"요금제는 판정할 수 없습니다. 'Renew'(갱신) 버튼이 보여서 유료 구독이 만료되었거나, 만료 직전이거나, 크레딧 충전을 권유하는 상태일 수 있습니다. 하지만 'Pro', 'Standard', 'Free'라는 요금제 이름은 수집된 글자에 없습니다.\",\n    \"next_step\": \"'Renew' 버튼과 크레딧 배지는 결제 화면으로 이어질 수 있으니 에고라이트로 누르지 마십시오. 대표님이 크레딧 배지에 마우스를 올리거나 프로필 > 구독 화면을 직접 열어서 다음 세 가지를 1줄씩 알려 주십시오. ① 크레딧 수와 소멸일 ② 요금제 이름과 'Renew'가 무슨 뜻인지(만료일) ③ 자동결제와 결제 수단",
+        "Copy\n{\n  \"credit_plan_diagnosis\": {\n    \"login\": \"로그인된 것으로 보입니다. 화면에 개인 작업 공간('user2810074079957's space'), 'Default space', 'Invite members'가 보이기 때문입니다. 128호에서 비로그인 홍보 페이지만 보였던 문제는 해결된 것으로 판단합니다.\",\n    \"credits\": \"약 850 크레딧으로 추정하지만, 아직 확정할 수는 없습니다. 상단 배지 '8 8 5 5 0 0'은 숫자가 굴러가는 애니메이션 때문에 자릿수마다 글자가 두 번씩 잡힌 것으로 보이고, 그렇게 읽으면 '850'입니다. 다만 이 숫자가 유료 크레딧인지 무료 크레딧인지, 언제 소멸되는지는 데이터에 없습니다. 'Free credits New 1'은 무료 크레딧 알림이 1건 있다는 표시로 보입니다.\",\n    \"plan\": \"요금제는 판정할 수 없습니다. 'Renew'(갱신) 버튼이 보여서 유료 구독이 만료되었거나, 만료 직전이거나, 크레딧 충전을 권유하는 상태일 수 있습니다. 하지만 'Pro', 'Standard', 'Free'라는 요금제 이름은 수집된 글자에 없습니다.\",\n    \"next_step\": \"'Renew' 버튼과 크레딧 배지는 결제 화면으로 이어질 수 있으니 에고라이트로 누르지 마십시오. 대표님이 크레딧 배지에 마우스를 올리거나 프로필 > 구독 화면을 직접 열어서 다음 세 가지를 1줄씩 알려 주십시오. ① 크레딧 수와 소멸일 ② 요금제 이름과 'Renew'가 무슨 뜻인지(만료일) ③ 자동결제와 결제 수단"
+      ]
+    }
+  }
+}
