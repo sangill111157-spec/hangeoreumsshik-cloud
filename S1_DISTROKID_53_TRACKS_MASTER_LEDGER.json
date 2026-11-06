@@ -2,7 +2,7 @@
   "ledger_name": "S1_DISTROKID_53_TRACKS_MASTER_LEDGER",
   "version": "1.4.0",
   "directive_id": "RGON_DIR_AUTUMN_WINTER_12TRACKS_MASTER_LAUNCH_044",
-  "updated_at": "2026-11-04T20:30:00+09:00",
+  "updated_at": "2026-11-06T16:07:58.850313",
   "artist": {
     "primary_artist": "한걸음씩 (Hangeoreumsshik)",
     "spotify_verified": true,
@@ -13,7 +13,7 @@
     "album_title": "가을과 겨울 사이",
     "album_title_en": "Between Autumn and Winter",
     "release_date": "2026-11-06",
-    "upc": "840426110653",
+    "upc": "700563848544",
     "tracks_count": 12,
     "stores_count": 24,
     "stores_list": [
@@ -41,7 +41,11 @@
       "TikTok/Resso",
       "Instagram/Facebook",
       "Shazam"
-    ]
+    ],
+    "uploaded_date": "2026-10-03",
+    "album_uuid": "FC934BFB-150F-4894-B064A07100CC9BF4",
+    "hyperfollow_url": "https://distrokid.com/hyperfollow/?ref=globalmenu",
+    "delivery_status": "DELIVERED_TO_24_STORES_LIVE"
   },
   "distrokid_extras_zero_cost_policy": {
     "social_media_pack": "DECLINED (0 KRW)",
@@ -63,9 +67,9 @@
       "artist": "한걸음씩 (Hangeoreumsshik)",
       "release_date": "2026-11-06",
       "role": "Opening",
-      "isrc": "KR-S01-26-AW01",
+      "isrc": "QTA2W2687081",
       "duration": "3:28",
-      "status": "SCHEDULED_RELEASE"
+      "status": "LIVE_RELEASED_24_STORES"
     },
     {
       "track_no": 2,
@@ -74,9 +78,9 @@
       "artist": "한걸음씩 (Hangeoreumsshik)",
       "release_date": "2026-11-06",
       "role": "Track 02",
-      "isrc": "KR-S01-26-AW02",
+      "isrc": "QTA2W2687082",
       "duration": "3:42",
-      "status": "SCHEDULED_RELEASE"
+      "status": "LIVE_RELEASED_24_STORES"
     },
     {
       "track_no": 3,
@@ -85,9 +89,9 @@
       "artist": "한걸음씩 (Hangeoreumsshik)",
       "release_date": "2026-11-06",
       "role": "Track 03",
-      "isrc": "KR-S01-26-AW03",
+      "isrc": "QTA2W2687083",
       "duration": "3:15",
-      "status": "SCHEDULED_RELEASE"
+      "status": "LIVE_RELEASED_24_STORES"
     },
     {
       "track_no": 4,
@@ -96,9 +100,9 @@
       "artist": "한걸음씩 (Hangeoreumsshik)",
       "release_date": "2026-11-06",
       "role": "Lead Title Hook #1",
-      "isrc": "KR-S01-26-AW04",
+      "isrc": "QTA2W2687084",
       "duration": "3:34",
-      "status": "SCHEDULED_RELEASE"
+      "status": "LIVE_RELEASED_24_STORES"
     },
     {
       "track_no": 5,
@@ -107,9 +111,9 @@
       "artist": "한걸음씩 (Hangeoreumsshik)",
       "release_date": "2026-11-06",
       "role": "Emotional Lead Title Hook #2",
-      "isrc": "KR-S01-26-AW05",
+      "isrc": "QTA2W2687085",
       "duration": "3:50",
-      "status": "SCHEDULED_RELEASE"
+      "status": "LIVE_RELEASED_24_STORES"
     },
     {
       "track_no": 6,
@@ -118,9 +122,9 @@
       "artist": "한걸음씩 (Hangeoreumsshik)",
       "release_date": "2026-11-06",
       "role": "Track 06",
-      "isrc": "KR-S01-26-AW06",
+      "isrc": "QTA2W2687086",
       "duration": "3:20",
-      "status": "SCHEDULED_RELEASE"
+      "status": "LIVE_RELEASED_24_STORES"
     },
     {
       "track_no": 7,
@@ -129,9 +133,9 @@
       "artist": "한걸음씩 (Hangeoreumsshik)",
       "release_date": "2026-11-06",
       "role": "Track 07",
-      "isrc": "KR-S01-26-AW07",
+      "isrc": "QTA2W2687087",
       "duration": "3:45",
-      "status": "SCHEDULED_RELEASE"
+      "status": "LIVE_RELEASED_24_STORES"
     },
     {
       "track_no": 8,
@@ -140,9 +144,9 @@
       "artist": "한걸음씩 (Hangeoreumsshik)",
       "release_date": "2026-11-06",
       "role": "Track 08",
-      "isrc": "KR-S01-26-AW08",
+      "isrc": "QTA2W2687088",
       "duration": "3:30",
-      "status": "SCHEDULED_RELEASE"
+      "status": "LIVE_RELEASED_24_STORES"
     },
     {
       "track_no": 9,
@@ -151,9 +155,9 @@
       "artist": "한걸음씩 (Hangeoreumsshik)",
       "release_date": "2026-11-06",
       "role": "Track 09",
-      "isrc": "KR-S01-26-AW09",
+      "isrc": "QTA2W2687089",
       "duration": "3:55",
-      "status": "SCHEDULED_RELEASE"
+      "status": "LIVE_RELEASED_24_STORES"
     },
     {
       "track_no": 10,
@@ -162,9 +166,9 @@
       "artist": "한걸음씩 (Hangeoreumsshik)",
       "release_date": "2026-11-06",
       "role": "Warm Title Hook #3",
-      "isrc": "KR-S01-26-AW10",
+      "isrc": "QTA2W2687090",
       "duration": "3:38",
-      "status": "SCHEDULED_RELEASE"
+      "status": "LIVE_RELEASED_24_STORES"
     },
     {
       "track_no": 11,
@@ -173,9 +177,9 @@
       "artist": "한걸음씩 (Hangeoreumsshik)",
       "release_date": "2026-11-06",
       "role": "Track 11",
-      "isrc": "KR-S01-26-AW11",
+      "isrc": "QTA2W2687091",
       "duration": "3:12",
-      "status": "SCHEDULED_RELEASE"
+      "status": "LIVE_RELEASED_24_STORES"
     },
     {
       "track_no": 12,
@@ -184,9 +188,9 @@
       "artist": "한걸음씩 (Hangeoreumsshik)",
       "release_date": "2026-11-06",
       "role": "Grand Finale Hook #4",
-      "isrc": "KR-S01-26-AW12",
+      "isrc": "QTA2W2687092",
       "duration": "4:02",
-      "status": "SCHEDULED_RELEASE"
+      "status": "LIVE_RELEASED_24_STORES"
     },
     {
       "track_no": 13,
