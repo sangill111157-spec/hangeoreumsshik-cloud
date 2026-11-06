@@ -1,0 +1,23 @@
+{
+  "directive_id": "RGON_DIR_NEW_FOUNDATION_141",
+  "executed_at": "2026-11-07T00:33:06.148427",
+  "space6_vids_native": {
+    "ok": true,
+    "panel_click": {
+      "clicked": true,
+      "text": "AI 동영상 만들기"
+    },
+    "input_info": {
+      "found": true,
+      "count": 4,
+      "tag": "DIV",
+      "placeholder": "동영상을 설명하세요. 브랜드 이미지, 캐릭터 등의 소재를 추가할 수 있습니다."
+    },
+    "typed": true,
+    "create_click": {
+      "clicked": true,
+      "label": "AI 동영상 클립 생성"
+    },
+    "after_text": "제목 없는 동영상 재생 공유 파일수정보기삽입서식장면정렬도구도움말접근성 타이밍 숨기기 미리보기 00:00.0 / 00:05.0 1 이 장면에 객체가 없습니다. 위로 스크롤 AI 동영상 클립 생성 AI 생성 동영상 아바타 생성 아바타 내레이션 생성 음성 해설 음악 생성 음악 이미지 생성 이미지 녹화 녹음 Drive 및 포토 업로드 스톡 및 웹 스톡 자막 자막 텍스트 삽입 텍스트 템플릿에서 삽입 템플릿 도형 및 선 삽입 도형 배너 숨겨짐 가로 모드 16:9 세로 모드 9:16 정사각형 1:1 문서 지역"
+  }
+}

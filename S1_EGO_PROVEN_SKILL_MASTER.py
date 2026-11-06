@@ -214,7 +214,7 @@ def ask_and_harvest_side_room(space_idx: int, prompt_text: str = "", wait_ms: in
 
 def clear_all_spaces_lock() -> dict:
     js = """
-    for (const idx of [0, 1, 2, 3]) {
+    for (const idx of [0, 1, 2, 3, 4, 5, 6]) {
       try {
         const t = await claimTaskSpace(idx).catch(() => null);
         if (t && typeof t.finish === 'function') await t.finish({ keep: [] });
