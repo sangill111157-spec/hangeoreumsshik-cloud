@@ -1,0 +1,22 @@
+{
+  "directive_id": "RGON_DIR_NEW_FOUNDATION_155",
+  "executed_at": "2026-11-07T01:12:21.698267",
+  "result": {
+    "ok": true,
+    "inject": {
+      "ok": false,
+      "reason": "NO_FILE_INPUT",
+      "url": "https://studio.youtube.com/channel/UCMJn01WLs9ooIhh5x0eJeHg",
+      "snap": "채널 대시보드\n탐색 건너뛰기\nYouTube 스튜디오에 물어보기\n만들기\n내 채널\n한걸음씩\n대시보드\n콘텐츠\n분석\n커뮤니티\n언어\n콘텐츠 감지\n수익 창출\n맞춤설정\n오디오 보관함\n설정\n의견 보내기\n채널 대시보드\n최신 동영상 실적\n사냥꾼의 새벽 (Hunter's Dawn) - Official AI Music Video | 어쿠스틱 포크팝\n35\n1\n4\n처음 91일 8시간\n조회수 순위\n5/10\n조회수\n35\n썸네일 클릭률\n8.1%\n평균 시청 지속 시간\n2:11"
+    },
+    "meta": {
+      "boxes_count": 0,
+      "not_kids": false,
+      "video_url": ""
+    },
+    "save": {
+      "private_set": false,
+      "done_clicked": false
+    }
+  }
+}
