@@ -1,0 +1,20 @@
+{
+  "directive_id": "RGON_DIR_NEW_FOUNDATION_153",
+  "executed_at": "2026-11-07T01:09:11.553981",
+  "result": {
+    "ok": true,
+    "inject": {
+      "ok": false,
+      "reason": "NO_FILE_INPUT"
+    },
+    "meta": {
+      "boxes_count": 0,
+      "not_kids": false,
+      "video_url": ""
+    },
+    "save": {
+      "private_set": false,
+      "done_clicked": false
+    }
+  }
+}
