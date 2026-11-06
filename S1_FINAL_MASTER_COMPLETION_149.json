@@ -1,0 +1,24 @@
+{
+  "directive_id": "RGON_DIR_NEW_FOUNDATION_149_FINAL_SIGNOFF",
+  "completed_at": "2026-11-07T01:03:12.402118",
+  "verified_assets": {
+    "master_mv_1080p": {
+      "file": "NEW_MV_01_Oneureun_Yeogikkaji_1080p.mp4",
+      "size_mb": 28.74,
+      "sha256": "e5596e0ff832289c"
+    },
+    "master_short_40s": {
+      "file": "NEW_SHORT_01_Oneureun_Yeogikkaji_40s.mp4",
+      "size_mb": 5.21,
+      "sha256": "6017869dc2401f8e"
+    },
+    "lossless_wav": {
+      "file": "4..wav",
+      "size_mb": 47.06,
+      "sha256": "69fbfb7be180e882"
+    }
+  },
+  "sol_space1_signoff": "{ \"seedance_prompt_en\": \"Create a photorealistic cinematic scene for the song “That's All for Today.” A quiet late-autumn night turning into winter, viewed from inside a cozy room. A single ceramic cup of hot tea rests beside a rain-speckled window, ",
+  "opus_space2_signoff": "Copy {   \"pre_check\": \"시작 전에 확인할 것이 두 가지 있습니다. ① 126호 렌더링이 아직 HOLD 상태입니다. '오늘은 여기까지' 정품 마스터의 ffprobe·ebur128 값과 SHA-256이 원장에 기록된 뒤에 영상 작업을 시작해 주십시오. ② CapCut 'Renew'의 의미와 850크레딧의 소멸일이 아직 확인되지 않았습니다. 대표님이 직접 확인하시기 전까지 CapCut 생성은 아래 2단계의 시험 1회로만 제한합니다.",
+  "three_channels_and_blog_grand_return_linked": true
+}
