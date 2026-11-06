@@ -1,0 +1,53 @@
+{
+  "directive_id": "RGON_DIR_NEW_FOUNDATION_137",
+  "executed_at": "2026-11-07T00:16:08.390292",
+  "opus_final_tail": "B%B0%A9%EB%B2%95). ② 업체로부터 협찬이나 제품 제공을 받아 만든 영상이라면 YouTube Studio에서 '유료 프로모션(브랜디드 콘텐츠)' 항목도 체크해야 합니다(출처: https://support.google.com/youtube/answer/154235?hl=en). 제휴 링크만 단 경우에는 위 문구로 표시합니다. ③ 사부곡 같은 감성 음악 영상에 상품 링크를 섞으면 시청자 신뢰가 떨어질 수 있습니다. 쿠팡 링크는 교대근무 건강 블로그 글에만 두고, 음악 영상에는 스포티파이 링크만 두는 분리 배치를 권고합니다.\",   \"verdict\": \"CONDITIONAL: 126호 HOLD 해제와 CapCut 요금제 확인을 전제로 승인합니다. 이 의견은 법률 자문이 아니며 실행 명령도 아닙니다. 최종 결재는 대표님 권한입니다.\" }",
+  "youtube_booster_and_cafe_patched": {
+    "ok": true,
+    "booster": [
+      {
+        "video_id": "tLvtCW4tIis",
+        "ok": false,
+        "reason": "NO_BOX"
+      },
+      {
+        "video_id": "cDd7vFrAS8U",
+        "ok": true,
+        "saved": true
+      },
+      {
+        "video_id": "21n2b3vC9xU",
+        "ok": false,
+        "reason": "NO_BOX"
+      },
+      {
+        "video_id": "a9gR5F1e0wA",
+        "ok": false,
+        "reason": "NO_BOX"
+      }
+    ],
+    "cafe": [
+      {
+        "video_id": "VaQj5FfqDpE",
+        "ok": true,
+        "saved": true
+      },
+      {
+        "video_id": "d5wA7zQ2kL0",
+        "ok": false,
+        "reason": "NO_BOX"
+      },
+      {
+        "video_id": "x0M1nB8vC3z",
+        "ok": false,
+        "reason": "NO_BOX"
+      },
+      {
+        "video_id": "p9O2iU7yT6r",
+        "ok": false,
+        "reason": "NO_BOX"
+      }
+    ]
+  },
+  "blog_html_grand_circle_added": true
+}
