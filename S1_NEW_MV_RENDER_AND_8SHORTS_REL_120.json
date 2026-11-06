@@ -1,0 +1,54 @@
+{
+  "directive_id": "RGON_DIR_NEW_FOUNDATION_120",
+  "executed_at": "2026-11-06T19:45:42.280180",
+  "wav_direct_download": {
+    "ok": false,
+    "error": "require is not defined"
+  },
+  "ffmpeg_rendered_videos": {},
+  "shorts_8_related_video_linked": {
+    "ok": true,
+    "batch_related_results": [
+      {
+        "short_id": "_9TaYaBFmkQ",
+        "status": "관련 동영상 없음",
+        "saved": false
+      },
+      {
+        "short_id": "I00rUemzODo",
+        "status": "관련 동영상 없음",
+        "saved": false
+      },
+      {
+        "short_id": "FXnTfmWRv_s",
+        "status": "관련 동영상 사냥꾼의 새벽 (Hunter's Dawn) - Official AI Music Video | 어쿠스틱 포크팝",
+        "saved": true
+      },
+      {
+        "short_id": "7Kk-c6ljjHg",
+        "status": "관련 동영상 사냥꾼의 새벽 (Hunter's Dawn) - Official AI Music Video | 어쿠스틱 포크팝",
+        "saved": true
+      },
+      {
+        "short_id": "D7pfGWuhXjU",
+        "status": "관련 동영상 없음",
+        "saved": false
+      },
+      {
+        "short_id": "5TGHvNsJJ8c",
+        "status": "관련 동영상 사냥꾼의 새벽 (Hunter's Dawn) - Official AI Music Video | 어쿠스틱 포크팝",
+        "saved": true
+      },
+      {
+        "short_id": "77VVallxeu4",
+        "status": "관련 동영상 사냥꾼의 새벽 (Hunter's Dawn) - Official AI Music Video | 어쿠스틱 포크팝",
+        "saved": true
+      },
+      {
+        "short_id": "nGvpoau4p_I",
+        "status": "관련 동영상 사냥꾼의 새벽 (Hunter's Dawn) - Official AI Music Video | 어쿠스틱 포크팝",
+        "saved": true
+      }
+    ]
+  }
+}
